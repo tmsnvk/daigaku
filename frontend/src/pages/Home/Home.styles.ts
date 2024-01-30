@@ -7,7 +7,8 @@ const MainContainer = styled.main`
   text-align: center;
   border: 0.25rem solid ${(props) => props.theme.color.secondaryLight};
   border-radius: 0.75rem;
-  
+  box-shadow: 1rem 1rem 1rem 0 ${(props) => props.theme.color.secondaryLight};
+
   & form {
     display: flex;
     flex-direction: column;

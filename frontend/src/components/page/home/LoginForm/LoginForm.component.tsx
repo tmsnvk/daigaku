@@ -1,30 +1,37 @@
+import {
+  FormContainer,
+  FormSwapButton,
+} from '@components/page/home';
 import { GenericTextParagraph } from '@components/shared/general';
 import {
   GenericInputField,
   PasswordInputField,
 } from '@components/shared/form';
-import {
-  emailFieldPlaceholder,
-  introductionParagraph,
-  passwordFieldPlaceholder,
-} from './LoginForm.utilities.ts';
 
-const LoginForm = () => {
+type ClickHandler = {
+  clickHandler: (formType: string) => void;
+}
+
+const LoginForm = ({ clickHandler }: ClickHandler) => {
   return (
-    <section>
-      <GenericTextParagraph text={introductionParagraph} />
+    <FormContainer>
+      <GenericTextParagraph text={'Sign in if you already have an admin-approved profile, otherwise, fill in the Registration form.'} />
       <GenericInputField
         id={'email'}
         labelContent={'Email'}
         type={'email'}
-        placeholder={emailFieldPlaceholder}
+        placeholder={'Enter your email address...'}
       />
       <PasswordInputField
         id={'password'}
         labelContent={'Password'}
-        placeholder={passwordFieldPlaceholder}
+        placeholder={'Enter your password...'}
       />
-    </section>
+      <article>
+        <FormSwapButton formType={'reset'} buttonContent={'Forgot password?'} onClick={clickHandler} />
+        <FormSwapButton formType={'register'} buttonContent={'Create account'} onClick={clickHandler} />
+      </article>
+    </FormContainer>
   );
 };
 
