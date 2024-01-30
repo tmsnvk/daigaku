@@ -1,9 +1,17 @@
 import { DefaultTheme } from 'styled-components';
 
 const coralRed = '#F94144';
+const alabaster = '#F0ECE5';
+const midGrey = '#B6BBC4';
+const jacarta = '#31304D';
+const darkGunMetal = '#161A30';
 
 const theme: DefaultTheme = {
   color: {
+    primaryDark: darkGunMetal,
+    primaryLight: alabaster,
+    secondaryDark: jacarta,
+    secondaryMid: midGrey,
     error: coralRed,
   },
   fontFamily: {

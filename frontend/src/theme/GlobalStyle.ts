@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
     font-family: ${({ theme }) => theme.fontFamily.main};
+    background-color: ${({ theme }) => theme.color.primaryLight};
   }
 
   a,
