@@ -9,7 +9,7 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import {
-  Error,
+  ErrorPage,
 } from '@pages/index.ts';
 import './index.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -27,7 +27,7 @@ const queryClient = new QueryClient({
 });
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route errorElement={<Error />}>
+  <Route errorElement={<ErrorPage />}>
     <Route path={'/'}>
       {/*<Route index element={<Home />} />*/}
     </Route>
