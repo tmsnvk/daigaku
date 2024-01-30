@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import {
   ErrorPage,
-  HomePage
+  HomePage,
 } from '@pages/index.ts';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '@theme/GlobalStyle.ts';

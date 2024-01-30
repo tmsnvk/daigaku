@@ -6,11 +6,12 @@ declare module 'styled-components' {
       primaryDark: string;
       primaryLight: string;
       secondaryDark: string;
-      secondaryMid: string;
+      secondaryLight: string;
       error: string;
     },
     fontFamily: {
-      main: string;
+      primary: string;
+      secondary: string;
     },
     fontSize: {
       default: string;
