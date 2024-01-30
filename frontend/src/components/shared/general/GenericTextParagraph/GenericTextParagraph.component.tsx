@@ -1,10 +1,10 @@
 import { TextContainer } from './GenericTextParagraph.styles.ts';
 
-type GenericTextParagraph = {
+type ComponentProps = {
   text: string;
 }
 
-const GenericTextParagraph = ({ text }: GenericTextParagraph) => {
+const GenericTextParagraph = ({ text }: ComponentProps) => {
   return (
     <TextContainer>
       {text}

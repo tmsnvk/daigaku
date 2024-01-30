@@ -7,15 +7,15 @@ import {
   GenericInputField,
   PasswordInputField,
 } from '@components/shared/form';
-
-type ClickHandler = {
-  clickHandler: (formType: string) => void;
-}
+import {
+  ClickHandler,
+  FormType,
+} from '@pages/Home/Home.types.ts';
 
 const LoginForm = ({ clickHandler }: ClickHandler) => {
   return (
     <FormContainer>
-      <GenericTextParagraph text={'Sign in if you already have an admin-approved profile, otherwise, fill in the Registration form.'} />
+      <GenericTextParagraph text={'Sign in if you already have an admin-approved profile, otherwise, create an account first.'} />
       <GenericInputField
         id={'email'}
         labelContent={'Email'}
@@ -28,8 +28,8 @@ const LoginForm = ({ clickHandler }: ClickHandler) => {
         placeholder={'Enter your password...'}
       />
       <article>
-        <FormSwapButton formType={'reset'} buttonContent={'Forgot password?'} onClick={clickHandler} />
-        <FormSwapButton formType={'register'} buttonContent={'Create account'} onClick={clickHandler} />
+        <FormSwapButton formType={FormType.Reset} buttonContent={'Forgot password?'} onClick={clickHandler} />
+        <FormSwapButton formType={FormType.Register} buttonContent={'Create account'} onClick={clickHandler} />
       </article>
     </FormContainer>
   );

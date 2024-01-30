@@ -1,6 +1,6 @@
 import { InputFieldContainer } from '@components/shared/form';
 
-type GenericInputFieldContent = {
+type ComponentProps = {
   id: string;
   labelContent: string;
   type: string;
@@ -8,7 +8,7 @@ type GenericInputFieldContent = {
   placeholder?: string;
 }
 
-const GenericInputField = ({ id, labelContent, type, defaultValue, placeholder }: GenericInputFieldContent) => {
+const GenericInputField = ({ id, labelContent, type, defaultValue, placeholder }: ComponentProps) => {
   return (
     <InputFieldContainer>
       <label htmlFor={id}>{labelContent}</label>

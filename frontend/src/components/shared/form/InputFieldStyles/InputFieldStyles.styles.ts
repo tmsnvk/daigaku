@@ -4,11 +4,11 @@ const InputFieldContainer = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3.5rem 0 0 0;
+  margin: 0 0 3.5rem 0;
 
   & label {
     margin: 0 0 1rem 0;
-    font-size: ${(props) => props.theme.fontSize.medium};
+    font-size: ${(props) => props.theme.fontSize.large};
   }
   
   & input {

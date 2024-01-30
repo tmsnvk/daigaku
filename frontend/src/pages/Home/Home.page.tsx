@@ -1,29 +1,30 @@
 import { useState } from 'react';
 import {
+  ForgottenPasswordForm,
   LoginForm,
-  PasswordResetForm,
   RegisterForm,
 } from '@components/page/home/index.ts';
 import { MainContainer } from './Home.styles.ts';
+import { FormType } from '@pages/Home/Home.types.ts';
 
 const HomePage = () => {
-  const [activeForm, setActiveForm] = useState('login');
+  const [activeFormType, setActiveFormType] = useState<FormType>(FormType.Login);
 
-  const handleFormSelectionOnClick = (formType: string) => {
-    setActiveForm(formType);
+  const handleFormSelectionOnClick = (formType: FormType) => {
+    setActiveFormType(formType);
   };
 
   const renderFormComponent = () => {
-    if (activeForm === 'login') {
+    if (activeFormType === FormType.Login) {
       return <LoginForm clickHandler={handleFormSelectionOnClick} />;
     }
 
-    if (activeForm === 'register') {
+    if (activeFormType === FormType.Register) {
       return <RegisterForm clickHandler={handleFormSelectionOnClick} />;
     }
 
-    if (activeForm === 'reset') {
-      return <PasswordResetForm clickHandler={handleFormSelectionOnClick} />;
+    if (activeFormType === FormType.Reset) {
+      return <ForgottenPasswordForm clickHandler={handleFormSelectionOnClick} />;
     }
   };
 

@@ -1,12 +1,13 @@
 import { ButtonContainer } from './FormSwapButton.styles.ts';
+import { FormType } from '@pages/Home/Home.types.ts';
 
-type FormSwapButton = {
-  formType: string;
+type ComponentProps = {
+  formType: FormType;
   buttonContent: string;
-  onClick: (buttonName: string) => void;
+  onClick: (formType: FormType) => void;
 }
 
-const FormSwapButton = ({ formType, buttonContent, onClick }: FormSwapButton) => {
+const FormSwapButton = ({ formType, buttonContent, onClick }: ComponentProps) => {
   return (
     <ButtonContainer
       type={'button'}

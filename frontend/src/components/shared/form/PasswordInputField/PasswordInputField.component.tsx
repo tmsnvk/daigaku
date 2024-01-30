@@ -3,14 +3,14 @@ import { useRevealPassword } from './PasswordInputField.hooks.tsx';
 import { PasswordInputFieldContainer } from './PasswordInputField.styles.tsx';
 import { iconLibraryConfig } from '@configuration/index.ts';
 
-type PasswordInputFieldContent = {
+type ComponentProps = {
   id: string;
   labelContent: string;
   defaultValue?: string;
   placeholder?: string;
 }
 
-const PasswordInputField = ({ id, labelContent, defaultValue, placeholder }: PasswordInputFieldContent) => {
+const PasswordInputField = ({ id, labelContent, defaultValue, placeholder }: ComponentProps) => {
   const { isRevealed, handleRevealClick } = useRevealPassword();
 
   return (
