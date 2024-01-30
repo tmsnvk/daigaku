@@ -1,5 +1,8 @@
 import { GenericTextParagraph } from '@components/shared/general';
-import { InputField } from '@components/shared/form';
+import {
+  GenericInputField,
+  PasswordInputField,
+} from '@components/shared/form';
 import {
   emailFieldPlaceholder,
   introductionParagraph,
@@ -8,21 +11,20 @@ import {
 
 const LoginForm = () => {
   return (
-    <>
+    <section>
       <GenericTextParagraph text={introductionParagraph} />
-      <InputField
+      <GenericInputField
         id={'email'}
         labelContent={'Email'}
         type={'email'}
         placeholder={emailFieldPlaceholder}
       />
-      <InputField
+      <PasswordInputField
         id={'password'}
         labelContent={'Password'}
-        type={'password'}
         placeholder={passwordFieldPlaceholder}
       />
-    </>
+    </section>
   );
 };
 

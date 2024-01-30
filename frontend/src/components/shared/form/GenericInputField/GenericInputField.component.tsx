@@ -1,6 +1,6 @@
-import { InputContainer } from './InputField.styles.ts';
+import { InputFieldContainer } from '@components/shared/form';
 
-type InputFieldContent = {
+type GenericInputFieldContent = {
   id: string;
   labelContent: string;
   type: string;
@@ -8,9 +8,9 @@ type InputFieldContent = {
   placeholder?: string;
 }
 
-const InputField = ({ id, labelContent, type, defaultValue, placeholder }: InputFieldContent) => {
+const GenericInputField = ({ id, labelContent, type, defaultValue, placeholder }: GenericInputFieldContent) => {
   return (
-    <InputContainer>
+    <InputFieldContainer>
       <label htmlFor={id}>{labelContent}</label>
       <input
         type={type}
@@ -19,8 +19,8 @@ const InputField = ({ id, labelContent, type, defaultValue, placeholder }: Input
         defaultValue={defaultValue ?? ''}
         placeholder={placeholder ?? ''}
       />
-    </InputContainer>
+    </InputFieldContainer>
   );
 };
 
-export default InputField;
+export default GenericInputField;

@@ -1,5 +1,9 @@
-import InputField from './InputField/index.ts';
+import GenericInputField from './GenericInputField';
+import { InputFieldContainer } from './InputFieldStyles';
+import PasswordInputField from './PasswordInputField';
 
 export {
-  InputField,
+  GenericInputField,
+  InputFieldContainer,
+  PasswordInputField,
 };
