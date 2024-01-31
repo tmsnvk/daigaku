@@ -3,27 +3,27 @@ import {
   ForgottenPasswordForm,
   LoginForm,
   RegisterForm,
-} from '@components/page/home/index.ts';
+} from '@components/page/home';
 import { MainContainer } from './Home.styles.ts';
-import { FormType } from '@pages/Home/Home.types.ts';
+import { FormTypeT } from '@pages/Home/Home.types.ts';
 
 const HomePage = () => {
-  const [activeFormType, setActiveFormType] = useState<FormType>(FormType.Login);
+  const [activeFormType, setActiveFormType] = useState<FormTypeT>(FormTypeT.Login);
 
-  const handleFormSelectionOnClick = (formType: FormType) => {
+  const handleFormSelectionOnClick = (formType: FormTypeT) => {
     setActiveFormType(formType);
   };
 
   const renderFormComponent = () => {
-    if (activeFormType === FormType.Login) {
+    if (activeFormType === FormTypeT.Login) {
       return <LoginForm clickHandler={handleFormSelectionOnClick} />;
     }
 
-    if (activeFormType === FormType.Register) {
+    if (activeFormType === FormTypeT.Register) {
       return <RegisterForm clickHandler={handleFormSelectionOnClick} />;
     }
 
-    if (activeFormType === FormType.Reset) {
+    if (activeFormType === FormTypeT.Reset) {
       return <ForgottenPasswordForm clickHandler={handleFormSelectionOnClick} />;
     }
   };

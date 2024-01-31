@@ -14,6 +14,10 @@ const ButtonContainer = styled.button`
   &:hover {
     outline: 0.25rem solid ${(props) => props.theme.color.secondaryDark};
   }
+  
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export {

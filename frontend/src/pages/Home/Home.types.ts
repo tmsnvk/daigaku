@@ -1,9 +1,9 @@
-export enum FormType {
+export enum FormTypeT {
   Login,
   Register,
   Reset
 }
 
-export type ClickHandler = {
-  clickHandler: (formType: FormType) => void;
+export type ClickHandlerT = {
+  clickHandler: (formType: FormTypeT) => void;
 }

@@ -1,17 +1,19 @@
 import { ButtonContainer } from './FormSwapButton.styles.ts';
-import { FormType } from '@pages/Home/Home.types.ts';
+import { FormTypeT } from '@pages/Home/Home.types.ts';
 
-type ComponentProps = {
-  formType: FormType;
+type ComponentPropsT = {
+  formType: FormTypeT;
   buttonContent: string;
-  onClick: (formType: FormType) => void;
+  clickHandler: (formType: FormTypeT) => void;
+  isDisabled?: boolean;
 }
 
-const FormSwapButton = ({ formType, buttonContent, onClick }: ComponentProps) => {
+const FormSwapButton = ({ formType, buttonContent, clickHandler, isDisabled }: ComponentPropsT) => {
   return (
     <ButtonContainer
       type={'button'}
-      onClick={() => onClick(formType)}
+      onClick={() => clickHandler(formType)}
+      disabled={isDisabled}
     >
       {buttonContent}
     </ButtonContainer>

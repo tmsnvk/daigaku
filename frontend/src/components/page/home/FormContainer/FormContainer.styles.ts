@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const FormContainer = styled.section`
-  & article:last-of-type {
+  & > article {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

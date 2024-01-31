@@ -1,9 +1,13 @@
-import GenericInputField from './GenericInputField';
-import { InputFieldContainer } from './InputFieldStyles';
-import PasswordInputField from './PasswordInputField';
+import ErrorMessage from './ErrorMessage';
+import InputFieldStyles from './InputFieldStyles';
+import LoadingIndicator from './LoadingIndicator';
+import PasswordInputFieldStyles from './PasswordInputFieldStyles';
+import SubmitInput from './SubmitInput';
 
 export {
-  GenericInputField,
-  InputFieldContainer,
-  PasswordInputField,
+  ErrorMessage,
+  InputFieldStyles,
+  LoadingIndicator,
+  PasswordInputFieldStyles,
+  SubmitInput,
 };

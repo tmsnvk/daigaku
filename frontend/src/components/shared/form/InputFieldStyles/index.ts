@@ -1,5 +1,3 @@
-import { InputFieldContainer } from './InputFieldStyles.styles.ts';
+import InputFieldStyles from './InputFieldStyles.styles.ts';
 
-export {
-  InputFieldContainer,
-};
+export default InputFieldStyles;
