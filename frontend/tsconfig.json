@@ -21,15 +21,16 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Pathing */
-    "baseUrl": "./src/",
+    "baseUrl": "./src",
     "paths": {
       "@assets/*": ["assets/*"],
-      "@configuration/*": ["configuration/*"],
+      "@configuration": ["configuration/index.ts"],
       "@components/*": ["components/*"],
-      "@context/*": ["context/*"],
-      "@hooks/*": ["hooks/*"],
+      "@context": ["context/index.ts"],
+      "@hooks": ["hooks/index.ts"],
       "@pages/*": ["pages/*"],
-      "@utilities/*": ["utilities/*"]
+      "@theme/*": ["theme/*"],
+      "@utilities": ["utilities/index.ts"]
     },
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

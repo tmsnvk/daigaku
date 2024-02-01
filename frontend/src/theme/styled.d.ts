@@ -3,10 +3,15 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     color: {
+      primaryDark: string;
+      primaryLight: string;
+      secondaryDark: string;
+      secondaryLight: string;
       error: string;
     },
     fontFamily: {
-      main: string;
+      primary: string;
+      secondary: string;
     },
     fontSize: {
       default: string;

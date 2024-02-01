@@ -21,7 +21,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
-    font-family: ${({ theme }) => theme.fontFamily.main};
+    font-family: ${(props) => props.theme.fontFamily.primary};
+    background-color: ${(props) => props.theme.color.primaryLight};
+    overflow: hidden;
   }
 
   a,
