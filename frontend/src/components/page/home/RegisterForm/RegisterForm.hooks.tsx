@@ -5,28 +5,28 @@ import {
 } from 'react-hook-form';
 import { axiosConfig } from '@configuration';
 import {
-  LoginFormErrorT,
-  LoginFormFieldsT,
-  LoginFormReturnDataT,
-} from './LoginForm.types.ts';
+  RegisterFormErrorT,
+  RegisterFormFieldsT,
+  RegisterFormReturnDataT,
+} from './RegisterForm.types.ts';
 
-const useSubmitLoginForm = (setError: UseFormSetError<LoginFormFieldsT>) => {
+const useSubmitRegisterForm = (setError: UseFormSetError<RegisterFormFieldsT>) => {
   const { mutate, reset } = useMutation({
-    mutationKey: ['userLoginForm'],
-    mutationFn: async (data: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
+    mutationKey: ['userRegisterForm'],
+    mutationFn: async (data: RegisterFormFieldsT): Promise<RegisterFormReturnDataT> => {
       const response = await axiosConfig.request({
         method: 'POST',
-        url: '/api/users/login',
+        url: '/api/users/register',
         data,
       });
 
       return response.data;
     },
-    onSuccess: (data: LoginFormReturnDataT) => {
-      // TODO - set data to context
+    onSuccess: (data: RegisterFormReturnDataT) => {
+      // TODO - create a confirmation modal window
       reset();
     },
-    onError: (error: LoginFormErrorT) => {
+    onError: (error: RegisterFormErrorT) => {
       setError('root.serverError', {
         type: error.response.status,
         message: error.response.data.message ? error.response.data.message : 'An unexpected error has happened. Please try again later.',
@@ -34,7 +34,7 @@ const useSubmitLoginForm = (setError: UseFormSetError<LoginFormFieldsT>) => {
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormFieldsT> = (formData: LoginFormFieldsT) => {
+  const onSubmit: SubmitHandler<RegisterFormFieldsT> = (formData: RegisterFormFieldsT) => {
     mutate(formData);
   };
 
@@ -44,5 +44,5 @@ const useSubmitLoginForm = (setError: UseFormSetError<LoginFormFieldsT>) => {
 };
 
 export {
-  useSubmitLoginForm,
+  useSubmitRegisterForm,
 };

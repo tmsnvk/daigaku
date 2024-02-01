@@ -3,7 +3,7 @@ export type LoginFormFieldsT = {
   password: string;
 }
 
-export type LoginFormUserDataT = {
+export type LoginFormReturnDataT = {
 
 }
 

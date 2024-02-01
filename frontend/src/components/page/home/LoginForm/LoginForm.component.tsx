@@ -13,7 +13,7 @@ import {
   SubmitInput,
 } from '@components/shared/form';
 import { useRevealPasswordInInputField } from '@hooks';
-import { useSubmitForm } from './LoginForm.hooks.tsx';
+import { useSubmitLoginForm } from './LoginForm.hooks.tsx';
 import { iconLibraryConfig } from '@configuration';
 import {
   ClickHandlerT,
@@ -24,7 +24,7 @@ import { LoginFormFieldsT } from './LoginForm.types.ts';
 const LoginForm = ({ clickHandler }: ClickHandlerT) => {
   const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
   const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
-  const { onSubmit } = useSubmitForm(setError);
+  const { onSubmit } = useSubmitLoginForm(setError);
 
   return (
     <FormContainer>
