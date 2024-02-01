@@ -1,3 +1,3 @@
-import SubmitInput from './SubmitInput.styles';
+import SubmitInput from './SubmitInput.styles.ts';
 
 export default SubmitInput;

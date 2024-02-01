@@ -1,13 +1,13 @@
 import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
-import {
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import {
   ErrorPage,
   HomePage,

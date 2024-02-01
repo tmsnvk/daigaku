@@ -25,9 +25,7 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
     <FormContainer>
       <GenericTextParagraph text={'Register an account if you are not in our system yet.'} />
       <form id={'userRegisterForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
-        <InputFieldStyles
-          $isError={errors.fullName?.message !== undefined}
-        >
+        <InputFieldStyles $isError={errors.fullName?.message !== undefined}>
           <label htmlFor={'fullName'}>Full name</label>
           <input
             {...register('fullName', {
@@ -41,11 +39,9 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
             placeholder={'Enter your name'}
             disabled={isSubmitting}
           />
-          {errors.fullName?.message && <ErrorMessage errorMessage={errors.fullName.message} />}
+          {errors.fullName?.message && <ErrorMessage error={errors.fullName.message} />}
         </InputFieldStyles>
-        <InputFieldStyles
-          $isError={errors.email?.message !== undefined}
-        >
+        <InputFieldStyles $isError={errors.email?.message !== undefined}>
           <label htmlFor={'email'}>Email</label>
           <input
             {...register('email', {
@@ -58,14 +54,14 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
             placeholder={'Enter your email address'}
             disabled={isSubmitting}
           />
-          {errors.email?.message && <ErrorMessage errorMessage={errors.email.message} />}
+          {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
           {isSubmitting ?
             <LoadingIndicator message={'Your registration is being handled.'} /> :
             <SubmitInput type={'submit'} value={'register'} disabled={isSubmitting || isLoading} />
           }
-          {errors.root?.serverError && <ErrorMessage errorMessage={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

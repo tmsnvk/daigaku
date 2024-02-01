@@ -30,9 +30,7 @@ const LoginForm = ({ clickHandler }: ClickHandlerT) => {
     <FormContainer>
       <GenericTextParagraph text={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'} />
       <form id={'userLoginForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
-        <InputFieldStyles
-          $isError={errors.email?.message !== undefined}
-        >
+        <InputFieldStyles $isError={errors.email?.message !== undefined}>
           <label htmlFor={'email'}>Email</label>
           <input
             {...register('email', {
@@ -45,11 +43,9 @@ const LoginForm = ({ clickHandler }: ClickHandlerT) => {
             placeholder={'Enter your email address'}
             disabled={isSubmitting}
           />
-          {errors.email?.message && <ErrorMessage errorMessage={errors.email.message} />}
+          {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
-        <PasswordInputFieldStyles
-          $isError={errors.password?.message !== undefined}
-        >
+        <PasswordInputFieldStyles $isError={errors.password?.message !== undefined}>
           <label htmlFor={'password'}>Password</label>
           <div>
             <input
@@ -63,19 +59,16 @@ const LoginForm = ({ clickHandler }: ClickHandlerT) => {
               placeholder={'Enter your password'}
               disabled={isSubmitting}
             />
-            <FontAwesomeIcon
-              onClick={handleRevealClick}
-              icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
-            />
+            <FontAwesomeIcon onClick={handleRevealClick} icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye} />
           </div>
-          {errors.password?.message && <ErrorMessage errorMessage={errors.password.message} />}
+          {errors.password?.message && <ErrorMessage error={errors.password.message} />}
         </PasswordInputFieldStyles>
         <article>
           {isSubmitting ?
             <LoadingIndicator message={'You are being logged in.'} /> :
             <SubmitInput type={'submit'} value={'sign in'} disabled={isSubmitting || isLoading} />
           }
-          {errors.root?.serverError && <ErrorMessage errorMessage={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

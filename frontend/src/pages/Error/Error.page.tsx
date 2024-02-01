@@ -7,6 +7,7 @@ const ErrorPage = () => {
   const error = useRouteError() as Error;
 
   return (
+    // TODO - add styling.
     <ErrorContainer>
       <h1>Oops!</h1>
       <p><FontAwesomeIcon icon={iconLibraryConfig.faCircleExclamation} />Sorry, an unexpected error has occurred.</p>

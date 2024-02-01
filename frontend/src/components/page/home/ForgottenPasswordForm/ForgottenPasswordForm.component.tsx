@@ -25,9 +25,7 @@ const ForgottenPasswordForm = ({ clickHandler }: ClickHandlerT) => {
     <FormContainer>
       <GenericTextParagraph text={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'} />
       <form id={'userForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
-        <InputFieldStyles
-          $isError={errors.email?.message !== undefined}
-        >
+        <InputFieldStyles $isError={errors.email?.message !== undefined}>
           <label htmlFor={'email'}>Email</label>
           <input
             {...register('email', {
@@ -40,14 +38,14 @@ const ForgottenPasswordForm = ({ clickHandler }: ClickHandlerT) => {
             placeholder={'Enter your email address'}
             disabled={isSubmitting}
           />
-          {errors.email?.message && <ErrorMessage errorMessage={errors.email.message} />}
+          {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
           {isSubmitting ?
             <LoadingIndicator message={'Your registration is being handled.'} /> :
             <SubmitInput type={'submit'} value={'reset'} disabled={isSubmitting || isLoading} />
           }
-          {errors.root?.serverError && <ErrorMessage errorMessage={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

@@ -26,11 +26,11 @@
       "@assets/*": ["assets/*"],
       "@configuration": ["configuration/index.ts"],
       "@components/*": ["components/*"],
-      "@context/*": ["context/*"],
+      "@context": ["context/index.ts"],
       "@hooks": ["hooks/index.ts"],
       "@pages/*": ["pages/*"],
       "@theme/*": ["theme/*"],
-      "@utilities/*": ["utilities/*"]
+      "@utilities": ["utilities/index.ts"]
     },
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
