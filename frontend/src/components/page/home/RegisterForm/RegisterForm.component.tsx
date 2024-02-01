@@ -1,21 +1,21 @@
+import { useForm } from 'react-hook-form';
 import {
   FormContainer,
   FormSwapButton,
 } from '@components/page/home';
 import { GenericTextParagraph } from '@components/shared/general';
 import {
-  ClickHandlerT,
-  FormTypeT,
-} from '@pages/Home/Home.types.ts';
-import { useForm } from 'react-hook-form';
-import { RegisterFormFieldsT } from './RegisterForm.types.ts';
-import { useSubmitRegisterForm } from './RegisterForm.hooks.tsx';
-import {
   ErrorMessage,
   InputFieldStyles,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
+import { useSubmitRegisterForm } from './RegisterForm.hooks.tsx';
+import {
+  ClickHandlerT,
+  FormTypeT,
+} from '@pages/Home/Home.types.ts';
+import { RegisterFormFieldsT } from './RegisterForm.types.ts';
 
 const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
   const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
@@ -23,7 +23,7 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
 
   return (
     <FormContainer>
-      <GenericTextParagraph text={'Register an account if you are not in our system yet.'}/>
+      <GenericTextParagraph text={'Register an account if you are not in our system yet.'} />
       <form id={'userRegisterForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <InputFieldStyles
           $isError={errors.fullName?.message !== undefined}
@@ -41,7 +41,7 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
             placeholder={'Enter your name'}
             disabled={isSubmitting}
           />
-          {errors.fullName?.message && <ErrorMessage errorMessage={errors.fullName.message}/>}
+          {errors.fullName?.message && <ErrorMessage errorMessage={errors.fullName.message} />}
         </InputFieldStyles>
         <InputFieldStyles
           $isError={errors.email?.message !== undefined}
@@ -58,11 +58,14 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
             placeholder={'Enter your email address'}
             disabled={isSubmitting}
           />
-          {errors.email?.message && <ErrorMessage errorMessage={errors.email.message}/>}
+          {errors.email?.message && <ErrorMessage errorMessage={errors.email.message} />}
         </InputFieldStyles>
         <article>
-          {isSubmitting ? <LoadingIndicator message={'Your registration is being handled.'}/> : <SubmitInput type={'submit'} value={'register'} disabled={isSubmitting || isLoading} />}
-          {errors.root?.serverError && <ErrorMessage errorMessage={errors.root.serverError.message as string}/>}
+          {isSubmitting ?
+            <LoadingIndicator message={'Your registration is being handled.'} /> :
+            <SubmitInput type={'submit'} value={'register'} disabled={isSubmitting || isLoading} />
+          }
+          {errors.root?.serverError && <ErrorMessage errorMessage={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

@@ -68,10 +68,13 @@ const LoginForm = ({ clickHandler }: ClickHandlerT) => {
               icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
             />
           </div>
-          {errors.password?.message && <ErrorMessage errorMessage={errors.password.message}/>}
+          {errors.password?.message && <ErrorMessage errorMessage={errors.password.message} />}
         </PasswordInputFieldStyles>
         <article>
-          {isSubmitting ? <LoadingIndicator message={'You are being logged in.'} /> : <SubmitInput type={'submit'} value={'sign in'} disabled={isSubmitting || isLoading} />}
+          {isSubmitting ?
+            <LoadingIndicator message={'You are being logged in.'} /> :
+            <SubmitInput type={'submit'} value={'sign in'} disabled={isSubmitting || isLoading} />
+          }
           {errors.root?.serverError && <ErrorMessage errorMessage={errors.root.serverError.message as string} />}
         </article>
       </form>

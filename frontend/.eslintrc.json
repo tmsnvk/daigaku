@@ -131,7 +131,7 @@
     "jsx-quotes": [ "warn", "prefer-single" ],
     "keyword-spacing": "warn",
     "line-comment-position": [ "warn", { "position": "above" } ],
-    "max-len": [ "warn", { "code": 200, "ignoreComments": true, "ignoreUrls": true, "ignoreTemplateLiterals": true, "ignoreRegExpLiterals": true } ],
+    "max-len": [ "warn", { "code": 180, "ignoreComments": true, "ignoreUrls": true, "ignoreTemplateLiterals": true, "ignoreRegExpLiterals": true } ],
     "multiline-ternary": [ "warn", "always-multiline" ],
     "no-mixed-spaces-and-tabs": "warn",
     "no-multi-spaces": "warn",
