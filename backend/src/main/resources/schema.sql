@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS roles CASCADE;
 DROP TABLE IF EXISTS accounts CASCADE;
 DROP TABLE IF EXISTS pending_accounts CASCADE;
 DROP TABLE IF EXISTS accounts_roles_join CASCADE;
-
+DROP TABLE IF EXISTS pending_account_registrations CASCADE;
 
 -- DATABASE SET UP
 CREATE TABLE roles(
@@ -30,11 +30,10 @@ CREATE TABLE accounts_roles_join(
   FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
-
--- DATA INSERT
-INSERT INTO
-  roles(id, name)
-VALUES
-  (1, 'ROLE_STUDENT'),
-  (2, 'ROLE_MENTOR'),
-  (3, 'ROLE_ADMIN');
+CREATE TABLE pending_account_registrations(
+  id SERIAL PRIMARY KEY,
+  registered_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL
+);

@@ -12,7 +12,7 @@ import {
 
 const useSubmitRegisterForm = (setError: UseFormSetError<RegisterFormFieldsT>) => {
   const { mutate, reset } = useMutation({
-    mutationKey: ['userRegisterForm'],
+    mutationKey: ['userRegistrationForm'],
     mutationFn: async (data: RegisterFormFieldsT): Promise<RegisterFormReturnDataT> => {
       const response = await axiosConfig.request({
         method: 'POST',

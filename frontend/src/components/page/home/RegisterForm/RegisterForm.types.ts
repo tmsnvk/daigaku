@@ -1,5 +1,6 @@
 export type RegisterFormFieldsT = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
 }
 

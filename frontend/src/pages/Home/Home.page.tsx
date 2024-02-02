@@ -8,7 +8,7 @@ import { MainContainer } from './Home.styles.ts';
 import { FormTypeT } from '@pages/Home/Home.types.ts';
 
 const HomePage = () => {
-  const [activeFormType, setActiveFormType] = useState<FormTypeT>(FormTypeT.Login);
+  const [activeFormType, setActiveFormType] = useState<FormTypeT>(FormTypeT.Register);
 
   const handleFormSelectionOnClick = (formType: FormTypeT) => {
     setActiveFormType(formType);

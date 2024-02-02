@@ -24,22 +24,38 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
   return (
     <FormContainer>
       <GenericTextParagraph text={'Register an account if you are not in our system yet.'} />
-      <form id={'userRegisterForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
-        <InputFieldStyles $isError={errors.fullName?.message !== undefined}>
-          <label htmlFor={'fullName'}>Full name</label>
+      <form id={'userRegistrationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+        <InputFieldStyles $isError={errors.firstName?.message !== undefined}>
+          <label htmlFor={'firstName'}>First name</label>
           <input
-            {...register('fullName', {
-              required: { value: true, message: 'Providing your name is required.' },
+            {...register('firstName', {
+              required: { value: true, message: 'Providing your first name is required.' },
               pattern: { value: /^[A-Za-z-\s]+$/i, message: 'Use only letters.' },
             })}
-            type={'fullName'}
-            id={'fullName'}
-            name={'fullName'}
+            type={'firstName'}
+            id={'firstName'}
+            name={'firstName'}
             autoComplete={'off'}
-            placeholder={'Enter your name'}
+            placeholder={'Enter your first name'}
             disabled={isSubmitting}
           />
-          {errors.fullName?.message && <ErrorMessage error={errors.fullName.message} />}
+          {errors.firstName?.message && <ErrorMessage error={errors.firstName.message} />}
+        </InputFieldStyles>
+        <InputFieldStyles $isError={errors.lastName?.message !== undefined}>
+          <label htmlFor={'lastName'}>Last name</label>
+          <input
+            {...register('lastName', {
+              required: { value: true, message: 'Providing your last name is required.' },
+              pattern: { value: /^[A-Za-z-\s]+$/i, message: 'Use only letters.' },
+            })}
+            type={'lastName'}
+            id={'lastName'}
+            name={'lastName'}
+            autoComplete={'off'}
+            placeholder={'Enter your last name'}
+            disabled={isSubmitting}
+          />
+          {errors.lastName?.message && <ErrorMessage error={errors.lastName.message} />}
         </InputFieldStyles>
         <InputFieldStyles $isError={errors.email?.message !== undefined}>
           <label htmlFor={'email'}>Email</label>
