@@ -12,14 +12,14 @@ import {
 } from '@components/shared/form';
 import { useSubmitRegisterForm } from './RegisterForm.hooks.tsx';
 import {
-  ClickHandlerT,
-  FormTypeT,
+  FormComponentPropT,
+  FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { RegisterFormFieldsT } from './RegisterForm.types.ts';
 
-const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
-  const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
-  const { onSubmit } = useSubmitRegisterForm(setError);
+const RegisterForm = ({ formSelector, showModal }: FormComponentPropT) => {
+  const { formState: { isSubmitting, errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
+  const { onSubmit } = useSubmitRegisterForm({ setError, showModal });
 
   return (
     <FormContainer>
@@ -75,14 +75,14 @@ const RegisterForm = ({ clickHandler }: ClickHandlerT) => {
         <article>
           {isSubmitting ?
             <LoadingIndicator message={'Your registration is being handled.'} /> :
-            <SubmitInput type={'submit'} value={'register'} disabled={isSubmitting || isLoading} />
+            <SubmitInput type={'submit'} value={'register'} disabled={isSubmitting} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeT.Reset} buttonContent={'Forgot password?'} clickHandler={clickHandler} />
-        <FormSwapButton formType={FormTypeT.Login} buttonContent={'Log in'} clickHandler={clickHandler} />
+        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} />
+        <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
       </article>
     </FormContainer>
   );

@@ -10,8 +10,13 @@ import {
   ForgottenPasswordFormReturnDataT,
 } from './ForgottenPasswordForm.types.ts';
 
-const useSubmitForgottenPasswordForm = (setError: UseFormSetError<ForgottenPasswordFormFieldsT>) => {
-  const { mutate, reset } = useMutation({
+type ForgottenPasswordFormT = {
+  setError: UseFormSetError<ForgottenPasswordFormFieldsT>;
+  showModal: () => void;
+}
+
+const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordFormT) => {
+  const { mutate } = useMutation({
     mutationKey: ['userForgottenPasswordForm'],
     mutationFn: async (data: ForgottenPasswordFormFieldsT): Promise<ForgottenPasswordFormReturnDataT> => {
       const response = await axiosConfig.request({
@@ -23,8 +28,7 @@ const useSubmitForgottenPasswordForm = (setError: UseFormSetError<ForgottenPassw
       return response.data;
     },
     onSuccess: (data: ForgottenPasswordFormReturnDataT) => {
-      // TODO - create a confirmation modal window
-      reset();
+      showModal();
     },
     onError: (error: ForgottenPasswordFormErrorT) => {
       setError('root.serverError', {

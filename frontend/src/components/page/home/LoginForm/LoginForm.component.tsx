@@ -16,12 +16,12 @@ import { useRevealPasswordInInputField } from '@hooks';
 import { useSubmitLoginForm } from './LoginForm.hooks.tsx';
 import { iconLibraryConfig } from '@configuration';
 import {
-  ClickHandlerT,
-  FormTypeT,
+  FormComponentPropT,
+  FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { LoginFormFieldsT } from './LoginForm.types.ts';
 
-const LoginForm = ({ clickHandler }: ClickHandlerT) => {
+const LoginForm = ({ formSelector }: FormComponentPropT) => {
   const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
   const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
   const { onSubmit } = useSubmitLoginForm(setError);
@@ -72,8 +72,8 @@ const LoginForm = ({ clickHandler }: ClickHandlerT) => {
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeT.Reset} buttonContent={'Forgot password?'} clickHandler={clickHandler} isDisabled={isSubmitting} />
-        <FormSwapButton formType={FormTypeT.Register} buttonContent={'Create account'} clickHandler={clickHandler} isDisabled={isSubmitting} />
+        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isSubmitting} />
+        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isSubmitting} />
       </article>
     </FormContainer>
   );

@@ -4,10 +4,6 @@ export type RegisterFormFieldsT = {
   email: string;
 }
 
-export type RegisterFormReturnDataT = {
-
-}
-
 export type RegisterFormErrorT = {
   response: {
     status: string;

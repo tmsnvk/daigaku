@@ -12,14 +12,14 @@ import {
 } from '@components/shared/form';
 import { useSubmitForgottenPasswordForm } from './ForgottenPasswordForm.hooks.tsx';
 import {
-  ClickHandlerT,
-  FormTypeT,
+  FormComponentPropT,
+  FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
 
-const ForgottenPasswordForm = ({ clickHandler }: ClickHandlerT) => {
+const ForgottenPasswordForm = ({ formSelector, showModal }: FormComponentPropT) => {
   const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
-  const { onSubmit } = useSubmitForgottenPasswordForm(setError);
+  const { onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
 
   return (
     <FormContainer>
@@ -49,8 +49,8 @@ const ForgottenPasswordForm = ({ clickHandler }: ClickHandlerT) => {
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeT.Login} buttonContent={'Log in'} clickHandler={clickHandler} />
-        <FormSwapButton formType={FormTypeT.Register} buttonContent={'Create account'} clickHandler={clickHandler} />
+        <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
+        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} />
       </article>
     </FormContainer>
   );

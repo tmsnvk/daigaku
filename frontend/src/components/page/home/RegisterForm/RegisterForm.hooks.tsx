@@ -7,24 +7,25 @@ import { axiosConfig } from '@configuration';
 import {
   RegisterFormErrorT,
   RegisterFormFieldsT,
-  RegisterFormReturnDataT,
 } from './RegisterForm.types.ts';
 
-const useSubmitRegisterForm = (setError: UseFormSetError<RegisterFormFieldsT>) => {
-  const { mutate, reset } = useMutation({
+type RegisterFormT = {
+  setError: UseFormSetError<RegisterFormFieldsT>;
+  showModal: () => void;
+}
+
+const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
+  const { mutate } = useMutation({
     mutationKey: ['userRegistrationForm'],
-    mutationFn: async (data: RegisterFormFieldsT): Promise<RegisterFormReturnDataT> => {
-      const response = await axiosConfig.request({
+    mutationFn: async (data: RegisterFormFieldsT): Promise<void> => {
+      await axiosConfig.request({
         method: 'POST',
         url: '/api/users/register',
         data,
       });
-
-      return response.data;
     },
-    onSuccess: (data: RegisterFormReturnDataT) => {
-      // TODO - create a confirmation modal window
-      reset();
+    onSuccess: () => {
+      showModal();
     },
     onError: (error: RegisterFormErrorT) => {
       setError('root.serverError', {
