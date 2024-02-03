@@ -4,9 +4,11 @@ import net.tamasnovak.dtos.account.AccountDataAfterLoginDto;
 import net.tamasnovak.dtos.account.AccountDataAfterRegistrationDto;
 import net.tamasnovak.dtos.account.access.AccountLoginDto;
 import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
+import net.tamasnovak.dtos.email.SimpleEmailDto;
 import net.tamasnovak.exception.FormErrorException;
 import net.tamasnovak.security.JwtUtils;
 import net.tamasnovak.services.account.AccountService;
+import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.pedingAccount.PendingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,15 +30,17 @@ public final class AccountController {
   private final AccountService accountService;
   private final AccountControllerMessages accountControllerMessages;
   private final PendingAccountService pendingAccountService;
+  private final EmailService emailService;
 
   @Autowired
-  public AccountController(PasswordEncoder encoder, JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, AccountControllerMessages accountControllerMessages, PendingAccountService pendingAccountService) {
+  public AccountController(PasswordEncoder encoder, JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, AccountControllerMessages accountControllerMessages, PendingAccountService pendingAccountService, EmailService emailService) {
     this.encoder = encoder;
     this.jwtUtils = jwtUtils;
     this.authenticationManager = authenticationManager;
     this.accountService = accountService;
     this.accountControllerMessages = accountControllerMessages;
     this.pendingAccountService = pendingAccountService;
+    this.emailService = emailService;
   }
 
   @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
@@ -50,7 +54,12 @@ public final class AccountController {
 
     pendingAccountService.addAccount(registrationData);
 
-    return null;
+    String subject = accountControllerMessages.PENDING_ACCOUNT_EMAIL_SUBJECT;
+    String body = accountControllerMessages.PENDING_ACCOUNT_EMAIL_BODY;
+    SimpleEmailDto emailDetailsDTO = new SimpleEmailDto(registrationData.email(), subject, body);
+    emailService.sendEmail(emailDetailsDTO);
+
+    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
