@@ -43,7 +43,7 @@ public final class AccountController {
     this.emailService = emailService;
   }
 
-  @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
+  @PostMapping(value = "/register", consumes = "application/json")
   public ResponseEntity<AccountDataAfterRegistrationDto> register(@RequestBody AccountRegistrationDto registrationData) {
     if (isRegisterFormDataValidated(registrationData)) {
       throw new FormErrorException(accountControllerMessages.FORM_ERROR_MESSAGE);

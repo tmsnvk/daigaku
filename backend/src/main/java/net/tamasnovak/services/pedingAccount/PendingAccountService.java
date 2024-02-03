@@ -4,6 +4,7 @@ import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
 import net.tamasnovak.entities.PendingAccount;
 import net.tamasnovak.exception.FormErrorException;
 import net.tamasnovak.repositories.PendingAccountRepository;
+import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,18 +14,20 @@ import java.util.Optional;
 public class PendingAccountService {
   private final PendingAccountRepository pendingAccountRepository;
   private final PendingAccountServiceMessages pendingAccountServiceMessages;
+  private final StringFormatterUtilities stringFormatterUtilities;
 
-  public PendingAccountService(PendingAccountRepository pendingAccountRepository, PendingAccountServiceMessages pendingAccountServiceMessages) {
+  public PendingAccountService(PendingAccountRepository pendingAccountRepository, PendingAccountServiceMessages pendingAccountServiceMessages, StringFormatterUtilities stringFormatterUtilities) {
     this.pendingAccountRepository = pendingAccountRepository;
     this.pendingAccountServiceMessages = pendingAccountServiceMessages;
+    this.stringFormatterUtilities = stringFormatterUtilities;
   }
 
   @Transactional
   public void addAccount(AccountRegistrationDto registrationData) {
     PendingAccount pendingAccount = new PendingAccount(
-      registrationData.firstName(),
-      registrationData.lastName(),
-      registrationData.email()
+      stringFormatterUtilities.capitaliseWord(registrationData.firstName()),
+      stringFormatterUtilities.capitaliseWord(registrationData.lastName()),
+      registrationData.email().toLowerCase()
     );
 
     pendingAccountRepository.save(pendingAccount);
