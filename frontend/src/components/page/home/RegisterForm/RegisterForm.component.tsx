@@ -12,6 +12,7 @@ import {
   SubmitInput,
 } from '@components/shared/form';
 import { useSubmitRegisterForm } from './RegisterForm.hooks.tsx';
+import theme from '@theme/theme.ts';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -27,7 +28,10 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
 
   return (
     <FormContainer>
-      <GenericTextParagraph text={'Register an account if you are not in our system yet.'} />
+      <GenericTextParagraph
+        content={'Register an account if you are not in our system yet.'}
+        fontSize={theme.fontSize.medium}
+      />
       <form id={'userRegistrationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <InputFieldStyles $isError={errors.firstName?.message !== undefined}>
           <InputLabel inputId={'firstName'} content={'First Name'} />
@@ -77,9 +81,10 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
-          {isPending ?
-            <LoadingIndicator message={'Your registration is being handled.'} /> :
-            <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
+          {
+            isPending ?
+              <LoadingIndicator message={'Your registration is being handled.'} /> :
+              <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>

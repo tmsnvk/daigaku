@@ -18,6 +18,7 @@ import {
   FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
+import theme from '@theme/theme.ts';
 
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
@@ -27,7 +28,10 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
 
   return (
     <FormContainer>
-      <GenericTextParagraph text={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'} />
+      <GenericTextParagraph
+        content={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'}
+        fontSize={theme.fontSize.medium}
+      />
       <form id={'userForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <InputFieldStyles $isError={errors.email?.message !== undefined}>
           <InputLabel inputId={'email'} content={'Email'} />
@@ -45,9 +49,10 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
-          {isPending ?
-            <LoadingIndicator message={'Your registration is being handled.'} /> :
-            <SubmitInput type={'submit'} value={'reset'} disabled={isPending} />
+          {
+            isPending ?
+              <LoadingIndicator message={'Your registration is being handled.'} /> :
+              <SubmitInput type={'submit'} value={'reset'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
