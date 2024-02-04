@@ -18,6 +18,7 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
   const { mutate, isPending, reset } = useMutation({
     mutationKey: ['userLoginForm'],
     mutationFn: async (data: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
+      console.log(data)
       const response = await axiosConfig.request({
         method: 'POST',
         url: '/api/users/login',

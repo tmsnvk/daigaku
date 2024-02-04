@@ -95,7 +95,12 @@ public final class AccountController {
     JwtResponse jwtResponse = new JwtResponse(jwtToken, userDetails.getUsername(), accountRoles);
 
     AccountDataAfterLoginDto accountData = new AccountDataAfterLoginDto(
-      // class fields
+      foundAccount.getEmail(),
+      foundAccount.getFirstName(),
+      foundAccount.getLastName(),
+      foundAccount.getRegisteredAt(),
+      foundAccount.getLastUpdatedAt(),
+      jwtResponse
     );
 
     return new ResponseEntity<>(accountData, HttpStatus.OK);

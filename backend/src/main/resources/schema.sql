@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS pending_accounts CASCADE;
 DROP TABLE IF EXISTS accounts_roles_join CASCADE;
 DROP TABLE IF EXISTS pending_account_registrations CASCADE;
 
+
 -- DATABASE SET UP
 CREATE TABLE roles(
   id SERIAL PRIMARY KEY,
