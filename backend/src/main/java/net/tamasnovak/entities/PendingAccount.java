@@ -12,32 +12,25 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "pending_account_registrations")
 @Getter
 @Setter
 @NoArgsConstructor
-public final class Account {
+public final class PendingAccount {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
   private int id;
 
-  @Column(name = "uuid")
-  @org.hibernate.validator.constraints.UUID
-  private UUID uuid;
-
   @Column(name = "registered_at")
+  @CreationTimestamp
   @PastOrPresent
   private Timestamp registeredAt;
-
-  @Column(name = "last_updated_at")
-  @PastOrPresent
-  private Timestamp lastUpdatedAt;
 
   @Column(name = "first_name")
   @NotBlank
@@ -51,15 +44,9 @@ public final class Account {
   @Email
   private String email;
 
-  @Column(name = "hashed_password")
-  @NotBlank
-  private String hashedPassword;
-
-  public Account(String firstName, String lastName, String email, String hashedPassword) {
+  public PendingAccount(String firstName, String lastName, String email) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.hashedPassword = hashedPassword;
   }
 }
-// TODO - add roles join table link

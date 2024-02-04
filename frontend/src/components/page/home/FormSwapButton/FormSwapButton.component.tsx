@@ -1,10 +1,10 @@
 import { ButtonContainer } from './FormSwapButton.styles.ts';
-import { FormTypeT } from '@pages/Home/Home.types.ts';
+import { FormTypeE } from '@pages/Home/Home.types.ts';
 
 type ComponentPropsT = {
-  formType: FormTypeT;
+  formType: FormTypeE;
   buttonContent: string;
-  clickHandler: (formType: FormTypeT) => void;
+  clickHandler: (formType: FormTypeE) => void;
   isDisabled?: boolean;
 }
 

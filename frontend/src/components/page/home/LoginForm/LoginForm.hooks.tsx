@@ -10,8 +10,12 @@ import {
   LoginFormReturnDataT,
 } from './LoginForm.types.ts';
 
-const useSubmitLoginForm = (setError: UseFormSetError<LoginFormFieldsT>) => {
-  const { mutate, reset } = useMutation({
+type LoginFormT = {
+  setError: UseFormSetError<LoginFormFieldsT>;
+}
+
+const useSubmitLoginForm = ({ setError }: LoginFormT) => {
+  const { mutate, isPending, reset } = useMutation({
     mutationKey: ['userLoginForm'],
     mutationFn: async (data: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
       const response = await axiosConfig.request({
@@ -39,6 +43,7 @@ const useSubmitLoginForm = (setError: UseFormSetError<LoginFormFieldsT>) => {
   };
 
   return {
+    isPending,
     onSubmit,
   };
 };

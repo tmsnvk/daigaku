@@ -1,36 +1,26 @@
-import { useState } from 'react';
+import { ConfirmationModal } from '@components/shared/modal';
 import {
-  ForgottenPasswordForm,
-  LoginForm,
-  RegisterForm,
-} from '@components/page/home';
+  useRenderSelectedFormComponent,
+  useShowConfirmationModal,
+} from './Home.hooks.tsx';
 import { MainContainer } from './Home.styles.ts';
-import { FormTypeT } from '@pages/Home/Home.types.ts';
+import { confirmationModalMessages } from './Home.utilities.ts';
 
 const HomePage = () => {
-  const [activeFormType, setActiveFormType] = useState<FormTypeT>(FormTypeT.Login);
-
-  const handleFormSelectionOnClick = (formType: FormTypeT) => {
-    setActiveFormType(formType);
-  };
-
-  const renderFormComponent = () => {
-    if (activeFormType === FormTypeT.Login) {
-      return <LoginForm clickHandler={handleFormSelectionOnClick} />;
-    }
-
-    if (activeFormType === FormTypeT.Register) {
-      return <RegisterForm clickHandler={handleFormSelectionOnClick} />;
-    }
-
-    if (activeFormType === FormTypeT.Reset) {
-      return <ForgottenPasswordForm clickHandler={handleFormSelectionOnClick} />;
-    }
-  };
+  const { isConfirmationModalVisible, showModalAfterSuccessFulSubmission, closeModal } = useShowConfirmationModal();
+  const { activeFormType, renderFormComponent } = useRenderSelectedFormComponent({ showModalAfterSuccessFulSubmission });
 
   return (
     <MainContainer>
       {renderFormComponent()}
+      {
+        isConfirmationModalVisible &&
+        <ConfirmationModal
+          isVisible={isConfirmationModalVisible}
+          message={confirmationModalMessages[activeFormType]}
+          closeModal={closeModal}
+        />
+      }
     </MainContainer>
   );
 };

@@ -3,6 +3,8 @@ package net.tamasnovak.repositories;
 import net.tamasnovak.entities.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountRepository extends JpaRepository<Account, Integer> {
+import java.util.Optional;
 
+public interface AccountRepository extends JpaRepository<Account, Integer> {
+  Optional<Account> findByEmail(String email);
 }

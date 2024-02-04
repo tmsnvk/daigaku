@@ -12,14 +12,17 @@ import {
 } from '@components/shared/form';
 import { useSubmitForgottenPasswordForm } from './ForgottenPasswordForm.hooks.tsx';
 import {
-  ClickHandlerT,
-  FormTypeT,
+  ConfirmationModalT,
+  FormSelectorT,
+  FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
 
-const ForgottenPasswordForm = ({ clickHandler }: ClickHandlerT) => {
-  const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
-  const { onSubmit } = useSubmitForgottenPasswordForm(setError);
+type ComponentPropT = FormSelectorT & ConfirmationModalT;
+
+const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
+  const { formState: { errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
+  const { isPending, onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
 
   return (
     <FormContainer>
@@ -36,21 +39,21 @@ const ForgottenPasswordForm = ({ clickHandler }: ClickHandlerT) => {
             name={'email'}
             autoComplete={'off'}
             placeholder={'Enter your email address'}
-            disabled={isSubmitting}
+            disabled={isPending}
           />
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
-          {isSubmitting ?
+          {isPending ?
             <LoadingIndicator message={'Your registration is being handled.'} /> :
-            <SubmitInput type={'submit'} value={'reset'} disabled={isSubmitting || isLoading} />
+            <SubmitInput type={'submit'} value={'reset'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeT.Login} buttonContent={'Log in'} clickHandler={clickHandler} />
-        <FormSwapButton formType={FormTypeT.Register} buttonContent={'Create account'} clickHandler={clickHandler} />
+        <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
+        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} />
       </article>
     </FormContainer>
   );

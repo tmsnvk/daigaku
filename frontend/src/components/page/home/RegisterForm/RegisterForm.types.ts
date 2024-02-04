@@ -1,10 +1,7 @@
 export type RegisterFormFieldsT = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
-}
-
-export type RegisterFormReturnDataT = {
-
 }
 
 export type RegisterFormErrorT = {

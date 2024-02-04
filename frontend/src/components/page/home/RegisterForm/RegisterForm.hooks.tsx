@@ -7,24 +7,25 @@ import { axiosConfig } from '@configuration';
 import {
   RegisterFormErrorT,
   RegisterFormFieldsT,
-  RegisterFormReturnDataT,
 } from './RegisterForm.types.ts';
+import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
 
-const useSubmitRegisterForm = (setError: UseFormSetError<RegisterFormFieldsT>) => {
-  const { mutate, reset } = useMutation({
-    mutationKey: ['userRegisterForm'],
-    mutationFn: async (data: RegisterFormFieldsT): Promise<RegisterFormReturnDataT> => {
-      const response = await axiosConfig.request({
+type RegisterFormT = {
+  setError: UseFormSetError<RegisterFormFieldsT>;
+} & ConfirmationModalT;
+
+const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['userRegistrationForm'],
+    mutationFn: async (data: RegisterFormFieldsT): Promise<void> => {
+      await axiosConfig.request({
         method: 'POST',
         url: '/api/users/register',
         data,
       });
-
-      return response.data;
     },
-    onSuccess: (data: RegisterFormReturnDataT) => {
-      // TODO - create a confirmation modal window
-      reset();
+    onSuccess: () => {
+      showModal();
     },
     onError: (error: RegisterFormErrorT) => {
       setError('root.serverError', {
@@ -39,6 +40,7 @@ const useSubmitRegisterForm = (setError: UseFormSetError<RegisterFormFieldsT>) =
   };
 
   return {
+    isPending,
     onSubmit,
   };
 };

@@ -9,9 +9,14 @@ import {
   ForgottenPasswordFormFieldsT,
   ForgottenPasswordFormReturnDataT,
 } from './ForgottenPasswordForm.types.ts';
+import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
 
-const useSubmitForgottenPasswordForm = (setError: UseFormSetError<ForgottenPasswordFormFieldsT>) => {
-  const { mutate, reset } = useMutation({
+type ForgottenPasswordFormT = {
+  setError: UseFormSetError<ForgottenPasswordFormFieldsT>;
+} & ConfirmationModalT;
+
+const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordFormT) => {
+  const { mutate, isPending } = useMutation({
     mutationKey: ['userForgottenPasswordForm'],
     mutationFn: async (data: ForgottenPasswordFormFieldsT): Promise<ForgottenPasswordFormReturnDataT> => {
       const response = await axiosConfig.request({
@@ -23,8 +28,7 @@ const useSubmitForgottenPasswordForm = (setError: UseFormSetError<ForgottenPassw
       return response.data;
     },
     onSuccess: (data: ForgottenPasswordFormReturnDataT) => {
-      // TODO - create a confirmation modal window
-      reset();
+      showModal();
     },
     onError: (error: ForgottenPasswordFormErrorT) => {
       setError('root.serverError', {
@@ -39,6 +43,7 @@ const useSubmitForgottenPasswordForm = (setError: UseFormSetError<ForgottenPassw
   };
 
   return {
+    isPending,
     onSubmit,
   };
 };
