@@ -29,4 +29,14 @@ public class AccountService {
       throw new FormErrorException(accountServiceMessages.EMAIL_ALREADY_EXISTS);
     }
   }
+
+  public Account findUserByEmail(String email) {
+    Optional<Account> account = accountRepository.findByEmail(email);
+
+    if (account.isEmpty()) {
+      throw new FormErrorException("This email address is not registered in our database.");
+    }
+
+    return account.get();
+  }
 }

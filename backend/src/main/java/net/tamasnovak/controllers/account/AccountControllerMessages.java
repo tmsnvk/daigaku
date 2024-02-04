@@ -13,6 +13,7 @@ public final class AccountControllerMessages {
       <p>In the meantime, let us know if we can help with anything.</p>
     </main>
   """;
+  final String LOGIN_ERROR_MESSAGE = "Your login was unsuccessful, please try again.";
 
   private AccountControllerMessages() {}
 }

@@ -5,7 +5,9 @@ import net.tamasnovak.dtos.account.AccountDataAfterRegistrationDto;
 import net.tamasnovak.dtos.account.access.AccountLoginDto;
 import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
 import net.tamasnovak.dtos.email.SimpleEmailDto;
+import net.tamasnovak.entities.Account;
 import net.tamasnovak.exception.FormErrorException;
+import net.tamasnovak.security.JwtResponse;
 import net.tamasnovak.security.JwtUtils;
 import net.tamasnovak.services.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
@@ -14,12 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/users")
@@ -65,13 +75,37 @@ public final class AccountController {
   @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<AccountDataAfterLoginDto> login(@RequestBody AccountLoginDto loginData) {
-    // TODO - implement the method.
-    AccountDataAfterLoginDto accountData = new AccountDataAfterLoginDto();
+    if (isLoginFormDataValidated(loginData)) {
+      throw new FormErrorException(accountControllerMessages.LOGIN_ERROR_MESSAGE);
+    }
+
+    Account foundAccount = accountService.findUserByEmail(loginData.email());
+
+    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password());
+    Authentication authentication = authenticationManager.authenticate(auth);
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    String jwtToken = jwtUtils.generateJwtToken(authentication);
+    User userDetails = (User) authentication.getPrincipal();
+    List<String> accountRoles = userDetails.getAuthorities()
+      .stream()
+      .map(GrantedAuthority::getAuthority)
+      .collect(Collectors.toList());
+
+    JwtResponse jwtResponse = new JwtResponse(jwtToken, userDetails.getUsername(), accountRoles);
+
+    AccountDataAfterLoginDto accountData = new AccountDataAfterLoginDto(
+      // class fields
+    );
 
     return new ResponseEntity<>(accountData, HttpStatus.OK);
   }
 
   private boolean isRegisterFormDataValidated(AccountRegistrationDto userData) {
     return userData == null || userData.firstName().isEmpty() || userData.lastName().isEmpty() ||  userData.email().isEmpty();
+  }
+
+  private boolean isLoginFormDataValidated(AccountLoginDto userLoginData) {
+    return userLoginData == null || userLoginData.email().isEmpty() || userLoginData.password().isEmpty();
   }
 }

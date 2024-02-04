@@ -29,7 +29,7 @@ type RenderSelectedFormComponentT = {
 }
 
 const useRenderSelectedFormComponent = ({ showModalAfterSuccessFulSubmission }: RenderSelectedFormComponentT) => {
-  const [activeFormType, setActiveFormType] = useState<FormTypeE>(FormTypeE.Register);
+  const [activeFormType, setActiveFormType] = useState<FormTypeE>(FormTypeE.Login);
 
   const handleFormSelectionOnClick = (formType: FormTypeE) => {
     setActiveFormType(formType);
