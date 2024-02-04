@@ -17,7 +17,9 @@ const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropT) =
   useEffect(() => {
     if (dialogRef.current?.open && !isVisible) {
       dialogRef.current?.close();
-    } else if (!dialogRef.current?.open && isVisible) {
+    }
+
+    if (!dialogRef.current?.open && isVisible) {
       dialogRef.current?.showModal();
     }
   }, [isVisible]);

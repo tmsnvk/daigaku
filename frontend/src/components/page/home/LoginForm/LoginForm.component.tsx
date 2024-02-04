@@ -21,7 +21,9 @@ import {
 } from '@pages/Home/Home.types.ts';
 import { LoginFormFieldsT } from './LoginForm.types.ts';
 
-const LoginForm = ({ formSelector }: FormSelectorT) => {
+type ComponentPropT = FormSelectorT;
+
+const LoginForm = ({ formSelector }: ComponentPropT) => {
   const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
   const { formState: { errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitLoginForm({ setError });

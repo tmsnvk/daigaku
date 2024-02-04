@@ -18,9 +18,9 @@ import {
 } from '@pages/Home/Home.types.ts';
 import { RegisterFormFieldsT } from './RegisterForm.types.ts';
 
-type FormComponentPropT = FormSelectorT & ConfirmationModalT;
+type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
-const RegisterForm = ({ formSelector, showModal }: FormComponentPropT) => {
+const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitRegisterForm({ setError, showModal });
 

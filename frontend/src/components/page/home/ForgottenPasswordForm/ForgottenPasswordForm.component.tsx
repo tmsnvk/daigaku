@@ -18,9 +18,9 @@ import {
 } from '@pages/Home/Home.types.ts';
 import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
 
-type FormComponentPropT = FormSelectorT & ConfirmationModalT;
+type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
-const ForgottenPasswordForm = ({ formSelector, showModal }: FormComponentPropT) => {
+const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
 
