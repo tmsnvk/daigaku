@@ -9,21 +9,26 @@ import { useState } from 'react';
 const useShowConfirmationModal = () => {
   const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
 
-  const showConfirmationModalAfterSuccessFulSubmission = () => {
+  const showModalAfterSuccessFulSubmission = () => {
     setIsConfirmationModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsConfirmationModalVisible(false);
   };
 
   return {
     isConfirmationModalVisible,
-    showConfirmationModalAfterSuccessFulSubmission,
+    showModalAfterSuccessFulSubmission,
+    closeModal,
   };
 };
 
 type RenderSelectedFormComponentT = {
-  showConfirmationModalAfterSuccessFulSubmission: () => void;
+  showModalAfterSuccessFulSubmission: () => void;
 }
 
-const useRenderSelectedFormComponent = ({ showConfirmationModalAfterSuccessFulSubmission }: RenderSelectedFormComponentT) => {
+const useRenderSelectedFormComponent = ({ showModalAfterSuccessFulSubmission }: RenderSelectedFormComponentT) => {
   const [activeFormType, setActiveFormType] = useState<FormTypeE>(FormTypeE.Register);
 
   const handleFormSelectionOnClick = (formType: FormTypeE) => {
@@ -32,7 +37,7 @@ const useRenderSelectedFormComponent = ({ showConfirmationModalAfterSuccessFulSu
 
   const renderFormComponent = () => {
     if (activeFormType === FormTypeE.Register) {
-      return <RegisterForm formSelector={handleFormSelectionOnClick} showModal={showConfirmationModalAfterSuccessFulSubmission} />;
+      return <RegisterForm formSelector={handleFormSelectionOnClick} showModal={showModalAfterSuccessFulSubmission} />;
     }
 
     if (activeFormType === FormTypeE.Login) {
@@ -40,7 +45,7 @@ const useRenderSelectedFormComponent = ({ showConfirmationModalAfterSuccessFulSu
     }
 
     if (activeFormType === FormTypeE.Reset) {
-      return <ForgottenPasswordForm formSelector={handleFormSelectionOnClick} showModal={showConfirmationModalAfterSuccessFulSubmission} />;
+      return <ForgottenPasswordForm formSelector={handleFormSelectionOnClick} showModal={showModalAfterSuccessFulSubmission} />;
     }
   };
 

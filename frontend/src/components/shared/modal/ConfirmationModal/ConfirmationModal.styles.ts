@@ -10,20 +10,8 @@ const DialogContainer = styled.dialog`
   border: 0.1rem solid ${(props) => props.theme.color.secondaryDark};
   border-radius: 1.5rem;
 
-  //& .close-x-button {
-  //  position: absolute;
-  //  right: 0;
-  //  margin: 2.5rem 2.5rem 0 0;
-  //  text-align: right;
-  //  font-size: 2.5rem;
-  //  font-weight: 800;
-  //  background: transparent;
-  //  color: inherit;
-  //  cursor: pointer;
-  //}
-
   & p {
-    margin: 7.5rem 2rem 0 2rem;
+    margin: 7.5rem 2rem 2rem 2rem;
   }
 `;
 

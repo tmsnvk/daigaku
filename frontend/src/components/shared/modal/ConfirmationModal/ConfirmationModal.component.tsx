@@ -2,14 +2,16 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { SubmitInput } from '@components/shared/form';
 import { DialogContainer } from './ConfirmationModal.styles.ts';
 
 type ComponentPropT = {
   isVisible: boolean;
   message: string;
+  closeModal: () => void;
 }
 
-const ConfirmationModal = ({ isVisible, message }: ComponentPropT) => {
+const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropT) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ const ConfirmationModal = ({ isVisible, message }: ComponentPropT) => {
       ref={dialogRef}
     >
       <p>{message}</p>
+      <SubmitInput type={'button'} value={'ok'} onClick={closeModal} />
     </DialogContainer>
   );
 };
