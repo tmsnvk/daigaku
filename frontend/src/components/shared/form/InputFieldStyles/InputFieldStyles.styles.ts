@@ -10,11 +10,6 @@ const InputFieldStyles = styled.article<InputFieldT>`
   flex-direction: column;
   align-items: center;
   margin: 0 0 1.5rem 0;
-
-  & label {
-    margin: 0 0 1rem 0;
-    font-size: ${(props) => props.theme.fontSize.large};
-  }
   
   & input {
     width: 35rem;

@@ -8,6 +8,7 @@ import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
   InputFieldStyles,
+  InputLabel,
   LoadingIndicator,
   PasswordInputFieldStyles,
   SubmitInput,
@@ -33,7 +34,7 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
       <GenericTextParagraph text={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'} />
       <form id={'userLoginForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <InputFieldStyles $isError={errors.email?.message !== undefined}>
-          <label htmlFor={'email'}>Email</label>
+          <InputLabel inputId={'email'} content={'Email'} />
           <input
             {...register('email', {
               required: { value: true, message: 'Providing your email address is required.' },
@@ -48,7 +49,7 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <PasswordInputFieldStyles $isError={errors.password?.message !== undefined}>
-          <label htmlFor={'password'}>Password</label>
+          <InputLabel inputId={'password'} content={'Password'} />
           <div>
             <input
               {...register('password', {

@@ -7,6 +7,7 @@ import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
   InputFieldStyles,
+  InputLabel,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
@@ -29,7 +30,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
       <GenericTextParagraph text={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'} />
       <form id={'userForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <InputFieldStyles $isError={errors.email?.message !== undefined}>
-          <label htmlFor={'email'}>Email</label>
+          <InputLabel inputId={'email'} content={'Email'} />
           <input
             {...register('email', {
               required: { value: true, message: 'Providing your email address is required.' },
