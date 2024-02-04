@@ -7,10 +7,12 @@ import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
   InputFieldStyles,
+  InputLabel,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
 import { useSubmitRegisterForm } from './RegisterForm.hooks.tsx';
+import theme from '@theme/theme.ts';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -26,10 +28,13 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
 
   return (
     <FormContainer>
-      <GenericTextParagraph text={'Register an account if you are not in our system yet.'} />
+      <GenericTextParagraph
+        content={'Register an account if you are not in our system yet.'}
+        fontSize={theme.fontSize.medium}
+      />
       <form id={'userRegistrationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <InputFieldStyles $isError={errors.firstName?.message !== undefined}>
-          <label htmlFor={'firstName'}>First name</label>
+          <InputLabel inputId={'firstName'} content={'First Name'} />
           <input
             {...register('firstName', {
               required: { value: true, message: 'Providing your first name is required.' },
@@ -45,7 +50,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           {errors.firstName?.message && <ErrorMessage error={errors.firstName.message} />}
         </InputFieldStyles>
         <InputFieldStyles $isError={errors.lastName?.message !== undefined}>
-          <label htmlFor={'lastName'}>Last name</label>
+          <InputLabel inputId={'lastName'} content={'Last Name'} />
           <input
             {...register('lastName', {
               required: { value: true, message: 'Providing your last name is required.' },
@@ -61,7 +66,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           {errors.lastName?.message && <ErrorMessage error={errors.lastName.message} />}
         </InputFieldStyles>
         <InputFieldStyles $isError={errors.email?.message !== undefined}>
-          <label htmlFor={'email'}>Email</label>
+          <InputLabel inputId={'email'} content={'Email'} />
           <input
             {...register('email', {
               required: { value: true, message: 'Providing your email address is required.' },
@@ -76,9 +81,10 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
-          {isPending ?
-            <LoadingIndicator message={'Your registration is being handled.'} /> :
-            <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
+          {
+            isPending ?
+              <LoadingIndicator message={'Your registration is being handled.'} /> :
+              <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>

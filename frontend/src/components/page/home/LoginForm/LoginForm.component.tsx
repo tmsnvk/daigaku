@@ -8,6 +8,7 @@ import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
   InputFieldStyles,
+  InputLabel,
   LoadingIndicator,
   PasswordInputFieldStyles,
   SubmitInput,
@@ -20,6 +21,7 @@ import {
   FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { LoginFormFieldsT } from './LoginForm.types.ts';
+import theme from '@theme/theme.ts';
 
 type ComponentPropT = FormSelectorT;
 
@@ -30,10 +32,13 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
 
   return (
     <FormContainer>
-      <GenericTextParagraph text={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'} />
+      <GenericTextParagraph
+        content={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'}
+        fontSize={theme.fontSize.medium}
+      />
       <form id={'userLoginForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <InputFieldStyles $isError={errors.email?.message !== undefined}>
-          <label htmlFor={'email'}>Email</label>
+          <InputLabel inputId={'email'} content={'Email'} />
           <input
             {...register('email', {
               required: { value: true, message: 'Providing your email address is required.' },
@@ -48,7 +53,7 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <PasswordInputFieldStyles $isError={errors.password?.message !== undefined}>
-          <label htmlFor={'password'}>Password</label>
+          <InputLabel inputId={'password'} content={'Password'} />
           <div>
             <input
               {...register('password', {
@@ -66,9 +71,10 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
           {errors.password?.message && <ErrorMessage error={errors.password.message} />}
         </PasswordInputFieldStyles>
         <article>
-          {isPending ?
-            <LoadingIndicator message={'You are being logged in.'} /> :
-            <SubmitInput type={'submit'} value={'sign in'} disabled={isPending} />
+          {
+            isPending ?
+              <LoadingIndicator message={'You are being logged in.'} /> :
+              <SubmitInput type={'submit'} value={'sign in'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>

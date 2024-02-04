@@ -1,13 +1,14 @@
 import { TextContainer } from './GenericTextParagraph.styles.ts';
 
 type ComponentPropsT = {
-  text: string;
+  content: string;
+  fontSize?: string;
 }
 
-const GenericTextParagraph = ({ text }: ComponentPropsT) => {
+const GenericTextParagraph = ({ content, fontSize }: ComponentPropsT) => {
   return (
-    <TextContainer>
-      {text}
+    <TextContainer $fontSize={fontSize}>
+      {content}
     </TextContainer>
   );
 };

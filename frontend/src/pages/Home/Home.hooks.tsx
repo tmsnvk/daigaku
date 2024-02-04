@@ -1,10 +1,10 @@
-import { FormTypeE } from '@pages/Home/Home.types.ts';
+import { useState } from 'react';
 import {
   ForgottenPasswordForm,
   LoginForm,
   RegisterForm,
 } from '@components/page/home';
-import { useState } from 'react';
+import { FormTypeE } from '@pages/Home/Home.types.ts';
 
 const useShowConfirmationModal = () => {
   const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);

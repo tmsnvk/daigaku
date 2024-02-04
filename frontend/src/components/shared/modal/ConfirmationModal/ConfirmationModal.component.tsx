@@ -2,7 +2,9 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import GenericTextParagraph from '@components/shared/general/GenericTextParagraph';
 import { SubmitInput } from '@components/shared/form';
+import theme from '@theme/theme.ts';
 import { DialogContainer } from './ConfirmationModal.styles.ts';
 
 type ComponentPropT = {
@@ -25,10 +27,8 @@ const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropT) =
   }, [isVisible]);
 
   return (
-    <DialogContainer
-      ref={dialogRef}
-    >
-      <p>{message}</p>
+    <DialogContainer ref={dialogRef}>
+      <GenericTextParagraph content={message} fontSize={theme.fontSize.large} />
       <SubmitInput type={'button'} value={'ok'} onClick={closeModal} />
     </DialogContainer>
   );
