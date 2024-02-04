@@ -1,9 +1,10 @@
 package net.tamasnovak.controllers.account;
 
-import net.tamasnovak.dtos.account.AccountDataAfterLoginDto;
+import net.tamasnovak.dtos.account.AccountLoginReturnDto;
 import net.tamasnovak.dtos.account.AccountDataAfterRegistrationDto;
 import net.tamasnovak.dtos.account.access.AccountLoginDto;
 import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
+import net.tamasnovak.dtos.account.response.AccountDataDto;
 import net.tamasnovak.dtos.email.SimpleEmailDto;
 import net.tamasnovak.entities.Account;
 import net.tamasnovak.exception.FormErrorException;
@@ -74,7 +75,7 @@ public final class AccountController {
 
   @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<AccountDataAfterLoginDto> login(@RequestBody AccountLoginDto loginData) {
+  public ResponseEntity<AccountLoginReturnDto> login(@RequestBody AccountLoginDto loginData) {
     if (isLoginFormDataValidated(loginData)) {
       throw new FormErrorException(accountControllerMessages.LOGIN_ERROR_MESSAGE);
     }
@@ -94,16 +95,19 @@ public final class AccountController {
 
     JwtResponse jwtResponse = new JwtResponse(jwtToken, userDetails.getUsername(), accountRoles);
 
-    AccountDataAfterLoginDto accountData = new AccountDataAfterLoginDto(
+    AccountDataDto accountData = new AccountDataDto(
       foundAccount.getEmail(),
       foundAccount.getFirstName(),
       foundAccount.getLastName(),
       foundAccount.getRegisteredAt(),
-      foundAccount.getLastUpdatedAt(),
+      foundAccount.getLastUpdatedAt()
+    );
+    AccountLoginReturnDto accountLoginReturnData = new AccountLoginReturnDto(
+      accountData,
       jwtResponse
     );
 
-    return new ResponseEntity<>(accountData, HttpStatus.OK);
+    return new ResponseEntity<>(accountLoginReturnData, HttpStatus.OK);
   }
 
   private boolean isRegisterFormDataValidated(AccountRegistrationDto userData) {

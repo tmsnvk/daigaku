@@ -26,7 +26,7 @@
       "@assets/*": ["assets/*"],
       "@configuration": ["configuration/index.ts"],
       "@components/*": ["components/*"],
-      "@context": ["context/index.ts"],
+      "@context/*": ["context/*"],
       "@hooks": ["hooks/index.ts"],
       "@pages/*": ["pages/*"],
       "@theme/*": ["theme/*"],
