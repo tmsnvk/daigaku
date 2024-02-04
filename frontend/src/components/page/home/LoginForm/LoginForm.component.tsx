@@ -16,15 +16,15 @@ import { useRevealPasswordInInputField } from '@hooks';
 import { useSubmitLoginForm } from './LoginForm.hooks.tsx';
 import { iconLibraryConfig } from '@configuration';
 import {
-  FormComponentPropT,
+  FormSelectorT,
   FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { LoginFormFieldsT } from './LoginForm.types.ts';
 
-const LoginForm = ({ formSelector }: FormComponentPropT) => {
+const LoginForm = ({ formSelector }: FormSelectorT) => {
   const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
   const { formState: { errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, onSubmit } = useSubmitLoginForm(setError);
+  const { isPending, onSubmit } = useSubmitLoginForm({ setError });
 
   return (
     <FormContainer>

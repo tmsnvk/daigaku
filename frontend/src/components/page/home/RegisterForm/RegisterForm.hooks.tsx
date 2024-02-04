@@ -8,11 +8,11 @@ import {
   RegisterFormErrorT,
   RegisterFormFieldsT,
 } from './RegisterForm.types.ts';
+import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
 
 type RegisterFormT = {
   setError: UseFormSetError<RegisterFormFieldsT>;
-  showModal: () => void;
-}
+} & ConfirmationModalT;
 
 const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
   const { mutate, isPending } = useMutation({

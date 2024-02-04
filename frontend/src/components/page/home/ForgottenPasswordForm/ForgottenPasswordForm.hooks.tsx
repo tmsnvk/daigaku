@@ -9,11 +9,11 @@ import {
   ForgottenPasswordFormFieldsT,
   ForgottenPasswordFormReturnDataT,
 } from './ForgottenPasswordForm.types.ts';
+import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
 
 type ForgottenPasswordFormT = {
   setError: UseFormSetError<ForgottenPasswordFormFieldsT>;
-  showModal: () => void;
-}
+} & ConfirmationModalT;
 
 const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordFormT) => {
   const { mutate, isPending } = useMutation({

@@ -3,8 +3,8 @@ import {
   useRenderSelectedFormComponent,
   useShowConfirmationModal,
 } from './Home.hooks.tsx';
-import { confirmationModalMessages } from './Home.utilities.ts';
 import { MainContainer } from './Home.styles.ts';
+import { confirmationModalMessages } from './Home.utilities.ts';
 
 const HomePage = () => {
   const { isConfirmationModalVisible, showModalAfterSuccessFulSubmission, closeModal } = useShowConfirmationModal();
@@ -13,7 +13,14 @@ const HomePage = () => {
   return (
     <MainContainer>
       {renderFormComponent()}
-      {isConfirmationModalVisible && <ConfirmationModal isVisible={isConfirmationModalVisible} message={confirmationModalMessages[activeFormType]} closeModal={closeModal} />}
+      {
+        isConfirmationModalVisible &&
+        <ConfirmationModal
+          isVisible={isConfirmationModalVisible}
+          message={confirmationModalMessages[activeFormType]}
+          closeModal={closeModal}
+        />
+      }
     </MainContainer>
   );
 };

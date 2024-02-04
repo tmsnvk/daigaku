@@ -12,10 +12,13 @@ import {
 } from '@components/shared/form';
 import { useSubmitRegisterForm } from './RegisterForm.hooks.tsx';
 import {
-  FormComponentPropT,
+  ConfirmationModalT,
+  FormSelectorT,
   FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { RegisterFormFieldsT } from './RegisterForm.types.ts';
+
+type FormComponentPropT = FormSelectorT & ConfirmationModalT;
 
 const RegisterForm = ({ formSelector, showModal }: FormComponentPropT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });

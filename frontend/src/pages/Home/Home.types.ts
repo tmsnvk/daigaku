@@ -4,7 +4,10 @@ export enum FormTypeE {
   Reset
 }
 
-export type FormComponentPropT = {
+export type FormSelectorT = {
   formSelector: (formType: FormTypeE) => void;
-  showModal?: () => void;
+}
+
+export type ConfirmationModalT = {
+  showModal: () => void;
 }
