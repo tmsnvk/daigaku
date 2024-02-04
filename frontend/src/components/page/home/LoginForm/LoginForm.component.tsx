@@ -23,8 +23,8 @@ import { LoginFormFieldsT } from './LoginForm.types.ts';
 
 const LoginForm = ({ formSelector }: FormComponentPropT) => {
   const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
-  const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
-  const { onSubmit } = useSubmitLoginForm(setError);
+  const { formState: { errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
+  const { isPending, onSubmit } = useSubmitLoginForm(setError);
 
   return (
     <FormContainer>
@@ -41,7 +41,7 @@ const LoginForm = ({ formSelector }: FormComponentPropT) => {
             name={'email'}
             autoComplete={'off'}
             placeholder={'Enter your email address'}
-            disabled={isSubmitting}
+            disabled={isPending}
           />
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
@@ -57,23 +57,23 @@ const LoginForm = ({ formSelector }: FormComponentPropT) => {
               name={'password'}
               autoComplete={'off'}
               placeholder={'Enter your password'}
-              disabled={isSubmitting}
+              disabled={isPending}
             />
             <FontAwesomeIcon onClick={handleRevealClick} icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye} />
           </div>
           {errors.password?.message && <ErrorMessage error={errors.password.message} />}
         </PasswordInputFieldStyles>
         <article>
-          {isSubmitting ?
+          {isPending ?
             <LoadingIndicator message={'You are being logged in.'} /> :
-            <SubmitInput type={'submit'} value={'sign in'} disabled={isSubmitting || isLoading} />
+            <SubmitInput type={'submit'} value={'sign in'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isSubmitting} />
-        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isSubmitting} />
+        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isPending} />
+        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isPending} />
       </article>
     </FormContainer>
   );

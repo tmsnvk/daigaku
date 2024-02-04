@@ -16,7 +16,7 @@ type ForgottenPasswordFormT = {
 }
 
 const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordFormT) => {
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ['userForgottenPasswordForm'],
     mutationFn: async (data: ForgottenPasswordFormFieldsT): Promise<ForgottenPasswordFormReturnDataT> => {
       const response = await axiosConfig.request({
@@ -43,6 +43,7 @@ const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswo
   };
 
   return {
+    isPending,
     onSubmit,
   };
 };

@@ -17,9 +17,9 @@ import {
 } from '@pages/Home/Home.types.ts';
 import { RegisterFormFieldsT } from './RegisterForm.types.ts';
 
-const RegisterForm = ({ formSelector, showModal, closeModal }: FormComponentPropT) => {
-  const { formState: { isSubmitting, errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
-  const { onSubmit } = useSubmitRegisterForm({ setError, showModal });
+const RegisterForm = ({ formSelector, showModal }: FormComponentPropT) => {
+  const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
+  const { isPending, onSubmit } = useSubmitRegisterForm({ setError, showModal });
 
   return (
     <FormContainer>
@@ -37,7 +37,7 @@ const RegisterForm = ({ formSelector, showModal, closeModal }: FormComponentProp
             name={'firstName'}
             autoComplete={'off'}
             placeholder={'Enter your first name'}
-            disabled={isSubmitting}
+            disabled={isPending}
           />
           {errors.firstName?.message && <ErrorMessage error={errors.firstName.message} />}
         </InputFieldStyles>
@@ -53,7 +53,7 @@ const RegisterForm = ({ formSelector, showModal, closeModal }: FormComponentProp
             name={'lastName'}
             autoComplete={'off'}
             placeholder={'Enter your last name'}
-            disabled={isSubmitting}
+            disabled={isPending}
           />
           {errors.lastName?.message && <ErrorMessage error={errors.lastName.message} />}
         </InputFieldStyles>
@@ -68,14 +68,14 @@ const RegisterForm = ({ formSelector, showModal, closeModal }: FormComponentProp
             name={'email'}
             autoComplete={'off'}
             placeholder={'Enter your email address'}
-            disabled={isSubmitting}
+            disabled={isPending}
           />
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
-          {isSubmitting ?
+          {isPending ?
             <LoadingIndicator message={'Your registration is being handled.'} /> :
-            <SubmitInput type={'submit'} value={'register'} disabled={isSubmitting} />
+            <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>

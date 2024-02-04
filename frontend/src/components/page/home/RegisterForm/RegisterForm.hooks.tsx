@@ -15,7 +15,7 @@ type RegisterFormT = {
 }
 
 const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ['userRegistrationForm'],
     mutationFn: async (data: RegisterFormFieldsT): Promise<void> => {
       await axiosConfig.request({
@@ -40,6 +40,7 @@ const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
   };
 
   return {
+    isPending,
     onSubmit,
   };
 };

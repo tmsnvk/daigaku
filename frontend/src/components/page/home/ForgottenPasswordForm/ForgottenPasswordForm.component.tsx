@@ -18,8 +18,8 @@ import {
 import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
 
 const ForgottenPasswordForm = ({ formSelector, showModal }: FormComponentPropT) => {
-  const { formState: { isLoading, isSubmitting, errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
-  const { onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
+  const { formState: { errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
+  const { isPending, onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
 
   return (
     <FormContainer>
@@ -36,14 +36,14 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: FormComponentPropT) 
             name={'email'}
             autoComplete={'off'}
             placeholder={'Enter your email address'}
-            disabled={isSubmitting}
+            disabled={isPending}
           />
           {errors.email?.message && <ErrorMessage error={errors.email.message} />}
         </InputFieldStyles>
         <article>
-          {isSubmitting ?
+          {isPending ?
             <LoadingIndicator message={'Your registration is being handled.'} /> :
-            <SubmitInput type={'submit'} value={'reset'} disabled={isSubmitting || isLoading} />
+            <SubmitInput type={'submit'} value={'reset'} disabled={isPending} />
           }
           {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
         </article>
