@@ -8,6 +8,12 @@ import {
 import { axiosConfigWithAuth } from '@configuration';
 import { getLocalStorageItem } from '@utilities';
 
+export enum AuthStatus {
+  Loading,
+  SignedIn,
+  SignedOut
+}
+
 export type AccountDataT = {
   email: string;
   firstName: string;
@@ -23,13 +29,15 @@ type AuthContextProviderT = {
 type AuthContextT = {
   account: AccountDataT;
   setAccount: (value: AccountDataT) => void;
+  authStatus: AuthStatus;
+  setAuthStatus: (value: AuthStatus) => void;
 }
 
 const AuthContext = createContext<AuthContextT>({} as AuthContextT);
 
 const AuthProvider = ({ children }: AuthContextProviderT) => {
   const [account, setAccount] = useState<AccountDataT>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.Loading);
 
   const getMe = async () => {
     try {
@@ -39,10 +47,9 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
       });
 
       setAccount(data.accountDataDto);
+      setAuthStatus(AuthStatus.SignedIn);
     } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+      setAuthStatus(AuthStatus.SignedOut);
     }
   };
 
@@ -50,7 +57,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     const token = getLocalStorageItem('token');
 
     if (!token) {
-      setLoading(false);
+      setAuthStatus(AuthStatus.SignedOut);
 
       return;
     }
@@ -61,8 +68,9 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
   return (
     <AuthContext.Provider value={{
       account, setAccount,
+      authStatus, setAuthStatus
     }}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

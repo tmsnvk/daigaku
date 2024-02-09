@@ -18,6 +18,8 @@ import theme from '@theme/theme.ts';
 import './index.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCircleExclamation, faCircleNotch, faEye, faEyeSlash, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { PrivateRoutes } from '@components/layout';
+import { AuthProvider } from '@context/AuthContext.tsx';
 library.add(faCircleExclamation, faCircleNotch, faEye, faEyeSlash, faSpinner);
 
 const queryClient = new QueryClient({
@@ -31,9 +33,15 @@ const queryClient = new QueryClient({
 });
 
 const router = createBrowserRouter(createRoutesFromElements(
+
   <Route errorElement={<ErrorPage />}>
     <Route path={'/'}>
       <Route index element={<HomePage />} />
+    </Route>
+    <Route>
+      <Route element={<PrivateRoutes />}>
+        <Route element={<div>DUMMY DASHBOARD</div>} path={'/dashboard'} />
+      </Route>
     </Route>
   </Route>,
 ));
@@ -43,7 +51,9 @@ const Application = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

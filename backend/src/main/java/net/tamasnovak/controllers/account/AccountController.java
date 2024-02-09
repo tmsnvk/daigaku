@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -110,9 +111,9 @@ public class AccountController {
       throw new FormErrorException(accountControllerMessages.LOGIN_ERROR_MESSAGE);
     }
 
-    Account foundAccount = accountService.findUserByEmail(loginData.email());
+    Account foundAccount = accountService.findUserByEmail(loginData.email().toLowerCase());
 
-    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password());
+    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginData.email().toLowerCase(), loginData.password());
     Authentication authentication = authenticationManager.authenticate(auth);
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
