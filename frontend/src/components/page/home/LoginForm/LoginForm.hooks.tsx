@@ -5,7 +5,8 @@ import {
   UseFormSetError,
 } from 'react-hook-form';
 import {
-  AuthStatus,
+  AccountDataT,
+  AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
 import { axiosConfig } from '@configuration';
@@ -14,6 +15,7 @@ import {
   LoginFormFieldsT,
   LoginFormReturnDataT,
 } from './LoginForm.types.ts';
+import { getAuthAccountRole } from '@utilities';
 
 type LoginFormT = {
   setError: UseFormSetError<LoginFormFieldsT>;
@@ -36,8 +38,14 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
     },
     onSuccess: (data: LoginFormReturnDataT) => {
       localStorage.setItem('token', data.jwtResponse.jwt);
-      setAccount(data.accountDataDto);
-      setAuthStatus(AuthStatus.SignedIn);
+
+      const userData: AccountDataT = {
+        ...data.accountDataDto,
+        accountRole: getAuthAccountRole(data.jwtResponse.roles[0]),
+      };
+
+      setAccount(userData);
+      setAuthStatus(AuthStatusE.SignedIn);
 
       navigate('/dashboard');
     },

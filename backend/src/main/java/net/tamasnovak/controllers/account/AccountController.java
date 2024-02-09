@@ -65,7 +65,7 @@ public class AccountController {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     Account foundAccount = accountService.findUserByEmail(userDetails.getUsername());
-    List<String> userRoles = userDetails.getAuthorities()
+    List<String> accountRoles = userDetails.getAuthorities()
       .stream()
       .map(GrantedAuthority::getAuthority)
       .toList();
@@ -79,7 +79,8 @@ public class AccountController {
     );
 
     AccountGetMeDto accountGetMeDto = new AccountGetMeDto(
-      accountDataDto
+      accountDataDto,
+      accountRoles
     );
 
     return new ResponseEntity<>(accountGetMeDto, HttpStatus.OK);
