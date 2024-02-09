@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const MainContainer = styled.main`
   width: 50rem;
-  //height: 65rem;
   margin: 10% auto 0 auto;
   padding: 5rem 2.5rem 7.5rem 2.5rem;
   text-align: center;

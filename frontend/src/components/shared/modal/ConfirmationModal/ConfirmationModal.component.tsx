@@ -2,7 +2,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import GenericTextParagraph from '@components/shared/general/GenericTextParagraph';
+import { GenericTextParagraph } from '@components/shared/general';
 import { SubmitInput } from '@components/shared/form';
 import DefaultDialogStyles from '../DefaultDialogStyles';
 

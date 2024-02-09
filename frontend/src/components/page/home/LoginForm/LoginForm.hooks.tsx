@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { SubmitHandler, UseFormSetError, } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormSetError,
+} from 'react-hook-form';
 import {
   AuthStatus,
   useAuth,
