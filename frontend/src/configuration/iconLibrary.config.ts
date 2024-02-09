@@ -9,6 +9,7 @@ const iconLibraryConfig: IconLibraryConfigT = {
   faCircleNotch: { prefix: 'fas', iconName: 'circle-notch' },
   faEye: { prefix: 'fas', iconName: 'eye' },
   faEyeSlash: { prefix: 'fas', iconName: 'eye-slash' },
+  faGraduationCap: { prefix: 'fas', iconName: 'graduation-cap' },
   faSpinner: { prefix: 'fas', iconName: 'spinner' },
 };
 
