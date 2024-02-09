@@ -4,6 +4,6 @@ import net.tamasnovak.dtos.account.response.AccountDataDto;
 import net.tamasnovak.security.JwtResponse;
 
 public record AccountLoginReturnDto(
-  AccountDataDto accountData,
+  AccountDataDto accountDataDto,
   JwtResponse jwtResponse
 ) {}

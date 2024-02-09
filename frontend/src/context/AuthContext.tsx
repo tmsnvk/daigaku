@@ -14,7 +14,7 @@ export type AccountDataT = {
   lastName: string;
   registeredAt: string;
   lastUpdatedAt: string;
-}
+} | null;
 
 type AuthContextProviderT = {
   children: ReactNode;
@@ -27,16 +27,8 @@ type AuthContextT = {
 
 const AuthContext = createContext<AuthContextT>({} as AuthContextT);
 
-const accountInitialState = {
-  email: '',
-  firstName: '',
-  lastName: '',
-  registeredAt: '',
-  lastUpdatedAt: '',
-};
-
 const AuthProvider = ({ children }: AuthContextProviderT) => {
-  const [account, setAccount] = useState<AccountDataT>(accountInitialState);
+  const [account, setAccount] = useState<AccountDataT>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const getMe = async () => {
@@ -46,7 +38,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
         url: '/api/users/me',
       });
 
-      setAccount(data);
+      setAccount(data.accountDataDto);
     } catch (error) {
       console.error(error);
     } finally {
