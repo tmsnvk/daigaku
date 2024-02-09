@@ -8,6 +8,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { PrivateRoutes } from '@components/layout';
+import { AuthProvider } from '@context/AuthContext.tsx';
 import {
   ErrorPage,
   HomePage,
@@ -35,6 +37,11 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path={'/'}>
       <Route index element={<HomePage />} />
     </Route>
+    <Route>
+      <Route element={<PrivateRoutes />}>
+        <Route element={<div>DUMMY DASHBOARD</div>} path={'/dashboard'} />
+      </Route>
+    </Route>
   </Route>,
 ));
 
@@ -43,7 +50,9 @@ const Application = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

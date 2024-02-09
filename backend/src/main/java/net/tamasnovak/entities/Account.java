@@ -1,10 +1,15 @@
 package net.tamasnovak.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -55,11 +61,19 @@ public final class Account {
   @NotBlank
   private String hashedPassword;
 
-  public Account(String firstName, String lastName, String email, String hashedPassword) {
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
+    name = "accounts_roles_join",
+    joinColumns = { @JoinColumn(name = "account_id") },
+    inverseJoinColumns = { @JoinColumn(name = "role_id") }
+  )
+  private Set<Role> roles;
+
+  public Account(String firstName, String lastName, String email, String hashedPassword, Set<Role> roles) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.hashedPassword = hashedPassword;
+    this.roles = roles;
   }
 }
-// TODO - add roles join table link

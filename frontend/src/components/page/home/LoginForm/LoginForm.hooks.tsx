@@ -1,8 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
   SubmitHandler,
   UseFormSetError,
 } from 'react-hook-form';
+import {
+  AuthStatus,
+  useAuth,
+} from '@context/AuthContext.tsx';
 import { axiosConfig } from '@configuration';
 import {
   LoginFormErrorT,
@@ -15,7 +20,10 @@ type LoginFormT = {
 }
 
 const useSubmitLoginForm = ({ setError }: LoginFormT) => {
-  const { mutate, isPending, reset } = useMutation({
+  const { setAccount, setAuthStatus } = useAuth();
+  const navigate = useNavigate();
+
+  const { mutate, isPending } = useMutation({
     mutationKey: ['userLoginForm'],
     mutationFn: async (data: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
       const response = await axiosConfig.request({
@@ -27,8 +35,11 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
       return response.data;
     },
     onSuccess: (data: LoginFormReturnDataT) => {
-      // TODO - set data to context
-      reset();
+      localStorage.setItem('token', data.jwtResponse.jwt);
+      setAccount(data.accountDataDto);
+      setAuthStatus(AuthStatus.SignedIn);
+
+      navigate('/dashboard');
     },
     onError: (error: LoginFormErrorT) => {
       setError('root.serverError', {
