@@ -4,8 +4,7 @@ import {
 } from 'react';
 import GenericTextParagraph from '@components/shared/general/GenericTextParagraph';
 import { SubmitInput } from '@components/shared/form';
-import theme from '@theme/theme.ts';
-import { DialogContainer } from './ConfirmationModal.styles.ts';
+import DefaultDialogStyles from '../DefaultDialogStyles';
 
 type ComponentPropT = {
   isVisible: boolean;
@@ -27,10 +26,10 @@ const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropT) =
   }, [isVisible]);
 
   return (
-    <DialogContainer ref={dialogRef}>
-      <GenericTextParagraph content={message} fontSize={theme.fontSize.large} />
+    <DefaultDialogStyles ref={dialogRef}>
+      <GenericTextParagraph content={message} />
       <SubmitInput type={'button'} value={'ok'} onClick={closeModal} />
-    </DialogContainer>
+    </DefaultDialogStyles>
   );
 };
 

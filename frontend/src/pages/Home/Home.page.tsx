@@ -22,6 +22,7 @@ const HomePage = () => {
   }
 
   return (
+    authStatus === AuthStatus.SignedOut &&
     <MainContainer>
       {renderFormComponent()}
       {
