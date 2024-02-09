@@ -60,7 +60,7 @@ public class AccountController {
 
   @GetMapping(value = "/me", produces = "application/json")
   @ResponseStatus(HttpStatus.OK)
-  @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+  @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'ADMIN')")
   public ResponseEntity<AccountGetMeDto> findUser() {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
