@@ -5,9 +5,9 @@ const DefaultNavbarStyles = styled.header`
   box-shadow: 0 0.1rem 1.5rem 0 ${(props) => props.theme.color.primaryDark};
   
   & nav {
-    width: 75%;
-    margin: 0 auto;
+    width: 85%;
     height: 7.5rem;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,19 +18,18 @@ const DefaultNavbarStyles = styled.header`
       color: inherit;
       
       & svg {
-        margin: 0 1rem 0 0;
+        margin: 0 1.5rem 0 0;
       }
     }
     
     & ul {
       display: flex;
       flex-direction: row;
-      justify-content: flex-end;
 
       & li {
-        margin: 0 2.5rem 0 2.5rem;
-        font-size: 2.5rem;
-        font-weight: 800;
+        margin: 0 3.5rem 0 3.5rem;
+        font-size: 2rem;
+        font-weight: 600;
         letter-spacing: 0.2rem;
 
         &:hover {
@@ -40,6 +39,10 @@ const DefaultNavbarStyles = styled.header`
 
         & a {
           color: inherit;
+        }
+        
+        & svg {
+          margin: 0 1.5rem 0 0;
         }
       }
     }
