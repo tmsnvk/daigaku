@@ -6,12 +6,21 @@ import {
   useState,
 } from 'react';
 import { axiosConfigWithAuth } from '@configuration';
-import { getLocalStorageItem } from '@utilities';
+import {
+  getAuthAccountRole,
+  getLocalStorageItem,
+} from '@utilities';
 
-export enum AuthStatus {
+export enum AuthStatusE {
   Loading,
   SignedIn,
-  SignedOut
+  SignedOut,
+}
+
+export enum AccountRoleE {
+  Student,
+  Mentor,
+  Admin,
 }
 
 export type AccountDataT = {
@@ -20,7 +29,8 @@ export type AccountDataT = {
   lastName: string;
   registeredAt: string;
   lastUpdatedAt: string;
-} | null;
+  accountRole: AccountRoleE | typeof AccountRoleE;
+}
 
 type AuthContextProviderT = {
   children: ReactNode;
@@ -29,15 +39,24 @@ type AuthContextProviderT = {
 type AuthContextT = {
   account: AccountDataT;
   setAccount: (value: AccountDataT) => void;
-  authStatus: AuthStatus;
-  setAuthStatus: (value: AuthStatus) => void;
+  authStatus: AuthStatusE;
+  setAuthStatus: (value: AuthStatusE) => void;
 }
+
+const initialAccountState = {
+  email: '',
+  firstName: '',
+  lastName: '',
+  registeredAt: '',
+  lastUpdatedAt: '',
+  accountRole: AccountRoleE,
+};
 
 const AuthContext = createContext<AuthContextT>({} as AuthContextT);
 
 const AuthProvider = ({ children }: AuthContextProviderT) => {
-  const [account, setAccount] = useState<AccountDataT>(null);
-  const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.Loading);
+  const [account, setAccount] = useState<AccountDataT>(initialAccountState);
+  const [authStatus, setAuthStatus] = useState<AuthStatusE>(AuthStatusE.Loading);
 
   const getMe = async () => {
     try {
@@ -46,10 +65,15 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
         url: '/api/users/me',
       });
 
-      setAccount(data.accountDataDto);
-      setAuthStatus(AuthStatus.SignedIn);
+      const userData: AccountDataT = {
+        ...data.accountDataDto,
+        accountRole: getAuthAccountRole(data.accountRoles),
+      };
+
+      setAccount(userData);
+      setAuthStatus(AuthStatusE.SignedIn);
     } catch (error) {
-      setAuthStatus(AuthStatus.SignedOut);
+      setAuthStatus(AuthStatusE.SignedOut);
     }
   };
 
@@ -57,7 +81,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     const token = getLocalStorageItem('token');
 
     if (!token) {
-      setAuthStatus(AuthStatus.SignedOut);
+      setAuthStatus(AuthStatusE.SignedOut);
 
       return;
     }

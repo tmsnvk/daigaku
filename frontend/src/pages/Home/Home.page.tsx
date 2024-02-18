@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import {
-  AuthStatus,
+  AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
 import {
@@ -17,12 +17,12 @@ const HomePage = () => {
   const { isConfirmationModalVisible, showModalAfterSuccessFulSubmission, closeModal } = useShowConfirmationModal();
   const { activeFormType, renderFormComponent } = useRenderSelectedFormComponent({ showModalAfterSuccessFulSubmission });
 
-  if (authStatus === AuthStatus.SignedIn) {
+  if (authStatus === AuthStatusE.SignedIn) {
     return <Navigate to={'/dashboard'} />;
   }
 
   return (
-    authStatus === AuthStatus.SignedOut &&
+    authStatus === AuthStatusE.SignedOut &&
     <MainContainer>
       {renderFormComponent()}
       {

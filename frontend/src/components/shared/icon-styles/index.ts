@@ -1,7 +1,7 @@
 import LabelIcon from './LabelIcon';
-import LoadingSpinnerIcon from './LoadingSpinnerIcon';
+import GeneralIcon from './GeneralIcon';
 
 export {
   LabelIcon,
-  LoadingSpinnerIcon,
+  GeneralIcon,
 };

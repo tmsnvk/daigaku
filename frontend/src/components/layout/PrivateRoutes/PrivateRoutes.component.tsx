@@ -1,22 +1,20 @@
+import { Navigate } from 'react-router-dom';
 import {
-  Navigate,
-  Outlet,
-} from 'react-router-dom';
-import {
-  AuthStatus,
+  AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
+import { AuthNavbar } from '@components/layout';
 import { GlobalLoadingModal } from '@components/shared/modal';
 
 const PrivateRoutes = () => {
   const { authStatus } = useAuth();
 
-  if (authStatus === AuthStatus.Loading) {
+  if (authStatus === AuthStatusE.Loading) {
     return <GlobalLoadingModal />;
   }
 
   return (
-    authStatus === AuthStatus.SignedIn ? <Outlet /> : <Navigate to={'/'} replace />
+    authStatus === AuthStatusE.SignedIn ? <AuthNavbar /> : <Navigate to={'/'} replace />
   );
 };
 
