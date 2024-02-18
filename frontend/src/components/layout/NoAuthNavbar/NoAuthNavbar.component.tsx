@@ -2,7 +2,7 @@ import {
   Link,
   Outlet,
 } from 'react-router-dom';
-import { LoadingSpinnerIcon } from '@components/shared/icon-styles';
+import { GeneralIcon } from '@components/shared/icon-styles';
 import DefaultNavbarStyles from '../DefaultNavbarStyles';
 import { iconLibraryConfig } from '@configuration';
 
@@ -12,7 +12,7 @@ const NoAuthNavbar = () => {
       <DefaultNavbarStyles>
         <nav>
           <Link to={'/'}>
-            <LoadingSpinnerIcon icon={iconLibraryConfig.faGraduationCap} />
+            <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </Link>
           <ul>
