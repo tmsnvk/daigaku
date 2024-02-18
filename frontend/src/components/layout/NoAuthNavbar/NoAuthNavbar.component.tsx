@@ -17,7 +17,10 @@ const NoAuthNavbar = () => {
           </Link>
           <ul>
             <li>
-              <Link to={'/contact'}>Contact us</Link>
+              <Link to={'/contact'}>
+                <GeneralIcon icon={iconLibraryConfig.faPaperPlane} />
+                Contact us
+              </Link>
             </li>
           </ul>
         </nav>
