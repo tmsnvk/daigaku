@@ -30,7 +30,7 @@ export type AccountDataT = {
   registeredAt: string;
   lastUpdatedAt: string;
   accountRole: AccountRoleE | typeof AccountRoleE;
-};
+}
 
 type AuthContextProviderT = {
   children: ReactNode;
