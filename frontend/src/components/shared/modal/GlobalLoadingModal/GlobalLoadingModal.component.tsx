@@ -5,7 +5,7 @@ import { iconLibraryConfig } from '@configuration';
 const GlobalLoadingModal = () => {
   return (
     <DialogContainer>
-      <p>The application is looking for your data... please wait.</p>
+      <p>The application is compiling your data... please wait.</p>
       <GeneralIcon icon={iconLibraryConfig.faSpinner} spin />
     </DialogContainer>
   );
