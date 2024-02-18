@@ -1,7 +1,14 @@
+import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { AccountRoleE } from '@context/AuthContext.tsx';
 import { iconLibraryConfig } from '@configuration';
 
-const navbarContent = {
+export type NavbarContentT = {
+  url: string;
+  icon: IconLookup;
+  content: string;
+}
+
+const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
   [AccountRoleE.Student]: [
     {
       url: '/new-application',
