@@ -1,3 +1,3 @@
-import NewApplicationPage from './NewApplication.component.tsx';
+import NewApplicationPage from './NewApplication.page.tsx';
 
 export default NewApplicationPage;
