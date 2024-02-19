@@ -8,11 +8,17 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { FormGridContainer } from './NewApplicationForm.styles.ts';
+import {
+  FormGridContainer,
+  InputInfoBox,
+} from './NewApplicationForm.styles.ts';
 import {
   NewApplicationFormFieldsT,
   UniversitiesT,
 } from './NewApplicationForm.types.ts';
+import {
+  universityInformation,
+} from './NewApplicationForm.utilities.ts';
 
 const NewApplicationForm = () => {
   const { data, isLoading, isError } = useGetUniversities();
@@ -33,14 +39,14 @@ const NewApplicationForm = () => {
             autoComplete={'off'}
             disabled={isPending}
           >
+            <option hidden>Select the university of your choice</option>
             {data && data.map((option: UniversitiesT) => {
               return (
                 <option
                   key={option.uuid}
                   value={option.name}
-                  hidden={option.name === ''}
                 >
-                  {option.name}
+                  {`${option.name} - ${option.abbreviation}`}
                 </option>
               );
             })}
@@ -66,15 +72,19 @@ const NewApplicationForm = () => {
         {/*  {errors.university?.message && <ErrorMessage error={errors.university.message} />}*/}
         {/*</InputFieldStyles>*/}
       </section>
-      <section>
-        Dummy info about the input field in the same row.
-      </section>
+      <InputInfoBox>
+        <p>
+          {universityInformation}
+        </p>
+      </InputInfoBox>
       <section>
         ROW 3
       </section>
-      <section>
-        ROW 4
-      </section>
+      <InputInfoBox>
+        <p>
+          ROW 4
+        </p>
+      </InputInfoBox>
     </FormGridContainer>
   );
 };
