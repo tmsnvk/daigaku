@@ -5,7 +5,7 @@ export type UniversitiesT = {
   uuid: string;
   name: string;
   abbreviation: string;
-  countryCode: string;
+  country: string;
 }
 
 const getUniversities = async () => {
@@ -29,8 +29,8 @@ const useGetUniversities = () => {
 
   return {
     universityData: query.data,
-    isLoading: query.isLoading,
-    isError: query.isError,
+    isUniversityDataLoading: query.isLoading,
+    isUniversityDataError: query.isError,
   };
 };
 

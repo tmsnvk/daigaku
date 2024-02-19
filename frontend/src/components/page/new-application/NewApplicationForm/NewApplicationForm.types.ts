@@ -1,11 +1,5 @@
-export type UniversitiesT = {
-  uuid: string;
-  name: string;
-  abbreviation: string;
-  countryCode: string;
-}
-
 export type NewApplicationFormFieldsT = {
+  country: string;
   university: string;
   courseName: string;
 }

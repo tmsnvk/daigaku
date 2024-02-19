@@ -1,7 +1,4 @@
-import {
-  useMutation,
-  useQuery,
-} from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import {
   SubmitHandler,
   UseFormSetError,
@@ -10,7 +7,6 @@ import { axiosConfigWithAuth } from '@configuration';
 import {
   NewApplicationFormErrorT,
   NewApplicationFormFieldsT,
-  UniversitiesT,
 } from './NewApplicationForm.types.ts';
 
 type NewApplicationFormT = {
@@ -47,33 +43,6 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
   };
 };
 
-const getUniversities = async () => {
-  try {
-    const { data }: { data: UniversitiesT[] } = await axiosConfigWithAuth.request({
-      method: 'GET',
-      url: 'api/universities',
-    });
-
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const useGetUniversities = () => {
-  const query = useQuery({
-    queryKey: ['getUniversities'],
-    queryFn: () => getUniversities(),
-  });
-
-  return {
-    data: query.data,
-    isLoading: query.isLoading,
-    isError: query.isError,
-  };
-};
-
 export {
   useSubmitNewApplicationForm,
-  useGetUniversities,
 };
