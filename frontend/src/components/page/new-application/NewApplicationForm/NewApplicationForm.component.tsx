@@ -17,6 +17,7 @@ import {
   UniversitiesT,
 } from './NewApplicationForm.types.ts';
 import {
+  courseNameInformation,
   universityInformation,
 } from './NewApplicationForm.utilities.ts';
 
@@ -53,24 +54,6 @@ const NewApplicationForm = () => {
           </select>
           {errors.university?.message && <ErrorMessage error={errors.university.message} />}
         </InputFieldStyles>
-        {/*<InputFieldStyles $isError={errors.university?.message !== undefined}>*/}
-        {/*  <InputLabel*/}
-        {/*    inputId={'university'}*/}
-        {/*    content={'University'}*/}
-        {/*  />*/}
-        {/*  <input*/}
-        {/*    {...register('university', {*/}
-        {/*      required: { value: true, message: 'Selecting a university is required.' },*/}
-        {/*    })}*/}
-        {/*    type={'text'}*/}
-        {/*    id={'university'}*/}
-        {/*    name={'university'}*/}
-        {/*    autoComplete={'off'}*/}
-        {/*    placeholder={'Select the university from the list.'}*/}
-        {/*    disabled={isPending}*/}
-        {/*  />*/}
-        {/*  {errors.university?.message && <ErrorMessage error={errors.university.message} />}*/}
-        {/*</InputFieldStyles>*/}
       </section>
       <InputInfoBox>
         <p>
@@ -78,11 +61,28 @@ const NewApplicationForm = () => {
         </p>
       </InputInfoBox>
       <section>
-        ROW 3
+        <InputFieldStyles $isError={errors.courseName?.message !== undefined}>
+          <InputLabel
+            inputId={'courseName'}
+            content={'Course Name'}
+          />
+          <input
+            {...register('courseName', {
+              required: { value: true, message: 'Providing the name of your selected course is required.' },
+            })}
+            type={'text'}
+            id={'courseName'}
+            name={'courseName'}
+            autoComplete={'off'}
+            placeholder={'Provide the course of your choice.'}
+            disabled={isPending}
+          />
+          {errors.courseName?.message && <ErrorMessage error={errors.courseName.message} />}
+        </InputFieldStyles>
       </section>
       <InputInfoBox>
         <p>
-          ROW 4
+          {courseNameInformation}
         </p>
       </InputInfoBox>
     </FormGridContainer>

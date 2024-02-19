@@ -39,6 +39,10 @@ const InputFieldStyles = styled.article<InputFieldT>`
       color: transparent;
     }
   }
+  
+  & select {
+    cursor: pointer;
+  }
 `;
 
 export default InputFieldStyles;

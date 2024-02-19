@@ -6,7 +6,7 @@ const FormGridContainer = styled.form`
   grid-template-rows: auto;
   column-gap: 5rem;
   row-gap: 5rem;
-  width: 85%;
+  width: 55%;
   margin: 10% auto 0 auto;
   padding: 10rem 5rem 10rem 5rem;
   justify-items: center;
@@ -17,7 +17,7 @@ const FormGridContainer = styled.form`
 `;
 
 const InputInfoBox = styled.section`
-  padding: 2rem 1rem 2rem 1rem;
+  padding: 2rem 1.5rem 2rem 1.5rem;
   background-color: ${(props) => props.theme.color.secondaryLight};
   border: 0.2rem solid ${(props) => props.theme.color.primaryDark};
   border-radius: 1.25rem;

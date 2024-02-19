@@ -7,6 +7,7 @@ export type UniversitiesT = {
 
 export type NewApplicationFormFieldsT = {
   university: string;
+  courseName: string;
 }
 
 export type NewApplicationFormErrorT = {
