@@ -59,6 +59,7 @@ public class WebSecurity {
       .authorizeHttpRequests(config -> config
         .requestMatchers("/api/users/**").permitAll()
         .requestMatchers("/api/universities/**").authenticated()
+        .requestMatchers("/api/countries/**").authenticated()
         .anyRequest().authenticated()
       );
     http.authenticationProvider(authenticationProvider());

@@ -23,6 +23,14 @@ VALUES
   (1, 3);
 
 
+-- INSERT COUNTRIES
+INSERT INTO countries
+  (id, uuid, created_at, last_updated_at, name)
+VALUES
+  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Denmark'),
+  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Great Britain'),
+  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'United States');
+
 -- INSERT UNIVERSITIES
 INSERT INTO universities
   (id, uuid, created_at, last_updated_at, name, abbreviation, country, address)

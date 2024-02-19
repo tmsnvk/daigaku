@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS pending_accounts CASCADE;
 DROP TABLE IF EXISTS accounts_roles_join CASCADE;
 DROP TABLE IF EXISTS pending_account_registrations CASCADE;
 DROP TABLE IF EXISTS universities CASCADE;
-
+DROP TABLE IF EXISTS countries CASCADE;
 
 -- DATABASE SET UP
 CREATE TABLE roles(
@@ -38,6 +38,14 @@ CREATE TABLE pending_account_registrations(
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE countries(
+  id SERIAL PRIMARY KEY,
+  uuid UUID DEFAULT gen_random_uuid(),
+  created_at TIMESTAMP DEFAULT now(),
+  last_updated_at TIMESTAMP DEFAULT now(),
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE universities(
