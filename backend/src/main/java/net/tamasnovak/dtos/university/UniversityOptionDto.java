@@ -6,5 +6,5 @@ public record UniversityOptionDto(
   UUID uuid,
   String name,
   String abbreviation,
-  String countryCode
+  String country
 ) {}

@@ -36,7 +36,7 @@ public class UniversityController {
         university.getUuid(),
         university.getName(),
         university.getAbbreviation(),
-        university.getCountryCode()
+        university.getCountry()
       );
 
       universityOptions.add(universityOptionDto);

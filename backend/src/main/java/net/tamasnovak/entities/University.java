@@ -28,7 +28,7 @@ public final class University {
   @org.hibernate.validator.constraints.UUID
   private java.util.UUID uuid;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", updatable = false)
   @PastOrPresent
   private Timestamp createdAt;
 
@@ -42,16 +42,16 @@ public final class University {
   @Column(name = "abbreviation")
   private String abbreviation;
 
-  @Column(name = "country_code")
-  private String countryCode;
+  @Column(name = "country")
+  private String country;
 
   @Column(name = "address")
   private String address;
 
-  public University(String name, String abbreviation, String countryCode, String address) {
+  public University(String name, String abbreviation, String country, String address) {
     this.name = name;
     this.abbreviation = abbreviation;
-    this.countryCode = countryCode;
+    this.country = country;
     this.address = address;
   }
 }

@@ -47,6 +47,6 @@ CREATE TABLE universities(
   last_updated_at TIMESTAMP DEFAULT now(),
   name VARCHAR(255) NOT NULL,
   abbreviation VARCHAR(255) NOT NULL,
-  country_code VARCHAR(3) NOT NULL,
+  country VARCHAR(255) NOT NULL,
   address VARCHAR(255)
 );
