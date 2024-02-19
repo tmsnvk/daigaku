@@ -20,7 +20,7 @@ INSERT INTO accounts_roles_join
 VALUES
   (3, 1),
   (2, 2),
-  (1, 2);
+  (1, 3);
 
 
 --
