@@ -11,7 +11,8 @@ const InputFieldStyles = styled.article<InputFieldT>`
   align-items: center;
   margin: 0 0 1.5rem 0;
   
-  & input {
+  & input,
+  & select {
     width: 35rem;
     height: 5rem;
     padding: 0 0 0 2.5rem;
