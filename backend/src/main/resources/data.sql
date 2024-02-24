@@ -33,12 +33,14 @@ VALUES
 
 -- INSERT UNIVERSITIES
 INSERT INTO universities
-  (id, uuid, created_at, last_updated_at, name, abbreviation, country, address)
+  (id, country_id, uuid, created_at, last_updated_at, name, abbreviation, country, address)
 VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Aarhus University', 'AU', 'Denmark', ''),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'University of Oxford', 'UO', 'Great Britain', ''),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'Roskilde University', 'RUC', 'Denmark', ''),
-  (4, gen_random_uuid(), current_timestamp, current_timestamp, 'New York University', 'NYU', 'United States', '');
+  (1, 1, gen_random_uuid(), current_timestamp, current_timestamp, 'Aarhus University', 'AU', 'Denmark', ''),
+  (2, 1, gen_random_uuid(), current_timestamp, current_timestamp, 'Roskilde University', 'RUC', 'Denmark', ''),
+  (3, 1, gen_random_uuid(), current_timestamp, current_timestamp, 'University of Copenhagen', 'KU', 'Denmark', ''),
+  (4, 2, gen_random_uuid(), current_timestamp, current_timestamp, 'University of Oxford', 'UO', 'Great Britain', ''),
+  (5, 3, gen_random_uuid(), current_timestamp, current_timestamp, 'New York University', 'NYU', 'United States', ''),
+  (6, 3, gen_random_uuid(), current_timestamp, current_timestamp, 'Harvard University', 'HU', 'United States', '');
 
 
 --
