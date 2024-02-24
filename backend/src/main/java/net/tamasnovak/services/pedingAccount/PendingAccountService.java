@@ -2,7 +2,7 @@ package net.tamasnovak.services.pedingAccount;
 
 import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
 import net.tamasnovak.entities.PendingAccount;
-import net.tamasnovak.exception.FormErrorException;
+import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.repositories.PendingAccountRepository;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.stereotype.Service;

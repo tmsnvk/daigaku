@@ -1,7 +1,7 @@
 package net.tamasnovak.services.account;
 
 import net.tamasnovak.entities.Account;
-import net.tamasnovak.exception.FormErrorException;
+import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
