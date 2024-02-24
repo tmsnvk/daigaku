@@ -47,13 +47,13 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
 const useCheckFieldDisableStatus = () => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(true);
 
-  const handleCountrySelection = () => {
+  const handleCountrySelectionStatus = () => {
     setIsCountrySelected(false);
   };
 
   return {
     isCountrySelected,
-    handleCountrySelection,
+    handleCountrySelectionStatus,
   };
 };
 

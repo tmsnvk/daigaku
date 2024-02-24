@@ -30,7 +30,7 @@ type ComponentPropsT = {
 const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitNewApplicationForm({ setError });
-  const { isCountrySelected, handleCountrySelection } = useCheckFieldDisableStatus();
+  const { isCountrySelected, handleCountrySelectionStatus } = useCheckFieldDisableStatus();
 
   return (
     <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
@@ -47,7 +47,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
             disabled={isPending}
             onChange={(event) => {
               onCountryClick(event.target.value);
-              handleCountrySelection();
+              handleCountrySelectionStatus();
             }}
           >
             <option hidden value={''}>Select the country of your choice</option>
@@ -55,7 +55,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
               return (
                 <option
                   key={option.uuid}
-                  value={option.name}
+                  value={option.uuid}
                 >
                   {option.name}
                 </option>

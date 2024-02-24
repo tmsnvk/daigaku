@@ -10,20 +10,20 @@ import {
 
 const NewApplicationPage = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
-  const [selectedCountry, setSelectedCountry] = useState<string>('');
+  const [selectedCountryId, setSelectedCountryId] = useState<string>('');
   const { countryData, isCountryDataLoading, isCountryDataError } = useGetCountries();
-  const { universityData, isUniversityDataLoading, isUniversityDataError, refetch } = useGetUniversities(isCountryFieldSelected, selectedCountry);
+  const { universityData, isUniversityDataLoading, isUniversityDataError, refetch } = useGetUniversities(isCountryFieldSelected, selectedCountryId);
 
-  const handleCountryField = (country: string) => {
+  const handleCountryField = (countryId: string) => {
     setIsCountryFieldSelected(true);
-    setSelectedCountry(country);
+    setSelectedCountryId(countryId);
   };
 
   useEffect(() => {
     if (isCountryFieldSelected) {
       refetch();
     }
-  }, [selectedCountry]);
+  }, [selectedCountryId]);
 
   return (
     <main>
