@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import {
   SubmitHandler,
@@ -8,7 +9,6 @@ import {
   NewApplicationFormErrorT,
   NewApplicationFormFieldsT,
 } from './NewApplicationForm.types.ts';
-import { useState } from 'react';
 
 type NewApplicationFormT = {
   setError: UseFormSetError<NewApplicationFormFieldsT>;
@@ -20,7 +20,7 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<void> => {
       await axiosConfigWithAuth.request({
         method: 'POST',
-        url: '/api/',
+        url: '/api/', // todo - implement endpoint
         data,
       });
     },

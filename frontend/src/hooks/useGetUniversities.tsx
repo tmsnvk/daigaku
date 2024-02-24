@@ -23,7 +23,7 @@ const getUniversities = async (selectedCountryId: string) => {
 
 const useGetUniversities = (isCountryFieldSelected: boolean, selectedCountryId: string) => {
   const query = useQuery({
-    queryKey: ['getUniversities'],
+    queryKey: ['getUniversities', selectedCountryId],
     queryFn: () => getUniversities(selectedCountryId),
     enabled: isCountryFieldSelected,
   });
@@ -32,7 +32,6 @@ const useGetUniversities = (isCountryFieldSelected: boolean, selectedCountryId: 
     universityData: query.data,
     isUniversityDataLoading: query.isLoading,
     isUniversityDataError: query.isError,
-    refetch: query.refetch,
   };
 };
 
