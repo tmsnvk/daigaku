@@ -6,18 +6,16 @@ import {
 import {
   ErrorMessage,
   InputFieldStyles,
+  InputInfoBox,
   InputLabel,
 } from '@components/shared/form';
-import {
-  FormGridContainer,
-  InputInfoBox,
-} from './NewApplicationForm.styles.ts';
+import { FormGridContainer } from './NewApplicationForm.styles.ts';
 import { CountriesT } from '@hooks/useGetCountries.tsx';
 import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
   countryInformation,
-  courseNameInformation,
+  majorSubjectInformation,
   universityInformation,
 } from './NewApplicationForm.utilities.ts';
 
@@ -65,11 +63,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           {errors.country?.message && <ErrorMessage error={errors.country.message}/>}
         </InputFieldStyles>
       </section>
-      <InputInfoBox>
-        <p>
-          {countryInformation}
-        </p>
-      </InputInfoBox>
+      <InputInfoBox content={countryInformation} />
       <section>
         <InputFieldStyles $isError={errors.university?.message !== undefined}>
           <InputLabel inputId={'university'} content={'University'} />
@@ -97,33 +91,25 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           {errors.university?.message && <ErrorMessage error={errors.university.message} />}
         </InputFieldStyles>
       </section>
-      <InputInfoBox>
-        <p>
-          {universityInformation}
-        </p>
-      </InputInfoBox>
+      <InputInfoBox content={universityInformation} />
       <section>
-        <InputFieldStyles $isError={errors.courseName?.message !== undefined}>
-          <InputLabel inputId={'courseName'} content={'Course Name'} />
+        <InputFieldStyles $isError={errors.majorSubject?.message !== undefined}>
+          <InputLabel inputId={'majorSubject'} content={'Course Name'} />
           <input
-            {...register('courseName', {
+            {...register('majorSubject', {
               required: { value: true, message: 'Providing the name of your selected course is required.' },
             })}
             type={'text'}
-            id={'courseName'}
-            name={'courseName'}
+            id={'majorSubject'}
+            name={'majorSubject'}
             autoComplete={'off'}
             placeholder={'Provide the course of your choice.'}
             disabled={isPending}
           />
-          {errors.courseName?.message && <ErrorMessage error={errors.courseName.message} />}
+          {errors.majorSubject?.message && <ErrorMessage error={errors.majorSubject.message} />}
         </InputFieldStyles>
       </section>
-      <InputInfoBox>
-        <p>
-          {courseNameInformation}
-        </p>
-      </InputInfoBox>
+      <InputInfoBox content={majorSubjectInformation} />
     </FormGridContainer>
   );
 };

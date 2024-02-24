@@ -16,18 +16,6 @@ const FormGridContainer = styled.form`
   box-shadow: 0.25rem 0.25rem 1rem ${(props) => props.theme.color.primaryDark};
 `;
 
-const InputInfoBox = styled.section`
-  padding: 2rem 1.5rem 2rem 1.5rem;
-  background-color: ${(props) => props.theme.color.secondaryLight};
-  border: 0.2rem solid ${(props) => props.theme.color.primaryDark};
-  border-radius: 1.25rem;
-  
-  & p {
-    font-size: ${(props) => props.theme.fontSize.medium};
-  }
-`;
-
 export {
   FormGridContainer,
-  InputInfoBox,
 };
