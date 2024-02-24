@@ -9,6 +9,7 @@ import {
   InputInfoBox,
   InputLabel,
 } from '@components/shared/form';
+import { GenericTitle } from '@components/shared/general';
 import { FormGridContainer } from './NewApplicationForm.styles.ts';
 import { CountriesT } from '@hooks/useGetCountries.tsx';
 import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
@@ -32,6 +33,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
 
   return (
     <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+      <GenericTitle content={'New Application Form'} />
       <section>
         <InputFieldStyles $isError={errors.country?.message !== undefined}>
           <InputLabel inputId={'country'} content={'Country'} />
@@ -50,17 +52,10 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           >
             <option hidden value={''}>Select the country of your choice</option>
             {countryData.map((option: CountriesT) => {
-              return (
-                <option
-                  key={option.uuid}
-                  value={option.uuid}
-                >
-                  {option.name}
-                </option>
-              );
+              return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
             })}
           </select>
-          {errors.country?.message && <ErrorMessage error={errors.country.message}/>}
+          {errors.country?.message && <ErrorMessage error={errors.country.message} />}
         </InputFieldStyles>
       </section>
       <InputInfoBox content={countryInformation} />
@@ -78,14 +73,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           >
             <option hidden>Select the university of your choice</option>
             {universityData.map((option: UniversitiesT) => {
-              return (
-                <option
-                  key={option.uuid}
-                  value={option.name}
-                >
-                  {`${option.name} - ${option.abbreviation}`}
-                </option>
-              );
+              return <option key={option.uuid} value={option.name}>{`${option.name} - ${option.abbreviation}`}</option>;
             })}
           </select>
           {errors.university?.message && <ErrorMessage error={errors.university.message} />}
