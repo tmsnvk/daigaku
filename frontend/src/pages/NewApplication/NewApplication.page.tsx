@@ -1,3 +1,7 @@
+import {
+  useEffect,
+  useState,
+} from 'react';
 import { NewApplicationForm } from '@components/page/new-application';
 import {
   useGetCountries,
@@ -5,16 +9,29 @@ import {
 } from '@hooks/index.ts';
 
 const NewApplicationPage = () => {
+  const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
+  const [selectedCountry, setSelectedCountry] = useState<string>('');
   const { countryData, isCountryDataLoading, isCountryDataError } = useGetCountries();
-  const { universityData, isUniversityDataLoading, isUniversityDataError } = useGetUniversities();
+  const { universityData, isUniversityDataLoading, isUniversityDataError, refetch } = useGetUniversities(isCountryFieldSelected, selectedCountry);
+
+  const handleCountryField = (country: string) => {
+    setIsCountryFieldSelected(true);
+    setSelectedCountry(country);
+  };
+
+  useEffect(() => {
+    if (isCountryFieldSelected) {
+      refetch();
+    }
+  }, [selectedCountry]);
 
   return (
     <main>
-      {countryData && universityData &&
-        <NewApplicationForm
-          countryData={countryData}
-          universityData={universityData}
-        />}
+      <NewApplicationForm
+        onCountryClick={handleCountryField}
+        countryData={countryData ?? []}
+        universityData={universityData ?? []}
+      />
     </main>
   );
 };

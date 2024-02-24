@@ -8,11 +8,11 @@ export type UniversitiesT = {
   country: string;
 }
 
-const getUniversities = async () => {
+const getUniversities = async (selectedCountry: string) => {
   try {
     const { data }: { data: UniversitiesT[] } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: 'api/universities',
+      url: `api/universities/${selectedCountry}`,
     });
 
     return data;
@@ -21,16 +21,18 @@ const getUniversities = async () => {
   }
 };
 
-const useGetUniversities = () => {
+const useGetUniversities = (isCountryFieldSelected: boolean, selectedCountry: string) => {
   const query = useQuery({
     queryKey: ['getUniversities'],
-    queryFn: () => getUniversities(),
+    queryFn: () => getUniversities(selectedCountry),
+    enabled: isCountryFieldSelected,
   });
 
   return {
     universityData: query.data,
     isUniversityDataLoading: query.isLoading,
     isUniversityDataError: query.isError,
+    refetch: query.refetch,
   };
 };
 

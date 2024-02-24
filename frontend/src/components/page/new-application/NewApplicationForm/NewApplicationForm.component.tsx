@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useSubmitNewApplicationForm } from './NewApplicationForm.hooks.tsx';
-import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import { CountriesT } from '@hooks/useGetCountries.tsx';
+import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import {
   ErrorMessage,
   InputFieldStyles,
@@ -11,18 +11,20 @@ import {
   FormGridContainer,
   InputInfoBox,
 } from './NewApplicationForm.styles.ts';
+import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
+  countryInformation,
   courseNameInformation,
   universityInformation,
 } from './NewApplicationForm.utilities.ts';
-import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 
 type ComponentPropsT = {
+  onCountryClick: (event: string) => void;
   countryData: CountriesT[];
   universityData: UniversitiesT[];
 }
 
-const NewApplicationForm = ({ countryData, universityData }: ComponentPropsT) => {
+const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitNewApplicationForm({ setError });
 
@@ -39,15 +41,16 @@ const NewApplicationForm = ({ countryData, universityData }: ComponentPropsT) =>
             name={'country'}
             autoComplete={'off'}
             disabled={isPending}
+            onChange={(event) => onCountryClick(event.target.value)}
           >
             <option hidden>Select the country of your choice</option>
-            {countryData && countryData.map((option: CountriesT) => {
+            {countryData.map((option: CountriesT) => {
               return (
                 <option
                   key={option.uuid}
                   value={option.name}
                 >
-                  {`${option.name} - ${option.abbreviation}`}
+                  {option.name}
                 </option>
               );
             })}
@@ -57,7 +60,7 @@ const NewApplicationForm = ({ countryData, universityData }: ComponentPropsT) =>
       </section>
       <InputInfoBox>
         <p>
-          {courseNameInformation}
+          {countryInformation}
         </p>
       </InputInfoBox>
       <section>
@@ -73,7 +76,7 @@ const NewApplicationForm = ({ countryData, universityData }: ComponentPropsT) =>
             disabled={isPending}
           >
             <option hidden>Select the university of your choice</option>
-            {universityData && universityData.map((option: UniversitiesT) => {
+            {universityData.map((option: UniversitiesT) => {
               return (
                 <option
                   key={option.uuid}
