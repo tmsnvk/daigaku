@@ -1,5 +1,6 @@
 package net.tamasnovak.services.university;
 
+import net.tamasnovak.entities.Country;
 import net.tamasnovak.entities.University;
 import net.tamasnovak.repositories.UniversityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,9 @@ public final class UniversityService {
 
   public List<University> findAll() {
     return universityRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+  }
+
+  public List<University> findByCountryId(Country countryId) {
+    return universityRepository.findUniversitiesByCountryId(countryId);
   }
 }

@@ -7,6 +7,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CountryService {
@@ -19,5 +21,9 @@ public class CountryService {
 
   public List<Country> findAll() {
     return countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+  }
+
+  public Optional<Country> findByUuid(UUID countryId) {
+    return countryRepository.findByUuid(countryId);
   }
 }
