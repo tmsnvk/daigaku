@@ -10,8 +10,7 @@ public class UniversityMapper {
     return new UniversityOptionDto(
       university.getUuid(),
       university.getName(),
-      university.getAbbreviation(),
-      university.getCountry()
+      university.getAbbreviation()
     );
   }
 }
