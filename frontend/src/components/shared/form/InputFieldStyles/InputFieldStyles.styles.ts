@@ -21,7 +21,7 @@ const InputFieldStyles = styled.article<InputFieldT>`
     border: 0.2rem solid ${(props) => props.$isError ? props.theme.color.error : props.theme.color.primaryDark};
     border-radius: 1.25rem;
 
-    &:hover {
+    &:hover:not([disabled]) {
       box-shadow: 0 0 0.5rem ${(props) => props.theme.color.secondaryDark};
     }
     
@@ -37,6 +37,10 @@ const InputFieldStyles = styled.article<InputFieldT>`
 
     &:focus::placeholder {
       color: transparent;
+    }
+    
+    &:disabled {
+      cursor: not-allowed;
     }
   }
   

@@ -8,6 +8,7 @@ import {
   NewApplicationFormErrorT,
   NewApplicationFormFieldsT,
 } from './NewApplicationForm.types.ts';
+import { useState } from 'react';
 
 type NewApplicationFormT = {
   setError: UseFormSetError<NewApplicationFormFieldsT>;
@@ -43,6 +44,20 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
   };
 };
 
+const useCheckFieldDisableStatus = () => {
+  const [isCountrySelected, setIsCountrySelected] = useState<boolean>(true);
+
+  const handleCountrySelection = () => {
+    setIsCountrySelected(false);
+  };
+
+  return {
+    isCountrySelected,
+    handleCountrySelection,
+  };
+};
+
 export {
   useSubmitNewApplicationForm,
+  useCheckFieldDisableStatus,
 };

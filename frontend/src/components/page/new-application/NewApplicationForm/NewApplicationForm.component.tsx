@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useSubmitNewApplicationForm } from './NewApplicationForm.hooks.tsx';
-import { CountriesT } from '@hooks/useGetCountries.tsx';
-import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
+import {
+  useCheckFieldDisableStatus,
+  useSubmitNewApplicationForm,
+} from './NewApplicationForm.hooks.tsx';
 import {
   ErrorMessage,
   InputFieldStyles,
@@ -11,6 +12,8 @@ import {
   FormGridContainer,
   InputInfoBox,
 } from './NewApplicationForm.styles.ts';
+import { CountriesT } from '@hooks/useGetCountries.tsx';
+import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
   countryInformation,
@@ -27,6 +30,7 @@ type ComponentPropsT = {
 const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitNewApplicationForm({ setError });
+  const { isCountrySelected, handleCountrySelection } = useCheckFieldDisableStatus();
 
   return (
     <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
@@ -41,9 +45,12 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
             name={'country'}
             autoComplete={'off'}
             disabled={isPending}
-            onChange={(event) => onCountryClick(event.target.value)}
+            onChange={(event) => {
+              onCountryClick(event.target.value);
+              handleCountrySelection();
+            }}
           >
-            <option hidden>Select the country of your choice</option>
+            <option hidden value={''}>Select the country of your choice</option>
             {countryData.map((option: CountriesT) => {
               return (
                 <option
@@ -73,7 +80,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
             id={'university'}
             name={'university'}
             autoComplete={'off'}
-            disabled={isPending}
+            disabled={isPending || isCountrySelected}
           >
             <option hidden>Select the university of your choice</option>
             {universityData.map((option: UniversitiesT) => {
