@@ -3,6 +3,7 @@ package net.tamasnovak.controllers.university;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
 import net.tamasnovak.entities.Country;
 import net.tamasnovak.entities.University;
+import net.tamasnovak.exceptions.DbResourceNotFoundException;
 import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,14 @@ public class UniversityController {
   private final UniversityMapper universityMapper;
   private final UniversityService universityService;
   private final CountryService countryService;
+  private final UniversityControllerMessages universityControllerMessages;
 
   @Autowired
-  public UniversityController(UniversityMapper universityMapper, UniversityService universityService, CountryService countryService) {
+  public UniversityController(UniversityMapper universityMapper, UniversityService universityService, CountryService countryService, UniversityControllerMessages universityControllerMessages) {
     this.universityMapper = universityMapper;
     this.universityService = universityService;
     this.countryService = countryService;
+    this.universityControllerMessages = universityControllerMessages;
   }
 
   @GetMapping(value = "", produces = "application/json")
@@ -48,7 +51,7 @@ public class UniversityController {
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<UniversityOptionDto>> findByCountryId(@PathVariable UUID countryId) {
     Country country = countryService.findByUuid(countryId)
-      .orElseThrow(() -> new RuntimeException("Not found")); // TODO - add proper exception handling.
+      .orElseThrow(() -> new DbResourceNotFoundException(universityControllerMessages.DB_RESOURCE_NOT_FOUND));
 
     List<University> universities = universityService.findByCountryId(country);
 

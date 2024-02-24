@@ -14,6 +14,4 @@ public final class AccountControllerMessages {
     </main>
   """;
   final String LOGIN_ERROR_MESSAGE = "Your login was unsuccessful, please try again.";
-
-  private AccountControllerMessages() {}
 }
