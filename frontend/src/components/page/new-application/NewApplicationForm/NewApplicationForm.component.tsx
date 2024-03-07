@@ -3,7 +3,12 @@ import {
   useCheckFieldDisableStatus,
   useSubmitNewApplicationForm,
 } from './NewApplicationForm.hooks.tsx';
-import { InputInfoBox } from '@components/shared/form';
+import {
+  ErrorMessage,
+  InputInfoBox,
+  LoadingIndicator,
+  SubmitInput,
+} from '@components/shared/form';
 import { GenericTitle } from '@components/shared/general';
 import {
   GeneralInputField,
@@ -90,6 +95,14 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         isDisabled={isPending}
       />
       <InputInfoBox content={programmeLengthInformation} />
+      <article>
+        {
+          isPending ?
+            <LoadingIndicator message={'Your application is being submitted.'} /> :
+            <SubmitInput type={'submit'} value={'submit application'} disabled={isPending} />
+        }
+        {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
+      </article>
     </FormGridContainer>
   );
 };
