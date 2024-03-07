@@ -33,24 +33,22 @@ const GeneralInputField = <T extends FieldValues>({
   isDisabled,
 }: ComponentPropsT<T>) => {
   return (
-    <section>
-      <InputFieldStyles $isError={fieldError !== undefined}>
-        <InputLabel inputId={fieldId} content={label} />
-        <input
-          {...register(fieldId, {
-            required: { value: true, message: requiredError as string },
-          })}
-          type={type}
-          id={fieldId}
-          name={fieldId}
-          autoComplete={'off'}
-          placeholder={placeholder}
-          disabled={isDisabled}
-          defaultValue={defaultValue}
-        />
-        {fieldError && <ErrorMessage error={fieldError} />}
-      </InputFieldStyles>
-    </section>
+    <InputFieldStyles $isError={fieldError !== undefined}>
+      <InputLabel inputId={fieldId} content={label} />
+      <input
+        {...register(fieldId, {
+          required: { value: true, message: requiredError as string },
+        })}
+        type={type}
+        id={fieldId}
+        name={fieldId}
+        autoComplete={'off'}
+        placeholder={placeholder}
+        disabled={isDisabled}
+        defaultValue={defaultValue}
+      />
+      {fieldError && <ErrorMessage error={fieldError} />}
+    </InputFieldStyles>
   );
 };
 

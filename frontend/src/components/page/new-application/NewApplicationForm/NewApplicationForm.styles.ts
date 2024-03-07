@@ -8,7 +8,7 @@ const FormGridContainer = styled.form`
   row-gap: 7.5rem;
   width: 55%;
   margin: 5% auto 0 auto;
-  padding: 10rem 5rem 10rem 5rem;
+  padding: 5rem 5rem 10rem 5rem;
   justify-items: center;
   align-items: center;
   border: 0.1rem solid ${(props) => props.theme.color.secondaryLight};
@@ -16,6 +16,10 @@ const FormGridContainer = styled.form`
   box-shadow: 0.25rem 0.25rem 1rem ${(props) => props.theme.color.primaryDark};
   
   & h1 {
+    grid-column: 1 / 3;
+  }
+  
+  & article:last-of-type {
     grid-column: 1 / 3;
   }
 `;

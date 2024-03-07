@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SectionContainer = styled.section`
+const ArticleContainer = styled.article`
   padding: 2rem 1.5rem 2rem 1.5rem;
   background-color: ${(props) => props.theme.color.secondaryLight};
   border: 0.2rem solid ${(props) => props.theme.color.primaryDark};
@@ -17,5 +17,5 @@ const SectionContainer = styled.section`
 `;
 
 export {
-  SectionContainer,
+  ArticleContainer,
 };
