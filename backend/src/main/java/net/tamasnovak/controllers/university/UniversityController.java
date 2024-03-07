@@ -40,6 +40,7 @@ public class UniversityController {
   public ResponseEntity<List<UniversityOptionDto>> findAll() {
     List<University> universities = universityService.findAll();
 
+    // todo - the dto mapping should happen in the service layer.
     List<UniversityOptionDto> universityOptions = universities.stream()
       .map(universityMapper::toOptionDto)
       .collect(Collectors.toList());

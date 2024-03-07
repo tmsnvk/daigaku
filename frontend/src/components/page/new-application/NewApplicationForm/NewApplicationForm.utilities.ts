@@ -17,7 +17,7 @@ const minorSubjectInformation = [
 ];
 const programmeLengthInformation = [
   'Enter the length of your selected course (years).',
-  'By default, the value is set to 3, update it if it is different for you.',
+  'By default, the value is set to 3 years, update it only if it is different for you.',
 ];
 
 export {

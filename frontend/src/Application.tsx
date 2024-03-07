@@ -86,3 +86,18 @@ const Application = () => {
 };
 
 export default Application;
+
+// main student form fields
+// details
+//    country,
+//    university,
+//    major subject,
+//    minor subject if applicable,
+//    program length
+// status
+//    application - planned, submitted, withdrawn
+//    interview - n/a interview, invited for interview, not invited for interview
+//    offer - conditional, deferred, unconditional, rejected
+//    response - firm choice, insurance choice, offer declined
+//    final destination - final destination, final destination (deferred entry), not final destination, offer conditions not met
+// comments

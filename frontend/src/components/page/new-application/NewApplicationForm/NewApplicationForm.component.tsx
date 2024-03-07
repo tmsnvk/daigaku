@@ -3,16 +3,16 @@ import {
   useCheckFieldDisableStatus,
   useSubmitNewApplicationForm,
 } from './NewApplicationForm.hooks.tsx';
+import { InputInfoBox } from '@components/shared/form';
+import { GenericTitle } from '@components/shared/general';
+import {
+  GeneralInputField,
+  SelectCountry,
+  SelectUniversity,
+} from '@components/shared/field-implementations';
+import { FormGridContainer } from './NewApplicationForm.styles.ts';
 import { CountriesT } from '@hooks/useGetCountries.tsx';
 import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
-import {
-  ErrorMessage,
-  InputFieldStyles,
-  InputInfoBox,
-  InputLabel,
-} from '@components/shared/form';
-import { GenericTitle } from '@components/shared/general';
-import { FormGridContainer } from './NewApplicationForm.styles.ts';
 import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
   countryInformation,
@@ -36,117 +36,62 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
   return (
     <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
       <GenericTitle content={'New Application Form'} />
-      <section>
-        <InputFieldStyles $isError={errors.country?.message !== undefined}>
-          <InputLabel inputId={'country'} content={'Country'} />
-          <select
-            {...register('country', {
-              required: { value: true, message: 'Selecting a country is required.' },
-            })}
-            id={'country'}
-            name={'country'}
-            autoComplete={'off'}
-            disabled={isPending}
-            onChange={(event) => {
-              onCountryClick(event.target.value);
-              handleCountrySelectionStatus();
-            }}
-          >
-            <option hidden value={''}>Select the country of your choice</option>
-            {countryData.map((option: CountriesT) => {
-              return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
-            })}
-          </select>
-          {errors.country?.message && <ErrorMessage error={errors.country.message} />}
-        </InputFieldStyles>
-      </section>
+      <SelectCountry
+        register={register}
+        fieldError={errors.country?.message}
+        fieldId={'country'}
+        defaultValue={''}
+        isDisabled={isPending}
+        data={countryData}
+        onCountryClick={onCountryClick}
+        handleCountrySelectionStatus={handleCountrySelectionStatus}
+      />
       <InputInfoBox content={countryInformation} />
-      <section>
-        <InputFieldStyles $isError={errors.university?.message !== undefined}>
-          <InputLabel inputId={'university'} content={'University'} />
-          <select
-            {...register('university', {
-              required: { value: true, message: 'Selecting a university is required.' },
-            })}
-            id={'university'}
-            name={'university'}
-            autoComplete={'off'}
-            disabled={isPending || isCountrySelected}
-          >
-            <option hidden>Select the university of your choice</option>
-            {universityData.map((option: UniversitiesT) => {
-              return <option key={option.uuid} value={option.name}>{`${option.name} - ${option.abbreviation}`}</option>;
-            })}
-          </select>
-          {errors.university?.message && <ErrorMessage error={errors.university.message} />}
-        </InputFieldStyles>
-      </section>
+      <SelectUniversity
+        register={register}
+        fieldError={errors.university?.message}
+        fieldId={'university'}
+        defaultValue={''}
+        isDisabled={isPending || isCountrySelected}
+        data={universityData}
+      />
       <InputInfoBox content={universityInformation} />
-      <section>
-        <InputFieldStyles $isError={errors.majorSubject?.message !== undefined}>
-          <InputLabel inputId={'majorSubject'} content={'Course name'} />
-          <input
-            {...register('majorSubject', {
-              required: { value: true, message: 'Providing the name of your selected course is required.' },
-            })}
-            type={'text'}
-            id={'majorSubject'}
-            name={'majorSubject'}
-            autoComplete={'off'}
-            placeholder={'Provide the course of your choice.'}
-            disabled={isPending}
-          />
-          {errors.majorSubject?.message && <ErrorMessage error={errors.majorSubject.message} />}
-        </InputFieldStyles>
-      </section>
+      <GeneralInputField
+        register={register}
+        requiredError={'Providing the name of your selected course is required.'}
+        fieldError={errors.majorSubject?.message}
+        fieldId={'majorSubject'}
+        label={'Course name'}
+        type={'text'}
+        placeholder={'Provide the course of your choice.'}
+        defaultValue={''}
+        isDisabled={isPending}
+      />
       <InputInfoBox content={majorSubjectInformation} />
-      <section>
-        <InputFieldStyles $isError={errors.minorSubject?.message !== undefined}>
-          <InputLabel inputId={'minorSubject'} content={'Minor subject'} />
-          <input
-            {...register('minorSubject')}
-            type={'text'}
-            id={'minorSubject'}
-            name={'minorSubject'}
-            autoComplete={'off'}
-            placeholder={'Provide your minor course.'}
-            disabled={isPending}
-          />
-          {errors.minorSubject?.message && <ErrorMessage error={errors.minorSubject.message} />}
-        </InputFieldStyles>
-      </section>
+      <GeneralInputField
+        register={register}
+        fieldError={errors.minorSubject?.message}
+        fieldId={'minorSubject'}
+        label={'Minor subject'}
+        type={'text'}
+        placeholder={'Provide your minor course.'}
+        defaultValue={''}
+        isDisabled={isPending}
+      />
       <InputInfoBox content={minorSubjectInformation} />
-      <section>
-        <InputFieldStyles $isError={errors.programmeLength?.message !== undefined}>
-          <InputLabel inputId={'programmeLength'} content={'Programme length'} />
-          <input
-            {...register('programmeLength', {
-              required: { value: true, message: 'Providing the length of your selected course is required.' },
-            })}
-            type={'number'}
-            id={'programmeLength'}
-            name={'programmeLength'}
-            autoComplete={'off'}
-            defaultValue={3}
-            placeholder={'Provide the length of the course of your choice.'}
-            disabled={isPending}
-          />
-          {errors.programmeLength?.message && <ErrorMessage error={errors.programmeLength.message} />}
-        </InputFieldStyles>
-      </section>
+      <GeneralInputField
+        register={register}
+        fieldError={errors.programmeLength?.message}
+        fieldId={'programmeLength'}
+        label={'Programme length'}
+        type={'number'}
+        placeholder={'Provide the length of the course of your choice.'}
+        defaultValue={3}
+        isDisabled={isPending}
+      />
       <InputInfoBox content={programmeLengthInformation} />
     </FormGridContainer>
   );
 };
 
 export default NewApplicationForm;
-
-// fields to add
-// details - country, university, major subject, minor subject if applicable, program length
-// status
-//    application - planned, submitted, withdrawn
-//    interview - n/a interview, invited for interview, not invited for interview
-//    offer - conditional, deferred, unconditional, rejected
-//    response - firm choice, insurance choice, offer declined
-//    final destination - final destination, final destination (deferred entry), not final destination, offer conditions not met
-// comments
