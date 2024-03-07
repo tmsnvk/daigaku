@@ -37,7 +37,7 @@ const GeneralInputField = <T extends FieldValues>({
       <InputLabel inputId={fieldId} content={label} />
       <input
         {...register(fieldId, {
-          required: { value: true, message: requiredError as string },
+          required: { value: requiredError !== undefined, message: requiredError as string },
         })}
         type={type}
         id={fieldId}
