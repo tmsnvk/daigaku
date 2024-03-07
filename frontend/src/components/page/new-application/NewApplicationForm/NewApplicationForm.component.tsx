@@ -88,6 +88,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
       <InputInfoBox content={minorSubjectInformation} />
       <GeneralInputField
         register={register}
+        requiredError={'Providing the length of your selected course is required.'}
         fieldError={errors.programmeLength?.message}
         fieldId={'programmeLength'}
         label={'Programme length'}
