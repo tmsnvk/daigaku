@@ -11,9 +11,19 @@ const majorSubjectInformation = [
   'Enter the full name of the course you plan to apply to.',
   'For example, Cognitive Science or Economics and Business Administration.',
 ];
+const minorSubjectInformation = [
+  'Enter the full name of the minor course that accompanies your major course.',
+  'Leave the input box empty if you have no minor course.',
+];
+const programmeLengthInformation = [
+  'Enter the length of your selected course (years).',
+  'By default, the value is set to 3, update it if it is different for you.',
+];
 
 export {
   countryInformation,
   universityInformation,
   majorSubjectInformation,
+  minorSubjectInformation,
+  programmeLengthInformation,
 };

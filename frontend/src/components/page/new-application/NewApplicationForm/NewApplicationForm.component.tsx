@@ -3,6 +3,8 @@ import {
   useCheckFieldDisableStatus,
   useSubmitNewApplicationForm,
 } from './NewApplicationForm.hooks.tsx';
+import { CountriesT } from '@hooks/useGetCountries.tsx';
+import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import {
   ErrorMessage,
   InputFieldStyles,
@@ -11,12 +13,12 @@ import {
 } from '@components/shared/form';
 import { GenericTitle } from '@components/shared/general';
 import { FormGridContainer } from './NewApplicationForm.styles.ts';
-import { CountriesT } from '@hooks/useGetCountries.tsx';
-import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
   countryInformation,
   majorSubjectInformation,
+  minorSubjectInformation,
+  programmeLengthInformation,
   universityInformation,
 } from './NewApplicationForm.utilities.ts';
 
@@ -82,7 +84,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
       <InputInfoBox content={universityInformation} />
       <section>
         <InputFieldStyles $isError={errors.majorSubject?.message !== undefined}>
-          <InputLabel inputId={'majorSubject'} content={'Course Name'} />
+          <InputLabel inputId={'majorSubject'} content={'Course name'} />
           <input
             {...register('majorSubject', {
               required: { value: true, message: 'Providing the name of your selected course is required.' },
@@ -98,6 +100,41 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         </InputFieldStyles>
       </section>
       <InputInfoBox content={majorSubjectInformation} />
+      <section>
+        <InputFieldStyles $isError={errors.minorSubject?.message !== undefined}>
+          <InputLabel inputId={'minorSubject'} content={'Minor subject'} />
+          <input
+            {...register('minorSubject')}
+            type={'text'}
+            id={'minorSubject'}
+            name={'minorSubject'}
+            autoComplete={'off'}
+            placeholder={'Provide your minor course.'}
+            disabled={isPending}
+          />
+          {errors.minorSubject?.message && <ErrorMessage error={errors.minorSubject.message} />}
+        </InputFieldStyles>
+      </section>
+      <InputInfoBox content={minorSubjectInformation} />
+      <section>
+        <InputFieldStyles $isError={errors.programmeLength?.message !== undefined}>
+          <InputLabel inputId={'programmeLength'} content={'Programme length'} />
+          <input
+            {...register('programmeLength', {
+              required: { value: true, message: 'Providing the length of your selected course is required.' },
+            })}
+            type={'number'}
+            id={'programmeLength'}
+            name={'programmeLength'}
+            autoComplete={'off'}
+            defaultValue={3}
+            placeholder={'Provide the length of the course of your choice.'}
+            disabled={isPending}
+          />
+          {errors.programmeLength?.message && <ErrorMessage error={errors.programmeLength.message} />}
+        </InputFieldStyles>
+      </section>
+      <InputInfoBox content={programmeLengthInformation} />
     </FormGridContainer>
   );
 };
@@ -107,7 +144,7 @@ export default NewApplicationForm;
 // fields to add
 // details - country, university, major subject, minor subject if applicable, program length
 // status
-//    application - planned submitted, withdrawn
+//    application - planned, submitted, withdrawn
 //    interview - n/a interview, invited for interview, not invited for interview
 //    offer - conditional, deferred, unconditional, rejected
 //    response - firm choice, insurance choice, offer declined
