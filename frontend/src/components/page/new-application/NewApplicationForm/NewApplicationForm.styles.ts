@@ -14,11 +14,12 @@ const FormGridContainer = styled.form`
   border: 0.1rem solid ${(props) => props.theme.color.secondaryLight};
   border-radius: 1.25rem;
   box-shadow: 0.25rem 0.25rem 1rem ${(props) => props.theme.color.primaryDark};
-  
+
   & h1 {
     grid-column: 1 / 3;
   }
-  
+
+  & article:first-of-type,
   & article:last-of-type {
     grid-column: 1 / 3;
   }

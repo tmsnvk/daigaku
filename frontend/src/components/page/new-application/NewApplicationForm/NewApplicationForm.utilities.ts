@@ -1,3 +1,8 @@
+const formInformation = [
+  'Fill in all fields before submitting the application.',
+  'Upon visiting the MyApplications page, you will find more fields to fill in for each of your submitted applications.',
+  'Make sure to come back in the following months and properly update their status.',
+];
 const countryInformation = [
   'The first step of your application process is selecting the country of your choice.',
   'You are not able to select your chosen university until you have selected its home country.',
@@ -21,6 +26,7 @@ const programmeLengthInformation = [
 ];
 
 export {
+  formInformation,
   countryInformation,
   universityInformation,
   majorSubjectInformation,

@@ -21,6 +21,7 @@ import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
   countryInformation,
+  formInformation,
   majorSubjectInformation,
   minorSubjectInformation,
   programmeLengthInformation,
@@ -41,6 +42,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
   return (
     <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
       <GenericTitle content={'New Application Form'} />
+      <InputInfoBox content={formInformation} />
       <SelectCountry
         register={register}
         fieldError={errors.country?.message}
