@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers;
 
-import net.tamasnovak.exceptions.DbResourceNotFoundException;
+import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
 import net.tamasnovak.exceptions.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
