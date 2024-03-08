@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -31,7 +32,8 @@ public final class Application {
   private int id;
 
   @Column(name = "uuid", updatable = false, nullable = false)
-  @org.hibernate.validator.constraints.UUID
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @UuidGenerator
   private UUID uuid;
 
   @Column(name = "created_at")
@@ -96,12 +98,14 @@ public final class Application {
   @Column(name = "notes")
   private String notes;
 
-  public Application(Country countryId, University universityId, String majorName, String minorName, int programmeLength, String notes) {
+  public Application(Account accountId, Country countryId, University universityId, String majorName, String minorName, int programmeLength) {
+    this.accountId = accountId;
     this.countryId = countryId;
     this.universityId = universityId;
     this.majorName = majorName;
     this.minorName = minorName;
+    this.createdAt = new Timestamp(System.currentTimeMillis());
+    this.lastUpdatedAt = new Timestamp(System.currentTimeMillis());
     this.programmeLength = programmeLength;
-    this.notes = notes;
   }
 }

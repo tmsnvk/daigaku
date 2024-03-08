@@ -1,10 +1,43 @@
 package net.tamasnovak.services.application;
 
 import lombok.RequiredArgsConstructor;
+import net.tamasnovak.dtos.application.NewApplicationDto;
+import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.application.Application;
+import net.tamasnovak.entities.country.Country;
+import net.tamasnovak.entities.university.University;
+import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
+import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundMessages;
+import net.tamasnovak.repositories.ApplicationRepository;
+import net.tamasnovak.services.country.CountryService;
+import net.tamasnovak.services.university.UniversityService;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public final class ApplicationService {
+  private final ApplicationRepository applicationRepository;
+  private final CountryService countryService;
+  private final UniversityService universityService;
+  private final DbResourceNotFoundMessages dbResourceNotFoundMessages;
 
+  public Application saveApplication(Account account, NewApplicationDto newApplicationDto) {
+    Country country = countryService.findByUuid(newApplicationDto.country())
+      .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundMessages.COUNTRY_NOT_FOUND));
+    University university = universityService.findByUuid(newApplicationDto.university())
+      .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundMessages.UNIVERSITY_NOT_FOUND));
+
+    Application application = new Application(
+      account,
+      country,
+      university,
+      newApplicationDto.majorSubject(),
+      newApplicationDto.minorSubject(),
+      newApplicationDto.programmeLength()
+    );
+
+    applicationRepository.save(application);
+
+    return application;
+  }
 }

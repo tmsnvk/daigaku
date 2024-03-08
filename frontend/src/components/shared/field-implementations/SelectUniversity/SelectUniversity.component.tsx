@@ -42,7 +42,7 @@ const SelectUniversity = <T extends FieldValues>({
       >
         <option hidden value={''}>Select the university of your choice</option>
         {data.map((option: UniversitiesT) => {
-          return <option key={option.uuid} value={option.name}>{`${option.name} - ${option.abbreviation}`}</option>;
+          return <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>;
         })}
       </select>
       {fieldError && <ErrorMessage error={fieldError} />}

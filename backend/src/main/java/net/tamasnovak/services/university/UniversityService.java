@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,5 +33,9 @@ public final class UniversityService {
     return universities.stream()
       .map(universityMapper::toOptionDto)
       .collect(Collectors.toList());
+  }
+
+  public Optional<University> findByUuid(UUID universityId) {
+    return universityRepository.findByUuid(universityId);
   }
 }
