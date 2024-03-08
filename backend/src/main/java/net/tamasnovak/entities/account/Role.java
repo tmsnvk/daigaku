@@ -1,4 +1,4 @@
-package net.tamasnovak.entities;
+package net.tamasnovak.entities.account;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

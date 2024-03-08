@@ -1,7 +1,7 @@
 package net.tamasnovak.services.security;
 
-import net.tamasnovak.entities.Account;
-import net.tamasnovak.entities.Role;
+import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.Role;
 import net.tamasnovak.repositories.AccountRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
