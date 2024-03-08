@@ -20,7 +20,7 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<void> => {
       await axiosConfigWithAuth.request({
         method: 'POST',
-        url: '/api/', // todo - implement endpoint
+        url: '/api/applications',
         data,
       });
     },
