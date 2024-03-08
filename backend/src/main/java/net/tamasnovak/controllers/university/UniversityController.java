@@ -2,7 +2,7 @@ package net.tamasnovak.controllers.university;
 
 import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
-import net.tamasnovak.entities.Country;
+import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.exceptions.DbResourceNotFoundException;
 import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.university.UniversityService;

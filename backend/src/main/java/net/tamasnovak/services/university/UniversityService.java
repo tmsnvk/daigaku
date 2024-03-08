@@ -2,8 +2,8 @@ package net.tamasnovak.services.university;
 
 import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
-import net.tamasnovak.entities.Country;
-import net.tamasnovak.entities.University;
+import net.tamasnovak.entities.country.Country;
+import net.tamasnovak.entities.university.University;
 import net.tamasnovak.repositories.UniversityRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

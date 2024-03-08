@@ -1,6 +1,6 @@
 package net.tamasnovak.services.account;
 
-import net.tamasnovak.entities.Account;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

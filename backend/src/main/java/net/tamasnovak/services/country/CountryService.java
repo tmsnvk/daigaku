@@ -2,7 +2,7 @@ package net.tamasnovak.services.country;
 
 import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.country.CountryOptionDto;
-import net.tamasnovak.entities.Country;
+import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.repositories.CountryRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

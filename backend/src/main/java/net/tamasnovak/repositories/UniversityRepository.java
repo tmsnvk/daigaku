@@ -1,7 +1,7 @@
 package net.tamasnovak.repositories;
 
-import net.tamasnovak.entities.Country;
-import net.tamasnovak.entities.University;
+import net.tamasnovak.entities.country.Country;
+import net.tamasnovak.entities.university.University;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

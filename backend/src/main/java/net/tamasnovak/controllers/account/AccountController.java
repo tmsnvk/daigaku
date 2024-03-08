@@ -7,7 +7,7 @@ import net.tamasnovak.dtos.account.access.AccountLoginDto;
 import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
 import net.tamasnovak.dtos.account.response.AccountDataDto;
 import net.tamasnovak.dtos.email.SimpleEmailDto;
-import net.tamasnovak.entities.Account;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.security.JwtResponse;
 import net.tamasnovak.security.JwtUtils;

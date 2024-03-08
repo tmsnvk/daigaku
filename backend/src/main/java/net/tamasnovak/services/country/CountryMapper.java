@@ -1,7 +1,7 @@
 package net.tamasnovak.services.country;
 
 import net.tamasnovak.dtos.country.CountryOptionDto;
-import net.tamasnovak.entities.Country;
+import net.tamasnovak.entities.country.Country;
 import org.springframework.stereotype.Component;
 
 @Component
