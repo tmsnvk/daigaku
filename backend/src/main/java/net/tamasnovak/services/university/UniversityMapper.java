@@ -1,11 +1,11 @@
-package net.tamasnovak.controllers.university;
+package net.tamasnovak.services.university;
 
 import net.tamasnovak.dtos.university.UniversityOptionDto;
 import net.tamasnovak.entities.University;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UniversityMapper {
+final class UniversityMapper {
   public UniversityOptionDto toOptionDto(University university) {
     return new UniversityOptionDto(
       university.getUuid(),

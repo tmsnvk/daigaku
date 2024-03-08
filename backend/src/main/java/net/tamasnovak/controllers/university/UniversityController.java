@@ -21,7 +21,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "/api/universities")
 @RequiredArgsConstructor
-public class UniversityController {
+public final class UniversityController {
   private final UniversityService universityService;
   private final CountryService countryService;
   private final UniversityControllerMessages universityControllerMessages;

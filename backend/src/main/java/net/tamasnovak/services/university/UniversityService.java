@@ -1,7 +1,6 @@
 package net.tamasnovak.services.university;
 
 import lombok.RequiredArgsConstructor;
-import net.tamasnovak.controllers.university.UniversityMapper;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
 import net.tamasnovak.entities.Country;
 import net.tamasnovak.entities.University;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public final class UniversityService {
   private final UniversityMapper universityMapper;
-  public final UniversityRepository universityRepository;
+  private final UniversityRepository universityRepository;
 
   public List<UniversityOptionDto> findAll() {
     List<University> universities = universityRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
