@@ -1,35 +1,29 @@
 package net.tamasnovak.entities.country;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.entities.application.Application;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "countries")
 @Getter
-@Setter
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public final class Country {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,20 +43,20 @@ public final class Country {
   private Timestamp lastUpdatedAt;
 
   @Column(name = "name")
-  @NotNull
+  @NotBlank
   private String name;
 
   @OneToMany(mappedBy = "countryId")
   @JsonManagedReference
-  private Set<University> universities;
+  private List<University> universities;
 
   @OneToMany(mappedBy = "countryId")
   @JsonManagedReference
-  private Set<Application> applications;
+  private List<Application> applications;
 
   public Country(String name) {
     this.name = name;
-    this.universities = new HashSet<>();
-    this.applications = new HashSet<>();
+    this.universities = new ArrayList<>();
+    this.applications = new ArrayList<>();
   }
 }

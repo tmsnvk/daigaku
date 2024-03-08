@@ -11,7 +11,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -19,7 +18,6 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "pending_account_registrations")
 @Getter
-@Setter
 @NoArgsConstructor
 public final class PendingAccount {
   @Id

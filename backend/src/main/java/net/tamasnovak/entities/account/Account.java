@@ -17,18 +17,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import net.tamasnovak.entities.application.Application;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "accounts")
 @Getter
-@Setter
 @NoArgsConstructor
 public final class Account {
   @Id
@@ -66,7 +65,7 @@ public final class Account {
 
   @OneToMany(mappedBy = "accountId")
   @JsonManagedReference
-  private Set<Application> applications;
+  private List<Application> applications;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
@@ -82,6 +81,6 @@ public final class Account {
     this.email = email;
     this.hashedPassword = hashedPassword;
     this.roles = roles;
-    this.applications = new HashSet<>();
+    this.applications = new ArrayList<>();
   }
 }

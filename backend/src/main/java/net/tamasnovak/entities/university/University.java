@@ -1,12 +1,9 @@
 package net.tamasnovak.entities.university;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,22 +11,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.country.Country;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "universities")
 @Getter
-@Setter
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public final class University {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,12 +45,15 @@ public final class University {
   private Timestamp lastUpdatedAt;
 
   @Column(name = "name")
+  @NotBlank
   private String name;
 
   @Column(name = "abbreviation")
+  @NotBlank
   private String abbreviation;
 
   @Column(name = "country")
+  @NotBlank
   private String country;
 
   @Column(name = "address")
@@ -67,12 +66,13 @@ public final class University {
 
   @OneToMany(mappedBy = "universityId")
   @JsonManagedReference
-  private Set<Application> applications;
+  private List<Application> applications;
 
   public University(String name, String abbreviation, String country, String address) {
     this.name = name;
     this.abbreviation = abbreviation;
     this.country = country;
     this.address = address;
+    this.applications = new ArrayList<>();
   }
 }
