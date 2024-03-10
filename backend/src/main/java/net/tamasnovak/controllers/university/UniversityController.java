@@ -2,16 +2,13 @@ package net.tamasnovak.controllers.university;
 
 import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
-import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
-import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +20,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public final class UniversityController {
   private final UniversityService universityService;
-  private final CountryService countryService;
-  private final UniversityControllerMessages universityControllerMessages;
 
-  @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(
+    value = "",
+    method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<UniversityOptionDto>> findAll() {
     List<UniversityOptionDto> universityOptions = universityService.findAll();
@@ -34,13 +33,14 @@ public final class UniversityController {
     return new ResponseEntity<>(universityOptions, HttpStatus.OK);
   }
 
-  @GetMapping(value = "/{countryId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(
+    value = "/{countryUuid}",
+    method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<List<UniversityOptionDto>> findByCountryId(@PathVariable UUID countryId) {
-    Country country = countryService.findByUuid(countryId)
-      .orElseThrow(() -> new DbResourceNotFoundException(universityControllerMessages.DB_RESOURCE_NOT_FOUND));
-
-    List<UniversityOptionDto> universityOptions = universityService.findByCountryId(country);
+  public ResponseEntity<List<UniversityOptionDto>> findByCountryId(@PathVariable UUID countryUuid) {
+    List<UniversityOptionDto> universityOptions = universityService.findByCountryId(countryUuid);
 
     return new ResponseEntity<>(universityOptions, HttpStatus.OK);
   }
