@@ -10,9 +10,10 @@ import {
 } from '@tanstack/react-query';
 import { AuthProvider } from '@context/AuthContext.tsx';
 import {
+  DashboardPage,
   ErrorPage,
   HomePage,
-  NewApplicationPage
+  NewApplicationPage,
 } from '@pages/index.ts';
 import {
   NoAuthNavbar,
@@ -65,7 +66,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     </Route>
     <Route>
       <Route element={<PrivateRoutes />}>
-        <Route element={<div>DUMMY DASHBOARD</div>} path={'/dashboard'} />
+        <Route element={<DashboardPage />} path={'/dashboard'} />
         <Route element={<NewApplicationPage />} path={'/new-application'} />
       </Route>
     </Route>
