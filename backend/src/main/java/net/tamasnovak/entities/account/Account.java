@@ -20,8 +20,7 @@ import lombok.NoArgsConstructor;
 import net.tamasnovak.entities.application.Application;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,7 +32,7 @@ public final class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
-  private int id;
+  private long id;
 
   @Column(name = "uuid")
   @org.hibernate.validator.constraints.UUID
@@ -65,7 +64,7 @@ public final class Account {
 
   @OneToMany(mappedBy = "accountId")
   @JsonManagedReference
-  private List<Application> applications;
+  private Set<Application> applications;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
@@ -81,6 +80,6 @@ public final class Account {
     this.email = email;
     this.hashedPassword = hashedPassword;
     this.roles = roles;
-    this.applications = new ArrayList<>();
+    this.applications = new HashSet<>();
   }
 }

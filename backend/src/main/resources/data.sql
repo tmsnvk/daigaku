@@ -30,15 +30,15 @@ WITH country AS (
     VALUES
       (1, 'Denmark')
     RETURNING
-      uuid,
+      id,
       name
 )
 INSERT INTO universities
 (id, country_id, name, abbreviation, country, address)
 VALUES
-  (1, (SELECT uuid FROM country), 'Aarhus University', 'AU', (SELECT name FROM country), ''),
-  (2, (SELECT uuid FROM country), 'Roskilde University', 'RUC', (SELECT name FROM country), ''),
-  (3, (SELECT uuid FROM country), 'University of Copenhagen', 'KU', (SELECT name FROM country), '');
+  (1, (SELECT id FROM country), 'Aarhus University', 'AU', (SELECT name FROM country), ''),
+  (2, (SELECT id FROM country), 'Roskilde University', 'RUC', (SELECT name FROM country), ''),
+  (3, (SELECT id FROM country), 'University of Copenhagen', 'KU', (SELECT name FROM country), '');
 
 WITH country AS (
   INSERT INTO countries
@@ -46,13 +46,13 @@ WITH country AS (
     VALUES
       (2, 'Great Britain')
     RETURNING
-      uuid,
+      id,
       name
 )
 INSERT INTO universities
 (id, country_id, name, abbreviation, country, address)
 VALUES
-  (4, (SELECT uuid FROM country), 'University of Oxford', 'UO', (SELECT name FROM country), '');
+  (4, (SELECT id FROM country), 'University of Oxford', 'UO', (SELECT name FROM country), '');
 
 WITH country AS (
   INSERT INTO countries
@@ -60,14 +60,14 @@ WITH country AS (
     VALUES
       (3, 'United States')
     RETURNING
-      uuid,
+      id,
       name
 )
 INSERT INTO universities
 (id, country_id, name, abbreviation, country, address)
 VALUES
-  (5, (SELECT uuid FROM country), 'New York University', 'NYU', (SELECT name FROM country), ''),
-  (6, (SELECT uuid FROM country), 'Harvard University', 'HU', (SELECT name FROM country), '');
+  (5, (SELECT id FROM country), 'New York University', 'NYU', (SELECT name FROM country), ''),
+  (6, (SELECT id FROM country), 'Harvard University', 'HU', (SELECT name FROM country), '');
 
 
 -- INSERT APPLICATION STATUS

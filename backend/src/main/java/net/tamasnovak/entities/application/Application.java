@@ -29,7 +29,7 @@ public final class Application {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
-  private int id;
+  private long id;
 
   @Column(name = "uuid", updatable = false, nullable = false)
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -59,12 +59,12 @@ public final class Application {
   @JsonBackReference
   private University universityId;
 
-  @Column(name = "major_name")
+  @Column(name = "course_name")
   @NotNull
-  private String majorName;
+  private String courseName;
 
-  @Column(name = "minor_name")
-  private String minorName;
+  @Column(name = "minor_subject")
+  private String minorSubject;
 
   @Column(name = "programme_length")
   @NotNull
@@ -98,12 +98,12 @@ public final class Application {
   @Column(name = "notes")
   private String notes;
 
-  public Application(Account accountId, Country countryId, University universityId, String majorName, String minorName, int programmeLength) {
+  public Application(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength) {
     this.accountId = accountId;
     this.countryId = countryId;
     this.universityId = universityId;
-    this.majorName = majorName;
-    this.minorName = minorName;
+    this.courseName = courseName;
+    this.minorSubject = minorSubject;
     this.createdAt = new Timestamp(System.currentTimeMillis());
     this.lastUpdatedAt = new Timestamp(System.currentTimeMillis());
     this.programmeLength = programmeLength;

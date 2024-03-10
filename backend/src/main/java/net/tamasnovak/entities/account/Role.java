@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -20,12 +20,12 @@ import java.util.List;
 public final class Role {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private long id;
 
   @Column(name = "name")
   @NotBlank
   private String name;
 
   @ManyToMany(mappedBy = "roles")
-  private List<Account> users;
+  private Set<Account> users;
 }

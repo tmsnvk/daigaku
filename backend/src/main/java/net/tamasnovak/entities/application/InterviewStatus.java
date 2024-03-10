@@ -14,8 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -26,7 +26,7 @@ public final class InterviewStatus {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
-  private int id;
+  private long id;
 
   @Column(name = "uuid", updatable = false, nullable = false)
   @org.hibernate.validator.constraints.UUID
@@ -46,10 +46,10 @@ public final class InterviewStatus {
 
   @OneToMany(mappedBy = "interviewStatusId")
   @JsonManagedReference
-  private List<Application> applications;
+  private Set<Application> applications;
 
   public InterviewStatus(String name) {
     this.name = name;
-    this.applications = new ArrayList<>();
+    this.applications = new HashSet<>();
   }
 }

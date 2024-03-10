@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CountryRepository extends JpaRepository<Country, Integer> {
+public interface CountryRepository extends JpaRepository<Country, Long> {
   List<Country> findAll();
   Optional<Country> findByUuid(UUID countryId);
 }

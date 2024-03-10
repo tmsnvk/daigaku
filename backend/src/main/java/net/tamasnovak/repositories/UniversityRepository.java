@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UniversityRepository extends JpaRepository<University, Integer> {
+public interface UniversityRepository extends JpaRepository<University, Long> {
   List<University> findAll();
-  List<University> findUniversitiesByCountryId(Country countryId);
+  List<University> findUniversitiesByCountryId(Country country);
   Optional<University> findByUuid(UUID universityId);
 }

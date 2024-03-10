@@ -19,8 +19,8 @@ import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.country.Country;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "universities")
@@ -30,7 +30,7 @@ public final class University {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
-  private int id;
+  private long id;
 
   @Column(name = "uuid")
   @org.hibernate.validator.constraints.UUID
@@ -66,13 +66,13 @@ public final class University {
 
   @OneToMany(mappedBy = "universityId")
   @JsonManagedReference
-  private List<Application> applications;
+  private Set<Application> applications;
 
   public University(String name, String abbreviation, String country, String address) {
     this.name = name;
     this.abbreviation = abbreviation;
     this.country = country;
     this.address = address;
-    this.applications = new ArrayList<>();
+    this.applications = new HashSet<>();
   }
 }

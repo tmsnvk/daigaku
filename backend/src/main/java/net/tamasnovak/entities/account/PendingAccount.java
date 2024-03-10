@@ -23,7 +23,7 @@ public final class PendingAccount {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
-  private int id;
+  private long id;
 
   @Column(name = "registered_at")
   @CreationTimestamp
