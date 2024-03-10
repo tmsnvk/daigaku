@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public final class UniversityControllerMessages {
-  final String DB_RESOURCE_NOT_FOUND = "The sought data was not found.";
+  public final String DB_RESOURCE_NOT_FOUND = "The sought data was not found.";
 }

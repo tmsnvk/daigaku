@@ -1,6 +1,7 @@
 package net.tamasnovak.services.application;
 
 import lombok.RequiredArgsConstructor;
+import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.application.Application;
@@ -19,9 +20,10 @@ public final class ApplicationService {
   private final ApplicationRepository applicationRepository;
   private final CountryService countryService;
   private final UniversityService universityService;
+  private final ApplicationMapper applicationMapper;
   private final DbResourceNotFoundMessages dbResourceNotFoundMessages;
 
-  public Application saveApplication(Account account, NewApplicationDto newApplicationDto) {
+  public ApplicationDto saveApplication(Account account, NewApplicationDto newApplicationDto) {
     Country country = countryService.findByUuid(newApplicationDto.country())
       .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundMessages.COUNTRY_NOT_FOUND));
     University university = universityService.findByUuid(newApplicationDto.university())
@@ -38,6 +40,6 @@ public final class ApplicationService {
 
     applicationRepository.save(application);
 
-    return application;
+    return applicationMapper.toApplicationDto(application);
   }
 }
