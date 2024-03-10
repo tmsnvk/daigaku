@@ -9,12 +9,15 @@ import {
   NewApplicationFormErrorT,
   NewApplicationFormFieldsT,
 } from './NewApplicationForm.types.ts';
+import { useNavigate } from 'react-router-dom';
 
 type NewApplicationFormT = {
   setError: UseFormSetError<NewApplicationFormFieldsT>;
 };
 
 const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
+  const navigate = useNavigate();
+
   const { mutate, isPending } = useMutation({
     mutationKey: ['newApplicationForm'],
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<void> => {
@@ -25,6 +28,7 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
       });
     },
     onSuccess: () => {
+      navigate('/dashboard');
     },
     onError: (error: NewApplicationFormErrorT) => {
       setError('root.serverError', {
