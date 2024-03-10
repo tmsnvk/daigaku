@@ -7,8 +7,8 @@ import net.tamasnovak.dtos.account.access.AccountLoginDto;
 import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
 import net.tamasnovak.dtos.account.response.AccountDataDto;
 import net.tamasnovak.dtos.email.SimpleEmailDto;
-import net.tamasnovak.entities.Account;
-import net.tamasnovak.exception.FormErrorException;
+import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.security.JwtResponse;
 import net.tamasnovak.security.JwtUtils;
 import net.tamasnovak.services.account.AccountService;
@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 

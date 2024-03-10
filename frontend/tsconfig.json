@@ -27,7 +27,7 @@
       "@configuration": ["configuration/index.ts"],
       "@components/*": ["components/*"],
       "@context/*": ["context/*"],
-      "@hooks": ["hooks/index.ts"],
+      "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
       "@theme/*": ["theme/*"],
       "@utilities": ["utilities/index.ts"]

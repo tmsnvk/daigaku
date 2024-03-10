@@ -12,6 +12,7 @@ import { AuthProvider } from '@context/AuthContext.tsx';
 import {
   ErrorPage,
   HomePage,
+  NewApplicationPage
 } from '@pages/index.ts';
 import {
   NoAuthNavbar,
@@ -65,6 +66,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route>
       <Route element={<PrivateRoutes />}>
         <Route element={<div>DUMMY DASHBOARD</div>} path={'/dashboard'} />
+        <Route element={<NewApplicationPage />} path={'/new-application'} />
       </Route>
     </Route>
   </Route>,
@@ -84,3 +86,18 @@ const Application = () => {
 };
 
 export default Application;
+
+// main student form fields
+// details
+//    country,
+//    university,
+//    major subject,
+//    minor subject if applicable,
+//    program length
+// status
+//    application - planned, submitted, withdrawn
+//    interview - n/a interview, invited for interview, not invited for interview
+//    offer - conditional, deferred, unconditional, rejected
+//    response - firm choice, insurance choice, offer declined
+//    final destination - final destination, final destination (deferred entry), not final destination, offer conditions not met
+// comments

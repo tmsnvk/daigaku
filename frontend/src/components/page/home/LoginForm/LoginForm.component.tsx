@@ -13,7 +13,7 @@ import {
   PasswordInputFieldStyles,
   SubmitInput,
 } from '@components/shared/form';
-import { useRevealPasswordInInputField } from '@hooks';
+import { useRevealPasswordInInputField } from '@hooks/index.ts';
 import { useSubmitLoginForm } from './LoginForm.hooks.tsx';
 import { iconLibraryConfig } from '@configuration';
 import {

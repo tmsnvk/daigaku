@@ -23,7 +23,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     font-family: ${(props) => props.theme.fontFamily.primary};
     background-color: ${(props) => props.theme.color.primaryLight};
-    overflow: hidden;
   }
 
   a,

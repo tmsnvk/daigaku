@@ -1,4 +1,4 @@
-package net.tamasnovak.entities;
+package net.tamasnovak.entities.account;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
@@ -10,28 +10,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import net.tamasnovak.entities.application.Application;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "accounts")
 @Getter
-@Setter
 @NoArgsConstructor
 public final class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
-  private int id;
+  private long id;
 
   @Column(name = "uuid")
   @org.hibernate.validator.constraints.UUID
@@ -61,6 +62,10 @@ public final class Account {
   @NotBlank
   private String hashedPassword;
 
+  @OneToMany(mappedBy = "accountId")
+  @JsonManagedReference
+  private Set<Application> applications;
+
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "accounts_roles_join",
@@ -75,5 +80,6 @@ public final class Account {
     this.email = email;
     this.hashedPassword = hashedPassword;
     this.roles = roles;
+    this.applications = new HashSet<>();
   }
 }

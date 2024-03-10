@@ -10,8 +10,9 @@ const InputFieldStyles = styled.article<InputFieldT>`
   flex-direction: column;
   align-items: center;
   margin: 0 0 1.5rem 0;
-  
-  & input {
+
+  & input,
+  & select {
     width: 35rem;
     height: 5rem;
     padding: 0 0 0 2.5rem;
@@ -20,10 +21,10 @@ const InputFieldStyles = styled.article<InputFieldT>`
     border: 0.2rem solid ${(props) => props.$isError ? props.theme.color.error : props.theme.color.primaryDark};
     border-radius: 1.25rem;
 
-    &:hover {
+    &:hover:not([disabled]) {
       box-shadow: 0 0 0.5rem ${(props) => props.theme.color.secondaryDark};
     }
-    
+
     &::placeholder {
       color: ${(props) => props.theme.color.secondaryDark};
       font-size: ${(props) => props.theme.fontSize.medium};
@@ -37,6 +38,18 @@ const InputFieldStyles = styled.article<InputFieldT>`
     &:focus::placeholder {
       color: transparent;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+  
+  & input[type=number] {
+    width: 10rem;
+  }
+
+  & select {
+    cursor: pointer;
   }
 `;
 
