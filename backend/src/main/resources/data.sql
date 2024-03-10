@@ -9,12 +9,11 @@ VALUES
 
 -- INSERT USERS
 INSERT INTO accounts
-  (id, uuid, registered_at, last_updated_at, first_name, last_name, email, hashed_password)
+  (id, first_name, last_name, email, hashed_password)
 VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Admin', 'User', 'admin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm'),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm'),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm');
-
+  (1, 'Admin', 'User', 'admin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm'),
+  (2, 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm'),
+  (3, 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm');
 
 INSERT INTO accounts_roles_join
   (role_id, account_id)
@@ -24,68 +23,94 @@ VALUES
   (1, 3);
 
 
--- INSERT COUNTRIES
-INSERT INTO countries
-  (id, uuid, created_at, last_updated_at, name)
-VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Denmark'),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Great Britain'),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'United States');
-
-
--- INSERT UNIVERSITIES
+-- INSERT INTO countries & universities
+WITH country AS (
+  INSERT INTO countries
+    (id, name)
+    VALUES
+      (1, 'Denmark')
+    RETURNING
+      uuid,
+      name
+)
 INSERT INTO universities
-  (id, country_id, uuid, created_at, last_updated_at, name, abbreviation, country, address)
+(id, country_id, name, abbreviation, country, address)
 VALUES
-  (1, 1, gen_random_uuid(), current_timestamp, current_timestamp, 'Aarhus University', 'AU', 'Denmark', ''),
-  (2, 1, gen_random_uuid(), current_timestamp, current_timestamp, 'Roskilde University', 'RUC', 'Denmark', ''),
-  (3, 1, gen_random_uuid(), current_timestamp, current_timestamp, 'University of Copenhagen', 'KU', 'Denmark', ''),
-  (4, 2, gen_random_uuid(), current_timestamp, current_timestamp, 'University of Oxford', 'UO', 'Great Britain', ''),
-  (5, 3, gen_random_uuid(), current_timestamp, current_timestamp, 'New York University', 'NYU', 'United States', ''),
-  (6, 3, gen_random_uuid(), current_timestamp, current_timestamp, 'Harvard University', 'HU', 'United States', '');
+  (1, (SELECT uuid FROM country), 'Aarhus University', 'AU', (SELECT name FROM country), ''),
+  (2, (SELECT uuid FROM country), 'Roskilde University', 'RUC', (SELECT name FROM country), ''),
+  (3, (SELECT uuid FROM country), 'University of Copenhagen', 'KU', (SELECT name FROM country), '');
+
+WITH country AS (
+  INSERT INTO countries
+    (id, name)
+    VALUES
+      (2, 'Great Britain')
+    RETURNING
+      uuid,
+      name
+)
+INSERT INTO universities
+(id, country_id, name, abbreviation, country, address)
+VALUES
+  (4, (SELECT uuid FROM country), 'University of Oxford', 'UO', (SELECT name FROM country), '');
+
+WITH country AS (
+  INSERT INTO countries
+    (id, name)
+    VALUES
+      (3, 'United States')
+    RETURNING
+      uuid,
+      name
+)
+INSERT INTO universities
+(id, country_id, name, abbreviation, country, address)
+VALUES
+  (5, (SELECT uuid FROM country), 'New York University', 'NYU', (SELECT name FROM country), ''),
+  (6, (SELECT uuid FROM country), 'Harvard University', 'HU', (SELECT name FROM country), '');
 
 
 -- INSERT APPLICATION STATUS
 INSERT INTO application_status
-  (id, uuid, created_at, last_updated_at, name)
+  (id, name)
 VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Planned'),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Submitted'),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'Withdrawn');
+  (1, 'Planned'),
+  (2, 'Submitted'),
+  (3, 'Withdrawn');
 
 
 -- INSERT INTERVIEW STATUS
 INSERT INTO interview_status
-(id, uuid, created_at, last_updated_at, name)
+(id, name)
 VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'No Interview'),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Invited'),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'Not Invited');
+  (1, 'No Interview'),
+  (2, 'Invited'),
+  (3, 'Not Invited');
 
 
 -- INSERT OFFER STATUS
 INSERT INTO offer_status
-(id, uuid, created_at, last_updated_at, name)
+(id, name)
 VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Unconditional'),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Conditional'),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'Deferred'),
-  (4, gen_random_uuid(), current_timestamp, current_timestamp, 'Rejected');
+  (1, 'Unconditional'),
+  (2, 'Conditional'),
+  (3, 'Deferred'),
+  (4, 'Rejected');
 
 
 -- INSERT RESPONSE STATUS
 INSERT INTO response_status
-(id, uuid, created_at, last_updated_at, name)
+(id, name)
 VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Firm Choice'),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Insurance Choice'),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'Offer Declined');
+  (1, 'Firm Choice'),
+  (2, 'Insurance Choice'),
+  (3, 'Offer Declined');
 
 
 -- INSERT FINAL DESTINATION STATUS
 INSERT INTO final_destination_status
-(id, uuid, created_at, last_updated_at, name)
+(id, name)
 VALUES
-  (1, gen_random_uuid(), current_timestamp, current_timestamp, 'Final Destination'),
-  (2, gen_random_uuid(), current_timestamp, current_timestamp, 'Final Destination (Deferred Entry)'),
-  (3, gen_random_uuid(), current_timestamp, current_timestamp, 'Not Final Destination');
+  (1, 'Final Destination'),
+  (2, 'Final Destination (Deferred Entry)'),
+  (3, 'Not Final Destination');

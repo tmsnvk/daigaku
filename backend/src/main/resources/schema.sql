@@ -22,9 +22,9 @@ CREATE TABLE roles(
 
 CREATE TABLE accounts(
   id SERIAL PRIMARY KEY,
-  uuid UUID DEFAULT gen_random_uuid(),
-  registered_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  registered_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
@@ -47,18 +47,18 @@ CREATE TABLE pending_account_registrations(
 
 CREATE TABLE countries(
   id SERIAL PRIMARY KEY,
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE universities(
   id SERIAL PRIMARY KEY,
-  country_id INT REFERENCES countries(id),
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  country_id UUID REFERENCES countries(uuid),
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   name VARCHAR(255) NOT NULL,
   abbreviation VARCHAR(255) NOT NULL,
   country VARCHAR(255) NOT NULL,
@@ -67,59 +67,59 @@ CREATE TABLE universities(
 
 CREATE TABLE application_status(
   id SERIAL PRIMARY KEY,
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE interview_status(
   id SERIAL PRIMARY KEY,
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE offer_status(
   id SERIAL PRIMARY KEY,
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE response_status(
   id SERIAL PRIMARY KEY,
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE final_destination_status(
   id SERIAL PRIMARY KEY,
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE applications(
   id SERIAL PRIMARY KEY,
-  account_id INT REFERENCES accounts(id),
-  uuid UUID DEFAULT gen_random_uuid(),
-  created_at TIMESTAMP DEFAULT now(),
-  last_updated_at TIMESTAMP DEFAULT now(),
-  country INT REFERENCES countries(id),
-  university INT REFERENCES universities(id),
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  account_id UUID REFERENCES accounts(uuid),
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
+  country UUID REFERENCES countries(uuid),
+  university UUID REFERENCES universities(uuid),
   major_name VARCHAR(255) NOT NULL,
   minor_name VARCHAR(255),
   programme_length INT NOT NULL,
-  application_status_id INT REFERENCES application_status(id),
-  interview_status_id INT REFERENCES interview_status(id),
-  offer_status_id INT REFERENCES offer_status(id),
-  response_status_id INT REFERENCES response_status(id),
-  final_destination_status_id INT REFERENCES final_destination_status(id),
+  application_status_id UUID REFERENCES application_status(uuid),
+  interview_status_id UUID REFERENCES interview_status(uuid),
+  offer_status_id UUID REFERENCES offer_status(uuid),
+  response_status_id UUID REFERENCES response_status(uuid),
+  final_destination_status_id UUID REFERENCES final_destination_status(uuid),
   notes VARCHAR(1500)
 );
