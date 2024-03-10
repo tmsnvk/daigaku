@@ -9,10 +9,10 @@ export type ApplicationT = {
   courseName: string;
   minorSubject: string;
   programmeLength: number;
-  applicationStatus: string | null;
-  interviewStatus: string | null;
-  responseStatus: string | null;
-  finalDestinationStatus: string | null;
+  applicationStatus: string;
+  interviewStatus: string;
+  responseStatus: string;
+  finalDestinationStatus: string;
   notes: string | null;
   createdAt: Date;
   lastUpdatedAt: Date;
@@ -25,6 +25,8 @@ const getApplications = async () => {
       url: 'api/applications',
     });
 
+    localStorage.setItem('applications', JSON.stringify(data));
+
     return data;
   } catch (error) {
     console.error(error);
@@ -35,9 +37,8 @@ const useGetApplications = () => {
   const query = useQuery({
     queryKey: ['getApplications'],
     queryFn: () => getApplications(),
+    enabled: localStorage.getItem('applications') === null,
   });
-
-  localStorage.setItem('applications', JSON.stringify(query.data));
 
   return {
     applicationData: query.data,

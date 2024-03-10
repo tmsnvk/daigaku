@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
   SubmitHandler,
@@ -9,7 +10,7 @@ import {
   NewApplicationFormErrorT,
   NewApplicationFormFieldsT,
 } from './NewApplicationForm.types.ts';
-import { useNavigate } from 'react-router-dom';
+import { ApplicationT } from '@hooks/useGetApplications.tsx';
 
 type NewApplicationFormT = {
   setError: UseFormSetError<NewApplicationFormFieldsT>;
@@ -20,14 +21,21 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['newApplicationForm'],
-    mutationFn: async (data: NewApplicationFormFieldsT): Promise<void> => {
-      await axiosConfigWithAuth.request({
+    mutationFn: async (data: NewApplicationFormFieldsT): Promise<ApplicationT> => {
+      const response = await axiosConfigWithAuth.request({
         method: 'POST',
         url: '/api/applications',
         data,
       });
+
+      return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const applications: ApplicationT[] = JSON.parse(localStorage.getItem('applications') || '[]');
+
+      applications.push(data);
+      localStorage.setItem('applications', JSON.stringify(applications));
+
       navigate('/dashboard');
     },
     onError: (error: NewApplicationFormErrorT) => {
