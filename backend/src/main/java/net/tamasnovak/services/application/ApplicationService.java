@@ -14,6 +14,10 @@ import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public final class ApplicationService {
@@ -22,6 +26,14 @@ public final class ApplicationService {
   private final UniversityService universityService;
   private final ApplicationMapper applicationMapper;
   private final DbResourceNotFoundMessages dbResourceNotFoundMessages;
+
+  public List<ApplicationDto> findAll(Account account) {
+    List<Application> applications = applicationRepository.findAllByAccountId(account).get();
+
+    return applications.stream()
+      .map(applicationMapper::toApplicationDto)
+      .collect(Collectors.toList());
+  }
 
   public ApplicationDto saveApplication(Account account, NewApplicationDto newApplicationDto) {
     Country country = countryService.findByUuid(newApplicationDto.country())

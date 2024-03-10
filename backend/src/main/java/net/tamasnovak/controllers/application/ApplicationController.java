@@ -18,12 +18,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/applications")
 @RequiredArgsConstructor
 public final class ApplicationController {
   private final ApplicationService applicationService;
   private final AccountService accountService;
+
+  @RequestMapping(
+    value = "",
+    method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<List<ApplicationDto>> findAll() {
+    User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Account account = accountService.findUserByEmail(userDetails.getUsername());
+
+    List<ApplicationDto> applications = applicationService.findAll(account);
+
+    return new ResponseEntity<>(applications, HttpStatus.OK);
+  }
 
   @RequestMapping(
     value = "",
