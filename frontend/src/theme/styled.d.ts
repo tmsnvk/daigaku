@@ -20,6 +20,7 @@ declare module 'styled-components' {
       large: string;
       xLarge: string;
       xxLarge: string;
+      xxxLarge: string;
     },
     mediaQuery: {
       small: string;

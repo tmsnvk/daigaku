@@ -11,11 +11,51 @@ const DashboardPage = () => {
   }
 
   return (
-    <MainContainer>
-      <FigureInfoBox
-        
-      />
-    </MainContainer>
+    data &&
+      <MainContainer>
+        <section>
+          <FigureInfoBox
+            title={'Number of Applications'}
+            content={data.numberOfApplications}
+          />
+          <FigureInfoBox
+            title={'Number of Planned Applications'}
+            content={data.numberOfPlannedStatus}
+          />
+          <FigureInfoBox
+            title={'Number of Submitted Applications'}
+            content={data.numberOfSubmittedStatus}
+          />
+          <FigureInfoBox
+            title={'Number of Applications'}
+            content={data.numberOfApplications}
+          />
+        </section>
+        <section>
+          <FigureInfoBox
+            title={'Number of Planned Applications'}
+            content={data.numberOfPlannedStatus}
+          />
+          <FigureInfoBox
+            title={'Number of Submitted Applications'}
+            content={data.numberOfSubmittedStatus}
+          />
+        </section>
+        <section>
+          <FigureInfoBox
+            title={'Number of Applications'}
+            content={data.numberOfApplications}
+          />
+          <FigureInfoBox
+            title={'Number of Planned Applications'}
+            content={data.numberOfPlannedStatus}
+          />
+          <FigureInfoBox
+            title={'Number of Submitted Applications'}
+            content={data.numberOfSubmittedStatus}
+          />
+        </section>
+      </MainContainer>
   );
 };
 

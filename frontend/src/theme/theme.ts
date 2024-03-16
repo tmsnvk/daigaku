@@ -25,6 +25,7 @@ const theme: DefaultTheme = {
     large: '2rem',
     xLarge: '2.6rem',
     xxLarge: '3rem',
+    xxxLarge: '12rem',
   },
   mediaQuery: {
     small: '480px',
