@@ -1,4 +1,4 @@
-import { BoxContainer } from './FinalDestinationInfoBox.styles.ts';
+import { BoxContainer } from './TextInfoBox.styles.ts';
 
 type ComponentPropT = {
   title: string;
@@ -7,7 +7,7 @@ type ComponentPropT = {
   courseName: string;
 }
 
-const FinalDestinationInfoBox = ({ title, country, university, courseName }: ComponentPropT) => {
+const TextInfoBoxInfoBox = ({ title, country, university, courseName }: ComponentPropT) => {
   return (
     <BoxContainer>
       <p>{country}</p>
@@ -18,4 +18,4 @@ const FinalDestinationInfoBox = ({ title, country, university, courseName }: Com
   );
 };
 
-export default FinalDestinationInfoBox;
+export default TextInfoBoxInfoBox;

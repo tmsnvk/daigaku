@@ -1,7 +1,7 @@
 import FigureInfoBox from './FigureInfoBox';
-import FinalDestinationInfoBox from './FinalDestinationInfoBox';
+import TextInfoBoxInfoBox from './TextInfoBox';
 
 export {
   FigureInfoBox,
-  FinalDestinationInfoBox,
+  TextInfoBoxInfoBox,
 };

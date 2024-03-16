@@ -1,10 +1,11 @@
 import {
   FigureInfoBox,
-  FinalDestinationInfoBox,
+  TextInfoBoxInfoBox,
 } from '@components/page/dashboard/components';
 import { DashboardDataT } from '@pages/Dashboard/Dashboard.hooks.tsx';
 import {
   finalDestination,
+  firmChoice,
   numberOfApplications,
   numberOfDifferentCountries,
   numberOfDifferentUniversities,
@@ -54,7 +55,13 @@ const StudentLayout = ({ data }: ComponentPropsT) => {
           title={numberOfOffers}
           content={data.numberOfOffers}
         />
-        <FinalDestinationInfoBox
+        <TextInfoBoxInfoBox
+          title={firmChoice}
+          country={data.firmChoiceCountry ?? ''}
+          university={data.firmChoiceUniversity ?? 'Not yet selected.'}
+          courseName={data.firmChoiceCourseName ?? ''}
+        />
+        <TextInfoBoxInfoBox
           title={finalDestination}
           country={data.finalDestinationCountry ?? ''}
           university={data.finalDestinationUniversity ?? 'Not yet selected.'}

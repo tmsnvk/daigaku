@@ -5,6 +5,7 @@ const numberOfWithdrawnStatus = 'Number of Withdrawn Applications';
 const numberOfDifferentCountries = 'Number of Distinct Countries';
 const numberOfDifferentUniversities = 'Number of Distinct Universities';
 const numberOfOffers = 'Number of Offers';
+const firmChoice = 'Firm Choice';
 const finalDestination = 'Final Destination';
 
 export {
@@ -15,5 +16,6 @@ export {
   numberOfDifferentCountries,
   numberOfDifferentUniversities,
   numberOfOffers,
+  firmChoice,
   finalDestination,
 };

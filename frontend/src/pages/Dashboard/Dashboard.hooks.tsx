@@ -2,6 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { axiosConfigWithAuth } from '@configuration';
 
 export type DashboardDataT = {
+  firmChoiceCountry: string;
+  firmChoiceUniversity: string;
+  firmChoiceCourseName: string;
   finalDestinationCountry: string;
   finalDestinationUniversity: string;
   finalDestinationCourseName: string;
