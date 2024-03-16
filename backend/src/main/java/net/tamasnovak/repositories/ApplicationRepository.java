@@ -37,41 +37,39 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           applications
         WHERE
           final_destination_status_id = 1),
-        (SELECT COUNT(*) FROM applications) AS numberOfApplications,
+        (SELECT COUNT(*) FROM applications) AS number_of_applications,
         (SELECT COUNT(CASE
           WHEN
             applications.application_status_id = 1
           THEN
             1
-          END) FROM applications) AS numberOfPlannedStatus,
+          END) FROM applications) AS number_of_planned_status,
         (SELECT COUNT(CASE
           WHEN
             applications.application_status_id = 2
           THEN
             1
-          END) FROM applications) AS numberOfSubmittedStatus,
+          END) FROM applications) AS number_of_submitted_status,
         (SELECT COUNT(CASE
           WHEN
             applications.application_status_id = 3
           THEN
             1
-          END) FROM applications) AS numberOfWithdrawnStatus,
+          END) FROM applications) AS number_of_withdrawn_status,
         (SELECT COUNT(
           DISTINCT
             applications.country
-        ) FROM applications) AS numberOfDifferentCountries,
+        ) FROM applications) AS number_of_distinct_countries,
         (SELECT COUNT(
           DISTINCT
             applications.university
-        ) FROM applications) AS numberOfDifferentUniversities,
+        ) FROM applications) AS number_of_distinct_universities,
         (SELECT COUNT(CASE
           WHEN
-            applications.offer_status_id = 1 OR
-            applications.offer_status_id = 2 OR
-            applications.offer_status_id = 3
+            applications.offer_status_id IN (1, 2, 3)
           THEN
             1
-          END) FROM applications) AS numberOfOffers
+          END) FROM applications) AS number_of_offers
       FROM
         applications
       WHERE

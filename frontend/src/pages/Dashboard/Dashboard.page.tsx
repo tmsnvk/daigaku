@@ -9,10 +9,12 @@ const DashboardPage = () => {
   if (isLoading) {
     return <GlobalLoadingModal />;
   }
-console.log(data);
+
   return (
     <MainContainer>
-      <FigureInfoBox />
+      <FigureInfoBox
+        
+      />
     </MainContainer>
   );
 };
