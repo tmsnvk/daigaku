@@ -31,6 +31,7 @@ const useGetDashboardData = () => {
   const query = useQuery({
     queryKey: ['getDashboardData'],
     queryFn: () => getDashboardData(),
+    refetchOnMount: 'always',
   });
 
   return {
