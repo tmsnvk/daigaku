@@ -1,7 +1,13 @@
-import { AccountRoleE, useAuth } from '@context/AuthContext.tsx';
+import {
+  AccountRoleE,
+  useAuth,
+} from '@context/AuthContext.tsx';
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
 import { StudentLayout } from '@components/page/dashboard';
-import { GlobalLoadingModal } from '@components/shared/modal';
+import {
+  GlobalErrorModal,
+  GlobalLoadingModal,
+} from '@components/shared/modal';
 import { MainContainer } from './Dashboard.styles.ts';
 
 const DashboardPage = () => {
@@ -10,6 +16,10 @@ const DashboardPage = () => {
 
   if (isLoading) {
     return <GlobalLoadingModal />;
+  }
+
+  if (isError) {
+    return <GlobalErrorModal />;
   }
 
   return (

@@ -1,7 +1,7 @@
 import {
   FigureInfoBox,
   FinalDestinationInfoBox,
-} from '@components/page/dashboard';
+} from '@components/page/dashboard/components';
 import { DashboardDataT } from '@pages/Dashboard/Dashboard.hooks.tsx';
 import {
   finalDestination,

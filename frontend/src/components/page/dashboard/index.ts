@@ -1,9 +1,5 @@
-import StudentLayout from './StudentLayout';
-import FigureInfoBox from './FigureInfoBox';
-import FinalDestinationInfoBox from './FinalDestinationInfoBox';
+import StudentLayout from './student/StudentLayout';
 
 export {
-  FigureInfoBox,
-  FinalDestinationInfoBox,
   StudentLayout,
 };
