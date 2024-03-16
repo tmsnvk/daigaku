@@ -81,13 +81,17 @@ public final class ApplicationService {
         (String) result[0],
         (String) result[1],
         (String) result[2],
-        (long) result[3],
-        (long) result[4],
-        (long) result[5],
+        (String) result[3],
+        (String) result[4],
+        (String) result[5],
         (long) result[6],
         (long) result[7],
         (long) result[8],
-        (long) result[9]
+        (long) result[9],
+        (long) result[10],
+        (long) result[11],
+        (long) result[12],
+        (long) result[13]
       );
     }
 

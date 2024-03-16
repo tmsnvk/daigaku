@@ -21,6 +21,28 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         INNER JOIN
           countries ON applications.country = countries.id
         WHERE
+          response_status_id = 1),
+        (SELECT
+          universities.name
+        FROM
+          applications
+        INNER JOIN
+          universities ON applications.university = universities.id
+        WHERE
+          response_status_id = 1),
+        (SELECT
+          course_name
+        FROM
+          applications
+        WHERE
+          response_status_id = 1),
+        (SELECT
+          countries.name
+        FROM
+          applications
+        INNER JOIN
+          countries ON applications.country = countries.id
+        WHERE
           final_destination_status_id = 1),
         (SELECT
           universities.name
@@ -65,6 +87,12 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         ) FROM applications) AS number_of_distinct_universities,
         (SELECT COUNT(CASE
           WHEN
+            applications.interview_status_id IS NULL
+          THEN
+            1
+          END) FROM applications) AS interviews_not_set,
+        (SELECT COUNT(CASE
+          WHEN
             applications.offer_status_id IN (1, 2, 3)
           THEN
             1
@@ -72,8 +100,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
       FROM
         applications
       WHERE
-        account_id = :accountId AND
-        final_destination_status_id = 1
+        account_id = :accountId
     """, nativeQuery = true
   )
   List<Object[]> getStudentDashboardData(@Param("accountId") long accountId);
