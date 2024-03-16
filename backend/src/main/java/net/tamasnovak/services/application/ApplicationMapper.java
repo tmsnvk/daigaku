@@ -5,7 +5,7 @@ import net.tamasnovak.entities.application.Application;
 import org.springframework.stereotype.Component;
 
 @Component
-final class ApplicationMapper {
+public final class ApplicationMapper {
   public ApplicationDto toApplicationDto(Application application) {
     return new ApplicationDto(
       application.getUuid(),

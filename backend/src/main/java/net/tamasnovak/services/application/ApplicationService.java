@@ -1,6 +1,7 @@
 package net.tamasnovak.services.application;
 
 import net.tamasnovak.dtos.application.ApplicationDto;
+import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.application.Application;
@@ -58,5 +59,28 @@ public final class ApplicationService {
     applicationRepository.save(application);
 
     return applicationMapper.toApplicationDto(application);
+  }
+
+  public DashboardDataDto getDashboardData(long accountId) {
+    List<Object[]> dashboardData = applicationRepository.getDashboardData(accountId);
+
+    DashboardDataDto dashboardDataDto = null;
+
+    for (Object[] result : dashboardData) {
+      dashboardDataDto = new DashboardDataDto(
+        (String) result[0],
+        (String) result[1],
+        (String) result[2],
+        (long) result[3],
+        (long) result[4],
+        (long) result[5],
+        (long) result[6],
+        (long) result[7],
+        (long) result[8],
+        (long) result[9]
+      );
+    }
+
+    return dashboardDataDto;
   }
 }

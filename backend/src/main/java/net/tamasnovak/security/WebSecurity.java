@@ -60,6 +60,7 @@ public class WebSecurity {
         .requestMatchers("/api/users/**").permitAll()
         .requestMatchers("/api/universities/**").authenticated()
         .requestMatchers("/api/countries/**").authenticated()
+        .requestMatchers("/api/applications/").authenticated()
         .anyRequest().authenticated()
       );
     http.authenticationProvider(authenticationProvider());
