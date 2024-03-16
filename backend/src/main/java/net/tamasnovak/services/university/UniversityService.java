@@ -1,6 +1,5 @@
 package net.tamasnovak.services.university;
 
-import lombok.RequiredArgsConstructor;
 import net.tamasnovak.controllers.university.UniversityControllerMessages;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
 import net.tamasnovak.entities.country.Country;
@@ -17,12 +16,18 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public final class UniversityService {
   private final CountryService countryService;
   private final UniversityMapper universityMapper;
   private final UniversityRepository universityRepository;
   private final UniversityControllerMessages universityControllerMessages;
+
+  public UniversityService(CountryService countryService, UniversityMapper universityMapper, UniversityRepository universityRepository, UniversityControllerMessages universityControllerMessages) {
+    this.countryService = countryService;
+    this.universityMapper = universityMapper;
+    this.universityRepository = universityRepository;
+    this.universityControllerMessages = universityControllerMessages;
+  }
 
   public List<UniversityOptionDto> findAll() {
     List<University> universities = universityRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));

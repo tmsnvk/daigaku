@@ -1,6 +1,5 @@
 package net.tamasnovak.controllers.country;
 
-import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.country.CountryOptionDto;
 import net.tamasnovak.services.country.CountryService;
 import org.springframework.http.HttpStatus;
@@ -15,9 +14,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/countries")
-@RequiredArgsConstructor
 public final class CountryController {
   private final CountryService countryService;
+
+  public CountryController(CountryService countryService) {
+    this.countryService = countryService;
+  }
 
   @RequestMapping(
     value = "",

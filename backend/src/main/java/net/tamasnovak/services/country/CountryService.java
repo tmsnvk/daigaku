@@ -1,6 +1,5 @@
 package net.tamasnovak.services.country;
 
-import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.country.CountryOptionDto;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.repositories.CountryRepository;
@@ -13,10 +12,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public final class CountryService {
   private final CountryMapper countryMapper;
   private final CountryRepository countryRepository;
+
+  public CountryService(CountryMapper countryMapper, CountryRepository countryRepository) {
+    this.countryMapper = countryMapper;
+    this.countryRepository = countryRepository;
+  }
 
   public List<CountryOptionDto> findAll() {
     List<Country> countries = countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));

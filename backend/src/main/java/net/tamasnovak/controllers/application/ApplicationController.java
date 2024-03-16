@@ -1,10 +1,8 @@
 package net.tamasnovak.controllers.application;
 
-import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.services.account.AccountService;
 import net.tamasnovak.services.application.ApplicationService;
 import org.springframework.http.HttpStatus;
@@ -22,10 +20,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/applications")
-@RequiredArgsConstructor
 public final class ApplicationController {
   private final ApplicationService applicationService;
   private final AccountService accountService;
+
+  public ApplicationController(ApplicationService applicationService, AccountService accountService) {
+    this.applicationService = applicationService;
+    this.accountService = accountService;
+  }
 
   @RequestMapping(
     value = "",

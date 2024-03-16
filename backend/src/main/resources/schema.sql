@@ -114,7 +114,7 @@ CREATE TABLE applications(
   country BIGINT REFERENCES countries(id),
   university BIGINT REFERENCES universities(id),
   course_name VARCHAR(255) NOT NULL,
-  minor_subject VARCHAR(255),
+  minor_subject VARCHAR(255) DEFAULT NULL,
   programme_length BIGINT NOT NULL,
   application_status_id BIGINT REFERENCES application_status(id),
   interview_status_id BIGINT REFERENCES interview_status(id),

@@ -15,8 +15,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import net.tamasnovak.entities.application.Application;
 
 import java.sql.Timestamp;
@@ -26,39 +24,37 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "accounts")
-@Getter
-@NoArgsConstructor
 public final class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
   private long id;
 
-  @Column(name = "uuid")
+  @Column(name = "uuid", updatable = false, nullable = false)
   @org.hibernate.validator.constraints.UUID
   private UUID uuid;
 
-  @Column(name = "registered_at")
+  @Column(name = "registered_at", updatable = false, nullable = false)
   @PastOrPresent
   private Timestamp registeredAt;
 
-  @Column(name = "last_updated_at")
+  @Column(name = "last_updated_at", nullable = false)
   @PastOrPresent
   private Timestamp lastUpdatedAt;
 
-  @Column(name = "first_name")
+  @Column(name = "first_name", nullable = false)
   @NotBlank
   private String firstName;
 
-  @Column(name = "last_name")
+  @Column(name = "last_name", nullable = false)
   @NotBlank
   private String lastName;
 
-  @Column(name = "email")
+  @Column(name = "email", unique = true, nullable = false)
   @Email
   private String email;
 
-  @Column(name = "hashed_password")
+  @Column(name = "hashed_password", nullable = false)
   @NotBlank
   private String hashedPassword;
 
@@ -74,6 +70,8 @@ public final class Account {
   )
   private Set<Role> roles;
 
+  public Account() {}
+
   public Account(String firstName, String lastName, String email, String hashedPassword, Set<Role> roles) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -81,5 +79,45 @@ public final class Account {
     this.hashedPassword = hashedPassword;
     this.roles = roles;
     this.applications = new HashSet<>();
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public Timestamp getRegisteredAt() {
+    return registeredAt;
+  }
+
+  public Timestamp getLastUpdatedAt() {
+    return lastUpdatedAt;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getHashedPassword() {
+    return hashedPassword;
+  }
+
+  public Set<Application> getApplications() {
+    return applications;
+  }
+
+  public Set<Role> getRoles() {
+    return roles;
   }
 }

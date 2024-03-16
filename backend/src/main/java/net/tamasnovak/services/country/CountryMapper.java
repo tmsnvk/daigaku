@@ -5,7 +5,7 @@ import net.tamasnovak.entities.country.Country;
 import org.springframework.stereotype.Component;
 
 @Component
-final class CountryMapper {
+public final class CountryMapper {
   public CountryOptionDto toOptionDto(Country country) {
     return new CountryOptionDto(
       country.getUuid(),

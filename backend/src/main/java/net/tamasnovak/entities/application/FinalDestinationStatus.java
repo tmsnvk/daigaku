@@ -10,8 +10,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -20,8 +18,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "final_destination_status")
-@Getter
-@NoArgsConstructor
 public final class FinalDestinationStatus {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,15 +28,15 @@ public final class FinalDestinationStatus {
   @org.hibernate.validator.constraints.UUID
   private UUID uuid;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", updatable = false, nullable = false)
   @PastOrPresent
   private Timestamp createdAt;
 
-  @Column(name = "last_updated_at")
+  @Column(name = "last_updated_at", nullable = false)
   @PastOrPresent
   private Timestamp lastUpdatedAt;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   @NotBlank
   private String name;
 
@@ -48,8 +44,34 @@ public final class FinalDestinationStatus {
   @JsonManagedReference
   private Set<Application> applications;
 
+  public FinalDestinationStatus() {}
+
   public FinalDestinationStatus(String name) {
     this.name = name;
     this.applications = new HashSet<>();
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public Timestamp getCreatedAt() {
+    return createdAt;
+  }
+
+  public Timestamp getLastUpdatedAt() {
+    return lastUpdatedAt;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Set<Application> getApplications() {
+    return applications;
   }
 }

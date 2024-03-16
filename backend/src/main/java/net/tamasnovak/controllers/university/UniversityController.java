@@ -1,6 +1,5 @@
 package net.tamasnovak.controllers.university;
 
-import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
@@ -17,9 +16,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/universities")
-@RequiredArgsConstructor
 public final class UniversityController {
   private final UniversityService universityService;
+
+  public UniversityController(UniversityService universityService) {
+    this.universityService = universityService;
+  }
 
   @RequestMapping(
     value = "",

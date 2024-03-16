@@ -1,6 +1,5 @@
 package net.tamasnovak.services.application;
 
-import lombok.RequiredArgsConstructor;
 import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.entities.account.Account;
@@ -15,17 +14,23 @@ import net.tamasnovak.services.university.UniversityService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public final class ApplicationService {
   private final ApplicationRepository applicationRepository;
   private final CountryService countryService;
   private final UniversityService universityService;
   private final ApplicationMapper applicationMapper;
   private final DbResourceNotFoundMessages dbResourceNotFoundMessages;
+
+  public ApplicationService(ApplicationRepository applicationRepository, CountryService countryService, UniversityService universityService, ApplicationMapper applicationMapper, DbResourceNotFoundMessages dbResourceNotFoundMessages) {
+    this.applicationRepository = applicationRepository;
+    this.countryService = countryService;
+    this.universityService = universityService;
+    this.applicationMapper = applicationMapper;
+    this.dbResourceNotFoundMessages = dbResourceNotFoundMessages;
+  }
 
   public List<ApplicationDto> findAll(Account account) {
     List<Application> applications = applicationRepository.findAllByAccountId(account).get();
