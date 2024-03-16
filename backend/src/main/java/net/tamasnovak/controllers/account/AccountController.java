@@ -25,10 +25,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,7 +56,11 @@ public class AccountController {
     this.emailService = emailService;
   }
 
-  @GetMapping(value = "/me", produces = "application/json")
+  @RequestMapping(
+    value = "/me",
+    method = RequestMethod.GET,
+    produces = "application/json"
+  )
   @ResponseStatus(HttpStatus.OK)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'ADMIN')")
   public ResponseEntity<AccountGetMeDto> findUser() {
@@ -67,7 +70,7 @@ public class AccountController {
     List<String> accountRoles = userDetails.getAuthorities()
       .stream()
       .map(GrantedAuthority::getAuthority)
-      .toList();
+      .collect(Collectors.toList());
 
     AccountDataDto accountDataDto = new AccountDataDto(
       foundAccount.getEmail(),
@@ -85,7 +88,11 @@ public class AccountController {
     return new ResponseEntity<>(accountGetMeDto, HttpStatus.OK);
   }
 
-  @PostMapping(value = "/register", consumes = "application/json")
+  @RequestMapping(
+    value = "/register",
+    method = RequestMethod.POST,
+    consumes = "application/json"
+  )
   public ResponseEntity<AccountDataAfterRegistrationDto> register(@RequestBody AccountRegistrationDto registrationData) {
     if (isRegisterFormDataValidated(registrationData)) {
       throw new FormErrorException(accountControllerMessages.FORM_ERROR_MESSAGE);
@@ -104,7 +111,12 @@ public class AccountController {
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
-  @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+  @RequestMapping(
+    value = "/login",
+    method = RequestMethod.POST,
+    consumes = "application/json",
+    produces = "application/json"
+  )
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<AccountLoginReturnDto> login(@RequestBody AccountLoginDto loginData) {
     if (isLoginFormDataValidated(loginData)) {
