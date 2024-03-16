@@ -1,7 +1,20 @@
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
-import { FigureInfoBox } from '@components/page/dashboard';
+import {
+  FigureInfoBox,
+  FinalDestinationInfoBox,
+} from '@components/page/dashboard';
 import { GlobalLoadingModal } from '@components/shared/modal';
 import { MainContainer } from './Dashboard.styles.ts';
+import {
+  finalDestination,
+  numberOfApplications,
+  numberOfDifferentCountries,
+  numberOfDifferentUniversities,
+  numberOfOffers,
+  numberOfPlannedStatus,
+  numberOfSubmittedStatus,
+  numberOfWithdrawnStatus,
+} from './Dashboard.utilities.ts';
 
 const DashboardPage = () => {
   const { data, isLoading, isError } = useGetDashboardData();
@@ -15,44 +28,42 @@ const DashboardPage = () => {
       <MainContainer>
         <section>
           <FigureInfoBox
-            title={'Number of Applications'}
+            title={numberOfApplications}
             content={data.numberOfApplications}
           />
           <FigureInfoBox
-            title={'Number of Planned Applications'}
+            title={numberOfPlannedStatus}
             content={data.numberOfPlannedStatus}
           />
           <FigureInfoBox
-            title={'Number of Submitted Applications'}
+            title={numberOfSubmittedStatus}
             content={data.numberOfSubmittedStatus}
           />
           <FigureInfoBox
-            title={'Number of Applications'}
-            content={data.numberOfApplications}
+            title={numberOfWithdrawnStatus}
+            content={data.numberOfWithdrawnStatus}
           />
         </section>
         <section>
           <FigureInfoBox
-            title={'Number of Planned Applications'}
-            content={data.numberOfPlannedStatus}
+            title={numberOfDifferentCountries}
+            content={data.numberOfDifferentCountries}
           />
           <FigureInfoBox
-            title={'Number of Submitted Applications'}
-            content={data.numberOfSubmittedStatus}
+            title={numberOfDifferentUniversities}
+            content={data.numberOfDifferentUniversities}
           />
         </section>
         <section>
           <FigureInfoBox
-            title={'Number of Applications'}
-            content={data.numberOfApplications}
+            title={numberOfOffers}
+            content={data.numberOfOffers}
           />
-          <FigureInfoBox
-            title={'Number of Planned Applications'}
-            content={data.numberOfPlannedStatus}
-          />
-          <FigureInfoBox
-            title={'Number of Submitted Applications'}
-            content={data.numberOfSubmittedStatus}
+          <FinalDestinationInfoBox
+            title={finalDestination}
+            country={data.finalDestinationCountry ?? ''}
+            university={data.finalDestinationUniversity ?? 'Not yet selected.'}
+            courseName={data.finalDestinationCourseName ?? ''}
           />
         </section>
       </MainContainer>

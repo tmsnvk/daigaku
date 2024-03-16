@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BoxContainer = styled.dl`
+const BoxContainer = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,11 +13,13 @@ const BoxContainer = styled.dl`
   border-radius: 0.75rem;
   box-shadow: 0 0.1rem 1.5rem 0 ${(props) => props.theme.color.primaryDark};
   
-  & dt {
-    font-size: ${(props) => props.theme.fontSize.xxxLarge};
+  & p:not(p:last-of-type) {
+    margin: 2.5rem 0 0 0;
+    font-weight: 800;
+    font-size: ${(props) => props.theme.fontSize.large};
   }
   
-  & dd {
+  & p:last-of-type {
     font-size: ${(props) => props.theme.fontSize.medium};
   }
 `;
