@@ -1,17 +1,18 @@
-import { useGetApplications } from '@hooks/index.ts';
-import { MainContainer } from './Dashboard.styles.ts';
+import { useGetDashboardData } from './Dashboard.hooks.tsx';
+import { FigureInfoBox } from '@components/page/dashboard';
 import { GlobalLoadingModal } from '@components/shared/modal';
+import { MainContainer } from './Dashboard.styles.ts';
 
 const DashboardPage = () => {
-  const { applicationData, isApplicationDataLoading, isApplicationDataError } = useGetApplications();
+  const { data, isLoading, isError } = useGetDashboardData();
 
-  if (isApplicationDataLoading) {
+  if (isLoading) {
     return <GlobalLoadingModal />;
   }
-
+console.log(data);
   return (
     <MainContainer>
-
+      <FigureInfoBox />
     </MainContainer>
   );
 };
