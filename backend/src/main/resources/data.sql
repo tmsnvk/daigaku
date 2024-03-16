@@ -26,91 +26,91 @@ VALUES
 -- INSERT INTO countries & universities
 WITH country AS (
   INSERT INTO countries
-    (id, name)
-    VALUES
-      (1, 'Denmark')
-    RETURNING
-      id,
-      name
+    (name)
+  VALUES
+    ('Denmark')
+  RETURNING
+    id,
+    name
 )
 INSERT INTO universities
-(id, country_id, name, abbreviation, country, address)
+  (country_id, name, abbreviation, country, address)
 VALUES
-  (1, (SELECT id FROM country), 'Aarhus University', 'AU', (SELECT name FROM country), ''),
-  (2, (SELECT id FROM country), 'Roskilde University', 'RUC', (SELECT name FROM country), ''),
-  (3, (SELECT id FROM country), 'University of Copenhagen', 'KU', (SELECT name FROM country), '');
+  ((SELECT id FROM country), 'Aarhus University', 'AU', (SELECT name FROM country), ''),
+  ((SELECT id FROM country), 'Roskilde University', 'RUC', (SELECT name FROM country), ''),
+  ((SELECT id FROM country), 'University of Copenhagen', 'KU', (SELECT name FROM country), '');
 
 WITH country AS (
   INSERT INTO countries
-    (id, name)
-    VALUES
-      (2, 'Great Britain')
-    RETURNING
-      id,
-      name
+    (name)
+  VALUES
+    ('Great Britain')
+  RETURNING
+    id,
+    name
 )
 INSERT INTO universities
-(id, country_id, name, abbreviation, country, address)
+  (country_id, name, abbreviation, country, address)
 VALUES
-  (4, (SELECT id FROM country), 'University of Oxford', 'UO', (SELECT name FROM country), '');
+  ((SELECT id FROM country), 'University of Oxford', 'UO', (SELECT name FROM country), '');
 
 WITH country AS (
   INSERT INTO countries
-    (id, name)
-    VALUES
-      (3, 'United States')
-    RETURNING
-      id,
-      name
+    (name)
+  VALUES
+    ('United States')
+  RETURNING
+    id,
+    name
 )
 INSERT INTO universities
-(id, country_id, name, abbreviation, country, address)
+  (country_id, name, abbreviation, country, address)
 VALUES
-  (5, (SELECT id FROM country), 'New York University', 'NYU', (SELECT name FROM country), ''),
-  (6, (SELECT id FROM country), 'Harvard University', 'HU', (SELECT name FROM country), '');
+  ((SELECT id FROM country), 'New York University', 'NYU', (SELECT name FROM country), ''),
+  ((SELECT id FROM country), 'Harvard University', 'HU', (SELECT name FROM country), '');
 
 
 -- INSERT APPLICATION STATUS
 INSERT INTO application_status
-  (id, name)
+  (name)
 VALUES
-  (1, 'Planned'),
-  (2, 'Submitted'),
-  (3, 'Withdrawn');
+  ('Planned'),
+  ('Submitted'),
+  ('Withdrawn');
 
 
 -- INSERT INTERVIEW STATUS
 INSERT INTO interview_status
-(id, name)
+  (name)
 VALUES
-  (1, 'No Interview'),
-  (2, 'Invited'),
-  (3, 'Not Invited');
+  ('No Interview'),
+  ('Invited'),
+  ('Not Invited');
 
 
 -- INSERT OFFER STATUS
 INSERT INTO offer_status
-(id, name)
+  (name)
 VALUES
-  (1, 'Unconditional'),
-  (2, 'Conditional'),
-  (3, 'Deferred'),
-  (4, 'Rejected');
+  ('Unconditional'),
+  ('Conditional'),
+  ('Deferred'),
+  ('Rejected');
 
 
 -- INSERT RESPONSE STATUS
 INSERT INTO response_status
-(id, name)
+  (name)
 VALUES
-  (1, 'Firm Choice'),
-  (2, 'Insurance Choice'),
-  (3, 'Offer Declined');
+  ('Firm Choice'),
+  ('Insurance Choice'),
+  ('Offer Declined');
 
 
 -- INSERT FINAL DESTINATION STATUS
 INSERT INTO final_destination_status
-(id, name)
+  (name)
 VALUES
-  (1, 'Final Destination'),
-  (2, 'Final Destination (Deferred Entry)'),
-  (3, 'Not Final Destination');
+  ('Final Destination'),
+  ('Final Destination (Deferred Entry)'),
+  ('Not Final Destination');
