@@ -67,7 +67,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
 
       const userData: AccountDataT = {
         ...data.accountDataDto,
-        accountRole: getAuthAccountRole(data.accountRoles),
+        accountRole: getAuthAccountRole(data.accountRole),
       };
 
       setAccount(userData);

@@ -1,22 +1,11 @@
+import { AccountRoleE, useAuth } from '@context/AuthContext.tsx';
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
-import {
-  FigureInfoBox,
-  FinalDestinationInfoBox,
-} from '@components/page/dashboard';
+import { StudentLayout } from '@components/page/dashboard';
 import { GlobalLoadingModal } from '@components/shared/modal';
 import { MainContainer } from './Dashboard.styles.ts';
-import {
-  finalDestination,
-  numberOfApplications,
-  numberOfDifferentCountries,
-  numberOfDifferentUniversities,
-  numberOfOffers,
-  numberOfPlannedStatus,
-  numberOfSubmittedStatus,
-  numberOfWithdrawnStatus,
-} from './Dashboard.utilities.ts';
 
 const DashboardPage = () => {
+  const { account } = useAuth();
   const { data, isLoading, isError } = useGetDashboardData();
 
   if (isLoading) {
@@ -26,46 +15,9 @@ const DashboardPage = () => {
   return (
     data &&
       <MainContainer>
-        <section>
-          <FigureInfoBox
-            title={numberOfApplications}
-            content={data.numberOfApplications}
-          />
-          <FigureInfoBox
-            title={numberOfPlannedStatus}
-            content={data.numberOfPlannedStatus}
-          />
-          <FigureInfoBox
-            title={numberOfSubmittedStatus}
-            content={data.numberOfSubmittedStatus}
-          />
-          <FigureInfoBox
-            title={numberOfWithdrawnStatus}
-            content={data.numberOfWithdrawnStatus}
-          />
-        </section>
-        <section>
-          <FigureInfoBox
-            title={numberOfDifferentCountries}
-            content={data.numberOfDifferentCountries}
-          />
-          <FigureInfoBox
-            title={numberOfDifferentUniversities}
-            content={data.numberOfDifferentUniversities}
-          />
-        </section>
-        <section>
-          <FigureInfoBox
-            title={numberOfOffers}
-            content={data.numberOfOffers}
-          />
-          <FinalDestinationInfoBox
-            title={finalDestination}
-            country={data.finalDestinationCountry ?? ''}
-            university={data.finalDestinationUniversity ?? 'Not yet selected.'}
-            courseName={data.finalDestinationCourseName ?? ''}
-          />
-        </section>
+        {account.accountRole === AccountRoleE.Student && <StudentLayout data={data} />}
+        {/*{account.accountRole === AccountRoleE.Mentor && <PLACEHOLDER data={data} />}*/}
+        {/*{account.accountRole === AccountRoleE.Admin && <PLACEHOLDER data={data} />}*/}
       </MainContainer>
   );
 };
