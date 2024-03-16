@@ -61,10 +61,20 @@ public final class ApplicationService {
     return applicationMapper.toApplicationDto(application);
   }
 
-  public DashboardDataDto getDashboardData(long accountId) {
-    List<Object[]> dashboardData = applicationRepository.getDashboardData(accountId);
-
+  public DashboardDataDto getDashboardData(long accountId, String accountRole) {
     DashboardDataDto dashboardDataDto = null;
+
+    if (accountRole.equals("ROLE_STUDENT")) {
+      dashboardDataDto = getStudentDashboardData(accountId);
+    }
+
+    return dashboardDataDto;
+  }
+
+  public DashboardDataDto getStudentDashboardData(long accountId) {
+    DashboardDataDto dashboardDataDto = null;
+
+    List<Object[]> dashboardData = applicationRepository.getStudentDashboardData(accountId);
 
     for (Object[] result : dashboardData) {
       dashboardDataDto = new DashboardDataDto(

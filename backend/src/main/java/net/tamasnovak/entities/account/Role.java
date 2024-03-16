@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -22,7 +22,7 @@ public final class Role {
   @NotBlank
   private String name;
 
-  @ManyToMany(mappedBy = "roles")
+  @OneToMany(mappedBy = "role")
   private Set<Account> users;
 
   public Role() {}

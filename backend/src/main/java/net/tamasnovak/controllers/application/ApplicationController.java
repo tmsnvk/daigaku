@@ -1,14 +1,12 @@
 package net.tamasnovak.controllers.application;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.repositories.ApplicationRepository;
 import net.tamasnovak.services.account.AccountService;
 import net.tamasnovak.services.application.ApplicationService;
+import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,23 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/applications")
 public final class ApplicationController {
   private final ApplicationService applicationService;
   private final AccountService accountService;
+  private final StringFormatterUtilities stringFormatter;
 
-  public ApplicationController(ApplicationService applicationService, AccountService accountService) {
+  public ApplicationController(ApplicationService applicationService, AccountService accountService, StringFormatterUtilities stringFormatter) {
     this.applicationService = applicationService;
     this.accountService = accountService;
+    this.stringFormatter = stringFormatter;
   }
 
   @RequestMapping(
@@ -78,8 +72,9 @@ public final class ApplicationController {
   public ResponseEntity<DashboardDataDto> getDashboardData() {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     Account account = accountService.findUserByEmail(userDetails.getUsername());
+    String accountRole = stringFormatter.transformRolesArray(userDetails);
 
-    DashboardDataDto dashboardDataDto = applicationService.getDashboardData(account.getId());
+    DashboardDataDto dashboardDataDto = applicationService.getDashboardData(account.getId(), accountRole);
 
     return new ResponseEntity<>(dashboardDataDto, HttpStatus.OK);
   }

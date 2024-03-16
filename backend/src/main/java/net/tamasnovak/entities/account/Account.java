@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -62,22 +62,22 @@ public final class Account {
   @JsonManagedReference
   private Set<Application> applications;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinTable(
     name = "accounts_roles_join",
     joinColumns = { @JoinColumn(name = "account_id") },
     inverseJoinColumns = { @JoinColumn(name = "role_id") }
   )
-  private Set<Role> roles;
+  private Role role;
 
   public Account() {}
 
-  public Account(String firstName, String lastName, String email, String hashedPassword, Set<Role> roles) {
+  public Account(String firstName, String lastName, String email, String hashedPassword, Role role) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.hashedPassword = hashedPassword;
-    this.roles = roles;
+    this.role = role;
     this.applications = new HashSet<>();
   }
 
@@ -117,7 +117,7 @@ public final class Account {
     return applications;
   }
 
-  public Set<Role> getRoles() {
-    return roles;
+  public Role getRole() {
+    return role;
   }
 }

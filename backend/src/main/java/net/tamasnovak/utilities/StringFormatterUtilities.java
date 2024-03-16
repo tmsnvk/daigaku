@@ -1,13 +1,25 @@
 package net.tamasnovak.utilities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Service
-public class StringFormatterUtilities {
+public final class StringFormatterUtilities {
   public StringFormatterUtilities() {}
+
+  public String transformRolesArray(User userDetails) {
+    String roles = userDetails.getAuthorities()
+      .stream()
+      .map(GrantedAuthority::getAuthority)
+      .toList()
+      .toString();
+
+    return roles.substring(1, roles.length() - 1);
+  }
 
   public String capitaliseWord(String word) {
     return Arrays.stream(word.split("\\s+"))

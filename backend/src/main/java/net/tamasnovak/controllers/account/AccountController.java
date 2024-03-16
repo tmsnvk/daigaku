@@ -14,6 +14,7 @@ import net.tamasnovak.security.JwtUtils;
 import net.tamasnovak.services.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.pedingAccount.PendingAccountService;
+import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,9 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/users")
@@ -44,9 +41,10 @@ public class AccountController {
   private final AccountControllerMessages accountControllerMessages;
   private final PendingAccountService pendingAccountService;
   private final EmailService emailService;
+  private final StringFormatterUtilities stringFormatter;
 
   @Autowired
-  public AccountController(PasswordEncoder encoder, JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, AccountControllerMessages accountControllerMessages, PendingAccountService pendingAccountService, EmailService emailService) {
+  public AccountController(PasswordEncoder encoder, JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, AccountControllerMessages accountControllerMessages, PendingAccountService pendingAccountService, EmailService emailService, StringFormatterUtilities stringFormatter) {
     this.encoder = encoder;
     this.jwtUtils = jwtUtils;
     this.authenticationManager = authenticationManager;
@@ -54,6 +52,7 @@ public class AccountController {
     this.accountControllerMessages = accountControllerMessages;
     this.pendingAccountService = pendingAccountService;
     this.emailService = emailService;
+    this.stringFormatter = stringFormatter;
   }
 
   @RequestMapping(
@@ -67,10 +66,7 @@ public class AccountController {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     Account foundAccount = accountService.findUserByEmail(userDetails.getUsername());
-    List<String> accountRoles = userDetails.getAuthorities()
-      .stream()
-      .map(GrantedAuthority::getAuthority)
-      .collect(Collectors.toList());
+    String accountRole = stringFormatter.transformRolesArray(userDetails);
 
     AccountDataDto accountDataDto = new AccountDataDto(
       foundAccount.getEmail(),
@@ -82,7 +78,7 @@ public class AccountController {
 
     AccountGetMeDto accountGetMeDto = new AccountGetMeDto(
       accountDataDto,
-      accountRoles
+      accountRole
     );
 
     return new ResponseEntity<>(accountGetMeDto, HttpStatus.OK);
@@ -131,12 +127,14 @@ public class AccountController {
 
     String jwtToken = jwtUtils.generateJwtToken(authentication);
     User userDetails = (User) authentication.getPrincipal();
-    List<String> accountRoles = userDetails.getAuthorities()
-      .stream()
-      .map(GrantedAuthority::getAuthority)
-      .collect(Collectors.toList());
 
-    JwtResponse jwtResponse = new JwtResponse(jwtToken, userDetails.getUsername(), accountRoles);
+    String accountRole = stringFormatter.transformRolesArray(userDetails);
+
+    JwtResponse jwtResponse = new JwtResponse(
+      jwtToken,
+      userDetails.getUsername(),
+      accountRole
+    );
 
     AccountDataDto accountDataDto = new AccountDataDto(
       foundAccount.getEmail(),

@@ -1,6 +1,5 @@
 package net.tamasnovak.repositories;
 
-import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.application.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -77,5 +76,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         final_destination_status_id = 1
     """, nativeQuery = true
   )
-  List<Object[]> getDashboardData(@Param("accountId") long accountId);
+  List<Object[]> getStudentDashboardData(@Param("accountId") long accountId);
 }
