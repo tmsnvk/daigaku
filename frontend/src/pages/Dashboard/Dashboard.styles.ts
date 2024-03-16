@@ -5,9 +5,9 @@ const MainContainer = styled.main`
   flex-direction: row;
   flex-wrap: wrap;
   row-gap: 7.5rem;
-  padding: 5% 0 0 5%;
-  
-  & section {
+  margin: 5% 5% 0 5%;
+
+  & > section:not(:first-of-type) {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

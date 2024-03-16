@@ -4,6 +4,7 @@ import {
 } from '@context/AuthContext.tsx';
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
 import { StudentLayout } from '@components/page/dashboard';
+import { TodoList } from '@components/page/dashboard/components';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
@@ -25,6 +26,7 @@ const DashboardPage = () => {
   return (
     data &&
       <MainContainer>
+        <TodoList />
         {account.accountRole === AccountRoleE.Student && <StudentLayout data={data} />}
         {/*{account.accountRole === AccountRoleE.Mentor && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.Admin && <PLACEHOLDER data={data} />}*/}

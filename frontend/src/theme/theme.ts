@@ -5,6 +5,7 @@ const white = '#F0F0F0';
 const columbiaBlue = '#C9D7DD';
 const jacarta = '#31304D';
 const darkGunMetal = '#161A30';
+const topaz = '#FFC374';
 
 const theme: DefaultTheme = {
   color: {
@@ -12,6 +13,7 @@ const theme: DefaultTheme = {
     primaryLight: white,
     secondaryDark: jacarta,
     secondaryLight: columbiaBlue,
+    tertiaryLight: topaz,
     error: coralRed,
   },
   fontFamily: {

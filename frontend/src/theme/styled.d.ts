@@ -7,6 +7,7 @@ declare module 'styled-components' {
       primaryLight: string;
       secondaryDark: string;
       secondaryLight: string;
+      tertiaryLight: string;
       error: string;
     },
     fontFamily: {
