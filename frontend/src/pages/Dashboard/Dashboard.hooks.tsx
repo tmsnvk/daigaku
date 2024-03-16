@@ -14,6 +14,7 @@ export type DashboardDataT = {
   numberOfWithdrawnStatus: number;
   numberOfDifferentCountries: number;
   numberOfDifferentUniversities: number;
+  numberOfNotSetInterviewStatus: number;
   numberOfOffers: number;
 }
 

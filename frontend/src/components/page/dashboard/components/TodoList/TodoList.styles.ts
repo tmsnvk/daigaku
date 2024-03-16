@@ -23,6 +23,23 @@ const ListContainer = styled.section`
       margin: 0 0 2rem 0;
     }
   }
+  
+  & ol {
+    margin: 0 0 0 7.5rem;
+
+    & li:first-of-type {
+      margin: 2rem 0 1.5rem 0;
+    }
+
+    & li {
+      margin: 0 0 1.5rem 0;
+      list-style-type: square;
+    }
+
+    & li:last-of-type {
+      margin: 0 0 2rem 0;
+    }
+  }
 `;
 
 export {

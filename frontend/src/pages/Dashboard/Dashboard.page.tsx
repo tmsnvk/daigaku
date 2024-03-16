@@ -26,7 +26,7 @@ const DashboardPage = () => {
   return (
     data &&
       <MainContainer>
-        <TodoList />
+        <TodoList data={data} />
         {account.accountRole === AccountRoleE.Student && <StudentLayout data={data} />}
         {/*{account.accountRole === AccountRoleE.Mentor && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.Admin && <PLACEHOLDER data={data} />}*/}

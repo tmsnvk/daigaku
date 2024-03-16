@@ -3,9 +3,23 @@ const generalIntroduction = [
   'Certain items might only be fulfilled towards the end of the application period or the school year.',
   'What is important is that you update applications if you made any progress. You are the one responsible for minding your deadlines.',
   'Let your mentor know if you have any concerns or questions!',
+  'Your current to-dos:',
 ];
-
+const noApplications = `
+  You have not yet submitted any applications. If you have any blocking issues, get in touch with your mentor.`;
+const noSubmittedApplications = `
+  You currently have planned applications only. Make sure to submit your applications once the deadlines are closing in.`;
+const noInterviewStatusSet = 'You have not yet updated the interview status of any of your applications.';
+const noFirmChoiceSet = 'You have not yet indicated your first choice.';
+const noOfferStatusSet = 'You have not yet indicated whether you have received any offers.';
+const noFinalDestinationSet = 'You have not yet indicated your final destination.';
 
 export {
   generalIntroduction,
+  noApplications,
+  noSubmittedApplications,
+  noInterviewStatusSet,
+  noFirmChoiceSet,
+  noOfferStatusSet,
+  noFinalDestinationSet,
 };
