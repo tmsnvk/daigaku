@@ -4,9 +4,10 @@ import {
 } from 'react-router-dom';
 import { GeneralIcon } from '@components/shared/icon-styles';
 import DefaultNavbarStyles from '../DefaultNavbarStyles';
+import Footer from '../Footer';
 import { iconLibraryConfig } from '@configuration';
 
-const NoAuthNavbar = () => {
+const PublicLayout = () => {
   return (
     <>
       <DefaultNavbarStyles>
@@ -25,9 +26,10 @@ const NoAuthNavbar = () => {
           </ul>
         </nav>
       </DefaultNavbarStyles>
-      <Outlet/>
+      <Outlet />
+      <Footer />
     </>
   );
 };
 
-export default NoAuthNavbar;
+export default PublicLayout;

@@ -16,8 +16,8 @@ import {
   NewApplicationPage,
 } from '@pages/index.ts';
 import {
-  NoAuthNavbar,
-  PrivateRoutes,
+  PrivateLayout,
+  PublicLayout,
 } from '@components/layout';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '@theme/GlobalStyle.ts';
@@ -60,12 +60,12 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<ErrorPage />}>
-    <Route element={<NoAuthNavbar />} path={'/'}>
+    <Route element={<PublicLayout />} path={'/'}>
       <Route index element={<HomePage />} />
       <Route element={<div>CONTACT PAGE PLACEHOLDER</div>} path={'/contact'} />
     </Route>
     <Route>
-      <Route element={<PrivateRoutes />}>
+      <Route element={<PrivateLayout />}>
         <Route element={<DashboardPage />} path={'/dashboard'} />
         <Route element={<NewApplicationPage />} path={'/new-application'} />
       </Route>
@@ -87,18 +87,3 @@ const Application = () => {
 };
 
 export default Application;
-
-// main student form fields
-// details
-//    country,
-//    university,
-//    major subject,
-//    minor subject if applicable,
-//    program length
-// status
-//    application - planned, submitted, withdrawn
-//    interview - n/a interview, invited for interview, not invited for interview
-//    offer - conditional, deferred, unconditional, rejected
-//    response - firm choice, insurance choice, offer declined
-//    final destination - final destination, final destination (deferred entry), not final destination, offer conditions not met
-// comments

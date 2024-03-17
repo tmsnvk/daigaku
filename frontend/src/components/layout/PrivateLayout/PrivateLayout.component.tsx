@@ -1,21 +1,33 @@
 import {
   Link,
+  Navigate,
   Outlet,
 } from 'react-router-dom';
 import {
   AccountRoleE,
+  AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import { GeneralIcon } from '@components/shared/icon-styles';
 import DefaultNavbarStyles from '../DefaultNavbarStyles';
+import Footer from '../Footer';
+import { GlobalLoadingModal } from '@components/shared/modal';
+import { GeneralIcon } from '@components/shared/icon-styles';
 import { iconLibraryConfig } from '@configuration';
 import {
   NavbarContentT,
   navbarContent,
-} from './AuthNavbar.utilities.ts';
+} from './PrivateLayout.utilities.ts';
 
-const AuthNavbar = () => {
-  const { account } = useAuth();
+const PrivateLayout = () => {
+  const { authStatus, account } = useAuth();
+
+  if (authStatus === AuthStatusE.Loading) {
+    return <GlobalLoadingModal />;
+  }
+
+  if (authStatus === AuthStatusE.SignedOut) {
+    return <Navigate to={'/'} replace />;
+  }
 
   return (
     <>
@@ -40,8 +52,9 @@ const AuthNavbar = () => {
         </nav>
       </DefaultNavbarStyles>
       <Outlet />
+      <Footer />
     </>
   );
 };
 
-export default AuthNavbar;
+export default PrivateLayout;

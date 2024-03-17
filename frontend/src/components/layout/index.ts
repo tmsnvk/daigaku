@@ -1,9 +1,7 @@
-import AuthNavbar from './AuthNavbar';
-import NoAuthNavbar from './NoAuthNavbar';
-import PrivateRoutes from './PrivateRoutes';
+import PublicLayout from './PublicLayout';
+import PrivateLayout from './PrivateLayout';
 
 export {
-  AuthNavbar,
-  NoAuthNavbar,
-  PrivateRoutes,
+  PublicLayout,
+  PrivateLayout,
 };
