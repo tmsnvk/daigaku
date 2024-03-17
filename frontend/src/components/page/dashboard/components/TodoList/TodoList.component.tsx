@@ -1,5 +1,5 @@
-import { ListContainer } from './TodoList.styles.ts';
 import { useCreateCurrentTodos } from './TodoList.hooks.tsx';
+import { ListContainer } from './TodoList.styles.ts';
 import { generalIntroduction } from './TodoList.utilities.ts';
 import { DashboardDataT } from '@pages/Dashboard/Dashboard.hooks.tsx';
 
@@ -8,7 +8,7 @@ type ComponentPropsT = {
 };
 
 const TodoList = ({ data }: ComponentPropsT) => {
-  const { createCurrentTodos } = useCreateCurrentTodos(data);
+  const { currentTodos } = useCreateCurrentTodos(data);
 
   return (
     <ListContainer>
@@ -18,7 +18,9 @@ const TodoList = ({ data }: ComponentPropsT) => {
         })}
       </ul>
       <ol>
-        {createCurrentTodos()}
+        {currentTodos.map((paragraph, index) => {
+          return <li key={index}>{paragraph}</li>;
+        })}
       </ol>
     </ListContainer>
   );

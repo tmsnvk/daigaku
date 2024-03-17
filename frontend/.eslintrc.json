@@ -88,7 +88,7 @@
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "warn",
     "no-unneeded-ternary": "warn",
-    "no-unused-expressions": "warn",
+    "no-unused-expressions": ["warn", { "allowShortCircuit": true, "allowTernary": true }],
     "no-useless-return": "warn",
     "no-var": "warn",
     "no-void": "error",

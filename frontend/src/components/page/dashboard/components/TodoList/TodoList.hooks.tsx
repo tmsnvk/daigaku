@@ -9,40 +9,25 @@ import {
 import { DashboardDataT } from '@pages/Dashboard/Dashboard.hooks.tsx';
 
 const useCreateCurrentTodos = (data: DashboardDataT) => {
-  const createCurrentTodos = () => {
-    const currentTodos: string[] = [];
+  const currentTodos: string[] = [];
 
-    if (!data.numberOfApplications) {
-      currentTodos.push(noApplications);
+  const getCurrentTodos = () => {
+    !data.numberOfApplications && currentTodos.push(noApplications);
+    !data.numberOfSubmittedStatus && currentTodos.push(noSubmittedApplications);
+
+    if (data.numberOfSubmittedStatus) {
+      data.numberOfNotSetInterviewStatus && currentTodos.push(noInterviewStatusSet);
+      !data.firmChoiceCourseName && currentTodos.push(noFirmChoiceSet);
+      !data.numberOfOffers && currentTodos.push(noOfferStatusSet);
     }
 
-    if (data.numberOfApplications && !data.numberOfSubmittedStatus) {
-      currentTodos.push(noSubmittedApplications);
-    }
-
-    if (data.numberOfSubmittedStatus && data.numberOfNotSetInterviewStatus) {
-      currentTodos.push(noInterviewStatusSet);
-    }
-
-    if (data.numberOfSubmittedStatus && !data.firmChoiceCourseName) {
-      currentTodos.push(noFirmChoiceSet);
-    }
-
-    if (data.numberOfSubmittedStatus && !data.numberOfOffers) {
-      currentTodos.push(noOfferStatusSet);
-    }
-
-    if (data.numberOfOffers && !data.finalDestinationCourseName) {
-      currentTodos.push(noFinalDestinationSet);
-    }
-
-    return currentTodos.map((paragraph, index) => {
-      return <li key={index}>{paragraph}</li>;
-    });
+    data.numberOfOffers && !data.finalDestinationCourseName && currentTodos.push(noFinalDestinationSet);
   };
 
+  getCurrentTodos();
+
   return {
-    createCurrentTodos,
+    currentTodos,
   };
 };
 
