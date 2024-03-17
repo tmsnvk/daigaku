@@ -5,7 +5,7 @@ const MainContainer = styled.main`
   flex-direction: row;
   flex-wrap: wrap;
   row-gap: 7.5rem;
-  margin: 5% 5% 0 5%;
+  margin: 5% 5% 5% 5%;
 
   & > section:not(:first-of-type) {
     display: flex;

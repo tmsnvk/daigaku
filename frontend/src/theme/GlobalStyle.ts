@@ -30,7 +30,6 @@ const GlobalStyle = createGlobalStyle`
       
       & > div {
         height: 7.5rem;
-        margin: 5rem 0 0 0;
       }
     }
   }
