@@ -8,6 +8,7 @@ import {
   AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
+import { useLogOut } from './PrivateLayout.hooks.tsx';
 import DefaultNavbarStyles from '../DefaultNavbarStyles';
 import Footer from '../Footer';
 import { GlobalLoadingModal } from '@components/shared/modal';
@@ -20,6 +21,7 @@ import {
 
 const PrivateLayout = () => {
   const { authStatus, account } = useAuth();
+  const { logOut } = useLogOut();
 
   if (authStatus === AuthStatusE.Loading) {
     return <GlobalLoadingModal />;
@@ -55,7 +57,7 @@ const PrivateLayout = () => {
               );
             })}
             <li>
-              <NavLink to={'/logout'}>
+              <NavLink to={'/'} onClick={logOut}>
                 <GeneralIcon icon={iconLibraryConfig.faRightFromBracket} />
                 Log out
               </NavLink>
