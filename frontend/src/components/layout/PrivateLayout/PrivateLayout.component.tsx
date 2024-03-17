@@ -1,5 +1,5 @@
 import {
-  Link,
+  NavLink,
   Navigate,
   Outlet,
 } from 'react-router-dom';
@@ -39,26 +39,26 @@ const PrivateLayout = () => {
           </div>
           <ul>
             <li>
-              <Link to={'/dashboard'}>
+              <NavLink to={'/dashboard'}>
                 <GeneralIcon icon={iconLibraryConfig.faHouseUser} />
                 Dashboard
-              </Link>
+              </NavLink>
             </li>
             {navbarContent[account.accountRole as AccountRoleE].map((element: NavbarContentT) => {
               return (
                 <li key={element.url}>
-                  <Link to={element.url}>
+                  <NavLink to={element.url}>
                     <GeneralIcon icon={element.icon} />
                     {element.content}
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
             <li>
-              <Link to={'/logout'}>
+              <NavLink to={'/logout'}>
                 <GeneralIcon icon={iconLibraryConfig.faRightFromBracket} />
                 Log out
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>

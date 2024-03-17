@@ -1,5 +1,5 @@
 import {
-  Link,
+  NavLink,
   Outlet,
 } from 'react-router-dom';
 import { GeneralIcon } from '@components/shared/icon-styles';
@@ -12,16 +12,16 @@ const PublicLayout = () => {
     <>
       <DefaultNavbarStyles>
         <nav>
-          <Link to={'/'}>
+          <div>
             <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
-          </Link>
+          </div>
           <ul>
             <li>
-              <Link to={'/contact'}>
+              <NavLink to={'/contact'}>
                 <GeneralIcon icon={iconLibraryConfig.faPaperPlane} />
                 Contact us
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
