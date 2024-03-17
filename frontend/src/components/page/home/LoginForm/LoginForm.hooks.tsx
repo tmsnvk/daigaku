@@ -41,7 +41,7 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
 
       const userData: AccountDataT = {
         ...data.accountDataDto,
-        accountRole: getAuthAccountRole(data.jwtResponse.roles[0]),
+        accountRole: getAuthAccountRole(data.jwtResponse.role),
       };
 
       setAccount(userData);

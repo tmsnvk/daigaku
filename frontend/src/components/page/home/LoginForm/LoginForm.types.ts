@@ -10,7 +10,7 @@ export type LoginFormReturnDataT = {
   jwtResponse: {
     jwt: string;
     email: string;
-    roles: string[];
+    role: string;
   }
 }
 
