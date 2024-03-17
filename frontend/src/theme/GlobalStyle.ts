@@ -23,6 +23,16 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     font-family: ${(props) => props.theme.fontFamily.primary};
     background-color: ${(props) => props.theme.color.primaryLight};
+    
+    & > div {
+      position: relative;
+      min-height: 100vh;
+      
+      & > div {
+        height: 7.5rem;
+        margin: 5rem 0 0 0;
+      }
+    }
   }
 
   a,

@@ -22,7 +22,6 @@ import {
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '@theme/GlobalStyle.ts';
 import theme from '@theme/theme.ts';
-import './index.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faCircleExclamation,

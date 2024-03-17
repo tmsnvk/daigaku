@@ -2,9 +2,13 @@ import { FooterContainer } from './Footer.styles.ts';
 
 const Footer = () => {
   return (
-    <FooterContainer>
-
-    </FooterContainer>
+    <>
+      <div></div>
+      <FooterContainer>
+        <p>{'\u00A9'} 2024 - {new Date().getFullYear().toString()}</p>
+        <p>built with reactJS and ❤️</p>
+      </FooterContainer>
+    </>
   );
 };
 
