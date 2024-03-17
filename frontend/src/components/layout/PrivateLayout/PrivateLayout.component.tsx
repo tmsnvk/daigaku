@@ -33,11 +33,17 @@ const PrivateLayout = () => {
     <>
       <DefaultNavbarStyles>
         <nav>
-          <Link to={'/dashboard'}>
+          <div>
             <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
-          </Link>
+          </div>
           <ul>
+            <li>
+              <Link to={'/dashboard'}>
+                <GeneralIcon icon={iconLibraryConfig.faHouseUser} />
+                Dashboard
+              </Link>
+            </li>
             {navbarContent[account.accountRole as AccountRoleE].map((element: NavbarContentT) => {
               return (
                 <li key={element.url}>
@@ -48,6 +54,12 @@ const PrivateLayout = () => {
                 </li>
               );
             })}
+            <li>
+              <Link to={'/logout'}>
+                <GeneralIcon icon={iconLibraryConfig.faRightFromBracket} />
+                Log out
+              </Link>
+            </li>
           </ul>
         </nav>
       </DefaultNavbarStyles>
