@@ -13,6 +13,7 @@ import DefaultNavbarStyles from '../DefaultNavbarStyles';
 import Footer from '../Footer';
 import { GlobalLoadingModal } from '@components/shared/modal';
 import { GeneralIcon } from '@components/shared/icon-styles';
+import theme from '@theme/theme.ts';
 import { iconLibraryConfig } from '@configuration';
 import {
   NavbarContentT,
@@ -41,7 +42,10 @@ const PrivateLayout = () => {
           </div>
           <ul>
             <li>
-              <NavLink to={'/dashboard'}>
+              <NavLink
+                to={'/dashboard'}
+                style={({ isActive }) => ({ color: isActive ? theme.color.tertiaryLight : theme.color.primaryDark })}
+              >
                 <GeneralIcon icon={iconLibraryConfig.faHouseUser} />
                 Dashboard
               </NavLink>
@@ -49,7 +53,10 @@ const PrivateLayout = () => {
             {navbarContent[account.accountRole as AccountRoleE].map((element: NavbarContentT) => {
               return (
                 <li key={element.url}>
-                  <NavLink to={element.url}>
+                  <NavLink
+                    to={element.url}
+                    style={({ isActive }) => ({ color: isActive ? theme.color.tertiaryLight : theme.color.primaryDark })}
+                  >
                     <GeneralIcon icon={element.icon} />
                     {element.content}
                   </NavLink>
@@ -57,7 +64,11 @@ const PrivateLayout = () => {
               );
             })}
             <li>
-              <NavLink to={'/'} onClick={logOut}>
+              <NavLink
+                to={'/'}
+                style={({ isActive }) => ({ color: isActive ? theme.color.tertiaryLight : theme.color.primaryDark })}
+                onClick={logOut}
+              >
                 <GeneralIcon icon={iconLibraryConfig.faRightFromBracket} />
                 Log out
               </NavLink>
