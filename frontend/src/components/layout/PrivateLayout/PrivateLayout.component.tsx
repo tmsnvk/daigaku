@@ -39,7 +39,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
       return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
     }
 
-    return <Navigate to={'/login'} state={{ from: location }} replace />;
+    return <Navigate to={'/'} state={{ from: location }} replace />;
   }
 
   return (
