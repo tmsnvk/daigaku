@@ -8,7 +8,10 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { AuthProvider } from '@context/AuthContext.tsx';
+import {
+  AccountRoleE,
+  AuthProvider,
+} from '@context/AuthContext.tsx';
 import {
   DashboardPage,
   ErrorPage,
@@ -37,6 +40,7 @@ import {
   faSpinner,
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
+
 library.add(
   faCircleExclamation,
   faCircleNotch,
@@ -66,13 +70,32 @@ const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<ErrorPage />}>
     <Route element={<PublicLayout />} path={'/'}>
       <Route index element={<HomePage />} />
-      <Route element={<div>CONTACT PAGE PLACEHOLDER</div>} path={'/contact'} />
+      <Route element={<div>PLACEHOLDER</div>} path={'/contact-guest'} />
     </Route>
     <Route>
-      <Route element={<PrivateLayout />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Student, AccountRoleE.Mentor, AccountRoleE.Admin]} />}>
         <Route element={<DashboardPage />} path={'/dashboard'} />
-        <Route element={<NewApplicationPage />} path={'/new-application'} />
       </Route>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Student, AccountRoleE.Mentor]} />}>
+        <Route element={<div>PLACEHOLDER</div>} path={'/contact'} />
+      </Route>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Student]} />}>
+        <Route element={<NewApplicationPage />} path={'/new-application'} />
+        <Route element={<div>PLACEHOLDER</div>} path={'/my-applications'} />
+      </Route>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Mentor]} />}>
+        <Route element={<div>PLACEHOLDER</div>} path={'/my-students'} />
+        <Route element={<div>PLACEHOLDER</div>} path={'/my-student-applications'} />
+      </Route>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Admin]} />}>
+        <Route element={<div>PLACEHOLDER</div>} path={'/all-students'} />
+        <Route element={<div>PLACEHOLDER</div>} path={'/all-mentors'} />
+        <Route element={<div>PLACEHOLDER</div>} path={'/all-applications'} />
+      </Route>
+    </Route>
+    <Route element={<div>PLACEHOLDER LAYOUT ELEMENT</div>}>
+      <Route element={<div>PLACEHOLDER</div>} path={'/unauthorised'} />
+      <Route element={<div>PLACEHOLDER</div>} path={'*'} />
     </Route>
   </Route>,
 ));

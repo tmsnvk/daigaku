@@ -2,6 +2,7 @@ import {
   NavLink,
   Navigate,
   Outlet,
+  useLocation,
 } from 'react-router-dom';
 import {
   AccountRoleE,
@@ -20,16 +21,25 @@ import {
   navbarContent,
 } from './PrivateLayout.utilities.ts';
 
-const PrivateLayout = () => {
+type ComponentPropsT = {
+  allowedRoles: AccountRoleE[];
+}
+
+const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
+  const location = useLocation();
   const { authStatus, account } = useAuth();
   const { logOut } = useLogOut();
 
-  if (authStatus === AuthStatusE.Loading) {
-    return <GlobalLoadingModal />;
+  if (!allowedRoles?.includes(account.accountRole as AccountRoleE)) {
+    if (account) {
+      return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
+    }
+
+    return <Navigate to={'/login'} state={{ from: location }} replace />;
   }
 
-  if (authStatus === AuthStatusE.SignedOut) {
-    return <Navigate to={'/'} replace />;
+  if (authStatus === AuthStatusE.Loading) {
+    return <GlobalLoadingModal />;
   }
 
   return (
