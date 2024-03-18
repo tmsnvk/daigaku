@@ -1,9 +1,15 @@
 import { ModalContainer } from './FeedbackModal.styles.ts';
 
-const FeedbackModal = () => {
+type ComponentPropsT = {
+  isSubmitted: boolean;
+  content: string;
+}
+
+const FeedbackModal = ({ isSubmitted, content }: ComponentPropsT) => {
   return (
+    isSubmitted &&
     <ModalContainer>
-        PLACEHOLDER
+      {content}
     </ModalContainer>
   );
 };

@@ -24,6 +24,7 @@ const programmeLengthInformation = [
   'Enter the length of your selected course (years).',
   'By default, the value is set to 3 years, update it only if it is different for you.',
 ];
+const submissionConfirmation = 'Your submission was successful. Wishing you the best of luck with your application!';
 
 export {
   formInformation,
@@ -32,4 +33,5 @@ export {
   majorSubjectInformation,
   minorSubjectInformation,
   programmeLengthInformation,
+  submissionConfirmation,
 };

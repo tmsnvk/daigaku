@@ -15,10 +15,7 @@ const FormGridContainer = styled.form`
   border-radius: 1.25rem;
   box-shadow: 0.25rem 0.25rem 1rem ${(props) => props.theme.color.primaryDark};
 
-  & h1 {
-    grid-column: 1 / 3;
-  }
-
+  & h1,
   & article:first-of-type,
   & article:last-of-type {
     grid-column: 1 / 3;

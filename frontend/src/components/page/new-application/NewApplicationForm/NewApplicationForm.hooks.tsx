@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
   SubmitHandler,
@@ -17,9 +16,7 @@ type NewApplicationFormT = {
 };
 
 const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
-  const navigate = useNavigate();
-
-  const { mutate, isPending } = useMutation({
+  const { isPending, isSuccess, mutate } = useMutation({
     mutationKey: ['newApplicationForm'],
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<ApplicationT> => {
       const response = await axiosConfigWithAuth.request({
@@ -35,8 +32,6 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
 
       applications.push(data);
       localStorage.setItem('applications', JSON.stringify(applications));
-
-      navigate('/dashboard');
     },
     onError: (error: NewApplicationFormErrorT) => {
       setError('root.serverError', {
@@ -52,19 +47,21 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
 
   return {
     isPending,
+    isSuccess,
     onSubmit,
   };
 };
 
 const useCheckFieldDisableStatus = () => {
-  const [isCountrySelected, setIsCountrySelected] = useState<boolean>(true);
+  const [isCountryNotSelected, setIsCountryNotSelected] = useState<boolean>(true);
 
   const handleCountrySelectionStatus = () => {
-    setIsCountrySelected(false);
+    setIsCountryNotSelected(false);
   };
 
   return {
-    isCountrySelected,
+    isCountryNotSelected,
+    setIsCountryNotSelected,
     handleCountrySelectionStatus,
   };
 };
