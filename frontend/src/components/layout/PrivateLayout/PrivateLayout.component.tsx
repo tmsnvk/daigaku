@@ -30,16 +30,16 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const { authStatus, account } = useAuth();
   const { logOut } = useLogOut();
 
+  if (authStatus === AuthStatusE.Loading) {
+    return <GlobalLoadingModal />;
+  }
+
   if (!allowedRoles?.includes(account.accountRole as AccountRoleE)) {
     if (account) {
       return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
     }
 
     return <Navigate to={'/login'} state={{ from: location }} replace />;
-  }
-
-  if (authStatus === AuthStatusE.Loading) {
-    return <GlobalLoadingModal />;
   }
 
   return (
