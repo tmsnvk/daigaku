@@ -13,17 +13,11 @@ const DefaultNavbarStyles = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    & a,
     & div {
       color: inherit;
       font-size: ${(props) => props.theme.fontSize.large};
       font-weight: 600;
       letter-spacing: 0.2rem;
-
-      &:hover:not(div) {
-        text-decoration: underline;
-        cursor: pointer;
-      }
     }
 
     & svg {
