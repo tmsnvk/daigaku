@@ -1,8 +1,8 @@
 package net.tamasnovak.controllers.application;
 
-import net.tamasnovak.dtos.application.ApplicationDto;
-import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
+import net.tamasnovak.dtos.application.DashboardDataDto;
+import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.services.account.AccountService;
 import net.tamasnovak.services.application.ApplicationService;
@@ -39,11 +39,11 @@ public final class ApplicationController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<List<ApplicationDto>> findAll() {
+  public ResponseEntity<List<NewApplicationDto>> findAll() {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     Account account = accountService.findUserByEmail(userDetails.getUsername());
 
-    List<ApplicationDto> applications = applicationService.findAll(account);
+    List<NewApplicationDto> applications = applicationService.findAll(account);
 
     return new ResponseEntity<>(applications, HttpStatus.OK);
   }
@@ -54,13 +54,13 @@ public final class ApplicationController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<ApplicationDto> saveApplication(@RequestBody NewApplicationDto newApplicationDto) {
+  public ResponseEntity<NewApplicationDto> saveApplication(@RequestBody NewSubmittedApplicationDto newSubmittedApplicationDto) {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     Account account = accountService.findUserByEmail(userDetails.getUsername());
 
-    ApplicationDto application = applicationService.saveApplication(account, newApplicationDto);
+    NewApplicationDto newApplication = applicationService.saveApplication(account, newSubmittedApplicationDto);
 
-    return new ResponseEntity<>(application, HttpStatus.CREATED);
+    return new ResponseEntity<>(newApplication, HttpStatus.CREATED);
   }
 
   @RequestMapping(

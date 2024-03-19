@@ -1,13 +1,13 @@
 package net.tamasnovak.services.application;
 
-import net.tamasnovak.dtos.application.ApplicationDto;
+import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.entities.application.Application;
 import org.springframework.stereotype.Component;
 
 @Component
 public final class ApplicationMapper {
-  public ApplicationDto toApplicationDto(Application application) {
-    return new ApplicationDto(
+  public NewApplicationDto toApplicationDto(Application application) {
+    return new NewApplicationDto(
       application.getUuid(),
       application.getAccountId().getUuid(),
       application.getCountryId().getName(),

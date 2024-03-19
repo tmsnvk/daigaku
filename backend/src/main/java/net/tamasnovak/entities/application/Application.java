@@ -96,15 +96,20 @@ public final class Application {
 
   public Application() {}
 
-  public Application(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength) {
+  private Application(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, ApplicationStatus applicationStatusId, int programmeLength) {
     this.accountId = accountId;
     this.countryId = countryId;
     this.universityId = universityId;
     this.courseName = courseName;
     this.minorSubject = minorSubject;
+    this.applicationStatusId = applicationStatusId;
     this.createdAt = new Timestamp(System.currentTimeMillis());
     this.lastUpdatedAt = new Timestamp(System.currentTimeMillis());
     this.programmeLength = programmeLength;
+  }
+
+  public static Application createNewApplication(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, ApplicationStatus applicationStatusId, int programmeLength) {
+    return new Application(accountId, countryId, universityId, courseName, minorSubject, applicationStatusId, programmeLength);
   }
 
   public long getId() {

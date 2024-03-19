@@ -1,15 +1,18 @@
 package net.tamasnovak.services.application;
 
-import net.tamasnovak.dtos.application.ApplicationDto;
-import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
+import net.tamasnovak.dtos.application.DashboardDataDto;
+import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.application.Application;
+import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
 import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundMessages;
 import net.tamasnovak.repositories.ApplicationRepository;
+import net.tamasnovak.repositories.ApplicationStatusRepository;
+import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.stereotype.Service;
@@ -20,20 +23,22 @@ import java.util.stream.Collectors;
 @Service
 public final class ApplicationService {
   private final ApplicationRepository applicationRepository;
+  private final ApplicationStatusService applicationStatusService;
   private final CountryService countryService;
   private final UniversityService universityService;
   private final ApplicationMapper applicationMapper;
   private final DbResourceNotFoundMessages dbResourceNotFoundMessages;
 
-  public ApplicationService(ApplicationRepository applicationRepository, CountryService countryService, UniversityService universityService, ApplicationMapper applicationMapper, DbResourceNotFoundMessages dbResourceNotFoundMessages) {
+  public ApplicationService(ApplicationRepository applicationRepository, ApplicationStatusRepository applicationStatusRepository, ApplicationStatusService applicationStatusService, CountryService countryService, UniversityService universityService, ApplicationMapper applicationMapper, DbResourceNotFoundMessages dbResourceNotFoundMessages) {
     this.applicationRepository = applicationRepository;
+    this.applicationStatusService = applicationStatusService;
     this.countryService = countryService;
     this.universityService = universityService;
     this.applicationMapper = applicationMapper;
     this.dbResourceNotFoundMessages = dbResourceNotFoundMessages;
   }
 
-  public List<ApplicationDto> findAll(Account account) {
+  public List<NewApplicationDto> findAll(Account account) {
     List<Application> applications = applicationRepository.findAllByAccountId(account).get();
 
     return applications.stream()
@@ -41,19 +46,21 @@ public final class ApplicationService {
       .collect(Collectors.toList());
   }
 
-  public ApplicationDto saveApplication(Account account, NewApplicationDto newApplicationDto) {
-    Country country = countryService.findByUuid(newApplicationDto.country())
+  public NewApplicationDto saveApplication(Account account, NewSubmittedApplicationDto newSubmittedApplicationDto) {
+    Country country = countryService.findByUuid(newSubmittedApplicationDto.country())
       .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundMessages.COUNTRY_NOT_FOUND));
-    University university = universityService.findByUuid(newApplicationDto.university())
+    University university = universityService.findByUuid(newSubmittedApplicationDto.university())
       .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundMessages.UNIVERSITY_NOT_FOUND));
+    ApplicationStatus applicationStatus = applicationStatusService.findByName("PLANNED");
 
-    Application application = new Application(
+    Application application = Application.createNewApplication(
       account,
       country,
       university,
-      newApplicationDto.majorSubject(),
-      newApplicationDto.minorSubject(),
-      newApplicationDto.programmeLength()
+      newSubmittedApplicationDto.majorSubject(),
+      newSubmittedApplicationDto.minorSubject(),
+      applicationStatus,
+      newSubmittedApplicationDto.programmeLength()
     );
 
     applicationRepository.save(application);

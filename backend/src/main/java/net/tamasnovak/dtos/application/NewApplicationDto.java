@@ -1,11 +1,22 @@
 package net.tamasnovak.dtos.application;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public record NewApplicationDto(
-  UUID country,
-  UUID university,
-  String majorSubject,
+  UUID id,
+  UUID account,
+  String country,
+  String university,
+  String courseName,
   String minorSubject,
-  int programmeLength
+  int programmeLength,
+  String applicationStatus,
+  String interviewStatus,
+  String offerStatus,
+  String responseStatus,
+  String finalDestinationStatus,
+  String notes,
+  Timestamp createdAt,
+  Timestamp lastUpdatedAt
 ) {}
