@@ -18,6 +18,10 @@ public final class PendingAccount extends BaseEntity {
   @NotBlank
   private String lastName;
 
+  @Column(name = "full_name", nullable = false)
+  @NotBlank
+  private String fullName;
+
   @Column(name = "email", unique = true, nullable = false)
   @Email
   private String email;
@@ -36,6 +40,10 @@ public final class PendingAccount extends BaseEntity {
 
   public String getLastName() {
     return lastName;
+  }
+
+  public String getFullName() {
+    return fullName;
   }
 
   public String getEmail() {

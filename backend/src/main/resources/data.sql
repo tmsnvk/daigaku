@@ -6,7 +6,6 @@ VALUES
   (2, 'ROLE_MENTOR'),
   (3, 'ROLE_ADMIN');
 
-
 -- INSERT USERS
 INSERT INTO accounts
   (id, first_name, last_name, email, hashed_password)
@@ -21,7 +20,6 @@ VALUES
   (3, 1),
   (2, 2),
   (1, 3);
-
 
 -- INSERT INTO countries & universities
 WITH country AS (
@@ -69,7 +67,6 @@ VALUES
   ((SELECT id FROM country), 'New York University', 'NYU', (SELECT name FROM country), ''),
   ((SELECT id FROM country), 'Harvard University', 'HU', (SELECT name FROM country), '');
 
-
 -- INSERT APPLICATION STATUS
 INSERT INTO application_status
   (name)
@@ -78,7 +75,6 @@ VALUES
   ('Submitted'),
   ('Withdrawn');
 
-
 -- INSERT INTERVIEW STATUS
 INSERT INTO interview_status
   (name)
@@ -86,7 +82,6 @@ VALUES
   ('No Interview'),
   ('Invited'),
   ('Not Invited');
-
 
 -- INSERT OFFER STATUS
 INSERT INTO offer_status
@@ -97,7 +92,6 @@ VALUES
   ('Deferred'),
   ('Rejected');
 
-
 -- INSERT RESPONSE STATUS
 INSERT INTO response_status
   (name)
@@ -106,7 +100,6 @@ VALUES
   ('Insurance Choice'),
   ('Offer Declined');
 
-
 -- INSERT FINAL DESTINATION STATUS
 INSERT INTO final_destination_status
   (name)
@@ -114,7 +107,6 @@ VALUES
   ('Final Destination'),
   ('Final Destination (Deferred Entry)'),
   ('Not Final Destination');
-
 
 -- INSERT APPLICATIONS
 INSERT INTO applications
