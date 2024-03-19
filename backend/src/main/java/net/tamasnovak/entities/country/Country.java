@@ -3,41 +3,19 @@ package net.tamasnovak.entities.country;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
+import net.tamasnovak.entities.BaseEntity;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.entities.application.Application;
 
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "countries")
-public final class Country {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", updatable = false, nullable = false)
-  private long id;
-
-  @Column(name = "uuid", updatable = false, nullable = false)
-  @org.hibernate.validator.constraints.UUID
-  private UUID uuid;
-
-  @Column(name = "created_at", updatable = false, nullable = false)
-  @PastOrPresent
-  private Timestamp createdAt;
-
-  @Column(name = "last_updated_at", nullable = false)
-  @PastOrPresent
-  private Timestamp lastUpdatedAt;
-
+public final class Country extends BaseEntity {
   @Column(name = "name", nullable = false)
   @NotBlank
   private String name;
@@ -56,22 +34,6 @@ public final class Country {
     this.name = name;
     this.universities = new HashSet<>();
     this.applications = new HashSet<>();
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public UUID getUuid() {
-    return uuid;
-  }
-
-  public Timestamp getCreatedAt() {
-    return createdAt;
-  }
-
-  public Timestamp getLastUpdatedAt() {
-    return lastUpdatedAt;
   }
 
   public String getName() {
