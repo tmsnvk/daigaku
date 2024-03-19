@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS roles CASCADE;
 DROP TABLE IF EXISTS accounts CASCADE;
 DROP TABLE IF EXISTS pending_accounts CASCADE;
 DROP TABLE IF EXISTS accounts_roles_join CASCADE;
-DROP TABLE IF EXISTS pending_account_registrations CASCADE;
+DROP TABLE IF EXISTS pending_accounts CASCADE;
 DROP TABLE IF EXISTS universities CASCADE;
 DROP TABLE IF EXISTS countries CASCADE;
 DROP TABLE IF EXISTS application_status CASCADE;
@@ -23,7 +23,7 @@ CREATE TABLE roles(
 CREATE TABLE accounts(
   id BIGSERIAL PRIMARY KEY,
   uuid UUID DEFAULT gen_random_uuid() UNIQUE,
-  registered_at TIMESTAMP DEFAULT now() NOT NULL,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
   last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
@@ -37,9 +37,11 @@ CREATE TABLE accounts_roles_join(
   PRIMARY KEY (account_id, role_id)
 );
 
-CREATE TABLE pending_account_registrations(
+CREATE TABLE pending_accounts(
   id BIGSERIAL PRIMARY KEY,
-  registered_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  uuid UUID DEFAULT gen_random_uuid() UNIQUE,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL
@@ -56,9 +58,9 @@ CREATE TABLE countries(
 CREATE TABLE universities(
   id BIGSERIAL PRIMARY KEY,
   uuid UUID DEFAULT gen_random_uuid() UNIQUE,
-  country_id BIGINT REFERENCES countries(id),
   created_at TIMESTAMP DEFAULT now() NOT NULL,
   last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
+  country_id BIGINT REFERENCES countries(id),
   name VARCHAR(255) NOT NULL,
   abbreviation VARCHAR(255) NOT NULL,
   country VARCHAR(255) NOT NULL,
@@ -108,9 +110,9 @@ CREATE TABLE final_destination_status(
 CREATE TABLE applications(
   id BIGSERIAL PRIMARY KEY,
   uuid UUID DEFAULT gen_random_uuid() UNIQUE,
-  account_id BIGINT REFERENCES accounts(id),
   created_at TIMESTAMP DEFAULT now() NOT NULL,
   last_updated_at TIMESTAMP DEFAULT now() NOT NULL,
+  account_id BIGINT REFERENCES accounts(id),
   country BIGINT REFERENCES countries(id),
   university BIGINT REFERENCES universities(id),
   course_name VARCHAR(255) NOT NULL,
