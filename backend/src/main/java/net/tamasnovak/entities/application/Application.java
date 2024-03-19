@@ -3,43 +3,18 @@ package net.tamasnovak.entities.application;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+import net.tamasnovak.entities.BaseEntity;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-import org.hibernate.annotations.UuidGenerator;
-
-import java.sql.Timestamp;
-import java.util.UUID;
 
 @Entity
 @Table(name = "applications")
-public final class Application {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", updatable = false, nullable = false)
-  private long id;
-
-  @Column(name = "uuid", updatable = false, nullable = false)
-  @GeneratedValue(strategy = GenerationType.UUID)
-  @UuidGenerator
-  private UUID uuid;
-
-  @Column(name = "created_at", updatable = false, nullable = false)
-  @PastOrPresent
-  private Timestamp createdAt;
-
-  @Column(name = "last_updated_at", nullable = false)
-  @PastOrPresent
-  private Timestamp lastUpdatedAt;
-
+public final class Application extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "account_id", nullable = false)
   @JsonBackReference
@@ -103,29 +78,11 @@ public final class Application {
     this.courseName = courseName;
     this.minorSubject = minorSubject;
     this.applicationStatusId = applicationStatusId;
-    this.createdAt = new Timestamp(System.currentTimeMillis());
-    this.lastUpdatedAt = new Timestamp(System.currentTimeMillis());
     this.programmeLength = programmeLength;
   }
 
   public static Application createNewApplication(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, ApplicationStatus applicationStatusId, int programmeLength) {
     return new Application(accountId, countryId, universityId, courseName, minorSubject, applicationStatusId, programmeLength);
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public UUID getUuid() {
-    return uuid;
-  }
-
-  public Timestamp getCreatedAt() {
-    return createdAt;
-  }
-
-  public Timestamp getLastUpdatedAt() {
-    return lastUpdatedAt;
   }
 
   public Account getAccountId() {
