@@ -16,6 +16,7 @@ import java.util.Set;
 public final class Role {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", unique = true, updatable = false, nullable = false)
   private long id;
 
   @Column(name = "name", unique = true, updatable = false, nullable = false)
