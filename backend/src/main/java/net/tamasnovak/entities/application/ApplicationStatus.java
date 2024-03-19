@@ -6,6 +6,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import net.tamasnovak.entities.BaseStatusEntity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,7 @@ public final class ApplicationStatus extends BaseStatusEntity {
 
   public ApplicationStatus(String name) {
     super(name);
+    this.applications = new HashSet<>();
   }
 
   public Set<Application> getApplications() {
