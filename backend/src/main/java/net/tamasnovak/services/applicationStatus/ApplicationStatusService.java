@@ -1,7 +1,6 @@
 package net.tamasnovak.services.applicationStatus;
 
 import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
 import net.tamasnovak.repositories.ApplicationStatusRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,6 @@ public class ApplicationStatusService {
   }
 
   public ApplicationStatus findByName(String statusName) {
-    return applicationStatusRepository.findByName(statusName).orElseThrow(() -> new DbResourceNotFoundException(""));
+    return applicationStatusRepository.findByName(statusName);
   }
 }

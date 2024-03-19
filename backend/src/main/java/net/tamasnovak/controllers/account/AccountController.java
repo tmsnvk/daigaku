@@ -72,7 +72,7 @@ public class AccountController {
       foundAccount.getEmail(),
       foundAccount.getFirstName(),
       foundAccount.getLastName(),
-      foundAccount.getRegisteredAt(),
+      foundAccount.getCreatedAt(),
       foundAccount.getLastUpdatedAt()
     );
 
@@ -140,7 +140,7 @@ public class AccountController {
       foundAccount.getEmail(),
       foundAccount.getFirstName(),
       foundAccount.getLastName(),
-      foundAccount.getRegisteredAt(),
+      foundAccount.getCreatedAt(),
       foundAccount.getLastUpdatedAt()
     );
     AccountLoginReturnDto accountLoginReturnData = new AccountLoginReturnDto(
