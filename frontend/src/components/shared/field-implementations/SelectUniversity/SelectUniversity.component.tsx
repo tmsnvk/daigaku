@@ -32,7 +32,10 @@ const SelectUniversity = <T extends FieldValues>({
       <InputLabel inputId={fieldId} content={'University'} />
       <select
         {...register(fieldId, {
-          required: { value: true, message: 'Selecting a university is required.' },
+          required: {
+            value: true,
+            message: 'Selecting a university is required.',
+          },
         })}
         id={fieldId}
         name={fieldId}

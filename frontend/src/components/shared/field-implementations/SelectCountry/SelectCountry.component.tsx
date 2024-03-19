@@ -36,17 +36,20 @@ const SelectCountry = <T extends FieldValues>({
       <InputLabel inputId={fieldId} content={'Country'} />
       <select
         {...register(fieldId, {
-          required: { value: true, message: 'Selecting a country is required.' },
+          required: {
+            value: true,
+            message: 'Selecting a country is required.',
+          },
+          onChange: (event) => {
+            onCountryClick(event.target.value);
+            handleCountrySelectionStatus();
+          },
         })}
         id={fieldId}
         name={fieldId}
         autoComplete={'off'}
         defaultValue={defaultValue}
         disabled={isDisabled}
-        onChange={(event) => {
-          onCountryClick(event.target.value);
-          handleCountrySelectionStatus();
-        }}
       >
         <option hidden value={''}>Select the country of your choice</option>
         {data.map((option: CountriesT) => {

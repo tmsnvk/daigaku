@@ -3,8 +3,8 @@ import {
   useGetCountries,
   useGetUniversities,
 } from '@hooks/index.ts';
-import { NewApplicationForm } from '@components/page/new-application';
 import { GlobalErrorModal } from '@components/shared/modal';
+import { NewApplicationForm } from '@components/page/new-application';
 
 const NewApplicationPage = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
