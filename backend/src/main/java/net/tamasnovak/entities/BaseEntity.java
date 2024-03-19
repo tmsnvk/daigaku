@@ -6,33 +6,35 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.PastOrPresent;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", unique = true, updatable = false, nullable = false)
+  @Column(name = "id", unique = true, insertable = false, updatable = false, nullable = false)
   private long id;
 
-  @Column(name = "uuid", updatable = false, nullable = false)
-  @org.hibernate.validator.constraints.UUID
+  @UuidGenerator
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "uuid", unique = true, insertable = false, updatable = false, nullable = false)
   private UUID uuid;
 
-  @Column(name = "created_at", updatable = false, nullable = false)
+  @CreationTimestamp
   @PastOrPresent
+  @Column(name = "created_at", insertable = false, updatable = false, nullable = false)
   private Timestamp createdAt;
 
-  @Column(name = "last_updated_at", nullable = false)
+  @CreationTimestamp
   @PastOrPresent
+  @Column(name = "last_updated_at", nullable = false)
   private Timestamp lastUpdatedAt;
 
-  public BaseEntity() {
-    this.createdAt = new Timestamp(System.currentTimeMillis());
-    this.lastUpdatedAt = new Timestamp(System.currentTimeMillis());
-  }
+  protected BaseEntity() {}
 
   public long getId() {
     return id;
