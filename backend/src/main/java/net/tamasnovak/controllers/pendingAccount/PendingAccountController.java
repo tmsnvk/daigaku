@@ -2,7 +2,7 @@ package net.tamasnovak.controllers.pendingAccount;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.access.PendingAccountRegistrationDto;
-import net.tamasnovak.dtos.email.SimpleEmailDto;
+import net.tamasnovak.dtos.email.NewEmailDto;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.account.pendingAccount.PendingAccountService;
@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/pending-accounts")
 public class PendingAccountController {
   private final AccountService accountService;
-  private final PendingAccountService pendingAccountServiceDefault;
+  private final PendingAccountService pendingAccountService;
   private final EmailService emailService;
   private final PendingAccountControllerConstants pendingAccountControllerConstants;
 
   @Autowired
-  public PendingAccountController(AccountService accountService, PendingAccountService pendingAccountServiceDefault, EmailService emailService, PendingAccountControllerConstants pendingAccountControllerConstants) {
+  public PendingAccountController(AccountService accountService, PendingAccountService pendingAccountService, EmailService emailService, PendingAccountControllerConstants pendingAccountControllerConstants) {
     this.accountService = accountService;
-    this.pendingAccountServiceDefault = pendingAccountServiceDefault;
+    this.pendingAccountService = pendingAccountService;
     this.emailService = emailService;
     this.pendingAccountControllerConstants = pendingAccountControllerConstants;
   }
@@ -36,15 +36,17 @@ public class PendingAccountController {
     consumes = "application/json"
   )
   public ResponseEntity<HttpStatus> register(@Valid @RequestBody PendingAccountRegistrationDto registrationData) {
-    pendingAccountServiceDefault.checkIfExistsByEmail(registrationData.email());
+    pendingAccountService.checkIfExistsByEmail(registrationData.email());
     accountService.checkIfExistsByEmail(registrationData.email());
 
-    pendingAccountServiceDefault.addAccount(registrationData);
+    pendingAccountService.addAccount(registrationData);
 
-    String subject = pendingAccountControllerConstants.PENDING_ACCOUNT_EMAIL_SUBJECT;
-    String body = pendingAccountControllerConstants.PENDING_ACCOUNT_EMAIL_BODY;
-    SimpleEmailDto emailDetailsDTO = new SimpleEmailDto(registrationData.email(), subject, body);
-    emailService.sendEmail(emailDetailsDTO);
+    NewEmailDto newEmail = new NewEmailDto(
+      registrationData.email(),
+      pendingAccountControllerConstants.PENDING_ACCOUNT_EMAIL_SUBJECT,
+      pendingAccountControllerConstants.PENDING_ACCOUNT_EMAIL_BODY
+    );
+    emailService.sendEmail(newEmail);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)

@@ -1,6 +1,6 @@
 package net.tamasnovak.dtos.email;
 
-public record SimpleEmailDto(
+public record NewEmailDto(
   String recipient,
   String subject,
   String body

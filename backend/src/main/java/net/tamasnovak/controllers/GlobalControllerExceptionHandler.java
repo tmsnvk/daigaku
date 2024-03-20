@@ -1,12 +1,13 @@
 package net.tamasnovak.controllers;
 
+import jakarta.mail.MessagingException;
 import jakarta.validation.ConstraintViolationException;
-import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
 import net.tamasnovak.exceptions.ErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSendException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -33,6 +34,16 @@ public final class GlobalControllerExceptionHandler {
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
+      .body(errors);
+  }
+
+  @ExceptionHandler(value = { MailSendException.class, MessagingException.class })
+  public ResponseEntity<Map<String, String>> handleEmailSendingException(Exception exception) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", exception.getMessage());
+
+    return ResponseEntity
+      .status(HttpStatus.INTERNAL_SERVER_ERROR)
       .body(errors);
   }
 
