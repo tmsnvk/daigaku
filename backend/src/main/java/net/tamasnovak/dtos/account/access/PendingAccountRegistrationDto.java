@@ -1,6 +1,6 @@
 package net.tamasnovak.dtos.account.access;
 
-public record AccountRegistrationDto(
+public record PendingAccountRegistrationDto(
   String firstName,
   String lastName,
   String email

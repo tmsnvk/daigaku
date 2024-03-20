@@ -1,16 +1,19 @@
-package net.tamasnovak.services.account;
+package net.tamasnovak.services.account.account;
 
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.repositories.AccountRepository;
+import net.tamasnovak.services.account.AccountConstraintValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
-public class AccountService {
+public class AccountService implements AccountConstraintValidator {
   private final PasswordEncoder encoder;
   private final AccountRepository accountRepository;
   private final AccountServiceMessages accountServiceMessages;
@@ -22,14 +25,17 @@ public class AccountService {
     this.accountServiceMessages = accountServiceMessages;
   }
 
-  public void checkEmailInDatabase(String email) {
-    Optional<Account> account = accountRepository.findByEmail(email);
+  @Override
+  @Transactional(readOnly = true)
+  public void checkIfExistsByEmail(String email) {
+    boolean isAccountExists = accountRepository.existsByEmail(email);
 
-    if (account.isPresent()) {
-      throw new FormErrorException(accountServiceMessages.EMAIL_ALREADY_EXISTS);
+    if (isAccountExists) {
+      throw new DataIntegrityViolationException(accountServiceMessages.EMAIL_ALREADY_EXISTS);
     }
   }
 
+  @Transactional(readOnly = true)
   public Account findUserByEmail(String email) {
     Optional<Account> account = accountRepository.findByEmail(email);
 

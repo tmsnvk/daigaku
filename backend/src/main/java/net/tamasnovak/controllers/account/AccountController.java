@@ -1,19 +1,17 @@
 package net.tamasnovak.controllers.account;
 
 import net.tamasnovak.dtos.account.AccountLoginReturnDto;
-import net.tamasnovak.dtos.account.AccountDataAfterRegistrationDto;
 import net.tamasnovak.dtos.account.access.AccountGetMeDto;
 import net.tamasnovak.dtos.account.access.AccountLoginDto;
-import net.tamasnovak.dtos.account.access.AccountRegistrationDto;
+import net.tamasnovak.dtos.account.access.PendingAccountRegistrationDto;
 import net.tamasnovak.dtos.account.response.AccountDataDto;
-import net.tamasnovak.dtos.email.SimpleEmailDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.exceptions.FormErrorException;
 import net.tamasnovak.security.JwtResponse;
 import net.tamasnovak.security.JwtUtils;
-import net.tamasnovak.services.account.AccountService;
+import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
-import net.tamasnovak.services.pedingAccount.PendingAccountService;
+import net.tamasnovak.services.account.pendingAccount.PendingAccountService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,18 +37,18 @@ public class AccountController {
   private final AuthenticationManager authenticationManager;
   private final AccountService accountService;
   private final AccountControllerMessages accountControllerMessages;
-  private final PendingAccountService pendingAccountService;
+  private final PendingAccountService pendingAccountServiceDefault;
   private final EmailService emailService;
   private final StringFormatterUtilities stringFormatter;
 
   @Autowired
-  public AccountController(PasswordEncoder encoder, JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, AccountControllerMessages accountControllerMessages, PendingAccountService pendingAccountService, EmailService emailService, StringFormatterUtilities stringFormatter) {
+  public AccountController(PasswordEncoder encoder, JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, AccountControllerMessages accountControllerMessages, PendingAccountService pendingAccountServiceDefault, EmailService emailService, StringFormatterUtilities stringFormatter) {
     this.encoder = encoder;
     this.jwtUtils = jwtUtils;
     this.authenticationManager = authenticationManager;
     this.accountService = accountService;
     this.accountControllerMessages = accountControllerMessages;
-    this.pendingAccountService = pendingAccountService;
+    this.pendingAccountServiceDefault = pendingAccountServiceDefault;
     this.emailService = emailService;
     this.stringFormatter = stringFormatter;
   }
@@ -82,29 +80,6 @@ public class AccountController {
     );
 
     return new ResponseEntity<>(accountGetMeDto, HttpStatus.OK);
-  }
-
-  @RequestMapping(
-    value = "/register",
-    method = RequestMethod.POST,
-    consumes = "application/json"
-  )
-  public ResponseEntity<AccountDataAfterRegistrationDto> register(@RequestBody AccountRegistrationDto registrationData) {
-    if (isRegisterFormDataValidated(registrationData)) {
-      throw new FormErrorException(accountControllerMessages.FORM_ERROR_MESSAGE);
-    }
-
-    accountService.checkEmailInDatabase(registrationData.email());
-    pendingAccountService.checkEmailInDatabase(registrationData.email());
-
-    pendingAccountService.addAccount(registrationData);
-
-    String subject = accountControllerMessages.PENDING_ACCOUNT_EMAIL_SUBJECT;
-    String body = accountControllerMessages.PENDING_ACCOUNT_EMAIL_BODY;
-    SimpleEmailDto emailDetailsDTO = new SimpleEmailDto(registrationData.email(), subject, body);
-    emailService.sendEmail(emailDetailsDTO);
-
-    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @RequestMapping(
@@ -149,10 +124,6 @@ public class AccountController {
     );
 
     return new ResponseEntity<>(accountLoginReturnData, HttpStatus.OK);
-  }
-
-  private boolean isRegisterFormDataValidated(AccountRegistrationDto userData) {
-    return userData == null || userData.firstName().isEmpty() || userData.lastName().isEmpty() ||  userData.email().isEmpty();
   }
 
   private boolean isLoginFormDataValidated(AccountLoginDto userLoginData) {

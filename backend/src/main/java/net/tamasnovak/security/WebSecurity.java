@@ -57,10 +57,12 @@ public class WebSecurity {
       .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(config -> config
+        .requestMatchers("/api/pending-accounts/**").permitAll()
         .requestMatchers("/api/users/**").permitAll()
         .requestMatchers("/api/universities/**").authenticated()
         .requestMatchers("/api/countries/**").authenticated()
         .requestMatchers("/api/applications/").authenticated()
+        .requestMatchers("/error/**").permitAll()
         .anyRequest().authenticated()
       );
     http.authenticationProvider(authenticationProvider());

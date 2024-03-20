@@ -4,7 +4,7 @@ import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.services.account.AccountService;
+import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.http.HttpStatus;

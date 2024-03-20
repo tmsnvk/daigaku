@@ -5,7 +5,6 @@ import {
 } from 'react-hook-form';
 import { axiosConfig } from '@configuration';
 import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
-import { HttpStatusCodesE } from '@custom-types/HttpStatusCodes.types.ts';
 
 export type RegisterFormFieldsT = {
   firstName: string;
@@ -34,7 +33,7 @@ const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
     mutationFn: async (data: RegisterFormFieldsT): Promise<void> => {
       await axiosConfig.request({
         method: 'POST',
-        url: '/api/users/register',
+        url: '/api/pending-accounts/register',
         data,
       });
     },
@@ -48,8 +47,8 @@ const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
         }
       }
 
-      if (error.response.status >= HttpStatusCodesE.INTERNAL_SERVER_ERROR) {
-        setError('root.serverError', { message: 'An unexpected error has happened.' });
+      if (error.response.data.root) {
+        setError('root.serverError', { message: error.response.data.root });
       }
     },
   });
