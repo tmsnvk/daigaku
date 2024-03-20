@@ -11,23 +11,28 @@ import {
 
 type ComponentPropsT <T extends FieldValues> = {
   register: UseFormRegister<T>;
-  validationPattern: RegExp;
-  validationError: string;
-  requiredError?: string;
+  validation?: {
+    required?: {
+      value: boolean;
+      message: string;
+    }
+    pattern?: {
+      value: RegExp;
+      message: string;
+    }
+  }
   fieldError: string | undefined;
   fieldId: Path<T>;
   label: string;
   type: string;
   placeholder: string;
-  defaultValue: string | number;
+  defaultValue?: string | number;
   isDisabled: boolean;
 }
 
 const GeneralInputField = <T extends FieldValues>({
   register,
-  validationPattern,
-  validationError,
-  requiredError,
+  validation,
   fieldError,
   fieldId,
   label,
@@ -40,23 +45,14 @@ const GeneralInputField = <T extends FieldValues>({
     <InputFieldStyles $isError={fieldError !== undefined}>
       <InputLabel inputId={fieldId} content={label} />
       <input
-        {...register(fieldId, {
-          pattern: {
-            value: validationPattern,
-            message: validationError,
-          },
-          required: {
-            value: requiredError !== undefined,
-            message: requiredError as string,
-          },
-        })}
+        {...register(fieldId, validation)}
         type={type}
         id={fieldId}
         name={fieldId}
         autoComplete={'off'}
         placeholder={placeholder}
         disabled={isDisabled}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue ?? ''}
       />
       {fieldError && <ErrorMessage error={fieldError} />}
     </InputFieldStyles>

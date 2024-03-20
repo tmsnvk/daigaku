@@ -5,7 +5,7 @@ type InputFieldT = {
 }
 
 const InputFieldStyles = styled.article<InputFieldT>`
-  height: 12rem;
+  height: 12.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -6,19 +6,20 @@ import {
 import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
-  InputFieldStyles,
-  InputLabel,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { useSubmitRegisterForm } from './RegisterForm.hooks.tsx';
+import { GeneralInputField } from '@components/shared/field-implementations';
 import theme from '@theme/theme.ts';
+import {
+  RegisterFormFieldsT,
+  useSubmitRegisterForm,
+} from './RegisterForm.hooks.tsx';
 import {
   ConfirmationModalT,
   FormSelectorT,
   FormTypeE,
 } from '@pages/Home/Home.types.ts';
-import { RegisterFormFieldsT } from './RegisterForm.types.ts';
 
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
@@ -33,53 +34,59 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
         fontSize={theme.fontSize.medium}
       />
       <form id={'userRegistrationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
-        <InputFieldStyles $isError={errors.firstName?.message !== undefined}>
-          <InputLabel inputId={'firstName'} content={'First Name'} />
-          <input
-            {...register('firstName', {
-              required: { value: true, message: 'Providing your first name is required.' },
-              pattern: { value: /^[A-Za-z-\s]+$/i, message: 'Use only letters.' },
-            })}
-            type={'firstName'}
-            id={'firstName'}
-            name={'firstName'}
-            autoComplete={'off'}
-            placeholder={'Enter your first name'}
-            disabled={isPending}
-          />
-          {errors.firstName?.message && <ErrorMessage error={errors.firstName.message} />}
-        </InputFieldStyles>
-        <InputFieldStyles $isError={errors.lastName?.message !== undefined}>
-          <InputLabel inputId={'lastName'} content={'Last Name'} />
-          <input
-            {...register('lastName', {
-              required: { value: true, message: 'Providing your last name is required.' },
-              pattern: { value: /^[A-Za-z-\s]+$/i, message: 'Use only letters.' },
-            })}
-            type={'lastName'}
-            id={'lastName'}
-            name={'lastName'}
-            autoComplete={'off'}
-            placeholder={'Enter your last name'}
-            disabled={isPending}
-          />
-          {errors.lastName?.message && <ErrorMessage error={errors.lastName.message} />}
-        </InputFieldStyles>
-        <InputFieldStyles $isError={errors.email?.message !== undefined}>
-          <InputLabel inputId={'email'} content={'Email'} />
-          <input
-            {...register('email', {
-              required: { value: true, message: 'Providing your email address is required.' },
-            })}
-            type={'email'}
-            id={'email'}
-            name={'email'}
-            autoComplete={'off'}
-            placeholder={'Enter your email address'}
-            disabled={isPending}
-          />
-          {errors.email?.message && <ErrorMessage error={errors.email.message} />}
-        </InputFieldStyles>
+        <GeneralInputField
+          register={register}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing your first name is required.',
+            },
+            pattern: {
+              value: /^[A-Za-z-\s]{2,100}$/,
+              message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
+            },
+          }}
+          fieldError={errors.firstName?.message}
+          fieldId={'firstName'}
+          label={'First Name'}
+          type={'text'}
+          placeholder={'Enter your first name(s)'}
+          isDisabled={isPending}
+        />
+        <GeneralInputField
+          register={register}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing your last name is required.',
+            },
+            pattern: {
+              value: /^[A-Za-z-\s]{2,100}$/,
+              message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
+            },
+          }}
+          fieldError={errors.lastName?.message}
+          fieldId={'lastName'}
+          label={'Last Name'}
+          type={'text'}
+          placeholder={'Enter your last name(s)'}
+          isDisabled={isPending}
+        />
+        <GeneralInputField
+          register={register}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing your email address is required.',
+            },
+          }}
+          fieldError={errors.email?.message}
+          fieldId={'email'}
+          label={'Email'}
+          type={'email'}
+          placeholder={'Enter your email address'}
+          isDisabled={isPending}
+        />
         <article>
           {
             isPending ?

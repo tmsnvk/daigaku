@@ -4,15 +4,29 @@ import {
   UseFormSetError,
 } from 'react-hook-form';
 import { axiosConfig } from '@configuration';
-import {
-  RegisterFormErrorT,
-  RegisterFormFieldsT,
-} from './RegisterForm.types.ts';
 import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
+import { HttpStatusCodesE } from '@custom-types/HttpStatusCodes.types.ts';
+
+export type RegisterFormFieldsT = {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
 
 type RegisterFormT = {
   setError: UseFormSetError<RegisterFormFieldsT>;
 } & ConfirmationModalT;
+
+type RegisterFormErrorFieldsT = `root.${string}` | 'root' | 'firstName' | 'lastName' | 'email';
+
+type RegisterFormErrorT = {
+  response: {
+    status: number;
+    data: {
+      [key: string]: RegisterFormErrorFieldsT;
+    }
+  }
+}
 
 const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
   const { mutate, isPending } = useMutation({
@@ -28,10 +42,15 @@ const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
       showModal();
     },
     onError: (error: RegisterFormErrorT) => {
-      setError('root.serverError', {
-        type: error.response.status,
-        message: error.response.data.message ? error.response.data.message : 'An unexpected error has happened. Please try again later.',
-      });
+      for (const fieldId in error.response.data) {
+        if (error.response.data[fieldId]) {
+          setError(fieldId as RegisterFormErrorFieldsT, { message: error.response.data[fieldId] });
+        }
+      }
+
+      if (error.response.status >= HttpStatusCodesE.INTERNAL_SERVER_ERROR) {
+        setError('root.serverError', { message: 'An unexpected error has happened.' });
+      }
     },
   });
 
