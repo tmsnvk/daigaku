@@ -1,10 +1,10 @@
 package net.tamasnovak.controllers.pendingAccount;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.dtos.account.access.PendingAccountRegistrationDto;
+import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.dtos.email.NewEmailDto;
 import net.tamasnovak.services.account.account.AccountServiceImpl;
-import net.tamasnovak.services.email.EmailService;
+import net.tamasnovak.services.email.EmailServiceImpl;
 import net.tamasnovak.services.account.pendingAccount.PendingAccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class PendingAccountController {
   private final AccountServiceImpl accountServiceImpl;
   private final PendingAccountServiceImpl pendingAccountServiceImpl;
-  private final EmailService emailService;
+  private final EmailServiceImpl emailServiceImpl;
   private final PendingAccountControllerConstants pendingAccountControllerConstants;
 
   @Autowired
-  public PendingAccountController(AccountServiceImpl accountServiceImpl, PendingAccountServiceImpl pendingAccountServiceImpl, EmailService emailService, PendingAccountControllerConstants pendingAccountControllerConstants) {
+  public PendingAccountController(AccountServiceImpl accountServiceImpl, PendingAccountServiceImpl pendingAccountServiceImpl, EmailServiceImpl emailServiceImpl, PendingAccountControllerConstants pendingAccountControllerConstants) {
     this.accountServiceImpl = accountServiceImpl;
     this.pendingAccountServiceImpl = pendingAccountServiceImpl;
-    this.emailService = emailService;
+    this.emailServiceImpl = emailServiceImpl;
     this.pendingAccountControllerConstants = pendingAccountControllerConstants;
   }
 
@@ -46,7 +46,7 @@ public class PendingAccountController {
       pendingAccountControllerConstants.PENDING_ACCOUNT_EMAIL_SUBJECT,
       pendingAccountControllerConstants.PENDING_ACCOUNT_EMAIL_BODY
     );
-    emailService.sendEmail(newEmail);
+    emailServiceImpl.sendEmail(newEmail);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)

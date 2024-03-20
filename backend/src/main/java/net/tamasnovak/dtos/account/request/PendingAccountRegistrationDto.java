@@ -1,4 +1,4 @@
-package net.tamasnovak.dtos.account.access;
+package net.tamasnovak.dtos.account.request;
 
 public record PendingAccountRegistrationDto(
   String firstName,

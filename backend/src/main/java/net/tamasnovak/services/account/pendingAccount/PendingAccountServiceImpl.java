@@ -1,6 +1,6 @@
 package net.tamasnovak.services.account.pendingAccount;
 
-import net.tamasnovak.dtos.account.access.PendingAccountRegistrationDto;
+import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.entities.account.PendingAccount;
 import net.tamasnovak.repositories.PendingAccountRepository;
 import net.tamasnovak.utilities.StringFormatterUtilities;

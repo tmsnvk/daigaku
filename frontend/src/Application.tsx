@@ -73,21 +73,21 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route element={<div>PLACEHOLDER</div>} path={'/contact-guest'} />
     </Route>
     <Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Student, AccountRoleE.Mentor, AccountRoleE.Admin]} />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR, AccountRoleE.ADMIN]} />}>
         <Route element={<DashboardPage />} path={'/dashboard'} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Student, AccountRoleE.Mentor]} />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR]} />}>
         <Route element={<div>PLACEHOLDER</div>} path={'/contact'} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Student]} />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT]} />}>
         <Route element={<NewApplicationPage />} path={'/new-application'} />
         <Route element={<div>PLACEHOLDER</div>} path={'/my-applications'} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Mentor]} />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.MENTOR]} />}>
         <Route element={<div>PLACEHOLDER</div>} path={'/my-students'} />
         <Route element={<div>PLACEHOLDER</div>} path={'/my-student-applications'} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.Admin]} />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.ADMIN]} />}>
         <Route element={<div>PLACEHOLDER</div>} path={'/all-students'} />
         <Route element={<div>PLACEHOLDER</div>} path={'/all-mentors'} />
         <Route element={<div>PLACEHOLDER</div>} path={'/all-applications'} />

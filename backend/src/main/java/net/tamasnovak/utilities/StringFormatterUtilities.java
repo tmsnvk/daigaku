@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 public final class StringFormatterUtilities {
   public StringFormatterUtilities() {}
 
-  public String transformRolesArray(User userDetails) {
-    String roles = userDetails.getAuthorities()
+  public String transformRolesArrayToString(User userDetails) {
+    String role = userDetails.getAuthorities()
       .stream()
       .map(GrantedAuthority::getAuthority)
       .toList()
       .toString();
 
-    return roles.substring(1, roles.length() - 1);
+    return role.substring(1, role.length() - 1);
   }
 
   public String capitaliseWord(String word) {

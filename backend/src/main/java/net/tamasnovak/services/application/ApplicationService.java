@@ -8,8 +8,8 @@ import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
-import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundMessages;
+import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
+import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
 import net.tamasnovak.repositories.ApplicationRepository;
 import net.tamasnovak.repositories.ApplicationStatusRepository;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
@@ -27,15 +27,15 @@ public final class ApplicationService {
   private final CountryService countryService;
   private final UniversityService universityService;
   private final ApplicationMapper applicationMapper;
-  private final DbResourceNotFoundMessages dbResourceNotFoundMessages;
+  private final DbResourceNotFoundConstants dbResourceNotFoundConstants;
 
-  public ApplicationService(ApplicationRepository applicationRepository, ApplicationStatusRepository applicationStatusRepository, ApplicationStatusService applicationStatusService, CountryService countryService, UniversityService universityService, ApplicationMapper applicationMapper, DbResourceNotFoundMessages dbResourceNotFoundMessages) {
+  public ApplicationService(ApplicationRepository applicationRepository, ApplicationStatusRepository applicationStatusRepository, ApplicationStatusService applicationStatusService, CountryService countryService, UniversityService universityService, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
     this.applicationRepository = applicationRepository;
     this.applicationStatusService = applicationStatusService;
     this.countryService = countryService;
     this.universityService = universityService;
     this.applicationMapper = applicationMapper;
-    this.dbResourceNotFoundMessages = dbResourceNotFoundMessages;
+    this.dbResourceNotFoundConstants = dbResourceNotFoundConstants;
   }
 
   public List<NewApplicationDto> findAll(Account account) {
@@ -48,9 +48,9 @@ public final class ApplicationService {
 
   public NewApplicationDto saveApplication(Account account, NewSubmittedApplicationDto newSubmittedApplicationDto) {
     Country country = countryService.findByUuid(newSubmittedApplicationDto.country())
-      .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundMessages.COUNTRY_NOT_FOUND));
+      .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundConstants.COUNTRY_NOT_FOUND));
     University university = universityService.findByUuid(newSubmittedApplicationDto.university())
-      .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundMessages.UNIVERSITY_NOT_FOUND));
+      .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundConstants.UNIVERSITY_NOT_FOUND));
     ApplicationStatus applicationStatus = applicationStatusService.findByName("PLANNED");
 
     Application application = Application.createNewApplication(

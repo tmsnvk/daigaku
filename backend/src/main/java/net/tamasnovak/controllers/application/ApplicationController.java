@@ -4,7 +4,7 @@ import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.services.account.account.AccountService;
+import net.tamasnovak.services.account.account.AccountServiceImpl;
 import net.tamasnovak.services.application.ApplicationService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.http.HttpStatus;
@@ -24,12 +24,12 @@ import java.util.List;
 @RequestMapping(path = "/api/applications")
 public final class ApplicationController {
   private final ApplicationService applicationService;
-  private final AccountService accountService;
+  private final AccountServiceImpl accountServiceImpl;
   private final StringFormatterUtilities stringFormatter;
 
-  public ApplicationController(ApplicationService applicationService, AccountService accountService, StringFormatterUtilities stringFormatter) {
+  public ApplicationController(ApplicationService applicationService, AccountServiceImpl accountServiceImpl, StringFormatterUtilities stringFormatter) {
     this.applicationService = applicationService;
-    this.accountService = accountService;
+    this.accountServiceImpl = accountServiceImpl;
     this.stringFormatter = stringFormatter;
   }
 
@@ -41,7 +41,7 @@ public final class ApplicationController {
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<NewApplicationDto>> findAll() {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    Account account = accountService.findUserByEmail(userDetails.getUsername());
+    Account account = accountServiceImpl.findUserByEmail(userDetails.getUsername());
 
     List<NewApplicationDto> applications = applicationService.findAll(account);
 
@@ -56,7 +56,7 @@ public final class ApplicationController {
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<NewApplicationDto> saveApplication(@RequestBody NewSubmittedApplicationDto newSubmittedApplicationDto) {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    Account account = accountService.findUserByEmail(userDetails.getUsername());
+    Account account = accountServiceImpl.findUserByEmail(userDetails.getUsername());
 
     NewApplicationDto newApplication = applicationService.saveApplication(account, newSubmittedApplicationDto);
 
@@ -71,8 +71,8 @@ public final class ApplicationController {
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<DashboardDataDto> getDashboardData() {
     User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    Account account = accountService.findUserByEmail(userDetails.getUsername());
-    String accountRole = stringFormatter.transformRolesArray(userDetails);
+    Account account = accountServiceImpl.findUserByEmail(userDetails.getUsername());
+    String accountRole = stringFormatter.transformRolesArrayToString(userDetails);
 
     DashboardDataDto dashboardDataDto = applicationService.getDashboardData(account.getId(), accountRole);
 

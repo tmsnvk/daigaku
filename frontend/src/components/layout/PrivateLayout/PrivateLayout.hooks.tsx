@@ -8,7 +8,7 @@ const useLogOut = () => {
 
   const logOut = () => {
     localStorage.removeItem('token');
-    setAuthStatus(AuthStatusE.SignedOut);
+    setAuthStatus(AuthStatusE.SIGNED_OUT);
   };
 
   return {

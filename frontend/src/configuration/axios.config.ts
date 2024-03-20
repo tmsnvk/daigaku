@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getLocalStorageItem } from '@utilities';
 
 const axiosConfig = axios.create({
   timeout: 30000,
@@ -26,7 +25,7 @@ const axiosConfigWithAuth = axios.create({
 
 axiosConfigWithAuth.interceptors.request.use(
   (config) => {
-    const token = getLocalStorageItem('token');
+    const token = localStorage.getItem('token');
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

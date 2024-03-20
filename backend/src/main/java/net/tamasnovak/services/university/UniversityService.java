@@ -4,7 +4,7 @@ import net.tamasnovak.controllers.university.UniversityControllerMessages;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
+import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
 import net.tamasnovak.repositories.UniversityRepository;
 import net.tamasnovak.services.country.CountryService;
 import org.springframework.data.domain.Sort;

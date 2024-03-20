@@ -17,12 +17,12 @@ const HomePage = () => {
   const { isConfirmationModalVisible, showModalAfterSuccessFulSubmission, closeModal } = useShowConfirmationModal();
   const { activeFormType, renderFormComponent } = useRenderSelectedFormComponent({ showModalAfterSuccessFulSubmission });
 
-  if (authStatus === AuthStatusE.SignedIn) {
+  if (authStatus === AuthStatusE.SIGNED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 
   return (
-    authStatus === AuthStatusE.SignedOut &&
+    authStatus === AuthStatusE.SIGNED_OUT &&
     <MainContainer>
       {renderFormComponent()}
       {

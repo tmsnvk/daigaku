@@ -6,9 +6,9 @@ type AccountRoleT = {
 
 const getAuthAccountRole = (role: string): AccountRoleE => {
   const roles: AccountRoleT = {
-    'ROLE_STUDENT': AccountRoleE.Student,
-    'ROLE_MENTOR': AccountRoleE.Mentor,
-    'ROLE_ADMIN': AccountRoleE.Admin,
+    'ROLE_STUDENT': AccountRoleE.STUDENT,
+    'ROLE_MENTOR': AccountRoleE.MENTOR,
+    'ROLE_ADMIN': AccountRoleE.ADMIN,
   };
 
   return roles[role];

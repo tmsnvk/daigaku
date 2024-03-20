@@ -9,7 +9,7 @@ export type NavbarContentT = {
 }
 
 const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
-  [AccountRoleE.Student]: [
+  [AccountRoleE.STUDENT]: [
     {
       url: '/new-application',
       icon: iconLibraryConfig.faFileCirclePlus,
@@ -26,7 +26,7 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       content: 'Contact Us',
     },
   ],
-  [AccountRoleE.Mentor]: [
+  [AccountRoleE.MENTOR]: [
     {
       url: '/my-students',
       icon: iconLibraryConfig.faUserGroup,
@@ -43,7 +43,7 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       content: 'Contact Us',
     },
   ],
-  [AccountRoleE.Admin]: [
+  [AccountRoleE.ADMIN]: [
     {
       url: '/all-students',
       icon: iconLibraryConfig.faUserGroup,

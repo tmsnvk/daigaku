@@ -29,11 +29,11 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const { authStatus, account } = useAuth();
   const { logOut } = useLogOut();
 
-  if (authStatus === AuthStatusE.Loading) {
+  if (authStatus === AuthStatusE.LOADING) {
     return <GlobalLoadingModal />;
   }
 
-  if (!allowedRoles?.includes(account.accountRole as AccountRoleE)) {
+  if (!allowedRoles?.includes(account.role as AccountRoleE)) {
     if (account) {
       return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
     }
@@ -57,7 +57,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
                 content={'Dashboard'}
               />
             </li>
-            {navbarContent[account.accountRole as AccountRoleE].map((element: NavbarContentT) => {
+            {navbarContent[account.role as AccountRoleE].map((element: NavbarContentT) => {
               return (
                 <li key={element.url}>
                   <NavbarLink

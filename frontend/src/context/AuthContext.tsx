@@ -6,21 +6,18 @@ import {
   useState,
 } from 'react';
 import { axiosConfigWithAuth } from '@configuration';
-import {
-  getAuthAccountRole,
-  getLocalStorageItem,
-} from '@utilities';
+import { getAuthAccountRole } from '@utilities';
 
 export enum AuthStatusE {
-  Loading,
-  SignedIn,
-  SignedOut,
+  LOADING,
+  SIGNED_IN,
+  SIGNED_OUT,
 }
 
 export enum AccountRoleE {
-  Student,
-  Mentor,
-  Admin,
+  STUDENT,
+  MENTOR,
+  ADMIN,
 }
 
 export type AccountDataT = {
@@ -29,7 +26,7 @@ export type AccountDataT = {
   lastName: string;
   registeredAt: string;
   lastUpdatedAt: string;
-  accountRole: AccountRoleE | typeof AccountRoleE;
+  role: AccountRoleE | typeof AccountRoleE;
 }
 
 type AuthContextProviderT = {
@@ -49,39 +46,39 @@ const initialAccountState = {
   lastName: '',
   registeredAt: '',
   lastUpdatedAt: '',
-  accountRole: AccountRoleE,
+  role: AccountRoleE,
 };
 
 const AuthContext = createContext<AuthContextT>({} as AuthContextT);
 
 const AuthProvider = ({ children }: AuthContextProviderT) => {
   const [account, setAccount] = useState<AccountDataT>(initialAccountState);
-  const [authStatus, setAuthStatus] = useState<AuthStatusE>(AuthStatusE.Loading);
+  const [authStatus, setAuthStatus] = useState<AuthStatusE>(AuthStatusE.LOADING);
 
   const getMe = async () => {
     try {
       const { data } = await axiosConfigWithAuth.request({
         method: 'GET',
-        url: '/api/users/me',
+        url: '/api/accounts/me',
       });
 
       const userData: AccountDataT = {
-        ...data.accountDataDto,
-        accountRole: getAuthAccountRole(data.accountRole),
+        ...data,
+        role: getAuthAccountRole(data.role),
       };
 
       setAccount(userData);
-      setAuthStatus(AuthStatusE.SignedIn);
+      setAuthStatus(AuthStatusE.SIGNED_IN);
     } catch (error) {
-      setAuthStatus(AuthStatusE.SignedOut);
+      setAuthStatus(AuthStatusE.SIGNED_OUT);
     }
   };
 
   useEffect(() => {
-    const token = getLocalStorageItem('token');
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      setAuthStatus(AuthStatusE.SignedOut);
+      setAuthStatus(AuthStatusE.SIGNED_OUT);
 
       return;
     }

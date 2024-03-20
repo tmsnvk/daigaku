@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  LoginFormFieldsT,
+  useSubmitLoginForm,
+} from './LoginForm.hooks.tsx';
 import {
   FormContainer,
   FormSwapButton,
@@ -7,26 +10,22 @@ import {
 import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
-  InputFieldStyles,
-  InputLabel,
   LoadingIndicator,
-  PasswordInputFieldStyles,
   SubmitInput,
 } from '@components/shared/form';
-import { useRevealPasswordInInputField } from '@hooks/index.ts';
-import { useSubmitLoginForm } from './LoginForm.hooks.tsx';
-import { iconLibraryConfig } from '@configuration';
+import {
+  GeneralInputField,
+  PasswordInputField,
+} from '@components/shared/field-implementations';
+import theme from '@theme/theme.ts';
 import {
   FormSelectorT,
   FormTypeE,
 } from '@pages/Home/Home.types.ts';
-import { LoginFormFieldsT } from './LoginForm.types.ts';
-import theme from '@theme/theme.ts';
 
 type ComponentPropT = FormSelectorT;
 
 const LoginForm = ({ formSelector }: ComponentPropT) => {
-  const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
   const { formState: { errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitLoginForm({ setError });
 
@@ -37,39 +36,35 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
         fontSize={theme.fontSize.medium}
       />
       <form id={'userLoginForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
-        <InputFieldStyles $isError={errors.email?.message !== undefined}>
-          <InputLabel inputId={'email'} content={'Email'} />
-          <input
-            {...register('email', {
-              required: { value: true, message: 'Providing your email address is required.' },
-            })}
-            type={'email'}
-            id={'email'}
-            name={'email'}
-            autoComplete={'off'}
-            placeholder={'Enter your email address'}
-            disabled={isPending}
-          />
-          {errors.email?.message && <ErrorMessage error={errors.email.message} />}
-        </InputFieldStyles>
-        <PasswordInputFieldStyles $isError={errors.password?.message !== undefined}>
-          <InputLabel inputId={'password'} content={'Password'} />
-          <div>
-            <input
-              {...register('password', {
-                required: { value: true, message: 'Providing your password is required.' },
-              })}
-              type={isRevealed ? 'text' : 'password'}
-              id={'password'}
-              name={'password'}
-              autoComplete={'off'}
-              placeholder={'Enter your password'}
-              disabled={isPending}
-            />
-            <FontAwesomeIcon onClick={handleRevealClick} icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye} />
-          </div>
-          {errors.password?.message && <ErrorMessage error={errors.password.message} />}
-        </PasswordInputFieldStyles>
+        <GeneralInputField
+          register={register}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing your email address is required.',
+            },
+          }}
+          fieldError={errors.email?.message}
+          fieldId={'email'}
+          label={'Email'}
+          type={'email'}
+          placeholder={'Enter your email address'}
+          isDisabled={isPending}
+        />
+        <PasswordInputField
+          register={register}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing your password is required.',
+            },
+          }}
+          fieldError={errors.password?.message}
+          fieldId={'password'}
+          label={'Password'}
+          placeholder={'Enter your password'}
+          isDisabled={isPending}
+        />
         <article>
           {
             isPending ?

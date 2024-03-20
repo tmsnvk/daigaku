@@ -2,12 +2,12 @@ package net.tamasnovak.controllers;
 
 import jakarta.mail.MessagingException;
 import jakarta.validation.ConstraintViolationException;
-import net.tamasnovak.exceptions.dbReourseNotFound.DbResourceNotFoundException;
-import net.tamasnovak.exceptions.ErrorResponse;
+import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -37,7 +37,10 @@ public final class GlobalControllerExceptionHandler {
       .body(errors);
   }
 
-  @ExceptionHandler(value = { MailSendException.class, MessagingException.class })
+  @ExceptionHandler(value = {
+    MailSendException.class,
+    MessagingException.class
+  })
   public ResponseEntity<Map<String, String>> handleEmailSendingException(Exception exception) {
     Map<String, String> errors = new HashMap<>();
     errors.put("root", exception.getMessage());
@@ -48,15 +51,22 @@ public final class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { DbResourceNotFoundException.class })
-  public ResponseEntity<ErrorResponse> handleNotFoundDbResourceException(DbResourceNotFoundException exception) {
-    HttpStatus notFoundStatus = HttpStatus.NOT_FOUND;
+  public ResponseEntity<Map<String, String>> handleNotFoundDbResourceException(DbResourceNotFoundException exception) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", exception.getMessage());
 
-    ErrorResponse error = new ErrorResponse(
-      notFoundStatus.value(),
-      exception.getMessage(),
-      System.currentTimeMillis()
-    );
+    return ResponseEntity
+      .status(HttpStatus.NOT_FOUND)
+      .body(errors);
+  }
 
-    return new ResponseEntity<>(error, notFoundStatus);
+  @ExceptionHandler(value = { BadCredentialsException.class })
+  public ResponseEntity<Map<String, String>> handleAuthorisationException() {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", "Bad credentials were provided.");
+
+    return ResponseEntity
+      .status(HttpStatus.UNAUTHORIZED)
+      .body(errors);
   }
 }
