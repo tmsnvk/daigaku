@@ -1,7 +1,8 @@
-package net.tamasnovak.services.security;
+package net.tamasnovak.security.service;
 
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.repositories.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import java.util.Collections;
 public final class UserDetailsServiceImpl implements UserDetailsService {
   private final AccountRepository accountRepository;
 
+  @Autowired
   public UserDetailsServiceImpl(AccountRepository accountRepository) {
     this.accountRepository = accountRepository;
   }

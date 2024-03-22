@@ -1,4 +1,4 @@
-package net.tamasnovak.security;
+package net.tamasnovak.security.utilities;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -18,12 +18,12 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtUtils {
+public final class JwtUtilities {
   @Value("${tamasnovak.app.jwtSecret}")
   private String jwtSecret;
   @Value("${tamasnovak.app.jwtExpirationMs}")
   private int jwtExpirationMs;
-  private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+  private static final Logger logger = LoggerFactory.getLogger(JwtUtilities.class);
 
   public String generateJwtToken(Authentication authentication) {
     UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
@@ -50,13 +50,13 @@ public class JwtUtils {
 
       return true;
     } catch (MalformedJwtException exception) {
-      logger.error("Invalid JWT token: {}", exception.getMessage());
+      logger.error("Invalid JWT token: {}.", exception.getMessage());
     } catch (ExpiredJwtException exception) {
-      logger.error("JWT token is expired: {}", exception.getMessage());
+      logger.error("JWT token is expired: {}.", exception.getMessage());
     } catch (UnsupportedJwtException exception) {
-      logger.error("JWT token is unsupported: {}", exception.getMessage());
+      logger.error("JWT token is unsupported: {}.", exception.getMessage());
     } catch (IllegalArgumentException exception) {
-      logger.error("JWT claims string is empty: {}", exception.getMessage());
+      logger.error("JWT claims string is empty: {}.", exception.getMessage());
     }
 
     return false;

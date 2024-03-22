@@ -5,7 +5,7 @@ import net.tamasnovak.dtos.account.response.LoginReturnDto;
 import net.tamasnovak.dtos.account.response.GetMeDto;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.security.JwtUtils;
+import net.tamasnovak.security.utilities.JwtUtilities;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/accounts")
 public class AccountController {
-  private final JwtUtils jwtUtils;
+  private final JwtUtilities jwtUtilities;
   private final AuthenticationManager authenticationManager;
   private final AccountService accountService;
   private final StringFormatterUtilities stringFormatter;
 
   @Autowired
-  public AccountController(JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, StringFormatterUtilities stringFormatter) {
-    this.jwtUtils = jwtUtils;
+  public AccountController(JwtUtilities jwtUtilities, AuthenticationManager authenticationManager, AccountService accountService, StringFormatterUtilities stringFormatter) {
+    this.jwtUtilities = jwtUtilities;
     this.authenticationManager = authenticationManager;
     this.accountService = accountService;
     this.stringFormatter = stringFormatter;
@@ -77,7 +77,7 @@ public class AccountController {
     Account account = accountService.findUserByEmail(loginData.email().toLowerCase());
     User userDetails = (User) authentication.getPrincipal();
 
-    String jwtToken = jwtUtils.generateJwtToken(authentication);
+    String jwtToken = jwtUtilities.generateJwtToken(authentication);
     String role = stringFormatter.transformRolesArrayToString(userDetails);
 
     LoginReturnDto loginReturnDto = new LoginReturnDto(

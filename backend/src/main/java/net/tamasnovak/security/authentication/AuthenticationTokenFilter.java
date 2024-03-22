@@ -1,9 +1,10 @@
-package net.tamasnovak.security;
+package net.tamasnovak.security.authentication;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import net.tamasnovak.security.utilities.JwtUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,11 +19,11 @@ import java.io.IOException;
 
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
   private static final Logger logger = LoggerFactory.getLogger(AuthenticationTokenFilter.class);
-  private final JwtUtils jwtUtils;
+  private final JwtUtilities jwtUtilities;
   private final UserDetailsService userDetailsService;
 
-  public AuthenticationTokenFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
-    this.jwtUtils = jwtUtils;
+  public AuthenticationTokenFilter(JwtUtilities jwtUtilities, UserDetailsService userDetailsService) {
+    this.jwtUtilities = jwtUtilities;
     this.userDetailsService = userDetailsService;
   }
 
@@ -31,8 +32,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     try {
       String jwt = parseJwt(request);
 
-      if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+      if (jwt != null && jwtUtilities.validateJwtToken(jwt)) {
+        String username = jwtUtilities.getUserNameFromJwtToken(jwt);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -40,7 +41,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     } catch (Exception exception) {
-      logger.error("Cannot set user authentication", exception);
+      logger.error("Cannot set user authentication.", exception);
     }
 
     filterChain.doFilter(request, response);

@@ -1,4 +1,4 @@
-package net.tamasnovak.security;
+package net.tamasnovak.security.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,8 +16,8 @@ public class AuthenticationEntryPointJwt implements AuthenticationEntryPoint {
 
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-    logger.error("Unauthorized error: {}", authException.getMessage());
+    logger.error("Unauthorized error: {}.", authException.getMessage());
 
-    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized.");
   }
 }

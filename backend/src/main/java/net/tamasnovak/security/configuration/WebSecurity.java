@@ -1,5 +1,8 @@
-package net.tamasnovak.security;
+package net.tamasnovak.security.configuration;
 
+import net.tamasnovak.security.authentication.AuthenticationEntryPointJwt;
+import net.tamasnovak.security.authentication.AuthenticationTokenFilter;
+import net.tamasnovak.security.utilities.JwtUtilities;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,16 +23,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurity {
   private final UserDetailsService userDetailsService;
   private final AuthenticationEntryPointJwt unauthorizedHandler;
-  private final JwtUtils jwtUtils;
+  private final JwtUtilities jwtUtilities;
 
-  public WebSecurity(UserDetailsService userDetailsService, AuthenticationEntryPointJwt unauthorizedHandler, JwtUtils jwtUtils) {
+  public WebSecurity(UserDetailsService userDetailsService, AuthenticationEntryPointJwt unauthorizedHandler, JwtUtilities jwtUtilities) {
     this.userDetailsService = userDetailsService;
     this.unauthorizedHandler = unauthorizedHandler;
-    this.jwtUtils = jwtUtils;
+    this.jwtUtilities = jwtUtilities;
   }
 
   public AuthenticationTokenFilter authenticationJwtTokenFilter() {
-    return new AuthenticationTokenFilter(jwtUtils, userDetailsService);
+    return new AuthenticationTokenFilter(jwtUtilities, userDetailsService);
   }
 
   public DaoAuthenticationProvider authenticationProvider() {
