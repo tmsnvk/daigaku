@@ -6,7 +6,7 @@ import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
 import net.tamasnovak.repositories.UniversityRepository;
-import net.tamasnovak.services.country.CountryService;
+import net.tamasnovak.services.country.CountryServiceImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 
 @Service
 public final class UniversityService {
-  private final CountryService countryService;
+  private final CountryServiceImpl countryServiceImpl;
   private final UniversityMapper universityMapper;
   private final UniversityRepository universityRepository;
   private final UniversityControllerMessages universityControllerMessages;
 
-  public UniversityService(CountryService countryService, UniversityMapper universityMapper, UniversityRepository universityRepository, UniversityControllerMessages universityControllerMessages) {
-    this.countryService = countryService;
+  public UniversityService(CountryServiceImpl countryServiceImpl, UniversityMapper universityMapper, UniversityRepository universityRepository, UniversityControllerMessages universityControllerMessages) {
+    this.countryServiceImpl = countryServiceImpl;
     this.universityMapper = universityMapper;
     this.universityRepository = universityRepository;
     this.universityControllerMessages = universityControllerMessages;
@@ -38,9 +38,7 @@ public final class UniversityService {
   }
 
   public List<UniversityOptionDto> findByCountryId(UUID countryUuid) {
-    Country country = countryService.findByUuid(countryUuid)
-      .orElseThrow(() -> new DbResourceNotFoundException(universityControllerMessages.DB_RESOURCE_NOT_FOUND));
-
+    Country country = countryServiceImpl.findByUuid(countryUuid);
     List<University> universities = universityRepository.findUniversitiesByCountryId(country);
 
     return universities.stream()

@@ -13,6 +13,7 @@ import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
 import net.tamasnovak.repositories.ApplicationRepository;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
+import net.tamasnovak.services.country.CountryServiceImpl;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +54,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Override
   @Transactional
   public NewApplicationDto saveNewApplicationByStudent(Account account, NewSubmittedApplicationDto newSubmittedApplicationDto) {
-    Country country = countryService.findByUuid(newSubmittedApplicationDto.country())
-      .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundConstants.COUNTRY_NOT_FOUND));
+    Country country = countryService.findByUuid(newSubmittedApplicationDto.country());
     University university = universityService.findByUuid(newSubmittedApplicationDto.university())
       .orElseThrow(() -> new DbResourceNotFoundException(dbResourceNotFoundConstants.UNIVERSITY_NOT_FOUND));
 

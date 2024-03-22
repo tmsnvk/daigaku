@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.country;
 
 import net.tamasnovak.dtos.country.CountryOptionDto;
-import net.tamasnovak.services.country.CountryService;
+import net.tamasnovak.services.country.CountryServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +15,10 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/countries")
 public final class CountryController {
-  private final CountryService countryService;
+  private final CountryServiceImpl countryServiceImpl;
 
-  public CountryController(CountryService countryService) {
-    this.countryService = countryService;
+  public CountryController(CountryServiceImpl countryServiceImpl) {
+    this.countryServiceImpl = countryServiceImpl;
   }
 
   @RequestMapping(
@@ -28,7 +28,7 @@ public final class CountryController {
   )
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<CountryOptionDto>> findUser() {
-    List<CountryOptionDto> countryOptions = countryService.findAll();
+    List<CountryOptionDto> countryOptions = countryServiceImpl.findAll();
 
     return new ResponseEntity<>(countryOptions, HttpStatus.OK);
   }
