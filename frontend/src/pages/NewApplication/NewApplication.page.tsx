@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  useGetCountries,
+  useGetCountryOptions,
   useGetUniversities,
 } from '@hooks/index.ts';
 import { GlobalErrorModal } from '@components/shared/modal';
@@ -10,7 +10,7 @@ const NewApplicationPage = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
   const [selectedCountryId, setSelectedCountryId] = useState<string>('');
 
-  const { countryData, isCountryDataError } = useGetCountries();
+  const { countryData, isCountryDataError } = useGetCountryOptions();
   const { universityData, isUniversityDataError } = useGetUniversities(isCountryFieldSelected, selectedCountryId);
 
   const handleCountryField = (countryId: string) => {

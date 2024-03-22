@@ -4,15 +4,13 @@ import { axiosConfigWithAuth } from '@configuration';
 export type CountriesT = {
   uuid: string;
   name: string;
-  abbreviation: string;
-  countryCode: string;
 }
 
-const getCountries = async () => {
+const getCountryOptions = async () => {
   try {
     const { data }: { data: CountriesT[] } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: 'api/countries',
+      url: 'api/countries/options',
     });
 
     return data;
@@ -21,10 +19,10 @@ const getCountries = async () => {
   }
 };
 
-const useGetCountries = () => {
+const useGetCountryOptions = () => {
   const query = useQuery({
-    queryKey: ['getCountries'],
-    queryFn: () => getCountries(),
+    queryKey: ['getCountryOptions'],
+    queryFn: () => getCountryOptions(),
   });
 
   return {
@@ -34,4 +32,4 @@ const useGetCountries = () => {
   };
 };
 
-export default useGetCountries;
+export default useGetCountryOptions;

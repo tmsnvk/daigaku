@@ -30,7 +30,7 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<CountryOptionDto> findAll() {
+  public List<CountryOptionDto> getCountryOptions() {
     List<Country> countries = countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 
     return countries.stream()

@@ -18,7 +18,7 @@ import {
 } from '@components/shared/field-implementations';
 import { FeedbackModal } from '@components/shared/modal';
 import { FormGridContainer } from './NewApplicationForm.styles.ts';
-import { CountriesT } from '@hooks/useGetCountries.tsx';
+import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
 import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
 import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {

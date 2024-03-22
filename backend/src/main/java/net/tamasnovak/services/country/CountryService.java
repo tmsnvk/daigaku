@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CountryService {
-  List<CountryOptionDto> findAll();
+  List<CountryOptionDto> getCountryOptions();
   Country findByUuid(UUID countryId);
 }

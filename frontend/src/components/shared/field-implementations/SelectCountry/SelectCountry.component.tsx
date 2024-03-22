@@ -8,7 +8,7 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { CountriesT } from '@hooks/useGetCountries.tsx';
+import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
