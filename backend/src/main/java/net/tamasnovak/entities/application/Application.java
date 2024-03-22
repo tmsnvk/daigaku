@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import net.tamasnovak.entities.BaseEntity;
 import net.tamasnovak.entities.account.Account;
@@ -31,7 +32,7 @@ public final class Application extends BaseEntity {
   private University universityId;
 
   @Column(name = "course_name", nullable = false)
-  @NotNull
+  @NotBlank
   private String courseName;
 
   @Column(name = "minor_subject")

@@ -4,14 +4,12 @@ import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.services.account.account.AccountServiceImpl;
 import net.tamasnovak.services.application.ApplicationService;
-import net.tamasnovak.utilities.StringFormatterUtilities;
+import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,13 +22,12 @@ import java.util.List;
 @RequestMapping(path = "/api/applications")
 public final class ApplicationController {
   private final ApplicationService applicationService;
-  private final AccountServiceImpl accountServiceImpl;
-  private final StringFormatterUtilities stringFormatter;
+  private final AuthenticationFacade authenticationFacade;
 
-  public ApplicationController(ApplicationService applicationService, AccountServiceImpl accountServiceImpl, StringFormatterUtilities stringFormatter) {
+  @Autowired
+  public ApplicationController(ApplicationService applicationService, AuthenticationFacade authenticationFacade) {
     this.applicationService = applicationService;
-    this.accountServiceImpl = accountServiceImpl;
-    this.stringFormatter = stringFormatter;
+    this.authenticationFacade = authenticationFacade;
   }
 
   @RequestMapping(
@@ -40,8 +37,7 @@ public final class ApplicationController {
   )
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<NewApplicationDto>> findAll() {
-    User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    Account account = accountServiceImpl.findUserByEmail(userDetails.getUsername());
+    Account account = authenticationFacade.getAuthenticatedAccount();
 
     List<NewApplicationDto> applications = applicationService.findAll(account);
 
@@ -55,10 +51,9 @@ public final class ApplicationController {
   )
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<NewApplicationDto> saveApplication(@RequestBody NewSubmittedApplicationDto newSubmittedApplicationDto) {
-    User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    Account account = accountServiceImpl.findUserByEmail(userDetails.getUsername());
+    Account account = authenticationFacade.getAuthenticatedAccount();
 
-    NewApplicationDto newApplication = applicationService.saveApplication(account, newSubmittedApplicationDto);
+    NewApplicationDto newApplication = applicationService.saveNewApplicationByStudent(account, newSubmittedApplicationDto);
 
     return new ResponseEntity<>(newApplication, HttpStatus.CREATED);
   }
@@ -70,9 +65,8 @@ public final class ApplicationController {
   )
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<DashboardDataDto> getDashboardData() {
-    User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    Account account = accountServiceImpl.findUserByEmail(userDetails.getUsername());
-    String accountRole = stringFormatter.transformRolesArrayToString(userDetails);
+    Account account = authenticationFacade.getAuthenticatedAccount();
+    String accountRole = authenticationFacade.getAuthenticatedAccountRole();
 
     DashboardDataDto dashboardDataDto = applicationService.getDashboardData(account.getId(), accountRole);
 
