@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
+  NewApplicationFormFieldsT,
   useCheckFieldDisableStatus,
   useSubmitNewApplicationForm,
 } from './NewApplicationForm.hooks.tsx';
@@ -20,7 +21,6 @@ import { FeedbackModal } from '@components/shared/modal';
 import { FormGridContainer } from './NewApplicationForm.styles.ts';
 import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
 import { UniversitiesT } from '@hooks/useGetUniversityOptions.tsx';
-import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
   countryInformation,
   formInformation,
@@ -76,11 +76,18 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={universityInformation} />
         <GeneralInputField
           register={register}
-          validationPattern={/^[\sa-zA-z]+$/}
-          validationError={'You may enter letter characters only.'}
-          requiredError={'Providing the name of your selected course is required.'}
-          fieldError={errors.majorSubject?.message}
-          fieldId={'majorSubject'}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing the name of your selected course is required.',
+            },
+            pattern: {
+              value: /^[A-Za-z-\s]{5,255}$/,
+              message: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
+            },
+          }}
+          fieldError={errors.courseName?.message}
+          fieldId={'courseName'}
           label={'Course name'}
           type={'text'}
           placeholder={'Provide the course of your choice.'}
@@ -90,8 +97,12 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={majorSubjectInformation} />
         <GeneralInputField
           register={register}
-          validationPattern={/^[\sa-zA-z]+$/}
-          validationError={'You may enter letter characters only.'}
+          validation={{
+            pattern: {
+              value: /^[A-Za-z-\s]{5,255}$/,
+              message: 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
+            },
+          }}
           fieldError={errors.minorSubject?.message}
           fieldId={'minorSubject'}
           label={'Minor subject'}
@@ -103,9 +114,16 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={minorSubjectInformation} />
         <GeneralInputField
           register={register}
-          validationPattern={/\b[1-9]\b/}
-          validationError={'You may enter numeric values only between 1 and 9.'}
-          requiredError={'Providing the length of your selected course is required.'}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing the length of your selected course is required.',
+            },
+            pattern: {
+              value: /^\b[2-5]\b$/,
+              message: 'You may enter numeric values only between 2 and 5.',
+            },
+          }}
           fieldError={errors.programmeLength?.message}
           fieldId={'programmeLength'}
           label={'Programme length'}

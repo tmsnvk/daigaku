@@ -5,7 +5,7 @@ import java.util.UUID;
 public record NewSubmittedApplicationDto(
   UUID country,
   UUID university,
-  String majorSubject,
+  String courseName,
   String minorSubject,
   int programmeLength
 ) {}

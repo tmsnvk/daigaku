@@ -16,6 +16,8 @@ import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "applications")
 public final class Application extends BaseEntity {
@@ -36,11 +38,11 @@ public final class Application extends BaseEntity {
 
   @Column(name = "course_name", nullable = false)
   @NotBlank(message = "Provide the title of your course.")
-  @Size(min = 2, max = 255, message = "The name should be between 2 and 255 characters long.")
+  @Size(min = 5, max = 255, message = "The name should be between 2 and 255 characters long.")
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Size(min = 2, max = 255, message = "The name should be between 2 and 255 characters long.")
+  @Size(min = 5, max = 255, message = "The name should be between 2 and 255 characters long.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
@@ -79,18 +81,26 @@ public final class Application extends BaseEntity {
 
   public Application() {}
 
-  private Application(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, ApplicationStatus applicationStatusId, int programmeLength) {
+  private Application(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
     this.accountId = accountId;
     this.countryId = countryId;
     this.universityId = universityId;
     this.courseName = courseName;
-    this.minorSubject = minorSubject;
+    this.minorSubject = enforceOptionalFieldValidation(minorSubject);
     this.applicationStatusId = applicationStatusId;
     this.programmeLength = programmeLength;
   }
 
-  public static Application createNewApplicationByStudent(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, ApplicationStatus applicationStatusId, int programmeLength) {
-    return new Application(accountId, countryId, universityId, courseName, minorSubject, applicationStatusId, programmeLength);
+  public static Application createNewApplicationByStudent(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
+    return new Application(accountId, countryId, universityId, courseName, minorSubject, programmeLength, applicationStatusId);
+  }
+
+  public static String enforceOptionalFieldValidation(String fieldContent) {
+    if (Objects.equals(fieldContent, "")) {
+      return null;
+    }
+
+    return fieldContent;
   }
 
   public Account getAccountId() {

@@ -64,10 +64,10 @@ public class ApplicationServiceImpl implements ApplicationService {
       account,
       country,
       university,
-      newSubmittedApplicationDto.majorSubject(),
+      newSubmittedApplicationDto.courseName(),
       newSubmittedApplicationDto.minorSubject(),
-      plannedApplicationStatus,
-      newSubmittedApplicationDto.programmeLength()
+      newSubmittedApplicationDto.programmeLength(),
+      plannedApplicationStatus
     );
 
     applicationRepository.save(application);

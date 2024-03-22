@@ -5,15 +5,36 @@ import {
   UseFormSetError,
 } from 'react-hook-form';
 import { axiosConfigWithAuth } from '@configuration';
-import {
-  NewApplicationFormErrorT,
-  NewApplicationFormFieldsT,
-} from './NewApplicationForm.types.ts';
 import { ApplicationT } from '@hooks/useGetApplications.tsx';
+
+export type NewApplicationFormFieldsT = {
+  country: string;
+  university: string;
+  courseName: string;
+  minorSubject: string;
+  programmeLength: number;
+}
 
 type NewApplicationFormT = {
   setError: UseFormSetError<NewApplicationFormFieldsT>;
 };
+
+type NewApplicationFormErrorFieldsT = `root.${string}` |
+  'root' |
+  'country' |
+  'university' |
+  'courseName' |
+  'minorSubject' |
+  'programmeLength';
+
+type NewApplicationFormErrorT = {
+  response: {
+    status: number;
+    data: {
+      [key: string]: NewApplicationFormErrorFieldsT;
+    }
+  }
+}
 
 const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
   const { isPending, isSuccess, mutate } = useMutation({
@@ -34,10 +55,15 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
       localStorage.setItem('applications', JSON.stringify(applications));
     },
     onError: (error: NewApplicationFormErrorT) => {
-      setError('root.serverError', {
-        type: error.response.status,
-        message: error.response.data.message ? error.response.data.message : 'An unexpected error has happened. Please try again later.',
-      });
+      for (const fieldId in error.response.data) {
+        if (error.response.data[fieldId]) {
+          setError(fieldId as NewApplicationFormErrorFieldsT, { message: error.response.data[fieldId] });
+        }
+      }
+
+      if (error.response.data.root) {
+        setError('root.serverError', { message: error.response.data.root });
+      }
     },
   });
 
