@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.Set;
 
@@ -20,7 +19,6 @@ public final class Role {
   private long id;
 
   @Column(name = "name", unique = true, updatable = false, nullable = false)
-  @NotBlank
   private String name;
 
   @OneToMany(mappedBy = "role")

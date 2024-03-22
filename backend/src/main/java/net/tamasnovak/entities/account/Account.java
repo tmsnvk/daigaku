@@ -36,7 +36,6 @@ public final class Account extends BaseEntity {
   private String email;
 
   @Column(name = "hashed_password", nullable = false)
-  @NotBlank
   private String hashedPassword;
 
   @OneToMany(mappedBy = "accountId")

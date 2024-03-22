@@ -7,7 +7,6 @@ import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.security.JwtUtils;
 import net.tamasnovak.services.account.account.AccountService;
-import net.tamasnovak.services.account.account.AccountServiceImpl;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +31,7 @@ public class AccountController {
   private final StringFormatterUtilities stringFormatter;
 
   @Autowired
-  public AccountController(JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountServiceImpl accountService, StringFormatterUtilities stringFormatter) {
+  public AccountController(JwtUtils jwtUtils, AuthenticationManager authenticationManager, AccountService accountService, StringFormatterUtilities stringFormatter) {
     this.jwtUtils = jwtUtils;
     this.authenticationManager = authenticationManager;
     this.accountService = accountService;
@@ -71,7 +70,7 @@ public class AccountController {
     consumes = "application/json",
     produces = "application/json"
   )
-  public ResponseEntity<LoginReturnDto> login(@Valid @RequestBody LoginRequestDto loginData) {
+  public ResponseEntity<LoginReturnDto> loginUser(@Valid @RequestBody LoginRequestDto loginData) {
     Account account = accountService.findUserByEmail(loginData.email().toLowerCase());
 
     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginData.email().toLowerCase(), loginData.password());
