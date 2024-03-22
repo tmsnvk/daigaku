@@ -6,7 +6,6 @@ import net.tamasnovak.dtos.email.NewEmailDto;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.account.pendingAccount.PendingAccountService;
 import net.tamasnovak.services.email.EmailService;
-import net.tamasnovak.services.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class PendingAccountController {
   private final PendingAccountControllerConstants pendingAccountControllerConstants;
 
   @Autowired
-  public PendingAccountController(AccountService accountService, PendingAccountService pendingAccountService, EmailServiceImpl emailService, PendingAccountControllerConstants pendingAccountControllerConstants) {
+  public PendingAccountController(AccountService accountService, PendingAccountService pendingAccountService, EmailService emailService, PendingAccountControllerConstants pendingAccountControllerConstants) {
     this.accountService = accountService;
     this.pendingAccountService = pendingAccountService;
     this.emailService = emailService;
