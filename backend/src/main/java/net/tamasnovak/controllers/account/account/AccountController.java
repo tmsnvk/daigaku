@@ -71,11 +71,10 @@ public class AccountController {
     produces = "application/json"
   )
   public ResponseEntity<LoginReturnDto> loginUser(@Valid @RequestBody LoginRequestDto loginData) {
-    Account account = accountService.findUserByEmail(loginData.email().toLowerCase());
-
     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginData.email().toLowerCase(), loginData.password());
     Authentication authentication = authenticationManager.authenticate(auth);
 
+    Account account = accountService.findUserByEmail(loginData.email().toLowerCase());
     User userDetails = (User) authentication.getPrincipal();
 
     String jwtToken = jwtUtils.generateJwtToken(authentication);
