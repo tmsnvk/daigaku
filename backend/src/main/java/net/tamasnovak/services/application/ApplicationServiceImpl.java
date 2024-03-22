@@ -60,7 +60,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("PLANNED");
 
-    Application application = Application.createNewApplication(
+    Application application = Application.createNewApplicationByStudent(
       account,
       country,
       university,

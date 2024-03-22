@@ -6,8 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.BaseEntity;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.country.Country;
@@ -32,14 +35,18 @@ public final class Application extends BaseEntity {
   private University universityId;
 
   @Column(name = "course_name", nullable = false)
-  @NotBlank
+  @NotBlank(message = "Provide the title of your course.")
+  @Size(min = 2, max = 255, message = "The name should be between 2 and 255 characters long.")
   private String courseName;
 
   @Column(name = "minor_subject")
+  @Size(min = 2, max = 255, message = "The name should be between 2 and 255 characters long.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
-  @NotNull
+  @NotNull(message = "Provide the length of your course (in years).")
+  @Min(value = 2, message = "Programme length should not be less than 2.")
+  @Max(value = 5, message = "Programme length should not be more than 5.")
   private int programmeLength;
 
   @ManyToOne
@@ -82,7 +89,7 @@ public final class Application extends BaseEntity {
     this.programmeLength = programmeLength;
   }
 
-  public static Application createNewApplication(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, ApplicationStatus applicationStatusId, int programmeLength) {
+  public static Application createNewApplicationByStudent(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, ApplicationStatus applicationStatusId, int programmeLength) {
     return new Application(accountId, countryId, universityId, courseName, minorSubject, applicationStatusId, programmeLength);
   }
 
