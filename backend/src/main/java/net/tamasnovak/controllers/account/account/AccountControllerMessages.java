@@ -1,4 +1,4 @@
-package net.tamasnovak.controllers.account;
+package net.tamasnovak.controllers.account.account;
 
 import org.springframework.stereotype.Service;
 

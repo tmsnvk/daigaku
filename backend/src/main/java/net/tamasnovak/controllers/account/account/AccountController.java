@@ -1,4 +1,4 @@
-package net.tamasnovak.controllers.account;
+package net.tamasnovak.controllers.account.account;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;

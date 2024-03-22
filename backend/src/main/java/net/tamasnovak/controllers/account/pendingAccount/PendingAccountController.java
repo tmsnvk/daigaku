@@ -1,4 +1,4 @@
-package net.tamasnovak.controllers.pendingAccount;
+package net.tamasnovak.controllers.account.pendingAccount;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
