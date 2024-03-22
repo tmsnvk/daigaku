@@ -64,7 +64,6 @@ CREATE TABLE universities(
   country_id BIGINT REFERENCES countries(id),
   name VARCHAR NOT NULL,
   abbreviation VARCHAR NOT NULL,
-  country VARCHAR NOT NULL,
   address VARCHAR
 );
 

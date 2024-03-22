@@ -19,7 +19,7 @@ import {
 import { FeedbackModal } from '@components/shared/modal';
 import { FormGridContainer } from './NewApplicationForm.styles.ts';
 import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
-import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
+import { UniversitiesT } from '@hooks/useGetUniversityOptions.tsx';
 import { NewApplicationFormFieldsT } from './NewApplicationForm.types.ts';
 import {
   countryInformation,

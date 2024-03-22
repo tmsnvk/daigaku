@@ -10,6 +10,7 @@ import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,16 @@ public final class GlobalControllerExceptionHandler {
     Map<String, String> errors = new HashMap<>();
     exception.getConstraintViolations()
       .forEach((error) -> errors.put(error.getPropertyPath().toString(), error.getMessage()));
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
+      .body(errors);
+  }
+
+  @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
+  public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatch() {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", "Bad values were provided.");
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)

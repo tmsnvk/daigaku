@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.BaseEntity;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.country.Country;
@@ -20,16 +21,14 @@ import java.util.Set;
 @Table(name = "universities")
 public final class University extends BaseEntity {
   @Column(name = "name", nullable = false)
-  @NotBlank
+  @NotBlank(message = "Provide the university's official name.")
+  @Size(min = 2, message = "The name should be a minimum of 2 characters long.")
   private String name;
 
   @Column(name = "abbreviation", nullable = false)
-  @NotBlank
+  @NotBlank(message = "Provide the university's official abbreviation.")
+  @Size(min = 2, max = 5, message = "The abbreviation should be between 2 and 5 characters long.")
   private String abbreviation;
-
-  @Column(name = "country", nullable = false)
-  @NotBlank
-  private String country;
 
   @Column(name = "address", nullable = false)
   private String address;
@@ -45,10 +44,9 @@ public final class University extends BaseEntity {
 
   public University() {}
 
-  public University(String name, String abbreviation, String country, String address) {
+  public University(String name, String abbreviation, String address) {
     this.name = name;
     this.abbreviation = abbreviation;
-    this.country = country;
     this.address = address;
     this.applications = new HashSet<>();
   }
@@ -59,10 +57,6 @@ public final class University extends BaseEntity {
 
   public String getAbbreviation() {
     return abbreviation;
-  }
-
-  public String getCountry() {
-    return country;
   }
 
   public String getAddress() {

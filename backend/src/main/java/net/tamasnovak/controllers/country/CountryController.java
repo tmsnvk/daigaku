@@ -25,8 +25,8 @@ public final class CountryController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<CountryOptionDto>> getCountryOptions() {
-    List<CountryOptionDto> countryOptions = countryService.getCountryOptions();
+  public ResponseEntity<List<CountryOptionDto>> getOptions() {
+    List<CountryOptionDto> countryOptions = countryService.getOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)

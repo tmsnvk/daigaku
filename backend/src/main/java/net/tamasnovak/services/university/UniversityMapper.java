@@ -5,7 +5,7 @@ import net.tamasnovak.entities.university.University;
 import org.springframework.stereotype.Component;
 
 @Component
-final class UniversityMapper {
+public final class UniversityMapper {
   public UniversityOptionDto toOptionDto(University university) {
     return new UniversityOptionDto(
       university.getUuid(),

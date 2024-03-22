@@ -8,7 +8,7 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { UniversitiesT } from '@hooks/useGetUniversities.tsx';
+import { UniversitiesT } from '@hooks/useGetUniversityOptions.tsx';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,

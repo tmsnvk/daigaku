@@ -32,11 +32,11 @@ WITH country AS (
     name
 )
 INSERT INTO universities
-  (country_id, name, abbreviation, country, address)
+  (country_id, name, abbreviation, address)
 VALUES
-  ((SELECT id FROM country), 'Aarhus University', 'AU', (SELECT name FROM country), ''),
-  ((SELECT id FROM country), 'Roskilde University', 'RUC', (SELECT name FROM country), ''),
-  ((SELECT id FROM country), 'University of Copenhagen', 'KU', (SELECT name FROM country), '');
+  ((SELECT id FROM country), 'Aarhus University', 'AU', ''),
+  ((SELECT id FROM country), 'Roskilde University', 'RUC', ''),
+  ((SELECT id FROM country), 'University of Copenhagen', 'KU', '');
 
 WITH country AS (
   INSERT INTO countries
@@ -48,9 +48,9 @@ WITH country AS (
     name
 )
 INSERT INTO universities
-  (country_id, name, abbreviation, country, address)
+  (country_id, name, abbreviation, address)
 VALUES
-  ((SELECT id FROM country), 'University of Oxford', 'UO', (SELECT name FROM country), '');
+  ((SELECT id FROM country), 'University of Oxford', 'UO', '');
 
 WITH country AS (
   INSERT INTO countries
@@ -62,10 +62,10 @@ WITH country AS (
     name
 )
 INSERT INTO universities
-  (country_id, name, abbreviation, country, address)
+  (country_id, name, abbreviation, address)
 VALUES
-  ((SELECT id FROM country), 'New York University', 'NYU', (SELECT name FROM country), ''),
-  ((SELECT id FROM country), 'Harvard University', 'HU', (SELECT name FROM country), '');
+  ((SELECT id FROM country), 'New York University', 'NYU', ''),
+  ((SELECT id FROM country), 'Harvard University', 'HU', '');
 
 -- INSERT APPLICATION STATUS
 INSERT INTO application_status

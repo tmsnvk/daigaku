@@ -1,5 +1,6 @@
 package net.tamasnovak.controllers.university;
 
+import jakarta.validation.Valid;
 import net.tamasnovak.dtos.university.UniversityOptionDto;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,26 +24,15 @@ public final class UniversityController {
   }
 
   @RequestMapping(
-    value = "",
+    value = "/options/{countryUuid}",
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<List<UniversityOptionDto>> findAll() {
-    List<UniversityOptionDto> universityOptions = universityService.findAll();
+  public ResponseEntity<List<UniversityOptionDto>> getOptionsByCountryUuid(@Valid @PathVariable UUID countryUuid) {
+    List<UniversityOptionDto> universityOptions = universityService.getOptionsByCountryUuid(countryUuid);
 
-    return new ResponseEntity<>(universityOptions, HttpStatus.OK);
-  }
-
-  @RequestMapping(
-    value = "/{countryUuid}",
-    method = RequestMethod.GET,
-    produces = MediaType.APPLICATION_JSON_VALUE
-  )
-  @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<List<UniversityOptionDto>> findByCountryId(@PathVariable UUID countryUuid) {
-    List<UniversityOptionDto> universityOptions = universityService.findByCountryId(countryUuid);
-
-    return new ResponseEntity<>(universityOptions, HttpStatus.OK);
+    return ResponseEntity
+      .status(HttpStatus.OK)
+      .body(universityOptions);
   }
 }
