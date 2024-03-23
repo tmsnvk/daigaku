@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const DefaultNavbarStyles = styled.header`
-  background-color: ${(props) => props.theme.color.secondaryLight};
-  box-shadow: 0 0.1rem 1.5rem 0 ${(props) => props.theme.color.primaryDark};
+  background-color: ${({ theme }) => theme.color.secondaryLight};
+  box-shadow: 0 0.1rem 1.5rem 0 ${({ theme }) => theme.color.primaryDark};
 
   & nav {
     width: 90%;
@@ -15,13 +15,13 @@ const DefaultNavbarStyles = styled.header`
 
     & div {
       color: inherit;
-      font-size: ${(props) => props.theme.fontSize.large};
+      font-size: ${({ theme }) => theme.fontSize.medium};
       font-weight: 600;
       letter-spacing: 0.2rem;
     }
 
     & svg {
-      margin: 0 1.5rem 0 0;
+      margin: 0 1rem 0 0;
     }
 
     & ul {
@@ -30,6 +30,20 @@ const DefaultNavbarStyles = styled.header`
 
       & li {
         margin: 0 2.5rem 0 2.5rem;
+      }
+    }
+  }
+
+  @media screen and (width < ${({ theme }) => theme.breakpoint.large}) {
+    & nav {
+      & ul {
+        display: flex;
+        flex-direction: column;
+
+        & li {
+          margin: 2.5rem 0 2.5rem 0;
+          font-size: ${({ theme }) => theme.fontSize.xLarge};
+        }
       }
     }
   }

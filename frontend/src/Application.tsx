@@ -27,6 +27,7 @@ import GlobalStyle from '@theme/GlobalStyle.ts';
 import theme from '@theme/theme.ts';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faBars,
   faCircleExclamation,
   faCircleNotch,
   faEye,
@@ -39,9 +40,11 @@ import {
   faScroll,
   faSpinner,
   faUserGroup,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faBars,
   faCircleExclamation,
   faCircleNotch,
   faEye,
@@ -54,6 +57,7 @@ library.add(
   faScroll,
   faSpinner,
   faUserGroup,
+  faXmark,
 );
 
 const queryClient = new QueryClient({

@@ -8,12 +8,19 @@ import {
   AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import { useLogOut } from './PrivateLayout.hooks.tsx';
+import {
+  useHandleSmallScreenMenuDisplay,
+  useLogOut,
+} from './PrivateLayout.hooks.tsx';
 import DefaultNavbarStyles from '../DefaultNavbarStyles';
 import Footer from '../Footer';
 import { GlobalLoadingModal } from '@components/shared/modal';
 import NavbarLink from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
+import {
+  SmallScreenMenuToggler,
+  SmallScreenMenuWrapper,
+} from './PrivateLayout.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 import {
   NavbarContentT,
@@ -29,6 +36,8 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const { authStatus, account } = useAuth();
   const { logOut } = useLogOut();
 
+  const { ref, toggleMenu, isNavbarOpen } = useHandleSmallScreenMenuDisplay();
+
   if (authStatus === AuthStatusE.LOADING) {
     return <GlobalLoadingModal />;
   }
@@ -38,7 +47,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
       return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
     }
 
-    return <Navigate to={'/'} state={{ from: location }} replace />;
+    return <Navigate to={'/'} replace />;
   }
 
   return (
@@ -49,34 +58,42 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
             <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </div>
-          <ul>
-            <li>
-              <NavbarLink
-                resource={'/dashboard'}
-                icon={iconLibraryConfig.faHouseUser}
-                content={'Dashboard'}
-              />
-            </li>
-            {navbarContent[account.role as AccountRoleE].map((element: NavbarContentT) => {
-              return (
-                <li key={element.url}>
-                  <NavbarLink
-                    resource={element.url}
-                    icon={element.icon}
-                    content={element.content}
-                  />
-                </li>
-              );
-            })}
-            <li>
-              <NavbarLink
-                resource={'/'}
-                icon={iconLibraryConfig.faRightFromBracket}
-                content={'Log out'}
-                onClick={logOut}
-              />
-            </li>
-          </ul>
+          <SmallScreenMenuWrapper $isNavbarOpen={isNavbarOpen} ref={ref}>
+            <ul>
+              <li>
+                <NavbarLink
+                  resource={'/dashboard'}
+                  icon={iconLibraryConfig.faHouseUser}
+                  content={'Dashboard'}
+                />
+              </li>
+              {navbarContent[account.role as AccountRoleE].map((element: NavbarContentT) => {
+                return (
+                  <li key={element.url}>
+                    <NavbarLink
+                      resource={element.url}
+                      icon={element.icon}
+                      content={element.content}
+                    />
+                  </li>
+                );
+              })}
+              <li>
+                <NavbarLink
+                  resource={'/'}
+                  icon={iconLibraryConfig.faRightFromBracket}
+                  content={'Log out'}
+                  onClick={logOut}
+                />
+              </li>
+            </ul>
+            <SmallScreenMenuToggler onClick={toggleMenu}>
+              <GeneralIcon icon={iconLibraryConfig.faXMark} />
+            </SmallScreenMenuToggler>
+          </SmallScreenMenuWrapper>
+          <SmallScreenMenuToggler onClick={toggleMenu}>
+            <GeneralIcon icon={iconLibraryConfig.faBars} />
+          </SmallScreenMenuToggler>
         </nav>
       </DefaultNavbarStyles>
       <Outlet />

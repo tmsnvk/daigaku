@@ -5,6 +5,7 @@ type IconLibraryConfigT = {
 }
 
 const iconLibraryConfig: IconLibraryConfigT = {
+  faBars: { prefix: 'fas', iconName: 'bars' },
   faCircleExclamation: { prefix: 'fas', iconName: 'circle-exclamation' },
   faCircleNotch: { prefix: 'fas', iconName: 'circle-notch' },
   faEye: { prefix: 'fas', iconName: 'eye' },
@@ -17,6 +18,7 @@ const iconLibraryConfig: IconLibraryConfigT = {
   faScroll: { prefix: 'fas', iconName: 'scroll' },
   faSpinner: { prefix: 'fas', iconName: 'spinner' },
   faUserGroup: { prefix: 'fas', iconName: 'user-group' },
+  faXMark: { prefix: 'fas', iconName: 'xmark' },
 };
 
 export default iconLibraryConfig;

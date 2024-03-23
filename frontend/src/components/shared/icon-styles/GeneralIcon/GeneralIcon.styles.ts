@@ -8,9 +8,9 @@ type ComponentPropT = {
 const GeneralIcon = styled(FontAwesomeIcon)<ComponentPropT>`
   display: inline-block;
   vertical-align: middle;
-  margin: 0 0 0 1rem;
-  color: ${(props) => props.$isActive ? props.theme.color.tertiaryLight : props.theme.color.primaryDark};
-  font-size: ${(props) => props.theme.fontSize.xxLarge};
+  margin: 0 0 0 0.5rem;
+  color: ${({ theme, $isActive }) => $isActive ? theme.color.tertiaryLight : theme.color.primaryDark};
+  font-size: ${({ theme }) => theme.fontSize.large};
 `;
 
 export default GeneralIcon;
