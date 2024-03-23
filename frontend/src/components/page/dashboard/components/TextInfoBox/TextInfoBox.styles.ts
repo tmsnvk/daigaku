@@ -3,10 +3,10 @@ import styled from 'styled-components';
 const BoxContainer = styled.article`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 1rem 2.5rem 1rem;
-  min-width: 30rem;
-  min-height: 30rem;
+  width: 15rem;
+  height: 15rem;
   text-align: center;
   background-color: ${(props) => props.theme.color.secondaryLight};
   border: 0.25rem solid ${(props) => props.theme.color.secondaryLight};
@@ -14,13 +14,43 @@ const BoxContainer = styled.article`
   box-shadow: 0 0.1rem 1.5rem 0 ${(props) => props.theme.color.primaryDark};
   
   & p:not(p:last-of-type) {
-    margin: 2.5rem 0 0 0;
     font-weight: 800;
-    font-size: ${(props) => props.theme.fontSize.large};
+    font-size: ${(props) => props.theme.fontSize.small};
   }
-  
+
   & p:last-of-type {
+    padding: 1rem 0 0 0;
     font-size: ${(props) => props.theme.fontSize.medium};
+  }
+
+  @media screen and (width > ${({ theme }) => theme.breakpoint.small}) {
+    width: 20rem;
+    height: 20rem;
+
+    & p:not(p:last-of-type) {
+      margin: 2.5rem 0 0 0;
+      font-size: ${(props) => props.theme.fontSize.medium};
+    }
+
+    & p:last-of-type {
+      font-size: ${(props) => props.theme.fontSize.medium};
+    }
+  }
+
+  @media screen and (width > ${({ theme }) => theme.breakpoint.medium}) {  
+    justify-content: space-evenly;
+    width: 25rem;
+    height: 25rem;
+
+    & p:not(p:last-of-type) {
+      margin: 0;
+      font-size: ${(props) => props.theme.fontSize.large};
+    }
+
+    & p:last-of-type {
+      padding: 0;
+      font-size: ${(props) => props.theme.fontSize.medium};
+    }
   }
 `;
 

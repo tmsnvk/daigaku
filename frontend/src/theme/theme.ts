@@ -26,7 +26,7 @@ const theme: DefaultTheme = {
     medium: '1.4rem',
     large: '1.8rem',
     xLarge: '2.6rem',
-    xxLarge: '3rem',
+    xxLarge: '5rem',
     xxxLarge: '12rem',
   },
   breakpoint: {
