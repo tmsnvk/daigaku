@@ -23,7 +23,7 @@ declare module 'styled-components' {
       xxLarge: string;
       xxxLarge: string;
     },
-    mediaQuery: {
+    breakpoint: {
       small: string;
       medium: string;
       large: string;

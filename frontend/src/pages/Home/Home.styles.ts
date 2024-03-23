@@ -1,26 +1,49 @@
 import styled from 'styled-components';
 
 const MainContainer = styled.main`
-  width: 50rem;
-  margin: 5% auto 0 auto;
-  padding: 5rem 2.5rem 7.5rem 2.5rem;
-  text-align: center;
-  border: 0.25rem solid ${(props) => props.theme.color.secondaryLight};
-  border-radius: 0.75rem;
-  box-shadow: 1rem 1rem 1.5rem 0 ${(props) => props.theme.color.secondaryLight};
+  container-type: inline-size;
+  container-name: main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  & form {
+  & section {
+    margin: 5% 0 5% 0;
+    width: 85%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    font-size: ${(props) => props.theme.fontSize.large};
+    justify-content: space-between;
+    padding: 5rem 2.5rem 5rem 2.5rem;
+    text-align: center;
+    border: 0.25rem solid ${({ theme }) => theme.color.secondaryLight};
+    border-radius: 0.75rem;
+    box-shadow: 1rem 1rem 1.5rem 0 ${({ theme }) => theme.color.secondaryLight};
 
-    & article {
-      text-align: center;
+    & > article {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 10rem 0 0 0;
     }
 
-    & article:last-of-type {
-      height: 5rem;
+    & form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & article {
+        text-align: center;
+      }
+
+      & article:last-of-type {
+        height: 5rem;
+      }
+    }
+  }
+
+  @container main (width > ${({ theme }) => theme.breakpoint.small}) {
+    & section {
+      width: 50rem;
     }
   }
 `;

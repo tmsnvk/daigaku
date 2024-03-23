@@ -3,10 +3,7 @@ import {
   LoginFormFieldsT,
   useSubmitLoginForm,
 } from './LoginForm.hooks.tsx';
-import {
-  FormContainer,
-  FormSwapButton,
-} from '@components/page/home';
+import { FormSwapButton } from '@components/page/home';
 import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
@@ -30,7 +27,7 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
   const { isPending, onSubmit } = useSubmitLoginForm({ setError });
 
   return (
-    <FormContainer>
+    <section>
       <GenericTextParagraph
         content={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'}
         fontSize={theme.fontSize.medium}
@@ -78,7 +75,7 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
         <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isPending} />
         <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isPending} />
       </article>
-    </FormContainer>
+    </section>
   );
 };
 

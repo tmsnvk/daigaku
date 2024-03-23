@@ -6,33 +6,35 @@ type InputFieldT = {
 
 const InputFieldStyles = styled.article<InputFieldT>`
   height: 12.5rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 0 0 1.5rem 0;
 
   & input,
   & select {
-    width: 35rem;
+    width: 75%;
     height: 5rem;
     padding: 0 0 0 2.5rem;
-    font-size: ${(props) => props.theme.fontSize.medium};
-    background-color: ${(props) => props.theme.color.secondaryLight};
-    border: 0.2rem solid ${(props) => props.$isError ? props.theme.color.error : props.theme.color.primaryDark};
+    font-size: ${({ theme }) => theme.fontSize.small};
+    background-color: ${({ theme }) => theme.color.secondaryLight};
+    border: 0.2rem solid ${({ theme, $isError }) => $isError ? theme.color.error : theme.color.primaryDark};
     border-radius: 1.25rem;
 
     &:hover:not([disabled]) {
-      box-shadow: 0 0 0.5rem ${(props) => props.theme.color.secondaryDark};
+      box-shadow: 0 0 0.5rem ${({ theme }) => theme.color.secondaryDark};
     }
 
     &::placeholder {
-      color: ${(props) => props.theme.color.secondaryDark};
-      font-size: ${(props) => props.theme.fontSize.medium};
+      color: ${({ theme }) => theme.color.secondaryDark};
+      font-size: ${({ theme }) => theme.fontSize.small};
       letter-spacing: 0.15rem;
     }
 
     &:focus {
-      outline: 0.15rem solid ${(props) => props.theme.color.secondaryDark};
+      outline: 0.15rem solid ${({ theme }) => theme.color.secondaryDark};
     }
 
     &:focus::placeholder {
@@ -50,6 +52,17 @@ const InputFieldStyles = styled.article<InputFieldT>`
 
   & select {
     cursor: pointer;
+  }
+
+  @media screen and (width > ${({ theme }) => theme.breakpoint.small}) {
+    & input,
+    & select {
+      font-size: ${({ theme }) => theme.fontSize.medium};
+
+      &::placeholder {
+        font-size: ${({ theme }) => theme.fontSize.medium};
+      }
+    }
   }
 `;
 

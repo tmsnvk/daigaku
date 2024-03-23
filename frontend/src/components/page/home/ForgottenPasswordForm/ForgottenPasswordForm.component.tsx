@@ -1,8 +1,6 @@
 import { useForm } from 'react-hook-form';
-import {
-  FormContainer,
-  FormSwapButton,
-} from '@components/page/home';
+import { useSubmitForgottenPasswordForm } from './ForgottenPasswordForm.hooks.tsx';
+import { FormSwapButton } from '@components/page/home';
 import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
@@ -11,14 +9,13 @@ import {
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { useSubmitForgottenPasswordForm } from './ForgottenPasswordForm.hooks.tsx';
+import theme from '@theme/theme.ts';
 import {
   ConfirmationModalT,
   FormSelectorT,
   FormTypeE,
 } from '@pages/Home/Home.types.ts';
 import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
-import theme from '@theme/theme.ts';
 
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
@@ -27,7 +24,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
   const { isPending, onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
 
   return (
-    <FormContainer>
+    <section>
       <GenericTextParagraph
         content={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'}
         fontSize={theme.fontSize.medium}
@@ -61,7 +58,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
         <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
         <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} />
       </article>
-    </FormContainer>
+    </section>
   );
 };
 

@@ -22,18 +22,18 @@ const theme: DefaultTheme = {
   },
   fontSize: {
     default: '1rem',
-    small: '1.4rem',
-    medium: '1.6rem',
-    large: '2rem',
+    small: '1.2rem',
+    medium: '1.4rem',
+    large: '1.8rem',
     xLarge: '2.6rem',
     xxLarge: '3rem',
     xxxLarge: '12rem',
   },
-  mediaQuery: {
-    small: '480px',
+  breakpoint: {
+    small: '640px',
     medium: '768px',
-    large: '992px',
-    xLarge: '1200px',
+    large: '1024px',
+    xLarge: '1280px',
   },
 };
 

@@ -1,8 +1,5 @@
 import { useForm } from 'react-hook-form';
-import {
-  FormContainer,
-  FormSwapButton,
-} from '@components/page/home';
+import { FormSwapButton } from '@components/page/home';
 import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
@@ -28,7 +25,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
   const { isPending, onSubmit } = useSubmitRegisterForm({ setError, showModal });
 
   return (
-    <FormContainer>
+    <section>
       <GenericTextParagraph
         content={'Register an account if you are not in our system yet.'}
         fontSize={theme.fontSize.medium}
@@ -100,7 +97,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
         <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} />
         <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
       </article>
-    </FormContainer>
+    </section>
   );
 };
 

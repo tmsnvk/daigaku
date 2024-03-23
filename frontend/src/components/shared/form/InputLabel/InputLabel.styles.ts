@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const LabelContainer = styled.label`
   margin: 0 0 1rem 0;
-  font-size: ${(props) => props.theme.fontSize.large};
+  font-size: ${(props) => props.theme.fontSize.medium};
 `;
 
 export {
