@@ -1,7 +1,7 @@
 import { useCreateCurrentTodos } from './TodoList.hooks.tsx';
 import { ListContainer } from './TodoList.styles.ts';
 import { generalIntroduction } from './TodoList.utilities.ts';
-import { DashboardDataT } from '@pages/Dashboard/Dashboard.hooks.tsx';
+import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
 
 type ComponentPropsT = {
   data: DashboardDataT

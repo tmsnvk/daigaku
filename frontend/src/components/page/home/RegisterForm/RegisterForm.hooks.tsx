@@ -4,7 +4,7 @@ import {
   UseFormSetError,
 } from 'react-hook-form';
 import { axiosConfig } from '@configuration';
-import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
+import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
 
 export type RegisterFormFieldsT = {
   firstName: string;

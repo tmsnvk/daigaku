@@ -2,7 +2,7 @@ import {
   FigureInfoBox,
   TextInfoBoxInfoBox,
 } from '@components/page/dashboard/components';
-import { DashboardDataT } from '@pages/Dashboard/Dashboard.hooks.tsx';
+import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
 import {
   finalDestination,
   firmChoice,

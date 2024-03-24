@@ -4,7 +4,7 @@ import {
   LoginForm,
   RegisterForm,
 } from '@components/page/home';
-import { FormTypeE } from '@pages/Home/Home.types.ts';
+import { FormTypeE } from '@pages/shared/Home/Home.types.ts';
 
 const useShowConfirmationModal = () => {
   const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);

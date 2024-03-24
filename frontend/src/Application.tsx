@@ -16,6 +16,7 @@ import {
   DashboardPage,
   ErrorPage,
   HomePage,
+  MyApplicationsPage,
   NewApplicationPage,
 } from '@pages/index.ts';
 import {
@@ -85,7 +86,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT]} />}>
         <Route element={<NewApplicationPage />} path={'/new-application'} />
-        <Route element={<div>PLACEHOLDER</div>} path={'/my-applications'} />
+        <Route element={<MyApplicationsPage />} path={'/my-applications'} />
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.MENTOR]} />}>
         <Route element={<div>PLACEHOLDER</div>} path={'/my-students'} />

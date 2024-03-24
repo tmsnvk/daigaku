@@ -16,7 +16,7 @@ import {
   ConfirmationModalT,
   FormSelectorT,
   FormTypeE,
-} from '@pages/Home/Home.types.ts';
+} from '@pages/shared/Home/Home.types.ts';
 
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 

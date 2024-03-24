@@ -6,7 +6,7 @@ import {
   noOfferStatusSet,
   noSubmittedApplications,
 } from './TodoList.utilities.ts';
-import { DashboardDataT } from '@pages/Dashboard/Dashboard.hooks.tsx';
+import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
 
 const useCreateCurrentTodos = (data: DashboardDataT) => {
   const currentTodos: string[] = [];

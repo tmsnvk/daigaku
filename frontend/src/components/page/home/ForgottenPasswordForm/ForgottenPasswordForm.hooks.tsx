@@ -9,7 +9,7 @@ import {
   ForgottenPasswordFormFieldsT,
   ForgottenPasswordFormReturnDataT,
 } from './ForgottenPasswordForm.types.ts';
-import { ConfirmationModalT } from '@pages/Home/Home.types.ts';
+import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
 
 type ForgottenPasswordFormT = {
   setError: UseFormSetError<ForgottenPasswordFormFieldsT>;

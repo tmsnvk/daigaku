@@ -1,5 +1,5 @@
 import { ButtonContainer } from './FormSwapButton.styles.ts';
-import { FormTypeE } from '@pages/Home/Home.types.ts';
+import { FormTypeE } from '@pages/shared/Home/Home.types.ts';
 
 type ComponentPropsT = {
   formType: FormTypeE;
