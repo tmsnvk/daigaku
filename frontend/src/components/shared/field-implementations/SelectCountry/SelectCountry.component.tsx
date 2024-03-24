@@ -51,7 +51,7 @@ const SelectCountry = <T extends FieldValues>({
         defaultValue={defaultValue}
         disabled={isDisabled}
       >
-        <option hidden value={''}>Select the country of your choice</option>
+        <option hidden value={''}>Select the country of your choice.</option>
         {data.map((option: CountriesT) => {
           return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
