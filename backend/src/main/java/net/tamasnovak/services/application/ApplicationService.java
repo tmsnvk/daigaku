@@ -8,7 +8,7 @@ import net.tamasnovak.entities.account.Account;
 import java.util.List;
 
 public interface ApplicationService {
-  List<NewApplicationDto> findAll(Account account);
+  List<NewApplicationDto> findAllByAccountAndRole(Account account);
   NewApplicationDto saveNewApplicationByStudent(Account account, NewSubmittedApplicationDto newSubmittedApplicationDto);
   DashboardDataDto getDashboardData(long accountId, String accountRole);
 }

@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,12 +44,20 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<NewApplicationDto> findAll(Account account) {
-    List<Application> applications = applicationRepository.findAllByAccountId(account);
+  public List<NewApplicationDto> findAllByAccountAndRole(Account account) {
+    List<Application> applications = new ArrayList<>();
+
+    if (Objects.equals(account.getRole().getName(), "ROLE_STUDENT")) {
+      applications = getAllByStudentAccount(account);
+    }
 
     return applications.stream()
       .map(applicationMapper::toApplicationDto)
       .collect(Collectors.toList());
+  }
+
+  private List<Application> getAllByStudentAccount(Account account) {
+    return applicationRepository.findAllByAccountId(account);
   }
 
   @Override

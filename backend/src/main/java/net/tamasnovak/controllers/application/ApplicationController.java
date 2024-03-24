@@ -34,10 +34,10 @@ public final class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<NewApplicationDto>> getAll() {
+  public ResponseEntity<List<NewApplicationDto>> getAllByAccount() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<NewApplicationDto> applications = applicationService.findAll(account);
+    List<NewApplicationDto> applications = applicationService.findAllByAccountAndRole(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
