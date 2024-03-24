@@ -30,7 +30,6 @@ const InputFieldStyles = styled.article<InputFieldT>`
     &::placeholder {
       color: ${({ theme }) => theme.color.secondaryDark};
       font-size: ${({ theme }) => theme.fontSize.small};
-      letter-spacing: 0.15rem;
     }
 
     &:focus {
@@ -54,14 +53,10 @@ const InputFieldStyles = styled.article<InputFieldT>`
     cursor: pointer;
   }
 
-  @media screen and (width > ${({ theme }) => theme.breakpoint.small}) {
+  @media screen and (width < ${({ theme }) => theme.breakpoint.medium}) {
     & input,
     & select {
-      font-size: ${({ theme }) => theme.fontSize.medium};
-
-      &::placeholder {
-        font-size: ${({ theme }) => theme.fontSize.medium};
-      }
+      width: 100%;
     }
   }
 `;
