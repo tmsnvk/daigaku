@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,13 +34,14 @@ public final class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<List<NewApplicationDto>> findAll() {
+  public ResponseEntity<List<NewApplicationDto>> getAll() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
     List<NewApplicationDto> applications = applicationService.findAll(account);
 
-    return new ResponseEntity<>(applications, HttpStatus.OK);
+    return ResponseEntity
+      .status(HttpStatus.OK)
+      .body(applications);
   }
 
   @RequestMapping(
@@ -49,13 +49,14 @@ public final class ApplicationController {
     method = RequestMethod.POST,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<NewApplicationDto> saveApplication(@RequestBody NewSubmittedApplicationDto newSubmittedApplicationDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
     NewApplicationDto newApplication = applicationService.saveNewApplicationByStudent(account, newSubmittedApplicationDto);
 
-    return new ResponseEntity<>(newApplication, HttpStatus.CREATED);
+    return ResponseEntity
+      .status(HttpStatus.CREATED)
+      .body(newApplication);
   }
 
   @RequestMapping(
@@ -63,13 +64,14 @@ public final class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<DashboardDataDto> getDashboardData() {
     Account account = authenticationFacade.getAuthenticatedAccount();
     String accountRole = authenticationFacade.getAuthenticatedAccountRole();
 
     DashboardDataDto dashboardDataDto = applicationService.getDashboardData(account.getId(), accountRole);
 
-    return new ResponseEntity<>(dashboardDataDto, HttpStatus.OK);
+    return ResponseEntity
+      .status(HttpStatus.OK)
+      .body(dashboardDataDto);
   }
 }
