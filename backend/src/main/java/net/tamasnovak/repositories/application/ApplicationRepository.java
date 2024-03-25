@@ -1,6 +1,6 @@
-package net.tamasnovak.repositories;
+package net.tamasnovak.repositories.application;
 
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.accountsByRole.Student;
 import net.tamasnovak.entities.application.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
-  List<Application> findAllByAccountId(Account accountId);
+  List<Application> findApplicationsByStudentId(Student studentId);
   @Query(
     value = """
       SELECT
@@ -18,7 +18,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         FROM
           applications
         INNER JOIN
-          countries ON applications.country = countries.id
+          countries ON applications.country_id = countries.id
         WHERE
           response_status_id = 1),
         (SELECT
@@ -26,7 +26,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         FROM
           applications
         INNER JOIN
-          universities ON applications.university = universities.id
+          universities ON applications.university_id = universities.id
         WHERE
           response_status_id = 1),
         (SELECT
@@ -40,7 +40,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         FROM
           applications
         INNER JOIN
-          countries ON applications.country = countries.id
+          countries ON applications.country_id = countries.id
         WHERE
           final_destination_status_id = 1),
         (SELECT
@@ -48,7 +48,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         FROM
           applications
         INNER JOIN
-          universities ON applications.university = universities.id
+          universities ON applications.university_id = universities.id
         WHERE
           final_destination_status_id = 1),
         (SELECT
@@ -78,11 +78,11 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           END) FROM applications) AS number_of_withdrawn_status,
         (SELECT COUNT(
           DISTINCT
-            applications.country
+            applications.country_id
         ) FROM applications) AS number_of_distinct_countries,
         (SELECT COUNT(
           DISTINCT
-            applications.university
+            applications.university_id
         ) FROM applications) AS number_of_distinct_universities,
         (SELECT COUNT(CASE
           WHEN
@@ -99,8 +99,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
       FROM
         applications
       WHERE
-        account_id = :accountId
+        student_id = :studentId
     """, nativeQuery = true
   )
-  List<Object[]> getStudentDashboardData(@Param("accountId") long accountId);
+  List<Object[]> getStudentDashboardData(@Param("studentId") long studentId);
 }

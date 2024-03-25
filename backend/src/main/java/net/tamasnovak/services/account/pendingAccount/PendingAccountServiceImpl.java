@@ -2,7 +2,7 @@ package net.tamasnovak.services.account.pendingAccount;
 
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.entities.account.PendingAccount;
-import net.tamasnovak.repositories.PendingAccountRepository;
+import net.tamasnovak.repositories.account.PendingAccountRepository;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

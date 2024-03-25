@@ -25,16 +25,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/accounts")
 public class AccountController {
+  private final AccountService accountService;
   private final JwtUtilities jwtUtilities;
   private final AuthenticationManager authenticationManager;
-  private final AccountService accountService;
   private final StringFormatterUtilities stringFormatter;
 
   @Autowired
-  public AccountController(JwtUtilities jwtUtilities, AuthenticationManager authenticationManager, AccountService accountService, StringFormatterUtilities stringFormatter) {
+  public AccountController(AccountService accountService, JwtUtilities jwtUtilities, AuthenticationManager authenticationManager, StringFormatterUtilities stringFormatter) {
+    this.accountService = accountService;
     this.jwtUtilities = jwtUtilities;
     this.authenticationManager = authenticationManager;
-    this.accountService = accountService;
     this.stringFormatter = stringFormatter;
   }
 

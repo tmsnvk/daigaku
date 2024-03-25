@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface CountryService {
   List<CountryOptionDto> getOptions();
-  Country findByUuid(UUID countryId);
+  Country findByUuid(UUID countryUuid);
 }

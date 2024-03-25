@@ -4,6 +4,8 @@ import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
 import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.accountsByRole.Student;
+import net.tamasnovak.services.account.accountsStudentsJunction.AccountsStudentsJunctionService;
 import net.tamasnovak.services.application.ApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,13 @@ import java.util.List;
 @RequestMapping(path = "/api/applications")
 public final class ApplicationController {
   private final ApplicationService applicationService;
+  private final AccountsStudentsJunctionService accountsStudentsJunctionService;
   private final AuthenticationFacade authenticationFacade;
 
   @Autowired
-  public ApplicationController(ApplicationService applicationService, AuthenticationFacade authenticationFacade) {
+  public ApplicationController(ApplicationService applicationService, AccountsStudentsJunctionService accountsStudentsJunctionService, AuthenticationFacade authenticationFacade) {
     this.applicationService = applicationService;
+    this.accountsStudentsJunctionService = accountsStudentsJunctionService;
     this.authenticationFacade = authenticationFacade;
   }
 
@@ -34,10 +38,11 @@ public final class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<NewApplicationDto>> getAllByAccount() {
+  public ResponseEntity<List<NewApplicationDto>> getAllByStudentAccount() {
     Account account = authenticationFacade.getAuthenticatedAccount();
+    Student student = accountsStudentsJunctionService.findStudentByAccountId(account);
 
-    List<NewApplicationDto> applications = applicationService.findAllByAccountAndRole(account);
+    List<NewApplicationDto> applications = applicationService.findAllByStudentAccount(student);
 
     return ResponseEntity
       .status(HttpStatus.OK)

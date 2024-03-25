@@ -1,4 +1,4 @@
-package net.tamasnovak.repositories;
+package net.tamasnovak.repositories.account;
 
 import net.tamasnovak.entities.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

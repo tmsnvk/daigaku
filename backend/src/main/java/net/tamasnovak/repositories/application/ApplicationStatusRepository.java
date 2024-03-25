@@ -1,4 +1,4 @@
-package net.tamasnovak.repositories;
+package net.tamasnovak.repositories.application;
 
 import net.tamasnovak.entities.application.ApplicationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;

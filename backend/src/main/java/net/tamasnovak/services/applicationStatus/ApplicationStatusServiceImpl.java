@@ -1,7 +1,7 @@
 package net.tamasnovak.services.applicationStatus;
 
 import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.repositories.ApplicationStatusRepository;
+import net.tamasnovak.repositories.application.ApplicationStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

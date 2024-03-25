@@ -4,11 +4,12 @@ import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewApplicationDto;
 import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
 import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.accountsByRole.Student;
 
 import java.util.List;
 
 public interface ApplicationService {
-  List<NewApplicationDto> findAllByAccountAndRole(Account account);
+  List<NewApplicationDto> findAllByStudentAccount(Student student);
   NewApplicationDto saveNewApplicationByStudent(Account account, NewSubmittedApplicationDto newSubmittedApplicationDto);
   DashboardDataDto getDashboardData(long accountId, String accountRole);
 }

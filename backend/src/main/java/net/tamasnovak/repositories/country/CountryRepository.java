@@ -1,4 +1,4 @@
-package net.tamasnovak.repositories;
+package net.tamasnovak.repositories.country;
 
 import net.tamasnovak.entities.country.Country;
 import org.springframework.data.jpa.repository.JpaRepository;

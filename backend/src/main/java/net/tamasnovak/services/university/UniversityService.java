@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface UniversityService {
   List<UniversityOptionDto> getOptionsByCountryUuid(UUID countryUuid);
-  University findByUuid(UUID universityId);
+  University findByUuid(UUID universityUuid);
 }

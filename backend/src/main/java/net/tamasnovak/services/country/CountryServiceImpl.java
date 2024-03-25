@@ -4,7 +4,7 @@ import net.tamasnovak.dtos.country.CountryOptionDto;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
-import net.tamasnovak.repositories.CountryRepository;
+import net.tamasnovak.repositories.country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -40,8 +40,8 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  public Country findByUuid(UUID countryId) {
-    Optional<Country> country = countryRepository.findByUuid(countryId);
+  public Country findByUuid(UUID countryUuid) {
+    Optional<Country> country = countryRepository.findByUuid(countryUuid);
 
     if (country.isEmpty()) {
       throw new DbResourceNotFoundException(dbResourceNotFoundConstants.COUNTRY_NOT_FOUND);

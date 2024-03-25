@@ -3,7 +3,7 @@ package net.tamasnovak.services.account.account;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
-import net.tamasnovak.repositories.AccountRepository;
+import net.tamasnovak.repositories.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,15 +14,15 @@ import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-  private final PasswordEncoder encoder;
   private final AccountRepository accountRepository;
+  private final PasswordEncoder encoder;
   private final AccountServiceConstants accountServiceConstants;
   private final DbResourceNotFoundConstants dbResourceNotFoundConstants;
 
   @Autowired
-  public AccountServiceImpl(PasswordEncoder encoder, AccountRepository accountRepository, AccountServiceConstants accountServiceConstants, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
-    this.encoder = encoder;
+  public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder encoder, AccountServiceConstants accountServiceConstants, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
     this.accountRepository = accountRepository;
+    this.encoder = encoder;
     this.accountServiceConstants = accountServiceConstants;
     this.dbResourceNotFoundConstants = dbResourceNotFoundConstants;
   }

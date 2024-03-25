@@ -1,7 +1,7 @@
 package net.tamasnovak.security.service;
 
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.repositories.AccountRepository;
+import net.tamasnovak.repositories.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -24,7 +24,7 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     Account account = accountRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
-    SimpleGrantedAuthority role = new SimpleGrantedAuthority(account.getRole().getName());
+    SimpleGrantedAuthority role = new SimpleGrantedAuthority(account.getRoleId().getName());
 
     return new User(account.getEmail(), account.getHashedPassword(), Collections.singleton(role));
   }

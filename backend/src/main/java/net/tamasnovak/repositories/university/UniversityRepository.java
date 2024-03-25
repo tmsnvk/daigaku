@@ -1,4 +1,4 @@
-package net.tamasnovak.repositories;
+package net.tamasnovak.repositories.university;
 
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
