@@ -1,5 +1,6 @@
-package net.tamasnovak.entities.account;
+package net.tamasnovak.entities.role;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import net.tamasnovak.entities.account.Account;
 
 import java.util.Set;
 
@@ -21,8 +23,9 @@ public final class Role {
   @Column(name = "name", unique = true, updatable = false, nullable = false)
   private String name;
 
-  @OneToMany(mappedBy = "role")
-  private Set<Account> users;
+  @OneToMany(mappedBy = "roleId")
+  @JsonManagedReference
+  private Set<Account> accounts;
 
   public Role() {}
 
@@ -32,9 +35,5 @@ public final class Role {
 
   public String getName() {
     return name;
-  }
-
-  public Set<Account> getUsers() {
-    return users;
   }
 }

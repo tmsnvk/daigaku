@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.BaseEntity;
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.accountsByRole.Student;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 
@@ -22,17 +22,17 @@ import java.util.Objects;
 @Table(name = "applications")
 public final class Application extends BaseEntity {
   @ManyToOne
-  @JoinColumn(name = "account_id", nullable = false)
+  @JoinColumn(name = "student_id", nullable = false)
   @JsonBackReference
-  private Account accountId;
+  private Student studentId;
 
   @ManyToOne
-  @JoinColumn(name = "country", nullable = false)
+  @JoinColumn(name = "country_id", nullable = false)
   @JsonBackReference
   private Country countryId;
 
   @ManyToOne
-  @JoinColumn(name = "university", nullable = false)
+  @JoinColumn(name = "university_id", nullable = false)
   @JsonBackReference
   private University universityId;
 
@@ -81,8 +81,8 @@ public final class Application extends BaseEntity {
 
   public Application() {}
 
-  private Application(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
-    this.accountId = accountId;
+  private Application(Student studentId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
+    this.studentId = studentId;
     this.countryId = countryId;
     this.universityId = universityId;
     this.courseName = courseName;
@@ -91,8 +91,8 @@ public final class Application extends BaseEntity {
     this.programmeLength = programmeLength;
   }
 
-  public static Application createNewApplicationByStudent(Account accountId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
-    return new Application(accountId, countryId, universityId, courseName, minorSubject, programmeLength, applicationStatusId);
+  public static Application createNewApplicationByStudent(Student studentId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
+    return new Application(studentId, countryId, universityId, courseName, minorSubject, programmeLength, applicationStatusId);
   }
 
   public static String enforceOptionalFieldValidation(String fieldContent) {
@@ -103,8 +103,8 @@ public final class Application extends BaseEntity {
     return fieldContent;
   }
 
-  public Account getAccountId() {
-    return accountId;
+  public Student getStudentId() {
+    return studentId;
   }
 
   public Country getCountryId() {

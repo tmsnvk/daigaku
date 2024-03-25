@@ -1,22 +1,16 @@
 package net.tamasnovak.entities.account;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.BaseEntity;
-import net.tamasnovak.entities.application.Application;
-
-import java.util.HashSet;
-import java.util.Set;
+import net.tamasnovak.entities.role.Role;
 
 @Entity
 @Table(name = "accounts")
@@ -38,17 +32,10 @@ public final class Account extends BaseEntity {
   @Column(name = "hashed_password", nullable = false)
   private String hashedPassword;
 
-  @OneToMany(mappedBy = "accountId")
-  @JsonManagedReference
-  private Set<Application> applications;
-
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinTable(
-    name = "accounts_roles_join",
-    joinColumns = { @JoinColumn(name = "account_id") },
-    inverseJoinColumns = { @JoinColumn(name = "role_id") }
-  )
-  private Role role;
+  @ManyToOne
+  @JoinColumn(name = "role_id")
+  @JsonBackReference
+  private Role roleId;
 
   public Account() {}
 
@@ -57,8 +44,7 @@ public final class Account extends BaseEntity {
     this.lastName = lastName;
     this.email = email;
     this.hashedPassword = hashedPassword;
-    this.role = role;
-    this.applications = new HashSet<>();
+    this.roleId = role;
   }
 
   public String getFirstName() {
@@ -77,11 +63,7 @@ public final class Account extends BaseEntity {
     return hashedPassword;
   }
 
-  public Set<Application> getApplications() {
-    return applications;
-  }
-
-  public Role getRole() {
-    return role;
+  public Role getRoleId() {
+    return roleId;
   }
 }
