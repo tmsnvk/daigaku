@@ -11,5 +11,5 @@ import java.util.List;
 public interface ApplicationService {
   List<NewApplicationDto> findAllByStudentAccount(Student student);
   NewApplicationDto saveNewApplicationByStudent(Account account, NewSubmittedApplicationDto newSubmittedApplicationDto);
-  DashboardDataDto getDashboardData(long accountId, String accountRole);
+  DashboardDataDto getDashboardData(Account account, String accountRole);
 }

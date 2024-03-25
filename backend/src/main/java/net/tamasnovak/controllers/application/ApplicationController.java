@@ -73,7 +73,7 @@ public final class ApplicationController {
     Account account = authenticationFacade.getAuthenticatedAccount();
     String accountRole = authenticationFacade.getAuthenticatedAccountRole();
 
-    DashboardDataDto dashboardDataDto = applicationService.getDashboardData(account.getId(), accountRole);
+    DashboardDataDto dashboardDataDto = applicationService.getDashboardData(account, accountRole);
 
     return ResponseEntity
       .status(HttpStatus.OK)

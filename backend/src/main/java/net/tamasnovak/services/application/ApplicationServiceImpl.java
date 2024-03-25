@@ -93,20 +93,21 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardDataDto getDashboardData(long accountId, String accountRole) {
+  public DashboardDataDto getDashboardData(Account account, String accountRole) {
     DashboardDataDto dashboardDataDto = null;
 
     if (accountRole.equals("ROLE_STUDENT")) {
-      dashboardDataDto = getStudentDashboardData(accountId);
+      dashboardDataDto = getStudentDashboardData(account);
     }
 
     return dashboardDataDto;
   }
 
-  private DashboardDataDto getStudentDashboardData(long accountId) {
-    DashboardDataDto dashboardDataDto = null;
+  private DashboardDataDto getStudentDashboardData(Account account) {
+    Student student = accountsStudentsJunctionService.findStudentByAccountId(account);
 
-    List<Object[]> dashboardData = applicationRepository.getStudentDashboardData(accountId);
+    DashboardDataDto dashboardDataDto = null;
+    List<Object[]> dashboardData = applicationRepository.getStudentDashboardData(student.getId());
 
     for (Object[] result : dashboardData) {
       dashboardDataDto = new DashboardDataDto(
