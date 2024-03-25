@@ -1,27 +1,77 @@
--- INSERT ROLES
-INSERT INTO
-  roles(id, name)
-VALUES
-  (1, 'ROLE_STUDENT'),
-  (2, 'ROLE_MENTOR'),
-  (3, 'ROLE_ADMIN');
-
--- INSERT USERS
+-- INSERT roles & accounts
+-- admin users
+WITH role_insert AS (
+  INSERT INTO roles
+    (name)
+    VALUES
+      ('ROLE_ADMIN')
+    RETURNING
+      id
+)
 INSERT INTO accounts
-  (id, first_name, last_name, email, hashed_password)
+  (id, first_name, last_name, email, hashed_password, role_id)
 VALUES
-  (1, 'Admin', 'User', 'admin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm'),
-  (2, 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm'),
-  (3, 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm');
+  (1, 'Admin', 'User', 'admin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
 
-INSERT INTO accounts_roles_join
-  (role_id, account_id)
+INSERT INTO admins
+  (id, account_id)
 VALUES
-  (3, 1),
-  (2, 2),
-  (1, 3);
+  (1, 1);
 
--- INSERT INTO countries & universities
+INSERT INTO accounts_admins_junction
+  (account_id, admin_id)
+VALUES
+  (1, 1);
+
+-- mentor users
+WITH role_insert AS (
+  INSERT INTO roles
+    (name)
+    VALUES
+      ('ROLE_MENTOR')
+    RETURNING
+      id
+)
+INSERT INTO accounts
+(id, first_name, last_name, email, hashed_password, role_id)
+VALUES
+  (2, 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
+
+INSERT INTO mentors
+  (id, account_id)
+VALUES
+  (1, 2);
+
+INSERT INTO accounts_mentors_junction
+  (account_id, mentor_id)
+VALUES
+  (2, 1);
+
+-- student users
+WITH role_insert AS (
+  INSERT INTO roles
+    (name)
+    VALUES
+      ('ROLE_STUDENT')
+    RETURNING
+      id
+)
+INSERT INTO accounts
+(id, first_name, last_name, email, hashed_password, role_id)
+VALUES
+  (3, 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
+
+INSERT INTO students
+(id, account_id, mentor_id)
+VALUES
+  (1, 3, 1);
+
+INSERT INTO accounts_students_junction
+(account_id, student_id)
+VALUES
+  (3, 1);
+
+-- INSERT countries & universities
 WITH country AS (
   INSERT INTO countries
     (name)
@@ -67,7 +117,7 @@ VALUES
   ((SELECT id FROM country), 'New York University', 'NYU', ''),
   ((SELECT id FROM country), 'Harvard University', 'HU', '');
 
--- INSERT APPLICATION STATUS
+-- INSERT application_status
 INSERT INTO application_status
   (name)
 VALUES
@@ -75,7 +125,7 @@ VALUES
   ('Submitted'),
   ('Withdrawn');
 
--- INSERT INTERVIEW STATUS
+-- INSERT interview_status
 INSERT INTO interview_status
   (name)
 VALUES
@@ -83,7 +133,7 @@ VALUES
   ('Invited'),
   ('Not Invited');
 
--- INSERT OFFER STATUS
+-- INSERT offer_status
 INSERT INTO offer_status
   (name)
 VALUES
@@ -92,7 +142,7 @@ VALUES
   ('Deferred'),
   ('Rejected');
 
--- INSERT RESPONSE STATUS
+-- INSERT response_status
 INSERT INTO response_status
   (name)
 VALUES
@@ -100,7 +150,7 @@ VALUES
   ('Insurance Choice'),
   ('Offer Declined');
 
--- INSERT FINAL DESTINATION STATUS
+-- INSERT final_destination_status
 INSERT INTO final_destination_status
   (name)
 VALUES
@@ -108,12 +158,12 @@ VALUES
   ('Final Destination (Deferred Entry)'),
   ('Not Final Destination');
 
--- INSERT APPLICATIONS
+-- INSERT applications
 INSERT INTO applications
-  (account_id, country, university, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id)
+  (student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id)
 VALUES
-  (3, 1, 1, 'Test - Country 1 - Uni 1', 3, 1, 1, 1, 1, 1),
-  (3, 1, 2, 'Test - Country 1 - Uni 2', 3, 1, 1, 1, 2, 3),
-  (3, 2, 3, 'Test - Country 2 - Uni 3', 3, 1, 2, 3, 2, 3),
-  (3, 2, 3, 'Test - Country 2 - Uni 3', 3, 1, 3, 3, 2, 3),
-  (3, 3, 4, 'Test - Country 3 - Uni 4', 3, 1, 3, 3, 3, 3);
+  (1, 1, 1, 'Test - Country 1 - Uni 1', 3, 1, 1, 1, 1, 1),
+  (1, 1, 2, 'Test - Country 1 - Uni 2', 3, 1, 1, 1, 2, 3),
+  (1, 2, 3, 'Test - Country 2 - Uni 3', 3, 1, 2, 3, 2, 3),
+  (1, 2, 3, 'Test - Country 2 - Uni 3', 3, 1, 3, 3, 2, 3),
+  (1, 3, 4, 'Test - Country 3 - Uni 4', 3, 1, 3, 3, 3, 3);
