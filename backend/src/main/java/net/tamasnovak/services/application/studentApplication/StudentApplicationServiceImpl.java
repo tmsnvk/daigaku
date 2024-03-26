@@ -1,8 +1,8 @@
-package net.tamasnovak.services.application;
+package net.tamasnovak.services.application.studentApplication;
 
-import net.tamasnovak.dtos.application.NewApplicationDto;
+import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
-import net.tamasnovak.dtos.application.NewSubmittedApplicationDto;
+import net.tamasnovak.dtos.application.NewApplicationByStudentDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountsByRole.Student;
 import net.tamasnovak.entities.application.Application;
@@ -13,6 +13,7 @@ import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.account.accountsStudentsJunction.AccountsStudentsJunctionService;
+import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.university.UniversityService;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ApplicationServiceImpl implements ApplicationService {
+public class StudentApplicationServiceImpl implements StudentApplicationService {
   private final ApplicationStatusService applicationStatusService;
   private final CountryService countryService;
   private final UniversityService universityService;
@@ -34,7 +35,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   private final DbResourceNotFoundConstants dbResourceNotFoundConstants;
 
   @Autowired
-  public ApplicationServiceImpl(ApplicationStatusService applicationStatusService, CountryService countryService, UniversityService universityService, AccountsStudentsJunctionService accountsStudentsJunctionService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
+  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, CountryService countryService, UniversityService universityService, AccountsStudentsJunctionService accountsStudentsJunctionService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
     this.applicationStatusService = applicationStatusService;
     this.countryService = countryService;
     this.universityService = universityService;
@@ -46,7 +47,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<NewApplicationDto> findAllByStudentAccount(Student student) {
+  public List<ApplicationDto> findAllByAccount(Student student) {
     List<Application> applications = getAllByStudentAccount(student);
 
     return applications.stream()
@@ -60,23 +61,21 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional
-  public NewApplicationDto saveNewApplicationByStudent(Account account, NewSubmittedApplicationDto newSubmittedApplicationDto) {
-    Country country = countryService.findByUuid(newSubmittedApplicationDto.country());
-    University university = universityService.findByUuid(newSubmittedApplicationDto.university());
+  public ApplicationDto createApplication(Student student, NewApplicationByStudentDto newApplicationByStudentDto) {
+    Country country = countryService.findByUuid(newApplicationByStudentDto.country());
+    University university = universityService.findByUuid(newApplicationByStudentDto.university());
 
     checkIfUniversityBelongsToCountry(country, university);
 
     ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("PLANNED");
 
-    Student student = accountsStudentsJunctionService.findStudentByAccountId(account);
-
     Application application = Application.createNewApplicationByStudent(
       student,
       country,
       university,
-      newSubmittedApplicationDto.courseName(),
-      newSubmittedApplicationDto.minorSubject(),
-      newSubmittedApplicationDto.programmeLength(),
+      newApplicationByStudentDto.courseName(),
+      newApplicationByStudentDto.minorSubject(),
+      newApplicationByStudentDto.programmeLength(),
       plannedApplicationStatus
     );
 
@@ -94,17 +93,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Override
   @Transactional(readOnly = true)
   public DashboardDataDto getDashboardData(Account account, String accountRole) {
-    DashboardDataDto dashboardDataDto = null;
-
-    if (accountRole.equals("ROLE_STUDENT")) {
-      dashboardDataDto = getStudentDashboardData(account);
-    }
-
-    return dashboardDataDto;
-  }
-
-  private DashboardDataDto getStudentDashboardData(Account account) {
-    Student student = accountsStudentsJunctionService.findStudentByAccountId(account);
+    Student student = accountsStudentsJunctionService.findStudentByAccount(account);
 
     DashboardDataDto dashboardDataDto = null;
     List<Object[]> dashboardData = applicationRepository.getStudentDashboardData(student.getId());

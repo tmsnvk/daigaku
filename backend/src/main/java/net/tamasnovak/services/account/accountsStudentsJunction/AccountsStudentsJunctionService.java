@@ -4,5 +4,5 @@ import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountsByRole.Student;
 
 public interface AccountsStudentsJunctionService {
-  Student findStudentByAccountId(Account account);
+  Student findStudentByAccount(Account account);
 }

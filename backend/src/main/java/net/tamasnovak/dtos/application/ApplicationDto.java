@@ -3,7 +3,7 @@ package net.tamasnovak.dtos.application;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public record NewApplicationDto(
+public record ApplicationDto(
   UUID id,
   UUID account,
   String country,

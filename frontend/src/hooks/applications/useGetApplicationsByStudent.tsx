@@ -25,7 +25,7 @@ const getApplications = async () => {
   try {
     const { data }: { data: ApplicationT[] } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: 'api/applications',
+      url: 'api/applications/students',
     });
 
     return data;

@@ -2,7 +2,7 @@ package net.tamasnovak.dtos.application;
 
 import java.util.UUID;
 
-public record NewSubmittedApplicationDto(
+public record NewApplicationByStudentDto(
   UUID country,
   UUID university,
   String courseName,

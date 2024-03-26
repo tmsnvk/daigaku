@@ -22,7 +22,7 @@ const getDashboardData = async () => {
   try {
     const { data }: { data: DashboardDataT } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: 'api/applications/dashboard-data',
+      url: 'api/applications/students/dashboard-data',
     });
 
     return data;
