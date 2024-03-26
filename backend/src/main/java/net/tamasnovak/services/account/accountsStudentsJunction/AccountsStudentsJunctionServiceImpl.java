@@ -16,7 +16,7 @@ public class AccountsStudentsJunctionServiceImpl implements AccountsStudentsJunc
   }
 
   @Override
-  public Student findStudentByAccountId(Account account) {
+  public Student findStudentByAccount(Account account) {
     return accountsStudentsJunctionRepository.findByAccountId(account).getStudentId();
   }
 }

@@ -50,7 +50,7 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<ApplicationT> => {
       const response = await axiosConfigWithAuth.request({
         method: 'POST',
-        url: '/api/applications',
+        url: '/api/applications/students',
         data,
       });
 
