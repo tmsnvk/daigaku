@@ -1,11 +1,17 @@
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import {
   SubmitHandler,
   UseFormSetError,
 } from 'react-hook-form';
-import { axiosConfigWithAuth } from '@configuration';
-import { ApplicationT } from '@hooks/useGetApplications.tsx';
+import {
+  axiosConfigWithAuth,
+  queryKeys,
+} from '@configuration';
+import { ApplicationT } from '@hooks/applications/useGetApplicationsByStudent.tsx';
 
 export type NewApplicationFormFieldsT = {
   country: string;
@@ -37,6 +43,8 @@ type NewApplicationFormErrorT = {
 }
 
 const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
+  const queryClient = useQueryClient();
+
   const { isPending, isSuccess, mutate } = useMutation({
     mutationKey: ['newApplicationForm'],
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<ApplicationT> => {
@@ -49,10 +57,10 @@ const useSubmitNewApplicationForm = ({ setError }: NewApplicationFormT) => {
       return response.data;
     },
     onSuccess: (data) => {
-      const applications: ApplicationT[] = JSON.parse(localStorage.getItem('applications') || '[]');
-
-      applications.push(data);
-      localStorage.setItem('applications', JSON.stringify(applications));
+      queryClient.setQueryData(
+        [queryKeys.getApplicationsByStudent],
+        (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
+      );
     },
     onError: (error: NewApplicationFormErrorT) => {
       for (const fieldId in error.response.data) {

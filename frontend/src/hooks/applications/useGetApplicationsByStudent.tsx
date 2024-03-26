@@ -1,5 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { axiosConfigWithAuth } from '@configuration';
+import {
+  axiosConfigWithAuth,
+  queryKeys,
+} from '@configuration';
 
 export type ApplicationT = {
   id: string;
@@ -25,26 +28,17 @@ const getApplications = async () => {
       url: 'api/applications',
     });
 
-    localStorage.setItem('applications', JSON.stringify(data));
-
     return data;
   } catch (error) {
     console.error(error);
   }
 };
 
-const useGetApplications = () => {
-  const query = useQuery({
-    queryKey: ['getApplications'],
+const useGetApplicationsByStudent = () => {
+  return useQuery({
+    queryKey: [queryKeys.getApplicationsByStudent],
     queryFn: () => getApplications(),
-    enabled: localStorage.getItem('applications') === null,
   });
-
-  return {
-    applicationData: query.data,
-    isApplicationDataLoading: query.isLoading,
-    isApplicationDataError: query.isError,
-  };
 };
 
-export default useGetApplications;
+export default useGetApplicationsByStudent;
