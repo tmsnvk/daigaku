@@ -20,10 +20,6 @@ const DefaultNavbarStyles = styled.header`
       letter-spacing: 0.2rem;
     }
 
-    & svg {
-      margin: 0 1rem 0 0;
-    }
-
     & ul {
       display: flex;
       flex-direction: row;

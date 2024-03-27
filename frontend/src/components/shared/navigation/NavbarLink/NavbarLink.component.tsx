@@ -1,6 +1,6 @@
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import theme from '@theme/theme.ts';
-import { GeneralIcon } from '@components/shared/icon-styles';
+import { NavbarIcon } from '@components/shared/icon-styles';
 import { LinkContainer } from './NavbarLink.styles.ts';
 
 type ComponentPropsT = {
@@ -21,7 +21,7 @@ const NavbarLink = ({ resource, icon, content, onClick }: ComponentPropsT) => {
     >
       {({ isActive }) => (
         <>
-          <GeneralIcon icon={icon} $isActive={isActive} />
+          <NavbarIcon icon={icon} $isActive={isActive} />
           {content}
         </>
       )}

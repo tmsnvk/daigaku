@@ -9,11 +9,11 @@ const FooterContainer = styled.footer`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.theme.color.secondaryLight};
-  box-shadow: 0 0.1rem 1.5rem 0 ${(props) => props.theme.color.primaryDark};
+  background-color: ${({ theme }) => theme.color.secondaryLight};
+  box-shadow: 0 0.1rem 1.5rem 0 ${({ theme }) => theme.color.primaryDark};
   
   & p {
-    font-size: ${(props) => props.theme.fontSize.small};
+    font-size: ${({ theme }) => theme.fontSize.small};
   }
 `;
 
