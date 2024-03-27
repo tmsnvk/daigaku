@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { BaseElementBorderStyle } from '@components/shared/base-styles';
 
 const BoxContainer = styled.dl`
+  ${BaseElementBorderStyle};
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,10 +11,6 @@ const BoxContainer = styled.dl`
   width: 15rem;
   height: 15rem;
   text-align: center;
-  background-color: ${({ theme }) => theme.color.secondaryLight};
-  border: 0.25rem solid ${({ theme }) => theme.color.secondaryLight};
-  border-radius: 0.75rem;
-  box-shadow: 0 0.1rem 1.5rem 0 ${({ theme }) => theme.color.primaryDark};
   
   & dt {
     padding: 0 0 1.5rem 0;

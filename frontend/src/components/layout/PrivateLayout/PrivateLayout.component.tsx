@@ -12,8 +12,8 @@ import {
   useHandleSmallScreenMenuDisplay,
   useLogOut,
 } from './PrivateLayout.hooks.tsx';
-import DefaultNavbarStyles from '../DefaultNavbarStyles';
 import Footer from '../Footer';
+import { BaseNavbarStyle } from '@components/shared/base-styles';
 import { GlobalLoadingModal } from '@components/shared/modal';
 import { NavbarLink } from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
@@ -52,7 +52,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
 
   return (
     <>
-      <DefaultNavbarStyles>
+      <BaseNavbarStyle>
         <nav>
           <div>
             <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
@@ -108,7 +108,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
             <GeneralIcon icon={iconLibraryConfig.faBars} />
           </SmallScreenMenuToggler>
         </nav>
-      </DefaultNavbarStyles>
+      </BaseNavbarStyle>
       <Outlet />
       <Footer />
     </>

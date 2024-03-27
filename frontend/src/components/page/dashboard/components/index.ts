@@ -1,9 +1,9 @@
 import FigureInfoBox from './FigureInfoBox';
-import TextInfoBoxInfoBox from './TextInfoBox';
+import TextInfoBox from './TextInfoBox';
 import TodoList from './TodoList';
 
 export {
   FigureInfoBox,
-  TextInfoBoxInfoBox,
+  TextInfoBox,
   TodoList,
 };

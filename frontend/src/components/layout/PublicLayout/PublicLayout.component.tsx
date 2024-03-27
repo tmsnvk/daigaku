@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import { NavbarLink } from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
-import DefaultNavbarStyles from '../DefaultNavbarStyles';
+import { BaseNavbarStyle } from '@components/shared/base-styles';
 import Footer from '../Footer';
 import { iconLibraryConfig } from '@configuration';
 
 const PublicLayout = () => {
   return (
     <>
-      <DefaultNavbarStyles>
+      <BaseNavbarStyle>
         <nav>
           <div>
             <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
@@ -24,7 +24,7 @@ const PublicLayout = () => {
             </li>
           </ul>
         </nav>
-      </DefaultNavbarStyles>
+      </BaseNavbarStyle>
       <Outlet />
       <Footer />
     </>
