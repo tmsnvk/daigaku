@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LinkContainer = styled(NavLink)`
-  font-size: ${({ theme }) => theme.fontSize.medium};
+  font-size: ${({ theme }) => theme.fontSize.large};
   font-weight: 600;
   letter-spacing: 0.2rem;
 

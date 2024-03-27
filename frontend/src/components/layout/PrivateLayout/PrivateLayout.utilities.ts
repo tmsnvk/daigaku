@@ -20,11 +20,6 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       icon: iconLibraryConfig.faScroll,
       content: 'My Applications',
     },
-    {
-      url: '/contact',
-      icon: iconLibraryConfig.faPaperPlane,
-      content: 'Contact Us',
-    },
   ],
   [AccountRoleE.MENTOR]: [
     {

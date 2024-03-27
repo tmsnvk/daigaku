@@ -31,6 +31,7 @@ import {
   faBars,
   faCircleExclamation,
   faCircleNotch,
+  faEnvelope,
   faEye,
   faEyeSlash,
   faFileCirclePlus,
@@ -48,6 +49,7 @@ library.add(
   faBars,
   faCircleExclamation,
   faCircleNotch,
+  faEnvelope,
   faEye,
   faEyeSlash,
   faFileCirclePlus,
@@ -73,34 +75,35 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<ErrorPage />}>
-    <Route element={<PublicLayout />} path={'/'}>
+    <Route path={'/'} element={<PublicLayout />}>
       <Route index element={<HomePage />} />
-      <Route element={<div>PLACEHOLDER</div>} path={'/contact-guest'} />
+      <Route path={'contact'} element={<div>PLACEHOLDER</div>} />
     </Route>
     <Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR, AccountRoleE.ADMIN]} />}>
-        <Route element={<DashboardPage />} path={'/dashboard'} />
-      </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR]} />}>
-        <Route element={<div>PLACEHOLDER</div>} path={'/contact'} />
+        <Route path={'/dashboard'} element={<DashboardPage />} />
+        <Route path={'/messages'} element={<div>MESSAGES PLACEHOLDER</div>} />
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT]} />}>
-        <Route element={<NewApplicationPage />} path={'/new-application'} />
-        <Route element={<MyApplicationsPage />} path={'/my-applications'} />
+        <Route path={'/new-application'} element={<NewApplicationPage />} />
+        <Route path={'/my-applications'}>
+          <Route index element={<MyApplicationsPage />} />
+          <Route path={':id'} element={<div>APPLICATION PLACEHOLDER</div>} />
+        </Route>
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.MENTOR]} />}>
-        <Route element={<div>PLACEHOLDER</div>} path={'/my-students'} />
-        <Route element={<div>PLACEHOLDER</div>} path={'/my-student-applications'} />
+        <Route path={'/my-students'} element={<div>PLACEHOLDER</div>} />
+        <Route path={'/my-student-applications'} element={<div>PLACEHOLDER</div>} />
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.ADMIN]} />}>
-        <Route element={<div>PLACEHOLDER</div>} path={'/all-students'} />
-        <Route element={<div>PLACEHOLDER</div>} path={'/all-mentors'} />
-        <Route element={<div>PLACEHOLDER</div>} path={'/all-applications'} />
+        <Route path={'/all-students'} element={<div>PLACEHOLDER</div>} />
+        <Route path={'/all-mentors'} element={<div>PLACEHOLDER</div>} />
+        <Route path={'/all-applications'} element={<div>PLACEHOLDER</div>} />
       </Route>
     </Route>
     <Route element={<div>PLACEHOLDER LAYOUT ELEMENT</div>}>
-      <Route element={<div>PLACEHOLDER</div>} path={'/unauthorised'} />
-      <Route element={<div>PLACEHOLDER</div>} path={'*'} />
+      <Route path={'/unauthorised'} element={<div>PLACEHOLDER</div>} />
+      <Route path={'*'} element={<div>PLACEHOLDER</div>} />
     </Route>
   </Route>,
 ));

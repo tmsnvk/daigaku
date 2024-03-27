@@ -80,6 +80,13 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
               })}
               <li>
                 <NavbarLink
+                  resource={'/messages'}
+                  icon={iconLibraryConfig.faEnvelope}
+                  content={'Messages'}
+                />
+              </li>
+              <li>
+                <NavbarLink
                   resource={'/'}
                   icon={iconLibraryConfig.faRightFromBracket}
                   content={'Log out'}

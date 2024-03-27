@@ -8,6 +8,7 @@ const iconLibraryConfig: IconLibraryConfigT = {
   faBars: { prefix: 'fas', iconName: 'bars' },
   faCircleExclamation: { prefix: 'fas', iconName: 'circle-exclamation' },
   faCircleNotch: { prefix: 'fas', iconName: 'circle-notch' },
+  faEnvelope: { prefix: 'fas', iconName: 'envelope' },
   faEye: { prefix: 'fas', iconName: 'eye' },
   faEyeSlash: { prefix: 'fas', iconName: 'eye-slash' },
   faFileCirclePlus:  { prefix: 'fas', iconName: 'file-circle-plus' },
