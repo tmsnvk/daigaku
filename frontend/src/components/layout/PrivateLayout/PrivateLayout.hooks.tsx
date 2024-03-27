@@ -1,5 +1,5 @@
 import {
-  useEffect,
+  MouseEvent,
   useRef,
   useState,
 } from 'react';
@@ -29,26 +29,24 @@ const useHandleSmallScreenMenuDisplay = () => {
     setIsNavbarOpen(!isNavbarOpen);
   };
 
-  useEffect(() => {
-    const handleClick = (event: Event) => {
-      if (!ref.current || ref.current.contains(event.target as HTMLElement)) {
-        return;
-      }
+  const handleInsideClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (!ref.current || ref.current.contains(event.target as HTMLElement)) {
+      return;
+    }
 
-      setIsNavbarOpen(false);
-    };
+    setIsNavbarOpen(false);
+  };
 
-    document.addEventListener('mousedown', handleClick);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClick);
-    };
-  }, [ref]);
+  const handleOutsideClick = () => {
+    setIsNavbarOpen(false);
+  };
 
   return {
     ref,
     toggleMenu,
     isNavbarOpen,
+    handleInsideClick,
+    handleOutsideClick,
   };
 };
 

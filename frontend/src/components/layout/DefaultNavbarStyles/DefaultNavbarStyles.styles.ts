@@ -15,7 +15,7 @@ const DefaultNavbarStyles = styled.header`
 
     & div {
       color: inherit;
-      font-size: ${({ theme }) => theme.fontSize.medium};
+      font-size: ${({ theme }) => theme.fontSize.large};
       font-weight: 600;
       letter-spacing: 0.2rem;
     }

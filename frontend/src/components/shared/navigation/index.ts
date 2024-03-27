@@ -1,3 +1,5 @@
 import NavbarLink from './NavbarLink';
 
-export default NavbarLink;
+export {
+  NavbarLink,
+};

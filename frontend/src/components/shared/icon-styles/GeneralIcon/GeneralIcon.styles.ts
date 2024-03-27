@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const GeneralIcon = styled(FontAwesomeIcon)`
   display: inline-block;
-  vertical-align: middle;
-  margin: 0 0 0 0.5rem;
+  margin: 0 1.5rem 0 0;
   font-size: ${({ theme }) => theme.fontSize.large};
 `;
 

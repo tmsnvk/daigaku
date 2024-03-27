@@ -1,7 +1,11 @@
+import { ReactEventHandler } from 'react';
 import styled from 'styled-components';
 
 type NavbarComponentPropsT = {
   $isNavbarOpen: boolean;
+  onMouseDown: ReactEventHandler;
+  onMouseOut: ReactEventHandler;
+  onKeyDown: ReactEventHandler
 }
 
 const SmallScreenMenuWrapper = styled.div<NavbarComponentPropsT>`

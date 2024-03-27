@@ -15,7 +15,7 @@ import {
 import DefaultNavbarStyles from '../DefaultNavbarStyles';
 import Footer from '../Footer';
 import { GlobalLoadingModal } from '@components/shared/modal';
-import NavbarLink from '@components/shared/navigation';
+import { NavbarLink } from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
 import {
   SmallScreenMenuToggler,
@@ -36,7 +36,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const { authStatus, account } = useAuth();
   const { logOut } = useLogOut();
 
-  const { ref, toggleMenu, isNavbarOpen } = useHandleSmallScreenMenuDisplay();
+  const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick } = useHandleSmallScreenMenuDisplay();
 
   if (authStatus === AuthStatusE.LOADING) {
     return <GlobalLoadingModal />;
@@ -58,7 +58,13 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
             <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </div>
-          <SmallScreenMenuWrapper $isNavbarOpen={isNavbarOpen} ref={ref}>
+          <SmallScreenMenuWrapper
+            ref={ref}
+            $isNavbarOpen={isNavbarOpen}
+            onMouseDown={handleInsideClick}
+            onMouseOut={handleOutsideClick}
+            onKeyDown={handleOutsideClick}
+          >
             <ul>
               <li>
                 <NavbarLink

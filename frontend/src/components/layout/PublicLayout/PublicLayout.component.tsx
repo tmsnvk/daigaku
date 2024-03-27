@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import NavbarLink from '@components/shared/navigation';
+import { NavbarLink } from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
 import DefaultNavbarStyles from '../DefaultNavbarStyles';
 import Footer from '../Footer';
