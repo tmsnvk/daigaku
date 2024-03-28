@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   NewApplicationFormFieldsT,
@@ -39,19 +38,12 @@ type ComponentPropsT = {
 
 const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, isSuccess, onSubmit } = useSubmitNewApplicationForm({ setError });
-  const { isCountryNotSelected, setIsCountryNotSelected, handleCountrySelectionStatus } = useCheckFieldDisableStatus();
-
-  useEffect(() => {
-    if (isSuccess) {
-      setIsCountryNotSelected(true);
-      reset();
-    }
-  }, [isSuccess]);
+  const { isCountryNotSelected, handleCountrySelectionStatus, resetCountryField } = useCheckFieldDisableStatus();
+  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountryField, reset });
 
   return (
     <>
-      <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+      <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
         <GenericTitle content={'New Application Form'} />
         <InputInfoBox content={formInformation} />
         <SelectCountry
