@@ -1,11 +1,11 @@
 import { LabelContainer } from './InputLabel.styles.ts';
 
-type ComponentPropT = {
+type ComponentPropsT = {
   inputId: string;
   content: string;
 }
 
-const InputLabel = ({ inputId, content }: ComponentPropT) => {
+const InputLabel = ({ inputId, content }: ComponentPropsT) => {
   return (
     <LabelContainer htmlFor={inputId}>
       {content}

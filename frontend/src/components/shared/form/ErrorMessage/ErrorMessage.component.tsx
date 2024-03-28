@@ -1,13 +1,13 @@
 import { ErrorMessageContainer } from './ErrorMessage.styles';
 
-type ComponentPropT = {
-  error: string;
+type ComponentPropsT = {
+  content: string;
 }
 
-const ErrorMessage = ({ error }: ComponentPropT) => {
+const ErrorMessage = ({ content }: ComponentPropsT) => {
   return (
     <ErrorMessageContainer>
-      {error}
+      {content}
     </ErrorMessageContainer>
   );
 };
