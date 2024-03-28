@@ -19,18 +19,18 @@ import {
   FormTypeE,
 } from '@pages/shared/Home/Home.types.ts';
 
-type ComponentPropT = FormSelectorT;
+type ComponentPropsT = FormSelectorT;
 
-const LoginForm = ({ formSelector }: ComponentPropT) => {
+const LoginForm = ({ formSelector }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, onSubmit } = useSubmitLoginForm({ setError });
+  const { isPending, mutate } = useSubmitLoginForm({ setError });
 
   return (
     <section>
       <GenericTextParagraph
         content={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'}
       />
-      <form id={'userLoginForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+      <form id={'postAccountLoginForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
         <GeneralInputField
           register={register}
           validation={{

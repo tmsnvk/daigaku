@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useSubmitForgottenPasswordForm } from './ForgottenPasswordForm.hooks.tsx';
+import {
+  ForgottenPasswordFormFieldsT,
+  useSubmitForgottenPasswordForm,
+} from './ForgottenPasswordForm.hooks.tsx';
 import { FormSwapButton } from '@components/page/home';
 import { GenericTextParagraph } from '@components/shared/general';
 import {
@@ -13,20 +16,19 @@ import {
   FormSelectorT,
   FormTypeE,
 } from '@pages/shared/Home/Home.types.ts';
-import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
 
 type ComponentPropsT = FormSelectorT & ConfirmationModalT;
 
 const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
+  const { isPending, mutate } = useSubmitForgottenPasswordForm({ setError, showModal });
 
   return (
     <section>
       <GenericTextParagraph
         content={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'}
       />
-      <form id={'userForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+      <form id={'postAccountForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
         <GeneralInputField
           register={register}
           validation={{

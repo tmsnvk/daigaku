@@ -1,51 +1,53 @@
-import {
-  SubmitHandler,
-  UseFormSetError,
-} from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { axiosConfig } from '@configuration';
+import { UseFormSetError } from 'react-hook-form';
 import {
-  ForgottenPasswordFormErrorT,
-  ForgottenPasswordFormFieldsT,
-  ForgottenPasswordFormReturnDataT,
-} from './ForgottenPasswordForm.types.ts';
+  axiosConfig,
+  mutationKeys,
+} from '@configuration';
 import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
+
+export type ForgottenPasswordFormFieldsT = {
+  email: string;
+}
 
 type ForgottenPasswordFormT = {
   setError: UseFormSetError<ForgottenPasswordFormFieldsT>;
 } & ConfirmationModalT;
 
+type ForgottenPasswordFormErrorFieldsT = `root.${string}` | 'root' | 'email';
+
+type ForgottenPasswordFormErrorT = {
+  response: {
+    status: number;
+    data: {
+      [key: string]: ForgottenPasswordFormErrorFieldsT;
+    }
+  }
+}
+
 const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordFormT) => {
-  const { mutate, isPending } = useMutation({
-    mutationKey: ['userForgottenPasswordForm'],
-    mutationFn: async (data: ForgottenPasswordFormFieldsT): Promise<ForgottenPasswordFormReturnDataT> => {
-      const response = await axiosConfig.request({
+  return useMutation({
+    mutationKey: [mutationKeys.postAccountForgottenPasswordForm],
+    mutationFn: async (data: ForgottenPasswordFormFieldsT): Promise<void> => {
+      await axiosConfig.request({
         method: 'POST',
-        url: '/api/accounts/forgot-password',
+        url: '/api/accounts/forgotten-password',
         data,
       });
-
-      return response.data;
     },
     onSuccess: () => {
       showModal();
     },
     onError: (error: ForgottenPasswordFormErrorT) => {
-      setError('root.serverError', {
-        type: error.response.status,
-        message: error.response.data.message ? error.response.data.message : 'An unexpected error has happened. Please try again later.',
-      });
+      if (error.response.data.email) {
+        setError('email', { message: error.response.data.email });
+      }
+
+      if (error.response.data.root) {
+        setError('root.serverError', { message: error.response.data.root });
+      }
     },
   });
-
-  const onSubmit: SubmitHandler<ForgottenPasswordFormFieldsT> = (formData: ForgottenPasswordFormFieldsT) => {
-    mutate(formData);
-  };
-
-  return {
-    isPending,
-    onSubmit,
-  };
 };
 
 export {

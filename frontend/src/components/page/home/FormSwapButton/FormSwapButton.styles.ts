@@ -6,7 +6,6 @@ const ButtonContainer = styled.button`
   font-size: ${({ theme }) => theme.fontSize.medium};
   font-weight: 800;
   color: ${({ theme }) => theme.color.secondaryDark};
-  font-family: inherit;
   background-color: ${({ theme }) => theme.color.secondaryLight};
   border-radius: 0.75rem;
   cursor: pointer;

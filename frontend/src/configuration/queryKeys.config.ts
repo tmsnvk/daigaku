@@ -1,5 +1,7 @@
 const mutationKeys = {
-
+  postAccountLoginForm: 'postAccountLoginForm',
+  postAccountRegisterForm: 'postAccountRegisterForm',
+  postAccountForgottenPasswordForm: 'postAccountForgottenPasswordForm',
 };
 
 const queryKeys = {

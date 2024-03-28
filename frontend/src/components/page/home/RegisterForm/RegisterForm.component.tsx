@@ -7,7 +7,6 @@ import {
   SubmitInput,
 } from '@components/shared/form';
 import { GeneralInputField } from '@components/shared/field-implementations';
-import theme from '@theme/theme.ts';
 import {
   RegisterFormFieldsT,
   useSubmitRegisterForm,
@@ -22,14 +21,14 @@ type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
 const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, onSubmit } = useSubmitRegisterForm({ setError, showModal });
+  const { isPending, mutate } = useSubmitRegisterForm({ setError, showModal });
 
   return (
     <section>
       <GenericTextParagraph
         content={'Register an account if you are not in our system yet.'}
       />
-      <form id={'userRegistrationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
+      <form id={'postAccountRegisterForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
         <GeneralInputField
           register={register}
           validation={{
