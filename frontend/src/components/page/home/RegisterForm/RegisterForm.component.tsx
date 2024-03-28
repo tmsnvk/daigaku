@@ -28,7 +28,6 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
     <section>
       <GenericTextParagraph
         content={'Register an account if you are not in our system yet.'}
-        fontSize={theme.fontSize.medium}
       />
       <form id={'userRegistrationForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <GeneralInputField

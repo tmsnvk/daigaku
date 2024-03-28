@@ -14,7 +14,6 @@ import {
   GeneralInputField,
   PasswordInputField,
 } from '@components/shared/field-implementations';
-import theme from '@theme/theme.ts';
 import {
   FormSelectorT,
   FormTypeE,
@@ -30,7 +29,6 @@ const LoginForm = ({ formSelector }: ComponentPropT) => {
     <section>
       <GenericTextParagraph
         content={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'}
-        fontSize={theme.fontSize.medium}
       />
       <form id={'userLoginForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
         <GeneralInputField

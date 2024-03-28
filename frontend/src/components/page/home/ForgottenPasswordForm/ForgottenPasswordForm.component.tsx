@@ -4,12 +4,10 @@ import { FormSwapButton } from '@components/page/home';
 import { GenericTextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
-  InputFieldStyles,
-  InputLabel,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import theme from '@theme/theme.ts';
+import { GeneralInputField } from '@components/shared/field-implementations';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -17,9 +15,9 @@ import {
 } from '@pages/shared/Home/Home.types.ts';
 import { ForgottenPasswordFormFieldsT } from './ForgottenPasswordForm.types.ts';
 
-type ComponentPropT = FormSelectorT & ConfirmationModalT;
+type ComponentPropsT = FormSelectorT & ConfirmationModalT;
 
-const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
+const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, onSubmit } = useSubmitForgottenPasswordForm({ setError, showModal });
 
@@ -27,24 +25,23 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropT) => {
     <section>
       <GenericTextParagraph
         content={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'}
-        fontSize={theme.fontSize.medium}
       />
       <form id={'userForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit(onSubmit)}>
-        <InputFieldStyles $isError={errors.email?.message !== undefined}>
-          <InputLabel inputId={'email'} content={'Email'} />
-          <input
-            {...register('email', {
-              required: { value: true, message: 'Providing your email address is required.' },
-            })}
-            type={'email'}
-            id={'email'}
-            name={'email'}
-            autoComplete={'off'}
-            placeholder={'Enter your email address'}
-            disabled={isPending}
-          />
-          {errors.email?.message && <ErrorMessage error={errors.email.message} />}
-        </InputFieldStyles>
+        <GeneralInputField
+          register={register}
+          validation={{
+            required: {
+              value: true,
+              message: 'Providing your email address is required.',
+            },
+          }}
+          fieldError={errors.email?.message}
+          fieldId={'email'}
+          label={'Email'}
+          type={'email'}
+          placeholder={'Enter your email address'}
+          isDisabled={isPending}
+        />
         <article>
           {
             isPending ?

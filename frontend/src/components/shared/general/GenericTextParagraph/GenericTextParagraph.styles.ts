@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 
-type TextContainerPropsT = {
-  $fontSize?: string;
-}
-
-const TextContainer = styled.p<TextContainerPropsT>`
+const TextContainer = styled.p`
   margin: 0 0 2.5rem 0;
-  font-size: ${(props) => props.$fontSize};
+  font-size: ${({ theme }) => theme.fontSize.large};
 `;
 
 export {
