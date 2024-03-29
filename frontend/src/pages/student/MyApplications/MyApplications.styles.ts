@@ -6,6 +6,7 @@ const MainContainer = styled.main`
   
   width: 95%;
   margin: 5% auto 5% auto;
+  font-size: ${({ theme }) => theme.fontSize.large};
 `;
 
 export {
