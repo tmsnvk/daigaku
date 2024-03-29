@@ -6,13 +6,13 @@ import { GenericTextParagraph } from '@components/shared/general';
 import { SubmitInput } from '@components/shared/form';
 import DefaultDialogStyles from '../DefaultDialogStyles';
 
-type ComponentPropT = {
+type ComponentPropsT = {
   isVisible: boolean;
   message: string;
   closeModal: () => void;
 }
 
-const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropT) => {
+const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropsT) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {

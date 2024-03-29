@@ -8,10 +8,10 @@ const DefaultDialogStyles = styled.dialog`
   align-items: center;
   margin: 25% auto 0 auto;
   padding: 0 0 5rem 0;
-  background-color: ${(props) => props.theme.color.primaryLight};
-  color: ${(props) => props.theme.color.secondaryDark};
-  font-size: ${(props) => props.theme.fontSize.large};
-  border: 0.1rem solid ${(props) => props.theme.color.secondaryDark};
+  background-color: ${({ theme }) => theme.color.primaryLight};
+  color: ${({ theme }) => theme.color.secondaryDark};
+  font-size: ${({ theme }) => theme.fontSize.large};
+  border: 0.1rem solid ${({ theme }) => theme.color.secondaryDark};
   border-radius: 1.5rem;
 
   & p {

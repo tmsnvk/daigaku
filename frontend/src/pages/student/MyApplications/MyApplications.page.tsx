@@ -1,6 +1,9 @@
 import { useGetApplicationsByStudent } from '@hooks/applications';
 import { MainContainer } from './MyApplications.styles.ts';
-import { GlobalErrorModal, GlobalLoadingModal } from '@components/shared/modal';
+import {
+  GlobalErrorModal,
+  GlobalLoadingModal,
+} from '@components/shared/modal';
 
 const MyApplicationsPage = () => {
   const { data, isLoading, isError } = useGetApplicationsByStudent();

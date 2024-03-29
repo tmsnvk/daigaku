@@ -21,8 +21,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
-    font-family: ${(props) => props.theme.fontFamily.primary};
-    background-color: ${(props) => props.theme.color.primaryLight};
+    font-family: ${({ theme }) => theme.fontFamily.primary};
+    background-color: ${({ theme }) => theme.color.primaryLight};
     
     & > div {
       position: relative;

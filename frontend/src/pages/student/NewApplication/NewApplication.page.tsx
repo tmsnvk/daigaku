@@ -10,15 +10,15 @@ const NewApplicationPage = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
   const [selectedCountryId, setSelectedCountryId] = useState<string>('');
 
-  const { countryData, isCountryDataError } = useGetCountryOptions();
-  const { universityData, isUniversityDataError } = useGetUniversityOptions(isCountryFieldSelected, selectedCountryId);
+  const { data: countryData, error: isCountryError } = useGetCountryOptions();
+  const { data: universityData, error: isUniversityError } = useGetUniversityOptions(isCountryFieldSelected, selectedCountryId);
 
   const handleCountryField = (countryId: string) => {
     setIsCountryFieldSelected(true);
     setSelectedCountryId(countryId);
   };
 
-  if (isCountryDataError || isUniversityDataError) {
+  if (isCountryError || isUniversityError) {
     return <GlobalErrorModal />;
   }
 

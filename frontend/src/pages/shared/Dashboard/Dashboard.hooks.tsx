@@ -1,5 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { axiosConfigWithAuth } from '@configuration';
+import {
+  axiosConfigWithAuth,
+  queryKeys,
+} from '@configuration';
+import {
+  AccountRoleE,
+  useAuth,
+} from '@context/AuthContext.tsx';
 
 export type DashboardDataT = {
   firmChoiceCountry: string;
@@ -18,11 +25,23 @@ export type DashboardDataT = {
   numberOfOffers: number;
 }
 
-const getDashboardData = async () => {
+const getDashboardType = (role: AccountRoleE) => {
+  const roleType = {
+    [AccountRoleE.STUDENT]: 'students',
+    [AccountRoleE.MENTOR]: 'mentors',
+    [AccountRoleE.ADMIN]: 'admins',
+  };
+
+  return roleType[role];
+};
+
+const getDashboardData = async (role: AccountRoleE) => {
   try {
+    const userType = getDashboardType(role);
+
     const { data }: { data: DashboardDataT } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: 'api/applications/students/dashboard-data',
+      url: `api/applications/${userType}/dashboard-data`,
     });
 
     return data;
@@ -32,17 +51,13 @@ const getDashboardData = async () => {
 };
 
 const useGetDashboardData = () => {
-  const query = useQuery({
-    queryKey: ['getDashboardData'],
-    queryFn: () => getDashboardData(),
+  const { account } = useAuth();
+
+  return useQuery({
+    queryKey: [queryKeys.getDashboardData],
+    queryFn: () => getDashboardData(account.role as AccountRoleE),
     refetchOnMount: 'always',
   });
-
-  return {
-    data: query.data,
-    isLoading: query.isLoading,
-    isError: query.isError,
-  };
 };
 
 export {

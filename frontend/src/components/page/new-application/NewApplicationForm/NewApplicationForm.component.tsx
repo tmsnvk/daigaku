@@ -128,14 +128,14 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <article>
           {
             isPending ?
-              <LoadingIndicator message={'Your application is being submitted.'} /> :
+              <LoadingIndicator content={'Your application is being submitted.'} /> :
               <SubmitInput type={'submit'} value={'submit application'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
         </article>
       </FormGridContainer>
       <FeedbackModal
-        isSubmitted={isSuccess}
+        isVisible={isSuccess}
         content={submissionConfirmation}
       />
     </>

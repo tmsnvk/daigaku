@@ -26,11 +26,11 @@ const ModalContainer = styled.section`
   padding: 1.5rem 1.5rem 0 1.5rem;
   margin: 0 auto 5% auto;
   text-align: center;
-  font-size: ${(props) => props.theme.fontSize.medium};
-  background-color: ${(props) => props.theme.color.tertiaryLight};
-  border: 0.1rem solid ${(props) => props.theme.color.secondaryLight};
+  font-size: ${({ theme }) => theme.fontSize.medium};
+  background-color: ${({ theme }) => theme.color.tertiaryLight};
+  border: 0.1rem solid ${({ theme }) => theme.color.secondaryLight};
   border-radius: 1.25rem;
-  box-shadow: 0.25rem 0.25rem 1rem ${(props) => props.theme.color.primaryDark};
+  box-shadow: 0.25rem 0.25rem 1rem ${({ theme }) => theme.color.primaryDark};
   animation: ${fadeIn} 0.1s ease-in forwards, ${fadeOut} 5s 0.5s ease-out forwards;
 `;
 

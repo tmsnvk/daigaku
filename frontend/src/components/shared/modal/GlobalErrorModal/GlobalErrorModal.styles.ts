@@ -3,7 +3,7 @@ import DefaultDialogStyles from '../DefaultDialogStyles';
 
 const DialogContainer = styled(DefaultDialogStyles)`
   width: 45%;
-  background-color: ${(props) => props.theme.color.secondaryLight};
+  background-color: ${({ theme }) => theme.color.secondaryLight};
 `;
 
 export {
