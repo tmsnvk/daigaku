@@ -3,7 +3,7 @@ import {
   useRef,
 } from 'react';
 import { ModalContainer } from './ColumnSelectorModal.styles.ts';
-import { ColumnT } from '@pages/student/MyApplications/MyApplications.hooks.tsx';
+import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
 
 type ComponentPropsT = {
   columns: ColumnT[];
@@ -33,7 +33,7 @@ const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, 
             <input
               type={'checkbox'}
               checked={element.isActive}
-              onClick={() => handleColumnVisibility(element.id)}
+              onChange={() => handleColumnVisibility(element.id)}
             />
             {element.name}
           </article>
