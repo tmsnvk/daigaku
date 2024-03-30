@@ -14,6 +14,7 @@ export type ApplicationT = {
   programmeLength: number;
   applicationStatus: string;
   interviewStatus: string;
+  offerStatus: string;
   responseStatus: string;
   finalDestinationStatus: string;
   notes: string | null;
