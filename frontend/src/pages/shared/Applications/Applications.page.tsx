@@ -6,7 +6,8 @@ import {
 import {
   ColumnSelectorButton,
   ColumnSelectorModal,
-} from '@components/page/my-applications';
+  DataRows,
+} from 'components/page/applications';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
@@ -18,8 +19,6 @@ const ApplicationsPage = () => {
   const { columns, updateColumnVisibility } = useSetColumns();
   const { isModalVisible, toggleModal } = useShowColumnDisplayModal();
 
-  console.log(data);
-
   if (isLoading) {
     return <GlobalLoadingModal />;
   }
@@ -28,6 +27,8 @@ const ApplicationsPage = () => {
     return <GlobalErrorModal />;
   }
 
+  // add student selector dropdown for mentors
+  // add mentor and student selector dropdowns for admins
   return (
     <MainContainer>
       <table>
@@ -40,21 +41,7 @@ const ApplicationsPage = () => {
           </tr>
         </thead>
         <tbody>
-          {data && data.map((element) => {
-            return (
-              <tr key={element.id}>
-                <td style={{ display: columns[0].isActive ? '' : 'none' }}>{element.courseName}</td>
-                <td>{element.university}</td>
-                <td>{element.country}</td>
-                <td>{element.applicationStatus}</td>
-                <td>{element.interviewStatus}</td>
-                <td>{element.offerStatus}</td>
-                <td>{element.responseStatus}</td>
-                <td>{element.finalDestinationStatus}</td>
-                <td><button type={'submit'}>EDIT</button></td>
-              </tr>
-            );
-          })}
+          {data && <DataRows columns={columns} data={data} />}
         </tbody>
       </table>
       {isModalVisible &&

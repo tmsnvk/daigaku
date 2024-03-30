@@ -7,7 +7,7 @@ import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
 
 type ComponentPropsT = {
   columns: ColumnT[];
-  handleColumnVisibility: (id: number) => void;
+  handleColumnVisibility: (id: string) => void;
   isModalVisible: boolean;
   toggleModal: () => void;
 }
@@ -33,6 +33,7 @@ const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, 
             <input
               type={'checkbox'}
               checked={element.isActive}
+              disabled={element.isCoreColumn}
               onChange={() => handleColumnVisibility(element.id)}
             />
             {element.name}

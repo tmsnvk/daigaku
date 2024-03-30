@@ -1,24 +1,25 @@
 import { useState } from 'react';
 
 export type ColumnT = {
-  id: number;
+  id: string;
   name: string;
+  isCoreColumn: boolean;
   isActive: boolean;
 }
 
 const useSetColumns = () => {
   const [columns, setColumns] = useState<ColumnT[]>([
-    { id: 0, name: 'Course', isActive: true },
-    { id: 1, name: 'University', isActive: true },
-    { id: 2, name: 'Country', isActive: true },
-    { id: 3, name: 'Application Status', isActive: true },
-    { id: 4, name: 'Interview Status', isActive: true },
-    { id: 5, name: 'Offer Status', isActive: true },
-    { id: 6, name: 'Response Status', isActive: true },
-    { id: 7, name: 'Final Destination Status', isActive: true },
+    { id: 'courseName', name: 'Course', isCoreColumn: true, isActive: true },
+    { id: 'university', name: 'University', isCoreColumn: true, isActive: true },
+    { id: 'country', name: 'Country', isCoreColumn: true, isActive: true },
+    { id: 'applicationStatus', name: 'Application Status', isCoreColumn: false, isActive: true },
+    { id: 'interviewStatus', name: 'Interview Status', isCoreColumn: false, isActive: false },
+    { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isActive: false },
+    { id: 'responseStatus', name: 'Response Status', isCoreColumn: false, isActive: false },
+    { id: 'finalDestinationStatus', name: 'Final Destination Status', isCoreColumn: false, isActive: false },
   ]);
 
-  const updateColumnVisibility = (id: number) => {
+  const updateColumnVisibility = (id: string) => {
     setColumns(columns.map((column) => {
       if (column.id === id) {
         return { ...column, isActive: !column.isActive };
