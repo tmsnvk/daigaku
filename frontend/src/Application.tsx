@@ -13,10 +13,10 @@ import {
   AuthProvider,
 } from '@context/AuthContext.tsx';
 import {
+  ApplicationsPage,
   DashboardPage,
   ErrorPage,
   HomePage,
-  MyApplicationsPage,
   NewApplicationPage,
 } from '@pages/index.ts';
 import {
@@ -82,23 +82,21 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR, AccountRoleE.ADMIN]} />}>
         <Route path={'/dashboard'} element={<DashboardPage />} />
-        <Route path={'/messages'} element={<div>MESSAGES PLACEHOLDER</div>} />
-      </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT]} />}>
-        <Route path={'/new-application'} element={<NewApplicationPage />} />
-        <Route path={'/my-applications'}>
-          <Route index element={<MyApplicationsPage />} />
+        <Route path={'/messages'} element={<ApplicationsPage />} />
+        <Route path={'/applications'}>
+          <Route index element={<ApplicationsPage />} />
           <Route path={':id'} element={<div>APPLICATION PLACEHOLDER</div>} />
         </Route>
       </Route>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT]} />}>
+        <Route path={'/new-application'} element={<NewApplicationPage />} />
+      </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.MENTOR]} />}>
         <Route path={'/my-students'} element={<div>PLACEHOLDER</div>} />
-        <Route path={'/my-student-applications'} element={<div>PLACEHOLDER</div>} />
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.ADMIN]} />}>
         <Route path={'/all-students'} element={<div>PLACEHOLDER</div>} />
         <Route path={'/all-mentors'} element={<div>PLACEHOLDER</div>} />
-        <Route path={'/all-applications'} element={<div>PLACEHOLDER</div>} />
       </Route>
     </Route>
     <Route element={<div>PLACEHOLDER LAYOUT ELEMENT</div>}>

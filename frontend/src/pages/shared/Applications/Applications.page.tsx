@@ -2,7 +2,7 @@ import { useGetApplicationsByStudent } from '@hooks/applications';
 import {
   useSetColumns,
   useShowColumnDisplayModal,
-} from './MyApplications.hooks.tsx';
+} from './Applications.hooks.tsx';
 import {
   ColumnSelectorButton,
   ColumnSelectorModal,
@@ -11,9 +11,9 @@ import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/shared/modal';
-import { MainContainer } from './MyApplications.styles.ts';
+import { MainContainer } from './Applications.styles.ts';
 
-const MyApplicationsPage = () => {
+const ApplicationsPage = () => {
   const { data, isLoading, isError } = useGetApplicationsByStudent();
   const { columns, updateColumnVisibility } = useSetColumns();
   const { isModalVisible, toggleModal } = useShowColumnDisplayModal();
@@ -43,9 +43,14 @@ const MyApplicationsPage = () => {
           {data && data.map((element) => {
             return (
               <tr key={element.id}>
-                <td>{element.country}</td>
+                <td style={{ display: columns[0].isActive ? '' : 'none' }}>{element.courseName}</td>
                 <td>{element.university}</td>
-                <td>{element.courseName}</td>
+                <td>{element.country}</td>
+                <td>{element.applicationStatus}</td>
+                <td>{element.interviewStatus}</td>
+                <td>{element.offerStatus}</td>
+                <td>{element.responseStatus}</td>
+                <td>{element.finalDestinationStatus}</td>
                 <td><button type={'submit'}>EDIT</button></td>
               </tr>
             );
@@ -63,4 +68,4 @@ const MyApplicationsPage = () => {
   );
 };
 
-export default MyApplicationsPage;
+export default ApplicationsPage;

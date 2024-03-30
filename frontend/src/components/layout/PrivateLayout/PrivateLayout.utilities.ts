@@ -16,7 +16,7 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       content: 'New Application',
     },
     {
-      url: '/my-applications',
+      url: '/applications',
       icon: iconLibraryConfig.faScroll,
       content: 'My Applications',
     },
@@ -28,7 +28,7 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       content: 'My Students',
     },
     {
-      url: '/my-student-applications',
+      url: '/applications',
       icon: iconLibraryConfig.faScroll,
       content: 'My Student Applications',
     },
@@ -50,7 +50,7 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       content: 'All Mentors',
     },
     {
-      url: '/all-applications',
+      url: '/applications',
       icon: iconLibraryConfig.faScroll,
       content: 'All Applications',
     },
