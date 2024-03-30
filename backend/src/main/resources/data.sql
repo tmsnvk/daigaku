@@ -164,6 +164,6 @@ INSERT INTO applications
 VALUES
   (1, 1, 1, 'Test - Country 1 - Uni 1', 3, 1, 1, 1, 1, 1),
   (1, 1, 2, 'Test - Country 1 - Uni 2', 3, 1, 1, 1, 2, 3),
-  (1, 2, 3, 'Test - Country 2 - Uni 3', 3, 1, 2, 3, 2, 3),
-  (1, 2, 3, 'Test - Country 2 - Uni 3', 3, 1, 3, 3, 2, 3),
-  (1, 3, 4, 'Test - Country 3 - Uni 4', 3, 1, 3, 3, 3, 3);
+  (1, 2, 3, 'Test - Country 2 - Uni 3', 3, 2, 2, 3, 2, 3),
+  (1, 2, 3, 'Test - Country 2 - Uni 3', 3, 2, 3, 3, 2, 3),
+  (1, 3, 4, 'Test - Country 3 - Uni 4', 3, 3, 3, 3, 3, 3);

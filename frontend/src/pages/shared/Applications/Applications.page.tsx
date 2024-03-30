@@ -1,22 +1,27 @@
 import { useGetApplicationsByStudent } from '@hooks/applications';
 import {
   useSetColumns,
+  useSetOrder,
   useShowColumnDisplayModal,
 } from './Applications.hooks.tsx';
 import {
   ColumnSelectorButton,
   ColumnSelectorModal,
   DataRows,
-} from 'components/page/applications';
+} from '@components/page/applications';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/shared/modal';
+import { GeneralIcon } from '@components/shared/icon-styles';
 import { MainContainer } from './Applications.styles.ts';
+import { iconLibraryConfig } from '@configuration';
+import { ApplicationT } from '@hooks/applications/useGetApplicationsByStudent.tsx';
 
 const ApplicationsPage = () => {
   const { data, isLoading, isError } = useGetApplicationsByStudent();
   const { columns, updateColumnVisibility } = useSetColumns();
+  const { handleColumnSort } = useSetOrder(data as ApplicationT[]);
   const { isModalVisible, toggleModal } = useShowColumnDisplayModal();
 
   if (isLoading) {
@@ -34,8 +39,14 @@ const ApplicationsPage = () => {
       <table>
         <thead>
           <tr>
-            {columns.map((element) => {
-              return element.isActive && <th key={element.id}>{element.name}</th>;
+            {columns.map((column) => {
+              return (
+                column.isActive &&
+                <th key={column.id}>
+                  {column.name}
+                  <button type={'button'} onClick={() => handleColumnSort(column.id)}><GeneralIcon icon={iconLibraryConfig.faSort} /></button>
+                </th>
+              );
             })}
             <th><ColumnSelectorButton toggleModal={toggleModal} /></th>
           </tr>

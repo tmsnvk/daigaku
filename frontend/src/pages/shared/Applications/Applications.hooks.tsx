@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { QueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@configuration';
+import { ApplicationT } from '@hooks/applications/useGetApplicationsByStudent.tsx';
 
 export type ColumnT = {
   id: string;
@@ -48,7 +51,52 @@ const useShowColumnDisplayModal = () => {
   };
 };
 
+enum SortOrderE {
+  ASC,
+  DESC
+}
+
+const useSetOrder = (data: ApplicationT[]) => {
+  const [sortedField, setSortedField] = useState<string>('courseName');
+  const [sortOrder, setSortOrder] = useState<SortOrderE>(SortOrderE.DESC);
+
+  const sortColumns = (columnId: string) => {
+    const queryClient = new QueryClient();
+
+    const sorted = data.sort((a, b) => {
+      if (a[columnId as keyof ApplicationT] === null) {
+        return 1;
+      }
+
+      if (b[columnId as keyof ApplicationT] === null) {
+        return -1;
+      }
+
+      return a[columnId].localeCompare(b[columnId]) * (sortOrder === SortOrderE.ASC ? 1 : -1);
+    });
+
+    queryClient.setQueryData(
+      [queryKeys.getApplicationsByStudent],
+      [...sorted],
+    );
+  };
+
+  const handleColumnSort = (columnId: string) => {
+    const order = columnId === sortedField && sortOrder === SortOrderE.ASC ? SortOrderE.DESC : SortOrderE.ASC;
+
+    setSortedField(columnId);
+    setSortOrder(order);
+
+    sortColumns(columnId);
+  };
+
+  return {
+    handleColumnSort,
+  };
+};
+
 export {
   useSetColumns,
   useShowColumnDisplayModal,
+  useSetOrder,
 };

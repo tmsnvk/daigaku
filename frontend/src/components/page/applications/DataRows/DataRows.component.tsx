@@ -18,11 +18,11 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
           <DataCell $columns={columns} $id={'courseName'}>{element.courseName}</DataCell>
           <DataCell $columns={columns} $id={'university'}>{element.university}</DataCell>
           <DataCell $columns={columns} $id={'country'}>{element.country}</DataCell>
-          <DataCell $columns={columns} $id={'applicationStatus'}>{element.applicationStatus}</DataCell>
-          <DataCell $columns={columns} $id={'interviewStatus'}>{element.interviewStatus}</DataCell>
-          <DataCell $columns={columns} $id={'offerStatus'}>{element.offerStatus}</DataCell>
-          <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus}</DataCell>
-          <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus}</DataCell>
+          <DataCell $columns={columns} $id={'applicationStatus'}>{element.applicationStatus ?? '-'}</DataCell>
+          <DataCell $columns={columns} $id={'interviewStatus'}>{element.interviewStatus ?? '-'}</DataCell>
+          <DataCell $columns={columns} $id={'offerStatus'}>{element.offerStatus ?? '-'}</DataCell>
+          <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus ?? '-'}</DataCell>
+          <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td><button type={'submit'}>EDIT</button></td>
         </RowContainer>
       );
