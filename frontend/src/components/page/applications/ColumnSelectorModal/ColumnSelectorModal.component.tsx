@@ -29,18 +29,26 @@ const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, 
     <ModalContainer ref={dialogRef}>
       {columns.map((element) => {
         return (
-          <article key={element.id}>
+          <article
+            key={element.id}
+            onClick={() => !element.isCoreColumn && handleColumnVisibility(element.id)}
+          >
             <input
               type={'checkbox'}
               checked={element.isActive}
               disabled={element.isCoreColumn}
-              onChange={() => handleColumnVisibility(element.id)}
+              readOnly
             />
             {element.name}
           </article>
         );
       })}
-      <button type={'button'} onClick={toggleModal}>close</button>
+      <button
+        type={'button'}
+        onClick={toggleModal}
+      >
+        Close
+      </button>
     </ModalContainer>
   );
 };
