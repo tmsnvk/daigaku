@@ -1,4 +1,4 @@
-import { useGetApplicationsByStudent } from '@hooks/applications';
+import { useGetApplications } from '@hooks/applications';
 import {
   useSetColumns,
   useSetOrder,
@@ -16,10 +16,10 @@ import {
 import { GeneralIcon } from '@components/shared/icon-styles';
 import { MainContainer } from './Applications.styles.ts';
 import { iconLibraryConfig } from '@configuration';
-import { ApplicationT } from '@hooks/applications/useGetApplicationsByStudent.tsx';
+import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
 
 const ApplicationsPage = () => {
-  const { data, isLoading, isError } = useGetApplicationsByStudent();
+  const { data, isLoading, isError } = useGetApplications();
   const { columns, updateColumnVisibility } = useSetColumns();
   const { handleColumnSort } = useSetOrder(data as ApplicationT[]);
   const { isModalVisible, toggleModal } = useShowColumnDisplayModal();

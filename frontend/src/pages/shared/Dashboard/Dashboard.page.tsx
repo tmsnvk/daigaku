@@ -2,7 +2,7 @@ import {
   AccountRoleE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import { useGetApplicationsByStudent } from '@hooks/applications';
+import { useGetApplications } from '@hooks/applications';
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
 import { StudentLayout } from '@components/page/dashboard';
 import { TodoList } from '@components/page/dashboard/components';
@@ -16,7 +16,7 @@ const DashboardPage = () => {
   const { account } = useAuth();
   const { data, isLoading, isError } = useGetDashboardData();
 
-  useGetApplicationsByStudent();
+  useGetApplications();
 
   if (isLoading) {
     return <GlobalLoadingModal />;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@configuration';
-import { ApplicationT } from '@hooks/applications/useGetApplicationsByStudent.tsx';
+import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
 
 export type ColumnT = {
   id: string;

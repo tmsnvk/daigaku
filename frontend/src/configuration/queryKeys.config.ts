@@ -6,7 +6,7 @@ const mutationKeys = {
 };
 
 const queryKeys = {
-  getApplicationsByStudent: 'getApplicationsByStudent',
+  getApplications: 'getApplications',
   getCountryOptions: 'getCountryOptions',
   getUniversityOptions: 'getUniversityOptions',
   getDashboardData: 'getDashboardData',

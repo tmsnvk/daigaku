@@ -3,6 +3,7 @@ import {
   axiosConfigWithAuth,
   queryKeys,
 } from '@configuration';
+import { AccountRoleE, useAuth } from '@context/AuthContext.tsx';
 
 export type ApplicationT = {
   id: string;
@@ -22,11 +23,23 @@ export type ApplicationT = {
   lastUpdatedAt: Date;
 }
 
-const getApplications = async () => {
+const getUrl = (role: AccountRoleE) => {
+  const roleUrl = {
+    [AccountRoleE.STUDENT]: 'students',
+    [AccountRoleE.MENTOR]: 'mentors',
+    [AccountRoleE.ADMIN]: 'admins',
+  };
+
+  return roleUrl[role];
+};
+
+const getApplications = async (role: AccountRoleE) => {
   try {
+    const roleUrl = getUrl(role);
+
     const { data }: { data: ApplicationT[] } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: 'api/applications/students',
+      url: `api/applications/${roleUrl}`,
     });
 
     return data;
@@ -35,11 +48,13 @@ const getApplications = async () => {
   }
 };
 
-const useGetApplicationsByStudent = () => {
+const useGetApplications = () => {
+  const { account } = useAuth();
+
   return useQuery({
-    queryKey: [queryKeys.getApplicationsByStudent],
-    queryFn: () => getApplications(),
+    queryKey: [queryKeys.getApplications],
+    queryFn: () => getApplications(account.role as AccountRoleE),
   });
 };
 
-export default useGetApplicationsByStudent;
+export default useGetApplications;

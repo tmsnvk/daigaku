@@ -1,5 +1,5 @@
-import useGetApplicationsByStudent from './useGetApplicationsByStudent.tsx';
+import useGetApplications from './useGetApplications.tsx';
 
 export {
-  useGetApplicationsByStudent,
+  useGetApplications,
 };

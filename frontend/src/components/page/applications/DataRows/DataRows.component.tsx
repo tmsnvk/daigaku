@@ -3,7 +3,7 @@ import {
   RowContainer,
 } from './DataRows.styles.ts';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
-import { ApplicationT } from '@hooks/applications/useGetApplicationsByStudent.tsx';
+import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
 
 type ComponentPropsT = {
   columns: ColumnT[];

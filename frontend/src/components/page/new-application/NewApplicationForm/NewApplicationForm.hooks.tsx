@@ -9,7 +9,7 @@ import {
   mutationKeys,
   queryKeys,
 } from '@configuration';
-import { ApplicationT } from '@hooks/applications/useGetApplicationsByStudent.tsx';
+import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
 
 export type NewApplicationFormFieldsT = {
   country: string;
