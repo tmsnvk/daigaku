@@ -10,7 +10,6 @@ import {
   axiosConfig,
   mutationKeys,
 } from '@configuration';
-import { getAuthAccountRole } from '@utilities';
 
 export type LoginFormFieldsT = {
   email: string;
@@ -43,7 +42,7 @@ type LoginFormErrorT = {
 }
 
 const useSubmitLoginForm = ({ setError }: LoginFormT) => {
-  const { setAccount, setAuthStatus } = useAuth();
+  const { setAccount, setAuthStatus, getAccountRole } = useAuth();
   const navigate = useNavigate();
 
   return useMutation({
@@ -62,7 +61,7 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
 
       const userData: AccountDataT = {
         ...data,
-        role: getAuthAccountRole(data.role),
+        role: getAccountRole(data.role),
       };
 
       setAccount(userData);

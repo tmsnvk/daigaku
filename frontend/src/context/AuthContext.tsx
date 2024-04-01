@@ -6,7 +6,6 @@ import {
   useState,
 } from 'react';
 import { axiosConfigWithAuth } from '@configuration';
-import { getAuthAccountRole } from '@utilities';
 
 export enum AuthStatusE {
   LOADING,
@@ -29,6 +28,10 @@ export type AccountDataT = {
   role: AccountRoleE | typeof AccountRoleE;
 }
 
+type AccountRoleT = {
+  [key: string]: AccountRoleE;
+}
+
 type AuthContextProviderT = {
   children: ReactNode;
 }
@@ -38,6 +41,7 @@ type AuthContextT = {
   setAccount: (value: AccountDataT) => void;
   authStatus: AuthStatusE;
   setAuthStatus: (value: AuthStatusE) => void;
+  getAccountRole: (role: string) => AccountRoleE;
 }
 
 const initialAccountState = {
@@ -55,6 +59,16 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
   const [account, setAccount] = useState<AccountDataT>(initialAccountState);
   const [authStatus, setAuthStatus] = useState<AuthStatusE>(AuthStatusE.LOADING);
 
+  const getAccountRole = (role: string): AccountRoleE => {
+    const roles: AccountRoleT = {
+      'ROLE_STUDENT': AccountRoleE.STUDENT,
+      'ROLE_MENTOR': AccountRoleE.MENTOR,
+      'ROLE_ADMIN': AccountRoleE.ADMIN,
+    };
+
+    return roles[role];
+  };
+
   const getMe = async () => {
     try {
       const { data } = await axiosConfigWithAuth.request({
@@ -64,7 +78,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
 
       const userData: AccountDataT = {
         ...data,
-        role: getAuthAccountRole(data.role),
+        role: getAccountRole(data.role),
       };
 
       setAccount(userData);
@@ -90,6 +104,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     <AuthContext.Provider value={{
       account, setAccount,
       authStatus, setAuthStatus,
+      getAccountRole,
     }}>
       {children}
     </AuthContext.Provider>
