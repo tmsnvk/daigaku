@@ -17,12 +17,12 @@ import { MainContainer } from './Applications.styles.ts';
 import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
 
 const ApplicationsPage = () => {
-  const { data, isLoading, isError } = useGetApplications();
+  const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
   const { columns, updateColumnVisibility } = useSetColumns();
   const { handleColumnSort } = useSetOrder(data as ApplicationT[]);
   const { isModalVisible, toggleModal } = useShowColumnDisplayModal();
 
-  if (isLoading) {
+  if (isLoading || isRefetching) {
     return <GlobalLoadingModal />;
   }
 
@@ -40,6 +40,7 @@ const ApplicationsPage = () => {
             columns={columns}
             handleColumnSort={handleColumnSort}
             toggleModal={toggleModal}
+            refetch={refetch}
           />
         </thead>
         <tbody>

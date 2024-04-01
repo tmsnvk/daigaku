@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { UseQueryResult } from '@tanstack/react-query';
 import {
   ButtonTh,
   TableHeadContainer,
@@ -10,9 +11,10 @@ type ComponentPropsT = {
   columns: ColumnT[];
   handleColumnSort: (id: string) => void;
   toggleModal: () => void;
+  refetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
-const TableHead = ({ columns, handleColumnSort, toggleModal }: ComponentPropsT) => {
+const TableHead = ({ columns, handleColumnSort, toggleModal, refetch }: ComponentPropsT) => {
   return (
     <TableHeadContainer>
       {columns.map((column) => {
@@ -32,6 +34,7 @@ const TableHead = ({ columns, handleColumnSort, toggleModal }: ComponentPropsT) 
       <ButtonTh>
         <button
           type={'button'}
+          onClick={() => refetch({ cancelRefetch: false })}
         >
           Refresh
           <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
