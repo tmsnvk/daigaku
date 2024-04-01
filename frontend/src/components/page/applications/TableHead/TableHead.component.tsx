@@ -1,6 +1,7 @@
 import {
-  SortIcon,
+  ButtonTh,
   TableHeadContainer,
+  TableHeadIcon,
 } from './TableHead.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
@@ -23,26 +24,26 @@ const TableHead = ({ columns, handleColumnSort, toggleModal }: ComponentPropsT) 
               onClick={() => handleColumnSort(column.id)}
             >
               {column.name}
-              <SortIcon icon={iconLibraryConfig.faSort} />
+              <TableHeadIcon icon={iconLibraryConfig.faSort} />
             </button>
           </th>
         );
       })}
-      <th>
+      <ButtonTh>
         <button
           type={'button'}
         >
           Refresh
+          <TableHeadIcon icon={iconLibraryConfig.faRotateRight} />
         </button>
-      </th>
-      <th>
         <button
           type={'button'}
           onClick={toggleModal}
         >
           Display
+          <TableHeadIcon icon={iconLibraryConfig.faTable} />
         </button>
-      </th>
+      </ButtonTh>
     </TableHeadContainer>
   );
 };

@@ -16,9 +16,11 @@ const iconLibraryConfig: IconLibraryConfigT = {
   faHouseUser: { prefix: 'fas', iconName: 'house-user' },
   faPaperPlane: { prefix: 'fas', iconName: 'paper-plane' },
   faRightFromBracket: { prefix: 'fas', iconName: 'right-from-bracket' },
+  faRotateRight: { prefix: 'fas', iconName: 'rotate-right' },
   faScroll: { prefix: 'fas', iconName: 'scroll' },
   faSort: { prefix: 'fas', iconName: 'sort' },
   faSpinner: { prefix: 'fas', iconName: 'spinner' },
+  faTable: { prefix: 'fas', iconName: 'table' },
   faUserGroup: { prefix: 'fas', iconName: 'user-group' },
   faXMark: { prefix: 'fas', iconName: 'xmark' },
 };

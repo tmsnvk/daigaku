@@ -39,9 +39,11 @@ import {
   faHouseUser,
   faPaperPlane,
   faRightFromBracket,
+  faRotateRight,
   faScroll,
   faSort,
   faSpinner,
+  faTable,
   faUserGroup,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
@@ -58,9 +60,11 @@ library.add(
   faHouseUser,
   faPaperPlane,
   faRightFromBracket,
+  faRotateRight,
   faScroll,
   faSort,
   faSpinner,
+  faTable,
   faUserGroup,
   faXmark,
 );

@@ -58,7 +58,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountryField, reset }: New
     },
     onSuccess: (data) => {
       queryClient.setQueryData(
-        [queryKeys.getApplicationsByStudent],
+        [queryKeys.getApplications],
         (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
       );
 

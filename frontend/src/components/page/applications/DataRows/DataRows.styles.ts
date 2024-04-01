@@ -8,7 +8,9 @@ type RowTypeT = {
 }
 
 const RowContainer = styled.tr`
-
+  &:nth-child(odd) {
+    background-color: ${({ theme }) => theme.color.primaryLight};
+  }
 `;
 
 const DataCell = styled.td<RowTypeT>`

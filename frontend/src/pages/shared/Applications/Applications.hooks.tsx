@@ -72,7 +72,7 @@ const useSetOrder = (data: ApplicationT[]) => {
         return -1;
       }
 
-      return a[columnId].localeCompare(b[columnId]) * (sortOrder === SortOrderE.ASC ? 1 : -1);
+      return a[sortedField].localeCompare(b[sortedField]) * (sortOrder === SortOrderE.ASC ? 1 : -1);
     });
 
     queryClient.setQueryData(
@@ -82,7 +82,7 @@ const useSetOrder = (data: ApplicationT[]) => {
   };
 
   const handleColumnSort = (columnId: string) => {
-    const order = columnId === sortedField && sortOrder === SortOrderE.ASC ? SortOrderE.DESC : SortOrderE.ASC;
+    const order = sortOrder === SortOrderE.ASC ? SortOrderE.DESC : SortOrderE.ASC;
 
     setSortedField(columnId);
     setSortOrder(order);
