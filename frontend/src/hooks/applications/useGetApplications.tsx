@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import {
+  AccountRoleE,
+  useAuth,
+} from '@context/AuthContext.tsx';
+import {
   axiosConfigWithAuth,
   queryKeys,
 } from '@configuration';
-import { AccountRoleE, useAuth } from '@context/AuthContext.tsx';
 
 export type ApplicationT = {
   id: string;
@@ -33,13 +36,11 @@ const getUrl = (role: AccountRoleE) => {
   return roleUrl[role];
 };
 
-const getApplications = async (role: AccountRoleE) => {
+const getApplications = async (url: string) => {
   try {
-    const roleUrl = getUrl(role);
-
     const { data }: { data: ApplicationT[] } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: `api/applications/${roleUrl}`,
+      url: `api/applications/${url}`,
     });
 
     return data;
@@ -50,10 +51,11 @@ const getApplications = async (role: AccountRoleE) => {
 
 const useGetApplications = () => {
   const { account } = useAuth();
+  const roleUrl = getUrl(account.role as AccountRoleE);
 
   return useQuery({
     queryKey: [queryKeys.getApplications],
-    queryFn: () => getApplications(account.role as AccountRoleE),
+    queryFn: () => getApplications(roleUrl),
   });
 };
 
