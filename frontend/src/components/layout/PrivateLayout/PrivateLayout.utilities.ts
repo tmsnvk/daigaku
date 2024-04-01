@@ -20,6 +20,16 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       icon: iconLibraryConfig.faScroll,
       content: 'My Applications',
     },
+    {
+      url: '/messages',
+      icon: iconLibraryConfig.faEnvelope,
+      content: 'Messages',
+    },
+    {
+      url: '/feedback',
+      icon: iconLibraryConfig.faGears,
+      content: 'Feedback',
+    },
   ],
   [AccountRoleE.MENTOR]: [
     {
@@ -33,9 +43,14 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       content: 'My Student Applications',
     },
     {
-      url: '/contact',
-      icon: iconLibraryConfig.faPaperPlane,
-      content: 'Contact Us',
+      url: '/messages',
+      icon: iconLibraryConfig.faEnvelope,
+      content: 'Messages',
+    },
+    {
+      url: '/feedback',
+      icon: iconLibraryConfig.faGears,
+      content: 'Feedback',
     },
   ],
   [AccountRoleE.ADMIN]: [
@@ -53,6 +68,16 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       url: '/applications',
       icon: iconLibraryConfig.faScroll,
       content: 'All Applications',
+    },
+    {
+      url: '/messages',
+      icon: iconLibraryConfig.faEnvelope,
+      content: 'Messages',
+    },
+    {
+      url: '/system',
+      icon: iconLibraryConfig.faGears,
+      content: 'System',
     },
   ],
 };

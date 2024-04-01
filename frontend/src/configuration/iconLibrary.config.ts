@@ -12,6 +12,7 @@ const iconLibraryConfig: IconLibraryConfigT = {
   faEye: { prefix: 'fas', iconName: 'eye' },
   faEyeSlash: { prefix: 'fas', iconName: 'eye-slash' },
   faFileCirclePlus:  { prefix: 'fas', iconName: 'file-circle-plus' },
+  faGears: { prefix: 'fas', iconName: 'gears' },
   faGraduationCap: { prefix: 'fas', iconName: 'graduation-cap' },
   faHouseUser: { prefix: 'fas', iconName: 'house-user' },
   faPaperPlane: { prefix: 'fas', iconName: 'paper-plane' },

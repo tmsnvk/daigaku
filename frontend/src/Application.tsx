@@ -35,6 +35,7 @@ import {
   faEye,
   faEyeSlash,
   faFileCirclePlus,
+  faGears,
   faGraduationCap,
   faHouseUser,
   faPaperPlane,
@@ -57,6 +58,7 @@ library.add(
   faEye,
   faEyeSlash,
   faFileCirclePlus,
+  faGears,
   faGraduationCap,
   faHouseUser,
   faPaperPlane,
@@ -90,11 +92,14 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR, AccountRoleE.ADMIN]} />}>
         <Route path={'/dashboard'} element={<DashboardPage />} />
-        <Route path={'/messages'} element={<ApplicationsPage />} />
         <Route path={'/applications'}>
           <Route index element={<ApplicationsPage />} />
           <Route path={':id'} element={<div>APPLICATION PLACEHOLDER</div>} />
         </Route>
+        <Route path={'/messages'} element={<div>PLACEHOLDER</div>} />
+      </Route>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.MENTOR, AccountRoleE.STUDENT]} />}>
+        <Route path={'/feedback'} element={<div>PLACEHOLDER</div>} />
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT]} />}>
         <Route path={'/new-application'} element={<NewApplicationPage />} />
@@ -105,6 +110,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.ADMIN]} />}>
         <Route path={'/all-students'} element={<div>PLACEHOLDER</div>} />
         <Route path={'/all-mentors'} element={<div>PLACEHOLDER</div>} />
+        <Route path={'/system'} element={<div>PLACEHOLDER</div>} />
       </Route>
     </Route>
     <Route element={<div>PLACEHOLDER LAYOUT ELEMENT</div>}>
