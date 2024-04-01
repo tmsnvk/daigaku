@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TableHeadContainer = styled.tr`
   & th {
@@ -25,25 +24,24 @@ const TableHeadContainer = styled.tr`
       color: ${({ theme }) => theme.color.tertiaryLight};
     }
   }
+
+  & svg {
+    display: inline-block;
+    margin: 0 0 0 1rem;
+  }
 `;
 
 const ButtonTh = styled.th`
   & button:nth-of-type(1) {
     margin: 0 auto 1.5rem auto;
   }
-  
+
   & button:nth-of-type(2) {
     margin: 1.5rem auto 0 auto;
   }
 `;
 
-const TableHeadIcon = styled(FontAwesomeIcon)`
-  display: inline-block;
-  margin: 0 0 0 1rem;
-`;
-
 export {
   TableHeadContainer,
   ButtonTh,
-  TableHeadIcon,
 };

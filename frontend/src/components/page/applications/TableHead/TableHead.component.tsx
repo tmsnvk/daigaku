@@ -1,7 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   ButtonTh,
   TableHeadContainer,
-  TableHeadIcon,
 } from './TableHead.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
@@ -24,7 +24,7 @@ const TableHead = ({ columns, handleColumnSort, toggleModal }: ComponentPropsT) 
               onClick={() => handleColumnSort(column.id)}
             >
               {column.name}
-              <TableHeadIcon icon={iconLibraryConfig.faSort} />
+              <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
             </button>
           </th>
         );
@@ -34,14 +34,14 @@ const TableHead = ({ columns, handleColumnSort, toggleModal }: ComponentPropsT) 
           type={'button'}
         >
           Refresh
-          <TableHeadIcon icon={iconLibraryConfig.faRotateRight} />
+          <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
         </button>
         <button
           type={'button'}
           onClick={toggleModal}
         >
           Display
-          <TableHeadIcon icon={iconLibraryConfig.faTable} />
+          <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
         </button>
       </ButtonTh>
     </TableHeadContainer>

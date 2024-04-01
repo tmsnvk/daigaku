@@ -45,6 +45,7 @@ import {
   faSpinner,
   faTable,
   faUserGroup,
+  faWrench,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -66,6 +67,7 @@ library.add(
   faSpinner,
   faTable,
   faUserGroup,
+  faWrench,
   faXmark,
 );
 

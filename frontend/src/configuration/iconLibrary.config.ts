@@ -22,6 +22,7 @@ const iconLibraryConfig: IconLibraryConfigT = {
   faSpinner: { prefix: 'fas', iconName: 'spinner' },
   faTable: { prefix: 'fas', iconName: 'table' },
   faUserGroup: { prefix: 'fas', iconName: 'user-group' },
+  faWrench: { prefix: 'fas', iconName: 'wrench' },
   faXMark: { prefix: 'fas', iconName: 'xmark' },
 };
 

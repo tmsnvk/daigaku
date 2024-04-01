@@ -1,9 +1,12 @@
 import {
   DataCell,
+  EditButton,
   RowContainer,
 } from './DataRows.styles.ts';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
 import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { iconLibraryConfig } from '@configuration';
 
 type ComponentPropsT = {
   columns: ColumnT[];
@@ -23,7 +26,14 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
           <DataCell $columns={columns} $id={'offerStatus'}>{element.offerStatus ?? '-'}</DataCell>
           <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus ?? '-'}</DataCell>
           <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus ?? '-'}</DataCell>
-          <td><button type={'submit'}>EDIT</button></td>
+          <td>
+            <EditButton
+              type={'submit'}
+            >
+              EDIT
+              <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
+            </EditButton>
+          </td>
         </RowContainer>
       );
     })
