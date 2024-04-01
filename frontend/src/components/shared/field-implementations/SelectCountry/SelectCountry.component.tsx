@@ -56,7 +56,7 @@ const SelectCountry = <T extends FieldValues>({
           return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
       </select>
-      {fieldError && <ErrorMessage error={fieldError} />}
+      {fieldError && <ErrorMessage content={fieldError} />}
     </InputFieldStyles>
   );
 };

@@ -63,10 +63,10 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
         <article>
           {
             isPending ?
-              <LoadingIndicator message={'You are being logged in.'} /> :
+              <LoadingIndicator content={'You are being logged in.'} /> :
               <SubmitInput type={'submit'} value={'sign in'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage error={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

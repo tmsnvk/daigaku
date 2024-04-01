@@ -60,7 +60,7 @@ const PasswordInputField = <T extends FieldValues>({
         />
         <FontAwesomeIcon onClick={handleRevealClick} icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye} />
       </div>
-      {fieldError && <ErrorMessage error={fieldError} />}
+      {fieldError && <ErrorMessage content={fieldError} />}
     </PasswordInputFieldStyles>
   );
 };

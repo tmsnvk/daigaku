@@ -54,7 +54,7 @@ const GeneralInputField = <T extends FieldValues>({
         disabled={isDisabled}
         defaultValue={defaultValue ?? ''}
       />
-      {fieldError && <ErrorMessage error={fieldError} />}
+      {fieldError && <ErrorMessage content={fieldError} />}
     </InputFieldStyles>
   );
 };

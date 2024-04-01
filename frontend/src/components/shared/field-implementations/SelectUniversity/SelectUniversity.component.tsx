@@ -48,7 +48,7 @@ const SelectUniversity = <T extends FieldValues>({
           return <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>;
         })}
       </select>
-      {fieldError && <ErrorMessage error={fieldError} />}
+      {fieldError && <ErrorMessage content={fieldError} />}
     </InputFieldStyles>
   );
 };
