@@ -1,6 +1,5 @@
 import {
   DataCell,
-  EditButton,
   RowContainer,
 } from './DataRows.styles.ts';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
@@ -27,12 +26,12 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
           <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus ?? '-'}</DataCell>
           <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
-            <EditButton
+            <button
               type={'submit'}
             >
               EDIT
               <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
-            </EditButton>
+            </button>
           </td>
         </RowContainer>
       );

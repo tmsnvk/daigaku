@@ -60,15 +60,15 @@ const useSetOrder = (data: ApplicationT[]) => {
   const [sortedField, setSortedField] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrderE>(SortOrderE.DESC);
 
-  const sortColumns = (columnId: string) => {
+  const sortColumns = () => {
     const queryClient = new QueryClient();
 
     const sorted = data.sort((a, b) => {
-      if (a[columnId as keyof ApplicationT] === null) {
+      if (a[sortedField as keyof ApplicationT] === null) {
         return 1;
       }
 
-      if (b[columnId as keyof ApplicationT] === null) {
+      if (b[sortedField as keyof ApplicationT] === null) {
         return -1;
       }
 
@@ -87,7 +87,7 @@ const useSetOrder = (data: ApplicationT[]) => {
     setSortedField(columnId);
     setSortOrder(order);
 
-    sortColumns(columnId);
+    sortColumns();
   };
 
   return {
