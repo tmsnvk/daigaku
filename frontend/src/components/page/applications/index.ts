@@ -1,9 +1,9 @@
-import ColumnSelectorButton from './ColumnSelectorButton';
 import ColumnSelectorModal from './ColumnSelectorModal';
 import DataRows from './DataRows';
+import TableHead from './TableHead';
 
 export {
-  ColumnSelectorButton,
   ColumnSelectorModal,
   DataRows,
+  TableHead,
 };

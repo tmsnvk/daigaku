@@ -5,17 +5,15 @@ import {
   useShowColumnDisplayModal,
 } from './Applications.hooks.tsx';
 import {
-  ColumnSelectorButton,
   ColumnSelectorModal,
   DataRows,
+  TableHead,
 } from '@components/page/applications';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/shared/modal';
-import { GeneralIcon } from '@components/shared/icon-styles';
 import { MainContainer } from './Applications.styles.ts';
-import { iconLibraryConfig } from '@configuration';
 import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
 
 const ApplicationsPage = () => {
@@ -38,18 +36,11 @@ const ApplicationsPage = () => {
     <MainContainer>
       <table>
         <thead>
-          <tr>
-            {columns.map((column) => {
-              return (
-                column.isActive &&
-                <th key={column.id}>
-                  {column.name}
-                  <button type={'button'} onClick={() => handleColumnSort(column.id)}><GeneralIcon icon={iconLibraryConfig.faSort} /></button>
-                </th>
-              );
-            })}
-            <th><ColumnSelectorButton toggleModal={toggleModal} /></th>
-          </tr>
+          <TableHead
+            columns={columns}
+            handleColumnSort={handleColumnSort}
+            toggleModal={toggleModal}
+          />
         </thead>
         <tbody>
           {data && <DataRows columns={columns} data={data} />}
