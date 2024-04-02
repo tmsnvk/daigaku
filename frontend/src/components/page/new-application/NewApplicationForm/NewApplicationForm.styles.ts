@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { BaseLightElementBorderStyle } from '@components/shared/base-styles';
 
 const FormGridContainer = styled.form`
+  ${BaseLightElementBorderStyle};
+  
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
@@ -11,9 +14,6 @@ const FormGridContainer = styled.form`
   padding: 5rem 5rem 10rem 5rem;
   justify-items: center;
   align-items: center;
-  border: 0.1rem solid ${({ theme }) => theme.color.secondaryLight};
-  border-radius: 1.25rem;
-  box-shadow: 0.25rem 0.25rem 1rem ${({ theme }) => theme.color.primaryDark};
 
   & h1,
   & article:first-of-type,
