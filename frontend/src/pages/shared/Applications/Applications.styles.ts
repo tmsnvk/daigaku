@@ -26,12 +26,15 @@ const MainContainer = styled.main`
       margin: 0 0 0 1rem;
     }
 
+    & a,
     & button {
+      width: fit-content;
       display: flex;
       flex-direction: row;
       align-items: center;
       margin: 0 auto 0 auto;
       background-color: transparent;
+      color: ${({ theme }) => theme.color.primaryDark};
       font-size: ${({ theme }) => theme.fontSize.medium};
       font-weight: 800;
       cursor: pointer;
