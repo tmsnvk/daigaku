@@ -31,6 +31,7 @@
       "@pages/*": ["pages/*"],
       "@theme/*": ["theme/*"],
       "@custom-types/*": ["types/*"],
+
       "@utilities": ["utilities/index.ts"]
     },
   },

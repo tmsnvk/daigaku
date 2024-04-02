@@ -14,7 +14,7 @@ import {
   GlobalLoadingModal,
 } from '@components/shared/modal';
 import { MainContainer } from './Applications.styles.ts';
-import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
+import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
 const ApplicationsPage = () => {
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();

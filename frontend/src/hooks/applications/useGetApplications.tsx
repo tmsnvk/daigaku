@@ -7,24 +7,7 @@ import {
   axiosConfigWithAuth,
   queryKeys,
 } from '@configuration';
-
-export type ApplicationT = {
-  id: string;
-  account: string;
-  country: string;
-  university: string;
-  courseName: string;
-  minorSubject: string;
-  programmeLength: number;
-  applicationStatus: string;
-  interviewStatus: string;
-  offerStatus: string;
-  responseStatus: string;
-  finalDestinationStatus: string;
-  notes: string | null;
-  createdAt: Date;
-  lastUpdatedAt: Date;
-}
+import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
 const getUrl = (role: AccountRoleE) => {
   const roleUrl = {

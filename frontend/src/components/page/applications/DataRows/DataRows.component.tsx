@@ -3,7 +3,7 @@ import {
   RowContainer,
 } from './DataRows.styles.ts';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
-import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
+import { ApplicationT } from '@custom-types/ApplicationT.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { iconLibraryConfig } from '@configuration';
 import { Link } from 'react-router-dom';
