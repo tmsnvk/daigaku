@@ -27,7 +27,7 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
           <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus ?? '-'}</DataCell>
           <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
-            <Link to={element.id}>
+            <Link to={element.id} state={element}>
               EDIT
               <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
             </Link>

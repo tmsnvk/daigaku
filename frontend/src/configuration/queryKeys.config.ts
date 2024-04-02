@@ -7,6 +7,7 @@ const mutationKeys = {
 
 const queryKeys = {
   getApplications: 'getApplications',
+  getApplicationById: 'getApplicationById',
   getCountryOptions: 'getCountryOptions',
   getUniversityOptions: 'getUniversityOptions',
   getDashboardData: 'getDashboardData',
