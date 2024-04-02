@@ -9,7 +9,7 @@ const getApplication = async (id: string) => {
   try {
     const { data }: { data: ApplicationT } = await axiosConfigWithAuth.request({
       method: 'GET',
-      url: `api/applications/${id}`,
+      url: `/api/applications/${id}`,
     });
 
     return data;

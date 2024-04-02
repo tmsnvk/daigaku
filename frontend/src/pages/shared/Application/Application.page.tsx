@@ -4,6 +4,7 @@ import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/shared/modal';
+import { ApplicationForm } from '@components/page/application';
 
 const ApplicationPage = () => {
   const { state, pathname } = useLocation();
@@ -19,7 +20,7 @@ const ApplicationPage = () => {
 
   return (
     <main>
-
+      <ApplicationForm data={state ? state : data } />
     </main>
   );
 };
