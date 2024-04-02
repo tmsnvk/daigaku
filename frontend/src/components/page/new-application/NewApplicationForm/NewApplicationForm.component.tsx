@@ -5,6 +5,7 @@ import {
   useSubmitNewApplicationForm,
 } from './NewApplicationForm.hooks.tsx';
 import {
+  ApplicationFormGridContainer,
   ErrorMessage,
   InputInfoBox,
   LoadingIndicator,
@@ -17,7 +18,6 @@ import {
   SelectUniversity,
 } from '@components/shared/field-implementations';
 import { FeedbackModal } from '@components/shared/modal';
-import { FormGridContainer } from './NewApplicationForm.styles.ts';
 import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
 import { UniversitiesT } from '@hooks/useGetUniversityOptions.tsx';
 import {
@@ -43,7 +43,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
 
   return (
     <>
-      <FormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
+      <ApplicationFormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
         <GenericTitle content={'New Application Form'} />
         <InputInfoBox content={formInformation} />
         <SelectCountry
@@ -133,7 +133,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           }
           {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
         </article>
-      </FormGridContainer>
+      </ApplicationFormGridContainer>
       <FeedbackModal
         isVisible={isSuccess}
         content={submissionConfirmation}

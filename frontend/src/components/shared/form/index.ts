@@ -1,3 +1,4 @@
+import ApplicationFormGridContainer from './form-container/ApplicationFormGridContainer';
 import ErrorMessage from './ErrorMessage';
 import InputFieldStyles from './InputFieldStyles';
 import InputInfoBox from './InputInfoBox';
@@ -7,6 +8,7 @@ import PasswordInputFieldStyles from './PasswordInputFieldStyles';
 import SubmitInput from './SubmitInput';
 
 export {
+  ApplicationFormGridContainer,
   ErrorMessage,
   InputFieldStyles,
   InputInfoBox,
