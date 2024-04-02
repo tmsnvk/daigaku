@@ -1,7 +1,7 @@
-import BaseElementBorderStyle from './BaseElementBorderStyle';
+import BaseDarkElementBorderStyle from './BaseDarkElementBorderStyle';
 import BaseNavbarStyle from './BaseNavbarStyle';
 
 export {
-  BaseElementBorderStyle,
+  BaseDarkElementBorderStyle,
   BaseNavbarStyle,
 };
