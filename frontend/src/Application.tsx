@@ -13,6 +13,7 @@ import {
   AuthProvider,
 } from '@context/AuthContext.tsx';
 import {
+  ApplicationPage,
   ApplicationsPage,
   DashboardPage,
   ErrorPage,
@@ -94,7 +95,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path={'/dashboard'} element={<DashboardPage />} />
         <Route path={'/applications'}>
           <Route index element={<ApplicationsPage />} />
-          <Route path={':id'} element={<div>APPLICATION PLACEHOLDER</div>} />
+          <Route path={':id'} element={<ApplicationPage />} />
         </Route>
         <Route path={'/messages'} element={<div>PLACEHOLDER</div>} />
       </Route>

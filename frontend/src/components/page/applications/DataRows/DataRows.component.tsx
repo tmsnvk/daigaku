@@ -6,6 +6,7 @@ import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
 import { ApplicationT } from '@hooks/applications/useGetApplications.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { iconLibraryConfig } from '@configuration';
+import { Link } from 'react-router-dom';
 
 type ComponentPropsT = {
   columns: ColumnT[];
@@ -26,12 +27,10 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
           <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus ?? '-'}</DataCell>
           <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
-            <button
-              type={'submit'}
-            >
+            <Link to={element.id}>
               EDIT
               <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
-            </button>
+            </Link>
           </td>
         </RowContainer>
       );
