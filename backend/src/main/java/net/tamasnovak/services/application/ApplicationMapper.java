@@ -20,7 +20,6 @@ public final class ApplicationMapper {
       application.getOfferStatusId() != null ? application.getOfferStatusId().getName() : null,
       application.getResponseStatusId() != null ? application.getResponseStatusId().getName() : null,
       application.getFinalDestinationStatusId() != null ? application.getFinalDestinationStatusId().getName() : null,
-      application.getNotes(),
       application.getCreatedAt(),
       application.getLastUpdatedAt()
     );

@@ -16,7 +16,6 @@ public record ApplicationDto(
   String offerStatus,
   String responseStatus,
   String finalDestinationStatus,
-  String notes,
   Timestamp createdAt,
   Timestamp lastUpdatedAt
 ) {}
