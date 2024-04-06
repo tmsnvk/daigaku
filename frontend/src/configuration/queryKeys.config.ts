@@ -3,6 +3,7 @@ const mutationKeys = {
   postAccountRegisterForm: 'postAccountRegisterForm',
   postAccountForgottenPasswordForm: 'postAccountForgottenPasswordForm',
   postApplicationByStudent: 'postApplicationByStudent',
+  updateApplication: 'updateApplication',
 };
 
 const queryKeys = {

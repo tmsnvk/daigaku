@@ -18,12 +18,10 @@ const getApplication = async (id: string) => {
   }
 };
 
-const useGetApplication = (state: ApplicationT | null, pathname: string) => {
-  const id = pathname.split('/applications/')[1];
-
+const useGetApplication = (state: ApplicationT | null, applicationId: string) => {
   return useQuery({
     queryKey: [queryKeys.getApplicationById],
-    queryFn: () => getApplication(id),
+    queryFn: () => getApplication(applicationId),
     enabled: state === null,
   });
 };

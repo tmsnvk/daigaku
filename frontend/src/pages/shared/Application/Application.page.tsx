@@ -8,7 +8,9 @@ import { ApplicationForm } from '@components/page/application';
 
 const ApplicationPage = () => {
   const { state, pathname } = useLocation();
-  const { data, isLoading, isError } = useGetApplication(state, pathname);
+  const applicationId = pathname.split('/applications/')[1];
+
+  const { data, isLoading, isError } = useGetApplication(state, applicationId);
 
   if (isLoading) {
     return <GlobalLoadingModal />;
@@ -20,7 +22,10 @@ const ApplicationPage = () => {
 
   return (
     <main>
-      <ApplicationForm data={state ? state : data } />
+      <ApplicationForm
+        data={state ? state : data }
+        applicationId={applicationId}
+      />
     </main>
   );
 };
