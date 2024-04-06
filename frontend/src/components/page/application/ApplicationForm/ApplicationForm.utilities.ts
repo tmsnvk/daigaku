@@ -15,10 +15,18 @@ const universityInformation = [
 const courseNameInformation = [
   'The course of your choice.',
 ];
+const minorSubjectInformation = [
+  'The minor subject of your choice.',
+];
+const programmeLengthInformation = [
+  'The length (years) of your chosen course.',
+];
 
 export {
   formInformation,
   universityInformation,
   countryInformation,
   courseNameInformation,
+  minorSubjectInformation,
+  programmeLengthInformation,
 };

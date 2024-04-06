@@ -7,7 +7,7 @@ type ComponentPropsT = {
   fieldId: string;
   label: string;
   type: string;
-  defaultValue: string;
+  defaultValue: string | number;
 }
 
 const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentPropsT) => {

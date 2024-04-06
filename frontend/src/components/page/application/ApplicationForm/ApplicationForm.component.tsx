@@ -17,6 +17,8 @@ import {
   countryInformation,
   courseNameInformation,
   formInformation,
+  minorSubjectInformation,
+  programmeLengthInformation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
 
@@ -55,6 +57,20 @@ const ApplicationForm = ({ data, applicationId }: ComponentPropsT) => {
           defaultValue={data.courseName}
         />
         <InputInfoBox content={courseNameInformation} />
+        <DisabledInputField
+          fieldId={'minorSubject'}
+          label={'Minor Subject'}
+          type={'text'}
+          defaultValue={data.minorSubject ?? '-'}
+        />
+        <InputInfoBox content={minorSubjectInformation} />
+        <DisabledInputField
+          fieldId={'programmeLength'}
+          label={'Programme Length'}
+          type={'number'}
+          defaultValue={data.programmeLength}
+        />
+        <InputInfoBox content={programmeLengthInformation} />
         {/*<GeneralInputField*/}
         {/*  register={register}*/}
         {/*  validation={{*/}
