@@ -1,0 +1,31 @@
+package net.tamasnovak.services.responseStatus;
+
+import net.tamasnovak.dtos.responseStatus.ResponseStatusFormDto;
+import net.tamasnovak.entities.application.ResponseStatus;
+import net.tamasnovak.repositories.responseStatus.ResponseStatusRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ResponseStatusServiceImpl implements ResponseStatusService {
+  private final ResponseStatusRepository responseStatusRepository;
+  private final ResponseStatusMapper responseStatusMapper;
+
+  @Autowired
+  public ResponseStatusServiceImpl(ResponseStatusRepository responseStatusRepository, ResponseStatusMapper responseStatusMapper) {
+    this.responseStatusRepository = responseStatusRepository;
+    this.responseStatusMapper = responseStatusMapper;
+  }
+
+  @Override
+  public List<ResponseStatusFormDto> findAll() {
+    List<ResponseStatus> responseStatuses = responseStatusRepository.findAll();
+
+    return responseStatuses.stream()
+      .map(responseStatusMapper::toResponseStatusFormDto)
+      .collect(Collectors.toList());
+  }
+}
