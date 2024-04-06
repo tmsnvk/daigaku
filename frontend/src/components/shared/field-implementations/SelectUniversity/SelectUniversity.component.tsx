@@ -14,7 +14,6 @@ type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
   fieldError: string | undefined;
   fieldId: Path<T>;
-  defaultValue: string;
   isDisabled: boolean;
   data: UniversitiesT[];
 }
@@ -23,7 +22,6 @@ const SelectUniversity = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
-  defaultValue,
   isDisabled,
   data,
 }: ComponentPropsT<T>) => {
@@ -40,7 +38,6 @@ const SelectUniversity = <T extends FieldValues>({
         id={fieldId}
         name={fieldId}
         autoComplete={'off'}
-        defaultValue={defaultValue}
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the university of your choice.</option>

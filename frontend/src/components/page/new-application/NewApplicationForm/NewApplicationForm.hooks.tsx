@@ -5,9 +5,9 @@ import {
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import {
+  axiosConfigWithAuth,
   mutationKeys,
   queryKeys,
-  axiosConfigWithAuth,
 } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 

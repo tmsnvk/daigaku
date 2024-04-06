@@ -97,7 +97,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           fieldId={'applicationStatus'}
           labelContent={'Application Status'}
           defaultOptionFieldContent={'Update the application\'s current status.'}
-          defaultValue={applicationData.applicationStatus ?? ''}
+          defaultValue={applicationData.applicationStatus}
           options={options.applicationStatus?.data}
         />
         <InputInfoBox
@@ -109,7 +109,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           fieldId={'interviewStatus'}
           labelContent={'Interview Status'}
           defaultOptionFieldContent={'Update the application\'s interview status.'}
-          defaultValue={applicationData.interviewStatus ?? ''}
+          defaultValue={applicationData.interviewStatus}
           options={options.interviewStatus?.data}
         />
         <InputInfoBox
@@ -121,7 +121,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           fieldId={'offerStatus'}
           labelContent={'Offer Status'}
           defaultOptionFieldContent={'Update the university\'s decision.'}
-          defaultValue={applicationData.offerStatus ?? ''}
+          defaultValue={applicationData.offerStatus}
           options={options.offerStatus?.data}
         />
         <InputInfoBox
@@ -133,7 +133,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           fieldId={'responseStatus'}
           labelContent={'Response Status'}
           defaultOptionFieldContent={'Update your response status.'}
-          defaultValue={applicationData.responseStatus ?? ''}
+          defaultValue={applicationData.responseStatus}
           options={options.responseStatus?.data}
         />
         <InputInfoBox
@@ -145,7 +145,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           fieldId={'finalDestinationStatus'}
           labelContent={'Final Destination Status'}
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
-          defaultValue={applicationData.finalDestinationStatus ?? ''}
+          defaultValue={applicationData.finalDestinationStatus}
           options={options.finalDestinationStatus?.data}
         />
         <InputInfoBox

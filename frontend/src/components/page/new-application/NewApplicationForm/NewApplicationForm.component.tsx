@@ -50,7 +50,6 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           register={register}
           fieldError={errors.country?.message}
           fieldId={'country'}
-          defaultValue={''}
           isDisabled={isPending}
           data={countryData}
           onCountryClick={onCountryClick}
@@ -61,7 +60,6 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           register={register}
           fieldError={errors.university?.message}
           fieldId={'university'}
-          defaultValue={''}
           isDisabled={isPending || isCountryNotSelected}
           data={universityData}
         />

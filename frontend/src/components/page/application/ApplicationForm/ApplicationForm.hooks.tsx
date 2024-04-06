@@ -96,11 +96,11 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: [mutationKeys.APPLICATION.PUT_BY_ID],
+    mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
     mutationFn: async (data: UpdateApplicationFormFieldsT): Promise<ApplicationT> => {
       const response = await axiosConfigWithAuth.request({
-        method: 'PUT',
-        url: `/api/applications/${applicationId}`,
+        method: 'PATCH',
+        url: `/api/applications/students/${applicationId}`,
         data,
       });
 

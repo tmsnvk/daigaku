@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  queryKeys,
   axiosConfigWithAuth,
+  queryKeys,
 } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 

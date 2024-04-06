@@ -14,7 +14,6 @@ type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
   fieldError: string | undefined;
   fieldId: Path<T>;
-  defaultValue: string;
   isDisabled: boolean;
   data: CountriesT[];
   onCountryClick: (event: string) => void;
@@ -25,7 +24,6 @@ const SelectCountry = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
-  defaultValue,
   isDisabled,
   data,
   onCountryClick,
@@ -48,7 +46,6 @@ const SelectCountry = <T extends FieldValues>({
         id={fieldId}
         name={fieldId}
         autoComplete={'off'}
-        defaultValue={defaultValue}
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the country of your choice.</option>

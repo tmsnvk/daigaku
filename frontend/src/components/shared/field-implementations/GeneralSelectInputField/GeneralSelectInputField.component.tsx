@@ -1,4 +1,8 @@
 import {
+  useEffect,
+  useState,
+} from 'react';
+import {
   FieldValues,
   Path,
   UseFormRegister,
@@ -8,11 +12,13 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
+import { ApplicationStatusT } from '@services/application/ApplicationStatus.service.ts';
+import { InterviewStatusT } from '@services/application/InterviewStatusService.service.ts';
+import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
+import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
+import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
 
-type SelectOptionsT = {
-  uuid: string;
-  name: string;
-}
+type SelectOptionsT = ApplicationStatusT | InterviewStatusT | OfferStatusT | ResponseStatusT | FinalDestinationStatusT;
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
@@ -33,6 +39,12 @@ const GeneralSelectInputField = <T extends FieldValues>({
   defaultOptionFieldContent,
   options,
 }: ComponentPropsT<T>) => {
+  const [defaultOption, setDefaultOption] = useState<SelectOptionsT>();
+
+  useEffect(() => {
+    setDefaultOption(options?.filter((option) => option.name === defaultValue)[0]);
+  }, []);
+
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
       <InputLabel inputId={fieldId} content={labelContent} />
@@ -40,11 +52,14 @@ const GeneralSelectInputField = <T extends FieldValues>({
         {...register(fieldId)}
         id={fieldId}
         name={fieldId}
-        defaultValue={defaultValue}
       >
-        {!defaultValue && <option hidden value={''}>{defaultOptionFieldContent}</option>}
+        {
+          defaultValue ?
+            <option hidden value={defaultOption?.uuid}>{defaultOption?.name}</option> :
+            <option hidden value={''}>{defaultOptionFieldContent}</option>
+        }
         {options?.map((option: SelectOptionsT) => {
-          return <option key={option.uuid} value={option.uuid}>{`${option.name}`}</option>;
+          return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
       </select>
       {fieldError && <ErrorMessage content={fieldError} />}

@@ -6,7 +6,7 @@ const mutationKeys = {
   },
   APPLICATION: {
     POST_BY_STUDENT: 'postApplicationByStudent',
-    PUT_BY_ID: 'putApplicationById',
+    PATCH_BY_UUID: 'patchApplicationByUuid',
   },
 };
 
