@@ -8,6 +8,7 @@ import {
   ErrorMessage,
   InputFieldStyles,
   InputLabel,
+  LoadingIndicator,
 } from '@components/shared/form';
 import { InterviewStatusT } from '@hooks/applications/useGetInterviewStatuses.tsx';
 
@@ -24,7 +25,15 @@ const SelectInterviewStatus = <T extends FieldValues>({
   fieldId,
   defaultValue,
 }: ComponentPropsT<T>) => {
-  const { data } = useGetInterviewStatuses();
+  const { data, isLoading, isError } = useGetInterviewStatuses();
+
+  if (isLoading) {
+    return <LoadingIndicator content={'Loading form options.'} />;
+  }
+
+  if (isError) {
+    return <ErrorMessage content={'An error has occurred. Refresh the page or reach out via \'Feedback\'.'} />;
+  }
 
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
