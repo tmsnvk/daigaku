@@ -5,12 +5,13 @@ import {
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
 import {
+  FeedbackModal,
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/shared/modal';
 import {
-  ApplicationFormGridContainer,
-  InputInfoBox,
+  ApplicationFormGridContainer, ErrorMessage,
+  InputInfoBox, LoadingIndicator, SubmitInput,
 } from '@components/shared/form';
 import { GenericTitle } from '@components/shared/general';
 import {
@@ -28,6 +29,7 @@ import {
   minorSubjectInformation,
   programmeLengthInformation,
   responseStatusInformation,
+  submissionConfirmation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
 
@@ -149,7 +151,19 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
         <InputInfoBox
           content={finalDestinationInformation}
         />
+        <article>
+          {
+            isPending ?
+              <LoadingIndicator content={'Your application is being updated.'} /> :
+              <SubmitInput type={'submit'} value={'update application'} disabled={isPending} />
+          }
+          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+        </article>
       </ApplicationFormGridContainer>
+      <FeedbackModal
+        isVisible={isSuccess}
+        content={submissionConfirmation}
+      />
     </>
   );
 };
