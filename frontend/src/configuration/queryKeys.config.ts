@@ -21,6 +21,9 @@ const QUERY_KEYS = {
   INTERVIEW_STATUS: {
     GET_ALL: 'getInterviewStatuses',
   },
+  OFFER_STATUS: {
+    GET_ALL: 'getOfferStatuses',
+  },
   COUNTRY: {
     GET_AS_SELECT_OPTIONS: 'getCountryOptions',
   },
