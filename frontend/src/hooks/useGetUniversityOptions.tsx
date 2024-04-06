@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  QUERY_KEYS,
+  queryKeys,
   axiosConfigWithAuth,
 } from '@configuration';
 
@@ -25,7 +25,7 @@ const getUniversityOptions = async (selectedCountryId: string) => {
 
 const useGetUniversityOptions = (isCountryFieldSelected: boolean, selectedCountryId: string) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.UNIVERSITY.GET_AS_SELECT_OPTIONS, selectedCountryId],
+    queryKey: [queryKeys.UNIVERSITY.GET_AS_SELECT_OPTIONS, selectedCountryId],
     queryFn: () => getUniversityOptions(selectedCountryId),
     enabled: isCountryFieldSelected,
   });

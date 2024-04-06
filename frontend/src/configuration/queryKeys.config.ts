@@ -1,4 +1,4 @@
-const MUTATION_KEYS = {
+const mutationKeys = {
   ACCOUNT: {
     POST_LOGIN_FORM: 'postAccountLoginForm',
     POST_REGISTER_FORM: 'postAccountRegisterForm',
@@ -10,7 +10,7 @@ const MUTATION_KEYS = {
   },
 };
 
-const QUERY_KEYS = {
+const queryKeys = {
   APPLICATION: {
     GET_ALL: 'getApplications',
     GET_BY_ID: 'getApplicationById',
@@ -36,6 +36,6 @@ const QUERY_KEYS = {
 };
 
 export {
-  MUTATION_KEYS,
-  QUERY_KEYS,
+  mutationKeys,
+  queryKeys,
 };

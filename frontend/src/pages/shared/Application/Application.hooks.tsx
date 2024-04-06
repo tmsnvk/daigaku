@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  QUERY_KEYS,
+  queryKeys,
   axiosConfigWithAuth,
 } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
@@ -20,7 +20,7 @@ const getApplication = async (id: string) => {
 
 const useGetApplication = (state: ApplicationT | null, applicationId: string) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.APPLICATION.GET_BY_ID],
+    queryKey: [queryKeys.APPLICATION.GET_BY_ID],
     queryFn: () => getApplication(applicationId),
     enabled: state === null,
   });

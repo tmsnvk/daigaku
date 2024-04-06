@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import {
-  MUTATION_KEYS,
+  mutationKeys,
   axiosConfig,
 } from '@configuration';
 import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
@@ -29,7 +29,7 @@ type RegisterFormErrorT = {
 
 const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
   return useMutation({
-    mutationKey: [MUTATION_KEYS.ACCOUNT.POST_REGISTER_FORM],
+    mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER_FORM],
     mutationFn: async (data: RegisterFormFieldsT): Promise<void> => {
       await axiosConfig.request({
         method: 'POST',

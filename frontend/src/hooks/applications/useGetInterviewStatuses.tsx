@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  QUERY_KEYS,
+  queryKeys,
   axiosConfigWithAuth,
 } from '@configuration';
 
@@ -24,7 +24,7 @@ const getInterviewStatuses = async () => {
 
 const useGetInterviewStatuses = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.INTERVIEW_STATUS.GET_ALL],
+    queryKey: [queryKeys.INTERVIEW_STATUS.GET_ALL],
     queryFn: () => getInterviewStatuses(),
   });
 };

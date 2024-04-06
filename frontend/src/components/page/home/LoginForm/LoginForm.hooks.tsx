@@ -7,7 +7,7 @@ import {
   useAuth,
 } from '@context/AuthContext.tsx';
 import {
-  MUTATION_KEYS,
+  mutationKeys,
   axiosConfig,
 } from '@configuration';
 
@@ -46,7 +46,7 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationKey: [MUTATION_KEYS.ACCOUNT.POST_LOGIN_FORM],
+    mutationKey: [mutationKeys.ACCOUNT.POST_LOGIN_FORM],
     mutationFn: async (data: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
       const response = await axiosConfig.request({
         method: 'POST',

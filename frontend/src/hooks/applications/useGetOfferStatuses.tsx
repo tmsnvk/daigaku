@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  QUERY_KEYS,
+  queryKeys,
   axiosConfigWithAuth,
 } from '@configuration';
 
@@ -20,7 +20,7 @@ const getOfferStatuses = async (): Promise<OfferStatusT[]> => {
 
 const useGetOfferStatuses = () => {
   return useQuery<OfferStatusT[]>({
-    queryKey: [QUERY_KEYS.OFFER_STATUS.GET_ALL],
+    queryKey: [queryKeys.OFFER_STATUS.GET_ALL],
     queryFn: () => getOfferStatuses(),
   });
 };

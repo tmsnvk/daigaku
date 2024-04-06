@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  QUERY_KEYS,
+  queryKeys,
   axiosConfigWithAuth,
 } from '@configuration';
 
@@ -24,7 +24,7 @@ const getApplicationStatus = async () => {
 
 const useGetApplicationStatuses = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.APPLICATION_STATUS.GET_ALL],
+    queryKey: [queryKeys.APPLICATION_STATUS.GET_ALL],
     queryFn: () => getApplicationStatus(),
   });
 };
