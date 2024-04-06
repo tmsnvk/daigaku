@@ -18,6 +18,9 @@ const QUERY_KEYS = {
   APPLICATION_STATUS: {
     GET_ALL: 'getApplicationStatuses',
   },
+  INTERVIEW_STATUS: {
+    GET_ALL: 'getInterviewStatuses',
+  },
   COUNTRY: {
     GET_AS_SELECT_OPTIONS: 'getCountryOptions',
   },

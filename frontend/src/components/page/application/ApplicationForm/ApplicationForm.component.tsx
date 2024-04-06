@@ -11,6 +11,7 @@ import { GenericTitle } from '@components/shared/general';
 import {
   DisabledInputField,
   SelectApplicationStatus,
+  SelectInterviewStatus,
 } from '@components/shared/field-implementations';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 import {
@@ -18,6 +19,7 @@ import {
   countryInformation,
   courseNameInformation,
   formInformation,
+  interviewStatusInformation,
   minorSubjectInformation,
   programmeLengthInformation,
   universityInformation,
@@ -80,6 +82,15 @@ const ApplicationForm = ({ data, applicationId }: ComponentPropsT) => {
         />
         <InputInfoBox
           content={applicationStatusInformation}
+        />
+        <SelectInterviewStatus
+          register={register}
+          fieldError={errors.interviewStatus?.message}
+          fieldId={'interviewStatus'}
+          defaultValue={data.interviewStatus}
+        />
+        <InputInfoBox
+          content={interviewStatusInformation}
         />
       </ApplicationFormGridContainer>
     </>
