@@ -1,4 +1,4 @@
-import { GeneralIcon } from '@components/shared/icon-styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ComponentContainer } from './LoadingIndicator.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 
@@ -10,7 +10,7 @@ const LoadingIndicator = ({ content }: ComponentPropsT) => {
   return (
     <ComponentContainer>
       <p>{content}</p>
-      <GeneralIcon icon={iconLibraryConfig.faSpinner} spin></GeneralIcon>
+      <FontAwesomeIcon icon={iconLibraryConfig.faSpinner} spin></FontAwesomeIcon>
     </ComponentContainer>
   );
 };
