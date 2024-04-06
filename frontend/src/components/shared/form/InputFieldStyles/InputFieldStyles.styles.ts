@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 type InputFieldT = {
   $isError?: boolean;
+  $isDisabled?: boolean;
 }
 
 const InputFieldStyles = styled.article<InputFieldT>`
@@ -19,7 +20,7 @@ const InputFieldStyles = styled.article<InputFieldT>`
     height: 5rem;
     padding: 0 0 0 2.5rem;
     font-size: ${({ theme }) => theme.fontSize.small};
-    background-color: ${({ theme }) => theme.color.secondaryLight};
+    background-color: ${({ theme, $isDisabled }) => $isDisabled ? theme.color.tertiaryLight : theme.color.secondaryLight};
     border: 0.2rem solid ${({ theme, $isError }) => $isError ? theme.color.error : theme.color.primaryDark};
     border-radius: 1.25rem;
 
@@ -47,10 +48,6 @@ const InputFieldStyles = styled.article<InputFieldT>`
   
   & input[type=number] {
     width: 10rem;
-  }
-  
-  & input[disabled] {
-    background-color: ${({ theme }) => theme.color.tertiaryLight};
   }
 
   & select {
