@@ -12,6 +12,7 @@ import {
   DisabledInputField,
   SelectApplicationStatus,
   SelectInterviewStatus,
+  SelectResponseStatus,
 } from '@components/shared/field-implementations';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 import {
@@ -22,6 +23,7 @@ import {
   interviewStatusInformation,
   minorSubjectInformation,
   programmeLengthInformation,
+  responseStatusInformation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
 
@@ -91,6 +93,15 @@ const ApplicationForm = ({ data, applicationId }: ComponentPropsT) => {
         />
         <InputInfoBox
           content={interviewStatusInformation}
+        />
+        <SelectResponseStatus
+          register={register}
+          fieldError={errors.responseStatus?.message}
+          fieldId={'responseStatus'}
+          defaultValue={data.responseStatus}
+        />
+        <InputInfoBox
+          content={responseStatusInformation}
         />
       </ApplicationFormGridContainer>
     </>

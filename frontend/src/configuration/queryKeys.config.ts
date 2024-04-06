@@ -24,6 +24,9 @@ const queryKeys = {
   OFFER_STATUS: {
     GET_ALL: 'getOfferStatuses',
   },
+  RESPONSE_STATUS: {
+    GET_ALL: 'getResponseStatuses',
+  },
   COUNTRY: {
     GET_AS_SELECT_OPTIONS: 'getCountryOptions',
   },

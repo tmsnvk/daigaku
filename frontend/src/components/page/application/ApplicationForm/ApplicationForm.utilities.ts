@@ -30,6 +30,10 @@ const interviewStatusInformation = [
   'If this application process does not include an interview step, update the status accordingly.',
   'If an interview is part of the application, update the field whether you are invited or not.',
 ];
+const responseStatusInformation = [
+  `Update the application's university response status 
+  once you have received the university's decision regarding your application.`,
+];
 
 export {
   formInformation,
@@ -40,4 +44,5 @@ export {
   programmeLengthInformation,
   applicationStatusInformation,
   interviewStatusInformation,
+  responseStatusInformation,
 };
