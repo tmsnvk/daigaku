@@ -27,6 +27,9 @@ const queryKeys = {
   RESPONSE_STATUS: {
     GET_ALL: 'getResponseStatuses',
   },
+  FINAL_DESTINATION: {
+    GET_ALL: 'getFinalDestinationStatuses',
+  },
   COUNTRY: {
     GET_AS_SELECT_OPTIONS: 'getCountryOptions',
   },

@@ -27,11 +27,11 @@
       "@configuration": ["configuration/index.ts"],
       "@components/*": ["components/*"],
       "@context/*": ["context/*"],
+      "@custom-types/*": ["types/*"],
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
+      "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],
-      "@custom-types/*": ["types/*"],
-
       "@utilities": ["utilities/index.ts"]
     },
   },
