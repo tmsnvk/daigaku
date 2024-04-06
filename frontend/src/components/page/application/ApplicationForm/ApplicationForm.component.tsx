@@ -10,10 +10,11 @@ import {
 import { GenericTitle } from '@components/shared/general';
 import {
   DisabledInputField,
-  GeneralInputField,
+  SelectApplicationStatus,
 } from '@components/shared/field-implementations';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 import {
+  applicationStatusInformation,
   countryInformation,
   courseNameInformation,
   formInformation,
@@ -71,26 +72,15 @@ const ApplicationForm = ({ data, applicationId }: ComponentPropsT) => {
           defaultValue={data.programmeLength}
         />
         <InputInfoBox content={programmeLengthInformation} />
-        {/*<GeneralInputField*/}
-        {/*  register={register}*/}
-        {/*  validation={{*/}
-        {/*    required: {*/}
-        {/*      value: true,*/}
-        {/*      message: 'Providing the name of your selected course is required.',*/}
-        {/*    },*/}
-        {/*    pattern: {*/}
-        {/*      value: /^[A-Za-z-\s]{5,255}$/,*/}
-        {/*      message: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',*/}
-        {/*    },*/}
-        {/*  }}*/}
-        {/*  fieldError={errors.courseName?.message}*/}
-        {/*  fieldId={'courseName'}*/}
-        {/*  label={'Course name'}*/}
-        {/*  type={'text'}*/}
-        {/*  placeholder={'Provide the course of your choice.'}*/}
-        {/*  defaultValue={''}*/}
-        {/*  isDisabled={isPending}*/}
-        {/*/>*/}
+        <SelectApplicationStatus
+          register={register}
+          fieldError={errors.applicationStatus?.message}
+          fieldId={'applicationStatus'}
+          defaultValue={data.applicationStatus}
+        />
+        <InputInfoBox
+          content={applicationStatusInformation}
+        />
       </ApplicationFormGridContainer>
     </>
   );

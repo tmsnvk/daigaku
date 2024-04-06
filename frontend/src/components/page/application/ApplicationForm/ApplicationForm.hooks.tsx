@@ -45,7 +45,7 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: [MUTATION_KEYS.APPLICATION.PUT_APPLICATION],
+    mutationKey: [MUTATION_KEYS.APPLICATION.PUT_BY_ID],
     mutationFn: async (data: UpdateApplicationFormFieldsT): Promise<ApplicationT> => {
       const response = await axiosConfigWithAuth.request({
         method: 'PUT',
@@ -57,7 +57,7 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
     },
     onSuccess: (data) => {
       queryClient.setQueryData(
-        [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
+        [QUERY_KEYS.APPLICATION.GET_ALL],
         (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
       );
 
