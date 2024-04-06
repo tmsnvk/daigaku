@@ -3,7 +3,9 @@ package net.tamasnovak.controllers.offerStatus;
 import net.tamasnovak.dtos.offerStatus.OfferStatusFormDto;
 import net.tamasnovak.services.offerStatus.OfferStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +27,11 @@ public class OfferStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public List<OfferStatusFormDto> getAll() {
-    return offerStatusService.findAll();
+  public ResponseEntity<List<OfferStatusFormDto>> getAll() {
+    List<OfferStatusFormDto> offerStatuses = offerStatusService.findAll();
+
+    return ResponseEntity
+      .status(HttpStatus.OK)
+      .body(offerStatuses);
   }
 }
