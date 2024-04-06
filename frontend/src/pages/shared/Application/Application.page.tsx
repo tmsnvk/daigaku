@@ -23,7 +23,7 @@ const ApplicationPage = () => {
   return (
     <main>
       <ApplicationForm
-        data={state ? state : data }
+        applicationData={state ? state : data }
         applicationId={applicationId}
       />
     </main>

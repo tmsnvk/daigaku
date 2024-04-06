@@ -3,49 +3,47 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
-import { useGetInterviewStatuses } from '@hooks/applications';
 import {
   ErrorMessage,
   InputFieldStyles,
   InputLabel,
-  LoadingIndicator,
 } from '@components/shared/form';
-import { InterviewStatusT } from '@hooks/applications/useGetInterviewStatuses.tsx';
+
+type SelectOptionsT = {
+  uuid: string;
+  name: string;
+}
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
   fieldError: string | undefined;
   fieldId: Path<T>;
+  labelContent: string;
   defaultValue: string;
+  defaultOptionFieldContent: string;
+  options: SelectOptionsT[] | undefined;
 }
 
-const SelectInterviewStatus = <T extends FieldValues>({
+const GeneralSelectInputField = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
+  labelContent,
   defaultValue,
+  defaultOptionFieldContent,
+  options,
 }: ComponentPropsT<T>) => {
-  const { data, isLoading, isError } = useGetInterviewStatuses();
-
-  if (isLoading) {
-    return <LoadingIndicator content={'Loading form options.'} />;
-  }
-
-  if (isError) {
-    return <ErrorMessage content={'An error has occurred. Refresh the page or reach out via \'Feedback\'.'} />;
-  }
-
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={'Interview Status'} />
+      <InputLabel inputId={fieldId} content={labelContent} />
       <select
         {...register(fieldId)}
         id={fieldId}
         name={fieldId}
         defaultValue={defaultValue}
       >
-        {defaultValue ?? <option hidden value={''}>Update the application`&apos;`s interview status.</option>}
-        {data?.map((option: InterviewStatusT) => {
+        {!defaultValue && <option hidden value={''}>{defaultOptionFieldContent}</option>}
+        {options?.map((option: SelectOptionsT) => {
           return <option key={option.uuid} value={option.uuid}>{`${option.name}`}</option>;
         })}
       </select>
@@ -54,4 +52,4 @@ const SelectInterviewStatus = <T extends FieldValues>({
   );
 };
 
-export default SelectInterviewStatus;
+export default GeneralSelectInputField;

@@ -31,8 +31,8 @@ const DashboardPage = () => {
       <MainContainer>
         <TodoList data={data} />
         {account.role === AccountRoleE.STUDENT && <StudentLayout data={data} />}
-        {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER data={data} />}*/}
-        {/*{account.accountRole === AccountRoleE.ADMIN && <PLACEHOLDER data={data} />}*/}
+        {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER applicationData={applicationData} />}*/}
+        {/*{account.accountRole === AccountRoleE.ADMIN && <PLACEHOLDER applicationData={applicationData} />}*/}
       </MainContainer>
   );
 };

@@ -34,6 +34,9 @@ const responseStatusInformation = [
   `Update the application's university response status 
   once you have received the university's decision regarding your application.`,
 ];
+const finalDestinationInformation = [
+  'Decide the final fate of this application with regards to the university\'s decision.',
+];
 
 export {
   formInformation,
@@ -45,4 +48,5 @@ export {
   applicationStatusInformation,
   interviewStatusInformation,
   responseStatusInformation,
+  finalDestinationInformation,
 };
