@@ -14,7 +14,10 @@ import {
 } from '@components/shared/field-implementations';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 import {
+  countryInformation,
+  courseNameInformation,
   formInformation,
+  universityInformation,
 } from './ApplicationForm.utilities.ts';
 
 type ComponentPropsT = {
@@ -37,6 +40,21 @@ const ApplicationForm = ({ data, applicationId }: ComponentPropsT) => {
           type={'text'}
           defaultValue={data.country}
         />
+        <InputInfoBox content={countryInformation} />
+        <DisabledInputField
+          fieldId={'university'}
+          label={'University'}
+          type={'text'}
+          defaultValue={data.university}
+        />
+        <InputInfoBox content={universityInformation} />
+        <DisabledInputField
+          fieldId={'courseName'}
+          label={'Course Name'}
+          type={'text'}
+          defaultValue={data.courseName}
+        />
+        <InputInfoBox content={courseNameInformation} />
         {/*<GeneralInputField*/}
         {/*  register={register}*/}
         {/*  validation={{*/}

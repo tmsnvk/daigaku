@@ -6,7 +6,19 @@ const formInformation = [
   `Let your mentor know if you have any questions with the application.
   If you have any issues with the site or form, reach out to our team using the 'Feedback' form.`,
 ];
+const countryInformation = [
+  'The country of your choice.',
+];
+const universityInformation = [
+  'The university of your choice.',
+];
+const courseNameInformation = [
+  'The course of your choice.',
+];
 
 export {
   formInformation,
+  universityInformation,
+  countryInformation,
+  courseNameInformation,
 };
