@@ -7,7 +7,7 @@ import { useGetApplicationStatuses } from '@hooks/applications';
 import {
   ErrorMessage,
   InputFieldStyles,
-  InputLabel,
+  InputLabel, LoadingIndicator,
 } from '@components/shared/form';
 import { ApplicationStatusT } from '@hooks/applications/useGetApplicationStatuses.tsx';
 
@@ -24,7 +24,15 @@ const SelectApplicationStatus = <T extends FieldValues>({
   fieldId,
   defaultValue,
 }: ComponentPropsT<T>) => {
-  const { data } = useGetApplicationStatuses();
+  const { data, isLoading, isError } = useGetApplicationStatuses();
+
+  if (isLoading) {
+    return <LoadingIndicator content={'Loading form options.'} />;
+  }
+
+  if (isError) {
+    return <ErrorMessage content={'An error has occurred. Refresh the page or reach out via \'Feedback\'.'} />;
+  }
 
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
