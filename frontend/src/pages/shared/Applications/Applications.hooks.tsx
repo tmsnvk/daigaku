@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
-import { queryKeys } from '@configuration';
+import { QUERY_KEYS } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
 export type ColumnT = {
@@ -76,7 +76,7 @@ const useSetOrder = (data: ApplicationT[]) => {
     });
 
     queryClient.setQueryData(
-      [queryKeys.getApplications],
+      [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
       [...sorted],
     );
   };

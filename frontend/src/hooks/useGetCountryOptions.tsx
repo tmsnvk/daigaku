@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import {
+  QUERY_KEYS,
   axiosConfigWithAuth,
-  queryKeys,
 } from '@configuration';
 
 export type CountriesT = {
@@ -24,7 +24,7 @@ const getCountryOptions = async () => {
 
 const useGetCountryOptions = () => {
   return useQuery({
-    queryKey: [queryKeys.getCountryOptions],
+    queryKey: [QUERY_KEYS.COUNTRY.GET_COUNTRY_SELECT_OPTIONS],
     queryFn: () => getCountryOptions(),
   });
 };

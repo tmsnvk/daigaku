@@ -4,9 +4,9 @@ import {
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import {
+  MUTATION_KEYS,
+  QUERY_KEYS,
   axiosConfigWithAuth,
-  mutationKeys,
-  queryKeys,
 } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
@@ -45,7 +45,7 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: [mutationKeys.updateApplication],
+    mutationKey: [MUTATION_KEYS.APPLICATION.PUT_APPLICATION],
     mutationFn: async (data: UpdateApplicationFormFieldsT): Promise<ApplicationT> => {
       const response = await axiosConfigWithAuth.request({
         method: 'PUT',
@@ -57,7 +57,7 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
     },
     onSuccess: (data) => {
       queryClient.setQueryData(
-        [queryKeys.getApplications],
+        [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
         (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
       );
 

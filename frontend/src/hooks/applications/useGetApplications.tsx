@@ -4,8 +4,8 @@ import {
   useAuth,
 } from '@context/AuthContext.tsx';
 import {
+  QUERY_KEYS,
   axiosConfigWithAuth,
-  queryKeys,
 } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
@@ -37,7 +37,7 @@ const useGetApplications = () => {
   const roleUrl = getUrl(account.role as AccountRoleE);
 
   return useQuery({
-    queryKey: [queryKeys.getApplications],
+    queryKey: [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
     queryFn: () => getApplications(roleUrl),
   });
 };

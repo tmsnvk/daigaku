@@ -4,14 +4,14 @@ import {
 } from './axios.config.ts';
 import iconLibraryConfig from './iconLibrary.config.ts';
 import {
-  mutationKeys,
-  queryKeys,
+  MUTATION_KEYS,
+  QUERY_KEYS,
 } from './queryKeys.config.ts';
 
 export {
   axiosConfig,
   axiosConfigWithAuth,
   iconLibraryConfig,
-  mutationKeys,
-  queryKeys,
+  MUTATION_KEYS,
+  QUERY_KEYS,
 };

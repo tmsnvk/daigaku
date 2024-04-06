@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import {
+  QUERY_KEYS,
   axiosConfigWithAuth,
-  queryKeys,
 } from '@configuration';
 import {
   AccountRoleE,
@@ -54,7 +54,7 @@ const useGetDashboardData = () => {
   const { account } = useAuth();
 
   return useQuery({
-    queryKey: [queryKeys.getDashboardData],
+    queryKey: [QUERY_KEYS.AGGREGATE.GET_DASHBOARD_DATA],
     queryFn: () => getDashboardData(account.role as AccountRoleE),
     refetchOnMount: 'always',
   });

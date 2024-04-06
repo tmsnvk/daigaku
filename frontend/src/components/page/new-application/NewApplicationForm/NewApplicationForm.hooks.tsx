@@ -5,9 +5,9 @@ import {
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import {
+  MUTATION_KEYS,
+  QUERY_KEYS,
   axiosConfigWithAuth,
-  mutationKeys,
-  queryKeys,
 } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
@@ -46,7 +46,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountryField, reset }: New
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: [mutationKeys.postApplicationByStudent],
+    mutationKey: [MUTATION_KEYS.APPLICATION.POST_APPLICATION_BY_STUDENT],
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<ApplicationT> => {
       const response = await axiosConfigWithAuth.request({
         method: 'POST',
@@ -58,7 +58,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountryField, reset }: New
     },
     onSuccess: (data) => {
       queryClient.setQueryData(
-        [queryKeys.getApplications],
+        [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
         (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
       );
 
