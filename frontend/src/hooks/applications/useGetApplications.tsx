@@ -37,7 +37,7 @@ const useGetApplications = () => {
   const roleUrl = getUrl(account.role as AccountRoleE);
 
   return useQuery({
-    queryKey: [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
+    queryKey: [QUERY_KEYS.APPLICATION.GET_ALL],
     queryFn: () => getApplications(roleUrl),
   });
 };

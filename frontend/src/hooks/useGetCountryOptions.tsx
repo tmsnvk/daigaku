@@ -24,7 +24,7 @@ const getCountryOptions = async () => {
 
 const useGetCountryOptions = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.COUNTRY.GET_COUNTRY_SELECT_OPTIONS],
+    queryKey: [QUERY_KEYS.COUNTRY.GET_AS_SELECT_OPTIONS],
     queryFn: () => getCountryOptions(),
   });
 };

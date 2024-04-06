@@ -21,6 +21,11 @@ const minorSubjectInformation = [
 const programmeLengthInformation = [
   'The length (years) of your chosen course.',
 ];
+const applicationStatusInformation = [
+  `Change the application status to:
+  (1) 'Submitted' once you have submitted it as per detailed in the application process;
+  (2) 'Withdrawn' if you have decided not to move forward with it.`,
+];
 
 export {
   formInformation,
@@ -29,4 +34,5 @@ export {
   courseNameInformation,
   minorSubjectInformation,
   programmeLengthInformation,
+  applicationStatusInformation,
 };

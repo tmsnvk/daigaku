@@ -46,7 +46,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountryField, reset }: New
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: [MUTATION_KEYS.APPLICATION.POST_APPLICATION_BY_STUDENT],
+    mutationKey: [MUTATION_KEYS.APPLICATION.POST_BY_STUDENT],
     mutationFn: async (data: NewApplicationFormFieldsT): Promise<ApplicationT> => {
       const response = await axiosConfigWithAuth.request({
         method: 'POST',
@@ -58,7 +58,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountryField, reset }: New
     },
     onSuccess: (data) => {
       queryClient.setQueryData(
-        [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
+        [QUERY_KEYS.APPLICATION.GET_ALL],
         (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
       );
 

@@ -76,7 +76,7 @@ const useSetOrder = (data: ApplicationT[]) => {
     });
 
     queryClient.setQueryData(
-      [QUERY_KEYS.APPLICATION.GET_APPLICATIONS],
+      [QUERY_KEYS.APPLICATION.GET_ALL],
       [...sorted],
     );
   };
