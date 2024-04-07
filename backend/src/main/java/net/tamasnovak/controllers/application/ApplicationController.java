@@ -24,12 +24,12 @@ public class ApplicationController {
   }
 
   @RequestMapping(
-    value = "/{id}",
+    value = "/{uuid}",
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("id") UUID id) {
-    ApplicationDto application = applicationService.getByUuid(id);
+  public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") UUID uuid) {
+    ApplicationDto application = applicationService.getByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

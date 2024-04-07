@@ -6,6 +6,7 @@ import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.application.ApplicationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -21,8 +22,9 @@ public class ApplicationServiceImpl implements ApplicationService {
   }
 
   @Override
-  public ApplicationDto getByUuid(UUID id) {
-    Application application = applicationRepository.findByUuid(id);
+  @Transactional(readOnly = true)
+  public ApplicationDto getByUuid(UUID uuid) {
+    Application application = applicationRepository.findByUuid(uuid);
 
     return applicationMapper.toApplicationDto(application);
   }
