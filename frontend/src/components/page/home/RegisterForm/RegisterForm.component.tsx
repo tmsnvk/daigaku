@@ -92,8 +92,8 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} />
-        <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
+        <FormSwapButton formType={FormTypeE.RESET} buttonContent={'Forgot password?'} clickHandler={formSelector} />
+        <FormSwapButton formType={FormTypeE.LOGIN} buttonContent={'Log in'} clickHandler={formSelector} />
       </article>
     </section>
   );

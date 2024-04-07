@@ -70,8 +70,8 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isPending} />
-        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isPending} />
+        <FormSwapButton formType={FormTypeE.RESET} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isPending} />
+        <FormSwapButton formType={FormTypeE.REGISTER} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isPending} />
       </article>
     </section>
   );

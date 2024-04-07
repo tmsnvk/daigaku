@@ -1,4 +1,17 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { BaseLightElementBorderStyle } from '@components/shared/base-styles';
+
+const fadeInFromBottom = keyframes`
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+`;
 
 const MainContainer = styled.main`
   container-type: inline-size;
@@ -8,6 +21,8 @@ const MainContainer = styled.main`
   align-items: center;
 
   & section {
+    ${BaseLightElementBorderStyle};
+
     margin: 5% 0 5% 0;
     width: 85%;
     display: flex;
@@ -15,9 +30,7 @@ const MainContainer = styled.main`
     justify-content: space-between;
     padding: 5rem 2.5rem 5rem 2.5rem;
     text-align: center;
-    border: 0.25rem solid ${({ theme }) => theme.color.secondaryLight};
-    border-radius: 0.75rem;
-    box-shadow: 1rem 1rem 1.5rem 0 ${({ theme }) => theme.color.secondaryLight};
+    animation: ${fadeInFromBottom} ease 1s;
 
     & > article {
       display: flex;

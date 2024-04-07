@@ -54,8 +54,8 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
-        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} />
+        <FormSwapButton formType={FormTypeE.LOGIN} buttonContent={'Log in'} clickHandler={formSelector} />
+        <FormSwapButton formType={FormTypeE.REGISTER} buttonContent={'Create account'} clickHandler={formSelector} />
       </article>
     </section>
   );

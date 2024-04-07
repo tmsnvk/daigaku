@@ -14,8 +14,8 @@ import { confirmationModalMessages } from './Home.utilities.ts';
 const HomePage = () => {
   const { authStatus } = useAuth();
 
-  const { isConfirmationModalVisible, showModalAfterSuccessFulSubmission, closeModal } = useShowConfirmationModal();
-  const { activeFormType, renderFormComponent } = useRenderSelectedFormComponent({ showModalAfterSuccessFulSubmission });
+  const { isConfirmationModalVisible, showModal, closeModal } = useShowConfirmationModal();
+  const { activeFormType, formComponents } = useRenderSelectedFormComponent(showModal);
 
   if (authStatus === AuthStatusE.SIGNED_IN) {
     return <Navigate to={'/dashboard'} />;
@@ -24,7 +24,7 @@ const HomePage = () => {
   return (
     authStatus === AuthStatusE.SIGNED_OUT &&
     <MainContainer>
-      {renderFormComponent()}
+      {formComponents[activeFormType]}
       {
         isConfirmationModalVisible &&
         <ConfirmationModal
