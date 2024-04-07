@@ -1,5 +1,5 @@
 export type ApplicationT = {
-  id: string;
+  uuid: string;
   account: string;
   country: string;
   university: string;

@@ -17,7 +17,7 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
   return (
     data.map((element) => {
       return (
-        <RowContainer key={element.id}>
+        <RowContainer key={element.uuid}>
           <DataCell $columns={columns} $id={'courseName'}>{element.courseName}</DataCell>
           <DataCell $columns={columns} $id={'university'}>{element.university}</DataCell>
           <DataCell $columns={columns} $id={'country'}>{element.country}</DataCell>
@@ -27,7 +27,7 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
           <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus ?? '-'}</DataCell>
           <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
-            <Link to={element.id} state={element}>
+            <Link to={element.uuid} state={element}>
               EDIT
               <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
             </Link>

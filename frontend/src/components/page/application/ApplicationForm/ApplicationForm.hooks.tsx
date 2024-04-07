@@ -23,7 +23,6 @@ import { InterviewStatusT } from '@services/application/InterviewStatusService.s
 import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
 import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
 import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
-import { useNavigate } from 'react-router-dom';
 
 type ApplicationOptionStatusesT = {
   options: {
