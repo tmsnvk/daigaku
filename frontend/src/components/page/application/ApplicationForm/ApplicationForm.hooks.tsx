@@ -23,6 +23,7 @@ import { InterviewStatusT } from '@services/application/InterviewStatusService.s
 import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
 import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
 import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
+import { useNavigate } from 'react-router-dom';
 
 type ApplicationOptionStatusesT = {
   options: {
@@ -98,6 +99,7 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
     mutationFn: async (data: UpdateApplicationFormFieldsT): Promise<ApplicationT> => {
+      // update this appropriate for mentor/admin links
       const response = await axiosConfigWithAuth.request({
         method: 'PATCH',
         url: `/api/applications/students/${applicationId}`,
@@ -109,7 +111,12 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
     onSuccess: (data) => {
       queryClient.setQueryData(
         [queryKeys.APPLICATION.GET_ALL],
-        (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
+        (previousData: ApplicationT[]) => {
+          const findOldElementOfUpdatedRow = previousData.filter((row) => row.id === data.id)[0];
+          const indexToUpdate = previousData.indexOf(findOldElementOfUpdatedRow);
+
+          previousData.splice(indexToUpdate, 1, data);
+        },
       );
 
       reset();
