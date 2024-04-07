@@ -10,8 +10,11 @@ import {
   GlobalLoadingModal,
 } from '@components/shared/modal';
 import {
-  ApplicationFormGridContainer, ErrorMessage,
-  InputInfoBox, LoadingIndicator, SubmitInput,
+  ApplicationFormGridContainer,
+  ErrorMessage,
+  InputInfoBox,
+  LoadingIndicator,
+  SubmitInput,
 } from '@components/shared/form';
 import { GenericTitle } from '@components/shared/general';
 import {
@@ -32,6 +35,11 @@ import {
   submissionConfirmation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
+import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
+import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
+import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
+import { InterviewStatusT } from '@services/application/InterviewStatusService.service.ts';
+import { ApplicationStatusT } from '@services/application/ApplicationStatus.service.ts';
 
 type ComponentPropsT = {
   applicationData: ApplicationT;
@@ -98,7 +106,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           labelContent={'Application Status'}
           defaultOptionFieldContent={'Update the application\'s current status.'}
           defaultValue={applicationData.applicationStatus}
-          options={options.applicationStatus?.data}
+          options={options.applicationStatus?.data as ApplicationStatusT[]}
         />
         <InputInfoBox
           content={applicationStatusInformation}
@@ -110,7 +118,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           labelContent={'Interview Status'}
           defaultOptionFieldContent={'Update the application\'s interview status.'}
           defaultValue={applicationData.interviewStatus}
-          options={options.interviewStatus?.data}
+          options={options.interviewStatus?.data as InterviewStatusT[]}
         />
         <InputInfoBox
           content={interviewStatusInformation}
@@ -122,7 +130,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           labelContent={'Offer Status'}
           defaultOptionFieldContent={'Update the university\'s decision.'}
           defaultValue={applicationData.offerStatus}
-          options={options.offerStatus?.data}
+          options={options.offerStatus?.data as OfferStatusT[]}
         />
         <InputInfoBox
           content={responseStatusInformation}
@@ -134,7 +142,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           labelContent={'Response Status'}
           defaultOptionFieldContent={'Update your response status.'}
           defaultValue={applicationData.responseStatus}
-          options={options.responseStatus?.data}
+          options={options.responseStatus?.data as ResponseStatusT[]}
         />
         <InputInfoBox
           content={responseStatusInformation}
@@ -146,7 +154,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           labelContent={'Final Destination Status'}
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
           defaultValue={applicationData.finalDestinationStatus}
-          options={options.finalDestinationStatus?.data}
+          options={options.finalDestinationStatus?.data as FinalDestinationStatusT[]}
         />
         <InputInfoBox
           content={finalDestinationInformation}

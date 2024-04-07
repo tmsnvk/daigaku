@@ -1,8 +1,4 @@
 import {
-  useEffect,
-  useState,
-} from 'react';
-import {
   FieldValues,
   Path,
   UseFormRegister,
@@ -27,7 +23,7 @@ type ComponentPropsT<T extends FieldValues> = {
   labelContent: string;
   defaultValue: string;
   defaultOptionFieldContent: string;
-  options: SelectOptionsT[] | undefined;
+  options: SelectOptionsT[];
 }
 
 const GeneralSelectInputField = <T extends FieldValues>({
@@ -39,11 +35,7 @@ const GeneralSelectInputField = <T extends FieldValues>({
   defaultOptionFieldContent,
   options,
 }: ComponentPropsT<T>) => {
-  const [defaultOption, setDefaultOption] = useState<SelectOptionsT>();
-
-  useEffect(() => {
-    setDefaultOption(options?.filter((option) => option.name === defaultValue)[0]);
-  }, []);
+  const defaultOption = options?.filter((option) => option.name === defaultValue)[0];
 
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
@@ -55,10 +47,10 @@ const GeneralSelectInputField = <T extends FieldValues>({
       >
         {
           defaultValue ?
-            <option hidden value={defaultOption?.uuid}>{defaultOption?.name}</option> :
+            <option hidden value={defaultOption.uuid}>{defaultOption.name}</option> :
             <option hidden value={''}>{defaultOptionFieldContent}</option>
         }
-        {options?.map((option: SelectOptionsT) => {
+        {options.map((option: SelectOptionsT) => {
           return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
       </select>
