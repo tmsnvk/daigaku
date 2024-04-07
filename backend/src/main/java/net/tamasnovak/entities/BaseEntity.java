@@ -51,4 +51,8 @@ public abstract class BaseEntity {
   public Timestamp getLastUpdatedAt() {
     return lastUpdatedAt;
   }
+
+  public void setLastUpdatedAt(Timestamp lastUpdatedAt) {
+    this.lastUpdatedAt = lastUpdatedAt;
+  }
 }

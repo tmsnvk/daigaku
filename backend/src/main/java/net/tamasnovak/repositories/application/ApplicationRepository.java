@@ -104,5 +104,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     """, nativeQuery = true
   )
   List<Object[]> getStudentDashboardData(@Param("studentId") long studentId);
-  Application findByUuid(UUID id);
+  Application findByUuid(UUID uuid);
 }

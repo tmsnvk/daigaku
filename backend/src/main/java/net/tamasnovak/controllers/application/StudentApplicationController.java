@@ -1,8 +1,10 @@
 package net.tamasnovak.controllers.application;
 
+import jakarta.validation.Valid;
 import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewApplicationByStudentDto;
+import net.tamasnovak.dtos.application.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountsByRole.Student;
 import net.tamasnovak.services.account.accountsStudentsJunction.AccountsStudentsJunctionService;
@@ -12,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/applications/students")
@@ -63,6 +67,19 @@ public final class StudentApplicationController {
     return ResponseEntity
       .status(HttpStatus.CREATED)
       .body(newApplication);
+  }
+
+  @RequestMapping(
+    value = "/{uuid}",
+    method = RequestMethod.PATCH,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<ApplicationDto> updateApplicationByUuid(@PathVariable("uuid") UUID uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
+    ApplicationDto applicationDto = studentApplicationService.updateByUuid(uuid, updateApplicationByStudentDto);
+
+    return ResponseEntity
+      .status(HttpStatus.OK)
+      .body(applicationDto);
   }
 
   @RequestMapping(

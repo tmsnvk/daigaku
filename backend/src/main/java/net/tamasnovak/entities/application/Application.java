@@ -150,4 +150,24 @@ public final class Application extends BaseEntity {
   public String getNotes() {
     return notes;
   }
+
+  public void setApplicationStatusId(ApplicationStatus applicationStatusId) {
+    this.applicationStatusId = applicationStatusId;
+  }
+
+  public void setInterviewStatusId(InterviewStatus interviewStatusId) {
+    this.interviewStatusId = interviewStatusId;
+  }
+
+  public void setOfferStatusId(OfferStatus offerStatusId) {
+    this.offerStatusId = offerStatusId;
+  }
+
+  public void setResponseStatusId(ResponseStatus responseStatusId) {
+    this.responseStatusId = responseStatusId;
+  }
+
+  public void setFinalDestinationStatusId(FinalDestinationStatus finalDestinationStatusId) {
+    this.finalDestinationStatusId = finalDestinationStatusId;
+  }
 }

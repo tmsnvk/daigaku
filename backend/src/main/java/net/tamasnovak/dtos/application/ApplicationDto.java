@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 public record ApplicationDto(
-  UUID id,
+  UUID uuid,
   UUID account,
   String country,
   String university,

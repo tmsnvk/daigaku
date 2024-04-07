@@ -3,10 +3,15 @@ package net.tamasnovak.services.application.studentApplication;
 import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.dtos.application.DashboardDataDto;
 import net.tamasnovak.dtos.application.NewApplicationByStudentDto;
+import net.tamasnovak.dtos.application.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountsByRole.Student;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.application.ApplicationStatus;
+import net.tamasnovak.entities.application.FinalDestinationStatus;
+import net.tamasnovak.entities.application.InterviewStatus;
+import net.tamasnovak.entities.application.OfferStatus;
+import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
@@ -16,17 +21,27 @@ import net.tamasnovak.services.account.accountsStudentsJunction.AccountsStudents
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
+import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusService;
+import net.tamasnovak.services.interviewStatus.InterviewStatusService;
+import net.tamasnovak.services.offerStatus.OfferStatusService;
+import net.tamasnovak.services.responseStatus.ResponseStatusService;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
   private final ApplicationStatusService applicationStatusService;
+  private final InterviewStatusService interviewStatusService;
+  private final OfferStatusService offerStatusService;
+  private final ResponseStatusService responseStatusService;
+  private final FinalDestinationStatusService finalDestinationStatusService;
   private final CountryService countryService;
   private final UniversityService universityService;
   private final AccountsStudentsJunctionService accountsStudentsJunctionService;
@@ -35,8 +50,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final DbResourceNotFoundConstants dbResourceNotFoundConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, CountryService countryService, UniversityService universityService, AccountsStudentsJunctionService accountsStudentsJunctionService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
+  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, AccountsStudentsJunctionService accountsStudentsJunctionService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
     this.applicationStatusService = applicationStatusService;
+    this.interviewStatusService = interviewStatusService;
+    this.offerStatusService = offerStatusService;
+    this.responseStatusService = responseStatusService;
+    this.finalDestinationStatusService = finalDestinationStatusService;
     this.countryService = countryService;
     this.universityService = universityService;
     this.accountsStudentsJunctionService = accountsStudentsJunctionService;
@@ -67,7 +86,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     checkIfUniversityBelongsToCountry(country, university);
 
-    ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("PLANNED");
+    ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("Planned");
 
     Application application = Application.createNewApplicationByStudent(
       student,
@@ -88,6 +107,29 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     if (!country.getUniversities().contains(university)) {
       throw new DbResourceNotFoundException(dbResourceNotFoundConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
     }
+  }
+
+  @Override
+  @Transactional
+  public ApplicationDto updateByUuid(UUID uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto) {
+    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(updateApplicationByStudentDto.applicationStatus());
+    InterviewStatus interviewStatus = interviewStatusService.findByUuid(updateApplicationByStudentDto.interviewStatus());
+    OfferStatus offerStatus = offerStatusService.findByUuid(updateApplicationByStudentDto.offerStatus());
+    ResponseStatus responseStatus = responseStatusService.findByUuid(updateApplicationByStudentDto.responseStatus());
+    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuid(updateApplicationByStudentDto.finalDestinationStatus());
+
+    Application application = applicationRepository.findByUuid(uuid);
+
+    application.setApplicationStatusId(applicationStatus);
+    application.setInterviewStatusId(interviewStatus);
+    application.setOfferStatusId(offerStatus);
+    application.setResponseStatusId(responseStatus);
+    application.setFinalDestinationStatusId(finalDestinationStatus);
+    application.setLastUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
+    applicationRepository.save(application);
+
+    return applicationMapper.toApplicationDto(application);
   }
 
   @Override

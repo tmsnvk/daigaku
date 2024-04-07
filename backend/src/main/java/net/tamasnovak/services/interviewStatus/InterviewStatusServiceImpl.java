@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,5 +30,11 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
     return interviewStatuses.stream()
       .map(interviewStatusMapper::toInterviewStatusFromDto)
       .collect(Collectors.toList());
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public InterviewStatus findByUuid(UUID uuid) {
+    return interviewStatusRepository.findByUuid(uuid);
   }
 }

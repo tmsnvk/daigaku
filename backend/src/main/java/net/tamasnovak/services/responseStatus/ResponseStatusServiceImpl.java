@@ -5,8 +5,10 @@ import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.repositories.responseStatus.ResponseStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,5 +29,11 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
     return responseStatuses.stream()
       .map(responseStatusMapper::toResponseStatusFormDto)
       .collect(Collectors.toList());
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public ResponseStatus findByUuid(UUID uuid) {
+    return responseStatusRepository.findByUuid(uuid);
   }
 }

@@ -112,7 +112,7 @@ const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicat
       queryClient.setQueryData(
         [queryKeys.APPLICATION.GET_ALL],
         (previousData: ApplicationT[]) => {
-          const findOldElementOfUpdatedRow = previousData.filter((row) => row.id === data.id)[0];
+          const findOldElementOfUpdatedRow = previousData.filter((row) => row.uuid === data.uuid)[0];
           const indexToUpdate = previousData.indexOf(findOldElementOfUpdatedRow);
 
           previousData.splice(indexToUpdate, 1, data);
