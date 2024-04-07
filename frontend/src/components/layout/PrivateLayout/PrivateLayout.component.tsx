@@ -13,9 +13,9 @@ import {
   useLogOut,
 } from './PrivateLayout.hooks.tsx';
 import { GlobalLoadingModal } from '@components/shared/modal';
-import { NavbarLink } from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
 import BaseNavbarStyle from '../BaseNavbarStyle';
+import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';
 import {
   SmallScreenMenuToggler,

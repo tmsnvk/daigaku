@@ -1,7 +1,9 @@
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import theme from '@theme/theme.ts';
-import { NavbarIcon } from '@components/shared/icon-styles';
-import { LinkContainer } from './NavbarLink.styles.ts';
+import {
+  LinkContainer,
+  NavbarIcon,
+} from './NavbarLink.styles.ts';
 
 type ComponentPropsT = {
   resource: string;
