@@ -2,7 +2,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { GenericTextParagraph } from '@components/shared/general';
+import { TextParagraph } from '@components/shared/general';
 import { SubmitInput } from '@components/shared/form';
 import DefaultDialogStyles from '../DefaultDialogStyles';
 
@@ -27,7 +27,7 @@ const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropsT) 
 
   return (
     <DefaultDialogStyles ref={dialogRef}>
-      <GenericTextParagraph content={message} />
+      <TextParagraph content={message} />
       <SubmitInput type={'button'} value={'ok'} onClick={closeModal} />
     </DefaultDialogStyles>
   );

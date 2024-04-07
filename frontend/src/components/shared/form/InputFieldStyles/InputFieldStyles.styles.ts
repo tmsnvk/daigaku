@@ -27,14 +27,14 @@ const InputFieldStyles = styled.article<InputFieldT>`
     &:hover:not([disabled]) {
       box-shadow: 0 0 0.5rem ${({ theme }) => theme.color.secondaryDark};
     }
+  
+    &:focus {
+      outline: 0.15rem solid ${({ theme }) => theme.color.secondaryDark};
+    }
 
     &::placeholder {
       color: ${({ theme }) => theme.color.secondaryDark};
       font-size: ${({ theme }) => theme.fontSize.small};
-    }
-
-    &:focus {
-      outline: 0.15rem solid ${({ theme }) => theme.color.secondaryDark};
     }
 
     &:focus::placeholder {

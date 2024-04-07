@@ -3,8 +3,8 @@ import {
   ForgottenPasswordFormFieldsT,
   useSubmitForgottenPasswordForm,
 } from './ForgottenPasswordForm.hooks.tsx';
-import { FormSwapButton } from '@components/page/home';
-import { GenericTextParagraph } from '@components/shared/general';
+import FormSwapButton from '../FormSwapButton';
+import { TextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
   LoadingIndicator,
@@ -25,13 +25,13 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
 
   return (
     <section>
-      <GenericTextParagraph
+      <TextParagraph
         content={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'}
       />
       <form id={'postAccountForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
         <GeneralInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your email address is required.',
@@ -39,7 +39,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
           }}
           fieldError={errors.email?.message}
           fieldId={'email'}
-          label={'Email'}
+          labelContent={'Email'}
           type={'email'}
           placeholder={'Enter your email address'}
           isDisabled={isPending}
@@ -54,8 +54,18 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.LOGIN} buttonContent={'Log in'} clickHandler={formSelector} />
-        <FormSwapButton formType={FormTypeE.REGISTER} buttonContent={'Create account'} clickHandler={formSelector} />
+        <FormSwapButton
+          formType={FormTypeE.LOGIN}
+          content={'Log in'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
+        <FormSwapButton
+          formType={FormTypeE.REGISTER}
+          content={'Create account'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
       </article>
     </section>
   );

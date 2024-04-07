@@ -1,4 +1,4 @@
-import { LabelContainer } from './InputLabel.styles.ts';
+import { Container } from './InputLabel.styles.ts';
 
 type ComponentPropsT = {
   inputId: string;
@@ -7,9 +7,9 @@ type ComponentPropsT = {
 
 const InputLabel = ({ inputId, content }: ComponentPropsT) => {
   return (
-    <LabelContainer htmlFor={inputId}>
+    <Container htmlFor={inputId}>
       {content}
-    </LabelContainer>
+    </Container>
   );
 };
 

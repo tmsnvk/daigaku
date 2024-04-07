@@ -11,7 +11,7 @@ import {
 
 type ComponentPropsT <T extends FieldValues> = {
   register: UseFormRegister<T>;
-  validation?: {
+  validationRules?: {
     required?: {
       value: boolean;
       message: string;
@@ -23,7 +23,7 @@ type ComponentPropsT <T extends FieldValues> = {
   }
   fieldError: string | undefined;
   fieldId: Path<T>;
-  label: string;
+  labelContent: string;
   type: string;
   placeholder: string;
   defaultValue?: string | number;
@@ -32,10 +32,10 @@ type ComponentPropsT <T extends FieldValues> = {
 
 const GeneralInputField = <T extends FieldValues>({
   register,
-  validation,
+  validationRules,
   fieldError,
   fieldId,
-  label,
+  labelContent,
   type,
   placeholder,
   defaultValue,
@@ -43,9 +43,9 @@ const GeneralInputField = <T extends FieldValues>({
 }: ComponentPropsT<T>) => {
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={label} />
+      <InputLabel inputId={fieldId} content={labelContent} />
       <input
-        {...register(fieldId, validation)}
+        {...register(fieldId, validationRules)}
         type={type}
         id={fieldId}
         name={fieldId}

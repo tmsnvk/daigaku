@@ -66,7 +66,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={universityInformation} />
         <GeneralInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing the name of your selected course is required.',
@@ -78,7 +78,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           }}
           fieldError={errors.courseName?.message}
           fieldId={'courseName'}
-          label={'Course name'}
+          labelContent={'Course name'}
           type={'text'}
           placeholder={'Provide the course of your choice.'}
           defaultValue={''}
@@ -87,7 +87,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={majorSubjectInformation} />
         <GeneralInputField
           register={register}
-          validation={{
+          validationRules={{
             pattern: {
               value: /^[A-Za-z-\s]{5,255}$/,
               message: 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
@@ -95,7 +95,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           }}
           fieldError={errors.minorSubject?.message}
           fieldId={'minorSubject'}
-          label={'Minor subject'}
+          labelContent={'Minor subject'}
           type={'text'}
           placeholder={'Provide your minor course.'}
           defaultValue={''}
@@ -104,7 +104,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={minorSubjectInformation} />
         <GeneralInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing the length of your selected course is required.',
@@ -116,7 +116,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           }}
           fieldError={errors.programmeLength?.message}
           fieldId={'programmeLength'}
-          label={'Programme length'}
+          labelContent={'Programme length'}
           type={'number'}
           placeholder={'Provide the length of the course of your choice.'}
           defaultValue={3}

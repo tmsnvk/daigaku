@@ -14,7 +14,7 @@ import { iconLibraryConfig } from '@configuration';
 
 type ComponentPropsT <T extends FieldValues> = {
   register: UseFormRegister<T>;
-  validation?: {
+  validationRules?: {
     required?: {
       value: boolean;
       message: string;
@@ -26,7 +26,7 @@ type ComponentPropsT <T extends FieldValues> = {
   }
   fieldError: string | undefined;
   fieldId: Path<T>;
-  label: string;
+  labelContent: string;
   placeholder: string;
   defaultValue?: string | number;
   isDisabled: boolean;
@@ -34,10 +34,10 @@ type ComponentPropsT <T extends FieldValues> = {
 
 const PasswordInputField = <T extends FieldValues>({
   register,
-  validation,
+  validationRules,
   fieldError,
   fieldId,
-  label,
+  labelContent,
   placeholder,
   defaultValue,
   isDisabled,
@@ -46,10 +46,10 @@ const PasswordInputField = <T extends FieldValues>({
 
   return (
     <PasswordInputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={label} />
+      <InputLabel inputId={fieldId} content={labelContent} />
       <div>
         <input
-          {...register(fieldId, validation)}
+          {...register(fieldId, validationRules)}
           type={isRevealed ? 'text' : 'password'}
           id={fieldId}
           name={fieldId}

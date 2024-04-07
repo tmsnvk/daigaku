@@ -1,4 +1,4 @@
-import { ErrorMessageContainer } from './ErrorMessage.styles';
+import { Paragraph } from './ErrorMessage.styles';
 
 type ComponentPropsT = {
   content: string;
@@ -6,9 +6,9 @@ type ComponentPropsT = {
 
 const ErrorMessage = ({ content }: ComponentPropsT) => {
   return (
-    <ErrorMessageContainer>
+    <Paragraph>
       {content}
-    </ErrorMessageContainer>
+    </Paragraph>
   );
 };
 

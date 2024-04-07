@@ -3,8 +3,7 @@ import {
   LoginFormFieldsT,
   useSubmitLoginForm,
 } from './LoginForm.hooks.tsx';
-import { FormSwapButton } from '@components/page/home';
-import { GenericTextParagraph } from '@components/shared/general';
+import { TextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
   LoadingIndicator,
@@ -14,6 +13,7 @@ import {
   GeneralInputField,
   PasswordInputField,
 } from '@components/shared/field-implementations';
+import FormSwapButton from '../FormSwapButton';
 import {
   FormSelectorT,
   FormTypeE,
@@ -23,17 +23,21 @@ type ComponentPropsT = FormSelectorT;
 
 const LoginForm = ({ formSelector }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitLoginForm({ setError });
+  const { isPending, mutate } = useSubmitLoginForm(setError);
 
   return (
     <section>
-      <GenericTextParagraph
-        content={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'}
+      <TextParagraph
+        content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'}
       />
-      <form id={'postAccountLoginForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
+      <form
+        id={'postAccountLoginForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
         <GeneralInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your email address is required.',
@@ -41,14 +45,14 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
           }}
           fieldError={errors.email?.message}
           fieldId={'email'}
-          label={'Email'}
+          labelContent={'Email'}
           type={'email'}
           placeholder={'Enter your email address'}
           isDisabled={isPending}
         />
         <PasswordInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your password is required.',
@@ -56,7 +60,7 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
           }}
           fieldError={errors.password?.message}
           fieldId={'password'}
-          label={'Password'}
+          labelContent={'Password'}
           placeholder={'Enter your password'}
           isDisabled={isPending}
         />
@@ -70,8 +74,18 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.RESET} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isPending} />
-        <FormSwapButton formType={FormTypeE.REGISTER} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isPending} />
+        <FormSwapButton
+          formType={FormTypeE.RESET}
+          content={'Forgot password?'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
+        <FormSwapButton
+          formType={FormTypeE.REGISTER}
+          content={'Create account'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
       </article>
     </section>
   );

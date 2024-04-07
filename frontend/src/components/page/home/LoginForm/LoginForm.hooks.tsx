@@ -1,23 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+import { AxiosResponse } from 'axios';
 import {
   AccountDataT,
   AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import {
-  mutationKeys,
-  axiosConfig,
-} from '@configuration';
+import { accountService } from '@services/account';
+import { mutationKeys } from '@configuration';
 
 export type LoginFormFieldsT = {
   email: string;
   password: string;
-}
-
-type LoginFormT = {
-  setError: UseFormSetError<LoginFormFieldsT>;
 }
 
 export type LoginFormReturnDataT = {
@@ -41,22 +36,14 @@ type LoginFormErrorT = {
   }
 }
 
-const useSubmitLoginForm = ({ setError }: LoginFormT) => {
+const useSubmitLoginForm = (setError: UseFormSetError<LoginFormFieldsT>) => {
   const { setAccount, setAuthStatus, getAccountRole } = useAuth();
   const navigate = useNavigate();
 
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_LOGIN_FORM],
-    mutationFn: async (data: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
-      const response = await axiosConfig.request({
-        method: 'POST',
-        url: '/api/accounts/login',
-        data,
-      });
-
-      return response.data;
-    },
-    onSuccess: (data: LoginFormReturnDataT) => {
+    mutationFn: accountService.login,
+    onSuccess: ({ data }: AxiosResponse<LoginFormReturnDataT>) => {
       localStorage.setItem('token', data.jwtToken);
 
       const userData: AccountDataT = {
