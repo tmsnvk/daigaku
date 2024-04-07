@@ -25,6 +25,10 @@ export type LoginFormReturnDataT = {
   role: string;
 }
 
+type LoginFormT = {
+  setError: UseFormSetError<LoginFormFieldsT>;
+}
+
 type LoginFormErrorFieldsT = `root.${string}` | 'root' | 'email' | 'password';
 
 type LoginFormErrorT = {
@@ -36,7 +40,7 @@ type LoginFormErrorT = {
   }
 }
 
-const useSubmitLoginForm = (setError: UseFormSetError<LoginFormFieldsT>) => {
+const useSubmitLoginForm = ({ setError }: LoginFormT) => {
   const { setAccount, setAuthStatus, getAccountRole } = useAuth();
   const navigate = useNavigate();
 

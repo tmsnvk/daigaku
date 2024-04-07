@@ -23,7 +23,7 @@ type ComponentPropsT = FormSelectorT;
 
 const LoginForm = ({ formSelector }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<LoginFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitLoginForm(setError);
+  const { isPending, mutate } = useSubmitLoginForm({ setError });
 
   return (
     <section>

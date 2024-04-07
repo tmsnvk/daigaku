@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form';
-import FormSwapButton from '../FormSwapButton';
+import {
+  RegisterFormFieldsT,
+  useSubmitRegisterForm,
+} from './RegisterForm.hooks.tsx';
 import { TextParagraph } from '@components/shared/general';
 import {
   ErrorMessage,
@@ -7,10 +10,7 @@ import {
   SubmitInput,
 } from '@components/shared/form';
 import { GeneralInputField } from '@components/shared/field-implementations';
-import {
-  RegisterFormFieldsT,
-  useSubmitRegisterForm,
-} from './RegisterForm.hooks.tsx';
+import FormSwapButton from '../FormSwapButton';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -28,7 +28,11 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
       <TextParagraph
         content={'Register an account if you are not in our system yet.'}
       />
-      <form id={'postAccountRegisterForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
+      <form
+        id={'postAccountRegisterForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
         <GeneralInputField
           register={register}
           validationRules={{
