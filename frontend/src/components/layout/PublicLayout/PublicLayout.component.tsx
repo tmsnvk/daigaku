@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { NavbarLink } from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
-import { BaseNavbarStyle } from '@components/shared/base-styles';
+import BaseNavbarStyle from '../BaseNavbarStyle';
 import Footer from '../Footer';
 import { iconLibraryConfig } from '@configuration';
 

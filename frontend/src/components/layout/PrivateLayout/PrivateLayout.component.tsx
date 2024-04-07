@@ -12,11 +12,11 @@ import {
   useHandleSmallScreenMenuDisplay,
   useLogOut,
 } from './PrivateLayout.hooks.tsx';
-import Footer from '../Footer';
-import { BaseNavbarStyle } from '@components/shared/base-styles';
 import { GlobalLoadingModal } from '@components/shared/modal';
 import { NavbarLink } from '@components/shared/navigation';
 import { GeneralIcon } from '@components/shared/icon-styles';
+import BaseNavbarStyle from '../BaseNavbarStyle';
+import Footer from '../Footer';
 import {
   SmallScreenMenuToggler,
   SmallScreenMenuWrapper,
@@ -42,7 +42,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
     return <GlobalLoadingModal />;
   }
 
-  if (!allowedRoles?.includes(account.role as AccountRoleE)) {
+  if (!allowedRoles.includes(account.role as AccountRoleE)) {
     if (account) {
       return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
     }
