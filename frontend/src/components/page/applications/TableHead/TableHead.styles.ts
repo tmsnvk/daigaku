@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TableHeadContainer = styled.tr`
+const TableHeadRow = styled.tr`
   & th {
     &::before,
     &::after {
@@ -11,7 +11,7 @@ const TableHeadContainer = styled.tr`
   }
 `;
 
-const ButtonTh = styled.th`
+const ButtonHeaderCell = styled.th`
   & button:nth-of-type(1) {
     margin: 0 auto 2.5rem auto;
   }
@@ -22,6 +22,6 @@ const ButtonTh = styled.th`
 `;
 
 export {
-  TableHeadContainer,
-  ButtonTh,
+  TableHeadRow,
+  ButtonHeaderCell,
 };

@@ -12,7 +12,7 @@ const mutationKeys = {
 
 const queryKeys = {
   APPLICATION: {
-    GET_ALL: 'getApplications',
+    GET_ALL_BY_ROLE: 'getApplicationsByRole',
     GET_BY_ID: 'getApplicationById',
   },
   APPLICATION_STATUS: {

@@ -1,29 +1,29 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
 import {
-  ButtonTh,
-  TableHeadContainer,
+  ButtonHeaderCell,
+  TableHeadRow,
 } from './TableHead.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
 
 type ComponentPropsT = {
   columns: ColumnT[];
-  handleColumnSort: (id: string) => void;
-  toggleModal: () => void;
+  columnSortHandler: (id: string) => void;
+  toggleModalHandler: () => void;
   refetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
-const TableHead = ({ columns, handleColumnSort, toggleModal, refetch }: ComponentPropsT) => {
+const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refetch }: ComponentPropsT) => {
   return (
-    <TableHeadContainer>
+    <TableHeadRow>
       {columns.map((column) => {
         return (
           column.isActive &&
           <th key={column.id}>
             <button
               type={'button'}
-              onClick={() => handleColumnSort(column.id)}
+              onClick={() => columnSortHandler(column.id)}
             >
               {column.name}
               <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
@@ -31,7 +31,7 @@ const TableHead = ({ columns, handleColumnSort, toggleModal, refetch }: Componen
           </th>
         );
       })}
-      <ButtonTh>
+      <ButtonHeaderCell>
         <button
           type={'button'}
           onClick={() => refetch({ cancelRefetch: false })}
@@ -41,13 +41,13 @@ const TableHead = ({ columns, handleColumnSort, toggleModal, refetch }: Componen
         </button>
         <button
           type={'button'}
-          onClick={toggleModal}
+          onClick={toggleModalHandler}
         >
           Display
           <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
         </button>
-      </ButtonTh>
-    </TableHeadContainer>
+      </ButtonHeaderCell>
+    </TableHeadRow>
   );
 };
 

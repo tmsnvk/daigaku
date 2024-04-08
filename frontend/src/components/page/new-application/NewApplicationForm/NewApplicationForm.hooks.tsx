@@ -50,7 +50,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }:
     mutationFn: (data: NewApplicationFormFieldsT) => applicationService.postByStudent(data),
     onSuccess: (data) => {
       queryClient.setQueryData(
-        [queryKeys.APPLICATION.GET_ALL],
+        [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
       );
 

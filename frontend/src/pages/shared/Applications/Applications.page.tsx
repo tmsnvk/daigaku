@@ -1,8 +1,8 @@
 import { useGetApplications } from '@hooks/applications';
 import {
+  useDisplayColumnSelectorModal,
   useSetColumns,
   useSetOrder,
-  useShowColumnDisplayModal,
 } from './Applications.hooks.tsx';
 import {
   ColumnSelectorModal,
@@ -19,8 +19,8 @@ import { ApplicationT } from '@custom-types/ApplicationT.ts';
 const ApplicationsPage = () => {
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
   const { columns, updateColumnVisibility } = useSetColumns();
-  const { handleColumnSort } = useSetOrder(data as ApplicationT[]);
-  const { isModalVisible, toggleModal } = useShowColumnDisplayModal();
+  const { handleColumnSort } = useSetOrder(data?.data as ApplicationT[]);
+  const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
     return <GlobalLoadingModal />;
@@ -38,13 +38,13 @@ const ApplicationsPage = () => {
         <thead>
           <TableHead
             columns={columns}
-            handleColumnSort={handleColumnSort}
-            toggleModal={toggleModal}
+            columnSortHandler={handleColumnSort}
+            toggleModalHandler={toggleModal}
             refetch={refetch}
           />
         </thead>
         <tbody>
-          {data && <DataRows columns={columns} data={data} />}
+          {data && <DataRows columns={columns} data={data.data} />}
         </tbody>
       </table>
       {isModalVisible &&
