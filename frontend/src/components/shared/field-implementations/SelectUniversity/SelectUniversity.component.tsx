@@ -8,14 +8,14 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { UniversitiesT } from '@hooks/useGetUniversityOptions.tsx';
+import { UniversityOptionT } from '@services/university/University.service.ts';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
-  data: UniversitiesT[];
+  data: UniversityOptionT[];
 }
 
 const SelectUniversity = <T extends FieldValues>({
@@ -41,7 +41,7 @@ const SelectUniversity = <T extends FieldValues>({
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the university of your choice.</option>
-        {data.map((option: UniversitiesT) => {
+        {data.map((option: UniversityOptionT) => {
           return <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>;
         })}
       </select>

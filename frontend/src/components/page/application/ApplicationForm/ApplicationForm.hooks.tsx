@@ -11,7 +11,7 @@ import {
   interviewStatusService,
   offerStatusService,
   responseStatusService,
-} from '@services/application';
+} from '@services/index.ts';
 import {
   axiosConfigWithAuth,
   mutationKeys,

@@ -8,14 +8,14 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
+import { CountryOptionT } from '@services/country/Country.service.ts';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
-  data: CountriesT[];
+  data: CountryOptionT[];
   onCountryClick: (event: string) => void;
   handleCountrySelectionStatus: () => void;
 }
@@ -49,7 +49,7 @@ const SelectCountry = <T extends FieldValues>({
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the country of your choice.</option>
-        {data.map((option: CountriesT) => {
+        {data.map((option: CountryOptionT) => {
           return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
       </select>

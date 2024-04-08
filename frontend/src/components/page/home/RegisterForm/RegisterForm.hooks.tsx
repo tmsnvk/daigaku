@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import { accountService } from '@services/account';
+import { accountService } from '@services/index.ts';
 import { mutationKeys } from '@configuration';
 import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
 
@@ -28,7 +28,7 @@ type RegisterFormErrorT = {
 const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER_FORM],
-    mutationFn: accountService.register,
+    mutationFn: (data: RegisterFormFieldsT) => accountService.register(data),
     onSuccess: () => {
       showModal();
     },

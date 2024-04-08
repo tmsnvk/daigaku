@@ -18,8 +18,8 @@ import {
   SelectUniversity,
 } from '@components/shared/field-implementations';
 import { FeedbackModal } from '@components/shared/modal';
-import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
-import { UniversitiesT } from '@hooks/useGetUniversityOptions.tsx';
+import { CountryOptionT } from '@services/country/Country.service.ts';
+import { UniversityOptionT } from '@services/university/University.service.ts';
 import {
   countryInformation,
   formInformation,
@@ -32,8 +32,8 @@ import {
 
 type ComponentPropsT = {
   onCountryClick: (event: string) => void;
-  countryData: CountriesT[];
-  universityData: UniversitiesT[];
+  countryData: CountryOptionT[];
+  universityData: UniversityOptionT[];
 }
 
 const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {

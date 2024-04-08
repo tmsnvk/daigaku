@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import {
   useGetCountryOptions,
-  useGetUniversityOptions,
+  useGetUniversityOptionsByCountryUuid,
 } from '@hooks/index.ts';
 import { GlobalErrorModal } from '@components/shared/modal';
 import { NewApplicationForm } from '@components/page/new-application';
 
 const NewApplicationPage = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
-  const [selectedCountryId, setSelectedCountryId] = useState<string>('');
+  const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
-  const { data: countryData, error: isCountryError } = useGetCountryOptions();
-  const { data: universityData, error: isUniversityError } = useGetUniversityOptions(isCountryFieldSelected, selectedCountryId);
+  const { data: countryData, isError: isCountryError } = useGetCountryOptions();
+  const { data: universityData, isError: isUniversityError } = useGetUniversityOptionsByCountryUuid(isCountryFieldSelected, selectedCountryUuid);
 
-  const handleCountryField = (countryId: string) => {
+  const handleCountryField = (countryUuid: string) => {
     setIsCountryFieldSelected(true);
-    setSelectedCountryId(countryId);
+    setSelectedCountryUuid(countryUuid);
   };
 
   if (isCountryError || isUniversityError) {
@@ -26,8 +26,8 @@ const NewApplicationPage = () => {
     <main>
       <NewApplicationForm
         onCountryClick={handleCountryField}
-        countryData={countryData ?? []}
-        universityData={universityData ?? []}
+        countryData={countryData?.data ?? []}
+        universityData={universityData?.data ?? []}
       />
     </main>
   );

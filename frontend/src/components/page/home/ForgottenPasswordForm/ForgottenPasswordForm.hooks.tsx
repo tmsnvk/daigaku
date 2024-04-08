@@ -26,7 +26,7 @@ type ForgottenPasswordFormErrorT = {
 const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordFormT) => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_FORGOTTEN_PASSWORD_FORM],
-    mutationFn: accountService.passwordReset,
+    mutationFn: (data: ForgottenPasswordFormFieldsT) => accountService.passwordReset(data),
     onSuccess: () => {
       showModal();
     },

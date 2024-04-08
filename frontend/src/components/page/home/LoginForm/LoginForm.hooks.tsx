@@ -7,7 +7,7 @@ import {
   AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import { accountService } from '@services/account';
+import { accountService } from '@services/index.ts';
 import { mutationKeys } from '@configuration';
 
 export type LoginFormFieldsT = {
@@ -46,7 +46,7 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
 
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_LOGIN_FORM],
-    mutationFn: accountService.login,
+    mutationFn: (data: LoginFormFieldsT) => accountService.login(data),
     onSuccess: ({ data }: AxiosResponse<LoginFormReturnDataT>) => {
       localStorage.setItem('token', data.jwtToken);
 
