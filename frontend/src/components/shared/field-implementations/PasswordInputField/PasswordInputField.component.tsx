@@ -4,7 +4,7 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRevealPasswordInInputField } from '@hooks/index.ts';
+import { useRevealPassword } from '@hooks/index.ts';
 import {
   ErrorMessage,
   InputLabel,
@@ -42,7 +42,7 @@ const PasswordInputField = <T extends FieldValues>({
   defaultValue,
   isDisabled,
 }: ComponentPropsT<T>) => {
-  const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
+  const { isRevealed, handleRevealClick } = useRevealPassword();
 
   return (
     <PasswordInputFieldStyles $isError={fieldError !== undefined}>

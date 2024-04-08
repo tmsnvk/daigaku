@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useRevealPasswordInInputField = () => {
+const useRevealPassword = () => {
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
 
   const handleRevealClick = () => {
@@ -13,4 +13,4 @@ const useRevealPasswordInInputField = () => {
   };
 };
 
-export default useRevealPasswordInInputField;
+export default useRevealPassword;

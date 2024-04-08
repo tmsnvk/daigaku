@@ -26,9 +26,14 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
   return (
     <section>
       <TextParagraph
-        content={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'}
+        content={'Request a password reset if you have forgotten your password. Do not request a reset if your' +
+          ' account is not yet activated.'}
       />
-      <form id={'postAccountForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
+      <form
+        id={'postAccountForgottenPasswordForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
         <GeneralInputField
           register={register}
           validationRules={{
