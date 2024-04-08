@@ -2,7 +2,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { ModalContainer } from './ColumnSelectorModal.styles.ts';
+import { Dialog } from './ColumnSelectorModal.styles.ts';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
 
 type ComponentPropsT = {
@@ -26,7 +26,7 @@ const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, 
   }, [isModalVisible]);
 
   return (
-    <ModalContainer ref={dialogRef}>
+    <Dialog ref={dialogRef}>
       {columns.map((element) => {
         return (
           <article
@@ -49,7 +49,7 @@ const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, 
       >
         Close
       </button>
-    </ModalContainer>
+    </Dialog>
   );
 };
 
