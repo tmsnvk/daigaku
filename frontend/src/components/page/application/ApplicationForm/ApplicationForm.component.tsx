@@ -16,7 +16,7 @@ import {
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GenericTitle } from '@components/shared/general';
+import { PageTitle } from '@components/shared/general';
 import {
   DisabledInputField,
   GeneralSelectInputField,
@@ -62,7 +62,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
   return (
     <>
       <ApplicationFormGridContainer id={'updateApplicationForm'} method={'PUT'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <GenericTitle content={'Application Form'} />
+        <PageTitle content={'Application Form'} />
         <InputInfoBox content={formInformation} />
         <DisabledInputField
           fieldId={'country'}

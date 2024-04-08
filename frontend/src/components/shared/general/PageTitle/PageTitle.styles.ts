@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TitleContainer = styled.h1`
+const TitleHeading = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.xLarge};
 
   &::after {
@@ -13,5 +13,5 @@ const TitleContainer = styled.h1`
 `;
 
 export {
-  TitleContainer,
+  TitleHeading,
 };

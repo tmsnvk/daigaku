@@ -11,7 +11,7 @@ import {
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GenericTitle } from '@components/shared/general';
+import { PageTitle } from '@components/shared/general';
 import {
   GeneralInputField,
   SelectCountry,
@@ -43,8 +43,12 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
 
   return (
     <>
-      <ApplicationFormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <GenericTitle content={'New Application Form'} />
+      <ApplicationFormGridContainer
+        id={'newApplicationForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
+        <PageTitle content={'New Application Form'} />
         <InputInfoBox content={formInformation} />
         <SelectCountry
           register={register}
