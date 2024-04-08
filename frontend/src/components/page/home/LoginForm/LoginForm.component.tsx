@@ -10,7 +10,7 @@ import {
   SubmitInput,
 } from '@components/shared/form';
 import {
-  GeneralInputField,
+  GenericInputField,
   PasswordInputField,
 } from '@components/shared/field-implementations';
 import FormSwapButton from '../FormSwapButton';
@@ -35,7 +35,7 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             required: {

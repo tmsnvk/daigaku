@@ -10,7 +10,7 @@ import {
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GeneralInputField } from '@components/shared/field-implementations';
+import { GenericInputField } from '@components/shared/field-implementations';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -34,7 +34,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             required: {

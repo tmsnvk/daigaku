@@ -1,4 +1,4 @@
-import { ArticleContainer } from './InputInfoBox.styles.ts';
+import { Article } from './InputInfoBox.styles.ts';
 
 type ComponentPropsT = {
   content: string[];
@@ -6,11 +6,11 @@ type ComponentPropsT = {
 
 const InputInfoBox = ({ content }: ComponentPropsT) => {
   return (
-    <ArticleContainer>
+    <Article>
       {content.map((paragraph, index) => {
         return <p key={index}>{paragraph}</p>;
       })}
-    </ArticleContainer>
+    </Article>
   );
 };
 

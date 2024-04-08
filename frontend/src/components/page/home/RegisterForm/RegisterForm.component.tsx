@@ -9,7 +9,7 @@ import {
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GeneralInputField } from '@components/shared/field-implementations';
+import { GenericInputField } from '@components/shared/field-implementations';
 import FormSwapButton from '../FormSwapButton';
 import {
   ConfirmationModalT,
@@ -33,7 +33,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             required: {
@@ -52,7 +52,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           placeholder={'Enter your first name(s)'}
           isDisabled={isPending}
         />
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             required: {
@@ -71,7 +71,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           placeholder={'Enter your last name(s)'}
           isDisabled={isPending}
         />
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             required: {

@@ -30,7 +30,7 @@ type ComponentPropsT <T extends FieldValues> = {
   isDisabled: boolean;
 }
 
-const GeneralInputField = <T extends FieldValues>({
+const GenericInputField = <T extends FieldValues>({
   register,
   validationRules,
   fieldError,
@@ -59,4 +59,4 @@ const GeneralInputField = <T extends FieldValues>({
   );
 };
 
-export default GeneralInputField;
+export default GenericInputField;

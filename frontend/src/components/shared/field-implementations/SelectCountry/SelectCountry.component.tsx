@@ -45,7 +45,6 @@ const SelectCountry = <T extends FieldValues>({
         })}
         id={fieldId}
         name={fieldId}
-        autoComplete={'off'}
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the country of your choice.</option>

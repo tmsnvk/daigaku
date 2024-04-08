@@ -37,7 +37,6 @@ const SelectUniversity = <T extends FieldValues>({
         })}
         id={fieldId}
         name={fieldId}
-        autoComplete={'off'}
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the university of your choice.</option>

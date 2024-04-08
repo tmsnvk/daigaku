@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ArticleContainer = styled.article`
+const Article = styled.article`
   padding: 2rem 1.5rem 2rem 1.5rem;
   background-color: ${({ theme }) => theme.color.secondaryLight};
   border: 0.2rem solid ${({ theme }) => theme.color.primaryDark};
@@ -17,5 +17,5 @@ const ArticleContainer = styled.article`
 `;
 
 export {
-  ArticleContainer,
+  Article,
 };

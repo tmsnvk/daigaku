@@ -13,7 +13,7 @@ import {
 } from '@components/shared/form';
 import { PageTitle } from '@components/shared/general';
 import {
-  GeneralInputField,
+  GenericInputField,
   SelectCountry,
   SelectUniversity,
 } from '@components/shared/field-implementations';
@@ -68,7 +68,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           data={universityData}
         />
         <InputInfoBox content={universityInformation} />
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             required: {
@@ -89,7 +89,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           isDisabled={isPending}
         />
         <InputInfoBox content={majorSubjectInformation} />
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             pattern: {
@@ -106,7 +106,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           isDisabled={isPending}
         />
         <InputInfoBox content={minorSubjectInformation} />
-        <GeneralInputField
+        <GenericInputField
           register={register}
           validationRules={{
             required: {

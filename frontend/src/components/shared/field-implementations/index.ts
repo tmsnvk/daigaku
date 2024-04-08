@@ -1,5 +1,5 @@
 import DisabledInputField from './DisabledInputField';
-import GeneralInputField from './GeneralInputField';
+import GenericInputField from './GenericInputField';
 import GeneralSelectInputField from './GeneralSelectInputField';
 import PasswordInputField from './PasswordInputField';
 import SelectCountry from './SelectCountry';
@@ -7,7 +7,7 @@ import SelectUniversity from './SelectUniversity';
 
 export {
   DisabledInputField,
-  GeneralInputField,
+  GenericInputField,
   GeneralSelectInputField,
   PasswordInputField,
   SelectCountry,
