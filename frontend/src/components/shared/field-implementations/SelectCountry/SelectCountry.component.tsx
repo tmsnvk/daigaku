@@ -17,7 +17,7 @@ type ComponentPropsT<T extends FieldValues> = {
   isDisabled: boolean;
   data: CountryOptionT[];
   onCountryClick: (event: string) => void;
-  handleCountrySelectionStatus: () => void;
+  onCountrySelection: () => void;
 }
 
 const SelectCountry = <T extends FieldValues>({
@@ -27,7 +27,7 @@ const SelectCountry = <T extends FieldValues>({
   isDisabled,
   data,
   onCountryClick,
-  handleCountrySelectionStatus,
+  onCountrySelection,
 }: ComponentPropsT<T>) => {
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
@@ -40,7 +40,7 @@ const SelectCountry = <T extends FieldValues>({
           },
           onChange: (event) => {
             onCountryClick(event.target.value);
-            handleCountrySelectionStatus();
+            onCountrySelection();
           },
         })}
         id={fieldId}

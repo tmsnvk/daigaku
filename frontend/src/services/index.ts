@@ -1,4 +1,5 @@
 import accountService from './account/Account.service.ts';
+import applicationService from './application/Application.service.ts';
 import applicationStatusService from './application/ApplicationStatus.service.ts';
 import countryService from './country/Country.service.ts';
 import finalDestinationStatusService from './application/FinalDestinationStatus.service.ts';
@@ -9,6 +10,7 @@ import universityService from './university/University.service.ts';
 
 export {
   accountService,
+  applicationService,
   applicationStatusService,
   countryService,
   finalDestinationStatusService,

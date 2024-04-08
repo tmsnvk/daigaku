@@ -38,8 +38,8 @@ type ComponentPropsT = {
 
 const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { isCountryNotSelected, handleCountrySelectionStatus, resetCountryField } = useCheckFieldDisableStatus();
-  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountryField, reset });
+  const { isCountrySelected, handleCountrySelection, resetCountrySelection } = useCheckFieldDisableStatus();
+  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
 
   return (
     <>
@@ -57,14 +57,14 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           isDisabled={isPending}
           data={countryData}
           onCountryClick={onCountryClick}
-          handleCountrySelectionStatus={handleCountrySelectionStatus}
+          onCountrySelection={handleCountrySelection}
         />
         <InputInfoBox content={countryInformation} />
         <SelectUniversity
           register={register}
           fieldError={errors.university?.message}
           fieldId={'university'}
-          isDisabled={isPending || isCountryNotSelected}
+          isDisabled={isPending || !isCountrySelected}
           data={universityData}
         />
         <InputInfoBox content={universityInformation} />
@@ -85,7 +85,6 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           labelContent={'Course name'}
           type={'text'}
           placeholder={'Provide the course of your choice.'}
-          defaultValue={''}
           isDisabled={isPending}
         />
         <InputInfoBox content={majorSubjectInformation} />
@@ -102,7 +101,6 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           labelContent={'Minor subject'}
           type={'text'}
           placeholder={'Provide your minor course.'}
-          defaultValue={''}
           isDisabled={isPending}
         />
         <InputInfoBox content={minorSubjectInformation} />

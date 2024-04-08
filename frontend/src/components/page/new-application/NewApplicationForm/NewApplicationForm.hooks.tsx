@@ -5,11 +5,11 @@ import {
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import {
-  axiosConfigWithAuth,
   mutationKeys,
   queryKeys,
 } from '@configuration';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { applicationService } from '@services/index.ts';
 
 export type NewApplicationFormFieldsT = {
   country: string;
@@ -21,7 +21,7 @@ export type NewApplicationFormFieldsT = {
 
 type NewApplicationFormT = {
   setError: UseFormSetError<NewApplicationFormFieldsT>;
-  resetCountryField: () => void;
+  resetCountrySelection: () => void;
   reset: () => void;
 };
 
@@ -42,27 +42,19 @@ type NewApplicationFormErrorT = {
   }
 }
 
-const useSubmitNewApplicationForm = ({ setError, resetCountryField, reset }: NewApplicationFormT) => {
+const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }: NewApplicationFormT) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
-    mutationFn: async (data: NewApplicationFormFieldsT): Promise<ApplicationT> => {
-      const response = await axiosConfigWithAuth.request({
-        method: 'POST',
-        url: '/api/applications/students',
-        data,
-      });
-
-      return response.data;
-    },
+    mutationFn: (data: NewApplicationFormFieldsT) => applicationService.postByStudent(data),
     onSuccess: (data) => {
       queryClient.setQueryData(
         [queryKeys.APPLICATION.GET_ALL],
         (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
       );
 
-      resetCountryField();
+      resetCountrySelection();
       reset();
     },
     onError: (error: NewApplicationFormErrorT) => {
@@ -80,20 +72,20 @@ const useSubmitNewApplicationForm = ({ setError, resetCountryField, reset }: New
 };
 
 const useCheckFieldDisableStatus = () => {
-  const [isCountryNotSelected, setIsCountryNotSelected] = useState<boolean>(true);
+  const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
 
-  const handleCountrySelectionStatus = () => {
-    setIsCountryNotSelected(false);
+  const handleCountrySelection = () => {
+    setIsCountrySelected(true);
   };
 
-  const resetCountryField = () => {
-    setIsCountryNotSelected(true);
+  const resetCountrySelection = () => {
+    setIsCountrySelected(false);
   };
 
   return {
-    isCountryNotSelected,
-    resetCountryField,
-    handleCountrySelectionStatus,
+    isCountrySelected,
+    resetCountrySelection,
+    handleCountrySelection,
   };
 };
 
