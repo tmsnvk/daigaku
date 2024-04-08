@@ -13,12 +13,12 @@ import {
   AuthProvider,
 } from '@context/AuthContext.tsx';
 import {
-  ApplicationPage,
-  ApplicationsPage,
-  DashboardPage,
-  ErrorPage,
-  HomePage,
-  NewApplicationPage,
+  Application,
+  Applications,
+  Dashboard,
+  Error,
+  Home,
+  NewApplication,
 } from '@pages/index.ts';
 import {
   PrivateLayout,
@@ -85,17 +85,17 @@ const queryClient = new QueryClient({
 });
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route errorElement={<ErrorPage />}>
+  <Route errorElement={<Error />}>
     <Route path={'/'} element={<PublicLayout />}>
-      <Route index element={<HomePage />} />
+      <Route index element={<Home />} />
       <Route path={'contact'} element={<div>PLACEHOLDER</div>} />
     </Route>
     <Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR, AccountRoleE.ADMIN]} />}>
-        <Route path={'/dashboard'} element={<DashboardPage />} />
+        <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/applications'}>
-          <Route index element={<ApplicationsPage />} />
-          <Route path={':id'} element={<ApplicationPage />} />
+          <Route index element={<Applications />} />
+          <Route path={':id'} element={<Application />} />
         </Route>
         <Route path={'/messages'} element={<div>PLACEHOLDER</div>} />
       </Route>
@@ -103,7 +103,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path={'/feedback'} element={<div>PLACEHOLDER</div>} />
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT]} />}>
-        <Route path={'/new-application'} element={<NewApplicationPage />} />
+        <Route path={'/new-application'} element={<NewApplication />} />
       </Route>
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.MENTOR]} />}>
         <Route path={'/my-students'} element={<div>PLACEHOLDER</div>} />
@@ -121,7 +121,7 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>,
 ));
 
-const Application = () => {
+const ReactApplication = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -134,4 +134,4 @@ const Application = () => {
   );
 };
 
-export default Application;
+export default ReactApplication;

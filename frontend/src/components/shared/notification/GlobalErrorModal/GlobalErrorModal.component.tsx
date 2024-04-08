@@ -1,10 +1,10 @@
-import { DialogContainer } from './GlobalErrorModal.styles.ts';
+import { Dialog } from './GlobalErrorModal.styles.ts';
 
 const GlobalErrorModal = () => {
   return (
-    <DialogContainer>
+    <Dialog>
       <p>The application has encountered an unexpected error. Refresh your browser and try again.</p>
-    </DialogContainer>
+    </Dialog>
   );
 };
 

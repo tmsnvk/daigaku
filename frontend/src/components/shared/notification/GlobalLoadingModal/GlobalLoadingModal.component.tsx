@@ -1,13 +1,13 @@
-import { GeneralIcon } from '@components/shared/icon-styles';
-import { DialogContainer } from './GlobalLoadingModal.styles.ts';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Dialog } from './GlobalLoadingModal.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 
 const GlobalLoadingModal = () => {
   return (
-    <DialogContainer>
+    <Dialog>
       <p>The application is compiling your data... please wait.</p>
-      <GeneralIcon icon={iconLibraryConfig.faSpinner} spin />
-    </DialogContainer>
+      <FontAwesomeIcon icon={iconLibraryConfig.faSpinner} spin />
+    </Dialog>
   );
 };
 

@@ -6,7 +6,7 @@ import {
 import { GlobalErrorModal } from 'components/shared/notification';
 import { NewApplicationForm } from '@components/page/new-application';
 
-const NewApplicationPage = () => {
+const NewApplication = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
   const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
@@ -33,4 +33,4 @@ const NewApplicationPage = () => {
   );
 };
 
-export default NewApplicationPage;
+export default NewApplication;

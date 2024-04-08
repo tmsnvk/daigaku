@@ -3,6 +3,7 @@ import {
   Outlet,
   useLocation,
 } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AccountRoleE,
   AuthStatusE,
@@ -13,7 +14,6 @@ import {
   useLogOut,
 } from './PrivateLayout.hooks.tsx';
 import { GlobalLoadingModal } from 'components/shared/notification';
-import { GeneralIcon } from '@components/shared/icon-styles';
 import BaseNavbarStyle from '../BaseNavbarStyle';
 import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';
@@ -26,6 +26,7 @@ import {
   NavbarContentT,
   navbarContent,
 } from './PrivateLayout.utilities.ts';
+import { NavbarIcon } from '@components/layout/NavbarLink/NavbarLink.styles.ts';
 
 type ComponentPropsT = {
   allowedRoles: AccountRoleE[];
@@ -55,7 +56,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
       <BaseNavbarStyle>
         <nav>
           <div>
-            <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
+            <NavbarIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </div>
           <SmallScreenMenuWrapper
@@ -94,11 +95,11 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
               </li>
             </ul>
             <SmallScreenMenuToggler onClick={toggleMenu}>
-              <GeneralIcon icon={iconLibraryConfig.faXMark} />
+              <FontAwesomeIcon icon={iconLibraryConfig.faXMark} />
             </SmallScreenMenuToggler>
           </SmallScreenMenuWrapper>
           <SmallScreenMenuToggler onClick={toggleMenu}>
-            <GeneralIcon icon={iconLibraryConfig.faBars} />
+            <FontAwesomeIcon icon={iconLibraryConfig.faBars} />
           </SmallScreenMenuToggler>
         </nav>
       </BaseNavbarStyle>

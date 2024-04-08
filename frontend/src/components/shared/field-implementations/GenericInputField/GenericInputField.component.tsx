@@ -4,7 +4,7 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import {
-  ErrorMessage,
+  InputError,
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
@@ -54,7 +54,7 @@ const GenericInputField = <T extends FieldValues>({
         disabled={isDisabled}
         defaultValue={defaultValue ?? ''}
       />
-      {fieldError && <ErrorMessage content={fieldError} />}
+      {fieldError && <InputError content={fieldError} />}
     </InputFieldStyles>
   );
 };

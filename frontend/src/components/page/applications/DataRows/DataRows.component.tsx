@@ -28,7 +28,10 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
           <DataCell $shouldDisplay={findColumn(columns, 'responseStatus')}>{element.responseStatus ?? '-'}</DataCell>
           <DataCell $shouldDisplay={findColumn(columns, 'finalDestinationStatus')}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
-            <Link to={element.uuid} state={element}>
+            <Link
+              to={element.uuid}
+              state={element}
+            >
               EDIT
               <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
             </Link>

@@ -17,7 +17,7 @@ const ButtonHeaderCell = styled.th`
   }
 
   & button:nth-of-type(2) {
-    margin: 2.5rem auto 0 auto;
+    margin: 0 auto 0 auto;
   }
 `;
 

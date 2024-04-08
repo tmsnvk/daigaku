@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRevealPassword } from '@hooks/index.ts';
 import {
-  ErrorMessage,
+  InputError,
   InputLabel,
   PasswordInputFieldStyles,
 } from '@components/shared/form';
@@ -60,7 +60,7 @@ const PasswordInputField = <T extends FieldValues>({
         />
         <FontAwesomeIcon onClick={handleRevealClick} icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye} />
       </div>
-      {fieldError && <ErrorMessage content={fieldError} />}
+      {fieldError && <InputError content={fieldError} />}
     </PasswordInputFieldStyles>
   );
 };

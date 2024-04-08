@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ListContainer = styled.section`
+const Section = styled.section`
   width: 95%;
   margin: 0 auto 5rem auto;
   padding: 1rem 3.5rem 1rem 3.5rem;
@@ -55,5 +55,5 @@ const ListContainer = styled.section`
 `;
 
 export {
-  ListContainer,
+  Section,
 };

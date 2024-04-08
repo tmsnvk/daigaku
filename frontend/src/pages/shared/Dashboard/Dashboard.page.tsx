@@ -12,7 +12,7 @@ import {
 } from 'components/shared/notification';
 import { MainContainer } from './Dashboard.styles.ts';
 
-const DashboardPage = () => {
+const Dashboard = () => {
   const { account } = useAuth();
   const { data, isLoading, isError } = useGetDashboardData();
 
@@ -37,4 +37,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

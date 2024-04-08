@@ -6,7 +6,7 @@ import {
 import FormSwapButton from '../FormSwapButton';
 import { TextParagraph } from '@components/shared/general';
 import {
-  ErrorMessage,
+  InputError,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
@@ -55,7 +55,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
               <LoadingIndicator content={'Your registration is being handled.'} /> :
               <SubmitInput type={'submit'} value={'reset'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

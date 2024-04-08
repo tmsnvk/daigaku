@@ -11,7 +11,7 @@ import { ConfirmationModal } from 'components/shared/notification';
 import { MainContainer } from './Home.styles.ts';
 import { confirmationModalMessages } from './Home.utilities.ts';
 
-const HomePage = () => {
+const Home = () => {
   const { authStatus } = useAuth();
 
   const { isConfirmationModalVisible, showModal, closeModal } = useShowConfirmationModal();
@@ -37,4 +37,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;

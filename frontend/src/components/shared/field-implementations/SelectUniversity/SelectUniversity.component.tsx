@@ -4,7 +4,7 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import {
-  ErrorMessage,
+  InputError,
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
@@ -44,7 +44,7 @@ const SelectUniversity = <T extends FieldValues>({
           return <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>;
         })}
       </select>
-      {fieldError && <ErrorMessage content={fieldError} />}
+      {fieldError && <InputError content={fieldError} />}
     </InputFieldStyles>
   );
 };

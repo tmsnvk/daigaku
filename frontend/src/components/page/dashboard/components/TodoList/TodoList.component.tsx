@@ -1,5 +1,5 @@
 import { useCreateCurrentTodos } from './TodoList.hooks.tsx';
-import { ListContainer } from './TodoList.styles.ts';
+import { Section } from './TodoList.styles.ts';
 import { generalIntroduction } from './TodoList.utilities.ts';
 import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
 
@@ -11,7 +11,7 @@ const TodoList = ({ data }: ComponentPropsT) => {
   const { currentTodos } = useCreateCurrentTodos(data);
 
   return (
-    <ListContainer>
+    <Section>
       <ul>
         {generalIntroduction.map((paragraph, index) => {
           return <li key={index}>{paragraph}</li>;
@@ -22,7 +22,7 @@ const TodoList = ({ data }: ComponentPropsT) => {
           return <li key={index}>{paragraph}</li>;
         })}
       </ol>
-    </ListContainer>
+    </Section>
   );
 };
 

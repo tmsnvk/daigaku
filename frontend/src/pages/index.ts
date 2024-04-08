@@ -1,15 +1,15 @@
-import DashboardPage from './shared/Dashboard';
-import ErrorPage from './shared/Error';
-import HomePage from './shared/Home';
-import ApplicationPage from './shared/Application';
-import ApplicationsPage from './shared/Applications';
-import NewApplicationPage from './student/NewApplication';
+import Dashboard from './shared/Dashboard';
+import Error from './shared/Error';
+import Home from './shared/Home';
+import Application from './shared/Application';
+import Applications from './shared/Applications';
+import NewApplication from './student/NewApplication';
 
 export {
-  DashboardPage,
-  ErrorPage,
-  HomePage,
-  ApplicationPage,
-  ApplicationsPage,
-  NewApplicationPage,
+  Dashboard,
+  Error,
+  Home,
+  Application,
+  Applications,
+  NewApplication,
 };

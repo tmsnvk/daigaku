@@ -16,7 +16,7 @@ import {
 import { MainContainer } from './Applications.styles.ts';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
-const ApplicationsPage = () => {
+const Applications = () => {
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
   const { columns, updateColumnVisibility } = useSetColumns();
   const { handleColumnSort } = useSetOrder(data?.data as ApplicationT[]);
@@ -58,4 +58,4 @@ const ApplicationsPage = () => {
   );
 };
 
-export default ApplicationsPage;
+export default Applications;

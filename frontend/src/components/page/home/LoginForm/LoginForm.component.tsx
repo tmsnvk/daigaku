@@ -5,7 +5,7 @@ import {
 } from './LoginForm.hooks.tsx';
 import { TextParagraph } from '@components/shared/general';
 import {
-  ErrorMessage,
+  InputError,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
@@ -70,7 +70,7 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
               <LoadingIndicator content={'You are being logged in.'} /> :
               <SubmitInput type={'submit'} value={'sign in'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

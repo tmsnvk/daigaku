@@ -5,7 +5,7 @@ import {
 } from './RegisterForm.hooks.tsx';
 import { TextParagraph } from '@components/shared/general';
 import {
-  ErrorMessage,
+  InputError,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
@@ -92,7 +92,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
               <LoadingIndicator content={'Your registration is being handled.'} /> :
               <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

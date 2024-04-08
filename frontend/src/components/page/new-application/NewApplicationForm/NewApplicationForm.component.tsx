@@ -6,7 +6,7 @@ import {
 } from './NewApplicationForm.hooks.tsx';
 import {
   ApplicationFormGridContainer,
-  ErrorMessage,
+  InputError,
   InputInfoBox,
   LoadingIndicator,
   SubmitInput,
@@ -131,7 +131,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
               <LoadingIndicator content={'Your application is being submitted.'} /> :
               <SubmitInput type={'submit'} value={'submit application'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </ApplicationFormGridContainer>
       <Toast

@@ -22,7 +22,7 @@ const LinkContainer = styled(NavLink)`
 `;
 
 type ComponentPropsT = {
-  $isActive: boolean;
+  $isActive?: boolean;
 }
 
 const NavbarIcon = styled(FontAwesomeIcon)<ComponentPropsT>`

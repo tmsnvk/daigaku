@@ -5,13 +5,13 @@ import {
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
 import {
-  Toast,
   GlobalErrorModal,
   GlobalLoadingModal,
+  Toast,
 } from 'components/shared/notification';
 import {
   ApplicationFormGridContainer,
-  ErrorMessage,
+  InputError,
   InputInfoBox,
   LoadingIndicator,
   SubmitInput,
@@ -165,7 +165,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
               <LoadingIndicator content={'Your application is being updated.'} /> :
               <SubmitInput type={'submit'} value={'update application'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </ApplicationFormGridContainer>
       <Toast

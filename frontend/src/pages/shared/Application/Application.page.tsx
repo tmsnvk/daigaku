@@ -6,7 +6,7 @@ import {
 } from 'components/shared/notification';
 import { ApplicationForm } from '@components/page/application';
 
-const ApplicationPage = () => {
+const Application = () => {
   const { state, pathname } = useLocation();
   const applicationId = pathname.split('/applications/')[1];
 
@@ -30,4 +30,4 @@ const ApplicationPage = () => {
   );
 };
 
-export default ApplicationPage;
+export default Application;
