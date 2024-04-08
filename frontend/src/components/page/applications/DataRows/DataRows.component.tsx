@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   DataCell,
-  RowContainer,
+  TableBodyRow,
 } from './DataRows.styles.ts';
+import { findColumn } from '@components/page/applications/DataRows/DataRows.utilities.ts';
+import { iconLibraryConfig } from '@configuration';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { iconLibraryConfig } from '@configuration';
-import { Link } from 'react-router-dom';
 
 type ComponentPropsT = {
   columns: ColumnT[];
@@ -17,22 +18,22 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
   return (
     data.map((element) => {
       return (
-        <RowContainer key={element.uuid}>
-          <DataCell $columns={columns} $id={'courseName'}>{element.courseName}</DataCell>
-          <DataCell $columns={columns} $id={'university'}>{element.university}</DataCell>
-          <DataCell $columns={columns} $id={'country'}>{element.country}</DataCell>
-          <DataCell $columns={columns} $id={'applicationStatus'}>{element.applicationStatus ?? '-'}</DataCell>
-          <DataCell $columns={columns} $id={'interviewStatus'}>{element.interviewStatus ?? '-'}</DataCell>
-          <DataCell $columns={columns} $id={'offerStatus'}>{element.offerStatus ?? '-'}</DataCell>
-          <DataCell $columns={columns} $id={'responseStatus'}>{element.responseStatus ?? '-'}</DataCell>
-          <DataCell $columns={columns} $id={'finalDestinationStatus'}>{element.finalDestinationStatus ?? '-'}</DataCell>
+        <TableBodyRow key={element.uuid}>
+          <DataCell $shouldDisplay={findColumn(columns, 'courseName')}>{element.courseName}</DataCell>
+          <DataCell $shouldDisplay={findColumn(columns, 'university')}>{element.university}</DataCell>
+          <DataCell $shouldDisplay={findColumn(columns, 'country')}>{element.country}</DataCell>
+          <DataCell $shouldDisplay={findColumn(columns, 'applicationStatus') }>{element.applicationStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={findColumn(columns, 'interviewStatus')}>{element.interviewStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={findColumn(columns, 'offerStatus')}>{element.offerStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={findColumn(columns, 'responseStatus')}>{element.responseStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={findColumn(columns, 'finalDestinationStatus')}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
             <Link to={element.uuid} state={element}>
               EDIT
               <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
             </Link>
           </td>
-        </RowContainer>
+        </TableBodyRow>
       );
     })
   );
