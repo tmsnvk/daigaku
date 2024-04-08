@@ -23,7 +23,7 @@ type ComponentPropsT <T extends FieldValues> = {
   }
   fieldError: string | undefined;
   fieldId: Path<T>;
-  labelContent: string;
+  label: string;
   type: string;
   placeholder: string;
   defaultValue?: string | number;
@@ -35,7 +35,7 @@ const GenericInputField = <T extends FieldValues>({
   validationRules,
   fieldError,
   fieldId,
-  labelContent,
+  label,
   type,
   placeholder,
   defaultValue,
@@ -43,7 +43,7 @@ const GenericInputField = <T extends FieldValues>({
 }: ComponentPropsT<T>) => {
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={labelContent} />
+      <InputLabel inputId={fieldId} content={label} />
       <input
         {...register(fieldId, validationRules)}
         type={type}

@@ -82,7 +82,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           }}
           fieldError={errors.courseName?.message}
           fieldId={'courseName'}
-          labelContent={'Course name'}
+          label={'Course name'}
           type={'text'}
           placeholder={'Provide the course of your choice.'}
           isDisabled={isPending}
@@ -98,7 +98,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           }}
           fieldError={errors.minorSubject?.message}
           fieldId={'minorSubject'}
-          labelContent={'Minor subject'}
+          label={'Minor subject'}
           type={'text'}
           placeholder={'Provide your minor course.'}
           isDisabled={isPending}
@@ -118,7 +118,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           }}
           fieldError={errors.programmeLength?.message}
           fieldId={'programmeLength'}
-          labelContent={'Programme length'}
+          label={'Programme length'}
           type={'number'}
           placeholder={'Provide the length of the course of your choice.'}
           defaultValue={3}

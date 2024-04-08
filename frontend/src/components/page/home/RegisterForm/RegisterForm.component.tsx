@@ -47,7 +47,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           }}
           fieldError={errors.firstName?.message}
           fieldId={'firstName'}
-          labelContent={'First Name'}
+          label={'First Name'}
           type={'text'}
           placeholder={'Enter your first name(s)'}
           isDisabled={isPending}
@@ -66,7 +66,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           }}
           fieldError={errors.lastName?.message}
           fieldId={'lastName'}
-          labelContent={'Last Name'}
+          label={'Last Name'}
           type={'text'}
           placeholder={'Enter your last name(s)'}
           isDisabled={isPending}
@@ -81,7 +81,7 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           }}
           fieldError={errors.email?.message}
           fieldId={'email'}
-          labelContent={'Email'}
+          label={'Email'}
           type={'email'}
           placeholder={'Enter your email address'}
           isDisabled={isPending}

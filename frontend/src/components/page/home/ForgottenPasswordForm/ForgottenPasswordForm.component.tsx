@@ -44,7 +44,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
           }}
           fieldError={errors.email?.message}
           fieldId={'email'}
-          labelContent={'Email'}
+          label={'Email'}
           type={'email'}
           placeholder={'Enter your email address'}
           isDisabled={isPending}
