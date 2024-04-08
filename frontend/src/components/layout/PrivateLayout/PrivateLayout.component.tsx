@@ -12,7 +12,7 @@ import {
   useHandleSmallScreenMenuDisplay,
   useLogOut,
 } from './PrivateLayout.hooks.tsx';
-import { GlobalLoadingModal } from '@components/shared/modal';
+import { GlobalLoadingModal } from 'components/shared/notification';
 import { GeneralIcon } from '@components/shared/icon-styles';
 import BaseNavbarStyle from '../BaseNavbarStyle';
 import NavbarLink from '../NavbarLink';

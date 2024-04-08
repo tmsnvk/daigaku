@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { BaseLightElementBorderStyle } from '@components/shared/base-styles';
 
 const fadeIn = keyframes`
   100% {
@@ -16,24 +17,24 @@ const fadeOut = keyframes`
   }
 `;
 
-const ModalContainer = styled.section`
+const Section = styled.section`
+  ${BaseLightElementBorderStyle};
+  
   width: 30rem;
   height: 10rem;
   position: absolute;
   z-index: 100;
-  right: 10rem;
-  bottom: 7.5rem;
-  padding: 1.5rem 1.5rem 0 1.5rem;
-  margin: 0 auto 5% auto;
-  text-align: center;
+  right: 5rem;
+  bottom: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1.5rem 0 1.5rem;
   font-size: ${({ theme }) => theme.fontSize.medium};
   background-color: ${({ theme }) => theme.color.tertiaryLight};
-  border: 0.1rem solid ${({ theme }) => theme.color.secondaryLight};
-  border-radius: 1.25rem;
-  box-shadow: 0.25rem 0.25rem 1rem ${({ theme }) => theme.color.primaryDark};
   animation: ${fadeIn} 0.1s ease-in forwards, ${fadeOut} 5s 0.5s ease-out forwards;
 `;
 
 export {
-  ModalContainer,
+  Section,
 };

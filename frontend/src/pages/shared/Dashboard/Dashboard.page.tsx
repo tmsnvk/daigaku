@@ -9,7 +9,7 @@ import { TodoList } from '@components/page/dashboard/components';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
+} from 'components/shared/notification';
 import { MainContainer } from './Dashboard.styles.ts';
 
 const DashboardPage = () => {

@@ -3,7 +3,7 @@ import { useGetApplication } from './Application.hooks.tsx';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
+} from 'components/shared/notification';
 import { ApplicationForm } from '@components/page/application';
 
 const ApplicationPage = () => {

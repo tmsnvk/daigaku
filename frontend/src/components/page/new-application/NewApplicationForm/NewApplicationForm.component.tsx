@@ -17,7 +17,7 @@ import {
   SelectCountry,
   SelectUniversity,
 } from '@components/shared/field-implementations';
-import { FeedbackModal } from '@components/shared/modal';
+import { Toast } from 'components/shared/notification';
 import { CountryOptionT } from '@services/country/Country.service.ts';
 import { UniversityOptionT } from '@services/university/University.service.ts';
 import {
@@ -134,7 +134,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
         </article>
       </ApplicationFormGridContainer>
-      <FeedbackModal
+      <Toast
         isVisible={isSuccess}
         content={submissionConfirmation}
       />

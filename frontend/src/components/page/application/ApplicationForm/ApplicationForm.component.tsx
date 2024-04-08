@@ -5,10 +5,10 @@ import {
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
 import {
-  FeedbackModal,
+  Toast,
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
+} from 'components/shared/notification';
 import {
   ApplicationFormGridContainer,
   ErrorMessage,
@@ -168,7 +168,7 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
         </article>
       </ApplicationFormGridContainer>
-      <FeedbackModal
+      <Toast
         isVisible={isSuccess}
         content={submissionConfirmation}
       />

@@ -12,7 +12,7 @@ import {
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
+} from 'components/shared/notification';
 import { MainContainer } from './Applications.styles.ts';
 import { ApplicationT } from '@custom-types/ApplicationT.ts';
 
