@@ -11,6 +11,9 @@ const mutationKeys = {
 };
 
 const queryKeys = {
+  ACCOUNT: {
+    GET_ME: 'getMe',
+  },
   APPLICATION: {
     GET_ALL_BY_ROLE: 'getApplicationsByRole',
     GET_BY_ID: 'getApplicationById',

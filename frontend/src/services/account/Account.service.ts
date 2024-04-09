@@ -1,5 +1,8 @@
 import { AxiosResponse } from 'axios';
-import { axiosConfig } from '@configuration';
+import {
+  axiosConfig,
+  axiosConfigWithAuth,
+} from '@configuration';
 import {
   LoginFormFieldsT,
   LoginFormReturnDataT,
@@ -27,6 +30,12 @@ const accountService = {
       method: 'POST',
       url: '/api/accounts/forgotten-password',
       data,
+    });
+  },
+  getMe: async (): Promise<AxiosResponse<LoginFormReturnDataT>> => {
+    return await axiosConfigWithAuth.request<LoginFormReturnDataT>({
+      method: 'GET',
+      url: '/api/accounts/me',
     });
   },
 };

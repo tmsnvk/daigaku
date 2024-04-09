@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { axiosConfigWithAuth } from '@configuration';
+import { accountService } from '@services/index.ts';
 
 export enum AuthStatusE {
   LOADING,
@@ -19,15 +19,6 @@ export enum AccountRoleE {
   ADMIN,
 }
 
-export type AccountDataT = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  registeredAt: string;
-  lastUpdatedAt: string;
-  role: AccountRoleE | typeof AccountRoleE;
-}
-
 type AccountRoleT = {
   [key: string]: AccountRoleE;
 }
@@ -36,12 +27,13 @@ type AuthContextProviderT = {
   children: ReactNode;
 }
 
-type AuthContextT = {
-  account: AccountDataT;
-  setAccount: (value: AccountDataT) => void;
-  authStatus: AuthStatusE;
-  setAuthStatus: (value: AuthStatusE) => void;
-  getAccountRole: (role: string) => AccountRoleE;
+export type AccountDataT = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  registeredAt: string;
+  lastUpdatedAt: string;
+  role: AccountRoleE | typeof AccountRoleE;
 }
 
 const initialAccountState = {
@@ -52,6 +44,14 @@ const initialAccountState = {
   lastUpdatedAt: '',
   role: AccountRoleE,
 };
+
+type AuthContextT = {
+  account: AccountDataT;
+  setAccount: (value: AccountDataT) => void;
+  authStatus: AuthStatusE;
+  setAuthStatus: (value: AuthStatusE) => void;
+  getAccountRole: (role: string) => AccountRoleE;
+}
 
 const AuthContext = createContext<AuthContextT>({} as AuthContextT);
 
@@ -69,25 +69,6 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     return roles[role];
   };
 
-  const getMe = async () => {
-    try {
-      const { data } = await axiosConfigWithAuth.request({
-        method: 'GET',
-        url: '/api/accounts/me',
-      });
-
-      const userData: AccountDataT = {
-        ...data,
-        role: getAccountRole(data.role),
-      };
-
-      setAccount(userData);
-      setAuthStatus(AuthStatusE.SIGNED_IN);
-    } catch (error) {
-      setAuthStatus(AuthStatusE.SIGNED_OUT);
-    }
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -96,6 +77,22 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
 
       return;
     }
+
+    const getMe = async () => {
+      try {
+        const { data } = await accountService.getMe();
+
+        const userData: AccountDataT = {
+          ...data,
+          role: getAccountRole(data.role),
+        };
+
+        setAccount(userData);
+        setAuthStatus(AuthStatusE.SIGNED_IN);
+      } catch (error) {
+        setAuthStatus(AuthStatusE.SIGNED_OUT);
+      }
+    };
 
     getMe();
   }, []);
