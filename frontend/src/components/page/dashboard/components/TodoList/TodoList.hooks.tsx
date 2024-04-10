@@ -5,6 +5,7 @@ import {
   noInterviewStatusSet,
   noOfferStatusSet,
   noSubmittedApplications,
+  noTodo,
 } from './TodoList.utilities.ts';
 import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
 
@@ -23,6 +24,10 @@ const useCreateCurrentTodos = (data: DashboardDataT) => {
 
     data.numberOfOffers && !data.finalDestinationCourseName && currentTodos.push(noFinalDestinationSet);
   };
+
+  if (!currentTodos.length) {
+    currentTodos.push(noTodo);
+  }
 
   getCurrentTodos();
 

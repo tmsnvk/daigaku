@@ -7,7 +7,7 @@ type ComponentPropsT = {
   courseName: string;
 }
 
-const TextInfoBoxInfoBox = ({ title, country, university, courseName }: ComponentPropsT) => {
+const TextInfoBox = ({ title, country, university, courseName }: ComponentPropsT) => {
   return (
     <Article>
       <p>{country}</p>
@@ -18,4 +18,4 @@ const TextInfoBoxInfoBox = ({ title, country, university, courseName }: Componen
   );
 };
 
-export default TextInfoBoxInfoBox;
+export default TextInfoBox;

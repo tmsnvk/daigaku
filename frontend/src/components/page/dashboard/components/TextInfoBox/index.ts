@@ -1,3 +1,3 @@
-import TextInfoBoxInfoBox from './TextInfoBox.component.tsx';
+import TextInfoBox from './TextInfoBox.component.tsx';
 
-export default TextInfoBoxInfoBox;
+export default TextInfoBox;

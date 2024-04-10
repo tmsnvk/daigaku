@@ -10,7 +10,7 @@ import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from 'components/shared/notification';
-import { MainContainer } from './Dashboard.styles.ts';
+import { Main } from './Dashboard.styles.ts';
 
 const Dashboard = () => {
   const { account } = useAuth();
@@ -28,12 +28,12 @@ const Dashboard = () => {
 
   return (
     data &&
-      <MainContainer>
-        <TodoList data={data} />
-        {account.role === AccountRoleE.STUDENT && <StudentLayout data={data} />}
+      <Main>
+        <TodoList data={data.data} />
+        {account.role === AccountRoleE.STUDENT && <StudentLayout data={data.data} />}
         {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER applicationData={applicationData} />}*/}
         {/*{account.accountRole === AccountRoleE.ADMIN && <PLACEHOLDER applicationData={applicationData} />}*/}
-      </MainContainer>
+      </Main>
   );
 };
 
