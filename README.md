@@ -34,13 +34,10 @@ Database
 
 
 ### Sneak peak
-+ Login page
 ![login_page](./repo-assets/login_page.png)
 
-+ Column selector modal on Applications' page table
 ![applications_table_modal](./repo-assets/applications_table_modal.png)
 
-+ Application form
 ![application_form](./repo-assets/application_form.png)
 
 

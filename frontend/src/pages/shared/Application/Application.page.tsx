@@ -5,12 +5,18 @@ import {
   GlobalLoadingModal,
 } from 'components/shared/notification';
 import { ApplicationForm } from '@components/page/application';
+import { ApplicationT } from '@custom-types/ApplicationT.ts';
+
+type LocationT = {
+  state: ApplicationT;
+  pathname: string;
+}
 
 const Application = () => {
-  const { state, pathname } = useLocation();
-  const applicationId = pathname.split('/applications/')[1];
+  const { state, pathname } = useLocation() as LocationT;
+  const applicationUuid = pathname.split('/applications/')[1];
 
-  const { data, isLoading, isError } = useGetApplication(state, applicationId);
+  const { data, isLoading, isError } = useGetApplication(state, applicationUuid);
 
   if (isLoading) {
     return <GlobalLoadingModal />;
@@ -23,8 +29,8 @@ const Application = () => {
   return (
     <main>
       <ApplicationForm
-        applicationData={state ? state : data }
-        applicationId={applicationId}
+        applicationData={(state && state) || (data && data.data)}
+        applicationUuid={applicationUuid}
       />
     </main>
   );

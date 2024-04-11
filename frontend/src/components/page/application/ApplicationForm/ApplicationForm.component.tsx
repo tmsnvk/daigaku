@@ -43,13 +43,13 @@ import { ApplicationStatusT } from '@services/application/ApplicationStatus.serv
 
 type ComponentPropsT = {
   applicationData: ApplicationT;
-  applicationId: string
+  applicationUuid: string;
 }
 
-const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) => {
+const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) => {
   const { options, isLoading, isError } = useGetAllSelectOptions();
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, isSuccess, mutate } = useUpdateApplication({ setError, reset, applicationId });
+  const { isPending, isSuccess, mutate } = useUpdateApplication({ setError, reset, applicationUuid });
 
   if (isLoading) {
     return <GlobalLoadingModal />;
@@ -61,8 +61,12 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
 
   return (
     <>
-      <ApplicationFormGridContainer id={'updateApplicationForm'} method={'PUT'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <PageTitle content={'Application Form'} />
+      <ApplicationFormGridContainer
+        id={'updateApplicationForm'}
+        method={'PUT'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
+        <PageTitle content={'Update Application Form'} />
         <InputInfoBox content={formInformation} />
         <DisabledInputField
           fieldId={'country'}

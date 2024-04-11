@@ -6,6 +6,7 @@ import {
 import { UseFormSetError } from 'react-hook-form';
 import { AxiosResponse } from 'axios';
 import {
+  applicationService,
   applicationStatusService,
   finalDestinationStatusService,
   interviewStatusService,
@@ -13,7 +14,6 @@ import {
   responseStatusService,
 } from '@services/index.ts';
 import {
-  axiosConfigWithAuth,
   mutationKeys,
   queryKeys,
 } from '@configuration';
@@ -39,11 +39,26 @@ type ApplicationOptionStatusesT = {
 const useGetAllSelectOptions = (): ApplicationOptionStatusesT => {
   return useQueries({
     queries: [
-      { queryKey: [queryKeys.APPLICATION_STATUS.GET_ALL], queryFn: applicationStatusService.getAll },
-      { queryKey: [queryKeys.INTERVIEW_STATUS.GET_ALL], queryFn: interviewStatusService.getAll },
-      { queryKey: [queryKeys.OFFER_STATUS.GET_ALL], queryFn: offerStatusService.getAll },
-      { queryKey: [queryKeys.RESPONSE_STATUS.GET_ALL], queryFn: responseStatusService.getAll },
-      { queryKey: [queryKeys.FINAL_DESTINATION.GET_ALL], queryFn: finalDestinationStatusService.getAll },
+      {
+        queryKey: [queryKeys.APPLICATION_STATUS.GET_ALL],
+        queryFn: applicationStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.INTERVIEW_STATUS.GET_ALL],
+        queryFn: interviewStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.OFFER_STATUS.GET_ALL],
+        queryFn: offerStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.RESPONSE_STATUS.GET_ALL],
+        queryFn: responseStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.FINAL_DESTINATION.GET_ALL],
+        queryFn: finalDestinationStatusService.getAll,
+      },
     ],
     combine: (result) => {
       return {
@@ -72,7 +87,7 @@ export type UpdateApplicationFormFieldsT = {
 type UpdateApplicationFormT = {
   setError: UseFormSetError<UpdateApplicationFormFieldsT>;
   reset: () => void;
-  applicationId: string;
+  applicationUuid: string;
 };
 
 type UpdateApplicationFormErrorFieldsT = `root.${string}` |
@@ -92,22 +107,13 @@ type UpdateApplicationFormErrorT = {
   }
 }
 
-const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicationFormT) => {
+const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplicationFormT) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
-    mutationFn: async (data: UpdateApplicationFormFieldsT): Promise<ApplicationT> => {
-      // update this appropriate for mentor/admin links
-      const response = await axiosConfigWithAuth.request({
-        method: 'PATCH',
-        url: `/api/applications/students/${applicationId}`,
-        data,
-      });
-
-      return response.data;
-    },
-    onSuccess: (data) => {
+    mutationFn: (data: UpdateApplicationFormFieldsT) => applicationService.patchByUuid(data, applicationUuid),
+    onSuccess: ({ data }: AxiosResponse<ApplicationT>) => {
       queryClient.setQueryData(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData: ApplicationT[]) => {
