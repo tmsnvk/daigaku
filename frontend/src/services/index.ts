@@ -1,12 +1,12 @@
-import accountService from './account/Account.service.ts';
-import applicationService from './application/Application.service.ts';
-import applicationStatusService from './application/ApplicationStatus.service.ts';
-import countryService from './country/Country.service.ts';
-import finalDestinationStatusService from './application/FinalDestinationStatus.service.ts';
-import interviewStatusService from './application/InterviewStatusService.service.ts';
-import offerStatusService from './application/OfferStatus.service.ts';
-import responseStatusService from './application/ResponseStatus.service.ts';
-import universityService from './university/University.service.ts';
+import accountService from './account/account.service.ts';
+import applicationService from './application/application.service.ts';
+import applicationStatusService from './application/applicationStatus.service.ts';
+import countryService from './country/country.service.ts';
+import finalDestinationStatusService from './application/finalDestinationStatus.service.ts';
+import interviewStatusService from './application/interviewStatusService.service.ts';
+import offerStatusService from './application/offerStatus.service.ts';
+import responseStatusService from './application/responseStatus.service.ts';
+import universityService from './university/university.service.ts';
 
 export {
   accountService,

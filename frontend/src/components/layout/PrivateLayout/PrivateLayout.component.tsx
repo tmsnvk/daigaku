@@ -26,7 +26,6 @@ import {
   NavbarContentT,
   navbarContent,
 } from './PrivateLayout.utilities.ts';
-import { NavbarIcon } from '@components/layout/NavbarLink/NavbarLink.styles.ts';
 
 type ComponentPropsT = {
   allowedRoles: AccountRoleE[];
@@ -56,7 +55,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
       <BaseNavbarStyle>
         <nav>
           <div>
-            <NavbarIcon icon={iconLibraryConfig.faGraduationCap} />
+            <FontAwesomeIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </div>
           <SmallScreenMenuWrapper

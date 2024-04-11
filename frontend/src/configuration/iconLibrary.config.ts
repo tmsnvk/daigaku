@@ -28,4 +28,3 @@ const iconLibraryConfig: IconLibraryConfigT = {
 };
 
 export default iconLibraryConfig;
-

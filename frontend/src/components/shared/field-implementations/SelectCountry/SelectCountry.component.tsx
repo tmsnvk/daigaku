@@ -8,7 +8,7 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { CountryOptionT } from '@services/country/Country.service.ts';
+import { CountryOptionT } from '@services/country/country.service.ts';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,

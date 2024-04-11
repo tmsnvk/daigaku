@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@configuration';
 import { applicationService } from '@services/index.ts';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
 
 const useGetApplication = (state: ApplicationT | null, applicationId: string) => {
   return useQuery({

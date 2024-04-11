@@ -1,4 +1,4 @@
-import { useGetApplications } from '@hooks/applications';
+import { useGetApplications } from '@hooks';
 import {
   useDisplayColumnSelectorModal,
   useSetColumns,
@@ -12,9 +12,9 @@ import {
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from 'components/shared/notification';
+} from '@components/shared/notification';
 import { MainContainer } from './Applications.styles.ts';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
 
 const Applications = () => {
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();

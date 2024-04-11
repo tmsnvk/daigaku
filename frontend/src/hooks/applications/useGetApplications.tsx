@@ -3,10 +3,10 @@ import {
   AccountRoleE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import { queryKeys } from '@configuration';
 import { applicationService } from '@services/index.ts';
+import { queryKeys } from '@configuration';
 
-const getUrl = (role: AccountRoleE) => {
+const getUrlResource = (role: AccountRoleE) => {
   const roleUrl = {
     [AccountRoleE.STUDENT]: 'students',
     [AccountRoleE.MENTOR]: 'mentors',
@@ -18,11 +18,11 @@ const getUrl = (role: AccountRoleE) => {
 
 const useGetApplications = () => {
   const { account } = useAuth();
-  const roleUrl = getUrl(account.role as AccountRoleE);
+  const urlResource = getUrlResource(account.role as AccountRoleE);
 
   return useQuery({
     queryKey: [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
-    queryFn: () => applicationService.getAllByRole(roleUrl),
+    queryFn: () => applicationService.getAllByRole(urlResource),
   });
 };
 

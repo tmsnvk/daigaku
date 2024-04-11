@@ -1,9 +1,9 @@
-import useGetCountryOptions from './useGetCountryOptions.tsx';
-import useGetUniversityOptionsByCountryUuid from './useGetUniversityOptionsByCountryUuid.tsx';
-import useRevealPassword from './useRevealPassword.tsx';
+import { useGetApplications } from './applications';
+import { useGetCountryOptions } from './country';
+import { useGetUniversityOptionsByCountryUuid } from './university';
 
 export {
+  useGetApplications,
   useGetCountryOptions,
   useGetUniversityOptionsByCountryUuid,
-  useRevealPassword,
 };

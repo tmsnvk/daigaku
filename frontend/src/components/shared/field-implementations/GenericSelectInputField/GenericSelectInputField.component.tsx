@@ -8,11 +8,11 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { ApplicationStatusT } from '@services/application/ApplicationStatus.service.ts';
-import { InterviewStatusT } from '@services/application/InterviewStatusService.service.ts';
-import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
-import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
-import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
+import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
+import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
+import { OfferStatusT } from '@services/application/offerStatus.service.ts';
+import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
+import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
 
 type SelectOptionsT = ApplicationStatusT | InterviewStatusT | OfferStatusT | ResponseStatusT | FinalDestinationStatusT;
 
@@ -26,7 +26,7 @@ type ComponentPropsT<T extends FieldValues> = {
   options: SelectOptionsT[];
 }
 
-const GeneralSelectInputField = <T extends FieldValues>({
+const GenericSelectInputField = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
@@ -59,4 +59,4 @@ const GeneralSelectInputField = <T extends FieldValues>({
   );
 };
 
-export default GeneralSelectInputField;
+export default GenericSelectInputField;

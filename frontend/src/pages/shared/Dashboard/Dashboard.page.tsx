@@ -2,14 +2,14 @@ import {
   AccountRoleE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import { useGetApplications } from '@hooks/applications';
+import { useGetApplications } from '@hooks';
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
 import { StudentLayout } from '@components/page/dashboard';
 import { TodoList } from '@components/page/dashboard/components';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from 'components/shared/notification';
+} from '@components/shared/notification';
 import { Main } from './Dashboard.styles.ts';
 
 const Dashboard = () => {

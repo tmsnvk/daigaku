@@ -1,3 +1,3 @@
-import Error from './Error.tsx';
+import ErrorPage from './Error.page.tsx';
 
-export default Error;
+export default ErrorPage;

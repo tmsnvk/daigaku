@@ -7,11 +7,11 @@ import {
   useRenderSelectedFormComponent,
   useShowConfirmationModal,
 } from './Home.hooks.tsx';
-import { ConfirmationModal } from 'components/shared/notification';
+import { ConfirmationModal } from '@components/shared/notification';
 import { MainContainer } from './Home.styles.ts';
 import { confirmationModalMessages } from './Home.utilities.ts';
 
-const Home = () => {
+const HomePage = () => {
   const { authStatus } = useAuth();
 
   const { isConfirmationModalVisible, showModal, closeModal } = useShowConfirmationModal();
@@ -37,4 +37,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

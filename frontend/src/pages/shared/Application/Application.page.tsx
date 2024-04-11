@@ -3,9 +3,9 @@ import { useGetApplication } from './Application.hooks.tsx';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from 'components/shared/notification';
+} from '@components/shared/notification';
 import { ApplicationForm } from '@components/page/application';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
 
 type LocationT = {
   state: ApplicationT;

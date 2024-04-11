@@ -4,7 +4,7 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRevealPassword } from '@hooks/index.ts';
+import { useRevealPassword } from './PasswordInputField.hooks.tsx';
 import {
   InputError,
   InputLabel,

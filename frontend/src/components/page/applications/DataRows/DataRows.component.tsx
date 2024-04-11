@@ -4,10 +4,10 @@ import {
   DataCell,
   TableBodyRow,
 } from './DataRows.styles.ts';
-import { findColumn } from '@components/page/applications/DataRows/DataRows.utilities.ts';
 import { iconLibraryConfig } from '@configuration';
+import { findColumn } from './DataRows.utilities.ts';
 import { ColumnT } from '@pages/shared/Applications/Applications.hooks.tsx';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
 
 type ComponentPropsT = {
   columns: ColumnT[];

@@ -13,4 +13,6 @@ const useRevealPassword = () => {
   };
 };
 
-export default useRevealPassword;
+export {
+  useRevealPassword,
+};

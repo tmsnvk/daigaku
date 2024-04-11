@@ -2,8 +2,8 @@ import { useState } from 'react';
 import {
   useGetCountryOptions,
   useGetUniversityOptionsByCountryUuid,
-} from '@hooks/index.ts';
-import { GlobalErrorModal } from 'components/shared/notification';
+} from '@hooks';
+import { GlobalErrorModal } from '@components/shared/notification';
 import { NewApplicationForm } from '@components/page/new-application';
 
 const NewApplication = () => {

@@ -8,7 +8,7 @@ import {
   mutationKeys,
   queryKeys,
 } from '@configuration';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
 import { applicationService } from '@services/index.ts';
 
 export type NewApplicationFormFieldsT = {

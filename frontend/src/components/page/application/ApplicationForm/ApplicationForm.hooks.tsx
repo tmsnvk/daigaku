@@ -17,12 +17,12 @@ import {
   mutationKeys,
   queryKeys,
 } from '@configuration';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
-import { ApplicationStatusT } from '@services/application/ApplicationStatus.service.ts';
-import { InterviewStatusT } from '@services/application/InterviewStatusService.service.ts';
-import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
-import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
-import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
+import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
+import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
+import { OfferStatusT } from '@services/application/offerStatus.service.ts';
+import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
+import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
 
 type ApplicationOptionStatusesT = {
   options: {

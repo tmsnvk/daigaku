@@ -19,9 +19,8 @@ import {
 import { PageTitle } from '@components/shared/general';
 import {
   DisabledInputField,
-  GeneralSelectInputField,
+  GenericSelectInputField,
 } from '@components/shared/field-implementations';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
 import {
   applicationStatusInformation,
   countryInformation,
@@ -35,11 +34,12 @@ import {
   submissionConfirmation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
-import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
-import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
-import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
-import { InterviewStatusT } from '@services/application/InterviewStatusService.service.ts';
-import { ApplicationStatusT } from '@services/application/ApplicationStatus.service.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
+import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
+import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
+import { OfferStatusT } from '@services/application/offerStatus.service.ts';
+import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
+import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
 
 type ComponentPropsT = {
   applicationData: ApplicationT;
@@ -103,7 +103,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           defaultValue={applicationData.programmeLength}
         />
         <InputInfoBox content={programmeLengthInformation} />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
           fieldError={errors.applicationStatus?.message}
           fieldId={'applicationStatus'}
@@ -115,7 +115,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         <InputInfoBox
           content={applicationStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
           fieldError={errors.interviewStatus?.message}
           fieldId={'interviewStatus'}
@@ -127,7 +127,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         <InputInfoBox
           content={interviewStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
           fieldError={errors.offerStatus?.message}
           fieldId={'offerStatus'}
@@ -139,7 +139,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         <InputInfoBox
           content={responseStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
           fieldError={errors.responseStatus?.message}
           fieldId={'responseStatus'}
@@ -151,7 +151,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         <InputInfoBox
           content={responseStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
           fieldError={errors.finalDestinationStatus?.message}
           fieldId={'finalDestinationStatus'}

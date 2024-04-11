@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ErrorContainer } from './Error.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 
-const Error = () => {
+const ErrorPage = () => {
   const error = useRouteError() as Error;
 
   return (
@@ -19,4 +19,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorPage;
