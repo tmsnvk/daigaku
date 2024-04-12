@@ -10,6 +10,7 @@ import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,7 +42,7 @@ public class AccountController {
   @RequestMapping(
     value = "/me",
     method = RequestMethod.GET,
-    produces = "application/json"
+    produces = MediaType.APPLICATION_JSON_VALUE
   )
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'ADMIN')")
   public ResponseEntity<GetMeDto> findUser() {
@@ -67,8 +68,8 @@ public class AccountController {
   @RequestMapping(
     value = "/login",
     method = RequestMethod.POST,
-    consumes = "application/json",
-    produces = "application/json"
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<LoginReturnDto> loginUser(@Valid @RequestBody LoginRequestDto loginData) {
     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginData.email().toLowerCase(), loginData.password());

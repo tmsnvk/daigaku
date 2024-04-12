@@ -14,7 +14,7 @@ import net.tamasnovak.entities.role.Role;
 
 @Entity
 @Table(name = "accounts")
-public final class Account extends BaseEntity {
+public class Account extends BaseEntity {
   @Column(name = "first_name", nullable = false)
   @NotBlank(message = "Provide a first name.")
   @Size(min = 2, max = 100, message = "First name(s) should be between 2 and 100 characters long.")
@@ -24,6 +24,9 @@ public final class Account extends BaseEntity {
   @NotBlank(message = "Provide a last name.")
   @Size(min = 2, max = 100, message = "First name(s) should be between 2 and 100 characters long.")
   private String lastName;
+
+  @Column(name = "full_name", nullable = false)
+  private String fullName;
 
   @Column(name = "email", unique = true, nullable = false)
   @Email(message = "Provide a valid email address.")
@@ -37,7 +40,7 @@ public final class Account extends BaseEntity {
   @JsonBackReference
   private Role roleId;
 
-  public Account() {}
+  protected Account() {}
 
   public Account(String firstName, String lastName, String email, String hashedPassword, Role role) {
     this.firstName = firstName;
@@ -53,6 +56,10 @@ public final class Account extends BaseEntity {
 
   public String getLastName() {
     return lastName;
+  }
+
+  public String getFullName() {
+    return fullName;
   }
 
   public String getEmail() {
