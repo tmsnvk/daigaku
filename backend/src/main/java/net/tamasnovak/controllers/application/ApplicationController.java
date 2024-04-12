@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping(path = "/api/applications")
 public class ApplicationController {
@@ -28,8 +26,8 @@ public class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") UUID uuid) {
-    ApplicationDto application = applicationService.getByUuid(uuid);
+  public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") String uuid) {
+    ApplicationDto application = applicationService.findByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

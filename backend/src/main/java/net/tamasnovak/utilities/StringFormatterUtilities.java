@@ -22,7 +22,7 @@ public final class StringFormatterUtilities {
   }
 
   public String capitaliseWord(String word) {
-    return Arrays.stream(word.split("\\s+"))
+    return Arrays.stream(word.trim().split("\\s+"))
       .map(element -> {
         if (!element.contains("-")) {
           return capitaliseWordWithoutHyphen(element);

@@ -8,6 +8,7 @@ import net.tamasnovak.services.account.pendingAccount.PendingAccountService;
 import net.tamasnovak.services.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class PendingAccountController {
   @RequestMapping(
     value = "/register",
     method = RequestMethod.POST,
-    consumes = "application/json"
+    consumes = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<HttpStatus> register(@Valid @RequestBody PendingAccountRegistrationDto registrationData) {
     pendingAccountService.checkIfExistsByEmail(registrationData.email());

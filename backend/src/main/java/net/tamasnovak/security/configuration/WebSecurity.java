@@ -3,6 +3,7 @@ package net.tamasnovak.security.configuration;
 import net.tamasnovak.security.authentication.AuthenticationEntryPointJwt;
 import net.tamasnovak.security.authentication.AuthenticationTokenFilter;
 import net.tamasnovak.security.utilities.JwtUtilities;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +26,7 @@ public class WebSecurity {
   private final AuthenticationEntryPointJwt unauthorizedHandler;
   private final JwtUtilities jwtUtilities;
 
+  @Autowired
   public WebSecurity(UserDetailsService userDetailsService, AuthenticationEntryPointJwt unauthorizedHandler, JwtUtilities jwtUtilities) {
     this.userDetailsService = userDetailsService;
     this.unauthorizedHandler = unauthorizedHandler;
@@ -61,8 +63,8 @@ public class WebSecurity {
       .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/api/pending-accounts/**").permitAll()
         .requestMatchers("/api/accounts/**").permitAll()
+        .requestMatchers("/api/pending-accounts/**").permitAll()
         .requestMatchers("/api/universities/**").authenticated()
         .requestMatchers("/api/countries/**").authenticated()
         .requestMatchers("/api/applications/").authenticated()

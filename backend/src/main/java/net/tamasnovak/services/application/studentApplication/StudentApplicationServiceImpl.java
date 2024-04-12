@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -118,7 +119,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     ResponseStatus responseStatus = responseStatusService.findByUuid(updateApplicationByStudentDto.responseStatus());
     FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuid(updateApplicationByStudentDto.finalDestinationStatus());
 
-    Application application = applicationRepository.findByUuid(uuid);
+    // fix this so it uses Optional check
+    Application application = applicationRepository.findByUuid(uuid).get();
 
     application.setApplicationStatusId(applicationStatus);
     application.setInterviewStatusId(interviewStatus);

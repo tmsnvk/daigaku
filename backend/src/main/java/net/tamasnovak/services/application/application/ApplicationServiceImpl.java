@@ -1,5 +1,6 @@
 package net.tamasnovak.services.application.application;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.application.ApplicationDto;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.repositories.application.ApplicationRepository;
@@ -14,17 +15,28 @@ import java.util.UUID;
 public class ApplicationServiceImpl implements ApplicationService {
   private final ApplicationRepository applicationRepository;
   private final ApplicationMapper applicationMapper;
+  private final ApplicationServiceConstants applicationServiceConstants;
 
   @Autowired
-  public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper) {
+  public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ApplicationServiceConstants applicationServiceConstants) {
     this.applicationRepository = applicationRepository;
     this.applicationMapper = applicationMapper;
+    this.applicationServiceConstants = applicationServiceConstants;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationDto getByUuid(UUID uuid) {
-    Application application = applicationRepository.findByUuid(uuid);
+  public ApplicationDto findByUuid(String uuid) {
+    UUID validUuid;
+
+    try {
+      validUuid = UUID.fromString(uuid);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(applicationServiceConstants.NO_APPLICATION_FOUND);
+    }
+
+    Application application = applicationRepository.findByUuid(validUuid)
+      .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.NO_APPLICATION_FOUND));
 
     return applicationMapper.toApplicationDto(application);
   }

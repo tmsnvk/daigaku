@@ -10,7 +10,7 @@ import net.tamasnovak.entities.BaseEntity;
 
 @Entity
 @Table(name = "pending_accounts")
-public final class PendingAccount extends BaseEntity {
+public class PendingAccount extends BaseEntity {
   @Column(name = "first_name", nullable = false)
   @NotBlank(message = "Provide a first name.")
   @Size(min = 2, max = 100, message = "First name(s) should be between 2 and 100 characters long.")
@@ -25,7 +25,7 @@ public final class PendingAccount extends BaseEntity {
   @Email(message = "Provide a valid email address.")
   private String email;
 
-  public PendingAccount() {}
+  protected PendingAccount() {}
 
   public PendingAccount(String firstName, String lastName, String email) {
     this.firstName = firstName;

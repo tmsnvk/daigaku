@@ -1,9 +1,10 @@
 package net.tamasnovak.controllers;
 
 import jakarta.mail.MessagingException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
-import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
@@ -48,6 +49,26 @@ public final class GlobalControllerExceptionHandler {
       .body(errors);
   }
 
+  @ExceptionHandler(value = { DataRetrievalFailureException.class })
+  public ResponseEntity<Map<String, String>> handleDbResourceNotFoundException(DataRetrievalFailureException exception) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", exception.getMessage());
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
+      .body(errors);
+  }
+
+  @ExceptionHandler(value = { EntityNotFoundException.class })
+  public ResponseEntity<Map<String, String>> handleEntityNotFoundException(EntityNotFoundException exception) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", exception.getMessage());
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
+      .body(errors);
+  }
+
   @ExceptionHandler(value = {
     MailSendException.class,
     MessagingException.class
@@ -61,16 +82,6 @@ public final class GlobalControllerExceptionHandler {
       .body(errors);
   }
 
-  @ExceptionHandler(value = { DbResourceNotFoundException.class })
-  public ResponseEntity<Map<String, String>> handleNotFoundDbResourceException(DbResourceNotFoundException exception) {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", exception.getMessage());
-
-    return ResponseEntity
-      .status(HttpStatus.NOT_FOUND)
-      .body(errors);
-  }
-
   @ExceptionHandler(value = { BadCredentialsException.class })
   public ResponseEntity<Map<String, String>> handleAuthorisationException() {
     Map<String, String> errors = new HashMap<>();
@@ -78,6 +89,16 @@ public final class GlobalControllerExceptionHandler {
 
     return ResponseEntity
       .status(HttpStatus.UNAUTHORIZED)
+      .body(errors);
+  }
+
+  @ExceptionHandler(value = { IllegalArgumentException.class })
+  public ResponseEntity<Map<String, String>> handleIllegalException(IllegalArgumentException exception) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", exception.getMessage());
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
       .body(errors);
   }
 }

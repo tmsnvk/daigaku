@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
@@ -104,5 +105,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     """, nativeQuery = true
   )
   List<Object[]> getStudentDashboardData(@Param("studentId") long studentId);
-  Application findByUuid(UUID uuid);
+  Optional<Application> findByUuid(UUID uuid);
 }
