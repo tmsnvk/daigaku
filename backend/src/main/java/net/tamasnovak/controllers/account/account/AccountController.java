@@ -7,16 +7,13 @@ import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.security.utilities.JwtUtilities;
 import net.tamasnovak.services.account.account.AccountService;
-import net.tamasnovak.utilities.StringFormatterUtilities;
+import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,15 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
   private final AccountService accountService;
   private final JwtUtilities jwtUtilities;
-  private final AuthenticationManager authenticationManager;
-  private final StringFormatterUtilities stringFormatter;
+  private final AuthenticationFacade authenticationFacade;
 
   @Autowired
-  public AccountController(AccountService accountService, JwtUtilities jwtUtilities, AuthenticationManager authenticationManager, StringFormatterUtilities stringFormatter) {
+  public AccountController(AccountService accountService, JwtUtilities jwtUtilities, AuthenticationFacade authenticationFacade) {
     this.accountService = accountService;
     this.jwtUtilities = jwtUtilities;
-    this.authenticationManager = authenticationManager;
-    this.stringFormatter = stringFormatter;
+    this.authenticationFacade = authenticationFacade;
   }
 
   @RequestMapping(
@@ -46,10 +41,10 @@ public class AccountController {
   )
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'ADMIN')")
   public ResponseEntity<GetMeDto> findUser() {
-    User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User userDetails = authenticationFacade.getUserContext();
 
     Account account = accountService.findUserByEmail(userDetails.getUsername());
-    String role = stringFormatter.transformRolesArrayToString(userDetails);
+    String role = authenticationFacade.transformRolesArrayToString(userDetails);
 
     GetMeDto getMeDto = new GetMeDto(
       account.getEmail(),
@@ -72,14 +67,13 @@ public class AccountController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<LoginReturnDto> loginUser(@Valid @RequestBody LoginRequestDto loginData) {
-    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginData.email().toLowerCase(), loginData.password());
-    Authentication authentication = authenticationManager.authenticate(auth);
-
-    Account account = accountService.findUserByEmail(loginData.email().toLowerCase());
-    User userDetails = (User) authentication.getPrincipal();
+    Authentication authentication = authenticationFacade.authenticateUser(loginData.email().toLowerCase(), loginData.password());
+    User userDetails = authenticationFacade.getUserDetails(authentication);
 
     String jwtToken = jwtUtilities.generateJwtToken(authentication);
-    String role = stringFormatter.transformRolesArrayToString(userDetails);
+
+    Account account = accountService.findUserByEmail(loginData.email().toLowerCase());
+    String role = authenticationFacade.transformRolesArrayToString(userDetails);
 
     LoginReturnDto loginReturnDto = new LoginReturnDto(
       account.getEmail(),
