@@ -65,9 +65,10 @@ public class WebSecurity {
       .authorizeHttpRequests(auth -> auth
         .requestMatchers("/api/accounts/**").permitAll()
         .requestMatchers("/api/pending-accounts/**").permitAll()
+        .requestMatchers("/api/applications/").authenticated()
+        .requestMatchers("/api/applications/students").hasRole("STUDENT")
         .requestMatchers("/api/universities/**").authenticated()
         .requestMatchers("/api/countries/**").authenticated()
-        .requestMatchers("/api/applications/").authenticated()
         .requestMatchers("/error/**").permitAll()
         .anyRequest().authenticated()
       )

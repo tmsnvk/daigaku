@@ -24,6 +24,12 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
+  public FinalDestinationStatus findByName(String statusName) {
+    return finalDestinationStatusRepository.findByName(statusName);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
   public List<FinalDestinationStatusFormDto> findAll() {
     List<FinalDestinationStatus> finalDestinationStatuses = finalDestinationStatusRepository.findAll();
 

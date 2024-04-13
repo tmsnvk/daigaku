@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FinalDestinationStatusRepository extends JpaRepository<FinalDestinationStatus, Long> {
+  FinalDestinationStatus findByName(String statusName);
   List<FinalDestinationStatus> findAll();
   FinalDestinationStatus findByUuid(UUID uuid);
 }

@@ -23,6 +23,15 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
   }
 
   @Override
+  @Transactional(readOnly = true)
+  public ResponseStatus findByName(String statusName) {
+    return responseStatusRepository.findByName(statusName);
+  }
+
+
+
+  @Override
+  @Transactional(readOnly = true)
   public List<ResponseStatusFormDto> findAll() {
     List<ResponseStatus> responseStatuses = responseStatusRepository.findAll();
 

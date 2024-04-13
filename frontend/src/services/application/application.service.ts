@@ -52,7 +52,7 @@ const applicationService = {
   getDashboardData: async (userRole: string): Promise<AxiosResponse<DashboardDataT>> => {
     return await axiosConfigWithAuth.request<DashboardDataT>({
       method: 'GET',
-      url: `api/applications/${userRole}/dashboard-data`,
+      url: `api/applications/${userRole}/dashboard`,
     });
   },
 };
