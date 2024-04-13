@@ -30,43 +30,39 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
-  public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatch() {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", "Bad values were provided.");
+  public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException() {
+    Map<String, String> response = createErrorResponse("Bad values were provided.");
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
-      .body(errors);
+      .body(response);
   }
 
   @ExceptionHandler(value = { DataIntegrityViolationException.class })
   public ResponseEntity<Map<String, String>> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", exception.getMessage());
+    Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
-      .body(errors);
+      .body(response);
   }
 
   @ExceptionHandler(value = { DataRetrievalFailureException.class })
-  public ResponseEntity<Map<String, String>> handleDbResourceNotFoundException(DataRetrievalFailureException exception) {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", exception.getMessage());
+  public ResponseEntity<Map<String, String>> handleDataRetrievalFailureException(DataRetrievalFailureException exception) {
+    Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
-      .body(errors);
+      .body(response);
   }
 
   @ExceptionHandler(value = { EntityNotFoundException.class })
   public ResponseEntity<Map<String, String>> handleEntityNotFoundException(EntityNotFoundException exception) {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", exception.getMessage());
+    Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
-      .body(errors);
+      .body(response);
   }
 
   @ExceptionHandler(value = {
@@ -74,41 +70,34 @@ public class GlobalControllerExceptionHandler {
     MessagingException.class
   })
   public ResponseEntity<Map<String, String>> handleEmailSendingException(Exception exception) {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", exception.getMessage());
+    Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
       .status(HttpStatus.INTERNAL_SERVER_ERROR)
-      .body(errors);
+      .body(response);
   }
 
   @ExceptionHandler(value = { BadCredentialsException.class })
-  public ResponseEntity<Map<String, String>> handleAuthorisationException() {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", "Bad credentials were provided.");
+  public ResponseEntity<Map<String, String>> handleBadCredentialsException() {
+    Map<String, String> response = createErrorResponse("Bad credentials were provided.");
 
     return ResponseEntity
       .status(HttpStatus.UNAUTHORIZED)
-      .body(errors);
+      .body(response);
   }
 
   @ExceptionHandler(value = { IllegalArgumentException.class })
   public ResponseEntity<Map<String, String>> handleIllegalException(IllegalArgumentException exception) {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", exception.getMessage());
+    Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
-      .body(errors);
+      .body(response);
   }
 
-  @ExceptionHandler(value = { IllegalAccessException.class })
-  public ResponseEntity<Map<String, String>> handleNoAccessException(IllegalAccessException exception) {
-    Map<String, String> errors = new HashMap<>();
-    errors.put("root", exception.getMessage());
-
-    return ResponseEntity
-      .status(HttpStatus.BAD_REQUEST)
-      .body(errors);
+  private Map<String, String> createErrorResponse(String errorMessage) {
+    return new HashMap<>(){{
+      put("root", errorMessage);
+    }};
   }
 }
