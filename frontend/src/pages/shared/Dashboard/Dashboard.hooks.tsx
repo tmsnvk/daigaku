@@ -7,12 +7,16 @@ import {
 import { applicationService } from '@services/index.ts';
 
 export type DashboardDataT = {
-  firmChoiceCountry: string;
-  firmChoiceUniversity: string;
-  firmChoiceCourseName: string;
-  finalDestinationCountry: string;
-  finalDestinationUniversity: string;
-  finalDestinationCourseName: string;
+  firmChoice: {
+    country: string;
+    university: string;
+    courseName: string;
+  }
+  finalDestination: {
+    country: string;
+    university: string;
+    courseName: string;
+  };
   numberOfApplications: number;
   numberOfPlannedStatus: number;
   numberOfSubmittedStatus: number;

@@ -69,6 +69,7 @@ public class WebSecurity {
         .requestMatchers("/api/applications/students").hasRole("STUDENT")
         .requestMatchers("/api/universities/**").authenticated()
         .requestMatchers("/api/countries/**").authenticated()
+        .requestMatchers("/api/application-statuses/**").authenticated()
         .requestMatchers("/error/**").permitAll()
         .anyRequest().authenticated()
       )

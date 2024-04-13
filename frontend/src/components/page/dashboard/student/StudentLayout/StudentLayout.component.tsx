@@ -57,15 +57,15 @@ const StudentLayout = ({ data }: ComponentPropsT) => {
         />
         <TextInfoBox
           title={firmChoice}
-          country={data.firmChoiceCountry ?? ''}
-          university={data.firmChoiceUniversity ?? 'Not yet selected.'}
-          courseName={data.firmChoiceCourseName ?? ''}
+          country={data.firmChoice.country ?? ''}
+          university={data.firmChoice.university ?? 'Not yet selected.'}
+          courseName={data.firmChoice.courseName ?? ''}
         />
         <TextInfoBox
           title={finalDestination}
-          country={data.finalDestinationCountry ?? ''}
-          university={data.finalDestinationUniversity ?? 'Not yet selected.'}
-          courseName={data.finalDestinationCourseName ?? ''}
+          country={data.finalDestination.country ?? ''}
+          university={data.finalDestination.university ?? 'Not yet selected.'}
+          courseName={data.finalDestination.courseName ?? ''}
         />
       </section>
     </>

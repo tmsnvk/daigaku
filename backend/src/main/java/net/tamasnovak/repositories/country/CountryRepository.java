@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface CountryRepository extends JpaRepository<Country, Long> {
   List<Country> findAll();
-  Optional<Country> findByUuid(UUID countryId);
+  Optional<Country> findByUuid(UUID countryUuid);
 }

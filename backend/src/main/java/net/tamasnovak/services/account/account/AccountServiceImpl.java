@@ -1,14 +1,12 @@
 package net.tamasnovak.services.account.account;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.repositories.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -34,12 +32,7 @@ public class AccountServiceImpl implements AccountService {
   @Override
   @Transactional(readOnly = true)
   public Account findUserByEmail(String email) {
-    Optional<Account> account = accountRepository.findByEmail(email);
-
-    if (account.isEmpty()) {
-      throw new DataRetrievalFailureException(accountServiceConstants.USER_NOT_FOUND);
-    }
-
-    return account.get();
+    return accountRepository.findByEmail(email)
+      .orElseThrow(() -> new EntityNotFoundException(accountServiceConstants.USER_NOT_FOUND));
   }
 }

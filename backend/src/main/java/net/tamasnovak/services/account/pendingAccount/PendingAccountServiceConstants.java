@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 public final class PendingAccountServiceConstants {
   final String EMAIL_ALREADY_EXISTS = "This email is already registered in our system.";
 
-  PendingAccountServiceConstants() {}
+  private PendingAccountServiceConstants() {}
 }
