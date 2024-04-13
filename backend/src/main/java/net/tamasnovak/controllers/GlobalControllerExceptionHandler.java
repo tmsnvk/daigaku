@@ -3,6 +3,7 @@ package net.tamasnovak.controllers;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,6 +96,16 @@ public final class GlobalControllerExceptionHandler {
 
   @ExceptionHandler(value = { IllegalArgumentException.class })
   public ResponseEntity<Map<String, String>> handleIllegalException(IllegalArgumentException exception) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("root", exception.getMessage());
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
+      .body(errors);
+  }
+
+  @ExceptionHandler(value = { IllegalAccessException.class })
+  public ResponseEntity<Map<String, String>> handleNoAccessException(IllegalAccessException exception) {
     Map<String, String> errors = new HashMap<>();
     errors.put("root", exception.getMessage());
 

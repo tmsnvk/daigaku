@@ -19,4 +19,10 @@ public final class ValidatorUtilities {
       throw new IllegalArgumentException(exceptionMessage);
     }
   }
+
+  public void checkIfApplicationMentorIsValid(long applicationMentorId, long authMentorId, String exceptionMessage) {
+    if (applicationMentorId != authMentorId) {
+      throw new IllegalArgumentException(exceptionMessage);
+    }
+  }
 }
