@@ -1,7 +1,9 @@
 package net.tamasnovak.controllers.application;
 
 import net.tamasnovak.dtos.application.ApplicationDto;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.services.application.application.ApplicationService;
+import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/applications")
 public class ApplicationController {
   private final ApplicationService applicationService;
+  private final AuthenticationFacade authenticationFacade;
 
   @Autowired
-  public ApplicationController(ApplicationService applicationService) {
+  public ApplicationController(ApplicationService applicationService, AuthenticationFacade authenticationFacade) {
     this.applicationService = applicationService;
+    this.authenticationFacade = authenticationFacade;
   }
 
   @RequestMapping(
@@ -27,7 +31,8 @@ public class ApplicationController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") String uuid) {
-    ApplicationDto application = applicationService.findByUuid(uuid);
+    Account authAccount = authenticationFacade.getAuthenticatedAccount();
+    ApplicationDto application = applicationService.findByUuid(uuid, authAccount.getUuid());
 
     return ResponseEntity
       .status(HttpStatus.OK)
