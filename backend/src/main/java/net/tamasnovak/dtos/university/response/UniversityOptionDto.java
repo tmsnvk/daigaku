@@ -1,4 +1,4 @@
-package net.tamasnovak.dtos.university;
+package net.tamasnovak.dtos.university.response;
 
 import java.util.UUID;
 

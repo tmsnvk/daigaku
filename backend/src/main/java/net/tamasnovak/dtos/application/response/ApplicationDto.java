@@ -1,4 +1,4 @@
-package net.tamasnovak.dtos.application;
+package net.tamasnovak.dtos.application.response;
 
 import java.sql.Timestamp;
 import java.util.UUID;

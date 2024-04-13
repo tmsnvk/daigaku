@@ -1,12 +1,12 @@
 package net.tamasnovak.services.application.studentApplication;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.application.ApplicationDto;
-import net.tamasnovak.dtos.application.DashboardDataDto;
-import net.tamasnovak.dtos.application.FinalDestinationDto;
-import net.tamasnovak.dtos.application.FirmChoiceDto;
-import net.tamasnovak.dtos.application.NewApplicationByStudentDto;
-import net.tamasnovak.dtos.application.UpdateApplicationByStudentDto;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
+import net.tamasnovak.dtos.application.response.FinalDestinationDto;
+import net.tamasnovak.dtos.application.response.FirmChoiceDto;
+import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
+import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountsByRole.Student;
 import net.tamasnovak.entities.application.Application;
@@ -88,8 +88,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional
   public ApplicationDto createApplication(Account studentAccount, NewApplicationByStudentDto newApplicationByStudentDto) {
     Student student = accountsStudentsJunctionService.findStudentByAccount(studentAccount);
-    Country country = countryService.findByUuid(newApplicationByStudentDto.country());
-    University university = universityService.findByUuid(newApplicationByStudentDto.university());
+    Country country = countryService.findByUuid(newApplicationByStudentDto.countryUuid());
+    University university = universityService.findByUuid(newApplicationByStudentDto.universityUuid());
 
     checkIfUniversityBelongsToCountry(country, university);
 
@@ -126,11 +126,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     validatorUtilities.checkIfUuidsAreEqual(account.getUuid(), application.getStudentId().getAccountId().getUuid(), studentApplicationServiceConstants.NO_PERMISSION_AS_STUDENT);
 
-    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(updateApplicationByStudentDto.applicationStatus());
-    InterviewStatus interviewStatus = interviewStatusService.findByUuid(updateApplicationByStudentDto.interviewStatus());
-    OfferStatus offerStatus = offerStatusService.findByUuid(updateApplicationByStudentDto.offerStatus());
-    ResponseStatus responseStatus = responseStatusService.findByUuid(updateApplicationByStudentDto.responseStatus());
-    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuid(updateApplicationByStudentDto.finalDestinationStatus());
+    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(updateApplicationByStudentDto.applicationStatusUuid());
+    InterviewStatus interviewStatus = interviewStatusService.findByUuid(updateApplicationByStudentDto.interviewStatusUuid());
+    OfferStatus offerStatus = offerStatusService.findByUuid(updateApplicationByStudentDto.offerStatusUuid());
+    ResponseStatus responseStatus = responseStatusService.findByUuid(updateApplicationByStudentDto.responseStatusUuid());
+    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuid(updateApplicationByStudentDto.finalDestinationStatusUuid());
 
     application.setApplicationStatusId(applicationStatus);
     application.setInterviewStatusId(interviewStatus);
@@ -146,13 +146,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardDataDto getDashboardData(Account account, String accountRole) {
+  public DashboardAggregateDataDto getDashboardData(Account account, String accountRole) {
     Student student = accountsStudentsJunctionService.findStudentByAccount(account);
 
     return prepareDashboardData(student);
   }
 
-  private DashboardDataDto prepareDashboardData(Student student) {
+  private DashboardAggregateDataDto prepareDashboardData(Student student) {
     ApplicationStatus plannedStatus = applicationStatusService.findByName("Planned");
     ApplicationStatus submittedStatus = applicationStatusService.findByName("Submitted");
     ApplicationStatus withdrawnStatus = applicationStatusService.findByName("Withdrawn");
@@ -175,7 +175,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       applicationByFinalDestinationStatus.getCourseName()
     );
 
-    return new DashboardDataDto(
+    return new DashboardAggregateDataDto(
       firmChoiceDto,
       finalDestinationDto,
       applicationRepository.countAllByStudentId(student),

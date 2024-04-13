@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.application;
 
-import net.tamasnovak.dtos.application.ApplicationDto;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.services.application.application.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

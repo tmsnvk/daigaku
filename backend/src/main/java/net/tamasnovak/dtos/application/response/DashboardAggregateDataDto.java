@@ -1,6 +1,6 @@
-package net.tamasnovak.dtos.application;
+package net.tamasnovak.dtos.application.response;
 
-public record DashboardDataDto(
+public record DashboardAggregateDataDto(
   FirmChoiceDto firmChoiceDto,
   FinalDestinationDto finalDestinationDto,
   int numberOfApplications,

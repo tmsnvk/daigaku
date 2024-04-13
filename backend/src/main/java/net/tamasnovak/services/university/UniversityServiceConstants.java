@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class UniversityServiceConstants {
-  final String UNIVERSITY_NOT_FOUND = "The requested university was not found in our database.";
+  final String UNIVERSITY_NOT_FOUND = "The requested universityUuid was not found in our database.";
 
   private UniversityServiceConstants() {}
 }

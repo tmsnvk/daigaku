@@ -1,4 +1,4 @@
-package net.tamasnovak.dtos.country;
+package net.tamasnovak.dtos.country.response;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 package net.tamasnovak.services.interviewStatus;
 
-import net.tamasnovak.dtos.interviewStatus.InterviewStatusFormDto;
+import net.tamasnovak.dtos.interviewStatus.response.InterviewStatusOptionDto;
 import net.tamasnovak.entities.application.InterviewStatus;
 import net.tamasnovak.repositories.interviewStatus.InterviewStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<InterviewStatusFormDto> findAll() {
+  public List<InterviewStatusOptionDto> findAll() {
     List<InterviewStatus> interviewStatuses = interviewStatusRepository.findAll();
 
     return interviewStatuses.stream()

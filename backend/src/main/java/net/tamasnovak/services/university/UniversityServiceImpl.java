@@ -1,7 +1,7 @@
 package net.tamasnovak.services.university;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.university.UniversityOptionDto;
+import net.tamasnovak.dtos.university.response.UniversityOptionDto;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.repositories.university.UniversityRepository;

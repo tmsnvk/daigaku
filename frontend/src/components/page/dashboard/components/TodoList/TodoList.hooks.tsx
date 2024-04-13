@@ -18,11 +18,11 @@ const useCreateCurrentTodos = (data: DashboardDataT) => {
 
     if (data.numberOfSubmittedStatus) {
       data.numberOfNotSetInterviewStatus && currentTodos.push(noInterviewStatusSet);
-      !data.firmChoiceCourseName && currentTodos.push(noFirmChoiceSet);
+      !data.firmChoiceDto.courseName && currentTodos.push(noFirmChoiceSet);
       !data.numberOfOffers && currentTodos.push(noOfferStatusSet);
     }
 
-    data.numberOfOffers && !data.finalDestinationCourseName && currentTodos.push(noFinalDestinationSet);
+    data.numberOfOffers && !data.finalDestinationDto.courseName && currentTodos.push(noFinalDestinationSet);
   };
 
   if (!currentTodos.length) {

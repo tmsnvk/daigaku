@@ -1,6 +1,6 @@
 package net.tamasnovak.services.university;
 
-import net.tamasnovak.dtos.university.UniversityOptionDto;
+import net.tamasnovak.dtos.university.response.UniversityOptionDto;
 import net.tamasnovak.entities.university.University;
 
 import java.util.List;

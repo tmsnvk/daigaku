@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.university;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.dtos.university.UniversityOptionDto;
+import net.tamasnovak.dtos.university.response.UniversityOptionDto;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

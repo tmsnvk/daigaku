@@ -77,11 +77,11 @@ const useGetAllSelectOptions = (): ApplicationOptionStatusesT => {
 };
 
 export type UpdateApplicationFormFieldsT = {
-  applicationStatus: string;
-  interviewStatus: string;
-  offerStatus: string;
-  responseStatus: string;
-  finalDestinationStatus: string;
+  applicationStatusUuid: string;
+  interviewStatusUuid: string;
+  offerStatusUuid: string;
+  responseStatusUuid: string;
+  finalDestinationStatusUuid: string;
 }
 
 type UpdateApplicationFormT = {
@@ -92,11 +92,11 @@ type UpdateApplicationFormT = {
 
 type UpdateApplicationFormErrorFieldsT = `root.${string}` |
   'root' |
-  'applicationStatus' |
-  'interviewStatus' |
-  'offerStatus' |
-  'responseStatus' |
-  'finalDestinationStatus';
+  'applicationStatusUuid' |
+  'interviewStatusUuid' |
+  'offerStatusUuid' |
+  'responseStatusUuid' |
+  'finalDestinationStatusUuid';
 
 type UpdateApplicationFormErrorT = {
   response: {

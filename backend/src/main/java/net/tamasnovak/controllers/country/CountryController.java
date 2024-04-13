@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.country;
 
-import net.tamasnovak.dtos.country.CountryOptionDto;
+import net.tamasnovak.dtos.country.response.CountryOptionDto;
 import net.tamasnovak.services.country.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

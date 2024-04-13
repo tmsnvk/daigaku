@@ -2,7 +2,7 @@ package net.tamasnovak.controllers.account.account;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
-import net.tamasnovak.dtos.account.response.GetMeDto;
+import net.tamasnovak.dtos.account.response.FrontendContextDto;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.security.utilities.JwtUtilities;
@@ -40,13 +40,13 @@ public class AccountController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'ADMIN')")
-  public ResponseEntity<GetMeDto> findUser() {
+  public ResponseEntity<FrontendContextDto> findUser() {
     User userDetails = authenticationFacade.getUserContext();
 
     Account account = accountService.findUserByEmail(userDetails.getUsername());
     String role = authenticationFacade.transformRolesArrayToString(userDetails);
 
-    GetMeDto getMeDto = new GetMeDto(
+    FrontendContextDto frontendContextDto = new FrontendContextDto(
       account.getEmail(),
       account.getFirstName(),
       account.getLastName(),
@@ -57,7 +57,7 @@ public class AccountController {
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(getMeDto);
+      .body(frontendContextDto);
   }
 
   @RequestMapping(

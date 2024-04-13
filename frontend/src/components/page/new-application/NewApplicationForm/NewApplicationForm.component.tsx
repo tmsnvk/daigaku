@@ -52,8 +52,8 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={formInformation} />
         <SelectCountry
           register={register}
-          fieldError={errors.country?.message}
-          fieldId={'country'}
+          fieldError={errors.countryUuid?.message}
+          fieldId={'countryUuid'}
           isDisabled={isPending}
           data={countryData}
           onCountryClick={onCountryClick}
@@ -62,8 +62,8 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
         <InputInfoBox content={countryInformation} />
         <SelectUniversity
           register={register}
-          fieldError={errors.university?.message}
-          fieldId={'university'}
+          fieldError={errors.universityUuid?.message}
+          fieldId={'universityUuid'}
           isDisabled={isPending || !isCountrySelected}
           data={universityData}
         />

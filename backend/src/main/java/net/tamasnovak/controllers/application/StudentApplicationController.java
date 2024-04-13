@@ -1,10 +1,10 @@
 package net.tamasnovak.controllers.application;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.dtos.application.ApplicationDto;
-import net.tamasnovak.dtos.application.DashboardDataDto;
-import net.tamasnovak.dtos.application.NewApplicationByStudentDto;
-import net.tamasnovak.dtos.application.UpdateApplicationByStudentDto;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
+import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
+import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
@@ -82,14 +82,14 @@ public class StudentApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<DashboardDataDto> getDashboardAggregateData() {
+  public ResponseEntity<DashboardAggregateDataDto> getDashboardAggregateData() {
     Account account = authenticationFacade.getAuthenticatedAccount();
     String accountRole = authenticationFacade.getAuthenticatedAccountRole();
 
-    DashboardDataDto dashboardDataDto = studentApplicationService.getDashboardData(account, accountRole);
+    DashboardAggregateDataDto dashboardAggregateDataDto = studentApplicationService.getDashboardData(account, accountRole);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(dashboardDataDto);
+      .body(dashboardAggregateDataDto);
   }
 }

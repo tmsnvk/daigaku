@@ -1,6 +1,6 @@
 package net.tamasnovak.services.responseStatus;
 
-import net.tamasnovak.dtos.responseStatus.ResponseStatusFormDto;
+import net.tamasnovak.dtos.responseStatus.response.ResponseStatusOptionDto;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.repositories.responseStatus.ResponseStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<ResponseStatusFormDto> findAll() {
+  public List<ResponseStatusOptionDto> findAll() {
     List<ResponseStatus> responseStatuses = responseStatusRepository.findAll();
 
     return responseStatuses.stream()

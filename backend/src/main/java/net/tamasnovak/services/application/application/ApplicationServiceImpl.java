@@ -1,7 +1,7 @@
 package net.tamasnovak.services.application.application;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.application.ApplicationDto;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.repositories.application.ApplicationRepository;

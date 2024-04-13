@@ -12,8 +12,8 @@ import { ApplicationT } from '@services/application/application.service.ts';
 import { applicationService } from '@services/index.ts';
 
 export type NewApplicationFormFieldsT = {
-  country: string;
-  university: string;
+  countryUuid: string;
+  universityUuid: string;
   courseName: string;
   minorSubject: string;
   programmeLength: number;
@@ -27,8 +27,8 @@ type NewApplicationFormT = {
 
 type NewApplicationFormErrorFieldsT = `root.${string}` |
   'root' |
-  'country' |
-  'university' |
+  'countryUuid' |
+  'universityUuid' |
   'courseName' |
   'minorSubject' |
   'programmeLength';

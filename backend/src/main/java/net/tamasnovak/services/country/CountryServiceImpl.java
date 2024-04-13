@@ -1,7 +1,7 @@
 package net.tamasnovak.services.country;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.country.CountryOptionDto;
+import net.tamasnovak.dtos.country.response.CountryOptionDto;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.repositories.country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

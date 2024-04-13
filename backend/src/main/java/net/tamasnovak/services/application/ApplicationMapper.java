@@ -1,6 +1,6 @@
 package net.tamasnovak.services.application;
 
-import net.tamasnovak.dtos.application.ApplicationDto;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.entities.application.Application;
 import org.springframework.stereotype.Component;
 
