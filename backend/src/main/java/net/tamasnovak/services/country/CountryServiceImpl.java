@@ -5,7 +5,6 @@ import net.tamasnovak.dtos.country.CountryOptionDto;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.repositories.country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +28,7 @@ public class CountryServiceImpl implements CountryService {
   @Override
   @Transactional(readOnly = true)
   public List<CountryOptionDto> getOptionsSortedAscByName() {
-    List<Country> countries = countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+    List<Country> countries = countryRepository.findAllByOrderByNameAsc();
 
     return countries.stream()
       .map(countryMapper::toOptionDto)

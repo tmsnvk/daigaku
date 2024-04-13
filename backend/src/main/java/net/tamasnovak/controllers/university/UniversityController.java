@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/universities")
-public final class UniversityController {
+public class UniversityController {
   private final UniversityService universityService;
 
   public UniversityController(UniversityService universityService) {
@@ -29,7 +29,7 @@ public final class UniversityController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<List<UniversityOptionDto>> getOptionsByCountryUuid(@Valid @PathVariable UUID countryUuid) {
-    List<UniversityOptionDto> universityOptions = universityService.getOptionsByCountryUuid(countryUuid);
+    List<UniversityOptionDto> universityOptions = universityService.getOptionsByCountryUuidAndSortedAscByName(countryUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

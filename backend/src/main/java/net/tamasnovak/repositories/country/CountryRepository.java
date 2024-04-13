@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CountryRepository extends JpaRepository<Country, Long> {
-  List<Country> findAll();
+  List<Country> findAllByOrderByNameAsc();
   Optional<Country> findByUuid(UUID countryUuid);
 }
