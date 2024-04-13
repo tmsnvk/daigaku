@@ -1,18 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import { queryKeys } from '@configuration';
 import {
   AccountRoleE,
   useAuth,
 } from '@context/AuthContext.tsx';
 import { applicationService } from '@services/index.ts';
+import { queryKeys } from '@configuration';
 
 export type DashboardDataT = {
-  firmChoice: {
+  firmChoiceDto: {
     country: string;
     university: string;
     courseName: string;
-  }
-  finalDestination: {
+  };
+  finalDestinationDto: {
     country: string;
     university: string;
     courseName: string;
