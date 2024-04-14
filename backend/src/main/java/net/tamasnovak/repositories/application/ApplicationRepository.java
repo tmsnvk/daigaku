@@ -14,12 +14,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
-  List<Application> findApplicationsByStudentId(Student studentId);
+  List<Application> findApplicationsByStudent(Student student);
   Optional<Application> findByUuid(UUID uuid);
-  Application findByStudentIdAndResponseStatusId(Student student, ResponseStatus responseStatus);
-  Application findByStudentIdAndFinalDestinationStatusId(Student student, FinalDestinationStatus finalDestinationStatus);
-  int countAllByStudentId(Student student);
-  int countAllByStudentIdAndApplicationStatusId(Student student, ApplicationStatus applicationStatus);
+  Application findByStudentAndResponseStatus(Student student, ResponseStatus responseStatus);
+  Application findByStudentAndFinalDestinationStatus(Student student, FinalDestinationStatus finalDestinationStatus);
+  int countAllByStudent(Student student);
+  int countAllByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus);
   @Query(
     value = """
       SELECT
@@ -46,6 +46,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     """, nativeQuery = true
   )
   int countDistinctByUniversityIdAndStudentId(@Param("studentId") long studentId);
-  int countByStudentIdAndInterviewStatusIdIsNull(Student student);
-  int countAllByStudentIdAndOfferStatusIdIsNotNull(Student student);
+  int countByStudentAndInterviewStatusIsNull(Student student);
+  int countAllByStudentAndOfferStatusIsNotNull(Student student);
 }

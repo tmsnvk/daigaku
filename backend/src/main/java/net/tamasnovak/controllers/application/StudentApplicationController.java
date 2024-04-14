@@ -69,7 +69,6 @@ public class StudentApplicationController {
   )
   public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") String uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
-
     ApplicationDto applicationDto = studentApplicationService.updateByUuid(account, uuid, updateApplicationByStudentDto);
 
     return ResponseEntity

@@ -20,7 +20,6 @@ import net.tamasnovak.entities.university.University;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
 import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
 import net.tamasnovak.repositories.application.ApplicationRepository;
-import net.tamasnovak.services.account.accountsStudentsJunction.AccountsStudentsJunctionService;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
@@ -28,6 +27,7 @@ import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusServ
 import net.tamasnovak.services.interviewStatus.InterviewStatusService;
 import net.tamasnovak.services.offerStatus.OfferStatusService;
 import net.tamasnovak.services.responseStatus.ResponseStatusService;
+import net.tamasnovak.services.role.student.StudentService;
 import net.tamasnovak.services.university.UniversityService;
 import net.tamasnovak.utilities.ValidatorUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +47,15 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final FinalDestinationStatusService finalDestinationStatusService;
   private final CountryService countryService;
   private final UniversityService universityService;
-  private final AccountsStudentsJunctionService accountsStudentsJunctionService;
   private final ApplicationRepository applicationRepository;
   private final ApplicationMapper applicationMapper;
   private final DbResourceNotFoundConstants dbResourceNotFoundConstants;
   private final ValidatorUtilities validatorUtilities;
   private final StudentApplicationServiceConstants studentApplicationServiceConstants;
+  private final StudentService studentService;
 
   @Autowired
-  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, AccountsStudentsJunctionService accountsStudentsJunctionService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants, ValidatorUtilities validatorUtilities, StudentApplicationServiceConstants studentApplicationServiceConstants) {
+  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants, ValidatorUtilities validatorUtilities, StudentApplicationServiceConstants studentApplicationServiceConstants, StudentService studentService) {
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
     this.offerStatusService = offerStatusService;
@@ -63,19 +63,19 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.finalDestinationStatusService = finalDestinationStatusService;
     this.countryService = countryService;
     this.universityService = universityService;
-    this.accountsStudentsJunctionService = accountsStudentsJunctionService;
     this.applicationRepository = applicationRepository;
     this.applicationMapper = applicationMapper;
     this.dbResourceNotFoundConstants = dbResourceNotFoundConstants;
     this.validatorUtilities = validatorUtilities;
     this.studentApplicationServiceConstants = studentApplicationServiceConstants;
+    this.studentService = studentService;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationDto> findAllByAccount(Account studentAccount) {
-    Student student = accountsStudentsJunctionService.findStudentByAccount(studentAccount);
-    List<Application> applications = applicationRepository.findApplicationsByStudentId(student);
+  public List<ApplicationDto> findAllByAccount(Account account) {
+    Student student = studentService.findByAccount(account);
+    List<Application> applications = applicationRepository.findApplicationsByStudent(student);
 
     return applications.stream()
       .map(applicationMapper::toApplicationDto)
@@ -84,8 +84,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto createApplication(Account studentAccount, NewApplicationByStudentDto newApplicationByStudentDto) {
-    Student student = accountsStudentsJunctionService.findStudentByAccount(studentAccount);
+  public ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
+    Student student = studentService.findByAccount(account);
     Country country = countryService.findByUuid(newApplicationByStudentDto.countryUuid());
     University university = universityService.findByUuid(newApplicationByStudentDto.universityUuid());
 
@@ -148,7 +148,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional(readOnly = true)
   public DashboardAggregateDataDto getDashboardData(Account account, String accountRole) {
-    Student student = accountsStudentsJunctionService.findStudentByAccount(account);
+    Student student = studentService.findByAccount(account);
 
     return prepareDashboardData(student);
   }
@@ -159,7 +159,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     ApplicationStatus withdrawnStatus = applicationStatusService.findByName("Withdrawn");
 
     ResponseStatus firmChoiceStatus = responseStatusService.findByName("Firm Choice");
-    Application applicationByFirmChoice = applicationRepository.findByStudentIdAndResponseStatusId(student, firmChoiceStatus);
+    Application applicationByFirmChoice = applicationRepository.findByStudentAndResponseStatus(student, firmChoiceStatus);
 
     FirmChoiceDto firmChoiceDto = new FirmChoiceDto(
       applicationByFirmChoice.getCountry().getName(),
@@ -168,7 +168,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     );
 
     FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByName("Final Destination");
-    Application applicationByFinalDestinationStatus = applicationRepository.findByStudentIdAndFinalDestinationStatusId(student, finalDestinationStatus);
+    Application applicationByFinalDestinationStatus = applicationRepository.findByStudentAndFinalDestinationStatus(student, finalDestinationStatus);
 
     FinalDestinationDto finalDestinationDto = new FinalDestinationDto(
       applicationByFinalDestinationStatus.getCountry().getName(),
@@ -179,14 +179,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     return new DashboardAggregateDataDto(
       firmChoiceDto,
       finalDestinationDto,
-      applicationRepository.countAllByStudentId(student),
-      applicationRepository.countAllByStudentIdAndApplicationStatusId(student, plannedStatus),
-      applicationRepository.countAllByStudentIdAndApplicationStatusId(student, submittedStatus),
-      applicationRepository.countAllByStudentIdAndApplicationStatusId(student, withdrawnStatus),
+      applicationRepository.countAllByStudent(student),
+      applicationRepository.countAllByStudentAndApplicationStatus(student, plannedStatus),
+      applicationRepository.countAllByStudentAndApplicationStatus(student, submittedStatus),
+      applicationRepository.countAllByStudentAndApplicationStatus(student, withdrawnStatus),
       applicationRepository.countDistinctByCountryIdAndStudentId(student.getId()),
       applicationRepository.countDistinctByUniversityIdAndStudentId(student.getId()),
-      applicationRepository.countByStudentIdAndInterviewStatusIdIsNull(student),
-      applicationRepository.countAllByStudentIdAndOfferStatusIdIsNotNull(student)
+      applicationRepository.countByStudentAndInterviewStatusIsNull(student),
+      applicationRepository.countAllByStudentAndOfferStatusIsNotNull(student)
       );
   }
 }

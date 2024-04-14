@@ -9,8 +9,8 @@ import net.tamasnovak.entities.account.baseAccount.Account;
 import java.util.List;
 
 public interface StudentApplicationService {
-  List<ApplicationDto> findAllByAccount(Account studentAccount);
-  ApplicationDto createApplication(Account studentAccount, NewApplicationByStudentDto newApplicationByStudentDto);
+  List<ApplicationDto> findAllByAccount(Account account);
+  ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
   ApplicationDto updateByUuid(Account account, String uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
   DashboardAggregateDataDto getDashboardData(Account account, String accountRole);
 }

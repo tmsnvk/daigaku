@@ -20,12 +20,6 @@ VALUES
   (1, 1),
   (2, 2);
 
-INSERT INTO accounts_system_admins_junction
-  (account_id, system_admin_id)
-VALUES
-  (1, 1),
-  (2, 2);
-
 -- institution admin users
 WITH role_insert AS (
   INSERT INTO roles
@@ -46,12 +40,6 @@ INSERT INTO institution_admins
 VALUES
   (1, 3),
   (2, 4);
-
-INSERT INTO accounts_institution_admins_junction
-(account_id, institution_admin_id)
-VALUES
-  (3, 1),
-  (4, 2);
 
 -- mentor users
 WITH role_insert AS (
@@ -74,12 +62,6 @@ VALUES
   (1, 5),
   (2, 6);
 
-INSERT INTO accounts_mentors_junction
-  (account_id, mentor_id)
-VALUES
-  (5, 1),
-  (6, 2);
-
 -- student users
 WITH role_insert AS (
   INSERT INTO roles
@@ -100,12 +82,6 @@ INSERT INTO students
 VALUES
   (1, 7, 1),
   (2, 8, 1);
-
-INSERT INTO accounts_students_junction
-(account_id, student_id)
-VALUES
-  (7, 1),
-  (8, 2);
 
 -- INSERT countries & universities
 WITH country AS (

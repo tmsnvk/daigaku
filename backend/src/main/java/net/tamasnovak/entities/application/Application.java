@@ -1,8 +1,10 @@
 package net.tamasnovak.entities.application;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -21,17 +23,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "applications")
 public final class Application extends Auditable {
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "student_id", nullable = false)
   @JsonBackReference
   private Student student;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "country_id", nullable = false)
   @JsonBackReference
   private Country country;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "university_id", nullable = false)
   @JsonBackReference
   private University university;

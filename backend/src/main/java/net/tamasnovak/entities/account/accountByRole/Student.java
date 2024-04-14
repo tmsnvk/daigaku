@@ -2,7 +2,9 @@ package net.tamasnovak.entities.account.accountByRole;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -14,17 +16,17 @@ import net.tamasnovak.entities.institution.Institution;
 @Entity
 @Table(name = "students")
 public final class Student extends BaseSimpleIdEntity {
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "account_id", referencedColumnName = "id")
   @JsonManagedReference
   private Account account;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "mentor_id", nullable = false)
   @JsonBackReference
   private Mentor mentor;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "institution_id", nullable = false)
   @JsonBackReference
   private Institution institution;

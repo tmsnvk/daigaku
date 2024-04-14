@@ -6,10 +6,6 @@ DROP TABLE IF EXISTS system_admins CASCADE;
 DROP TABLE IF EXISTS institution_admins CASCADE;
 DROP TABLE IF EXISTS mentors CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
-DROP TABLE IF EXISTS accounts_system_admins_junction CASCADE;
-DROP TABLE IF EXISTS accounts_institution_admins_junction CASCADE;
-DROP TABLE IF EXISTS accounts_mentors_junction CASCADE;
-DROP TABLE IF EXISTS accounts_students_junction CASCADE;
 DROP TABLE IF EXISTS mentors_institutions_join CASCADE;
 DROP TABLE IF EXISTS pending_accounts CASCADE;
 DROP TABLE IF EXISTS pending_accounts CASCADE;
@@ -92,32 +88,10 @@ CREATE TABLE students(
   institution_id BIGINT REFERENCES institutions(id)
 );
 
-CREATE TABLE accounts_system_admins_junction(
-  account_id BIGINT REFERENCES accounts(id) PRIMARY KEY,
-  system_admin_id BIGINT UNIQUE REFERENCES system_admins(id) NOT NULL
-);
-
-CREATE TABLE accounts_institution_admins_junction(
-  account_id BIGINT REFERENCES accounts(id) PRIMARY KEY,
-  institution_admin_id BIGINT UNIQUE REFERENCES institution_admins(id) NOT NULL
-);
-
-CREATE TABLE accounts_mentors_junction(
-  account_id BIGINT REFERENCES accounts(id) PRIMARY KEY,
-  mentor_id BIGINT UNIQUE REFERENCES mentors(id) NOT NULL
-);
-
-CREATE TABLE accounts_students_junction(
-  account_id BIGINT REFERENCES accounts(id) PRIMARY KEY,
-  student_id BIGINT UNIQUE REFERENCES students(id) NOT NULL
-);
-
 CREATE TABLE mentors_institutions_join(
-  mentor_id BIGINT NOT NULL,
-  institution_id BIGINT NOT NULL,
-  PRIMARY KEY (mentor_id, institution_id),
-  FOREIGN KEY (mentor_id) REFERENCES mentors(id),
-  FOREIGN KEY (institution_id) REFERENCES institutions(id)
+  mentor_id BIGINT REFERENCES mentors(id),
+  institution_id BIGINT REFERENCES institutions(id),
+  PRIMARY KEY (mentor_id, institution_id)
 );
 
 CREATE TABLE countries(

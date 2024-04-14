@@ -33,7 +33,7 @@ public class UniversityServiceImpl implements UniversityService {
   @Transactional(readOnly = true)
   public List<UniversityOptionDto> getOptionsByCountryUuidAndSortedAscByName(UUID countryUuid) {
     Country country = countryService.findByUuid(countryUuid);
-    List<University> universities = universityRepository.findByCountryIdOrderByNameAsc(country);
+    List<University> universities = universityRepository.findByCountryOrderByNameAsc(country);
 
     return universities.stream()
       .map(universityMapper::toOptionDto)

@@ -42,7 +42,4 @@ Database
 
 
 ### Running the application
-+ A docker container is prepared with separate frontend and backend images to run the application in a local environment. 
-    + Clone the repo.
-    + Have the Docker application running in the local environment and run the ``docker-compose up --build`` command from the repo's root folder in a terminal panel.
-    + Open ``http://localhost`` in a browser window.
++ 
