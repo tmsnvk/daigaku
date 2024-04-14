@@ -34,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -125,7 +124,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     validatorUtilities.checkIfUuidsAreEqual(
       account.getUuid(),
-      application.getStudentId().getAccount().getUuid(),
+      application.getStudent().getAccount().getUuid(),
       studentApplicationServiceConstants.NO_PERMISSION_AS_STUDENT
     );
 
@@ -135,12 +134,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     ResponseStatus responseStatus = responseStatusService.findByUuid(updateApplicationByStudentDto.responseStatusUuid());
     FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuid(updateApplicationByStudentDto.finalDestinationStatusUuid());
 
-    application.setApplicationStatusId(applicationStatus);
-    application.setInterviewStatusId(interviewStatus);
-    application.setOfferStatusId(offerStatus);
-    application.setResponseStatusId(responseStatus);
-    application.setFinalDestinationStatusId(finalDestinationStatus);
-    application.setLastUpdatedAt(new Timestamp(System.currentTimeMillis()));
+    application.setApplicationStatus(applicationStatus);
+    application.setInterviewStatus(interviewStatus);
+    application.setOfferStatus(offerStatus);
+    application.setResponseStatus(responseStatus);
+    application.setFinalDestinationStatus(finalDestinationStatus);
 
     applicationRepository.save(application);
 
@@ -164,8 +162,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Application applicationByFirmChoice = applicationRepository.findByStudentIdAndResponseStatusId(student, firmChoiceStatus);
 
     FirmChoiceDto firmChoiceDto = new FirmChoiceDto(
-      applicationByFirmChoice.getCountryId().getName(),
-      applicationByFirmChoice.getUniversityId().getName(),
+      applicationByFirmChoice.getCountry().getName(),
+      applicationByFirmChoice.getUniversity().getName(),
       applicationByFirmChoice.getCourseName()
     );
 
@@ -173,8 +171,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Application applicationByFinalDestinationStatus = applicationRepository.findByStudentIdAndFinalDestinationStatusId(student, finalDestinationStatus);
 
     FinalDestinationDto finalDestinationDto = new FinalDestinationDto(
-      applicationByFinalDestinationStatus.getCountryId().getName(),
-      applicationByFinalDestinationStatus.getUniversityId().getName(),
+      applicationByFinalDestinationStatus.getCountry().getName(),
+      applicationByFinalDestinationStatus.getUniversity().getName(),
       applicationByFinalDestinationStatus.getCourseName()
     );
 

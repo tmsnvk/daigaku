@@ -11,8 +11,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import net.tamasnovak.entities.BaseEntity;
 import net.tamasnovak.entities.account.accountByRole.Student;
+import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 
@@ -20,21 +20,21 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "applications")
-public final class Application extends BaseEntity {
+public final class Application extends Auditable {
   @ManyToOne
   @JoinColumn(name = "student_id", nullable = false)
   @JsonBackReference
-  private Student studentId;
+  private Student student;
 
   @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
   @JsonBackReference
-  private Country countryId;
+  private Country country;
 
   @ManyToOne
   @JoinColumn(name = "university_id", nullable = false)
   @JsonBackReference
-  private University universityId;
+  private University university;
 
   @Column(name = "course_name", nullable = false)
   @NotBlank(message = "Provide the title of your course.")
@@ -54,45 +54,42 @@ public final class Application extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "application_status_id")
   @JsonBackReference
-  private ApplicationStatus applicationStatusId;
+  private ApplicationStatus applicationStatus;
 
   @ManyToOne
   @JoinColumn(name = "interview_status_id")
   @JsonBackReference
-  private InterviewStatus interviewStatusId;
+  private InterviewStatus interviewStatus;
 
   @ManyToOne
   @JoinColumn(name = "offer_status_id")
   @JsonBackReference
-  private OfferStatus offerStatusId;
+  private OfferStatus offerStatus;
 
   @ManyToOne
   @JoinColumn(name = "response_status_id")
   @JsonBackReference
-  private ResponseStatus responseStatusId;
+  private ResponseStatus responseStatus;
 
   @ManyToOne
   @JoinColumn(name = "final_destination_status_id")
   @JsonBackReference
-  private FinalDestinationStatus finalDestinationStatusId;
+  private FinalDestinationStatus finalDestinationStatus;
 
-  @Column(name = "notes")
-  private String notes;
+  protected Application() {}
 
-  public Application() {}
-
-  private Application(Student studentId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
-    this.studentId = studentId;
-    this.countryId = countryId;
-    this.universityId = universityId;
+  private Application(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
+    this.student = student;
+    this.country = country;
+    this.university = university;
     this.courseName = courseName;
     this.minorSubject = enforceOptionalFieldValidation(minorSubject);
-    this.applicationStatusId = applicationStatusId;
+    this.applicationStatus = applicationStatus;
     this.programmeLength = programmeLength;
   }
 
-  public static Application createNewApplicationByStudent(Student studentId, Country countryId, University universityId, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatusId) {
-    return new Application(studentId, countryId, universityId, courseName, minorSubject, programmeLength, applicationStatusId);
+  public static Application createNewApplicationByStudent(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
+    return new Application(student, country, university, courseName, minorSubject, programmeLength, applicationStatus);
   }
 
   public static String enforceOptionalFieldValidation(String fieldContent) {
@@ -103,16 +100,16 @@ public final class Application extends BaseEntity {
     return fieldContent;
   }
 
-  public Student getStudentId() {
-    return studentId;
+  public Student getStudent() {
+    return student;
   }
 
-  public Country getCountryId() {
-    return countryId;
+  public Country getCountry() {
+    return country;
   }
 
-  public University getUniversityId() {
-    return universityId;
+  public University getUniversity() {
+    return university;
   }
 
   public String getCourseName() {
@@ -127,47 +124,43 @@ public final class Application extends BaseEntity {
     return programmeLength;
   }
 
-  public ApplicationStatus getApplicationStatusId() {
-    return applicationStatusId;
+  public ApplicationStatus getApplicationStatus() {
+    return applicationStatus;
   }
 
-  public InterviewStatus getInterviewStatusId() {
-    return interviewStatusId;
+  public InterviewStatus getInterviewStatus() {
+    return interviewStatus;
   }
 
-  public OfferStatus getOfferStatusId() {
-    return offerStatusId;
+  public OfferStatus getOfferStatus() {
+    return offerStatus;
   }
 
-  public ResponseStatus getResponseStatusId() {
-    return responseStatusId;
+  public ResponseStatus getResponseStatus() {
+    return responseStatus;
   }
 
-  public FinalDestinationStatus getFinalDestinationStatusId() {
-    return finalDestinationStatusId;
+  public FinalDestinationStatus getFinalDestinationStatus() {
+    return finalDestinationStatus;
   }
 
-  public String getNotes() {
-    return notes;
+  public void setApplicationStatus(ApplicationStatus applicationStatus) {
+    this.applicationStatus = applicationStatus;
   }
 
-  public void setApplicationStatusId(ApplicationStatus applicationStatusId) {
-    this.applicationStatusId = applicationStatusId;
+  public void setInterviewStatus(InterviewStatus interviewStatus) {
+    this.interviewStatus = interviewStatus;
   }
 
-  public void setInterviewStatusId(InterviewStatus interviewStatusId) {
-    this.interviewStatusId = interviewStatusId;
+  public void setOfferStatus(OfferStatus offerStatus) {
+    this.offerStatus = offerStatus;
   }
 
-  public void setOfferStatusId(OfferStatus offerStatusId) {
-    this.offerStatusId = offerStatusId;
+  public void setResponseStatus(ResponseStatus responseStatus) {
+    this.responseStatus = responseStatus;
   }
 
-  public void setResponseStatusId(ResponseStatus responseStatusId) {
-    this.responseStatusId = responseStatusId;
-  }
-
-  public void setFinalDestinationStatusId(FinalDestinationStatus finalDestinationStatusId) {
-    this.finalDestinationStatusId = finalDestinationStatusId;
+  public void setFinalDestinationStatus(FinalDestinationStatus finalDestinationStatus) {
+    this.finalDestinationStatus = finalDestinationStatus;
   }
 }

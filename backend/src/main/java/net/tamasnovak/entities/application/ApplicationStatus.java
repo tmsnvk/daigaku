@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import net.tamasnovak.entities.BaseStatusEntity;
+import net.tamasnovak.entities.base.status.BaseStatusEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,11 +12,11 @@ import java.util.Set;
 @Entity
 @Table(name = "application_status")
 public final class ApplicationStatus extends BaseStatusEntity {
-  @OneToMany(mappedBy = "applicationStatusId")
+  @OneToMany(mappedBy = "applicationStatus")
   @JsonManagedReference
   private Set<Application> applications;
 
-  public ApplicationStatus() {}
+  protected ApplicationStatus() {}
 
   public ApplicationStatus(String name) {
     super(name);

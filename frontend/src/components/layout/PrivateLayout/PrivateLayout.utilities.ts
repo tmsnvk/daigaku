@@ -53,7 +53,14 @@ const navbarContent: { [key in AccountRoleE]: NavbarContentT[] } = {
       content: 'Feedback',
     },
   ],
-  [AccountRoleE.ADMIN]: [
+  [AccountRoleE.INSTITUTION_ADMIN]: [
+    {
+      url: '/messages',
+      icon: iconLibraryConfig.faEnvelope,
+      content: 'Messages',
+    },
+  ],
+  [AccountRoleE.SYSTEM_ADMIN]: [
     {
       url: '/all-students',
       icon: iconLibraryConfig.faUserGroup,

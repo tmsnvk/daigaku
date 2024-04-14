@@ -42,6 +42,10 @@ public final class Institution extends Auditable {
 
   protected Institution() {}
 
+  public Institution(String name) {
+    this.name = name;
+  }
+
   public String getName() {
     return name;
   }

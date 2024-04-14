@@ -10,8 +10,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import net.tamasnovak.entities.BaseEntity;
 import net.tamasnovak.entities.application.Application;
+import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.country.Country;
 
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "universities")
-public final class University extends BaseEntity {
+public final class University extends Auditable {
   @Column(name = "name", nullable = false)
   @NotBlank(message = "Provide the universityUuid's official name.")
   @Size(min = 2, message = "The name should be a minimum of 2 characters long.")
@@ -36,13 +36,13 @@ public final class University extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
   @JsonBackReference
-  private Country countryId;
+  private Country country;
 
-  @OneToMany(mappedBy = "universityId")
+  @OneToMany(mappedBy = "university")
   @JsonManagedReference
   private Set<Application> applications;
 
-  public University() {}
+  protected University() {}
 
   public University(String name, String abbreviation, String address) {
     this.name = name;
@@ -63,8 +63,8 @@ public final class University extends BaseEntity {
     return address;
   }
 
-  public Country getCountryId() {
-    return countryId;
+  public Country getCountry() {
+    return country;
   }
 
   public Set<Application> getApplications() {

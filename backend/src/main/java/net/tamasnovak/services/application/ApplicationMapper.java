@@ -9,17 +9,17 @@ public final class ApplicationMapper {
   public ApplicationDto toApplicationDto(Application application) {
     return new ApplicationDto(
       application.getUuid(),
-      application.getStudentId().getAccount().getUuid(),
-      application.getCountryId().getName(),
-      application.getUniversityId().getName(),
+      application.getStudent().getAccount().getUuid(),
+      application.getCountry().getName(),
+      application.getUniversity().getName(),
       application.getCourseName(),
       application.getMinorSubject(),
       application.getProgrammeLength(),
-      application.getApplicationStatusId() != null ? application.getApplicationStatusId().getName() : null,
-      application.getInterviewStatusId() != null ? application.getInterviewStatusId().getName() : null,
-      application.getOfferStatusId() != null ? application.getOfferStatusId().getName() : null,
-      application.getResponseStatusId() != null ? application.getResponseStatusId().getName() : null,
-      application.getFinalDestinationStatusId() != null ? application.getFinalDestinationStatusId().getName() : null,
+      application.getApplicationStatus() != null ? application.getApplicationStatus().getName() : null,
+      application.getInterviewStatus() != null ? application.getInterviewStatus().getName() : null,
+      application.getOfferStatus() != null ? application.getOfferStatus().getName() : null,
+      application.getResponseStatus() != null ? application.getResponseStatus().getName() : null,
+      application.getFinalDestinationStatus() != null ? application.getFinalDestinationStatus().getName() : null,
       application.getCreatedAt(),
       application.getLastUpdatedAt()
     );

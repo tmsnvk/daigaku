@@ -1,29 +1,8 @@
-import {
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from 'react-router-dom';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
-import {
-  AccountRoleE,
-  AuthProvider,
-} from '@context/AuthContext.tsx';
-import {
-  Application,
-  Applications,
-  Dashboard,
-  Error,
-  Home,
-  NewApplication,
-} from '@pages/index.ts';
-import {
-  PrivateLayout,
-  PublicLayout,
-} from '@components/layout';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, } from 'react-router-dom';
+import { QueryClient, QueryClientProvider, } from '@tanstack/react-query';
+import { AccountRoleE, AuthProvider, } from '@context/AuthContext.tsx';
+import { Application, Applications, Dashboard, Error, Home, NewApplication, } from '@pages/index.ts';
+import { PrivateLayout, PublicLayout, } from '@components/layout';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '@theme/GlobalStyle.ts';
 import theme from '@theme/theme.ts';
@@ -91,7 +70,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={'contact'} element={<div>PLACEHOLDER</div>} />
     </Route>
     <Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR, AccountRoleE.ADMIN]} />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.STUDENT, AccountRoleE.MENTOR, AccountRoleE.INSTITUTION_ADMIN, AccountRoleE.SYSTEM_ADMIN]} />}>
         <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/applications'}>
           <Route index element={<Applications />} />
@@ -108,7 +87,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route element={<PrivateLayout allowedRoles={[AccountRoleE.MENTOR]} />}>
         <Route path={'/my-students'} element={<div>PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.ADMIN]} />}>
+      <Route element={<PrivateLayout allowedRoles={[AccountRoleE.SYSTEM_ADMIN]} />}>
         <Route path={'/all-students'} element={<div>PLACEHOLDER</div>} />
         <Route path={'/all-mentors'} element={<div>PLACEHOLDER</div>} />
         <Route path={'/system'} element={<div>PLACEHOLDER</div>} />

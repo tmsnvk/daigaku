@@ -51,13 +51,13 @@ public class ApplicationServiceImpl implements ApplicationService {
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_STUDENT")) {
       validatorUtilities.checkIfUuidsAreEqual(
         applicationUuid,
-        application.getStudentId().getAccount().getUuid(),
+        application.getStudent().getAccount().getUuid(),
         applicationServiceConstants.NO_PERMISSION_AS_STUDENT
       );
     }
 
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_MENTOR")) {
-      long applicationMentorId = application.getStudentId().getMentor().getAccount().getId();
+      long applicationMentorId = application.getStudent().getMentor().getAccount().getId();
       long authAccountId = authAccount.getId();
 
       validatorUtilities.checkIfApplicationMentorIsValid(applicationMentorId, authAccountId, applicationServiceConstants.NO_PERMISSION_AS_MENTOR);

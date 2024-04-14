@@ -216,8 +216,6 @@ CREATE TABLE applications(
   offer_status_id BIGINT REFERENCES offer_status(id),
   response_status_id BIGINT REFERENCES response_status(id),
   final_destination_status_id BIGINT REFERENCES final_destination_status(id),
-  notes VARCHAR,
-
 
   created_by VARCHAR,
   last_modified_by VARCHAR
