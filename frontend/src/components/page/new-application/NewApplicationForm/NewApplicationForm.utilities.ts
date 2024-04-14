@@ -4,7 +4,8 @@ const formInformation = [
   'Make sure to come back in the following months and properly update their statuses.',
   'Once you have submitted an application, you will not be able to change the country, university and course fields.',
   'Submit an application only if you are committed to it.',
-  'If you do not find your selected country or university in the dropdown lists, reach out to an admin via the \'Contact us\' form.',
+  'If you do not find your selected country or university in the dropdown lists, reach out to an admin via the' +
+  ' \'Feedback\' form.',
 ];
 const countryInformation = [
   'The first step of your application process is selecting the country of your choice.',

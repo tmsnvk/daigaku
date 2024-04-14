@@ -1,13 +1,13 @@
 package net.tamasnovak.services.interviewStatus;
 
-import net.tamasnovak.dtos.interviewStatus.InterviewStatusFormDto;
+import net.tamasnovak.dtos.interviewStatus.response.InterviewStatusOptionDto;
 import net.tamasnovak.entities.application.InterviewStatus;
 import org.springframework.stereotype.Component;
 
 @Component
 public final class InterviewStatusMapper {
-  public InterviewStatusFormDto toInterviewStatusFromDto(InterviewStatus interviewStatus) {
-    return new InterviewStatusFormDto(
+  public InterviewStatusOptionDto toInterviewStatusFromDto(InterviewStatus interviewStatus) {
+    return new InterviewStatusOptionDto(
       interviewStatus.getUuid(),
       interviewStatus.getName()
     );

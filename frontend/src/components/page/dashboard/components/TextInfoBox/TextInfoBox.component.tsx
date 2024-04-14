@@ -1,21 +1,21 @@
-import { BoxContainer } from './TextInfoBox.styles.ts';
+import { Article } from './TextInfoBox.styles.ts';
 
-type ComponentPropT = {
+type ComponentPropsT = {
   title: string;
   country: string;
   university: string;
   courseName: string;
 }
 
-const TextInfoBoxInfoBox = ({ title, country, university, courseName }: ComponentPropT) => {
+const TextInfoBox = ({ title, country, university, courseName }: ComponentPropsT) => {
   return (
-    <BoxContainer>
+    <Article>
       <p>{country}</p>
       <p>{university}</p>
       <p>{courseName}</p>
       <p>{title}</p>
-    </BoxContainer>
+    </Article>
   );
 };
 
-export default TextInfoBoxInfoBox;
+export default TextInfoBox;

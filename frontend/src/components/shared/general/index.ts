@@ -1,7 +1,7 @@
-import GenericTextParagraph from './GenericTextParagraph';
-import GenericTitle from './GenericTitle';
+import PageTitle from './PageTitle';
+import TextParagraph from './TextParagraph';
 
 export {
-  GenericTextParagraph,
-  GenericTitle,
+  PageTitle,
+  TextParagraph,
 };

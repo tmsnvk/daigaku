@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import { BaseDarkElementBorderStyle } from '@components/shared/base-styles';
 
-const ModalContainer = styled.dialog`
+const Dialog = styled.dialog`
   ${BaseDarkElementBorderStyle};
-  
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 5rem 7.5rem 5rem 7.5rem;
-  margin: 5% auto 0 auto;
-  
+  margin: 10% auto 0 auto;
+
   & article {
     display: flex;
     flex-direction: row;
@@ -17,7 +17,7 @@ const ModalContainer = styled.dialog`
     
     & input {
       margin: 0 1.5rem 0 0;
-      
+  
       &:focus,
       &:hover {
         outline: none;
@@ -26,10 +26,13 @@ const ModalContainer = styled.dialog`
   }
   
   & button {
-    margin: 2.5rem auto 0 auto;
+    margin: 5rem auto 0 auto;
+    padding: 1rem 2.5rem 1rem 2.5rem;
     background-color: transparent;
     font-size: inherit;
     font-weight: 800;
+    border: 0.2rem solid ${({ theme }) => theme.color.tertiaryLight};
+    border-radius: 0.75rem;
     cursor: pointer;
 
     &:hover {
@@ -39,5 +42,5 @@ const ModalContainer = styled.dialog`
 `;
 
 export {
-  ModalContainer,
+  Dialog,
 };

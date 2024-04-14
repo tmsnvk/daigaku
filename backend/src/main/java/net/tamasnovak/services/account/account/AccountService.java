@@ -1,6 +1,6 @@
 package net.tamasnovak.services.account.account;
 
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.baseAccount.Account;
 
 public interface AccountService {
   void checkIfExistsByEmail(String email);

@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "countries")
 public final class Country extends BaseEntity {
   @Column(name = "name", nullable = false)
-  @NotBlank(message = "Provide the country's name.")
+  @NotBlank(message = "Provide the countryUuid's name.")
   @Size(min = 2, max = 100, message = "The name should be between 2 and 100 characters long.")
   private String name;
 

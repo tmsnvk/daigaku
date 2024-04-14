@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ResponseStatusRepository extends JpaRepository<ResponseStatus, Long> {
+  ResponseStatus findByName(String statusName);
   List<ResponseStatus> findAll();
   ResponseStatus findByUuid(UUID uuid);
 }

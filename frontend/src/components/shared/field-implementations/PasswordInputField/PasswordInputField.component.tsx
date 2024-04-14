@@ -4,9 +4,9 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRevealPasswordInInputField } from '@hooks/index.ts';
+import { useRevealPassword } from './PasswordInputField.hooks.tsx';
 import {
-  ErrorMessage,
+  InputError,
   InputLabel,
   PasswordInputFieldStyles,
 } from '@components/shared/form';
@@ -14,7 +14,7 @@ import { iconLibraryConfig } from '@configuration';
 
 type ComponentPropsT <T extends FieldValues> = {
   register: UseFormRegister<T>;
-  validation?: {
+  validationRules?: {
     required?: {
       value: boolean;
       message: string;
@@ -26,7 +26,7 @@ type ComponentPropsT <T extends FieldValues> = {
   }
   fieldError: string | undefined;
   fieldId: Path<T>;
-  label: string;
+  labelContent: string;
   placeholder: string;
   defaultValue?: string | number;
   isDisabled: boolean;
@@ -34,22 +34,22 @@ type ComponentPropsT <T extends FieldValues> = {
 
 const PasswordInputField = <T extends FieldValues>({
   register,
-  validation,
+  validationRules,
   fieldError,
   fieldId,
-  label,
+  labelContent,
   placeholder,
   defaultValue,
   isDisabled,
 }: ComponentPropsT<T>) => {
-  const { isRevealed, handleRevealClick } = useRevealPasswordInInputField();
+  const { isRevealed, handleRevealClick } = useRevealPassword();
 
   return (
     <PasswordInputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={label} />
+      <InputLabel inputId={fieldId} content={labelContent} />
       <div>
         <input
-          {...register(fieldId, validation)}
+          {...register(fieldId, validationRules)}
           type={isRevealed ? 'text' : 'password'}
           id={fieldId}
           name={fieldId}
@@ -60,7 +60,7 @@ const PasswordInputField = <T extends FieldValues>({
         />
         <FontAwesomeIcon onClick={handleRevealClick} icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye} />
       </div>
-      {fieldError && <ErrorMessage content={fieldError} />}
+      {fieldError && <InputError content={fieldError} />}
     </PasswordInputFieldStyles>
   );
 };

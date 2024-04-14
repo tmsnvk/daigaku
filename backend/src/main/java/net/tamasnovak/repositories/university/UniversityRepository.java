@@ -10,6 +10,6 @@ import java.util.UUID;
 
 public interface UniversityRepository extends JpaRepository<University, Long> {
   List<University> findAll();
-  List<University> findUniversitiesByCountryId(Country country);
+  List<University> findByCountryIdOrderByNameAsc(Country country);
   Optional<University> findByUuid(UUID universityId);
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ButtonContainer = styled.button`
+const Button = styled.button`
   height: 5rem;
   padding: 0 1.5rem 0 1.5rem;
   font-size: ${({ theme }) => theme.fontSize.medium};
@@ -21,5 +21,5 @@ const ButtonContainer = styled.button`
 `;
 
 export {
-  ButtonContainer,
+  Button,
 };

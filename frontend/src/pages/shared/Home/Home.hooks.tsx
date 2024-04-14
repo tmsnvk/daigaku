@@ -4,12 +4,12 @@ import {
   LoginForm,
   RegisterForm,
 } from '@components/page/home';
-import { FormTypeE } from '@pages/shared/Home/Home.types.ts';
+import { FormTypeE } from './Home.types.ts';
 
 const useShowConfirmationModal = () => {
   const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
 
-  const showModalAfterSuccessFulSubmission = () => {
+  const showModal = () => {
     setIsConfirmationModalVisible(true);
   };
 
@@ -19,39 +19,27 @@ const useShowConfirmationModal = () => {
 
   return {
     isConfirmationModalVisible,
-    showModalAfterSuccessFulSubmission,
+    showModal,
     closeModal,
   };
 };
 
-type RenderSelectedFormComponentT = {
-  showModalAfterSuccessFulSubmission: () => void;
-}
+const useRenderSelectedFormComponent = (showModal: () => void) => {
+  const [activeFormType, setActiveFormType] = useState<FormTypeE>(FormTypeE.LOGIN);
 
-const useRenderSelectedFormComponent = ({ showModalAfterSuccessFulSubmission }: RenderSelectedFormComponentT) => {
-  const [activeFormType, setActiveFormType] = useState<FormTypeE>(FormTypeE.Login);
-
-  const handleFormSelectionOnClick = (formType: FormTypeE) => {
+  const handleFormSelection = (formType: FormTypeE) => {
     setActiveFormType(formType);
   };
 
-  const renderFormComponent = () => {
-    if (activeFormType === FormTypeE.Register) {
-      return <RegisterForm formSelector={handleFormSelectionOnClick} showModal={showModalAfterSuccessFulSubmission} />;
-    }
-
-    if (activeFormType === FormTypeE.Login) {
-      return <LoginForm formSelector={handleFormSelectionOnClick} />;
-    }
-
-    if (activeFormType === FormTypeE.Reset) {
-      return <ForgottenPasswordForm formSelector={handleFormSelectionOnClick} showModal={showModalAfterSuccessFulSubmission} />;
-    }
+  const formComponents = {
+    [FormTypeE.REGISTER]: <RegisterForm formSelector={handleFormSelection} showModal={showModal} />,
+    [FormTypeE.LOGIN]: <LoginForm formSelector={handleFormSelection} />,
+    [FormTypeE.RESET]: <ForgottenPasswordForm formSelector={handleFormSelection} showModal={showModal} />,
   };
 
   return {
     activeFormType,
-    renderFormComponent,
+    formComponents,
   };
 };
 

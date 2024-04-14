@@ -6,20 +6,20 @@ import {
 } from './NewApplicationForm.hooks.tsx';
 import {
   ApplicationFormGridContainer,
-  ErrorMessage,
+  InputError,
   InputInfoBox,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GenericTitle } from '@components/shared/general';
+import { PageTitle } from '@components/shared/general';
 import {
-  GeneralInputField,
+  GenericInputField,
   SelectCountry,
   SelectUniversity,
 } from '@components/shared/field-implementations';
-import { FeedbackModal } from '@components/shared/modal';
-import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
-import { UniversitiesT } from '@hooks/useGetUniversityOptions.tsx';
+import { Toast } from '@components/shared/notification';
+import { CountryOptionT } from '@services/country/country.service.ts';
+import { UniversityOptionT } from '@services/university/university.service.ts';
 import {
   countryInformation,
   formInformation,
@@ -32,41 +32,45 @@ import {
 
 type ComponentPropsT = {
   onCountryClick: (event: string) => void;
-  countryData: CountriesT[];
-  universityData: UniversitiesT[];
+  countryData: CountryOptionT[];
+  universityData: UniversityOptionT[];
 }
 
 const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { isCountryNotSelected, handleCountrySelectionStatus, resetCountryField } = useCheckFieldDisableStatus();
-  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountryField, reset });
+  const { isCountrySelected, handleCountrySelection, resetCountrySelection } = useCheckFieldDisableStatus();
+  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
 
   return (
     <>
-      <ApplicationFormGridContainer id={'newApplicationForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <GenericTitle content={'New Application Form'} />
+      <ApplicationFormGridContainer
+        id={'newApplicationForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
+        <PageTitle content={'New Application Form'} />
         <InputInfoBox content={formInformation} />
         <SelectCountry
           register={register}
-          fieldError={errors.country?.message}
-          fieldId={'country'}
+          fieldError={errors.countryUuid?.message}
+          fieldId={'countryUuid'}
           isDisabled={isPending}
           data={countryData}
           onCountryClick={onCountryClick}
-          handleCountrySelectionStatus={handleCountrySelectionStatus}
+          onCountrySelection={handleCountrySelection}
         />
         <InputInfoBox content={countryInformation} />
         <SelectUniversity
           register={register}
-          fieldError={errors.university?.message}
-          fieldId={'university'}
-          isDisabled={isPending || isCountryNotSelected}
+          fieldError={errors.universityUuid?.message}
+          fieldId={'universityUuid'}
+          isDisabled={isPending || !isCountrySelected}
           data={universityData}
         />
         <InputInfoBox content={universityInformation} />
-        <GeneralInputField
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing the name of your selected course is required.',
@@ -81,13 +85,12 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           label={'Course name'}
           type={'text'}
           placeholder={'Provide the course of your choice.'}
-          defaultValue={''}
           isDisabled={isPending}
         />
         <InputInfoBox content={majorSubjectInformation} />
-        <GeneralInputField
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             pattern: {
               value: /^[A-Za-z-\s]{5,255}$/,
               message: 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
@@ -98,13 +101,12 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           label={'Minor subject'}
           type={'text'}
           placeholder={'Provide your minor course.'}
-          defaultValue={''}
           isDisabled={isPending}
         />
         <InputInfoBox content={minorSubjectInformation} />
-        <GeneralInputField
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing the length of your selected course is required.',
@@ -129,10 +131,10 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
               <LoadingIndicator content={'Your application is being submitted.'} /> :
               <SubmitInput type={'submit'} value={'submit application'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </ApplicationFormGridContainer>
-      <FeedbackModal
+      <Toast
         isVisible={isSuccess}
         content={submissionConfirmation}
       />

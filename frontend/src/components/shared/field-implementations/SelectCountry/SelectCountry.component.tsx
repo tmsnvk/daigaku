@@ -4,20 +4,20 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import {
-  ErrorMessage,
+  InputError,
   InputFieldStyles,
   InputLabel,
 } from '@components/shared/form';
-import { CountriesT } from '@hooks/useGetCountryOptions.tsx';
+import { CountryOptionT } from '@services/country/country.service.ts';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
-  data: CountriesT[];
+  data: CountryOptionT[];
   onCountryClick: (event: string) => void;
-  handleCountrySelectionStatus: () => void;
+  onCountrySelection: () => void;
 }
 
 const SelectCountry = <T extends FieldValues>({
@@ -27,7 +27,7 @@ const SelectCountry = <T extends FieldValues>({
   isDisabled,
   data,
   onCountryClick,
-  handleCountrySelectionStatus,
+  onCountrySelection,
 }: ComponentPropsT<T>) => {
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
@@ -40,20 +40,19 @@ const SelectCountry = <T extends FieldValues>({
           },
           onChange: (event) => {
             onCountryClick(event.target.value);
-            handleCountrySelectionStatus();
+            onCountrySelection();
           },
         })}
         id={fieldId}
         name={fieldId}
-        autoComplete={'off'}
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the country of your choice.</option>
-        {data.map((option: CountriesT) => {
+        {data.map((option: CountryOptionT) => {
           return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
       </select>
-      {fieldError && <ErrorMessage content={fieldError} />}
+      {fieldError && <InputError content={fieldError} />}
     </InputFieldStyles>
   );
 };

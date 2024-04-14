@@ -1,16 +1,16 @@
 import { useForm } from 'react-hook-form';
-import { FormSwapButton } from '@components/page/home';
-import { GenericTextParagraph } from '@components/shared/general';
-import {
-  ErrorMessage,
-  LoadingIndicator,
-  SubmitInput,
-} from '@components/shared/form';
-import { GeneralInputField } from '@components/shared/field-implementations';
 import {
   RegisterFormFieldsT,
   useSubmitRegisterForm,
 } from './RegisterForm.hooks.tsx';
+import { TextParagraph } from '@components/shared/general';
+import {
+  InputError,
+  LoadingIndicator,
+  SubmitInput,
+} from '@components/shared/form';
+import { GenericInputField } from '@components/shared/field-implementations';
+import FormSwapButton from '../FormSwapButton';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -25,13 +25,17 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
 
   return (
     <section>
-      <GenericTextParagraph
+      <TextParagraph
         content={'Register an account if you are not in our system yet.'}
       />
-      <form id={'postAccountRegisterForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <GeneralInputField
+      <form
+        id={'postAccountRegisterForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your first name is required.',
@@ -48,9 +52,9 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           placeholder={'Enter your first name(s)'}
           isDisabled={isPending}
         />
-        <GeneralInputField
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your last name is required.',
@@ -67,9 +71,9 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           placeholder={'Enter your last name(s)'}
           isDisabled={isPending}
         />
-        <GeneralInputField
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your email address is required.',
@@ -88,12 +92,22 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
               <LoadingIndicator content={'Your registration is being handled.'} /> :
               <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} />
-        <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
+        <FormSwapButton
+          formType={FormTypeE.RESET}
+          content={'Forgot password?'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
+        <FormSwapButton
+          formType={FormTypeE.LOGIN}
+          content={'Log in'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
       </article>
     </section>
   );

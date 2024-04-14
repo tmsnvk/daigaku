@@ -3,17 +3,17 @@ import {
   LoginFormFieldsT,
   useSubmitLoginForm,
 } from './LoginForm.hooks.tsx';
-import { FormSwapButton } from '@components/page/home';
-import { GenericTextParagraph } from '@components/shared/general';
+import { TextParagraph } from '@components/shared/general';
 import {
-  ErrorMessage,
+  InputError,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
 import {
-  GeneralInputField,
+  GenericInputField,
   PasswordInputField,
 } from '@components/shared/field-implementations';
+import FormSwapButton from '../FormSwapButton';
 import {
   FormSelectorT,
   FormTypeE,
@@ -27,13 +27,17 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
 
   return (
     <section>
-      <GenericTextParagraph
-        content={'Sign in if you already have an admin-approved profile, otherwise, apply for an account first.'}
+      <TextParagraph
+        content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'}
       />
-      <form id={'postAccountLoginForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <GeneralInputField
+      <form
+        id={'postAccountLoginForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your email address is required.',
@@ -48,7 +52,7 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
         />
         <PasswordInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your password is required.',
@@ -56,7 +60,7 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
           }}
           fieldError={errors.password?.message}
           fieldId={'password'}
-          label={'Password'}
+          labelContent={'Password'}
           placeholder={'Enter your password'}
           isDisabled={isPending}
         />
@@ -66,12 +70,22 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
               <LoadingIndicator content={'You are being logged in.'} /> :
               <SubmitInput type={'submit'} value={'sign in'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.Reset} buttonContent={'Forgot password?'} clickHandler={formSelector} isDisabled={isPending} />
-        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} isDisabled={isPending} />
+        <FormSwapButton
+          formType={FormTypeE.RESET}
+          content={'Forgot password?'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
+        <FormSwapButton
+          formType={FormTypeE.REGISTER}
+          content={'Create account'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
       </article>
     </section>
   );

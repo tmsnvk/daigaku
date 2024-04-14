@@ -1,18 +1,16 @@
 package net.tamasnovak.services.application.studentApplication;
 
-import net.tamasnovak.dtos.application.DashboardDataDto;
-import net.tamasnovak.dtos.application.ApplicationDto;
-import net.tamasnovak.dtos.application.NewApplicationByStudentDto;
-import net.tamasnovak.dtos.application.UpdateApplicationByStudentDto;
-import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.entities.account.accountsByRole.Student;
+import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
+import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
+import net.tamasnovak.entities.account.baseAccount.Account;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface StudentApplicationService {
-  List<ApplicationDto> findAllByAccount(Student student);
-  ApplicationDto createApplication(Student student, NewApplicationByStudentDto newApplicationByStudentDto);
-  ApplicationDto updateByUuid(UUID uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
-  DashboardDataDto getDashboardData(Account account, String accountRole);
+  List<ApplicationDto> findAllByAccount(Account studentAccount);
+  ApplicationDto createApplication(Account studentAccount, NewApplicationByStudentDto newApplicationByStudentDto);
+  ApplicationDto updateByUuid(Account account, String uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
+  DashboardAggregateDataDto getDashboardData(Account account, String accountRole);
 }

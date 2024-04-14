@@ -1,7 +1,7 @@
 export enum FormTypeE {
-  Login,
-  Register,
-  Reset
+  LOGIN,
+  REGISTER,
+  RESET
 }
 
 export type FormSelectorT = {

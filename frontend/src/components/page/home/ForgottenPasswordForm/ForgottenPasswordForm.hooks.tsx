@@ -1,9 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import {
-  mutationKeys,
-  axiosConfig,
-} from '@configuration';
+import accountService from '@services/account/account.service.ts';
+import { mutationKeys } from '@configuration';
 import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
 
 export type ForgottenPasswordFormFieldsT = {
@@ -28,13 +26,7 @@ type ForgottenPasswordFormErrorT = {
 const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordFormT) => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_FORGOTTEN_PASSWORD_FORM],
-    mutationFn: async (data: ForgottenPasswordFormFieldsT): Promise<void> => {
-      await axiosConfig.request({
-        method: 'POST',
-        url: '/api/accounts/forgotten-password',
-        data,
-      });
-    },
+    mutationFn: (data: ForgottenPasswordFormFieldsT) => accountService.passwordReset(data),
     onSuccess: () => {
       showModal();
     },

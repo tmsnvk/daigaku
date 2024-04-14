@@ -6,24 +6,23 @@ import {
 import { UseFormSetError } from 'react-hook-form';
 import { AxiosResponse } from 'axios';
 import {
+  applicationService,
   applicationStatusService,
   finalDestinationStatusService,
   interviewStatusService,
   offerStatusService,
   responseStatusService,
-} from '@services/application';
+} from '@services/index.ts';
 import {
-  axiosConfigWithAuth,
   mutationKeys,
   queryKeys,
 } from '@configuration';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
-import { ApplicationStatusT } from '@services/application/ApplicationStatus.service.ts';
-import { InterviewStatusT } from '@services/application/InterviewStatusService.service.ts';
-import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
-import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
-import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
-import { useNavigate } from 'react-router-dom';
+import { ApplicationT } from '@services/application/application.service.ts';
+import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
+import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
+import { OfferStatusT } from '@services/application/offerStatus.service.ts';
+import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
+import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
 
 type ApplicationOptionStatusesT = {
   options: {
@@ -40,11 +39,26 @@ type ApplicationOptionStatusesT = {
 const useGetAllSelectOptions = (): ApplicationOptionStatusesT => {
   return useQueries({
     queries: [
-      { queryKey: [queryKeys.APPLICATION_STATUS.GET_ALL], queryFn: applicationStatusService.getAll },
-      { queryKey: [queryKeys.INTERVIEW_STATUS.GET_ALL], queryFn: interviewStatusService.getAll },
-      { queryKey: [queryKeys.OFFER_STATUS.GET_ALL], queryFn: offerStatusService.getAll },
-      { queryKey: [queryKeys.RESPONSE_STATUS.GET_ALL], queryFn: responseStatusService.getAll },
-      { queryKey: [queryKeys.FINAL_DESTINATION.GET_ALL], queryFn: finalDestinationStatusService.getAll },
+      {
+        queryKey: [queryKeys.APPLICATION_STATUS.GET_ALL],
+        queryFn: applicationStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.INTERVIEW_STATUS.GET_ALL],
+        queryFn: interviewStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.OFFER_STATUS.GET_ALL],
+        queryFn: offerStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.RESPONSE_STATUS.GET_ALL],
+        queryFn: responseStatusService.getAll,
+      },
+      {
+        queryKey: [queryKeys.FINAL_DESTINATION.GET_ALL],
+        queryFn: finalDestinationStatusService.getAll,
+      },
     ],
     combine: (result) => {
       return {
@@ -63,26 +77,26 @@ const useGetAllSelectOptions = (): ApplicationOptionStatusesT => {
 };
 
 export type UpdateApplicationFormFieldsT = {
-  applicationStatus: string;
-  interviewStatus: string;
-  offerStatus: string;
-  responseStatus: string;
-  finalDestinationStatus: string;
+  applicationStatusUuid: string;
+  interviewStatusUuid: string;
+  offerStatusUuid: string;
+  responseStatusUuid: string;
+  finalDestinationStatusUuid: string;
 }
 
 type UpdateApplicationFormT = {
   setError: UseFormSetError<UpdateApplicationFormFieldsT>;
   reset: () => void;
-  applicationId: string;
+  applicationUuid: string;
 };
 
 type UpdateApplicationFormErrorFieldsT = `root.${string}` |
   'root' |
-  'applicationStatus' |
-  'interviewStatus' |
-  'offerStatus' |
-  'responseStatus' |
-  'finalDestinationStatus';
+  'applicationStatusUuid' |
+  'interviewStatusUuid' |
+  'offerStatusUuid' |
+  'responseStatusUuid' |
+  'finalDestinationStatusUuid';
 
 type UpdateApplicationFormErrorT = {
   response: {
@@ -93,24 +107,15 @@ type UpdateApplicationFormErrorT = {
   }
 }
 
-const useUpdateApplication = ({ setError, reset, applicationId }: UpdateApplicationFormT) => {
+const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplicationFormT) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
-    mutationFn: async (data: UpdateApplicationFormFieldsT): Promise<ApplicationT> => {
-      // update this appropriate for mentor/admin links
-      const response = await axiosConfigWithAuth.request({
-        method: 'PATCH',
-        url: `/api/applications/students/${applicationId}`,
-        data,
-      });
-
-      return response.data;
-    },
-    onSuccess: (data) => {
+    mutationFn: (data: UpdateApplicationFormFieldsT) => applicationService.patchByUuid(data, applicationUuid),
+    onSuccess: ({ data }: AxiosResponse<ApplicationT>) => {
       queryClient.setQueryData(
-        [queryKeys.APPLICATION.GET_ALL],
+        [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData: ApplicationT[]) => {
           const findOldElementOfUpdatedRow = previousData.filter((row) => row.uuid === data.uuid)[0];
           const indexToUpdate = previousData.indexOf(findOldElementOfUpdatedRow);

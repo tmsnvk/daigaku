@@ -3,14 +3,14 @@ import {
   ForgottenPasswordFormFieldsT,
   useSubmitForgottenPasswordForm,
 } from './ForgottenPasswordForm.hooks.tsx';
-import { FormSwapButton } from '@components/page/home';
-import { GenericTextParagraph } from '@components/shared/general';
+import FormSwapButton from '../FormSwapButton';
+import { TextParagraph } from '@components/shared/general';
 import {
-  ErrorMessage,
+  InputError,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GeneralInputField } from '@components/shared/field-implementations';
+import { GenericInputField } from '@components/shared/field-implementations';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -25,13 +25,18 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
 
   return (
     <section>
-      <GenericTextParagraph
-        content={'Request a password reset if you have forgotten your password. Do not request a reset if you have not yet activated your account.'}
+      <TextParagraph
+        content={'Request a password reset if you have forgotten your password. Do not request a reset if your' +
+          ' account is not yet activated.'}
       />
-      <form id={'postAccountForgottenPasswordForm'} method={'POST'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <GeneralInputField
+      <form
+        id={'postAccountForgottenPasswordForm'}
+        method={'POST'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
+        <GenericInputField
           register={register}
-          validation={{
+          validationRules={{
             required: {
               value: true,
               message: 'Providing your email address is required.',
@@ -50,12 +55,22 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
               <LoadingIndicator content={'Your registration is being handled.'} /> :
               <SubmitInput type={'submit'} value={'reset'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
-        <FormSwapButton formType={FormTypeE.Login} buttonContent={'Log in'} clickHandler={formSelector} />
-        <FormSwapButton formType={FormTypeE.Register} buttonContent={'Create account'} clickHandler={formSelector} />
+        <FormSwapButton
+          formType={FormTypeE.LOGIN}
+          content={'Log in'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
+        <FormSwapButton
+          formType={FormTypeE.REGISTER}
+          content={'Create account'}
+          clickHandler={formSelector}
+          isDisabled={isPending}
+        />
       </article>
     </section>
   );

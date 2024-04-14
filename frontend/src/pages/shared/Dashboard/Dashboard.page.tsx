@@ -2,17 +2,17 @@ import {
   AccountRoleE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import { useGetApplications } from '@hooks/applications';
+import { useGetApplications } from '@hooks';
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
 import { StudentLayout } from '@components/page/dashboard';
 import { TodoList } from '@components/page/dashboard/components';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
-import { MainContainer } from './Dashboard.styles.ts';
+} from '@components/shared/notification';
+import { Main } from './Dashboard.styles.ts';
 
-const DashboardPage = () => {
+const Dashboard = () => {
   const { account } = useAuth();
   const { data, isLoading, isError } = useGetDashboardData();
 
@@ -28,13 +28,13 @@ const DashboardPage = () => {
 
   return (
     data &&
-      <MainContainer>
-        <TodoList data={data} />
-        {account.role === AccountRoleE.STUDENT && <StudentLayout data={data} />}
+      <Main>
+        <TodoList data={data.data} />
+        {account.role === AccountRoleE.STUDENT && <StudentLayout data={data.data} />}
         {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER applicationData={applicationData} />}*/}
         {/*{account.accountRole === AccountRoleE.ADMIN && <PLACEHOLDER applicationData={applicationData} />}*/}
-      </MainContainer>
+      </Main>
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

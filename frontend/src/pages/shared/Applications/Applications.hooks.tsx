@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@configuration';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
 
 export type ColumnT = {
   id: string;
@@ -38,7 +38,7 @@ const useSetColumns = () => {
   };
 };
 
-const useShowColumnDisplayModal = () => {
+const useDisplayColumnSelectorModal = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const toggleModal = () => {
@@ -63,7 +63,7 @@ const useSetOrder = (data: ApplicationT[]) => {
   const sortColumns = () => {
     const queryClient = new QueryClient();
 
-    const sorted = data.sort((a, b) => {
+    const sortedData = data.sort((a, b) => {
       if (a[sortedField as keyof ApplicationT] === null) {
         return 1;
       }
@@ -72,12 +72,12 @@ const useSetOrder = (data: ApplicationT[]) => {
         return -1;
       }
 
-      return a[sortedField].localeCompare(b[sortedField]) * (sortOrder === SortOrderE.ASC ? 1 : -1);
+      return a[sortedField as keyof ApplicationT].localeCompare(b[sortedField as keyof ApplicationT]) * (sortOrder === SortOrderE.ASC ? 1 : -1);
     });
 
     queryClient.setQueryData(
-      [queryKeys.APPLICATION.GET_ALL],
-      [...sorted],
+      [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
+      [...sortedData],
     );
   };
 
@@ -97,6 +97,6 @@ const useSetOrder = (data: ApplicationT[]) => {
 
 export {
   useSetColumns,
-  useShowColumnDisplayModal,
+  useDisplayColumnSelectorModal,
   useSetOrder,
 };

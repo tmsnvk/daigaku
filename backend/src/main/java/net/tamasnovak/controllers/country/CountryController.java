@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.country;
 
-import net.tamasnovak.dtos.country.CountryOptionDto;
+import net.tamasnovak.dtos.country.response.CountryOptionDto;
 import net.tamasnovak.services.country.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/countries")
-public final class CountryController {
+public class CountryController {
   private final CountryService countryService;
 
   public CountryController(CountryService countryService) {
@@ -26,7 +26,7 @@ public final class CountryController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<List<CountryOptionDto>> getOptions() {
-    List<CountryOptionDto> countryOptions = countryService.getOptions();
+    List<CountryOptionDto> countryOptions = countryService.getOptionsSortedAscByName();
 
     return ResponseEntity
       .status(HttpStatus.OK)

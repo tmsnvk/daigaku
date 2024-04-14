@@ -1,17 +1,14 @@
 package net.tamasnovak.services.country;
 
-import net.tamasnovak.dtos.country.CountryOptionDto;
+import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.country.response.CountryOptionDto;
 import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
-import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
 import net.tamasnovak.repositories.country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -19,19 +16,19 @@ import java.util.stream.Collectors;
 public class CountryServiceImpl implements CountryService {
   private final CountryRepository countryRepository;
   private final CountryMapper countryMapper;
-  private final DbResourceNotFoundConstants dbResourceNotFoundConstants;
+  private final CountryServiceConstants countryServiceConstants;
 
   @Autowired
-  public CountryServiceImpl(CountryMapper countryMapper, CountryRepository countryRepository, DbResourceNotFoundConstants dbResourceNotFoundConstants) {
+  public CountryServiceImpl(CountryMapper countryMapper, CountryRepository countryRepository, CountryServiceConstants countryServiceConstants) {
     this.countryMapper = countryMapper;
     this.countryRepository = countryRepository;
-    this.dbResourceNotFoundConstants = dbResourceNotFoundConstants;
+    this.countryServiceConstants = countryServiceConstants;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public List<CountryOptionDto> getOptions() {
-    List<Country> countries = countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+  public List<CountryOptionDto> getOptionsSortedAscByName() {
+    List<Country> countries = countryRepository.findAllByOrderByNameAsc();
 
     return countries.stream()
       .map(countryMapper::toOptionDto)
@@ -41,12 +38,7 @@ public class CountryServiceImpl implements CountryService {
   @Override
   @Transactional(readOnly = true)
   public Country findByUuid(UUID countryUuid) {
-    Optional<Country> country = countryRepository.findByUuid(countryUuid);
-
-    if (country.isEmpty()) {
-      throw new DbResourceNotFoundException(dbResourceNotFoundConstants.COUNTRY_NOT_FOUND);
-    }
-
-    return country.get();
+    return countryRepository.findByUuid(countryUuid)
+      .orElseThrow(() -> new EntityNotFoundException(countryServiceConstants.COUNTRY_NOT_FOUND));
   }
 }

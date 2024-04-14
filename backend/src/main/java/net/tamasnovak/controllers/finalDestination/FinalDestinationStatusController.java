@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.finalDestination;
 
-import net.tamasnovak.dtos.finalDestinationStatus.FinalDestinationStatusFormDto;
+import net.tamasnovak.dtos.finalDestinationStatus.response.FinalDestinationStatusOptionDto;
 import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class FinalDestinationStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<FinalDestinationStatusFormDto>> getAll() {
-    List<FinalDestinationStatusFormDto> finalDestinationStatuses = finalDestinationStatusService.findAll();
+  public ResponseEntity<List<FinalDestinationStatusOptionDto>> getAll() {
+    List<FinalDestinationStatusOptionDto> finalDestinationStatuses = finalDestinationStatusService.findAll();
 
     return ResponseEntity
       .status(HttpStatus.OK)

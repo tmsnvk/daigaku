@@ -3,14 +3,20 @@ import { useGetApplication } from './Application.hooks.tsx';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
+} from '@components/shared/notification';
 import { ApplicationForm } from '@components/page/application';
+import { ApplicationT } from '@services/application/application.service.ts';
 
-const ApplicationPage = () => {
-  const { state, pathname } = useLocation();
-  const applicationId = pathname.split('/applications/')[1];
+type LocationT = {
+  state: ApplicationT;
+  pathname: string;
+}
 
-  const { data, isLoading, isError } = useGetApplication(state, applicationId);
+const Application = () => {
+  const { state, pathname } = useLocation() as LocationT;
+  const applicationUuid = pathname.split('/applications/')[1];
+
+  const { data, isLoading, isError } = useGetApplication(state, applicationUuid);
 
   if (isLoading) {
     return <GlobalLoadingModal />;
@@ -23,11 +29,11 @@ const ApplicationPage = () => {
   return (
     <main>
       <ApplicationForm
-        applicationData={state ? state : data }
-        applicationId={applicationId}
+        applicationData={(state && state) || (data && data.data)}
+        applicationUuid={applicationUuid}
       />
     </main>
   );
 };
 
-export default ApplicationPage;
+export default Application;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ComponentContainer = styled.article`
+const Article = styled.article`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -17,5 +17,5 @@ const ComponentContainer = styled.article`
 `;
 
 export {
-  ComponentContainer,
+  Article,
 };

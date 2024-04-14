@@ -1,4 +1,4 @@
-import { BoxContainer } from './FigureInfoBox.styles.ts';
+import { DescriptionList } from './FigureInfoBox.styles.ts';
 
 type ComponentPropsT = {
   title: string;
@@ -7,14 +7,14 @@ type ComponentPropsT = {
 
 const FigureInfoBox = ({ title, content }: ComponentPropsT) => {
   return (
-    <BoxContainer>
+    <DescriptionList>
       <dt>
         {content}
       </dt>
       <dd>
         {title}
       </dd>
-    </BoxContainer>
+    </DescriptionList>
   );
 };
 

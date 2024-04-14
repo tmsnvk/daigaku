@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { NavbarLink } from '@components/shared/navigation';
-import { GeneralIcon } from '@components/shared/icon-styles';
-import { BaseNavbarStyle } from '@components/shared/base-styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import BaseNavbarStyle from '../BaseNavbarStyle';
+import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';
 import { iconLibraryConfig } from '@configuration';
 
@@ -11,7 +11,7 @@ const PublicLayout = () => {
       <BaseNavbarStyle>
         <nav>
           <div>
-            <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
+            <FontAwesomeIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </div>
           <ul>

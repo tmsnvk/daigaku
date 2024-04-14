@@ -5,23 +5,22 @@ import {
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
 import {
-  FeedbackModal,
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
+  Toast,
+} from 'components/shared/notification';
 import {
   ApplicationFormGridContainer,
-  ErrorMessage,
+  InputError,
   InputInfoBox,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GenericTitle } from '@components/shared/general';
+import { PageTitle } from '@components/shared/general';
 import {
   DisabledInputField,
-  GeneralSelectInputField,
+  GenericSelectInputField,
 } from '@components/shared/field-implementations';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
 import {
   applicationStatusInformation,
   countryInformation,
@@ -35,21 +34,22 @@ import {
   submissionConfirmation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
-import { FinalDestinationStatusT } from '@services/application/FinalDestinationStatus.service.ts';
-import { ResponseStatusT } from '@services/application/ResponseStatus.service.ts';
-import { OfferStatusT } from '@services/application/OfferStatus.service.ts';
-import { InterviewStatusT } from '@services/application/InterviewStatusService.service.ts';
-import { ApplicationStatusT } from '@services/application/ApplicationStatus.service.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
+import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
+import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
+import { OfferStatusT } from '@services/application/offerStatus.service.ts';
+import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
+import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
 
 type ComponentPropsT = {
   applicationData: ApplicationT;
-  applicationId: string
+  applicationUuid: string;
 }
 
-const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) => {
+const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) => {
   const { options, isLoading, isError } = useGetAllSelectOptions();
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, isSuccess, mutate } = useUpdateApplication({ setError, reset, applicationId });
+  const { isPending, isSuccess, mutate } = useUpdateApplication({ setError, reset, applicationUuid });
 
   if (isLoading) {
     return <GlobalLoadingModal />;
@@ -61,8 +61,12 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
 
   return (
     <>
-      <ApplicationFormGridContainer id={'updateApplicationForm'} method={'PUT'} onSubmit={handleSubmit((formData) => mutate(formData))}>
-        <GenericTitle content={'Application Form'} />
+      <ApplicationFormGridContainer
+        id={'updateApplicationForm'}
+        method={'PATCH'}
+        onSubmit={handleSubmit((formData) => mutate(formData))}
+      >
+        <PageTitle content={'Update Application Form'} />
         <InputInfoBox content={formInformation} />
         <DisabledInputField
           fieldId={'country'}
@@ -99,10 +103,10 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
           defaultValue={applicationData.programmeLength}
         />
         <InputInfoBox content={programmeLengthInformation} />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
-          fieldError={errors.applicationStatus?.message}
-          fieldId={'applicationStatus'}
+          fieldError={errors.applicationStatusUuid?.message}
+          fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
           defaultOptionFieldContent={'Update the application\'s current status.'}
           defaultValue={applicationData.applicationStatus}
@@ -111,10 +115,10 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
         <InputInfoBox
           content={applicationStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
-          fieldError={errors.interviewStatus?.message}
-          fieldId={'interviewStatus'}
+          fieldError={errors.interviewStatusUuid?.message}
+          fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
           defaultOptionFieldContent={'Update the application\'s interview status.'}
           defaultValue={applicationData.interviewStatus}
@@ -123,10 +127,10 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
         <InputInfoBox
           content={interviewStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
-          fieldError={errors.offerStatus?.message}
-          fieldId={'offerStatus'}
+          fieldError={errors.offerStatusUuid?.message}
+          fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
           defaultOptionFieldContent={'Update the university\'s decision.'}
           defaultValue={applicationData.offerStatus}
@@ -135,10 +139,10 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
         <InputInfoBox
           content={responseStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
-          fieldError={errors.responseStatus?.message}
-          fieldId={'responseStatus'}
+          fieldError={errors.responseStatusUuid?.message}
+          fieldId={'responseStatusUuid'}
           labelContent={'Response Status'}
           defaultOptionFieldContent={'Update your response status.'}
           defaultValue={applicationData.responseStatus}
@@ -147,10 +151,10 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
         <InputInfoBox
           content={responseStatusInformation}
         />
-        <GeneralSelectInputField
+        <GenericSelectInputField
           register={register}
-          fieldError={errors.finalDestinationStatus?.message}
-          fieldId={'finalDestinationStatus'}
+          fieldError={errors.finalDestinationStatusUuid?.message}
+          fieldId={'finalDestinationStatusUuid'}
           labelContent={'Final Destination Status'}
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
           defaultValue={applicationData.finalDestinationStatus}
@@ -165,10 +169,10 @@ const ApplicationForm = ({ applicationData, applicationId }: ComponentPropsT) =>
               <LoadingIndicator content={'Your application is being updated.'} /> :
               <SubmitInput type={'submit'} value={'update application'} disabled={isPending} />
           }
-          {errors.root?.serverError && <ErrorMessage content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </ApplicationFormGridContainer>
-      <FeedbackModal
+      <Toast
         isVisible={isSuccess}
         content={submissionConfirmation}
       />

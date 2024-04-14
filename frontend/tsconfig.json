@@ -28,7 +28,7 @@
       "@components/*": ["components/*"],
       "@context/*": ["context/*"],
       "@custom-types/*": ["types/*"],
-      "@hooks/*": ["hooks/*"],
+      "@hooks": ["hooks/index.ts"],
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],

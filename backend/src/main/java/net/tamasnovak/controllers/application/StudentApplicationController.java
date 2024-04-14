@@ -1,13 +1,11 @@
 package net.tamasnovak.controllers.application;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.dtos.application.ApplicationDto;
-import net.tamasnovak.dtos.application.DashboardDataDto;
-import net.tamasnovak.dtos.application.NewApplicationByStudentDto;
-import net.tamasnovak.dtos.application.UpdateApplicationByStudentDto;
-import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.entities.account.accountsByRole.Student;
-import net.tamasnovak.services.account.accountsStudentsJunction.AccountsStudentsJunctionService;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
+import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
+import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
+import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/applications/students")
-public final class StudentApplicationController {
+public class StudentApplicationController {
   private final StudentApplicationService studentApplicationService;
-  private final AccountsStudentsJunctionService accountsStudentsJunctionService;
   private final AuthenticationFacade authenticationFacade;
 
   @Autowired
-  public StudentApplicationController(StudentApplicationService studentApplicationService, AccountsStudentsJunctionService accountsStudentsJunctionService, AuthenticationFacade authenticationFacade) {
+  public StudentApplicationController(StudentApplicationService studentApplicationService, AuthenticationFacade authenticationFacade) {
     this.studentApplicationService = studentApplicationService;
-    this.accountsStudentsJunctionService = accountsStudentsJunctionService;
     this.authenticationFacade = authenticationFacade;
   }
 
@@ -44,9 +39,8 @@ public final class StudentApplicationController {
   )
   public ResponseEntity<List<ApplicationDto>> getAllByAccount() {
     Account account = authenticationFacade.getAuthenticatedAccount();
-    Student student = accountsStudentsJunctionService.findStudentByAccount(account);
 
-    List<ApplicationDto> applications = studentApplicationService.findAllByAccount(student);
+    List<ApplicationDto> applications = studentApplicationService.findAllByAccount(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -58,11 +52,10 @@ public final class StudentApplicationController {
     method = RequestMethod.POST,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> createApplication(@RequestBody NewApplicationByStudentDto newApplicationByStudentDto) {
+  public ResponseEntity<ApplicationDto> create(@RequestBody NewApplicationByStudentDto newApplicationByStudentDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
-    Student student = accountsStudentsJunctionService.findStudentByAccount(account);
 
-    ApplicationDto newApplication = studentApplicationService.createApplication(student, newApplicationByStudentDto);
+    ApplicationDto newApplication = studentApplicationService.createApplication(account, newApplicationByStudentDto);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
@@ -74,8 +67,10 @@ public final class StudentApplicationController {
     method = RequestMethod.PATCH,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> updateApplicationByUuid(@PathVariable("uuid") UUID uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
-    ApplicationDto applicationDto = studentApplicationService.updateByUuid(uuid, updateApplicationByStudentDto);
+  public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") String uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
+    Account account = authenticationFacade.getAuthenticatedAccount();
+
+    ApplicationDto applicationDto = studentApplicationService.updateByUuid(account, uuid, updateApplicationByStudentDto);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -83,18 +78,18 @@ public final class StudentApplicationController {
   }
 
   @RequestMapping(
-    value = "/dashboard-data",
+    value = "/dashboard",
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<DashboardDataDto> getDashboardData() {
+  public ResponseEntity<DashboardAggregateDataDto> getDashboardAggregateData() {
     Account account = authenticationFacade.getAuthenticatedAccount();
     String accountRole = authenticationFacade.getAuthenticatedAccountRole();
 
-    DashboardDataDto dashboardDataDto = studentApplicationService.getDashboardData(account, accountRole);
+    DashboardAggregateDataDto dashboardAggregateDataDto = studentApplicationService.getDashboardData(account, accountRole);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(dashboardDataDto);
+      .body(dashboardAggregateDataDto);
   }
 }

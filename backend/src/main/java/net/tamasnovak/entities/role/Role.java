@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.baseAccount.Account;
 
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public final class Role {
   @Column(name = "name", unique = true, updatable = false, nullable = false)
   private String name;
 
-  @OneToMany(mappedBy = "roleId")
+  @OneToMany(mappedBy = "role")
   @JsonManagedReference
   private Set<Account> accounts;
 

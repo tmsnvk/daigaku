@@ -1,8 +1,8 @@
-import { useGetApplications } from '@hooks/applications';
+import { useGetApplications } from '@hooks';
 import {
+  useDisplayColumnSelectorModal,
   useSetColumns,
   useSetOrder,
-  useShowColumnDisplayModal,
 } from './Applications.hooks.tsx';
 import {
   ColumnSelectorModal,
@@ -12,15 +12,15 @@ import {
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/modal';
+} from '@components/shared/notification';
 import { MainContainer } from './Applications.styles.ts';
-import { ApplicationT } from '@custom-types/ApplicationT.ts';
+import { ApplicationT } from '@services/application/application.service.ts';
 
-const ApplicationsPage = () => {
+const Applications = () => {
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
   const { columns, updateColumnVisibility } = useSetColumns();
-  const { handleColumnSort } = useSetOrder(data as ApplicationT[]);
-  const { isModalVisible, toggleModal } = useShowColumnDisplayModal();
+  const { handleColumnSort } = useSetOrder(data?.data as ApplicationT[]);
+  const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
     return <GlobalLoadingModal />;
@@ -38,13 +38,13 @@ const ApplicationsPage = () => {
         <thead>
           <TableHead
             columns={columns}
-            handleColumnSort={handleColumnSort}
-            toggleModal={toggleModal}
+            columnSortHandler={handleColumnSort}
+            toggleModalHandler={toggleModal}
             refetch={refetch}
           />
         </thead>
         <tbody>
-          {data && <DataRows columns={columns} data={data} />}
+          {data && <DataRows columns={columns} data={data.data} />}
         </tbody>
       </table>
       {isModalVisible &&
@@ -58,4 +58,4 @@ const ApplicationsPage = () => {
   );
 };
 
-export default ApplicationsPage;
+export default Applications;

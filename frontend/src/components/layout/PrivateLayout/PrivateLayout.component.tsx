@@ -3,6 +3,7 @@ import {
   Outlet,
   useLocation,
 } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AccountRoleE,
   AuthStatusE,
@@ -12,11 +13,10 @@ import {
   useHandleSmallScreenMenuDisplay,
   useLogOut,
 } from './PrivateLayout.hooks.tsx';
+import { GlobalLoadingModal } from 'components/shared/notification';
+import BaseNavbarStyle from '../BaseNavbarStyle';
+import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';
-import { BaseNavbarStyle } from '@components/shared/base-styles';
-import { GlobalLoadingModal } from '@components/shared/modal';
-import { NavbarLink } from '@components/shared/navigation';
-import { GeneralIcon } from '@components/shared/icon-styles';
 import {
   SmallScreenMenuToggler,
   SmallScreenMenuWrapper,
@@ -42,7 +42,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
     return <GlobalLoadingModal />;
   }
 
-  if (!allowedRoles?.includes(account.role as AccountRoleE)) {
+  if (!allowedRoles.includes(account.role as AccountRoleE)) {
     if (account) {
       return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
     }
@@ -55,7 +55,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
       <BaseNavbarStyle>
         <nav>
           <div>
-            <GeneralIcon icon={iconLibraryConfig.faGraduationCap} />
+            <FontAwesomeIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </div>
           <SmallScreenMenuWrapper
@@ -94,11 +94,11 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
               </li>
             </ul>
             <SmallScreenMenuToggler onClick={toggleMenu}>
-              <GeneralIcon icon={iconLibraryConfig.faXMark} />
+              <FontAwesomeIcon icon={iconLibraryConfig.faXMark} />
             </SmallScreenMenuToggler>
           </SmallScreenMenuWrapper>
           <SmallScreenMenuToggler onClick={toggleMenu}>
-            <GeneralIcon icon={iconLibraryConfig.faBars} />
+            <FontAwesomeIcon icon={iconLibraryConfig.faBars} />
           </SmallScreenMenuToggler>
         </nav>
       </BaseNavbarStyle>

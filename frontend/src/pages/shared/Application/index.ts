@@ -1,3 +1,3 @@
-import ApplicationPage from './Application.page.tsx';
+import Application from './Application.page.tsx';
 
-export default ApplicationPage;
+export default Application;

@@ -1,6 +1,6 @@
 package net.tamasnovak.services.finalDestinationStatus;
 
-import net.tamasnovak.dtos.finalDestinationStatus.FinalDestinationStatusFormDto;
+import net.tamasnovak.dtos.finalDestinationStatus.response.FinalDestinationStatusOptionDto;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
 import net.tamasnovak.repositories.finalDestinationStatus.FinalDestinationStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,13 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  public List<FinalDestinationStatusFormDto> findAll() {
+  public FinalDestinationStatus findByName(String statusName) {
+    return finalDestinationStatusRepository.findByName(statusName);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<FinalDestinationStatusOptionDto> findAll() {
     List<FinalDestinationStatus> finalDestinationStatuses = finalDestinationStatusRepository.findAll();
 
     return finalDestinationStatuses.stream()

@@ -1,14 +1,14 @@
 import styled from 'styled-components';
+import { BaseLightElementBorderStyle } from '@components/shared/base-styles';
 
-const ListContainer = styled.section`
+const Section = styled.section`
+  ${BaseLightElementBorderStyle};
+  
   width: 95%;
   margin: 0 auto 5rem auto;
   padding: 1rem 3.5rem 1rem 3.5rem;
   font-size: ${({ theme }) => theme.fontSize.small};
   background-color: ${({ theme }) => theme.color.tertiaryLight};
-  border: 0.1rem solid ${({ theme }) => theme.color.secondaryLight};
-  border-radius: 0.75rem;
-  box-shadow: 0.25rem 0.25rem 1rem ${({ theme }) => theme.color.primaryDark};
 
   & ul {
     & li:first-of-type {
@@ -23,7 +23,7 @@ const ListContainer = styled.section`
       margin: 0 0 2rem 0;
     }
   }
-  
+
   & ol {
     margin: 0 0 0 2.5rem;
 
@@ -55,5 +55,5 @@ const ListContainer = styled.section`
 `;
 
 export {
-  ListContainer,
+  Section,
 };

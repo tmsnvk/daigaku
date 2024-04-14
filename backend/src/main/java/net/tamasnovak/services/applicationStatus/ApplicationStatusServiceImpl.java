@@ -1,6 +1,6 @@
 package net.tamasnovak.services.applicationStatus;
 
-import net.tamasnovak.dtos.applicationStatus.ApplicationStatusFormDto;
+import net.tamasnovak.dtos.applicationStatus.response.ApplicationStatusOptionDto;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationStatusFormDto> findAll() {
+  public List<ApplicationStatusOptionDto> findAll() {
     List<ApplicationStatus> applicationStatuses = applicationStatusRepository.findAll();
 
     return applicationStatuses.stream()

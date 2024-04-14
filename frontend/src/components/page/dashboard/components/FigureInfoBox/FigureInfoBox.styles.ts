@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BaseDarkElementBorderStyle } from '@components/shared/base-styles';
 
-const BoxContainer = styled.dl`
+const DescriptionList = styled.dl`
   ${BaseDarkElementBorderStyle};
   
   display: flex;
@@ -48,5 +48,5 @@ const BoxContainer = styled.dl`
 `;
 
 export {
-  BoxContainer,
+  DescriptionList,
 };

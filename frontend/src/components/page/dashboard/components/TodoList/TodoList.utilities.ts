@@ -13,6 +13,7 @@ const noInterviewStatusSet = 'You have not yet updated the interview status of a
 const noFirmChoiceSet = 'You have not yet indicated your firm choice.';
 const noOfferStatusSet = 'You have not yet indicated whether you have received any offers.';
 const noFinalDestinationSet = 'You have not yet indicated your final destination.';
+const noTodo = 'You have no items on your to-do list.';
 
 export {
   generalIntroduction,
@@ -22,4 +23,5 @@ export {
   noFirmChoiceSet,
   noOfferStatusSet,
   noFinalDestinationSet,
+  noTodo,
 };
