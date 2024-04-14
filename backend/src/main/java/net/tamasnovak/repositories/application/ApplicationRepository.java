@@ -1,6 +1,6 @@
 package net.tamasnovak.repositories.application;
 
-import net.tamasnovak.entities.account.accountsByRole.Student;
+import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.entities.application.FinalDestinationStatus;

@@ -9,7 +9,7 @@ public final class ApplicationMapper {
   public ApplicationDto toApplicationDto(Application application) {
     return new ApplicationDto(
       application.getUuid(),
-      application.getStudentId().getAccountId().getUuid(),
+      application.getStudentId().getAccountId().getBaseIdEntity().getUuid(),
       application.getCountryId().getName(),
       application.getUniversityId().getName(),
       application.getCourseName(),

@@ -1,4 +1,4 @@
-package net.tamasnovak.entities.account.accountsByRole;
+package net.tamasnovak.entities.account.accountByRole;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.baseAccount.Account;
 
 import java.util.HashSet;
 import java.util.Set;

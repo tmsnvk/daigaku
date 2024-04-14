@@ -1,6 +1,6 @@
 package net.tamasnovak.utilities.authenticationFacade;
 
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.services.account.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

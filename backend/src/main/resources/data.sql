@@ -11,17 +11,17 @@ WITH role_insert AS (
 INSERT INTO accounts
   (id, first_name, last_name, email, hashed_password, role_id)
 VALUES
-  (1, 'Admin', 'User', 'admin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert)),
-  (2, 'Admin', 'User', 'admin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
+  (1, 'SysAdmin', 'User', 'sysadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert)),
+  (2, 'SysAdmin', 'User', 'sysadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
 
-INSERT INTO admins
+INSERT INTO system_admins
   (id, account_id)
 VALUES
   (1, 1),
   (2, 2);
 
-INSERT INTO accounts_admins_junction
-  (account_id, admin_id)
+INSERT INTO accounts_system_admins_junction
+  (account_id, system_admin_id)
 VALUES
   (1, 1),
   (2, 2);

@@ -1,4 +1,4 @@
-package net.tamasnovak.entities.account.accountsByJunction;
+package net.tamasnovak.entities.account.accountByJunction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -8,8 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.entities.account.accountsByRole.Student;
+import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.accountByRole.Student;
 
 import java.io.Serializable;
 

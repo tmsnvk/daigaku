@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.BaseEntity;
-import net.tamasnovak.entities.account.accountsByRole.Student;
+import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 

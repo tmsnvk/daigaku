@@ -1,4 +1,4 @@
-package net.tamasnovak.entities.account.accountsByJunction;
+package net.tamasnovak.entities.account.accountByJunction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -8,8 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.entities.account.accountsByRole.Admin;
+import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.accountByRole.SystemAdmin;
 
 import java.io.Serializable;
 
@@ -27,22 +27,22 @@ public final class AccountsAdminsJunction {
   @MapsId("adminId")
   @OneToOne
   @JoinColumn(name = "admin_id")
-  private Admin adminId;
+  private SystemAdmin systemAdminId;
 
   public AccountsAdminsJunction() {}
 
-  public AccountsAdminsJunction(Account accountId, Admin adminId) {
+  public AccountsAdminsJunction(Account accountId, SystemAdmin systemAdminId) {
     this.accountId = accountId;
-    this.adminId = adminId;
-    this.id = new AccountsAdminsJunctionId(accountId.getId(), adminId.getId());
+    this.systemAdminId = systemAdminId;
+    this.id = new AccountsAdminsJunctionId(accountId.getId(), systemAdminId.getId());
   }
 
   public Account getAccountId() {
     return accountId;
   }
 
-  public Admin getAdminId() {
-    return adminId;
+  public SystemAdmin getAdminId() {
+    return systemAdminId;
   }
 
   @Embeddable

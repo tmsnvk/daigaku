@@ -1,15 +1,12 @@
-package net.tamasnovak.entities;
+package net.tamasnovak.entities.base.audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.PastOrPresent;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.UuidGenerator;
+import net.tamasnovak.entities.base.id.BaseIdEntity;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,30 +14,21 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
-@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public abstract class BaseEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", unique = true, insertable = false, updatable = false, nullable = false)
-  private long id;
+@EntityListeners(AuditingEntityListener.class)
+public abstract class Auditable <T extends BaseIdEntity> extends BaseIdEntity {
+  private T baseIdEntity;
 
-  @UuidGenerator
-  @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "uuid", unique = true, insertable = false, updatable = false, nullable = false)
-  private UUID uuid;
-
-  @CreatedDate
-  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
   @PastOrPresent
+  @CreatedDate
   @Column(name = "created_at", insertable = false, updatable = false, nullable = false)
   private Timestamp createdAt;
 
-  @LastModifiedDate
-  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
   @PastOrPresent
+  @LastModifiedDate
   @Column(name = "last_updated_at", nullable = false)
   private Timestamp lastUpdatedAt;
 
@@ -52,14 +40,10 @@ public abstract class BaseEntity {
   @Column(name = "last_modified_by", nullable = false)
   private String lastModifiedBy;
 
-  protected BaseEntity() {}
+  protected Auditable() {}
 
-  public long getId() {
-    return id;
-  }
-
-  public UUID getUuid() {
-    return uuid;
+  public T getBaseIdEntity() {
+    return baseIdEntity;
   }
 
   public Timestamp getCreatedAt() {
@@ -70,7 +54,11 @@ public abstract class BaseEntity {
     return lastUpdatedAt;
   }
 
-  public void setLastUpdatedAt(Timestamp lastUpdatedAt) {
-    this.lastUpdatedAt = lastUpdatedAt;
+  public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public String getLastModifiedBy() {
+    return lastModifiedBy;
   }
 }

@@ -1,7 +1,7 @@
 package net.tamasnovak.services.account.account;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.repositories.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

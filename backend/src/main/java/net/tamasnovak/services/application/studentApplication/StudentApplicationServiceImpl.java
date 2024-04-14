@@ -7,8 +7,8 @@ import net.tamasnovak.dtos.application.response.FinalDestinationDto;
 import net.tamasnovak.dtos.application.response.FirmChoiceDto;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
-import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.entities.account.accountsByRole.Student;
+import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
@@ -124,7 +124,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Application application = applicationRepository.findByUuid(validApplicationUuid)
       .orElseThrow(() -> new EntityNotFoundException(studentApplicationServiceConstants.NO_APPLICATION_FOUND));
 
-    validatorUtilities.checkIfUuidsAreEqual(account.getUuid(), application.getStudentId().getAccountId().getUuid(), studentApplicationServiceConstants.NO_PERMISSION_AS_STUDENT);
+    validatorUtilities.checkIfUuidsAreEqual(
+      account.getBaseIdEntity().getUuid(),
+      application.getStudentId().getAccountId().getBaseIdEntity().getUuid(),
+      studentApplicationServiceConstants.NO_PERMISSION_AS_STUDENT
+    );
 
     ApplicationStatus applicationStatus = applicationStatusService.findByUuid(updateApplicationByStudentDto.applicationStatusUuid());
     InterviewStatus interviewStatus = interviewStatusService.findByUuid(updateApplicationByStudentDto.interviewStatusUuid());

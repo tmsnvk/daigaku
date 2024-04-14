@@ -2,7 +2,7 @@ package net.tamasnovak.services.application.application;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
-import net.tamasnovak.entities.account.Account;
+import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.application.ApplicationMapper;
@@ -48,11 +48,15 @@ public class ApplicationServiceImpl implements ApplicationService {
   private void checkUserPermissionToViewApplication(UUID applicationUuid, Application application) {
     Account authAccount = authenticationFacade.getAuthenticatedAccount();
 
-    if (Objects.equals(authAccount.getRoleId().getName(), "ROLE_STUDENT")) {
-      validatorUtilities.checkIfUuidsAreEqual(applicationUuid, application.getStudentId().getAccountId().getUuid(), applicationServiceConstants.NO_PERMISSION_AS_STUDENT);
+    if (Objects.equals(authAccount.getRole().getName(), "ROLE_STUDENT")) {
+      validatorUtilities.checkIfUuidsAreEqual(
+        applicationUuid,
+        application.getStudentId().getAccountId().getBaseIdEntity().getUuid(),
+        applicationServiceConstants.NO_PERMISSION_AS_STUDENT
+      );
     }
 
-    if (Objects.equals(authAccount.getRoleId().getName(), "ROLE_MENTOR")) {
+    if (Objects.equals(authAccount.getRole().getName(), "ROLE_MENTOR")) {
       long applicationMentorId = application.getStudentId().getMentorId().getAccountId().getId();
       long authAccountId = authAccount.getId();
 

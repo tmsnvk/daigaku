@@ -63,7 +63,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
     <>
       <ApplicationFormGridContainer
         id={'updateApplicationForm'}
-        method={'PUT'}
+        method={'PATCH'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <PageTitle content={'Update Application Form'} />
@@ -105,8 +105,8 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         <InputInfoBox content={programmeLengthInformation} />
         <GenericSelectInputField
           register={register}
-          fieldError={errors.applicationStatus?.message}
-          fieldId={'applicationStatus'}
+          fieldError={errors.applicationStatusUuid?.message}
+          fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
           defaultOptionFieldContent={'Update the application\'s current status.'}
           defaultValue={applicationData.applicationStatus}
@@ -117,8 +117,8 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         />
         <GenericSelectInputField
           register={register}
-          fieldError={errors.interviewStatus?.message}
-          fieldId={'interviewStatus'}
+          fieldError={errors.interviewStatusUuid?.message}
+          fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
           defaultOptionFieldContent={'Update the application\'s interview status.'}
           defaultValue={applicationData.interviewStatus}
@@ -129,8 +129,8 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         />
         <GenericSelectInputField
           register={register}
-          fieldError={errors.offerStatus?.message}
-          fieldId={'offerStatus'}
+          fieldError={errors.offerStatusUuid?.message}
+          fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
           defaultOptionFieldContent={'Update the university\'s decision.'}
           defaultValue={applicationData.offerStatus}
@@ -141,8 +141,8 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         />
         <GenericSelectInputField
           register={register}
-          fieldError={errors.responseStatus?.message}
-          fieldId={'responseStatus'}
+          fieldError={errors.responseStatusUuid?.message}
+          fieldId={'responseStatusUuid'}
           labelContent={'Response Status'}
           defaultOptionFieldContent={'Update your response status.'}
           defaultValue={applicationData.responseStatus}
@@ -153,8 +153,8 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         />
         <GenericSelectInputField
           register={register}
-          fieldError={errors.finalDestinationStatus?.message}
-          fieldId={'finalDestinationStatus'}
+          fieldError={errors.finalDestinationStatusUuid?.message}
+          fieldId={'finalDestinationStatusUuid'}
           labelContent={'Final Destination Status'}
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
           defaultValue={applicationData.finalDestinationStatus}
