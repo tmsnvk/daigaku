@@ -16,7 +16,8 @@ export enum AuthStatusE {
 export enum AccountRoleE {
   STUDENT,
   MENTOR,
-  ADMIN,
+  SYSTEM_ADMIN,
+  INSTITUTION_ADMIN
 }
 
 type AccountRoleT = {
@@ -63,7 +64,8 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     const roles: AccountRoleT = {
       'ROLE_STUDENT': AccountRoleE.STUDENT,
       'ROLE_MENTOR': AccountRoleE.MENTOR,
-      'ROLE_ADMIN': AccountRoleE.ADMIN,
+      'ROLE_INSTITUTION_ADMIN': AccountRoleE.INSTITUTION_ADMIN,
+      'ROLE_SYSTEM_ADMIN': AccountRoleE.SYSTEM_ADMIN,
     };
 
     return roles[role];

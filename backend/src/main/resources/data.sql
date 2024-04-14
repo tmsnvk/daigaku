@@ -1,10 +1,10 @@
 -- INSERT roles & accounts
--- admin users
+-- system admin users
 WITH role_insert AS (
   INSERT INTO roles
     (name)
     VALUES
-      ('ROLE_ADMIN')
+      ('ROLE_SYSTEM_ADMIN')
     RETURNING
       id
 )
@@ -26,6 +26,33 @@ VALUES
   (1, 1),
   (2, 2);
 
+-- institution admin users
+WITH role_insert AS (
+  INSERT INTO roles
+    (name)
+    VALUES
+      ('ROLE_INSTITUTION_ADMIN')
+    RETURNING
+      id
+)
+INSERT INTO accounts
+(id, first_name, last_name, email, hashed_password, role_id)
+VALUES
+  (3, 'InsAdmin', 'User', 'insadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert)),
+  (4, 'InsAdmin', 'User', 'insadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
+
+INSERT INTO institution_admins
+(id, account_id)
+VALUES
+  (1, 3),
+  (2, 4);
+
+INSERT INTO accounts_institution_admins_junction
+(account_id, institution_admin_id)
+VALUES
+  (3, 1),
+  (4, 2);
+
 -- mentor users
 WITH role_insert AS (
   INSERT INTO roles
@@ -38,20 +65,20 @@ WITH role_insert AS (
 INSERT INTO accounts
 (id, first_name, last_name, email, hashed_password, role_id)
 VALUES
-  (3, 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert)),
-  (4, 'Mentor', 'User', 'mentor2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
+  (5, 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert)),
+  (6, 'Mentor', 'User', 'mentor2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
 
 INSERT INTO mentors
   (id, account_id)
 VALUES
-  (1, 3),
-  (2, 4);
+  (1, 5),
+  (2, 6);
 
 INSERT INTO accounts_mentors_junction
   (account_id, mentor_id)
 VALUES
-  (3, 1),
-  (4, 2);
+  (5, 1),
+  (6, 2);
 
 -- student users
 WITH role_insert AS (
@@ -65,20 +92,20 @@ WITH role_insert AS (
 INSERT INTO accounts
 (id, first_name, last_name, email, hashed_password, role_id)
 VALUES
-  (5, 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert)),
-  (6, 'Student', 'User', 'student2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
+  (7, 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert)),
+  (8, 'Student', 'User', 'student2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert));
 
 INSERT INTO students
 (id, account_id, mentor_id)
 VALUES
-  (1, 5, 1),
-  (2, 6, 1);
+  (1, 7, 1),
+  (2, 8, 1);
 
 INSERT INTO accounts_students_junction
 (account_id, student_id)
 VALUES
-  (5, 1),
-  (6, 2);
+  (7, 1),
+  (8, 2);
 
 -- INSERT countries & universities
 WITH country AS (

@@ -31,7 +31,8 @@ const getDashboardType = (role: AccountRoleE) => {
   const roleType = {
     [AccountRoleE.STUDENT]: 'students',
     [AccountRoleE.MENTOR]: 'mentors',
-    [AccountRoleE.ADMIN]: 'admins',
+    [AccountRoleE.INSTITUTION_ADMIN]: 'institution_admins',
+    [AccountRoleE.SYSTEM_ADMIN]: 'system_admins',
   };
 
   return roleType[role];
