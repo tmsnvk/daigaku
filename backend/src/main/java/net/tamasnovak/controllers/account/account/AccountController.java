@@ -39,7 +39,7 @@ public class AccountController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'ADMIN')")
+  @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
   public ResponseEntity<FrontendContextDto> findUser() {
     User userDetails = authenticationFacade.getUserContext();
 

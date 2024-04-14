@@ -27,20 +27,9 @@ export type DashboardDataT = {
   numberOfOffers: number;
 }
 
-const getDashboardType = (role: AccountRoleE) => {
-  const roleType = {
-    [AccountRoleE.STUDENT]: 'students',
-    [AccountRoleE.MENTOR]: 'mentors',
-    [AccountRoleE.INSTITUTION_ADMIN]: 'institution_admins',
-    [AccountRoleE.SYSTEM_ADMIN]: 'system_admins',
-  };
-
-  return roleType[role];
-};
-
 const useGetDashboardData = () => {
-  const { account } = useAuth();
-  const userType = getDashboardType(account.role as AccountRoleE);
+  const { account, getRoleResource } = useAuth();
+  const userType = getRoleResource(account.role as AccountRoleE);
 
   return useQuery({
     queryKey: [queryKeys.AGGREGATE.GET_DASHBOARD_DATA],

@@ -37,7 +37,7 @@ const applicationService = {
   postByStudent: async (data: NewApplicationFormFieldsT): Promise<AxiosResponse<ApplicationT>> => {
     return await axiosConfigWithAuth.request<ApplicationT>({
       method: 'POST',
-      url: '/api/applications/students',
+      url: '/api/applications/student',
       data,
     });
   },
@@ -45,7 +45,7 @@ const applicationService = {
     // update this appropriate for mentor/admin links
     return await axiosConfigWithAuth.request<ApplicationT>({
       method: 'PATCH',
-      url: `/api/applications/students/${applicationUuid}`,
+      url: `/api/applications/student/${applicationUuid}`,
       data,
     });
   },

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/applications/students")
+@RequestMapping(path = "/api/applications/student")
 public class StudentApplicationController {
   private final StudentApplicationService studentApplicationService;
   private final AuthenticationFacade authenticationFacade;

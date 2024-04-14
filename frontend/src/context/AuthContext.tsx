@@ -52,6 +52,7 @@ type AuthContextT = {
   authStatus: AuthStatusE;
   setAuthStatus: (value: AuthStatusE) => void;
   getAccountRole: (role: string) => AccountRoleE;
+  getRoleResource: (role: AccountRoleE) => string;
 }
 
 const AuthContext = createContext<AuthContextT>({} as AuthContextT);
@@ -69,6 +70,17 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     };
 
     return roles[role];
+  };
+
+  const getRoleResource = (role: AccountRoleE) => {
+    const roleUrl = {
+      [AccountRoleE.STUDENT]: 'student',
+      [AccountRoleE.MENTOR]: 'mentor',
+      [AccountRoleE.INSTITUTION_ADMIN]: 'institution_admin',
+      [AccountRoleE.SYSTEM_ADMIN]: 'system_admin',
+    };
+
+    return roleUrl[role];
   };
 
   useEffect(() => {
@@ -104,6 +116,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
       account, setAccount,
       authStatus, setAuthStatus,
       getAccountRole,
+      getRoleResource,
     }}>
       {children}
     </AuthContext.Provider>
