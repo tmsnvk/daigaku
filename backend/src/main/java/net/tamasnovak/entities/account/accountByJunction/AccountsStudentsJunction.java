@@ -19,53 +19,53 @@ public final class AccountsStudentsJunction {
   @EmbeddedId
   private AccountsStudentsJunctionId id;
 
-  @MapsId("accountId")
+  @MapsId("account")
   @OneToOne
   @JoinColumn(name = "account_id")
-  private Account accountId;
+  private Account account;
 
-  @MapsId("studentId")
+  @MapsId("student")
   @OneToOne
   @JoinColumn(name = "student_id")
-  private Student studentId;
+  private Student student;
 
-  public AccountsStudentsJunction() {}
+  protected AccountsStudentsJunction() {}
 
-  public AccountsStudentsJunction(Account accountId, Student studentId) {
-    this.accountId = accountId;
-    this.studentId = studentId;
-    this.id = new AccountsStudentsJunctionId(accountId.getId(), studentId.getId());
+  public AccountsStudentsJunction(Account account, Student student) {
+    this.account = account;
+    this.student = student;
+    this.id = new AccountsStudentsJunctionId(account.getId(), student.getId());
   }
 
-  public Account getAccountId() {
-    return accountId;
+  public Account getAccount() {
+    return account;
   }
 
-  public Student getStudentId() {
-    return studentId;
+  public Student getStudent() {
+    return student;
   }
 
   @Embeddable
   public static class AccountsStudentsJunctionId implements Serializable {
     @Column(name = "account_id")
-    private long accountId;
+    private long account;
 
     @Column(name = "student_id")
-    private long studentId;
+    private long student;
 
     public AccountsStudentsJunctionId() {}
 
-    public AccountsStudentsJunctionId(long accountId, long studentId) {
-      this.accountId = accountId;
-      this.studentId = studentId;
+    public AccountsStudentsJunctionId(long account, long student) {
+      this.account = account;
+      this.student = student;
     }
 
-    public long getAccountId() {
-      return accountId;
+    public long getAccount() {
+      return account;
     }
 
-    public long getStudentId() {
-      return studentId;
+    public long getStudent() {
+      return student;
     }
   }
 

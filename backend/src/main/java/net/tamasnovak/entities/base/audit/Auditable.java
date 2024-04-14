@@ -6,7 +6,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.PastOrPresent;
-import net.tamasnovak.entities.base.id.BaseIdEntity;
+import net.tamasnovak.entities.base.id.BaseExtendedIdEntity;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,9 +17,7 @@ import java.sql.Timestamp;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable <T extends BaseIdEntity> extends BaseIdEntity {
-  private T baseIdEntity;
-
+public abstract class Auditable extends BaseExtendedIdEntity {
   @Temporal(TemporalType.TIMESTAMP)
   @PastOrPresent
   @CreatedDate
@@ -41,10 +39,6 @@ public abstract class Auditable <T extends BaseIdEntity> extends BaseIdEntity {
   private String lastModifiedBy;
 
   protected Auditable() {}
-
-  public T getBaseIdEntity() {
-    return baseIdEntity;
-  }
 
   public Timestamp getCreatedAt() {
     return createdAt;

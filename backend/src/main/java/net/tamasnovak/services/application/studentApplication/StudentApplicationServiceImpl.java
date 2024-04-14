@@ -76,7 +76,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional(readOnly = true)
   public List<ApplicationDto> findAllByAccount(Account studentAccount) {
     Student student = accountsStudentsJunctionService.findStudentByAccount(studentAccount);
-
     List<Application> applications = applicationRepository.findApplicationsByStudentId(student);
 
     return applications.stream()
@@ -125,8 +124,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       .orElseThrow(() -> new EntityNotFoundException(studentApplicationServiceConstants.NO_APPLICATION_FOUND));
 
     validatorUtilities.checkIfUuidsAreEqual(
-      account.getBaseIdEntity().getUuid(),
-      application.getStudentId().getAccountId().getBaseIdEntity().getUuid(),
+      account.getUuid(),
+      application.getStudentId().getAccount().getUuid(),
       studentApplicationServiceConstants.NO_PERMISSION_AS_STUDENT
     );
 

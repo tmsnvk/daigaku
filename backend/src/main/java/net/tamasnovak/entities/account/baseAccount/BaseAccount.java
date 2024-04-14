@@ -6,10 +6,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.base.audit.Auditable;
-import net.tamasnovak.entities.base.id.BaseExtendedIdEntity;
 
 @MappedSuperclass
-public abstract class BaseAccount extends Auditable<BaseExtendedIdEntity>  {
+public abstract class BaseAccount extends Auditable {
   @Column(name = "first_name", nullable = false)
   @NotBlank(message = "Provide a first name.")
   @Size(min = 2, max = 100, message = "First name(s) should be between 2 and 100 characters long.")

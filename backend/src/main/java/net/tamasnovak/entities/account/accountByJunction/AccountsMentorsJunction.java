@@ -19,53 +19,53 @@ public final class AccountsMentorsJunction {
   @EmbeddedId
   private AccountsMentorsJunctionId id;
 
-  @MapsId("accountId")
+  @MapsId("account")
   @OneToOne
   @JoinColumn(name = "account_id")
-  private Account accountId;
+  private Account account;
 
-  @MapsId("mentorId")
+  @MapsId("mentor")
   @OneToOne
   @JoinColumn(name = "mentor_id")
-  private Mentor mentorId;
+  private Mentor mentor;
 
-  public AccountsMentorsJunction() {}
+  protected AccountsMentorsJunction() {}
 
-  public AccountsMentorsJunction(Account accountId, Mentor mentorId) {
-    this.accountId = accountId;
-    this.mentorId = mentorId;
-    this.id = new AccountsMentorsJunctionId(accountId.getId(), mentorId.getId());
+  public AccountsMentorsJunction(Account account, Mentor mentor) {
+    this.account = account;
+    this.mentor = mentor;
+    this.id = new AccountsMentorsJunctionId(account.getId(), mentor.getId());
   }
 
-  public Account getAccountId() {
-    return accountId;
+  public Account getAccount() {
+    return account;
   }
 
-  public Mentor getMentorId() {
-    return mentorId;
+  public Mentor getMentor() {
+    return mentor;
   }
 
   @Embeddable
   public static class AccountsMentorsJunctionId implements Serializable {
     @Column(name = "account_id")
-    private long accountId;
+    private long account;
 
     @Column(name = "mentor_id")
-    private long mentorId;
+    private long mentor;
 
     public AccountsMentorsJunctionId() {}
 
-    public AccountsMentorsJunctionId(long accountId, long mentorId) {
-      this.accountId = accountId;
-      this.mentorId = mentorId;
+    public AccountsMentorsJunctionId(long account, long mentor) {
+      this.account = account;
+      this.mentor = mentor;
     }
 
-    public long getAccountId() {
-      return accountId;
+    public long getAccount() {
+      return account;
     }
 
-    public long getMentorId() {
-      return mentorId;
+    public long getMentor() {
+      return mentor;
     }
   }
 
