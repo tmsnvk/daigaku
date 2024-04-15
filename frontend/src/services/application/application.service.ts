@@ -28,10 +28,10 @@ const applicationService = {
       url: `/api/applications/${applicationUuid}`,
     });
   },
-  getAllByRole: async (resource: string): Promise<AxiosResponse<ApplicationT[]>> => {
+  getAllByRole: async (roleResource: string): Promise<AxiosResponse<ApplicationT[]>> => {
     return await axiosConfigWithAuth.request<ApplicationT[]>({
       method: 'GET',
-      url: `/api/applications/${resource}`,
+      url: `/api/applications/${roleResource}`,
     });
   },
   postByStudent: async (data: NewApplicationFormFieldsT): Promise<AxiosResponse<ApplicationT>> => {
@@ -49,10 +49,10 @@ const applicationService = {
       data,
     });
   },
-  getDashboardData: async (userRole: string): Promise<AxiosResponse<DashboardDataT>> => {
+  getDashboardData: async (roleResource: string): Promise<AxiosResponse<DashboardDataT>> => {
     return await axiosConfigWithAuth.request<DashboardDataT>({
       method: 'GET',
-      url: `api/applications/${userRole}/dashboard`,
+      url: `api/applications/${roleResource}/dashboard`,
     });
   },
 };

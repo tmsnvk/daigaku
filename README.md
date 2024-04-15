@@ -1,8 +1,9 @@
-## -- Daigaku v0.1 --
+## -- Daigaku --
 
 ### Project Description
-+ The application follows the university application statuses of students and handles complex student-mentor relationships.
-+ It has three types of users: student, mentor, and admin that have different permissions set.
++ The application follows the university application statuses of high school students and handles complex student-mentor relationships.
++ Upon registering, users with ``student`` access are able to join an institution (i.e. their school) and have a ``mentor`` user assigned to them who reviews their applications.
++ Users with ``institution admin`` permissions handle admin stuff for their institutions (e.g. accept incoming student registration requests or access reports), while ``system admins`` have application-wide rights and overview.
 
 
 ### Techstack
@@ -12,7 +13,7 @@ Frontend
     + Typescript                       - javascript extension.
     + React Router                     - client-side routing solution.
     + React Query                      - data fetching and server state manager solution.
-    + React Hook Form                  - library for managing forms.
+    + React Hook Form                  - form managing library.
     + Styled Components                - css-in-javascript styling solution.
     + Fontawesome                      - icon library.
     + Axios                            - http client.
