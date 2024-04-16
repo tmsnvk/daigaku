@@ -69,6 +69,7 @@ public class WebSecurity {
         .requestMatchers("/api/application-statuses/**").authenticated()
         .requestMatchers("/api/countries/**").authenticated()
         .requestMatchers("/api/final-destination-statuses/**").authenticated()
+        .requestMatchers("/api/institutions/**").permitAll()
         .requestMatchers("/api/interview-statuses/**").authenticated()
         .requestMatchers("/api/offer-statuses/**").authenticated()
         .requestMatchers("/api/pending-accounts/**").permitAll()

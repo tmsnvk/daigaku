@@ -50,6 +50,10 @@ public final class Institution extends Auditable {
     return name;
   }
 
+  public Address getAddress() {
+    return address;
+  }
+
   public Set<Student> getStudents() {
     return students;
   }
