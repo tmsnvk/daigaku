@@ -1,10 +1,12 @@
 package net.tamasnovak.services.account.pendingAccount;
 
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
+import net.tamasnovak.dtos.email.NewEmailDto;
 import net.tamasnovak.entities.account.baseAccount.PendingAccount;
 import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.repositories.account.PendingAccountRepository;
 import net.tamasnovak.services.account.account.AccountService;
+import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -23,15 +25,17 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   private final StringFormatterUtilities stringFormatterUtilities;
   private final ValidatorUtilities validatorUtilities;
   private final InstitutionService institutionService;
+  private final EmailService emailService;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountServiceConstants, StringFormatterUtilities stringFormatterUtilities, ValidatorUtilities validatorUtilities, InstitutionService institutionService) {
+  public PendingAccountServiceImpl(AccountService accountService, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountServiceConstants, StringFormatterUtilities stringFormatterUtilities, ValidatorUtilities validatorUtilities, InstitutionService institutionService, EmailService emailService) {
     this.accountService = accountService;
     this.pendingAccountRepository = pendingAccountRepository;
     this.pendingAccountServiceConstants = pendingAccountServiceConstants;
     this.stringFormatterUtilities = stringFormatterUtilities;
     this.validatorUtilities = validatorUtilities;
     this.institutionService = institutionService;
+    this.emailService = emailService;
   }
 
   @Override
@@ -61,5 +65,13 @@ public class PendingAccountServiceImpl implements PendingAccountService {
       );
 
     pendingAccountRepository.save(pendingAccount);
+
+    NewEmailDto newEmail = new NewEmailDto(
+      registrationData.email(),
+      pendingAccountServiceConstants.PENDING_ACCOUNT_EMAIL_SUBJECT,
+      String.format(pendingAccountServiceConstants.PENDING_ACCOUNT_EMAIL_BODY, registrationData.firstName(), registrationData.lastName(), institution.getName())
+    );
+
+    emailService.sendEmail(newEmail);
   }
 }
