@@ -25,7 +25,8 @@ type NewApplicationFormT = {
   reset: () => void;
 };
 
-type NewApplicationFormErrorFieldsT = `root.${string}` |
+type NewApplicationFormErrorFieldsT =
+  `root.${string}` |
   'root' |
   'countryUuid' |
   'universityUuid' |

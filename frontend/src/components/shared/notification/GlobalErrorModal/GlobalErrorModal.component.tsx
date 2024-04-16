@@ -1,9 +1,15 @@
 import { Dialog } from './GlobalErrorModal.styles.ts';
 
-const GlobalErrorModal = () => {
+type ComponentPropsT = {
+  error: string;
+}
+
+const GlobalErrorModal = ({ error }: ComponentPropsT) => {
   return (
     <Dialog>
-      <p>The application has encountered an unexpected error. Refresh your browser and try again.</p>
+      <p>The application has encountered an unexpected error.</p>
+      {error ?? <p>{error}</p>}
+      <p>Refresh your browser and try again.</p>
     </Dialog>
   );
 };

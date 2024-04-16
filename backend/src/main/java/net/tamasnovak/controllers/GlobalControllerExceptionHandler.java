@@ -31,7 +31,7 @@ public class GlobalControllerExceptionHandler {
 
   @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
   public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException() {
-    Map<String, String> response = createErrorResponse("Bad values were provided.");
+    Map<String, String> response = createErrorResponse("The request contained invalid data.");
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)

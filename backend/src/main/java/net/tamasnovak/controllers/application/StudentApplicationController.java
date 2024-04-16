@@ -54,7 +54,6 @@ public class StudentApplicationController {
   )
   public ResponseEntity<ApplicationDto> create(@RequestBody NewApplicationByStudentDto newApplicationByStudentDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
-
     ApplicationDto newApplication = studentApplicationService.createApplication(account, newApplicationByStudentDto);
 
     return ResponseEntity

@@ -81,12 +81,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
-    Student student = studentService.findByAccount(account);
-    Country country = countryService.findByUuid(newApplicationByStudentDto.countryUuid());
-    University university = universityService.findByUuid(newApplicationByStudentDto.universityUuid());
+    UUID validCountryUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.countryUuid(), studentApplicationServiceConstants.NO_RECORD_FOUND);
+    UUID validUniversityUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.universityUuid(), studentApplicationServiceConstants.NO_RECORD_FOUND);
 
+    Country country = countryService.findByUuid(validCountryUuid);
+    University university = universityService.findByUuid(validUniversityUuid);
     checkIfUniversityBelongsToCountry(country, university);
 
+    Student student = studentService.findByAccount(account);
     ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("Planned");
 
     Application application = Application.createNewApplicationByStudent(
