@@ -22,7 +22,7 @@ public class InstitutionController {
   }
 
   @RequestMapping(
-    value = "",
+    value = "/options",
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<List<InstitutionOptionDto>> getOptions() {
