@@ -10,7 +10,10 @@ import {
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
-import { GenericInputField } from '@components/shared/field-implementations';
+import {
+  GenericInputField,
+  SelectInstitution,
+} from '@components/shared/field-implementations';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
@@ -99,6 +102,13 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           type={'email'}
           placeholder={'Enter your email address'}
           isDisabled={isPending}
+        />
+        <SelectInstitution
+          register={register}
+          fieldError={errors.institutionUuid?.message}
+          fieldId={'institutionUuid'}
+          isDisabled={isPending}
+          data={data?.data ?? []}
         />
         <article>
           {

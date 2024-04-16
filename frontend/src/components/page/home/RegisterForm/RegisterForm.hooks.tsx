@@ -1,13 +1,22 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import { accountService, countryService } from '@services/index.ts';
-import { mutationKeys, queryKeys } from '@configuration';
+import {
+  accountService,
+  institutionService,
+} from '@services/index.ts';
+import {
+  mutationKeys,
+  queryKeys,
+} from '@configuration';
 import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
 
 const useGetSchoolOptions = () => {
   return useQuery({
     queryKey: [queryKeys.INSTITUTIONS.GET_ALL],
-    queryFn: () => countryService.getAllOptions(),
+    queryFn: () => institutionService.getAll(),
   });
 };
 
@@ -15,13 +24,14 @@ export type RegisterFormFieldsT = {
   firstName: string;
   lastName: string;
   email: string;
+  institutionUuid: string;
 }
 
 type RegisterFormT = {
   setError: UseFormSetError<RegisterFormFieldsT>;
 } & ConfirmationModalT;
 
-type RegisterFormErrorFieldsT = `root.${string}` | 'root' | 'firstName' | 'lastName' | 'email';
+type RegisterFormErrorFieldsT = `root.${string}` | 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid';
 
 type RegisterFormErrorT = {
   response: {
