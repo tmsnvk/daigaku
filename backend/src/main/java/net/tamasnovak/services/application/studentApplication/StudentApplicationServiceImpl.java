@@ -17,8 +17,6 @@ import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundException;
-import net.tamasnovak.exceptions.dbReourceNotFound.DbResourceNotFoundConstants;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
@@ -49,13 +47,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final UniversityService universityService;
   private final ApplicationRepository applicationRepository;
   private final ApplicationMapper applicationMapper;
-  private final DbResourceNotFoundConstants dbResourceNotFoundConstants;
   private final ValidatorUtilities validatorUtilities;
   private final StudentApplicationServiceConstants studentApplicationServiceConstants;
   private final StudentService studentService;
 
   @Autowired
-  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, DbResourceNotFoundConstants dbResourceNotFoundConstants, ValidatorUtilities validatorUtilities, StudentApplicationServiceConstants studentApplicationServiceConstants, StudentService studentService) {
+  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationServiceConstants studentApplicationServiceConstants, StudentService studentService) {
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
     this.offerStatusService = offerStatusService;
@@ -65,7 +62,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.universityService = universityService;
     this.applicationRepository = applicationRepository;
     this.applicationMapper = applicationMapper;
-    this.dbResourceNotFoundConstants = dbResourceNotFoundConstants;
     this.validatorUtilities = validatorUtilities;
     this.studentApplicationServiceConstants = studentApplicationServiceConstants;
     this.studentService = studentService;
@@ -110,7 +106,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   private void checkIfUniversityBelongsToCountry(Country country, University university) {
     if (!country.getUniversities().contains(university)) {
-      throw new DbResourceNotFoundException(dbResourceNotFoundConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
+      throw new EntityNotFoundException(studentApplicationServiceConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
     }
   }
 
