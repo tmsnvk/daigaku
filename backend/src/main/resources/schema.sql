@@ -29,10 +29,9 @@ CREATE TABLE institutions(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  name VARCHAR NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
 );
 
 CREATE TABLE pending_accounts(
@@ -40,13 +39,12 @@ CREATE TABLE pending_accounts(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
   first_name VARCHAR NOT NULL,
   last_name VARCHAR NOT NULL,
   full_name VARCHAR GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED,
-  email VARCHAR UNIQUE NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  email VARCHAR UNIQUE NOT NULL
 );
 
 CREATE TABLE accounts(
@@ -54,15 +52,14 @@ CREATE TABLE accounts(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
   first_name VARCHAR NOT NULL,
   last_name VARCHAR NOT NULL,
   full_name VARCHAR GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED,
   email VARCHAR UNIQUE NOT NULL,
   hashed_password VARCHAR NOT NULL,
-  role_id BIGINT REFERENCES roles(id),
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  role_id BIGINT REFERENCES roles(id)
 );
 
 CREATE TABLE system_admins(
@@ -99,10 +96,9 @@ CREATE TABLE countries(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  name VARCHAR NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
 );
 
 CREATE TABLE universities(
@@ -110,13 +106,12 @@ CREATE TABLE universities(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
   country_id BIGINT REFERENCES countries(id),
   name VARCHAR NOT NULL,
   abbreviation VARCHAR NOT NULL,
-  address VARCHAR,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  address VARCHAR
 );
 
 CREATE TABLE application_status(
@@ -124,10 +119,9 @@ CREATE TABLE application_status(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  name VARCHAR NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
 );
 
 CREATE TABLE interview_status(
@@ -135,10 +129,9 @@ CREATE TABLE interview_status(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  name VARCHAR NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
 );
 
 CREATE TABLE offer_status(
@@ -146,10 +139,9 @@ CREATE TABLE offer_status(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  name VARCHAR NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
 );
 
 CREATE TABLE response_status(
@@ -157,10 +149,9 @@ CREATE TABLE response_status(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  name VARCHAR NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
 );
 
 CREATE TABLE final_destination_status(
@@ -168,10 +159,9 @@ CREATE TABLE final_destination_status(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  name VARCHAR NOT NULL,
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
 );
 
 CREATE TABLE applications(
@@ -179,6 +169,8 @@ CREATE TABLE applications(
   uuid UUID DEFAULT gen_random_uuid() NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
   student_id BIGINT REFERENCES students(id),
   country_id BIGINT REFERENCES countries(id),
   university_id BIGINT REFERENCES universities(id),
@@ -189,8 +181,5 @@ CREATE TABLE applications(
   interview_status_id BIGINT REFERENCES interview_status(id),
   offer_status_id BIGINT REFERENCES offer_status(id),
   response_status_id BIGINT REFERENCES response_status(id),
-  final_destination_status_id BIGINT REFERENCES final_destination_status(id),
-
-  created_by VARCHAR,
-  last_modified_by VARCHAR
+  final_destination_status_id BIGINT REFERENCES final_destination_status(id)
 );
