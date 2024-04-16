@@ -198,12 +198,12 @@ VALUES
 INSERT INTO applications
   (student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id, created_by, last_modified_by)
 VALUES
-  (1, 1, 1, 'Business Administration', 3, 1, 1, 1, 1, 1, 'student@test.net', 'student@test.net'),
-  (1, 1, 2, 'Logistics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
-  (1, 1, 3, 'Information Technology', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
+  (1, 2, 1, 'Business Administration', 3, 1, 1, 1, 1, 1, 'student@test.net', 'student@test.net'),
+  (1, 2, 2, 'Logistics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
+  (1, 2, 3, 'Information Technology', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
   (1, 2, 4, 'Computer Science', 3, 2, 2, 3, 2, 3, 'student@test.net', 'student@test.net'),
-  (1, 3, 5, 'Mathematics', 3, 2, 3, 3, 2, 3, 'student@test.net', 'student@test.net'),
-  (2, 3, 6, 'Business Administration', 3, 3, 3, 3, 3, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 2, 4, 'Computer Science', 3, 2, 2, 3, 2, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 3, 5, 'Mathematics', 3, 2, 3, 3, 2, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 3, 6, 'Business Administration', 3, 3, 3, 3, 3, 3, 'student2@test.net', 'student2@test.net');
+  (1, 4, 5, 'Mathematics', 3, 2, 3, 3, 2, 3, 'student@test.net', 'student@test.net'),
+  (2, 4, 6, 'Business Administration', 3, 3, 3, 3, 3, 3, 'student2@test.net', 'student2@test.net'),
+  (2, 3, 4, 'Computer Science', 3, 2, 2, 3, 2, 3, 'student2@test.net', 'student2@test.net'),
+  (2, 4, 5, 'Mathematics', 3, 2, 3, 3, 2, 3, 'student2@test.net', 'student2@test.net'),
+  (2, 4, 6, 'Business Administration', 3, 3, 3, 3, 3, 3, 'student2@test.net', 'student2@test.net');

@@ -15,6 +15,7 @@ type ComponentPropsT = {
 }
 
 const DataRows = ({ columns, data }: ComponentPropsT) => {
+  console.log(data);
   return (
     data.map((element) => {
       return (

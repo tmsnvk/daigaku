@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import {
   useMutation,
-  useQueryClient,
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import {
   mutationKeys,
+  queryClient,
   queryKeys,
 } from '@configuration';
 import { ApplicationT } from '@services/application/application.service.ts';
@@ -44,19 +44,25 @@ type NewApplicationFormErrorT = {
 }
 
 const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }: NewApplicationFormT) => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFieldsT) => applicationService.postByStudent(data),
     onSuccess: (data) => {
-      queryClient.setQueryData(
+      const updatedCache = queryClient.setQueryData<ApplicationT[]>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
-        (previousData: ApplicationT[] | undefined) => previousData ? [data, ...previousData] : [data],
+        (previousData) => {
+          if (!previousData) {
+            return;
+          }
+
+          return { ...previousData, data: [...previousData, data.data] };
+        },
       );
 
       resetCountrySelection();
       reset();
+
+      return updatedCache;
     },
     onError: (error: NewApplicationFormErrorT) => {
       for (const fieldId in error.response.data) {

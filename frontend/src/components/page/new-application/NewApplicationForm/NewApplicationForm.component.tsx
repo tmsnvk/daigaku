@@ -31,16 +31,33 @@ import {
 } from './NewApplicationForm.utilities.ts';
 
 type ComponentPropsT = {
-  onCountryClick: (event: string) => void;
+  handleCountryClick: (event: string) => void;
   countryData: CountryOptionT[];
   universityData: UniversityOptionT[];
 }
 
-const NewApplicationForm = ({ onCountryClick, countryData, universityData }: ComponentPropsT) => {
-  const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { isCountrySelected, handleCountrySelection, resetCountrySelection } = useCheckFieldDisableStatus();
-  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
-
+const NewApplicationForm = ({
+  handleCountryClick,
+  countryData,
+  universityData,
+}: ComponentPropsT) => {
+  const {
+    formState: { errors },
+    reset, handleSubmit,
+    register,
+    setError,
+  } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
+  const {
+    isCountrySelected,
+    handleCountrySelection,
+    resetCountrySelection,
+  } = useCheckFieldDisableStatus();
+  const {
+    isPending,
+    isSuccess,
+    mutate,
+  } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
+  console.log(isSuccess);
   return (
     <>
       <ApplicationFormGridContainer
@@ -56,7 +73,7 @@ const NewApplicationForm = ({ onCountryClick, countryData, universityData }: Com
           fieldId={'countryUuid'}
           isDisabled={isPending}
           data={countryData}
-          onCountryClick={onCountryClick}
+          onCountryClick={handleCountryClick}
           onCountrySelection={handleCountrySelection}
         />
         <InputInfoBox content={countryInformation} />

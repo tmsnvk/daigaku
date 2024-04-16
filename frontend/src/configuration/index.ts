@@ -7,6 +7,7 @@ import {
   mutationKeys,
   queryKeys,
 } from './queryKeys.config.ts';
+import queryClient from './queryClient.config.ts';
 
 export {
   axiosConfig,
@@ -14,4 +15,5 @@ export {
   iconLibraryConfig,
   mutationKeys,
   queryKeys,
+  queryClient,
 };

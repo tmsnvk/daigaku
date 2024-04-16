@@ -17,17 +17,30 @@ import { MainContainer } from './Applications.styles.ts';
 import { ApplicationT } from '@services/application/application.service.ts';
 
 const Applications = () => {
-  const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
-  const { columns, updateColumnVisibility } = useSetColumns();
+  const {
+    data,
+    isLoading,
+    refetch,
+    isRefetching,
+    isError,
+    error,
+  } = useGetApplications();
+  const {
+    columns,
+    updateColumnVisibility,
+  } = useSetColumns();
   const { handleColumnSort } = useSetOrder(data?.data as ApplicationT[]);
-  const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
+  const {
+    isModalVisible,
+    toggleModal,
+  } = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
     return <GlobalLoadingModal />;
   }
 
   if (isError) {
-    return <GlobalErrorModal />;
+    return <GlobalErrorModal error={error?.response?.data.root} />;
   }
 
   // add student selector dropdown for mentors

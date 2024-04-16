@@ -1,8 +1,27 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, } from 'react-router-dom';
-import { QueryClient, QueryClientProvider, } from '@tanstack/react-query';
-import { AccountRoleE, AuthProvider, } from '@context/AuthContext.tsx';
-import { Application, Applications, Dashboard, Error, Home, NewApplication, } from '@pages/index.ts';
-import { PrivateLayout, PublicLayout, } from '@components/layout';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@configuration';
+import {
+  AccountRoleE,
+  AuthProvider,
+} from '@context/AuthContext.tsx';
+import {
+  Application
+  , Applications,
+  Dashboard,
+  Error,
+  Home,
+  NewApplication,
+} from '@pages/index.ts';
+import {
+  PrivateLayout,
+  PublicLayout,
+} from '@components/layout';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '@theme/GlobalStyle.ts';
 import theme from '@theme/theme.ts';
@@ -52,16 +71,6 @@ library.add(
   faWrench,
   faXmark,
 );
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      enabled: true,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-    },
-  },
-});
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<Error />}>
