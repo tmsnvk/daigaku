@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import net.tamasnovak.entities.account.accountByRole.InstitutionAdmin;
 import net.tamasnovak.entities.account.accountByRole.Mentor;
 import net.tamasnovak.entities.account.accountByRole.Student;
+import net.tamasnovak.entities.account.baseAccount.PendingAccount;
 import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.base.audit.Auditable;
 
@@ -27,6 +28,10 @@ public final class Institution extends Auditable {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
+
+  @OneToMany(mappedBy = "institution")
+  @JsonManagedReference
+  private Set<PendingAccount> pendingAccounts;
 
   @OneToMany(mappedBy = "institution")
   @JsonManagedReference
@@ -52,6 +57,10 @@ public final class Institution extends Auditable {
 
   public Address getAddress() {
     return address;
+  }
+
+  public Set<PendingAccount> getPendingAccounts() {
+    return pendingAccounts;
   }
 
   public Set<Student> getStudents() {
