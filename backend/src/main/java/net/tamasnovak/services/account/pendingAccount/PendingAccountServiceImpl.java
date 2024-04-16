@@ -2,13 +2,18 @@ package net.tamasnovak.services.account.pendingAccount;
 
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.entities.account.baseAccount.PendingAccount;
+import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.repositories.account.PendingAccountRepository;
 import net.tamasnovak.services.account.account.AccountService;
+import net.tamasnovak.services.institution.InstitutionService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
+import net.tamasnovak.utilities.ValidatorUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 public class PendingAccountServiceImpl implements PendingAccountService {
@@ -16,13 +21,17 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   private final PendingAccountRepository pendingAccountRepository;
   private final PendingAccountServiceConstants pendingAccountServiceConstants;
   private final StringFormatterUtilities stringFormatterUtilities;
+  private final ValidatorUtilities validatorUtilities;
+  private final InstitutionService institutionService;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountServiceConstants, StringFormatterUtilities stringFormatterUtilities) {
+  public PendingAccountServiceImpl(AccountService accountService, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountServiceConstants, StringFormatterUtilities stringFormatterUtilities, ValidatorUtilities validatorUtilities, InstitutionService institutionService) {
     this.accountService = accountService;
     this.pendingAccountRepository = pendingAccountRepository;
     this.pendingAccountServiceConstants = pendingAccountServiceConstants;
     this.stringFormatterUtilities = stringFormatterUtilities;
+    this.validatorUtilities = validatorUtilities;
+    this.institutionService = institutionService;
   }
 
   @Override
@@ -41,11 +50,15 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     checkIfExistsByEmail(registrationData.email());
     accountService.checkIfExistsByEmail(registrationData.email());
 
+    UUID validInstitutionUuid = validatorUtilities.validateIfStringIsUuid(registrationData.institutionUuid(), pendingAccountServiceConstants.NOT_VALID_INSTITUTION);
+    Institution institution = institutionService.findByUuid(validInstitutionUuid);
+
     PendingAccount pendingAccount = new PendingAccount(
       stringFormatterUtilities.capitaliseWord(registrationData.firstName()),
       stringFormatterUtilities.capitaliseWord(registrationData.lastName()),
-      registrationData.email().toLowerCase()
-    );
+      registrationData.email().toLowerCase(),
+      institution
+      );
 
     pendingAccountRepository.save(pendingAccount);
   }
