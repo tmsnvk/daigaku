@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import {
   RegisterFormFieldsT,
+  useGetSchoolOptions,
   useSubmitRegisterForm,
 } from './RegisterForm.hooks.tsx';
 import { TextParagraph } from '@components/shared/general';
@@ -10,6 +11,10 @@ import {
   SubmitInput,
 } from '@components/shared/form';
 import { GenericInputField } from '@components/shared/field-implementations';
+import {
+  GlobalErrorModal,
+  GlobalLoadingModal,
+} from '@components/shared/notification';
 import FormSwapButton from '../FormSwapButton';
 import {
   ConfirmationModalT,
@@ -20,8 +25,17 @@ import {
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
 const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
+  const { data, isLoading, isError } = useGetSchoolOptions();
   const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, mutate } = useSubmitRegisterForm({ setError, showModal });
+
+  if (isLoading) {
+    return <GlobalLoadingModal />;
+  }
+
+  if (isError) {
+    return <GlobalErrorModal />;
+  }
 
   return (
     <section>

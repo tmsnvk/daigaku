@@ -1,8 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import { accountService } from '@services/index.ts';
-import { mutationKeys } from '@configuration';
+import { accountService, countryService } from '@services/index.ts';
+import { mutationKeys, queryKeys } from '@configuration';
 import { ConfirmationModalT } from '@pages/shared/Home/Home.types.ts';
+
+const useGetSchoolOptions = () => {
+  return useQuery({
+    queryKey: [queryKeys.INSTITUTIONS.GET_ALL],
+    queryFn: () => countryService.getAllOptions(),
+  });
+};
 
 export type RegisterFormFieldsT = {
   firstName: string;
@@ -47,5 +54,6 @@ const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
 };
 
 export {
+  useGetSchoolOptions,
   useSubmitRegisterForm,
 };
