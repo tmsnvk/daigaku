@@ -57,7 +57,7 @@ const NewApplicationForm = ({
     isSuccess,
     mutate,
   } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
-  console.log(isSuccess);
+
   return (
     <>
       <ApplicationFormGridContainer

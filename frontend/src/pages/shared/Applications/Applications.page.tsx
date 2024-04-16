@@ -40,7 +40,7 @@ const Applications = () => {
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error?.response?.data.root} />;
+    return <GlobalErrorModal error={error.response.data.root} />;
   }
 
   // add student selector dropdown for mentors

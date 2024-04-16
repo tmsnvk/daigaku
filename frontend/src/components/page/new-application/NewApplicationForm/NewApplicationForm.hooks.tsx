@@ -10,6 +10,7 @@ import {
 } from '@configuration';
 import { ApplicationT } from '@services/application/application.service.ts';
 import { applicationService } from '@services/index.ts';
+import { AxiosResponse } from 'axios';
 
 export type NewApplicationFormFieldsT = {
   countryUuid: string;
@@ -47,22 +48,20 @@ const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }:
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFieldsT) => applicationService.postByStudent(data),
-    onSuccess: (data) => {
-      const updatedCache = queryClient.setQueryData<ApplicationT[]>(
+    onSuccess: (data: AxiosResponse<ApplicationT>) => {
+      queryClient.setQueryData<AxiosResponse<ApplicationT[]>>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData) => {
           if (!previousData) {
             return;
           }
 
-          return { ...previousData, data: [...previousData, data.data] };
+          return { ...previousData, data: [...previousData.data, data.data] };
         },
       );
 
       resetCountrySelection();
       reset();
-
-      return updatedCache;
     },
     onError: (error: NewApplicationFormErrorT) => {
       for (const fieldId in error.response.data) {
