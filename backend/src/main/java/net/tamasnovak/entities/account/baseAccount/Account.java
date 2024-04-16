@@ -1,11 +1,14 @@
 package net.tamasnovak.entities.account.baseAccount;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.role.Role;
 
 @Entity
@@ -16,6 +19,10 @@ public final class Account extends BaseAccount {
 
   @Column(name = "hashed_password", nullable = false)
   private String hashedPassword;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
+  private Address address;
 
   @ManyToOne
   @JoinColumn(name = "role_id")

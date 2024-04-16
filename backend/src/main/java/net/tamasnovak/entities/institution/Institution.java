@@ -1,17 +1,18 @@
 package net.tamasnovak.entities.institution;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import net.tamasnovak.entities.account.accountByRole.InstitutionAdmin;
 import net.tamasnovak.entities.account.accountByRole.Mentor;
 import net.tamasnovak.entities.account.accountByRole.Student;
+import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.base.audit.Auditable;
 
 import java.util.Set;
@@ -23,16 +24,15 @@ public final class Institution extends Auditable {
   @NotBlank(message = "Provide the institution's name.")
   private String name;
 
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
+  private Address address;
+
   @OneToMany(mappedBy = "institution")
   @JsonManagedReference
   private Set<Student> students;
 
-  @ManyToMany
-  @JoinTable(
-    name = "mentors_institutions_join",
-    joinColumns = { @JoinColumn(name = "mentor_id") },
-    inverseJoinColumns = { @JoinColumn(name = "institution_id") }
-  )
+  @OneToMany(mappedBy = "institution")
   @JsonManagedReference
   private Set<Mentor> mentors;
 

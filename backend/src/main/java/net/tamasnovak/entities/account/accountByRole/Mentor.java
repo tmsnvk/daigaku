@@ -3,8 +3,9 @@ package net.tamasnovak.entities.account.accountByRole;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -26,9 +27,10 @@ public final class Mentor extends BaseSimpleIdEntity {
   @OneToMany(mappedBy = "mentor")
   private Set<Student> students;
 
-  @ManyToMany(mappedBy = "mentors")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "institution_id", nullable = false)
   @JsonBackReference
-  private Set<Institution> institutions;
+  private Institution institution;
 
   protected Mentor() {}
 
@@ -45,7 +47,7 @@ public final class Mentor extends BaseSimpleIdEntity {
     return students;
   }
 
-  public Set<Institution> getInstitutions() {
-    return institutions;
+  public Institution getInstitution() {
+    return institution;
   }
 }

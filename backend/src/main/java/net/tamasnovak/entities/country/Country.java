@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.entities.application.Application;
@@ -21,6 +22,9 @@ public final class Country extends Auditable {
   @NotBlank(message = "Provide the country's name.")
   @Size(min = 2, max = 100, message = "The name should be between 2 and 100 characters long.")
   private String name;
+
+  @OneToMany(mappedBy = "country")
+  private Set<Address> addresses;
 
   @OneToMany(mappedBy = "country")
   @JsonManagedReference
@@ -40,6 +44,10 @@ public final class Country extends Auditable {
 
   public String getName() {
     return name;
+  }
+
+  public Set<Address> getAddresses() {
+    return addresses;
   }
 
   public Set<University> getUniversities() {
