@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import {
   UpdateApplicationFormFieldsT,
   useGetAllSelectOptions,
+  useHandleFormSubmission,
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
 import {
@@ -52,6 +53,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
   const { options, isLoading, isError } = useGetAllSelectOptions();
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
   const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, reset, applicationUuid });
+  const { submitForm } = useHandleFormSubmission();
 
   if (isLoading) {
     return <GlobalLoadingModal />;
@@ -66,7 +68,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
       <FormContainer
         id={'updateApplicationForm'}
         method={'PATCH'}
-        onSubmit={handleSubmit((formData) => mutate(formData))}
+        onSubmit={handleSubmit((formData) => submitForm({ formData, mutate, setError }))}
       >
         <PageTitle content={'Update Application Form'} />
         <FormMetaData
@@ -177,6 +179,8 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
               <LoadingIndicator content={'Your application is being updated.'} /> :
               <SubmitInput type={'submit'} value={'update application'} disabled={isPending} />
           }
+        </article>
+        <article>
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </FormContainer>

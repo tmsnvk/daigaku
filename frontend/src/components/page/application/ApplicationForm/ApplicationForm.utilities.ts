@@ -23,7 +23,7 @@ const programmeLengthInformation = [
 ];
 const applicationStatusInformation = [
   `Update the application status to:
-  (1) 'Submitted' once you have submitted it as per detailed in the application process;
+  (1) 'Submitted' once you have submitted it via the university portal.;
   (2) 'Withdrawn' if you have decided not to move forward with it.`,
 ];
 const interviewStatusInformation = [
@@ -39,6 +39,9 @@ const finalDestinationInformation = [
 ];
 const submissionConfirmation = 'Your application was successfully updated.';
 
+const firmChoiceSelectionError = `Only one of your applications may be set to 'Firm  Choice' status.`;
+const finalDestinationSelectionError = `Only one of your applications may be set to 'Final Destination' or 'Final Destination (Deferred Entry)' status.`;
+
 export {
   formInformation,
   universityInformation,
@@ -51,4 +54,6 @@ export {
   responseStatusInformation,
   finalDestinationInformation,
   submissionConfirmation,
+  firmChoiceSelectionError,
+  finalDestinationSelectionError,
 };

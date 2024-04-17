@@ -4,6 +4,7 @@ import { ApplicationFormGridContainer } from '@components/shared/form';
 const FormContainer = styled(ApplicationFormGridContainer)`
   & h1,
   & article:first-of-type,
+  & article:nth-last-of-type(2),
   & article:last-of-type {
     grid-column: 1 / 3;
   }

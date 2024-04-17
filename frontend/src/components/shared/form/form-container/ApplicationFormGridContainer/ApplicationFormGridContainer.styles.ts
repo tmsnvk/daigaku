@@ -14,7 +14,7 @@ const ApplicationFormGridContainer = styled.form`
   padding: 5rem 5rem 10rem 5rem;
   justify-items: center;
   align-items: center;
-
+  
   @media screen and (width > ${({ theme }) => theme.breakpoint.large}) {
     width: 75%;
   }

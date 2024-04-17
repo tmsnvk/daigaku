@@ -148,6 +148,8 @@ const NewApplicationForm = ({
               <LoadingIndicator content={'Your application is being submitted.'} /> :
               <SubmitInput type={'submit'} value={'submit application'} disabled={isPending} />
           }
+        </article>
+        <article>
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </FormContainer>

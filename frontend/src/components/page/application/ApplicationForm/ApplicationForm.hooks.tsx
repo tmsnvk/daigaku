@@ -17,6 +17,10 @@ import {
   queryClient,
   queryKeys,
 } from '@configuration';
+import {
+  finalDestinationSelectionError,
+  firmChoiceSelectionError,
+} from './ApplicationForm.utilities.ts';
 import { ApplicationT } from '@services/application/application.service.ts';
 import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
 import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
@@ -108,6 +112,60 @@ type UpdateApplicationFormErrorT = {
   }
 }
 
+type FormSubmissionT = {
+  formData: UpdateApplicationFormFieldsT;
+  mutate: (formData: UpdateApplicationFormFieldsT) => void;
+  setError: UseFormSetError<UpdateApplicationFormFieldsT>;
+}
+
+const useHandleFormSubmission = () => {
+  const handleValidation = (formData: UpdateApplicationFormFieldsT) => {
+    const errors: string[] = [];
+
+    const cachedApplications = queryClient.getQueryData<AxiosResponse<ApplicationT[]>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
+    const cachedResponseStatusList = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.RESPONSE_STATUS.GET_ALL]);
+    const cachedFinalDestinationStatusList = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.FINAL_DESTINATION.GET_ALL]);
+
+    if (!cachedResponseStatusList || !cachedFinalDestinationStatusList || !cachedApplications) {
+      return [];
+    }
+
+    const firmChoiceUuid = cachedResponseStatusList?.data.filter((option) => option.name === 'Firm Choice')[0].uuid;
+    const finalDestinationUuid = cachedFinalDestinationStatusList?.data.filter((option) => option.name === 'Final Destination')[0].uuid;
+    const finalDestinationDeferredUuid = cachedFinalDestinationStatusList?.data.filter((option) => option.name === 'Final Destination (Deferred Entry)')[0].uuid;
+
+    cachedApplications?.data.forEach((application) => {
+      if (application.responseStatus === 'Firm Choice' && formData.responseStatusUuid === firmChoiceUuid) {
+        errors.push(firmChoiceSelectionError);
+      }
+
+      if (application.finalDestinationStatus === 'Final Destination' && formData.finalDestinationStatusUuid === finalDestinationUuid) {
+        errors.push(finalDestinationSelectionError);
+      }
+
+      if (application.finalDestinationStatus === 'Final Destination (Deferred Entry)' && formData.finalDestinationStatusUuid === finalDestinationDeferredUuid) {
+        errors.push(finalDestinationSelectionError);
+      }
+    });
+
+    return errors;
+  };
+
+  const submitForm = ({ formData, mutate, setError }: FormSubmissionT) => {
+    const validationError = handleValidation(formData);
+
+    if (!validationError.length) {
+      mutate(formData);
+    } else {
+      setError('root.serverError', { message: validationError.join(' ') });
+    }
+  };
+
+  return {
+    submitForm,
+  };
+};
+
 const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplicationFormT) => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
@@ -145,5 +203,6 @@ const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplic
 
 export {
   useGetAllSelectOptions,
+  useHandleFormSubmission,
   useUpdateApplication,
 };
