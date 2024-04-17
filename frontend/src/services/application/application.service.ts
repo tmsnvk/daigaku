@@ -19,6 +19,8 @@ export type ApplicationT = {
   finalDestinationStatus: string;
   createdAt: Date;
   lastUpdatedAt: Date;
+  createdBy: string;
+  lastModifiedBy: string;
 }
 
 const applicationService = {
