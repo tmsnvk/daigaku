@@ -10,13 +10,14 @@ import {
   Toast,
 } from 'components/shared/notification';
 import {
-  ApplicationFormGridContainer,
+  FormMetaData,
   InputError,
   InputInfoBox,
   LoadingIndicator,
   SubmitInput,
 } from '@components/shared/form';
 import { PageTitle } from '@components/shared/general';
+import { FormContainer } from './ApplicationForm.styles.ts';
 import {
   DisabledInputField,
   GenericSelectInputField,
@@ -61,12 +62,13 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
 
   return (
     <>
-      <ApplicationFormGridContainer
+      <FormContainer
         id={'updateApplicationForm'}
         method={'PATCH'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <PageTitle content={'Update Application Form'} />
+        <FormMetaData />
         <InputInfoBox content={formInformation} />
         <DisabledInputField
           fieldId={'country'}
@@ -171,7 +173,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           }
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
-      </ApplicationFormGridContainer>
+      </FormContainer>
       <Toast
         isVisible={isSuccess}
         content={submissionConfirmation}

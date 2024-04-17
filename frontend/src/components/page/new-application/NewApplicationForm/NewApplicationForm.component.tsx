@@ -5,7 +5,6 @@ import {
   useSubmitNewApplicationForm,
 } from './NewApplicationForm.hooks.tsx';
 import {
-  ApplicationFormGridContainer,
   InputError,
   InputInfoBox,
   LoadingIndicator,
@@ -18,6 +17,7 @@ import {
   SelectUniversity,
 } from '@components/shared/field-implementations';
 import { Toast } from '@components/shared/notification';
+import { FormContainer } from './NewApplicationForm.styles.ts';
 import { CountryOptionT } from '@services/country/country.service.ts';
 import { UniversityOptionT } from '@services/university/university.service.ts';
 import {
@@ -60,7 +60,7 @@ const NewApplicationForm = ({
 
   return (
     <>
-      <ApplicationFormGridContainer
+      <FormContainer
         id={'newApplicationForm'}
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
@@ -150,7 +150,7 @@ const NewApplicationForm = ({
           }
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
-      </ApplicationFormGridContainer>
+      </FormContainer>
       <Toast
         isVisible={isSuccess}
         content={submissionConfirmation}

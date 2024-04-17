@@ -15,12 +15,6 @@ const ApplicationFormGridContainer = styled.form`
   justify-items: center;
   align-items: center;
 
-  & h1,
-  & article:first-of-type,
-  & article:last-of-type {
-    grid-column: 1 / 3;
-  }
-
   @media screen and (width > ${({ theme }) => theme.breakpoint.large}) {
     width: 75%;
   }
