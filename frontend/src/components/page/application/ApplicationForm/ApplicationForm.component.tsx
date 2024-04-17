@@ -19,11 +19,11 @@ import {
   SubmitInput,
 } from '@components/shared/form';
 import { PageTitle } from '@components/shared/general';
-import { FormContainer } from './ApplicationForm.styles.ts';
 import {
   DisabledInputField,
   GenericSelectInputField,
 } from '@components/shared/field-implementations';
+import { FormContainer } from './ApplicationForm.styles.ts';
 import {
   applicationStatusInformation,
   countryInformation,
@@ -32,6 +32,7 @@ import {
   formInformation,
   interviewStatusInformation,
   minorSubjectInformation,
+  offerStatusInformation,
   programmeLengthInformation,
   responseStatusInformation,
   submissionConfirmation,
@@ -45,14 +46,33 @@ import { InterviewStatusT } from '@services/application/interviewStatusService.s
 import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
 
 type ComponentPropsT = {
-  applicationData: ApplicationT;
+  currentApplicationData: ApplicationT;
   applicationUuid: string;
 }
 
-const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) => {
-  const { options, isLoading, isError } = useGetAllSelectOptions();
-  const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, reset, applicationUuid });
+const ApplicationForm = ({
+  currentApplicationData,
+  applicationUuid,
+}: ComponentPropsT) => {
+  const {
+    options,
+    isLoading,
+    isError,
+  } = useGetAllSelectOptions();
+  const {
+    formState: { errors },
+    reset,
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
+  const {
+    data: updatedData,
+    isPending,
+    isSuccess,
+    mutate,
+    error,
+  } = useUpdateApplication({ setError, reset, applicationUuid });
   const { submitForm } = useHandleFormSubmission();
 
   if (isLoading) {
@@ -72,45 +92,45 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
       >
         <PageTitle content={'Update Application Form'} />
         <FormMetaData
-          createdAt={updatedData?.data.createdAt ?? applicationData.createdAt}
-          createdBy={updatedData?.data.createdBy ?? applicationData.createdBy}
-          lastUpdatedAt={updatedData ? updatedData.data.lastUpdatedAt : applicationData.lastUpdatedAt}
-          lastModifiedBy={updatedData?.data.lastModifiedBy ?? applicationData.lastModifiedBy}
+          createdAt={updatedData?.data.createdAt ?? currentApplicationData.createdAt}
+          createdBy={updatedData?.data.createdBy ?? currentApplicationData.createdBy}
+          lastUpdatedAt={updatedData ? updatedData.data.lastUpdatedAt : currentApplicationData.lastUpdatedAt}
+          lastModifiedBy={updatedData?.data.lastModifiedBy ?? currentApplicationData.lastModifiedBy}
         />
         <InputInfoBox content={formInformation} />
         <DisabledInputField
           fieldId={'country'}
           label={'Country'}
           type={'text'}
-          defaultValue={applicationData.country}
+          defaultValue={currentApplicationData.country}
         />
         <InputInfoBox content={countryInformation} />
         <DisabledInputField
           fieldId={'university'}
           label={'University'}
           type={'text'}
-          defaultValue={applicationData.university}
+          defaultValue={currentApplicationData.university}
         />
         <InputInfoBox content={universityInformation} />
         <DisabledInputField
           fieldId={'courseName'}
           label={'Course Name'}
           type={'text'}
-          defaultValue={applicationData.courseName}
+          defaultValue={currentApplicationData.courseName}
         />
         <InputInfoBox content={courseNameInformation} />
         <DisabledInputField
           fieldId={'minorSubject'}
           label={'Minor Subject'}
           type={'text'}
-          defaultValue={applicationData.minorSubject ?? '-'}
+          defaultValue={currentApplicationData.minorSubject ?? '-'}
         />
         <InputInfoBox content={minorSubjectInformation} />
         <DisabledInputField
           fieldId={'programmeLength'}
           label={'Programme Length'}
           type={'number'}
-          defaultValue={applicationData.programmeLength}
+          defaultValue={currentApplicationData.programmeLength}
         />
         <InputInfoBox content={programmeLengthInformation} />
         <GenericSelectInputField
@@ -119,7 +139,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
           defaultOptionFieldContent={'Update the application\'s current status.'}
-          defaultValue={updatedData?.data.applicationStatus ?? applicationData.applicationStatus}
+          defaultValue={updatedData?.data.applicationStatus ?? currentApplicationData.applicationStatus}
           options={options.applicationStatus?.data as ApplicationStatusT[]}
         />
         <InputInfoBox
@@ -131,7 +151,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
           defaultOptionFieldContent={'Update the application\'s interview status.'}
-          defaultValue={updatedData?.data.interviewStatus ?? applicationData.interviewStatus}
+          defaultValue={updatedData?.data.interviewStatus ?? currentApplicationData.interviewStatus}
           options={options.interviewStatus?.data as InterviewStatusT[]}
         />
         <InputInfoBox
@@ -143,11 +163,11 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
           defaultOptionFieldContent={'Update the university\'s decision.'}
-          defaultValue={updatedData?.data.offerStatus ?? applicationData.offerStatus}
+          defaultValue={updatedData?.data.offerStatus ?? currentApplicationData.offerStatus}
           options={options.offerStatus?.data as OfferStatusT[]}
         />
         <InputInfoBox
-          content={responseStatusInformation}
+          content={offerStatusInformation}
         />
         <GenericSelectInputField
           register={register}
@@ -155,7 +175,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'responseStatusUuid'}
           labelContent={'Response Status'}
           defaultOptionFieldContent={'Update your response status.'}
-          defaultValue={updatedData?.data.responseStatus ?? applicationData.responseStatus}
+          defaultValue={updatedData?.data.responseStatus ?? currentApplicationData.responseStatus}
           options={options.responseStatus?.data as ResponseStatusT[]}
         />
         <InputInfoBox
@@ -167,7 +187,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'finalDestinationStatusUuid'}
           labelContent={'Final Destination Status'}
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
-          defaultValue={updatedData?.data.finalDestinationStatus ?? applicationData.finalDestinationStatus}
+          defaultValue={updatedData?.data.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
           options={options.finalDestinationStatus?.data as FinalDestinationStatusT[]}
         />
         <InputInfoBox

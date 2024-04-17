@@ -88,53 +88,40 @@ export type UpdateApplicationFormFieldsT = {
   finalDestinationStatusUuid: string;
 }
 
-type UpdateApplicationFormT = {
-  setError: UseFormSetError<UpdateApplicationFormFieldsT>;
-  reset: () => void;
-  applicationUuid: string;
-};
-
-type UpdateApplicationFormErrorFieldsT =
-  `root.${string}` |
-  'root' |
-  'applicationStatusUuid' |
-  'interviewStatusUuid' |
-  'offerStatusUuid' |
-  'responseStatusUuid' |
-  'finalDestinationStatusUuid';
-
-type UpdateApplicationFormErrorT = {
-  response: {
-    status: number;
-    data: {
-      [key: string]: UpdateApplicationFormErrorFieldsT;
-    }
-  }
-}
-
 type FormSubmissionT = {
   formData: UpdateApplicationFormFieldsT;
   mutate: (formData: UpdateApplicationFormFieldsT) => void;
   setError: UseFormSetError<UpdateApplicationFormFieldsT>;
 }
 
+type CachedData = {
+  name: string;
+  uuid: string;
+};
+
+const filterCacheByUuid = <T extends CachedData> (cache: AxiosResponse<T[]>, optionName: string): string => {
+  const filteredOption = cache?.data.filter((option) => option.name === optionName)[0];
+
+  return filteredOption.uuid;
+};
+
 const useHandleFormSubmission = () => {
   const handleValidation = (formData: UpdateApplicationFormFieldsT) => {
     const errors: string[] = [];
 
-    const cachedApplications = queryClient.getQueryData<AxiosResponse<ApplicationT[]>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
-    const cachedResponseStatusList = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.RESPONSE_STATUS.GET_ALL]);
-    const cachedFinalDestinationStatusList = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.FINAL_DESTINATION.GET_ALL]);
+    const applicationsCache = queryClient.getQueryData<AxiosResponse<ApplicationT[]>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
+    const responseStatusCache = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.RESPONSE_STATUS.GET_ALL]);
+    const finalDestinationStatusCache = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.FINAL_DESTINATION.GET_ALL]);
 
-    if (!cachedResponseStatusList || !cachedFinalDestinationStatusList || !cachedApplications) {
+    if (!applicationsCache || !responseStatusCache || !finalDestinationStatusCache) {
       return [];
     }
 
-    const firmChoiceUuid = cachedResponseStatusList?.data.filter((option) => option.name === 'Firm Choice')[0].uuid;
-    const finalDestinationUuid = cachedFinalDestinationStatusList?.data.filter((option) => option.name === 'Final Destination')[0].uuid;
-    const finalDestinationDeferredUuid = cachedFinalDestinationStatusList?.data.filter((option) => option.name === 'Final Destination (Deferred Entry)')[0].uuid;
+    const firmChoiceUuid = filterCacheByUuid(responseStatusCache, 'Firm Choice');
+    const finalDestinationUuid = filterCacheByUuid(finalDestinationStatusCache, 'Final Destination');
+    const finalDestinationDeferredUuid = filterCacheByUuid(finalDestinationStatusCache, 'Final Destination (Deferred Entry)');
 
-    cachedApplications?.data.forEach((application) => {
+    applicationsCache?.data.forEach((application) => {
       if (application.responseStatus === 'Firm Choice' && formData.responseStatusUuid === firmChoiceUuid) {
         errors.push(firmChoiceSelectionError);
       }
@@ -164,6 +151,30 @@ const useHandleFormSubmission = () => {
   return {
     submitForm,
   };
+};
+
+type UpdateApplicationFormT = {
+  setError: UseFormSetError<UpdateApplicationFormFieldsT>;
+  reset: () => void;
+  applicationUuid: string;
+};
+
+type UpdateApplicationFormErrorFieldsT =
+  `root.${string}` |
+  'root' |
+  'applicationStatusUuid' |
+  'interviewStatusUuid' |
+  'offerStatusUuid' |
+  'responseStatusUuid' |
+  'finalDestinationStatusUuid';
+
+type UpdateApplicationFormErrorT = {
+  response: {
+    status: number;
+    data: {
+      [key: string]: UpdateApplicationFormErrorFieldsT;
+    }
+  }
 };
 
 const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplicationFormT) => {

@@ -31,9 +31,9 @@ const Dashboard = () => {
       <Main>
         <TodoList data={data.data} />
         {account.role === AccountRoleE.STUDENT && <StudentLayout data={data.data} />}
-        {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER applicationData={applicationData} />}*/}
-        {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER applicationData={applicationData} />}*/}
-        {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER applicationData={applicationData} />}*/}
+        {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER data={data} />}*/}
+        {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER data={data} />}*/}
+        {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER data={data} />}*/}
       </Main>
   );
 };

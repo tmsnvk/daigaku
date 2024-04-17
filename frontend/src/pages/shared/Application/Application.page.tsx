@@ -30,7 +30,7 @@ const Application = () => {
   return (
     <main>
       <ApplicationForm
-        applicationData={(state && state) || (data && data.data)}
+        currentApplicationData={(state && state) || (data && data.data)}
         applicationUuid={applicationUuid}
       />
     </main>

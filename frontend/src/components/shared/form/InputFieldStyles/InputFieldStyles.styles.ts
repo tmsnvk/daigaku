@@ -48,6 +48,8 @@ const InputFieldStyles = styled.article<InputFieldT>`
   
   & input[type=number] {
     width: 10rem;
+    padding: 0;
+    text-align: center;
   }
 
   & select {
