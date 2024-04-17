@@ -50,17 +50,17 @@ public class ApplicationServiceImpl implements ApplicationService {
       .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.USER_NOT_FOUND))
       .getFullName();
 
-    checkUserPermissionToViewApplication(validApplicationUuid, application);
+    checkUserPermissionToViewApplication(application);
 
     return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
   }
 
-  private void checkUserPermissionToViewApplication(UUID applicationUuid, Application application) {
+  private void checkUserPermissionToViewApplication(Application application) {
     Account authAccount = authenticationFacade.getAuthenticatedAccount();
 
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_STUDENT")) {
       validatorUtilities.checkIfUuidsAreEqual(
-        applicationUuid,
+        authAccount.getUuid(),
         application.getStudent().getAccount().getUuid(),
         applicationServiceConstants.NO_PERMISSION_AS_STUDENT
       );
