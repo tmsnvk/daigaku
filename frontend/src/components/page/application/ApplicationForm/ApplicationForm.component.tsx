@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { AxiosError } from 'axios';
 import {
   UpdateApplicationFormFieldsT,
   useGetAllSelectOptions,
@@ -8,7 +9,7 @@ import {
   GlobalErrorModal,
   GlobalLoadingModal,
   Toast,
-} from 'components/shared/notification';
+} from '@components/shared/notification';
 import {
   FormMetaData,
   InputError,
@@ -50,14 +51,14 @@ type ComponentPropsT = {
 const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) => {
   const { options, isLoading, isError } = useGetAllSelectOptions();
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, isSuccess, mutate } = useUpdateApplication({ setError, reset, applicationUuid });
+  const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, reset, applicationUuid });
 
   if (isLoading) {
     return <GlobalLoadingModal />;
   }
 
   if (isError) {
-    return <GlobalErrorModal />;
+    return <GlobalErrorModal error={error instanceof AxiosError && error?.response?.data.root} />;
   }
 
   return (
@@ -69,10 +70,10 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
       >
         <PageTitle content={'Update Application Form'} />
         <FormMetaData
-          createdAt={applicationData.createdAt}
-          createdBy={applicationData.createdBy}
-          lastUpdatedAt={applicationData.lastUpdatedAt}
-          lastModifiedBy={applicationData.lastModifiedBy}
+          createdAt={updatedData?.data.createdAt ?? applicationData.createdAt}
+          createdBy={updatedData?.data.createdBy ?? applicationData.createdBy}
+          lastUpdatedAt={updatedData ? updatedData.data.lastUpdatedAt : applicationData.lastUpdatedAt}
+          lastModifiedBy={updatedData?.data.lastModifiedBy ?? applicationData.lastModifiedBy}
         />
         <InputInfoBox content={formInformation} />
         <DisabledInputField
@@ -116,7 +117,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
           defaultOptionFieldContent={'Update the application\'s current status.'}
-          defaultValue={applicationData.applicationStatus}
+          defaultValue={updatedData?.data.applicationStatus ?? applicationData.applicationStatus}
           options={options.applicationStatus?.data as ApplicationStatusT[]}
         />
         <InputInfoBox
@@ -128,7 +129,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
           defaultOptionFieldContent={'Update the application\'s interview status.'}
-          defaultValue={applicationData.interviewStatus}
+          defaultValue={updatedData?.data.interviewStatus ?? applicationData.interviewStatus}
           options={options.interviewStatus?.data as InterviewStatusT[]}
         />
         <InputInfoBox
@@ -140,7 +141,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
           defaultOptionFieldContent={'Update the university\'s decision.'}
-          defaultValue={applicationData.offerStatus}
+          defaultValue={updatedData?.data.offerStatus ?? applicationData.offerStatus}
           options={options.offerStatus?.data as OfferStatusT[]}
         />
         <InputInfoBox
@@ -152,7 +153,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'responseStatusUuid'}
           labelContent={'Response Status'}
           defaultOptionFieldContent={'Update your response status.'}
-          defaultValue={applicationData.responseStatus}
+          defaultValue={updatedData?.data.responseStatus ?? applicationData.responseStatus}
           options={options.responseStatus?.data as ResponseStatusT[]}
         />
         <InputInfoBox
@@ -164,7 +165,7 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
           fieldId={'finalDestinationStatusUuid'}
           labelContent={'Final Destination Status'}
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
-          defaultValue={applicationData.finalDestinationStatus}
+          defaultValue={updatedData?.data.finalDestinationStatus ?? applicationData.finalDestinationStatus}
           options={options.finalDestinationStatus?.data as FinalDestinationStatusT[]}
         />
         <InputInfoBox

@@ -126,6 +126,7 @@ const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplic
         },
       );
 
+      history.replaceState(data, '', `/applications/${data.uuid}`);
       reset();
     },
     onError: (error: UpdateApplicationFormErrorT) => {
