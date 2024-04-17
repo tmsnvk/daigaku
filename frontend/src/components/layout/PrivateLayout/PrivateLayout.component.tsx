@@ -9,11 +9,8 @@ import {
   AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
-import {
-  useHandleSmallScreenMenuDisplay,
-  useLogOut,
-} from './PrivateLayout.hooks.tsx';
-import { GlobalLoadingModal } from 'components/shared/notification';
+import { useHandleSmallScreenMenuDisplay } from './PrivateLayout.hooks.tsx';
+import { GlobalLoadingModal } from '@components/shared/notification';
 import BaseNavbarStyle from '../BaseNavbarStyle';
 import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';
@@ -31,12 +28,22 @@ type ComponentPropsT = {
   allowedRoles: AccountRoleE[];
 }
 
-const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
+const PrivateLayout = ({
+  allowedRoles,
+}: ComponentPropsT) => {
   const location = useLocation();
-  const { authStatus, account } = useAuth();
-  const { logOut } = useLogOut();
-
-  const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick } = useHandleSmallScreenMenuDisplay();
+  const {
+    authStatus,
+    account,
+    logOut,
+  } = useAuth();
+  const {
+    ref,
+    toggleMenu,
+    isNavbarOpen,
+    handleInsideClick,
+    handleOutsideClick,
+  } = useHandleSmallScreenMenuDisplay();
 
   if (authStatus === AuthStatusE.LOADING) {
     return <GlobalLoadingModal />;

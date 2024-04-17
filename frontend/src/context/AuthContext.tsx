@@ -16,8 +16,8 @@ export enum AuthStatusE {
 export enum AccountRoleE {
   STUDENT,
   MENTOR,
-  SYSTEM_ADMIN,
-  INSTITUTION_ADMIN
+  INSTITUTION_ADMIN,
+  SYSTEM_ADMIN
 }
 
 type AccountRoleT = {
@@ -53,6 +53,7 @@ type AuthContextT = {
   setAuthStatus: (value: AuthStatusE) => void;
   getAccountRole: (role: string) => AccountRoleE;
   getRoleResource: (role: AccountRoleE) => string;
+  logOut: () => void;
 }
 
 const AuthContext = createContext<AuthContextT>({} as AuthContextT);
@@ -76,8 +77,8 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     const roleUrl = {
       [AccountRoleE.STUDENT]: 'student',
       [AccountRoleE.MENTOR]: 'mentor',
-      [AccountRoleE.INSTITUTION_ADMIN]: 'institution_admin',
-      [AccountRoleE.SYSTEM_ADMIN]: 'system_admin',
+      [AccountRoleE.INSTITUTION_ADMIN]: 'institution-admin',
+      [AccountRoleE.SYSTEM_ADMIN]: 'system-admin',
     };
 
     return roleUrl[role];
@@ -111,12 +112,18 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
     getMe();
   }, []);
 
+  const logOut = () => {
+    localStorage.removeItem('token');
+    setAuthStatus(AuthStatusE.SIGNED_OUT);
+  };
+
   return (
     <AuthContext.Provider value={{
       account, setAccount,
       authStatus, setAuthStatus,
       getAccountRole,
       getRoleResource,
+      logOut,
     }}>
       {children}
     </AuthContext.Provider>

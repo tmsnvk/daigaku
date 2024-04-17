@@ -201,9 +201,9 @@ VALUES
   (1, 2, 1, 'Business Administration', 3, 1, 1, 1, 1, 1, 'student@test.net', 'student@test.net'),
   (1, 2, 2, 'Logistics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
   (1, 2, 3, 'Information Technology', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
-  (1, 2, 4, 'Computer Science', 3, 2, 2, 3, 2, 3, 'student@test.net', 'student@test.net'),
-  (1, 4, 5, 'Mathematics', 3, 2, 3, 3, 2, 3, 'student@test.net', 'student@test.net'),
-  (2, 4, 6, 'Business Administration', 3, 3, 3, 3, 3, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 3, 4, 'Computer Science', 3, 2, 2, 3, 2, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 4, 5, 'Mathematics', 3, 2, 3, 3, 2, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 4, 6, 'Business Administration', 3, 3, 3, 3, 3, 3, 'student2@test.net', 'student2@test.net');
+  (1, 2, 4, 'Computer Science', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
+  (1, 4, 5, 'Mathematics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
+  (2, 4, 6, 'Business Administration', 3, 1, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net'),
+  (2, 3, 4, 'Computer Science', 3, 1, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net'),
+  (2, 4, 5, 'Mathematics', 3, 1, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net'),
+  (2, 4, 6, 'Business Administration', 3, 1, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net');

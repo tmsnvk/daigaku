@@ -3,23 +3,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import {
-  AuthStatusE,
-  useAuth,
-} from '@context/AuthContext.tsx';
-
-const useLogOut = () => {
-  const { setAuthStatus } = useAuth();
-
-  const logOut = () => {
-    localStorage.removeItem('token');
-    setAuthStatus(AuthStatusE.SIGNED_OUT);
-  };
-
-  return {
-    logOut,
-  };
-};
 
 const useHandleSmallScreenMenuDisplay = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
@@ -51,6 +34,5 @@ const useHandleSmallScreenMenuDisplay = () => {
 };
 
 export {
-  useLogOut,
   useHandleSmallScreenMenuDisplay,
 };
