@@ -8,6 +8,10 @@ const FormContainer = styled(ApplicationFormGridContainer)`
   & article:last-of-type {
     grid-column: 1 / 3;
   }
+
+  & article:last-of-type {
+    height: 2rem;
+  }
 `;
 
 export {
