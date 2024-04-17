@@ -93,6 +93,13 @@ const PrivateLayout = ({
               })}
               <li>
                 <NavbarLink
+                  resource={'/account'}
+                  icon={iconLibraryConfig.faUser}
+                  content={'My Account'}
+                />
+              </li>
+              <li>
+                <NavbarLink
                   resource={'/'}
                   icon={iconLibraryConfig.faRightFromBracket}
                   content={'Log out'}
