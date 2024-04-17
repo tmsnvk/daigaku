@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class ApplicationMapper {
-  public ApplicationDto toApplicationDto(Application application) {
+  public ApplicationDto toApplicationDto(Application application, String createdBy, String lastModifiedBy) {
     return new ApplicationDto(
       application.getUuid(),
       application.getStudent().getAccount().getUuid(),
@@ -21,7 +21,9 @@ public final class ApplicationMapper {
       application.getResponseStatus() != null ? application.getResponseStatus().getName() : null,
       application.getFinalDestinationStatus() != null ? application.getFinalDestinationStatus().getName() : null,
       application.getCreatedAt(),
-      application.getLastUpdatedAt()
+      application.getLastUpdatedAt(),
+      createdBy,
+      lastModifiedBy
     );
   }
 }

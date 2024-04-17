@@ -7,6 +7,7 @@ public final class ApplicationServiceConstants {
   final String NO_APPLICATION_FOUND = "No application was found.";
   final String NO_PERMISSION_AS_STUDENT = "You have no permission to view this application.";
   final String NO_PERMISSION_AS_MENTOR = "You have no permission to view this application as the student who submitted it is not yours.";
+  final String USER_NOT_FOUND = "No user with such email was found in our database.";
 
   private ApplicationServiceConstants() {}
 }

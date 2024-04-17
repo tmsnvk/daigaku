@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
+import net.tamasnovak.repositories.account.AccountRepository;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -22,14 +23,16 @@ public class ApplicationServiceImpl implements ApplicationService {
   private final ApplicationServiceConstants applicationServiceConstants;
   private final ValidatorUtilities validatorUtilities;
   private final AuthenticationFacade authenticationFacade;
+  private final AccountRepository accountRepository;
 
   @Autowired
-  public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ApplicationServiceConstants applicationServiceConstants, ValidatorUtilities validatorUtilities, AuthenticationFacade authenticationFacade) {
+  public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ApplicationServiceConstants applicationServiceConstants, ValidatorUtilities validatorUtilities, AuthenticationFacade authenticationFacade, AccountRepository accountRepository) {
     this.applicationRepository = applicationRepository;
     this.applicationMapper = applicationMapper;
     this.applicationServiceConstants = applicationServiceConstants;
     this.validatorUtilities = validatorUtilities;
     this.authenticationFacade = authenticationFacade;
+    this.accountRepository = accountRepository;
   }
 
   @Override
@@ -40,9 +43,16 @@ public class ApplicationServiceImpl implements ApplicationService {
     Application application = applicationRepository.findByUuid(validApplicationUuid)
       .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.NO_APPLICATION_FOUND));
 
+    String applicationCreatedBy = accountRepository.findByEmail(application.getCreatedBy())
+      .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.USER_NOT_FOUND))
+      .getFullName();
+    String applicationLastModifiedBy = accountRepository.findByEmail(application.getLastModifiedBy())
+      .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.USER_NOT_FOUND))
+      .getFullName();
+
     checkUserPermissionToViewApplication(validApplicationUuid, application);
 
-    return applicationMapper.toApplicationDto(application);
+    return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
   }
 
   private void checkUserPermissionToViewApplication(UUID applicationUuid, Application application) {

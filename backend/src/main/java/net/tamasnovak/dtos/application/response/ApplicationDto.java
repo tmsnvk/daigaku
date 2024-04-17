@@ -17,5 +17,7 @@ public record ApplicationDto(
   String responseStatus,
   String finalDestinationStatus,
   Timestamp createdAt,
-  Timestamp lastUpdatedAt
+  Timestamp lastUpdatedAt,
+  String createdBy,
+  String lastModifiedBy
 ) {}
