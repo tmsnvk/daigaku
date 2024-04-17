@@ -1,7 +1,6 @@
 import {
   useMutation,
   useQueries,
-  useQueryClient,
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import { AxiosResponse } from 'axios';
@@ -15,6 +14,7 @@ import {
 } from '@services/index.ts';
 import {
   mutationKeys,
+  queryClient,
   queryKeys,
 } from '@configuration';
 import { ApplicationT } from '@services/application/application.service.ts';
@@ -90,7 +90,8 @@ type UpdateApplicationFormT = {
   applicationUuid: string;
 };
 
-type UpdateApplicationFormErrorFieldsT = `root.${string}` |
+type UpdateApplicationFormErrorFieldsT =
+  `root.${string}` |
   'root' |
   'applicationStatusUuid' |
   'interviewStatusUuid' |
@@ -108,19 +109,20 @@ type UpdateApplicationFormErrorT = {
 }
 
 const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplicationFormT) => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
     mutationFn: (data: UpdateApplicationFormFieldsT) => applicationService.patchByUuid(data, applicationUuid),
     onSuccess: ({ data }: AxiosResponse<ApplicationT>) => {
-      queryClient.setQueryData(
+      queryClient.setQueryData<AxiosResponse<ApplicationT[]>>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
-        (previousData: ApplicationT[]) => {
-          const findOldElementOfUpdatedRow = previousData.filter((row) => row.uuid === data.uuid)[0];
-          const indexToUpdate = previousData.indexOf(findOldElementOfUpdatedRow);
+        (previousData) => {
+          if (!previousData) {
+            return;
+          }
 
-          previousData.splice(indexToUpdate, 1, data);
+          const filteredList = previousData.data.filter((row) => row.uuid !== data.uuid);
+
+          return { ...previousData, data: [...filteredList, data] };
         },
       );
 

@@ -48,7 +48,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }:
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFieldsT) => applicationService.postByStudent(data),
-    onSuccess: (data: AxiosResponse<ApplicationT>) => {
+    onSuccess: ({ data }: AxiosResponse<ApplicationT>) => {
       queryClient.setQueryData<AxiosResponse<ApplicationT[]>>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData) => {
@@ -56,7 +56,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }:
             return;
           }
 
-          return { ...previousData, data: [...previousData.data, data.data] };
+          return { ...previousData, data: [...previousData.data, data] };
         },
       );
 
