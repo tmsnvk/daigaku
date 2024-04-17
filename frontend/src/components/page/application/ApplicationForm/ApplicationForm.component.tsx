@@ -68,7 +68,12 @@ const ApplicationForm = ({ applicationData, applicationUuid }: ComponentPropsT) 
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <PageTitle content={'Update Application Form'} />
-        <FormMetaData />
+        <FormMetaData
+          createdAt={applicationData.createdAt}
+          createdBy={applicationData.createdBy}
+          lastUpdatedAt={applicationData.lastUpdatedAt}
+          lastModifiedBy={applicationData.lastModifiedBy}
+        />
         <InputInfoBox content={formInformation} />
         <DisabledInputField
           fieldId={'country'}

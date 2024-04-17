@@ -8,7 +8,7 @@ const Article = styled.article`
 
   & p {
     margin: 0 0 1rem 0;
-    font-size: ${({ theme }) => theme.fontSize.small};
+    font-size: ${({ theme }) => theme.fontSize.medium};
   }
 
   & p:last-of-type {
