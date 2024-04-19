@@ -16,7 +16,6 @@ import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.repositories.application.ApplicationRepository;
-import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
@@ -51,11 +50,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final ApplicationRepository applicationRepository;
   private final ApplicationMapper applicationMapper;
   private final ValidatorUtilities validatorUtilities;
-  private final GlobalServiceConstants globalServiceConstants;
   private final StudentApplicationConstants studentApplicationConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, GlobalServiceConstants globalServiceConstants, StudentApplicationConstants studentApplicationConstants) {
+  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants) {
     this.accountService = accountService;
     this.studentService = studentService;
     this.countryService = countryService;
@@ -68,7 +66,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.applicationRepository = applicationRepository;
     this.applicationMapper = applicationMapper;
     this.validatorUtilities = validatorUtilities;
-    this.globalServiceConstants = globalServiceConstants;
     this.studentApplicationConstants = studentApplicationConstants;
   }
 
@@ -91,8 +88,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
-    UUID validCountryUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.countryUuid(), globalServiceConstants.NO_RECORD_FOUND);
-    UUID validUniversityUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.universityUuid(), globalServiceConstants.NO_RECORD_FOUND);
+    UUID validCountryUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.countryUuid());
+    UUID validUniversityUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.universityUuid());
 
     Country country = countryService.findByUuid(validCountryUuid);
     University university = universityService.findByUuid(validUniversityUuid);
@@ -123,7 +120,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public ApplicationDto updateByUuid(Account account, String uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto) {
-    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid, studentApplicationConstants.NO_APPLICATION_FOUND);
+    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid);
 
     Application application = applicationRepository.findByUuid(validApplicationUuid)
       .orElseThrow(() -> new EntityNotFoundException(studentApplicationConstants.NO_APPLICATION_FOUND));

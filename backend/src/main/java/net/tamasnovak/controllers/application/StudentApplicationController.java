@@ -54,6 +54,7 @@ public class StudentApplicationController {
   )
   public ResponseEntity<ApplicationDto> create(@RequestBody NewApplicationByStudentDto newApplicationByStudentDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
+
     ApplicationDto newApplication = studentApplicationService.createApplication(account, newApplicationByStudentDto);
 
     return ResponseEntity
@@ -68,6 +69,7 @@ public class StudentApplicationController {
   )
   public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") String uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
+
     ApplicationDto applicationDto = studentApplicationService.updateByUuid(account, uuid, updateApplicationByStudentDto);
 
     return ResponseEntity

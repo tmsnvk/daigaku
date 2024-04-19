@@ -35,7 +35,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
   @Override
   @Transactional(readOnly = true)
   public ApplicationStatus findByUuid(String uuid) {
-    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RECORD_FOUND);
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid);
 
     return applicationStatusRepository.findByUuid(validUuid)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

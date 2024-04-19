@@ -35,7 +35,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
   @Override
   @Transactional(readOnly = true)
   public FinalDestinationStatus findByUuid(String uuid) {
-    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RECORD_FOUND);
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid);
 
     return finalDestinationStatusRepository.findByUuid(validUuid)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

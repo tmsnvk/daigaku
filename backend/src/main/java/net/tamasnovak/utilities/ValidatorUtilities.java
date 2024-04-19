@@ -6,11 +6,11 @@ import java.util.UUID;
 
 @Component
 public final class ValidatorUtilities {
-  public UUID validateIfStringIsUuid(String uuid, String exceptionMessage) {
+  public UUID validateIfStringIsUuid(String uuid) {
     try {
       return UUID.fromString(uuid);
     } catch (IllegalArgumentException exception) {
-      throw new IllegalArgumentException(exceptionMessage);
+      throw new IllegalArgumentException("The request contained invalid data. Resubmit the form.");
     }
   }
 

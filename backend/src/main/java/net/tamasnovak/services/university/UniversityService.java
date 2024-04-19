@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UniversityService {
-  List<UniversityOptionView> getOptionsByCountryUuidAndSortedAscByName(UUID countryUuid);
+  List<UniversityOptionView> getOptionsByCountryUuidAndSortedAscByName(String countryUuid);
   University findByUuid(UUID universityUuid);
 }

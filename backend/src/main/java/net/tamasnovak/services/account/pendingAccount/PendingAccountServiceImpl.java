@@ -54,7 +54,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     checkIfExistsByEmail(registrationData.email());
     accountService.checkIfExistsByEmail(registrationData.email());
 
-    UUID validInstitutionUuid = validatorUtilities.validateIfStringIsUuid(registrationData.institutionUuid(), pendingAccountConstants.NOT_VALID_INSTITUTION);
+    UUID validInstitutionUuid = validatorUtilities.validateIfStringIsUuid(registrationData.institutionUuid());
     Institution institution = institutionService.findByUuid(validInstitutionUuid);
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(

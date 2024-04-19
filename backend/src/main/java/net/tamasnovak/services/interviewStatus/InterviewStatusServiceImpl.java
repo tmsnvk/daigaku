@@ -35,7 +35,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
   @Override
   @Transactional(readOnly = true)
   public InterviewStatus findByUuid(String uuid) {
-    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RECORD_FOUND);
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid);
 
     return interviewStatusRepository.findByUuid(validUuid)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

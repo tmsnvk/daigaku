@@ -38,7 +38,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Override
   @Transactional(readOnly = true)
   public ApplicationDto findByUuid(String uuid) {
-    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid, applicationConstants.NO_APPLICATION_FOUND);
+    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid);
 
     Application application = applicationRepository.findByUuid(validApplicationUuid)
       .orElseThrow(() -> new EntityNotFoundException(applicationConstants.NO_APPLICATION_FOUND));
