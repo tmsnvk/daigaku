@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.institution;
 
-import net.tamasnovak.dtos.institution.response.InstitutionOptionDto;
+import net.tamasnovak.projections.institution.InstitutionOptionView;
 import net.tamasnovak.services.institution.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ public class InstitutionController {
     value = "/options",
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<InstitutionOptionDto>> getOptions() {
-    List<InstitutionOptionDto> institutionOptions = institutionService.getOptionsSortedAscByName();
+  public ResponseEntity<List<InstitutionOptionView>> getOptions() {
+    List<InstitutionOptionView> institutionOptions = institutionService.getOptionsSortedAscByName();
 
     return ResponseEntity
       .status(HttpStatus.OK)
