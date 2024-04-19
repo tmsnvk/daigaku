@@ -31,10 +31,14 @@ public final class Account extends BaseAccount {
 
   protected Account() {}
 
-  public Account(String firstName, String lastName, String email, String hashedPassword, Role role) {
+  private Account(String firstName, String lastName, String email, String hashedPassword, Role role) {
     super(firstName, lastName, email);
     this.hashedPassword = hashedPassword;
     this.role = role;
+  }
+
+  public static Account createAccount(String firstName, String lastName, String email, String hashedPassword, Role role) {
+    return new Account(firstName, lastName, email, hashedPassword, role);
   }
 
   public String getFullName() {
@@ -43,6 +47,10 @@ public final class Account extends BaseAccount {
 
   public String getHashedPassword() {
     return hashedPassword;
+  }
+
+  public Address getAddress() {
+    return address;
   }
 
   public Role getRole() {

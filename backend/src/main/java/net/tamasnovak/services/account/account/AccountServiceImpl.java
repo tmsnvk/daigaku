@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AccountServiceImpl implements AccountService {
   private final AccountRepository accountRepository;
-  private final AccountServiceConstants accountServiceConstants;
+  private final AccountConstants accountConstants;
 
   @Autowired
-  public AccountServiceImpl(AccountRepository accountRepository, AccountServiceConstants accountServiceConstants) {
+  public AccountServiceImpl(AccountRepository accountRepository, AccountConstants accountConstants) {
     this.accountRepository = accountRepository;
-    this.accountServiceConstants = accountServiceConstants;
+    this.accountConstants = accountConstants;
   }
 
   @Override
@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
     boolean isAccountExists = accountRepository.existsByEmail(email);
 
     if (isAccountExists) {
-      throw new DataIntegrityViolationException(accountServiceConstants.EMAIL_ALREADY_EXISTS);
+      throw new DataIntegrityViolationException(accountConstants.EMAIL_ALREADY_EXISTS);
     }
   }
 
@@ -33,6 +33,6 @@ public class AccountServiceImpl implements AccountService {
   @Transactional(readOnly = true)
   public Account findByEmail(String email) {
     return accountRepository.findByEmail(email)
-      .orElseThrow(() -> new EntityNotFoundException(accountServiceConstants.USER_NOT_FOUND));
+      .orElseThrow(() -> new EntityNotFoundException(accountConstants.ACCOUNT_NOT_FOUND));
   }
 }
