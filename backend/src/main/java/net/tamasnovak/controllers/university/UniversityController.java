@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.university;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.dtos.university.response.UniversityOptionDto;
+import net.tamasnovak.projections.university.UniversityOptionView;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,8 +28,8 @@ public class UniversityController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<UniversityOptionDto>> getOptionsByCountryUuid(@Valid @PathVariable UUID countryUuid) {
-    List<UniversityOptionDto> universityOptions = universityService.getOptionsByCountryUuidAndSortedAscByName(countryUuid);
+  public ResponseEntity<List<UniversityOptionView>> getOptionsByCountryUuid(@Valid @PathVariable UUID countryUuid) {
+    List<UniversityOptionView> universityOptions = universityService.getOptionsByCountryUuidAndSortedAscByName(countryUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
