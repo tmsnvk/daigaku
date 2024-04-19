@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.applicationStatus;
 
-import net.tamasnovak.dtos.applicationStatus.response.ApplicationStatusOptionDto;
+import net.tamasnovak.projections.status.GenericStatusView;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class ApplicationStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<ApplicationStatusOptionDto>> getAll() {
-    List<ApplicationStatusOptionDto> applicationStatuses = applicationStatusService.findAll();
+  public ResponseEntity<List<GenericStatusView>> getAll() {
+    List<GenericStatusView> applicationStatuses = applicationStatusService.findAll();
 
     return ResponseEntity
       .status(HttpStatus.OK)

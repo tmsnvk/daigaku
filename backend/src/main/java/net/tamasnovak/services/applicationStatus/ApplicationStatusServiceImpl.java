@@ -1,8 +1,8 @@
 package net.tamasnovak.services.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.applicationStatus.response.ApplicationStatusOptionDto;
 import net.tamasnovak.entities.application.ApplicationStatus;
+import net.tamasnovak.projections.status.GenericStatusView;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -12,19 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ApplicationStatusServiceImpl implements ApplicationStatusService {
   private final ApplicationStatusRepository applicationStatusRepository;
-  private final ApplicationStatusMapper applicationStatusMapper;
   private final ValidatorUtilities validatorUtilities;
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public ApplicationStatusServiceImpl(ApplicationStatusRepository applicationStatusRepository, ApplicationStatusMapper applicationStatusMapper, ValidatorUtilities validatorUtilities, GlobalServiceConstants globalServiceConstants) {
+  public ApplicationStatusServiceImpl(ApplicationStatusRepository applicationStatusRepository, ValidatorUtilities validatorUtilities, GlobalServiceConstants globalServiceConstants) {
     this.applicationStatusRepository = applicationStatusRepository;
-    this.applicationStatusMapper = applicationStatusMapper;
     this.validatorUtilities = validatorUtilities;
     this.globalServiceConstants = globalServiceConstants;
   }
@@ -46,11 +43,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationStatusOptionDto> findAll() {
-    List<ApplicationStatus> applicationStatuses = applicationStatusRepository.findAll();
-
-    return applicationStatuses.stream()
-      .map(applicationStatusMapper::toApplicationStatusFormDto)
-      .collect(Collectors.toList());
+  public List<GenericStatusView> findAll() {
+    return applicationStatusRepository.findAllProjectedBy();
   }
 }
