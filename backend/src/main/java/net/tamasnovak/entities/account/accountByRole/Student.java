@@ -13,6 +13,8 @@ import net.tamasnovak.dtos.application.response.FinalDestinationDto;
 import net.tamasnovak.dtos.application.response.FirmChoiceDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
+import net.tamasnovak.entities.application.FinalDestinationStatus;
+import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 import net.tamasnovak.entities.institution.Institution;
 
@@ -65,7 +67,11 @@ public final class Student extends BaseSimpleIdEntity {
 
   public FirmChoiceDto getFirmChoiceApplication() {
     Application application = applications.stream()
-      .filter((element -> Objects.equals(element.getResponseStatus().getName(), "Firm Choice")))
+      .filter((element -> {
+        ResponseStatus responseStatus = element.getResponseStatus();
+
+        return responseStatus != null && Objects.equals(element.getResponseStatus().getName(), "Firm Choice");
+      }))
       .findFirst()
       .orElse(null);
 
@@ -82,7 +88,11 @@ public final class Student extends BaseSimpleIdEntity {
 
   public FinalDestinationDto getFinalDestinationApplication() {
     Application application = applications.stream()
-      .filter(element -> Objects.equals(element.getFinalDestinationStatus().getName(), "Final Destination") || Objects.equals(element.getFinalDestinationStatus().getName(), "Final Destination (Deferred Entry)"))
+      .filter(element -> {
+        FinalDestinationStatus finalDestinationStatus = element.getFinalDestinationStatus();
+
+        return finalDestinationStatus != null && (Objects.equals(element.getFinalDestinationStatus().getName(), "Final Destination") || Objects.equals(element.getFinalDestinationStatus().getName(),"Final Destination (Deferred Entry)"));
+      })
       .findFirst()
       .orElse(null);
 
