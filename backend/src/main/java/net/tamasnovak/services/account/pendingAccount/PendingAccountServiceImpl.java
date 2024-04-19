@@ -20,22 +20,22 @@ import java.util.UUID;
 @Service
 public class PendingAccountServiceImpl implements PendingAccountService {
   private final AccountService accountService;
-  private final PendingAccountRepository pendingAccountRepository;
-  private final PendingAccountServiceConstants pendingAccountServiceConstants;
-  private final StringFormatterUtilities stringFormatterUtilities;
-  private final ValidatorUtilities validatorUtilities;
   private final InstitutionService institutionService;
   private final EmailService emailService;
+  private final PendingAccountRepository pendingAccountRepository;
+  private final PendingAccountConstants pendingAccountConstants;
+  private final StringFormatterUtilities stringFormatterUtilities;
+  private final ValidatorUtilities validatorUtilities;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountServiceConstants, StringFormatterUtilities stringFormatterUtilities, ValidatorUtilities validatorUtilities, InstitutionService institutionService, EmailService emailService) {
+  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, EmailService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants, StringFormatterUtilities stringFormatterUtilities, ValidatorUtilities validatorUtilities) {
     this.accountService = accountService;
-    this.pendingAccountRepository = pendingAccountRepository;
-    this.pendingAccountServiceConstants = pendingAccountServiceConstants;
-    this.stringFormatterUtilities = stringFormatterUtilities;
-    this.validatorUtilities = validatorUtilities;
     this.institutionService = institutionService;
     this.emailService = emailService;
+    this.pendingAccountRepository = pendingAccountRepository;
+    this.pendingAccountConstants = pendingAccountConstants;
+    this.stringFormatterUtilities = stringFormatterUtilities;
+    this.validatorUtilities = validatorUtilities;
   }
 
   @Override
@@ -44,7 +44,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
 
     if (isPendingAccountExists) {
-      throw new DataIntegrityViolationException(pendingAccountServiceConstants.EMAIL_ALREADY_EXISTS);
+      throw new DataIntegrityViolationException(pendingAccountConstants.EMAIL_ALREADY_EXISTS);
     }
   }
 
@@ -54,22 +54,22 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     checkIfExistsByEmail(registrationData.email());
     accountService.checkIfExistsByEmail(registrationData.email());
 
-    UUID validInstitutionUuid = validatorUtilities.validateIfStringIsUuid(registrationData.institutionUuid(), pendingAccountServiceConstants.NOT_VALID_INSTITUTION);
+    UUID validInstitutionUuid = validatorUtilities.validateIfStringIsUuid(registrationData.institutionUuid(), pendingAccountConstants.NOT_VALID_INSTITUTION);
     Institution institution = institutionService.findByUuid(validInstitutionUuid);
 
-    PendingAccount pendingAccount = new PendingAccount(
+    PendingAccount pendingAccount = PendingAccount.createPendingAccount(
       stringFormatterUtilities.capitaliseWord(registrationData.firstName()),
       stringFormatterUtilities.capitaliseWord(registrationData.lastName()),
       registrationData.email().toLowerCase(),
       institution
-      );
+    );
 
     pendingAccountRepository.save(pendingAccount);
 
     NewEmailDto newEmail = new NewEmailDto(
       registrationData.email(),
-      pendingAccountServiceConstants.PENDING_ACCOUNT_EMAIL_SUBJECT,
-      String.format(pendingAccountServiceConstants.PENDING_ACCOUNT_EMAIL_BODY, registrationData.firstName(), registrationData.lastName(), institution.getName())
+      pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT,
+      String.format(pendingAccountConstants.PENDING_ACCOUNT_EMAIL_BODY, registrationData.firstName(), registrationData.lastName(), institution.getName())
     );
 
     emailService.sendEmail(newEmail);

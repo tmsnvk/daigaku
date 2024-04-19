@@ -18,9 +18,13 @@ public final class PendingAccount extends BaseAccount {
 
   protected PendingAccount() {}
 
-  public PendingAccount(String firstName, String lastName, String email, Institution institution) {
+  private PendingAccount(String firstName, String lastName, String email, Institution institution) {
     super(firstName, lastName, email);
     this.institution = institution;
+  }
+
+  public static PendingAccount createPendingAccount(String firstName, String lastname, String email, Institution institution) {
+    return new PendingAccount(firstName, lastname, email, institution);
   }
 
   public Institution getInstitution() {

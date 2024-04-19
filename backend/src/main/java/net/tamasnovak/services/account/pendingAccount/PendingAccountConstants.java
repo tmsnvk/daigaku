@@ -3,7 +3,7 @@ package net.tamasnovak.services.account.pendingAccount;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class PendingAccountServiceConstants {
+public final class PendingAccountConstants {
   final String EMAIL_ALREADY_EXISTS = "This email is already registered in our system.";
   final String NOT_VALID_INSTITUTION = "Select a valid institution.";
   final String PENDING_ACCOUNT_EMAIL_SUBJECT = "Thank you for registering an account at Daigaku!";
@@ -21,5 +21,5 @@ public final class PendingAccountServiceConstants {
     </main>
   """;
 
-  private PendingAccountServiceConstants() {}
+  private PendingAccountConstants() {}
 }
