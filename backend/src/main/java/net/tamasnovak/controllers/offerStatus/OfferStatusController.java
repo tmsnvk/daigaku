@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.offerStatus;
 
-import net.tamasnovak.dtos.offerStatus.response.OfferStatusOptionDto;
+import net.tamasnovak.projections.status.GenericStatusView;
 import net.tamasnovak.services.offerStatus.OfferStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class OfferStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<OfferStatusOptionDto>> getAll() {
-    List<OfferStatusOptionDto> offerStatuses = offerStatusService.findAll();
+  public ResponseEntity<List<GenericStatusView>> getAll() {
+    List<GenericStatusView> offerStatuses = offerStatusService.findAll();
 
     return ResponseEntity
       .status(HttpStatus.OK)
