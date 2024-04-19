@@ -1,7 +1,6 @@
 package net.tamasnovak.entities.application;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -102,6 +101,14 @@ public final class Application extends Auditable {
     return fieldContent;
   }
 
+  public void updateStatusesByStudent(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
+    this.applicationStatus = applicationStatus;
+    this.interviewStatus = interviewStatus;
+    this.offerStatus = offerStatus;
+    this.responseStatus = responseStatus;
+    this.finalDestinationStatus = finalDestinationStatus;
+  }
+
   public Student getStudent() {
     return student;
   }
@@ -144,25 +151,5 @@ public final class Application extends Auditable {
 
   public FinalDestinationStatus getFinalDestinationStatus() {
     return finalDestinationStatus;
-  }
-
-  public void setApplicationStatus(ApplicationStatus applicationStatus) {
-    this.applicationStatus = applicationStatus;
-  }
-
-  public void setInterviewStatus(InterviewStatus interviewStatus) {
-    this.interviewStatus = interviewStatus;
-  }
-
-  public void setOfferStatus(OfferStatus offerStatus) {
-    this.offerStatus = offerStatus;
-  }
-
-  public void setResponseStatus(ResponseStatus responseStatus) {
-    this.responseStatus = responseStatus;
-  }
-
-  public void setFinalDestinationStatus(FinalDestinationStatus finalDestinationStatus) {
-    this.finalDestinationStatus = finalDestinationStatus;
   }
 }

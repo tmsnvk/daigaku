@@ -12,5 +12,5 @@ public interface StudentApplicationService {
   List<ApplicationDto> findAllByAccount(Account account);
   ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
   ApplicationDto updateByUuid(Account account, String uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
-  DashboardAggregateDataDto getDashboardData(Account account, String accountRole);
+  DashboardAggregateDataDto getDashboardData(Account account);
 }

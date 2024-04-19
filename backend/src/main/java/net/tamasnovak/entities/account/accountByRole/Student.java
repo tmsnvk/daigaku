@@ -6,11 +6,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import net.tamasnovak.dtos.application.response.FinalDestinationDto;
+import net.tamasnovak.dtos.application.response.FirmChoiceDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 import net.tamasnovak.entities.institution.Institution;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 @Entity
 @Table(name = "students")
@@ -30,11 +40,15 @@ public final class Student extends BaseSimpleIdEntity {
   @JsonBackReference
   private Institution institution;
 
+  @OneToMany(mappedBy = "student")
+  private List<Application> applications;
+
   protected Student() {}
 
   public Student(Account account, Mentor mentor) {
     this.account = account;
     this.mentor = mentor;
+    this.applications = new ArrayList<>();
   }
 
   public Account getAccount() {
@@ -47,5 +61,56 @@ public final class Student extends BaseSimpleIdEntity {
 
   public Institution getInstitution() {
     return institution;
+  }
+
+  public FirmChoiceDto getFirmChoiceApplication() {
+    Application application = applications.stream()
+      .filter((element -> Objects.equals(element.getResponseStatus().getName(), "Firm Choice")))
+      .findFirst()
+      .orElse(null);
+
+    if (application == null) {
+      return null;
+    }
+
+    return new FirmChoiceDto(
+      application.getCountry().getName(),
+      application.getUniversity().getName(),
+      application.getCourseName()
+    );
+  }
+
+  public FinalDestinationDto getFinalDestinationApplication() {
+    Application application = applications.stream()
+      .filter(element -> Objects.equals(element.getFinalDestinationStatus().getName(), "Final Destination") || Objects.equals(element.getFinalDestinationStatus().getName(), "Final Destination (Deferred Entry)"))
+      .findFirst()
+      .orElse(null);
+
+    if (application == null) {
+      return null;
+    }
+
+    return new FinalDestinationDto(
+      application.getCountry().getName(),
+      application.getUniversity().getName(),
+      application.getCourseName()
+    );
+  }
+
+  public int countApplications() {
+    return applications.size();
+  }
+
+  public <T> int countApplicationsByDistinctFieldValues(Function<Application, T> extractor) {
+    return (int) applications.stream()
+      .map(extractor)
+      .distinct()
+      .count();
+  }
+
+  public int countApplicationsByPredicate(Predicate<? super Application> predicate) {
+    return (int) applications.stream()
+      .filter(predicate)
+      .count();
   }
 }

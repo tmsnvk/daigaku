@@ -42,9 +42,9 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
   @Override
   @Transactional(readOnly = true)
   public InterviewStatus findByUuid(String uuid) {
-    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RESOURCE_FOUND);
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RECORD_FOUND);
 
     return interviewStatusRepository.findByUuid(validUuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RESOURCE_FOUND));
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 }

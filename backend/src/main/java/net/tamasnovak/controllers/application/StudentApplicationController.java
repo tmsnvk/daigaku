@@ -82,9 +82,8 @@ public class StudentApplicationController {
   )
   public ResponseEntity<DashboardAggregateDataDto> getDashboardAggregateData() {
     Account account = authenticationFacade.getAuthenticatedAccount();
-    String accountRole = authenticationFacade.getAuthenticatedAccountRole();
 
-    DashboardAggregateDataDto dashboardAggregateDataDto = studentApplicationService.getDashboardData(account, accountRole);
+    DashboardAggregateDataDto dashboardAggregateDataDto = studentApplicationService.getDashboardData(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)

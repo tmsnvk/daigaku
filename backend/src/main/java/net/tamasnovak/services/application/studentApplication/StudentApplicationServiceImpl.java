@@ -3,8 +3,6 @@ package net.tamasnovak.services.application.studentApplication;
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
-import net.tamasnovak.dtos.application.response.FinalDestinationDto;
-import net.tamasnovak.dtos.application.response.FirmChoiceDto;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
@@ -18,6 +16,7 @@ import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.repositories.application.ApplicationRepository;
+import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
@@ -34,40 +33,43 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
+  private final AccountService accountService;
+  private final StudentService studentService;
+  private final CountryService countryService;
+  private final UniversityService universityService;
   private final ApplicationStatusService applicationStatusService;
   private final InterviewStatusService interviewStatusService;
   private final OfferStatusService offerStatusService;
   private final ResponseStatusService responseStatusService;
   private final FinalDestinationStatusService finalDestinationStatusService;
-  private final CountryService countryService;
-  private final UniversityService universityService;
   private final ApplicationRepository applicationRepository;
   private final ApplicationMapper applicationMapper;
   private final ValidatorUtilities validatorUtilities;
-  private final StudentApplicationServiceConstants studentApplicationServiceConstants;
-  private final StudentService studentService;
-  private final AccountService accountService;
+  private final GlobalServiceConstants globalServiceConstants;
+  private final StudentApplicationConstants studentApplicationConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationServiceConstants studentApplicationServiceConstants, StudentService studentService, AccountService accountService) {
+  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, GlobalServiceConstants globalServiceConstants, StudentApplicationConstants studentApplicationConstants) {
+    this.accountService = accountService;
+    this.studentService = studentService;
+    this.countryService = countryService;
+    this.universityService = universityService;
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
     this.offerStatusService = offerStatusService;
     this.responseStatusService = responseStatusService;
     this.finalDestinationStatusService = finalDestinationStatusService;
-    this.countryService = countryService;
-    this.universityService = universityService;
     this.applicationRepository = applicationRepository;
     this.applicationMapper = applicationMapper;
     this.validatorUtilities = validatorUtilities;
-    this.studentApplicationServiceConstants = studentApplicationServiceConstants;
-    this.studentService = studentService;
-    this.accountService = accountService;
+    this.globalServiceConstants = globalServiceConstants;
+    this.studentApplicationConstants = studentApplicationConstants;
   }
 
   @Override
@@ -89,12 +91,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
-    UUID validCountryUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.countryUuid(), studentApplicationServiceConstants.NO_RECORD_FOUND);
-    UUID validUniversityUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.universityUuid(), studentApplicationServiceConstants.NO_RECORD_FOUND);
+    UUID validCountryUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.countryUuid(), globalServiceConstants.NO_RECORD_FOUND);
+    UUID validUniversityUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.universityUuid(), globalServiceConstants.NO_RECORD_FOUND);
 
     Country country = countryService.findByUuid(validCountryUuid);
     University university = universityService.findByUuid(validUniversityUuid);
-    checkIfUniversityBelongsToCountry(country, university);
+
+    country.checkIfUniversityBelongsToCountry(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     Student student = studentService.findByAccount(account);
     ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("Planned");
@@ -117,24 +120,18 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
   }
 
-  private void checkIfUniversityBelongsToCountry(Country country, University university) {
-    if (!country.getUniversities().contains(university)) {
-      throw new EntityNotFoundException(studentApplicationServiceConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
-    }
-  }
-
   @Override
   @Transactional
   public ApplicationDto updateByUuid(Account account, String uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto) {
-    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid, studentApplicationServiceConstants.NO_APPLICATION_FOUND);
+    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid, studentApplicationConstants.NO_APPLICATION_FOUND);
 
     Application application = applicationRepository.findByUuid(validApplicationUuid)
-      .orElseThrow(() -> new EntityNotFoundException(studentApplicationServiceConstants.NO_APPLICATION_FOUND));
+      .orElseThrow(() -> new EntityNotFoundException(studentApplicationConstants.NO_APPLICATION_FOUND));
 
     validatorUtilities.checkIfUuidsAreEqual(
       account.getUuid(),
       application.getStudent().getAccount().getUuid(),
-      studentApplicationServiceConstants.NO_PERMISSION_AS_STUDENT
+      studentApplicationConstants.NO_PERMISSION_AS_STUDENT
     );
 
     ApplicationStatus applicationStatus = applicationStatusService.findByUuid(updateApplicationByStudentDto.applicationStatusUuid());
@@ -143,11 +140,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     ResponseStatus responseStatus = responseStatusService.findByUuid(updateApplicationByStudentDto.responseStatusUuid());
     FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuid(updateApplicationByStudentDto.finalDestinationStatusUuid());
 
-    application.setApplicationStatus(applicationStatus);
-    application.setInterviewStatus(interviewStatus);
-    application.setOfferStatus(offerStatus);
-    application.setResponseStatus(responseStatus);
-    application.setFinalDestinationStatus(finalDestinationStatus);
+    application.updateStatusesByStudent(applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
 
     applicationRepository.save(application);
 
@@ -159,46 +152,20 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardAggregateDataDto getDashboardData(Account account, String accountRole) {
+  public DashboardAggregateDataDto getDashboardData(Account account) {
     Student student = studentService.findByAccount(account);
 
-    return prepareDashboardData(student);
-  }
-
-  private DashboardAggregateDataDto prepareDashboardData(Student student) {
-    ApplicationStatus plannedStatus = applicationStatusService.findByName("Planned");
-    ApplicationStatus submittedStatus = applicationStatusService.findByName("Submitted");
-    ApplicationStatus withdrawnStatus = applicationStatusService.findByName("Withdrawn");
-
-    ResponseStatus firmChoiceStatus = responseStatusService.findByName("Firm Choice");
-    Application applicationByFirmChoice = applicationRepository.findByStudentAndResponseStatus(student, firmChoiceStatus);
-
-    FirmChoiceDto firmChoiceDto = new FirmChoiceDto(
-      applicationByFirmChoice.getCountry().getName(),
-      applicationByFirmChoice.getUniversity().getName(),
-      applicationByFirmChoice.getCourseName()
-    );
-
-    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByName("Final Destination");
-    Application applicationByFinalDestinationStatus = applicationRepository.findByStudentAndFinalDestinationStatus(student, finalDestinationStatus);
-
-    FinalDestinationDto finalDestinationDto = new FinalDestinationDto(
-      applicationByFinalDestinationStatus.getCountry().getName(),
-      applicationByFinalDestinationStatus.getUniversity().getName(),
-      applicationByFinalDestinationStatus.getCourseName()
-    );
-
     return new DashboardAggregateDataDto(
-      firmChoiceDto,
-      finalDestinationDto,
-      applicationRepository.countAllByStudent(student),
-      applicationRepository.countAllByStudentAndApplicationStatus(student, plannedStatus),
-      applicationRepository.countAllByStudentAndApplicationStatus(student, submittedStatus),
-      applicationRepository.countAllByStudentAndApplicationStatus(student, withdrawnStatus),
-      applicationRepository.countDistinctByCountryIdAndStudentId(student.getId()),
-      applicationRepository.countDistinctByUniversityIdAndStudentId(student.getId()),
-      applicationRepository.countByStudentAndInterviewStatusIsNull(student),
-      applicationRepository.countAllByStudentAndOfferStatusIsNotNull(student)
-      );
+      student.getFirmChoiceApplication(),
+      student.getFinalDestinationApplication(),
+      student.countApplications(),
+      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), "Planned")),
+      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), "Submitted")),
+      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), "Withdrawn")),
+      student.countApplicationsByDistinctFieldValues(Application::getCountry),
+      student.countApplicationsByDistinctFieldValues(Application::getUniversity),
+      student.countApplicationsByPredicate(element -> Objects.equals(element.getInterviewStatus(), null)),
+      student.countApplicationsByPredicate(element -> element.getOfferStatus() != null)
+    );
   }
 }

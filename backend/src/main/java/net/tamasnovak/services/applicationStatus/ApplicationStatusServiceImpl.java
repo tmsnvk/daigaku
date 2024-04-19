@@ -38,10 +38,10 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
   @Override
   @Transactional(readOnly = true)
   public ApplicationStatus findByUuid(String uuid) {
-    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RESOURCE_FOUND);
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RECORD_FOUND);
 
     return applicationStatusRepository.findByUuid(validUuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RESOURCE_FOUND));
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override

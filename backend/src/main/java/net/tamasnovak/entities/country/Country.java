@@ -3,6 +3,7 @@ package net.tamasnovak.entities.country;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -50,11 +51,13 @@ public final class Country extends Auditable {
     return addresses;
   }
 
-  public Set<University> getUniversities() {
-    return universities;
-  }
-
   public Set<Application> getApplications() {
     return applications;
+  }
+
+  public void checkIfUniversityBelongsToCountry(University university, String entityNotFoundErrorMessage) {
+    if (!universities.contains(university)) {
+      throw new EntityNotFoundException(entityNotFoundErrorMessage);
+    }
   }
 }

@@ -50,9 +50,9 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
   @Override
   @Transactional(readOnly = true)
   public ResponseStatus findByUuid(String uuid) {
-    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RESOURCE_FOUND);
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RECORD_FOUND);
 
     return responseStatusRepository.findByUuid(validUuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RESOURCE_FOUND));
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 }
