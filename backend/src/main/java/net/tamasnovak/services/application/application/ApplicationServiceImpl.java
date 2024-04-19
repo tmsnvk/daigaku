@@ -19,35 +19,35 @@ import java.util.UUID;
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
   private final ApplicationRepository applicationRepository;
-  private final ApplicationMapper applicationMapper;
-  private final ApplicationServiceConstants applicationServiceConstants;
-  private final ValidatorUtilities validatorUtilities;
-  private final AuthenticationFacade authenticationFacade;
   private final AccountRepository accountRepository;
+  private final AuthenticationFacade authenticationFacade;
+  private final ApplicationMapper applicationMapper;
+  private final ApplicationConstants applicationConstants;
+  private final ValidatorUtilities validatorUtilities;
 
   @Autowired
-  public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ApplicationServiceConstants applicationServiceConstants, ValidatorUtilities validatorUtilities, AuthenticationFacade authenticationFacade, AccountRepository accountRepository) {
+  public ApplicationServiceImpl(ApplicationRepository applicationRepository, AccountRepository accountRepository, AuthenticationFacade authenticationFacade, ApplicationMapper applicationMapper, ApplicationConstants applicationConstants, ValidatorUtilities validatorUtilities) {
     this.applicationRepository = applicationRepository;
-    this.applicationMapper = applicationMapper;
-    this.applicationServiceConstants = applicationServiceConstants;
-    this.validatorUtilities = validatorUtilities;
-    this.authenticationFacade = authenticationFacade;
     this.accountRepository = accountRepository;
+    this.authenticationFacade = authenticationFacade;
+    this.applicationMapper = applicationMapper;
+    this.applicationConstants = applicationConstants;
+    this.validatorUtilities = validatorUtilities;
   }
 
   @Override
   @Transactional(readOnly = true)
   public ApplicationDto findByUuid(String uuid) {
-    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid, applicationServiceConstants.NO_APPLICATION_FOUND);
+    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid, applicationConstants.NO_APPLICATION_FOUND);
 
     Application application = applicationRepository.findByUuid(validApplicationUuid)
-      .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.NO_APPLICATION_FOUND));
+      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.NO_APPLICATION_FOUND));
 
     String applicationCreatedBy = accountRepository.findByEmail(application.getCreatedBy())
-      .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.USER_NOT_FOUND))
+      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.USER_NOT_FOUND))
       .getFullName();
     String applicationLastModifiedBy = accountRepository.findByEmail(application.getLastModifiedBy())
-      .orElseThrow(() -> new EntityNotFoundException(applicationServiceConstants.USER_NOT_FOUND))
+      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.USER_NOT_FOUND))
       .getFullName();
 
     checkUserPermissionToViewApplication(application);
@@ -62,7 +62,7 @@ public class ApplicationServiceImpl implements ApplicationService {
       validatorUtilities.checkIfUuidsAreEqual(
         authAccount.getUuid(),
         application.getStudent().getAccount().getUuid(),
-        applicationServiceConstants.NO_PERMISSION_AS_STUDENT
+        applicationConstants.NO_PERMISSION_AS_STUDENT
       );
     }
 
@@ -70,7 +70,11 @@ public class ApplicationServiceImpl implements ApplicationService {
       long applicationMentorId = application.getStudent().getMentor().getAccount().getId();
       long authAccountId = authAccount.getId();
 
-      validatorUtilities.checkIfApplicationMentorIsValid(applicationMentorId, authAccountId, applicationServiceConstants.NO_PERMISSION_AS_MENTOR);
+      validatorUtilities.checkIfApplicationMentorIsValid(
+        applicationMentorId,
+        authAccountId,
+        applicationConstants.NO_PERMISSION_AS_MENTOR
+      );
     }
   }
 }
