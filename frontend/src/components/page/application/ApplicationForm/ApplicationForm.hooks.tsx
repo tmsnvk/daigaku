@@ -110,7 +110,7 @@ const useHandleFormSubmission = () => {
     const errors: string[] = [];
 
     const applicationsCache = queryClient.getQueryData<AxiosResponse<ApplicationT[]>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
-    const responseStatusCache = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.RESPONSE_STATUS.GET_ALL]);
+    const responseStatusCache = queryClient.getQueryData<AxiosResponse<ResponseStatusT[]>>([queryKeys.RESPONSE_STATUS.GET_ALL]);
     const finalDestinationStatusCache = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.FINAL_DESTINATION.GET_ALL]);
 
     if (!applicationsCache || !responseStatusCache || !finalDestinationStatusCache) {
