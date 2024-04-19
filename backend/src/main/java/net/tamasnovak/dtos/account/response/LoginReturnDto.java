@@ -8,6 +8,6 @@ public record LoginReturnDto(
   String lastName,
   Timestamp registeredAt,
   Timestamp lastUpdatedAt,
-  String jwtToken,
-  String role
+  String role,
+  String jwtToken
 ) {}

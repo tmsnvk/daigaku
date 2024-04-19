@@ -2,10 +2,8 @@ package net.tamasnovak.controllers.account.account;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
-import net.tamasnovak.dtos.account.response.FrontendContextDto;
+import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
-import net.tamasnovak.entities.account.baseAccount.Account;
-import net.tamasnovak.security.utilities.JwtUtilities;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/accounts")
 public class AccountController {
   private final AccountService accountService;
-  private final JwtUtilities jwtUtilities;
   private final AuthenticationFacade authenticationFacade;
 
   @Autowired
-  public AccountController(AccountService accountService, JwtUtilities jwtUtilities, AuthenticationFacade authenticationFacade) {
+  public AccountController(AccountService accountService, AuthenticationFacade authenticationFacade) {
     this.accountService = accountService;
-    this.jwtUtilities = jwtUtilities;
     this.authenticationFacade = authenticationFacade;
   }
 
@@ -40,24 +36,14 @@ public class AccountController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
-  public ResponseEntity<FrontendContextDto> findUser() {
+  public ResponseEntity<ClientAuthContextDto> findUser() {
     User userDetails = authenticationFacade.getUserContext();
 
-    Account account = accountService.findByEmail(userDetails.getUsername());
-    String role = authenticationFacade.transformRolesArrayToString(userDetails);
-
-    FrontendContextDto frontendContextDto = new FrontendContextDto(
-      account.getEmail(),
-      account.getFirstName(),
-      account.getLastName(),
-      account.getCreatedAt(),
-      account.getLastUpdatedAt(),
-      role
-    );
+    ClientAuthContextDto clientAuthContextDto = accountService.getClientAuthContextData(userDetails.getUsername());
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(frontendContextDto);
+      .body(clientAuthContextDto);
   }
 
   @RequestMapping(
@@ -68,22 +54,8 @@ public class AccountController {
   )
   public ResponseEntity<LoginReturnDto> loginUser(@Valid @RequestBody LoginRequestDto loginData) {
     Authentication authentication = authenticationFacade.authenticateUser(loginData.email().toLowerCase(), loginData.password());
-    User userDetails = authenticationFacade.getUserDetails(authentication);
 
-    String jwtToken = jwtUtilities.generateJwtToken(authentication);
-
-    Account account = accountService.findByEmail(loginData.email().toLowerCase());
-    String role = authenticationFacade.transformRolesArrayToString(userDetails);
-
-    LoginReturnDto loginReturnDto = new LoginReturnDto(
-      account.getEmail(),
-      account.getFirstName(),
-      account.getLastName(),
-      account.getCreatedAt(),
-      account.getLastUpdatedAt(),
-      jwtToken,
-      role
-    );
+    LoginReturnDto loginReturnDto = accountService.getLoginData(loginData, authentication);
 
     return ResponseEntity
       .status(HttpStatus.OK)
