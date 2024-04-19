@@ -1,11 +1,11 @@
 package net.tamasnovak.services.interviewStatus;
 
 import net.tamasnovak.entities.application.InterviewStatus;
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 
 import java.util.List;
 
 public interface InterviewStatusService {
-  List<GenericStatusView> findAll();
+  List<StatusOptionView> getDropdownOptions();
   InterviewStatus findByUuid(String uuid);
 }

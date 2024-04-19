@@ -2,7 +2,7 @@ package net.tamasnovak.projections.status;
 
 import java.util.UUID;
 
-public interface GenericStatusView {
+public interface StatusOptionView {
   UUID getUuid();
   String getName();
 }

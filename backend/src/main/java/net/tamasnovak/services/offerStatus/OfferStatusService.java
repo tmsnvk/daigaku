@@ -1,11 +1,11 @@
 package net.tamasnovak.services.offerStatus;
 
 import net.tamasnovak.entities.application.OfferStatus;
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 
 import java.util.List;
 
 public interface OfferStatusService {
-  List<GenericStatusView> findAll();
+  List<StatusOptionView> getDropdownOptions();
   OfferStatus findByUuid(String uuid);
 }

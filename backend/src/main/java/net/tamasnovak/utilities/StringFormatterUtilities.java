@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 @Component
 public final class StringFormatterUtilities {
-  public StringFormatterUtilities() {}
+  private StringFormatterUtilities() {}
 
   public String capitaliseWord(String word) {
     return Arrays.stream(word.trim().split("\\s+"))

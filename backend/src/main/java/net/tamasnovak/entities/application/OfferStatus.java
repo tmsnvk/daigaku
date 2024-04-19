@@ -22,8 +22,4 @@ public final class OfferStatus extends BaseStatusEntity {
     super(name);
     this.applications = new HashSet<>();
   }
-
-  public Set<Application> getApplications() {
-    return applications;
-  }
 }

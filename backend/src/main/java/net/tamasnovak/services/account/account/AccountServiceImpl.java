@@ -51,9 +51,6 @@ public class AccountServiceImpl implements AccountService {
     return new ClientAuthContextDto(
       account.getEmail(),
       account.getFirstName(),
-      account.getLastName(),
-      account.getCreatedAt(),
-      account.getLastUpdatedAt(),
       account.getRole().getName()
     );
   }
@@ -67,9 +64,6 @@ public class AccountServiceImpl implements AccountService {
     return new LoginReturnDto(
       account.getEmail(),
       account.getFirstName(),
-      account.getLastName(),
-      account.getCreatedAt(),
-      account.getLastUpdatedAt(),
       account.getRole().getName(),
       jwtToken
     );

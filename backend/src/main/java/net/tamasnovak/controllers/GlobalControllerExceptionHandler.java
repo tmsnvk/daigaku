@@ -79,7 +79,7 @@ public class GlobalControllerExceptionHandler {
 
   @ExceptionHandler(value = { BadCredentialsException.class })
   public ResponseEntity<Map<String, String>> handleBadCredentialsException() {
-    Map<String, String> response = createErrorResponse("Bad credentials were provided.");
+    Map<String, String> response = createErrorResponse("Bad authentication credentials were provided.");
 
     return ResponseEntity
       .status(HttpStatus.UNAUTHORIZED)

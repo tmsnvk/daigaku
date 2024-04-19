@@ -2,10 +2,13 @@ package net.tamasnovak.utilities;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Component
 public final class ValidatorUtilities {
+  private ValidatorUtilities() {}
+
   public UUID validateIfStringIsUuid(String uuid) {
     try {
       return UUID.fromString(uuid);
@@ -21,7 +24,7 @@ public final class ValidatorUtilities {
   }
 
   public void checkIfApplicationMentorIsValid(long applicationMentorId, long authMentorId, String exceptionMessage) {
-    if (applicationMentorId != authMentorId) {
+    if (!Objects.equals(applicationMentorId, authMentorId)) {
       throw new IllegalArgumentException(exceptionMessage);
     }
   }

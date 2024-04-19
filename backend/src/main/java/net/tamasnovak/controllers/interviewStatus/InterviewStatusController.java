@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.interviewStatus;
 
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 import net.tamasnovak.services.interviewStatus.InterviewStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class InterviewStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<GenericStatusView>> getAll() {
-    List<GenericStatusView> interviewStatuses = interviewStatusService.findAll();
+  public ResponseEntity<List<StatusOptionView>> getDropdownOptions() {
+    List<StatusOptionView> interviewStatuses = interviewStatusService.getDropdownOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)

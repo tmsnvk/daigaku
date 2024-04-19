@@ -2,7 +2,7 @@ package net.tamasnovak.services.country;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.projections.option.GenericOptionView;
+import net.tamasnovak.projections.country.CountryOptionView;
 import net.tamasnovak.repositories.country.CountryRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<GenericOptionView> getOptionsSortedAscByName() {
+  public List<CountryOptionView> getDropdownOptionsSortedAscByName() {
     return countryRepository.findAllByOrderByNameAsc();
   }
 

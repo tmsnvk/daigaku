@@ -16,6 +16,8 @@ import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
+import net.tamasnovak.entities.enums.FinalDestinationType;
+import net.tamasnovak.entities.enums.ResponseStatusType;
 import net.tamasnovak.entities.institution.Institution;
 
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public final class Student extends BaseSimpleIdEntity {
       .filter((element -> {
         ResponseStatus responseStatus = element.getResponseStatus();
 
-        return responseStatus != null && Objects.equals(element.getResponseStatus().getName(), "Firm Choice");
+        return responseStatus != null && Objects.equals(element.getResponseStatus().getName(), ResponseStatusType.FIRM_CHOICE.getType());
       }))
       .findFirst()
       .orElse(null);
@@ -91,7 +93,7 @@ public final class Student extends BaseSimpleIdEntity {
       .filter(element -> {
         FinalDestinationStatus finalDestinationStatus = element.getFinalDestinationStatus();
 
-        return finalDestinationStatus != null && (Objects.equals(element.getFinalDestinationStatus().getName(), "Final Destination") || Objects.equals(element.getFinalDestinationStatus().getName(),"Final Destination (Deferred Entry)"));
+        return hasApplicationFinalDestinationStatus(element, finalDestinationStatus);
       })
       .findFirst()
       .orElse(null);
@@ -105,6 +107,10 @@ public final class Student extends BaseSimpleIdEntity {
       application.getUniversity().getName(),
       application.getCourseName()
     );
+  }
+
+  private boolean hasApplicationFinalDestinationStatus(Application application, FinalDestinationStatus finalDestinationStatus) {
+    return finalDestinationStatus != null && (Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.FINAL_DESTINATION.getType()) || Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.DEFERRED_FINAL_DESTINATION.getType()));
   }
 
   public int countApplications() {

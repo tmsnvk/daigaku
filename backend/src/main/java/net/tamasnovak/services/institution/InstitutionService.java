@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface InstitutionService {
-  List<InstitutionOptionView> getOptionsSortedAscByName();
+  List<InstitutionOptionView> getDropdownOptionsSortedAscByName();
   Institution findByUuid(UUID uuid);
 }

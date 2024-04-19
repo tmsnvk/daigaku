@@ -32,7 +32,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<UniversityOptionView> getOptionsByCountryUuidAndSortedAscByName(String countryUuid) {
+  public List<UniversityOptionView> getDropdownOptionsByCountryUuidAndSortedAscByName(String countryUuid) {
     UUID validCountryUuid = validatorUtilities.validateIfStringIsUuid(countryUuid);
     Country country = countryService.findByUuid(validCountryUuid);
 

@@ -43,10 +43,6 @@ public final class Mentor extends BaseSimpleIdEntity {
     return account;
   }
 
-  public Set<Student> getStudents() {
-    return students;
-  }
-
   public Institution getInstitution() {
     return institution;
   }

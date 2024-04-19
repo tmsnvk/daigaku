@@ -26,8 +26,8 @@ public class UniversityController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<UniversityOptionView>> getOptionsByCountryUuid(@PathVariable String countryUuid) {
-    List<UniversityOptionView> universityOptions = universityService.getOptionsByCountryUuidAndSortedAscByName(countryUuid);
+  public ResponseEntity<List<UniversityOptionView>> getDropdownOptionsByCountryUuid(@PathVariable String countryUuid) {
+    List<UniversityOptionView> universityOptions = universityService.getDropdownOptionsByCountryUuidAndSortedAscByName(countryUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

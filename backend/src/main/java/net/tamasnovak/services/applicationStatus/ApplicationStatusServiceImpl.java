@@ -2,7 +2,7 @@ package net.tamasnovak.services.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -29,7 +29,8 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
   @Override
   @Transactional(readOnly = true)
   public ApplicationStatus findByName(String statusName) {
-    return applicationStatusRepository.findByName(statusName);
+    return applicationStatusRepository.findByName(statusName)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
@@ -43,7 +44,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<GenericStatusView> findAll() {
-    return applicationStatusRepository.findAllProjectedBy();
+  public List<StatusOptionView> getDropdownOptions() {
+    return applicationStatusRepository.findAllByOrderByNameAsc();
   }
 }

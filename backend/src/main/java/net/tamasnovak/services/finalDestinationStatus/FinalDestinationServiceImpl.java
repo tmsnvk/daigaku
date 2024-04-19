@@ -2,7 +2,7 @@ package net.tamasnovak.services.finalDestinationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 import net.tamasnovak.repositories.finalDestinationStatus.FinalDestinationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -28,8 +28,8 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  public List<GenericStatusView> findAll() {
-    return finalDestinationStatusRepository.findAllProjectedBy();
+  public List<StatusOptionView> getDropdownOptions() {
+    return finalDestinationStatusRepository.findAllByOrderByNameAsc();
   }
 
   @Override

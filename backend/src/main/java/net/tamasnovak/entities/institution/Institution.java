@@ -58,20 +58,4 @@ public final class Institution extends Auditable {
   public Address getAddress() {
     return address;
   }
-
-  public Set<PendingAccount> getPendingAccounts() {
-    return pendingAccounts;
-  }
-
-  public Set<Student> getStudents() {
-    return students;
-  }
-
-  public Set<Mentor> getMentors() {
-    return mentors;
-  }
-
-  public Set<InstitutionAdmin> getInstitutionAdmins() {
-    return institutionAdmins;
-  }
 }

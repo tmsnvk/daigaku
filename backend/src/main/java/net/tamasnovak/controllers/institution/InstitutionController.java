@@ -25,8 +25,8 @@ public class InstitutionController {
     value = "/options",
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<InstitutionOptionView>> getOptions() {
-    List<InstitutionOptionView> institutionOptions = institutionService.getOptionsSortedAscByName();
+  public ResponseEntity<List<InstitutionOptionView>> getDropdownOptions() {
+    List<InstitutionOptionView> institutionOptions = institutionService.getDropdownOptionsSortedAscByName();
 
     return ResponseEntity
       .status(HttpStatus.OK)

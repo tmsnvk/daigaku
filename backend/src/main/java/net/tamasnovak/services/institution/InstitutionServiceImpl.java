@@ -25,7 +25,7 @@ public class InstitutionServiceImpl implements InstitutionService{
 
   @Override
   @Transactional(readOnly = true)
-  public List<InstitutionOptionView> getOptionsSortedAscByName() {
+  public List<InstitutionOptionView> getDropdownOptionsSortedAscByName() {
     return institutionRepository.findAllByOrderByNameAsc();
   }
 

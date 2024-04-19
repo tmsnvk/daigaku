@@ -2,7 +2,7 @@ package net.tamasnovak.services.interviewStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.application.InterviewStatus;
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 import net.tamasnovak.repositories.interviewStatus.InterviewStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -28,8 +28,8 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<GenericStatusView> findAll() {
-    return interviewStatusRepository.findAllProjectedBy();
+  public List<StatusOptionView> getDropdownOptions() {
+    return interviewStatusRepository.findAllByOrderByNameAsc();
   }
 
   @Override

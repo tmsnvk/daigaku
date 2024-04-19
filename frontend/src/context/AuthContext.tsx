@@ -31,18 +31,12 @@ type AuthContextProviderT = {
 export type AccountDataT = {
   email: string;
   firstName: string;
-  lastName: string;
-  registeredAt: string;
-  lastUpdatedAt: string;
   role: AccountRoleE | typeof AccountRoleE;
 }
 
 const initialAccountState = {
   email: '',
   firstName: '',
-  lastName: '',
-  registeredAt: '',
-  lastUpdatedAt: '',
   role: AccountRoleE,
 };
 

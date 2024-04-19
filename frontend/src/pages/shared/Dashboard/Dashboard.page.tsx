@@ -25,7 +25,7 @@ const Dashboard = () => {
   if (isError) {
     return <GlobalErrorModal />;
   }
-  console.log(data);
+
   return (
     data &&
       <Main>

@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.responseStatus;
 
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 import net.tamasnovak.services.responseStatus.ResponseStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class ResponseStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<GenericStatusView>> getAll() {
-    List<GenericStatusView> responseStatuses = responseStatusService.findAll();
+  public ResponseEntity<List<StatusOptionView>> getDropdownOptions() {
+    List<StatusOptionView> responseStatuses = responseStatusService.getDropdownOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)

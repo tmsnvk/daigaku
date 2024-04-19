@@ -21,7 +21,7 @@ import java.util.Set;
 public final class Country extends Auditable {
   @Column(name = "name", nullable = false)
   @NotBlank(message = "Provide the country's name.")
-  @Size(min = 2, max = 100, message = "The name should be between 2 and 100 characters long.")
+  @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters long.")
   private String name;
 
   @OneToMany(mappedBy = "country")
@@ -45,14 +45,6 @@ public final class Country extends Auditable {
 
   public String getName() {
     return name;
-  }
-
-  public Set<Address> getAddresses() {
-    return addresses;
-  }
-
-  public Set<Application> getApplications() {
-    return applications;
   }
 
   public void checkIfUniversityBelongsToCountry(University university, String entityNotFoundErrorMessage) {

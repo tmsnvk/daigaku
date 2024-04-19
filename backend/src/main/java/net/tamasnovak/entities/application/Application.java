@@ -39,11 +39,11 @@ public final class Application extends Auditable {
 
   @Column(name = "course_name", nullable = false)
   @NotBlank(message = "Provide the title of your course.")
-  @Size(min = 5, max = 255, message = "The name should be between 2 and 255 characters long.")
+  @Size(min = 5, max = 255, message = "Course name should be between 2 and 255 characters long.")
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Size(min = 5, max = 255, message = "The name should be between 2 and 255 characters long.")
+  @Size(min = 5, max = 255, message = "Minor name should be between 2 and 255 characters long.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
@@ -101,14 +101,6 @@ public final class Application extends Auditable {
     return fieldContent;
   }
 
-  public void updateStatusesByStudent(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
-    this.applicationStatus = applicationStatus;
-    this.interviewStatus = interviewStatus;
-    this.offerStatus = offerStatus;
-    this.responseStatus = responseStatus;
-    this.finalDestinationStatus = finalDestinationStatus;
-  }
-
   public Student getStudent() {
     return student;
   }
@@ -151,5 +143,13 @@ public final class Application extends Auditable {
 
   public FinalDestinationStatus getFinalDestinationStatus() {
     return finalDestinationStatus;
+  }
+
+  public void updateStatusesByStudent(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
+    this.applicationStatus = applicationStatus;
+    this.interviewStatus = interviewStatus;
+    this.offerStatus = offerStatus;
+    this.responseStatus = responseStatus;
+    this.finalDestinationStatus = finalDestinationStatus;
   }
 }

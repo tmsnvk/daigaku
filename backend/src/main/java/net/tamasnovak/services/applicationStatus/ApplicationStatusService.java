@@ -1,12 +1,12 @@
 package net.tamasnovak.services.applicationStatus;
 
 import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 
 import java.util.List;
 
 public interface ApplicationStatusService {
   ApplicationStatus findByName(String statusName);
   ApplicationStatus findByUuid(String uuid);
-  List<GenericStatusView> findAll();
+  List<StatusOptionView> getDropdownOptions();
 }

@@ -26,12 +26,12 @@ import java.util.Set;
 public final class University extends Auditable {
   @Column(name = "name", nullable = false)
   @NotBlank(message = "Provide the universityUuid's official name.")
-  @Size(min = 2, message = "The name should be a minimum of 2 characters long.")
+  @Size(min = 2, message = "Name should be a minimum of 2 characters long.")
   private String name;
 
   @Column(name = "abbreviation", nullable = false)
   @NotBlank(message = "Provide the universityUuid's official abbreviation.")
-  @Size(min = 2, max = 5, message = "The abbreviation should be between 2 and 5 characters long.")
+  @Size(min = 2, max = 5, message = "The abbreviation code should be between 2 and 5 characters long.")
   private String abbreviation;
 
   @OneToOne(cascade = CascadeType.ALL)
@@ -71,10 +71,6 @@ public final class University extends Auditable {
 
   public Country getCountry() {
     return country;
-  }
-
-  public Set<Application> getApplications() {
-    return applications;
   }
 
   @Override

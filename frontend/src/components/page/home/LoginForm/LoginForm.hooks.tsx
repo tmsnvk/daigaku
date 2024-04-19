@@ -18,9 +18,6 @@ export type LoginFormFieldsT = {
 export type LoginFormReturnDataT = {
   email: string;
   firstName: string;
-  lastName: string;
-  registeredAt: string;
-  lastUpdatedAt: string;
   jwtToken: string;
   role: string;
 }

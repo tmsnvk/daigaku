@@ -2,7 +2,7 @@ package net.tamasnovak.services.responseStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.application.ResponseStatus;
-import net.tamasnovak.projections.status.GenericStatusView;
+import net.tamasnovak.projections.status.StatusOptionView;
 import net.tamasnovak.repositories.responseStatus.ResponseStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -28,8 +28,8 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<GenericStatusView> findAll() {
-    return responseStatusRepository.findAllProjectedBy();
+  public List<StatusOptionView> getDropdownOptions() {
+    return responseStatusRepository.findAllByOrderByNameAsc();
   }
 
   @Override

@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.country;
 
-import net.tamasnovak.projections.option.GenericOptionView;
+import net.tamasnovak.projections.country.CountryOptionView;
 import net.tamasnovak.services.country.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,8 +25,8 @@ public class CountryController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<GenericOptionView>> getOptions() {
-    List<GenericOptionView> countryOptions = countryService.getOptionsSortedAscByName();
+  public ResponseEntity<List<CountryOptionView>> getDropdownOptions() {
+    List<CountryOptionView> countryOptions = countryService.getDropdownOptionsSortedAscByName();
 
     return ResponseEntity
       .status(HttpStatus.OK)
