@@ -1,12 +1,11 @@
 package net.tamasnovak.services.finalDestinationStatus;
 
-import net.tamasnovak.dtos.finalDestinationStatus.response.FinalDestinationStatusOptionDto;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
+import net.tamasnovak.projections.status.GenericStatusView;
 
 import java.util.List;
 
 public interface FinalDestinationStatusService {
-  FinalDestinationStatus findByName(String statusName);
-  List<FinalDestinationStatusOptionDto> findAll();
+  List<GenericStatusView> findAll();
   FinalDestinationStatus findByUuid(String uuid);
 }
