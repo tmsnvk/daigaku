@@ -17,8 +17,8 @@ import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-import net.tamasnovak.repositories.account.AccountRepository;
 import net.tamasnovak.repositories.application.ApplicationRepository;
+import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
@@ -51,10 +51,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final ValidatorUtilities validatorUtilities;
   private final StudentApplicationServiceConstants studentApplicationServiceConstants;
   private final StudentService studentService;
-  private final AccountRepository accountRepository;
+  private final AccountService accountService;
 
   @Autowired
-  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationServiceConstants studentApplicationServiceConstants, StudentService studentService, AccountRepository accountRepository) {
+  public StudentApplicationServiceImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, CountryService countryService, UniversityService universityService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationServiceConstants studentApplicationServiceConstants, StudentService studentService, AccountService accountService) {
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
     this.offerStatusService = offerStatusService;
@@ -67,7 +67,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.validatorUtilities = validatorUtilities;
     this.studentApplicationServiceConstants = studentApplicationServiceConstants;
     this.studentService = studentService;
-    this.accountRepository = accountRepository;
+    this.accountService = accountService;
   }
 
   @Override
@@ -78,8 +78,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     return applications.stream()
       .map((application) -> {
-        String applicationCreatedBy = getApplicationCreatedBy(application.getCreatedBy());
-        String applicationLastModifiedBy = getApplicationLastModifiedBy(application.getLastModifiedBy());
+        String applicationCreatedBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
+        String applicationLastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
 
         return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
       })
@@ -111,8 +111,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(application);
 
-    String applicationCreatedBy = getApplicationCreatedBy(application.getCreatedBy());
-    String applicationLastModifiedBy = getApplicationLastModifiedBy(application.getLastModifiedBy());
+    String applicationCreatedBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
+    String applicationLastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
 
     return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
   }
@@ -151,8 +151,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(application);
 
-    String applicationCreatedBy = getApplicationCreatedBy(application.getCreatedBy());
-    String applicationLastModifiedBy = getApplicationLastModifiedBy(application.getLastModifiedBy());
+    String applicationCreatedBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
+    String applicationLastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
 
     return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
   }
@@ -200,17 +200,5 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       applicationRepository.countByStudentAndInterviewStatusIsNull(student),
       applicationRepository.countAllByStudentAndOfferStatusIsNotNull(student)
       );
-  }
-
-  private String getApplicationCreatedBy(String createdByEmail) {
-    return accountRepository.findByEmail(createdByEmail)
-      .orElseThrow(() -> new EntityNotFoundException(studentApplicationServiceConstants.NO_RECORD_FOUND))
-      .getFullName();
-  }
-
-  private String getApplicationLastModifiedBy(String lastModifiedByEmail) {
-    return accountRepository.findByEmail(lastModifiedByEmail)
-      .orElseThrow(() -> new EntityNotFoundException(studentApplicationServiceConstants.NO_RECORD_FOUND))
-      .getFullName();
   }
 }

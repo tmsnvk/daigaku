@@ -1,8 +1,11 @@
 package net.tamasnovak.services.responseStatus;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.responseStatus.response.ResponseStatusOptionDto;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.repositories.responseStatus.ResponseStatusRepository;
+import net.tamasnovak.services.GlobalServiceConstants;
+import net.tamasnovak.utilities.ValidatorUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +18,15 @@ import java.util.stream.Collectors;
 public class ResponseStatusServiceImpl implements ResponseStatusService {
   private final ResponseStatusRepository responseStatusRepository;
   private final ResponseStatusMapper responseStatusMapper;
+  private final ValidatorUtilities validatorUtilities;
+  private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public ResponseStatusServiceImpl(ResponseStatusRepository responseStatusRepository, ResponseStatusMapper responseStatusMapper) {
+  public ResponseStatusServiceImpl(ResponseStatusRepository responseStatusRepository, ResponseStatusMapper responseStatusMapper, ValidatorUtilities validatorUtilities, GlobalServiceConstants globalServiceConstants) {
     this.responseStatusRepository = responseStatusRepository;
     this.responseStatusMapper = responseStatusMapper;
+    this.validatorUtilities = validatorUtilities;
+    this.globalServiceConstants = globalServiceConstants;
   }
 
   @Override
@@ -42,7 +49,10 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public ResponseStatus findByUuid(UUID uuid) {
-    return responseStatusRepository.findByUuid(uuid);
+  public ResponseStatus findByUuid(String uuid) {
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RESOURCE_FOUND);
+
+    return responseStatusRepository.findByUuid(validUuid)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RESOURCE_FOUND));
   }
 }

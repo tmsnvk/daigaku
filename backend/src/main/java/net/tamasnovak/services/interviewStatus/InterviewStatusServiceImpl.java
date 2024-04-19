@@ -1,8 +1,11 @@
 package net.tamasnovak.services.interviewStatus;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.interviewStatus.response.InterviewStatusOptionDto;
 import net.tamasnovak.entities.application.InterviewStatus;
 import net.tamasnovak.repositories.interviewStatus.InterviewStatusRepository;
+import net.tamasnovak.services.GlobalServiceConstants;
+import net.tamasnovak.utilities.ValidatorUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +18,15 @@ import java.util.stream.Collectors;
 public class InterviewStatusServiceImpl implements InterviewStatusService {
   private final InterviewStatusRepository interviewStatusRepository;
   private final InterviewStatusMapper interviewStatusMapper;
+  private final ValidatorUtilities validatorUtilities;
+  private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public InterviewStatusServiceImpl(InterviewStatusRepository interviewStatusRepository, InterviewStatusMapper interviewStatusMapper) {
+  public InterviewStatusServiceImpl(InterviewStatusRepository interviewStatusRepository, InterviewStatusMapper interviewStatusMapper, ValidatorUtilities validatorUtilities, GlobalServiceConstants globalServiceConstants) {
     this.interviewStatusRepository = interviewStatusRepository;
     this.interviewStatusMapper = interviewStatusMapper;
+    this.validatorUtilities = validatorUtilities;
+    this.globalServiceConstants = globalServiceConstants;
   }
 
   @Override
@@ -34,7 +41,10 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public InterviewStatus findByUuid(UUID uuid) {
-    return interviewStatusRepository.findByUuid(uuid);
+  public InterviewStatus findByUuid(String uuid) {
+    UUID validUuid = validatorUtilities.validateIfStringIsUuid(uuid, globalServiceConstants.NO_RESOURCE_FOUND);
+
+    return interviewStatusRepository.findByUuid(validUuid)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RESOURCE_FOUND));
   }
 }

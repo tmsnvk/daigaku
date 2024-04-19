@@ -31,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public Account findUserByEmail(String email) {
+  public Account findByEmail(String email) {
     return accountRepository.findByEmail(email)
       .orElseThrow(() -> new EntityNotFoundException(accountServiceConstants.USER_NOT_FOUND));
   }

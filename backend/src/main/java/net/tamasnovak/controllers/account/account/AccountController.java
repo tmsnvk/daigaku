@@ -43,7 +43,7 @@ public class AccountController {
   public ResponseEntity<FrontendContextDto> findUser() {
     User userDetails = authenticationFacade.getUserContext();
 
-    Account account = accountService.findUserByEmail(userDetails.getUsername());
+    Account account = accountService.findByEmail(userDetails.getUsername());
     String role = authenticationFacade.transformRolesArrayToString(userDetails);
 
     FrontendContextDto frontendContextDto = new FrontendContextDto(
@@ -72,7 +72,7 @@ public class AccountController {
 
     String jwtToken = jwtUtilities.generateJwtToken(authentication);
 
-    Account account = accountService.findUserByEmail(loginData.email().toLowerCase());
+    Account account = accountService.findByEmail(loginData.email().toLowerCase());
     String role = authenticationFacade.transformRolesArrayToString(userDetails);
 
     LoginReturnDto loginReturnDto = new LoginReturnDto(
