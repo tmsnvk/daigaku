@@ -19,12 +19,12 @@ import java.util.Properties;
 public class EmailServiceImpl implements EmailService {
   @Value("${spring.mail.username}") private String sender;
   private final JavaMailSender javaMailSender;
-  private final EmailServiceConstants emailServiceConstants;
+  private final EmailConstants emailConstants;
 
   @Autowired
-  public EmailServiceImpl(JavaMailSender javaMailSender, EmailServiceConstants emailServiceConstants) {
+  public EmailServiceImpl(JavaMailSender javaMailSender, EmailConstants emailConstants) {
     this.javaMailSender = javaMailSender;
-    this.emailServiceConstants = emailServiceConstants;
+    this.emailConstants = emailConstants;
   }
 
   @Override
@@ -44,7 +44,7 @@ public class EmailServiceImpl implements EmailService {
 
       javaMailSender.send(mailMessage);
     } catch (MailException | MessagingException exception) {
-      throw new MailSendException(emailServiceConstants.FAILED_EMAIL_SENDING);
+      throw new MailSendException(emailConstants.FAILED_EMAIL_SENDING);
     }
   }
 }
