@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,16 @@ public final class Role extends BaseSimpleIdEntity {
 
   protected Role() {}
 
+  public Role(String name) {
+    this.name = name;
+    this.accounts = new HashSet<>();
+  }
+
   public String getName() {
     return name;
+  }
+
+  public void addAccount(Account account) {
+    accounts.add(account);
   }
 }
