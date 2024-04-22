@@ -90,6 +90,7 @@ export type UpdateApplicationFormFieldsT = {
 
 type FormSubmissionT = {
   formData: UpdateApplicationFormFieldsT;
+  applicationUuid: string;
   mutate: (formData: UpdateApplicationFormFieldsT) => void;
   setError: UseFormSetError<UpdateApplicationFormFieldsT>;
 }
@@ -106,7 +107,7 @@ const filterCacheByUuid = <T extends CachedData> (cache: AxiosResponse<T[]>, opt
 };
 
 const useHandleFormSubmission = () => {
-  const handleValidation = (formData: UpdateApplicationFormFieldsT) => {
+  const handleValidation = (formData: UpdateApplicationFormFieldsT, applicationUuid: string) => {
     const errors: string[] = [];
 
     const applicationsCache = queryClient.getQueryData<AxiosResponse<ApplicationT[]>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
@@ -122,24 +123,26 @@ const useHandleFormSubmission = () => {
     const finalDestinationDeferredUuid = filterCacheByUuid(finalDestinationStatusCache, 'Final Destination (Deferred Entry)');
 
     applicationsCache?.data.forEach((application) => {
-      if (application.responseStatus === 'Firm Choice' && formData.responseStatusUuid === firmChoiceUuid) {
-        errors.push(firmChoiceSelectionError);
-      }
+      if (application.uuid !== applicationUuid) {
+        if (application.responseStatus === 'Firm Choice' && formData.responseStatusUuid === firmChoiceUuid) {
+          errors.push(firmChoiceSelectionError);
+        }
 
-      if (application.finalDestinationStatus === 'Final Destination' && formData.finalDestinationStatusUuid === finalDestinationUuid) {
-        errors.push(finalDestinationSelectionError);
-      }
+        if (application.finalDestinationStatus === 'Final Destination' && formData.finalDestinationStatusUuid === finalDestinationUuid) {
+          errors.push(finalDestinationSelectionError);
+        }
 
-      if (application.finalDestinationStatus === 'Final Destination (Deferred Entry)' && formData.finalDestinationStatusUuid === finalDestinationDeferredUuid) {
-        errors.push(finalDestinationSelectionError);
+        if (application.finalDestinationStatus === 'Final Destination (Deferred Entry)' && formData.finalDestinationStatusUuid === finalDestinationDeferredUuid) {
+          errors.push(finalDestinationSelectionError);
+        }
       }
     });
 
     return errors;
   };
 
-  const submitForm = ({ formData, mutate, setError }: FormSubmissionT) => {
-    const validationError = handleValidation(formData);
+  const submitForm = ({ formData, applicationUuid, mutate, setError }: FormSubmissionT) => {
+    const validationError = handleValidation(formData, applicationUuid);
 
     if (!validationError.length) {
       mutate(formData);

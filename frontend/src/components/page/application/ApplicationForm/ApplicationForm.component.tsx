@@ -80,7 +80,7 @@ const ApplicationForm = ({
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error instanceof AxiosError && error?.response?.data.root} />;
+    return <GlobalErrorModal error={error instanceof AxiosError && error.response.data.root} />;
   }
 
   return (
@@ -88,7 +88,7 @@ const ApplicationForm = ({
       <FormContainer
         id={'updateApplicationForm'}
         method={'PATCH'}
-        onSubmit={handleSubmit((formData) => submitForm({ formData, mutate, setError }))}
+        onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid, mutate, setError }))}
       >
         <PageTitle content={'Update Application Form'} />
         <FormMetaData
