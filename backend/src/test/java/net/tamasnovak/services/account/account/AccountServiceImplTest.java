@@ -1,7 +1,9 @@
 package net.tamasnovak.services.account.account;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
+import net.tamasnovak.dtos.account.response.LoginReturnDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.role.Role;
 import net.tamasnovak.repositories.account.AccountRepository;
@@ -16,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
 
 import java.util.Optional;
 
@@ -27,6 +30,8 @@ class AccountServiceImplTest {
   AccountConstants accountConstants;
   @Mock
   JwtUtilities jwtUtilities;
+  @Mock
+  Authentication authentication;
   AccountServiceImpl underTest;
 
   @BeforeEach
@@ -37,7 +42,7 @@ class AccountServiceImplTest {
   @Test
   @DisplayName("checkIfExistsByEmail Test")
   @Description("Returns void if email is not found.")
-  void shouldReturnVoidWhenEmailIsNotFound() {
+  void shouldReturnVoid_IfEmailIsNotFound() {
     String notExistingEmail = "notexistingemail@test.net";
 
     underTest.checkIfExistsByEmail(notExistingEmail);
@@ -46,8 +51,8 @@ class AccountServiceImplTest {
   @Test
   @DisplayName("checkIfExistsByEmail Test")
   @Description("Throws DataIntegrityViolationException if email is found.")
-  void shouldThrowDataIntegrityViolationExceptionIfEmailAlreadyExists() {
-    String existingEmail = "alreadyexistingemail@test.net";
+  void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
+    String existingEmail = "existingemail@test.net";
 
     Mockito.when(accountRepository.existsByEmail(existingEmail)).thenReturn(true);
 
@@ -57,7 +62,7 @@ class AccountServiceImplTest {
   @Test
   @DisplayName("findByEmail Test")
   @Description("Returns the correct Account object if corresponding email is found.")
-  void shouldReturnCorrectAccountIfEmailIsFound() {
+  void shouldReturnCorrectAccount_IfEmailIsFound() {
     String existingStudentEmail = "existingstudentemail@test.net";
     Account foundAccount = Account.createAccount(
       "Student",
@@ -76,7 +81,7 @@ class AccountServiceImplTest {
   @Test
   @DisplayName("findByEmail Test")
   @Description("Throws EntityNotFoundException if email is not found.")
-  void shouldThrowEntityNotFoundExceptionIfEmailIsNotFound() {
+  void shouldThrowEntityNotFoundException_IfEmailIsNotFound() {
     String notExistingEmail = "notexistingemail@test.net";
 
     Mockito.when(accountRepository.findByEmail(notExistingEmail)).thenReturn(Optional.empty());
@@ -87,7 +92,7 @@ class AccountServiceImplTest {
   @Test
   @DisplayName("getClientAuthContextData Test")
   @Description("Returns the correct ClientAuthContextDto object if email is found.")
-  void shouldReturnClientAuthContextDtoIfEmailIsFound() {
+  void shouldReturnClientAuthContextDto_IfEmailIsFound() {
     String existingStudentEmail = "existingstudentemail@test.net";
     Role studentRole = new Role("ROLE_STUDENT");
     Account foundAccount = Account.createAccount(
@@ -107,5 +112,38 @@ class AccountServiceImplTest {
     ClientAuthContextDto actualContextDto = underTest.getClientAuthContextData(existingStudentEmail);
 
     Assertions.assertEquals(expectedContextDto, actualContextDto);
+  }
+
+  @Test
+  @DisplayName("getLoginData Test")
+  @Description("Returns the correct LoginReturnDto object if email is found.")
+  void shouldReturnLoginReturnDto_IfEmailIsFound() {
+    String existingStudentEmail = "existingstudentemail@test.net";
+    String hashedPassword = "hashedPassword";
+    LoginRequestDto loginRequestDto = new LoginRequestDto(existingStudentEmail, hashedPassword);
+
+    Role studentRole = new Role("ROLE_STUDENT");
+    Account foundAccount = Account.createAccount(
+      "Student",
+      "Test User",
+      existingStudentEmail,
+      hashedPassword,
+      studentRole
+    );
+
+    Mockito.when(accountRepository.findByEmail(existingStudentEmail)).thenReturn(Optional.of(foundAccount));
+
+    String jwtToken = "generatedToken";
+    Mockito.when(jwtUtilities.generateJwtToken(authentication)).thenReturn(jwtToken);
+
+    LoginReturnDto expectedDto = new LoginReturnDto(
+      existingStudentEmail,
+      foundAccount.getFirstName(),
+      foundAccount.getRole().getName(),
+      jwtToken
+    );
+    LoginReturnDto actualLoginDto = underTest.getLoginData(loginRequestDto, authentication);
+
+    Assertions.assertEquals(expectedDto, actualLoginDto);
   }
 }
