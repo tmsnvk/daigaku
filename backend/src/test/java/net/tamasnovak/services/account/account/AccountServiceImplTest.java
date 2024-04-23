@@ -32,7 +32,7 @@ class AccountServiceImplTest {
   JwtUtilities jwtUtilities;
   @Mock
   Authentication authentication;
-  AccountServiceImpl underTest;
+  AccountService underTest;
 
   @BeforeEach
   public void setup() {

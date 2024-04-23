@@ -66,6 +66,10 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
     pendingAccountRepository.save(pendingAccount);
 
+    sendEmail(registrationData, institution);
+  }
+
+  private void sendEmail(PendingAccountRegistrationDto registrationData, Institution institution) {
     NewEmailDto newEmail = new NewEmailDto(
       registrationData.email(),
       pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT,
