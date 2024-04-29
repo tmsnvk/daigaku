@@ -41,11 +41,14 @@ class AccountServiceImplTest {
 
   @Test
   @DisplayName("checkIfExistsByEmail Test")
-  @Description("Returns void if email is not found.")
+  @Description("Returns void and does not throw DataIntegrityViolationException if email is not found.")
   void shouldReturnVoid_IfEmailIsNotFound() {
     String notExistingEmail = "notexistingemail@test.net";
 
-    underTest.checkIfExistsByEmail(notExistingEmail);
+    Mockito.when(accountRepository.existsByEmail(notExistingEmail)).thenReturn(false);
+    Assertions.assertDoesNotThrow(() -> underTest.checkIfExistsByEmail(notExistingEmail));
+
+    Mockito.verify(accountRepository, Mockito.times(1)).existsByEmail(notExistingEmail);
   }
 
   @Test
@@ -55,8 +58,9 @@ class AccountServiceImplTest {
     String existingEmail = "existingemail@test.net";
 
     Mockito.when(accountRepository.existsByEmail(existingEmail)).thenReturn(true);
-
     Assertions.assertThrows(DataIntegrityViolationException.class, () -> underTest.checkIfExistsByEmail(existingEmail));
+
+    Mockito.verify(accountRepository, Mockito.times(1)).existsByEmail(existingEmail);
   }
 
   @Test
