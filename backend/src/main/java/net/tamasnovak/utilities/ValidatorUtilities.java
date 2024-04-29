@@ -12,7 +12,7 @@ public final class ValidatorUtilities {
   public UUID validateIfStringIsUuid(String uuid) {
     try {
       return UUID.fromString(uuid);
-    } catch (IllegalArgumentException exception) {
+    } catch (IllegalArgumentException | NullPointerException exception) {
       throw new IllegalArgumentException("The request contained invalid data. Resubmit the form.");
     }
   }

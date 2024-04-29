@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -29,8 +30,8 @@ public class GlobalControllerExceptionHandler {
       .body(errors);
   }
 
-  @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
-  public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException() {
+  @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class, MethodArgumentNotValidException.class })
+  public ResponseEntity<Map<String, String>> handleInvalidMethodArgumentExceptions() {
     Map<String, String> response = createErrorResponse("The request contained invalid data.");
 
     return ResponseEntity
