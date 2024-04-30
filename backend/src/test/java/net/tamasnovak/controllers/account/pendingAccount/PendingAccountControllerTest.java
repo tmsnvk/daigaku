@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,25 +25,26 @@ import java.util.UUID;
 @AutoConfigureMockMvc(addFilters = false)
 class PendingAccountControllerTest {
   @Autowired
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
   @Autowired
-  ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
   @MockBean
-  PendingAccountService pendingAccountService;
+  private PendingAccountService pendingAccountService;
   @MockBean
-  PendingAccountRepository pendingAccountRepository;
+  private PendingAccountRepository pendingAccountRepository;
 
   @AfterEach
   void tearDown() {
     pendingAccountRepository.deleteAll();
+    Mockito.reset(pendingAccountService);
   }
 
   @Nested
-  @DisplayName("register() method integration tests")
+  @DisplayName("register() method tests")
   class RegisterMethodIntegrationTests {
     @Test
     @Description("HttpStatus.CREATED status is correctly asserted if no exceptions were thrown.")
-    void shouldReturnHttpStatusCreated_IfNoExceptionsWereThrown() throws Exception {
+    public void shouldReturnHttpStatusCreated_IfNoExceptionsWereThrown() throws Exception {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "Student",
         "Test User",
@@ -54,6 +56,22 @@ class PendingAccountControllerTest {
         .content(objectMapper.writeValueAsString(requestBody))
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in RequestBody's fields.")
+    public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInFirstNameField() throws Exception {
+      PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
+        "1nv4l1d Student",
+        "",
+        "invalid@email",
+        "UUID.randomUUID().toString()"
+      );
+
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
+        .content(objectMapper.writeValueAsString(requestBody))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
   }
 }

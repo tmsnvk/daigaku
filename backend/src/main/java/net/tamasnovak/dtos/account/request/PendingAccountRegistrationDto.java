@@ -3,6 +3,7 @@ package net.tamasnovak.dtos.account.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
 
 public record PendingAccountRegistrationDto(
   @NotBlank(message = "Provide a first name.")
@@ -13,6 +14,7 @@ public record PendingAccountRegistrationDto(
   String lastName,
   @Email(message = "Provide a valid email address.")
   String email,
-  @NotBlank(message = "Select a valid institution.")
+  @NotBlank(message = "Select an institution.")
+  @UuidConstraint(message = "Provide a valid institution.")
   String institutionUuid
 ) {}

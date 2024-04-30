@@ -9,7 +9,6 @@ import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
-import net.tamasnovak.utilities.ValidatorUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -25,17 +24,15 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   private final PendingAccountRepository pendingAccountRepository;
   private final PendingAccountConstants pendingAccountConstants;
   private final StringFormatterUtilities stringFormatterUtilities;
-  private final ValidatorUtilities validatorUtilities;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, EmailService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants, StringFormatterUtilities stringFormatterUtilities, ValidatorUtilities validatorUtilities) {
+  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, EmailService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants, StringFormatterUtilities stringFormatterUtilities) {
     this.accountService = accountService;
     this.institutionService = institutionService;
     this.emailService = emailService;
     this.pendingAccountRepository = pendingAccountRepository;
     this.pendingAccountConstants = pendingAccountConstants;
     this.stringFormatterUtilities = stringFormatterUtilities;
-    this.validatorUtilities = validatorUtilities;
   }
 
   @Override
@@ -54,8 +51,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     checkIfExistsByEmail(registrationData.email());
     accountService.checkIfExistsByEmail(registrationData.email());
 
-    UUID validInstitutionUuid = validatorUtilities.validateIfStringIsUuid(registrationData.institutionUuid());
-    Institution institution = institutionService.findByUuid(validInstitutionUuid);
+    Institution institution = institutionService.findByUuid(UUID.fromString(registrationData.institutionUuid()));
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(
       stringFormatterUtilities.capitaliseWord(registrationData.firstName()),

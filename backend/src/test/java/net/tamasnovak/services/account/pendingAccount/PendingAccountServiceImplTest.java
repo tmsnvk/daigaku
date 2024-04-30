@@ -8,7 +8,6 @@ import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
 import net.tamasnovak.utilities.StringFormatterUtilities;
-import net.tamasnovak.utilities.ValidatorUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,32 +26,30 @@ import java.util.UUID;
 @ExtendWith(MockitoExtension.class)
 class PendingAccountServiceImplTest {
   @Mock
-  AccountService accountService;
+  private AccountService accountService;
   @Mock
-  InstitutionService institutionService;
+  private InstitutionService institutionService;
   @Mock
-  EmailService emailService;
+  private EmailService emailService;
   @Mock
-  PendingAccountRepository pendingAccountRepository;
+  private PendingAccountRepository pendingAccountRepository;
   @Mock
-  PendingAccountConstants pendingAccountConstants;
+  private PendingAccountConstants pendingAccountConstants;
   @Mock
-  StringFormatterUtilities stringFormatterUtilities;
-  @Mock
-  ValidatorUtilities validatorUtilities;
-  PendingAccountService underTest;
+  private StringFormatterUtilities stringFormatterUtilities;
+  private PendingAccountService underTest;
 
   @BeforeEach
   public void setup() {
-    underTest = new PendingAccountServiceImpl(accountService, institutionService, emailService, pendingAccountRepository, pendingAccountConstants, stringFormatterUtilities, validatorUtilities);
+    underTest = new PendingAccountServiceImpl(accountService, institutionService, emailService, pendingAccountRepository, pendingAccountConstants, stringFormatterUtilities);
   }
 
   @Nested
   @DisplayName("checkIfExistsByEmail() method tests")
   class CheckIfExistsByEmailMethodTests {
     @Test
-    @Description("Returns void and does not throw DataIntegrityViolationException if email is not found.")
-    void shouldReturnVoid_IfEmailIsNotFound() {
+    @Description("Returns void if email is not found.")
+    public void shouldReturnVoid_IfEmailIsNotFound() {
       String notExistingEmail = "notexistingemail@test.net";
 
       Mockito.when(pendingAccountRepository.existsByEmail(notExistingEmail)).thenReturn(false);
@@ -63,7 +60,7 @@ class PendingAccountServiceImplTest {
 
     @Test
     @Description("Throws DataIntegrityViolationException if email is found.")
-    void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
+    public void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
       String existingEmail = "existingemail@test.net";
 
       Mockito.when(pendingAccountRepository.existsByEmail(existingEmail)).thenReturn(true);
@@ -78,9 +75,8 @@ class PendingAccountServiceImplTest {
   class AddAccountMethodTests {
     @Test
     @Description("Saves pendingAccount and returns void if no exceptions were thrown.")
-    void shouldSavePendingAccountAndReturnVoid_IfNoExceptionsWereThrown() {
+    public void shouldSavePendingAccountAndReturnVoid_IfNoExceptionsWereThrown() {
       UUID institutionUuid = UUID.randomUUID();
-      Institution institution = new Institution("Test Institution");
       PendingAccountRegistrationDto pendingAccountRegistrationDto = new PendingAccountRegistrationDto(
         "Student",
         "Test User",
@@ -88,8 +84,7 @@ class PendingAccountServiceImplTest {
         institutionUuid.toString()
       );
 
-      Mockito.when(validatorUtilities.validateIfStringIsUuid(pendingAccountRegistrationDto.institutionUuid())).thenReturn(institutionUuid);
-      Mockito.when(institutionService.findByUuid(institutionUuid)).thenReturn(institution);
+      Mockito.when(institutionService.findByUuid(institutionUuid)).thenReturn(Mockito.mock(Institution.class));
 
       underTest.addAccount(pendingAccountRegistrationDto);
 
