@@ -53,7 +53,7 @@ public class AccountController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<LoginReturnDto> loginUser(@Valid @RequestBody LoginRequestDto loginData) {
-    Authentication authentication = authenticationFacade.authenticateUser(loginData.email().toLowerCase(), loginData.password());
+    Authentication authentication = authenticationFacade.authenticateUser(loginData.email(), loginData.password());
 
     LoginReturnDto loginReturnDto = accountService.getLoginData(loginData, authentication);
 

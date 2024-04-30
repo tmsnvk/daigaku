@@ -23,7 +23,7 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
   @Override
   public Authentication authenticateUser(String email, String password) {
-    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email, password);
+    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email.toLowerCase(), password);
 
     return authenticationManager.authenticate(auth);
   }
