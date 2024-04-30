@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.base.audit.Auditable;
+import net.tamasnovak.utilities.StringFormatterUtilities;
 
 @MappedSuperclass
 public abstract class BaseAccount extends Auditable {
@@ -26,9 +27,17 @@ public abstract class BaseAccount extends Auditable {
   protected BaseAccount() {}
 
   public BaseAccount(String firstName, String lastName, String email) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
+    this.firstName = capitaliseNameField(firstName);
+    this.lastName = capitaliseNameField(lastName);
+    this.email = lowerCaseEmail(email);
+  }
+
+  private static String capitaliseNameField(String name) {
+    return StringFormatterUtilities.capitaliseWord(name);
+  }
+
+  private static String lowerCaseEmail(String email) {
+    return email.trim().toLowerCase();
   }
 
   public String getFirstName() {

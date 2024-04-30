@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public final class StringFormatterUtilities {
   private StringFormatterUtilities() {}
 
-  public String capitaliseWord(String word) {
+  public static String capitaliseWord(String word) {
     return Arrays.stream(word.trim().split("\\s+"))
       .map(element -> {
         if (!element.contains("-")) {
@@ -21,11 +21,11 @@ public final class StringFormatterUtilities {
       .collect(Collectors.joining(" "));
   }
 
-  private String capitaliseWordWithoutHyphen(String word) {
+  private static String capitaliseWordWithoutHyphen(String word) {
     return Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase();
   }
 
-  private String capitaliseWordsWithHyphen(String word) {
+  private static String capitaliseWordsWithHyphen(String word) {
     return Arrays.stream(word.split("-"))
       .map(element -> Character.toUpperCase(element.charAt(0)) + element.substring(1).toLowerCase())
       .collect(Collectors.joining("-"));

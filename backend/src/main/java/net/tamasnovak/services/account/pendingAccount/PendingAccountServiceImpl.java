@@ -8,7 +8,6 @@ import net.tamasnovak.repositories.account.PendingAccountRepository;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
-import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -23,16 +22,14 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   private final EmailService emailService;
   private final PendingAccountRepository pendingAccountRepository;
   private final PendingAccountConstants pendingAccountConstants;
-  private final StringFormatterUtilities stringFormatterUtilities;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, EmailService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants, StringFormatterUtilities stringFormatterUtilities) {
+  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, EmailService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants) {
     this.accountService = accountService;
     this.institutionService = institutionService;
     this.emailService = emailService;
     this.pendingAccountRepository = pendingAccountRepository;
     this.pendingAccountConstants = pendingAccountConstants;
-    this.stringFormatterUtilities = stringFormatterUtilities;
   }
 
   @Override
@@ -54,9 +51,9 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     Institution institution = institutionService.findByUuid(UUID.fromString(registrationData.institutionUuid()));
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(
-      stringFormatterUtilities.capitaliseWord(registrationData.firstName()),
-      stringFormatterUtilities.capitaliseWord(registrationData.lastName()),
-      registrationData.email().toLowerCase(),
+      registrationData.firstName(),
+      registrationData.lastName(),
+      registrationData.email(),
       institution
     );
 

@@ -7,7 +7,6 @@ import net.tamasnovak.repositories.account.PendingAccountRepository;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
-import net.tamasnovak.utilities.StringFormatterUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -36,12 +35,11 @@ class PendingAccountServiceImplTest {
   @Mock
   private PendingAccountConstants pendingAccountConstants;
   @Mock
-  private StringFormatterUtilities stringFormatterUtilities;
   private PendingAccountService underTest;
 
   @BeforeEach
   public void setup() {
-    underTest = new PendingAccountServiceImpl(accountService, institutionService, emailService, pendingAccountRepository, pendingAccountConstants, stringFormatterUtilities);
+    underTest = new PendingAccountServiceImpl(accountService, institutionService, emailService, pendingAccountRepository, pendingAccountConstants);
   }
 
   @Nested
