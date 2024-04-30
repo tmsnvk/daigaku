@@ -2,14 +2,14 @@ package net.tamasnovak.dtos.account.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 
 public record PendingAccountRegistrationDto(
   @NotBlank(message = "Provide a first name.")
-  @Size(min = 2, max = 100, message = "First name(s) should be between 2 and 100 characters long.")
+  @Pattern(regexp = "^[A-Za-z-\\s]{2,100}$", message = "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
   String firstName,
   @NotBlank(message = "Provide a first name.")
-  @Size(min = 2, max = 100, message = "Last name(s) should be between 2 and 100 characters long.")
+  @Pattern(regexp = "^[A-Za-z-\\s]{2,100}$", message = "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
   String lastName,
   @Email(message = "Provide a valid email address.")
   String email,

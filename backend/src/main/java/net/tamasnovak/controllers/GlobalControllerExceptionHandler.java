@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,9 +31,25 @@ public class GlobalControllerExceptionHandler {
       .body(errors);
   }
 
-  @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class, MethodArgumentNotValidException.class })
-  public ResponseEntity<Map<String, String>> handleInvalidMethodArgumentExceptions() {
+  @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
+  public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException() {
     Map<String, String> response = createErrorResponse("The request contained invalid data.");
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
+      .body(response);
+  }
+
+  @ExceptionHandler(value = { MethodArgumentNotValidException.class })
+  public ResponseEntity<Map<String, String>> handleInvalidMethodArgumentExceptions(MethodArgumentNotValidException exception) {
+    Map<String, String> response = new HashMap<>();
+    exception.getBindingResult().getAllErrors()
+      .forEach((error) -> {
+        String fieldName = ((FieldError) error).getField();
+        String errorMessage = error.getDefaultMessage();
+
+        response.put(fieldName, errorMessage);
+    });
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
