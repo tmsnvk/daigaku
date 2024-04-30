@@ -60,7 +60,7 @@ class PendingAccountControllerTest {
 
     @Test
     @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in RequestBody's fields.")
-    public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInFirstNameField() throws Exception {
+    public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "1nv4l1d Student",
         "",

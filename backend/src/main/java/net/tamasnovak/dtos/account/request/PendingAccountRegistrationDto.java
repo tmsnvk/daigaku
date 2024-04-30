@@ -6,10 +6,10 @@ import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
 
 public record PendingAccountRegistrationDto(
-  @NotBlank(message = "Provide a first name.")
+  @NotBlank(message = "Provide a first name. Use only letters and spaces.")
   @Pattern(regexp = "^[A-Za-z-\\s]{2,100}$", message = "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
   String firstName,
-  @NotBlank(message = "Provide a first name.")
+  @NotBlank(message = "Provide a first name. Use only letters and spaces.")
   @Pattern(regexp = "^[A-Za-z-\\s]{2,100}$", message = "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
   String lastName,
   @Email(message = "Provide a valid email address.")
