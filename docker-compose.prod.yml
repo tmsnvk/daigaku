@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres
+    container_name: daigaku-postgres-container
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+    networks:
+      - daigaku
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+
+  backend:
+    image: backend
+    container_name: daigaku-backend-container
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    networks:
+      - daigaku
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database/${POSTGRES_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - database
+
+  frontend:
+    image: frontend
+    container_name: daigaku-frontend-container
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - daigaku
+    depends_on:
+      - backend
+
+volumes:
+  postgres:
+
+networks:
+  daigaku:
+    driver: bridge
