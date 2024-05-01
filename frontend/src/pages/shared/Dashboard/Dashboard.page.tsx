@@ -11,10 +11,11 @@ import {
   GlobalLoadingModal,
 } from '@components/shared/notification';
 import { Main } from './Dashboard.styles.ts';
+import { AxiosError } from 'axios';
 
 const Dashboard = () => {
   const { account } = useAuth();
-  const { data, isLoading, isError } = useGetDashboardData();
+  const { data, isLoading, isError, error } = useGetDashboardData();
 
   useGetApplications();
 
@@ -23,7 +24,7 @@ const Dashboard = () => {
   }
 
   if (isError) {
-    return <GlobalErrorModal />;
+    return <GlobalErrorModal error={error instanceof AxiosError && error?.response?.data.root} />;
   }
 
   return (

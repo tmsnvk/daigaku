@@ -72,7 +72,7 @@ const useSetOrder = (data: ApplicationT[]) => {
         return -1;
       }
 
-      return a[sortedField as keyof ApplicationT].localeCompare(b[sortedField as keyof ApplicationT]) * (sortOrder === SortOrderE.ASC ? 1 : -1);
+      return String(a[sortedField as keyof ApplicationT]).localeCompare(String(b[sortedField as keyof ApplicationT])) * (sortOrder === SortOrderE.ASC ? 1 : -1);
     });
 
     queryClient.setQueryData(

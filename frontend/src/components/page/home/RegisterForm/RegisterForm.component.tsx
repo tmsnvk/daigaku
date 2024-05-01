@@ -24,20 +24,21 @@ import {
   FormSelectorT,
   FormTypeE,
 } from '@pages/shared/Home/Home.types.ts';
+import { AxiosError } from 'axios';
 
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
 const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
   const { data, isLoading, isError } = useGetSchoolOptions();
   const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitRegisterForm({ setError, showModal });
+  const { isPending, mutate, error } = useSubmitRegisterForm({ setError, showModal });
 
   if (isLoading) {
     return <GlobalLoadingModal />;
   }
 
   if (isError) {
-    return <GlobalErrorModal />;
+    return <GlobalErrorModal error={error instanceof AxiosError && error.response.data.root} />;
   }
 
   return (

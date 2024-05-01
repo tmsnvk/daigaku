@@ -15,6 +15,7 @@ import {
 } from '@components/shared/notification';
 import { MainContainer } from './Applications.styles.ts';
 import { ApplicationT } from '@services/application/application.service.ts';
+import { AxiosError } from 'axios';
 
 const Applications = () => {
   const {
@@ -40,7 +41,7 @@ const Applications = () => {
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error.response.data.root} />;
+    return <GlobalErrorModal error={error instanceof AxiosError && error?.response?.data.root} />;
   }
 
   // add student selector dropdown for mentors

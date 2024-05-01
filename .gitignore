@@ -9,6 +9,7 @@ env.properties
 *.iml
 *.ipr
 
+.env
 node_modules
 dist
 

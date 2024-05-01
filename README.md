@@ -1,11 +1,11 @@
 ## -- Daigaku --
 
 ### Table of Contents
-I. Project Description
-II. Techstack
-III. Running the application
-IV. Roadmap
-V. Sneak peak
++ I. Project Description
++ II. Techstack
++ III. Running the application
++ IV. Roadmap
++ V. Sneak peak
 
 
 ### I. Project Description
@@ -41,9 +41,19 @@ Database
     + PostgreSQL                       - relational database management system.
 ```
 
+```
+DevOps
+    + Docker                           - containerisation solution.
+```
+
 
 ### III. Running the application
-+
++ Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
++ Clone the repository.
++ In a terminal, enter the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
++ On the login page you may log in as a student user with the following credentials:
+    + email - ``student@test.net``;
+    + password - ``2``.
 
 
 ### IV. Roadmap
@@ -82,9 +92,9 @@ Database
 - [ ] feedback form.
 
 + devops features:
-- [ ] containerisation.
-- [ ] deployment.
+- [x] containerisation.
 - [ ] github CI/CD.
+- [ ] deployment.
 
 
 ### V. Sneak peak
