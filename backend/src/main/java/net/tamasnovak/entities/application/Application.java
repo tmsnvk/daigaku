@@ -77,6 +77,10 @@ public final class Application extends Auditable {
   @JsonBackReference
   private FinalDestinationStatus finalDestinationStatus;
 
+  @Column(name = "is_marked_for_deletion")
+  @NotNull
+  private boolean isMarkedForDeletion;
+
   protected Application() {}
 
   private Application(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
@@ -87,6 +91,7 @@ public final class Application extends Auditable {
     this.minorSubject = enforceOptionalFieldValidation(minorSubject);
     this.applicationStatus = applicationStatus;
     this.programmeLength = programmeLength;
+    this.isMarkedForDeletion = false;
   }
 
   public static Application createNewApplicationByStudent(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
@@ -143,6 +148,10 @@ public final class Application extends Auditable {
 
   public FinalDestinationStatus getFinalDestinationStatus() {
     return finalDestinationStatus;
+  }
+
+  public boolean isMarkedForDeletion() {
+    return isMarkedForDeletion;
   }
 
   public void updateStatusesByStudent(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {

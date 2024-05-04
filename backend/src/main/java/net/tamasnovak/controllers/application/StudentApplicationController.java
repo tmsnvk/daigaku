@@ -78,6 +78,18 @@ public class StudentApplicationController {
   }
 
   @RequestMapping(
+    value = "/markForDeletion/{uuid}",
+    method = RequestMethod.PATCH
+  )
+  public ResponseEntity<HttpStatus> updateMarkedForDeletionStatus(@Valid @PathVariable("uuid") String uuid) {
+    studentApplicationService.markForDeletionByUuid(uuid);
+
+    return ResponseEntity
+      .status(HttpStatus.OK)
+      .build();
+  }
+
+  @RequestMapping(
     value = "/dashboard",
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE

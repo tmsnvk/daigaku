@@ -19,5 +19,6 @@ public record ApplicationDto(
   Timestamp createdAt,
   Timestamp lastUpdatedAt,
   String createdBy,
-  String lastModifiedBy
+  String lastModifiedBy,
+  boolean isMarkedForDeletion
 ) {}

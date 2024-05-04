@@ -23,7 +23,8 @@ public final class ApplicationMapper {
       application.getCreatedAt(),
       application.getLastUpdatedAt(),
       createdBy,
-      lastModifiedBy
+      lastModifiedBy,
+      application.isMarkedForDeletion()
     );
   }
 }

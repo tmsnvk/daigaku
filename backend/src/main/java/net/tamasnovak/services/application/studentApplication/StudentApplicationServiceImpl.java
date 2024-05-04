@@ -149,6 +149,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   }
 
   @Override
+  @Transactional
+  public void markForDeletionByUuid(String uuid) {
+    applicationRepository.updateIsMarkedForDeletionByUuid(UUID.fromString(uuid));
+  }
+
+  @Override
   @Transactional(readOnly = true)
   public DashboardAggregateDataDto getDashboardData(Account account) {
     Student student = studentService.findByAccount(account);

@@ -196,14 +196,14 @@ VALUES
 
 -- INSERT applications
 INSERT INTO applications
-  (student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id, created_by, last_modified_by)
+  (student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id, created_by, last_modified_by, is_marked_for_deletion)
 VALUES
-  (1, 2, 1, 'Business Administration', 3, 1, 1, 1, 1, 1, 'student@test.net', 'student@test.net'),
-  (1, 2, 2, 'Logistics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
-  (1, 2, 3, 'Information Technology', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
-  (1, 3, 4, 'Computer Science', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
-  (1, 4, 5, 'Mathematics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net'),
-  (2, 4, 6, 'Business Administration', 3, 1, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 3, 4, 'Computer Science', 3, 1, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 4, 5, 'Mathematics', 3, 1, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net'),
-  (2, 4, 6, 'Business Administration', 3, 1, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net');
+  (1, 2, 1, 'Business Administration', 3, 1, 1, 1, 1, 1, 'student@test.net', 'student@test.net', false),
+  (1, 2, 2, 'Logistics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net', false),
+  (1, 2, 3, 'Information Technology', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net', false),
+  (1, 3, 4, 'Computer Science', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net', false),
+  (1, 4, 5, 'Mathematics', 3, 1, 1, 1, 2, 3, 'student@test.net', 'student@test.net', false),
+  (2, 4, 6, 'Business Administration', 3, 1, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net', false),
+  (2, 3, 4, 'Computer Science', 3, 1, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', false),
+  (2, 4, 5, 'Mathematics', 3, 1, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', false),
+  (2, 4, 6, 'Business Administration', 3, 1, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net', false);
