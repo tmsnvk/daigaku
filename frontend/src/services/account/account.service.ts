@@ -6,9 +6,9 @@ import {
 import {
   LoginFormFieldsT,
   LoginFormReturnDataT,
-} from '@components/page/home/LoginForm/LoginForm.hooks.tsx';
-import { RegisterFormFieldsT } from '@components/page/home/RegisterForm/RegisterForm.hooks.tsx';
-import { ForgottenPasswordFormFieldsT } from '@components/page/home/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
+} from '@pages/shared/Home/components/LoginForm/LoginForm.hooks.tsx';
+import { RegisterFormFieldsT } from '@pages/shared/Home/components/RegisterForm/RegisterForm.hooks.tsx';
+import { ForgottenPasswordFormFieldsT } from '@pages/shared/Home/components/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
 
 const accountService = {
   login: async (data: LoginFormFieldsT): Promise<AxiosResponse<LoginFormReturnDataT>> => {

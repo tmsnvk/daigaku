@@ -4,12 +4,12 @@ import {
 } from '@context/AuthContext.tsx';
 import { useGetApplications } from '@hooks';
 import { useGetDashboardData } from './Dashboard.hooks.tsx';
-import { StudentLayout } from '@components/page/dashboard';
-import { TodoList } from '@components/page/dashboard/components';
+import { StudentLayout } from './layouts';
+import { TodoList } from './components';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/notification';
+} from '@components/notification';
 import { Main } from './Dashboard.styles.ts';
 import { AxiosError } from 'axios';
 
@@ -30,11 +30,12 @@ const Dashboard = () => {
   return (
     data &&
       <Main>
+        {/* TodoList will need to go into its related layout */}
         <TodoList data={data.data} />
         {account.role === AccountRoleE.STUDENT && <StudentLayout data={data.data} />}
         {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER data={data} />}*/}
-        {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER data={data} />}*/}
+        {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER data={data} />}*/}
       </Main>
   );
 };

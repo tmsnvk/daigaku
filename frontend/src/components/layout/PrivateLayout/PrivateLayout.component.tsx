@@ -10,7 +10,7 @@ import {
   useAuth,
 } from '@context/AuthContext.tsx';
 import { useHandleSmallScreenMenuDisplay } from './PrivateLayout.hooks.tsx';
-import { GlobalLoadingModal } from '@components/shared/notification';
+import { GlobalLoadingModal } from '@components/notification';
 import BaseNavbarStyle from '../BaseNavbarStyle';
 import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';

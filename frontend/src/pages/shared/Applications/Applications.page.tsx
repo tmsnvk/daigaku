@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useGetApplications } from '@hooks';
 import {
   useDisplayColumnSelectorModal,
@@ -8,40 +9,26 @@ import {
   ColumnSelectorModal,
   DataRows,
   TableHead,
-} from '@components/page/applications';
+} from './components';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/notification';
+} from '@components/notification';
 import { MainContainer } from './Applications.styles.ts';
 import { ApplicationT } from '@services/application/application.service.ts';
-import { AxiosError } from 'axios';
 
 const Applications = () => {
-  const {
-    data,
-    isLoading,
-    refetch,
-    isRefetching,
-    isError,
-    error,
-  } = useGetApplications();
-  const {
-    columns,
-    updateColumnVisibility,
-  } = useSetColumns();
+  const { data, isLoading, refetch, isRefetching, isError, error } = useGetApplications();
+  const { columns, updateColumnVisibility } = useSetColumns();
   const { handleColumnSort } = useSetOrder(data?.data as ApplicationT[]);
-  const {
-    isModalVisible,
-    toggleModal,
-  } = useDisplayColumnSelectorModal();
+  const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
     return <GlobalLoadingModal />;
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error instanceof AxiosError && error?.response?.data.root} />;
+    return <GlobalErrorModal error={error instanceof AxiosError && error.response?.data.root} />;
   }
 
   // add student selector dropdown for mentors

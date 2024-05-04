@@ -6,7 +6,7 @@ const Footer = () => {
       <div></div>
       <FooterContainer>
         <p>{'\u00A9'} 2024 - {new Date().getFullYear().toString()}</p>
-        <p>built with reactJS and ❤️</p>
+        <p>built with reactjs, spring boot and ❤️</p>
       </FooterContainer>
     </>
   );

@@ -3,7 +3,7 @@ import {
   ForgottenPasswordForm,
   LoginForm,
   RegisterForm,
-} from '@components/page/home';
+} from './components';
 import { FormTypeE } from './Home.types.ts';
 
 const useShowConfirmationModal = () => {

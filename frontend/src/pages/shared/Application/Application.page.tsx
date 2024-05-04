@@ -4,8 +4,8 @@ import { useGetApplication } from './Application.hooks.tsx';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
-} from '@components/shared/notification';
-import { ApplicationForm } from '@components/page/application';
+} from '@components/notification';
+import { ApplicationForm } from './components';
 import { ApplicationT } from '@services/application/application.service.ts';
 
 type LocationT = {
@@ -24,7 +24,7 @@ const Application = () => {
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error instanceof AxiosError && error?.response?.data.root} />;
+    return <GlobalErrorModal error={error instanceof AxiosError && error.response?.data.root} />;
   }
 
   return (

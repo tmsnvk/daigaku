@@ -6,8 +6,8 @@ import { iconLibraryConfig } from '@configuration';
 const ErrorPage = () => {
   const error = useRouteError() as Error;
 
+  // - add styling.
   return (
-    // TODO - add styling.
     <ErrorContainer>
       <h1>Oops!</h1>
       <p>

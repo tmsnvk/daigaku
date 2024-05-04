@@ -37,7 +37,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/applications'}>
           <Route index element={<Applications />} />
-          <Route path={':id'} element={<Application />} />
+          <Route path={':uuid'} element={<Application />} />
         </Route>
         <Route path={'/account'} element={<div>ACCOUNT PLACEHOLDER</div>} />
         <Route path={'/messages'} element={<div>MESSAGES PLACEHOLDER</div>} />

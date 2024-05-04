@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseDarkElementBorderStyle } from '@components/shared/base-styles';
+import { BaseDarkElementBorderStyle } from '@components/base-styles';
 
 const MainContainer = styled.main`
   ${BaseDarkElementBorderStyle};
