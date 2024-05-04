@@ -1,7 +1,7 @@
 ## -- Daigaku --
 
 ### Table of Contents
-+ I. Project Description
++ I. Project description
 + II. Techstack
 + III. Running the application
 + IV. Roadmap
@@ -9,9 +9,11 @@
 
 
 ### I. Project Description
-+ The application follows the university application statuses of high school students and handles complex student-mentor relationships.
++ The application follows the university application statuses of high school students and handles complex student-mentor-admin relationships.
 + Upon registering, users with ``student`` access are able to join an institution (i.e. their school) and have a ``mentor`` user assigned to them who reviews their applications.
-+ Users with ``institution admin`` permissions handle admin stuff for their institutions (e.g. accept incoming student registration requests or access reports), while ``system admins`` have application-wide rights and overview.
++ Users with ``mentor`` permission are able to access all applications submitted by their allocated students.
++ Users with ``institution admin`` permission receive admin rights for their institution (e.g. accept incoming student registration requests or access detailed reports), while ``system admins`` have application-wide rights and overview.
++ A currently work-in-progress application with new features being continuously added.
 
 
 ### II. Techstack
@@ -30,7 +32,7 @@ Frontend
 ```
 Backend
     + Java Spring Boot                 - java framework.
-    + Spring Data JPA / Hibernate      - persistence application layer.
+    + Spring Data JPA / Hibernate ORM  - persistence application layer.
     + Spring Security                  - authentication and access-control layer.
     + Spring Mail                      - email sending library.
     + JWT                              - token solution.
@@ -50,51 +52,57 @@ DevOps
 ### III. Running the application
 + Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 + Clone the repository.
-+ In a terminal, enter the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
-+ On the login page you may log in as a student user with the following credentials:
-    + email - ``student@test.net``;
-    + password - ``2``.
++ Fill in the necessary environment variables:
+    + create a .env file in the root folder based on .env_sample;
+    + create an env.properties file in the /backend folder based on env_sample.properties.
++ In a terminal, change directory into the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
++ On the login page you may log in with the following credentials:
+    + account with student role:
+        + email - ``student@test.net``;
+        + password - ``1``.
 
 
 ### IV. Roadmap
-+ ``student`` user features:
+``student`` user features:
 - [x] submit a new application.
 - [x] view aggregate application data.
 - [x] edit an application.
 - [ ] request application deletion.
-- [ ] download application data in pdf.
+- [ ] download application data in .pdf format.
 
-+ ``mentor`` user features:
+``mentor`` user features:
 - [ ] view assigned students' applications.
-- [ ] download assigned students' applications data in pdf.
+- [ ] delete application marked for deletion by students.
+- [ ] download assigned students' applications data in .pdf format.
 
-+ ``institution-admin`` user features:
-- [ ] view/edit/delete all mentors within institution.
-- [ ] view/edit/delete all students within institution.
-- [ ] accept/refuse incoming institution join requests.
+``institution-admin`` user features:
+- [ ] view/edit/delete all mentors within their institution.
+- [ ] view/edit/delete all students within their institution.
+- [ ] accept/refuse incoming institution student/mentor join requests.
 - [ ] delete applications requested by students.
-- [ ] download institution-wide application data in pdf.
-- [ ] promote/demote mentors to institution-admin permission.
+- [ ] review applications deleted by mentors and either delete them permanently or restore them.
+- [ ] promote/demote mentors to institution-admin role.
+- [ ] download institution-wide application data in .pdf format.
 
-+ ``system-admin`` user features:
+``system-admin`` user features:
 - [ ] view/edit/delete all institutions.
 - [ ] view/edit/delete all institutions-admins.
 - [ ] view/edit/delete all mentors.
 - [ ] view/edit/delete all students.
-- [ ] access to global data report.
+- [ ] access / download global data reports.
 
-+ application-wide features:
-- [x] login/register functionality.
-- [ ] profile page.
+application-wide features:
+- [x] login/registration functionality.
+- [ ] editable profile page.
 - [ ] revamp navbar menu bar and split it into a nav/sidebar navigation solution.
 - [ ] revamp / make the frontend design more lively.
 - [ ] in-app messaging system.
 - [ ] feedback form.
 
-+ devops features:
+devops features:
 - [x] containerisation.
-- [ ] github CI/CD.
 - [ ] deployment.
+- [ ] github CI/CD.
 
 
 ### V. Sneak peak
