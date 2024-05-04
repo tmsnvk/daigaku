@@ -21,6 +21,7 @@ export type ApplicationT = {
   lastUpdatedAt: Date;
   createdBy: string;
   lastModifiedBy: string;
+  isMarkedForDeletion: boolean;
 }
 
 const applicationService = {
@@ -30,11 +31,13 @@ const applicationService = {
       url: `/api/applications/${applicationUuid}`,
     });
   },
-  getAllByRole: async (roleResource: string): Promise<AxiosResponse<ApplicationT[]>> => {
-    return await axiosConfigWithAuth.request<ApplicationT[]>({
+  getAllByRole: async (roleResource: string): Promise<ApplicationT[]> => {
+    const { data } = await axiosConfigWithAuth.request<ApplicationT[]>({
       method: 'GET',
       url: `/api/applications/${roleResource}`,
     });
+
+    return data;
   },
   postByStudent: async (data: NewApplicationFormFieldsT): Promise<AxiosResponse<ApplicationT>> => {
     return await axiosConfigWithAuth.request<ApplicationT>({
@@ -49,6 +52,12 @@ const applicationService = {
       method: 'PATCH',
       url: `/api/applications/student/${applicationUuid}`,
       data,
+    });
+  },
+  patchByUuidToMarkForDeletion: async (applicationUuid: string): Promise<void> => {
+    await axiosConfigWithAuth.request({
+      method: 'PATCH',
+      url: `/api/applications/student/markForDeletion/${applicationUuid}`,
     });
   },
   getDashboardData: async (roleResource: string): Promise<AxiosResponse<DashboardDataT>> => {

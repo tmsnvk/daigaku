@@ -7,7 +7,7 @@ import {
   LoginFormFieldsT,
   LoginFormReturnDataT,
 } from '@pages/shared/Home/components/LoginForm/LoginForm.hooks.tsx';
-import { RegisterFormFieldsT } from '@pages/shared/Home/components/RegisterForm/RegisterForm.hooks.tsx';
+import { RegisterFormFieldsT } from '@pages/shared/Home/components/RegistrationForm/RegistrationForm.hooks.tsx';
 import { ForgottenPasswordFormFieldsT } from '@pages/shared/Home/components/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
 
 const accountService = {

@@ -23,6 +23,7 @@ import {
   DisabledInputField,
   GenericSelectInputField,
 } from '@components/field-implementations';
+import { MarkedForDeletion } from '../index.ts';
 import { FormContainer } from './ApplicationForm.styles.ts';
 import {
   applicationStatusInformation,
@@ -77,6 +78,10 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           createdBy={updatedData?.data.createdBy ?? currentApplicationData.createdBy}
           lastUpdatedAt={updatedData ? updatedData.data.lastUpdatedAt : currentApplicationData.lastUpdatedAt}
           lastModifiedBy={updatedData?.data.lastModifiedBy ?? currentApplicationData.lastModifiedBy}
+        />
+        <MarkedForDeletion
+          isMarked={updatedData?.data.isMarkedForDeletion ?? currentApplicationData.isMarkedForDeletion}
+          applicationUuid={applicationUuid}
         />
         <InputInfoBox content={formInformation} />
         <DisabledInputField

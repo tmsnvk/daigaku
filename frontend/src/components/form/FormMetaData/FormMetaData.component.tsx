@@ -7,12 +7,7 @@ type ComponentPropsT = {
   lastModifiedBy: string;
 }
 
-const FormMetaData = ({
-  createdAt,
-  createdBy,
-  lastUpdatedAt,
-  lastModifiedBy,
-}: ComponentPropsT) => {
+const FormMetaData = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentPropsT) => {
   return (
     <Article>
       <dl>
@@ -37,15 +32,14 @@ const FormMetaData = ({
         <div>
           <dt>Last updated at:</dt>
           {' '}
-          <dd>{new Date(lastUpdatedAt).toLocaleString(
-            'en-GB', {
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-            },
-          )}</dd>
+          <dd>{new Date(lastUpdatedAt).toLocaleString('en-GB', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
+          </dd>
         </div>
         <div>
           <dt>Last modified by:</dt>

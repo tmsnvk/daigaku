@@ -185,14 +185,14 @@ const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplic
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
     mutationFn: (data: UpdateApplicationFormFieldsT) => applicationService.patchByUuid(data, applicationUuid),
     onSuccess: ({ data }: AxiosResponse<ApplicationT>) => {
-      queryClient.setQueryData<AxiosResponse<ApplicationT[]>>(
+      queryClient.setQueryData<ApplicationT[]>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData) => {
           if (!previousData) {
             return;
           }
 
-          const filteredList = previousData.data.filter((row) => row.uuid !== data.uuid);
+          const filteredList = previousData.filter((row) => row.uuid !== data.uuid);
 
           return { ...previousData, data: [...filteredList, data] };
         },

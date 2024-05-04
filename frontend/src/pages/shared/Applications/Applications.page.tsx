@@ -20,7 +20,7 @@ import { ApplicationT } from '@services/application/application.service.ts';
 const Applications = () => {
   const { data, isLoading, refetch, isRefetching, isError, error } = useGetApplications();
   const { columns, updateColumnVisibility } = useSetColumns();
-  const { handleColumnSort } = useSetOrder(data?.data as ApplicationT[]);
+  const { handleColumnSort } = useSetOrder(data as ApplicationT[]);
   const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
@@ -45,7 +45,7 @@ const Applications = () => {
           />
         </thead>
         <tbody>
-          {data && <DataRows columns={columns} data={data.data} />}
+          {data && <DataRows columns={columns} data={data} />}
         </tbody>
       </table>
       {isModalVisible &&
