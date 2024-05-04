@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   ForgottenPasswordForm,
   LoginForm,
-  RegisterForm,
+  RegistrationForm,
 } from './components';
 import { FormTypeE } from './Home.types.ts';
 
@@ -32,7 +32,7 @@ const useRenderSelectedFormComponent = (showModal: () => void) => {
   };
 
   const formComponents = {
-    [FormTypeE.REGISTER]: <RegisterForm formSelector={handleFormSelection} showModal={showModal} />,
+    [FormTypeE.REGISTER]: <RegistrationForm formSelector={handleFormSelection} showModal={showModal} />,
     [FormTypeE.LOGIN]: <LoginForm formSelector={handleFormSelection} />,
     [FormTypeE.RESET]: <ForgottenPasswordForm formSelector={handleFormSelection} showModal={showModal} />,
   };

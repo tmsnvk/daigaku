@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { AxiosError } from 'axios';
 import {
   RegisterFormFieldsT,
-  useGetSchoolOptions,
-  useSubmitRegisterForm,
-} from './RegisterForm.hooks.tsx';
+  useGetInstitutionOptions,
+  useSubmitRegistrationForm,
+} from './RegistrationForm.hooks.tsx';
 import { TextParagraph } from '@components/general';
 import {
   InputError,
@@ -13,6 +13,7 @@ import {
 } from '@components/form';
 import {
   GenericInputField,
+  SelectAccountType,
   SelectInstitution,
 } from '@components/field-implementations';
 import {
@@ -28,10 +29,10 @@ import {
 
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
-const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
-  const { data, isLoading, isError } = useGetSchoolOptions();
+const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
+  const { data, isLoading, isError } = useGetInstitutionOptions();
   const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
-  const { isPending, mutate, error } = useSubmitRegisterForm({ setError, showModal });
+  const { isPending, mutate, error } = useSubmitRegistrationForm({ setError, showModal });
 
   if (isLoading) {
     return <GlobalLoadingModal />;
@@ -111,6 +112,12 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
           isDisabled={isPending}
           data={data?.data ?? []}
         />
+        <SelectAccountType
+          register={register}
+          fieldError={errors.accountType?.message}
+          fieldId={'accountType'}
+          isDisabled={isPending}
+        />
         <article>
           {
             isPending ?
@@ -138,4 +145,4 @@ const RegisterForm = ({ formSelector, showModal }: ComponentPropT) => {
   );
 };
 
-export default RegisterForm;
+export default RegistrationForm;

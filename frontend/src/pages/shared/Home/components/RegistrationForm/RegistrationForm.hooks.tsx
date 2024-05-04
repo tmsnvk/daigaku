@@ -13,7 +13,7 @@ import {
 } from '@configuration';
 import { ConfirmationModalT } from '../../Home.types.ts';
 
-const useGetSchoolOptions = () => {
+const useGetInstitutionOptions = () => {
   return useQuery({
     queryKey: [queryKeys.INSTITUTIONS.GET_ALL],
     queryFn: () => institutionService.getAll(),
@@ -25,13 +25,21 @@ export type RegisterFormFieldsT = {
   lastName: string;
   email: string;
   institutionUuid: string;
+  accountType: string;
 }
 
 type RegisterFormT = {
   setError: UseFormSetError<RegisterFormFieldsT>;
 } & ConfirmationModalT;
 
-type RegisterFormErrorFieldsT = `root.${string}` | 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid';
+type RegisterFormErrorFieldsT =
+  `root.${string}` |
+  'root' |
+  'firstName' |
+  'lastName' |
+  'email' |
+  'institutionUuid' |
+  'accountType';
 
 type RegisterFormErrorT = {
   response: {
@@ -42,7 +50,7 @@ type RegisterFormErrorT = {
   }
 }
 
-const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
+const useSubmitRegistrationForm = ({ setError, showModal }: RegisterFormT) => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER_FORM],
     mutationFn: (data: RegisterFormFieldsT) => accountService.register(data),
@@ -64,6 +72,6 @@ const useSubmitRegisterForm = ({ setError, showModal }: RegisterFormT) => {
 };
 
 export {
-  useGetSchoolOptions,
-  useSubmitRegisterForm,
+  useGetInstitutionOptions,
+  useSubmitRegistrationForm,
 };

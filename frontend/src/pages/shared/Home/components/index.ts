@@ -1,9 +1,9 @@
 import ForgottenPasswordForm from './ForgottenPasswordForm';
 import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+import RegistrationForm from './RegistrationForm';
 
 export {
   ForgottenPasswordForm,
   LoginForm,
-  RegisterForm,
+  RegistrationForm,
 };
