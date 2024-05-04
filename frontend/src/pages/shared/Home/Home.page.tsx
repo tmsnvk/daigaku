@@ -15,7 +15,7 @@ const HomePage = () => {
   const { authStatus } = useAuth();
 
   const { isConfirmationModalVisible, showModal, closeModal } = useShowConfirmationModal();
-  const { activeFormType, formComponents } = useRenderSelectedFormComponent(showModal);
+  const { activeFormType, displayActiveFormType } = useRenderSelectedFormComponent(showModal);
 
   if (authStatus === AuthStatusE.SIGNED_IN) {
     return <Navigate to={'/dashboard'} />;
@@ -24,7 +24,7 @@ const HomePage = () => {
   return (
     authStatus === AuthStatusE.SIGNED_OUT &&
     <MainContainer>
-      {formComponents[activeFormType]}
+      {displayActiveFormType}
       {
         isConfirmationModalVisible &&
         <ConfirmationModal

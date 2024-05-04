@@ -37,9 +37,11 @@ const useRenderSelectedFormComponent = (showModal: () => void) => {
     [FormTypeE.RESET]: <ForgottenPasswordForm formSelector={handleFormSelection} showModal={showModal} />,
   };
 
+  const displayActiveFormType = formComponents[activeFormType];
+
   return {
     activeFormType,
-    formComponents,
+    displayActiveFormType,
   };
 };
 
