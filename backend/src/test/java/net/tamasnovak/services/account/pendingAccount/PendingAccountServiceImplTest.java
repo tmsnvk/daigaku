@@ -7,6 +7,7 @@ import net.tamasnovak.repositories.account.PendingAccountRepository;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
+import net.tamasnovak.services.role.RoleService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +30,8 @@ class PendingAccountServiceImplTest {
   @Mock
   private InstitutionService institutionService;
   @Mock
+  private RoleService roleService;
+  @Mock
   private EmailService emailService;
   @Mock
   private PendingAccountRepository pendingAccountRepository;
@@ -39,7 +42,7 @@ class PendingAccountServiceImplTest {
 
   @BeforeEach
   public void setup() {
-    underTest = new PendingAccountServiceImpl(accountService, institutionService, emailService, pendingAccountRepository, pendingAccountConstants);
+    underTest = new PendingAccountServiceImpl(accountService, institutionService, roleService, emailService, pendingAccountRepository, pendingAccountConstants);
   }
 
   @Nested
@@ -79,7 +82,8 @@ class PendingAccountServiceImplTest {
         "Student",
         "Test User",
         "student@test.net",
-        institutionUuid.toString()
+        institutionUuid.toString(),
+        "STUDENT"
       );
 
       Mockito.when(institutionService.findByUuid(institutionUuid)).thenReturn(Mockito.mock(Institution.class));

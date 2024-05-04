@@ -66,7 +66,8 @@ CREATE TABLE pending_accounts(
   last_name VARCHAR NOT NULL,
   full_name VARCHAR GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED,
   email VARCHAR UNIQUE NOT NULL,
-  institution_id BIGINT REFERENCES institutions(id)
+  institution_id BIGINT REFERENCES institutions(id),
+  role_id BIGINT REFERENCES roles(id)
 );
 
 CREATE TABLE accounts(

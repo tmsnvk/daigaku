@@ -1,11 +1,15 @@
 package net.tamasnovak.entities.account.baseAccount;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.base.audit.Auditable;
+import net.tamasnovak.entities.role.Role;
 import net.tamasnovak.utilities.StringFormatterUtilities;
 
 @MappedSuperclass
@@ -24,12 +28,18 @@ public abstract class BaseAccount extends Auditable {
   @Email(message = "Provide a valid email address.")
   private String email;
 
+  @ManyToOne
+  @JoinColumn(name = "role_id")
+  @JsonBackReference
+  private Role role;
+
   protected BaseAccount() {}
 
-  public BaseAccount(String firstName, String lastName, String email) {
+  public BaseAccount(String firstName, String lastName, String email, Role role) {
     this.firstName = capitaliseNameField(firstName);
     this.lastName = capitaliseNameField(lastName);
     this.email = lowerCaseEmail(email);
+    this.role = role;
   }
 
   private static String capitaliseNameField(String name) {
@@ -50,5 +60,9 @@ public abstract class BaseAccount extends Auditable {
 
   public String getEmail() {
     return email;
+  }
+
+  public Role getRole() {
+    return role;
   }
 }

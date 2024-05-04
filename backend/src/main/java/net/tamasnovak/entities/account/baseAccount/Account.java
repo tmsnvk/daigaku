@@ -1,11 +1,9 @@
 package net.tamasnovak.entities.account.baseAccount;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import net.tamasnovak.entities.address.Address;
@@ -24,17 +22,11 @@ public final class Account extends BaseAccount {
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
 
-  @ManyToOne
-  @JoinColumn(name = "role_id")
-  @JsonBackReference
-  private Role role;
-
   protected Account() {}
 
   private Account(String firstName, String lastName, String email, String hashedPassword, Role role) {
-    super(firstName, lastName, email);
+    super(firstName, lastName, email, role);
     this.hashedPassword = hashedPassword;
-    this.role = role;
   }
 
   public static Account createAccount(String firstName, String lastName, String email, String hashedPassword, Role role) {
@@ -51,9 +43,5 @@ public final class Account extends BaseAccount {
 
   public Address getAddress() {
     return address;
-  }
-
-  public Role getRole() {
-    return role;
   }
 }

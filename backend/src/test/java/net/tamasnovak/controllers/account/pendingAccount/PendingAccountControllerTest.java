@@ -46,7 +46,8 @@ class PendingAccountControllerTest {
         "Student",
         "Test User",
         "student@test.net",
-        UUID.randomUUID().toString()
+        UUID.randomUUID().toString(),
+        "STUDENT"
       );
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
@@ -62,7 +63,8 @@ class PendingAccountControllerTest {
         "1nv4l1d Student",
         "",
         "invalid@email",
-        "UUID.randomUUID().toString()"
+        "UUID.randomUUID().toString()",
+        "INVALID TYPE"
       );
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
