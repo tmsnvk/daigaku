@@ -33,9 +33,9 @@ const SelectInstitution = <T extends FieldValues>({ register, fieldError, fieldI
         name={fieldId}
         disabled={isDisabled}
       >
-        <option hidden value={''}>Select the institution you are attending.</option>
+        <option hidden value={''}>Select the institution you currently attend.</option>
         {data.map((option: InstitutionOptionT) => {
-          return <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.city}`}</option>;
+          return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
       </select>
       {fieldError && <InputError content={fieldError} />}
