@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 export type OfferStatusT = {
@@ -7,11 +6,13 @@ export type OfferStatusT = {
 }
 
 const offerStatusService = {
-  getAll: async (): Promise<AxiosResponse<OfferStatusT[]>> => {
-    return await axiosConfigWithAuth.request<OfferStatusT[]>({
+  getAll: async (): Promise<OfferStatusT[]> => {
+    const { data } = await axiosConfigWithAuth.request<OfferStatusT[]>({
       method: 'GET',
       url: '/api/offer-statuses',
     });
+
+    return data;
   },
 };
 

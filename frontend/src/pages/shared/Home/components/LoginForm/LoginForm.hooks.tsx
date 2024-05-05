@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import { AxiosResponse } from 'axios';
 import {
   AccountDataT,
   AuthStatusE,
@@ -44,7 +43,8 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_LOGIN_FORM],
     mutationFn: (data: LoginFormFieldsT) => accountService.login(data),
-    onSuccess: ({ data }: AxiosResponse<LoginFormReturnDataT>) => {
+    onSuccess: (data: LoginFormReturnDataT) => {
+      console.log(data);
       localStorage.setItem('token', data.jwtToken);
 
       const userData: AccountDataT = {

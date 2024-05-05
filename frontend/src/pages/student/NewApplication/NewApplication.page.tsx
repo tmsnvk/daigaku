@@ -37,8 +37,8 @@ const NewApplication = () => {
     <main>
       <NewApplicationForm
         handleCountryClick={handleCountryField}
-        countryData={countryData?.data ?? []}
-        universityData={universityData?.data ?? []}
+        countryData={countryData ?? []}
+        universityData={universityData ?? []}
       />
     </main>
   );

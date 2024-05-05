@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import {
   axiosConfig,
   axiosConfigWithAuth,
@@ -11,12 +10,14 @@ import { RegisterFormFieldsT } from '@pages/shared/Home/components/RegistrationF
 import { ForgottenPasswordFormFieldsT } from '@pages/shared/Home/components/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
 
 const accountService = {
-  login: async (data: LoginFormFieldsT): Promise<AxiosResponse<LoginFormReturnDataT>> => {
-    return await axiosConfig.request<LoginFormReturnDataT>({
+  login: async (formData: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
+    const { data } = await axiosConfig.request<LoginFormReturnDataT>({
       method: 'POST',
       url: '/api/accounts/login',
-      data,
+      data: formData,
     });
+
+    return data;
   },
   register: async (data: RegisterFormFieldsT): Promise<void> => {
     await axiosConfig.request({
@@ -32,11 +33,13 @@ const accountService = {
       data,
     });
   },
-  getMe: async (): Promise<AxiosResponse<LoginFormReturnDataT>> => {
-    return await axiosConfigWithAuth.request<LoginFormReturnDataT>({
+  getMe: async (): Promise<LoginFormReturnDataT> => {
+    const { data } = await axiosConfigWithAuth.request<LoginFormReturnDataT>({
       method: 'GET',
       url: '/api/accounts/me',
     });
+
+    return data;
   },
 };
 

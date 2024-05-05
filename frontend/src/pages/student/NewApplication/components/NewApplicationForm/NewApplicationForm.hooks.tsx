@@ -3,7 +3,6 @@ import {
   useMutation,
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import { AxiosResponse } from 'axios';
 import {
   mutationKeys,
   queryClient,
@@ -48,7 +47,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }:
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFieldsT) => applicationService.postByStudent(data),
-    onSuccess: ({ data }: AxiosResponse<ApplicationT>) => {
+    onSuccess: (data: ApplicationT) => {
       queryClient.setQueryData<ApplicationT[]>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData) => {
@@ -56,7 +55,7 @@ const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }:
             return;
           }
 
-          return { ...previousData, data: [...previousData, data] };
+          return [...previousData, data];
         },
       );
 

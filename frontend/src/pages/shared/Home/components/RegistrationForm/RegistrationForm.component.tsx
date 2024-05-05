@@ -110,7 +110,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
           fieldError={errors.institutionUuid?.message}
           fieldId={'institutionUuid'}
           isDisabled={isPending}
-          data={data?.data ?? []}
+          data={data ?? []}
         />
         <SelectAccountType
           register={register}

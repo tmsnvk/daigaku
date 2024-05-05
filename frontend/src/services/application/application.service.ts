@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 import { NewApplicationFormFieldsT } from '@pages/student/NewApplication/components/NewApplicationForm/NewApplicationForm.hooks.tsx';
 import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
@@ -25,11 +24,13 @@ export type ApplicationT = {
 }
 
 const applicationService = {
-  getByUuid: async (applicationUuid: string): Promise<AxiosResponse<ApplicationT>> => {
-    return await axiosConfigWithAuth.request<ApplicationT>({
+  getByUuid: async (applicationUuid: string): Promise<ApplicationT> => {
+    const { data } = await axiosConfigWithAuth.request<ApplicationT>({
       method: 'GET',
       url: `/api/applications/${applicationUuid}`,
     });
+
+    return data;
   },
   getAllByRole: async (roleResource: string): Promise<ApplicationT[]> => {
     const { data } = await axiosConfigWithAuth.request<ApplicationT[]>({
@@ -39,20 +40,24 @@ const applicationService = {
 
     return data;
   },
-  postByStudent: async (data: NewApplicationFormFieldsT): Promise<AxiosResponse<ApplicationT>> => {
-    return await axiosConfigWithAuth.request<ApplicationT>({
+  postByStudent: async (formData: NewApplicationFormFieldsT): Promise<ApplicationT> => {
+    const { data } = await axiosConfigWithAuth.request<ApplicationT>({
       method: 'POST',
       url: '/api/applications/student',
-      data,
+      data: formData,
     });
+
+    return data;
   },
-  patchByUuid: async (data: UpdateApplicationFormFieldsT, applicationUuid: string): Promise<AxiosResponse<ApplicationT>> => {
+  patchByUuid: async (formData: UpdateApplicationFormFieldsT, applicationUuid: string): Promise<ApplicationT> => {
     // update this appropriate for mentor/admin links
-    return await axiosConfigWithAuth.request<ApplicationT>({
+    const { data } = await axiosConfigWithAuth.request<ApplicationT>({
       method: 'PATCH',
       url: `/api/applications/student/${applicationUuid}`,
-      data,
+      data: formData,
     });
+
+    return data;
   },
   patchByUuidToMarkForDeletion: async (applicationUuid: string): Promise<void> => {
     await axiosConfigWithAuth.request({
@@ -60,11 +65,13 @@ const applicationService = {
       url: `/api/applications/student/markForDeletion/${applicationUuid}`,
     });
   },
-  getDashboardData: async (roleResource: string): Promise<AxiosResponse<DashboardDataT>> => {
-    return await axiosConfigWithAuth.request<DashboardDataT>({
+  getDashboardData: async (roleResource: string): Promise<DashboardDataT> => {
+    const { data } = await axiosConfigWithAuth.request<DashboardDataT>({
       method: 'GET',
       url: `api/applications/${roleResource}/dashboard`,
     });
+
+    return data;
   },
 };
 

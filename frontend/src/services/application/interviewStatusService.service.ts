@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 export type InterviewStatusT = {
@@ -7,11 +6,13 @@ export type InterviewStatusT = {
 }
 
 const interviewStatusService = {
-  getAll: async (): Promise<AxiosResponse<InterviewStatusT[]>> => {
-    return await axiosConfigWithAuth.request<InterviewStatusT[]>({
+  getAll: async (): Promise<InterviewStatusT[]> => {
+    const { data } = await axiosConfigWithAuth.request<InterviewStatusT[]>({
       method: 'GET',
       url: '/api/interview-statuses',
     });
+
+    return data;
   },
 };
 

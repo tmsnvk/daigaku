@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 export type InstitutionOptionT = {
@@ -8,11 +7,13 @@ export type InstitutionOptionT = {
 }
 
 const institutionService = {
-  getAll: async (): Promise<AxiosResponse<InstitutionOptionT[]>> => {
-    return await axiosConfigWithAuth.request<InstitutionOptionT[]>({
+  getAll: async (): Promise<InstitutionOptionT[]> => {
+    const { data } = await axiosConfigWithAuth.request<InstitutionOptionT[]>({
       method: 'GET',
       url: '/api/institutions/options',
     });
+
+    return data;
   },
 };
 

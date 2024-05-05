@@ -74,13 +74,13 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
       >
         <PageTitle content={'Update Application Form'} />
         <FormMetaData
-          createdAt={updatedData?.data.createdAt ?? currentApplicationData.createdAt}
-          createdBy={updatedData?.data.createdBy ?? currentApplicationData.createdBy}
-          lastUpdatedAt={updatedData ? updatedData.data.lastUpdatedAt : currentApplicationData.lastUpdatedAt}
-          lastModifiedBy={updatedData?.data.lastModifiedBy ?? currentApplicationData.lastModifiedBy}
+          createdAt={updatedData?.createdAt ?? currentApplicationData.createdAt}
+          createdBy={updatedData?.createdBy ?? currentApplicationData.createdBy}
+          lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : currentApplicationData.lastUpdatedAt}
+          lastModifiedBy={updatedData?.lastModifiedBy ?? currentApplicationData.lastModifiedBy}
         />
         <MarkedForDeletion
-          isMarked={updatedData?.data.isMarkedForDeletion ?? currentApplicationData.isMarkedForDeletion}
+          isMarked={updatedData?.isMarkedForDeletion ?? currentApplicationData.isMarkedForDeletion}
           applicationUuid={applicationUuid}
         />
         <InputInfoBox content={formInformation} />
@@ -125,8 +125,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
           defaultOptionFieldContent={'Update the application\'s current status.'}
-          defaultValue={updatedData?.data.applicationStatus ?? currentApplicationData.applicationStatus}
-          options={options.applicationStatus?.data as ApplicationStatusT[]}
+          defaultValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
+          options={options.applicationStatus as ApplicationStatusT[]}
         />
         <InputInfoBox
           content={applicationStatusInformation}
@@ -137,8 +137,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
           defaultOptionFieldContent={'Update the application\'s interview status.'}
-          defaultValue={updatedData?.data.interviewStatus ?? currentApplicationData.interviewStatus}
-          options={options.interviewStatus?.data as InterviewStatusT[]}
+          defaultValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
+          options={options.interviewStatus as InterviewStatusT[]}
         />
         <InputInfoBox
           content={interviewStatusInformation}
@@ -149,8 +149,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
           defaultOptionFieldContent={'Update the university\'s decision.'}
-          defaultValue={updatedData?.data.offerStatus ?? currentApplicationData.offerStatus}
-          options={options.offerStatus?.data as OfferStatusT[]}
+          defaultValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
+          options={options.offerStatus as OfferStatusT[]}
         />
         <InputInfoBox
           content={offerStatusInformation}
@@ -161,8 +161,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           fieldId={'responseStatusUuid'}
           labelContent={'Response Status'}
           defaultOptionFieldContent={'Update your response status.'}
-          defaultValue={updatedData?.data.responseStatus ?? currentApplicationData.responseStatus}
-          options={options.responseStatus?.data as ResponseStatusT[]}
+          defaultValue={updatedData?.responseStatus ?? currentApplicationData.responseStatus}
+          options={options.responseStatus as ResponseStatusT[]}
         />
         <InputInfoBox
           content={responseStatusInformation}
@@ -173,8 +173,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           fieldId={'finalDestinationStatusUuid'}
           labelContent={'Final Destination Status'}
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
-          defaultValue={updatedData?.data.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
-          options={options.finalDestinationStatus?.data as FinalDestinationStatusT[]}
+          defaultValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
+          options={options.finalDestinationStatus as FinalDestinationStatusT[]}
         />
         <InputInfoBox
           content={finalDestinationInformation}

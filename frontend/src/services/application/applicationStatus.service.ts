@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 export type ApplicationStatusT = {
@@ -7,11 +6,13 @@ export type ApplicationStatusT = {
 }
 
 const applicationStatusService = {
-  getAll: async (): Promise<AxiosResponse<ApplicationStatusT[]>> => {
-    return await axiosConfigWithAuth.request<ApplicationStatusT[]>({
+  getAll: async (): Promise<ApplicationStatusT[]> => {
+    const { data } = await axiosConfigWithAuth.request<ApplicationStatusT[]>({
       method: 'GET',
       url: '/api/application-statuses',
     });
+
+    return data;
   },
 };
 

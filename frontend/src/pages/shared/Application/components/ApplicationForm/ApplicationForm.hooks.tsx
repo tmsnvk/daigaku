@@ -3,7 +3,6 @@ import {
   useQueries,
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import { AxiosResponse } from 'axios';
 import {
   applicationService,
   applicationStatusService,
@@ -30,11 +29,11 @@ import { FinalDestinationStatusT } from '@services/application/finalDestinationS
 
 type ApplicationOptionStatusesT = {
   options: {
-    applicationStatus: AxiosResponse<ApplicationStatusT[]> | undefined;
-    interviewStatus: AxiosResponse<InterviewStatusT[]> | undefined;
-    offerStatus: AxiosResponse<OfferStatusT[]> | undefined;
-    responseStatus: AxiosResponse<ResponseStatusT[]> | undefined;
-    finalDestinationStatus: AxiosResponse<FinalDestinationStatusT[]> | undefined;
+    applicationStatus: ApplicationStatusT[] | undefined;
+    interviewStatus: InterviewStatusT[] | undefined;
+    offerStatus: OfferStatusT[] | undefined;
+    responseStatus: ResponseStatusT[] | undefined;
+    finalDestinationStatus: FinalDestinationStatusT[] | undefined;
   },
   isLoading: boolean;
   isError: boolean;
@@ -100,8 +99,8 @@ type CachedData = {
   uuid: string;
 };
 
-const filterCacheByUuid = <T extends CachedData> (cache: AxiosResponse<T[]>, optionName: string): string => {
-  const filteredOption = cache?.data.filter((option) => option.name === optionName)[0];
+const filterCacheByUuid = <T extends CachedData> (cache: T[], optionName: string): string => {
+  const filteredOption = cache?.filter((option) => option.name === optionName)[0];
 
   return filteredOption.uuid;
 };
@@ -110,9 +109,9 @@ const useHandleFormSubmission = () => {
   const handleValidation = (formData: UpdateApplicationFormFieldsT, applicationUuid: string) => {
     const errors: string[] = [];
 
-    const applicationsCache = queryClient.getQueryData<AxiosResponse<ApplicationT[]>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
-    const responseStatusCache = queryClient.getQueryData<AxiosResponse<ResponseStatusT[]>>([queryKeys.RESPONSE_STATUS.GET_ALL]);
-    const finalDestinationStatusCache = queryClient.getQueryData<AxiosResponse<FinalDestinationStatusT[]>>([queryKeys.FINAL_DESTINATION.GET_ALL]);
+    const applicationsCache = queryClient.getQueryData<ApplicationT[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
+    const responseStatusCache = queryClient.getQueryData<ResponseStatusT[]>([queryKeys.RESPONSE_STATUS.GET_ALL]);
+    const finalDestinationStatusCache = queryClient.getQueryData<FinalDestinationStatusT[]>([queryKeys.FINAL_DESTINATION.GET_ALL]);
 
     if (!applicationsCache || !responseStatusCache || !finalDestinationStatusCache) {
       return [];
@@ -122,7 +121,7 @@ const useHandleFormSubmission = () => {
     const finalDestinationUuid = filterCacheByUuid(finalDestinationStatusCache, 'Final Destination');
     const finalDestinationDeferredUuid = filterCacheByUuid(finalDestinationStatusCache, 'Final Destination (Deferred Entry)');
 
-    applicationsCache?.data.forEach((application) => {
+    applicationsCache.forEach((application) => {
       if (application.uuid !== applicationUuid) {
         if (application.responseStatus === 'Firm Choice' && formData.responseStatusUuid === firmChoiceUuid) {
           errors.push(firmChoiceSelectionError);
@@ -184,7 +183,7 @@ const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplic
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
     mutationFn: (data: UpdateApplicationFormFieldsT) => applicationService.patchByUuid(data, applicationUuid),
-    onSuccess: ({ data }: AxiosResponse<ApplicationT>) => {
+    onSuccess: (data: ApplicationT) => {
       queryClient.setQueryData<ApplicationT[]>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData) => {
@@ -194,7 +193,7 @@ const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplic
 
           const filteredList = previousData.filter((row) => row.uuid !== data.uuid);
 
-          return { ...previousData, data: [...filteredList, data] };
+          return [...filteredList, data];
         },
       );
 

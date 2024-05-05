@@ -89,7 +89,7 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
 
     const getMe = async () => {
       try {
-        const { data } = await accountService.getMe();
+        const data = await accountService.getMe();
 
         const userData: AccountDataT = {
           ...data,

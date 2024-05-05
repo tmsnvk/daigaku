@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 export type CountryOptionT = {
@@ -7,11 +6,13 @@ export type CountryOptionT = {
 }
 
 const countryService = {
-  getAllOptions: async (): Promise<AxiosResponse<CountryOptionT[]>> => {
-    return await axiosConfigWithAuth.request<CountryOptionT[]>({
+  getAllOptions: async (): Promise<CountryOptionT[]> => {
+    const { data } = await axiosConfigWithAuth.request<CountryOptionT[]>({
       method: 'GET',
       url: 'api/countries/options',
     });
+
+    return data;
   },
 };
 

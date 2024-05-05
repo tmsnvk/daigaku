@@ -31,8 +31,8 @@ const Dashboard = () => {
     data &&
       <Main>
         {/* TodoList will need to go into its related layout */}
-        <TodoList data={data.data} />
-        {account.role === AccountRoleE.STUDENT && <StudentLayout data={data.data} />}
+        <TodoList data={data} />
+        {account.role === AccountRoleE.STUDENT && <StudentLayout data={data} />}
         {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER data={data} />}*/}
