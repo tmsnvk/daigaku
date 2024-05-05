@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-import { AxiosError } from 'axios';
 import { useGetApplication } from './Application.hooks.tsx';
 import {
   GlobalErrorModal,
@@ -24,7 +23,7 @@ const Application = () => {
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error instanceof AxiosError && error.response?.data.root} />;
+    return <GlobalErrorModal error={error.message} />;
   }
 
   return (

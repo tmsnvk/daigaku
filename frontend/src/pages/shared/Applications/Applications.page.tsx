@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { useGetApplications } from '@hooks';
 import {
   useDisplayColumnSelectorModal,
@@ -28,7 +27,7 @@ const Applications = () => {
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error instanceof AxiosError && error.response?.data.root} />;
+    return <GlobalErrorModal error={error.message} />;
   }
 
   // add student selector dropdown for mentors

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { AxiosError } from 'axios';
 import {
   useGetCountryOptions,
   useGetUniversityOptionsByCountryUuid,
@@ -22,12 +21,12 @@ const NewApplication = () => {
   if ((isCountryError || isUniversityError)) {
     let errorMessage = '';
 
-    if (countryError instanceof AxiosError) {
-      errorMessage += `${countryError?.response?.data.root} '\n'}`;
+    if (countryError) {
+      errorMessage += `${countryError.message} '\n'}`;
     }
 
-    if (universityError instanceof AxiosError) {
-      errorMessage += universityError?.response?.data.root;
+    if (universityError) {
+      errorMessage += universityError.message;
     }
 
     return <GlobalErrorModal error={errorMessage} />;

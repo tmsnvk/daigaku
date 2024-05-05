@@ -36,27 +36,10 @@ type ComponentPropsT = {
   universityData: UniversityOptionT[];
 }
 
-const NewApplicationForm = ({
-  handleCountryClick,
-  countryData,
-  universityData,
-}: ComponentPropsT) => {
-  const {
-    formState: { errors },
-    reset, handleSubmit,
-    register,
-    setError,
-  } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const {
-    isCountrySelected,
-    handleCountrySelection,
-    resetCountrySelection,
-  } = useCheckFieldDisableStatus();
-  const {
-    isPending,
-    isSuccess,
-    mutate,
-  } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
+const NewApplicationForm = ({ handleCountryClick, countryData, universityData }: ComponentPropsT) => {
+  const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
+  const { isCountrySelected, handleCountrySelection, resetCountrySelection } = useCheckFieldDisableStatus();
+  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
 
   return (
     <>

@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { AxiosError } from 'axios';
 import {
   RegisterFormFieldsT,
   useGetInstitutionOptions,
@@ -39,7 +38,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error instanceof AxiosError && error.response.data.root} />;
+    return <GlobalErrorModal error={error?.response.data.root as string} />;
   }
 
   return (

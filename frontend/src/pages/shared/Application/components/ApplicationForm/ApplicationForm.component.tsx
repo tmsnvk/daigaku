@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { AxiosError } from 'axios';
 import {
   UpdateApplicationFormFieldsT,
   useGetAllSelectOptions,
@@ -62,7 +61,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error instanceof AxiosError && error.response.data.root} />;
+    return <GlobalErrorModal error={error?.response.data.root as string} />;
   }
 
   return (
