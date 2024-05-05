@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import net.tamasnovak.entities.address.Address;
+import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
 
 @Entity
@@ -24,13 +25,13 @@ public final class Account extends BaseAccount {
 
   protected Account() {}
 
-  private Account(String firstName, String lastName, String email, String hashedPassword, Role role) {
-    super(firstName, lastName, email, role);
+  private Account(String firstName, String lastName, String email, String hashedPassword, Institution institution, Role role) {
+    super(firstName, lastName, email, institution, role);
     this.hashedPassword = hashedPassword;
   }
 
-  public static Account createAccount(String firstName, String lastName, String email, String hashedPassword, Role role) {
-    return new Account(firstName, lastName, email, hashedPassword, role);
+  public static Account createAccount(String firstName, String lastName, String email, String hashedPassword, Institution institution, Role role) {
+    return new Account(firstName, lastName, email, hashedPassword, institution, role);
   }
 
   public String getFullName() {

@@ -5,6 +5,7 @@ import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
 import net.tamasnovak.repositories.account.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
@@ -78,6 +79,7 @@ class AccountServiceImplTest {
         "Test User",
         existingStudentEmail,
         "hashedPassword",
+        new Institution("Test Institution"),
         new Role("ROLE_STUDENT")
       );
 
@@ -111,6 +113,7 @@ class AccountServiceImplTest {
         "Test User",
         existingStudentEmail,
         "hashedPassword",
+        new Institution("Test Institution"),
         studentRole
       );
       ClientAuthContextDto expected = new ClientAuthContextDto(existingStudentEmail, foundAccount.getFirstName(), studentRole.getName());
@@ -138,6 +141,7 @@ class AccountServiceImplTest {
         "Test User",
         existingStudentEmail,
         hashedPassword,
+        new Institution("Test Institution"),
         studentRole
       );
       String jwtToken = "generatedToken";
