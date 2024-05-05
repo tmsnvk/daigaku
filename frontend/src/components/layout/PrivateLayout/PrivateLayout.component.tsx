@@ -11,39 +11,28 @@ import {
 } from '@context/AuthContext.tsx';
 import { useHandleSmallScreenMenuDisplay } from './PrivateLayout.hooks.tsx';
 import { GlobalLoadingModal } from '@components/notification';
-import BaseNavbarStyle from '../BaseNavbarStyle';
 import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';
 import {
+  HeaderStyle,
   SmallScreenMenuToggler,
   SmallScreenMenuWrapper,
 } from './PrivateLayout.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 import {
   NavbarContentT,
-  navbarContent,
+  navbarAccountTypeLinks,
+  navbarGeneralLinks,
 } from './PrivateLayout.utilities.ts';
 
 type ComponentPropsT = {
   allowedRoles: AccountRoleE[];
 }
 
-const PrivateLayout = ({
-  allowedRoles,
-}: ComponentPropsT) => {
+const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const location = useLocation();
-  const {
-    authStatus,
-    account,
-    logOut,
-  } = useAuth();
-  const {
-    ref,
-    toggleMenu,
-    isNavbarOpen,
-    handleInsideClick,
-    handleOutsideClick,
-  } = useHandleSmallScreenMenuDisplay();
+  const { authStatus, account, logOut } = useAuth();
+  const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick } = useHandleSmallScreenMenuDisplay();
 
   if (authStatus === AuthStatusE.LOADING) {
     return <GlobalLoadingModal />;
@@ -59,11 +48,14 @@ const PrivateLayout = ({
 
   return (
     <>
-      <BaseNavbarStyle>
+      <HeaderStyle>
         <nav>
           <div>
-            <FontAwesomeIcon icon={iconLibraryConfig.faGraduationCap} />
-            Daigaku
+            <NavbarLink
+              resource={'/dashboard'}
+              icon={iconLibraryConfig.faGraduationCap}
+              content={'Daigaku'}
+            />
           </div>
           <SmallScreenMenuWrapper
             ref={ref}
@@ -73,14 +65,7 @@ const PrivateLayout = ({
             onKeyDown={handleOutsideClick}
           >
             <ul>
-              <li>
-                <NavbarLink
-                  resource={'/dashboard'}
-                  icon={iconLibraryConfig.faHouseUser}
-                  content={'Dashboard'}
-                />
-              </li>
-              {navbarContent[account.role as AccountRoleE].map((element: NavbarContentT) => {
+              {navbarAccountTypeLinks[account.role as AccountRoleE].map((element: NavbarContentT) => {
                 return (
                   <li key={element.url}>
                     <NavbarLink
@@ -91,13 +76,19 @@ const PrivateLayout = ({
                   </li>
                 );
               })}
-              <li>
-                <NavbarLink
-                  resource={'/account'}
-                  icon={iconLibraryConfig.faUser}
-                  content={'My Account'}
-                />
-              </li>
+            </ul>
+            <ul>
+              {navbarGeneralLinks.map((element) => {
+                return (
+                  <li key={element.url}>
+                    <NavbarLink
+                      resource={element.url}
+                      icon={element.icon}
+                      content={element.content}
+                    />
+                  </li>
+                );
+              })}
               <li>
                 <NavbarLink
                   resource={'/'}
@@ -115,7 +106,7 @@ const PrivateLayout = ({
             <FontAwesomeIcon icon={iconLibraryConfig.faBars} />
           </SmallScreenMenuToggler>
         </nav>
-      </BaseNavbarStyle>
+      </HeaderStyle>
       <Outlet />
       <Footer />
     </>

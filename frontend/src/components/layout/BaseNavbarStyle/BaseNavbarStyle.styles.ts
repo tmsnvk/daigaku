@@ -28,7 +28,7 @@ const BaseNavbarStyle = styled.header`
         margin: 0 2.5rem 0 2.5rem;
       }
     }
-    
+
     & svg {
       margin: 0 1.5rem 0 0;
     }

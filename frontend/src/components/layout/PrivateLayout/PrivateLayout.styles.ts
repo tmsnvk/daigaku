@@ -1,5 +1,29 @@
 import { ReactEventHandler } from 'react';
 import styled from 'styled-components';
+import BaseNavbarStyle from '@components/layout/BaseNavbarStyle';
+
+const HeaderStyle = styled(BaseNavbarStyle)`
+  & nav {
+    height: 15rem;
+
+    & > div:nth-of-type(1) {
+      flex: 0 0 auto;
+      width: 33%;
+    }
+
+    & > div:nth-of-type(2) {
+      flex: 1 0 auto;
+    }
+
+    & ul:first-of-type {
+      margin: 0 0 4rem 0;
+    }
+
+    & ul:last-of-type {
+      justify-content: flex-end;
+    }
+  }
+`;
 
 type NavbarComponentPropsT = {
   $isNavbarOpen: boolean;
@@ -32,6 +56,7 @@ const SmallScreenMenuToggler = styled.div`
   position: absolute;
   top: 2.5rem;
   right: 2.5rem;
+  width: 5%;
 
   @media screen and (width >= ${({ theme }) => theme.breakpoint.large}) {
     display: none;
@@ -39,6 +64,7 @@ const SmallScreenMenuToggler = styled.div`
 `;
 
 export {
+  HeaderStyle,
   SmallScreenMenuWrapper,
   SmallScreenMenuToggler,
 };
