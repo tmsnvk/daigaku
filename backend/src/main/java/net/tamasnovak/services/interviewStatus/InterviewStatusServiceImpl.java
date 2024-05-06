@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -39,5 +40,15 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
     return interviewStatusRepository.findByUuid(validUuid)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public InterviewStatus findByUuidOrReturnNull(String uuid) {
+    if (Objects.equals(uuid, "")) {
+      return null;
+    }
+
+    return findByUuid(uuid);
   }
 }

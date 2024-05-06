@@ -8,4 +8,5 @@ import java.util.List;
 public interface InterviewStatusService {
   List<StatusOptionView> getDropdownOptions();
   InterviewStatus findByUuid(String uuid);
+  InterviewStatus findByUuidOrReturnNull(String uuid);
 }
