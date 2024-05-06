@@ -8,5 +8,6 @@ import java.util.List;
 public interface ApplicationStatusService {
   ApplicationStatus findByName(String statusName);
   ApplicationStatus findByUuid(String uuid);
+  ApplicationStatus findByUuidOrReturnNull(String uuid);
   List<StatusOptionView> getDropdownOptions();
 }

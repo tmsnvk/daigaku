@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -46,5 +47,15 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
   @Transactional(readOnly = true)
   public List<StatusOptionView> getDropdownOptions() {
     return applicationStatusRepository.findAllByOrderByNameAsc();
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public ApplicationStatus findByUuidOrReturnNull(String uuid) {
+    if (Objects.equals(uuid, "")) {
+      return null;
+    }
+
+    return findByUuid(uuid);
   }
 }
