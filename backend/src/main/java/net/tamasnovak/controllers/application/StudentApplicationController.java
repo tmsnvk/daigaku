@@ -1,6 +1,7 @@
 package net.tamasnovak.controllers.application;
 
 import jakarta.validation.Valid;
+import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
@@ -67,7 +68,7 @@ public class StudentApplicationController {
     method = RequestMethod.PATCH,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") String uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
+  public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") @UuidConstraint String uuid, @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
     ApplicationDto applicationDto = studentApplicationService.updateByUuid(account, uuid, updateApplicationByStudentDto);

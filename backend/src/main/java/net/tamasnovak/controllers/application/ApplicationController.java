@@ -27,7 +27,7 @@ public class ApplicationController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") String uuid) {
-    ApplicationDto application = applicationService.findByUuid(uuid);
+    ApplicationDto application = applicationService.findByUuidAndReturnApplicationDto(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

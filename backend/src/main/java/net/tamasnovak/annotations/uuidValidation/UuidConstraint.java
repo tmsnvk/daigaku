@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 
 @Documented
 @Constraint(validatedBy = UuidConstraintValidator.class)
-@Target( { ElementType.FIELD })
+@Target( { ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE_PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UuidConstraint {
   String message() default "Invalid id.";
