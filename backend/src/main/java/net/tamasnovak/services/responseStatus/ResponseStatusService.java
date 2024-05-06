@@ -8,4 +8,5 @@ import java.util.List;
 public interface ResponseStatusService {
   List<StatusOptionView> getDropdownOptions();
   ResponseStatus findByUuid(String uuid);
+  ResponseStatus findByUuidOrReturnNull(String uuid);
 }
