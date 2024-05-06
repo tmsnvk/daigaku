@@ -1,4 +1,4 @@
-package net.tamasnovak.projections.country;
+package net.tamasnovak.dtos.country;
 
 import java.util.UUID;
 

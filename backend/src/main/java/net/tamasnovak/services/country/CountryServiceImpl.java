@@ -2,7 +2,7 @@ package net.tamasnovak.services.country;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.projections.country.CountryOptionView;
+import net.tamasnovak.dtos.country.CountryOptionView;
 import net.tamasnovak.repositories.country.CountryRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,8 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  public Country findByUuid(UUID countryUuid) {
-    return countryRepository.findByUuid(countryUuid)
+  public Country findByUuid(String uuid) {
+    return countryRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 }
