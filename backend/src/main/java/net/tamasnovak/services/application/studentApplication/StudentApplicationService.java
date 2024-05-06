@@ -11,7 +11,7 @@ import java.util.List;
 public interface StudentApplicationService {
   List<ApplicationDto> findAllByAccount(Account account);
   ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
-  ApplicationDto updateByUuid(Account account, String uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
+  ApplicationDto updateByUuid(Account account, String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
   void markForDeletionByUuid(String uuid);
   DashboardAggregateDataDto getDashboardData(Account account);
 }

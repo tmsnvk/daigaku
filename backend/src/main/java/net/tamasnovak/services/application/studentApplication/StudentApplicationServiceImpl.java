@@ -1,6 +1,5 @@
 package net.tamasnovak.services.application.studentApplication;
 
-import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
@@ -19,6 +18,7 @@ import net.tamasnovak.entities.university.University;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationMapper;
+import net.tamasnovak.services.application.application.ApplicationService;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusService;
@@ -43,6 +43,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final StudentService studentService;
   private final CountryService countryService;
   private final UniversityService universityService;
+  private final ApplicationService applicationService;
   private final ApplicationStatusService applicationStatusService;
   private final InterviewStatusService interviewStatusService;
   private final OfferStatusService offerStatusService;
@@ -54,11 +55,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final StudentApplicationConstants studentApplicationConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants) {
+  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants) {
     this.accountService = accountService;
     this.studentService = studentService;
     this.countryService = countryService;
     this.universityService = universityService;
+    this.applicationService = applicationService;
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
     this.offerStatusService = offerStatusService;
@@ -120,11 +122,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto updateByUuid(Account account, String uuid, UpdateApplicationByStudentDto updateApplicationByStudentDto) {
-    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid);
-
-    Application application = applicationRepository.findByUuid(validApplicationUuid)
-      .orElseThrow(() -> new EntityNotFoundException(studentApplicationConstants.NO_APPLICATION_FOUND));
+  public ApplicationDto updateByUuid(Account account, String applicationUuid, UpdateApplicationByStudentDto applicationDto) {
+    Application application = applicationService.findByUuid(applicationUuid);
 
     validatorUtilities.checkIfUuidsAreEqual(
       account.getUuid(),
@@ -132,11 +131,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       studentApplicationConstants.NO_PERMISSION_AS_STUDENT
     );
 
-    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(updateApplicationByStudentDto.applicationStatusUuid());
-    InterviewStatus interviewStatus = interviewStatusService.findByUuid(updateApplicationByStudentDto.interviewStatusUuid());
-    OfferStatus offerStatus = offerStatusService.findByUuid(updateApplicationByStudentDto.offerStatusUuid());
-    ResponseStatus responseStatus = responseStatusService.findByUuid(updateApplicationByStudentDto.responseStatusUuid());
-    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuid(updateApplicationByStudentDto.finalDestinationStatusUuid());
+    ApplicationStatus applicationStatus = applicationStatusService.findByUuidOrReturnNull(applicationDto.applicationStatusUuid());
+    InterviewStatus interviewStatus = interviewStatusService.findByUuidOrReturnNull(applicationDto.interviewStatusUuid());
+    OfferStatus offerStatus = offerStatusService.findByUuidOrReturnNull(applicationDto.offerStatusUuid());
+    ResponseStatus responseStatus = responseStatusService.findByUuidOrReturnNull(applicationDto.responseStatusUuid());
+    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuidOrReturnNull(applicationDto.finalDestinationStatusUuid());
 
     application.updateStatusesByStudent(applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
 
@@ -151,7 +150,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public void markForDeletionByUuid(String uuid) {
-    applicationRepository.updateIsMarkedForDeletionByUuid(UUID.fromString(uuid));
+    applicationRepository.updateIsMarkedForDeletionByUuid(uuid);
   }
 
   @Override
