@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.institution;
 
-import net.tamasnovak.projections.institution.InstitutionOptionView;
+import net.tamasnovak.dtos.institution.InstitutionOptionView;
 import net.tamasnovak.services.institution.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

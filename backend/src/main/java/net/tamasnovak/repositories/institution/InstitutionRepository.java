@@ -1,7 +1,7 @@
 package net.tamasnovak.repositories.institution;
 
 import net.tamasnovak.entities.institution.Institution;
-import net.tamasnovak.projections.institution.InstitutionOptionView;
+import net.tamasnovak.dtos.institution.InstitutionOptionView;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

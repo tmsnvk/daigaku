@@ -2,7 +2,7 @@ package net.tamasnovak.services.institution;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.institution.Institution;
-import net.tamasnovak.projections.institution.InstitutionOptionView;
+import net.tamasnovak.dtos.institution.InstitutionOptionView;
 import net.tamasnovak.repositories.institution.InstitutionRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,8 @@ public class InstitutionServiceImpl implements InstitutionService{
 
   @Override
   @Transactional(readOnly = true)
-  public Institution findByUuid(UUID uuid) {
-    return institutionRepository.findByUuid(uuid)
+  public Institution findByUuid(String uuid) {
+    return institutionRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 }

@@ -1,12 +1,11 @@
 package net.tamasnovak.services.institution;
 
 import net.tamasnovak.entities.institution.Institution;
-import net.tamasnovak.projections.institution.InstitutionOptionView;
+import net.tamasnovak.dtos.institution.InstitutionOptionView;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface InstitutionService {
   List<InstitutionOptionView> getDropdownOptionsSortedAscByName();
-  Institution findByUuid(UUID uuid);
+  Institution findByUuid(String uuid);
 }

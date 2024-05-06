@@ -1,4 +1,4 @@
-package net.tamasnovak.projections.institution;
+package net.tamasnovak.dtos.institution;
 
 import java.util.UUID;
 
