@@ -11,13 +11,11 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "applications")
@@ -39,11 +37,11 @@ public final class Application extends Auditable {
 
   @Column(name = "course_name", nullable = false)
   @NotBlank(message = "Provide the title of your course.")
-  @Size(min = 5, max = 255, message = "Course name should be between 2 and 255 characters long.")
+  @Pattern(regexp = "^([a-zA-Z-\\s]{5,255})$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Size(min = 5, max = 255, message = "Minor name should be between 2 and 255 characters long.")
+  @Pattern(regexp = "^(?:[a-zA-Z-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
@@ -88,7 +86,7 @@ public final class Application extends Auditable {
     this.country = country;
     this.university = university;
     this.courseName = courseName;
-    this.minorSubject = enforceOptionalFieldValidation(minorSubject);
+    this.minorSubject = minorSubject;
     this.applicationStatus = applicationStatus;
     this.programmeLength = programmeLength;
     this.isMarkedForDeletion = false;
@@ -96,14 +94,6 @@ public final class Application extends Auditable {
 
   public static Application createNewApplicationByStudent(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
     return new Application(student, country, university, courseName, minorSubject, programmeLength, applicationStatus);
-  }
-
-  public static String enforceOptionalFieldValidation(String fieldContent) {
-    if (Objects.equals(fieldContent, "")) {
-      return null;
-    }
-
-    return fieldContent;
   }
 
   public Student getStudent() {

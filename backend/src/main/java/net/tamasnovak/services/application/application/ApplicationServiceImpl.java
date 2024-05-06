@@ -4,8 +4,8 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
-import net.tamasnovak.repositories.account.AccountRepository;
 import net.tamasnovak.repositories.application.ApplicationRepository;
+import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.utilities.ValidatorUtilities;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
@@ -18,17 +18,17 @@ import java.util.UUID;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+  private final AccountService accountService;
   private final ApplicationRepository applicationRepository;
-  private final AccountRepository accountRepository;
   private final AuthenticationFacade authenticationFacade;
   private final ApplicationMapper applicationMapper;
   private final ApplicationConstants applicationConstants;
   private final ValidatorUtilities validatorUtilities;
 
   @Autowired
-  public ApplicationServiceImpl(ApplicationRepository applicationRepository, AccountRepository accountRepository, AuthenticationFacade authenticationFacade, ApplicationMapper applicationMapper, ApplicationConstants applicationConstants, ValidatorUtilities validatorUtilities) {
+  public ApplicationServiceImpl(AccountService accountService, ApplicationRepository applicationRepository, AuthenticationFacade authenticationFacade, ApplicationMapper applicationMapper, ApplicationConstants applicationConstants, ValidatorUtilities validatorUtilities) {
+    this.accountService = accountService;
     this.applicationRepository = applicationRepository;
-    this.accountRepository = accountRepository;
     this.authenticationFacade = authenticationFacade;
     this.applicationMapper = applicationMapper;
     this.applicationConstants = applicationConstants;
@@ -37,22 +37,19 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationDto findByUuidAndReturnApplicationDto(String applicationUuid) {
-    Application application = findByUuid(applicationUuid);
+  public ApplicationDto findByUuidAndReturnApplicationDto(String uuid) {
+    Application application = findByUuid(uuid);
 
-    String applicationCreatedBy = accountRepository.findByEmail(application.getCreatedBy())
-      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.USER_NOT_FOUND))
-      .getFullName();
-    String applicationLastModifiedBy = accountRepository.findByEmail(application.getLastModifiedBy())
-      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.USER_NOT_FOUND))
-      .getFullName();
+    String createdBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
+    String lastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
 
     checkUserPermissionToViewApplication(application);
 
-    return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
+    return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Application findByUuid(String uuid) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(applicationConstants.NO_APPLICATION_FOUND));
@@ -70,12 +67,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_MENTOR")) {
-      long applicationMentorId = application.getStudent().getMentor().getAccount().getId();
-      long authAccountId = authAccount.getId();
-
-      validatorUtilities.checkIfApplicationMentorIsValid(
-        applicationMentorId,
-        authAccountId,
+      validatorUtilities.checkIfUuidsAreEqual(
+        authAccount.getUuid(),
+        application.getStudent().getMentor().getAccount().getUuid(),
         applicationConstants.NO_PERMISSION_AS_MENTOR
       );
     }

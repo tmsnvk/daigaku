@@ -1,5 +1,6 @@
 package net.tamasnovak.controllers.application;
 
+import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.services.application.application.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") String uuid) {
+  public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") @UuidConstraint String uuid) {
     ApplicationDto application = applicationService.findByUuidAndReturnApplicationDto(uuid);
 
     return ResponseEntity
