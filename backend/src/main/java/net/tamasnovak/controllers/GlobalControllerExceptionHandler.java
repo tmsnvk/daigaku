@@ -83,10 +83,7 @@ public class GlobalControllerExceptionHandler {
       .body(response);
   }
 
-  @ExceptionHandler(value = {
-    MailSendException.class,
-    MessagingException.class
-  })
+  @ExceptionHandler(value = { MailSendException.class, MessagingException.class })
   public ResponseEntity<Map<String, String>> handleEmailSendingException(Exception exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
@@ -97,7 +94,7 @@ public class GlobalControllerExceptionHandler {
 
   @ExceptionHandler(value = { BadCredentialsException.class })
   public ResponseEntity<Map<String, String>> handleBadCredentialsException() {
-    Map<String, String> response = createErrorResponse("Bad authentication credentials were provided.");
+    Map<String, String> response = createErrorResponse("Incorrect authentication credentials were provided.");
 
     return ResponseEntity
       .status(HttpStatus.UNAUTHORIZED)
