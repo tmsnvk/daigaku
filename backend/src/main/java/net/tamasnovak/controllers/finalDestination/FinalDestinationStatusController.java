@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.finalDestination;
 
-import net.tamasnovak.projections.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusOptionView;
 import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

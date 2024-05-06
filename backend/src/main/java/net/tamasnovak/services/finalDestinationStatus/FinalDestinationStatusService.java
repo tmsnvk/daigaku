@@ -1,7 +1,7 @@
 package net.tamasnovak.services.finalDestinationStatus;
 
 import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.projections.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusOptionView;
 
 import java.util.List;
 
