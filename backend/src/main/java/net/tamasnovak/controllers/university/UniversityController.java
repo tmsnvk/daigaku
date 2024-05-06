@@ -1,6 +1,7 @@
 package net.tamasnovak.controllers.university;
 
-import net.tamasnovak.projections.university.UniversityOptionView;
+import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
+import net.tamasnovak.dtos.university.UniversityOptionView;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +27,7 @@ public class UniversityController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<UniversityOptionView>> getDropdownOptionsByCountryUuid(@PathVariable String countryUuid) {
+  public ResponseEntity<List<UniversityOptionView>> getDropdownOptionsByCountryUuid(@PathVariable("countryUuid") @UuidConstraint String countryUuid) {
     List<UniversityOptionView> universityOptions = universityService.getDropdownOptionsByCountryUuidAndSortedAscByName(countryUuid);
 
     return ResponseEntity
