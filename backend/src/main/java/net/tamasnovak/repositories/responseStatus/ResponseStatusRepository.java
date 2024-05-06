@@ -1,7 +1,7 @@
 package net.tamasnovak.repositories.responseStatus;
 
 import net.tamasnovak.entities.application.ResponseStatus;
-import net.tamasnovak.projections.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusOptionView;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

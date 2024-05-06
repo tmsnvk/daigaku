@@ -1,7 +1,7 @@
 package net.tamasnovak.services.responseStatus;
 
 import net.tamasnovak.entities.application.ResponseStatus;
-import net.tamasnovak.projections.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusOptionView;
 
 import java.util.List;
 

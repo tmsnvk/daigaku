@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.responseStatus;
 
-import net.tamasnovak.projections.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusOptionView;
 import net.tamasnovak.services.responseStatus.ResponseStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

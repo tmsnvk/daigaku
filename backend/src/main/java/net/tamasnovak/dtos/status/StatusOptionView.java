@@ -1,4 +1,4 @@
-package net.tamasnovak.projections.status;
+package net.tamasnovak.dtos.status;
 
 import java.util.UUID;
 
