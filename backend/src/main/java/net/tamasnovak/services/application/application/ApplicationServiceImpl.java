@@ -37,11 +37,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationDto findByUuid(String uuid) {
-    UUID validApplicationUuid = validatorUtilities.validateIfStringIsUuid(uuid);
-
-    Application application = applicationRepository.findByUuid(validApplicationUuid)
-      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.NO_APPLICATION_FOUND));
+  public ApplicationDto findByUuidAndReturnApplicationDto(String applicationUuid) {
+    Application application = findByUuid(applicationUuid);
 
     String applicationCreatedBy = accountRepository.findByEmail(application.getCreatedBy())
       .orElseThrow(() -> new EntityNotFoundException(applicationConstants.USER_NOT_FOUND))
@@ -53,6 +50,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     checkUserPermissionToViewApplication(application);
 
     return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
+  }
+
+  @Override
+  public Application findByUuid(String uuid) {
+    return applicationRepository.findByUuid(UUID.fromString(uuid))
+      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.NO_APPLICATION_FOUND));
   }
 
   private void checkUserPermissionToViewApplication(Application application) {
