@@ -15,8 +15,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 public class PendingAccountServiceImpl implements PendingAccountService {
   private final AccountService accountService;
@@ -52,7 +50,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     checkIfExistsByEmail(registrationData.email());
     accountService.checkIfExistsByEmail(registrationData.email());
 
-    Institution institution = institutionService.findByUuid(UUID.fromString(registrationData.institutionUuid()));
+    Institution institution = institutionService.findByUuid(registrationData.institutionUuid());
     Role role = roleService.findByName(registrationData.accountType());
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(
@@ -69,11 +67,15 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   }
 
   private void sendEmail(PendingAccountRegistrationDto registrationData, Institution institution) {
-    NewEmailDto newEmail = new NewEmailDto(
-      registrationData.email(),
-      pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT,
-      String.format(pendingAccountConstants.PENDING_ACCOUNT_EMAIL_BODY, registrationData.firstName(), registrationData.lastName(), institution.getName())
+    String content = String.format(
+      pendingAccountConstants.PENDING_ACCOUNT_EMAIL_BODY,
+      registrationData.firstName(),
+      registrationData.lastName(),
+      institution.getName(),
+      registrationData.accountType()
     );
+
+    NewEmailDto newEmail = new NewEmailDto(registrationData.email(), pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT, content);
 
     emailService.sendEmail(newEmail);
   }
