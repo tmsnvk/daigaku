@@ -8,4 +8,5 @@ import java.util.List;
 public interface FinalDestinationStatusService {
   List<StatusOptionView> getDropdownOptions();
   FinalDestinationStatus findByUuid(String uuid);
+  FinalDestinationStatus findByUuidOrReturnNull(String uuid);
 }
