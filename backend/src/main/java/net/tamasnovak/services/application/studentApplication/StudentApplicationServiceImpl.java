@@ -91,11 +91,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
-    UUID validCountryUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.countryUuid());
-    UUID validUniversityUuid = validatorUtilities.validateIfStringIsUuid(newApplicationByStudentDto.universityUuid());
-
-    Country country = countryService.findByUuid(validCountryUuid);
-    University university = universityService.findByUuid(validUniversityUuid);
+    Country country = countryService.findByUuid(newApplicationByStudentDto.countryUuid());
+    University university = universityService.findByUuid(newApplicationByStudentDto.universityUuid());
 
     country.checkIfUniversityBelongsToCountry(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
@@ -122,11 +119,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto updateByUuid(Account account, String applicationUuid, UpdateApplicationByStudentDto applicationDto) {
+  public ApplicationDto updateByUuid(UUID accountUuid, String applicationUuid, UpdateApplicationByStudentDto applicationDto) {
     Application application = applicationService.findByUuid(applicationUuid);
 
     validatorUtilities.checkIfUuidsAreEqual(
-      account.getUuid(),
+      accountUuid,
       application.getStudent().getAccount().getUuid(),
       studentApplicationConstants.NO_PERMISSION_AS_STUDENT
     );

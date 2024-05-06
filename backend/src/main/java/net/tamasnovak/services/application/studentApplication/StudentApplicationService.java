@@ -7,11 +7,12 @@ import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface StudentApplicationService {
   List<ApplicationDto> findAllByAccount(Account account);
   ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
-  ApplicationDto updateByUuid(Account account, String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
+  ApplicationDto updateByUuid(UUID accountUuid, String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
   void markForDeletionByUuid(String uuid);
   DashboardAggregateDataDto getDashboardData(Account account);
 }

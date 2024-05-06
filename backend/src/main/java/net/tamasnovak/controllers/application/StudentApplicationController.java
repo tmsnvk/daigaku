@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/applications/student")
@@ -53,7 +54,7 @@ public class StudentApplicationController {
     method = RequestMethod.POST,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> create(@RequestBody NewApplicationByStudentDto newApplicationByStudentDto) {
+  public ResponseEntity<ApplicationDto> create(@Valid @RequestBody NewApplicationByStudentDto newApplicationByStudentDto) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
     ApplicationDto newApplication = studentApplicationService.createApplication(account, newApplicationByStudentDto);
@@ -68,10 +69,10 @@ public class StudentApplicationController {
     method = RequestMethod.PATCH,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") @UuidConstraint String uuid, @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
-    Account account = authenticationFacade.getAuthenticatedAccount();
+  public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") @UuidConstraint String uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
+    UUID accountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
 
-    ApplicationDto applicationDto = studentApplicationService.updateByUuid(account, uuid, updateApplicationByStudentDto);
+    ApplicationDto applicationDto = studentApplicationService.updateByUuid(accountUuid, uuid, updateApplicationByStudentDto);
 
     return ResponseEntity
       .status(HttpStatus.OK)
