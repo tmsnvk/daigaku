@@ -24,9 +24,11 @@ type ComponentPropsT<T extends FieldValues> = {
   defaultValue: string;
   defaultOptionFieldContent: string;
   options: SelectOptionsT[];
+  isDisabled: boolean;
+  onFieldUpdate: (eventTargetValue: string) => void;
 }
 
-const GenericSelectInputField = <T extends FieldValues>({
+const SelectField = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
@@ -34,6 +36,8 @@ const GenericSelectInputField = <T extends FieldValues>({
   defaultValue,
   defaultOptionFieldContent,
   options,
+  isDisabled,
+  onFieldUpdate,
 }: ComponentPropsT<T>) => {
   const defaultOption = options?.filter((option) => option.name === defaultValue)[0];
 
@@ -41,9 +45,12 @@ const GenericSelectInputField = <T extends FieldValues>({
     <InputFieldStyles $isError={fieldError !== undefined}>
       <InputLabel inputId={fieldId} content={labelContent} />
       <select
-        {...register(fieldId)}
+        {...register(fieldId, {
+          onChange: (event) => onFieldUpdate(event.target.value),
+        })}
         id={fieldId}
         name={fieldId}
+        disabled={isDisabled}
       >
         {
           defaultValue ?
@@ -59,4 +66,4 @@ const GenericSelectInputField = <T extends FieldValues>({
   );
 };
 
-export default GenericSelectInputField;
+export default SelectField;

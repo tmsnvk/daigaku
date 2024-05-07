@@ -86,7 +86,7 @@ class PendingAccountServiceImplTest {
         "STUDENT"
       );
 
-      Mockito.when(institutionService.findByUuid(institutionUuid)).thenReturn(Mockito.mock(Institution.class));
+      Mockito.when(institutionService.findByUuid(institutionUuid.toString())).thenReturn(Mockito.mock(Institution.class));
       underTest.addAccount(pendingAccountRegistrationDto);
 
       Mockito.verify(pendingAccountRepository, Mockito.times(1)).save(ArgumentMatchers.any(PendingAccount.class));

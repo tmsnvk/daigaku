@@ -12,7 +12,6 @@ import {
 } from '@components/form';
 import {
   GenericInputField,
-  SelectAccountType,
   SelectInstitution,
 } from '@components/field-implementations';
 import {
@@ -20,6 +19,7 @@ import {
   GlobalLoadingModal,
 } from '@components/notification';
 import FormSwapButton from '../FormSwapButton';
+import SelectAccountType from '../SelectAccountType';
 import {
   ConfirmationModalT,
   FormSelectorT,

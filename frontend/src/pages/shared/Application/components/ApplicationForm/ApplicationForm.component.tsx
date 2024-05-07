@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import {
   UpdateApplicationFormFieldsT,
   useGetAllSelectOptions,
+  useHandleFieldDisableStatuses,
   useHandleFormSubmission,
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
@@ -18,11 +19,9 @@ import {
   SubmitInput,
 } from '@components/form';
 import { PageTitle } from '@components/general';
-import {
-  DisabledInputField,
-  GenericSelectInputField,
-} from '@components/field-implementations';
-import { MarkedForDeletion } from '../index.ts';
+import { DisabledInputField } from '@components/field-implementations';
+import MarkedForDeletion from '../MarkedForDeletion';
+import SelectField from '../SelectField';
 import { FormContainer } from './ApplicationForm.styles.ts';
 import {
   applicationStatusInformation,
@@ -54,6 +53,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
   const { options, isLoading, isError } = useGetAllSelectOptions();
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
   const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, reset, applicationUuid });
+  const { fieldDisabledStatuses, updateInterviewStatus } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, options });
   const { submitForm } = useHandleFormSubmission();
 
   if (isLoading) {
@@ -118,7 +118,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultValue={currentApplicationData.programmeLength}
         />
         <InputInfoBox content={programmeLengthInformation} />
-        <GenericSelectInputField
+        <SelectField
           register={register}
           fieldError={errors.applicationStatusUuid?.message}
           fieldId={'applicationStatusUuid'}
@@ -126,11 +126,11 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update the application\'s current status.'}
           defaultValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
           options={options.applicationStatus as ApplicationStatusT[]}
+          isDisabled={false}
+          onFieldUpdate={updateInterviewStatus}
         />
-        <InputInfoBox
-          content={applicationStatusInformation}
-        />
-        <GenericSelectInputField
+        <InputInfoBox content={applicationStatusInformation} />
+        <SelectField
           register={register}
           fieldError={errors.interviewStatusUuid?.message}
           fieldId={'interviewStatusUuid'}
@@ -138,11 +138,11 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update the application\'s interview status.'}
           defaultValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
           options={options.interviewStatus as InterviewStatusT[]}
+          isDisabled={fieldDisabledStatuses.interviewStatus}
+          onFieldUpdate={() => console.log('a')}
         />
-        <InputInfoBox
-          content={interviewStatusInformation}
-        />
-        <GenericSelectInputField
+        <InputInfoBox content={interviewStatusInformation} />
+        <SelectField
           register={register}
           fieldError={errors.offerStatusUuid?.message}
           fieldId={'offerStatusUuid'}
@@ -150,11 +150,11 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update the university\'s decision.'}
           defaultValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
           options={options.offerStatus as OfferStatusT[]}
+          isDisabled={false}
+          onFieldUpdate={() => console.log('a')}
         />
-        <InputInfoBox
-          content={offerStatusInformation}
-        />
-        <GenericSelectInputField
+        <InputInfoBox content={offerStatusInformation} />
+        <SelectField
           register={register}
           fieldError={errors.responseStatusUuid?.message}
           fieldId={'responseStatusUuid'}
@@ -162,11 +162,11 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update your response status.'}
           defaultValue={updatedData?.responseStatus ?? currentApplicationData.responseStatus}
           options={options.responseStatus as ResponseStatusT[]}
+          isDisabled={false}
+          onFieldUpdate={() => console.log('a')}
         />
-        <InputInfoBox
-          content={responseStatusInformation}
-        />
-        <GenericSelectInputField
+        <InputInfoBox content={responseStatusInformation} />
+        <SelectField
           register={register}
           fieldError={errors.finalDestinationStatusUuid?.message}
           fieldId={'finalDestinationStatusUuid'}
@@ -174,10 +174,10 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
           defaultValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
           options={options.finalDestinationStatus as FinalDestinationStatusT[]}
+          isDisabled={false}
+          onFieldUpdate={() => console.log('a')}
         />
-        <InputInfoBox
-          content={finalDestinationInformation}
-        />
+        <InputInfoBox content={finalDestinationInformation} />
         <article>
           {
             isPending ?

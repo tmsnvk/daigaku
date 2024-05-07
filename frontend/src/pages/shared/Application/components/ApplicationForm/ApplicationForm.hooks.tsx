@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   useMutation,
   useQueries,
@@ -28,18 +29,20 @@ import { ResponseStatusT } from '@services/application/responseStatus.service.ts
 import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
 
 type ApplicationOptionStatusesT = {
-  options: {
-    applicationStatus: ApplicationStatusT[] | undefined;
-    interviewStatus: InterviewStatusT[] | undefined;
-    offerStatus: OfferStatusT[] | undefined;
-    responseStatus: ResponseStatusT[] | undefined;
-    finalDestinationStatus: FinalDestinationStatusT[] | undefined;
-  },
+  applicationStatus: ApplicationStatusT[] | undefined;
+  interviewStatus: InterviewStatusT[] | undefined;
+  offerStatus: OfferStatusT[] | undefined;
+  responseStatus: ResponseStatusT[] | undefined;
+  finalDestinationStatus: FinalDestinationStatusT[] | undefined;
+}
+
+type ApplicationOptionsDataT = {
+  options: ApplicationOptionStatusesT;
   isLoading: boolean;
   isError: boolean;
 }
 
-const useGetAllSelectOptions = (): ApplicationOptionStatusesT => {
+const useGetAllSelectOptions = (): ApplicationOptionsDataT => {
   return useQueries({
     queries: [
       {
@@ -214,8 +217,45 @@ const useUpdateApplication = ({ setError, reset, applicationUuid }: UpdateApplic
   });
 };
 
+type DisabledInputFieldsT = {
+  currentApplicationData: ApplicationT;
+  updatedData: ApplicationT | undefined;
+  options: ApplicationOptionStatusesT;
+}
+
+const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, options }: DisabledInputFieldsT) => {
+  const [fieldDisabledStatuses, setFieldDisabledStatuses] = useState<{[key: string]: boolean}>({
+    interviewStatus: !(updatedData?.interviewStatus ?? currentApplicationData.interviewStatus),
+    offerStatus: !(updatedData?.offerStatus ?? currentApplicationData.offerStatus),
+    responseStatus: !(updatedData?.responseStatus ?? currentApplicationData.responseStatus),
+    finalDestinationStatus: !(updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus),
+  });
+
+  const updateInterviewStatus = (eventTargetValue: string) => {
+    const planned = options.applicationStatus?.filter((element) => element.name === 'Submitted') as ApplicationStatusT[];
+
+    if (eventTargetValue === planned[0].uuid) {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        interviewStatus: false,
+      });
+    } else {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        interviewStatus: true,
+      });
+    }
+  };
+
+  return {
+    fieldDisabledStatuses,
+    updateInterviewStatus,
+  };
+};
+
 export {
   useGetAllSelectOptions,
   useHandleFormSubmission,
   useUpdateApplication,
+  useHandleFieldDisableStatuses,
 };
