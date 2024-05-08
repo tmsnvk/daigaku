@@ -25,5 +25,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         uuid = :uuid
     """, nativeQuery = true
   )
-  void updateIsMarkedForDeletionByUuid(@Param("uuid") String uuid);
+  void updateIsMarkedForDeletionByUuid(@Param("uuid") UUID uuid);
 }

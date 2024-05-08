@@ -83,7 +83,7 @@ public class StudentApplicationController {
     value = "/markForDeletion/{uuid}",
     method = RequestMethod.PATCH
   )
-  public ResponseEntity<HttpStatus> updateMarkedForDeletionStatus(@Valid @PathVariable("uuid") String uuid) {
+  public ResponseEntity<HttpStatus> updateMarkedForDeletionStatus(@PathVariable("uuid") @UuidConstraint String uuid) {
     studentApplicationService.markForDeletionByUuid(uuid);
 
     return ResponseEntity

@@ -147,7 +147,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public void markForDeletionByUuid(String uuid) {
-    applicationRepository.updateIsMarkedForDeletionByUuid(uuid);
+    applicationRepository.updateIsMarkedForDeletionByUuid(UUID.fromString(uuid));
   }
 
   @Override
