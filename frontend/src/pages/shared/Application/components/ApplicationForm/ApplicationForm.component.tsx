@@ -53,7 +53,14 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
   const { options, isLoading, isError } = useGetAllSelectOptions();
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
   const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, reset, applicationUuid });
-  const { fieldDisabledStatuses, updateInterviewStatus } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, options });
+  const {
+    fieldDisabledStatuses,
+    updateInterviewStatus,
+    updateOfferStatus,
+    updateResponseStatus,
+    updateFinalDestinationStatus,
+    disableFields,
+  } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, options });
   const { submitForm } = useHandleFormSubmission();
 
   if (isLoading) {
@@ -139,7 +146,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
           options={options.interviewStatus as InterviewStatusT[]}
           isDisabled={fieldDisabledStatuses.interviewStatus}
-          onFieldUpdate={() => console.log('a')}
+          onFieldUpdate={updateOfferStatus}
         />
         <InputInfoBox content={interviewStatusInformation} />
         <SelectField
@@ -150,8 +157,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update the university\'s decision.'}
           defaultValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
           options={options.offerStatus as OfferStatusT[]}
-          isDisabled={false}
-          onFieldUpdate={() => console.log('a')}
+          isDisabled={fieldDisabledStatuses.offerStatus}
+          onFieldUpdate={updateResponseStatus}
         />
         <InputInfoBox content={offerStatusInformation} />
         <SelectField
@@ -162,8 +169,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update your response status.'}
           defaultValue={updatedData?.responseStatus ?? currentApplicationData.responseStatus}
           options={options.responseStatus as ResponseStatusT[]}
-          isDisabled={false}
-          onFieldUpdate={() => console.log('a')}
+          isDisabled={fieldDisabledStatuses.responseStatus}
+          onFieldUpdate={updateFinalDestinationStatus}
         />
         <InputInfoBox content={responseStatusInformation} />
         <SelectField
@@ -174,8 +181,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update your final decision regarding this application.'}
           defaultValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
           options={options.finalDestinationStatus as FinalDestinationStatusT[]}
-          isDisabled={false}
-          onFieldUpdate={() => console.log('a')}
+          isDisabled={fieldDisabledStatuses.finalDestinationStatus}
+          onFieldUpdate={disableFields}
         />
         <InputInfoBox content={finalDestinationInformation} />
         <article>

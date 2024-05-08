@@ -247,9 +247,41 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
     }
   };
 
+  const updateOfferStatus = (eventTargetValue: string) => {
+    const invited = options.interviewStatus?.filter((element) => element.name !== 'Not Invited') as OfferStatusT[];
+
+    if (invited.some((element) => element.uuid === eventTargetValue)) {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        offerStatus: false,
+      });
+    } else {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        offerStatus: true,
+      });
+    }
+  };
+
+  const updateResponseStatus = (eventTargetValue: string) => {
+
+  };
+
+  const updateFinalDestinationStatus = (eventTargetValue: string) => {
+
+  };
+
+  const disableFields = () => {
+
+  };
+
   return {
     fieldDisabledStatuses,
     updateInterviewStatus,
+    updateOfferStatus,
+    updateResponseStatus,
+    updateFinalDestinationStatus,
+    disableFields,
   };
 };
 
