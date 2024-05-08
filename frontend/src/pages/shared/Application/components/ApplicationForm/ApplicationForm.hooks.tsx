@@ -264,7 +264,19 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateResponseStatus = (eventTargetValue: string) => {
+    const positiveResponse = options.offerStatus?.filter((element) => element.name !== 'Rejected') as ResponseStatusT[];
 
+    if (positiveResponse.some((element) => element.uuid === eventTargetValue)) {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        responseStatus: false,
+      });
+    } else {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        responseStatus: true,
+      });
+    }
   };
 
   const updateFinalDestinationStatus = (eventTargetValue: string) => {
