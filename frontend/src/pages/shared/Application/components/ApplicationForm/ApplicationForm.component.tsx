@@ -43,6 +43,7 @@ import { ResponseStatusT } from '@services/application/responseStatus.service.ts
 import { OfferStatusT } from '@services/application/offerStatus.service.ts';
 import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
 import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
+import { useEffect } from 'react';
 
 type ComponentPropsT = {
   currentApplicationData: ApplicationT;
@@ -55,6 +56,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
   const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, reset, applicationUuid });
   const {
     fieldDisabledStatuses,
+    setApplicationStatusUponPageLoad,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,
@@ -63,6 +65,10 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
   } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, options });
   const { submitForm } = useHandleFormSubmission();
 
+  useEffect(() => {
+    setApplicationStatusUponPageLoad();
+  }, []);
+
   if (isLoading) {
     return <GlobalLoadingModal />;
   }
@@ -70,6 +76,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
   if (isError) {
     return <GlobalErrorModal error={error?.response.data.root as string} />;
   }
+
 
   return (
     <>
@@ -133,7 +140,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultOptionFieldContent={'Update the application\'s current status.'}
           defaultValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
           options={options.applicationStatus as ApplicationStatusT[]}
-          isDisabled={false}
+          isDisabled={fieldDisabledStatuses.applicationStatus}
           onFieldUpdate={updateInterviewStatus}
         />
         <InputInfoBox content={applicationStatusInformation} />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useMutation,
   useQueries,
@@ -27,6 +27,8 @@ import { InterviewStatusT } from '@services/application/interviewStatusService.s
 import { OfferStatusT } from '@services/application/offerStatus.service.ts';
 import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
 import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
+
+type ApplicationStatusesUnionT = ApplicationStatusT[] | InterviewStatusT[] | OfferStatusT[] | ResponseStatusT[] | FinalDestinationStatusT[];
 
 type ApplicationOptionStatusesT = {
   applicationStatus: ApplicationStatusT[] | undefined;
@@ -83,14 +85,15 @@ const useGetAllSelectOptions = (): ApplicationOptionsDataT => {
 };
 
 export type UpdateApplicationFormFieldsT = {
-  applicationStatusUuid: string;
-  interviewStatusUuid: string;
-  offerStatusUuid: string;
-  responseStatusUuid: string;
-  finalDestinationStatusUuid: string;
+  applicationStatusUuid: string | undefined;
+  interviewStatusUuid: string | undefined;
+  offerStatusUuid: string | undefined;
+  responseStatusUuid: string | undefined;
+  finalDestinationStatusUuid: string | undefined;
 }
 
 type FormSubmissionT = {
+  // formData: { [key: string]: string };
   formData: UpdateApplicationFormFieldsT;
   applicationUuid: string;
   mutate: (formData: UpdateApplicationFormFieldsT) => void;
@@ -147,6 +150,12 @@ const useHandleFormSubmission = () => {
     const validationError = handleValidation(formData, applicationUuid);
 
     if (!validationError.length) {
+      for (const data in formData) {
+        if (formData[data] === undefined) {
+          formData[data] = '';
+        }
+      }
+
       mutate(formData);
     } else {
       setError('root.serverError', { message: validationError.join(' ') });
@@ -225,19 +234,60 @@ type DisabledInputFieldsT = {
 
 const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, options }: DisabledInputFieldsT) => {
   const [fieldDisabledStatuses, setFieldDisabledStatuses] = useState<{[key: string]: boolean}>({
+    applicationStatus: false,
     interviewStatus: !(updatedData?.interviewStatus ?? currentApplicationData.interviewStatus),
     offerStatus: !(updatedData?.offerStatus ?? currentApplicationData.offerStatus),
     responseStatus: !(updatedData?.responseStatus ?? currentApplicationData.responseStatus),
     finalDestinationStatus: !(updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus),
   });
 
+  const setApplicationStatusUponPageLoad = () => {
+    if (updatedData?.applicationStatus === 'Withdrawn' || currentApplicationData.applicationStatus === 'Withdrawn') {
+      setFieldDisabledStatuses({
+        interviewStatus: true,
+        offerStatus: true,
+        responseStatus: true,
+        finalDestinationStatus: true,
+      });
+    }
+
+    if (updatedData?.interviewStatus === 'Not Invited' || currentApplicationData.interviewStatus === 'Not Invited') {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        offerStatus: true,
+        responseStatus: true,
+        finalDestinationStatus: true,
+      });
+    }
+
+    if (updatedData?.offerStatus === 'Rejected' || currentApplicationData.offerStatus === 'Rejected') {
+      setFieldDisabledStatuses({
+        ...fieldDisabledStatuses,
+        responseStatus: true,
+        finalDestinationStatus: true,
+      });
+    }
+  };
+
+  const isNeedleInHaystack = (haystack: ApplicationStatusesUnionT, needle: string) => {
+    return haystack.some((element) => element.uuid === needle);
+  };
+
   const updateInterviewStatus = (eventTargetValue: string) => {
     const planned = options.applicationStatus?.filter((element) => element.name === 'Submitted') as ApplicationStatusT[];
+    const withdrawn = options.applicationStatus?.filter((element) => element.name === 'Withdrawn') as ApplicationStatusT[];
 
     if (eventTargetValue === planned[0].uuid) {
       setFieldDisabledStatuses({
         ...fieldDisabledStatuses,
         interviewStatus: false,
+      });
+    } else if (eventTargetValue === withdrawn[0].uuid) {
+      setFieldDisabledStatuses({
+        interviewStatus: true,
+        offerStatus: true,
+        responseStatus: true,
+        finalDestinationStatus: true,
       });
     } else {
       setFieldDisabledStatuses({
@@ -250,7 +300,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   const updateOfferStatus = (eventTargetValue: string) => {
     const invited = options.interviewStatus?.filter((element) => element.name !== 'Not Invited') as OfferStatusT[];
 
-    if (invited.some((element) => element.uuid === eventTargetValue)) {
+    if (isNeedleInHaystack(invited, eventTargetValue)) {
       setFieldDisabledStatuses({
         ...fieldDisabledStatuses,
         offerStatus: false,
@@ -266,7 +316,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   const updateResponseStatus = (eventTargetValue: string) => {
     const positiveResponse = options.offerStatus?.filter((element) => element.name !== 'Rejected') as ResponseStatusT[];
 
-    if (positiveResponse.some((element) => element.uuid === eventTargetValue)) {
+    if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
         ...fieldDisabledStatuses,
         responseStatus: false,
@@ -282,7 +332,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   const updateFinalDestinationStatus = (eventTargetValue: string) => {
     const positiveResponse = options.responseStatus?.filter((element) => element.name !== 'Offer Declined') as ResponseStatusT[];
 
-    if (positiveResponse.some((element) => element.uuid === eventTargetValue)) {
+    if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
         ...fieldDisabledStatuses,
         finalDestinationStatus: false,
@@ -296,11 +346,16 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const disableFields = () => {
-
+    setFieldDisabledStatuses({
+      applicationStatus: true,
+      interviewStatus: true,
+      offerStatus: true,
+    });
   };
 
   return {
     fieldDisabledStatuses,
+    setApplicationStatusUponPageLoad,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,
