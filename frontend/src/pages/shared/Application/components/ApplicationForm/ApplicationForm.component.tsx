@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   UpdateApplicationFormFieldsT,
@@ -52,11 +51,10 @@ type ComponentPropsT = {
 
 const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentPropsT) => {
   const { options, isLoading, isError } = useGetAllSelectOptions();
-  const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, reset, applicationUuid });
+  const { formState: { errors }, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
+  const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, applicationUuid });
   const {
     fieldDisabledStatuses,
-    setApplicationStatusUponPageLoad,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,
@@ -64,10 +62,6 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
     disableFields,
   } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, options });
   const { submitForm } = useHandleFormSubmission();
-
-  useEffect(() => {
-    setApplicationStatusUponPageLoad();
-  }, []);
 
   if (isLoading) {
     return <GlobalLoadingModal />;
