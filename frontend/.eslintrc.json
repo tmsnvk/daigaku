@@ -73,7 +73,7 @@
     "func-names": [ "warn", "always" ],
     "func-style": [ "warn", "declaration", { "allowArrowFunctions": true } ],
     "guard-for-in": "warn",
-    "multiline-comment-style": [ "warn", "separate-lines" ],
+//    "multiline-comment-style": [ "warn", "separate-lines" ],
     "no-else-return": "warn",
     "no-eval": "warn",
     "no-implicit-coercion": "warn",
