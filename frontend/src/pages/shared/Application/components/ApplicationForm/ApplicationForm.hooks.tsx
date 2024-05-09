@@ -114,7 +114,6 @@ export type UpdateApplicationFormFieldsT = {
 }
 
 type FormSubmissionT = {
-  // formData: { [key: string]: string | undefined };
   formData: UpdateApplicationFormFieldsT;
   applicationUuid: string;
   mutate: (formData: UpdateApplicationFormFieldsT) => void;
@@ -171,9 +170,11 @@ const useHandleFormSubmission = () => {
     const validationError = handleValidation(formData, applicationUuid);
 
     if (!validationError.length) {
-      for (const data in formData) {
-        if (formData[data] === undefined) {
-          formData[data] = '';
+      const fieldKeys = Object.keys(formData) as (keyof UpdateApplicationFormFieldsT)[];
+
+      for (const key in fieldKeys) {
+        if (formData[fieldKeys[key]] === undefined) {
+          formData[fieldKeys[key]] = '';
         }
       }
 
