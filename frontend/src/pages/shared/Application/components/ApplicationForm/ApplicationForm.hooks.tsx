@@ -27,6 +27,13 @@ import { InterviewStatusT } from '@services/application/interviewStatusService.s
 import { OfferStatusT } from '@services/application/offerStatus.service.ts';
 import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
 import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
+import {
+  ApplicationStatusE,
+  FinalDestinationE,
+  InterviewStatusE,
+  OfferStatusE,
+  ResponseStatusE,
+} from '@constants/applicationStatusEnums.ts';
 
 /*
 *
@@ -137,21 +144,21 @@ const useHandleFormSubmission = () => {
       return [];
     }
 
-    const firmChoiceUuid = filterCacheByUuid(responseStatusCache, 'Firm Choice');
-    const finalDestinationUuid = filterCacheByUuid(finalDestinationStatusCache, 'Final Destination');
-    const finalDestinationDeferredUuid = filterCacheByUuid(finalDestinationStatusCache, 'Final Destination (Deferred Entry)');
+    const firmChoiceUuid = filterCacheByUuid(responseStatusCache, ResponseStatusE.FIRM_CHOICE);
+    const finalDestinationUuid = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.FINAL_DESTINATION);
+    const finalDestinationDeferredUuid = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.DEFERRED_ENTRY);
 
     applicationsCache.forEach((application) => {
       if (application.uuid !== applicationUuid) {
-        if (application.responseStatus === 'Firm Choice' && formData.responseStatusUuid === firmChoiceUuid) {
+        if (application.responseStatus === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
           errors.push(firmChoiceSelectionError);
         }
 
-        if (application.finalDestinationStatus === 'Final Destination' && formData.finalDestinationStatusUuid === finalDestinationUuid) {
+        if (application.finalDestinationStatus === FinalDestinationE.FINAL_DESTINATION && formData.finalDestinationStatusUuid === finalDestinationUuid) {
           errors.push(finalDestinationSelectionError);
         }
 
-        if (application.finalDestinationStatus === 'Final Destination (Deferred Entry)' && formData.finalDestinationStatusUuid === finalDestinationDeferredUuid) {
+        if (application.finalDestinationStatus === FinalDestinationE.DEFERRED_ENTRY && formData.finalDestinationStatusUuid === finalDestinationDeferredUuid) {
           errors.push(finalDestinationSelectionError);
         }
       }
@@ -260,7 +267,7 @@ type DisabledInputFieldsT = {
 }
 
 const disableIfWithdrawn = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
-  return currentApplicationData.applicationStatus === 'Withdrawn' || updatedData?.applicationStatus === 'Withdrawn';
+  return currentApplicationData.applicationStatus === ApplicationStatusE.WITHDRAWN || updatedData?.applicationStatus === ApplicationStatusE.WITHDRAWN;
 };
 
 const setPageLoadApplicationStatus = (currentApplicationData: ApplicationT) => {
@@ -272,7 +279,7 @@ const setPageLoadInterviewStatus = (currentApplicationData: ApplicationT, update
     return true;
   }
 
-  return !(currentApplicationData.applicationStatus === 'Submitted' || updatedData?.applicationStatus === 'Submitted');
+  return !(currentApplicationData.applicationStatus === ApplicationStatusE.SUBMITTED || updatedData?.applicationStatus === ApplicationStatusE.SUBMITTED);
 };
 
 const setPageLoadOfferStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
@@ -280,7 +287,7 @@ const setPageLoadOfferStatus = (currentApplicationData: ApplicationT, updatedDat
     return true;
   }
 
-  return currentApplicationData.interviewStatus === 'Not Invited' || updatedData?.interviewStatus === 'Not Invited';
+  return currentApplicationData.interviewStatus === InterviewStatusE.NOT_INVITED || updatedData?.interviewStatus === InterviewStatusE.NOT_INVITED;
 };
 
 const setPageLoadResponseStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
@@ -288,7 +295,7 @@ const setPageLoadResponseStatus = (currentApplicationData: ApplicationT, updated
     return true;
   }
 
-  return currentApplicationData.offerStatus === 'Rejected' || updatedData?.offerStatus === 'Rejected';
+  return currentApplicationData.offerStatus === OfferStatusE.REJECTED || updatedData?.offerStatus === OfferStatusE.REJECTED;
 };
 
 const setPageLoadFinalDestinationStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
@@ -296,7 +303,7 @@ const setPageLoadFinalDestinationStatus = (currentApplicationData: ApplicationT,
     return true;
   }
 
-  return currentApplicationData.responseStatus === 'Offer Declined' || updatedData?.responseStatus === 'Offer Declined';
+  return currentApplicationData.responseStatus === ResponseStatusE.OFFER_DECLINED || updatedData?.responseStatus === ResponseStatusE.OFFER_DECLINED;
 };
 
 const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, options }: DisabledInputFieldsT) => {
@@ -313,8 +320,8 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateInterviewStatus = (eventTargetValue: string) => {
-    const planned = options.applicationStatus?.filter((element) => element.name === 'Submitted') as ApplicationStatusT[];
-    const withdrawn = options.applicationStatus?.filter((element) => element.name === 'Withdrawn') as ApplicationStatusT[];
+    const planned = options.applicationStatus?.filter((element) => element.name === ApplicationStatusE.SUBMITTED) as ApplicationStatusT[];
+    const withdrawn = options.applicationStatus?.filter((element) => element.name === ApplicationStatusE.WITHDRAWN) as ApplicationStatusT[];
 
     if (eventTargetValue === planned[0].uuid) {
       setFieldDisabledStatuses({
@@ -337,7 +344,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateOfferStatus = (eventTargetValue: string) => {
-    const invited = options.interviewStatus?.filter((element) => element.name !== 'Not Invited') as OfferStatusT[];
+    const invited = options.interviewStatus?.filter((element) => element.name !== InterviewStatusE.NOT_INVITED) as OfferStatusT[];
 
     if (isNeedleInHaystack(invited, eventTargetValue)) {
       setFieldDisabledStatuses({
@@ -355,7 +362,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateResponseStatus = (eventTargetValue: string) => {
-    const positiveResponse = options.offerStatus?.filter((element) => element.name !== 'Rejected') as ResponseStatusT[];
+    const positiveResponse = options.offerStatus?.filter((element) => element.name !== OfferStatusE.REJECTED) as ResponseStatusT[];
 
     if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
@@ -371,7 +378,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateFinalDestinationStatus = (eventTargetValue: string) => {
-    const positiveResponse = options.responseStatus?.filter((element) => element.name !== 'Offer Declined') as ResponseStatusT[];
+    const positiveResponse = options.responseStatus?.filter((element) => element.name !== ResponseStatusE.OFFER_DECLINED) as ResponseStatusT[];
 
     if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
