@@ -51,12 +51,9 @@ const SelectField = <T extends FieldValues>({
         id={fieldId}
         name={fieldId}
         disabled={isDisabled}
+        defaultValue={defaultOption?.uuid}
       >
-        {
-          defaultValue ?
-            <option hidden value={defaultOption.uuid}>{defaultOption.name}</option> :
-            <option hidden value={''}>{defaultOptionFieldContent}</option>
-        }
+        <option hidden value={''}>{defaultOptionFieldContent}</option>
         {options.map((option: SelectOptionsT) => {
           return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
