@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   UpdateApplicationFormFieldsT,
@@ -21,7 +22,7 @@ import {
 import { PageTitle } from '@components/general';
 import { DisabledInputField } from '@components/field-implementations';
 import MarkedForDeletion from '../MarkedForDeletion';
-import SelectField from '../SelectField';
+import ActiveSelectField from '../ActiveSelectField';
 import { FormContainer } from './ApplicationForm.styles.ts';
 import {
   applicationStatusInformation,
@@ -43,7 +44,6 @@ import { ResponseStatusT } from '@services/application/responseStatus.service.ts
 import { OfferStatusT } from '@services/application/offerStatus.service.ts';
 import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
 import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
-import { useEffect } from 'react';
 
 type ComponentPropsT = {
   currentApplicationData: ApplicationT;
@@ -76,7 +76,6 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
   if (isError) {
     return <GlobalErrorModal error={error?.response.data.root as string} />;
   }
-
 
   return (
     <>
@@ -132,61 +131,61 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           defaultValue={currentApplicationData.programmeLength}
         />
         <InputInfoBox content={programmeLengthInformation} />
-        <SelectField
+        <ActiveSelectField
           register={register}
           fieldError={errors.applicationStatusUuid?.message}
           fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
-          defaultOptionFieldContent={'Update the application\'s current status.'}
-          defaultValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
+          selectPrompt={'Update the application\'s current status.'}
+          previouslySelectedValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
           options={options.applicationStatus as ApplicationStatusT[]}
           isDisabled={fieldDisabledStatuses.applicationStatus}
           onFieldUpdate={updateInterviewStatus}
         />
         <InputInfoBox content={applicationStatusInformation} />
-        <SelectField
+        <ActiveSelectField
           register={register}
           fieldError={errors.interviewStatusUuid?.message}
           fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
-          defaultOptionFieldContent={'Update the application\'s interview status.'}
-          defaultValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
+          selectPrompt={'Update the application\'s interview status.'}
+          previouslySelectedValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
           options={options.interviewStatus as InterviewStatusT[]}
           isDisabled={fieldDisabledStatuses.interviewStatus}
           onFieldUpdate={updateOfferStatus}
         />
         <InputInfoBox content={interviewStatusInformation} />
-        <SelectField
+        <ActiveSelectField
           register={register}
           fieldError={errors.offerStatusUuid?.message}
           fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
-          defaultOptionFieldContent={'Update the university\'s decision.'}
-          defaultValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
+          selectPrompt={'Update the university\'s decision.'}
+          previouslySelectedValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
           options={options.offerStatus as OfferStatusT[]}
           isDisabled={fieldDisabledStatuses.offerStatus}
           onFieldUpdate={updateResponseStatus}
         />
         <InputInfoBox content={offerStatusInformation} />
-        <SelectField
+        <ActiveSelectField
           register={register}
           fieldError={errors.responseStatusUuid?.message}
           fieldId={'responseStatusUuid'}
           labelContent={'Response Status'}
-          defaultOptionFieldContent={'Update your response status.'}
-          defaultValue={updatedData?.responseStatus ?? currentApplicationData.responseStatus}
+          selectPrompt={'Update your response status.'}
+          previouslySelectedValue={updatedData?.responseStatus ?? currentApplicationData.responseStatus}
           options={options.responseStatus as ResponseStatusT[]}
           isDisabled={fieldDisabledStatuses.responseStatus}
           onFieldUpdate={updateFinalDestinationStatus}
         />
         <InputInfoBox content={responseStatusInformation} />
-        <SelectField
+        <ActiveSelectField
           register={register}
           fieldError={errors.finalDestinationStatusUuid?.message}
           fieldId={'finalDestinationStatusUuid'}
           labelContent={'Final Destination Status'}
-          defaultOptionFieldContent={'Update your final decision regarding this application.'}
-          defaultValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
+          selectPrompt={'Update your final decision regarding this application.'}
+          previouslySelectedValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
           options={options.finalDestinationStatus as FinalDestinationStatusT[]}
           isDisabled={fieldDisabledStatuses.finalDestinationStatus}
           onFieldUpdate={disableFields}

@@ -21,29 +21,32 @@ type ComponentPropsT<T extends FieldValues> = {
   fieldError: string | undefined;
   fieldId: Path<T>;
   labelContent: string;
-  defaultValue: string;
-  defaultOptionFieldContent: string;
+  previouslySelectedValue: string;
+  selectPrompt: string;
   options: SelectOptionsT[];
   isDisabled: boolean;
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
-const SelectField = <T extends FieldValues>({
+const ActiveSelectField = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
   labelContent,
-  defaultValue,
-  defaultOptionFieldContent,
+  previouslySelectedValue,
+  selectPrompt,
   options,
   isDisabled,
   onFieldUpdate,
 }: ComponentPropsT<T>) => {
-  const defaultOption = options?.filter((option) => option.name === defaultValue)[0];
+  const defaultOption = options?.filter((option) => option.name === previouslySelectedValue)[0];
 
   return (
     <InputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={labelContent} />
+      <InputLabel
+        inputId={fieldId}
+        content={labelContent}
+      />
       <select
         {...register(fieldId, {
           onChange: (event) => onFieldUpdate(event.target.value),
@@ -53,7 +56,7 @@ const SelectField = <T extends FieldValues>({
         disabled={isDisabled}
         defaultValue={defaultOption?.uuid}
       >
-        <option hidden value={''}>{defaultOptionFieldContent}</option>
+        <option hidden value={''}>{selectPrompt}</option>
         {options.map((option: SelectOptionsT) => {
           return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
         })}
@@ -63,4 +66,4 @@ const SelectField = <T extends FieldValues>({
   );
 };
 
-export default SelectField;
+export default ActiveSelectField;
