@@ -67,15 +67,19 @@ public final class Student extends BaseSimpleIdEntity {
     return institution;
   }
 
-  public FirmChoiceDto getFirmChoiceApplication() {
-    Application application = applications.stream()
+  public Application getFirmChoiceApplication() {
+    return applications.stream()
       .filter((element -> {
         ResponseStatus responseStatus = element.getResponseStatus();
 
         return responseStatus != null && Objects.equals(element.getResponseStatus().getName(), ResponseStatusType.FIRM_CHOICE.getType());
       }))
-      .findFirst()
-      .orElse(null);
+     .findFirst()
+     .orElse(null);
+  }
+
+  public FirmChoiceDto getFirmChoiceDto() {
+    Application application = getFirmChoiceApplication();
 
     if (application == null) {
       return null;
@@ -88,8 +92,8 @@ public final class Student extends BaseSimpleIdEntity {
     );
   }
 
-  public FinalDestinationDto getFinalDestinationApplication() {
-    Application application = applications.stream()
+  public Application getFinalDestinationApplication() {
+    return applications.stream()
       .filter(element -> {
         FinalDestinationStatus finalDestinationStatus = element.getFinalDestinationStatus();
 
@@ -97,6 +101,10 @@ public final class Student extends BaseSimpleIdEntity {
       })
       .findFirst()
       .orElse(null);
+  }
+
+  public FinalDestinationDto getFinalDestinationDto() {
+    Application application = getFinalDestinationApplication();
 
     if (application == null) {
       return null;

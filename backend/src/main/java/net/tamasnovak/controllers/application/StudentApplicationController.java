@@ -2,10 +2,10 @@ package net.tamasnovak.controllers.application;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
-import net.tamasnovak.dtos.application.response.ApplicationDto;
-import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/applications/student")
+@Validated
 public class StudentApplicationController {
   private final StudentApplicationService studentApplicationService;
   private final AuthenticationFacade authenticationFacade;
@@ -70,9 +71,7 @@ public class StudentApplicationController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") @UuidConstraint String uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
-    UUID accountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
-
-    ApplicationDto applicationDto = studentApplicationService.updateByUuid(accountUuid, uuid, updateApplicationByStudentDto);
+    ApplicationDto applicationDto = studentApplicationService.updateByUuid(uuid, updateApplicationByStudentDto);
 
     return ResponseEntity
       .status(HttpStatus.OK)

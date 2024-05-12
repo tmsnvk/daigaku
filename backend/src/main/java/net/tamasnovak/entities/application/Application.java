@@ -12,10 +12,20 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.country.Country;
+import net.tamasnovak.entities.enums.ApplicationStatusType;
+import net.tamasnovak.entities.enums.FinalDestinationType;
+import net.tamasnovak.entities.enums.InterviewStatusType;
+import net.tamasnovak.entities.enums.OfferStatusType;
+import net.tamasnovak.entities.enums.ResponseStatusType;
 import net.tamasnovak.entities.university.University;
+import net.tamasnovak.exceptions.InvalidFormFieldUpdateException;
+import net.tamasnovak.exceptions.InvalidFormFieldUpdateExceptionMessages;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "applications")
@@ -144,11 +154,97 @@ public final class Application extends Auditable {
     return isMarkedForDeletion;
   }
 
+  public void validateFields(UpdateApplicationByStudentDto applicationDto, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
+    System.out.println(applicationDto);
+    validateApplicationStatus(applicationDto.applicationStatusUuid(), newApplicationStatus);
+    validateResponseStatus(newResponseStatus, applicationDto);
+    validateFinalDestinationStatus(newFinalDestinationStatus, applicationDto);
+
+    validateInterviewStatus(newInterviewStatus, applicationDto);
+    validateOfferStatus(newOfferStatus, applicationDto);
+  }
+
   public void updateStatusesByStudent(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
     this.applicationStatus = applicationStatus;
     this.interviewStatus = interviewStatus;
     this.offerStatus = offerStatus;
     this.responseStatus = responseStatus;
     this.finalDestinationStatus = finalDestinationStatus;
+  }
+
+  private void validateApplicationStatus(String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
+    if (Objects.equals(applicationStatusUUid, "")) {
+      throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.MISSING_APPLICATION_STATUS);
+    }
+
+    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.PLANNED.getType()) && Objects.equals(this.applicationStatus.getName(), ApplicationStatusType.PLANNED.getType())) {
+      throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.PLANNED_ERROR);
+    }
+
+    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.WITHDRAWN.getType()) && Objects.equals(this.applicationStatus.getUuid(), newApplicationStatus.getUuid())) {
+      throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.WITHDRAWN_ERROR);
+    }
+  }
+
+  private void validateInterviewStatus(InterviewStatus newInterviewStatus, UpdateApplicationByStudentDto applicationDto) {
+    if (newInterviewStatus != null) {
+      if (Objects.equals(newInterviewStatus.getName(), InterviewStatusType.NOT_INVITED.getType()) && (!Objects.equals(applicationDto.offerStatusUuid(), "") || !Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.GENERIC_ERROR);
+      }
+    }
+
+    if (this.interviewStatus != null) {
+      if (Objects.equals(this.interviewStatus.getName(), InterviewStatusType.NOT_INVITED.getType()) && Objects.equals(applicationDto.interviewStatusUuid(), "")) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.NOT_INVITED_ERROR);
+      }
+    }
+  }
+
+  private void validateOfferStatus(OfferStatus newOfferStatus, UpdateApplicationByStudentDto applicationDto) {
+    if (newOfferStatus != null) {
+      if (Objects.equals(newOfferStatus.getName(), OfferStatusType.REJECTED.getType()) && (!Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.GENERIC_ERROR);
+      }
+    }
+
+    if (this.offerStatus != null) {
+      if (Objects.equals(this.offerStatus.getName(), OfferStatusType.REJECTED.getType()) && Objects.equals(applicationDto.offerStatusUuid(), "")) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.REJECTED_ERROR);
+      }
+    }
+  }
+
+  private void validateResponseStatus(ResponseStatus newResponseStatus, UpdateApplicationByStudentDto applicationDto) {
+    if (newResponseStatus != null) {
+      if (Objects.equals(newResponseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getType()) && !Objects.equals(applicationDto.finalDestinationStatusUuid(), "")) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.GENERIC_ERROR);
+      }
+
+      if (getFirmChoiceApplication() != null && !Objects.equals(this.uuid, getFirmChoiceApplication().getUuid()) && Objects.equals(newResponseStatus.getName(), ResponseStatusType.FIRM_CHOICE.getType())) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.FIRM_CHOICE_ERROR);
+      }
+    }
+
+    if (this.responseStatus != null) {
+      if (Objects.equals(this.responseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getType()) && Objects.equals(applicationDto.responseStatusUuid(), "")) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.DECLINED_ERROR);
+      }
+    }
+  }
+
+  private void validateFinalDestinationStatus(FinalDestinationStatus newFinalDestinationStatus, UpdateApplicationByStudentDto applicationDto) {
+    if (newFinalDestinationStatus != null) {
+      if (getFinalDestinationApplication() != null && !Objects.equals(this.uuid, getFinalDestinationApplication().getUuid()) && !Objects.equals(newFinalDestinationStatus.getName(), FinalDestinationType.NOT_FINAL_DESTINATION.getType())) {
+        throw new InvalidFormFieldUpdateException(InvalidFormFieldUpdateExceptionMessages.FINAL_DESTINATION_ERROR);
+      }
+    }
+  }
+
+  private Application getFirmChoiceApplication() {
+    return this.student.getFirmChoiceApplication();
+  }
+
+  private Application getFinalDestinationApplication() {
+    return this.student.getFinalDestinationApplication();
   }
 }

@@ -1,11 +1,11 @@
 package net.tamasnovak.services.application.studentApplication;
 
-import net.tamasnovak.dtos.application.response.ApplicationDto;
-import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.entities.account.accountByRole.Student;
+import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
@@ -28,6 +28,7 @@ import net.tamasnovak.services.responseStatus.ResponseStatusService;
 import net.tamasnovak.services.role.student.StudentService;
 import net.tamasnovak.services.university.UniversityService;
 import net.tamasnovak.utilities.ValidatorUtilities;
+import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
+  private final AuthenticationFacade authenticationFacade;
   private final AccountService accountService;
   private final StudentService studentService;
   private final CountryService countryService;
@@ -55,7 +57,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final StudentApplicationConstants studentApplicationConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants) {
+  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants) {
+    this.authenticationFacade = authenticationFacade;
     this.accountService = accountService;
     this.studentService = studentService;
     this.countryService = countryService;
@@ -119,21 +122,21 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto updateByUuid(UUID accountUuid, String applicationUuid, UpdateApplicationByStudentDto applicationDto) {
+  public ApplicationDto updateByUuid(String applicationUuid, UpdateApplicationByStudentDto applicationDto) {
     Application application = applicationService.findByUuid(applicationUuid);
 
-    validatorUtilities.checkIfUuidsAreEqual(
-      accountUuid,
-      application.getStudent().getAccount().getUuid(),
-      studentApplicationConstants.NO_PERMISSION_AS_STUDENT
-    );
+    UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
+    UUID studentUuidByApplication = application.getStudent().getAccount().getUuid();
 
-    ApplicationStatus applicationStatus = applicationStatusService.findByUuidOrReturnNull(applicationDto.applicationStatusUuid());
+    validatorUtilities.checkIfUuidsAreEqual(authAccountUuid, studentUuidByApplication, studentApplicationConstants.NO_PERMISSION_AS_STUDENT);
+
+    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(applicationDto.applicationStatusUuid());
     InterviewStatus interviewStatus = interviewStatusService.findByUuidOrReturnNull(applicationDto.interviewStatusUuid());
     OfferStatus offerStatus = offerStatusService.findByUuidOrReturnNull(applicationDto.offerStatusUuid());
     ResponseStatus responseStatus = responseStatusService.findByUuidOrReturnNull(applicationDto.responseStatusUuid());
     FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuidOrReturnNull(applicationDto.finalDestinationStatusUuid());
 
+    application.validateFields(applicationDto, applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
     application.updateStatusesByStudent(applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
 
     applicationRepository.save(application);
@@ -156,8 +159,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Student student = studentService.findByAccount(account);
 
     return new DashboardAggregateDataDto(
-      student.getFirmChoiceApplication(),
-      student.getFinalDestinationApplication(),
+      student.getFirmChoiceDto(),
+      student.getFinalDestinationDto(),
       student.countApplications(),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.PLANNED.getType())),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.SUBMITTED.getType())),
