@@ -17,14 +17,14 @@ public record NewApplicationByStudentDto(
   String universityUuid,
 
   @NotBlank(message = "Provide the name of your course. Use only letters and spaces.")
-  @Pattern(regexp = "^[A-Za-z-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   String courseName,
 
-  @Pattern(regexp = "^(?:[a-zA-Z-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   String minorSubject,
 
   @NotNull(message = "Provide the length of your course (in years).")
-  @Min(value = 2, message = "Programme length should not be less than 2.")
-  @Max(value = 5, message = "Programme length should not be more than 5.")
+  @Min(value = 2, message = "Programme length should not be less than {value}.")
+  @Max(value = 5, message = "Programme length should not be more than {value}.")
   int programmeLength
 ) {}
