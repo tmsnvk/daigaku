@@ -4,5 +4,5 @@ import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 
 public interface PendingAccountService {
   void checkIfExistsByEmail(String email);
-  void addAccount(PendingAccountRegistrationDto registrationData);
+  void createAccount(PendingAccountRegistrationDto registrationData);
 }

@@ -46,7 +46,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional
-  public void addAccount(PendingAccountRegistrationDto registrationData) {
+  public void createAccount(PendingAccountRegistrationDto registrationData) {
     checkIfExistsByEmail(registrationData.email());
     accountService.checkIfExistsByEmail(registrationData.email());
 

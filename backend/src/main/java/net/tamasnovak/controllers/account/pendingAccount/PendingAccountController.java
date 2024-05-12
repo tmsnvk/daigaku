@@ -27,8 +27,10 @@ public class PendingAccountController {
     method = RequestMethod.POST,
     consumes = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<HttpStatus> register(@Valid @RequestBody PendingAccountRegistrationDto registrationData) {
-    pendingAccountService.addAccount(registrationData);
+  public ResponseEntity<HttpStatus> register(
+    @Valid @RequestBody PendingAccountRegistrationDto requestBody
+  ) {
+    pendingAccountService.createAccount(requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
