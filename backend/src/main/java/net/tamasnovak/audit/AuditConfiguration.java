@@ -1,6 +1,5 @@
-package net.tamasnovak.audit.configuration;
+package net.tamasnovak.audit;
 
-import net.tamasnovak.audit.ApplicationAuditAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
