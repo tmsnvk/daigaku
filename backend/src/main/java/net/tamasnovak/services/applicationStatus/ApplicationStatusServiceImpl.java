@@ -2,8 +2,8 @@ package net.tamasnovak.services.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
-import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.dtos.status.StatusOptionView;
+import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
