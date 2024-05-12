@@ -1,8 +1,8 @@
 package net.tamasnovak.services.finalDestinationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.dtos.status.StatusOptionView;
 import net.tamasnovak.repositories.finalDestinationStatus.FinalDestinationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusOptionView> getDropdownOptions() {
+  public List<StatusSelectOptionView> getSelectOptions() {
     return finalDestinationStatusRepository.findAllByOrderByNameAsc();
   }
 

@@ -2,7 +2,7 @@ package net.tamasnovak.services.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
-import net.tamasnovak.dtos.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
@@ -51,7 +51,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusOptionView> getDropdownOptions() {
+  public List<StatusSelectOptionView> getSelectOptions() {
     return applicationStatusRepository.findAllByOrderByNameAsc();
   }
 }

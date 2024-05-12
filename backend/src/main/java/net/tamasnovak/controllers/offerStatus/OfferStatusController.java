@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.offerStatus;
 
-import net.tamasnovak.dtos.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.services.offerStatus.OfferStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +27,11 @@ public class OfferStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<StatusOptionView>> getDropdownOptions() {
-    List<StatusOptionView> offerStatuses = offerStatusService.getDropdownOptions();
+  public ResponseEntity<List<StatusSelectOptionView>> getSelectOptions() {
+    List<StatusSelectOptionView> returnDto = offerStatusService.getSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(offerStatuses);
+      .body(returnDto);
   }
 }

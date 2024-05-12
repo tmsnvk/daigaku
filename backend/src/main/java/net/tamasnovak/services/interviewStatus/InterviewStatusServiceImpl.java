@@ -1,8 +1,8 @@
 package net.tamasnovak.services.interviewStatus;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.InterviewStatus;
-import net.tamasnovak.dtos.status.StatusOptionView;
 import net.tamasnovak.repositories.interviewStatus.InterviewStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusOptionView> getDropdownOptions() {
+  public List<StatusSelectOptionView> getSelectOptions() {
     return interviewStatusRepository.findAllByOrderByNameAsc();
   }
 

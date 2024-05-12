@@ -1,12 +1,12 @@
 package net.tamasnovak.services.responseStatus;
 
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.ResponseStatus;
-import net.tamasnovak.dtos.status.StatusOptionView;
 
 import java.util.List;
 
 public interface ResponseStatusService {
-  List<StatusOptionView> getDropdownOptions();
+  List<StatusSelectOptionView> getSelectOptions();
   ResponseStatus findByUuid(String uuid);
   ResponseStatus findByUuidOrReturnNull(String uuid);
 }

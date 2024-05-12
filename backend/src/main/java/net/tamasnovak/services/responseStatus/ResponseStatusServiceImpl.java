@@ -1,8 +1,8 @@
 package net.tamasnovak.services.responseStatus;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.ResponseStatus;
-import net.tamasnovak.dtos.status.StatusOptionView;
 import net.tamasnovak.repositories.responseStatus.ResponseStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusOptionView> getDropdownOptions() {
+  public List<StatusSelectOptionView> getSelectOptions() {
     return responseStatusRepository.findAllByOrderByNameAsc();
   }
 

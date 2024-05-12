@@ -1,6 +1,6 @@
-package net.tamasnovak.controllers.finalDestination;
+package net.tamasnovak.controllers.finalDestinationStatus;
 
-import net.tamasnovak.dtos.status.StatusOptionView;
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +27,11 @@ public class FinalDestinationStatusController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<StatusOptionView>> getDropdownOptions() {
-    List<StatusOptionView> finalDestinationStatuses = finalDestinationStatusService.getDropdownOptions();
+  public ResponseEntity<List<StatusSelectOptionView>> getSelectOptions() {
+    List<StatusSelectOptionView> returnDto = finalDestinationStatusService.getSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(finalDestinationStatuses);
+      .body(returnDto);
   }
 }
