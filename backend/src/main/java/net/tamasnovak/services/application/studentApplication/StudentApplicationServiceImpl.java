@@ -77,7 +77,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationDto> findAllByAccount(Account account) {
+  public List<ApplicationDto> getAllByStudent(Account account) {
     Student student = studentService.findByAccount(account);
     List<Application> applications = applicationRepository.findApplicationsByStudent(student);
 
@@ -93,7 +93,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
+  public ApplicationDto create(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
     Country country = countryService.findByUuid(newApplicationByStudentDto.countryUuid());
     University university = universityService.findByUuid(newApplicationByStudentDto.universityUuid());
 
@@ -149,13 +149,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public void markForDeletionByUuid(String uuid) {
+  public void updateIsRemovableByUuid(String uuid) {
     applicationRepository.updateIsMarkedForDeletionByUuid(UUID.fromString(uuid));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardAggregateDataDto getDashboardData(Account account) {
+  public DashboardAggregateDataDto getAggregateData(Account account) {
     Student student = studentService.findByAccount(account);
 
     return new DashboardAggregateDataDto(

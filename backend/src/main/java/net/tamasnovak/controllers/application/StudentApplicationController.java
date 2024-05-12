@@ -26,13 +26,13 @@ import java.util.List;
 @RequestMapping(path = "/api/applications/student")
 @Validated
 public class StudentApplicationController {
-  private final StudentApplicationService studentApplicationService;
   private final AuthenticationFacade authenticationFacade;
+  private final StudentApplicationService studentApplicationService;
 
   @Autowired
-  public StudentApplicationController(StudentApplicationService studentApplicationService, AuthenticationFacade authenticationFacade) {
-    this.studentApplicationService = studentApplicationService;
+  public StudentApplicationController(AuthenticationFacade authenticationFacade, StudentApplicationService studentApplicationService) {
     this.authenticationFacade = authenticationFacade;
+    this.studentApplicationService = studentApplicationService;
   }
 
   @RequestMapping(
@@ -40,50 +40,59 @@ public class StudentApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<ApplicationDto>> getAllByAccount() {
+  public ResponseEntity<List<ApplicationDto>> getAllByStudent() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<ApplicationDto> applications = studentApplicationService.findAllByAccount(account);
+    List<ApplicationDto> returnDto = studentApplicationService.getAllByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(applications);
+      .body(returnDto);
   }
 
   @RequestMapping(
     value = "",
     method = RequestMethod.POST,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> create(@Valid @RequestBody NewApplicationByStudentDto newApplicationByStudentDto) {
+  public ResponseEntity<ApplicationDto> create(
+    @Valid @RequestBody NewApplicationByStudentDto requestBody
+  ) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    ApplicationDto newApplication = studentApplicationService.createApplication(account, newApplicationByStudentDto);
+    ApplicationDto returnDto = studentApplicationService.create(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
-      .body(newApplication);
+      .body(returnDto);
   }
 
   @RequestMapping(
     value = "/{uuid}",
     method = RequestMethod.PATCH,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> updateByUuid(@PathVariable("uuid") @UuidConstraint String uuid, @Valid @RequestBody UpdateApplicationByStudentDto updateApplicationByStudentDto) {
-    ApplicationDto applicationDto = studentApplicationService.updateByUuid(uuid, updateApplicationByStudentDto);
+  public ResponseEntity<ApplicationDto> updateByUuid(
+    @PathVariable("uuid") @UuidConstraint String uuid,
+    @Valid @RequestBody UpdateApplicationByStudentDto requestBody
+  ) {
+    ApplicationDto returnDto = studentApplicationService.updateByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(applicationDto);
+      .body(returnDto);
   }
 
   @RequestMapping(
-    value = "/markForDeletion/{uuid}",
+    value = "/update-is-removable/{uuid}",
     method = RequestMethod.PATCH
   )
-  public ResponseEntity<HttpStatus> updateMarkedForDeletionStatus(@PathVariable("uuid") @UuidConstraint String uuid) {
-    studentApplicationService.markForDeletionByUuid(uuid);
+  public ResponseEntity<HttpStatus> updateIsRemovableByUuid(
+    @PathVariable("uuid") @UuidConstraint String uuid
+  ) {
+    studentApplicationService.updateIsRemovableByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -95,13 +104,13 @@ public class StudentApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<DashboardAggregateDataDto> getDashboardAggregateData() {
+  public ResponseEntity<DashboardAggregateDataDto> getAggregateData() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    DashboardAggregateDataDto dashboardAggregateDataDto = studentApplicationService.getDashboardData(account);
+    DashboardAggregateDataDto returnDto = studentApplicationService.getAggregateData(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(dashboardAggregateDataDto);
+      .body(returnDto);
   }
 }
