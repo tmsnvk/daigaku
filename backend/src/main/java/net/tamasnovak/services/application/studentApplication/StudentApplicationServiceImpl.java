@@ -123,7 +123,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public ApplicationDto updateByUuid(String applicationUuid, UpdateApplicationByStudentDto applicationDto) {
-    Application application = applicationService.findByUuid(applicationUuid);
+    Application application = applicationService.getApplicationByUuid(applicationUuid);
 
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
     UUID studentUuidByApplication = application.getStudent().getAccount().getUuid();

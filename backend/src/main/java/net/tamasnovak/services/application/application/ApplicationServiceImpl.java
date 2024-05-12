@@ -18,18 +18,18 @@ import java.util.UUID;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+  private final AuthenticationFacade authenticationFacade;
   private final AccountService accountService;
   private final ApplicationRepository applicationRepository;
-  private final AuthenticationFacade authenticationFacade;
   private final ApplicationMapper applicationMapper;
   private final ApplicationConstants applicationConstants;
   private final ValidatorUtilities validatorUtilities;
 
   @Autowired
-  public ApplicationServiceImpl(AccountService accountService, ApplicationRepository applicationRepository, AuthenticationFacade authenticationFacade, ApplicationMapper applicationMapper, ApplicationConstants applicationConstants, ValidatorUtilities validatorUtilities) {
+  public ApplicationServiceImpl(AuthenticationFacade authenticationFacade, AccountService accountService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ApplicationConstants applicationConstants, ValidatorUtilities validatorUtilities) {
+    this.authenticationFacade = authenticationFacade;
     this.accountService = accountService;
     this.applicationRepository = applicationRepository;
-    this.authenticationFacade = authenticationFacade;
     this.applicationMapper = applicationMapper;
     this.applicationConstants = applicationConstants;
     this.validatorUtilities = validatorUtilities;
@@ -38,24 +38,24 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Override
   @Transactional(readOnly = true)
   public ApplicationDto getApplicationDtoByUuid(String uuid) {
-    Application application = findByUuid(uuid);
+    Application application = getApplicationByUuid(uuid);
+
+    verifyUserAccessToViewApplication(application);
 
     String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
     String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
-
-    checkUserPermissionToViewApplication(application);
 
     return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
   }
 
   @Override
   @Transactional(readOnly = true)
-  public Application findByUuid(String uuid) {
+  public Application getApplicationByUuid(String uuid) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(applicationConstants.NO_APPLICATION_FOUND));
   }
 
-  private void checkUserPermissionToViewApplication(Application application) {
+  private void verifyUserAccessToViewApplication(Application application) {
     Account authAccount = authenticationFacade.getAuthenticatedAccount();
 
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_STUDENT")) {

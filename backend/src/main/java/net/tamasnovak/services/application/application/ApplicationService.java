@@ -5,5 +5,5 @@ import net.tamasnovak.entities.application.Application;
 
 public interface ApplicationService {
   ApplicationDto getApplicationDtoByUuid(String uuid);
-  Application findByUuid(String uuid);
+  Application getApplicationByUuid(String uuid);
 }
