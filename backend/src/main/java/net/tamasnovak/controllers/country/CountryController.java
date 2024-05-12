@@ -25,11 +25,11 @@ public class CountryController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<CountryOptionView>> getDropdownOptions() {
-    List<CountryOptionView> countryOptions = countryService.getDropdownOptionsSortedAscByName();
+  public ResponseEntity<List<CountryOptionView>> getSelectOptions() {
+    List<CountryOptionView> returnDto = countryService.getSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(countryOptions);
+      .body(returnDto);
   }
 }

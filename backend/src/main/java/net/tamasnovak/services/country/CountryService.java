@@ -1,11 +1,11 @@
 package net.tamasnovak.services.country;
 
-import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.dtos.country.CountryOptionView;
+import net.tamasnovak.entities.country.Country;
 
 import java.util.List;
 
 public interface CountryService {
-  List<CountryOptionView> getDropdownOptionsSortedAscByName();
+  List<CountryOptionView> getSelectOptions();
   Country findByUuid(String uuid);
 }
