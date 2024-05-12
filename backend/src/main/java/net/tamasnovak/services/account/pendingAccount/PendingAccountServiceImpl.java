@@ -48,7 +48,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   @Transactional
   public void createAccount(PendingAccountRegistrationDto registrationData) {
     checkIfExistsByEmail(registrationData.email());
-    accountService.checkIfExistsByEmail(registrationData.email());
+    accountService.verifyAccountNotExistsByEmail(registrationData.email());
 
     Institution institution = institutionService.findByUuid(registrationData.institutionUuid());
     Role role = roleService.findByName(registrationData.accountType());

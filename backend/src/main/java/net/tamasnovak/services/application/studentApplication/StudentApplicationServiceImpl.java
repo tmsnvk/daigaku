@@ -83,8 +83,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     return applications.stream()
       .map((application) -> {
-        String applicationCreatedBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
-        String applicationLastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
+        String applicationCreatedBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
+        String applicationLastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
 
         return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
       })
@@ -114,8 +114,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(application);
 
-    String applicationCreatedBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
-    String applicationLastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
+    String applicationCreatedBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
+    String applicationLastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
 
     return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
   }
@@ -141,8 +141,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(application);
 
-    String applicationCreatedBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
-    String applicationLastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
+    String applicationCreatedBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
+    String applicationLastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
 
     return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
   }

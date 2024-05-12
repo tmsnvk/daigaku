@@ -40,8 +40,8 @@ public class ApplicationServiceImpl implements ApplicationService {
   public ApplicationDto getApplicationDtoByUuid(String uuid) {
     Application application = findByUuid(uuid);
 
-    String createdBy = accountService.findByEmail(application.getCreatedBy()).getFullName();
-    String lastModifiedBy = accountService.findByEmail(application.getLastModifiedBy()).getFullName();
+    String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
+    String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
 
     checkUserPermissionToViewApplication(application);
 

@@ -30,7 +30,7 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
   @Override
   public Account getAuthenticatedAccount() {
-    return accountService.findByEmail(getUserContext().getUsername());
+    return accountService.getAccountByEmail(getUserContext().getUsername());
   }
 
   @Override

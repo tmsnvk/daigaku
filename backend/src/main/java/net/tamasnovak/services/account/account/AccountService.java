@@ -7,8 +7,8 @@ import net.tamasnovak.entities.account.baseAccount.Account;
 import org.springframework.security.core.Authentication;
 
 public interface AccountService {
-  void checkIfExistsByEmail(String email);
-  Account findByEmail(String email);
+  void verifyAccountNotExistsByEmail(String email);
+  Account getAccountByEmail(String email);
   ClientAuthContextDto getClientAuthContextDto(String email);
   LoginReturnDto getLoginReturnDto(LoginRequestDto requestBody, Authentication authentication);
 }
