@@ -1,10 +1,10 @@
 const numberOfApplications = 'Applications';
 const numberOfPlannedStatus = 'Planned Applications';
-const numberOfSubmittedStatus = 'Number of Submitted Applications';
-const numberOfWithdrawnStatus = 'Number of Withdrawn Applications';
-const numberOfDifferentCountries = 'Number of Distinct Countries';
-const numberOfDifferentUniversities = 'Number of Distinct Universities';
-const numberOfOffers = 'Number of Offers';
+const numberOfSubmittedStatus = 'Submitted Applications';
+const numberOfWithdrawnStatus = 'Withdrawn Applications';
+const numberOfDifferentCountries = 'Distinct Countries';
+const numberOfDifferentUniversities = 'Distinct Universities';
+const numberOfOffers = 'Offers';
 const firmChoice = 'Firm Choice';
 const finalDestination = 'Final Destination';
 
