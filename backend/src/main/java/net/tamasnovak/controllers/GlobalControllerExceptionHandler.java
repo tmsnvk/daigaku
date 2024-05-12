@@ -3,6 +3,7 @@ package net.tamasnovak.controllers;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
+import net.tamasnovak.exceptions.InvalidFormFieldUpdateException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
@@ -114,5 +115,14 @@ public class GlobalControllerExceptionHandler {
     return new HashMap<>(){{
       put("root", errorMessage);
     }};
+  }
+
+  @ExceptionHandler(value = { InvalidFormFieldUpdateException.class })
+  public ResponseEntity<Map<String, String>> handleEntityNotFoundException(InvalidFormFieldUpdateException exception) {
+    Map<String, String> response = createErrorResponse(exception.getMessage());
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
+      .body(response);
   }
 }
