@@ -27,11 +27,13 @@ public class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> getByUuid(@PathVariable("uuid") @UuidConstraint String uuid) {
-    ApplicationDto application = applicationService.findByUuidAndReturnApplicationDto(uuid);
+  public ResponseEntity<ApplicationDto> getApplicationDto(
+    @PathVariable("uuid") @UuidConstraint String uuid
+  ) {
+    ApplicationDto returnDto = applicationService.getApplicationDto(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(application);
+      .body(returnDto);
   }
 }
