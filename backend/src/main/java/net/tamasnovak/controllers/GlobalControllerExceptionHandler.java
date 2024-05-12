@@ -24,8 +24,9 @@ public class GlobalControllerExceptionHandler {
   @ExceptionHandler(value = { ConstraintViolationException.class })
   public ResponseEntity<Map<String, String>> handleEntityConstraintValidationException(ConstraintViolationException exception) {
     Map<String, String> errors = new HashMap<>();
+
     exception.getConstraintViolations()
-      .forEach((error) -> errors.put(error.getPropertyPath().toString(), error.getMessage()));
+      .forEach((error) -> errors.put("root", error.getMessage()));
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
@@ -44,6 +45,7 @@ public class GlobalControllerExceptionHandler {
   @ExceptionHandler(value = { MethodArgumentNotValidException.class })
   public ResponseEntity<Map<String, String>> handleInvalidMethodArgumentExceptions(MethodArgumentNotValidException exception) {
     Map<String, String> response = new HashMap<>();
+
     exception.getBindingResult().getAllErrors()
       .forEach((error) -> {
         String fieldName = ((FieldError) error).getField();
@@ -111,12 +113,6 @@ public class GlobalControllerExceptionHandler {
       .body(response);
   }
 
-  private Map<String, String> createErrorResponse(String errorMessage) {
-    return new HashMap<>(){{
-      put("root", errorMessage);
-    }};
-  }
-
   @ExceptionHandler(value = { InvalidFormFieldUpdateException.class })
   public ResponseEntity<Map<String, String>> handleEntityNotFoundException(InvalidFormFieldUpdateException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
@@ -124,5 +120,11 @@ public class GlobalControllerExceptionHandler {
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)
       .body(response);
+  }
+
+  private Map<String, String> createErrorResponse(String errorMessage) {
+    return new HashMap<>(){{
+      put("root", errorMessage);
+    }};
   }
 }
