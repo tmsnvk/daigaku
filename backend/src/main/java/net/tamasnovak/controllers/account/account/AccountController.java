@@ -1,9 +1,9 @@
 package net.tamasnovak.controllers.account.account;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.dtos.account.response.LoginReturnDto;
-import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
+import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
+import net.tamasnovak.dtos.account.response.LoginReturnDto;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/accounts")
 public class AccountController {
-  private final AccountService accountService;
   private final AuthenticationFacade authenticationFacade;
+  private final AccountService accountService;
 
   @Autowired
-  public AccountController(AccountService accountService, AuthenticationFacade authenticationFacade) {
-    this.accountService = accountService;
+  public AccountController(AuthenticationFacade authenticationFacade, AccountService accountService) {
     this.authenticationFacade = authenticationFacade;
+    this.accountService = accountService;
   }
 
   @RequestMapping(
@@ -36,14 +36,14 @@ public class AccountController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
-  public ResponseEntity<ClientAuthContextDto> findUser() {
+  public ResponseEntity<ClientAuthContextDto> getClientAuthContext() {
     User userDetails = authenticationFacade.getUserContext();
 
-    ClientAuthContextDto clientAuthContextDto = accountService.getClientAuthContextData(userDetails.getUsername());
+    ClientAuthContextDto returnDto = accountService.getClientAuthContextDto(userDetails.getUsername());
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(clientAuthContextDto);
+      .body(returnDto);
   }
 
   @RequestMapping(
@@ -52,13 +52,15 @@ public class AccountController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<LoginReturnDto> loginUser(@Valid @RequestBody LoginRequestDto loginData) {
-    Authentication authentication = authenticationFacade.authenticateUser(loginData.email(), loginData.password());
+  public ResponseEntity<LoginReturnDto> login(
+    @Valid @RequestBody LoginRequestDto requestBody
+  ) {
+    Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
 
-    LoginReturnDto loginReturnDto = accountService.getLoginData(loginData, authentication);
+    LoginReturnDto returnDto = accountService.getLoginReturnDto(requestBody, authentication);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(loginReturnDto);
+      .body(returnDto);
   }
 }

@@ -9,6 +9,6 @@ import org.springframework.security.core.Authentication;
 public interface AccountService {
   void checkIfExistsByEmail(String email);
   Account findByEmail(String email);
-  ClientAuthContextDto getClientAuthContextData(String email);
-  LoginReturnDto getLoginData(LoginRequestDto loginRequestDto, Authentication authentication);
+  ClientAuthContextDto getClientAuthContextDto(String email);
+  LoginReturnDto getLoginReturnDto(LoginRequestDto requestBody, Authentication authentication);
 }

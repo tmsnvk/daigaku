@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public ClientAuthContextDto getClientAuthContextData(String email) {
+  public ClientAuthContextDto getClientAuthContextDto(String email) {
     Account account = findByEmail(email);
 
     return new ClientAuthContextDto(
@@ -57,8 +57,8 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public LoginReturnDto getLoginData(LoginRequestDto loginRequestDto, Authentication authentication) {
-    Account account = findByEmail(loginRequestDto.email().toLowerCase());
+  public LoginReturnDto getLoginReturnDto(LoginRequestDto requestBody, Authentication authentication) {
+    Account account = findByEmail(requestBody.email().toLowerCase());
     String jwtToken = jwtUtilities.generateJwtToken(authentication);
 
     return new LoginReturnDto(
