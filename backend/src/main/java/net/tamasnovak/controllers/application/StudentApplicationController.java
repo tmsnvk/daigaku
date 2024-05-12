@@ -61,7 +61,7 @@ public class StudentApplicationController {
   ) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    ApplicationDto returnDto = studentApplicationService.create(account, requestBody);
+    ApplicationDto returnDto = studentApplicationService.createApplication(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
@@ -78,7 +78,7 @@ public class StudentApplicationController {
     @PathVariable("uuid") @UuidConstraint String uuid,
     @Valid @RequestBody UpdateApplicationByStudentDto requestBody
   ) {
-    ApplicationDto returnDto = studentApplicationService.updateByUuid(uuid, requestBody);
+    ApplicationDto returnDto = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -92,7 +92,7 @@ public class StudentApplicationController {
   public ResponseEntity<HttpStatus> updateIsRemovableByUuid(
     @PathVariable("uuid") @UuidConstraint String uuid
   ) {
-    studentApplicationService.updateIsRemovableByUuid(uuid);
+    studentApplicationService.updateIsRemovableByApplicationUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

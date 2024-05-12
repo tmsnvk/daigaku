@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface StudentApplicationService {
   List<ApplicationDto> getAllByStudent(Account account);
-  ApplicationDto create(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
-  ApplicationDto updateByUuid(String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
-  void updateIsRemovableByUuid(String uuid);
+  ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
+  ApplicationDto updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
+  void updateIsRemovableByApplicationUuid(String uuid);
   DashboardAggregateDataDto getAggregateDataByAccount(Account account);
 }

@@ -15,7 +15,7 @@ public final class ApplicationMapper {
       application.getCourseName(),
       application.getMinorSubject(),
       application.getProgrammeLength(),
-      application.getApplicationStatus() != null ? application.getApplicationStatus().getName() : null,
+      application.getApplicationStatus().getName(),
       application.getInterviewStatus() != null ? application.getInterviewStatus().getName() : null,
       application.getOfferStatus() != null ? application.getOfferStatus().getName() : null,
       application.getResponseStatus() != null ? application.getResponseStatus().getName() : null,

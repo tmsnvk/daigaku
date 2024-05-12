@@ -125,7 +125,7 @@ public final class Student extends BaseSimpleIdEntity {
     return applications.size();
   }
 
-  public <T> int countApplicationsByDistinctFieldValues(Function<Application, T> extractor) {
+  public <T> int countApplicationsByDistinctValue(Function<Application, T> extractor) {
     return (int) applications.stream()
       .map(extractor)
       .distinct()

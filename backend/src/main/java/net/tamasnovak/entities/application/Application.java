@@ -102,7 +102,7 @@ public final class Application extends Auditable {
     this.isMarkedForDeletion = false;
   }
 
-  public static Application createNewApplicationByStudent(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
+  public static Application createApplicationByStudent(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
     return new Application(student, country, university, courseName, minorSubject, programmeLength, applicationStatus);
   }
 
@@ -154,7 +154,7 @@ public final class Application extends Auditable {
     return isMarkedForDeletion;
   }
 
-  public void validateFields(UpdateApplicationByStudentDto applicationDto, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
+  public void validateStatusFields(UpdateApplicationByStudentDto applicationDto, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
     System.out.println(applicationDto);
     validateApplicationStatus(applicationDto.applicationStatusUuid(), newApplicationStatus);
     validateResponseStatus(newResponseStatus, applicationDto);
@@ -164,7 +164,7 @@ public final class Application extends Auditable {
     validateOfferStatus(newOfferStatus, applicationDto);
   }
 
-  public void updateStatusesByStudent(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
+  public void updateStatusFields(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
     this.applicationStatus = applicationStatus;
     this.interviewStatus = interviewStatus;
     this.offerStatus = offerStatus;

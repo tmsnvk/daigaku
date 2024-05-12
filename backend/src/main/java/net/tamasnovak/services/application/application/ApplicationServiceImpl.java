@@ -59,7 +59,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     Account authAccount = authenticationFacade.getAuthenticatedAccount();
 
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_STUDENT")) {
-      validatorUtilities.checkIfUuidsAreEqual(
+      validatorUtilities.verifyUuidMatch(
         authAccount.getUuid(),
         application.getStudent().getAccount().getUuid(),
         applicationConstants.NO_PERMISSION_AS_STUDENT
@@ -67,7 +67,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_MENTOR")) {
-      validatorUtilities.checkIfUuidsAreEqual(
+      validatorUtilities.verifyUuidMatch(
         authAccount.getUuid(),
         application.getStudent().getMentor().getAccount().getUuid(),
         applicationConstants.NO_PERMISSION_AS_MENTOR

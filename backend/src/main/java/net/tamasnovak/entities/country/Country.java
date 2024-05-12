@@ -9,9 +9,9 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.address.Address;
+import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.university.University;
-import net.tamasnovak.entities.application.Application;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,9 +47,9 @@ public final class Country extends Auditable {
     return name;
   }
 
-  public void checkIfUniversityBelongsToCountry(University university, String entityNotFoundErrorMessage) {
+  public void verifyUniversityCountryLink(University university, String exceptionMessage) {
     if (!universities.contains(university)) {
-      throw new EntityNotFoundException(entityNotFoundErrorMessage);
+      throw new EntityNotFoundException(exceptionMessage);
     }
   }
 }

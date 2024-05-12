@@ -83,73 +83,73 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     return applications.stream()
       .map((application) -> {
-        String applicationCreatedBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
-        String applicationLastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
+        String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
+        String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
 
-        return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
+        return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
       })
       .collect(Collectors.toList());
   }
 
   @Override
   @Transactional
-  public ApplicationDto create(Account account, NewApplicationByStudentDto newApplicationByStudentDto) {
-    Country country = countryService.findByUuid(newApplicationByStudentDto.countryUuid());
-    University university = universityService.findByUuid(newApplicationByStudentDto.universityUuid());
+  public ApplicationDto createApplication(Account account, NewApplicationByStudentDto requestBody) {
+    Country country = countryService.findByUuid(requestBody.countryUuid());
+    University university = universityService.findByUuid(requestBody.universityUuid());
 
-    country.checkIfUniversityBelongsToCountry(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
+    country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     Student student = studentService.findByAccount(account);
     ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getType());
 
-    Application application = Application.createNewApplicationByStudent(
+    Application application = Application.createApplicationByStudent(
       student,
       country,
       university,
-      newApplicationByStudentDto.courseName(),
-      newApplicationByStudentDto.minorSubject(),
-      newApplicationByStudentDto.programmeLength(),
+      requestBody.courseName(),
+      requestBody.minorSubject(),
+      requestBody.programmeLength(),
       plannedApplicationStatus
     );
 
     applicationRepository.save(application);
 
-    String applicationCreatedBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
-    String applicationLastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
+    String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
+    String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
 
-    return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
+    return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
   }
 
   @Override
   @Transactional
-  public ApplicationDto updateByUuid(String applicationUuid, UpdateApplicationByStudentDto applicationDto) {
+  public ApplicationDto updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto requestBody) {
     Application application = applicationService.getApplicationByUuid(applicationUuid);
 
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
     UUID studentUuidByApplication = application.getStudent().getAccount().getUuid();
 
-    validatorUtilities.checkIfUuidsAreEqual(authAccountUuid, studentUuidByApplication, studentApplicationConstants.NO_PERMISSION_AS_STUDENT);
+    validatorUtilities.verifyUuidMatch(authAccountUuid, studentUuidByApplication, studentApplicationConstants.NO_PERMISSION_AS_STUDENT);
 
-    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(applicationDto.applicationStatusUuid());
-    InterviewStatus interviewStatus = interviewStatusService.findByUuidOrReturnNull(applicationDto.interviewStatusUuid());
-    OfferStatus offerStatus = offerStatusService.findByUuidOrReturnNull(applicationDto.offerStatusUuid());
-    ResponseStatus responseStatus = responseStatusService.findByUuidOrReturnNull(applicationDto.responseStatusUuid());
-    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuidOrReturnNull(applicationDto.finalDestinationStatusUuid());
+    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(requestBody.applicationStatusUuid());
+    InterviewStatus interviewStatus = interviewStatusService.findByUuidOrReturnNull(requestBody.interviewStatusUuid());
+    OfferStatus offerStatus = offerStatusService.findByUuidOrReturnNull(requestBody.offerStatusUuid());
+    ResponseStatus responseStatus = responseStatusService.findByUuidOrReturnNull(requestBody.responseStatusUuid());
+    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuidOrReturnNull(requestBody.finalDestinationStatusUuid());
 
-    application.validateFields(applicationDto, applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
-    application.updateStatusesByStudent(applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
+    application.validateStatusFields(requestBody, applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
+    application.updateStatusFields(applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
 
     applicationRepository.save(application);
 
-    String applicationCreatedBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
-    String applicationLastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
+    String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
+    String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
 
-    return applicationMapper.toApplicationDto(application, applicationCreatedBy, applicationLastModifiedBy);
+    return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
   }
 
   @Override
   @Transactional
-  public void updateIsRemovableByUuid(String uuid) {
+  public void updateIsRemovableByApplicationUuid(String uuid) {
     applicationRepository.updateIsMarkedForDeletionByUuid(UUID.fromString(uuid));
   }
 
@@ -165,8 +165,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.PLANNED.getType())),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.SUBMITTED.getType())),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.WITHDRAWN.getType())),
-      student.countApplicationsByDistinctFieldValues(Application::getCountry),
-      student.countApplicationsByDistinctFieldValues(Application::getUniversity),
+      student.countApplicationsByDistinctValue(Application::getCountry),
+      student.countApplicationsByDistinctValue(Application::getUniversity),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getInterviewStatus(), null)),
       student.countApplicationsByPredicate(element -> element.getOfferStatus() != null)
     );

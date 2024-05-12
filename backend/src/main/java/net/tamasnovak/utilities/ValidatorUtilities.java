@@ -8,7 +8,7 @@ import java.util.UUID;
 public final class ValidatorUtilities {
   private ValidatorUtilities() {}
 
-  public void checkIfUuidsAreEqual(UUID uuid, UUID uuidToCheckAgainst, String exceptionMessage) {
+  public void verifyUuidMatch(UUID uuid, UUID uuidToCheckAgainst, String exceptionMessage) {
     if (!uuid.equals(uuidToCheckAgainst)) {
       throw new IllegalArgumentException(exceptionMessage);
     }
