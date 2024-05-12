@@ -1,9 +1,9 @@
 package net.tamasnovak.services.university;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.university.UniversityOptionView;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-import net.tamasnovak.dtos.university.UniversityOptionView;
 import net.tamasnovak.repositories.university.UniversityRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.country.CountryService;
@@ -29,7 +29,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<UniversityOptionView> getDropdownOptionsByCountryUuidAndSortedAscByName(String countryUuid) {
+  public List<UniversityOptionView> getSelectOptionsByCountryUuid(String countryUuid) {
     Country country = countryService.findByUuid(countryUuid);
 
     return universityRepository.findByCountryOrderByNameAsc(country);

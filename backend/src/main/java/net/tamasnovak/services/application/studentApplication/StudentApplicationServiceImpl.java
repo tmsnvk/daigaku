@@ -155,7 +155,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardAggregateDataDto getAggregateData(Account account) {
+  public DashboardAggregateDataDto getAggregateDataByAccount(Account account) {
     Student student = studentService.findByAccount(account);
 
     return new DashboardAggregateDataDto(

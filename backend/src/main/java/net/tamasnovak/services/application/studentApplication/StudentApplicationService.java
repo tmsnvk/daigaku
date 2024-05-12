@@ -13,5 +13,5 @@ public interface StudentApplicationService {
   ApplicationDto create(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
   ApplicationDto updateByUuid(String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
   void updateIsRemovableByUuid(String uuid);
-  DashboardAggregateDataDto getAggregateData(Account account);
+  DashboardAggregateDataDto getAggregateDataByAccount(Account account);
 }

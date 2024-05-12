@@ -37,7 +37,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationDto getApplicationDto(String uuid) {
+  public ApplicationDto getApplicationDtoByUuid(String uuid) {
     Application application = findByUuid(uuid);
 
     String createdBy = accountService.findByEmail(application.getCreatedBy()).getFullName();

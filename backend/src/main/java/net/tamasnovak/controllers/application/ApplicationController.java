@@ -32,7 +32,7 @@ public class ApplicationController {
   public ResponseEntity<ApplicationDto> getApplicationDto(
     @PathVariable("uuid") @UuidConstraint String uuid
   ) {
-    ApplicationDto returnDto = applicationService.getApplicationDto(uuid);
+    ApplicationDto returnDto = applicationService.getApplicationDtoByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

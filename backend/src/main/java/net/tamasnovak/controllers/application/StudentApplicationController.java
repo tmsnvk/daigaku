@@ -107,7 +107,7 @@ public class StudentApplicationController {
   public ResponseEntity<DashboardAggregateDataDto> getAggregateData() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    DashboardAggregateDataDto returnDto = studentApplicationService.getAggregateData(account);
+    DashboardAggregateDataDto returnDto = studentApplicationService.getAggregateDataByAccount(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
