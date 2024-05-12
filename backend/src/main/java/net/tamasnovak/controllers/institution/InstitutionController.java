@@ -25,11 +25,11 @@ public class InstitutionController {
     value = "/options",
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<InstitutionOptionView>> getDropdownOptions() {
-    List<InstitutionOptionView> institutionOptions = institutionService.getDropdownOptionsSortedAscByName();
+  public ResponseEntity<List<InstitutionOptionView>> getSelectOptions() {
+    List<InstitutionOptionView> returnDto = institutionService.getSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(institutionOptions);
+      .body(returnDto);
   }
 }

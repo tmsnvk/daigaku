@@ -1,8 +1,8 @@
 package net.tamasnovak.services.institution;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.dtos.institution.InstitutionOptionView;
+import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.repositories.institution.InstitutionRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class InstitutionServiceImpl implements InstitutionService{
 
   @Override
   @Transactional(readOnly = true)
-  public List<InstitutionOptionView> getDropdownOptionsSortedAscByName() {
+  public List<InstitutionOptionView> getSelectOptions() {
     return institutionRepository.findAllByOrderByNameAsc();
   }
 
