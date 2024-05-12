@@ -36,7 +36,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void checkIfExistsByEmail(String email) {
+  public void verifyAccountNotExistsByEmail(String email) {
     boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
 
     if (isPendingAccountExists) {
@@ -46,36 +46,36 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional
-  public void createAccount(PendingAccountRegistrationDto registrationData) {
-    checkIfExistsByEmail(registrationData.email());
-    accountService.verifyAccountNotExistsByEmail(registrationData.email());
+  public void createAccount(PendingAccountRegistrationDto requestBody) {
+    verifyAccountNotExistsByEmail(requestBody.email());
+    accountService.verifyAccountNotExistsByEmail(requestBody.email());
 
-    Institution institution = institutionService.findByUuid(registrationData.institutionUuid());
-    Role role = roleService.findByName(registrationData.accountType());
+    Institution institution = institutionService.findByUuid(requestBody.institutionUuid());
+    Role role = roleService.findByName(requestBody.accountType());
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(
-      registrationData.firstName(),
-      registrationData.lastName(),
-      registrationData.email(),
+      requestBody.firstName(),
+      requestBody.lastName(),
+      requestBody.email(),
       institution,
       role
     );
 
     pendingAccountRepository.save(pendingAccount);
 
-    sendEmail(registrationData, institution);
+    sendEmail(requestBody, institution);
   }
 
-  private void sendEmail(PendingAccountRegistrationDto registrationData, Institution institution) {
+  private void sendEmail(PendingAccountRegistrationDto requestBody, Institution institution) {
     String content = String.format(
       pendingAccountConstants.PENDING_ACCOUNT_EMAIL_BODY,
-      registrationData.firstName(),
-      registrationData.lastName(),
+      requestBody.firstName(),
+      requestBody.lastName(),
       institution.getName(),
-      registrationData.accountType()
+      requestBody.accountType()
     );
 
-    NewEmailDto newEmail = new NewEmailDto(registrationData.email(), pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT, content);
+    NewEmailDto newEmail = new NewEmailDto(requestBody.email(), pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT, content);
 
     emailService.sendEmail(newEmail);
   }
