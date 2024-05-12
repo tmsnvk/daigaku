@@ -5,7 +5,7 @@ public enum ResponseStatusType {
   INSURANCE_CHOICE("Insurance Choice"),
   OFFER_DECLINED("Offer Declined");
 
-  public final String type;
+  private final String type;
 
   ResponseStatusType(String type) {
     this.type = type;

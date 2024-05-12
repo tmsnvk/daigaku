@@ -5,7 +5,7 @@ public enum ApplicationStatusType {
   SUBMITTED("Submitted"),
   WITHDRAWN("Withdrawn");
 
-  public final String type;
+  private final String type;
 
   ApplicationStatusType(String type) {
     this.type = type;

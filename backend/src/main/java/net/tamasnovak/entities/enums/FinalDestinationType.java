@@ -5,7 +5,7 @@ public enum FinalDestinationType {
   DEFERRED_FINAL_DESTINATION("Final Destination (Deferred Entry)"),
   NOT_FINAL_DESTINATION("Not Final Destination");
 
-  public final String type;
+  private final String type;
 
   FinalDestinationType(String type) {
     this.type = type;
