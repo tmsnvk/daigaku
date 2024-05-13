@@ -16,6 +16,7 @@ import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.enums.ApplicationStatusType;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.repositories.application.ApplicationRepository;
+import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.services.application.application.ApplicationService;
@@ -55,9 +56,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final ApplicationMapper applicationMapper;
   private final ValidatorUtilities validatorUtilities;
   private final StudentApplicationConstants studentApplicationConstants;
+  private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants) {
+  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.authenticationFacade = authenticationFacade;
     this.accountService = accountService;
     this.studentService = studentService;
@@ -73,6 +75,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.applicationMapper = applicationMapper;
     this.validatorUtilities = validatorUtilities;
     this.studentApplicationConstants = studentApplicationConstants;
+    this.globalServiceConstants = globalServiceConstants;
   }
 
   @Override
@@ -128,7 +131,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
     UUID studentUuidByApplication = application.getStudent().getAccount().getUuid();
 
-    validatorUtilities.verifyUuidMatch(authAccountUuid, studentUuidByApplication, studentApplicationConstants.NO_PERMISSION_AS_STUDENT);
+    validatorUtilities.verifyUuidMatch(authAccountUuid, studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
 
     ApplicationStatus applicationStatus = applicationStatusService.findByUuid(requestBody.applicationStatusUuid());
     InterviewStatus interviewStatus = interviewStatusService.findByUuidOrReturnNull(requestBody.interviewStatusUuid());

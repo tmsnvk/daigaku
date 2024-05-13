@@ -5,6 +5,7 @@ import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.repositories.application.ApplicationRepository;
+import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.services.application.ApplicationMapper;
 import net.tamasnovak.utilities.ValidatorUtilities;
@@ -22,16 +23,16 @@ public class ApplicationServiceImpl implements ApplicationService {
   private final AccountService accountService;
   private final ApplicationRepository applicationRepository;
   private final ApplicationMapper applicationMapper;
-  private final ApplicationConstants applicationConstants;
+  private final GlobalServiceConstants globalServiceConstants;
   private final ValidatorUtilities validatorUtilities;
 
   @Autowired
-  public ApplicationServiceImpl(AuthenticationFacade authenticationFacade, AccountService accountService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ApplicationConstants applicationConstants, ValidatorUtilities validatorUtilities) {
+  public ApplicationServiceImpl(AuthenticationFacade authenticationFacade, AccountService accountService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, GlobalServiceConstants globalServiceConstants, ValidatorUtilities validatorUtilities) {
     this.authenticationFacade = authenticationFacade;
     this.accountService = accountService;
     this.applicationRepository = applicationRepository;
     this.applicationMapper = applicationMapper;
-    this.applicationConstants = applicationConstants;
+    this.globalServiceConstants = globalServiceConstants;
     this.validatorUtilities = validatorUtilities;
   }
 
@@ -52,7 +53,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Transactional(readOnly = true)
   public Application getApplicationByUuid(String uuid) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
-      .orElseThrow(() -> new EntityNotFoundException(applicationConstants.NO_APPLICATION_FOUND));
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   private void verifyUserAccessToViewApplication(Application application) {
@@ -62,7 +63,7 @@ public class ApplicationServiceImpl implements ApplicationService {
       validatorUtilities.verifyUuidMatch(
         authAccount.getUuid(),
         application.getStudent().getAccount().getUuid(),
-        applicationConstants.NO_PERMISSION_AS_STUDENT
+        globalServiceConstants.NO_PERMISSION
       );
     }
 
@@ -70,7 +71,7 @@ public class ApplicationServiceImpl implements ApplicationService {
       validatorUtilities.verifyUuidMatch(
         authAccount.getUuid(),
         application.getStudent().getMentor().getAccount().getUuid(),
-        applicationConstants.NO_PERMISSION_AS_MENTOR
+        globalServiceConstants.NO_PERMISSION
       );
     }
   }
