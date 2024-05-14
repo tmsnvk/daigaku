@@ -1,17 +1,17 @@
-package net.tamasnovak.entities.enums;
+package net.tamasnovak.enums.status;
 
 public enum FinalDestinationType {
   FINAL_DESTINATION("Final Destination"),
   DEFERRED_FINAL_DESTINATION("Final Destination (Deferred Entry)"),
   NOT_FINAL_DESTINATION("Not Final Destination");
 
-  private final String type;
+  private final String name;
 
-  FinalDestinationType(String type) {
-    this.type = type;
+  FinalDestinationType(String name) {
+    this.name = name;
   }
 
-  public String getType() {
-    return type;
+  public String getName() {
+    return name;
   }
 }
