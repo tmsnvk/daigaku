@@ -23,9 +23,13 @@ public final class Role extends BaseSimpleIdEntity {
 
   protected Role() {}
 
-  public Role(String name) {
+  private Role(String name) {
     this.name = name;
     this.accounts = new HashSet<>();
+  }
+
+  public static Role createRole(String name) {
+    return new Role(name);
   }
 
   public String getName() {

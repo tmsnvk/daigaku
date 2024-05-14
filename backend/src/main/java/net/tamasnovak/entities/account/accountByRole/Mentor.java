@@ -34,9 +34,13 @@ public final class Mentor extends BaseSimpleIdEntity {
 
   protected Mentor() {}
 
-  public Mentor(Account account) {
+  private Mentor(Account account) {
     this.account = account;
     this.students = new HashSet<>();
+  }
+
+  public static Mentor createMentor(Account account) {
+    return new Mentor(account);
   }
 
   public Account getAccount() {

@@ -18,8 +18,12 @@ public final class SystemAdmin extends BaseSimpleIdEntity {
 
   protected SystemAdmin() {}
 
-  public SystemAdmin(Account account) {
+  private SystemAdmin(Account account) {
     this.account = account;
+  }
+
+  public static SystemAdmin createSystemAdmin(Account account) {
+    return new SystemAdmin(account);
   }
 
   public Account getAccount() {

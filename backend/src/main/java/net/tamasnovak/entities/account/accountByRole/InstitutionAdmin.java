@@ -26,9 +26,13 @@ public final class InstitutionAdmin extends BaseSimpleIdEntity {
 
   protected InstitutionAdmin() {}
 
-  public InstitutionAdmin(Account account, Institution institution) {
+  private InstitutionAdmin(Account account, Institution institution) {
     this.account = account;
     this.institution = institution;
+  }
+
+  public static InstitutionAdmin createInstitutionAdmin(Account account, Institution institution) {
+    return new InstitutionAdmin(account, institution);
   }
 
   public Account getAccount() {
