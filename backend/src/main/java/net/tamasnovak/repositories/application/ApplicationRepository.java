@@ -1,6 +1,6 @@
 package net.tamasnovak.repositories.application;
 
-import net.tamasnovak.entities.account.accountByRole.Student;
+import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.entities.application.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,8 +12,57 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
-  List<Application> findApplicationsByStudent(Student student);
+  @Query(value =
+    """
+      SELECT
+        applications.uuid,
+        accounts.uuid AS accountUuid,
+        countries.name AS country,
+        universities.name AS university,
+        applications.course_name AS courseName,
+        applications.minor_subject AS minorSubject,
+        applications.programme_length AS programmeLength,
+        application_status.name AS applicationStatus,
+        interview_status.name AS interviewStatus,
+        offer_status.name AS offerStatus,
+        response_status.name AS responseStatus,
+        final_destination_status.name AS finalDestinationStatus,
+        applications.created_at AS createdAt,
+        applications.last_updated_at AS lastUpdatedAt,
+        created_by.full_name AS createdBy,
+        last_modified_by.full_name AS lastModifiedBy,
+        applications.is_removable AS isRemovable
+      FROM
+        applications
+      JOIN
+        students ON applications.student_id = students.id
+      JOIN
+        accounts ON accounts.id = students.account_id
+      JOIN
+        countries ON applications.country_id = countries.id
+      JOIN
+        universities ON applications.university_id = universities.id
+      JOIN
+        application_status ON applications.application_status_id = application_status.id
+      JOIN
+        interview_status ON applications.interview_status_id = interview_status.id
+      JOIN
+        offer_status ON applications.offer_status_id = offer_status.id
+      JOIN
+        response_status ON applications.response_status_id = response_status.id
+      JOIN
+        final_destination_status ON applications.final_destination_status_id = final_destination_status.id
+      JOIN
+        accounts AS created_by ON applications.created_by = created_by.email
+      JOIN
+        accounts AS last_modified_by ON applications.last_modified_by = last_modified_by.email
+      WHERE
+        applications.student_id = :studentId
+    """, nativeQuery = true)
+  List<ApplicationView> findApplicationsByStudent(@Param("studentId") long studentId);
+
   Optional<Application> findByUuid(UUID uuid);
+
   @Modifying
   @Query(value =
     """
@@ -25,5 +74,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         uuid = :uuid
     """, nativeQuery = true
   )
-  void updateIsMarkedForDeletionByUuid(@Param("uuid") UUID uuid);
+  void updateIsRemovableByUuid(@Param("uuid") UUID uuid);
 }

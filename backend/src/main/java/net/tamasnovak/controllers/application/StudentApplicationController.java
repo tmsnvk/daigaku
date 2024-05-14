@@ -5,6 +5,7 @@ import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
@@ -40,10 +41,10 @@ public class StudentApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<List<ApplicationDto>> getAllByStudent() {
+  public ResponseEntity<List<ApplicationView>> getAllByStudent() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<ApplicationDto> returnDto = studentApplicationService.getAllByStudent(account);
+    List<ApplicationView> returnDto = studentApplicationService.getAllApplicationsByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)

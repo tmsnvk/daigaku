@@ -20,5 +20,5 @@ public record ApplicationDto(
   Timestamp lastUpdatedAt,
   String createdBy,
   String lastModifiedBy,
-  boolean isMarkedForDeletion
+  boolean isRemovable
 ) {}

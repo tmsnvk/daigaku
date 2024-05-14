@@ -3,6 +3,7 @@ package net.tamasnovak.services.application.studentApplication;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.account.baseAccount.Account;
@@ -37,7 +38,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
@@ -80,20 +80,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationDto> getAllByStudent(
+  public List<ApplicationView> getAllApplicationsByStudent(
     Account account
   ) {
     Student student = studentService.getStudentByAccount(account);
-    List<Application> applications = applicationRepository.findApplicationsByStudent(student);
 
-    return applications.stream()
-      .map((application) -> {
-        String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
-        String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
-
-        return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
-      })
-      .collect(Collectors.toList());
+    return applicationRepository.findApplicationsByStudent(student.getId());
   }
 
   @Override
@@ -163,7 +155,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   public void updateIsRemovableByApplicationUuid(
     String uuid
   ) {
-    applicationRepository.updateIsMarkedForDeletionByUuid(UUID.fromString(uuid));
+    applicationRepository.updateIsRemovableByUuid(UUID.fromString(uuid));
   }
 
   @Override
