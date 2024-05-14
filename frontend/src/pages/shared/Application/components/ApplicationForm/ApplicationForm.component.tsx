@@ -86,7 +86,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           lastModifiedBy={updatedData?.lastModifiedBy ?? currentApplicationData.lastModifiedBy}
         />
         <MarkedForDeletion
-          isMarked={updatedData?.isMarkedForDeletion ?? currentApplicationData.isMarkedForDeletion}
+          isMarked={updatedData?.isRemovable ?? currentApplicationData.isRemovable}
           applicationUuid={applicationUuid}
         />
         <InputInfoBox content={formInformation} />

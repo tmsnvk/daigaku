@@ -20,7 +20,7 @@ export type ApplicationT = {
   lastUpdatedAt: Date;
   createdBy: string;
   lastModifiedBy: string;
-  isMarkedForDeletion: boolean;
+  isRemovable: boolean;
 }
 
 const applicationService = {
@@ -62,7 +62,7 @@ const applicationService = {
   patchByUuidToMarkForDeletion: async (applicationUuid: string): Promise<void> => {
     await axiosConfigWithAuth.request({
       method: 'PATCH',
-      url: `/api/applications/student/markForDeletion/${applicationUuid}`,
+      url: `/api/applications/student/update-is-removable/${applicationUuid}`,
     });
   },
   getDashboardData: async (roleResource: string): Promise<DashboardDataT> => {

@@ -25,7 +25,7 @@ const useToggleDeletionMark = (applicationUuid: string, isMarked: boolean) => {
 
           const currentApplication = previousData.filter((row) => row.uuid === applicationUuid);
 
-          currentApplication[0].isMarkedForDeletion = !currentApplication[0].isMarkedForDeletion;
+          currentApplication[0].isRemovable = !currentApplication[0].isRemovable;
 
           return [...previousData];
         },
