@@ -24,16 +24,20 @@ public final class Address extends BaseSimpleIdEntity {
   @JsonBackReference
   private Country country;
 
-  @Column(name = "zipcode", nullable = false)
+  @Column(name = "zipcode")
   private String zipcode;
 
   protected Address() {}
 
-  public Address(String street, String city, Country country, String zipcode) {
+  private Address(String street, String city, Country country, String zipcode) {
     this.street = street;
     this.city = city;
     this.country = country;
     this.zipcode = zipcode;
+  }
+
+  public static Address createAddress(String street, String city, Country country, String zipcode) {
+    return new Address(street, city, country, zipcode);
   }
 
   public String getStreet() {

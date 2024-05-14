@@ -16,6 +16,7 @@ import net.tamasnovak.entities.account.baseAccount.PendingAccount;
 import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.base.audit.Auditable;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -47,8 +48,17 @@ public final class Institution extends Auditable {
 
   protected Institution() {}
 
-  public Institution(String name) {
+  private Institution(String name, Address address) {
     this.name = name;
+    this.address = address;
+    this.pendingAccounts = new HashSet<>();
+    this.students = new HashSet<>();
+    this.mentors = new HashSet<>();
+    this.institutionAdmins = new HashSet<>();
+  }
+
+  public static Institution createInstitution(String name, Address address) {
+    return new Institution(name, address);
   }
 
   public String getName() {

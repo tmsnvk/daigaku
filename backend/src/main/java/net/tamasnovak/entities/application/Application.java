@@ -16,12 +16,12 @@ import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.entities.enums.ApplicationStatusType;
-import net.tamasnovak.entities.enums.FinalDestinationType;
-import net.tamasnovak.entities.enums.InterviewStatusType;
-import net.tamasnovak.entities.enums.OfferStatusType;
-import net.tamasnovak.entities.enums.ResponseStatusType;
 import net.tamasnovak.entities.university.University;
+import net.tamasnovak.enums.status.ApplicationStatusType;
+import net.tamasnovak.enums.status.FinalDestinationType;
+import net.tamasnovak.enums.status.InterviewStatusType;
+import net.tamasnovak.enums.status.OfferStatusType;
+import net.tamasnovak.enums.status.ResponseStatusType;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldExceptionConstants;
 
@@ -47,17 +47,17 @@ public final class Application extends Auditable {
 
   @Column(name = "course_name", nullable = false)
   @NotBlank(message = "Provide the title of your course.")
-  @Pattern(regexp = "^([a-zA-Z-\\s]{5,255})$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Pattern(regexp = "^(?:[a-zA-Z-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
   @NotNull(message = "Provide the length of your course (in years).")
-  @Min(value = 2, message = "Programme length should not be less than 2.")
-  @Max(value = 5, message = "Programme length should not be more than 5.")
+  @Min(value = 2, message = "Programme length should not be less than {value}.")
+  @Max(value = 5, message = "Programme length should not be more than {value}.")
   private int programmeLength;
 
   @ManyToOne
@@ -176,24 +176,24 @@ public final class Application extends Auditable {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
     }
 
-    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.PLANNED.getType()) && Objects.equals(this.applicationStatus.getName(), ApplicationStatusType.PLANNED.getType())) {
+    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.PLANNED.getName()) && Objects.equals(this.applicationStatus.getName(), ApplicationStatusType.PLANNED.getName())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
     }
 
-    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.WITHDRAWN.getType()) && Objects.equals(this.applicationStatus.getUuid(), newApplicationStatus.getUuid())) {
+    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.WITHDRAWN.getName()) && Objects.equals(this.applicationStatus.getUuid(), newApplicationStatus.getUuid())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
     }
   }
 
   private void validateInterviewStatus(InterviewStatus newInterviewStatus, UpdateApplicationByStudentDto applicationDto) {
     if (newInterviewStatus != null) {
-      if (Objects.equals(newInterviewStatus.getName(), InterviewStatusType.NOT_INVITED.getType()) && (!Objects.equals(applicationDto.offerStatusUuid(), "") || !Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
+      if (Objects.equals(newInterviewStatus.getName(), InterviewStatusType.NOT_INVITED.getName()) && (!Objects.equals(applicationDto.offerStatusUuid(), "") || !Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
     }
 
     if (this.interviewStatus != null) {
-      if (Objects.equals(this.interviewStatus.getName(), InterviewStatusType.NOT_INVITED.getType()) && Objects.equals(applicationDto.interviewStatusUuid(), "")) {
+      if (Objects.equals(this.interviewStatus.getName(), InterviewStatusType.NOT_INVITED.getName()) && Objects.equals(applicationDto.interviewStatusUuid(), "")) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.NOT_INVITED_ERROR);
       }
     }
@@ -201,13 +201,13 @@ public final class Application extends Auditable {
 
   private void validateOfferStatus(OfferStatus newOfferStatus, UpdateApplicationByStudentDto applicationDto) {
     if (newOfferStatus != null) {
-      if (Objects.equals(newOfferStatus.getName(), OfferStatusType.REJECTED.getType()) && (!Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
+      if (Objects.equals(newOfferStatus.getName(), OfferStatusType.REJECTED.getName()) && (!Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
     }
 
     if (this.offerStatus != null) {
-      if (Objects.equals(this.offerStatus.getName(), OfferStatusType.REJECTED.getType()) && Objects.equals(applicationDto.offerStatusUuid(), "")) {
+      if (Objects.equals(this.offerStatus.getName(), OfferStatusType.REJECTED.getName()) && Objects.equals(applicationDto.offerStatusUuid(), "")) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.REJECTED_ERROR);
       }
     }
@@ -215,17 +215,17 @@ public final class Application extends Auditable {
 
   private void validateResponseStatus(ResponseStatus newResponseStatus, UpdateApplicationByStudentDto applicationDto) {
     if (newResponseStatus != null) {
-      if (Objects.equals(newResponseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getType()) && !Objects.equals(applicationDto.finalDestinationStatusUuid(), "")) {
+      if (Objects.equals(newResponseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getName()) && !Objects.equals(applicationDto.finalDestinationStatusUuid(), "")) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
 
-      if (getFirmChoiceApplication() != null && !Objects.equals(this.uuid, getFirmChoiceApplication().getUuid()) && Objects.equals(newResponseStatus.getName(), ResponseStatusType.FIRM_CHOICE.getType())) {
+      if (getFirmChoiceApplication() != null && !Objects.equals(this.uuid, getFirmChoiceApplication().getUuid()) && Objects.equals(newResponseStatus.getName(), ResponseStatusType.FIRM_CHOICE.getName())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FIRM_CHOICE_ERROR);
       }
     }
 
     if (this.responseStatus != null) {
-      if (Objects.equals(this.responseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getType()) && Objects.equals(applicationDto.responseStatusUuid(), "")) {
+      if (Objects.equals(this.responseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getName()) && Objects.equals(applicationDto.responseStatusUuid(), "")) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.DECLINED_ERROR);
       }
     }
@@ -233,7 +233,7 @@ public final class Application extends Auditable {
 
   private void validateFinalDestinationStatus(FinalDestinationStatus newFinalDestinationStatus, UpdateApplicationByStudentDto applicationDto) {
     if (newFinalDestinationStatus != null) {
-      if (getFinalDestinationApplication() != null && !Objects.equals(this.uuid, getFinalDestinationApplication().getUuid()) && !Objects.equals(newFinalDestinationStatus.getName(), FinalDestinationType.NOT_FINAL_DESTINATION.getType())) {
+      if (getFinalDestinationApplication() != null && !Objects.equals(this.uuid, getFinalDestinationApplication().getUuid()) && !Objects.equals(newFinalDestinationStatus.getName(), FinalDestinationType.NOT_FINAL_DESTINATION.getName())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FINAL_DESTINATION_ERROR);
       }
     }

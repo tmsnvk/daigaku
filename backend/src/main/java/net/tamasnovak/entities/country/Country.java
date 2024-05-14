@@ -7,7 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.base.audit.Auditable;
@@ -21,7 +21,7 @@ import java.util.Set;
 public final class Country extends Auditable {
   @Column(name = "name", nullable = false)
   @NotBlank(message = "Provide the country's name.")
-  @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters long.")
+  @Pattern(regexp = "^[A-Za-z-\\s]{2,100}$", message = "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
   private String name;
 
   @OneToMany(mappedBy = "country")
@@ -37,10 +37,15 @@ public final class Country extends Auditable {
 
   protected Country() {}
 
-  public Country(String name) {
+  private Country(String name) {
     this.name = name;
+    this.addresses = new HashSet<>();
     this.universities = new HashSet<>();
     this.applications = new HashSet<>();
+  }
+
+  public static Country createCountry(String name) {
+    return new Country(name);
   }
 
   public String getName() {

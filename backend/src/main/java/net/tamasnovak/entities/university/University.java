@@ -11,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.application.Application;
@@ -26,12 +27,13 @@ import java.util.Set;
 public final class University extends Auditable {
   @Column(name = "name", nullable = false)
   @NotBlank(message = "Provide the universityUuid's official name.")
-  @Size(min = 2, message = "Name should be a minimum of 2 characters long.")
+  @Pattern(regexp = "^[A-Za-z-\\s]{2,}$", message = "Use only letters and spaces. Provide a minimum of 2 characters.")
   private String name;
 
   @Column(name = "abbreviation", nullable = false)
-  @NotBlank(message = "Provide the universityUuid's official abbreviation.")
+  @NotBlank(message = "Provide the university's official abbreviation.")
   @Size(min = 2, max = 5, message = "The abbreviation code should be between 2 and 5 characters long.")
+  @Pattern(regexp = "^[A-Za-z]{2,5}$", message = "Use only letters. The code should be between 2 and 5 characters long.")
   private String abbreviation;
 
   @OneToOne(cascade = CascadeType.ALL)
@@ -50,11 +52,15 @@ public final class University extends Auditable {
 
   protected University() {}
 
-  public University(String name, String abbreviation, Address address) {
+  private University(String name, String abbreviation, Address address) {
     this.name = name;
     this.abbreviation = abbreviation;
     this.address = address;
     this.applications = new HashSet<>();
+  }
+
+  public static University createUniveristy(String name, String abbreviation, Address address) {
+    return new University(name, abbreviation, address);
   }
 
   public String getName() {
