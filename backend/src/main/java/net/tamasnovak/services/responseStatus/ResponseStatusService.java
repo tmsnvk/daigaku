@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ResponseStatusService {
   List<StatusSelectOptionView> getSelectOptions();
-  ResponseStatus findByUuid(String uuid);
-  ResponseStatus findByUuidOrReturnNull(String uuid);
+  ResponseStatus getStatusByUuid(String uuid);
+  ResponseStatus getStatusByUuidOnApplicationUpdate(ResponseStatus currentStatus, String requestBodyStatusUuid);
 }

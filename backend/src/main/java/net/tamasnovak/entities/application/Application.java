@@ -155,7 +155,6 @@ public final class Application extends Auditable {
   }
 
   public void validateStatusFields(UpdateApplicationByStudentDto applicationDto, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
-    System.out.println(applicationDto);
     validateApplicationStatus(applicationDto.applicationStatusUuid(), newApplicationStatus);
     validateResponseStatus(newResponseStatus, applicationDto);
     validateFinalDestinationStatus(newFinalDestinationStatus, applicationDto);

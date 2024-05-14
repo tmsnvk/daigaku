@@ -1,7 +1,6 @@
 package net.tamasnovak.services.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
@@ -27,26 +26,26 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationStatus findByName(String statusName) {
+  public ApplicationStatus getStatusByName(String statusName) {
     return applicationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationStatus findByUuid(@UuidConstraint String uuid) {
+  public ApplicationStatus getStatusByUuid(String uuid) {
     return applicationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationStatus findByUuidOrReturnNull(String uuid) {
-    if (Objects.equals(uuid, "")) {
-      return null;
+  public ApplicationStatus getStatusByUuidOnApplicationUpdate(ApplicationStatus currentStatus, String requestBodyStatusUuid) {
+    if (Objects.equals(currentStatus.getUuid().toString(), requestBodyStatusUuid)) {
+      return currentStatus;
     }
 
-    return findByUuid(uuid);
+    return getStatusByUuid(requestBodyStatusUuid);
   }
 
   @Override

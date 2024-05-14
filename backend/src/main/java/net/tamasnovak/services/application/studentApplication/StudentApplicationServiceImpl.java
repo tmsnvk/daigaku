@@ -80,7 +80,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationDto> getAllByStudent(Account account) {
+  public List<ApplicationDto> getAllByStudent(
+    Account account
+  ) {
     Student student = studentService.findByAccount(account);
     List<Application> applications = applicationRepository.findApplicationsByStudent(student);
 
@@ -96,14 +98,17 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto createApplication(Account account, NewApplicationByStudentDto requestBody) {
+  public ApplicationDto createApplication(
+    Account account,
+    NewApplicationByStudentDto requestBody
+  ) {
     Country country = countryService.findByUuid(requestBody.countryUuid());
     University university = universityService.findByUuid(requestBody.universityUuid());
 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     Student student = studentService.findByAccount(account);
-    ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getType());
+    ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getType());
 
     Application application = Application.createApplicationByStudent(
       student,
@@ -125,7 +130,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto requestBody) {
+  public ApplicationDto updateApplicationByUuid(
+    String applicationUuid,
+    UpdateApplicationByStudentDto requestBody
+  ) {
     Application application = applicationService.getApplicationByUuid(applicationUuid);
 
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
@@ -133,14 +141,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     validatorUtilities.verifyUuidMatch(authAccountUuid, studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
 
-    ApplicationStatus applicationStatus = applicationStatusService.findByUuid(requestBody.applicationStatusUuid());
-    InterviewStatus interviewStatus = interviewStatusService.findByUuidOrReturnNull(requestBody.interviewStatusUuid());
-    OfferStatus offerStatus = offerStatusService.findByUuidOrReturnNull(requestBody.offerStatusUuid());
-    ResponseStatus responseStatus = responseStatusService.findByUuidOrReturnNull(requestBody.responseStatusUuid());
-    FinalDestinationStatus finalDestinationStatus = finalDestinationStatusService.findByUuidOrReturnNull(requestBody.finalDestinationStatusUuid());
+    ApplicationStatus newApplicationStatus = applicationStatusService.getStatusByUuidOnApplicationUpdate(application.getApplicationStatus(), requestBody.applicationStatusUuid());
+    InterviewStatus newInterviewStatus = interviewStatusService.getStatusByUuidOnApplicationUpdate(application.getInterviewStatus(), requestBody.interviewStatusUuid());
+    OfferStatus newOfferStatus = offerStatusService.getStatusByUuidOnApplicationUpdate(application.getOfferStatus(), requestBody.offerStatusUuid());
+    ResponseStatus newResponseStatus = responseStatusService.getStatusByUuidOnApplicationUpdate(application.getResponseStatus(), requestBody.responseStatusUuid());
+    FinalDestinationStatus newFinalDestinationStatus = finalDestinationStatusService.getStatusByUuidOnApplicationUpdate(application.getFinalDestinationStatus(), requestBody.finalDestinationStatusUuid());
 
-    application.validateStatusFields(requestBody, applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
-    application.updateStatusFields(applicationStatus, interviewStatus, offerStatus, responseStatus, finalDestinationStatus);
+    application.validateStatusFields(requestBody, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
+    application.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
     applicationRepository.save(application);
 
@@ -152,13 +160,17 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public void updateIsRemovableByApplicationUuid(String uuid) {
+  public void updateIsRemovableByApplicationUuid(
+    String uuid
+  ) {
     applicationRepository.updateIsMarkedForDeletionByUuid(UUID.fromString(uuid));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardAggregateDataDto getAggregateDataByAccount(Account account) {
+  public DashboardAggregateDataDto getAggregateDataByAccount(
+    Account account
+  ) {
     Student student = studentService.findByAccount(account);
 
     return new DashboardAggregateDataDto(

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface InterviewStatusService {
   List<StatusSelectOptionView> getSelectOptions();
-  InterviewStatus findByUuid(String uuid);
-  InterviewStatus findByUuidOrReturnNull(String uuid);
+  InterviewStatus getStatusByUuid(String uuid);
+  InterviewStatus getStatusByUuidOnApplicationUpdate(InterviewStatus currentStatus, String requestBodyStatusUuid);
 }

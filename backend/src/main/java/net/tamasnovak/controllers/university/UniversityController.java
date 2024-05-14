@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.university;
 
-import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
+import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 import net.tamasnovak.dtos.university.UniversityOptionView;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;

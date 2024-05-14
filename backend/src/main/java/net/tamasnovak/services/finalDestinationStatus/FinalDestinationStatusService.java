@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FinalDestinationStatusService {
   List<StatusSelectOptionView> getSelectOptions();
-  FinalDestinationStatus findByUuid(String uuid);
-  FinalDestinationStatus findByUuidOrReturnNull(String uuid);
+  FinalDestinationStatus getStatusByUuid(String uuid);
+  FinalDestinationStatus getStatusByUuidOnApplicationUpdate(FinalDestinationStatus currentStatus, String requestBodyStatusUuid);
 }

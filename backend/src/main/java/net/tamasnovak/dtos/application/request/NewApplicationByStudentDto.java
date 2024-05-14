@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
+import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 
 public record NewApplicationByStudentDto(
   @NotBlank(message = "Select a country.")

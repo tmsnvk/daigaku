@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface OfferStatusService {
   List<StatusSelectOptionView> getSelectOptions();
-  OfferStatus findByUuid(String uuid);
-  OfferStatus findByUuidOrReturnNull(String uuid);
+  OfferStatus getStatusByUuid(String uuid);
+  OfferStatus getStatusByUuidOnApplicationUpdate(OfferStatus currentStatus, String requestBodyStatusUuid);
 }

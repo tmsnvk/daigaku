@@ -6,8 +6,8 @@ import net.tamasnovak.entities.application.ApplicationStatus;
 import java.util.List;
 
 public interface ApplicationStatusService {
-  ApplicationStatus findByName(String statusName);
-  ApplicationStatus findByUuid(String uuid);
-  ApplicationStatus findByUuidOrReturnNull(String uuid);
+  ApplicationStatus getStatusByName(String statusName);
+  ApplicationStatus getStatusByUuid(String uuid);
+  ApplicationStatus getStatusByUuidOnApplicationUpdate(ApplicationStatus currentApplicationStatus, String requestBodyStatusUuid);
   List<StatusSelectOptionView> getSelectOptions();
 }

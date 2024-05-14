@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.application;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.annotations.uuidValidation.UuidConstraint;
+import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.dtos.application.response.ApplicationDto;
