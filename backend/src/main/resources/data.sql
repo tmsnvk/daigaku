@@ -194,7 +194,7 @@ VALUES
 
 -- INSERT applications
 INSERT INTO applications
-  (student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id, created_by, last_modified_by, is_marked_for_deletion)
+  (student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id, created_by, last_modified_by, is_removable)
 VALUES
   (1, 2, 1, 'Business Administration', 3, 2, 2, 1, 1, 1, 'student@test.net', 'student@test.net', false),
   (1, 2, 2, 'Logistics', 3, 2, 2, 1, 2, 3, 'student@test.net', 'student@test.net', false),

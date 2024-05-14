@@ -28,7 +28,7 @@ public final class ApplicationMapper {
       application.getLastUpdatedAt(),
       createdBy,
       lastModifiedBy,
-      application.isMarkedForDeletion()
+      application.isRemovable()
     );
   }
 }
