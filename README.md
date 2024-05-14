@@ -9,10 +9,10 @@
 
 
 ### I. Project Description
-+ The application follows the university application statuses of high school students and handles complex student-mentor-admin relationships.
++ The application follows the university application process of high school students and handles complex student-mentor-admin relationships.
 + Upon registering, users with ``student`` access are able to join an institution (i.e. their school) and have a ``mentor`` user assigned to them who reviews their applications.
-+ Users with ``mentor`` permission are able to access all applications submitted by their allocated students.
-+ Users with ``institution admin`` permission receive admin rights for their institution (e.g. accept incoming student registration requests or access detailed reports), while ``system admins`` have application-wide rights and overview.
++ Users with ``mentor`` permission are able to access all applications submitted by their allocated students and perform various aggregate operations.
++ Users with ``institution admin`` permission receive admin rights for their institution (e.g. accept incoming student registration requests or access detailed aggregate reports), while ``system admins`` have application-wide rights and data overview.
 + A currently work-in-progress application with new features being continuously added.
 
 
@@ -53,9 +53,9 @@ DevOps
 + Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 + Clone the repository.
 + Fill in the necessary environment variables:
-    + create a .env file in the root folder based on .env_sample;
-    + create an env.properties file in the /backend folder based on env_sample.properties.
-+ In a terminal, change directory into the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
+    + in a terminal panel, step into the repository's root directory, run the ``cp .env_sample .env`` command and fill in the file.
+    + in a terminal panel, step into the repository's /backend directory, run the ``cp env_sample.properties env.properties`` command and fill in the file.
++ In a terminal panel, change directory into the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
 + On the login page you may log in with the following credentials:
     + account with student role:
         + email - ``student@test.net``;
@@ -67,7 +67,7 @@ DevOps
 - [x] submit a new application.
 - [x] view aggregate application data.
 - [x] edit an application.
-- [ ] request application deletion.
+- [x] request application deletion.
 - [ ] download application data in .pdf format.
 
 ``mentor`` user features:
@@ -94,7 +94,6 @@ DevOps
 application-wide features:
 - [x] login/registration functionality.
 - [ ] editable profile page.
-- [ ] revamp navbar menu bar and split it into a nav/sidebar navigation solution.
 - [ ] revamp / make the frontend design more lively.
 - [ ] in-app messaging system.
 - [ ] feedback form.
