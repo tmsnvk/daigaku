@@ -102,7 +102,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Account account,
     NewApplicationByStudentDto requestBody
   ) {
-    Country country = countryService.findByUuid(requestBody.countryUuid());
+    Country country = countryService.getCountryByUuid(requestBody.countryUuid());
     University university = universityService.findByUuid(requestBody.universityUuid());
 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);

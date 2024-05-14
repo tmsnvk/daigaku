@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CountryService {
   List<CountryOptionView> getSelectOptions();
-  Country findByUuid(String uuid);
+  Country getCountryByUuid(String uuid);
 }

@@ -30,7 +30,7 @@ public class UniversityServiceImpl implements UniversityService {
   @Override
   @Transactional(readOnly = true)
   public List<UniversityOptionView> getSelectOptionsByCountryUuid(String countryUuid) {
-    Country country = countryService.findByUuid(countryUuid);
+    Country country = countryService.getCountryByUuid(countryUuid);
 
     return universityRepository.findByCountryOrderByNameAsc(country);
   }
