@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.application;
 
 import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
-import net.tamasnovak.dtos.application.response.ApplicationDto;
+import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.services.application.application.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,13 +29,13 @@ public class ApplicationController {
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> getApplicationDto(
+  public ResponseEntity<ApplicationView> getApplicationDto(
     @PathVariable("uuid") @UuidConstraint String uuid
   ) {
-    ApplicationDto returnDto = applicationService.getApplicationDtoByUuid(uuid);
+    ApplicationView returnProjection = applicationService.getApplicationViewByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnProjection);
   }
 }
