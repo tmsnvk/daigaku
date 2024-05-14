@@ -13,8 +13,6 @@ import net.tamasnovak.dtos.application.response.FinalDestinationDto;
 import net.tamasnovak.dtos.application.response.FirmChoiceDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
-import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 import net.tamasnovak.entities.enums.FinalDestinationType;
 import net.tamasnovak.entities.enums.ResponseStatusType;
@@ -69,13 +67,9 @@ public final class Student extends BaseSimpleIdEntity {
 
   public Application getFirmChoiceApplication() {
     return applications.stream()
-      .filter((element -> {
-        ResponseStatus responseStatus = element.getResponseStatus();
-
-        return responseStatus != null && Objects.equals(element.getResponseStatus().getName(), ResponseStatusType.FIRM_CHOICE.getType());
-      }))
-     .findFirst()
-     .orElse(null);
+      .filter((this::hasApplicationFirmChoiceStatus))
+      .findFirst()
+      .orElse(null);
   }
 
   public FirmChoiceDto getFirmChoiceDto() {
@@ -92,13 +86,14 @@ public final class Student extends BaseSimpleIdEntity {
     );
   }
 
+  private boolean hasApplicationFirmChoiceStatus(Application application) {
+    return application.getResponseStatus() != null &&
+      Objects.equals(application.getResponseStatus().getName(), ResponseStatusType.FIRM_CHOICE.getType());
+  }
+
   public Application getFinalDestinationApplication() {
     return applications.stream()
-      .filter(element -> {
-        FinalDestinationStatus finalDestinationStatus = element.getFinalDestinationStatus();
-
-        return hasApplicationFinalDestinationStatus(element, finalDestinationStatus);
-      })
+      .filter(this::hasApplicationFinalDestinationStatus)
       .findFirst()
       .orElse(null);
   }
@@ -117,11 +112,13 @@ public final class Student extends BaseSimpleIdEntity {
     );
   }
 
-  private boolean hasApplicationFinalDestinationStatus(Application application, FinalDestinationStatus finalDestinationStatus) {
-    return finalDestinationStatus != null && (Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.FINAL_DESTINATION.getType()) || Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.DEFERRED_FINAL_DESTINATION.getType()));
+  private boolean hasApplicationFinalDestinationStatus(Application application) {
+    return application.getFinalDestinationStatus() != null &&
+      (Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.FINAL_DESTINATION.getType()) ||
+        Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.DEFERRED_FINAL_DESTINATION.getType()));
   }
 
-  public int countApplications() {
+  public int getApplicationsSize() {
     return applications.size();
   }
 

@@ -176,7 +176,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     return new DashboardAggregateDataDto(
       student.getFirmChoiceDto(),
       student.getFinalDestinationDto(),
-      student.countApplications(),
+      student.getApplicationsSize(),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.PLANNED.getType())),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.SUBMITTED.getType())),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.WITHDRAWN.getType())),
