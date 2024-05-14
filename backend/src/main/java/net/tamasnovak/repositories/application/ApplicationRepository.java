@@ -20,7 +20,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
       UPDATE
         applications
       SET
-        is_marked_for_deletion = NOT is_marked_for_deletion
+        is_removable = NOT is_removable
       WHERE
         uuid = :uuid
     """, nativeQuery = true
