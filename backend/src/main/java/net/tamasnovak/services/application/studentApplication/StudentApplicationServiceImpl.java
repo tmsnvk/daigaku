@@ -83,7 +83,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   public List<ApplicationDto> getAllByStudent(
     Account account
   ) {
-    Student student = studentService.findByAccount(account);
+    Student student = studentService.getStudentByAccount(account);
     List<Application> applications = applicationRepository.findApplicationsByStudent(student);
 
     return applications.stream()
@@ -107,7 +107,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
-    Student student = studentService.findByAccount(account);
+    Student student = studentService.getStudentByAccount(account);
     ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getType());
 
     Application application = Application.createApplicationByStudent(
@@ -171,7 +171,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   public DashboardAggregateDataDto getAggregateDataByAccount(
     Account account
   ) {
-    Student student = studentService.findByAccount(account);
+    Student student = studentService.getStudentByAccount(account);
 
     return new DashboardAggregateDataDto(
       student.getFirmChoiceDto(),
