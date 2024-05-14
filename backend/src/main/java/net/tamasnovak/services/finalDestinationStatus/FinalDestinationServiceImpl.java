@@ -32,7 +32,9 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  public FinalDestinationStatus getStatusByUuid(String uuid) {
+  public FinalDestinationStatus getStatusByUuid(
+    String uuid
+  ) {
     return finalDestinationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

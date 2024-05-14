@@ -13,8 +13,8 @@ import net.tamasnovak.entities.application.InterviewStatus;
 import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.entities.enums.ApplicationStatusType;
 import net.tamasnovak.entities.university.University;
+import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.account.AccountService;
@@ -108,7 +108,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     Student student = studentService.getStudentByAccount(account);
-    ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getType());
+    ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getName());
 
     Application application = Application.createApplicationByStudent(
       student,
@@ -177,9 +177,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       student.getFirmChoiceDto(),
       student.getFinalDestinationDto(),
       student.getApplicationsSize(),
-      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.PLANNED.getType())),
-      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.SUBMITTED.getType())),
-      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.WITHDRAWN.getType())),
+      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.PLANNED.getName())),
+      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.SUBMITTED.getName())),
+      student.countApplicationsByPredicate(element -> Objects.equals(element.getApplicationStatus().getName(), ApplicationStatusType.WITHDRAWN.getName())),
       student.countApplicationsByDistinctValue(Application::getCountry),
       student.countApplicationsByDistinctValue(Application::getUniversity),
       student.countApplicationsByPredicate(element -> Objects.equals(element.getInterviewStatus(), null)),

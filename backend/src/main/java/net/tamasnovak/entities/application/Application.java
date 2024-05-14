@@ -154,16 +154,29 @@ public final class Application extends Auditable {
     return isMarkedForDeletion;
   }
 
-  public void validateStatusFields(UpdateApplicationByStudentDto applicationDto, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
+  public void validateStatusFields(
+    UpdateApplicationByStudentDto applicationDto,
+    ApplicationStatus newApplicationStatus,
+    InterviewStatus newInterviewStatus,
+    OfferStatus newOfferStatus,
+    ResponseStatus newResponseStatus,
+    FinalDestinationStatus newFinalDestinationStatus
+  ) {
     validateApplicationStatus(applicationDto.applicationStatusUuid(), newApplicationStatus);
     validateResponseStatus(newResponseStatus, applicationDto);
-    validateFinalDestinationStatus(newFinalDestinationStatus, applicationDto);
+    validateFinalDestinationStatus(newFinalDestinationStatus);
 
     validateInterviewStatus(newInterviewStatus, applicationDto);
     validateOfferStatus(newOfferStatus, applicationDto);
   }
 
-  public void updateStatusFields(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
+  public void updateStatusFields(
+    ApplicationStatus applicationStatus,
+    InterviewStatus interviewStatus,
+    OfferStatus offerStatus,
+    ResponseStatus responseStatus,
+    FinalDestinationStatus finalDestinationStatus
+  ) {
     this.applicationStatus = applicationStatus;
     this.interviewStatus = interviewStatus;
     this.offerStatus = offerStatus;
@@ -171,7 +184,10 @@ public final class Application extends Auditable {
     this.finalDestinationStatus = finalDestinationStatus;
   }
 
-  private void validateApplicationStatus(String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
+  private void validateApplicationStatus(
+    String applicationStatusUUid,
+    ApplicationStatus newApplicationStatus
+  ) {
     if (Objects.equals(applicationStatusUUid, "")) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
     }
@@ -185,7 +201,10 @@ public final class Application extends Auditable {
     }
   }
 
-  private void validateInterviewStatus(InterviewStatus newInterviewStatus, UpdateApplicationByStudentDto applicationDto) {
+  private void validateInterviewStatus(
+    InterviewStatus newInterviewStatus,
+    UpdateApplicationByStudentDto applicationDto
+  ) {
     if (newInterviewStatus != null) {
       if (Objects.equals(newInterviewStatus.getName(), InterviewStatusType.NOT_INVITED.getName()) && (!Objects.equals(applicationDto.offerStatusUuid(), "") || !Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
@@ -199,7 +218,10 @@ public final class Application extends Auditable {
     }
   }
 
-  private void validateOfferStatus(OfferStatus newOfferStatus, UpdateApplicationByStudentDto applicationDto) {
+  private void validateOfferStatus(
+    OfferStatus newOfferStatus,
+    UpdateApplicationByStudentDto applicationDto
+  ) {
     if (newOfferStatus != null) {
       if (Objects.equals(newOfferStatus.getName(), OfferStatusType.REJECTED.getName()) && (!Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
@@ -213,7 +235,10 @@ public final class Application extends Auditable {
     }
   }
 
-  private void validateResponseStatus(ResponseStatus newResponseStatus, UpdateApplicationByStudentDto applicationDto) {
+  private void validateResponseStatus(
+    ResponseStatus newResponseStatus,
+    UpdateApplicationByStudentDto applicationDto
+  ) {
     if (newResponseStatus != null) {
       if (Objects.equals(newResponseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getName()) && !Objects.equals(applicationDto.finalDestinationStatusUuid(), "")) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
@@ -231,7 +256,9 @@ public final class Application extends Auditable {
     }
   }
 
-  private void validateFinalDestinationStatus(FinalDestinationStatus newFinalDestinationStatus, UpdateApplicationByStudentDto applicationDto) {
+  private void validateFinalDestinationStatus(
+    FinalDestinationStatus newFinalDestinationStatus
+  ) {
     if (newFinalDestinationStatus != null) {
       if (getFinalDestinationApplication() != null && !Objects.equals(this.uuid, getFinalDestinationApplication().getUuid()) && !Objects.equals(newFinalDestinationStatus.getName(), FinalDestinationType.NOT_FINAL_DESTINATION.getName())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FINAL_DESTINATION_ERROR);

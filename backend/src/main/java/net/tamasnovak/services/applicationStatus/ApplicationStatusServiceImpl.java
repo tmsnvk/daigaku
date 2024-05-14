@@ -26,21 +26,28 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationStatus getStatusByName(String statusName) {
+  public ApplicationStatus getStatusByName(
+    String statusName
+  ) {
     return applicationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationStatus getStatusByUuid(String uuid) {
+  public ApplicationStatus getStatusByUuid(
+    String uuid
+  ) {
     return applicationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationStatus getStatusByUuidOnApplicationUpdate(ApplicationStatus currentStatus, String requestBodyStatusUuid) {
+  public ApplicationStatus getStatusByUuidOnApplicationUpdate(
+    ApplicationStatus currentStatus,
+    String requestBodyStatusUuid
+  ) {
     if (Objects.equals(currentStatus.getUuid().toString(), requestBodyStatusUuid)) {
       return currentStatus;
     }

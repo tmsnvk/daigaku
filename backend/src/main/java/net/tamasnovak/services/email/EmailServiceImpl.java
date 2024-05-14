@@ -17,7 +17,8 @@ import java.util.Properties;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-  @Value("${spring.mail.username}") private String sender;
+  @Value("${spring.mail.username}")
+  private String sender;
   private final JavaMailSender javaMailSender;
   private final EmailConstants emailConstants;
 
@@ -28,7 +29,9 @@ public class EmailServiceImpl implements EmailService {
   }
 
   @Override
-  public void sendEmail(NewEmailDto newEmailDto) {
+  public void sendEmail(
+    NewEmailDto newEmailDto
+  ) {
     try {
       InternetAddress emailAddress = new InternetAddress(newEmailDto.recipient());
       emailAddress.validate();

@@ -25,7 +25,9 @@ public final class JwtUtilities {
   private int jwtExpirationMs;
   private static final Logger logger = LoggerFactory.getLogger(JwtUtilities.class);
 
-  public String generateJwtToken(Authentication authentication) {
+  public String generateJwtToken(
+    Authentication authentication
+  ) {
     UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
     return Jwts.builder()
@@ -40,11 +42,15 @@ public final class JwtUtilities {
     return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
   }
 
-  public String getUserNameFromJwtToken(String token) {
+  public String getUserNameFromJwtToken(
+    String token
+  ) {
     return Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token).getBody().getSubject();
   }
 
-  public boolean validateJwtToken(String authToken) {
+  public boolean validateJwtToken(
+    String authToken
+  ) {
     try {
       Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
 

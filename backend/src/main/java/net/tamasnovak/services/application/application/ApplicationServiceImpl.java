@@ -38,7 +38,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationDto getApplicationDtoByUuid(String uuid) {
+  public ApplicationDto getApplicationDtoByUuid(
+    String uuid
+  ) {
     Application application = getApplicationByUuid(uuid);
 
     verifyUserAccessToViewApplication(application);
@@ -51,12 +53,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public Application getApplicationByUuid(String uuid) {
+  public Application getApplicationByUuid(
+    String uuid
+  ) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
-  private void verifyUserAccessToViewApplication(Application application) {
+  private void verifyUserAccessToViewApplication(
+    Application application
+  ) {
     Account authAccount = authenticationFacade.getAuthenticatedAccount();
 
     if (Objects.equals(authAccount.getRole().getName(), "ROLE_STUDENT")) {

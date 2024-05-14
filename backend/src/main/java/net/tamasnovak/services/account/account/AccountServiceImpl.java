@@ -28,7 +28,9 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(String email) {
+  public void verifyAccountNotExistsByEmail(
+    String email
+  ) {
     boolean isAccountExists = accountRepository.existsByEmail(email);
 
     if (isAccountExists) {
@@ -38,14 +40,18 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public Account getAccountByEmail(String email) {
+  public Account getAccountByEmail(
+    String email
+  ) {
     return accountRepository.findByEmail(email)
       .orElseThrow(() -> new EntityNotFoundException(accountConstants.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ClientAuthContextDto getClientAuthContextDto(String email) {
+  public ClientAuthContextDto getClientAuthContextDto(
+    String email
+  ) {
     Account account = getAccountByEmail(email);
 
     return new ClientAuthContextDto(
@@ -57,7 +63,10 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public LoginReturnDto getLoginReturnDto(LoginRequestDto requestBody, Authentication authentication) {
+  public LoginReturnDto getLoginReturnDto(
+    LoginRequestDto requestBody,
+    Authentication authentication
+  ) {
     Account account = getAccountByEmail(requestBody.email().toLowerCase());
     String jwtToken = jwtUtilities.generateJwtToken(authentication);
 

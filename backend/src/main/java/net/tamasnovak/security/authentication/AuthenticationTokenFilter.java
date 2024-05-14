@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.tamasnovak.security.utilities.JwtUtilities;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +29,11 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
   }
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+  protected void doFilterInternal(
+    @NotNull HttpServletRequest request,
+    @NotNull HttpServletResponse response,
+    @NotNull FilterChain filterChain
+  ) throws ServletException, IOException {
     try {
       String jwt = parseJwt(request);
 
@@ -47,7 +52,9 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
-  private String parseJwt(HttpServletRequest request) {
+  private String parseJwt(
+    HttpServletRequest request
+  ) {
     String headerAuth = request.getHeader("Authorization");
 
     if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {

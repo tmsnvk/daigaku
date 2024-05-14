@@ -32,7 +32,9 @@ public class OfferStatusServiceImpl implements OfferStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public OfferStatus getStatusByUuid(String uuid) {
+  public OfferStatus getStatusByUuid(
+    String uuid
+  ) {
     return offerStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

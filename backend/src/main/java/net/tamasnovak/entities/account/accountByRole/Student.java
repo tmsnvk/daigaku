@@ -90,7 +90,9 @@ public final class Student extends BaseSimpleIdEntity {
     );
   }
 
-  private boolean hasApplicationFirmChoiceStatus(Application application) {
+  private boolean hasApplicationFirmChoiceStatus(
+    Application application
+  ) {
     return application.getResponseStatus() != null &&
       Objects.equals(application.getResponseStatus().getName(), ResponseStatusType.FIRM_CHOICE.getName());
   }
@@ -116,7 +118,9 @@ public final class Student extends BaseSimpleIdEntity {
     );
   }
 
-  private boolean hasApplicationFinalDestinationStatus(Application application) {
+  private boolean hasApplicationFinalDestinationStatus(
+    Application application
+  ) {
     return application.getFinalDestinationStatus() != null &&
       (Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.FINAL_DESTINATION.getName()) ||
         Objects.equals(application.getFinalDestinationStatus().getName(), FinalDestinationType.DEFERRED_FINAL_DESTINATION.getName()));
@@ -126,14 +130,18 @@ public final class Student extends BaseSimpleIdEntity {
     return applications.size();
   }
 
-  public <T> int countApplicationsByDistinctValue(Function<Application, T> extractor) {
+  public <T> int countApplicationsByDistinctValue(
+    Function<Application, T> extractor
+  ) {
     return (int) applications.stream()
       .map(extractor)
       .distinct()
       .count();
   }
 
-  public int countApplicationsByPredicate(Predicate<? super Application> predicate) {
+  public int countApplicationsByPredicate(
+    Predicate<? super Application> predicate
+  ) {
     return (int) applications.stream()
       .filter(predicate)
       .count();

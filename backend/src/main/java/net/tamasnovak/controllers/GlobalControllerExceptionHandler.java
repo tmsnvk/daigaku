@@ -22,7 +22,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
   @ExceptionHandler(value = { ConstraintViolationException.class })
-  public ResponseEntity<Map<String, String>> handleEntityConstraintValidationException(ConstraintViolationException exception) {
+  public ResponseEntity<Map<String, String>> onEntityConstraintValidationException(ConstraintViolationException exception) {
     Map<String, String> errors = new HashMap<>();
 
     exception.getConstraintViolations()
@@ -34,7 +34,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
-  public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException() {
+  public ResponseEntity<Map<String, String>> onMethodArgumentTypeMismatchException() {
     Map<String, String> response = createErrorResponse("The request contained invalid data.");
 
     return ResponseEntity
@@ -43,7 +43,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { MethodArgumentNotValidException.class })
-  public ResponseEntity<Map<String, String>> handleInvalidMethodArgumentExceptions(MethodArgumentNotValidException exception) {
+  public ResponseEntity<Map<String, String>> onInvalidMethodArgumentExceptions(MethodArgumentNotValidException exception) {
     Map<String, String> response = new HashMap<>();
 
     exception.getBindingResult().getAllErrors()
@@ -60,7 +60,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { DataIntegrityViolationException.class })
-  public ResponseEntity<Map<String, String>> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+  public ResponseEntity<Map<String, String>> onDataIntegrityViolationException(DataIntegrityViolationException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
@@ -69,7 +69,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { DataRetrievalFailureException.class })
-  public ResponseEntity<Map<String, String>> handleDataRetrievalFailureException(DataRetrievalFailureException exception) {
+  public ResponseEntity<Map<String, String>> onDataRetrievalFailureException(DataRetrievalFailureException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
@@ -78,7 +78,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { EntityNotFoundException.class })
-  public ResponseEntity<Map<String, String>> handleEntityNotFoundException(EntityNotFoundException exception) {
+  public ResponseEntity<Map<String, String>> onEntityNotFoundException(EntityNotFoundException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
@@ -87,7 +87,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { MailSendException.class, MessagingException.class })
-  public ResponseEntity<Map<String, String>> handleEmailSendingException(Exception exception) {
+  public ResponseEntity<Map<String, String>> onEmailSendingException(Exception exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
@@ -96,7 +96,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { BadCredentialsException.class })
-  public ResponseEntity<Map<String, String>> handleBadCredentialsException() {
+  public ResponseEntity<Map<String, String>> onBadCredentialsException() {
     Map<String, String> response = createErrorResponse("Incorrect authentication credentials were provided.");
 
     return ResponseEntity
@@ -105,7 +105,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { IllegalArgumentException.class })
-  public ResponseEntity<Map<String, String>> handleIllegalException(IllegalArgumentException exception) {
+  public ResponseEntity<Map<String, String>> onIllegalException(IllegalArgumentException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity
@@ -114,7 +114,7 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { InvalidFormFieldException.class })
-  public ResponseEntity<Map<String, String>> handleEntityNotFoundException(InvalidFormFieldException exception) {
+  public ResponseEntity<Map<String, String>> onEntityNotFoundException(InvalidFormFieldException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity

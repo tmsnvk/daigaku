@@ -36,7 +36,9 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(String email) {
+  public void verifyAccountNotExistsByEmail(
+    String email
+  ) {
     boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
 
     if (isPendingAccountExists) {
@@ -46,7 +48,9 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional
-  public void createAccount(PendingAccountRegistrationDto requestBody) {
+  public void createAccount(
+    PendingAccountRegistrationDto requestBody
+  ) {
     verifyAccountNotExistsByEmail(requestBody.email());
     accountService.verifyAccountNotExistsByEmail(requestBody.email());
 
@@ -66,7 +70,10 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     sendEmail(requestBody, institution);
   }
 
-  private void sendEmail(PendingAccountRegistrationDto requestBody, Institution institution) {
+  private void sendEmail(
+    PendingAccountRegistrationDto requestBody,
+    Institution institution
+  ) {
     String content = String.format(
       pendingAccountConstants.PENDING_ACCOUNT_EMAIL_BODY,
       requestBody.firstName(),
