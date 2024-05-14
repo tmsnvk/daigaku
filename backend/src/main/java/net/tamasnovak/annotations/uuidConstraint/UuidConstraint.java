@@ -1,4 +1,4 @@
-package net.tamasnovak.annotations.uuidValidation;
+package net.tamasnovak.annotations.uuidConstraint;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
