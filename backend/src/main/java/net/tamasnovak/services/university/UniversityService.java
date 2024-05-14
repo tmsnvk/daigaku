@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface UniversityService {
   List<UniversityOptionView> getSelectOptionsByCountryUuid(String countryUuid);
-  University findByUuid(String uuid);
+  University getUniversityByUuid(String uuid);
 }

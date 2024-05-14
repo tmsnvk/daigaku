@@ -37,7 +37,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
-  public University findByUuid(String uuid) {
+  public University getUniversityByUuid(String uuid) {
     return universityRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
