@@ -51,7 +51,7 @@ public final class Application extends Auditable {
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
