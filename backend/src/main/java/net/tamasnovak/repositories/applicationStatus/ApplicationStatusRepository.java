@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface ApplicationStatusRepository extends JpaRepository<ApplicationStatus, Long> {
   Optional<ApplicationStatus> findByName(String statusName);
+
   Optional<ApplicationStatus> findByUuid(UUID uuid);
+
   List<StatusSelectOptionView> findAllByOrderByNameAsc();
 }

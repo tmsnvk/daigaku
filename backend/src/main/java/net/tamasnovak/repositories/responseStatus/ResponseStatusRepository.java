@@ -10,5 +10,6 @@ import java.util.UUID;
 
 public interface ResponseStatusRepository extends JpaRepository<ResponseStatus, Long> {
   List<StatusSelectOptionView> findAllByOrderByNameAsc();
+
   Optional<ResponseStatus> findByUuid(UUID uuid);
 }

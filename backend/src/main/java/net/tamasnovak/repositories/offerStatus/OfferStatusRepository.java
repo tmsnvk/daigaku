@@ -10,5 +10,6 @@ import java.util.UUID;
 
 public interface OfferStatusRepository extends JpaRepository<OfferStatus, Long> {
   List<StatusSelectOptionView> findAllByOrderByNameAsc();
+
   Optional<OfferStatus> findByUuid(UUID uuid);
 }
