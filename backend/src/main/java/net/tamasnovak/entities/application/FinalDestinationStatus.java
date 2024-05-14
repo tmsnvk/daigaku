@@ -18,7 +18,7 @@ public final class FinalDestinationStatus extends BaseStatusEntity {
 
   protected FinalDestinationStatus() {}
 
-  public FinalDestinationStatus(String name) {
+  private FinalDestinationStatus(String name) {
     super(name);
     this.applications = new HashSet<>();
   }

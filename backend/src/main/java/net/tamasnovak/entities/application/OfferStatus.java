@@ -18,7 +18,7 @@ public final class OfferStatus extends BaseStatusEntity {
 
   protected OfferStatus() {}
 
-  public OfferStatus(String name) {
+  private OfferStatus(String name) {
     super(name);
     this.applications = new HashSet<>();
   }

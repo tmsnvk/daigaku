@@ -18,7 +18,7 @@ public final class ApplicationStatus extends BaseStatusEntity {
 
   protected ApplicationStatus() {}
 
-  public ApplicationStatus(String name) {
+  private ApplicationStatus(String name) {
     super(name);
     this.applications = new HashSet<>();
   }

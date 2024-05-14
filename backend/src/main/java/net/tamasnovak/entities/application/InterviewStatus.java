@@ -18,7 +18,7 @@ public final class InterviewStatus extends BaseStatusEntity {
 
   protected InterviewStatus() {}
 
-  public InterviewStatus(String name) {
+  private InterviewStatus(String name) {
     super(name);
     this.applications = new HashSet<>();
   }

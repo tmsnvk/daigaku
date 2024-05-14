@@ -18,7 +18,7 @@ public final class ResponseStatus extends BaseStatusEntity {
 
   protected ResponseStatus() {}
 
-  public ResponseStatus(String name) {
+  private ResponseStatus(String name) {
     super(name);
     this.applications = new HashSet<>();
   }
