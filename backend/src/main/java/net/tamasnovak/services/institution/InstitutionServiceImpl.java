@@ -31,7 +31,7 @@ public class InstitutionServiceImpl implements InstitutionService{
 
   @Override
   @Transactional(readOnly = true)
-  public Institution findByUuid(String uuid) {
+  public Institution getInstitutionByUuid(String uuid) {
     return institutionRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

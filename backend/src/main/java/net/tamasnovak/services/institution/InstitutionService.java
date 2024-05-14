@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface InstitutionService {
   List<InstitutionOptionView> getSelectOptions();
-  Institution findByUuid(String uuid);
+  Institution getInstitutionByUuid(String uuid);
 }
