@@ -2,11 +2,10 @@ package net.tamasnovak.dtos.application.request;
 
 import jakarta.validation.constraints.NotNull;
 import net.tamasnovak.annotations.optionalUuidConstraint.OptionalUuidConstraint;
-import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 
 public record UpdateApplicationByStudentDto(
   @NotNull(message = "Select a status.")
-  @UuidConstraint(message = "Select a valid status.")
+  @OptionalUuidConstraint(message = "Select a valid status.")
   String applicationStatusUuid,
 
   @NotNull(message = "Select a status.")

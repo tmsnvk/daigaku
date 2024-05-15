@@ -8,6 +8,7 @@ import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.services.application.application.ApplicationService;
 import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,13 @@ import java.util.List;
 public class StudentApplicationController {
   private final AuthenticationFacade authenticationFacade;
   private final StudentApplicationService studentApplicationService;
+  private final ApplicationService applicationService;
 
   @Autowired
-  public StudentApplicationController(AuthenticationFacade authenticationFacade, StudentApplicationService studentApplicationService) {
+  public StudentApplicationController(AuthenticationFacade authenticationFacade, StudentApplicationService studentApplicationService, ApplicationService applicationService) {
     this.authenticationFacade = authenticationFacade;
     this.studentApplicationService = studentApplicationService;
+    this.applicationService = applicationService;
   }
 
   @RequestMapping(
@@ -44,11 +47,11 @@ public class StudentApplicationController {
   public ResponseEntity<List<ApplicationView>> getAllByStudent() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<ApplicationView> returnDto = studentApplicationService.getAllApplicationsByStudent(account);
+    List<ApplicationView> returnView = studentApplicationService.getAllApplicationsByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnView);
   }
 
   @RequestMapping(
@@ -75,15 +78,15 @@ public class StudentApplicationController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<ApplicationDto> updateByUuid(
+  public ResponseEntity<ApplicationView> updateByUuid(
     @PathVariable("uuid") @UuidConstraint String uuid,
     @Valid @RequestBody UpdateApplicationByStudentDto requestBody
   ) {
-    ApplicationDto returnDto = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
+    ApplicationView returnView = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnView);
   }
 
   @RequestMapping(

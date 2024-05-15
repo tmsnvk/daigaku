@@ -102,7 +102,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Student student = studentService.getStudentByAccount(account);
     ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getName());
 
-    Application application = Application.createApplicationByStudent(
+    Application newApplication = Application.createApplicationByStudent(
       student,
       country,
       university,
@@ -112,17 +112,17 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       plannedApplicationStatus
     );
 
-    applicationRepository.save(application);
+    applicationRepository.save(newApplication);
 
-    String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
-    String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
+    String createdBy = accountService.getAccountByEmail(newApplication.getCreatedBy()).getFullName();
+    String lastModifiedBy = accountService.getAccountByEmail(newApplication.getLastModifiedBy()).getFullName();
 
-    return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
+    return applicationMapper.toApplicationDto(newApplication, createdBy, lastModifiedBy);
   }
 
   @Override
   @Transactional
-  public ApplicationDto updateApplicationByUuid(
+  public ApplicationView updateApplicationByUuid(
     String applicationUuid,
     UpdateApplicationByStudentDto requestBody
   ) {
@@ -144,10 +144,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(application);
 
-    String createdBy = accountService.getAccountByEmail(application.getCreatedBy()).getFullName();
-    String lastModifiedBy = accountService.getAccountByEmail(application.getLastModifiedBy()).getFullName();
-
-    return applicationMapper.toApplicationDto(application, createdBy, lastModifiedBy);
+    return applicationService.getApplicationViewByUuid(applicationUuid);
   }
 
   @Override

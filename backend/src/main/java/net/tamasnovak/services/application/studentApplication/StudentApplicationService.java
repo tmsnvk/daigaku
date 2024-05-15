@@ -12,7 +12,7 @@ import java.util.List;
 public interface StudentApplicationService {
   List<ApplicationView> getAllApplicationsByStudent(Account account);
   ApplicationDto createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
-  ApplicationDto updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
+  ApplicationView updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
   void updateIsRemovableByApplicationUuid(String uuid);
   DashboardAggregateDataDto getAggregateDataByAccount(Account account);
 }

@@ -45,13 +45,13 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         universities ON applications.university_id = universities.id
       JOIN
         application_status ON applications.application_status_id = application_status.id
-     FULL OUTER JOIN
+      FULL OUTER JOIN
         interview_status ON applications.interview_status_id = interview_status.id
-     FULL OUTER JOIN
+      FULL OUTER JOIN
         offer_status ON applications.offer_status_id = offer_status.id
-     FULL OUTER JOIN
+      FULL OUTER JOIN
         response_status ON applications.response_status_id = response_status.id
-     FULL OUTER JOIN
+      FULL OUTER JOIN
         final_destination_status ON applications.final_destination_status_id = final_destination_status.id
       JOIN
         accounts AS created_by ON applications.created_by = created_by.email
