@@ -18,12 +18,12 @@ public abstract class BaseExtendedIdEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", unique = true, insertable = false, updatable = false, nullable = false)
+  @Column(name = "id", unique = true, updatable = false, nullable = false)
   protected long id;
 
   @UuidGenerator
   @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "uuid", unique = true, insertable = false, updatable = false, nullable = false)
+  @Column(name = "uuid", unique = true, updatable = false, nullable = false)
   protected UUID uuid;
 
   protected BaseExtendedIdEntity() {}
