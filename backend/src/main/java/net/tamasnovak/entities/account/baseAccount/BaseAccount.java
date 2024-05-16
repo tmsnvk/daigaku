@@ -28,7 +28,7 @@ public abstract class BaseAccount extends Auditable {
 
   @Column(name = "email", unique = true, nullable = false)
   @Email(message = "Provide a valid email address.")
-  private String email;
+  protected String email;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "institution_id", nullable = false)
