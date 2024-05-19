@@ -5,11 +5,10 @@ import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.services.account.pendingAccount.PendingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,14 +21,8 @@ public class PendingAccountController {
     this.pendingAccountService = pendingAccountService;
   }
 
-  @RequestMapping(
-    value = "/register",
-    method = RequestMethod.POST,
-    consumes = MediaType.APPLICATION_JSON_VALUE
-  )
-  public ResponseEntity<HttpStatus> register(
-    @Valid @RequestBody PendingAccountRegistrationDto requestBody
-  ) {
+  @PostMapping(value = "/register")
+  public ResponseEntity<HttpStatus> register(@Valid @RequestBody PendingAccountRegistrationDto requestBody) {
     pendingAccountService.createAccount(requestBody);
 
     return ResponseEntity

@@ -4,12 +4,11 @@ import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 import net.tamasnovak.dtos.university.UniversityOptionView;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,18 +23,12 @@ public class UniversityController {
     this.universityService = universityService;
   }
 
-  @RequestMapping(
-    value = "/options/{countryUuid}",
-    method = RequestMethod.GET,
-    produces = MediaType.APPLICATION_JSON_VALUE
-  )
-  public ResponseEntity<List<UniversityOptionView>> getSelectOptionsByCountry(
-    @PathVariable("countryUuid") @UuidConstraint String countryUuid
-  ) {
-    List<UniversityOptionView> returnDto = universityService.getSelectOptionsByCountryUuid(countryUuid);
+  @GetMapping(value = "/options/{countryUuid}")
+  public ResponseEntity<List<UniversityOptionView>> getSelectOptionsByCountry(@PathVariable("countryUuid") @UuidConstraint String countryUuid) {
+    List<UniversityOptionView> returnProjection = universityService.getSelectOptionsByCountryUuid(countryUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnProjection);
   }
 }

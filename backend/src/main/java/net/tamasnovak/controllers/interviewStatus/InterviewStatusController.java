@@ -4,10 +4,9 @@ import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.services.interviewStatus.InterviewStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,16 +21,12 @@ public class InterviewStatusController {
     this.interviewStatusService = interviewStatusService;
   }
 
-  @RequestMapping(
-    path = "",
-    method = RequestMethod.GET,
-    produces = MediaType.APPLICATION_JSON_VALUE
-  )
+  @GetMapping(path = "")
   public ResponseEntity<List<StatusSelectOptionView>> getSelectOptions() {
-    List<StatusSelectOptionView> returnDto = interviewStatusService.getSelectOptions();
+    List<StatusSelectOptionView> returnProjection = interviewStatusService.getSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnProjection);
   }
 }

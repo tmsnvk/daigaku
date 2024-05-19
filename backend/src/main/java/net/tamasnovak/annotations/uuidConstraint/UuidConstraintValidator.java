@@ -12,10 +12,7 @@ public class UuidConstraintValidator implements ConstraintValidator<UuidConstrai
   }
 
   @Override
-  public boolean isValid(
-    String value,
-    ConstraintValidatorContext constraintValidatorContext
-  ) {
+  public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
     try {
       UUID.fromString(value);
 

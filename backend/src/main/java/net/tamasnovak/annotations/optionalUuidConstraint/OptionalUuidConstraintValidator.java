@@ -12,10 +12,7 @@ public class OptionalUuidConstraintValidator implements ConstraintValidator<Opti
   }
 
   @Override
-  public boolean isValid(
-    String value,
-    ConstraintValidatorContext constraintValidatorContext
-  ) {
+  public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
     try {
       if (value.trim().isEmpty()) {
         return true;

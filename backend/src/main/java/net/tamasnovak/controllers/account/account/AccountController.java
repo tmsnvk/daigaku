@@ -8,14 +8,14 @@ import net.tamasnovak.services.account.account.AccountService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,11 +30,7 @@ public class AccountController {
     this.accountService = accountService;
   }
 
-  @RequestMapping(
-    value = "/me",
-    method = RequestMethod.GET,
-    produces = MediaType.APPLICATION_JSON_VALUE
-  )
+  @GetMapping(value = "/me")
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
   public ResponseEntity<ClientAuthContextDto> getClientAuthContext() {
     User userDetails = authenticationFacade.getUserContext();
@@ -46,15 +42,8 @@ public class AccountController {
       .body(returnDto);
   }
 
-  @RequestMapping(
-    value = "/login",
-    method = RequestMethod.POST,
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE
-  )
-  public ResponseEntity<LoginReturnDto> login(
-    @Valid @RequestBody LoginRequestDto requestBody
-  ) {
+  @PostMapping(value = "/login")
+  public ResponseEntity<LoginReturnDto> login(@Valid @RequestBody LoginRequestDto requestBody) {
     Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
 
     LoginReturnDto returnDto = accountService.getLoginReturnDto(requestBody, authentication);
