@@ -1,4 +1,4 @@
-package net.tamasnovak.repositories.role;
+package net.tamasnovak.repositories.account.accountByRole;
 
 
 import net.tamasnovak.entities.account.accountByRole.Student;

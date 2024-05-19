@@ -1,4 +1,4 @@
-package net.tamasnovak.repositories.account;
+package net.tamasnovak.repositories.account.baseAccount;
 
 import net.tamasnovak.entities.account.baseAccount.PendingAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
