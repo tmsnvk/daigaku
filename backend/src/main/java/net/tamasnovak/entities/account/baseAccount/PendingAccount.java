@@ -22,7 +22,7 @@ public final class PendingAccount extends BaseAccount {
 
   @Override
   public int hashCode() {
-    return super.hashCode();
+    return Objects.hash(email, id, uuid);
   }
 
   @Override

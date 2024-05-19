@@ -1,6 +1,5 @@
 package net.tamasnovak.entities.account.baseAccount;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -19,7 +18,7 @@ public final class Account extends BaseAccount {
   @Column(name = "hashed_password", nullable = false)
   private String hashedPassword;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
 

@@ -16,7 +16,7 @@ public abstract class BaseSimpleIdEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", unique = true, insertable = false, updatable = false, nullable = false)
+  @Column(name = "id", unique = true, updatable = false, nullable = false)
   protected long id;
 
   protected BaseSimpleIdEntity() {}

@@ -2,7 +2,6 @@ package net.tamasnovak.entities.account.baseAccount;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
@@ -30,7 +29,7 @@ public abstract class BaseAccount extends Auditable {
   @Email(message = "Provide a valid email address.")
   protected String email;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
   @JsonBackReference
   private Institution institution;

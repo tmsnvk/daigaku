@@ -1,7 +1,6 @@
 package net.tamasnovak.entities.institution;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -26,7 +25,7 @@ public final class Institution extends Auditable {
   @NotBlank(message = "Provide the institution's name.")
   private String name;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
 

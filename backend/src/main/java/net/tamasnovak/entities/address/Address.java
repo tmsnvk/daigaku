@@ -3,7 +3,6 @@ package net.tamasnovak.entities.address;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -19,7 +18,7 @@ public final class Address extends BaseSimpleIdEntity {
   @Column(name = "city", nullable = false)
   private String city;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
   @JsonBackReference
   private Country country;

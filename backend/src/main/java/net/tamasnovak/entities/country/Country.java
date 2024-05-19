@@ -52,10 +52,7 @@ public final class Country extends Auditable {
     return name;
   }
 
-  public void verifyUniversityCountryLink(
-    University university,
-    String exceptionMessage
-  ) {
+  public void verifyUniversityCountryLink(University university, String exceptionMessage) {
     if (!universities.contains(university)) {
       throw new EntityNotFoundException(exceptionMessage);
     }

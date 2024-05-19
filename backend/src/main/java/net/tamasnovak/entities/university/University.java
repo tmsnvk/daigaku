@@ -80,6 +80,11 @@ public final class University extends Auditable {
   }
 
   @Override
+  public int hashCode() {
+    return Objects.hash(name, id, uuid);
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o)
       return true;
@@ -87,10 +92,5 @@ public final class University extends Auditable {
       return false;
     University that = (University) o;
     return Objects.equals(name, that.name) && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, id, uuid);
   }
 }
