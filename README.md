@@ -53,8 +53,8 @@ DevOps
 + Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 + Clone the repository.
 + Fill in the necessary environment variables:
-    + in a terminal panel, step into the repository's root directory, run the ``cp .env_sample .env`` command and fill in the file.
-    + in a terminal panel, step into the repository's /backend directory, run the ``cp env_sample.properties env.properties`` command and fill in the file.
+    + in a terminal panel, step into the repository's root directory, run the ``cp .env_sample .env`` command and fill in the just created ``.env`` file.
+    + in a terminal panel, step into the repository's /backend directory, run the ``cp env_sample.properties env.properties`` command and fill in the just created ``env.properties`` file.
 + In a terminal panel, change directory into the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
 + On the login page you may log in with the following credentials:
     + account with student role:

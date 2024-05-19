@@ -22,4 +22,4 @@ COPY --from=build-stage ${DEPENDENCY}/META-INF /backend/META-INF
 COPY --from=build-stage ${DEPENDENCY}/BOOT-INF/classes /backend
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-cp", "backend:backend/lib/*", "net.tamasnovak.SpringApplication"]
+ENTRYPOINT ["java", "-cp", "backend:backend/lib/*", "net.tamasnovak.DaigakuBackendApplication"]
