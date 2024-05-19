@@ -2,7 +2,6 @@ package net.tamasnovak.services.application.studentApplication;
 
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
-import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.entities.account.accountByRole.Student;
@@ -18,8 +17,7 @@ import net.tamasnovak.entities.university.University;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
-import net.tamasnovak.services.account.account.AccountService;
-import net.tamasnovak.services.application.ApplicationMapper;
+import net.tamasnovak.services.account.accountByRole.student.StudentService;
 import net.tamasnovak.services.application.application.ApplicationService;
 import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
@@ -27,7 +25,6 @@ import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusServ
 import net.tamasnovak.services.interviewStatus.InterviewStatusService;
 import net.tamasnovak.services.offerStatus.OfferStatusService;
 import net.tamasnovak.services.responseStatus.ResponseStatusService;
-import net.tamasnovak.services.role.student.StudentService;
 import net.tamasnovak.services.university.UniversityService;
 import net.tamasnovak.utilities.ValidatorUtilities;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
@@ -42,7 +39,6 @@ import java.util.UUID;
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
   private final AuthenticationFacade authenticationFacade;
-  private final AccountService accountService;
   private final StudentService studentService;
   private final CountryService countryService;
   private final UniversityService universityService;
@@ -53,15 +49,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final ResponseStatusService responseStatusService;
   private final FinalDestinationStatusService finalDestinationStatusService;
   private final ApplicationRepository applicationRepository;
-  private final ApplicationMapper applicationMapper;
   private final ValidatorUtilities validatorUtilities;
   private final StudentApplicationConstants studentApplicationConstants;
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, AccountService accountService, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ValidatorUtilities validatorUtilities, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.authenticationFacade = authenticationFacade;
-    this.accountService = accountService;
     this.studentService = studentService;
     this.countryService = countryService;
     this.universityService = universityService;
@@ -72,7 +66,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.responseStatusService = responseStatusService;
     this.finalDestinationStatusService = finalDestinationStatusService;
     this.applicationRepository = applicationRepository;
-    this.applicationMapper = applicationMapper;
     this.validatorUtilities = validatorUtilities;
     this.studentApplicationConstants = studentApplicationConstants;
     this.globalServiceConstants = globalServiceConstants;
@@ -80,9 +73,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationView> getAllApplicationsByStudent(
-    Account account
-  ) {
+  public List<ApplicationView> getAllApplicationsByStudent(Account account) {
     Student student = studentService.getStudentByAccount(account);
 
     return applicationRepository.findApplicationsByStudent(student.getId());
@@ -90,17 +81,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto createApplication(
-    Account account,
-    NewApplicationByStudentDto requestBody
-  ) {
+  public ApplicationView createApplication(Account account, NewApplicationByStudentDto requestBody) {
     Country country = countryService.getCountryByUuid(requestBody.countryUuid());
     University university = universityService.getUniversityByUuid(requestBody.universityUuid());
 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     Student student = studentService.getStudentByAccount(account);
-    ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getName());
+    ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName("Planned");
 
     Application newApplication = Application.createApplicationByStudent(
       student,
@@ -114,18 +102,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(newApplication);
 
-    String createdBy = accountService.getAccountByEmail(newApplication.getCreatedBy()).getFullName();
-    String lastModifiedBy = accountService.getAccountByEmail(newApplication.getLastModifiedBy()).getFullName();
-
-    return applicationMapper.toApplicationDto(newApplication, createdBy, lastModifiedBy);
+    return applicationService.getApplicationViewByUuid(newApplication.getUuid().toString());
   }
 
   @Override
   @Transactional
-  public ApplicationView updateApplicationByUuid(
-    String applicationUuid,
-    UpdateApplicationByStudentDto requestBody
-  ) {
+  public ApplicationView updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto requestBody) {
     Application application = applicationService.getApplicationByUuid(applicationUuid);
 
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
@@ -149,17 +131,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public void updateIsRemovableByApplicationUuid(
-    String uuid
-  ) {
+  public void updateIsRemovableByApplicationUuid(String uuid) {
     applicationRepository.updateIsRemovableByUuid(UUID.fromString(uuid));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardAggregateDataDto getAggregateDataByAccount(
-    Account account
-  ) {
+  public DashboardAggregateDataDto getAggregateDataByAccount(Account account) {
     Student student = studentService.getStudentByAccount(account);
 
     return new DashboardAggregateDataDto(

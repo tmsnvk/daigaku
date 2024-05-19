@@ -1,11 +1,11 @@
-package net.tamasnovak.services.account.account;
+package net.tamasnovak.services.account.baseAccount.account;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
-import net.tamasnovak.repositories.account.AccountRepository;
+import net.tamasnovak.repositories.account.baseAccount.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,9 +28,7 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(
-    String email
-  ) {
+  public void verifyAccountNotExistsByEmail(String email) {
     boolean isAccountExists = accountRepository.existsByEmail(email);
 
     if (isAccountExists) {
@@ -40,18 +38,14 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public Account getAccountByEmail(
-    String email
-  ) {
+  public Account getAccountByEmail(String email) {
     return accountRepository.findByEmail(email)
       .orElseThrow(() -> new EntityNotFoundException(accountConstants.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ClientAuthContextDto getClientAuthContextDto(
-    String email
-  ) {
+  public ClientAuthContextDto getClientAuthContextDto(String email) {
     Account account = getAccountByEmail(email);
 
     return new ClientAuthContextDto(
@@ -63,10 +57,7 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public LoginReturnDto getLoginReturnDto(
-    LoginRequestDto requestBody,
-    Authentication authentication
-  ) {
+  public LoginReturnDto getLoginReturnDto(LoginRequestDto requestBody, Authentication authentication) {
     Account account = getAccountByEmail(requestBody.email().toLowerCase());
     String jwtToken = jwtUtilities.generateJwtToken(authentication);
 

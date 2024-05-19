@@ -2,7 +2,7 @@ package net.tamasnovak.controllers.account.pendingAccount;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
-import net.tamasnovak.services.account.pendingAccount.PendingAccountService;
+import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

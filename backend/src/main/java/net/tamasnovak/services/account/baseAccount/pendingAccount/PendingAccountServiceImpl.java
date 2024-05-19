@@ -1,12 +1,12 @@
-package net.tamasnovak.services.account.pendingAccount;
+package net.tamasnovak.services.account.baseAccount.pendingAccount;
 
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.dtos.email.NewEmailDto;
 import net.tamasnovak.entities.account.baseAccount.PendingAccount;
 import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
-import net.tamasnovak.repositories.account.PendingAccountRepository;
-import net.tamasnovak.services.account.account.AccountService;
+import net.tamasnovak.repositories.account.baseAccount.PendingAccountRepository;
+import net.tamasnovak.services.account.baseAccount.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
 import net.tamasnovak.services.role.RoleService;
@@ -36,9 +36,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(
-    String email
-  ) {
+  public void verifyAccountNotExistsByEmail(String email) {
     boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
 
     if (isPendingAccountExists) {
@@ -48,11 +46,9 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional
-  public void createAccount(
-    PendingAccountRegistrationDto requestBody
-  ) {
-    verifyAccountNotExistsByEmail(requestBody.email());
+  public void createAccount(PendingAccountRegistrationDto requestBody) {
     accountService.verifyAccountNotExistsByEmail(requestBody.email());
+    verifyAccountNotExistsByEmail(requestBody.email());
 
     Institution institution = institutionService.getInstitutionByUuid(requestBody.institutionUuid());
     Role role = roleService.getRoleByName(requestBody.accountType());
@@ -67,13 +63,10 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
     pendingAccountRepository.save(pendingAccount);
 
-    sendEmail(requestBody, institution);
+    sendWelcomeEmail(requestBody, institution);
   }
 
-  private void sendEmail(
-    PendingAccountRegistrationDto requestBody,
-    Institution institution
-  ) {
+  private void sendWelcomeEmail(PendingAccountRegistrationDto requestBody, Institution institution) {
     String content = String.format(
       pendingAccountConstants.PENDING_ACCOUNT_EMAIL_BODY,
       requestBody.firstName(),
@@ -84,6 +77,6 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
     NewEmailDto newEmail = new NewEmailDto(requestBody.email(), pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT, content);
 
-    emailService.sendEmail(newEmail);
+    emailService.sendSimpleEmail(newEmail);
   }
 }

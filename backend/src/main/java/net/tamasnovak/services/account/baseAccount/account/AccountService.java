@@ -1,4 +1,4 @@
-package net.tamasnovak.services.account.account;
+package net.tamasnovak.services.account.baseAccount.account;
 
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;

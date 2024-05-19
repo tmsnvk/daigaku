@@ -33,31 +33,25 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public ApplicationView getApplicationViewByUuid(
-    String uuid
-  ) {
-    ApplicationView viewProjection = applicationRepository.findApplicationViewByUuid(UUID.fromString(uuid))
+  public ApplicationView getApplicationViewByUuid(String uuid) {
+    ApplicationView applicationProjection = applicationRepository.findApplicationViewByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
 
-    if (viewProjection != null) {
+    if (applicationProjection != null) {
       verifyUserAccessToViewApplication(uuid);
     }
 
-    return viewProjection;
+    return applicationProjection;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public Application getApplicationByUuid(
-    String uuid
-  ) {
+  public Application getApplicationByUuid(String uuid) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
-  private void verifyUserAccessToViewApplication(
-    String uuid
-  ) {
+  private void verifyUserAccessToViewApplication(String uuid) {
     Account authAccount = authenticationFacade.getAuthenticatedAccount();
     ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(UUID.fromString(uuid));
 

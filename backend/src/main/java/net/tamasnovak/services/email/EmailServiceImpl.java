@@ -29,9 +29,7 @@ public class EmailServiceImpl implements EmailService {
   }
 
   @Override
-  public void sendEmail(
-    NewEmailDto newEmailDto
-  ) {
+  public void sendSimpleEmail(NewEmailDto newEmailDto) {
     try {
       InternetAddress emailAddress = new InternetAddress(newEmailDto.recipient());
       emailAddress.validate();

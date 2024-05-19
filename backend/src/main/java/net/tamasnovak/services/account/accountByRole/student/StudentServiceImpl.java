@@ -1,9 +1,9 @@
-package net.tamasnovak.services.role.student;
+package net.tamasnovak.services.account.accountByRole.student;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.account.baseAccount.Account;
-import net.tamasnovak.repositories.role.StudentRepository;
+import net.tamasnovak.repositories.account.accountByRole.StudentRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,7 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public Student getStudentByAccount(
-    Account account
-  ) {
+  public Student getStudentByAccount(Account account) {
     return studentRepository.findByAccount(account)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

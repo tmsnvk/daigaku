@@ -32,19 +32,14 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public InterviewStatus getStatusByUuid(
-    String uuid
-  ) {
+  public InterviewStatus getStatusByUuid(String uuid) {
     return interviewStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public InterviewStatus getStatusByUuidOnApplicationUpdate(
-    InterviewStatus currentStatus,
-    String requestBodyStatusUuid
-  ) {
+  public InterviewStatus getStatusByUuidOnApplicationUpdate(InterviewStatus currentStatus, String requestBodyStatusUuid) {
     if (currentStatus != null) {
       if (Objects.equals(currentStatus.getUuid().toString(), requestBodyStatusUuid)) {
         return currentStatus;

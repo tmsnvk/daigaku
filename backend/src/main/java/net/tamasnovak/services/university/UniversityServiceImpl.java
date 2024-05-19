@@ -29,9 +29,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<UniversityOptionView> getSelectOptionsByCountryUuid(
-    String countryUuid
-  ) {
+  public List<UniversityOptionView> getSelectOptionsByCountryUuid(String countryUuid) {
     Country country = countryService.getCountryByUuid(countryUuid);
 
     return universityRepository.findByCountryOrderByNameAsc(country);
@@ -39,9 +37,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
-  public University getUniversityByUuid(
-    String uuid
-  ) {
+  public University getUniversityByUuid(String uuid) {
     return universityRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

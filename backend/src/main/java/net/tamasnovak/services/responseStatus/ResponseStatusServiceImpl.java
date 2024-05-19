@@ -32,19 +32,14 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public ResponseStatus getStatusByUuid(
-    String uuid
-  ) {
+  public ResponseStatus getStatusByUuid(String uuid) {
     return responseStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ResponseStatus getStatusByUuidOnApplicationUpdate(
-    ResponseStatus currentStatus,
-    String requestBodyStatusUuid
-  ) {
+  public ResponseStatus getStatusByUuidOnApplicationUpdate(ResponseStatus currentStatus, String requestBodyStatusUuid) {
     if (currentStatus != null) {
       if (Objects.equals(currentStatus.getUuid().toString(), requestBodyStatusUuid)) {
         return currentStatus;

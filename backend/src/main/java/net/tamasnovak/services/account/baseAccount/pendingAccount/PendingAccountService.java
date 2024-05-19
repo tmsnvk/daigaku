@@ -1,4 +1,4 @@
-package net.tamasnovak.services.account.pendingAccount;
+package net.tamasnovak.services.account.baseAccount.pendingAccount;
 
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 

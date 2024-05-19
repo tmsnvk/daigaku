@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
-import net.tamasnovak.dtos.application.response.ApplicationDto;
 import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
@@ -49,14 +48,14 @@ public class StudentApplicationController {
   }
 
   @PostMapping(value = "")
-  public ResponseEntity<ApplicationDto> create(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
+  public ResponseEntity<ApplicationView> create(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    ApplicationDto returnDto = studentApplicationService.createApplication(account, requestBody);
+    ApplicationView returnProjection = studentApplicationService.createApplication(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
-      .body(returnDto);
+      .body(returnProjection);
   }
 
   @PatchMapping(value = "/{uuid}")
