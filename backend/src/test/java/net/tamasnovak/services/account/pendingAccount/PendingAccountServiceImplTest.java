@@ -4,8 +4,10 @@ import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.entities.account.baseAccount.PendingAccount;
 import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
-import net.tamasnovak.repositories.account.PendingAccountRepository;
-import net.tamasnovak.services.account.account.AccountService;
+import net.tamasnovak.repositories.account.baseAccount.PendingAccountRepository;
+import net.tamasnovak.services.account.baseAccount.account.AccountService;
+import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountConstants;
+import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountServiceImpl;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
 import net.tamasnovak.services.role.RoleService;
@@ -17,12 +19,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.UUID;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PendingAccountServiceImplTest {
@@ -41,59 +47,50 @@ class PendingAccountServiceImplTest {
   @InjectMocks
   private PendingAccountServiceImpl underTest;
 
+  private final String expectedValidEmail = "notexistingemail@test.net";
+
   @Nested
-  @DisplayName("verifyAccountNotExistsByEmail() method tests")
-  class VerifyAccountNotExistsByEmailMethodTests {
+  @DisplayName("verifyAccountNotExistsByEmail() unit tests")
+  class VerifyAccountNotExistsByEmailUnitTests {
     @Test
-    @Description("""
-      action: Returns void if email is not found.
-      assertion: Does not throw DataIntegrityViolationException.
-    """)
+    @Description("Returns void if email is not found, i.e. the user can register with the provided email.")
     public void shouldReturnVoid_IfEmailIsNotFound() {
-      String notExistingEmail = "notexistingemail@test.net";
+      when(pendingAccountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
 
-      Mockito.when(pendingAccountRepository.existsByEmail(notExistingEmail)).thenReturn(false);
+      Assertions.assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
 
-      Assertions.assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(notExistingEmail));
-
-      Mockito.verify(pendingAccountRepository, Mockito.times(1)).existsByEmail(notExistingEmail);
+      verify(pendingAccountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
 
     @Test
-    @Description("""
-      action: Throws DataIntegrityViolationException if email is found.
-      assertion: Does throw DataIntegrityViolationException.
-    """)
+    @Description("Throws DataIntegrityViolationException if email is found,  i.e. the user is not allowed to register with the provided email.")
     public void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
-      String existingEmail = "existingemail@test.net";
+      String notExpectedValidEmail = "existingemail@test.net";
 
-      Mockito.when(pendingAccountRepository.existsByEmail(existingEmail)).thenReturn(true);
+      when(pendingAccountRepository.existsByEmail(notExpectedValidEmail)).thenReturn(true);
 
-      Assertions.assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(existingEmail));
+      Assertions.assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(notExpectedValidEmail));
 
-      Mockito.verify(pendingAccountRepository, Mockito.times(1)).existsByEmail(existingEmail);
+      verify(pendingAccountRepository, times(1)).existsByEmail(notExpectedValidEmail);
     }
   }
 
   @Nested
-  @DisplayName("createAccount() method tests")
-  class CreateAccountMethodTests {
+  @DisplayName("createAccount() unit tests")
+  class CreateAccountUnitTests {
     @Test
-    @Description("""
-      action: Saves a PendingAccount instance and returns void if no exceptions were thrown.
-      assertion: The expected and actual PendingAccount instances are equal.
-    """)
-    public void shouldSavePendingAccount_andReturnVoid_ifNoExceptionsWereThrown() {
+    @Description("Saves a PendingAccount object and returns void if no exceptions were thrown.")
+    public void shouldSavePendingAccount_AndReturnVoid_IfNoExceptionsWereThrown() {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "Student",
         "Test User",
-        "student@test.net",
+        expectedValidEmail,
         UUID.randomUUID().toString(),
         "STUDENT"
       );
 
-      Institution mockInstitution = Mockito.mock(Institution.class);
-      Role mockRole = Mockito.mock(Role.class);
+      Institution mockInstitution = mock(Institution.class);
+      Role mockRole = mock(Role.class);
 
       PendingAccount expected = PendingAccount.createPendingAccount(
         requestBody.firstName(),
@@ -103,15 +100,16 @@ class PendingAccountServiceImplTest {
         mockRole
       );
 
-      Mockito.when(institutionService.getInstitutionByUuid(requestBody.institutionUuid())).thenReturn(mockInstitution);
-      Mockito.when(roleService.getRoleByName(requestBody.accountType())).thenReturn(mockRole);
+      when(institutionService.getInstitutionByUuid(requestBody.institutionUuid())).thenReturn(mockInstitution);
+      when(roleService.getRoleByName(requestBody.accountType())).thenReturn(mockRole);
 
       underTest.createAccount(requestBody);
+
       ArgumentCaptor<PendingAccount> argumentCaptor = ArgumentCaptor.forClass(PendingAccount.class);
 
       underTest.verifyAccountNotExistsByEmail(requestBody.email());
-      Mockito.verify(accountService, Mockito.times(1)).verifyAccountNotExistsByEmail(requestBody.email());
-      Mockito.verify(pendingAccountRepository, Mockito.times(1)).save(argumentCaptor.capture());
+      verify(accountService, times(1)).verifyAccountNotExistsByEmail(requestBody.email());
+      verify(pendingAccountRepository, times(1)).save(argumentCaptor.capture());
 
       PendingAccount actual = argumentCaptor.getValue();
 
