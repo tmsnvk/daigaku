@@ -2,9 +2,8 @@ package net.tamasnovak.controllers.account.pendingAccount;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
-import net.tamasnovak.repositories.account.PendingAccountRepository;
-import net.tamasnovak.services.account.pendingAccount.PendingAccountService;
-import org.junit.jupiter.api.AfterEach;
+import net.tamasnovak.repositories.account.baseAccount.PendingAccountRepository;
+import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,7 @@ import java.util.UUID;
 
 @WebMvcTest(controllers = PendingAccountController.class)
 @AutoConfigureMockMvc(addFilters = false)
-class PendingAccountControllerTest {
+class PendingAccountControllerIT {
   @Autowired
   private MockMvc mockMvc;
   @Autowired
@@ -31,10 +30,6 @@ class PendingAccountControllerTest {
   private PendingAccountService pendingAccountService;
   @MockBean
   private PendingAccountRepository pendingAccountRepository;
-
-  @AfterEach
-  void tearDown() {
-  }
 
   @Nested
   @DisplayName("register() method tests")
@@ -57,7 +52,7 @@ class PendingAccountControllerTest {
     }
 
     @Test
-    @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in RequestBody's fields.")
+    @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in requestBody's fields.")
     public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "1nv4l1d Student",
