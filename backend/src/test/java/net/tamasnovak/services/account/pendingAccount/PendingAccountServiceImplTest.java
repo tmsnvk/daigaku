@@ -63,7 +63,7 @@ class PendingAccountServiceImplTest {
     }
 
     @Test
-    @Description("Throws DataIntegrityViolationException if email is found,  i.e. the user is not allowed to register with the provided email.")
+    @Description("Throws DataIntegrityViolationException if email is found, i.e. the user is not allowed to register with the provided email.")
     public void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
       String notExpectedValidEmail = "existingemail@test.net";
 
