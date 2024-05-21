@@ -3,7 +3,6 @@ package net.tamasnovak.dtos.account.request;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -14,34 +13,38 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class PendingAccountRegistrationDtoTest {
   private final String expectedValidEmail = "notexistingemail@test.net";
+  private final String validUuid = UUID.randomUUID().toString();
   Set<ConstraintViolation<PendingAccountRegistrationDto>> violations = new HashSet<>();
-  PendingAccountRegistrationDto requestBody = null;
+  PendingAccountRegistrationDto underTest = null;
 
   @BeforeEach
   public void setUp() {
     violations.clear();
-    requestBody = null;
+    underTest = null;
   }
 
   @Nested
   @DisplayName("PendingAccountRegistrationDto validation no-violation unit tests")
-  class WhenValid {
+  class WhenDtoIsValid {
     @Test
     @Description("Assert that there are no violations if requestBody contains only valid fields.")
     public void shouldAssert_ThatViolationsSetIsEmpty_IfRequestBodyIsValid() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
         expectedValidEmail,
-        UUID.randomUUID().toString(),
+        validUuid,
         "STUDENT"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertTrue(violations.isEmpty());
+      assertTrue(violations.isEmpty());
     }
   }
 
@@ -51,113 +54,163 @@ class PendingAccountRegistrationDtoTest {
     @Test
     @Description("Assert that there is a violation if requestBody's firstName fails @NotBlank validation.")
     public void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsNotBlankValidation() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "",
         "User",
         expectedValidEmail,
-        UUID.randomUUID().toString(),
+        validUuid,
         "STUDENT"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertFalse(violations.isEmpty());
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("firstName", actualViolationType);
     }
 
     @Test
     @Description("Assert that there is a violation if requestBody's firstName fails @Pattern validation.")
     public void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsPatternValidation() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "Inv4l-d",
         "User",
         expectedValidEmail,
-        UUID.randomUUID().toString(),
+        validUuid,
         "STUDENT"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertFalse(violations.isEmpty());
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("firstName", actualViolationType);
     }
 
     @Test
     @Description("Assert that there is a violation if requestBody's lastName fails @NotBlank validation.")
     public void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsNotBlankValidation() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "Valid",
         "",
         expectedValidEmail,
-        UUID.randomUUID().toString(),
+        validUuid,
         "STUDENT"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertFalse(violations.isEmpty());
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("lastName", actualViolationType);
     }
 
     @Test
     @Description("Assert that there is a violation if requestBody's lastName fails @Pattern validation.")
     public void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsPatternValidation() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "Valid",
         "!s3r",
         expectedValidEmail,
-        UUID.randomUUID().toString(),
+        validUuid,
         "STUDENT"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertFalse(violations.isEmpty());
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("lastName", actualViolationType);
     }
 
     @Test
     @Description("Assert that there is a violation if requestBody's email fails @Email validation.")
     public void shouldAssert_ThatViolationsSetIsNotEmpty_IfEmailFailsEmailValidation() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
         "invalidemail.com",
-        UUID.randomUUID().toString(),
+        validUuid,
         "STUDENT"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertFalse(violations.isEmpty());
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("email", actualViolationType);
+    }
+
+    @Test
+    @Description("Assert that there is a violation if requestBody's institutionUuid fails @NotBlank validation.")
+    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsNotBlankValidation() {
+      underTest = new PendingAccountRegistrationDto(
+        "Valid",
+        "User",
+        expectedValidEmail,
+        "",
+        "STUDENT"
+      );
+
+      violations = validate(underTest);
+
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("institutionUuid", actualViolationType);
     }
 
     @Test
     @Description("Assert that there is a violation if requestBody's institutionUuid fails @UuidConstraint validation.")
     public void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsUuidConstraintValidation() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
         expectedValidEmail,
-        "UUID.randomUUID().toString()",
+        "validUuid",
         "STUDENT"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertFalse(violations.isEmpty());
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("institutionUuid", actualViolationType);
+    }
+
+    @Test
+    @Description("Assert that there is a violation if requestBody's accountType fails @NotBlank validation.")
+    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsNotBlankValidation() {
+      underTest = new PendingAccountRegistrationDto(
+        "Valid",
+        "User",
+        expectedValidEmail,
+        validUuid,
+        ""
+      );
+
+      violations = validate(underTest);
+
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("accountType", actualViolationType);
     }
 
     @Test
     @Description("Assert that there is a violation if requestBody's accountType fails @Pattern validation.")
     public void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsPatternValidation() {
-      requestBody = new PendingAccountRegistrationDto(
+      underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
         expectedValidEmail,
-        UUID.randomUUID().toString(),
+        validUuid,
         "INVALID_TYPE"
       );
 
-      violations = validate(requestBody);
+      violations = validate(underTest);
 
-      Assertions.assertFalse(violations.isEmpty());
+      String actualViolationType = violations.iterator().next().getPropertyPath().toString();
+
+      assertEquals("accountType", actualViolationType);
     }
   }
 
