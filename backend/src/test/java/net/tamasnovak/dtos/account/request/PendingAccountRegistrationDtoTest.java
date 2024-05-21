@@ -76,7 +76,7 @@ class PendingAccountRegistrationDtoTest {
       );
 
       violations = validate(requestBody);
-      System.out.println(violations);
+
       Assertions.assertFalse(violations.isEmpty());
     }
 
