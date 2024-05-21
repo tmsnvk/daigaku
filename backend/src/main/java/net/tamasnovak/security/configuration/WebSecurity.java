@@ -47,9 +47,7 @@ public class WebSecurity {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(
-    AuthenticationConfiguration authConfig
-  ) throws Exception {
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
     return authConfig.getAuthenticationManager();
   }
 
@@ -59,9 +57,7 @@ public class WebSecurity {
   }
 
   @Bean
-  public SecurityFilterChain filterChain(
-    HttpSecurity http
-  ) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
       .csrf(AbstractHttpConfigurer::disable).cors(AbstractHttpConfigurer::disable)
       .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))

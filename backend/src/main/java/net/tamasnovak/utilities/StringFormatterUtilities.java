@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 @Component
 public final class StringFormatterUtilities {
   private StringFormatterUtilities() {}
-
+// add check if string is empty
   public static String capitaliseWord(String word) {
     return Arrays.stream(word.trim().split("\\s+"))
       .map(element -> {

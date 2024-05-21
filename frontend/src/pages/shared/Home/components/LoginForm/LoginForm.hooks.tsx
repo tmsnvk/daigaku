@@ -44,7 +44,6 @@ const useSubmitLoginForm = ({ setError }: LoginFormT) => {
     mutationKey: [mutationKeys.ACCOUNT.POST_LOGIN_FORM],
     mutationFn: (data: LoginFormFieldsT) => accountService.login(data),
     onSuccess: (data: LoginFormReturnDataT) => {
-      console.log(data);
       localStorage.setItem('token', data.jwtToken);
 
       const userData: AccountDataT = {

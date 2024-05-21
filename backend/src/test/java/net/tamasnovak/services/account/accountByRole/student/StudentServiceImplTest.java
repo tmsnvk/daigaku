@@ -38,7 +38,7 @@ class StudentServiceImplTest {
   @DisplayName("getStudentByAccount() unit tests")
   class GetStudentByAccountUnitTests {
     @Test
-    @Description("Returns Student record if it is found.")
+    @Description("Returns the correct Student record if it is found.")
     public void shouldReturnStudentRecord() {
       Student expected = mock(Student.class);
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.of(expected));

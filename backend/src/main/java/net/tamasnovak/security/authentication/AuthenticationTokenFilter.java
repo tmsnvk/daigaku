@@ -28,11 +28,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
   }
 
   @Override
-  protected void doFilterInternal(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    FilterChain filterChain
-  ) throws ServletException, IOException {
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     try {
       String jwt = parseJwt(request);
 
@@ -51,9 +47,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
-  private String parseJwt(
-    HttpServletRequest request
-  ) {
+  private String parseJwt(HttpServletRequest request) {
     String headerAuth = request.getHeader("Authorization");
 
     if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
