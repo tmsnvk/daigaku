@@ -1,7 +1,6 @@
 package net.tamasnovak.services.account.accountByRole.student;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.entities.account.accountByRole.Mentor;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.repositories.account.accountByRole.StudentRepository;
@@ -39,11 +38,9 @@ class StudentServiceImplTest {
   @DisplayName("getStudentByAccount() unit tests")
   class GetStudentByAccountUnitTests {
     @Test
-    @Description("Should return correct Student instance if Account was correctly received.")
-    public void shouldReturnStudentByAccount() {
-      Mentor mockMentor = mock(Mentor.class);
-
-      Student expected = Student.createStudent(mockAccount, mockMentor);
+    @Description("Returns Student record if it is found.")
+    public void shouldReturnStudentRecord() {
+      Student expected = mock(Student.class);
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.of(expected));
 
       Student actual = underTest.getStudentByAccount(mockAccount);
@@ -53,12 +50,11 @@ class StudentServiceImplTest {
     }
 
     @Test
-    @Description("")
-    public void shouldThrowEntityNotFoundException_IfStudentIsNotFound() {
+    @Description("Throws EntityNotFoundException if Student record is not found.")
+    public void shouldThrowEntityNotFoundException_IfStudentRecordIsNotFound() {
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.getStudentByAccount(mockAccount));
-
       verify(studentRepository, times(1)).findByAccount(mockAccount);
     }
   }
