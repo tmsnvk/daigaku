@@ -1,4 +1,4 @@
-package net.tamasnovak.services.account.pendingAccount;
+package net.tamasnovak.services.account.baseAccount.pendingAccount;
 
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.entities.account.baseAccount.PendingAccount;
@@ -6,12 +6,9 @@ import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
 import net.tamasnovak.repositories.account.baseAccount.PendingAccountRepository;
 import net.tamasnovak.services.account.baseAccount.account.AccountService;
-import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountConstants;
-import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountServiceImpl;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.institution.InstitutionService;
 import net.tamasnovak.services.role.RoleService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,6 +22,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -57,7 +57,7 @@ class PendingAccountServiceImplTest {
     public void shouldReturnVoid_IfEmailIsNotFound() {
       when(pendingAccountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
 
-      Assertions.assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+      assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
 
       verify(pendingAccountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
@@ -69,7 +69,7 @@ class PendingAccountServiceImplTest {
 
       when(pendingAccountRepository.existsByEmail(notExpectedValidEmail)).thenReturn(true);
 
-      Assertions.assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(notExpectedValidEmail));
+      assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(notExpectedValidEmail));
 
       verify(pendingAccountRepository, times(1)).existsByEmail(notExpectedValidEmail);
     }
@@ -79,8 +79,8 @@ class PendingAccountServiceImplTest {
   @DisplayName("createAccount() unit tests")
   class CreateAccountUnitTests {
     @Test
-    @Description("Saves a PendingAccount object and returns void if no exceptions were thrown.")
-    public void shouldSavePendingAccount_AndReturnVoid_IfNoExceptionsWereThrown() {
+    @Description("Saves a PendingAccount object and returns void..")
+    public void shouldSavePendingAccount_AndReturnVoid() {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "Student",
         "Test User",
@@ -113,7 +113,7 @@ class PendingAccountServiceImplTest {
 
       PendingAccount actual = argumentCaptor.getValue();
 
-      Assertions.assertEquals(expected, actual);
+      assertEquals(expected, actual);
     }
   }
 }

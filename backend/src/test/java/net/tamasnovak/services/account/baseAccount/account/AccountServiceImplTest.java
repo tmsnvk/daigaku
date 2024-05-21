@@ -1,4 +1,4 @@
-package net.tamasnovak.services.account.account;
+package net.tamasnovak.services.account.baseAccount.account;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
@@ -9,9 +9,6 @@ import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
 import net.tamasnovak.repositories.account.baseAccount.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
-import net.tamasnovak.services.account.baseAccount.account.AccountConstants;
-import net.tamasnovak.services.account.baseAccount.account.AccountServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,6 +22,9 @@ import org.springframework.security.core.Authentication;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -56,7 +56,7 @@ class AccountServiceImplTest {
     @Description("Returns void if email is not found, i.e. the user can register with the provided email.")
     public void shouldReturnVoid_IfEmailIsNotFound() {
       when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
-      Assertions.assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+      assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
 
       verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
@@ -65,7 +65,7 @@ class AccountServiceImplTest {
     @Description("Throws DataIntegrityViolationException if email is found, i.e. the user is not allowed to register with the provided email.")
     public void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
       when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(true);
-      Assertions.assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+      assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
 
       verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
@@ -82,7 +82,7 @@ class AccountServiceImplTest {
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(expected));
       Account actual = underTest.getAccountByEmail(expectedValidEmail);
 
-      Assertions.assertEquals(expected, actual);
+      assertEquals(expected, actual);
     }
 
     @Test
@@ -92,7 +92,7 @@ class AccountServiceImplTest {
 
       when(accountRepository.findByEmail(notExistingEmail)).thenReturn(Optional.empty());
 
-      Assertions.assertThrows(EntityNotFoundException.class, () -> underTest.getAccountByEmail(notExistingEmail));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getAccountByEmail(notExistingEmail));
     }
   }
 
@@ -107,7 +107,7 @@ class AccountServiceImplTest {
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(foundAccount));
       ClientAuthContextDto actual = underTest.getClientAuthContextDto(expectedValidEmail);
 
-      Assertions.assertEquals(expected, actual);
+      assertEquals(expected, actual);
     }
   }
 
@@ -126,7 +126,7 @@ class AccountServiceImplTest {
       when(jwtUtilities.generateJwtToken(authentication)).thenReturn(jwtToken);
       LoginReturnDto actual = underTest.getLoginReturnDto(requestBody, authentication);
 
-      Assertions.assertEquals(expected, actual);
+      assertEquals(expected, actual);
     }
   }
 }
