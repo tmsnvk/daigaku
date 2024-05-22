@@ -54,19 +54,21 @@ class AccountServiceImplTest {
   class VerifyAccountNotExistsByEmailUnitTests {
     @Test
     @Description("Returns void if email is not found, i.e. the user can register with the provided email.")
-    public void shouldReturnVoid_IfEmailIsNotFound() {
+    void shouldReturnVoid_IfEmailIsNotFound() {
       when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
 
       assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+
       verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
 
     @Test
     @Description("Throws DataIntegrityViolationException if email is found, i.e. the user is not allowed to register with the provided email.")
-    public void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
+    void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
       when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(true);
 
       assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+
       verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
   }
@@ -76,14 +78,15 @@ class AccountServiceImplTest {
   class GetAccountByEmailUnitTests {
     @Test
     @Description("Returns the correct Account record if corresponding email is found.")
-    public void shouldReturnAccountRecord_IfEmailIsFound() {
+    void shouldReturnAccountRecord_IfEmailIsFound() {
       Account expected = mock(Account.class);
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(expected));
 
       Account actual = underTest.getAccountByEmail(expectedValidEmail);
-      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
 
       assertEquals(expected, actual);
+
+      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
     }
 
     @Test
@@ -93,6 +96,7 @@ class AccountServiceImplTest {
       when(accountRepository.findByEmail(notExistingEmail)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.getAccountByEmail(notExistingEmail));
+
       verify(accountRepository, times(1)).findByEmail(notExistingEmail);
     }
   }
@@ -102,14 +106,15 @@ class AccountServiceImplTest {
   class GetClientAuthContextDtoUnitTests {
     @Test
     @Description("Returns the correct ClientAuthContextDto instance if email is found.")
-    public void shouldReturnClientAuthContextDto_IfEmailIsFound() {
+    void shouldReturnClientAuthContextDto_IfEmailIsFound() {
       ClientAuthContextDto expected = new ClientAuthContextDto(expectedValidEmail, account.getFirstName(), mockRole.getName());
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(account));
 
       ClientAuthContextDto actual = underTest.getClientAuthContextDto(expectedValidEmail);
-      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
 
       assertEquals(expected, actual);
+
+      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
     }
   }
 
@@ -118,7 +123,7 @@ class AccountServiceImplTest {
   class GetLoginReturnDtoUnitTests {
     @Test
     @Description("Returns the correct LoginReturnDto instance if valid requestBody dto and authentication instance are received.")
-    public void shouldReturnLoginReturnDto_IfRequestBodyDtoIsValid() {
+    void shouldReturnLoginReturnDto_IfRequestBodyDtoIsValid() {
       LoginRequestDto requestBody = new LoginRequestDto(expectedValidEmail, hashedPassword);
       String jwtToken = "generatedToken";
 
@@ -127,14 +132,15 @@ class AccountServiceImplTest {
       when(jwtUtilities.generateJwtToken(authentication)).thenReturn(jwtToken);
 
       LoginReturnDto actual = underTest.getLoginReturnDto(requestBody, authentication);
-      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
-      verify(jwtUtilities, times(1)).generateJwtToken(authentication);
 
       assertEquals(expected, actual);
+
+      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
+      verify(jwtUtilities, times(1)).generateJwtToken(authentication);
     }
     @Test
     @Description("Throws EntityNotFoundException if email is not found.")
-    public void shouldThrowEntityNotFoundException_IfEmailIsNotFound() {
+    void shouldThrowEntityNotFoundException_IfEmailIsNotFound() {
       String notExistingEmail = "notexistingemail@test.net";
       LoginRequestDto requestBody = new LoginRequestDto(notExistingEmail, hashedPassword);
 

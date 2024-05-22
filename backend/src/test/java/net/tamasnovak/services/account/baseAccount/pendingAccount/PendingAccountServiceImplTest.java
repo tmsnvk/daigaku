@@ -64,7 +64,7 @@ class PendingAccountServiceImplTest {
 
     @Test
     @Description("Throws DataIntegrityViolationException if email is found, i.e. the user is not allowed to register with the provided email.")
-    public void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
+    void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
       String notExpectedValidEmail = "existingemail@test.net";
 
       when(pendingAccountRepository.existsByEmail(notExpectedValidEmail)).thenReturn(true);
@@ -80,7 +80,7 @@ class PendingAccountServiceImplTest {
   class CreateAccountUnitTests {
     @Test
     @Description("Saves a PendingAccount object and returns void..")
-    public void shouldSavePendingAccount_AndReturnVoid() {
+    void shouldSavePendingAccount_AndReturnVoid() {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "Student",
         "Test User",
@@ -106,11 +106,7 @@ class PendingAccountServiceImplTest {
       underTest.createAccount(requestBody);
 
       ArgumentCaptor<PendingAccount> argumentCaptor = ArgumentCaptor.forClass(PendingAccount.class);
-
-      underTest.verifyAccountNotExistsByEmail(requestBody.email());
-      verify(accountService, times(1)).verifyAccountNotExistsByEmail(requestBody.email());
       verify(pendingAccountRepository, times(1)).save(argumentCaptor.capture());
-
       PendingAccount actual = argumentCaptor.getValue();
 
       assertEquals(expected, actual);

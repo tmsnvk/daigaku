@@ -53,7 +53,7 @@ class ApplicationServiceImplTest {
   class GetApplicationViewByUuidUnitTests {
     @Test
     @Description("Returns the correct ApplicationView projection instance.")
-    public void shouldReturnApplicationViewProjection() {
+    void shouldReturnApplicationViewProjection() {
       ApplicationView expected = mock(ApplicationView.class);
 
       when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.of(expected));
@@ -61,14 +61,15 @@ class ApplicationServiceImplTest {
       when(applicationRepository.findApplicationRelatedIdsByUuid(applicationUuid)).thenReturn(mock(ApplicationIdsView.class));
 
       ApplicationView actual = underTest.getApplicationViewByUuid(applicationUuid.toString());
-      verify(applicationRepository, times(1)).findApplicationViewByUuid(applicationUuid);
 
       assertEquals(expected, actual);
+
+      verify(applicationRepository, times(1)).findApplicationViewByUuid(applicationUuid);
     }
 
     @Test
     @Description("Throws EntityNotFoundException if ApplicationView projection instance is not found.")
-    public void shouldThrowEntityNotFoundException_IfApplicationViewProjectionIsNotFound() {
+    void shouldThrowEntityNotFoundException_IfApplicationViewProjectionIsNotFound() {
       when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.getApplicationViewByUuid(applicationUuid.toString()));
@@ -78,13 +79,13 @@ class ApplicationServiceImplTest {
 
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
-    public void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
+    void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
       assertThrows(IllegalArgumentException.class, () -> underTest.getApplicationViewByUuid("invalidUuid"));
     }
 
     @Test
     @Description("Throws NullPointerException if UUID string is null.")
-    public void shouldThrowNullPointerException_IfUuidStringIsNull() {
+    void shouldThrowNullPointerException_IfUuidStringIsNull() {
       assertThrows(NullPointerException.class, () -> underTest.getApplicationViewByUuid(null));
     }
   }
@@ -93,21 +94,22 @@ class ApplicationServiceImplTest {
   @DisplayName("getApplicationByUuid() unit tests")
   class GetApplicationByUuidUnitTests {
     @Test
-    @Description("Return the correct Application instance.")
-    public void shouldReturnApplication() {
+    @Description("Returns the correct Application instance.")
+    void shouldReturnApplication() {
       Application expected = mock(Application.class);
 
       when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.of(expected));
 
       Application actual = underTest.getApplicationByUuid(applicationUuid.toString());
-      verify(applicationRepository, times(1)).findByUuid(applicationUuid);
 
       assertEquals(expected, actual);
+
+      verify(applicationRepository, times(1)).findByUuid(applicationUuid);
     }
 
     @Test
     @Description("Throws EntityNotFoundException if Application instance is not found.")
-    public void shouldThrowEntityNotFoundException_IfApplicationIsNotFound() {
+    void shouldThrowEntityNotFoundException_IfApplicationIsNotFound() {
       when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.getApplicationByUuid(applicationUuid.toString()));
@@ -117,13 +119,13 @@ class ApplicationServiceImplTest {
 
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
-    public void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
+    void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
       assertThrows(IllegalArgumentException.class, () -> underTest.getApplicationByUuid("invalidUuid"));
     }
 
     @Test
     @Description("Throws NullPointerException if UUID string is null.")
-    public void shouldThrowNullPointerException_IfUuidStringIsNull() {
+    void shouldThrowNullPointerException_IfUuidStringIsNull() {
       assertThrows(NullPointerException.class, () -> underTest.getApplicationByUuid(null));
     }
   }

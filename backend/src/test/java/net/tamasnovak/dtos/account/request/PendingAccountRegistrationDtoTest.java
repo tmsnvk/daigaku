@@ -3,7 +3,7 @@ package net.tamasnovak.dtos.account.request;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ class PendingAccountRegistrationDtoTest {
   Set<ConstraintViolation<PendingAccountRegistrationDto>> violations = new HashSet<>();
   PendingAccountRegistrationDto underTest = null;
 
-  @BeforeEach
-  public void setUp() {
+  @AfterEach
+  void tearDown() {
     violations.clear();
     underTest = null;
   }
@@ -32,8 +32,8 @@ class PendingAccountRegistrationDtoTest {
   @DisplayName("PendingAccountRegistrationDto validation no-violation unit tests")
   class WhenDtoIsValid {
     @Test
-    @Description("Assert that there are no violations if requestBody contains only valid fields.")
-    public void shouldAssert_ThatViolationsSetIsEmpty_IfRequestBodyIsValid() {
+    @Description("Assert that there are no violations if underTest requestBody contains only valid fields.")
+    void shouldAssert_ThatViolationsSetIsEmpty_IfRequestBodyIsValid() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -52,8 +52,8 @@ class PendingAccountRegistrationDtoTest {
   @DisplayName("PendingAccountRegistrationDto validation violation unit tests")
   class WhenInvalid {
     @Test
-    @Description("Assert that there is a violation if requestBody's firstName fails @NotBlank validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsNotBlankValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's firstName fails @NotBlank validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "",
         "User",
@@ -70,8 +70,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's firstName fails @Pattern validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsPatternValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's firstName fails @Pattern validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsPatternValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Inv4l-d",
         "User",
@@ -88,8 +88,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's lastName fails @NotBlank validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsNotBlankValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's lastName fails @NotBlank validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "",
@@ -106,8 +106,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's lastName fails @Pattern validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsPatternValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's lastName fails @Pattern validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsPatternValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "!s3r",
@@ -124,8 +124,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's email fails @Email validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfEmailFailsEmailValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's email fails @Email validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfEmailFailsEmailValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -142,8 +142,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's institutionUuid fails @NotBlank validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsNotBlankValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's institutionUuid fails @NotBlank validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -160,8 +160,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's institutionUuid fails @UuidConstraint validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsUuidConstraintValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's institutionUuid fails @UuidConstraint validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsUuidConstraintValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -178,8 +178,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's accountType fails @NotBlank validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsNotBlankValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's accountType fails @NotBlank validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -196,8 +196,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if requestBody's accountType fails @Pattern validation.")
-    public void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsPatternValidation() {
+    @Description("Assert that there is a violation if underTest requestBody's accountType fails @Pattern validation.")
+    void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsPatternValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",

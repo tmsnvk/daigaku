@@ -83,11 +83,11 @@ class StudentApplicationServiceImplTest {
   private final UUID applicationUuid = UUID.randomUUID();
 
   @Nested
-  @DisplayName("getAllApplicationsByStudent() unit tests")
+  @DisplayName("getAllApplicationViewsByStudent() unit tests")
   class GetAllApplicationViewsByStudentUnitTests {
     @Test
     @Description("Returns a list of ApplicationView projection instances.")
-    public void shouldReturnApplicationViews() {
+    void shouldReturnApplicationViews() {
       List<ApplicationView> mockApplicationViews = Collections.singletonList(mock(ApplicationView.class));
 
       when(studentService.getStudentByAccount(mockAccount)).thenReturn(mockStudent);
@@ -95,10 +95,10 @@ class StudentApplicationServiceImplTest {
 
       List<ApplicationView> actual = underTest.getAllApplicationViewsByStudent(mockAccount);
 
+      assertEquals(mockApplicationViews, actual);
+
       verify(studentService, times(1)).getStudentByAccount(mockAccount);
       verify(applicationRepository, times(1)).findApplicationViewsByStudentId(mockStudent.getId());
-
-      assertEquals(mockApplicationViews, actual);
     }
   }
 
@@ -107,7 +107,7 @@ class StudentApplicationServiceImplTest {
   class CreateApplicationUnitTests {
     @Test
     @Description("Creates an Application record and returns its ApplicationView projection.")
-    public void shouldCreateApplication_AndReturnApplicationView() {
+    void shouldCreateApplication_AndReturnApplicationView() {
       Country mockCountry = mock(Country.class);
       University mockUniversity = mock(University.class);
       ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
@@ -127,13 +127,13 @@ class StudentApplicationServiceImplTest {
 
       ApplicationView actual = underTest.createApplication(mockAccount, requestBody);
 
+      assertEquals(expected, actual);
+
       verify(countryService, times(1)).getCountryByUuid(requestBody.countryUuid());
       verify(universityService, times(1)).getUniversityByUuid(requestBody.universityUuid());
       verify(studentService, times(1)).getStudentByAccount(mockAccount);
       verify(applicationStatusService, times(1)).getStatusByName("Planned");
       verify(applicationService, times(1)).getApplicationViewByUuid(applicationUuid.toString());
-
-      assertEquals(expected, actual);
     }
   }
 
@@ -142,7 +142,7 @@ class StudentApplicationServiceImplTest {
   class UpdateApplicationByUuidUnitTests {
     @Test
     @Description("Updates an Application record and returns ApplicationView projection.")
-    public void shouldUpdateApplication_AndReturnApplicationViewProjection() {
+    void shouldUpdateApplication_AndReturnApplicationViewProjection() {
       UpdateApplicationByStudentDto requestBody = mock(UpdateApplicationByStudentDto.class);
       Mentor mockMentor = mock(Mentor.class);
 
@@ -158,10 +158,10 @@ class StudentApplicationServiceImplTest {
 
       ApplicationView actual = underTest.updateApplicationByUuid(applicationUuid.toString(), requestBody);
 
+      assertEquals(expected, actual);
+
       verify(applicationService, times(1)).getApplicationByUuid(applicationUuid.toString());
       verify(authenticationFacade, times(1)).getAuthenticatedAccount();
-
-      assertEquals(expected, actual);
     }
   }
 
@@ -170,7 +170,7 @@ class StudentApplicationServiceImplTest {
   class UpdateIsRemovableByApplicationUuidUnitTests {
     @Test
     @Description("is_removable field successfully updated.")
-    public void shouldSuccessfullyUpdateIsRemovableField() {
+    void shouldSuccessfullyUpdateIsRemovableField() {
       applicationRepository.updateIsRemovableByUuid(applicationUuid);
 
       verify(applicationRepository, times(1)).updateIsRemovableByUuid(applicationUuid);
@@ -182,15 +182,15 @@ class StudentApplicationServiceImplTest {
   class getAggregateDataByAccountUnitTests {
     @Test
     @Description("Returns DashboardAggregateDataDto instance.")
-    public void shouldReturnDashboardAggregateDataDto() {
+    void shouldReturnDashboardAggregateDataDto() {
       when(studentService.getStudentByAccount(mockAccount)).thenReturn(mockStudent);
 
       DashboardAggregateDataDto expected = new DashboardAggregateDataDto(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
       DashboardAggregateDataDto actual = underTest.getAggregateDataByAccount(mockAccount);
 
-      verify(studentService, times(1)).getStudentByAccount(mockAccount);
-
       assertEquals(expected, actual);
+
+      verify(studentService, times(1)).getStudentByAccount(mockAccount);
     }
   }
 }

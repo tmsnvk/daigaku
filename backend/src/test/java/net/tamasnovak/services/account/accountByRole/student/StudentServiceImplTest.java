@@ -39,22 +39,24 @@ class StudentServiceImplTest {
   class GetStudentByAccountUnitTests {
     @Test
     @Description("Returns the correct Student record if it is found.")
-    public void shouldReturnStudentRecord() {
+    void shouldReturnStudentRecord() {
       Student expected = mock(Student.class);
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.of(expected));
 
       Student actual = underTest.getStudentByAccount(mockAccount);
-      verify(studentRepository, times(1)).findByAccount(mockAccount);
 
       assertEquals(expected, actual);
+
+      verify(studentRepository, times(1)).findByAccount(mockAccount);
     }
 
     @Test
     @Description("Throws EntityNotFoundException if Student record is not found.")
-    public void shouldThrowEntityNotFoundException_IfStudentRecordIsNotFound() {
+    void shouldThrowEntityNotFoundException_IfStudentRecordIsNotFound() {
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.getStudentByAccount(mockAccount));
+
       verify(studentRepository, times(1)).findByAccount(mockAccount);
     }
   }
