@@ -115,8 +115,8 @@ devops features:
 
 
 ### V. Sneak peak
-![login_page](./repo-assets/login_page.gif)
+![login_page](./repo-assets/login_page)
 
-![applications_table_modal](./repo-assets/applications_table_modal.png)
+![applications_table](./repo-assets/applications_table.png)
 
 ![application_form](./repo-assets/application_form.png)
