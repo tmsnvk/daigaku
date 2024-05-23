@@ -6,6 +6,7 @@ import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.repositories.country.CountryRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "countrySelectOptionViews")
   public List<CountrySelectOptionView> getAllSelectOptionViews() {
     return countryRepository.findAllByOrderByNameAsc();
   }
