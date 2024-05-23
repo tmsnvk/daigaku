@@ -34,8 +34,9 @@ Backend
     + Java Spring Boot                 - java framework.
     + Spring Data JPA / Hibernate ORM  - persistence application layer.
     + Spring Security                  - authentication and access-control layer.
-    + Spring Mail                      - email sending library.
     + JWT                              - token solution.
+    + Jakarta Validation               - annotation-based validation library.
+    + Spring Mail                      - email sending library.
 ```
 
 ```
@@ -48,6 +49,10 @@ DevOps
     + Docker                           - containerisation solution.
 ```
 
+```
+Tools
+    + Postman                           - API testing.
+```
 
 ### III. Running the application
 + Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
@@ -65,22 +70,22 @@ DevOps
 ### IV. Roadmap
 ``student`` user features:
 - [x] submit a new application.
-- [x] view aggregate application data.
-- [x] edit an application.
+- [x] view aggregate application data in a table format.
+- [x] edit invidivual applications.
 - [x] request application deletion.
+- [ ] friend request feature to be able to see each others' applications.
 - [ ] download application data in .pdf format.
 
 ``mentor`` user features:
-- [ ] view assigned students' applications.
-- [ ] delete application marked for deletion by students.
+- [ ] view/edit assigned students' applications.
+- [ ] submit application instead of a student.
 - [ ] download assigned students' applications data in .pdf format.
 
 ``institution-admin`` user features:
 - [ ] view/edit/delete all mentors within their institution.
 - [ ] view/edit/delete all students within their institution.
 - [ ] accept/refuse incoming institution student/mentor join requests.
-- [ ] delete applications requested by students.
-- [ ] review applications deleted by mentors and either delete them permanently or restore them.
+- [ ] delete applications requests.
 - [ ] promote/demote mentors to institution-admin role.
 - [ ] download institution-wide application data in .pdf format.
 
@@ -94,9 +99,14 @@ DevOps
 application-wide features:
 - [x] login/registration functionality.
 - [ ] editable profile page.
+- [ ] comment section under individual applications.
 - [ ] revamp / make the frontend design more lively.
 - [ ] in-app messaging system.
 - [ ] feedback form.
+
+testing:
+- [ ] unit tests.
+- [ ] integration tests.
 
 devops features:
 - [x] containerisation.
@@ -105,7 +115,7 @@ devops features:
 
 
 ### V. Sneak peak
-![login_page](./repo-assets/login_page.png)
+![login_page](./repo-assets/login_page.gif)
 
 ![applications_table_modal](./repo-assets/applications_table_modal.png)
 
