@@ -60,7 +60,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
       WHERE
         applications.student_id = :studentId
     """, nativeQuery = true)
-  List<ApplicationView> findApplicationsByStudent(@Param("studentId") long studentId);
+  List<ApplicationView> findApplicationViewsByStudentId(@Param("studentId") long studentId);
 
   @Query(value =
     """

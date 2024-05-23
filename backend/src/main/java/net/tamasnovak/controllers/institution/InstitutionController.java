@@ -22,11 +22,11 @@ public class InstitutionController {
   }
 
   @GetMapping(value = "/options")
-  public ResponseEntity<List<InstitutionOptionView>> getSelectOptions() {
-    List<InstitutionOptionView> returnProjection = institutionService.getSelectOptions();
+  public ResponseEntity<List<InstitutionOptionView>> getAllSelectOptionsViews() {
+    List<InstitutionOptionView> returnProjections = institutionService.getAllSelectOptionViews();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnProjection);
+      .body(returnProjections);
   }
 }

@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.university;
 
 import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
-import net.tamasnovak.dtos.university.UniversityOptionView;
+import net.tamasnovak.dtos.university.UniversitySelectOptionView;
 import net.tamasnovak.services.university.UniversityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +24,11 @@ public class UniversityController {
   }
 
   @GetMapping(value = "/options/{countryUuid}")
-  public ResponseEntity<List<UniversityOptionView>> getSelectOptionsByCountry(@PathVariable("countryUuid") @UuidConstraint String countryUuid) {
-    List<UniversityOptionView> returnProjection = universityService.getSelectOptionsByCountryUuid(countryUuid);
+  public ResponseEntity<List<UniversitySelectOptionView>> getSelectOptionViewsByCountry(@PathVariable("countryUuid") @UuidConstraint String countryUuid) {
+    List<UniversitySelectOptionView> returnProjections = universityService.getAllSelectOptionViewsByCountryUuid(countryUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnProjection);
+      .body(returnProjections);
   }
 }

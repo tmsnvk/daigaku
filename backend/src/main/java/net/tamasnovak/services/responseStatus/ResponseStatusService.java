@@ -6,7 +6,7 @@ import net.tamasnovak.entities.application.ResponseStatus;
 import java.util.List;
 
 public interface ResponseStatusService {
-  List<StatusSelectOptionView> getSelectOptions();
+  List<StatusSelectOptionView> getAllSelectOptionViews();
   ResponseStatus getStatusByUuid(String uuid);
   ResponseStatus getStatusByUuidOnApplicationUpdate(ResponseStatus currentStatus, String requestBodyStatusUuid);
 }

@@ -26,7 +26,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusSelectOptionView> getSelectOptions() {
+  public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return finalDestinationStatusRepository.findAllByOrderByNameAsc();
   }
 

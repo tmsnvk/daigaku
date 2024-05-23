@@ -26,7 +26,7 @@ public class OfferStatusServiceImpl implements OfferStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusSelectOptionView> getSelectOptions() {
+  public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return offerStatusRepository.findAllByOrderByNameAsc();
   }
 

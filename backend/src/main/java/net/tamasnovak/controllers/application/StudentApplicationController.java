@@ -37,14 +37,14 @@ public class StudentApplicationController {
   }
 
   @GetMapping(value = "")
-  public ResponseEntity<List<ApplicationView>> getAllByStudent() {
+  public ResponseEntity<List<ApplicationView>> getAllApplicationViews() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<ApplicationView> returnProjection = studentApplicationService.getAllApplicationsByStudent(account);
+    List<ApplicationView> returnProjections = studentApplicationService.getAllApplicationViewsByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnProjection);
+      .body(returnProjections);
   }
 
   @PostMapping(value = "")
@@ -59,8 +59,8 @@ public class StudentApplicationController {
   }
 
   @PatchMapping(value = "/{uuid}")
-  public ResponseEntity<ApplicationView> updateByUuid(@PathVariable("uuid") @UuidConstraint String uuid,
-                                                      @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
+  public ResponseEntity<ApplicationView> update(@PathVariable("uuid") @UuidConstraint String uuid,
+                                                @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
     ApplicationView returnProjection = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
 
     return ResponseEntity
@@ -69,8 +69,8 @@ public class StudentApplicationController {
   }
 
   @PatchMapping(value = "/update-is-removable/{uuid}")
-  public ResponseEntity<HttpStatus> toggleIsRemovableByUuid(@PathVariable("uuid") @UuidConstraint String uuid) {
-    studentApplicationService.updateIsRemovableByApplicationUuid(uuid);
+  public ResponseEntity<HttpStatus> toggleIsRemovable(@PathVariable("uuid") @UuidConstraint String uuid) {
+    studentApplicationService.toggleIsRemovableByApplicationUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -78,13 +78,13 @@ public class StudentApplicationController {
   }
 
   @GetMapping(value = "/dashboard")
-  public ResponseEntity<DashboardAggregateDataDto> getAggregateData() {
+  public ResponseEntity<DashboardAggregateDataDto> getAggregateDataDto() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    DashboardAggregateDataDto returnDto = studentApplicationService.getAggregateDataByAccount(account);
+    DashboardAggregateDataDto returnProjection = studentApplicationService.getAggregateDataDtoByAccount(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnProjection);
   }
 }

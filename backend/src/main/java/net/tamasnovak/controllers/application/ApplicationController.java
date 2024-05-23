@@ -24,7 +24,7 @@ public class ApplicationController {
   }
 
   @GetMapping(value = "/{uuid}")
-  public ResponseEntity<ApplicationView> getApplicationDto(@PathVariable("uuid") @UuidConstraint String uuid) {
+  public ResponseEntity<ApplicationView> getApplicationView(@PathVariable("uuid") @UuidConstraint String uuid) {
     ApplicationView returnProjection = applicationService.getApplicationViewByUuid(uuid);
 
     return ResponseEntity

@@ -50,7 +50,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusSelectOptionView> getSelectOptions() {
+  public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return applicationStatusRepository.findAllByOrderByNameAsc();
   }
 }

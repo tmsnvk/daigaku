@@ -26,7 +26,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusSelectOptionView> getSelectOptions() {
+  public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return responseStatusRepository.findAllByOrderByNameAsc();
   }
 

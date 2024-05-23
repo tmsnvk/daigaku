@@ -186,7 +186,7 @@ class StudentApplicationServiceImplTest {
       when(studentService.getStudentByAccount(mockAccount)).thenReturn(mockStudent);
 
       DashboardAggregateDataDto expected = new DashboardAggregateDataDto(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
-      DashboardAggregateDataDto actual = underTest.getAggregateDataByAccount(mockAccount);
+      DashboardAggregateDataDto actual = underTest.getAggregateDataDtoByAccount(mockAccount);
 
       assertEquals(expected, actual);
 

@@ -73,10 +73,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public List<ApplicationView> getAllApplicationsByStudent(Account account) {
+  public List<ApplicationView> getAllApplicationViewsByStudent(Account account) {
     Student student = studentService.getStudentByAccount(account);
 
-    return applicationRepository.findApplicationsByStudent(student.getId());
+    return applicationRepository.findApplicationViewsByStudentId(student.getId());
   }
 
   @Override
@@ -100,9 +100,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       plannedApplicationStatus
     );
 
-    applicationRepository.save(newApplication);
+   Application savedApplication = applicationRepository.save(newApplication);
 
-    return applicationService.getApplicationViewByUuid(newApplication.getUuid().toString());
+    return applicationService.getApplicationViewByUuid(savedApplication.getUuid().toString());
   }
 
   @Override
@@ -131,13 +131,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public void updateIsRemovableByApplicationUuid(String uuid) {
+  public void toggleIsRemovableByApplicationUuid(String uuid) {
     applicationRepository.updateIsRemovableByUuid(UUID.fromString(uuid));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardAggregateDataDto getAggregateDataByAccount(Account account) {
+  public DashboardAggregateDataDto getAggregateDataDtoByAccount(Account account) {
     Student student = studentService.getStudentByAccount(account);
 
     return new DashboardAggregateDataDto(

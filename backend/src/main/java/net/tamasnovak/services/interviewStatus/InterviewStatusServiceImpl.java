@@ -26,7 +26,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusSelectOptionView> getSelectOptions() {
+  public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return interviewStatusRepository.findAllByOrderByNameAsc();
   }
 

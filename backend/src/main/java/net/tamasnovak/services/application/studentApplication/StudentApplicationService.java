@@ -9,9 +9,9 @@ import net.tamasnovak.entities.account.baseAccount.Account;
 import java.util.List;
 
 public interface StudentApplicationService {
-  List<ApplicationView> getAllApplicationsByStudent(Account account);
+  List<ApplicationView> getAllApplicationViewsByStudent(Account account);
   ApplicationView createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
   ApplicationView updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
-  void updateIsRemovableByApplicationUuid(String uuid);
-  DashboardAggregateDataDto getAggregateDataByAccount(Account account);
+  void toggleIsRemovableByApplicationUuid(String uuid);
+  DashboardAggregateDataDto getAggregateDataDtoByAccount(Account account);
 }

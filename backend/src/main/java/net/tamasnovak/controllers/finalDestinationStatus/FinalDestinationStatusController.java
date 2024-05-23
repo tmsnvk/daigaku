@@ -22,11 +22,11 @@ public class FinalDestinationStatusController {
   }
 
   @GetMapping(path = "")
-  public ResponseEntity<List<StatusSelectOptionView>> getSelectOptions() {
-    List<StatusSelectOptionView> returnProjection = finalDestinationStatusService.getSelectOptions();
+  public ResponseEntity<List<StatusSelectOptionView>> getAllSelectOptionsViews() {
+    List<StatusSelectOptionView> returnProjections = finalDestinationStatusService.getAllSelectOptionViews();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnProjection);
+      .body(returnProjections);
   }
 }

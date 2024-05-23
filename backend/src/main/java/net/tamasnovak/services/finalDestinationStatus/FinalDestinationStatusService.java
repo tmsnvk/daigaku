@@ -6,7 +6,7 @@ import net.tamasnovak.entities.application.FinalDestinationStatus;
 import java.util.List;
 
 public interface FinalDestinationStatusService {
-  List<StatusSelectOptionView> getSelectOptions();
+  List<StatusSelectOptionView> getAllSelectOptionViews();
   FinalDestinationStatus getStatusByUuid(String uuid);
   FinalDestinationStatus getStatusByUuidOnApplicationUpdate(FinalDestinationStatus currentStatus, String requestBodyStatusUuid);
 }

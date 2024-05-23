@@ -6,6 +6,6 @@ import net.tamasnovak.entities.institution.Institution;
 import java.util.List;
 
 public interface InstitutionService {
-  List<InstitutionOptionView> getSelectOptions();
+  List<InstitutionOptionView> getAllSelectOptionViews();
   Institution getInstitutionByUuid(String uuid);
 }

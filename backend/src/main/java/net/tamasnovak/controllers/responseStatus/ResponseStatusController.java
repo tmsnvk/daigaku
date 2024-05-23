@@ -21,11 +21,11 @@ public class ResponseStatusController {
   }
 
   @RequestMapping(path = "")
-  public ResponseEntity<List<StatusSelectOptionView>> getSelectOptions() {
-    List<StatusSelectOptionView> returnProjection = responseStatusService.getSelectOptions();
+  public ResponseEntity<List<StatusSelectOptionView>> getAllSelectOptionsViews() {
+    List<StatusSelectOptionView> returnProjections = responseStatusService.getAllSelectOptionViews();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnProjection);
+      .body(returnProjections);
   }
 }

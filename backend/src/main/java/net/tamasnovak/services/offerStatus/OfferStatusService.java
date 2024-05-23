@@ -6,7 +6,7 @@ import net.tamasnovak.entities.application.OfferStatus;
 import java.util.List;
 
 public interface OfferStatusService {
-  List<StatusSelectOptionView> getSelectOptions();
+  List<StatusSelectOptionView> getAllSelectOptionViews();
   OfferStatus getStatusByUuid(String uuid);
   OfferStatus getStatusByUuidOnApplicationUpdate(OfferStatus currentStatus, String requestBodyStatusUuid);
 }
