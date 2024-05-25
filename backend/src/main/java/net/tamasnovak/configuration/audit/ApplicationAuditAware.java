@@ -1,4 +1,4 @@
-package net.tamasnovak.audit;
+package net.tamasnovak.configuration.audit;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;

@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
-import net.tamasnovak.utilities.StringFormatterUtilities;
+import net.tamasnovak.utilities.formatter.StringFormatterUtilities;
 
 @MappedSuperclass
 public abstract class BaseAccount extends Auditable {

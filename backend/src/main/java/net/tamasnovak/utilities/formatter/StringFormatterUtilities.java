@@ -1,4 +1,4 @@
-package net.tamasnovak.utilities;
+package net.tamasnovak.utilities.formatter;
 
 import org.springframework.stereotype.Component;
 

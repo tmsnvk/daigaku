@@ -1,4 +1,4 @@
-package net.tamasnovak.configuration;
+package net.tamasnovak.configuration.cache;
 
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.cache.annotation.EnableCaching;

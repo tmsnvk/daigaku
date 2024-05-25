@@ -1,4 +1,4 @@
-package net.tamasnovak.utilities;
+package net.tamasnovak.utilities.validator;
 
 import org.springframework.stereotype.Component;
 
