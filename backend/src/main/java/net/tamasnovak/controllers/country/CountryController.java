@@ -22,7 +22,7 @@ public class CountryController {
   @GetMapping(value = "/options")
   public ResponseEntity<List<CountrySelectOptionView>> getAllSelectOptionsViews() {
     List<CountrySelectOptionView> returnProjections = countryService.getAllSelectOptionViews();
-//    System.out.println(returnProjections);
+
     return ResponseEntity
       .status(HttpStatus.OK)
       .body(returnProjections);

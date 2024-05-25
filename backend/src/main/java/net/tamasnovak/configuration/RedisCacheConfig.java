@@ -8,8 +8,6 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 
-import java.time.Duration;
-
 @Configuration
 @EnableCaching
 public class RedisCacheConfig {
@@ -17,9 +15,9 @@ public class RedisCacheConfig {
   public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
     return (builder) -> builder
       .withCacheConfiguration("countrySelectOptionViews",
-        RedisCacheConfiguration.defaultCacheConfig()
-          .entryTtl(Duration.ofMinutes(100))
-         .disableCachingNullValues()
-         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())));
+      RedisCacheConfiguration.defaultCacheConfig()
+//        .entryTtl(Duration.ofMinutes(100))
+        .disableCachingNullValues()
+        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())));
   }
 }

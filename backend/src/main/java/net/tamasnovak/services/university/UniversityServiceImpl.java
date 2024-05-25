@@ -8,6 +8,7 @@ import net.tamasnovak.repositories.university.UniversityRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.country.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "UniversitySelectOptionView", key = "#countryUuid")
   public List<UniversitySelectOptionView> getAllSelectOptionViewsByCountryUuid(String countryUuid) {
     Country country = countryService.getCountryByUuid(countryUuid);
 
