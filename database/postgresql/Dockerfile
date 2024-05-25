@@ -1,0 +1,6 @@
+FROM postgres:16.2-alpine3.19 AS build-stage
+
+COPY schema.sql /docker-entrypoint-initdb.d/01_schema.sql
+COPY data.sql /docker-entrypoint-initdb.d/02_data.sql
+
+EXPOSE 5432
