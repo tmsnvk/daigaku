@@ -6,6 +6,7 @@ import net.tamasnovak.entities.application.FinalDestinationStatus;
 import net.tamasnovak.repositories.finalDestinationStatus.FinalDestinationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "FinalDestinationStatus", key = "#uuid")
   public FinalDestinationStatus getStatusByUuid(String uuid) {
     return finalDestinationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -32,6 +34,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "FinalDestinationStatusSelectOptionView")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return finalDestinationStatusRepository.findAllByOrderByNameAsc();
   }

@@ -6,6 +6,7 @@ import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.repositories.responseStatus.ResponseStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "ResponseStatus", key = "#uuid")
   public ResponseStatus getStatusByUuid(String uuid) {
     return responseStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -32,6 +34,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "ResponseStatusSelectOptionView")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return responseStatusRepository.findAllByOrderByNameAsc();
   }

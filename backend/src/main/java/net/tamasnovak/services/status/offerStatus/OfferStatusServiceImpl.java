@@ -6,6 +6,7 @@ import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.repositories.offerStatus.OfferStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class OfferStatusServiceImpl implements OfferStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "OfferStatus", key = "#uuid")
   public OfferStatus getStatusByUuid(String uuid) {
     return offerStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -32,6 +34,7 @@ public class OfferStatusServiceImpl implements OfferStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "OfferStatusSelectOptionView")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return offerStatusRepository.findAllByOrderByNameAsc();
   }

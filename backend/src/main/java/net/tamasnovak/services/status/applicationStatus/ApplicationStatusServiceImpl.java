@@ -26,6 +26,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "ApplicationStatus", key = "#statusName")
   public ApplicationStatus getStatusByName(String statusName) {
     return applicationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

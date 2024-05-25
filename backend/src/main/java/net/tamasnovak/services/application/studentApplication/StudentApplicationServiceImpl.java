@@ -116,7 +116,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     UUID studentUuidByApplication = application.getStudent().getAccount().getUuid();
 
     validatorUtilities.verifyUuidMatch(authAccountUuid, studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
-
+    System.out.println(application);
     ApplicationStatus newApplicationStatus = getStatusByUuidOnUpdate(application.getApplicationStatus(), requestBody.applicationStatusUuid(), applicationStatusService);
     InterviewStatus newInterviewStatus = getStatusByUuidOnUpdate(application.getInterviewStatus(), requestBody.interviewStatusUuid(), interviewStatusService);
     OfferStatus newOfferStatus = getStatusByUuidOnUpdate(application.getOfferStatus(), requestBody.offerStatusUuid(), offerStatusService);
