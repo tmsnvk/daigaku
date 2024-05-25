@@ -25,10 +25,10 @@ public class ApplicationController {
 
   @GetMapping(value = "/{uuid}")
   public ResponseEntity<MappedApplicationView> getApplicationView(@PathVariable("uuid") @UuidConstraint String uuid) {
-    MappedApplicationView returnView = applicationService.getMappedApplicationViewByUuid(uuid);
+    MappedApplicationView returnProjection = applicationService.getMappedApplicationViewByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnView);
+      .body(returnProjection);
   }
 }

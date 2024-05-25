@@ -35,21 +35,21 @@ public class AccountController {
   public ResponseEntity<ClientAuthContextDto> getClientAuthContext() {
     User userDetails = authenticationFacade.getUserContext();
 
-    ClientAuthContextDto returnDto = accountService.getClientAuthContextDto(userDetails.getUsername());
+    ClientAuthContextDto returnProjection = accountService.getClientAuthContextDto(userDetails.getUsername());
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnProjection);
   }
 
   @PostMapping(value = "/login")
   public ResponseEntity<LoginReturnDto> login(@Valid @RequestBody LoginRequestDto requestBody) {
     Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
 
-    LoginReturnDto returnDto = accountService.getLoginReturnDto(requestBody, authentication);
+    LoginReturnDto returnProjection = accountService.getLoginReturnDto(requestBody, authentication);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnDto);
+      .body(returnProjection);
   }
 }

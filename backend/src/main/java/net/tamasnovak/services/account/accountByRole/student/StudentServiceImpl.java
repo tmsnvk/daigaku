@@ -22,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   @Transactional(readOnly = true)
-  public Student getStudentByAccount(Account account) {
+  public Student getAccountTypeByAccount(Account account) {
     return studentRepository.findByAccount(account)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

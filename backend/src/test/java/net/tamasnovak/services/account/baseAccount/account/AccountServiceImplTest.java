@@ -34,12 +34,16 @@ import static org.mockito.Mockito.when;
 class AccountServiceImplTest {
   @Mock
   private AccountRepository accountRepository;
+
   @Mock
   private AccountConstants accountConstants;
+
   @Mock
   private JwtUtilities jwtUtilities;
+
   @Mock
   private Authentication authentication;
+
   @InjectMocks
   private AccountServiceImpl underTest;
 

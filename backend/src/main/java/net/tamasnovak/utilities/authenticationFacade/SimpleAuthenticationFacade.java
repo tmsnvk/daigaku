@@ -11,12 +11,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthenticationFacadeImpl implements AuthenticationFacade {
+public class SimpleAuthenticationFacade implements AuthenticationFacade {
   private final AuthenticationManager authenticationManager;
   private final AccountService accountService;
 
   @Autowired
-  public AuthenticationFacadeImpl(AuthenticationManager authenticationManager, AccountService accountService) {
+  public SimpleAuthenticationFacade(AuthenticationManager authenticationManager, AccountService accountService) {
     this.authenticationManager = authenticationManager;
     this.accountService = accountService;
   }

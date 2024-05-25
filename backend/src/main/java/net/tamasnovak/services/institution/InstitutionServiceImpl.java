@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class InstitutionServiceImpl implements InstitutionService{
+public class InstitutionServiceImpl implements InstitutionService {
   private final InstitutionRepository institutionRepository;
   private final GlobalServiceConstants globalServiceConstants;
 

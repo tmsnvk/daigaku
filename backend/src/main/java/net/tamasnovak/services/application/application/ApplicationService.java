@@ -4,6 +4,6 @@ import net.tamasnovak.dtos.application.response.applicationView.MappedApplicatio
 import net.tamasnovak.entities.application.Application;
 
 public interface ApplicationService {
-  MappedApplicationView getMappedApplicationViewByUuid(String uuid);
   Application getApplicationByUuid(String uuid);
+  MappedApplicationView getMappedApplicationViewByUuid(String uuid);
 }

@@ -23,10 +23,10 @@ public class ApplicationStatusController {
 
   @GetMapping(value = "")
   public ResponseEntity<List<StatusSelectOptionView>> getAllSelectOptionViews() {
-    List<StatusSelectOptionView> returnViews = applicationStatusService.getAllSelectOptionViews();
+    List<StatusSelectOptionView> returnProjections = applicationStatusService.getAllSelectOptionViews();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnViews);
+      .body(returnProjections);
   }
 }

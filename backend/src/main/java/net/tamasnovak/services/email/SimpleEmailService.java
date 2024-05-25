@@ -17,14 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Properties;
 
 @Service
-public class EmailServiceImpl implements EmailService {
+public class SimpleEmailService implements EmailService {
   @Value("${spring.mail.username}")
   private String sender;
   private final JavaMailSender javaMailSender;
   private final EmailConstants emailConstants;
 
   @Autowired
-  public EmailServiceImpl(JavaMailSender javaMailSender, EmailConstants emailConstants) {
+  public SimpleEmailService(JavaMailSender javaMailSender, EmailConstants emailConstants) {
     this.javaMailSender = javaMailSender;
     this.emailConstants = emailConstants;
   }

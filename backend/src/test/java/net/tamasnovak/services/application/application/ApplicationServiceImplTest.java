@@ -1,6 +1,7 @@
 package net.tamasnovak.services.application.application;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.application.response.applicationView.ApplicationView;
 import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
 import net.tamasnovak.dtos.application.service.ApplicationIdsView;
 import net.tamasnovak.entities.account.baseAccount.Account;
@@ -34,12 +35,16 @@ import static org.mockito.Mockito.when;
 class ApplicationServiceImplTest {
   @Mock
   private AuthenticationFacade authenticationFacade;
+
   @Mock
   private ApplicationRepository applicationRepository;
+
   @Mock
   private GlobalServiceConstants globalServiceConstants;
+
   @Mock
   private ValidatorUtilities validatorUtilities;
+
   @InjectMocks
   private ApplicationServiceImpl underTest;
 
@@ -56,7 +61,7 @@ class ApplicationServiceImplTest {
     void shouldReturnApplicationViewProjection() {
       MappedApplicationView expected = mock(MappedApplicationView.class);
 
-      when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.of(expected));
+      when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.of(ApplicationView.class));
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(authAccount);
       when(applicationRepository.findApplicationRelatedIdsByUuid(applicationUuid)).thenReturn(mock(ApplicationIdsView.class));
 

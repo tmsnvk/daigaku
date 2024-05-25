@@ -22,7 +22,7 @@ import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.accountByRole.student.StudentService;
 import net.tamasnovak.services.application.application.ApplicationService;
 import net.tamasnovak.services.country.CountryService;
-import net.tamasnovak.services.status.GenericStatusService;
+import net.tamasnovak.services.status.CoreStatusService;
 import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.status.finalDestinationStatus.FinalDestinationStatusService;
 import net.tamasnovak.services.status.interviewStatus.InterviewStatusService;
@@ -84,7 +84,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional(readOnly = true)
   public List<MappedApplicationView> getAllMappedApplicationViewsByStudent(Account account) {
-    Student student = studentService.getStudentByAccount(account);
+    Student student = studentService.getAccountTypeByAccount(account);
 
     List<ApplicationView> applicationViews = applicationRepository.findApplicationViewsByStudentId(student.getId());
 
@@ -99,7 +99,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
-    Student student = studentService.getStudentByAccount(account);
+    Student student = studentService.getAccountTypeByAccount(account);
     ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName("Planned");
 
     Application newApplication = Application.createApplicationByStudent(
@@ -143,14 +143,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public void toggleIsRemovableByApplicationUuid(String uuid) {
-    applicationRepository.updateIsRemovableByUuid(UUID.fromString(uuid));
+  public void toggleIsRemovableFieldByApplicationUuid(String uuid) {
+    applicationRepository.updateIsRemovableFieldByUuid(UUID.fromString(uuid));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public DashboardAggregateDataDto getAggregateDataDtoByAccount(Account account) {
-    Student student = studentService.getStudentByAccount(account);
+  public DashboardAggregateDataDto getAggregateDataDtoByStudent(Account account) {
+    Student student = studentService.getAccountTypeByAccount(account);
 
     return new DashboardAggregateDataDto(
       student.getFirmChoiceDto(),
@@ -166,7 +166,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     );
   }
 
-  private <T extends BaseStatusEntity> T getStatusByUuidOnUpdate(T status, String requestBodyStatusUuid, GenericStatusService<T> service) {
+  private <T extends BaseStatusEntity> T getStatusByUuidOnUpdate(T status, String requestBodyStatusUuid, CoreStatusService<T> service) {
     if (status != null && Objects.equals(status.getUuid().toString(), requestBodyStatusUuid)) {
       return status;
     }

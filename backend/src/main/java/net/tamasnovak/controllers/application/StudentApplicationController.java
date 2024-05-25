@@ -40,37 +40,37 @@ public class StudentApplicationController {
   public ResponseEntity<List<MappedApplicationView>> getAllApplicationViews() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<MappedApplicationView> returnViews = studentApplicationService.getAllMappedApplicationViewsByStudent(account);
+    List<MappedApplicationView> returnProjections = studentApplicationService.getAllMappedApplicationViewsByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnViews);
+      .body(returnProjections);
   }
 
   @PostMapping(value = "")
-  public ResponseEntity<MappedApplicationView> create(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
+  public ResponseEntity<MappedApplicationView> createApplication(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    MappedApplicationView returnView = studentApplicationService.createApplication(account, requestBody);
+    MappedApplicationView returnProjection = studentApplicationService.createApplication(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
-      .body(returnView);
+      .body(returnProjection);
   }
 
   @PatchMapping(value = "/{uuid}")
-  public ResponseEntity<MappedApplicationView> update(@PathVariable("uuid") @UuidConstraint String uuid,
-                                                      @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
-    MappedApplicationView returnView = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
+  public ResponseEntity<MappedApplicationView> updateApplication(@PathVariable("uuid") @UuidConstraint String uuid,
+                                                                 @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
+    MappedApplicationView returnProjection = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnView);
+      .body(returnProjection);
   }
 
   @PatchMapping(value = "/update-is-removable/{uuid}")
-  public ResponseEntity<HttpStatus> toggleIsRemovable(@PathVariable("uuid") @UuidConstraint String uuid) {
-    studentApplicationService.toggleIsRemovableByApplicationUuid(uuid);
+  public ResponseEntity<HttpStatus> toggleIsRemovableField(@PathVariable("uuid") @UuidConstraint String uuid) {
+    studentApplicationService.toggleIsRemovableFieldByApplicationUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -81,10 +81,10 @@ public class StudentApplicationController {
   public ResponseEntity<DashboardAggregateDataDto> getAggregateDataDto() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    DashboardAggregateDataDto returnView = studentApplicationService.getAggregateDataDtoByAccount(account);
+    DashboardAggregateDataDto returnProjection = studentApplicationService.getAggregateDataDtoByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnView);
+      .body(returnProjection);
   }
 }

@@ -1,11 +1,10 @@
-package net.tamasnovak.services.applicationStatus;
+package net.tamasnovak.services.status.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
-import net.tamasnovak.services.status.applicationStatus.ApplicationStatusServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -32,8 +31,10 @@ import static org.mockito.Mockito.when;
 class ApplicationStatusServiceImplTest {
   @Mock
   ApplicationStatusRepository applicationStatusRepository;
+
   @Mock
   GlobalServiceConstants globalServiceConstants;
+
   @InjectMocks
   ApplicationStatusServiceImpl underTest;
 

@@ -123,7 +123,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
       WHERE
         uuid = :uuid
     """, nativeQuery = true)
-  void updateIsRemovableByUuid(@Param("uuid") UUID uuid);
+  void updateIsRemovableFieldByUuid(@Param("uuid") UUID uuid);
 
   @Query(value =
     """

@@ -12,6 +12,6 @@ public interface StudentApplicationService {
   List<MappedApplicationView> getAllMappedApplicationViewsByStudent(Account account);
   MappedApplicationView createApplication(Account account, NewApplicationByStudentDto newApplicationByStudentDto);
   MappedApplicationView updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto updateApplicationByStudentDto);
-  void toggleIsRemovableByApplicationUuid(String uuid);
-  DashboardAggregateDataDto getAggregateDataDtoByAccount(Account account);
+  void toggleIsRemovableFieldByApplicationUuid(String uuid);
+  DashboardAggregateDataDto getAggregateDataDtoByStudent(Account account);
 }

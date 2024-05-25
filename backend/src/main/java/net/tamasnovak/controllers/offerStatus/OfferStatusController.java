@@ -23,10 +23,10 @@ public class OfferStatusController {
 
   @GetMapping(path = "")
   public ResponseEntity<List<StatusSelectOptionView>> getAllSelectOptionsViews() {
-    List<StatusSelectOptionView> returnViews = offerStatusService.getAllSelectOptionViews();
+    List<StatusSelectOptionView> returnProjections = offerStatusService.getAllSelectOptionViews();
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnViews);
+      .body(returnProjections);
   }
 }

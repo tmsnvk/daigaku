@@ -6,13 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import net.tamasnovak.dtos.application.response.FinalDestinationDto;
 import net.tamasnovak.dtos.application.response.FirmChoiceDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
-import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
+import net.tamasnovak.entities.base.accountRole.BaseAccountRole;
 import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.ResponseStatusType;
@@ -25,11 +24,7 @@ import java.util.function.Predicate;
 
 @Entity
 @Table(name = "students")
-public final class Student extends BaseSimpleIdEntity {
-  @OneToOne
-  @JoinColumn(name = "account_id", referencedColumnName = "id")
-  private Account account;
-
+public final class Student extends BaseAccountRole {
   @ManyToOne
   @JoinColumn(name = "mentor_id", nullable = false)
   @JsonBackReference(value = "mentor-student_reference")
@@ -47,17 +42,13 @@ public final class Student extends BaseSimpleIdEntity {
   protected Student() {}
 
   private Student(Account account, Mentor mentor) {
-    this.account = account;
+    super(account);
     this.mentor = mentor;
     this.applications = new ArrayList<>();
   }
 
   public static Student createStudent(Account account, Mentor mentor) {
     return new Student(account, mentor);
-  }
-
-  public Account getAccount() {
-    return account;
   }
 
   public Mentor getMentor() {
