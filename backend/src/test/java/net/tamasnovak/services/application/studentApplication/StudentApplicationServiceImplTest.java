@@ -2,8 +2,8 @@ package net.tamasnovak.services.application.studentApplication;
 
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
-import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
+import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
 import net.tamasnovak.entities.account.accountByRole.Mentor;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.account.baseAccount.Account;
@@ -84,18 +84,18 @@ class StudentApplicationServiceImplTest {
 
   @Nested
   @DisplayName("getAllApplicationViewsByStudent() unit tests")
-  class GetAllApplicationViewsByStudentUnitTests {
+  class GetAllMappedApplicationViewsByStudentUnitTests {
     @Test
     @Description("Returns a list of ApplicationView projection instances.")
     void shouldReturnApplicationViews() {
-      List<ApplicationView> mockApplicationViews = Collections.singletonList(mock(ApplicationView.class));
+      List<MappedApplicationView> mockMappedApplicationViews = Collections.singletonList(mock(MappedApplicationView.class));
 
       when(studentService.getStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationRepository.findApplicationViewsByStudentId(mockStudent.getId())).thenReturn(mockApplicationViews);
+      when(applicationRepository.findApplicationViewsByStudentId(mockStudent.getId())).thenReturn(mockMappedApplicationViews);
 
-      List<ApplicationView> actual = underTest.getAllApplicationViewsByStudent(mockAccount);
+      List<MappedApplicationView> actual = underTest.getAllMappedApplicationViewsByStudent(mockAccount);
 
-      assertEquals(mockApplicationViews, actual);
+      assertEquals(mockMappedApplicationViews, actual);
 
       verify(studentService, times(1)).getStudentByAccount(mockAccount);
       verify(applicationRepository, times(1)).findApplicationViewsByStudentId(mockStudent.getId());
@@ -114,7 +114,7 @@ class StudentApplicationServiceImplTest {
 
       NewApplicationByStudentDto requestBody = mock(NewApplicationByStudentDto.class);
 
-      ApplicationView expected = mock(ApplicationView.class);
+      MappedApplicationView expected = mock(MappedApplicationView.class);
 
       when(countryService.getCountryByUuid(requestBody.countryUuid())).thenReturn(mockCountry);
       when(universityService.getUniversityByUuid(requestBody.universityUuid())).thenReturn(mockUniversity);
@@ -123,9 +123,9 @@ class StudentApplicationServiceImplTest {
 
       when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.getApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
 
-      ApplicationView actual = underTest.createApplication(mockAccount, requestBody);
+      MappedApplicationView actual = underTest.createApplication(mockAccount, requestBody);
 
       assertEquals(expected, actual);
 
@@ -133,7 +133,7 @@ class StudentApplicationServiceImplTest {
       verify(universityService, times(1)).getUniversityByUuid(requestBody.universityUuid());
       verify(studentService, times(1)).getStudentByAccount(mockAccount);
       verify(applicationStatusService, times(1)).getStatusByName("Planned");
-      verify(applicationService, times(1)).getApplicationViewByUuid(applicationUuid.toString());
+      verify(applicationService, times(1)).getMappedApplicationViewByUuid(applicationUuid.toString());
     }
   }
 
@@ -150,13 +150,13 @@ class StudentApplicationServiceImplTest {
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(mockAccount);
       when(mockApplication.getStudent()).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
-      ApplicationView expected = mock(ApplicationView.class);
+      MappedApplicationView expected = mock(MappedApplicationView.class);
 
       when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.getApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
 
-      ApplicationView actual = underTest.updateApplicationByUuid(applicationUuid.toString(), requestBody);
+      MappedApplicationView actual = underTest.updateApplicationByUuid(applicationUuid.toString(), requestBody);
 
       assertEquals(expected, actual);
 

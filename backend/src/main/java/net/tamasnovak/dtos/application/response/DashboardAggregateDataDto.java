@@ -1,5 +1,8 @@
 package net.tamasnovak.dtos.application.response;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 public record DashboardAggregateDataDto(
   FirmChoiceDto firmChoiceDto,
   FinalDestinationDto finalDestinationDto,
@@ -11,4 +14,7 @@ public record DashboardAggregateDataDto(
   int numberOfDifferentUniversities,
   int numberOfNotSetInterviewStatus,
   int numberOfOffers
-) {}
+) implements Serializable {
+  @Serial
+  private static final long serialVersionUID = 1L;
+}

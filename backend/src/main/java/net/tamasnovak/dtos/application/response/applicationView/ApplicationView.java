@@ -1,4 +1,4 @@
-package net.tamasnovak.dtos.application.response;
+package net.tamasnovak.dtos.application.response.applicationView;
 
 import java.time.Instant;
 import java.util.UUID;

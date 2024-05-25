@@ -1,6 +1,6 @@
 package net.tamasnovak.repositories.application;
 
-import net.tamasnovak.dtos.application.response.ApplicationView;
+import net.tamasnovak.dtos.application.response.applicationView.ApplicationView;
 import net.tamasnovak.dtos.application.service.ApplicationIdsView;
 import net.tamasnovak.entities.application.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
