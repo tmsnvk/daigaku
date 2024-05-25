@@ -9,7 +9,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OfferStatusRepository extends JpaRepository<OfferStatus, Long> {
-  List<StatusSelectOptionView> findAllByOrderByNameAsc();
-
   Optional<OfferStatus> findByUuid(UUID uuid);
+
+  Optional<OfferStatus> findByName(String statusName);
+
+  List<StatusSelectOptionView> findAllByOrderByNameAsc();
 }

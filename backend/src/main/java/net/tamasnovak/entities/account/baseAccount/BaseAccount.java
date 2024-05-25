@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
-import net.tamasnovak.utilities.StringFormatterUtilities;
+import net.tamasnovak.utilities.formatter.StringFormatterUtilities;
 
 @MappedSuperclass
 public abstract class BaseAccount extends Auditable {
@@ -31,12 +31,12 @@ public abstract class BaseAccount extends Auditable {
 
   @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "institution-account_reference")
   private Institution institution;
 
   @ManyToOne
   @JoinColumn(name = "role_id")
-  @JsonBackReference
+  @JsonBackReference(value = "role-account_reference")
   private Role role;
 
   protected BaseAccount() {}

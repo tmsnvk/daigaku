@@ -27,8 +27,10 @@ import static org.mockito.Mockito.when;
 class StudentServiceImplTest {
   @Mock
   private StudentRepository studentRepository;
+
   @Mock
   private GlobalServiceConstants globalServiceConstants;
+
   @InjectMocks
   private StudentServiceImpl underTest;
 
@@ -43,7 +45,7 @@ class StudentServiceImplTest {
       Student expected = mock(Student.class);
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.of(expected));
 
-      Student actual = underTest.getStudentByAccount(mockAccount);
+      Student actual = underTest.getAccountTypeByAccount(mockAccount);
 
       assertEquals(expected, actual);
 
@@ -55,7 +57,7 @@ class StudentServiceImplTest {
     void shouldThrowEntityNotFoundException_IfStudentRecordIsNotFound() {
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getStudentByAccount(mockAccount));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getAccountTypeByAccount(mockAccount));
 
       verify(studentRepository, times(1)).findByAccount(mockAccount);
     }

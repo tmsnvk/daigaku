@@ -8,6 +8,7 @@ import net.tamasnovak.repositories.university.UniversityRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.country.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "UniversitySelectOptionViewsByCountryUuid", key = "{ #root.methodName, #countryUuid }")
   public List<UniversitySelectOptionView> getAllSelectOptionViewsByCountryUuid(String countryUuid) {
     Country country = countryService.getCountryByUuid(countryUuid);
 
@@ -37,6 +39,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "UniversityByUuid", key = "{ #root.methodName, #uuid }")
   public University getUniversityByUuid(String uuid) {
     return universityRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

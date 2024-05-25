@@ -9,7 +9,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FinalDestinationStatusRepository extends JpaRepository<FinalDestinationStatus, Long> {
-  List<StatusSelectOptionView> findAllByOrderByNameAsc();
-
   Optional<FinalDestinationStatus> findByUuid(UUID uuid);
+
+  Optional<FinalDestinationStatus> findByName(String statusName);
+
+  List<StatusSelectOptionView> findAllByOrderByNameAsc();
 }

@@ -4,8 +4,8 @@ import jakarta.validation.Valid;
 import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
-import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
+import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
@@ -37,10 +37,10 @@ public class StudentApplicationController {
   }
 
   @GetMapping(value = "")
-  public ResponseEntity<List<ApplicationView>> getAllApplicationViews() {
+  public ResponseEntity<List<MappedApplicationView>> getAllApplicationViews() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<ApplicationView> returnProjections = studentApplicationService.getAllApplicationViewsByStudent(account);
+    List<MappedApplicationView> returnProjections = studentApplicationService.getAllMappedApplicationViewsByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -48,10 +48,10 @@ public class StudentApplicationController {
   }
 
   @PostMapping(value = "")
-  public ResponseEntity<ApplicationView> create(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
+  public ResponseEntity<MappedApplicationView> createApplication(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    ApplicationView returnProjection = studentApplicationService.createApplication(account, requestBody);
+    MappedApplicationView returnProjection = studentApplicationService.createApplication(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
@@ -59,9 +59,9 @@ public class StudentApplicationController {
   }
 
   @PatchMapping(value = "/{uuid}")
-  public ResponseEntity<ApplicationView> update(@PathVariable("uuid") @UuidConstraint String uuid,
-                                                @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
-    ApplicationView returnProjection = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
+  public ResponseEntity<MappedApplicationView> updateApplication(@PathVariable("uuid") @UuidConstraint String uuid,
+                                                                 @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
+    MappedApplicationView returnProjection = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -69,8 +69,8 @@ public class StudentApplicationController {
   }
 
   @PatchMapping(value = "/update-is-removable/{uuid}")
-  public ResponseEntity<HttpStatus> toggleIsRemovable(@PathVariable("uuid") @UuidConstraint String uuid) {
-    studentApplicationService.toggleIsRemovableByApplicationUuid(uuid);
+  public ResponseEntity<HttpStatus> toggleIsRemovableField(@PathVariable("uuid") @UuidConstraint String uuid) {
+    studentApplicationService.toggleIsRemovableFieldByApplicationUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -81,7 +81,7 @@ public class StudentApplicationController {
   public ResponseEntity<DashboardAggregateDataDto> getAggregateDataDto() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    DashboardAggregateDataDto returnProjection = studentApplicationService.getAggregateDataDtoByAccount(account);
+    DashboardAggregateDataDto returnProjection = studentApplicationService.getAggregateDataDtoByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)

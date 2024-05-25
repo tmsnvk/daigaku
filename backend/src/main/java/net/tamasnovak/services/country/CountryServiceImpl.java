@@ -6,6 +6,7 @@ import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.repositories.country.CountryRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +26,14 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "CountrySelectOptionViews")
   public List<CountrySelectOptionView> getAllSelectOptionViews() {
     return countryRepository.findAllByOrderByNameAsc();
   }
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "CountryByUuid", key = "{ #root.methodName, #uuid }")
   public Country getCountryByUuid(String uuid) {
     return countryRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

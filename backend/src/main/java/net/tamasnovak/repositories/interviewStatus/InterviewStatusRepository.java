@@ -9,7 +9,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface InterviewStatusRepository extends JpaRepository<InterviewStatus, Long> {
-  List<StatusSelectOptionView> findAllByOrderByNameAsc();
-
   Optional<InterviewStatus> findByUuid(UUID uuid);
+
+  Optional<InterviewStatus> findByName(String statusName);
+
+  List<StatusSelectOptionView> findAllByOrderByNameAsc();
 }

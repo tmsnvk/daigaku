@@ -2,8 +2,8 @@ package net.tamasnovak.services.application.studentApplication;
 
 import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
-import net.tamasnovak.dtos.application.response.ApplicationView;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
+import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
 import net.tamasnovak.entities.account.accountByRole.Mentor;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.account.baseAccount.Account;
@@ -15,15 +15,15 @@ import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.accountByRole.student.StudentService;
 import net.tamasnovak.services.application.application.ApplicationService;
-import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
-import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusService;
-import net.tamasnovak.services.interviewStatus.InterviewStatusService;
-import net.tamasnovak.services.offerStatus.OfferStatusService;
-import net.tamasnovak.services.responseStatus.ResponseStatusService;
+import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
+import net.tamasnovak.services.status.finalDestinationStatus.FinalDestinationStatusService;
+import net.tamasnovak.services.status.interviewStatus.InterviewStatusService;
+import net.tamasnovak.services.status.offerStatus.OfferStatusService;
+import net.tamasnovak.services.status.responseStatus.ResponseStatusService;
 import net.tamasnovak.services.university.UniversityService;
-import net.tamasnovak.utilities.ValidatorUtilities;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
+import net.tamasnovak.utilities.validator.ValidatorUtilities;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -48,32 +48,46 @@ import static org.mockito.Mockito.when;
 class StudentApplicationServiceImplTest {
   @Mock
   AuthenticationFacade authenticationFacade;
+
   @Mock
   StudentService studentService;
+
   @Mock
   CountryService countryService;
+
   @Mock
   UniversityService universityService;
+
   @Mock
   ApplicationService applicationService;
+
   @Mock
   ApplicationStatusService applicationStatusService;
+
   @Mock
   InterviewStatusService interviewStatusService;
+
   @Mock
   OfferStatusService offerStatusService;
+
   @Mock
   ResponseStatusService responseStatusService;
+
   @Mock
   FinalDestinationStatusService finalDestinationStatusService;
+
   @Mock
   ApplicationRepository applicationRepository;
+
   @Mock
   ValidatorUtilities validatorUtilities;
+
   @Mock
   StudentApplicationConstants studentApplicationConstants;
+
   @Mock
   GlobalServiceConstants globalServiceConstants;
+
   @InjectMocks
   StudentApplicationServiceImpl underTest;
 
@@ -84,20 +98,20 @@ class StudentApplicationServiceImplTest {
 
   @Nested
   @DisplayName("getAllApplicationViewsByStudent() unit tests")
-  class GetAllApplicationViewsByStudentUnitTests {
+  class GetAllMappedApplicationViewsByStudentUnitTests {
     @Test
     @Description("Returns a list of ApplicationView projection instances.")
     void shouldReturnApplicationViews() {
-      List<ApplicationView> mockApplicationViews = Collections.singletonList(mock(ApplicationView.class));
+      List<MappedApplicationView> mockMappedApplicationViews = Collections.singletonList(mock(MappedApplicationView.class));
 
-      when(studentService.getStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationRepository.findApplicationViewsByStudentId(mockStudent.getId())).thenReturn(mockApplicationViews);
+      when(studentService.getAccountTypeByAccount(mockAccount)).thenReturn(mockStudent);
+      when(applicationRepository.findApplicationViewsByStudentId(mockStudent.getId())).thenReturn(mockMappedApplicationViews);
 
-      List<ApplicationView> actual = underTest.getAllApplicationViewsByStudent(mockAccount);
+      List<MappedApplicationView> actual = underTest.getAllMappedApplicationViewsByStudent(mockAccount);
 
-      assertEquals(mockApplicationViews, actual);
+      assertEquals(mockMappedApplicationViews, actual);
 
-      verify(studentService, times(1)).getStudentByAccount(mockAccount);
+      verify(studentService, times(1)).getAccountTypeByAccount(mockAccount);
       verify(applicationRepository, times(1)).findApplicationViewsByStudentId(mockStudent.getId());
     }
   }
@@ -114,26 +128,26 @@ class StudentApplicationServiceImplTest {
 
       NewApplicationByStudentDto requestBody = mock(NewApplicationByStudentDto.class);
 
-      ApplicationView expected = mock(ApplicationView.class);
+      MappedApplicationView expected = mock(MappedApplicationView.class);
 
       when(countryService.getCountryByUuid(requestBody.countryUuid())).thenReturn(mockCountry);
       when(universityService.getUniversityByUuid(requestBody.universityUuid())).thenReturn(mockUniversity);
-      when(studentService.getStudentByAccount(mockAccount)).thenReturn(mockStudent);
+      when(studentService.getAccountTypeByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.getStatusByName("Planned")).thenReturn(mockApplicationStatus);
 
       when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.getApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
 
-      ApplicationView actual = underTest.createApplication(mockAccount, requestBody);
+      MappedApplicationView actual = underTest.createApplication(mockAccount, requestBody);
 
       assertEquals(expected, actual);
 
       verify(countryService, times(1)).getCountryByUuid(requestBody.countryUuid());
       verify(universityService, times(1)).getUniversityByUuid(requestBody.universityUuid());
-      verify(studentService, times(1)).getStudentByAccount(mockAccount);
+      verify(studentService, times(1)).getAccountTypeByAccount(mockAccount);
       verify(applicationStatusService, times(1)).getStatusByName("Planned");
-      verify(applicationService, times(1)).getApplicationViewByUuid(applicationUuid.toString());
+      verify(applicationService, times(1)).getMappedApplicationViewByUuid(applicationUuid.toString());
     }
   }
 
@@ -150,13 +164,13 @@ class StudentApplicationServiceImplTest {
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(mockAccount);
       when(mockApplication.getStudent()).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
-      ApplicationView expected = mock(ApplicationView.class);
+      MappedApplicationView expected = mock(MappedApplicationView.class);
 
       when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.getApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
 
-      ApplicationView actual = underTest.updateApplicationByUuid(applicationUuid.toString(), requestBody);
+      MappedApplicationView actual = underTest.updateApplicationByUuid(applicationUuid.toString(), requestBody);
 
       assertEquals(expected, actual);
 
@@ -171,9 +185,9 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("is_removable field successfully updated.")
     void shouldSuccessfullyUpdateIsRemovableField() {
-      applicationRepository.updateIsRemovableByUuid(applicationUuid);
+      applicationRepository.updateIsRemovableFieldByUuid(applicationUuid);
 
-      verify(applicationRepository, times(1)).updateIsRemovableByUuid(applicationUuid);
+      verify(applicationRepository, times(1)).updateIsRemovableFieldByUuid(applicationUuid);
     }
   }
 
@@ -183,14 +197,14 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Returns DashboardAggregateDataDto instance.")
     void shouldReturnDashboardAggregateDataDto() {
-      when(studentService.getStudentByAccount(mockAccount)).thenReturn(mockStudent);
+      when(studentService.getAccountTypeByAccount(mockAccount)).thenReturn(mockStudent);
 
       DashboardAggregateDataDto expected = new DashboardAggregateDataDto(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
-      DashboardAggregateDataDto actual = underTest.getAggregateDataDtoByAccount(mockAccount);
+      DashboardAggregateDataDto actual = underTest.getAggregateDataDtoByStudent(mockAccount);
 
       assertEquals(expected, actual);
 
-      verify(studentService, times(1)).getStudentByAccount(mockAccount);
+      verify(studentService, times(1)).getAccountTypeByAccount(mockAccount);
     }
   }
 }

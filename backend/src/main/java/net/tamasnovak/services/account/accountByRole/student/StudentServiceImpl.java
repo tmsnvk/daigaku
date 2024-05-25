@@ -7,6 +7,7 @@ import net.tamasnovak.repositories.account.accountByRole.StudentRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -20,7 +21,8 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public Student getStudentByAccount(Account account) {
+  @Transactional(readOnly = true)
+  public Student getAccountTypeByAccount(Account account) {
     return studentRepository.findByAccount(account)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

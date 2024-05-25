@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.interviewStatus;
 
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
-import net.tamasnovak.services.interviewStatus.InterviewStatusService;
+import net.tamasnovak.services.status.interviewStatus.InterviewStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

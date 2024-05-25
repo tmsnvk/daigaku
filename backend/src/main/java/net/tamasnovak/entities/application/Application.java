@@ -11,37 +11,27 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
-import net.tamasnovak.enums.status.ApplicationStatusType;
-import net.tamasnovak.enums.status.FinalDestinationType;
-import net.tamasnovak.enums.status.InterviewStatusType;
-import net.tamasnovak.enums.status.OfferStatusType;
-import net.tamasnovak.enums.status.ResponseStatusType;
-import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
-import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldExceptionConstants;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "applications")
 public final class Application extends Auditable {
   @ManyToOne
   @JoinColumn(name = "student_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "student-application_reference")
   private Student student;
 
   @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "country-application_reference")
   private Country country;
 
   @ManyToOne
   @JoinColumn(name = "university_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "university-application_reference")
   private University university;
 
   @Column(name = "course_name", nullable = false)
@@ -61,27 +51,27 @@ public final class Application extends Auditable {
 
   @ManyToOne
   @JoinColumn(name = "application_status_id")
-  @JsonBackReference
+  @JsonBackReference(value = "application_status-application_reference")
   private ApplicationStatus applicationStatus;
 
   @ManyToOne
   @JoinColumn(name = "interview_status_id")
-  @JsonBackReference
+  @JsonBackReference(value = "interview_status-application_reference")
   private InterviewStatus interviewStatus;
 
   @ManyToOne
   @JoinColumn(name = "offer_status_id")
-  @JsonBackReference
+  @JsonBackReference(value = "offer_status-application_reference")
   private OfferStatus offerStatus;
 
   @ManyToOne
   @JoinColumn(name = "response_status_id")
-  @JsonBackReference
+  @JsonBackReference(value = "response_status-application_reference")
   private ResponseStatus responseStatus;
 
   @ManyToOne
   @JoinColumn(name = "final_destination_status_id")
-  @JsonBackReference
+  @JsonBackReference(value = "final_destination_status-application_reference")
   private FinalDestinationStatus finalDestinationStatus;
 
   @Column(name = "is_removable")
@@ -153,109 +143,11 @@ public final class Application extends Auditable {
     return isRemovable;
   }
 
-  public void validateStatusFields(UpdateApplicationByStudentDto applicationDto,
-                                   ApplicationStatus newApplicationStatus,
-                                   InterviewStatus newInterviewStatus,
-                                   OfferStatus newOfferStatus,
-                                   ResponseStatus newResponseStatus,
-                                   FinalDestinationStatus newFinalDestinationStatus) {
-    validateApplicationStatus(applicationDto.applicationStatusUuid(), newApplicationStatus);
-    validateResponseStatus(newResponseStatus, applicationDto);
-    validateFinalDestinationStatus(newFinalDestinationStatus);
-
-    validateInterviewStatus(newInterviewStatus, applicationDto);
-    validateOfferStatus(newOfferStatus, applicationDto);
-  }
-
-  public void updateStatusFields(ApplicationStatus applicationStatus,
-                                 InterviewStatus interviewStatus,
-                                 OfferStatus offerStatus,
-                                 ResponseStatus responseStatus,
-                                 FinalDestinationStatus finalDestinationStatus) {
+  public void updateStatusFields(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
     this.applicationStatus = applicationStatus;
     this.interviewStatus = interviewStatus;
     this.offerStatus = offerStatus;
     this.responseStatus = responseStatus;
     this.finalDestinationStatus = finalDestinationStatus;
-  }
-
-  private void validateApplicationStatus(String applicationStatusUUid,
-                                         ApplicationStatus newApplicationStatus) {
-    if (Objects.equals(applicationStatusUUid, "")) {
-      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
-    }
-
-    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.PLANNED.getName()) && Objects.equals(this.applicationStatus.getName(), ApplicationStatusType.PLANNED.getName())) {
-      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
-    }
-
-    if (Objects.equals(newApplicationStatus.getName(), ApplicationStatusType.WITHDRAWN.getName()) && Objects.equals(this.applicationStatus.getUuid(), newApplicationStatus.getUuid())) {
-      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
-    }
-  }
-
-  private void validateInterviewStatus(InterviewStatus newInterviewStatus,
-                                       UpdateApplicationByStudentDto applicationDto) {
-    if (newInterviewStatus != null) {
-      if (Objects.equals(newInterviewStatus.getName(), InterviewStatusType.NOT_INVITED.getName()) && (!Objects.equals(applicationDto.offerStatusUuid(), "") || !Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
-      }
-    }
-
-    if (this.interviewStatus != null) {
-      if (Objects.equals(this.interviewStatus.getName(), InterviewStatusType.NOT_INVITED.getName()) && Objects.equals(applicationDto.interviewStatusUuid(), "")) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.NOT_INVITED_ERROR);
-      }
-    }
-  }
-
-  private void validateOfferStatus(OfferStatus newOfferStatus,
-                                   UpdateApplicationByStudentDto applicationDto) {
-    if (newOfferStatus != null) {
-      if (Objects.equals(newOfferStatus.getName(), OfferStatusType.REJECTED.getName()) && (!Objects.equals(applicationDto.responseStatusUuid(), "") || !Objects.equals(applicationDto.finalDestinationStatusUuid(), ""))) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
-      }
-    }
-
-    if (this.offerStatus != null) {
-      if (Objects.equals(this.offerStatus.getName(), OfferStatusType.REJECTED.getName()) && Objects.equals(applicationDto.offerStatusUuid(), "")) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.REJECTED_ERROR);
-      }
-    }
-  }
-
-  private void validateResponseStatus(ResponseStatus newResponseStatus,
-                                      UpdateApplicationByStudentDto applicationDto) {
-    if (newResponseStatus != null) {
-      if (Objects.equals(newResponseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getName()) && !Objects.equals(applicationDto.finalDestinationStatusUuid(), "")) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
-      }
-
-      if (getFirmChoiceApplication() != null && !Objects.equals(this.uuid, getFirmChoiceApplication().getUuid()) && Objects.equals(newResponseStatus.getName(), ResponseStatusType.FIRM_CHOICE.getName())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FIRM_CHOICE_ERROR);
-      }
-    }
-
-    if (this.responseStatus != null) {
-      if (Objects.equals(this.responseStatus.getName(), ResponseStatusType.OFFER_DECLINED.getName()) && Objects.equals(applicationDto.responseStatusUuid(), "")) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.DECLINED_ERROR);
-      }
-    }
-  }
-
-  private void validateFinalDestinationStatus(FinalDestinationStatus newFinalDestinationStatus) {
-    if (newFinalDestinationStatus != null) {
-      if (getFinalDestinationApplication() != null && !Objects.equals(this.uuid, getFinalDestinationApplication().getUuid()) && !Objects.equals(newFinalDestinationStatus.getName(), FinalDestinationType.NOT_FINAL_DESTINATION.getName())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FINAL_DESTINATION_ERROR);
-      }
-    }
-  }
-
-  private Application getFirmChoiceApplication() {
-    return this.student.getFirmChoiceApplication();
-  }
-
-  private Application getFinalDestinationApplication() {
-    return this.student.getFinalDestinationApplication();
   }
 }

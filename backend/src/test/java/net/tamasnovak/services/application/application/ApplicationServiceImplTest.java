@@ -1,7 +1,8 @@
 package net.tamasnovak.services.application.application;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.application.response.ApplicationView;
+import net.tamasnovak.dtos.application.response.applicationView.ApplicationView;
+import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
 import net.tamasnovak.dtos.application.service.ApplicationIdsView;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
@@ -9,8 +10,8 @@ import net.tamasnovak.entities.institution.Institution;
 import net.tamasnovak.entities.role.Role;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
-import net.tamasnovak.utilities.ValidatorUtilities;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
+import net.tamasnovak.utilities.validator.ValidatorUtilities;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,12 +35,16 @@ import static org.mockito.Mockito.when;
 class ApplicationServiceImplTest {
   @Mock
   private AuthenticationFacade authenticationFacade;
+
   @Mock
   private ApplicationRepository applicationRepository;
+
   @Mock
   private GlobalServiceConstants globalServiceConstants;
+
   @Mock
   private ValidatorUtilities validatorUtilities;
+
   @InjectMocks
   private ApplicationServiceImpl underTest;
 
@@ -49,18 +54,18 @@ class ApplicationServiceImplTest {
   private final Account authAccount = Account.createAccount("Student", "Test User", "valid@email.net", "hashedPassword", mockInstitution, mockRole);
 
   @Nested
-  @DisplayName("getApplicationViewByUuid() unit tests")
-  class GetApplicationViewByUuidUnitTests {
+  @DisplayName("getMappedApplicationViewByUuid() unit tests")
+  class GetMappedApplicationViewByUuidUnitTests {
     @Test
     @Description("Returns the correct ApplicationView projection instance.")
     void shouldReturnApplicationViewProjection() {
-      ApplicationView expected = mock(ApplicationView.class);
+      MappedApplicationView expected = mock(MappedApplicationView.class);
 
-      when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.of(expected));
+      when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.of(ApplicationView.class));
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(authAccount);
       when(applicationRepository.findApplicationRelatedIdsByUuid(applicationUuid)).thenReturn(mock(ApplicationIdsView.class));
 
-      ApplicationView actual = underTest.getApplicationViewByUuid(applicationUuid.toString());
+      MappedApplicationView actual = underTest.getMappedApplicationViewByUuid(applicationUuid.toString());
 
       assertEquals(expected, actual);
 
@@ -72,7 +77,7 @@ class ApplicationServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationViewProjectionIsNotFound() {
       when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getApplicationViewByUuid(applicationUuid.toString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getMappedApplicationViewByUuid(applicationUuid.toString()));
 
       verify(applicationRepository, times(1)).findApplicationViewByUuid(applicationUuid);
     }
@@ -80,13 +85,13 @@ class ApplicationServiceImplTest {
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.getApplicationViewByUuid("invalidUuid"));
+      assertThrows(IllegalArgumentException.class, () -> underTest.getMappedApplicationViewByUuid("invalidUuid"));
     }
 
     @Test
     @Description("Throws NullPointerException if UUID string is null.")
     void shouldThrowNullPointerException_IfUuidStringIsNull() {
-      assertThrows(NullPointerException.class, () -> underTest.getApplicationViewByUuid(null));
+      assertThrows(NullPointerException.class, () -> underTest.getMappedApplicationViewByUuid(null));
     }
   }
 

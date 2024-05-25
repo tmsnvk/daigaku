@@ -32,16 +32,18 @@ import java.util.Collections;
 class AccountControllerIT {
   @Autowired
   private MockMvc mockMvc;
+
   @Autowired
   private ObjectMapper objectMapper;
+
   @MockBean
   private AuthenticationFacade authenticationFacade;
+
   @MockBean
   private AccountService accountService;
 
   @AfterEach
-  void tearDown() {
-  }
+  void tearDown() {}
 
   @Nested
   @DisplayName("findUser() method tests")

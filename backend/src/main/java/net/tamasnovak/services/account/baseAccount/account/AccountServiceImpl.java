@@ -1,6 +1,7 @@
 package net.tamasnovak.services.account.baseAccount.account;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.dtos.account.request.AccountRegistrationDto;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
@@ -34,6 +35,11 @@ public class AccountServiceImpl implements AccountService {
     if (isAccountExists) {
       throw new DataIntegrityViolationException(accountConstants.EMAIL_ALREADY_EXISTS);
     }
+  }
+
+  @Override
+  public void createAccount(AccountRegistrationDto requestBody) {
+
   }
 
   @Override

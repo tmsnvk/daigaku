@@ -34,16 +34,22 @@ import static org.mockito.Mockito.when;
 class PendingAccountServiceImplTest {
   @Mock
   private AccountService accountService;
+
   @Mock
   private InstitutionService institutionService;
+
   @Mock
   private RoleService roleService;
+
   @Mock
   private EmailService emailService;
+
   @Mock
   private PendingAccountRepository pendingAccountRepository;
+
   @Mock
   private PendingAccountConstants pendingAccountConstants;
+
   @InjectMocks
   private PendingAccountServiceImpl underTest;
 
