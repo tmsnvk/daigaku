@@ -34,6 +34,13 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  public ResponseStatus getStatusByName(String statusName) {
+    return responseStatusRepository.findByName(statusName)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
   @Cacheable(value = "ResponseStatusSelectOptionView")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return responseStatusRepository.findAllByOrderByNameAsc();

@@ -10,6 +10,7 @@ import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.InterviewStatusType;
 import net.tamasnovak.enums.status.OfferStatusType;
+import net.tamasnovak.enums.status.ResponseStatusType;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldExceptionConstants;
 import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
@@ -45,6 +46,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
     validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
     validateInterviewStatus(currentApplication, newApplicationData, newInterviewStatus);
     validateOfferStatus(currentApplication, newApplicationData, newOfferStatus);
+    validateResponseStatus(currentApplication, newApplicationData, newResponseStatus);
   }
 
   private void validateApplicationStatus(Application currentApplication, String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
@@ -97,8 +99,27 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
     }
   }
 
-  public void validateResponseStatus(ResponseStatus newResponseStatus, UpdateApplicationByStudentDto applicationDto) {
+  private void validateResponseStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, ResponseStatus newResponseStatus) {
+    ResponseStatus declinedStatus = responseStatusService.getStatusByName(ResponseStatusType.OFFER_DECLINED.getName());
 
+    if (newResponseStatus != null) {
+      ResponseStatus firmChoiceStatus = responseStatusService.getStatusByName(ResponseStatusType.FIRM_CHOICE.getName());
+      Application firmChoiceApplication = currentApplication.getStudent().getFirmChoiceApplication();
+
+      if (areValuesEqual(newResponseStatus.getUuid(), declinedStatus.getUuid()) && !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), "")) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
+      }
+
+      if (firmChoiceApplication != null && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.getUuid()) && areValuesEqual(newResponseStatus.getUuid(), firmChoiceStatus.getUuid())) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FIRM_CHOICE_ERROR);
+      }
+    }
+
+    if (currentApplication.getResponseStatus() != null) {
+      if (areValuesEqual(currentApplication.getResponseStatus().getUuid(), declinedStatus.getUuid()) && areValuesEqual(newApplicationData.responseStatusUuid(), "")) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.DECLINED_ERROR);
+      }
+    }
   }
 
   public void validateFinalDestinationStatus(FinalDestinationStatus newFinalDestinationStatus) {
