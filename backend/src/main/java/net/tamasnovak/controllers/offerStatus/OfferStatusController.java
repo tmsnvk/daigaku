@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.offerStatus;
 
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
-import net.tamasnovak.services.offerStatus.OfferStatusService;
+import net.tamasnovak.services.status.offerStatus.OfferStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

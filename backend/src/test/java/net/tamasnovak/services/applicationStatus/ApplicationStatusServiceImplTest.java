@@ -5,6 +5,7 @@ import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
+import net.tamasnovak.services.status.applicationStatus.ApplicationStatusServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,11 +21,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -90,38 +89,6 @@ class ApplicationStatusServiceImplTest {
       assertThrows(EntityNotFoundException.class, () -> underTest.getStatusByUuid(applicationStatusUuid.toString()));
 
       verify(applicationStatusRepository, times(1)).findByUuid(applicationStatusUuid);
-    }
-  }
-
-  @Nested
-  @DisplayName("getStatusByUuidOnApplicationUpdate() unit tests")
-  class GetStatusByUuidOnApplicationUpdate {
-    @Test
-    @Description("Returns currentStatus if currentStatus's UUID and newStatusUuid are equal.")
-    void shouldReturnCurrentStatus_IfCurrentStatusUuidAndNewStatusUuidAreEqual() {
-      String newStatusUuid = applicationStatusUuid.toString();
-
-      when(expected.getUuid()).thenReturn(applicationStatusUuid);
-      ApplicationStatus actual = underTest.getStatusByUuidOnApplicationUpdate(expected, newStatusUuid);
-
-      assertEquals(expected, actual);
-
-      verify(applicationStatusRepository, never()).findByUuid(applicationStatusUuid);
-    }
-
-    @Test
-    @Description("Returns newStatusUuid if currentStatus's UUID and newStatusUuid are not equal.")
-    void shouldReturnNewStatusUuid_IfCurrentStatusUuidAndNewStatusUuidAreNotEqual() {
-      UUID newStatusUuid = UUID.randomUUID();
-      ApplicationStatus actualApplicationStatus = mock(ApplicationStatus.class);
-
-      when(expected.getUuid()).thenReturn(applicationStatusUuid);
-      when(applicationStatusRepository.findByUuid(newStatusUuid)).thenReturn(Optional.of(actualApplicationStatus));
-      ApplicationStatus actual = underTest.getStatusByUuidOnApplicationUpdate(expected, newStatusUuid.toString());
-
-      verify(applicationStatusRepository, times(1)).findByUuid(newStatusUuid);
-
-      assertNotEquals(expected, actual);
     }
   }
 

@@ -12,6 +12,7 @@ import net.tamasnovak.entities.application.FinalDestinationStatus;
 import net.tamasnovak.entities.application.InterviewStatus;
 import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
+import net.tamasnovak.entities.base.status.BaseStatusEntity;
 import net.tamasnovak.entities.country.Country;
 import net.tamasnovak.entities.university.University;
 import net.tamasnovak.enums.status.ApplicationStatusType;
@@ -19,12 +20,13 @@ import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.accountByRole.student.StudentService;
 import net.tamasnovak.services.application.application.ApplicationService;
-import net.tamasnovak.services.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.country.CountryService;
-import net.tamasnovak.services.finalDestinationStatus.FinalDestinationStatusService;
-import net.tamasnovak.services.interviewStatus.InterviewStatusService;
-import net.tamasnovak.services.offerStatus.OfferStatusService;
-import net.tamasnovak.services.responseStatus.ResponseStatusService;
+import net.tamasnovak.services.status.GenericStatusService;
+import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
+import net.tamasnovak.services.status.finalDestinationStatus.FinalDestinationStatusService;
+import net.tamasnovak.services.status.interviewStatus.InterviewStatusService;
+import net.tamasnovak.services.status.offerStatus.OfferStatusService;
+import net.tamasnovak.services.status.responseStatus.ResponseStatusService;
 import net.tamasnovak.services.university.UniversityService;
 import net.tamasnovak.utilities.ValidatorUtilities;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
@@ -115,11 +117,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     validatorUtilities.verifyUuidMatch(authAccountUuid, studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
 
-    ApplicationStatus newApplicationStatus = applicationStatusService.getStatusByUuidOnApplicationUpdate(application.getApplicationStatus(), requestBody.applicationStatusUuid());
-    InterviewStatus newInterviewStatus = interviewStatusService.getStatusByUuidOnApplicationUpdate(application.getInterviewStatus(), requestBody.interviewStatusUuid());
-    OfferStatus newOfferStatus = offerStatusService.getStatusByUuidOnApplicationUpdate(application.getOfferStatus(), requestBody.offerStatusUuid());
-    ResponseStatus newResponseStatus = responseStatusService.getStatusByUuidOnApplicationUpdate(application.getResponseStatus(), requestBody.responseStatusUuid());
-    FinalDestinationStatus newFinalDestinationStatus = finalDestinationStatusService.getStatusByUuidOnApplicationUpdate(application.getFinalDestinationStatus(), requestBody.finalDestinationStatusUuid());
+    ApplicationStatus newApplicationStatus = getStatusByUuidOnUpdate(application.getApplicationStatus(), requestBody.applicationStatusUuid(), applicationStatusService);
+    InterviewStatus newInterviewStatus = getStatusByUuidOnUpdate(application.getInterviewStatus(), requestBody.interviewStatusUuid(), interviewStatusService);
+    OfferStatus newOfferStatus = getStatusByUuidOnUpdate(application.getOfferStatus(), requestBody.offerStatusUuid(), offerStatusService);
+    ResponseStatus newResponseStatus = getStatusByUuidOnUpdate(application.getResponseStatus(), requestBody.responseStatusUuid(), responseStatusService);
+    FinalDestinationStatus newFinalDestinationStatus = getStatusByUuidOnUpdate(application.getFinalDestinationStatus(), requestBody.finalDestinationStatusUuid(), finalDestinationStatusService);
 
     application.validateStatusFields(requestBody, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
     application.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
@@ -152,5 +154,18 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       student.countApplicationsByPredicate(element -> Objects.equals(element.getInterviewStatus(), null)),
       student.countApplicationsByPredicate(element -> element.getOfferStatus() != null)
     );
+  }
+
+  private <T extends BaseStatusEntity> T getStatusByUuidOnUpdate(T status, String requestBodyStatusUuid, GenericStatusService<T> service) {
+    if (Objects.equals(status.getUuid().toString(), requestBodyStatusUuid)) {
+      return status;
+    }
+
+    // should not be checked for applicationStatus
+    if (Objects.equals(requestBodyStatusUuid, "")) {
+      return null;
+    }
+
+    return service.getStatusByUuid(requestBodyStatusUuid);
   }
 }

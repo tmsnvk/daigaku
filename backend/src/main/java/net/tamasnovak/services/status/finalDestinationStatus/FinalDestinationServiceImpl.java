@@ -1,4 +1,4 @@
-package net.tamasnovak.services.finalDestinationStatus;
+package net.tamasnovak.services.status.finalDestinationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
@@ -10,11 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
-public class FinalDestinationServiceImpl implements FinalDestinationStatusService{
+public class FinalDestinationServiceImpl implements FinalDestinationStatusService {
   private final FinalDestinationStatusRepository finalDestinationStatusRepository;
   private final GlobalServiceConstants globalServiceConstants;
 
@@ -26,12 +25,6 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  public List<StatusSelectOptionView> getAllSelectOptionViews() {
-    return finalDestinationStatusRepository.findAllByOrderByNameAsc();
-  }
-
-  @Override
-  @Transactional(readOnly = true)
   public FinalDestinationStatus getStatusByUuid(String uuid) {
     return finalDestinationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -39,17 +32,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  public FinalDestinationStatus getStatusByUuidOnApplicationUpdate(FinalDestinationStatus currentStatus, String requestBodyStatusUuid) {
-    if (currentStatus != null) {
-      if (Objects.equals(currentStatus.getUuid().toString(), requestBodyStatusUuid)) {
-        return currentStatus;
-      }
-    }
-
-    if (Objects.equals(requestBodyStatusUuid, "")) {
-      return null;
-    }
-
-    return getStatusByUuid(requestBodyStatusUuid);
+  public List<StatusSelectOptionView> getAllSelectOptionViews() {
+    return finalDestinationStatusRepository.findAllByOrderByNameAsc();
   }
 }
