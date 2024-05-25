@@ -26,7 +26,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ResponseStatus", key = "#uuid")
+  @Cacheable(value = "ResponseStatusByUuid", key = "#uuid")
   public ResponseStatus getStatusByUuid(String uuid) {
     return responseStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,6 +34,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "ResponseStatusByName", key = "#statusName")
   public ResponseStatus getStatusByName(String statusName) {
     return responseStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -41,7 +42,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ResponseStatusSelectOptionView")
+  @Cacheable(value = "ResponseStatusSelectOptionViews")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return responseStatusRepository.findAllByOrderByNameAsc();
   }

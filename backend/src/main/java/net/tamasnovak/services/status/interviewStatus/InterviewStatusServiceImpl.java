@@ -26,13 +26,15 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "InterviewStatus", key = "#uuid")
+  @Cacheable(value = "InterviewStatusByUuid", key = "#uuid")
   public InterviewStatus getStatusByUuid(String uuid) {
     return interviewStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "InterviewStatusByName", key = "#statusName")
   public InterviewStatus getStatusByName(String statusName) {
     return interviewStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -40,7 +42,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "InterviewStatusSelectOptionView")
+  @Cacheable(value = "InterviewStatusSelectOptionViews")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return interviewStatusRepository.findAllByOrderByNameAsc();
   }

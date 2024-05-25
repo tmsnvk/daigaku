@@ -26,14 +26,14 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "countrySelectOptionViews")
+  @Cacheable(value = "CountrySelectOptionViews")
   public List<CountrySelectOptionView> getAllSelectOptionViews() {
     return countryRepository.findAllByOrderByNameAsc();
   }
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "country", key = "#uuid")
+  @Cacheable(value = "CountryByUuid", key = "#uuid")
   public Country getCountryByUuid(String uuid) {
     return countryRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

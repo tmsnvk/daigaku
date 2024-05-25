@@ -26,7 +26,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "FinalDestinationStatus", key = "#uuid")
+  @Cacheable(value = "FinalDestinationStatusByUuid", key = "#uuid")
   public FinalDestinationStatus getStatusByUuid(String uuid) {
     return finalDestinationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,6 +34,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "FinalDestinationStatusByName", key = "#statusName")
   public FinalDestinationStatus getStatusByName(String statusName) {
     return finalDestinationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -41,7 +42,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "FinalDestinationStatusSelectOptionView")
+  @Cacheable(value = "FinalDestinationStatusSelectOptionViews")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return finalDestinationStatusRepository.findAllByOrderByNameAsc();
   }

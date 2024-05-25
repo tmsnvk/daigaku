@@ -26,15 +26,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationStatus", key = "#statusName")
-  public ApplicationStatus getStatusByName(String statusName) {
-    return applicationStatusRepository.findByName(statusName)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
-  }
-
-  @Override
-  @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationStatus", key = "#uuid")
+  @Cacheable(value = "ApplicationStatusByUuid", key = "#uuid")
   public ApplicationStatus getStatusByUuid(String uuid) {
     return applicationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -42,7 +34,15 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationStatusSelectOptionView")
+  @Cacheable(value = "ApplicationStatusByName", key = "#statusName")
+  public ApplicationStatus getStatusByName(String statusName) {
+    return applicationStatusRepository.findByName(statusName)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "ApplicationStatusSelectOptionViews")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return applicationStatusRepository.findAllByOrderByNameAsc();
   }
