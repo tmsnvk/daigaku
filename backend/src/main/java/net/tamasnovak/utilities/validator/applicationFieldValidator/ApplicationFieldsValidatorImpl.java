@@ -1,11 +1,14 @@
 package net.tamasnovak.utilities.validator.applicationFieldValidator;
 
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
+import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.application.ApplicationStatus;
 import net.tamasnovak.entities.application.FinalDestinationStatus;
 import net.tamasnovak.entities.application.InterviewStatus;
 import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
+import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
+import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldExceptionConstants;
 import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.status.finalDestinationStatus.FinalDestinationStatusService;
 import net.tamasnovak.services.status.interviewStatus.InterviewStatusService;
@@ -13,6 +16,9 @@ import net.tamasnovak.services.status.offerStatus.OfferStatusService;
 import net.tamasnovak.services.status.responseStatus.ResponseStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
+import java.util.UUID;
 
 @Component
 public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidator {
@@ -32,12 +38,26 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   }
 
   @Override
-  public void validateStatusFields(UpdateApplicationByStudentDto applicationDto, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
-
+  public void validateStatusFields(UpdateApplicationByStudentDto newApplicationData, Application currentApplication, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
+    validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
   }
 
-  public void validateApplicationStatus(String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
+  private void validateApplicationStatus(Application currentApplication, String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
+    if (Objects.equals(applicationStatusUUid, "")) {
+      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
+    }
 
+    ApplicationStatus plannedStatus = applicationStatusService.getStatusByName("Planned");
+
+    if (areValuesEqual(newApplicationStatus.getUuid(), plannedStatus.getUuid()) && areValuesEqual(currentApplication.getApplicationStatus().getUuid(), plannedStatus.getUuid())) {
+      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
+    }
+
+    ApplicationStatus withdrawnStatus = applicationStatusService.getStatusByName("Withdrawn");
+
+    if (areValuesEqual(newApplicationStatus.getUuid(), withdrawnStatus.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(), currentApplication.getUuid())) {
+      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
+    }
   }
 
   public void validateInterviewStatus(InterviewStatus newInterviewStatus, UpdateApplicationByStudentDto applicationDto) {
@@ -54,5 +74,9 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
 
   public void validateFinalDestinationStatus(FinalDestinationStatus newFinalDestinationStatus) {
 
+  }
+
+  private boolean areValuesEqual(UUID uuid, UUID uuidToCheckAgainst) {
+    return Objects.equals(uuid, uuidToCheckAgainst);
   }
 }

@@ -113,23 +113,23 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public ApplicationView updateApplicationByUuid(String applicationUuid, UpdateApplicationByStudentDto requestBody) {
-    Application application = applicationService.getApplicationByUuid(applicationUuid);
+    Application currentApplication = applicationService.getApplicationByUuid(applicationUuid);
 
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
-    UUID studentUuidByApplication = application.getStudent().getAccount().getUuid();
+    UUID studentUuidByApplication = currentApplication.getStudent().getAccount().getUuid();
 
     validatorUtilities.verifyUuidMatch(authAccountUuid, studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
 
-    ApplicationStatus newApplicationStatus = getStatusByUuidOnUpdate(application.getApplicationStatus(), requestBody.applicationStatusUuid(), applicationStatusService);
-    InterviewStatus newInterviewStatus = getStatusByUuidOnUpdate(application.getInterviewStatus(), requestBody.interviewStatusUuid(), interviewStatusService);
-    OfferStatus newOfferStatus = getStatusByUuidOnUpdate(application.getOfferStatus(), requestBody.offerStatusUuid(), offerStatusService);
-    ResponseStatus newResponseStatus = getStatusByUuidOnUpdate(application.getResponseStatus(), requestBody.responseStatusUuid(), responseStatusService);
-    FinalDestinationStatus newFinalDestinationStatus = getStatusByUuidOnUpdate(application.getFinalDestinationStatus(), requestBody.finalDestinationStatusUuid(), finalDestinationStatusService);
+    ApplicationStatus newApplicationStatus = getStatusByUuidOnUpdate(currentApplication.getApplicationStatus(), requestBody.applicationStatusUuid(), applicationStatusService);
+    InterviewStatus newInterviewStatus = getStatusByUuidOnUpdate(currentApplication.getInterviewStatus(), requestBody.interviewStatusUuid(), interviewStatusService);
+    OfferStatus newOfferStatus = getStatusByUuidOnUpdate(currentApplication.getOfferStatus(), requestBody.offerStatusUuid(), offerStatusService);
+    ResponseStatus newResponseStatus = getStatusByUuidOnUpdate(currentApplication.getResponseStatus(), requestBody.responseStatusUuid(), responseStatusService);
+    FinalDestinationStatus newFinalDestinationStatus = getStatusByUuidOnUpdate(currentApplication.getFinalDestinationStatus(), requestBody.finalDestinationStatusUuid(), finalDestinationStatusService);
 
-    applicationFieldsValidator.validateStatusFields(requestBody, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
-    application.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
+    applicationFieldsValidator.validateStatusFields(requestBody, currentApplication, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
+    currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
-    applicationRepository.save(application);
+    applicationRepository.save(currentApplication);
 
     return applicationService.getApplicationViewByUuid(applicationUuid);
   }
