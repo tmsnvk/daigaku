@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -27,7 +28,7 @@ public final class Country extends Auditable {
   @OneToMany(mappedBy = "country")
   private Set<Address> addresses;
 
-  @OneToMany(mappedBy = "country")
+  @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
   @JsonManagedReference
   private Set<University> universities;
 
