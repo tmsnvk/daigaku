@@ -9,6 +9,7 @@ import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.InterviewStatusType;
+import net.tamasnovak.enums.status.OfferStatusType;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldExceptionConstants;
 import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
@@ -43,6 +44,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   public void validateStatusFields(UpdateApplicationByStudentDto newApplicationData, Application currentApplication, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
     validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
     validateInterviewStatus(currentApplication, newApplicationData, newInterviewStatus);
+    validateOfferStatus(currentApplication, newApplicationData, newOfferStatus);
   }
 
   private void validateApplicationStatus(Application currentApplication, String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
@@ -79,8 +81,20 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
     }
   }
 
-  public void validateOfferStatus(OfferStatus newOfferStatus, UpdateApplicationByStudentDto applicationDto) {
+  private void validateOfferStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, OfferStatus newOfferStatus) {
+    OfferStatus rejectedStatus = offerStatusService.getStatusByName(OfferStatusType.REJECTED.getName());
 
+    if (newOfferStatus != null) {
+      if (areValuesEqual(newOfferStatus.getUuid(), rejectedStatus.getUuid()) && (!areValuesEqual(newApplicationData.responseStatusUuid(), "") || !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), ""))) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
+      }
+    }
+
+    if (currentApplication.getOfferStatus() != null) {
+      if (areValuesEqual(currentApplication.getOfferStatus().getUuid(), rejectedStatus.getUuid()) && areValuesEqual(newApplicationData.offerStatusUuid(), "")) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.REJECTED_ERROR);
+      }
+    }
   }
 
   public void validateResponseStatus(ResponseStatus newResponseStatus, UpdateApplicationByStudentDto applicationDto) {

@@ -34,6 +34,13 @@ public class OfferStatusServiceImpl implements OfferStatusService {
 
   @Override
   @Transactional(readOnly = true)
+  public OfferStatus getStatusByName(String statusName) {
+    return offerStatusRepository.findByName(statusName)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
   @Cacheable(value = "OfferStatusSelectOptionView")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return offerStatusRepository.findAllByOrderByNameAsc();
