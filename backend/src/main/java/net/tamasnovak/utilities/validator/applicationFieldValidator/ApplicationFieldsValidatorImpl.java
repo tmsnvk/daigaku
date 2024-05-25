@@ -8,6 +8,7 @@ import net.tamasnovak.entities.application.InterviewStatus;
 import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.enums.status.ApplicationStatusType;
+import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.InterviewStatusType;
 import net.tamasnovak.enums.status.OfferStatusType;
 import net.tamasnovak.enums.status.ResponseStatusType;
@@ -47,6 +48,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
     validateInterviewStatus(currentApplication, newApplicationData, newInterviewStatus);
     validateOfferStatus(currentApplication, newApplicationData, newOfferStatus);
     validateResponseStatus(currentApplication, newApplicationData, newResponseStatus);
+    validateFinalDestinationStatus(currentApplication, newFinalDestinationStatus);
   }
 
   private void validateApplicationStatus(Application currentApplication, String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
@@ -122,8 +124,15 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
     }
   }
 
-  public void validateFinalDestinationStatus(FinalDestinationStatus newFinalDestinationStatus) {
+  private void validateFinalDestinationStatus(Application currentApplication, FinalDestinationStatus newFinalDestinationStatus) {
+    if (newFinalDestinationStatus != null) {
+      Application finalDestinationApplication = currentApplication.getStudent().getFinalDestinationApplication();
+      FinalDestinationStatus notFinalDestinationStatus = finalDestinationStatusService.getStatusByName(FinalDestinationType.NOT_FINAL_DESTINATION.getName());
 
+      if (finalDestinationApplication != null && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.getUuid()) && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestinationStatus.getUuid())) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FINAL_DESTINATION_ERROR);
+      }
+    }
   }
 
   private boolean areValuesEqual(UUID uuid, UUID uuidToCheckAgainst) {

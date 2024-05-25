@@ -34,6 +34,13 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
+  public FinalDestinationStatus getStatusByName(String statusName) {
+    return finalDestinationStatusRepository.findByName(statusName)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
   @Cacheable(value = "FinalDestinationStatusSelectOptionView")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {
     return finalDestinationStatusRepository.findAllByOrderByNameAsc();
