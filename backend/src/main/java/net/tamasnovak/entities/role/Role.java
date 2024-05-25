@@ -8,8 +8,8 @@ import jakarta.persistence.Table;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -18,14 +18,14 @@ public final class Role extends BaseSimpleIdEntity {
   private String name;
 
   @OneToMany(mappedBy = "role")
-  @JsonManagedReference
-  private Set<Account> accounts;
+  @JsonManagedReference(value = "role_account_reference")
+  private List<Account> accounts;
 
   protected Role() {}
 
   private Role(String name) {
     this.name = name;
-    this.accounts = new HashSet<>();
+    this.accounts = new ArrayList<>();
   }
 
   public static Role createRole(String name) {

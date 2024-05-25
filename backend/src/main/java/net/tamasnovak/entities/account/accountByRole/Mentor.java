@@ -12,30 +12,30 @@ import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 import net.tamasnovak.entities.institution.Institution;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "mentors")
 public final class Mentor extends BaseSimpleIdEntity {
   @OneToOne
   @JoinColumn(name = "account_id", referencedColumnName = "id")
-  @JsonManagedReference
   private Account account;
 
   @OneToMany(mappedBy = "mentor")
-  private Set<Student> students;
+  @JsonManagedReference(value = "mentor_student_reference")
+  private List<Student> students;
 
   @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "institution_mentor_reference")
   private Institution institution;
 
   protected Mentor() {}
 
   private Mentor(Account account) {
     this.account = account;
-    this.students = new HashSet<>();
+    this.students = new ArrayList<>();
   }
 
   public static Mentor createMentor(Account account) {

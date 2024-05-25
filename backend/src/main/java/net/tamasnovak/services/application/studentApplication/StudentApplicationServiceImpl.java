@@ -34,7 +34,6 @@ import net.tamasnovak.utilities.mapper.ApplicationMapper;
 import net.tamasnovak.utilities.validator.ValidatorUtilities;
 import net.tamasnovak.utilities.validator.applicationFieldValidator.ApplicationFieldsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,7 +83,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationViewsByAccountUuid", key = "#account.uuid")
+//  @Cacheable(value = "ApplicationViewsByAccountUuid", key = "#account.uuid")
   public List<MappedApplicationView> getAllMappedApplicationViewsByStudent(Account account) {
     Student student = studentService.getStudentByAccount(account);
 
@@ -151,7 +150,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "DashboardAggregateDataDtoByAccountUuid", key = "#account.uuid")
+//  @Cacheable(value = "DashboardAggregateDataDtoByAccountUuid", key = "#account.uuid")
   public DashboardAggregateDataDto getAggregateDataDtoByAccount(Account account) {
     Student student = studentService.getStudentByAccount(account);
 

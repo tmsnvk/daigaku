@@ -3,6 +3,7 @@ package net.tamasnovak.entities.account.accountByRole;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -26,22 +27,22 @@ import java.util.function.Predicate;
 @Entity
 @Table(name = "students")
 public final class Student extends BaseSimpleIdEntity {
-  @OneToOne
+  @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "account_id", referencedColumnName = "id")
-  @JsonManagedReference
   private Account account;
 
   @ManyToOne
   @JoinColumn(name = "mentor_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "mentor_student_reference")
   private Mentor mentor;
 
   @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "institution_student_reference")
   private Institution institution;
 
-  @OneToMany(mappedBy = "student")
+  @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+  @JsonManagedReference(value = "student_application_reference")
   private List<Application> applications;
 
   protected Student() {}

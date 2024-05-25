@@ -1,7 +1,6 @@
 package net.tamasnovak.entities.account.accountByRole;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -16,12 +15,11 @@ import net.tamasnovak.entities.institution.Institution;
 public final class InstitutionAdmin extends BaseSimpleIdEntity {
   @OneToOne
   @JoinColumn(name = "account_id", referencedColumnName = "id")
-  @JsonManagedReference
   private Account account;
 
   @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "institution_institution_admin_reference")
   private Institution institution;
 
   protected InstitutionAdmin() {}

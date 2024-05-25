@@ -6,7 +6,6 @@ import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.repositories.account.accountByRole.StudentRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "StudentByAccountUuid", key = "#account.uuid")
+//  @Cacheable(value = "StudentByAccountUuid", key = "#account.uuid")
   public Student getStudentByAccount(Account account) {
     return studentRepository.findByAccount(account)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

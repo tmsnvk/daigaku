@@ -14,8 +14,8 @@ import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.base.audit.Auditable;
 import net.tamasnovak.entities.university.University;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "countries")
@@ -26,23 +26,24 @@ public final class Country extends Auditable {
   private String name;
 
   @OneToMany(mappedBy = "country")
-  private Set<Address> addresses;
+  @JsonManagedReference(value = "country_address_reference")
+  private List<Address> addresses;
 
   @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
-  @JsonManagedReference
-  private Set<University> universities;
+  @JsonManagedReference(value = "country_university_reference")
+  private List<University> universities;
 
   @OneToMany(mappedBy = "country")
-  @JsonManagedReference
-  private Set<Application> applications;
+  @JsonManagedReference(value = "country_application_reference")
+  private List<Application> applications;
 
   protected Country() {}
 
   private Country(String name) {
     this.name = name;
-    this.addresses = new HashSet<>();
-    this.universities = new HashSet<>();
-    this.applications = new HashSet<>();
+    this.addresses = new ArrayList<>();
+    this.universities = new ArrayList<>();
+    this.applications = new ArrayList<>();
   }
 
   public static Country createCountry(String name) {

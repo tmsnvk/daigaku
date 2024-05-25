@@ -12,6 +12,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Properties;
 
@@ -29,6 +30,7 @@ public class EmailServiceImpl implements EmailService {
   }
 
   @Override
+  @Transactional
   public void sendSimpleEmail(NewEmailDto newEmailDto) {
     try {
       InternetAddress emailAddress = new InternetAddress(newEmailDto.recipient());

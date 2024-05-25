@@ -1,6 +1,5 @@
 package net.tamasnovak.entities.account.accountByRole;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -13,7 +12,6 @@ import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 public final class SystemAdmin extends BaseSimpleIdEntity {
   @OneToOne
   @JoinColumn(name = "account_id", referencedColumnName = "id")
-  @JsonManagedReference
   private Account account;
 
   protected SystemAdmin() {}
