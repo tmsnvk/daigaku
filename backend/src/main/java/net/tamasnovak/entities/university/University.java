@@ -41,11 +41,11 @@ public final class University extends Auditable {
 
   @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
-  @JsonBackReference(value = "country_university_reference")
+  @JsonBackReference(value = "country-university_reference")
   private Country country;
 
   @OneToMany(mappedBy = "university")
-  @JsonManagedReference(value = "university_application_reference")
+  @JsonManagedReference(value = "university-application_reference")
   private List<Application> applications;
 
   protected University() {}

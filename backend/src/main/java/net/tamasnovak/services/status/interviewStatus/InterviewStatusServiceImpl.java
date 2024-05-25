@@ -26,7 +26,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "InterviewStatusByUuid", key = "#uuid")
+  @Cacheable(value = "InterviewStatusByUuid", key = "{ #root.methodName, #uuid }")
   public InterviewStatus getStatusByUuid(String uuid) {
     return interviewStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,7 +34,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "InterviewStatusByName", key = "#statusName")
+  @Cacheable(value = "InterviewStatusByName", key = "{ #root.methodName, #statusName }")
   public InterviewStatus getStatusByName(String statusName) {
     return interviewStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

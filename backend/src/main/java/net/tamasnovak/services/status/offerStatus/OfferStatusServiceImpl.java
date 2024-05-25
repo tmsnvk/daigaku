@@ -26,7 +26,7 @@ public class OfferStatusServiceImpl implements OfferStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "OfferStatusByUuid", key = "#uuid")
+  @Cacheable(value = "OfferStatusByUuid", key = "{ #root.methodName, #uuid }")
   public OfferStatus getStatusByUuid(String uuid) {
     return offerStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,7 +34,7 @@ public class OfferStatusServiceImpl implements OfferStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "OfferStatusByName", key = "#statusName")
+  @Cacheable(value = "OfferStatusByName", key = "{ #root.methodName, #statusName }")
   public OfferStatus getStatusByName(String statusName) {
     return offerStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

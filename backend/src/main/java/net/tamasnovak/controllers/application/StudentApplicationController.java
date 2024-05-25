@@ -51,21 +51,21 @@ public class StudentApplicationController {
   public ResponseEntity<MappedApplicationView> create(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    MappedApplicationView returnViews = studentApplicationService.createApplication(account, requestBody);
+    MappedApplicationView returnView = studentApplicationService.createApplication(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
-      .body(returnViews);
+      .body(returnView);
   }
 
   @PatchMapping(value = "/{uuid}")
   public ResponseEntity<MappedApplicationView> update(@PathVariable("uuid") @UuidConstraint String uuid,
                                                       @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
-    MappedApplicationView returnViews = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
+    MappedApplicationView returnView = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)
-      .body(returnViews);
+      .body(returnView);
   }
 
   @PatchMapping(value = "/update-is-removable/{uuid}")

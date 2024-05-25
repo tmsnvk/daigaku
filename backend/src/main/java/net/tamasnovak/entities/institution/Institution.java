@@ -30,19 +30,19 @@ public final class Institution extends Auditable {
   private Address address;
 
   @OneToMany(mappedBy = "institution")
-  @JsonManagedReference(value = "institution_account_reference")
+  @JsonManagedReference(value = "institution-account_reference")
   private List<PendingAccount> pendingAccounts;
 
   @OneToMany(mappedBy = "institution")
-  @JsonManagedReference(value = "institution_student_reference")
+  @JsonManagedReference(value = "institution-student_reference")
   private List<Student> students;
 
   @OneToMany(mappedBy = "institution")
-  @JsonManagedReference(value = "institution_mentor_reference")
+  @JsonManagedReference(value = "institution-mentor_reference")
   private List<Mentor> mentors;
 
   @OneToMany(mappedBy = "institution")
-  @JsonManagedReference(value = "institution_institution_admin_reference")
+  @JsonManagedReference(value = "institution-institution_admin_reference")
   private List<InstitutionAdmin> institutionAdmins;
 
   protected Institution() {}

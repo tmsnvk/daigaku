@@ -26,15 +26,15 @@ public final class Country extends Auditable {
   private String name;
 
   @OneToMany(mappedBy = "country")
-  @JsonManagedReference(value = "country_address_reference")
+  @JsonManagedReference(value = "country-address_reference")
   private List<Address> addresses;
 
   @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
-  @JsonManagedReference(value = "country_university_reference")
+  @JsonManagedReference(value = "country-university_reference")
   private List<University> universities;
 
   @OneToMany(mappedBy = "country")
-  @JsonManagedReference(value = "country_application_reference")
+  @JsonManagedReference(value = "country-application_reference")
   private List<Application> applications;
 
   protected Country() {}

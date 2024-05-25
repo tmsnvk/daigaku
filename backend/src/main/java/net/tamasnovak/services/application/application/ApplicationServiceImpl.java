@@ -38,7 +38,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationViewByUuid", key = "#uuid")
+  @Cacheable(value = "ApplicationViewByUuid", key = "{ #root.methodName, #uuid }")
   public MappedApplicationView getMappedApplicationViewByUuid(String uuid) {
     ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -50,7 +50,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationByUuid", key = "#uuid")
+  @Cacheable(value = "ApplicationByUuid", key = "{ #root.methodName, #uuid }")
   public Application getApplicationByUuid(String uuid) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

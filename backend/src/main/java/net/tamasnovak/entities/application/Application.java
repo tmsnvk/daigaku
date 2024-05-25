@@ -3,7 +3,6 @@ package net.tamasnovak.entities.application;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -20,19 +19,19 @@ import net.tamasnovak.entities.university.University;
 @Entity
 @Table(name = "applications")
 public final class Application extends Auditable {
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne
   @JoinColumn(name = "student_id", nullable = false)
-  @JsonBackReference(value = "student_application_reference")
+  @JsonBackReference(value = "student-application_reference")
   private Student student;
 
   @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
-  @JsonBackReference(value = "country_application_reference")
+  @JsonBackReference(value = "country-application_reference")
   private Country country;
 
   @ManyToOne
   @JoinColumn(name = "university_id", nullable = false)
-  @JsonBackReference(value = "university_application_reference")
+  @JsonBackReference(value = "university-application_reference")
   private University university;
 
   @Column(name = "course_name", nullable = false)
@@ -52,27 +51,27 @@ public final class Application extends Auditable {
 
   @ManyToOne
   @JoinColumn(name = "application_status_id")
-  @JsonBackReference(value = "application_status_application_reference")
+  @JsonBackReference(value = "application_status-application_reference")
   private ApplicationStatus applicationStatus;
 
   @ManyToOne
   @JoinColumn(name = "interview_status_id")
-  @JsonBackReference(value = "interview_status_application_reference")
+  @JsonBackReference(value = "interview_status-application_reference")
   private InterviewStatus interviewStatus;
 
   @ManyToOne
   @JoinColumn(name = "offer_status_id")
-  @JsonBackReference(value = "offer_status_application_reference")
+  @JsonBackReference(value = "offer_status-application_reference")
   private OfferStatus offerStatus;
 
   @ManyToOne
   @JoinColumn(name = "response_status_id")
-  @JsonBackReference(value = "response_status_application_reference")
+  @JsonBackReference(value = "response_status-application_reference")
   private ResponseStatus responseStatus;
 
   @ManyToOne
   @JoinColumn(name = "final_destination_status_id")
-  @JsonBackReference(value = "final_destination_status_application_reference")
+  @JsonBackReference(value = "final_destination_status-application_reference")
   private FinalDestinationStatus finalDestinationStatus;
 
   @Column(name = "is_removable")

@@ -31,12 +31,12 @@ public abstract class BaseAccount extends Auditable {
 
   @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
-  @JsonBackReference(value = "institution_account_reference")
+  @JsonBackReference(value = "institution-account_reference")
   private Institution institution;
 
   @ManyToOne
   @JoinColumn(name = "role_id")
-  @JsonBackReference(value = "role_account_reference")
+  @JsonBackReference(value = "role-account_reference")
   private Role role;
 
   protected BaseAccount() {}

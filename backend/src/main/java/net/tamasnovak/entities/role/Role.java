@@ -18,7 +18,7 @@ public final class Role extends BaseSimpleIdEntity {
   private String name;
 
   @OneToMany(mappedBy = "role")
-  @JsonManagedReference(value = "role_account_reference")
+  @JsonManagedReference(value = "role-account_reference")
   private List<Account> accounts;
 
   protected Role() {}

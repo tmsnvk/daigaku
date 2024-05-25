@@ -23,12 +23,12 @@ public final class Mentor extends BaseSimpleIdEntity {
   private Account account;
 
   @OneToMany(mappedBy = "mentor")
-  @JsonManagedReference(value = "mentor_student_reference")
+  @JsonManagedReference(value = "mentor-student_reference")
   private List<Student> students;
 
   @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
-  @JsonBackReference(value = "institution_mentor_reference")
+  @JsonBackReference(value = "institution-mentor_reference")
   private Institution institution;
 
   protected Mentor() {}

@@ -19,7 +19,7 @@ public final class InstitutionAdmin extends BaseSimpleIdEntity {
 
   @ManyToOne
   @JoinColumn(name = "institution_id", nullable = false)
-  @JsonBackReference(value = "institution_institution_admin_reference")
+  @JsonBackReference(value = "institution-institution_admin_reference")
   private Institution institution;
 
   protected InstitutionAdmin() {}

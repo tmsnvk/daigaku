@@ -20,7 +20,7 @@ public final class Address extends BaseSimpleIdEntity {
 
   @ManyToOne
   @JoinColumn(name = "country_id", nullable = false)
-  @JsonBackReference(value = "country_address_reference")
+  @JsonBackReference(value = "country-address_reference")
   private Country country;
 
   @Column(name = "zipcode")

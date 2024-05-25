@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "response_status")
 public final class ResponseStatus extends BaseStatusEntity {
   @OneToMany(mappedBy = "responseStatus")
-  @JsonManagedReference(value = "response_status_application_reference")
+  @JsonManagedReference(value = "response_status-application_reference")
   private List<Application> applications;
 
   protected ResponseStatus() {}

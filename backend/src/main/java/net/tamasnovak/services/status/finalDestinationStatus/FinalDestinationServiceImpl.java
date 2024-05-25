@@ -26,7 +26,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "FinalDestinationStatusByUuid", key = "#uuid")
+  @Cacheable(value = "FinalDestinationStatusByUuid", key = "{ #root.methodName, #uuid }")
   public FinalDestinationStatus getStatusByUuid(String uuid) {
     return finalDestinationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,7 +34,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "FinalDestinationStatusByName", key = "#statusName")
+  @Cacheable(value = "FinalDestinationStatusByName", key = "{ #root.methodName, #statusName }")
   public FinalDestinationStatus getStatusByName(String statusName) {
     return finalDestinationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

@@ -22,7 +22,6 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   @Transactional(readOnly = true)
-//  @Cacheable(value = "StudentByAccountUuid", key = "#account.uuid")
   public Student getStudentByAccount(Account account) {
     return studentRepository.findByAccount(account)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

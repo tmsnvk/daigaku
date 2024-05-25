@@ -83,7 +83,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-//  @Cacheable(value = "ApplicationViewsByAccountUuid", key = "#account.uuid")
   public List<MappedApplicationView> getAllMappedApplicationViewsByStudent(Account account) {
     Student student = studentService.getStudentByAccount(account);
 
@@ -150,7 +149,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-//  @Cacheable(value = "DashboardAggregateDataDtoByAccountUuid", key = "#account.uuid")
   public DashboardAggregateDataDto getAggregateDataDtoByAccount(Account account) {
     Student student = studentService.getStudentByAccount(account);
 
