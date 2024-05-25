@@ -33,6 +33,12 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
   }
 
   @Override
+  public InterviewStatus getStatusByName(String statusName) {
+    return interviewStatusRepository.findByName(statusName)
+      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  }
+
+  @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "InterviewStatusSelectOptionView")
   public List<StatusSelectOptionView> getAllSelectOptionViews() {

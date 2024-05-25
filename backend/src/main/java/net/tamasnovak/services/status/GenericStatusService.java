@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface GenericStatusService<T extends BaseStatusEntity> {
   T getStatusByUuid(String uuid);
+  T getStatusByName(String statusName);
   List<StatusSelectOptionView> getAllSelectOptionViews();
 }

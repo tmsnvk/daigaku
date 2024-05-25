@@ -9,9 +9,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ApplicationStatusRepository extends JpaRepository<ApplicationStatus, Long> {
-  Optional<ApplicationStatus> findByName(String statusName);
-
   Optional<ApplicationStatus> findByUuid(UUID uuid);
+
+  Optional<ApplicationStatus> findByName(String statusName);
 
   List<StatusSelectOptionView> findAllByOrderByNameAsc();
 }

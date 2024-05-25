@@ -7,6 +7,8 @@ import net.tamasnovak.entities.application.FinalDestinationStatus;
 import net.tamasnovak.entities.application.InterviewStatus;
 import net.tamasnovak.entities.application.OfferStatus;
 import net.tamasnovak.entities.application.ResponseStatus;
+import net.tamasnovak.enums.status.ApplicationStatusType;
+import net.tamasnovak.enums.status.InterviewStatusType;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldExceptionConstants;
 import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
@@ -40,6 +42,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   @Override
   public void validateStatusFields(UpdateApplicationByStudentDto newApplicationData, Application currentApplication, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
     validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
+    validateInterviewStatus(currentApplication, newApplicationData, newInterviewStatus);
   }
 
   private void validateApplicationStatus(Application currentApplication, String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
@@ -47,21 +50,33 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
     }
 
-    ApplicationStatus plannedStatus = applicationStatusService.getStatusByName("Planned");
+    ApplicationStatus plannedStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getName());
 
     if (areValuesEqual(newApplicationStatus.getUuid(), plannedStatus.getUuid()) && areValuesEqual(currentApplication.getApplicationStatus().getUuid(), plannedStatus.getUuid())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
     }
 
-    ApplicationStatus withdrawnStatus = applicationStatusService.getStatusByName("Withdrawn");
+    ApplicationStatus withdrawnStatus = applicationStatusService.getStatusByName(ApplicationStatusType.WITHDRAWN.getName());
 
     if (areValuesEqual(newApplicationStatus.getUuid(), withdrawnStatus.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(), currentApplication.getUuid())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
     }
   }
 
-  public void validateInterviewStatus(InterviewStatus newInterviewStatus, UpdateApplicationByStudentDto applicationDto) {
+  private void validateInterviewStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, InterviewStatus newInterviewStatus) {
+    InterviewStatus notInvitedStatus = interviewStatusService.getStatusByName(InterviewStatusType.NOT_INVITED.getName());
 
+    if (newInterviewStatus != null) {
+      if (areValuesEqual(newInterviewStatus.getUuid(), notInvitedStatus.getUuid()) && (!areValuesEqual(newApplicationData.offerStatusUuid(), "") || !areValuesEqual(newApplicationData.responseStatusUuid(), "") || !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), ""))) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
+      }
+    }
+
+    if (currentApplication.getInterviewStatus() != null) {
+      if (areValuesEqual(currentApplication.getInterviewStatus().getUuid(), notInvitedStatus.getUuid()) && areValuesEqual(newApplicationData.interviewStatusUuid(), "")) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.NOT_INVITED_ERROR);
+      }
+    }
   }
 
   public void validateOfferStatus(OfferStatus newOfferStatus, UpdateApplicationByStudentDto applicationDto) {
@@ -77,6 +92,10 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   }
 
   private boolean areValuesEqual(UUID uuid, UUID uuidToCheckAgainst) {
+    return Objects.equals(uuid, uuidToCheckAgainst);
+  }
+
+  private boolean areValuesEqual(String uuid, String uuidToCheckAgainst) {
     return Objects.equals(uuid, uuidToCheckAgainst);
   }
 }
