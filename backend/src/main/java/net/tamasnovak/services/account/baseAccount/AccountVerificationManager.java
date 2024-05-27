@@ -1,5 +1,5 @@
 package net.tamasnovak.services.account.baseAccount;
 
-public interface AccountVerification {
+public interface AccountVerificationManager {
   void verifyAccountNotExistsByEmail(String email);
 }

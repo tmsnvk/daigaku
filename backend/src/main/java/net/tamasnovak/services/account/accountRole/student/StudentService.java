@@ -1,17 +1,19 @@
-package net.tamasnovak.services.account.accountByRole.student;
+package net.tamasnovak.services.account.accountRole.student;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.repositories.account.accountByRole.StudentRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
-import net.tamasnovak.services.account.accountByRole.AccountRoleService;
+import net.tamasnovak.services.account.accountRole.AccountRoleManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class StudentService implements StudentCoreService, AccountRoleService<Student> {
+@Qualifier(value = "StudentService")
+public class StudentService implements StudentCoreManager, AccountRoleManager<Student> {
   private final StudentRepository studentRepository;
   private final GlobalServiceConstants globalServiceConstants;
 
