@@ -19,7 +19,8 @@ import net.tamasnovak.entities.university.University;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
-import net.tamasnovak.services.account.accountByRole.student.StudentService;
+import net.tamasnovak.services.account.accountByRole.AccountRoleService;
+import net.tamasnovak.services.account.accountByRole.student.StudentCoreService;
 import net.tamasnovak.services.application.application.ApplicationService;
 import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.status.CoreStatusService;
@@ -45,7 +46,8 @@ import java.util.stream.Collectors;
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
   private final AuthenticationFacade authenticationFacade;
-  private final StudentService studentService;
+  private final StudentCoreService studentService;
+  private final AccountRoleService<Student> studentRoleCoreService;
   private final CountryService countryService;
   private final UniversityService universityService;
   private final ApplicationService applicationService;
@@ -62,9 +64,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ValidatorUtilities validatorUtilities, ApplicationFieldsValidator applicationFieldsValidator, ApplicationMapper applicationMapper, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, StudentCoreService studentService, AccountRoleService<Student> studentRoleCoreService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ValidatorUtilities validatorUtilities, ApplicationFieldsValidator applicationFieldsValidator, ApplicationMapper applicationMapper, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.authenticationFacade = authenticationFacade;
     this.studentService = studentService;
+    this.studentRoleCoreService = studentRoleCoreService;
     this.countryService = countryService;
     this.universityService = universityService;
     this.applicationService = applicationService;
@@ -84,7 +87,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional(readOnly = true)
   public List<MappedApplicationView> getAllMappedApplicationViewsByStudent(Account account) {
-    Student student = studentService.getAccountTypeByAccount(account);
+    Student student = studentRoleCoreService.getAccountRoleByAccount(account);
 
     List<ApplicationView> applicationViews = applicationRepository.findApplicationViewsByStudentId(student.getId());
 
@@ -99,7 +102,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
-    Student student = studentService.getAccountTypeByAccount(account);
+    Student student = studentRoleCoreService.getAccountRoleByAccount(account);
     ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName("Planned");
 
     Application newApplication = Application.createApplicationByStudent(
@@ -150,7 +153,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional(readOnly = true)
   public DashboardAggregateDataDto getAggregateDataDtoByStudent(Account account) {
-    Student student = studentService.getAccountTypeByAccount(account);
+    Student student = studentRoleCoreService.getAccountRoleByAccount(account);
 
     return new DashboardAggregateDataDto(
       student.getFirmChoiceDto(),
