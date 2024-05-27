@@ -8,8 +8,8 @@ import net.tamasnovak.dtos.account.response.LoginReturnDto;
 import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.repositories.account.baseAccount.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
-import net.tamasnovak.services.account.baseAccount.AccountLifeCycleManager;
-import net.tamasnovak.services.account.baseAccount.AccountVerificationManager;
+import net.tamasnovak.services.account.baseAccount.AccountLifeCycleService;
+import net.tamasnovak.services.account.baseAccount.AccountVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Qualifier(value = "AccountService")
-public class AccountService implements AccountCoreManager, AccountVerificationManager, AccountLifeCycleManager<AccountRegistrationDto> {
+public class AccountService implements AccountCoreService, AccountVerificationService, AccountLifeCycleService<AccountRegistrationDto> {
   private final AccountRepository accountRepository;
   private final AccountServiceConstants accountConstants;
   private final JwtUtilities jwtUtilities;
@@ -31,22 +31,9 @@ public class AccountService implements AccountCoreManager, AccountVerificationMa
     this.jwtUtilities = jwtUtilities;
   }
 
-  @Override
-  @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(String email) {
-    boolean isAccountExists = accountRepository.existsByEmail(email);
-
-    if (isAccountExists) {
-      throw new DataIntegrityViolationException(accountConstants.EMAIL_ALREADY_EXISTS);
-    }
-  }
-
-  @Override
-  @Transactional
-  public void create(AccountRegistrationDto requestBody) {
-
-  }
-
+  /*
+   * AccountCoreService interface implementations
+   */
   @Override
   @Transactional(readOnly = true)
   public Account getAccountByEmail(String email) {
@@ -78,5 +65,27 @@ public class AccountService implements AccountCoreManager, AccountVerificationMa
       account.getRole().getName(),
       jwtToken
     );
+  }
+
+  /*
+   * AccountVerificationService interface implementations
+   */
+  @Override
+  @Transactional(readOnly = true)
+  public void verifyAccountNotExistsByEmail(String email) {
+    boolean isAccountExists = accountRepository.existsByEmail(email);
+
+    if (isAccountExists) {
+      throw new DataIntegrityViolationException(accountConstants.EMAIL_ALREADY_EXISTS);
+    }
+  }
+
+  /*
+   * AccountLifeCycleService interface implementations
+   */
+  @Override
+  @Transactional
+  public void create(AccountRegistrationDto requestBody) {
+
   }
 }

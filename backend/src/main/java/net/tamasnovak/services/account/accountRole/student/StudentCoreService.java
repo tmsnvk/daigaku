@@ -1,3 +1,3 @@
 package net.tamasnovak.services.account.accountRole.student;
 
-public interface StudentCoreManager {}
+public interface StudentCoreService {}

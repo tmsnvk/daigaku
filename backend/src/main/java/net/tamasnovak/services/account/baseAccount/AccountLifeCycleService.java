@@ -1,5 +1,5 @@
 package net.tamasnovak.services.account.baseAccount;
 
-public interface AccountLifeCycleManager<T> {
+public interface AccountLifeCycleService<T> {
   void create(T requestBody);
 }

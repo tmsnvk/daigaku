@@ -2,7 +2,7 @@ package net.tamasnovak.controllers.application;
 
 import net.tamasnovak.annotations.uuidConstraint.UuidConstraint;
 import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
-import net.tamasnovak.services.application.application.ApplicationService;
+import net.tamasnovak.services.application.application.ApplicationCoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/applications")
 @Validated
 public class ApplicationController {
-  private final ApplicationService applicationService;
+  private final ApplicationCoreService applicationCoreService;
 
   @Autowired
-  public ApplicationController(ApplicationService applicationService) {
-    this.applicationService = applicationService;
+  public ApplicationController(ApplicationCoreService applicationCoreService) {
+    this.applicationCoreService = applicationCoreService;
   }
 
   @GetMapping(value = "/{uuid}")
   public ResponseEntity<MappedApplicationView> getApplicationView(@PathVariable("uuid") @UuidConstraint String uuid) {
-    MappedApplicationView returnProjection = applicationService.getMappedApplicationViewByUuid(uuid);
+    MappedApplicationView returnProjection = applicationCoreService.getMappedApplicationViewByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
