@@ -9,7 +9,7 @@ import net.tamasnovak.repositories.account.baseAccount.PendingAccountRepository;
 import net.tamasnovak.services.account.baseAccount.AccountLifeCycleService;
 import net.tamasnovak.services.account.baseAccount.AccountVerificationService;
 import net.tamasnovak.services.email.EmailCoreService;
-import net.tamasnovak.services.role.RoleService;
+import net.tamasnovak.services.role.RoleCoreService;
 import net.tamasnovak.services.support.SupportCoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,18 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Qualifier(value = "PendingAccountService")
 public class PendingAccountService implements PendingAccountCoreService, AccountVerificationService, AccountLifeCycleService<PendingAccountRegistrationDto> {
-  private final AccountVerificationService accountServiceVerificationManager;
+  private final AccountVerificationService accountVerificationService;
   private final SupportCoreService<Institution> institutionSupportCoreService;
-  private final RoleService roleService;
+  private final RoleCoreService roleCoreService;
   private final EmailCoreService emailService;
   private final PendingAccountRepository pendingAccountRepository;
   private final PendingAccountServiceConstants pendingAccountConstants;
 
   @Autowired
-  public PendingAccountService(@Qualifier("AccountService") AccountVerificationService accountServiceVerificationManager, @Qualifier("InstitutionService") SupportCoreService<Institution> institutionSupportCoreService, RoleService roleService, EmailCoreService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountConstants) {
-    this.accountServiceVerificationManager = accountServiceVerificationManager;
+  public PendingAccountService(@Qualifier("AccountService") AccountVerificationService accountVerificationService, @Qualifier("InstitutionService") SupportCoreService<Institution> institutionSupportCoreService, RoleCoreService roleCoreService, EmailCoreService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountConstants) {
+    this.accountVerificationService = accountVerificationService;
     this.institutionSupportCoreService = institutionSupportCoreService;
-    this.roleService = roleService;
+    this.roleCoreService = roleCoreService;
     this.emailService = emailService;
     this.pendingAccountRepository = pendingAccountRepository;
     this.pendingAccountConstants = pendingAccountConstants;
@@ -60,11 +60,11 @@ public class PendingAccountService implements PendingAccountCoreService, Account
   @Override
   @Transactional
   public void create(PendingAccountRegistrationDto requestBody) {
-    accountServiceVerificationManager.verifyAccountNotExistsByEmail(requestBody.email());
+    accountVerificationService.verifyAccountNotExistsByEmail(requestBody.email());
     verifyAccountNotExistsByEmail(requestBody.email());
 
     Institution institution = institutionSupportCoreService.getByUuid(requestBody.institutionUuid());
-    Role role = roleService.getRoleByName(requestBody.accountType());
+    Role role = roleCoreService.getRoleByName(requestBody.accountType());
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(
       requestBody.firstName(),

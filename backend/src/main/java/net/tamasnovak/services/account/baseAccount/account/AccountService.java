@@ -36,7 +36,7 @@ public class AccountService implements AccountCoreService, AccountVerificationSe
    */
   @Override
   @Transactional(readOnly = true)
-  public Account getAccountByEmail(String email) {
+  public Account getByEmail(String email) {
     return accountRepository.findByEmail(email)
       .orElseThrow(() -> new EntityNotFoundException(accountConstants.ACCOUNT_NOT_FOUND));
   }
@@ -44,7 +44,7 @@ public class AccountService implements AccountCoreService, AccountVerificationSe
   @Override
   @Transactional(readOnly = true)
   public ClientAuthContextDto getClientAuthContextDto(String email) {
-    Account account = getAccountByEmail(email);
+    Account account = getByEmail(email);
 
     return new ClientAuthContextDto(
       account.getEmail(),
@@ -56,7 +56,7 @@ public class AccountService implements AccountCoreService, AccountVerificationSe
   @Override
   @Transactional(readOnly = true)
   public LoginReturnDto getLoginReturnDto(LoginRequestDto requestBody, Authentication authentication) {
-    Account account = getAccountByEmail(requestBody.email().toLowerCase());
+    Account account = getByEmail(requestBody.email().toLowerCase());
     String jwtToken = jwtUtilities.generateJwtToken(authentication);
 
     return new LoginReturnDto(

@@ -44,7 +44,7 @@ public class ApplicationService implements ApplicationCoreService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "ApplicationByUuid", key = "{ #root.methodName, #uuid }")
-  public Application getApplicationByUuid(String uuid) {
+  public Application getByUuid(String uuid) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

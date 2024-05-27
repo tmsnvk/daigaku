@@ -7,7 +7,7 @@ import net.tamasnovak.entities.account.Account;
 import org.springframework.security.core.Authentication;
 
 public interface AccountCoreService {
-  Account getAccountByEmail(String email);
+  Account getByEmail(String email);
   ClientAuthContextDto getClientAuthContextDto(String email);
   LoginReturnDto getLoginReturnDto(LoginRequestDto requestBody, Authentication authentication);
 }

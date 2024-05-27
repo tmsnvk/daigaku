@@ -13,6 +13,7 @@ import net.tamasnovak.entities.support.university.University;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "countries")
@@ -41,9 +42,25 @@ public final class Country extends BaseSupportEntity {
   public static Country createCountry(String name) {
     return new Country(name);
   }
+
   public void verifyUniversityCountryLink(University university, String exceptionMessage) {
     if (!universities.contains(university)) {
       throw new EntityNotFoundException(exceptionMessage);
     }
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, id, uuid);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    Country that = (Country) o;
+    return Objects.equals(name, that.name) && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid);
   }
 }

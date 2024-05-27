@@ -96,7 +96,9 @@ public class StudentApplicationService implements StudentApplicationCoreService,
 
     List<ApplicationView> applicationViews = applicationRepository.findApplicationViewsByStudentId(student.getId());
 
-    return applicationViews.stream().map(applicationMapper::toMappedApplicationView).collect(Collectors.toList());
+    return applicationViews.stream()
+      .map(applicationMapper::toMappedApplicationView)
+      .collect(Collectors.toList());
   }
 
   @Override
@@ -156,7 +158,7 @@ public class StudentApplicationService implements StudentApplicationCoreService,
   @Override
   @Transactional
   public MappedApplicationView updateByUuid(String applicationUuid, UpdateApplicationByStudentDto requestBody) {
-    Application currentApplication = applicationCoreService.getApplicationByUuid(applicationUuid);
+    Application currentApplication = applicationCoreService.getByUuid(applicationUuid);
 
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccount().getUuid();
     UUID studentUuidByApplication = currentApplication.getStudent().getAccount().getUuid();

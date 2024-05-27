@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CountryRepository extends JpaRepository<Country, Long> {
-  List<CountrySelectOptionView> findAllByOrderByNameAsc();
-
   Optional<Country> findByUuid(UUID uuid);
+
+  List<CountrySelectOptionView> findAllByOrderByNameAsc();
 }

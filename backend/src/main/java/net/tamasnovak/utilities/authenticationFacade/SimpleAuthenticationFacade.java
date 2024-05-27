@@ -30,7 +30,7 @@ public class SimpleAuthenticationFacade implements AuthenticationFacade {
 
   @Override
   public Account getAuthenticatedAccount() {
-    return accountCoreService.getAccountByEmail(getUserContext().getUsername());
+    return accountCoreService.getByEmail(getUserContext().getUsername());
   }
 
   @Override
