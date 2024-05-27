@@ -1,6 +1,6 @@
 package net.tamasnovak.repositories.account.baseAccount;
 
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

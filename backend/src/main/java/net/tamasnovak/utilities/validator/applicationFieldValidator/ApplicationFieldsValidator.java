@@ -2,11 +2,11 @@ package net.tamasnovak.utilities.validator.applicationFieldValidator;
 
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.application.Application;
-import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.entities.application.InterviewStatus;
-import net.tamasnovak.entities.application.OfferStatus;
-import net.tamasnovak.entities.application.ResponseStatus;
+import net.tamasnovak.entities.status.ApplicationStatus;
+import net.tamasnovak.entities.status.FinalDestinationStatus;
+import net.tamasnovak.entities.status.InterviewStatus;
+import net.tamasnovak.entities.status.OfferStatus;
+import net.tamasnovak.entities.status.ResponseStatus;
 
 @FunctionalInterface
 public interface ApplicationFieldsValidator {

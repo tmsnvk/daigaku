@@ -1,6 +1,6 @@
 package net.tamasnovak.utilities.authenticationFacade;
 
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 

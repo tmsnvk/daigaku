@@ -6,7 +6,7 @@ import net.tamasnovak.entities.base.status.BaseStatusEntity;
 import java.util.List;
 
 public interface CoreStatusService<T extends BaseStatusEntity> {
-  T getStatusByUuid(String uuid);
-  T getStatusByName(String statusName);
+  T getByUuid(String uuid);
+  T getByName(String statusName);
   List<StatusSelectOptionView> getAllSelectOptionViews();
 }

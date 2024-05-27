@@ -5,7 +5,7 @@ import net.tamasnovak.dtos.account.request.AccountRegistrationDto;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.repositories.account.baseAccount.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
 import net.tamasnovak.services.account.baseAccount.AccountLifeCycleService;

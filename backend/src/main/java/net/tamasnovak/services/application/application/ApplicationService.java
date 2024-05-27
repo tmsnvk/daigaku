@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.application.response.applicationView.ApplicationView;
 import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
 import net.tamasnovak.dtos.application.service.ApplicationIdsView;
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;

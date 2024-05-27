@@ -3,7 +3,7 @@ package net.tamasnovak.entities.base.accountRole;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
 
 @MappedSuperclass

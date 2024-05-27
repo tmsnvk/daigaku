@@ -2,8 +2,8 @@ package net.tamasnovak.services.status.offerStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
-import net.tamasnovak.entities.application.OfferStatus;
-import net.tamasnovak.repositories.offerStatus.OfferStatusRepository;
+import net.tamasnovak.entities.status.OfferStatus;
+import net.tamasnovak.repositories.status.offerStatus.OfferStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,7 +27,7 @@ public class OfferStatusServiceImpl implements OfferStatusService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "OfferStatusByUuid", key = "{ #root.methodName, #uuid }")
-  public OfferStatus getStatusByUuid(String uuid) {
+  public OfferStatus getByUuid(String uuid) {
     return offerStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
@@ -35,7 +35,7 @@ public class OfferStatusServiceImpl implements OfferStatusService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "OfferStatusByName", key = "{ #root.methodName, #statusName }")
-  public OfferStatus getStatusByName(String statusName) {
+  public OfferStatus getByName(String statusName) {
     return offerStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

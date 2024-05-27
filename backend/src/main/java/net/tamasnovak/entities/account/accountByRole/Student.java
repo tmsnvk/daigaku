@@ -9,10 +9,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import net.tamasnovak.dtos.application.response.FinalDestinationDto;
 import net.tamasnovak.dtos.application.response.FirmChoiceDto;
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.base.accountRole.BaseAccountRole;
-import net.tamasnovak.entities.institution.Institution;
+import net.tamasnovak.entities.support.institution.Institution;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.ResponseStatusType;
 

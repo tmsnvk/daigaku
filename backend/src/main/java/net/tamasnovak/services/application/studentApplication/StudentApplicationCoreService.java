@@ -2,7 +2,7 @@ package net.tamasnovak.services.application.studentApplication;
 
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 
 import java.util.List;
 

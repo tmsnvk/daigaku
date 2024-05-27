@@ -5,17 +5,17 @@ import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.response.applicationView.ApplicationView;
 import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountByRole.Student;
-import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.entities.application.Application;
-import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.entities.application.InterviewStatus;
-import net.tamasnovak.entities.application.OfferStatus;
-import net.tamasnovak.entities.application.ResponseStatus;
 import net.tamasnovak.entities.base.status.BaseStatusEntity;
-import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.entities.university.University;
+import net.tamasnovak.entities.status.ApplicationStatus;
+import net.tamasnovak.entities.status.FinalDestinationStatus;
+import net.tamasnovak.entities.status.InterviewStatus;
+import net.tamasnovak.entities.status.OfferStatus;
+import net.tamasnovak.entities.status.ResponseStatus;
+import net.tamasnovak.entities.support.country.Country;
+import net.tamasnovak.entities.support.university.University;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
@@ -23,14 +23,13 @@ import net.tamasnovak.services.account.accountRole.AccountRoleService;
 import net.tamasnovak.services.account.accountRole.student.StudentCoreService;
 import net.tamasnovak.services.application.ApplicationLifeCycleService;
 import net.tamasnovak.services.application.application.ApplicationCoreService;
-import net.tamasnovak.services.country.CountryService;
 import net.tamasnovak.services.status.CoreStatusService;
 import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.status.finalDestinationStatus.FinalDestinationStatusService;
 import net.tamasnovak.services.status.interviewStatus.InterviewStatusService;
 import net.tamasnovak.services.status.offerStatus.OfferStatusService;
 import net.tamasnovak.services.status.responseStatus.ResponseStatusService;
-import net.tamasnovak.services.university.UniversityService;
+import net.tamasnovak.services.support.SupportCoreService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import net.tamasnovak.utilities.mapper.ApplicationMapper;
 import net.tamasnovak.utilities.validator.ValidatorUtilities;
@@ -51,8 +50,8 @@ public class StudentApplicationService implements StudentApplicationCoreService,
   private final AuthenticationFacade authenticationFacade;
   private final StudentCoreService studentCoreService;
   private final AccountRoleService<Student> studentAccountRoleService;
-  private final CountryService countryService;
-  private final UniversityService universityService;
+  private final SupportCoreService<Country> countrySupportCoreService;
+  private final SupportCoreService<University> universitySupportCoreService;
   private final ApplicationCoreService applicationCoreService;
   private final ApplicationStatusService applicationStatusService;
   private final InterviewStatusService interviewStatusService;
@@ -67,12 +66,12 @@ public class StudentApplicationService implements StudentApplicationCoreService,
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationService(AuthenticationFacade authenticationFacade, StudentCoreService studentCoreService, @Qualifier("StudentService") AccountRoleService<Student> studentAccountRoleService, CountryService countryService, UniversityService universityService, ApplicationCoreService applicationCoreService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ValidatorUtilities validatorUtilities, ApplicationFieldsValidator applicationFieldsValidator, ApplicationMapper applicationMapper, StudentApplicationServiceConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationService(AuthenticationFacade authenticationFacade, StudentCoreService studentCoreService, @Qualifier("StudentService") AccountRoleService<Student> studentAccountRoleService, @Qualifier("CountryService") SupportCoreService<Country> countrySupportCoreService, @Qualifier("UniversityService") SupportCoreService<University> universitySupportCoreService, ApplicationCoreService applicationCoreService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ValidatorUtilities validatorUtilities, ApplicationFieldsValidator applicationFieldsValidator, ApplicationMapper applicationMapper, StudentApplicationServiceConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.authenticationFacade = authenticationFacade;
     this.studentCoreService = studentCoreService;
     this.studentAccountRoleService = studentAccountRoleService;
-    this.countryService = countryService;
-    this.universityService = universityService;
+    this.countrySupportCoreService = countrySupportCoreService;
+    this.universitySupportCoreService = universitySupportCoreService;
     this.applicationCoreService = applicationCoreService;
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
@@ -131,13 +130,13 @@ public class StudentApplicationService implements StudentApplicationCoreService,
   @Override
   @Transactional
   public MappedApplicationView create(Account account, NewApplicationByStudentDto requestBody) {
-    Country country = countryService.getCountryByUuid(requestBody.countryUuid());
-    University university = universityService.getUniversityByUuid(requestBody.universityUuid());
+    Country country = countrySupportCoreService.getByUuid(requestBody.countryUuid());
+    University university = universitySupportCoreService.getByUuid(requestBody.universityUuid());
 
     country.verifyUniversityCountryLink(university, studentApplicationConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     Student student = studentAccountRoleService.getAccountRoleByAccount(account);
-    ApplicationStatus plannedApplicationStatus = applicationStatusService.getStatusByName("Planned");
+    ApplicationStatus plannedApplicationStatus = applicationStatusService.getByName("Planned");
 
     Application newApplication = Application.createApplicationByStudent(
       student,
@@ -187,6 +186,6 @@ public class StudentApplicationService implements StudentApplicationCoreService,
       return null;
     }
 
-    return service.getStatusByUuid(requestBodyStatusUuid);
+    return service.getByUuid(requestBodyStatusUuid);
   }
 }

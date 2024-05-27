@@ -1,8 +1,8 @@
 package net.tamasnovak.services.account.accountRole.student;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountByRole.Student;
-import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.repositories.account.accountByRole.StudentRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import net.tamasnovak.services.account.accountRole.AccountRoleService;

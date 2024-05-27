@@ -7,7 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
-import net.tamasnovak.entities.country.Country;
+import net.tamasnovak.entities.support.country.Country;
 
 @Entity
 @Table(name = "addresses")

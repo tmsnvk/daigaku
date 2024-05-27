@@ -2,11 +2,11 @@ package net.tamasnovak.utilities.validator.applicationFieldValidator;
 
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.entities.application.Application;
-import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.entities.application.InterviewStatus;
-import net.tamasnovak.entities.application.OfferStatus;
-import net.tamasnovak.entities.application.ResponseStatus;
+import net.tamasnovak.entities.status.ApplicationStatus;
+import net.tamasnovak.entities.status.FinalDestinationStatus;
+import net.tamasnovak.entities.status.InterviewStatus;
+import net.tamasnovak.entities.status.OfferStatus;
+import net.tamasnovak.entities.status.ResponseStatus;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.InterviewStatusType;
@@ -56,13 +56,13 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
     }
 
-    ApplicationStatus plannedStatus = applicationStatusService.getStatusByName(ApplicationStatusType.PLANNED.getName());
+    ApplicationStatus plannedStatus = applicationStatusService.getByName(ApplicationStatusType.PLANNED.getName());
 
     if (areValuesEqual(newApplicationStatus.getUuid(), plannedStatus.getUuid()) && areValuesEqual(currentApplication.getApplicationStatus().getUuid(), plannedStatus.getUuid())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
     }
 
-    ApplicationStatus withdrawnStatus = applicationStatusService.getStatusByName(ApplicationStatusType.WITHDRAWN.getName());
+    ApplicationStatus withdrawnStatus = applicationStatusService.getByName(ApplicationStatusType.WITHDRAWN.getName());
 
     if (areValuesEqual(newApplicationStatus.getUuid(), withdrawnStatus.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(), currentApplication.getUuid())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
@@ -70,7 +70,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   }
 
   private void validateInterviewStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, InterviewStatus newInterviewStatus) {
-    InterviewStatus notInvitedStatus = interviewStatusService.getStatusByName(InterviewStatusType.NOT_INVITED.getName());
+    InterviewStatus notInvitedStatus = interviewStatusService.getByName(InterviewStatusType.NOT_INVITED.getName());
 
     if (newInterviewStatus != null) {
       if (areValuesEqual(newInterviewStatus.getUuid(), notInvitedStatus.getUuid()) && (!areValuesEqual(newApplicationData.offerStatusUuid(), "") || !areValuesEqual(newApplicationData.responseStatusUuid(), "") || !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), ""))) {
@@ -86,7 +86,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   }
 
   private void validateOfferStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, OfferStatus newOfferStatus) {
-    OfferStatus rejectedStatus = offerStatusService.getStatusByName(OfferStatusType.REJECTED.getName());
+    OfferStatus rejectedStatus = offerStatusService.getByName(OfferStatusType.REJECTED.getName());
 
     if (newOfferStatus != null) {
       if (areValuesEqual(newOfferStatus.getUuid(), rejectedStatus.getUuid()) && (!areValuesEqual(newApplicationData.responseStatusUuid(), "") || !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), ""))) {
@@ -102,10 +102,10 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   }
 
   private void validateResponseStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, ResponseStatus newResponseStatus) {
-    ResponseStatus declinedStatus = responseStatusService.getStatusByName(ResponseStatusType.OFFER_DECLINED.getName());
+    ResponseStatus declinedStatus = responseStatusService.getByName(ResponseStatusType.OFFER_DECLINED.getName());
 
     if (newResponseStatus != null) {
-      ResponseStatus firmChoiceStatus = responseStatusService.getStatusByName(ResponseStatusType.FIRM_CHOICE.getName());
+      ResponseStatus firmChoiceStatus = responseStatusService.getByName(ResponseStatusType.FIRM_CHOICE.getName());
       Application firmChoiceApplication = currentApplication.getStudent().getFirmChoiceApplication();
 
       if (areValuesEqual(newResponseStatus.getUuid(), declinedStatus.getUuid()) && !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), "")) {
@@ -127,7 +127,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   private void validateFinalDestinationStatus(Application currentApplication, FinalDestinationStatus newFinalDestinationStatus) {
     if (newFinalDestinationStatus != null) {
       Application finalDestinationApplication = currentApplication.getStudent().getFinalDestinationApplication();
-      FinalDestinationStatus notFinalDestinationStatus = finalDestinationStatusService.getStatusByName(FinalDestinationType.NOT_FINAL_DESTINATION.getName());
+      FinalDestinationStatus notFinalDestinationStatus = finalDestinationStatusService.getByName(FinalDestinationType.NOT_FINAL_DESTINATION.getName());
 
       if (finalDestinationApplication != null && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.getUuid()) && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestinationStatus.getUuid())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FINAL_DESTINATION_ERROR);

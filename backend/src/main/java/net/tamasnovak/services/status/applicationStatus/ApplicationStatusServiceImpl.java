@@ -2,8 +2,8 @@ package net.tamasnovak.services.status.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
-import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
+import net.tamasnovak.entities.status.ApplicationStatus;
+import net.tamasnovak.repositories.status.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,7 +27,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "ApplicationStatusByUuid", key = "{ #root.methodName, #uuid }")
-  public ApplicationStatus getStatusByUuid(String uuid) {
+  public ApplicationStatus getByUuid(String uuid) {
     return applicationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
@@ -35,7 +35,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "ApplicationStatusByName", key = "{ #root.methodName, #statusName }")
-  public ApplicationStatus getStatusByName(String statusName) {
+  public ApplicationStatus getByName(String statusName) {
     return applicationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
