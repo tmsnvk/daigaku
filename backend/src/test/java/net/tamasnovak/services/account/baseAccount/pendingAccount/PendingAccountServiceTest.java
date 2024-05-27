@@ -1,14 +1,14 @@
 package net.tamasnovak.services.account.baseAccount.pendingAccount;
 
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
-import net.tamasnovak.entities.account.baseAccount.PendingAccount;
-import net.tamasnovak.entities.institution.Institution;
+import net.tamasnovak.entities.account.PendingAccount;
 import net.tamasnovak.entities.role.Role;
+import net.tamasnovak.entities.support.institution.Institution;
 import net.tamasnovak.repositories.account.baseAccount.PendingAccountRepository;
-import net.tamasnovak.services.account.baseAccount.account.AccountService;
-import net.tamasnovak.services.email.EmailService;
-import net.tamasnovak.services.institution.InstitutionService;
-import net.tamasnovak.services.role.RoleService;
+import net.tamasnovak.services.account.baseAccount.AccountVerificationService;
+import net.tamasnovak.services.email.EmailCoreService;
+import net.tamasnovak.services.role.RoleCoreService;
+import net.tamasnovak.services.support.SupportCoreService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -31,27 +31,27 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PendingAccountServiceImplTest {
-  @Mock
-  private AccountService accountService;
+class PendingAccountServiceTest {
+  @Mock(name = "AccountService")
+  private AccountVerificationService accountVerificationService;
+
+  @Mock(name = "InstitutionService")
+  private SupportCoreService<Institution> institutionSupportCoreService;
 
   @Mock
-  private InstitutionService institutionService;
+  private RoleCoreService roleCoreService;
 
   @Mock
-  private RoleService roleService;
-
-  @Mock
-  private EmailService emailService;
+  private EmailCoreService emailService;
 
   @Mock
   private PendingAccountRepository pendingAccountRepository;
 
   @Mock
-  private PendingAccountConstants pendingAccountConstants;
+  private PendingAccountServiceConstants pendingAccountConstants;
 
   @InjectMocks
-  private PendingAccountServiceImpl underTest;
+  private PendingAccountService underTest;
 
   private final String expectedValidEmail = "notexistingemail@test.net";
 
@@ -70,9 +70,8 @@ class PendingAccountServiceImplTest {
 
     @Test
     @Description("Throws DataIntegrityViolationException if email is found, i.e. the user is not allowed to register with the provided email.")
-    void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
+    void shouldThrowDataIntegrityViolationException_IfEmailExists() {
       String notExpectedValidEmail = "existingemail@test.net";
-
       when(pendingAccountRepository.existsByEmail(notExpectedValidEmail)).thenReturn(true);
 
       assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(notExpectedValidEmail));
@@ -82,10 +81,10 @@ class PendingAccountServiceImplTest {
   }
 
   @Nested
-  @DisplayName("createAccount() unit tests")
-  class CreateAccountUnitTests {
+  @DisplayName("create() unit tests")
+  class CreateUnitTests {
     @Test
-    @Description("Saves a PendingAccount object and returns void..")
+    @Description("Saves a PendingAccount record and returns void.")
     void shouldSavePendingAccount_AndReturnVoid() {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "Student",
@@ -97,6 +96,8 @@ class PendingAccountServiceImplTest {
 
       Institution mockInstitution = mock(Institution.class);
       Role mockRole = mock(Role.class);
+      when(institutionSupportCoreService.getByUuid(requestBody.institutionUuid())).thenReturn(mockInstitution);
+      when(roleCoreService.getRoleByName(requestBody.accountType())).thenReturn(mockRole);
 
       PendingAccount expected = PendingAccount.createPendingAccount(
         requestBody.firstName(),
@@ -106,10 +107,7 @@ class PendingAccountServiceImplTest {
         mockRole
       );
 
-      when(institutionService.getInstitutionByUuid(requestBody.institutionUuid())).thenReturn(mockInstitution);
-      when(roleService.getRoleByName(requestBody.accountType())).thenReturn(mockRole);
-
-      underTest.createAccount(requestBody);
+      underTest.create(requestBody);
 
       ArgumentCaptor<PendingAccount> argumentCaptor = ArgumentCaptor.forClass(PendingAccount.class);
       verify(pendingAccountRepository, times(1)).save(argumentCaptor.capture());

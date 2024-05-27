@@ -1,10 +1,10 @@
-package net.tamasnovak.controllers.account.account;
+package net.tamasnovak.controllers.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
-import net.tamasnovak.services.account.baseAccount.account.AccountService;
+import net.tamasnovak.services.account.baseAccount.account.AccountCoreService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +40,7 @@ class AccountControllerIT {
   private AuthenticationFacade authenticationFacade;
 
   @MockBean
-  private AccountService accountService;
+  private AccountCoreService accountCoreService;
 
   @AfterEach
   void tearDown() {}
@@ -59,7 +59,7 @@ class AccountControllerIT {
         "Student",
         "ROLE_STUDENT"
       );
-      Mockito.when(accountService.getClientAuthContextDto(userDetails.getUsername())).thenReturn(clientAuthContextDto);
+      Mockito.when(accountCoreService.getClientAuthContextDto(userDetails.getUsername())).thenReturn(clientAuthContextDto);
 
       mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts/me"))
         .andExpect(MockMvcResultMatchers.status().isOk());
@@ -85,7 +85,7 @@ class AccountControllerIT {
       Mockito.when(authenticationFacade.authenticateUser(requestBody.email(), requestBody.password())).thenReturn(authentication);
 
       LoginReturnDto loginReturnDto = Mockito.mock(LoginReturnDto.class);
-      Mockito.when(accountService.getLoginReturnDto(requestBody, authentication)).thenReturn(loginReturnDto);
+      Mockito.when(accountCoreService.getLoginReturnDto(requestBody, authentication)).thenReturn(loginReturnDto);
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts/login")
         .content(objectMapper.writeValueAsString(requestBody))

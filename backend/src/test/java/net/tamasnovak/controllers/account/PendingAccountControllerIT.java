@@ -1,9 +1,9 @@
-package net.tamasnovak.controllers.account.pendingAccount;
+package net.tamasnovak.controllers.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
 import net.tamasnovak.repositories.account.baseAccount.PendingAccountRepository;
-import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountService;
+import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountCoreService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ class PendingAccountControllerIT {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private PendingAccountService pendingAccountService;
+  private PendingAccountCoreService pendingAccountService;
 
   @MockBean
   private PendingAccountRepository pendingAccountRepository;

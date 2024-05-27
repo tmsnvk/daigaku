@@ -1,8 +1,8 @@
-package net.tamasnovak.services.account.accountByRole.student;
+package net.tamasnovak.services.account.accountRole.student;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountByRole.Student;
-import net.tamasnovak.entities.account.baseAccount.Account;
 import net.tamasnovak.repositories.account.accountByRole.StudentRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class StudentServiceImplTest {
+class StudentServiceTest {
   @Mock
   private StudentRepository studentRepository;
 
@@ -32,20 +32,20 @@ class StudentServiceImplTest {
   private GlobalServiceConstants globalServiceConstants;
 
   @InjectMocks
-  private StudentServiceImpl underTest;
-
-  private final Account mockAccount = mock(Account.class);
+  private StudentService underTest;
 
   @Nested
-  @DisplayName("getStudentByAccount() unit tests")
-  class GetStudentByAccountUnitTests {
+  @DisplayName("getAccountRoleByAccount() unit tests")
+  class GetAccountRoleByAccountUnitTests {
+    private final Account mockAccount = mock(Account.class);
+
     @Test
     @Description("Returns the correct Student record if it is found.")
     void shouldReturnStudentRecord() {
       Student expected = mock(Student.class);
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.of(expected));
 
-      Student actual = underTest.getAccountTypeByAccount(mockAccount);
+      Student actual = underTest.getAccountRoleByAccount(mockAccount);
 
       assertEquals(expected, actual);
 
@@ -57,7 +57,7 @@ class StudentServiceImplTest {
     void shouldThrowEntityNotFoundException_IfStudentRecordIsNotFound() {
       when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getAccountTypeByAccount(mockAccount));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getAccountRoleByAccount(mockAccount));
 
       verify(studentRepository, times(1)).findByAccount(mockAccount);
     }

@@ -50,7 +50,7 @@ class PendingAccountRegistrationDtoTest {
 
   @Nested
   @DisplayName("PendingAccountRegistrationDto validation violation unit tests")
-  class WhenInvalid {
+  class WhenDtoIsInvalid {
     @Test
     @Description("Assert that there is a violation if underTest requestBody's firstName fails @NotBlank validation.")
     void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsNotBlankValidation() {
