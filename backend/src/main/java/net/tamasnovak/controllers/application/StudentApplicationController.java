@@ -6,7 +6,7 @@ import net.tamasnovak.dtos.application.request.NewApplicationByStudentDto;
 import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
-import net.tamasnovak.entities.account.baseAccount.Account;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class StudentApplicationController {
   public ResponseEntity<MappedApplicationView> createApplication(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    MappedApplicationView returnProjection = studentApplicationService.createApplication(account, requestBody);
+    MappedApplicationView returnProjection = studentApplicationService.create(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
@@ -61,7 +61,7 @@ public class StudentApplicationController {
   @PatchMapping(value = "/{uuid}")
   public ResponseEntity<MappedApplicationView> updateApplication(@PathVariable("uuid") @UuidConstraint String uuid,
                                                                  @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
-    MappedApplicationView returnProjection = studentApplicationService.updateApplicationByUuid(uuid, requestBody);
+    MappedApplicationView returnProjection = studentApplicationService.updateByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)

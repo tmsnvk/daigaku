@@ -4,9 +4,9 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
-import net.tamasnovak.entities.account.baseAccount.Account;
-import net.tamasnovak.entities.institution.Institution;
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.role.Role;
+import net.tamasnovak.entities.support.institution.Institution;
 import net.tamasnovak.repositories.account.baseAccount.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +36,7 @@ class AccountServiceImplTest {
   private AccountRepository accountRepository;
 
   @Mock
-  private AccountConstants accountConstants;
+  private AccountServiceConstants accountServiceConstants;
 
   @Mock
   private JwtUtilities jwtUtilities;
@@ -54,39 +54,15 @@ class AccountServiceImplTest {
   private final Account account = Account.createAccount("Student", "Test User", expectedValidEmail, hashedPassword, mockInstitution, mockRole);
 
   @Nested
-  @DisplayName("verifyAccountNotExistsByEmail() unit tests")
-  class VerifyAccountNotExistsByEmailUnitTests {
-    @Test
-    @Description("Returns void if email is not found, i.e. the user can register with the provided email.")
-    void shouldReturnVoid_IfEmailIsNotFound() {
-      when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
-
-      assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
-
-      verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
-    }
-
-    @Test
-    @Description("Throws DataIntegrityViolationException if email is found, i.e. the user is not allowed to register with the provided email.")
-    void shouldThrowDataIntegrityViolationException_IfEmailAlreadyExists() {
-      when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(true);
-
-      assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
-
-      verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
-    }
-  }
-
-  @Nested
-  @DisplayName("getAccountByEmail() unit tests")
-  class GetAccountByEmailUnitTests {
+  @DisplayName("getByEmail() unit tests")
+  class GetByEmailUnitTests {
     @Test
     @Description("Returns the correct Account record if corresponding email is found.")
-    void shouldReturnAccountRecord_IfEmailIsFound() {
+    void shouldReturnAccountRecord() {
       Account expected = mock(Account.class);
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(expected));
 
-      Account actual = underTest.getAccountByEmail(expectedValidEmail);
+      Account actual = underTest.getByEmail(expectedValidEmail);
 
       assertEquals(expected, actual);
 
@@ -99,7 +75,7 @@ class AccountServiceImplTest {
       String notExistingEmail = "notexistingemail@test.net";
       when(accountRepository.findByEmail(notExistingEmail)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getAccountByEmail(notExistingEmail));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getByEmail(notExistingEmail));
 
       verify(accountRepository, times(1)).findByEmail(notExistingEmail);
     }
@@ -152,6 +128,30 @@ class AccountServiceImplTest {
       assertThrows(EntityNotFoundException.class, () -> underTest.getLoginReturnDto(requestBody, authentication));
 
       verify(accountRepository, times(1)).findByEmail(notExistingEmail);
+    }
+  }
+
+  @Nested
+  @DisplayName("verifyAccountNotExistsByEmail() unit tests")
+  class VerifyAccountNotExistsByEmailUnitTests {
+    @Test
+    @Description("Returns void if email is not found, i.e. the user can register with the provided email.")
+    void shouldReturnVoid_IfEmailIsNotFound() {
+      when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
+
+      assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+
+      verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
+    }
+
+    @Test
+    @Description("Throws DataIntegrityViolationException if email is found, i.e. the user is not allowed to register with the provided email.")
+    void shouldThrowDataIntegrityViolationException_IfEmailExists() {
+      when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(true);
+
+      assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+
+      verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
   }
 }

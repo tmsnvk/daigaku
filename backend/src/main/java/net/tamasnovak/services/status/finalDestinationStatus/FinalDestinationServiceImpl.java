@@ -2,8 +2,8 @@ package net.tamasnovak.services.status.finalDestinationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
-import net.tamasnovak.entities.application.FinalDestinationStatus;
-import net.tamasnovak.repositories.finalDestinationStatus.FinalDestinationStatusRepository;
+import net.tamasnovak.entities.status.FinalDestinationStatus;
+import net.tamasnovak.repositories.status.finalDestinationStatus.FinalDestinationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,7 +27,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "FinalDestinationStatusByUuid", key = "{ #root.methodName, #uuid }")
-  public FinalDestinationStatus getStatusByUuid(String uuid) {
+  public FinalDestinationStatus getByUuid(String uuid) {
     return finalDestinationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
@@ -35,7 +35,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "FinalDestinationStatusByName", key = "{ #root.methodName, #statusName }")
-  public FinalDestinationStatus getStatusByName(String statusName) {
+  public FinalDestinationStatus getByName(String statusName) {
     return finalDestinationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

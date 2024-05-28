@@ -1,8 +1,8 @@
 package net.tamasnovak.repositories.account.accountByRole;
 
 
+import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountByRole.Student;
-import net.tamasnovak.entities.account.baseAccount.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

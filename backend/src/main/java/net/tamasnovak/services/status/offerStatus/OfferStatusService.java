@@ -1,6 +1,14 @@
 package net.tamasnovak.services.status.offerStatus;
 
-import net.tamasnovak.entities.application.OfferStatus;
-import net.tamasnovak.services.status.CoreStatusService;
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
+import net.tamasnovak.entities.status.OfferStatus;
 
-public interface OfferStatusService extends CoreStatusService<OfferStatus> {}
+import java.util.List;
+
+public interface OfferStatusService {
+  OfferStatus getByUuid(String uuid);
+
+  OfferStatus getByName(String statusName);
+
+  List<StatusSelectOptionView> getAllSelectOptionViews();
+}

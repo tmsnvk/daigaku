@@ -13,8 +13,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.entities.account.accountByRole.Student;
 import net.tamasnovak.entities.base.audit.Auditable;
-import net.tamasnovak.entities.country.Country;
-import net.tamasnovak.entities.university.University;
+import net.tamasnovak.entities.status.ApplicationStatus;
+import net.tamasnovak.entities.status.FinalDestinationStatus;
+import net.tamasnovak.entities.status.InterviewStatus;
+import net.tamasnovak.entities.status.OfferStatus;
+import net.tamasnovak.entities.status.ResponseStatus;
+import net.tamasnovak.entities.support.country.Country;
+import net.tamasnovak.entities.support.university.University;
 
 @Entity
 @Table(name = "applications")

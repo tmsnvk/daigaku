@@ -2,8 +2,8 @@ package net.tamasnovak.services.status.applicationStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.dtos.status.StatusSelectOptionView;
-import net.tamasnovak.entities.application.ApplicationStatus;
-import net.tamasnovak.repositories.applicationStatus.ApplicationStatusRepository;
+import net.tamasnovak.entities.status.ApplicationStatus;
+import net.tamasnovak.repositories.status.applicationStatus.ApplicationStatusRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -49,7 +49,7 @@ class ApplicationStatusServiceImplTest {
     void shouldReturnApplicationStatusRecord() {
       when(applicationStatusRepository.findByName(anyString())).thenReturn(Optional.of(expected));
 
-      ApplicationStatus actual = underTest.getStatusByName(anyString());
+      ApplicationStatus actual = underTest.getByName(anyString());
 
       assertEquals(expected, actual);
 
@@ -61,7 +61,7 @@ class ApplicationStatusServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationStatusIsNotFound() {
       when(applicationStatusRepository.findByName(anyString())).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getStatusByName(anyString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getByName(anyString()));
 
       verify(applicationStatusRepository, times(1)).findByName(anyString());
     }
@@ -75,7 +75,7 @@ class ApplicationStatusServiceImplTest {
     void shouldReturnApplicationStatusRecord() {
       when(applicationStatusRepository.findByUuid(applicationStatusUuid)).thenReturn(Optional.of(expected));
 
-      ApplicationStatus actual = underTest.getStatusByUuid(applicationStatusUuid.toString());
+      ApplicationStatus actual = underTest.getByUuid(applicationStatusUuid.toString());
 
       assertEquals(expected, actual);
 
@@ -87,7 +87,7 @@ class ApplicationStatusServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationStatusIsNotFound() {
       when(applicationStatusRepository.findByUuid(applicationStatusUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getStatusByUuid(applicationStatusUuid.toString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(applicationStatusUuid.toString()));
 
       verify(applicationStatusRepository, times(1)).findByUuid(applicationStatusUuid);
     }
