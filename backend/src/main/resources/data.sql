@@ -27,9 +27,9 @@ VALUES
 -- system admin users
 WITH role_insert AS (
   INSERT INTO roles
-    (name)
+    (uuid, name)
   VALUES
-    ('ROLE_SYSTEM_ADMIN')
+    (gen_random_uuid(), 'ROLE_SYSTEM_ADMIN')
   RETURNING
     id
 )
@@ -48,9 +48,9 @@ VALUES
 -- institution admin users
 WITH role_insert AS (
   INSERT INTO roles
-    (name)
+    (uuid, name)
   VALUES
-    ('ROLE_INSTITUTION_ADMIN')
+    (gen_random_uuid(), 'ROLE_INSTITUTION_ADMIN')
   RETURNING
     id
 )
@@ -70,9 +70,9 @@ VALUES
 -- mentor users
 WITH role_insert AS (
   INSERT INTO roles
-    (name)
+    (uuid, name)
   VALUES
-    ('ROLE_MENTOR')
+    (gen_random_uuid(), 'ROLE_MENTOR')
   RETURNING
     id
 )
@@ -91,9 +91,9 @@ VALUES
 -- student users
 WITH role_insert AS (
   INSERT INTO roles
-    (name)
+    (uuid, name)
   VALUES
-    ('ROLE_STUDENT')
+    (gen_random_uuid(), 'ROLE_STUDENT')
   RETURNING
     id
 )
