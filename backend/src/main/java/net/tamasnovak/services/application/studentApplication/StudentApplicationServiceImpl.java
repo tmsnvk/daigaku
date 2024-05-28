@@ -31,7 +31,7 @@ import net.tamasnovak.services.support.university.UniversityService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import net.tamasnovak.utilities.mapper.ApplicationMapper;
 import net.tamasnovak.utilities.validator.ValidatorUtilities;
-import net.tamasnovak.utilities.validator.applicationFieldValidator.ApplicationFieldsValidator;
+import net.tamasnovak.utilities.validator.applicationFieldValidator.ExistingApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,13 +56,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final FinalDestinationStatusService finalDestinationStatusService;
   private final ApplicationRepository applicationRepository;
   private final ValidatorUtilities validatorUtilities;
-  private final ApplicationFieldsValidator applicationFieldsValidator;
+  private final ExistingApplicationValidator existingApplicationValidator;
   private final ApplicationMapper applicationMapper;
   private final StudentApplicationServiceConstants studentApplicationConstants;
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ValidatorUtilities validatorUtilities, ApplicationFieldsValidator applicationFieldsValidator, ApplicationMapper applicationMapper, StudentApplicationServiceConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationServiceImpl(AuthenticationFacade authenticationFacade, StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ValidatorUtilities validatorUtilities, ExistingApplicationValidator existingApplicationValidator, ApplicationMapper applicationMapper, StudentApplicationServiceConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.authenticationFacade = authenticationFacade;
     this.studentService = studentService;
     this.countryService = countryService;
@@ -75,7 +75,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.finalDestinationStatusService = finalDestinationStatusService;
     this.applicationRepository = applicationRepository;
     this.validatorUtilities = validatorUtilities;
-    this.applicationFieldsValidator = applicationFieldsValidator;
+    this.existingApplicationValidator = existingApplicationValidator;
     this.applicationMapper = applicationMapper;
     this.studentApplicationConstants = studentApplicationConstants;
     this.globalServiceConstants = globalServiceConstants;
@@ -180,7 +180,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       finalDestinationStatusService::getByUuid
     );
 
-    applicationFieldsValidator.validateStatusFields(requestBody, currentApplication, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
+    existingApplicationValidator.validateStatusFields(requestBody, currentApplication, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
     currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
     applicationRepository.save(currentApplication);

@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Component
-public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidator {
+public class ExistingApplicationValidatorImpl implements ExistingApplicationValidator {
   private final ApplicationStatusService applicationStatusService;
   private final InterviewStatusService interviewStatusService;
   private final OfferStatusService offerStatusService;
@@ -34,7 +34,7 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
   private final FinalDestinationStatusService finalDestinationStatusService;
 
   @Autowired
-  public ApplicationFieldsValidatorImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService) {
+  public ExistingApplicationValidatorImpl(ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService) {
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
     this.offerStatusService = offerStatusService;
@@ -51,8 +51,8 @@ public class ApplicationFieldsValidatorImpl implements ApplicationFieldsValidato
     validateFinalDestinationStatus(currentApplication, newFinalDestinationStatus);
   }
 
-  private void validateApplicationStatus(Application currentApplication, String applicationStatusUUid, ApplicationStatus newApplicationStatus) {
-    if (Objects.equals(applicationStatusUUid, "")) {
+  private void validateApplicationStatus(Application currentApplication, String newApplicationStatusUUid, ApplicationStatus newApplicationStatus) {
+    if (Objects.equals(newApplicationStatusUUid, "")) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
     }
 

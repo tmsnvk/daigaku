@@ -26,7 +26,7 @@ import net.tamasnovak.services.support.university.UniversityService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import net.tamasnovak.utilities.mapper.ApplicationMapper;
 import net.tamasnovak.utilities.validator.ValidatorUtilities;
-import net.tamasnovak.utilities.validator.applicationFieldValidator.ApplicationFieldsValidator;
+import net.tamasnovak.utilities.validator.applicationFieldValidator.ExistingApplicationValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -87,7 +87,7 @@ class StudentApplicationServiceImplImplTest {
   ValidatorUtilities validatorUtilities;
 
   @Mock
-  ApplicationFieldsValidator applicationFieldsValidator;
+  ExistingApplicationValidator existingApplicationValidator;
 
   @Mock
   ApplicationMapper applicationMapper;

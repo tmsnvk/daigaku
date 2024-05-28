@@ -9,6 +9,6 @@ import net.tamasnovak.entities.status.OfferStatus;
 import net.tamasnovak.entities.status.ResponseStatus;
 
 @FunctionalInterface
-public interface ApplicationFieldsValidator {
+public interface ExistingApplicationValidator {
   void validateStatusFields(UpdateApplicationByStudentDto newApplicationData, Application currentApplication, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus);
 }
