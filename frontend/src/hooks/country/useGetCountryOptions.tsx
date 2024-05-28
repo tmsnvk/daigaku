@@ -5,7 +5,7 @@ import { queryKeys } from '@configuration';
 const useGetCountryOptions = () => {
   return useQuery({
     queryKey: [queryKeys.COUNTRY.GET_AS_SELECT_OPTIONS],
-    queryFn: () => countryService.getAllOptions(),
+    queryFn: () => countryService.getAllSelectOptions(),
   });
 };
 

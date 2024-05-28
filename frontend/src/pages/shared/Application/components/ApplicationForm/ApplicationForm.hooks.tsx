@@ -22,11 +22,11 @@ import {
   firmChoiceSelectionError,
 } from './ApplicationForm.utilities.ts';
 import { ApplicationT } from '@services/application/application.service.ts';
-import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
-import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
-import { OfferStatusT } from '@services/application/offerStatus.service.ts';
-import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
-import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
+import { ApplicationStatusT } from '@services/status/applicationStatus.service.ts';
+import { InterviewStatusT } from '@services/status/interviewStatusService.service.ts';
+import { OfferStatusT } from '@services/status/offerStatus.service.ts';
+import { ResponseStatusT } from '@services/status/responseStatus.service.ts';
+import { FinalDestinationStatusT } from '@services/status/finalDestinationStatus.service.ts';
 import {
   ApplicationStatusE,
   FinalDestinationE,
@@ -60,19 +60,19 @@ const useGetAllSelectOptions = (): ApplicationOptionsDataT => {
   return useQueries({
     queries: [
       {
-        queryKey: [queryKeys.APPLICATION_STATUS.GET_ALL],
+        queryKey: [queryKeys.APPLICATION_STATUS.GET_AS_SELECT_OPTIONS],
         queryFn: applicationStatusService.getAll,
       },
       {
-        queryKey: [queryKeys.INTERVIEW_STATUS.GET_ALL],
+        queryKey: [queryKeys.INTERVIEW_STATUS.GET_AS_SELECT_OPTIONS],
         queryFn: interviewStatusService.getAll,
       },
       {
-        queryKey: [queryKeys.OFFER_STATUS.GET_ALL],
+        queryKey: [queryKeys.OFFER_STATUS.GET_AS_SELECT_OPTIONS],
         queryFn: offerStatusService.getAll,
       },
       {
-        queryKey: [queryKeys.RESPONSE_STATUS.GET_ALL],
+        queryKey: [queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS],
         queryFn: responseStatusService.getAll,
       },
       {
@@ -136,7 +136,7 @@ const useHandleFormSubmission = () => {
     const errors: string[] = [];
 
     const applicationsCache = queryClient.getQueryData<ApplicationT[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
-    const responseStatusCache = queryClient.getQueryData<ResponseStatusT[]>([queryKeys.RESPONSE_STATUS.GET_ALL]);
+    const responseStatusCache = queryClient.getQueryData<ResponseStatusT[]>([queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS]);
     const finalDestinationStatusCache = queryClient.getQueryData<FinalDestinationStatusT[]>([queryKeys.FINAL_DESTINATION.GET_ALL]);
 
     if (!applicationsCache || !responseStatusCache || !finalDestinationStatusCache) {

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
+import { useGetInstitutionOptions } from '@hooks';
 import {
   RegisterFormFieldsT,
-  useGetInstitutionOptions,
   useSubmitRegistrationForm,
 } from './RegistrationForm.hooks.tsx';
 import { TextParagraph } from '@components/general';
@@ -120,7 +120,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
         <article>
           {
             isPending ?
-              <LoadingIndicator content={'Your registration is being handled.'} /> :
+              <LoadingIndicator content={'Your registration is being submitted.'} /> :
               <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
           }
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}

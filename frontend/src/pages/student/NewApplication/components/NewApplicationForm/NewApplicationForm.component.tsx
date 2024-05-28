@@ -18,8 +18,8 @@ import {
 } from '@components/field-implementations';
 import { Toast } from '@components/notification';
 import { FormContainer } from './NewApplicationForm.styles.ts';
-import { CountryOptionT } from '@services/country/country.service.ts';
-import { UniversityOptionT } from '@services/university/university.service.ts';
+import { CountryOptionT } from '@services/support/country.service.ts';
+import { UniversityOptionT } from '@services/support/university.service.ts';
 import {
   countryInformation,
   formInformation,

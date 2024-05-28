@@ -6,7 +6,7 @@ export type CountryOptionT = {
 }
 
 const countryService = {
-  getAllOptions: async (): Promise<CountryOptionT[]> => {
+  getAllSelectOptions: async (): Promise<CountryOptionT[]> => {
     const { data } = await axiosConfigWithAuth.request<CountryOptionT[]>({
       method: 'GET',
       url: 'api/countries/options',

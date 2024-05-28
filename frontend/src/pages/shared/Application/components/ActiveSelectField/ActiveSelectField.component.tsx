@@ -8,11 +8,11 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/form';
-import { ApplicationStatusT } from '@services/application/applicationStatus.service.ts';
-import { InterviewStatusT } from '@services/application/interviewStatusService.service.ts';
-import { OfferStatusT } from '@services/application/offerStatus.service.ts';
-import { ResponseStatusT } from '@services/application/responseStatus.service.ts';
-import { FinalDestinationStatusT } from '@services/application/finalDestinationStatus.service.ts';
+import { ApplicationStatusT } from '@services/status/applicationStatus.service.ts';
+import { InterviewStatusT } from '@services/status/interviewStatusService.service.ts';
+import { OfferStatusT } from '@services/status/offerStatus.service.ts';
+import { ResponseStatusT } from '@services/status/responseStatus.service.ts';
+import { FinalDestinationStatusT } from '@services/status/finalDestinationStatus.service.ts';
 
 type SelectOptionsT = ApplicationStatusT | InterviewStatusT | OfferStatusT | ResponseStatusT | FinalDestinationStatusT;
 

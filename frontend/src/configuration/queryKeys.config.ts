@@ -16,32 +16,32 @@ const queryKeys = {
     GET_ME: 'getMe',
   },
   INSTITUTIONS: {
-    GET_ALL: 'getInstitutions',
+    GET_AS_SELECT_OPTIONS: 'getAllInstitutionSelectOptions',
   },
   APPLICATION: {
     GET_ALL_BY_ROLE: 'getApplicationsByRole',
     GET_BY_ID: 'getApplicationById',
   },
   APPLICATION_STATUS: {
-    GET_ALL: 'getApplicationStatuses',
+    GET_AS_SELECT_OPTIONS: 'getAllApplicationStatus',
   },
   INTERVIEW_STATUS: {
-    GET_ALL: 'getInterviewStatuses',
+    GET_AS_SELECT_OPTIONS: 'getAllInterviewStatus',
   },
   OFFER_STATUS: {
-    GET_ALL: 'getOfferStatuses',
+    GET_AS_SELECT_OPTIONS: 'getAllOfferStatus',
   },
   RESPONSE_STATUS: {
-    GET_ALL: 'getResponseStatuses',
+    GET_AS_SELECT_OPTIONS: 'getAllResponseStatus',
   },
   FINAL_DESTINATION: {
-    GET_ALL: 'getFinalDestinationStatuses',
+    GET_ALL: 'getAllFinalDestinationStatus',
   },
   COUNTRY: {
-    GET_AS_SELECT_OPTIONS: 'getCountryOptions',
+    GET_AS_SELECT_OPTIONS: 'getAllCountrySelectOptions',
   },
   UNIVERSITY: {
-    GET_AS_SELECT_OPTIONS: 'getUniversityOptions',
+    GET_AS_SELECT_OPTIONS: 'getAllUniversitySelectOptions',
   },
   AGGREGATE: {
     GET_DASHBOARD_DATA: 'getDashboardData',

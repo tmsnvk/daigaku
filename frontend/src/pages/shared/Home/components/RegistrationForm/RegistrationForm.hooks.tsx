@@ -1,24 +1,8 @@
-import {
-  useMutation,
-  useQuery,
-} from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import {
-  institutionService,
-  pendingAccountService,
-} from '@services/index.ts';
-import {
-  mutationKeys,
-  queryKeys,
-} from '@configuration';
+import { pendingAccountService } from '@services/index.ts';
+import { mutationKeys } from '@configuration';
 import { ConfirmationModalT } from '../../Home.types.ts';
-
-const useGetInstitutionOptions = () => {
-  return useQuery({
-    queryKey: [queryKeys.INSTITUTIONS.GET_ALL],
-    queryFn: () => institutionService.getAll(),
-  });
-};
 
 export type RegisterFormFieldsT = {
   firstName: string;
@@ -72,6 +56,5 @@ const useSubmitRegistrationForm = ({ setError, showModal }: RegisterFormT) => {
 };
 
 export {
-  useGetInstitutionOptions,
   useSubmitRegistrationForm,
 };

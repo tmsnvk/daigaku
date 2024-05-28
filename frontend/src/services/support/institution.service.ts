@@ -7,7 +7,7 @@ export type InstitutionOptionT = {
 }
 
 const institutionService = {
-  getAll: async (): Promise<InstitutionOptionT[]> => {
+  getAllSelectOptions: async (): Promise<InstitutionOptionT[]> => {
     const { data } = await axiosConfigWithAuth.request<InstitutionOptionT[]>({
       method: 'GET',
       url: '/api/institutions/options',
