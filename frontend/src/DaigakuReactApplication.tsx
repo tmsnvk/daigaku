@@ -69,7 +69,7 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>,
 ));
 
-const ReactApplication = () => {
+const DaigakuReactApplication = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -82,4 +82,4 @@ const ReactApplication = () => {
   );
 };
 
-export default ReactApplication;
+export default DaigakuReactApplication;

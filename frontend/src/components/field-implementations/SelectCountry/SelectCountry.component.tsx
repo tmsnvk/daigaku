@@ -3,9 +3,9 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
+import { InputFieldStyles } from '@components/base-styles';
 import {
   InputError,
-  InputFieldStyles,
   InputLabel,
 } from '@components/form';
 import { CountryOptionT } from '@services/support/country.service.ts';

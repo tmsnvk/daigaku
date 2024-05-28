@@ -1,7 +1,5 @@
-import {
-  InputFieldStyles,
-  InputLabel,
-} from '@components/form';
+import { InputFieldStyles } from '@components/base-styles';
+import { InputLabel } from '@components/form';
 
 type ComponentPropsT = {
   fieldId: string;

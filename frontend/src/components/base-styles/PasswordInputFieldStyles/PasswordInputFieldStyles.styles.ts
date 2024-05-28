@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { InputFieldStyles } from '@components/form';
+import InputFieldStyles from '../InputFieldStyles';
 
 const PasswordInputFieldStyles = styled(InputFieldStyles)`
   & input {

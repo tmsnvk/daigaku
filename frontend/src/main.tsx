@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ReactApplication from './ReactApplication.tsx';
+import DaigakuReactApplication from './DaigakuReactApplication.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ReactApplication />
+    <DaigakuReactApplication />
   </React.StrictMode>,
 );

@@ -5,10 +5,10 @@ import {
 } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRevealPassword } from './PasswordInputField.hooks.tsx';
+import { PasswordInputFieldStyles } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
-  PasswordInputFieldStyles,
 } from '@components/form';
 import { iconLibraryConfig } from '@configuration';
 
