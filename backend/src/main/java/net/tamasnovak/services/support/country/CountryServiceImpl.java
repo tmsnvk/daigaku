@@ -1,7 +1,7 @@
 package net.tamasnovak.services.support.country;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.country.CountrySelectOptionView;
+import net.tamasnovak.dtos.country.CountrySelectOptionDto;
 import net.tamasnovak.entities.support.country.Country;
 import net.tamasnovak.repositories.support.country.CountryRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
@@ -27,7 +27,7 @@ public class CountryServiceImpl implements CountryService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "CountrySelectOptionViews")
-  public List<CountrySelectOptionView> getAllSelectOptionViews() {
+  public List<CountrySelectOptionDto> getAllSelectOptionViews() {
     return countryRepository.findAllByOrderByNameAsc();
   }
 

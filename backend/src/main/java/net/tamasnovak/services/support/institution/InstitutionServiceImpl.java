@@ -1,7 +1,7 @@
 package net.tamasnovak.services.support.institution;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.institution.InstitutionOptionView;
+import net.tamasnovak.dtos.institution.InstitutionOptionDto;
 import net.tamasnovak.entities.support.institution.Institution;
 import net.tamasnovak.repositories.support.institution.InstitutionRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
@@ -27,7 +27,7 @@ public class InstitutionServiceImpl implements InstitutionService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "InstitutionOptionView", key = "{ #root.methodName }" )
-  public List<InstitutionOptionView> getAllSelectOptionViews() {
+  public List<InstitutionOptionDto> getAllSelectOptionViews() {
     return institutionRepository.findAllByOrderByNameAsc();
   }
 

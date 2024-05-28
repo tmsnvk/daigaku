@@ -1,6 +1,6 @@
 package net.tamasnovak.repositories.support.country;
 
-import net.tamasnovak.dtos.country.CountrySelectOptionView;
+import net.tamasnovak.dtos.country.CountrySelectOptionDto;
 import net.tamasnovak.entities.support.country.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface CountryRepository extends JpaRepository<Country, Long> {
   Optional<Country> findByUuid(UUID uuid);
 
-  List<CountrySelectOptionView> findAllByOrderByNameAsc();
+  List<CountrySelectOptionDto> findAllByOrderByNameAsc();
 }

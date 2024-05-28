@@ -188,7 +188,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     return applicationService.getMappedApplicationViewByUuid(applicationUuid);
   }
 
-  private <T extends BaseStatusEntity> T getStatusByUuidOnUpdate(T status, String requestBodyStatusUuid, Function<String, T> getByUuidFunction) {
+  private <T extends BaseStatusEntity> T getStatusByUuidOnUpdate(T status, String requestBodyStatusUuid, Function<String, T> getByUuidFn) {
     if (status != null && Objects.equals(status.getUuid().toString(), requestBodyStatusUuid)) {
       return status;
     }
@@ -197,6 +197,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       return null;
     }
 
-    return getByUuidFunction.apply(requestBodyStatusUuid);
+    return getByUuidFn.apply(requestBodyStatusUuid);
   }
 }

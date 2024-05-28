@@ -1,12 +1,13 @@
-package net.tamasnovak.dtos.country;
+package net.tamasnovak.dtos.university;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-public record CountrySelectOptionView(
+public record UniversitySelectOptionDto(
   UUID uuid,
-  String name
+  String name,
+  String abbreviation
 ) implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;

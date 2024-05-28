@@ -1,7 +1,7 @@
 package net.tamasnovak.services.support.university;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.dtos.university.UniversitySelectOptionView;
+import net.tamasnovak.dtos.university.UniversitySelectOptionDto;
 import net.tamasnovak.entities.support.country.Country;
 import net.tamasnovak.entities.support.university.University;
 import net.tamasnovak.repositories.support.university.UniversityRepository;
@@ -31,7 +31,7 @@ public class UniversityServiceImpl implements UniversityService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "UniversitySelectOptionViewsByCountryUuid", key = "{ #root.methodName, #countryUuid }")
-  public List<UniversitySelectOptionView> getAllSelectOptionViewsByCountryUuid(String countryUuid) {
+  public List<UniversitySelectOptionDto> getAllSelectOptionViewsByCountryUuid(String countryUuid) {
     Country country = countryService.getByUuid(countryUuid);
 
     return universityRepository.findByCountryOrderByNameAsc(country);

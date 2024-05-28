@@ -1,6 +1,6 @@
 package net.tamasnovak.controllers.support;
 
-import net.tamasnovak.dtos.country.CountrySelectOptionView;
+import net.tamasnovak.dtos.country.CountrySelectOptionDto;
 import net.tamasnovak.services.support.country.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ public class CountryController {
   }
 
   @GetMapping(value = "/options")
-  public ResponseEntity<List<CountrySelectOptionView>> getAllSelectOptionsViews() {
-    List<CountrySelectOptionView> returnProjections = countryService.getAllSelectOptionViews();
+  public ResponseEntity<List<CountrySelectOptionDto>> getAllSelectOptionsViews() {
+    List<CountrySelectOptionDto> returnProjections = countryService.getAllSelectOptionViews();
 
     return ResponseEntity
       .status(HttpStatus.OK)
