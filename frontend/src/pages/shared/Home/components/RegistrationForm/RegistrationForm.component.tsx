@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useGetInstitutionOptions } from '@hooks';
+import {
+  useGetInstitutionOptions,
+  useGetStudentAndMentorAccountRoles,
+} from '@hooks';
 import {
   RegisterFormFieldsT,
   useSubmitRegistrationForm,
@@ -12,6 +15,7 @@ import {
 } from '@components/form';
 import {
   GenericInputField,
+  SelectAccountRole,
   SelectInstitution,
 } from '@components/field-implementations';
 import {
@@ -19,7 +23,6 @@ import {
   GlobalLoadingModal,
 } from '@components/notification';
 import FormSwapButton from '../FormSwapButton';
-import SelectAccountType from '../SelectAccountType';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -29,15 +32,16 @@ import {
 type ComponentPropT = FormSelectorT & ConfirmationModalT;
 
 const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
-  const { data, isLoading, isError } = useGetInstitutionOptions();
+  const { data: institutionData, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
+  const { data: roleData, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
   const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, mutate, error } = useSubmitRegistrationForm({ setError, showModal });
 
-  if (isLoading) {
+  if (isInstitutionLoading || isRoleLoading) {
     return <GlobalLoadingModal />;
   }
 
-  if (isError) {
+  if (isInstitutionError || isRoleError) {
     return <GlobalErrorModal error={error?.response.data.root as string} />;
   }
 
@@ -109,13 +113,14 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
           fieldError={errors.institutionUuid?.message}
           fieldId={'institutionUuid'}
           isDisabled={isPending}
-          data={data ?? []}
+          data={institutionData ?? []}
         />
-        <SelectAccountType
+        <SelectAccountRole
           register={register}
           fieldError={errors.accountType?.message}
           fieldId={'accountType'}
           isDisabled={isPending}
+          data={roleData ?? []}
         />
         <article>
           {
