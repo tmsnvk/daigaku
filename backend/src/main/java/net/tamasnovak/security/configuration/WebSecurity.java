@@ -73,6 +73,7 @@ public class WebSecurity {
         .requestMatchers("/api/interview-statuses/**").authenticated()
         .requestMatchers("/api/offer-statuses/**").authenticated()
         .requestMatchers("/api/pending-accounts/**").permitAll()
+        .requestMatchers("/api/roles/**").permitAll()
         .requestMatchers("/api/response-statuses/**").permitAll()
         .requestMatchers("/api/universities/**").authenticated()
         .requestMatchers("/error/**").permitAll()
