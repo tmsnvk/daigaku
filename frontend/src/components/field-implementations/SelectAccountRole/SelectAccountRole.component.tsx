@@ -26,7 +26,7 @@ const SelectAccountType = <T extends FieldValues>({ register, fieldError, fieldI
         {...register(fieldId, {
           required: {
             value: true,
-            message: 'Selecting an account type is required.',
+            message: 'Selecting an account role is required.',
           },
         })}
         id={fieldId}

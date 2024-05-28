@@ -84,20 +84,20 @@ class PendingAccountServiceImplImplTest {
   @DisplayName("create() unit tests")
   class CreateUnitTests {
     @Test
-    @Description("Saves a PendingAccount record and returns void.")
+    @Description("Saves a PendingAccount record with Student role and returns void.")
     void shouldSavePendingAccount_AndReturnVoid() {
       PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
         "Student",
         "Test User",
         expectedValidEmail,
         UUID.randomUUID().toString(),
-        "STUDENT"
+        UUID.randomUUID().toString()
       );
 
       Institution mockInstitution = mock(Institution.class);
-      Role mockRole = mock(Role.class);
+      Role mockRole = Role.createRole("ROLE_TEST");
       when(institutionService.getByUuid(requestBody.institutionUuid())).thenReturn(mockInstitution);
-      when(roleService.getRoleByName(requestBody.accountType())).thenReturn(mockRole);
+      when(roleService.getRoleByUuid(requestBody.accountRoleUuid())).thenReturn(mockRole);
 
       PendingAccount expected = PendingAccount.createPendingAccount(
         requestBody.firstName(),

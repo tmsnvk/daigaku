@@ -10,6 +10,7 @@ import net.tamasnovak.services.account.baseAccount.account.AccountService;
 import net.tamasnovak.services.email.EmailService;
 import net.tamasnovak.services.role.RoleService;
 import net.tamasnovak.services.support.institution.InstitutionService;
+import net.tamasnovak.utilities.formatter.StringFormatterUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     verifyAccountNotExistsByEmail(requestBody.email());
 
     Institution institution = institutionService.getByUuid(requestBody.institutionUuid());
-    Role role = roleService.getRoleByName(requestBody.accountType());
+    Role role = roleService.getRoleByUuid(requestBody.accountRoleUuid());
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(
       requestBody.firstName(),
@@ -63,16 +64,16 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
     pendingAccountRepository.save(pendingAccount);
 
-    sendWelcomeEmail(requestBody, institution);
+    sendWelcomeEmail(requestBody, institution, role);
   }
 
-  private void sendWelcomeEmail(PendingAccountRegistrationDto requestBody, Institution institution) {
+  private void sendWelcomeEmail(PendingAccountRegistrationDto requestBody, Institution institution, Role role) {
     String content = String.format(
       pendingAccountConstants.PENDING_ACCOUNT_EMAIL_BODY,
       requestBody.firstName(),
       requestBody.lastName(),
       institution.getName(),
-      requestBody.accountType()
+      StringFormatterUtilities.removeRolePrefix(role.getName())
     );
 
     NewEmailDto newEmail = new NewEmailDto(requestBody.email(), pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT, content);

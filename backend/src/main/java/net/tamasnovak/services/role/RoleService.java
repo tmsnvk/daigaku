@@ -6,6 +6,6 @@ import net.tamasnovak.entities.role.Role;
 import java.util.List;
 
 public interface RoleService {
-  Role getRoleByName(String name);
+  Role getRoleByUuid(String uuid);
   List<MappedRoleOptionView> getStudentAndMentorRoleOptions();
 }

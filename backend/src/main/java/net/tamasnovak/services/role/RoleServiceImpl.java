@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,9 +31,9 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "RoleByName", key = "{ #root.methodName, #name }")
-  public Role getRoleByName(String name) {
-    return roleRepository.findByNameContains(name)
+  @Cacheable(value = "RoleByName", key = "{ #root.methodName, #uuid }")
+  public Role getRoleByUuid(String uuid) {
+    return roleRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 

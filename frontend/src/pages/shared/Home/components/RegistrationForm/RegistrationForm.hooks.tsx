@@ -9,7 +9,7 @@ export type RegisterFormFieldsT = {
   lastName: string;
   email: string;
   institutionUuid: string;
-  accountType: string;
+  accountRoleUuid: string;
 }
 
 type RegisterFormT = {
@@ -23,7 +23,7 @@ type RegisterFormErrorFieldsT =
   'lastName' |
   'email' |
   'institutionUuid' |
-  'accountType';
+  'accountRoleUuid';
 
 type RegisterFormErrorT = {
   response: {

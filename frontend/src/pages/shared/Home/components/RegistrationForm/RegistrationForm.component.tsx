@@ -117,8 +117,8 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
         />
         <SelectAccountRole
           register={register}
-          fieldError={errors.accountType?.message}
-          fieldId={'accountType'}
+          fieldError={errors.accountRoleUuid?.message}
+          fieldId={'accountRoleUuid'}
           isDisabled={isPending}
           data={roleData ?? []}
         />

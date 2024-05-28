@@ -21,7 +21,7 @@ public record PendingAccountRegistrationDto(
   @UuidConstraint(message = "Provide a valid institution.")
   String institutionUuid,
 
-  @NotBlank(message = "Select an account type.")
-  @Pattern(regexp = "^(STUDENT|MENTOR)$", message = "Select a valid account type.")
-  String accountType
+  @NotBlank(message = "Select an account role.")
+  @UuidConstraint(message = "Select a valid account role.")
+  String accountRoleUuid
 ) {}

@@ -13,7 +13,7 @@ public final class StringFormatterUtilities {
     return Arrays.stream(word.trim().split("\\s+"))
       .map(element -> {
         if (!element.contains("-")) {
-          return capitaliseWordWithoutHyphen(element);
+          return capitaliseWordWithoutSpecialCharacters(element);
         } else {
           return capitaliseWordsWithHyphen(element);
         }
@@ -21,7 +21,18 @@ public final class StringFormatterUtilities {
       .collect(Collectors.joining(" "));
   }
 
-  private static String capitaliseWordWithoutHyphen(String word) {
+  public static String removeRolePrefix(String roleName) {
+    String[] splitRole = roleName.split("_");
+    String[] removePrefix = roleName.split("ROLE_");
+
+    if (splitRole.length == 2) {
+      return capitaliseWordWithoutSpecialCharacters(removePrefix[1]);
+    }
+
+    return capitaliseWordsWithUnderscore(removePrefix[1]);
+  }
+
+  private static String capitaliseWordWithoutSpecialCharacters(String word) {
     return Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase();
   }
 
@@ -29,5 +40,11 @@ public final class StringFormatterUtilities {
     return Arrays.stream(word.split("-"))
       .map(element -> Character.toUpperCase(element.charAt(0)) + element.substring(1).toLowerCase())
       .collect(Collectors.joining("-"));
+  }
+
+  private static String capitaliseWordsWithUnderscore(String word) {
+    return Arrays.stream(word.split("_"))
+      .map(element -> Character.toUpperCase(element.charAt(0)) + element.substring(1).toLowerCase())
+      .collect(Collectors.joining(" "));
   }
 }
