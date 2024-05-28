@@ -1,6 +1,14 @@
 package net.tamasnovak.services.status.applicationStatus;
 
+import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.entities.status.ApplicationStatus;
-import net.tamasnovak.services.status.CoreStatusService;
 
-public interface ApplicationStatusService extends CoreStatusService<ApplicationStatus> {}
+import java.util.List;
+
+public interface ApplicationStatusService {
+  ApplicationStatus getByUuid(String uuid);
+
+  ApplicationStatus getByName(String statusName);
+
+  List<StatusSelectOptionView> getAllSelectOptionViews();
+}

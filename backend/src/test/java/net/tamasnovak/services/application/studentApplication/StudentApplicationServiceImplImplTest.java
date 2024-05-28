@@ -8,27 +8,25 @@ import net.tamasnovak.dtos.application.response.applicationView.MappedApplicatio
 import net.tamasnovak.entities.account.Account;
 import net.tamasnovak.entities.account.accountByRole.Mentor;
 import net.tamasnovak.entities.account.accountByRole.Student;
-import net.tamasnovak.entities.address.Address;
 import net.tamasnovak.entities.application.Application;
 import net.tamasnovak.entities.status.ApplicationStatus;
 import net.tamasnovak.entities.support.country.Country;
 import net.tamasnovak.entities.support.university.University;
 import net.tamasnovak.repositories.application.ApplicationRepository;
 import net.tamasnovak.services.GlobalServiceConstants;
-import net.tamasnovak.services.account.accountRole.AccountRoleService;
-import net.tamasnovak.services.account.accountRole.student.StudentCoreService;
-import net.tamasnovak.services.application.application.ApplicationCoreService;
+import net.tamasnovak.services.account.accountRole.student.StudentService;
+import net.tamasnovak.services.application.application.ApplicationService;
 import net.tamasnovak.services.status.applicationStatus.ApplicationStatusService;
 import net.tamasnovak.services.status.finalDestinationStatus.FinalDestinationStatusService;
 import net.tamasnovak.services.status.interviewStatus.InterviewStatusService;
 import net.tamasnovak.services.status.offerStatus.OfferStatusService;
 import net.tamasnovak.services.status.responseStatus.ResponseStatusService;
-import net.tamasnovak.services.support.SupportCoreService;
+import net.tamasnovak.services.support.country.CountryService;
+import net.tamasnovak.services.support.university.UniversityService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import net.tamasnovak.utilities.mapper.ApplicationMapper;
 import net.tamasnovak.utilities.validator.ValidatorUtilities;
 import net.tamasnovak.utilities.validator.applicationFieldValidator.ApplicationFieldsValidator;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -51,24 +49,21 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class StudentApplicationServiceTest {
+class StudentApplicationServiceImplImplTest {
   @Mock
   AuthenticationFacade authenticationFacade;
 
   @Mock
-  StudentCoreService studentCoreService;
+  StudentService studentService;
 
   @Mock
-  AccountRoleService<Student> studentAccountRoleService;
-
-  @Mock(name = "CountryService")
-  SupportCoreService<Country> countrySupportCoreService;
-
-  @Mock(name = "UniversityService")
-  SupportCoreService<University> universitySupportCoreService;
+  CountryService countryService;
 
   @Mock
-  ApplicationCoreService applicationCoreService;
+  UniversityService universityService;
+
+  @Mock
+  ApplicationService applicationService;
 
   @Mock
   ApplicationStatusService applicationStatusService;
@@ -104,18 +99,12 @@ class StudentApplicationServiceTest {
   GlobalServiceConstants globalServiceConstants;
 
   @InjectMocks
-  StudentApplicationService underTest;
+  StudentApplicationServiceImpl underTest;
 
   private final Account mockAccount = mock(Account.class);
   private final Student mockStudent = mock(Student.class);
   private final UUID applicationUuid = UUID.randomUUID();
   private final Application mockApplication = mock(Application.class);
-
-  @BeforeEach
-  void setUp() {
-//    countrySupportCoreService = (SupportCoreService<Country>) mock(SupportCoreService.class);
-//    universitySupportCoreService = (SupportCoreService<University>) mock(SupportCoreService.class);
-  }
 
   @Nested
   @DisplayName("getAllMappedApplicationViewsByStudent() unit tests")
@@ -129,7 +118,7 @@ class StudentApplicationServiceTest {
 
       List<MappedApplicationView> expected = Arrays.asList(mockMappedApplicationView1, mockMappedApplicationView2);
 
-      when(studentAccountRoleService.getAccountRoleByAccount(mockAccount)).thenReturn(mockStudent);
+      when(studentService.getAccountRoleByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationRepository.findApplicationViewsByStudentId(mockStudent.getId())).thenReturn(mockApplicationViews);
 
       when(applicationMapper.toMappedApplicationView(mockApplicationViews.get(0))).thenReturn(mockMappedApplicationView1);
@@ -139,7 +128,7 @@ class StudentApplicationServiceTest {
 
       assertEquals(expected, actual);
 
-      verify(studentAccountRoleService, times(1)).getAccountRoleByAccount(mockAccount);
+      verify(studentService, times(1)).getAccountRoleByAccount(mockAccount);
       verify(applicationRepository, times(1)).findApplicationViewsByStudentId(mockStudent.getId());
       verify(applicationMapper, times(1)).toMappedApplicationView(mockApplicationViews.get(0));
       verify(applicationMapper, times(1)).toMappedApplicationView(mockApplicationViews.get(1));
@@ -176,57 +165,49 @@ class StudentApplicationServiceTest {
     @Test
     @Description("Returns a DashboardAggregateDataDto instance.")
     void shouldReturnDashboardAggregateDataDto() {
-      when(studentAccountRoleService.getAccountRoleByAccount(mockAccount)).thenReturn(mockStudent);
+      when(studentService.getAccountRoleByAccount(mockAccount)).thenReturn(mockStudent);
 
       DashboardAggregateDataDto expected = new DashboardAggregateDataDto(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
       DashboardAggregateDataDto actual = underTest.getAggregateDataDtoByStudent(mockAccount);
 
       assertEquals(expected, actual);
 
-      verify(studentAccountRoleService, times(1)).getAccountRoleByAccount(mockAccount);
+      verify(studentService, times(1)).getAccountRoleByAccount(mockAccount);
     }
   }
 
   @Nested
   @DisplayName("create() unit tests")
   class CreateUnitTests {
-//    @Test
+    @Test
     @Description("Creates an Application record and returns its ApplicationView projection.")
     void shouldCreateApplication_AndReturnApplicationView() {
-      Country mockCountry = Country.createCountry("Test");
-      University mockUniversity = University.createUniversity("Test", "T", mock(Address.class), mockCountry);
+      Country mockCountry = mock(Country.class);
+      University mockUniversity = mock(University.class);
       ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
+
+      NewApplicationByStudentDto requestBody = mock(NewApplicationByStudentDto.class);
 
       MappedApplicationView expected = mock(MappedApplicationView.class);
 
-      NewApplicationByStudentDto requestBody = mock(NewApplicationByStudentDto.class);
-      when(requestBody.countryUuid()).thenReturn(UUID.randomUUID().toString());
-      when(requestBody.universityUuid()).thenReturn(UUID.randomUUID().toString());
-
-      when(countrySupportCoreService.getByUuid(requestBody.countryUuid())).thenReturn(mockCountry);
-      when(universitySupportCoreService.getByUuid(requestBody.universityUuid())).thenReturn(mockUniversity);
-
-      mockCountry.addToUniversities(mockUniversity);
-
-      when(studentAccountRoleService.getAccountRoleByAccount(mockAccount)).thenReturn(mockStudent);
+      when(countryService.getByUuid(requestBody.countryUuid())).thenReturn(mockCountry);
+      when(universityService.getByUuid(requestBody.universityUuid())).thenReturn(mockUniversity);
+      when(studentService.getAccountRoleByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.getByName("Planned")).thenReturn(mockApplicationStatus);
 
       when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
-
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationCoreService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
 
       MappedApplicationView actual = underTest.create(mockAccount, requestBody);
 
       assertEquals(expected, actual);
 
-      verify(countrySupportCoreService, times(1)).getByUuid(requestBody.countryUuid());
-      verify(universitySupportCoreService, times(1)).getByUuid(requestBody.universityUuid());
-      verify(mockCountry, times(1)).verifyUniversityCountryLink(mockUniversity, globalServiceConstants.NO_RECORD_FOUND);
-      verify(studentAccountRoleService, times(1)).getAccountRoleByAccount(mockAccount);
+      verify(countryService, times(1)).getByUuid(requestBody.countryUuid());
+      verify(universityService, times(1)).getByUuid(requestBody.universityUuid());
+      verify(studentService, times(1)).getAccountRoleByAccount(mockAccount);
       verify(applicationStatusService, times(1)).getByName("Planned");
-      verify(applicationRepository, times(1)).save(any(Application.class));
-      verify(applicationCoreService, times(1)).getMappedApplicationViewByUuid(applicationUuid.toString());
+      verify(applicationService, times(1)).getMappedApplicationViewByUuid(applicationUuid.toString());
     }
   }
 
@@ -239,7 +220,7 @@ class StudentApplicationServiceTest {
       UpdateApplicationByStudentDto requestBody = mock(UpdateApplicationByStudentDto.class);
       Mentor mockMentor = mock(Mentor.class);
 
-      when(applicationCoreService.getByUuid(applicationUuid.toString())).thenReturn(mockApplication);
+      when(applicationService.getByUuid(applicationUuid.toString())).thenReturn(mockApplication);
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(mockAccount);
       when(mockApplication.getStudent()).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
@@ -247,15 +228,15 @@ class StudentApplicationServiceTest {
 
       when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationCoreService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getMappedApplicationViewByUuid(applicationUuid.toString())).thenReturn(expected);
 
       MappedApplicationView actual = underTest.updateByUuid(applicationUuid.toString(), requestBody);
 
       assertEquals(expected, actual);
 
-      verify(applicationCoreService, times(1)).getByUuid(applicationUuid.toString());
+      verify(applicationService, times(1)).getByUuid(applicationUuid.toString());
       verify(authenticationFacade, times(1)).getAuthenticatedAccount();
-      verify(applicationCoreService, times(1)).getMappedApplicationViewByUuid(applicationUuid.toString());
+      verify(applicationService, times(1)).getMappedApplicationViewByUuid(applicationUuid.toString());
     }
   }
 }

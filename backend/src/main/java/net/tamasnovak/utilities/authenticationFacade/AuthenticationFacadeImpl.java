@@ -1,7 +1,7 @@
 package net.tamasnovak.utilities.authenticationFacade;
 
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.services.account.baseAccount.account.AccountCoreService;
+import net.tamasnovak.services.account.baseAccount.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,14 +11,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SimpleAuthenticationFacade implements AuthenticationFacade {
+public class AuthenticationFacadeImpl implements AuthenticationFacade {
   private final AuthenticationManager authenticationManager;
-  private final AccountCoreService accountCoreService;
+  private final AccountService accountService;
 
   @Autowired
-  public SimpleAuthenticationFacade(AuthenticationManager authenticationManager, AccountCoreService accountCoreService) {
+  public AuthenticationFacadeImpl(AuthenticationManager authenticationManager, AccountService accountService) {
     this.authenticationManager = authenticationManager;
-    this.accountCoreService = accountCoreService;
+    this.accountService = accountService;
   }
 
   @Override
@@ -30,7 +30,7 @@ public class SimpleAuthenticationFacade implements AuthenticationFacade {
 
   @Override
   public Account getAuthenticatedAccount() {
-    return accountCoreService.getByEmail(getUserContext().getUsername());
+    return accountService.getByEmail(getUserContext().getUsername());
   }
 
   @Override

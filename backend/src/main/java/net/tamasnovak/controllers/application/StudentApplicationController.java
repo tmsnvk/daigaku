@@ -7,11 +7,9 @@ import net.tamasnovak.dtos.application.request.UpdateApplicationByStudentDto;
 import net.tamasnovak.dtos.application.response.DashboardAggregateDataDto;
 import net.tamasnovak.dtos.application.response.applicationView.MappedApplicationView;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.services.application.ApplicationLifeCycleService;
-import net.tamasnovak.services.application.studentApplication.StudentApplicationCoreService;
+import net.tamasnovak.services.application.studentApplication.StudentApplicationService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,22 +28,19 @@ import java.util.List;
 @Validated
 public class StudentApplicationController {
   private final AuthenticationFacade authenticationFacade;
-  private final StudentApplicationCoreService studentApplicationCoreService;
-  private final ApplicationLifeCycleService<MappedApplicationView, NewApplicationByStudentDto, UpdateApplicationByStudentDto> applicationLifeCycleService;
+  private final StudentApplicationService studentApplicationService;
 
   @Autowired
-  public StudentApplicationController(AuthenticationFacade authenticationFacade, StudentApplicationCoreService studentApplicationCoreService,
-   @Qualifier("StudentApplicationService") ApplicationLifeCycleService<MappedApplicationView, NewApplicationByStudentDto, UpdateApplicationByStudentDto> applicationLifeCycleService) {
+  public StudentApplicationController(AuthenticationFacade authenticationFacade, StudentApplicationService studentApplicationService) {
     this.authenticationFacade = authenticationFacade;
-    this.studentApplicationCoreService = studentApplicationCoreService;
-    this.applicationLifeCycleService = applicationLifeCycleService;
+    this.studentApplicationService = studentApplicationService;
   }
 
   @GetMapping(value = "")
   public ResponseEntity<List<MappedApplicationView>> getAllApplicationViews() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    List<MappedApplicationView> returnProjections = studentApplicationCoreService.getAllMappedApplicationViewsByStudent(account);
+    List<MappedApplicationView> returnProjections = studentApplicationService.getAllMappedApplicationViewsByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -56,7 +51,7 @@ public class StudentApplicationController {
   public ResponseEntity<MappedApplicationView> createApplication(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    MappedApplicationView returnProjection = applicationLifeCycleService.create(account, requestBody);
+    MappedApplicationView returnProjection = studentApplicationService.create(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
@@ -66,7 +61,7 @@ public class StudentApplicationController {
   @PatchMapping(value = "/{uuid}")
   public ResponseEntity<MappedApplicationView> updateApplication(@PathVariable("uuid") @UuidConstraint String uuid,
                                                                  @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
-    MappedApplicationView returnProjection = applicationLifeCycleService.updateByUuid(uuid, requestBody);
+    MappedApplicationView returnProjection = studentApplicationService.updateByUuid(uuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -75,7 +70,7 @@ public class StudentApplicationController {
 
   @PatchMapping(value = "/update-is-removable/{uuid}")
   public ResponseEntity<HttpStatus> toggleIsRemovableField(@PathVariable("uuid") @UuidConstraint String uuid) {
-    studentApplicationCoreService.toggleIsRemovableFieldByApplicationUuid(uuid);
+    studentApplicationService.toggleIsRemovableFieldByApplicationUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -86,7 +81,7 @@ public class StudentApplicationController {
   public ResponseEntity<DashboardAggregateDataDto> getAggregateDataDto() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    DashboardAggregateDataDto returnProjection = studentApplicationCoreService.getAggregateDataDtoByStudent(account);
+    DashboardAggregateDataDto returnProjection = studentApplicationService.getAggregateDataDtoByStudent(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)

@@ -2,7 +2,7 @@ package net.tamasnovak.controllers.account;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.request.PendingAccountRegistrationDto;
-import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountCoreService;
+import net.tamasnovak.services.account.baseAccount.pendingAccount.PendingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/pending-accounts")
 public class PendingAccountController {
-  private final PendingAccountCoreService pendingAccountService;
+  private final PendingAccountService pendingAccountService;
 
   @Autowired
-  public PendingAccountController(PendingAccountCoreService pendingAccountService) {
+  public PendingAccountController(PendingAccountService pendingAccountService) {
     this.pendingAccountService = pendingAccountService;
   }
 

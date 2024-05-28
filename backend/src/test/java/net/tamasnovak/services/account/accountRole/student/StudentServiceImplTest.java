@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class StudentServiceTest {
+class StudentServiceImplTest {
   @Mock
   private StudentRepository studentRepository;
 
@@ -32,7 +32,7 @@ class StudentServiceTest {
   private GlobalServiceConstants globalServiceConstants;
 
   @InjectMocks
-  private StudentService underTest;
+  private StudentServiceImpl underTest;
 
   @Nested
   @DisplayName("getAccountRoleByAccount() unit tests")

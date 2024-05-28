@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.User;
 
 public interface AuthenticationFacade {
   Authentication authenticateUser(String email, String password);
+
   Account getAuthenticatedAccount();
+
   User getUserContext();
 }

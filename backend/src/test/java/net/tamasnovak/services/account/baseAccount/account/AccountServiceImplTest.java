@@ -31,7 +31,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AccountServiceTest {
+class AccountServiceImplTest {
   @Mock
   private AccountRepository accountRepository;
 
@@ -45,7 +45,7 @@ class AccountServiceTest {
   private Authentication authentication;
 
   @InjectMocks
-  private AccountService underTest;
+  private AccountServiceImpl underTest;
 
   private final String expectedValidEmail = "notexistingemail@test.net";
   private final String hashedPassword = "$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm";

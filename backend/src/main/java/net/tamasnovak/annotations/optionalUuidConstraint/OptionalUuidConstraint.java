@@ -15,6 +15,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OptionalUuidConstraint {
   String message() default "Record with this id was not found.";
+
   Class<?>[] groups() default {};
+
   Class<? extends Payload>[] payload() default {};
 }

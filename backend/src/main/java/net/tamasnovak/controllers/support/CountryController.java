@@ -1,7 +1,7 @@
 package net.tamasnovak.controllers.support;
 
 import net.tamasnovak.dtos.country.CountrySelectOptionView;
-import net.tamasnovak.services.support.country.CountryCoreService;
+import net.tamasnovak.services.support.country.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/countries")
 public class CountryController {
-  private final CountryCoreService countryCoreService;
+  private final CountryService countryService;
 
-  public CountryController(CountryCoreService countryCoreService) {
-    this.countryCoreService = countryCoreService;
+  public CountryController(CountryService countryService) {
+    this.countryService = countryService;
   }
 
   @GetMapping(value = "/options")
   public ResponseEntity<List<CountrySelectOptionView>> getAllSelectOptionsViews() {
-    List<CountrySelectOptionView> returnProjections = countryCoreService.getAllSelectOptionViews();
+    List<CountrySelectOptionView> returnProjections = countryService.getAllSelectOptionViews();
 
     return ResponseEntity
       .status(HttpStatus.OK)

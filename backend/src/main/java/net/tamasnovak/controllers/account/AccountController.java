@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import net.tamasnovak.dtos.account.request.LoginRequestDto;
 import net.tamasnovak.dtos.account.response.ClientAuthContextDto;
 import net.tamasnovak.dtos.account.response.LoginReturnDto;
-import net.tamasnovak.services.account.baseAccount.account.AccountCoreService;
+import net.tamasnovak.services.account.baseAccount.account.AccountService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/accounts")
 public class AccountController {
   private final AuthenticationFacade authenticationFacade;
-  private final AccountCoreService accountCoreService;
+  private final AccountService accountService;
 
   @Autowired
-  public AccountController(AuthenticationFacade authenticationFacade, AccountCoreService accountCoreService) {
+  public AccountController(AuthenticationFacade authenticationFacade, AccountService accountService) {
     this.authenticationFacade = authenticationFacade;
-    this.accountCoreService = accountCoreService;
+    this.accountService = accountService;
   }
 
   @GetMapping(value = "/me")
@@ -35,7 +35,7 @@ public class AccountController {
   public ResponseEntity<ClientAuthContextDto> getClientAuthContext() {
     User userDetails = authenticationFacade.getUserContext();
 
-    ClientAuthContextDto returnProjection = accountCoreService.getClientAuthContextDto(userDetails.getUsername());
+    ClientAuthContextDto returnProjection = accountService.getClientAuthContextDto(userDetails.getUsername());
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -46,7 +46,7 @@ public class AccountController {
   public ResponseEntity<LoginReturnDto> login(@Valid @RequestBody LoginRequestDto requestBody) {
     Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
 
-    LoginReturnDto returnProjection = accountCoreService.getLoginReturnDto(requestBody, authentication);
+    LoginReturnDto returnProjection = accountService.getLoginReturnDto(requestBody, authentication);
 
     return ResponseEntity
       .status(HttpStatus.OK)

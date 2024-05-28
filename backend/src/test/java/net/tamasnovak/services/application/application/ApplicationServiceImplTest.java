@@ -33,7 +33,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ApplicationServiceTest {
+class ApplicationServiceImplTest {
   @Mock
   private AuthenticationFacade authenticationFacade;
 
@@ -50,7 +50,7 @@ class ApplicationServiceTest {
   private ApplicationMapper applicationMapper;
 
   @InjectMocks
-  private ApplicationService underTest;
+  private ApplicationServiceImpl underTest;
 
   private final UUID applicationUuid = UUID.randomUUID();
 
