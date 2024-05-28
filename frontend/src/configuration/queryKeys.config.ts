@@ -15,6 +15,9 @@ const queryKeys = {
   ACCOUNT: {
     GET_ME: 'getMe',
   },
+  ACCOUNT_ROLE: {
+    GET_STUDENT_AND_MENTOR_ROLES_AS_OPTIONS: 'getStudentAndMentorRoleSelectOptions',
+  },
   INSTITUTIONS: {
     GET_AS_SELECT_OPTIONS: 'getAllInstitutionSelectOptions',
   },
