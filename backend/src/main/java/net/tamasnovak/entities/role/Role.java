@@ -6,14 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import net.tamasnovak.entities.account.Account;
-import net.tamasnovak.entities.base.id.BaseSimpleIdEntity;
+import net.tamasnovak.entities.base.id.BaseExtendedIdEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "roles")
-public final class Role extends BaseSimpleIdEntity {
+public final class Role extends BaseExtendedIdEntity {
   @Column(name = "name", unique = true, updatable = false, nullable = false)
   private String name;
 
