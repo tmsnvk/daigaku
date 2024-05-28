@@ -6,7 +6,6 @@ import {
   LoginFormFieldsT,
   LoginFormReturnDataT,
 } from '@pages/shared/Home/components/LoginForm/LoginForm.hooks.tsx';
-import { RegisterFormFieldsT } from '@pages/shared/Home/components/RegistrationForm/RegistrationForm.hooks.tsx';
 import { ForgottenPasswordFormFieldsT } from '@pages/shared/Home/components/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
 
 const accountService = {
@@ -18,13 +17,6 @@ const accountService = {
     });
 
     return data;
-  },
-  register: async (data: RegisterFormFieldsT): Promise<void> => {
-    await axiosConfig.request({
-      method: 'POST',
-      url: '/api/pending-accounts/register',
-      data,
-    });
   },
   passwordReset: async (data: ForgottenPasswordFormFieldsT): Promise<void> => {
     await axiosConfig.request({
