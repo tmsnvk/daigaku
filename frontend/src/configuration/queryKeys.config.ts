@@ -1,7 +1,7 @@
 const mutationKeys = {
   ACCOUNT: {
     POST_LOGIN_FORM: 'postAccountLoginForm',
-    POST_REGISTER_FORM: 'postAccountRegisterForm',
+    POST_REGISTER_FORM: 'postPendingAccountRegisterForm',
     POST_FORGOTTEN_PASSWORD_FORM: 'postAccountForgottenPasswordForm',
   },
   APPLICATION: {

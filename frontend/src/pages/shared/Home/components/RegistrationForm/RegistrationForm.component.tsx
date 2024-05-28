@@ -47,7 +47,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
         content={'Register an account if you are not in our system yet.'}
       />
       <form
-        id={'postAccountRegisterForm'}
+        id={'postPendingAccountRegisterForm'}
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >

@@ -8,7 +8,7 @@ import {
   InputFieldStyles,
   InputLabel,
 } from '@components/form';
-import { InstitutionOptionT } from '@services/institution/institutions.service.ts';
+import { InstitutionOptionT } from '@services/institution/institution.service.ts';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,

@@ -4,8 +4,8 @@ import {
 } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import {
-  accountService,
   institutionService,
+  pendingAccountService,
 } from '@services/index.ts';
 import {
   mutationKeys,
@@ -53,7 +53,7 @@ type RegisterFormErrorT = {
 const useSubmitRegistrationForm = ({ setError, showModal }: RegisterFormT) => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER_FORM],
-    mutationFn: (data: RegisterFormFieldsT) => accountService.register(data),
+    mutationFn: (data: RegisterFormFieldsT) => pendingAccountService.register(data),
     onSuccess: () => {
       showModal();
     },
