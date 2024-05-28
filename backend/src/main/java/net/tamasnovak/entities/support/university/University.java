@@ -45,15 +45,16 @@ public final class University extends BaseSupportEntity {
 
   protected University() {}
 
-  private University(String name, String abbreviation, Address address) {
+  private University(String name, String abbreviation, Address address, Country country) {
     super(name);
     this.abbreviation = abbreviation;
     this.address = address;
     this.applications = new ArrayList<>();
+    this.country = country;
   }
 
-  public static University createUniveristy(String name, String abbreviation, Address address) {
-    return new University(name, abbreviation, address);
+  public static University createUniversity(String name, String abbreviation, Address address, Country country) {
+    return new University(name, abbreviation, address, country);
   }
 
   public String getAbbreviation() {

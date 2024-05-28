@@ -49,6 +49,10 @@ public final class Country extends BaseSupportEntity {
     }
   }
 
+  public void addToUniversities(University university) {
+    universities.add(university);
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(name, id, uuid);
