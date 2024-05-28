@@ -59,7 +59,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
               message: 'Providing your first name is required.',
             },
             pattern: {
-              value: /^[A-Za-z-\s]{2,100}$/,
+              value: /^[\p{L}\s]{2,100}$/u,
               message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
             },
           }}
@@ -78,7 +78,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
               message: 'Providing your last name is required.',
             },
             pattern: {
-              value: /^[A-Za-z-\s]{2,100}$/,
+              value: /^[\p{L}\s]{2,100}$/u,
               message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
             },
           }}

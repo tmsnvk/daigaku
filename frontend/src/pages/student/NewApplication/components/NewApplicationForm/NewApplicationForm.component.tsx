@@ -76,7 +76,7 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData }:
               message: 'Providing the name of your selected course is required.',
             },
             pattern: {
-              value: /^[A-Za-z-\s]{5,255}$/,
+              value: /^[\p{L}\s]{5,255}$/u,
               message: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
             },
           }}
@@ -92,7 +92,7 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData }:
           register={register}
           validationRules={{
             pattern: {
-              value: /^[A-Za-z-\s]{5,255}$/,
+              value: /^[\p{L}\s]{5,255}$/u,
               message: 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
             },
           }}
