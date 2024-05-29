@@ -41,8 +41,6 @@ jobs:
         spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
         spring.datasource.username=postgres
         spring.datasource.password=admin
-        spring.jpa.hibernate.ddl-auto=none
-        spring.sql.init.mode=always
         spring.cache.type=redis
         spring.data.redis.host=localhost
         spring.data.redis.port=6379
@@ -52,7 +50,7 @@ jobs:
     - name: Build DaigakuSpringApplication with Maven
       run: |
         cd backend
-        ./mvnw clean package
+        ./mvnw clean package -DskipTests
 
     - name: Test DaigakuSpringApplication
       run: |
