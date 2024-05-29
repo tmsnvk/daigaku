@@ -21,11 +21,27 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-        
+
+    - name: Configure DaigakuSpringApplication application.properties variables
+      run: |
+        cd backend
+        cat >./src/main/resources/application.properties <<EOF
+        spring.config.import=optional:file:.env[.properties]
+        spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
+        spring.datasource.username=postgres
+        spring.datasource.password=admin
+        spring.jpa.hibernate.ddl-auto=none
+        spring.sql.init.mode=always
+        spring.cache.type=redis
+        spring.data.redis.host=localhost
+        spring.data.redis.port=6379
+        spring.datasource.driver-class-name=org.postgresql.Driver
+        EOF
+      
     - name: Build DaigakuSpringApplication with Maven
       run: |
         cd backend
-        mvn -B package --file pom.xml
+        ./mvnw clean package
 
     - name: Test DaigakuSpringApplication
       run: |
