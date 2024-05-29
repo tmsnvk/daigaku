@@ -45,6 +45,8 @@ jobs:
         spring.data.redis.host=localhost
         spring.data.redis.port=6379
         spring.datasource.driver-class-name=org.postgresql.Driver
+        tamasnovak.app.jwtSecret=fakeSecret
+        tamasnovak.app.jwtExpirationMs=10000000
         EOF
       
     - name: Build DaigakuSpringApplication with Maven
