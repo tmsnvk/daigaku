@@ -41,6 +41,7 @@ CREATE TABLE addresses(
 -- necessary tables for accounts
 CREATE TABLE roles(
   id SERIAL PRIMARY KEY,
+  uuid UUID NOT NULL,
   name VARCHAR NOT NULL
 );
 

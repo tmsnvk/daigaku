@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  database:
-    image: postgres
-    container_name: daigaku-postgres-container
+  db-psql:
+    image: daigaku-prod-psql-img
+    container_name: daigaku-prod-psql-container
     build:
-      context: ./database
-      dockerfile: Dockerfile
+      context: ./database/psql
+      dockerfile: Dockerfile.prod
     ports:
       - 5432:5432
     networks:
@@ -15,14 +15,26 @@ services:
       POSTGRES_DB: ${POSTGRES_DATABASE}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    restart: always
+    restart: unless-stopped
+
+  db-redis:
+    image: daigaku-prod-redis-img
+    container_name: daigaku-prod-redis-container
+    build:
+      context: ./database/redis-cache
+      dockerfile: Dockerfile.prod
+    ports:
+      - 6379:6379
+    networks:
+      - daigaku
+    restart: unless-stopped
 
   backend:
-    image: backend
-    container_name: daigaku-backend-container
+    image: daigaku-prod-backend-img
+    container_name: daigaku-prod-backend-container
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     expose:
       - 8080
     ports:
@@ -30,18 +42,20 @@ services:
     networks:
       - daigaku
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://database/${POSTGRES_DATABASE}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-psql/${POSTGRES_DATABASE}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATA_REDIS_HOST: daigaku-prod-redis-container
     depends_on:
-      - database
+      - db-psql
+      - db-redis
 
   frontend:
-    image: frontend
-    container_name: daigaku-frontend-container
+    image: daigaku-prod-frontend-img
+    container_name: daigaku-prod-frontend-container
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
       - 80:80
     networks:
@@ -50,7 +64,10 @@ services:
       - backend
 
 volumes:
-  postgres:
+  db-psql:
+    driver: local
+  db-redis:
+    driver: local
 
 networks:
   daigaku:
