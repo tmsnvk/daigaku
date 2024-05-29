@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build-and-test:
+  build-then-test:
     runs-on: ubuntu-latest
 
     services:
@@ -21,40 +21,39 @@ jobs:
           POSTGRES_PASSWORD: admin
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: maven
-
-    - name: Configure DaigakuSpringApplication application.properties variables
-      run: |
-        cd backend
-        cat >./src/main/resources/application.properties <<EOF
-        spring.config.import=optional:file:.env[.properties]
-        spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
-        spring.datasource.username=postgres
-        spring.datasource.password=admin
-        spring.cache.type=redis
-        spring.data.redis.host=localhost
-        spring.data.redis.port=6379
-        spring.datasource.driver-class-name=org.postgresql.Driver
-        tamasnovak.app.jwtSecret=fakeSecret
-        tamasnovak.app.jwtExpirationMs=10000000
-        EOF
+      - uses: actions/checkout@v4
       
-    - name: Build DaigakuSpringApplication with Maven
-      run: |
-        cd backend
-        ./mvnw clean package -DskipTests
-
-    - name: Test DaigakuSpringApplication
-      run: |
-        cd backend
-        ./mvnw test
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+  
+      - name: Configure DaigakuSpringApplication application.properties variables
+        run: |
+          cd backend
+          cat >./src/main/resources/application.properties <<EOF
+          spring.config.import=optional:file:.env[.properties]
+          spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
+          spring.datasource.username=postgres
+          spring.datasource.password=admin
+          spring.cache.type=redis
+          spring.data.redis.host=localhost
+          spring.data.redis.port=6379
+          spring.datasource.driver-class-name=org.postgresql.Driver
+          tamasnovak.app.jwtSecret=fakeSecret
+          tamasnovak.app.jwtExpirationMs=10000000
+          EOF
+        
+      - name: Build DaigakuSpringApplication with Maven
+        run: |
+          cd backend
+          ./mvnw clean package -DskipTests
+  
+      - name: Test DaigakuSpringApplication
+        run: |
+          cd backend
+          ./mvnw test
