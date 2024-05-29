@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PendingAccountRegistrationDtoTest {
   private final String expectedValidEmail = "notexistingemail@test.net";
-  private final String validUuid = UUID.randomUUID().toString();
+  private final String validUuidString = UUID.randomUUID().toString();
   Set<ConstraintViolation<PendingAccountRegistrationDto>> violations = new HashSet<>();
   PendingAccountRegistrationDto underTest = null;
 
@@ -38,8 +38,8 @@ class PendingAccountRegistrationDtoTest {
         "Valid",
         "User",
         expectedValidEmail,
-        validUuid,
-        "STUDENT"
+        validUuidString,
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -58,8 +58,8 @@ class PendingAccountRegistrationDtoTest {
         "",
         "User",
         expectedValidEmail,
-        validUuid,
-        "STUDENT"
+        validUuidString,
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -76,8 +76,8 @@ class PendingAccountRegistrationDtoTest {
         "Inv4l-d",
         "User",
         expectedValidEmail,
-        validUuid,
-        "STUDENT"
+        validUuidString,
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -94,8 +94,8 @@ class PendingAccountRegistrationDtoTest {
         "Valid",
         "",
         expectedValidEmail,
-        validUuid,
-        "STUDENT"
+        validUuidString,
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -112,8 +112,8 @@ class PendingAccountRegistrationDtoTest {
         "Valid",
         "!s3r",
         expectedValidEmail,
-        validUuid,
-        "STUDENT"
+        validUuidString,
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -130,8 +130,8 @@ class PendingAccountRegistrationDtoTest {
         "Valid",
         "User",
         "invalidemail.com",
-        validUuid,
-        "STUDENT"
+        validUuidString,
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -149,7 +149,7 @@ class PendingAccountRegistrationDtoTest {
         "User",
         expectedValidEmail,
         "",
-        "STUDENT"
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -167,7 +167,7 @@ class PendingAccountRegistrationDtoTest {
         "User",
         expectedValidEmail,
         "validUuid",
-        "STUDENT"
+        validUuidString
       );
 
       violations = validate(underTest);
@@ -178,13 +178,13 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's accountType fails @NotBlank validation.")
+    @Description("Assert that there is a violation if underTest requestBody's accountRoleUuid fails @NotBlank validation.")
     void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
         expectedValidEmail,
-        validUuid,
+        validUuidString,
         ""
       );
 
@@ -192,25 +192,25 @@ class PendingAccountRegistrationDtoTest {
 
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
-      assertEquals("accountType", actualViolationType);
+      assertEquals("accountRoleUuid", actualViolationType);
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's accountType fails @Pattern validation.")
+    @Description("Assert that there is a violation if underTest requestBody's accountRoleUuid fails @UuidConstraint validation.")
     void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsPatternValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
         expectedValidEmail,
-        validUuid,
-        "INVALID_TYPE"
+        validUuidString,
+        "validUuid"
       );
 
       violations = validate(underTest);
 
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
-      assertEquals("accountType", actualViolationType);
+      assertEquals("accountRoleUuid", actualViolationType);
     }
   }
 

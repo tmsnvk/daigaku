@@ -34,7 +34,7 @@
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
-    <!-- hibernate / jpa / db / cache layer -->
+    <!-- hibernate / jpa / db / cache layers -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>

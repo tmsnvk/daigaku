@@ -34,6 +34,8 @@ class PendingAccountControllerIT {
   @MockBean
   private PendingAccountRepository pendingAccountRepository;
 
+  private final String validUuidString = UUID.randomUUID().toString();
+
   @Nested
   @DisplayName("register() method tests")
   class RegisterMethodIntegrationTests {
@@ -44,8 +46,8 @@ class PendingAccountControllerIT {
         "Student",
         "Test User",
         "student@test.net",
-        UUID.randomUUID().toString(),
-        "STUDENT"
+        validUuidString,
+        validUuidString
       );
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
@@ -61,8 +63,8 @@ class PendingAccountControllerIT {
         "1nv4l1d Student",
         "",
         "invalid@email",
-        "UUID.randomUUID().toString()",
-        "INVALID TYPE"
+        "validUuidString",
+        "validUuidString"
       );
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
