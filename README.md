@@ -19,39 +19,40 @@
 ### II. Techstack
 ```
 Frontend
-    + ReactJS (Vite template)          - javascript library and build tool.
-    + Typescript                       - javascript extension.
-    + React Router                     - client-side routing solution.
-    + React Query                      - data fetching and server state manager solution.
-    + React Hook Form                  - form managing library.
-    + Styled Components                - css-in-javascript styling solution.
-    + Fontawesome                      - icon library.
-    + Axios                            - http client.
+    + ReactJS (Vite template)               - javascript library and build tool.
+    + Typescript                            - javascript extension.
+    + React Router                          - client-side routing solution.
+    + React Query                           - data fetching and server state manager solution.
+    + React Hook Form                       - form managing library.
+    + Styled Components                     - css-in-javascript styling solution.
+    + Fontawesome                           - icon library.
+    + Axios                                 - http client.
 ```
 
 ```
 Backend
-    + Java Spring Boot                 - java framework.
-    + Spring Data JPA / Hibernate ORM  - persistence application layer.
-    + Spring Security                  - authentication and access-control layer.
-    + JWT                              - token solution.
-    + Jakarta Validation               - annotation-based validation library.
-    + Spring Mail                      - email sending library.
+    + Java Spring Boot                      - java framework.
+    + Spring Data JPA / Hibernate ORM       - persistence application layer.
+    + Spring Security                       - authentication and access-control layer.
+    + JWT                                   - authentication token solution.
+    + Jakarta Validation                    - annotation-based validation library.
+    + Spring Mail                           - email sending library.
 ```
 
 ```
 Database
-    + PostgreSQL                       - relational database management system.
+    + PostgreSQL                            - relational database management system.
+    + Redis                                 - cache storage solution.
 ```
 
 ```
 DevOps
-    + Docker                           - containerisation solution.
+    + Docker                                - containerisation solution.
 ```
 
 ```
 Tools
-    + Postman                           - API testing.
+    + Postman                               - API testing.
 ```
 
 ### III. Running the application
@@ -61,14 +62,15 @@ Tools
     + in a terminal panel, step into the repository's root directory, run the ``cp .env_sample .env`` command and fill in the just created ``.env`` file.
     + in a terminal panel, step into the repository's /backend directory, run the ``cp env_sample.properties env.properties`` command and fill in the just created ``env.properties`` file.
 + In a terminal panel, change directory into the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
-+ On the login page you may log in with the following credentials:
++ In a browser window run ``http://localhost/``.
++ On the application's login page you may log in with the following credentials:
     + account with student role:
         + email - ``student@test.net``;
         + password - ``1``.
 
 
 ### IV. Roadmap
-``student`` user features:
+student user features:
 - [x] submit a new application.
 - [x] view aggregate application data in a table format.
 - [x] edit invidivual applications.
@@ -76,12 +78,12 @@ Tools
 - [ ] friend request feature to be able to see each others' applications.
 - [ ] download application data in .pdf format.
 
-``mentor`` user features:
+mentor user features:
 - [ ] view/edit assigned students' applications.
 - [ ] submit application instead of a student.
 - [ ] download assigned students' applications data in .pdf format.
 
-``institution-admin`` user features:
+institution-admin user features:
 - [ ] view/edit/delete all mentors within their institution.
 - [ ] view/edit/delete all students within their institution.
 - [ ] accept/refuse incoming institution student/mentor join requests.
@@ -89,7 +91,7 @@ Tools
 - [ ] promote/demote mentors to institution-admin role.
 - [ ] download institution-wide application data in .pdf format.
 
-``system-admin`` user features:
+system-admin user features:
 - [ ] view/edit/delete all institutions.
 - [ ] view/edit/delete all institutions-admins.
 - [ ] view/edit/delete all mentors.
@@ -98,11 +100,11 @@ Tools
 
 application-wide features:
 - [x] login/registration functionality.
-- [ ] editable profile page.
 - [ ] comment section under individual applications.
+- [ ] editable profile page.
 - [ ] revamp / make the frontend design more lively.
-- [ ] in-app messaging system.
-- [ ] feedback form.
+- [ ] user in-app messaging system.
+- [ ] various system-related forms (feedback, university request, etc.).
 
 testing:
 - [ ] unit tests.
@@ -110,8 +112,8 @@ testing:
 
 devops features:
 - [x] containerisation.
-- [ ] deployment.
 - [ ] github CI/CD.
+- [ ] deployment.
 
 
 ### V. Sneak peak

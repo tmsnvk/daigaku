@@ -3,11 +3,12 @@ FROM eclipse-temurin:21-jdk-alpine AS build-stage
 
 WORKDIR /backend
 COPY env.properties .
-COPY mvnw pom.xml .
+COPY pom.xml .
+COPY mvnw .
 COPY .mvn .mvn
 RUN ./mvnw dependency:go-offline
 
-COPY src src
+COPY src ./src
 
 RUN ./mvnw package -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
