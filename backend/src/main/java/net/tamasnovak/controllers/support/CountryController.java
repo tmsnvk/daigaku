@@ -3,6 +3,7 @@ package net.tamasnovak.controllers.support;
 import net.tamasnovak.dtos.country.CountrySelectOptionDto;
 import net.tamasnovak.services.support.country.CountryService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class CountryController {
     this.countryService = countryService;
   }
 
-  @GetMapping(value = "/options")
+  @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<CountrySelectOptionDto>> getAllSelectOptionsViews() {
     List<CountrySelectOptionDto> returnProjections = countryService.getAllSelectOptionViews();
 

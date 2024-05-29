@@ -11,6 +11,7 @@ import net.tamasnovak.services.application.studentApplication.StudentApplication
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class StudentApplicationController {
     this.studentApplicationService = studentApplicationService;
   }
 
-  @GetMapping(value = "")
+  @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<MappedApplicationView>> getAllApplicationViews() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
@@ -47,7 +48,7 @@ public class StudentApplicationController {
       .body(returnProjections);
   }
 
-  @PostMapping(value = "")
+  @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<MappedApplicationView> createApplication(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
@@ -58,7 +59,7 @@ public class StudentApplicationController {
       .body(returnProjection);
   }
 
-  @PatchMapping(value = "/{uuid}")
+  @PatchMapping(value = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<MappedApplicationView> updateApplication(@PathVariable("uuid") @UuidConstraint String uuid,
                                                                  @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
     MappedApplicationView returnProjection = studentApplicationService.updateByUuid(uuid, requestBody);
@@ -77,7 +78,7 @@ public class StudentApplicationController {
       .build();
   }
 
-  @GetMapping(value = "/dashboard")
+  @GetMapping(value = "/dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<DashboardAggregateDataDto> getAggregateDataDto() {
     Account account = authenticationFacade.getAuthenticatedAccount();
 

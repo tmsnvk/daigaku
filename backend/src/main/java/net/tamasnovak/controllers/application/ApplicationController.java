@@ -5,6 +5,7 @@ import net.tamasnovak.dtos.application.response.applicationView.MappedApplicatio
 import net.tamasnovak.services.application.application.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class ApplicationController {
     this.applicationService = applicationService;
   }
 
-  @GetMapping(value = "/{uuid}")
+  @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<MappedApplicationView> getApplicationView(@PathVariable("uuid") @UuidConstraint String uuid) {
     MappedApplicationView returnProjection = applicationService.getMappedApplicationViewByUuid(uuid);
 

@@ -4,6 +4,7 @@ import net.tamasnovak.dtos.status.StatusSelectOptionView;
 import net.tamasnovak.services.status.responseStatus.ResponseStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class ResponseStatusController {
     this.responseStatusService = responseStatusService;
   }
 
-  @RequestMapping(value = "")
+  @RequestMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<StatusSelectOptionView>> getAllSelectOptionsViews() {
     List<StatusSelectOptionView> returnProjections = responseStatusService.getAllSelectOptionViews();
 

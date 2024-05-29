@@ -8,6 +8,7 @@ import net.tamasnovak.services.account.baseAccount.account.AccountService;
 import net.tamasnovak.utilities.authenticationFacade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -30,7 +31,7 @@ public class AccountController {
     this.accountService = accountService;
   }
 
-  @GetMapping(value = "/me")
+  @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
   public ResponseEntity<ClientAuthContextDto> getClientAuthContext() {
     User userDetails = authenticationFacade.getUserContext();
@@ -42,7 +43,7 @@ public class AccountController {
       .body(returnProjection);
   }
 
-  @PostMapping(value = "/login")
+  @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<LoginReturnDto> login(@Valid @RequestBody LoginRequestDto requestBody) {
     Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
 
