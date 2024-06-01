@@ -26,7 +26,7 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "CountryByUuid", key = "{ #root.methodName, #uuid }")
+  @Cacheable(value = "CountryByUuid", key = "{ #uuid }")
   public Country getByUuid(String uuid) {
     return countryRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,7 +34,7 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "CountrySelectOptionViews")
+  @Cacheable(value = "CountrySelectOptions")
   public List<CountrySelectOptionDto> getAllSelectOptions() {
     return countryRepository.findAllByOrderByNameAsc();
   }

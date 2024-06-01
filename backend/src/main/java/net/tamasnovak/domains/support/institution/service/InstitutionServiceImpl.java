@@ -26,7 +26,7 @@ public class InstitutionServiceImpl implements InstitutionService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "InstitutionByUuid", key = "{ #root.methodName, #uuid }")
+  @Cacheable(value = "InstitutionByUuid", key = "{ #uuid }")
   public Institution getByUuid(String uuid) {
     return institutionRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,7 +34,7 @@ public class InstitutionServiceImpl implements InstitutionService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "InstitutionOptionView", key = "{ #root.methodName }" )
+  @Cacheable(value = "InstitutionOptions")
   public List<InstitutionOptionDto> getAllSelectOptions() {
     return institutionRepository.findAllByOrderByNameAsc();
   }

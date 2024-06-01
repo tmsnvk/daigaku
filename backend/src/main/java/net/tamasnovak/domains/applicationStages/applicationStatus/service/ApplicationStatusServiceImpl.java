@@ -26,7 +26,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationStatusByUuid", key = "{ #root.methodName, #uuid }")
+  @Cacheable(value = "ApplicationStatusByUuid", key = "{ #uuid }")
   public ApplicationStatus getByUuid(String uuid) {
     return applicationStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,7 +34,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationStatusByName", key = "{ #root.methodName, #statusName }")
+  @Cacheable(value = "ApplicationStatusByName", key = "{ #statusName }")
   public ApplicationStatus getByName(String statusName) {
     return applicationStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

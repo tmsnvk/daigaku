@@ -30,7 +30,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "UniversityByUuid", key = "{ #root.methodName, #uuid }")
+  @Cacheable(value = "UniversityByUuid", key = "{ #uuid }")
   public University getByUuid(String uuid) {
     return universityRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -38,7 +38,7 @@ public class UniversityServiceImpl implements UniversityService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "UniversitySelectOptionViewsByCountryUuid", key = "{ #root.methodName, #countryUuid }")
+  @Cacheable(value = "UniversitySelectOptionsByCountryUuid", key = "{ #countryUuid }")
   public List<UniversitySelectOptionDto> getAllSelectOptionsByCountryUuid(String countryUuid) {
     Country country = countryService.getByUuid(countryUuid);
 

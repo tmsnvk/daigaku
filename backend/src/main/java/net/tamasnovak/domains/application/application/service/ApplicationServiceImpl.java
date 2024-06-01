@@ -10,7 +10,6 @@ import net.tamasnovak.domains.application.shared.persistence.ApplicationView;
 import net.tamasnovak.domains.shared.constants.GlobalServiceConstants;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +31,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationByUuid", key = "{ #root.methodName, #uuid }")
   public Application getByUuid(String uuid) {
     return applicationRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -40,7 +38,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ApplicationViewByUuid", key = "{ #root.methodName, #uuid }")
   public ApplicationDto getApplicationDtoByUuid(String uuid) {
     ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));

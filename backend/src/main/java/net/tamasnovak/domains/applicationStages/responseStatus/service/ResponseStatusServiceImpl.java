@@ -26,7 +26,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ResponseStatusByUuid", key = "{ #root.methodName, #uuid }")
+  @Cacheable(value = "ResponseStatusByUuid", key = "{ #uuid }")
   public ResponseStatus getByUuid(String uuid) {
     return responseStatusRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
@@ -34,7 +34,7 @@ public class ResponseStatusServiceImpl implements ResponseStatusService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ResponseStatusByName", key = "{ #root.methodName, #statusName }")
+  @Cacheable(value = "ResponseStatusByName", key = "{ #statusName }")
   public ResponseStatus getByName(String statusName) {
     return responseStatusRepository.findByName(statusName)
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
