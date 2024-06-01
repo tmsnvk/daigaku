@@ -16,13 +16,11 @@ public class RedisCacheConfig {
   @Bean
   public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
     return (builder) -> builder
-      .withCacheConfiguration("StudentByAccountUuid",
-      RedisCacheConfiguration.defaultCacheConfig()
+      .withCacheConfiguration("StudentByAccountUuid", RedisCacheConfiguration.defaultCacheConfig()
         .entryTtl(Duration.ofMinutes(15))
         .disableCachingNullValues()
         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())))
-      .withCacheConfiguration("DashboardAggregateDataDtoByAccountUuid",
-      RedisCacheConfiguration.defaultCacheConfig()
+      .withCacheConfiguration("DashboardAggregateDataDtoByAccountUuid", RedisCacheConfiguration.defaultCacheConfig()
         .entryTtl(Duration.ofMinutes(15))
         .disableCachingNullValues()
         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())));
