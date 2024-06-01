@@ -17,5 +17,5 @@ public interface StudentApplicationService {
 
   ApplicationDto create(Account account, NewApplicationByStudentDto requestBody);
 
-  ApplicationDto updateByUuid(String applicationUuid, UpdateApplicationByStudentDto requestBody, Account account);
+  ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account);
 }

@@ -223,7 +223,7 @@ class StudentApplicationServiceImplTest {
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
       when(applicationService.getApplicationDtoByUuid(applicationUuid.toString())).thenReturn(expected);
 
-      ApplicationDto actual = underTest.updateByUuid(applicationUuid.toString(), requestBody, mockAccount);
+      ApplicationDto actual = underTest.updateAndRetrieveByUuid(applicationUuid.toString(), requestBody, mockAccount);
 
       assertEquals(expected, actual);
 

@@ -32,6 +32,8 @@ import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.ResponseStatusType;
 import net.tamasnovak.validation.applicationFieldValidator.ExistingApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,6 +78,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
   public List<ApplicationDto> getAllApplicationDtosByAccount(Account account) {
     Student student = studentService.getByAccount(account);
 
@@ -145,8 +148,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public ApplicationDto updateByUuid(String applicationUuid, UpdateApplicationByStudentDto requestBody, Account account) {
-    Application currentApplication = applicationService.getByUuid(applicationUuid);
+  @CacheEvict(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
+  public ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account) {
+    Application currentApplication = applicationService.getByUuid(uuid);
     Student currentStudent = studentService.getByAccount(account);
 
     UUID studentUuidByApplication = currentApplication.getStudentAccountUuid();
@@ -177,9 +181,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     existingApplicationValidator.validateStatusFields(requestBody, currentApplication, currentStudent, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
     currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
-    applicationRepository.save(currentApplication);
+    Application savedApplication = applicationRepository.save(currentApplication);
 
-    return applicationService.getApplicationDtoByUuid(applicationUuid);
+    return applicationService.getApplicationDtoByUuid(savedApplication.getUuid().toString());
   }
 
   private <T extends BaseStatusEntity> T getStatusOnUpdate(String requestBodyStatusUuid, Function<String, T> checkIfStatusIsSameFn, Function<String, T> getByUuidFn) {

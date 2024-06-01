@@ -60,11 +60,11 @@ public class StudentApplicationController {
   }
 
   @PatchMapping(value = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationDto> updateApplication(@PathVariable("uuid") @UuidConstraint String uuid,
-                                                          @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
+  public ResponseEntity<ApplicationDto> patchByUuid(@PathVariable("uuid") @UuidConstraint String uuid,
+                                                    @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
     Account account = authenticationFacade.getAuthenticatedAccount();
 
-    ApplicationDto response = studentApplicationService.updateByUuid(uuid, requestBody, account);
+    ApplicationDto response = studentApplicationService.updateAndRetrieveByUuid(uuid, requestBody, account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
