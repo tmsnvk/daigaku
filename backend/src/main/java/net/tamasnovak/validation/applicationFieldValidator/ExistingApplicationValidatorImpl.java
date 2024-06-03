@@ -44,7 +44,14 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   @Override
-  public void validateStatusFields(UpdateApplicationByStudentDto newApplicationData, Application currentApplication, Student currentStudent, ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus, ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
+  public void validateStatusFields(UpdateApplicationByStudentDto newApplicationData,
+                                   Application currentApplication,
+                                   Student currentStudent,
+                                   ApplicationStatus newApplicationStatus,
+                                   InterviewStatus newInterviewStatus,
+                                   OfferStatus newOfferStatus,
+                                   ResponseStatus newResponseStatus,
+                                   FinalDestinationStatus newFinalDestinationStatus) {
     validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
     validateInterviewStatus(currentApplication, newApplicationData, newInterviewStatus);
     validateOfferStatus(currentApplication, newApplicationData, newOfferStatus);
@@ -52,98 +59,105 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     validateFinalDestinationStatus(currentApplication, currentStudent, newFinalDestinationStatus);
   }
 
-  private void validateApplicationStatus(Application currentApplication, String newApplicationStatusUUid, ApplicationStatus newApplicationStatus) {
-    if (Objects.equals(newApplicationStatusUUid, "")) {
+  private void validateApplicationStatus(Application currentApplication,
+                                         String newApplicationStatusUUid,
+                                         ApplicationStatus newApplicationStatus) {
+    if (newApplicationStatusUUid.isEmpty() && currentApplication.isApplicationStatusNull()) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
     }
 
-    ApplicationStatus plannedStatus = applicationStatusService.getByName(ApplicationStatusType.PLANNED.getName());
+    ApplicationStatus planned = applicationStatusService.getByName(ApplicationStatusType.PLANNED.getName());
 
-    if (areValuesEqual(newApplicationStatus.getUuid(), plannedStatus.getUuid()) && areValuesEqual(currentApplication.getApplicationStatusUuid(), plannedStatus.getUuid())) {
+    if (areValuesEqual(newApplicationStatus.getUuid(), planned.getUuid()) && areValuesEqual(currentApplication.getApplicationStatusUuid(), planned.getUuid())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
     }
 
-    ApplicationStatus withdrawnStatus = applicationStatusService.getByName(ApplicationStatusType.WITHDRAWN.getName());
+    ApplicationStatus withdrawn = applicationStatusService.getByName(ApplicationStatusType.WITHDRAWN.getName());
 
-    if (areValuesEqual(newApplicationStatus.getUuid(), withdrawnStatus.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(), currentApplication.getUuid())) {
+    if (areValuesEqual(newApplicationStatus.getUuid(), withdrawn.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(), currentApplication.getUuid())) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
     }
   }
 
-  private void validateInterviewStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, InterviewStatus newInterviewStatus) {
-    InterviewStatus notInvitedStatus = interviewStatusService.getByName(InterviewStatusType.NOT_INVITED.getName());
+  private void validateInterviewStatus(Application currentApplication,
+                                       UpdateApplicationByStudentDto newApplicationData,
+                                       InterviewStatus newInterviewStatus) {
+    InterviewStatus notInvited = interviewStatusService.getByName(InterviewStatusType.NOT_INVITED.getName());
 
     if (newInterviewStatus != null) {
-      if (areValuesEqual(newInterviewStatus.getUuid(), notInvitedStatus.getUuid()) && (!areValuesEqual(newApplicationData.offerStatusUuid(), "") || !areValuesEqual(newApplicationData.responseStatusUuid(), "") || !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), ""))) {
+      if (areValuesEqual(newInterviewStatus.getUuid(), notInvited.getUuid()) && (!newApplicationData.offerStatusUuid().isEmpty() || !newApplicationData.responseStatusUuid().isEmpty() || !newApplicationData.finalDestinationStatusUuid().isEmpty())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
     }
 
     if (!currentApplication.isInterviewStatusNull()) {
-      if (areValuesEqual(currentApplication.getInterviewStatusUuid(), notInvitedStatus.getUuid()) && areValuesEqual(newApplicationData.interviewStatusUuid(), "")) {
+      if (areValuesEqual(currentApplication.getInterviewStatusUuid(), notInvited.getUuid()) && newApplicationData.interviewStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.NOT_INVITED_ERROR);
       }
     }
   }
 
-  private void validateOfferStatus(Application currentApplication, UpdateApplicationByStudentDto newApplicationData, OfferStatus newOfferStatus) {
-    OfferStatus rejectedStatus = offerStatusService.getByName(OfferStatusType.REJECTED.getName());
+  private void validateOfferStatus(Application currentApplication,
+                                   UpdateApplicationByStudentDto newApplicationData,
+                                   OfferStatus newOfferStatus) {
+    OfferStatus rejected = offerStatusService.getByName(OfferStatusType.REJECTED.getName());
 
     if (newOfferStatus != null) {
-      if (areValuesEqual(newOfferStatus.getUuid(), rejectedStatus.getUuid()) && (!areValuesEqual(newApplicationData.responseStatusUuid(), "") || !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), ""))) {
+      if (areValuesEqual(newOfferStatus.getUuid(), rejected.getUuid()) && (!newApplicationData.responseStatusUuid().isEmpty() || !newApplicationData.finalDestinationStatusUuid().isEmpty())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
     }
 
     if (!currentApplication.isOfferStatusNull()) {
-      if (areValuesEqual(currentApplication.getOfferStatusUuid(), rejectedStatus.getUuid()) && areValuesEqual(newApplicationData.offerStatusUuid(), "")) {
+      if (areValuesEqual(currentApplication.getOfferStatusUuid(), rejected.getUuid()) && newApplicationData.offerStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.REJECTED_ERROR);
       }
     }
   }
 
-  private void validateResponseStatus(Application currentApplication, Student currentStudent, UpdateApplicationByStudentDto newApplicationData, ResponseStatus newResponseStatus) {
-    ResponseStatus declinedStatus = responseStatusService.getByName(ResponseStatusType.OFFER_DECLINED.getName());
+  private void validateResponseStatus(Application currentApplication,
+                                      Student currentStudent,
+                                      UpdateApplicationByStudentDto newApplicationData,
+                                      ResponseStatus newResponseStatus) {
+    ResponseStatus declined = responseStatusService.getByName(ResponseStatusType.OFFER_DECLINED.getName());
 
     if (newResponseStatus != null) {
-      ResponseStatus firmChoiceStatus = responseStatusService.getByName(ResponseStatusType.FIRM_CHOICE.getName());
-      Application firmChoiceApplication = currentStudent.getFirmChoiceApplication(firmChoiceStatus.getName());
+      ResponseStatus firmChoice = responseStatusService.getByName(ResponseStatusType.FIRM_CHOICE.getName());
+      Application firmChoiceApplication = currentStudent.getFirmChoiceApplication(firmChoice.getName());
 
-      if (areValuesEqual(newResponseStatus.getUuid(), declinedStatus.getUuid()) && !areValuesEqual(newApplicationData.finalDestinationStatusUuid(), "")) {
+      if (areValuesEqual(newResponseStatus.getUuid(), declined.getUuid()) && !newApplicationData.finalDestinationStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
 
-      if (firmChoiceApplication != null && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.getUuid()) && areValuesEqual(newResponseStatus.getUuid(), firmChoiceStatus.getUuid())) {
+      if (firmChoiceApplication != null && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.getUuid()) && areValuesEqual(newResponseStatus.getUuid(), firmChoice.getUuid())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FIRM_CHOICE_ERROR);
       }
     }
 
     if (!currentApplication.isResponseStatusNull()) {
-      if (areValuesEqual(currentApplication.getResponseStatusUuid(), declinedStatus.getUuid()) && areValuesEqual(newApplicationData.responseStatusUuid(), "")) {
+      if (areValuesEqual(currentApplication.getResponseStatusUuid(), declined.getUuid()) && newApplicationData.responseStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.DECLINED_ERROR);
       }
     }
   }
 
-  private void validateFinalDestinationStatus(Application currentApplication, Student currentStudent, FinalDestinationStatus newFinalDestinationStatus) {
+  private void validateFinalDestinationStatus(Application currentApplication,
+                                              Student currentStudent,
+                                              FinalDestinationStatus newFinalDestinationStatus) {
     if (newFinalDestinationStatus != null) {
-      String finalDestinationStatus = finalDestinationStatusService.getByName(FinalDestinationType.FINAL_DESTINATION.getName()).getName();
-      String deferredFinalDestinationStatus = finalDestinationStatusService.getByName(FinalDestinationType.DEFERRED_FINAL_DESTINATION.getName()).getName();
-      FinalDestinationStatus notFinalDestinationStatus = finalDestinationStatusService.getByName(FinalDestinationType.NOT_FINAL_DESTINATION.getName());
+      String finalDestination = finalDestinationStatusService.getByName(FinalDestinationType.FINAL_DESTINATION.getName()).getName();
+      String deferredFinalDestination = finalDestinationStatusService.getByName(FinalDestinationType.DEFERRED_FINAL_DESTINATION.getName()).getName();
+      FinalDestinationStatus notFinalDestination = finalDestinationStatusService.getByName(FinalDestinationType.NOT_FINAL_DESTINATION.getName());
 
-      Application finalDestinationApplication = currentStudent.getFinalDestinationApplication(finalDestinationStatus, deferredFinalDestinationStatus);
+      Application finalDestinationApplication = currentStudent.getFinalDestinationApplication(finalDestination, deferredFinalDestination);
 
-      if (finalDestinationApplication != null && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.getUuid()) && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestinationStatus.getUuid())) {
+      if (finalDestinationApplication != null && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.getUuid()) && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestination.getUuid())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FINAL_DESTINATION_ERROR);
       }
     }
   }
 
   private boolean areValuesEqual(UUID uuid, UUID uuidToCheckAgainst) {
-    return Objects.equals(uuid, uuidToCheckAgainst);
-  }
-
-  private boolean areValuesEqual(String uuid, String uuidToCheckAgainst) {
     return Objects.equals(uuid, uuidToCheckAgainst);
   }
 }

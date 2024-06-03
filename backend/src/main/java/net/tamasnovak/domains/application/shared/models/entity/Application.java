@@ -119,6 +119,10 @@ public final class Application extends Auditable {
     return this.courseName;
   }
 
+  public boolean isApplicationStatusNull() {
+    return this.applicationStatus == null;
+  }
+
   public boolean isInterviewStatusNull() {
     return this.interviewStatus == null;
   }
