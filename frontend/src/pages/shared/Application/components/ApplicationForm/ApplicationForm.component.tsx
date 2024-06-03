@@ -1,16 +1,11 @@
 import { useForm } from 'react-hook-form';
 import {
   UpdateApplicationFormFieldsT,
-  useGetAllSelectOptions,
   useHandleFieldDisableStatuses,
   useHandleFormSubmission,
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
-import {
-  GlobalErrorModal,
-  GlobalLoadingModal,
-  Toast,
-} from '@components/notification';
+import { Toast } from '@components/notification';
 import {
   FormMetaData,
   InputError,
@@ -37,6 +32,7 @@ import {
   submissionConfirmation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
+import { ApplicationOptionStatusesT } from '../../../../../hooks/applicationStatuses/useGetAllSelectOptions.tsx';
 import { ApplicationT } from '@services/application/application.service.ts';
 import { FinalDestinationStatusT } from '@services/status/finalDestinationStatus.service.ts';
 import { ResponseStatusT } from '@services/status/responseStatus.service.ts';
@@ -47,12 +43,12 @@ import { ApplicationStatusT } from '@services/status/applicationStatus.service.t
 type ComponentPropsT = {
   currentApplicationData: ApplicationT;
   applicationUuid: string;
+  selectOptions: ApplicationOptionStatusesT;
 }
 
-const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentPropsT) => {
-  const { options, isLoading, isError } = useGetAllSelectOptions();
+const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOptions }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { data: updatedData, isPending, isSuccess, mutate, error } = useUpdateApplication({ setError, applicationUuid });
+  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid });
   const {
     fieldDisabledStatuses,
     updateInterviewStatus,
@@ -60,16 +56,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
     updateResponseStatus,
     updateFinalDestinationStatus,
     disableFields,
-  } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, options });
+  } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, selectOptions });
   const { submitForm } = useHandleFormSubmission();
-
-  if (isLoading) {
-    return <GlobalLoadingModal />;
-  }
-
-  if (isError) {
-    return <GlobalErrorModal error={error?.response.data.root as string} />;
-  }
 
   return (
     <>
@@ -132,8 +120,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           labelContent={'Application Status'}
           selectPrompt={'Update the application\'s current status.'}
           previouslySelectedValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
-          options={options.applicationStatus as ApplicationStatusT[]}
-          isDisabled={fieldDisabledStatuses.applicationStatus}
+          options={selectOptions.applicationStatus as ApplicationStatusT[]}
+          isReadOnly={fieldDisabledStatuses.applicationStatus}
           onFieldUpdate={updateInterviewStatus}
         />
         <InputInfoBox content={applicationStatusInformation} />
@@ -144,8 +132,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           labelContent={'Interview Status'}
           selectPrompt={'Update the application\'s interview status.'}
           previouslySelectedValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
-          options={options.interviewStatus as InterviewStatusT[]}
-          isDisabled={fieldDisabledStatuses.interviewStatus}
+          options={selectOptions.interviewStatus as InterviewStatusT[]}
+          isReadOnly={fieldDisabledStatuses.interviewStatus}
           onFieldUpdate={updateOfferStatus}
         />
         <InputInfoBox content={interviewStatusInformation} />
@@ -156,8 +144,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           labelContent={'Offer Status'}
           selectPrompt={'Update the university\'s decision.'}
           previouslySelectedValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
-          options={options.offerStatus as OfferStatusT[]}
-          isDisabled={fieldDisabledStatuses.offerStatus}
+          options={selectOptions.offerStatus as OfferStatusT[]}
+          isReadOnly={fieldDisabledStatuses.offerStatus}
           onFieldUpdate={updateResponseStatus}
         />
         <InputInfoBox content={offerStatusInformation} />
@@ -168,8 +156,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           labelContent={'Response Status'}
           selectPrompt={'Update your response status.'}
           previouslySelectedValue={updatedData?.responseStatus ?? currentApplicationData.responseStatus}
-          options={options.responseStatus as ResponseStatusT[]}
-          isDisabled={fieldDisabledStatuses.responseStatus}
+          options={selectOptions.responseStatus as ResponseStatusT[]}
+          isReadOnly={fieldDisabledStatuses.responseStatus}
           onFieldUpdate={updateFinalDestinationStatus}
         />
         <InputInfoBox content={responseStatusInformation} />
@@ -180,8 +168,8 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid }: ComponentP
           labelContent={'Final Destination Status'}
           selectPrompt={'Update your final decision regarding this application.'}
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
-          options={options.finalDestinationStatus as FinalDestinationStatusT[]}
-          isDisabled={fieldDisabledStatuses.finalDestinationStatus}
+          options={selectOptions.finalDestinationStatus as FinalDestinationStatusT[]}
+          isReadOnly={fieldDisabledStatuses.finalDestinationStatus}
           onFieldUpdate={disableFields}
         />
         <InputInfoBox content={finalDestinationInformation} />

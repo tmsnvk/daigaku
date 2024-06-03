@@ -3,10 +3,10 @@ import { queryKeys } from '@configuration';
 import { applicationService } from '@services/index.ts';
 import { ApplicationT } from '@services/application/application.service.ts';
 
-const useGetApplication = (state: ApplicationT | null, applicationId: string) => {
+const useGetApplication = (state: ApplicationT | null, applicationUuid: string) => {
   return useQuery({
-    queryKey: [queryKeys.APPLICATION.GET_BY_ID],
-    queryFn: () => applicationService.getByUuid(applicationId),
+    queryKey: [queryKeys.APPLICATION.GET_BY_UUID],
+    queryFn: () => applicationService.getByUuid(applicationUuid),
     enabled: state === null,
   });
 };

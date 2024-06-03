@@ -23,7 +23,7 @@ const queryKeys = {
   },
   APPLICATION: {
     GET_ALL_BY_ROLE: 'getApplicationsByRole',
-    GET_BY_ID: 'getApplicationById',
+    GET_BY_UUID: 'getApplicationById',
   },
   APPLICATION_STATUS: {
     GET_AS_SELECT_OPTIONS: 'getAllApplicationStatus',
@@ -38,7 +38,7 @@ const queryKeys = {
     GET_AS_SELECT_OPTIONS: 'getAllResponseStatus',
   },
   FINAL_DESTINATION: {
-    GET_ALL: 'getAllFinalDestinationStatus',
+    GET_AS_SELECT_OPTIONS: 'getAllFinalDestinationStatus',
   },
   COUNTRY: {
     GET_AS_SELECT_OPTIONS: 'getAllCountrySelectOptions',

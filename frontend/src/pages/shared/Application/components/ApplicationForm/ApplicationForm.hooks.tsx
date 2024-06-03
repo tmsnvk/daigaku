@@ -1,17 +1,7 @@
 import { useState } from 'react';
-import {
-  useMutation,
-  useQueries,
-} from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
-import {
-  applicationService,
-  applicationStatusService,
-  finalDestinationStatusService,
-  interviewStatusService,
-  offerStatusService,
-  responseStatusService,
-} from '@services/index.ts';
+import { applicationService } from '@services/index.ts';
 import {
   mutationKeys,
   queryClient,
@@ -34,67 +24,7 @@ import {
   OfferStatusE,
   ResponseStatusE,
 } from '@constants/applicationStatusEnums.ts';
-
-/*
-*
-* useGetAllSelectOptions() returns the selectable option values for each field in the form.
-*
-*/
-type ApplicationStatusesUnionT = ApplicationStatusT[] | InterviewStatusT[] | OfferStatusT[] | ResponseStatusT[] | FinalDestinationStatusT[];
-
-type ApplicationOptionStatusesT = {
-  applicationStatus: ApplicationStatusT[] | undefined;
-  interviewStatus: InterviewStatusT[] | undefined;
-  offerStatus: OfferStatusT[] | undefined;
-  responseStatus: ResponseStatusT[] | undefined;
-  finalDestinationStatus: FinalDestinationStatusT[] | undefined;
-}
-
-type ApplicationOptionsDataT = {
-  options: ApplicationOptionStatusesT;
-  isLoading: boolean;
-  isError: boolean;
-}
-
-const useGetAllSelectOptions = (): ApplicationOptionsDataT => {
-  return useQueries({
-    queries: [
-      {
-        queryKey: [queryKeys.APPLICATION_STATUS.GET_AS_SELECT_OPTIONS],
-        queryFn: applicationStatusService.getAll,
-      },
-      {
-        queryKey: [queryKeys.INTERVIEW_STATUS.GET_AS_SELECT_OPTIONS],
-        queryFn: interviewStatusService.getAll,
-      },
-      {
-        queryKey: [queryKeys.OFFER_STATUS.GET_AS_SELECT_OPTIONS],
-        queryFn: offerStatusService.getAll,
-      },
-      {
-        queryKey: [queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS],
-        queryFn: responseStatusService.getAll,
-      },
-      {
-        queryKey: [queryKeys.FINAL_DESTINATION.GET_ALL],
-        queryFn: finalDestinationStatusService.getAll,
-      },
-    ],
-    combine: (result) => {
-      return {
-        options: {
-          applicationStatus: result[0].data,
-          interviewStatus: result[1].data,
-          offerStatus: result[2].data,
-          responseStatus: result[3].data,
-          finalDestinationStatus: result[4].data,
-        },
-        isLoading: result.some((option) => option.isLoading),
-        isError: result.some((option) => option.isError),
-      };
-    },
-  });
-};
+import { ApplicationOptionStatusesT } from '../../../../../hooks/applicationStatuses/useGetAllSelectOptions.tsx';
 
 /*
 *
@@ -105,6 +35,7 @@ const useGetAllSelectOptions = (): ApplicationOptionsDataT => {
 *
 * submitForm() calls mutate() on reactQuery.
 */
+
 export type UpdateApplicationFormFieldsT = {
   applicationStatusUuid: string | undefined;
   interviewStatusUuid: string | undefined;
@@ -137,7 +68,7 @@ const useHandleFormSubmission = () => {
 
     const applicationsCache = queryClient.getQueryData<ApplicationT[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
     const responseStatusCache = queryClient.getQueryData<ResponseStatusT[]>([queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS]);
-    const finalDestinationStatusCache = queryClient.getQueryData<FinalDestinationStatusT[]>([queryKeys.FINAL_DESTINATION.GET_ALL]);
+    const finalDestinationStatusCache = queryClient.getQueryData<FinalDestinationStatusT[]>([queryKeys.FINAL_DESTINATION.GET_AS_SELECT_OPTIONS]);
 
     if (!applicationsCache || !responseStatusCache || !finalDestinationStatusCache) {
       return [];
@@ -261,10 +192,12 @@ const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationFo
 *
 */
 
+type ApplicationStatusesUnionT = ApplicationStatusT[] | InterviewStatusT[] | OfferStatusT[] | ResponseStatusT[] | FinalDestinationStatusT[];
+
 type DisabledInputFieldsT = {
   currentApplicationData: ApplicationT;
   updatedData: ApplicationT | undefined;
-  options: ApplicationOptionStatusesT;
+  selectOptions: ApplicationOptionStatusesT;
 }
 
 const disableIfWithdrawn = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
@@ -307,7 +240,7 @@ const setPageLoadFinalDestinationStatus = (currentApplicationData: ApplicationT,
   return currentApplicationData.responseStatus === ResponseStatusE.OFFER_DECLINED || updatedData?.responseStatus === ResponseStatusE.OFFER_DECLINED;
 };
 
-const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, options }: DisabledInputFieldsT) => {
+const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, selectOptions }: DisabledInputFieldsT) => {
   const [fieldDisabledStatuses, setFieldDisabledStatuses] = useState<{ [key: string]: boolean }>({
     applicationStatus: setPageLoadApplicationStatus(currentApplicationData),
     interviewStatus: disableIfWithdrawn(currentApplicationData, updatedData) || setPageLoadInterviewStatus(currentApplicationData, updatedData),
@@ -321,8 +254,8 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateInterviewStatus = (eventTargetValue: string) => {
-    const planned = options.applicationStatus?.filter((element) => element.name === ApplicationStatusE.SUBMITTED) as ApplicationStatusT[];
-    const withdrawn = options.applicationStatus?.filter((element) => element.name === ApplicationStatusE.WITHDRAWN) as ApplicationStatusT[];
+    const planned = selectOptions.applicationStatus?.filter((element) => element.name === ApplicationStatusE.SUBMITTED) as ApplicationStatusT[];
+    const withdrawn = selectOptions.applicationStatus?.filter((element) => element.name === ApplicationStatusE.WITHDRAWN) as ApplicationStatusT[];
 
     if (eventTargetValue === planned[0].uuid) {
       setFieldDisabledStatuses({
@@ -345,7 +278,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateOfferStatus = (eventTargetValue: string) => {
-    const invited = options.interviewStatus?.filter((element) => element.name !== InterviewStatusE.NOT_INVITED) as OfferStatusT[];
+    const invited = selectOptions.interviewStatus?.filter((element) => element.name !== InterviewStatusE.NOT_INVITED) as OfferStatusT[];
 
     if (isNeedleInHaystack(invited, eventTargetValue)) {
       setFieldDisabledStatuses({
@@ -363,7 +296,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateResponseStatus = (eventTargetValue: string) => {
-    const positiveResponse = options.offerStatus?.filter((element) => element.name !== OfferStatusE.REJECTED) as ResponseStatusT[];
+    const positiveResponse = selectOptions.offerStatus?.filter((element) => element.name !== OfferStatusE.REJECTED) as ResponseStatusT[];
 
     if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
@@ -379,7 +312,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
   };
 
   const updateFinalDestinationStatus = (eventTargetValue: string) => {
-    const positiveResponse = options.responseStatus?.filter((element) => element.name !== ResponseStatusE.OFFER_DECLINED) as ResponseStatusT[];
+    const positiveResponse = selectOptions.responseStatus?.filter((element) => element.name !== ResponseStatusE.OFFER_DECLINED) as ResponseStatusT[];
 
     if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
@@ -413,7 +346,6 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, op
 };
 
 export {
-  useGetAllSelectOptions,
   useHandleFormSubmission,
   useUpdateApplication,
   useHandleFieldDisableStatuses,

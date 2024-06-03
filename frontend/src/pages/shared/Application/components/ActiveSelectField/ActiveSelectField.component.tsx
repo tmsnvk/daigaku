@@ -24,7 +24,7 @@ type ComponentPropsT<T extends FieldValues> = {
   previouslySelectedValue: string;
   selectPrompt: string;
   options: SelectOptionsT[];
-  isDisabled: boolean;
+  isReadOnly: boolean;
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
@@ -36,7 +36,7 @@ const ActiveSelectField = <T extends FieldValues>({
   previouslySelectedValue,
   selectPrompt,
   options,
-  isDisabled,
+  isReadOnly,
   onFieldUpdate,
 }: ComponentPropsT<T>) => {
   const defaultOption = options?.filter((option) => option.name === previouslySelectedValue)[0];
@@ -53,7 +53,7 @@ const ActiveSelectField = <T extends FieldValues>({
         })}
         id={fieldId}
         name={fieldId}
-        disabled={isDisabled}
+        disabled={isReadOnly}
         defaultValue={defaultOption?.uuid}
       >
         <option hidden value={''}>{selectPrompt}</option>
