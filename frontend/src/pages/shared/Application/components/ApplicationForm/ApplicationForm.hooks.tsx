@@ -209,7 +209,7 @@ const setPageLoadApplicationStatus = (currentApplicationData: ApplicationT) => {
 };
 
 const setPageLoadInterviewStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
-  if (currentApplicationData.finalDestinationStatus) {
+  if (currentApplicationData.finalDestinationStatus || disableIfWithdrawn(currentApplicationData, updatedData)) {
     return true;
   }
 
@@ -217,7 +217,7 @@ const setPageLoadInterviewStatus = (currentApplicationData: ApplicationT, update
 };
 
 const setPageLoadOfferStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
-  if (!currentApplicationData.interviewStatus || currentApplicationData.finalDestinationStatus) {
+  if (!currentApplicationData.interviewStatus || currentApplicationData.finalDestinationStatus || disableIfWithdrawn(currentApplicationData, updatedData)) {
     return true;
   }
 
@@ -225,7 +225,7 @@ const setPageLoadOfferStatus = (currentApplicationData: ApplicationT, updatedDat
 };
 
 const setPageLoadResponseStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
-  if (!currentApplicationData.offerStatus) {
+  if (!currentApplicationData.offerStatus || disableIfWithdrawn(currentApplicationData, updatedData)) {
     return true;
   }
 
@@ -233,7 +233,7 @@ const setPageLoadResponseStatus = (currentApplicationData: ApplicationT, updated
 };
 
 const setPageLoadFinalDestinationStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined) => {
-  if (!currentApplicationData.responseStatus) {
+  if (!currentApplicationData.responseStatus || disableIfWithdrawn(currentApplicationData, updatedData)) {
     return true;
   }
 
@@ -243,14 +243,14 @@ const setPageLoadFinalDestinationStatus = (currentApplicationData: ApplicationT,
 const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, selectOptions }: DisabledInputFieldsT) => {
   const [fieldDisabledStatuses, setFieldDisabledStatuses] = useState<{ [key: string]: boolean }>({
     applicationStatus: setPageLoadApplicationStatus(currentApplicationData),
-    interviewStatus: disableIfWithdrawn(currentApplicationData, updatedData) || setPageLoadInterviewStatus(currentApplicationData, updatedData),
-    offerStatus: disableIfWithdrawn(currentApplicationData, updatedData) || setPageLoadOfferStatus(currentApplicationData, updatedData),
-    responseStatus: disableIfWithdrawn(currentApplicationData, updatedData) || setPageLoadResponseStatus(currentApplicationData, updatedData),
-    finalDestinationStatus: disableIfWithdrawn(currentApplicationData, updatedData) || setPageLoadFinalDestinationStatus(currentApplicationData, updatedData),
+    interviewStatus: setPageLoadInterviewStatus(currentApplicationData, updatedData),
+    offerStatus: setPageLoadOfferStatus(currentApplicationData, updatedData),
+    responseStatus: setPageLoadResponseStatus(currentApplicationData, updatedData),
+    finalDestinationStatus: setPageLoadFinalDestinationStatus(currentApplicationData, updatedData),
   });
 
-  const isNeedleInHaystack = (haystack: ApplicationStatusesUnionT, needle: string) => {
-    return haystack.some((element) => element.uuid === needle);
+  const isStatusInList = (statusList: ApplicationStatusesUnionT, statusName: string) => {
+    return statusList.some((element) => element.uuid === statusName);
   };
 
   const updateInterviewStatus = (eventTargetValue: string) => {
@@ -280,7 +280,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, se
   const updateOfferStatus = (eventTargetValue: string) => {
     const invited = selectOptions.interviewStatus?.filter((element) => element.name !== InterviewStatusE.NOT_INVITED) as OfferStatusT[];
 
-    if (isNeedleInHaystack(invited, eventTargetValue)) {
+    if (isStatusInList(invited, eventTargetValue)) {
       setFieldDisabledStatuses({
         ...fieldDisabledStatuses,
         offerStatus: false,
@@ -298,7 +298,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, se
   const updateResponseStatus = (eventTargetValue: string) => {
     const positiveResponse = selectOptions.offerStatus?.filter((element) => element.name !== OfferStatusE.REJECTED) as ResponseStatusT[];
 
-    if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
+    if (isStatusInList(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
         ...fieldDisabledStatuses,
         responseStatus: false,
@@ -314,7 +314,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, se
   const updateFinalDestinationStatus = (eventTargetValue: string) => {
     const positiveResponse = selectOptions.responseStatus?.filter((element) => element.name !== ResponseStatusE.OFFER_DECLINED) as ResponseStatusT[];
 
-    if (isNeedleInHaystack(positiveResponse, eventTargetValue)) {
+    if (isStatusInList(positiveResponse, eventTargetValue)) {
       setFieldDisabledStatuses({
         ...fieldDisabledStatuses,
         finalDestinationStatus: false,
