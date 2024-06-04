@@ -184,7 +184,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       finalDestinationStatusService::getByUuid);
 
     existingApplicationValidator.validateStatusFields(requestBody, currentApplication, currentStudent, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
-    currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
+
+    ResponseStatus offerDeclinedStatus = responseStatusService.getByName(ResponseStatusType.OFFER_DECLINED.getName());
+    FinalDestinationStatus notFinalDestinationStatus = finalDestinationStatusService.getByName(FinalDestinationType.NOT_FINAL_DESTINATION.getName());
+
+    currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus, offerDeclinedStatus, notFinalDestinationStatus);
 
     applicationRepository.save(currentApplication);
 

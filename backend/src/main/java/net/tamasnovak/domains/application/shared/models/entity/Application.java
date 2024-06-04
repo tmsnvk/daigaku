@@ -211,12 +211,18 @@ public final class Application extends Auditable {
     return null;
   }
 
-  public void updateStatusFields(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
+  public void updateStatusFields(ApplicationStatus applicationStatus,
+                                 InterviewStatus interviewStatus,
+                                 OfferStatus offerStatus,
+                                 ResponseStatus responseStatus,
+                                 FinalDestinationStatus finalDestinationStatus,
+                                 ResponseStatus offerDeclined,
+                                 FinalDestinationStatus notFinalDestination) {
     this.applicationStatus = updateOnlyIfNotNull(applicationStatus, this.applicationStatus);
     this.interviewStatus = updateOnlyIfNotNull(interviewStatus, this.interviewStatus);
     this.offerStatus = updateOnlyIfNotNull(offerStatus, this.offerStatus);
     this.responseStatus = updateOnlyIfNotNull(responseStatus, this.responseStatus);
-    this.finalDestinationStatus = updateOnlyIfNotNull(finalDestinationStatus, this.finalDestinationStatus);
+    this.finalDestinationStatus = updateFinalDestinationField(responseStatus, finalDestinationStatus, this.finalDestinationStatus, offerDeclined, notFinalDestination);
   }
 
   private <T> T updateOnlyIfNotNull(T newStatus, T currentStatus) {
@@ -225,6 +231,18 @@ public final class Application extends Auditable {
     }
 
     return newStatus;
+  }
+
+  public FinalDestinationStatus updateFinalDestinationField(ResponseStatus newResponseStatus,
+                                                            FinalDestinationStatus newFinalDestinationStatus,
+                                                            FinalDestinationStatus currentFinalDestinationStatus,
+                                                            ResponseStatus offerDeclined,
+                                                            FinalDestinationStatus notFinalDestination) {
+    if (areValuesEqual(newResponseStatus.getName(), offerDeclined.getName())) {
+      return notFinalDestination;
+    }
+
+    return updateOnlyIfNotNull(newFinalDestinationStatus, currentFinalDestinationStatus);
   }
 
   private boolean areValuesEqual(String string, String stringToCheckAgainst) {
