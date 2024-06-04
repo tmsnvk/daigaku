@@ -34,6 +34,7 @@ import net.tamasnovak.validation.applicationFieldValidator.ExistingApplicationVa
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,7 +79,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-//  @Cacheable(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
+  @Cacheable(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
   public List<ApplicationDto> getAllApplicationDtosByAccount(Account account) {
     Student student = studentService.getByAccount(account);
 
@@ -122,6 +123,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
+  @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
   public ApplicationDto create(Account account, NewApplicationByStudentDto requestBody) {
     Country country = countryService.getByUuid(requestBody.countryUuid());
     University university = universityService.getByUuid(requestBody.universityUuid());
@@ -148,7 +150,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-//  @CacheEvict(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
+  @Caching(evict = {
+    @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }"),
+    @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
+  })
   public ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account) {
     Application currentApplication = applicationService.getByUuid(uuid);
     Student currentStudent = studentService.getByAccount(account);
