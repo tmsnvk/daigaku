@@ -78,7 +78,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
+//  @Cacheable(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
   public List<ApplicationDto> getAllApplicationDtosByAccount(Account account) {
     Student student = studentService.getByAccount(account);
 
@@ -148,7 +148,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  @CacheEvict(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
+//  @CacheEvict(value = "GetAllApplicationDtosByAccount", key = "{ #account.uuid }")
   public ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account) {
     Application currentApplication = applicationService.getByUuid(uuid);
     Student currentStudent = studentService.getByAccount(account);
@@ -181,9 +181,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     existingApplicationValidator.validateStatusFields(requestBody, currentApplication, currentStudent, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
     currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
-    Application savedApplication = applicationRepository.save(currentApplication);
+    applicationRepository.save(currentApplication);
 
-    return applicationService.getApplicationDtoByUuid(savedApplication.getUuid().toString());
+    return applicationService.getApplicationDtoByUuid(currentApplication.getUuid().toString());
   }
 
   private <T extends BaseStatusEntity> T getStatusOnUpdate(String requestBodyStatusUuid, Function<String, T> checkIfStatusIsSameFn, Function<String, T> getByUuidFn) {

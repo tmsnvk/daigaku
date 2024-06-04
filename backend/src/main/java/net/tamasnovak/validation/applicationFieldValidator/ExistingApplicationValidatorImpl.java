@@ -68,14 +68,16 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
     ApplicationStatus planned = applicationStatusService.getByName(ApplicationStatusType.PLANNED.getName());
 
-    if (areValuesEqual(newApplicationStatus.getUuid(), planned.getUuid()) && areValuesEqual(currentApplication.getApplicationStatusUuid(), planned.getUuid())) {
-      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
-    }
+    if (newApplicationStatus != null) {
+      if (areValuesEqual(newApplicationStatus.getUuid(), planned.getUuid()) && areValuesEqual(currentApplication.getApplicationStatusUuid(), planned.getUuid())) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
+      }
 
-    ApplicationStatus withdrawn = applicationStatusService.getByName(ApplicationStatusType.WITHDRAWN.getName());
+      ApplicationStatus withdrawn = applicationStatusService.getByName(ApplicationStatusType.WITHDRAWN.getName());
 
-    if (areValuesEqual(newApplicationStatus.getUuid(), withdrawn.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(), currentApplication.getUuid())) {
-      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
+      if (areValuesEqual(newApplicationStatus.getUuid(), withdrawn.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(), currentApplication.getUuid())) {
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
+      }
     }
   }
 
@@ -124,10 +126,6 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     if (newResponseStatus != null) {
       ResponseStatus firmChoice = responseStatusService.getByName(ResponseStatusType.FIRM_CHOICE.getName());
       Application firmChoiceApplication = currentStudent.getFirmChoiceApplication(firmChoice.getName());
-
-      if (areValuesEqual(newResponseStatus.getUuid(), declined.getUuid()) && !newApplicationData.finalDestinationStatusUuid().isEmpty()) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
-      }
 
       if (firmChoiceApplication != null && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.getUuid()) && areValuesEqual(newResponseStatus.getUuid(), firmChoice.getUuid())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FIRM_CHOICE_ERROR);

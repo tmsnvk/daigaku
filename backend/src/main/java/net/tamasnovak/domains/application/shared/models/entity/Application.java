@@ -172,7 +172,7 @@ public final class Application extends Auditable {
   }
 
   public ApplicationStatus returnApplicationStatusIfSame(String requestBodyUuidString) {
-    if (areValuesEqual(this.applicationStatus.getUuid().toString(), requestBodyUuidString)) {
+    if (!this.isApplicationStatusNull() && areValuesEqual(this.applicationStatus.getUuid().toString(), requestBodyUuidString)) {
       return this.applicationStatus;
     }
 
@@ -212,11 +212,19 @@ public final class Application extends Auditable {
   }
 
   public void updateStatusFields(ApplicationStatus applicationStatus, InterviewStatus interviewStatus, OfferStatus offerStatus, ResponseStatus responseStatus, FinalDestinationStatus finalDestinationStatus) {
-    this.applicationStatus = applicationStatus;
-    this.interviewStatus = interviewStatus;
-    this.offerStatus = offerStatus;
-    this.responseStatus = responseStatus;
-    this.finalDestinationStatus = finalDestinationStatus;
+    this.applicationStatus = updateOnlyIfNotNull(applicationStatus, this.applicationStatus);
+    this.interviewStatus = updateOnlyIfNotNull(interviewStatus, this.interviewStatus);
+    this.offerStatus = updateOnlyIfNotNull(offerStatus, this.offerStatus);
+    this.responseStatus = updateOnlyIfNotNull(responseStatus, this.responseStatus);
+    this.finalDestinationStatus = updateOnlyIfNotNull(finalDestinationStatus, this.finalDestinationStatus);
+  }
+
+  private <T> T updateOnlyIfNotNull(T newStatus, T currentStatus) {
+    if (newStatus == null) {
+      return currentStatus;
+    }
+
+    return newStatus;
   }
 
   private boolean areValuesEqual(String string, String stringToCheckAgainst) {

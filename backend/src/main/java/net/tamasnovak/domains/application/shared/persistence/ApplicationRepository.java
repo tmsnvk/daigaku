@@ -64,7 +64,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
   @Query(value =
     """
       SELECT
-        applications.uuid,
+        applications.uuid AS uuid,
         accounts.uuid AS accountUuid,
         countries.name AS country,
         universities.name AS university,
@@ -91,7 +91,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         countries ON applications.country_id = countries.id
       JOIN
         universities ON applications.university_id = universities.id
-      JOIN
+      FULL OUTER JOIN
         application_status ON applications.application_status_id = application_status.id
       FULL OUTER JOIN
         interview_status ON applications.interview_status_id = interview_status.id
