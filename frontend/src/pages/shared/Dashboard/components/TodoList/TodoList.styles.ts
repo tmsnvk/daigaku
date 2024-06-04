@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { BaseLightElementBorderStyle } from '@components/base-styles';
+import { BaseLightBorder } from '@components/base-styles';
 
 const Section = styled.section`
-  ${BaseLightElementBorderStyle};
+  ${BaseLightBorder};
   
   width: 95%;
   margin: 0 auto 5rem auto;

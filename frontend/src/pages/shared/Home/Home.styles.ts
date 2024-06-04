@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { BaseLightElementBorderStyle } from '@components/base-styles';
+import { BaseLightBorder } from '@components/base-styles';
 
 const fadeInFromBottom = keyframes`
   0% {
@@ -21,7 +21,7 @@ const MainContainer = styled.main`
   align-items: center;
 
   & section {
-    ${BaseLightElementBorderStyle};
+    ${BaseLightBorder};
 
     margin: 5% 0 5% 0;
     width: 85%;

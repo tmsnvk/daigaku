@@ -29,11 +29,10 @@
       "@constants/*": ["constants/*"],
       "@context/*": ["context/*"],
       "@custom-types/*": ["types/*"],
-      "@hooks": ["hooks/index.ts"],
+      "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],
-      "@utilities": ["utilities/index.ts"]
     },
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

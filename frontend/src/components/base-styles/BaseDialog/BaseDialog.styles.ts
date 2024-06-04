@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DefaultDialogStyles = styled.dialog`
+const BaseDialog = styled.dialog`
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -19,4 +19,4 @@ const DefaultDialogStyles = styled.dialog`
   }
 `;
 
-export default DefaultDialogStyles;
+export default BaseDialog;

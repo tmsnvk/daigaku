@@ -5,7 +5,7 @@ type InputFieldT = {
   $isDisabled?: boolean;
 }
 
-const InputFieldStyles = styled.article<InputFieldT>`
+const BaseInputField = styled.article<InputFieldT>`
   height: 12.5rem;
   width: 100%;
   display: flex;
@@ -64,4 +64,4 @@ const InputFieldStyles = styled.article<InputFieldT>`
   }
 `;
 
-export default InputFieldStyles;
+export default BaseInputField;

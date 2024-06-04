@@ -1,8 +1,8 @@
 import { ReactEventHandler } from 'react';
 import styled from 'styled-components';
-import BaseNavbarStyle from '@components/layout/BaseNavbarStyle';
+import { BaseNavbar } from '@components/base-styles';
 
-const HeaderStyle = styled(BaseNavbarStyle)`
+const HeaderStyle = styled(BaseNavbar)`
   & nav {
     height: 15rem;
 

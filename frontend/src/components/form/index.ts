@@ -1,5 +1,4 @@
-import ApplicationFormGridContainer from './form-container/ApplicationFormGridContainer';
-import FormMetaData from './FormMetaData';
+import ApplicationFormGridContainer from './form-containers/ApplicationFormGridContainer';
 import InputError from './InputError';
 import InputInfoBox from './InputInfoBox';
 import InputLabel from './InputLabel';
@@ -8,7 +7,6 @@ import SubmitInput from './SubmitInput';
 
 export {
   ApplicationFormGridContainer,
-  FormMetaData,
   InputError,
   InputInfoBox,
   InputLabel,

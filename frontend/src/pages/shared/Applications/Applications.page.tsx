@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useGetApplications } from '@hooks';
+import { useGetApplications } from '@hooks/application/index.ts';
 import {
   useDisplayColumnSelectorModal,
   useSetColumns,

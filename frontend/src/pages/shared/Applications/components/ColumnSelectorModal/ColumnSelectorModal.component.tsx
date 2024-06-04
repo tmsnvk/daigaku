@@ -12,7 +12,12 @@ type ComponentPropsT = {
   toggleModal: () => void;
 }
 
-const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, toggleModal }: ComponentPropsT) => {
+const ColumnSelectorModal = ({
+  columns,
+  handleColumnVisibility,
+  isModalVisible,
+  toggleModal,
+}: ComponentPropsT) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {

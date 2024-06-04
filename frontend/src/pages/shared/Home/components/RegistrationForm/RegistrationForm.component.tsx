@@ -1,8 +1,6 @@
 import { useForm } from 'react-hook-form';
-import {
-  useGetInstitutionOptions,
-  useGetStudentAndMentorAccountRoles,
-} from '@hooks';
+import { useGetInstitutionOptions } from '@hooks/institution';
+import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
 import {
   RegisterFormFieldsT,
   useSubmitRegistrationForm,

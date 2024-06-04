@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Article } from './LoadingIndicator.styles.ts';
 import { iconLibraryConfig } from '@configuration';
+import { Article } from './LoadingIndicator.styles.ts';
 
 type ComponentPropsT = {
   content: string;

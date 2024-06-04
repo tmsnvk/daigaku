@@ -14,7 +14,12 @@ type ComponentPropsT = {
   refetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
-const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refetch }: ComponentPropsT) => {
+const TableHead = ({
+  columns,
+  columnSortHandler,
+  toggleModalHandler,
+  refetch,
+}: ComponentPropsT) => {
   return (
     <TableHeadRow>
       {columns.map((column) => {

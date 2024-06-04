@@ -3,7 +3,7 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
-import { InputFieldStyles } from '@components/base-styles';
+import { BaseInputField } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
@@ -18,10 +18,21 @@ type ComponentPropsT<T extends FieldValues> = {
   data: RoleOptionT[];
 }
 
-const SelectAccountType = <T extends FieldValues>({ register, fieldError, fieldId, isDisabled, data }: ComponentPropsT<T>) => {
+const SelectAccountType = <T extends FieldValues>({
+  register,
+  fieldError,
+  fieldId,
+  isDisabled,
+  data,
+}: ComponentPropsT<T>) => {
   return (
-    <InputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={'Account Type'} />
+    <BaseInputField
+      $isError={fieldError !== undefined}
+    >
+      <InputLabel
+        inputId={fieldId}
+        content={'Account Type'}
+      />
       <select
         {...register(fieldId, {
           required: {
@@ -34,12 +45,10 @@ const SelectAccountType = <T extends FieldValues>({ register, fieldError, fieldI
         disabled={isDisabled}
       >
         <option hidden value={''}>Select your account type.</option>
-        {data.map((option: RoleOptionT) => {
-          return <option key={option.uuid} value={option.uuid}>{option.name.split('ROLE_')[1].toLowerCase()}</option>;
-        })}
+        {data.map((option: RoleOptionT) => <option key={option.uuid} value={option.uuid}>{option.name.split('ROLE_')[1].toLowerCase()}</option>)}
       </select>
       {fieldError && <InputError content={fieldError} />}
-    </InputFieldStyles>
+    </BaseInputField>
   );
 };
 

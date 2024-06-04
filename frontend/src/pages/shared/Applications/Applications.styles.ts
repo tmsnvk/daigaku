@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { BaseDarkElementBorderStyle } from '@components/base-styles';
+import { BaseDarkBorder } from '@components/base-styles';
 
 const MainContainer = styled.main`
-  ${BaseDarkElementBorderStyle};
+  ${BaseDarkBorder};
 
   display: flex;
   flex-direction: column;

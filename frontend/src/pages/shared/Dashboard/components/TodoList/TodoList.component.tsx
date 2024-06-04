@@ -13,14 +13,10 @@ const TodoList = ({ data }: ComponentPropsT) => {
   return (
     <Section>
       <ul>
-        {generalIntroduction.map((paragraph, index) => {
-          return <li key={index}>{paragraph}</li>;
-        })}
+        {generalIntroduction.map((paragraph, index) => <li key={index}>{paragraph}</li>)}
       </ul>
       <ol>
-        {currentTodos.map((paragraph, index) => {
-          return <li key={index}>{paragraph}</li>;
-        })}
+        {currentTodos.map((paragraph, index) => <li key={index}>{paragraph}</li>)}
       </ol>
     </Section>
   );

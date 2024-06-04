@@ -7,7 +7,6 @@ import {
 } from './ApplicationForm.hooks.tsx';
 import { Toast } from '@components/notification';
 import {
-  FormMetaData,
   InputError,
   InputInfoBox,
   LoadingIndicator,
@@ -15,6 +14,7 @@ import {
 } from '@components/form';
 import { PageTitle } from '@components/general';
 import { DisabledInputField } from '@components/field-implementations';
+import FormMetaData from '../FormMetaData';
 import MarkedForDeletion from '../MarkedForDeletion';
 import ActiveSelectField from '../ActiveSelectField';
 import { FormContainer } from './ApplicationForm.styles.ts';
@@ -32,7 +32,7 @@ import {
   submissionConfirmation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
-import { ApplicationOptionStatusesT } from '../../../../../hooks/applicationStatuses/useGetAllSelectOptions.tsx';
+import { ApplicationOptionStatusesT } from '@hooks/applicationStatuses/useGetAllSelectOptions.tsx';
 import { ApplicationT } from '@services/application/application.service.ts';
 import { FinalDestinationStatusT } from '@services/status/finalDestinationStatus.service.ts';
 import { ResponseStatusT } from '@services/status/responseStatus.service.ts';

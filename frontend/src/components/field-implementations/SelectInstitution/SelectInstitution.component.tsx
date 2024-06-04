@@ -3,7 +3,7 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
-import { InputFieldStyles } from '@components/base-styles';
+import { BaseInputField } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
@@ -18,10 +18,21 @@ type ComponentPropsT<T extends FieldValues> = {
   data: InstitutionOptionT[];
 }
 
-const SelectInstitution = <T extends FieldValues>({ register, fieldError, fieldId, isDisabled, data }: ComponentPropsT<T>) => {
+const SelectInstitution = <T extends FieldValues>({
+  register,
+  fieldError,
+  fieldId,
+  isDisabled,
+  data,
+}: ComponentPropsT<T>) => {
   return (
-    <InputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={'Institution'} />
+    <BaseInputField
+      $isError={fieldError !== undefined}
+    >
+      <InputLabel
+        inputId={fieldId}
+        content={'Institution'}
+      />
       <select
         {...register(fieldId, {
           required: {
@@ -34,12 +45,10 @@ const SelectInstitution = <T extends FieldValues>({ register, fieldError, fieldI
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the institution you currently attend.</option>
-        {data.map((option: InstitutionOptionT) => {
-          return <option key={option.uuid} value={option.uuid}>{option.name}</option>;
-        })}
+        {data.map((option: InstitutionOptionT) => <option key={option.uuid} value={option.uuid}>{option.name}</option>)}
       </select>
       {fieldError && <InputError content={fieldError} />}
-    </InputFieldStyles>
+    </BaseInputField>
   );
 };
 

@@ -1,7 +1,7 @@
-import { useDisplayModal } from './ConfirmationModa.hooks.tsx';
+import { useDisplayModal } from './ConfirmationModal.hooks.tsx';
 import { TextParagraph } from '@components/general';
 import { SubmitInput } from '@components/form';
-import DefaultDialogStyles from '../DefaultDialogStyles';
+import { BaseDialog } from '@components/base-styles';
 
 type ComponentPropsT = {
   isVisible: boolean;
@@ -13,14 +13,14 @@ const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentPropsT) 
   const { dialogRef } = useDisplayModal(isVisible);
 
   return (
-    <DefaultDialogStyles ref={dialogRef}>
+    <BaseDialog ref={dialogRef}>
       <TextParagraph content={message} />
       <SubmitInput
         type={'button'}
         value={'ok'}
         onClick={closeModal}
       />
-    </DefaultDialogStyles>
+    </BaseDialog>
   );
 };
 

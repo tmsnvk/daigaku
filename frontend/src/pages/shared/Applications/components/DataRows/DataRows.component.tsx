@@ -7,7 +7,7 @@ import {
 import { iconLibraryConfig } from '@configuration';
 import { ColumnT } from '../../Applications.hooks.tsx';
 import { ApplicationT } from '@services/application/application.service.ts';
-import { findColumn } from './DataRows.utilities.ts';
+import { isColumnFound } from './DataRows.utilities.ts';
 
 type ComponentPropsT = {
   columns: ColumnT[];
@@ -19,14 +19,14 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
     data.map((element) => {
       return (
         <TableBodyRow key={element.uuid}>
-          <DataCell $shouldDisplay={findColumn(columns, 'courseName')}>{element.courseName}</DataCell>
-          <DataCell $shouldDisplay={findColumn(columns, 'university')}>{element.university}</DataCell>
-          <DataCell $shouldDisplay={findColumn(columns, 'country')}>{element.country}</DataCell>
-          <DataCell $shouldDisplay={findColumn(columns, 'applicationStatus') }>{element.applicationStatus ?? '-'}</DataCell>
-          <DataCell $shouldDisplay={findColumn(columns, 'interviewStatus')}>{element.interviewStatus ?? '-'}</DataCell>
-          <DataCell $shouldDisplay={findColumn(columns, 'offerStatus')}>{element.offerStatus ?? '-'}</DataCell>
-          <DataCell $shouldDisplay={findColumn(columns, 'responseStatus')}>{element.responseStatus ?? '-'}</DataCell>
-          <DataCell $shouldDisplay={findColumn(columns, 'finalDestinationStatus')}>{element.finalDestinationStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'courseName')}>{element.courseName}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'university')}>{element.university}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'country')}>{element.country}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'applicationStatus') }>{element.applicationStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'interviewStatus')}>{element.interviewStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'offerStatus')}>{element.offerStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'responseStatus')}>{element.responseStatus ?? '-'}</DataCell>
+          <DataCell $shouldDisplay={isColumnFound(columns, 'finalDestinationStatus')}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
             <Link
               to={element.uuid}

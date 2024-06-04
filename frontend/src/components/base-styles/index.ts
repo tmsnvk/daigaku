@@ -1,11 +1,15 @@
-import BaseDarkElementBorderStyle from './BaseDarkElementBorderStyle';
-import BaseLightElementBorderStyle from './BaseLightElementBorderStyle';
-import InputFieldStyles from './InputFieldStyles';
-import PasswordInputFieldStyles from './PasswordInputFieldStyles';
+import BaseDarkBorder from './BaseDarkBorder';
+import BaseLightBorder from './BaseLightBorder';
+import BaseDialog from './BaseDialog';
+import BaseInputField from './BaseInputField';
+import BaseNavbar from './BaseNavbar';
+import BasePasswordInputField from './BasePasswordInputField';
 
 export {
-  BaseDarkElementBorderStyle,
-  BaseLightElementBorderStyle,
-  InputFieldStyles,
-  PasswordInputFieldStyles,
+  BaseDarkBorder,
+  BaseLightBorder,
+  BaseDialog,
+  BaseInputField,
+  BaseNavbar,
+  BasePasswordInputField,
 };

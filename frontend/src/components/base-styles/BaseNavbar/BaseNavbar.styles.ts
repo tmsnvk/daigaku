@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BaseNavbarStyle = styled.header`
+const BaseNavbar = styled.header`
   background-color: ${({ theme }) => theme.color.secondaryLight};
   box-shadow: 0 0.1rem 1.5rem 0 ${({ theme }) => theme.color.primaryDark};
 
@@ -49,4 +49,4 @@ const BaseNavbarStyle = styled.header`
   }
 `;
 
-export default BaseNavbarStyle;
+export default BaseNavbar;

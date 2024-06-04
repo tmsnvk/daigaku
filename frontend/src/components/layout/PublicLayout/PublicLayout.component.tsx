@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import BaseNavbarStyle from '../BaseNavbarStyle';
+import { BaseNavbar } from '@components/base-styles';
 import NavbarLink from '../NavbarLink';
 import Footer from '../Footer';
 import { iconLibraryConfig } from '@configuration';
@@ -8,7 +8,7 @@ import { iconLibraryConfig } from '@configuration';
 const PublicLayout = () => {
   return (
     <>
-      <BaseNavbarStyle>
+      <BaseNavbar>
         <nav>
           <div>
             <FontAwesomeIcon icon={iconLibraryConfig.faGraduationCap} />
@@ -24,7 +24,7 @@ const PublicLayout = () => {
             </li>
           </ul>
         </nav>
-      </BaseNavbarStyle>
+      </BaseNavbar>
       <Outlet />
       <Footer />
     </>

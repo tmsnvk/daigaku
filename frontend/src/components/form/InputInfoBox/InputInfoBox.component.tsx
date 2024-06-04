@@ -7,9 +7,7 @@ type ComponentPropsT = {
 const InputInfoBox = ({ content }: ComponentPropsT) => {
   return (
     <Article>
-      {content.map((paragraph, index) => {
-        return <p key={index}>{paragraph}</p>;
-      })}
+      {content.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
     </Article>
   );
 };

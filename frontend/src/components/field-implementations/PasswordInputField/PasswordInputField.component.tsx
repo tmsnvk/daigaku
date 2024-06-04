@@ -5,7 +5,7 @@ import {
 } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRevealPassword } from './PasswordInputField.hooks.tsx';
-import { PasswordInputFieldStyles } from '@components/base-styles';
+import { BasePasswordInputField } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
@@ -45,8 +45,13 @@ const PasswordInputField = <T extends FieldValues>({
   const { isRevealed, handleRevealClick } = useRevealPassword();
 
   return (
-    <PasswordInputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={labelContent} />
+    <BasePasswordInputField
+      $isError={fieldError !== undefined}
+    >
+      <InputLabel
+        inputId={fieldId}
+        content={labelContent}
+      />
       <div>
         <input
           {...register(fieldId, validationRules)}
@@ -61,7 +66,7 @@ const PasswordInputField = <T extends FieldValues>({
         <FontAwesomeIcon onClick={handleRevealClick} icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye} />
       </div>
       {fieldError && <InputError content={fieldError} />}
-    </PasswordInputFieldStyles>
+    </BasePasswordInputField>
   );
 };
 

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { BaseLightElementBorderStyle } from '@components/base-styles';
+import { BaseLightBorder } from '@components/base-styles';
 
 const ApplicationFormGridContainer = styled.form`
-  ${BaseLightElementBorderStyle};
+  ${BaseLightBorder};
   
   display: grid;
   grid-template-columns: 1fr 1fr;

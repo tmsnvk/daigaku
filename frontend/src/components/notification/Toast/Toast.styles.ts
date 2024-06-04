@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { BaseLightElementBorderStyle } from '@components/base-styles';
+import { BaseLightBorder } from '@components/base-styles';
 
 const fadeIn = keyframes`
   100% {
@@ -18,7 +18,7 @@ const fadeOut = keyframes`
 `;
 
 const Section = styled.section`
-  ${BaseLightElementBorderStyle};
+  ${BaseLightBorder};
   
   width: 30rem;
   height: 10rem;

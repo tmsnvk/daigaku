@@ -1,4 +1,4 @@
-import { InputFieldStyles } from '@components/base-styles';
+import { BaseInputField } from '@components/base-styles';
 import { InputLabel } from '@components/form';
 
 type ComponentPropsT = {
@@ -10,7 +10,7 @@ type ComponentPropsT = {
 
 const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentPropsT) => {
   return (
-    <InputFieldStyles $isDisabled={true}>
+    <BaseInputField $isDisabled={true}>
       <InputLabel inputId={fieldId} content={label} />
       <input
         type={type}
@@ -20,7 +20,7 @@ const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentPro
         readOnly
         defaultValue={defaultValue}
       />
-    </InputFieldStyles>
+    </BaseInputField>
   );
 };
 

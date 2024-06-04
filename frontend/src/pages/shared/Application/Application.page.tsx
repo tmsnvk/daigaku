@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
-import { useGetAllSelectOptions } from '@hooks';
+import { useGetAllSelectOptions } from '@hooks/applicationStatuses';
 import { useGetApplication } from './Application.hooks.tsx';
 import {
   GlobalErrorModal,
@@ -35,13 +35,20 @@ const Application = () => {
     return <GlobalLoadingModal />;
   }
 
-  if ((isOptionsError && optionsError instanceof AxiosError)) {
-    return <GlobalErrorModal error={optionsError.response?.data.root} />;
+  if (isOptionsError || isApplicationError) {
+    let errorMessage = '';
+
+    if (optionsError instanceof AxiosError) {
+      errorMessage += optionsError.response?.data.root;
+    }
+
+    if (applicationError instanceof AxiosError) {
+      errorMessage += applicationError.response?.data.root;
+    }
+
+    return <GlobalErrorModal error={errorMessage} />;
   }
 
-  if (isApplicationError && applicationError instanceof AxiosError) {
-    return <GlobalErrorModal error={applicationError.response?.data.root} />;
-  }
 
   return (
     <main>

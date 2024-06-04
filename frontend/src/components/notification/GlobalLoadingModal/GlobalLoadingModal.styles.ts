@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import DefaultDialogStyles from '../DefaultDialogStyles';
+import { BaseDialog } from '@components/base-styles';
 
-const Dialog = styled(DefaultDialogStyles)`
+const Dialog = styled(BaseDialog)`
   width: 45%;
   background-color: ${({ theme }) => theme.color.secondaryLight};
 `;

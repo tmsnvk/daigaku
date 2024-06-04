@@ -3,7 +3,7 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
-import { InputFieldStyles } from '@components/base-styles';
+import { BaseInputField } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
@@ -26,8 +26,13 @@ const SelectUniversity = <T extends FieldValues>({
   data,
 }: ComponentPropsT<T>) => {
   return (
-    <InputFieldStyles $isError={fieldError !== undefined}>
-      <InputLabel inputId={fieldId} content={'University'} />
+    <BaseInputField
+      $isError={fieldError !== undefined}
+    >
+      <InputLabel
+        inputId={fieldId}
+        content={'University'}
+      />
       <select
         {...register(fieldId, {
           required: {
@@ -40,12 +45,10 @@ const SelectUniversity = <T extends FieldValues>({
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the university of your choice.</option>
-        {data.map((option: UniversityOptionT) => {
-          return <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>;
-        })}
+        {data.map((option: UniversityOptionT) => <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>)}
       </select>
       {fieldError && <InputError content={fieldError} />}
-    </InputFieldStyles>
+    </BaseInputField>
   );
 };
 

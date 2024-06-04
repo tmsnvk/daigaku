@@ -11,12 +11,6 @@ import {
   finalDestinationSelectionError,
   firmChoiceSelectionError,
 } from './ApplicationForm.utilities.ts';
-import { ApplicationT } from '@services/application/application.service.ts';
-import { ApplicationStatusT } from '@services/status/applicationStatus.service.ts';
-import { InterviewStatusT } from '@services/status/interviewStatusService.service.ts';
-import { OfferStatusT } from '@services/status/offerStatus.service.ts';
-import { ResponseStatusT } from '@services/status/responseStatus.service.ts';
-import { FinalDestinationStatusT } from '@services/status/finalDestinationStatus.service.ts';
 import {
   ApplicationStatusE,
   FinalDestinationE,
@@ -24,7 +18,13 @@ import {
   OfferStatusE,
   ResponseStatusE,
 } from '@constants/applicationStatusEnums.ts';
-import { ApplicationOptionStatusesT } from '../../../../../hooks/applicationStatuses/useGetAllSelectOptions.tsx';
+import { ApplicationT } from '@services/application/application.service.ts';
+import { ApplicationStatusT } from '@services/status/applicationStatus.service.ts';
+import { InterviewStatusT } from '@services/status/interviewStatusService.service.ts';
+import { OfferStatusT } from '@services/status/offerStatus.service.ts';
+import { ResponseStatusT } from '@services/status/responseStatus.service.ts';
+import { FinalDestinationStatusT } from '@services/status/finalDestinationStatus.service.ts';
+import { ApplicationOptionStatusesT } from '@hooks/applicationStatuses/useGetAllSelectOptions.tsx';
 
 /*
 *
