@@ -8,7 +8,9 @@ const mutationKeys = {
     POST_BY_STUDENT: 'postApplicationByStudent',
     PATCH_BY_UUID: 'patchApplicationByUuid',
     MARK_FOR_DELETION: 'patchApplicationByUuidForMarkDeletion',
-    POST_NEW_COMMENT: 'postNewComment',
+  },
+  COMMENTS: {
+    POST_COMMENT_BY_APPLICATION: 'postCommentByApplicationUuid',
   },
 };
 
@@ -24,7 +26,7 @@ const queryKeys = {
   },
   APPLICATION: {
     GET_ALL_BY_ROLE: 'getApplicationsByRole',
-    GET_BY_UUID: 'getApplicationById',
+    GET_BY_UUID: 'getApplicationByUuid',
   },
   APPLICATION_STATUS: {
     GET_AS_SELECT_OPTIONS: 'getAllApplicationStatus',
@@ -49,6 +51,9 @@ const queryKeys = {
   },
   AGGREGATE: {
     GET_DASHBOARD_DATA: 'getDashboardData',
+  },
+  COMMENTS: {
+    GET_ALL_BY_APPLICATION_UUID: 'getAllByApplicationUuid',
   },
 };
 

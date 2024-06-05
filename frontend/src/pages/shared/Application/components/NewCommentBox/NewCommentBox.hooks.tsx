@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+import { commentService } from '@services/index.ts';
 import { mutationKeys } from '@configuration';
-import { applicationService } from '@services/index.ts';
 
 export type NewCommentFormFieldsT = {
   applicationUuid: string;
@@ -16,8 +16,8 @@ type NewCommentFormT = {
 
 const useSubmitNewComment = ({ setError, applicationUuid }: NewCommentFormT) => {
   return useMutation({
-    mutationKey: [mutationKeys.APPLICATION.POST_NEW_COMMENT],
-    mutationFn: (data: NewCommentFormFieldsT) => applicationService.postNewComment(data, applicationUuid),
+    mutationKey: [mutationKeys.COMMENTS.POST_COMMENT_BY_APPLICATION],
+    mutationFn: (data: NewCommentFormFieldsT) => commentService.postComment(data, applicationUuid),
   });
 };
 

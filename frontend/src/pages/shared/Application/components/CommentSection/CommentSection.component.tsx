@@ -9,7 +9,9 @@ type ComponentPropsT = {
 const CommentSection = ({ applicationUuid }: ComponentPropsT) => {
   return (
     <Section>
-      <Comments />
+      <Comments
+        applicationUuid={applicationUuid}
+      />
       <NewCommentBox
         applicationUuid={applicationUuid}
       />
