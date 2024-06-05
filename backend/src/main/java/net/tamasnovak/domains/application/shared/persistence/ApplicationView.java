@@ -1,6 +1,6 @@
 package net.tamasnovak.domains.application.shared.persistence;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 public interface ApplicationView {
@@ -16,8 +16,8 @@ public interface ApplicationView {
   String getOfferStatus();
   String getResponseStatus();
   String getFinalDestinationStatus();
-  Timestamp getCreatedAt();
-  Timestamp getLastUpdatedAt();
+  Instant getCreatedAt();
+  Instant getLastUpdatedAt();
   String getCreatedBy();
   String getLastModifiedBy();
   Boolean getIsRemovable();

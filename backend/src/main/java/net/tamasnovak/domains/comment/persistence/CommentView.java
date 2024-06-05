@@ -1,13 +1,13 @@
 package net.tamasnovak.domains.comment.persistence;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 public interface CommentView {
   UUID getUuid();
   String getContent();
-  Timestamp getCreatedAt();
-  Timestamp getLastUpdatedAt();
+  Instant getCreatedAt();
+  Instant getLastUpdatedAt();
   String getCreatedBy();
   String getLastModifiedBy();
 }

@@ -17,8 +17,8 @@ public record CommentDto(
     this(
       commentView.getUuid(),
       commentView.getContent(),
-      commentView.getCreatedAt(),
-      commentView.getLastUpdatedAt(),
+      Timestamp.from(commentView.getCreatedAt()),
+      Timestamp.from(commentView.getLastUpdatedAt()),
       commentView.getCreatedBy(),
       commentView.getLastModifiedBy()
     );

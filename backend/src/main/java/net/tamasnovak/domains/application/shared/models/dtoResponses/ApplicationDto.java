@@ -43,8 +43,8 @@ public record ApplicationDto(
       applicationView.getOfferStatus(),
       applicationView.getResponseStatus(),
       applicationView.getFinalDestinationStatus(),
-      applicationView.getCreatedAt(),
-      applicationView.getLastUpdatedAt(),
+      Timestamp.from(applicationView.getCreatedAt()),
+      Timestamp.from(applicationView.getLastUpdatedAt()),
       applicationView.getCreatedBy(),
       applicationView.getLastModifiedBy(),
       applicationView.getIsRemovable()
