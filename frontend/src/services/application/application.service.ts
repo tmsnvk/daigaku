@@ -2,7 +2,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { NewApplicationFormFieldsT } from '@pages/student/NewApplication/components/NewApplicationForm/NewApplicationForm.hooks.tsx';
 import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
 import { UpdateApplicationFormFieldsT } from '@pages/shared/Application/components/ApplicationForm/ApplicationForm.hooks.tsx';
-import { NewCommentFormFieldsT } from '@pages/shared/Application/components/CommentBox/CommentBox.hooks.tsx';
+import { NewCommentFormFieldsT } from '@pages/shared/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
 
 export type ApplicationT = {
   uuid: string;
@@ -29,6 +29,7 @@ export type ApplicationCommentT = {
   applicationUuid: string;
   accountUuid: string;
   content: string;
+  numberOfLikes: number;
   createdAt: Date;
   lastUpdatedAt: Date;
   createdBy: string;
