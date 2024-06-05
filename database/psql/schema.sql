@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS offer_status CASCADE;
 DROP TABLE IF EXISTS response_status CASCADE;
 DROP TABLE IF EXISTS final_destination_status CASCADE;
 DROP TABLE IF EXISTS applications CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
 
 
 -- TABLES SET UP
@@ -197,3 +198,16 @@ CREATE TABLE applications(
   final_destination_status_id BIGINT REFERENCES final_destination_status(id),
   is_removable BOOLEAN NOT NULL
 );
+
+-- comments
+CREATE TABLE comments(
+  id SERIAL PRIMARY KEY,
+  uuid UUID NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_by VARCHAR NOT NULL,
+  last_modified_by VARCHAR NOT NULL,
+  content TEXT NOT NULL,
+  application_id BIGINT REFERENCES applications(id),
+  account_id BIGINT REFERENCES accounts(id)
+)

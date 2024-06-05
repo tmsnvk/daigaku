@@ -208,3 +208,11 @@ VALUES
   (gen_random_uuid(), 2, 3, 4, 'Computer Science', 3, 2, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', false),
   (gen_random_uuid(), 2, 4, 5, 'Mathematics', 3, 2, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', false),
   (gen_random_uuid(), 2, 4, 6, 'Business Administration', 3, 2, 1, 1, 2, 1, 'student2@test.net', 'student2@test.net', false);
+
+-- INSERT comments
+INSERT INTO comments
+  (uuid, application_id, account_id, content, created_by, last_modified_by)
+VALUES
+  (gen_random_uuid(), 1, 7, 'This is the very first test comment.', 'student@test.net', 'student@test.net'),
+  (gen_random_uuid(), 1, 7, 'This is the second test comment.', 'student@test.net', 'student@test.net'),
+  (gen_random_uuid(), 1, 7, 'This is the third test comment.', 'student@test.net', 'student@test.net');
