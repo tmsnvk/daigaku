@@ -27,6 +27,10 @@ const FormContainer = styled(ApplicationFormGridContainer)`
   & article:last-of-type {
     height: 2rem;
   }
+
+  @media screen and (width > ${({ theme }) => theme.breakpoint.large}) {
+    width: 85%;
+  }
 `;
 
 export {

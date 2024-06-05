@@ -6,7 +6,11 @@ import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/notification';
-import { ApplicationForm } from './components';
+import {
+  ApplicationForm,
+  CommentSection,
+} from './components';
+import { MainGridContainer } from './Application.styles.ts';
 import { ApplicationT } from '@services/application/application.service.ts';
 
 type LocationT = {
@@ -49,15 +53,15 @@ const Application = () => {
     return <GlobalErrorModal error={errorMessage} />;
   }
 
-
   return (
-    <main>
+    <MainGridContainer>
       <ApplicationForm
         currentApplicationData={(state && state) || (data && data)}
         applicationUuid={applicationUuid}
         selectOptions={selectOptions}
       />
-    </main>
+      <CommentSection />
+    </MainGridContainer>
   );
 };
 
