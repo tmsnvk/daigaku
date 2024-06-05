@@ -4,7 +4,7 @@ import net.tamasnovak.domains.application.shared.persistence.ApplicationView;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.Instant;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public record ApplicationDto(
@@ -20,8 +20,8 @@ public record ApplicationDto(
   String offerStatus,
   String responseStatus,
   String finalDestinationStatus,
-  Instant createdAt,
-  Instant lastUpdatedAt,
+  Timestamp createdAt,
+  Timestamp lastUpdatedAt,
   String createdBy,
   String lastModifiedBy,
   boolean isRemovable
