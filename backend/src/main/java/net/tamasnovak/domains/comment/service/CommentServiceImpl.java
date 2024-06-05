@@ -4,8 +4,8 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.domains.account.account.models.entity.Account;
 import net.tamasnovak.domains.application.application.service.ApplicationService;
 import net.tamasnovak.domains.application.shared.models.entity.Application;
-import net.tamasnovak.domains.comment.dtoResponse.CommentDto;
 import net.tamasnovak.domains.comment.models.dtoRequests.NewCommentDto;
+import net.tamasnovak.domains.comment.models.dtoResponses.CommentDto;
 import net.tamasnovak.domains.comment.models.entity.Comment;
 import net.tamasnovak.domains.comment.persistence.CommentRepository;
 import net.tamasnovak.domains.comment.persistence.CommentView;
@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -30,6 +32,16 @@ public class CommentServiceImpl implements CommentService {
     this.commentRepository = commentRepository;
     this.applicationService = applicationService;
     this.globalServiceConstants = globalServiceConstants;
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<CommentDto> getAllCommentDtosByApplicationUuid(String applicationUuid) {
+    List<CommentView> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(UUID.fromString(applicationUuid));
+
+    return commentViews.stream()
+      .map(CommentDto::new)
+      .collect(Collectors.toList());
   }
 
   @Override
