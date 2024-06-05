@@ -1,17 +1,21 @@
 package net.tamasnovak.domains.account.account.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import net.tamasnovak.domains.account.account.models.dtoResponses.ClientAuthContextDto;
 import net.tamasnovak.domains.account.account.models.dtoResponses.LoginReturnDto;
 import net.tamasnovak.domains.account.shared.models.BaseAccount;
 import net.tamasnovak.domains.address.models.entity.Address;
+import net.tamasnovak.domains.comment.models.entity.Comment;
 import net.tamasnovak.domains.role.models.entity.Role;
 import net.tamasnovak.domains.support.institution.models.entity.Institution;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,6 +31,10 @@ public final class Account extends BaseAccount {
   @OneToOne
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
+
+  @OneToMany(mappedBy = "account")
+  @JsonManagedReference(value = "account-comment_reference")
+  private List<Comment> comments;
 
   protected Account() {}
 

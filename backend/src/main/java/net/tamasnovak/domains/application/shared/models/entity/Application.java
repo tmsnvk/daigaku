@@ -1,10 +1,12 @@
 package net.tamasnovak.domains.application.shared.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -17,10 +19,13 @@ import net.tamasnovak.domains.applicationStages.finalDestinationStatus.models.en
 import net.tamasnovak.domains.applicationStages.interviewStatus.models.entity.InterviewStatus;
 import net.tamasnovak.domains.applicationStages.offerStatus.models.entity.OfferStatus;
 import net.tamasnovak.domains.applicationStages.responseStatus.models.entity.ResponseStatus;
+import net.tamasnovak.domains.comment.models.entity.Comment;
 import net.tamasnovak.domains.shared.models.entities.audit.Auditable;
 import net.tamasnovak.domains.support.country.models.entity.Country;
 import net.tamasnovak.domains.support.university.models.entity.University;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -86,6 +91,10 @@ public final class Application extends Auditable {
   @NotNull
   private boolean isRemovable;
 
+  @OneToMany(mappedBy = "application")
+  @JsonManagedReference(value = "application-comment_reference")
+  private List<Comment> comments;
+
   protected Application() {}
 
   private Application(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
@@ -97,6 +106,7 @@ public final class Application extends Auditable {
     this.applicationStatus = applicationStatus;
     this.programmeLength = programmeLength;
     this.isRemovable = false;
+    this.comments = new ArrayList<>();
   }
 
   public static Application createApplicationByStudent(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
