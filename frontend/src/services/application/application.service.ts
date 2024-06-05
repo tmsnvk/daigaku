@@ -2,6 +2,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { NewApplicationFormFieldsT } from '@pages/student/NewApplication/components/NewApplicationForm/NewApplicationForm.hooks.tsx';
 import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
 import { UpdateApplicationFormFieldsT } from '@pages/shared/Application/components/ApplicationForm/ApplicationForm.hooks.tsx';
+import { NewCommentFormFieldsT } from '@pages/shared/Application/components/CommentBox/CommentBox.hooks.tsx';
 
 export type ApplicationT = {
   uuid: string;
@@ -21,6 +22,17 @@ export type ApplicationT = {
   createdBy: string;
   lastModifiedBy: string;
   isRemovable: boolean;
+}
+
+export type ApplicationCommentT = {
+  uuid: string;
+  applicationUuid: string;
+  accountUuid: string;
+  content: string;
+  createdAt: Date;
+  lastUpdatedAt: Date;
+  createdBy: string;
+  lastModifiedBy: string;
 }
 
 const applicationService = {
@@ -68,7 +80,16 @@ const applicationService = {
   getDashboardData: async (roleResource: string): Promise<DashboardDataT> => {
     const { data } = await axiosConfigWithAuth.request<DashboardDataT>({
       method: 'GET',
-      url: `api/applications/${roleResource}/dashboard`,
+      url: `/api/applications/${roleResource}/dashboard`,
+    });
+
+    return data;
+  },
+  postNewComment: async (formData: NewCommentFormFieldsT, applicationUuid: string): Promise<ApplicationCommentT> => {
+    const { data } = await axiosConfigWithAuth.request<ApplicationCommentT>({
+      method: 'POST',
+      url: `/api/applications/comments/${applicationUuid}}`,
+      data: formData,
     });
 
     return data;

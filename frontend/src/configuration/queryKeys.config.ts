@@ -8,6 +8,7 @@ const mutationKeys = {
     POST_BY_STUDENT: 'postApplicationByStudent',
     PATCH_BY_UUID: 'patchApplicationByUuid',
     MARK_FOR_DELETION: 'patchApplicationByUuidForMarkDeletion',
+    POST_NEW_COMMENT: 'postNewComment',
   },
 };
 

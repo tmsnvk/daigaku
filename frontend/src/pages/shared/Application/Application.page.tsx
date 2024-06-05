@@ -60,7 +60,9 @@ const Application = () => {
         applicationUuid={applicationUuid}
         selectOptions={selectOptions}
       />
-      <CommentSection />
+      <CommentSection
+        applicationUuid={applicationUuid}
+      />
     </MainGridContainer>
   );
 };
