@@ -1,21 +1,30 @@
-import { useGetCommentsByApplication } from './Comments.hooks.tsx';
 import { ContainerArticle } from './Comments.styles.ts';
-import { GlobalLoadingModal } from '@components/notification';
+import { CommentT } from '@services/comment/comment.service.ts';
 
 type ComponentPropsT = {
-  applicationUuid: string;
+  data: CommentT[];
 }
 
-const Comments = ({ applicationUuid }: ComponentPropsT) => {
-  const { data, isLoading, isError, error } = useGetCommentsByApplication(applicationUuid);
-
-  if (isLoading) {
-    return <GlobalLoadingModal />;
-  }
-  console.log(data);
+const Comments = ({ data }: ComponentPropsT) => {
   return (
     <ContainerArticle>
-      ALREADY ADDED COMMENTS
+      {data.map((comment) => (
+        <article key={comment.uuid}>
+          <div>
+            <p>{comment.createdBy}</p>
+            <p>{comment.content}</p>
+          </div>
+          <p>{new Date(comment.createdAt).toLocaleString(
+            'en-GB', {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            },
+          )}</p>
+        </article>
+      ))}
     </ContainerArticle>
   );
 };

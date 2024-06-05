@@ -3,12 +3,10 @@ import { axiosConfigWithAuth } from '@configuration';
 
 export type CommentT = {
   uuid: string;
-  applicationUuid: string;
-  accountUuid: string;
   content: string;
-  numberOfLikes: number;
-  createdAt: Date;
-  lastUpdatedAt: Date;
+  // numberOfLikes: number;
+  createdAt: number;
+  lastUpdatedAt: number;
   createdBy: string;
   lastModifiedBy: string;
 }

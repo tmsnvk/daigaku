@@ -10,7 +10,7 @@ const ApplicationFormGridContainer = styled.form`
   column-gap: 2.5rem;
   row-gap: 5rem;
   width: 95%;
-  margin: 5% auto 5% auto;
+  margin: 5rem auto 5rem auto;
   padding: 5rem 5rem 10rem 5rem;
   justify-items: center;
   align-items: center;
