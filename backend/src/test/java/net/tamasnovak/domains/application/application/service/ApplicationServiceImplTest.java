@@ -18,6 +18,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -91,9 +93,13 @@ class ApplicationServiceImplTest {
     @Description("Returns the correct ApplicationDto instance.")
     void shouldReturnApplicationViewProjection() {
       Account mockAccount = mock(Account.class);
-      ApplicationView mockApplicationView = mock(ApplicationView.class);
 
-      ApplicationDto expected = new ApplicationDto(null, null, null, null, null, null, 0, null, null, null, null, null, null, null, null, null, false);
+      Instant now = Instant.now();
+      ApplicationView mockApplicationView = mock(ApplicationView.class);
+      when(mockApplicationView.getCreatedAt()).thenReturn(now);
+      when(mockApplicationView.getLastUpdatedAt()).thenReturn(now);
+
+      ApplicationDto expected = new ApplicationDto(null, null, null, null, null, null, 0, null, null, null, null, null, Timestamp.from(now), Timestamp.from(now), null, null, false);
 
       when(mockAccount.getRoleName()).thenReturn("ROLE_STUDENT");
 
