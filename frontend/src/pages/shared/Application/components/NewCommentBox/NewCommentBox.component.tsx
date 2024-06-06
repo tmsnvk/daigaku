@@ -22,12 +22,7 @@ const NewCommentBox = ({ applicationUuid }: ComponentPropsT) => {
     <Form
       id={'postCommentForm'}
       method={'POST'}
-      onSubmit={handleSubmit((formData) => {
-        // console.log(formData.commentContent);
-        // formData.commentContent.replace(/(\n|\r|\r\n)/g, '\n');
-        // console.log(formData.commentContent);
-        mutate(formData);
-      })}
+      onSubmit={handleSubmit((formData) => mutate(formData))}
     >
       <textarea
         {...register('commentContent', {
