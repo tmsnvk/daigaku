@@ -4,9 +4,7 @@ import { commentService } from '@services/index.ts';
 import { mutationKeys } from '@configuration';
 
 export type NewCommentFormFieldsT = {
-  applicationUuid: string;
-  accountUuid: string;
-  content: string;
+  commentContent: string;
 }
 
 type NewCommentFormT = {

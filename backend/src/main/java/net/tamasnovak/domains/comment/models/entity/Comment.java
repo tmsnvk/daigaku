@@ -27,7 +27,7 @@ public final class Comment extends Auditable {
 
   @Column(name = "content", nullable = false)
   @NotBlank(message = "Add your comment.")
-  @Pattern(regexp = "^.{15,1000}$", message = "Provide a minimum of 15 and a maximum of 1000 characters.")
+  @Pattern(regexp = "^(.|\\s){5,1000}$", message = "Provide a minimum of 5 and a maximum of 1000 characters.")
   private String content;
 
   protected Comment() {}

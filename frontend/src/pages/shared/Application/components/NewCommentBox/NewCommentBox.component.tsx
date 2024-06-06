@@ -19,13 +19,27 @@ const NewCommentBox = ({ applicationUuid }: ComponentPropsT) => {
   const { data, isPending, isSuccess, mutate } = useSubmitNewComment({ setError, applicationUuid });
 
   return (
-    <Form>
+    <Form
+      id={'postCommentForm'}
+      method={'POST'}
+      onSubmit={handleSubmit((formData) => {
+        // console.log(formData.commentContent);
+        // formData.commentContent.replace(/(\n|\r|\r\n)/g, '\n');
+        // console.log(formData.commentContent);
+        mutate(formData);
+      })}
+    >
       <textarea
+        {...register('commentContent', {
+          required: { value: true, message: 'Add your comment.' },
+          pattern: { value: /^(.|\s){5,1000}$/, message: 'Provide a minimum of 15 and a maximum of 1000 characters.' },
+        })}
         id={'commentContent'}
         name={'commentContent'}
-        rows={5}
-        cols={35}
-      ></textarea>
+        rows={10}
+        cols={50}
+        autoComplete={'off'}
+      />
       <article>
         {
           isPending ?

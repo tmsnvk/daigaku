@@ -21,6 +21,7 @@ const commentService = {
     return data;
   },
   postComment: async (formData: NewCommentFormFieldsT, applicationUuid: string): Promise<CommentT> => {
+    console.log(formData);
     const { data } = await axiosConfigWithAuth.request<CommentT>({
       method: 'POST',
       url: `/api/comments/${applicationUuid}`,

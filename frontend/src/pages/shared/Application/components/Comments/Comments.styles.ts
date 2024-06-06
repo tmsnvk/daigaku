@@ -24,9 +24,11 @@ const ContainerArticle = styled.article`
 
       & > p:last-of-type {
         margin: 2rem 0 2rem 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
       }
     }
-    
+
     & > p:last-of-type {
       padding: 1.5rem 0 0 2.5rem;
       font-weight: 800;
