@@ -4,7 +4,7 @@ import { queryKeys } from '@configuration';
 
 const useGetCommentsByApplication = (applicationUuid: string, currentPage: number) => {
   return useQuery({
-    queryKey: [queryKeys.COMMENTS.GET_ALL_BY_APPLICATION_UUID, applicationUuid, currentPage],
+    queryKey: [queryKeys.COMMENTS.GET_ALL_BY_APPLICATION_UUID, applicationUuid],
     queryFn: () => commentService.getAllByApplicationUUid(applicationUuid),
   });
 };

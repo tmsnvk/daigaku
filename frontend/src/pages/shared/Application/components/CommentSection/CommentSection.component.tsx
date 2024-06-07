@@ -26,7 +26,11 @@ const CommentSection = ({ applicationUuid }: ComponentPropsT) => {
         <Comments
           data={data ?? []}
         />
-
+        <div>
+          <button>Previous</button>
+          <span>Page {currentPage}</span>
+          <button>Next</button>
+        </div>
         <NewCommentBox
           applicationUuid={applicationUuid}
         />
