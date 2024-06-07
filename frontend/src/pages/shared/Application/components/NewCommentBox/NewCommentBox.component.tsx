@@ -4,7 +4,7 @@ import {
   useSubmitNewComment,
 } from '@pages/shared/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
 import {
-  InputError,
+  InputError, InputLabel,
   LoadingIndicator,
   SubmitInput,
 } from '@components/form';
@@ -24,6 +24,10 @@ const NewCommentBox = ({ applicationUuid }: ComponentPropsT) => {
       method={'POST'}
       onSubmit={handleSubmit((formData) => mutate(formData))}
     >
+      <InputLabel
+        inputId={'commentContent'}
+        content={'Write your comment'}
+      />
       <textarea
         {...register('commentContent', {
           required: { value: true, message: 'Add your comment.' },
@@ -34,6 +38,7 @@ const NewCommentBox = ({ applicationUuid }: ComponentPropsT) => {
         rows={10}
         cols={50}
         autoComplete={'off'}
+        placeholder={'Write a comment...'}
       />
       <article>
         {

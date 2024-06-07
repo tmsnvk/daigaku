@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
+  }
+`;
 
 const ContainerArticle = styled.article`
   margin: 0 0 5rem 0;
@@ -11,7 +21,8 @@ const ContainerArticle = styled.article`
     width: 95%;
     margin: 5rem 0 5rem 0; 
     font-size: ${({ theme }) => theme.fontSize.medium};
-    
+    animation: ${fadeIn} 1s ease-in forwards;
+
     & > div {
       padding: 2rem 1.5rem 2rem 1.5rem;
       background-color: ${({ theme }) => theme.color.secondaryLight};
@@ -35,7 +46,7 @@ const ContainerArticle = styled.article`
     }
   }
   
-  & article::after {
+  & article:not(:last-of-type)::after {
     content: '';
     display: block;
     width: 33%;
