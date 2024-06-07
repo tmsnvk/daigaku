@@ -93,9 +93,9 @@ class ApplicationServiceImplTest {
     @Description("Returns the correct ApplicationDto instance.")
     void shouldReturnApplicationViewProjection() {
       Account mockAccount = mock(Account.class);
+      ApplicationView mockApplicationView = mock(ApplicationView.class);
 
       Instant now = Instant.now();
-      ApplicationView mockApplicationView = mock(ApplicationView.class);
       when(mockApplicationView.getCreatedAt()).thenReturn(now);
       when(mockApplicationView.getLastUpdatedAt()).thenReturn(now);
 

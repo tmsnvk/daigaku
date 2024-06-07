@@ -35,6 +35,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -103,9 +105,15 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Returns a list of ApplicationDto instances.")
     void shouldReturnApplicationViews() {
+      Instant now = Instant.now();
+
       List<ApplicationView> mockApplicationViews = Arrays.asList(mock(ApplicationView.class), mock(ApplicationView.class));
-      ApplicationDto mockApplicationDto1 = new ApplicationDto(mockApplicationViews.get(0));
-      ApplicationDto mockApplicationDto2 = new ApplicationDto(mockApplicationViews.get(1));
+      ApplicationDto mockApplicationDto1 = new ApplicationDto(null, null, null, null, null, null, 0, null, null, null, null, null, Timestamp.from(now), Timestamp.from(now), null, null, false);
+      ApplicationDto mockApplicationDto2 = new ApplicationDto(null, null, null, null, null, null, 0, null, null, null, null, null, Timestamp.from(now), Timestamp.from(now), null, null, false);
+      when(mockApplicationViews.get(0).getCreatedAt()).thenReturn(now);
+      when(mockApplicationViews.get(0).getLastUpdatedAt()).thenReturn(now);
+      when(mockApplicationViews.get(1).getCreatedAt()).thenReturn(now);
+      when(mockApplicationViews.get(1).getLastUpdatedAt()).thenReturn(now);
 
       List<ApplicationDto> expected = Arrays.asList(mockApplicationDto1, mockApplicationDto2);
 
