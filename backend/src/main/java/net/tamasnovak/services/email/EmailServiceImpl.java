@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService {
       mailMessage.setFrom(sender);
       mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(newEmailDto.recipient()));
       mailMessage.setSubject(newEmailDto.subject());
-      mailMessage.setContent(newEmailDto.body(), "text/html");
+      mailMessage.setContent(newEmailDto.body(), "text/html; charset=UTF-8");
 
       javaMailSender.send(mailMessage);
     } catch (MailException | MessagingException exception) {
