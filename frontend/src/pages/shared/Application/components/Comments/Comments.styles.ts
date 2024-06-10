@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const ContainerArticle = styled.article`
   margin: 0 0 5rem 0;

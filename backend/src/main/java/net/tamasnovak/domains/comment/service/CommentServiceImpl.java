@@ -62,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional
-  public CommentDto postCommentByApplicationUuid(String applicationUuid, NewCommentDto requestBody) {
+  public void postCommentByApplicationUuid(String applicationUuid, NewCommentDto requestBody) {
     Account authAccount = authenticationFacade.getAuthenticatedAccount();
     Application relatedApplication = applicationService.getByUuid(applicationUuid);
 
@@ -72,8 +72,6 @@ public class CommentServiceImpl implements CommentService {
       requestBody.commentContent()
     );
 
-    Comment savedComment = commentRepository.save(newComment);
-
-    return getCommentDtoByUuid(savedComment.getUuid().toString());
+    commentRepository.save(newComment);
   }
 }

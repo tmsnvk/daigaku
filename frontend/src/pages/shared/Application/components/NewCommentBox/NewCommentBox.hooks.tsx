@@ -6,7 +6,7 @@ import {
   queryKeys,
 } from '@configuration';
 import { commentService } from '@services/index.ts';
-import { CommentT } from '@services/comment/comment.service.ts';
+// import { CommentMetaT, CommentT } from '@services/comment/comment.service.ts';
 
 export type NewCommentFormFieldsT = {
   commentContent: string;
@@ -21,17 +21,8 @@ const useSubmitNewComment = ({ setError, applicationUuid }: NewCommentFormT) => 
   return useMutation({
     mutationKey: [mutationKeys.COMMENTS.POST_COMMENT_BY_APPLICATION],
     mutationFn: (data: NewCommentFormFieldsT) => commentService.postComment(data, applicationUuid),
-    onSuccess: (data) => {
-      queryClient.setQueryData<CommentT[]>(
-        [queryKeys.COMMENTS.GET_ALL_BY_APPLICATION_UUID, applicationUuid],
-        (previousData) => {
-          if (!previousData) {
-            return;
-          }
-
-          return [...previousData, data];
-        },
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.COMMENTS.GET_ALL_BY_APPLICATION_UUID, applicationUuid] });
     },
   });
 };

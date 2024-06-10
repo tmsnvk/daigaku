@@ -9,5 +9,5 @@ public interface CommentService {
 
   CommentDto getCommentDtoByUuid(String uuid);
 
-  CommentDto postCommentByApplicationUuid(String applicationUuid, NewCommentDto requestBody);
+  void postCommentByApplicationUuid(String applicationUuid, NewCommentDto requestBody);
 }

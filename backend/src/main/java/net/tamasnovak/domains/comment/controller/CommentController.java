@@ -1,8 +1,8 @@
 package net.tamasnovak.domains.comment.controller;
 
 import jakarta.validation.Valid;
+import net.tamasnovak.domains.account.pendingAccount.models.dtoRequests.PendingAccountRegistrationDto;
 import net.tamasnovak.domains.comment.models.dtoRequests.NewCommentDto;
-import net.tamasnovak.domains.comment.models.dtoResponses.CommentDto;
 import net.tamasnovak.domains.comment.models.dtoResponses.CommentsMetaDto;
 import net.tamasnovak.domains.comment.service.CommentService;
 import net.tamasnovak.validation.annotations.uuidConstraint.UuidConstraint;
@@ -41,12 +41,12 @@ public class CommentController {
   }
 
   @PostMapping(value = "/{applicationUuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CommentDto> postCommentByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint String applicationUuid,
+  public ResponseEntity<HttpStatus> postCommentByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint String applicationUuid,
                                                                  @RequestBody @Valid NewCommentDto requestBody) {
-    CommentDto response = commentService.postCommentByApplicationUuid(applicationUuid, requestBody);
+    commentService.postCommentByApplicationUuid(applicationUuid, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
-      .body(response);
+      .build();
   }
 }
