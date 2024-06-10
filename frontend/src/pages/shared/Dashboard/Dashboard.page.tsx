@@ -19,11 +19,11 @@ const Dashboard = () => {
   useGetApplications();
 
   if (isLoading) {
-    return <GlobalLoadingModal />;
+    return <GlobalLoadingModal content={'The application is compiling your data...'} />;
   }
 
   if (isError) {
-    return <GlobalErrorModal error={error.message} />;
+    return <GlobalErrorModal content={error.message} />;
   }
 
   return (

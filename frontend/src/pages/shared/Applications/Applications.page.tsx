@@ -24,11 +24,11 @@ const Applications = () => {
   const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
-    return <GlobalLoadingModal />;
+    return <GlobalLoadingModal content={'The application is compiling your data...'} />;
   }
 
   if (isError && error instanceof AxiosError) {
-    return <GlobalErrorModal error={error.response?.data.root} />;
+    return <GlobalErrorModal content={error.response?.data.root} />;
   }
 
   // add student selector dropdown for mentors

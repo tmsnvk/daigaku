@@ -36,11 +36,11 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
   const { isPending, mutate, error } = useSubmitRegistrationForm({ setError, showModal });
 
   if (isInstitutionLoading || isRoleLoading) {
-    return <GlobalLoadingModal />;
+    return <GlobalLoadingModal content={'The application is fetching the registration data...'} />;
   }
 
   if (isInstitutionError || isRoleError) {
-    return <GlobalErrorModal error={error?.response.data.root as string} />;
+    return <GlobalErrorModal content={error?.response.data.root as string} />;
   }
 
   return (

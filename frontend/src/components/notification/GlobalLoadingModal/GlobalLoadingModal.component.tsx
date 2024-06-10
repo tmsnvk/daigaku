@@ -2,10 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from './GlobalLoadingModal.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 
-const GlobalLoadingModal = () => {
+type ComponentPropsT = {
+  content: string;
+}
+
+const GlobalLoadingModal = ({ content }: ComponentPropsT) => {
   return (
     <Dialog>
-      <p>The application is compiling your data... please wait.</p>
+      <p>{content}</p>
       <FontAwesomeIcon icon={iconLibraryConfig.faSpinner} spin />
     </Dialog>
   );

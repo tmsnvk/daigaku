@@ -45,7 +45,9 @@ const SelectInstitution = <T extends FieldValues>({
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the institution you currently attend.</option>
-        {data.map((option: InstitutionOptionT) => <option key={option.uuid} value={option.uuid}>{option.name}</option>)}
+        {data.map((option: InstitutionOptionT) => (
+          <option key={option.uuid} value={option.uuid}>{option.name}</option>
+        ))}
       </select>
       {fieldError && <InputError content={fieldError} />}
     </BaseInputField>

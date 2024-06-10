@@ -19,7 +19,7 @@ const CommentSection = ({ applicationUuid }: ComponentPropsT) => {
   const { data, isLoading, isError, error } = useGetCommentsByApplication(applicationUuid, currentPage);
 
   if (isError && error instanceof AxiosError) {
-    return <GlobalErrorModal error={error.response?.data.root} />;
+    return <GlobalErrorModal content={error.response?.data.root} />;
   }
 
   return (

@@ -35,7 +35,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick } = useHandleSmallScreenMenuDisplay();
 
   if (authStatus === AuthStatusE.LOADING) {
-    return <GlobalLoadingModal />;
+    return <GlobalLoadingModal content={'The application is compiling your data...'} />;
   }
 
   if (!allowedRoles.includes(account.role as AccountRoleE)) {

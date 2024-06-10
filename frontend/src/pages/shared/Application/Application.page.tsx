@@ -36,7 +36,7 @@ const Application = () => {
   } = useGetApplication(state, applicationUuid);
 
   if (isOptionsLoading || isApplicationLoading) {
-    return <GlobalLoadingModal />;
+    return <GlobalLoadingModal content={'The application is compiling your data...'} />;
   }
 
   if (isOptionsError || isApplicationError) {
@@ -50,7 +50,7 @@ const Application = () => {
       errorMessage += applicationError.response?.data.root;
     }
 
-    return <GlobalErrorModal error={errorMessage} />;
+    return <GlobalErrorModal content={errorMessage} />;
   }
 
   return (
