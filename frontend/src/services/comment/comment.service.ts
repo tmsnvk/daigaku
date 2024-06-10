@@ -11,11 +11,18 @@ export type CommentT = {
   lastModifiedBy: string;
 }
 
+export type CommentMetaT = {
+  currentPage: number;
+  totalComments: number;
+  totalPages: number;
+  comments: CommentT[];
+}
+
 const commentService = {
-  getAllByApplicationUUid: async (applicationUuid: string): Promise<CommentT[]> => {
-    const { data } = await axiosConfigWithAuth.request<CommentT[]>({
+  getAllByApplicationUUid: async (applicationUuid: string, currentPage: number): Promise<CommentMetaT> => {
+    const { data } = await axiosConfigWithAuth.request<CommentMetaT>({
       method: 'GET',
-      url: `/api/comments/${applicationUuid}`,
+      url: `/api/comments/${applicationUuid}?page=${currentPage}`,
     });
 
     return data;

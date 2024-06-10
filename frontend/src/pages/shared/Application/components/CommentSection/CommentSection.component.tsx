@@ -1,6 +1,8 @@
-import { useState } from 'react';
 import { AxiosError } from 'axios';
-import { useGetCommentsByApplication } from './CommentSection.hooks.tsx';
+import {
+  useGetCommentsByApplication,
+  useUpdatePagination,
+} from './CommentSection.hooks.tsx';
 import { GlobalErrorModal } from '@components/notification';
 import Comments from '../Comments';
 import NewCommentBox from '../NewCommentBox';
@@ -12,7 +14,7 @@ type ComponentPropsT = {
 }
 
 const CommentSection = ({ applicationUuid }: ComponentPropsT) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const { currentPage, updatePreviousButton, updateNextButton } = useUpdatePagination();
   const { data, isLoading, isError, error } = useGetCommentsByApplication(applicationUuid, currentPage);
 
   if (isError && error instanceof AxiosError) {
@@ -24,12 +26,12 @@ const CommentSection = ({ applicationUuid }: ComponentPropsT) => {
       <CommentSectionLoader /> :
       <Section>
         <Comments
-          data={data ?? []}
+          data={data?.comments ?? []}
         />
         <div>
-          <button>Previous</button>
-          <span>Page {currentPage}</span>
-          <button>Next</button>
+          <button onClick={updatePreviousButton}>Previous</button>
+          <span>Page {currentPage + 1}</span>
+          <button onClick={() => updateNextButton(data?.totalPages as number)}>Next</button>
         </div>
         <NewCommentBox
           applicationUuid={applicationUuid}
