@@ -8,12 +8,12 @@ export type UniversityOptionT = {
 
 const universityService = {
   getOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<UniversityOptionT[]> => {
-    const { data } = await axiosConfigWithAuth.request<UniversityOptionT[]>({
+    const stuff = await axiosConfigWithAuth.request<UniversityOptionT[]>({
       method: 'GET',
       url: `api/universities/options/${selectedCountryUuid}`,
     });
 
-    return data;
+    return stuff.data;
   },
 };
 

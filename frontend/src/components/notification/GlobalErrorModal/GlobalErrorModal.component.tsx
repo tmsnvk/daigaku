@@ -1,7 +1,7 @@
 import { Dialog } from './GlobalErrorModal.styles.ts';
 
 type ComponentPropsT = {
-  error: string;
+  error?: string;
 }
 
 const GlobalErrorModal = ({ error }: ComponentPropsT) => {

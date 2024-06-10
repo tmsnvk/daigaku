@@ -10,7 +10,7 @@ import {
   LoadingIndicator,
   SubmitInput,
 } from '@components/form';
-import { GenericInputField } from '@components/field-implementations';
+import { GenericInputField } from '@components/input-implementations';
 import {
   ConfirmationModalT,
   FormSelectorT,

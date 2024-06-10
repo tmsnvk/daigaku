@@ -15,7 +15,7 @@ import {
   GenericInputField,
   SelectCountry,
   SelectUniversity,
-} from '@components/field-implementations';
+} from '@components/input-implementations';
 import { Toast } from '@components/notification';
 import { FormContainer } from './NewApplicationForm.styles.ts';
 import { CountryOptionT } from '@services/support/country.service.ts';
@@ -34,9 +34,10 @@ type ComponentPropsT = {
   handleCountryClick: (event: string) => void;
   countryData: CountryOptionT[];
   universityData: UniversityOptionT[];
+  isUniversityDataLoading: boolean;
 }
 
-const NewApplicationForm = ({ handleCountryClick, countryData, universityData }: ComponentPropsT) => {
+const NewApplicationForm = ({ handleCountryClick, countryData, universityData, isUniversityDataLoading }: ComponentPropsT) => {
   const { formState: { errors }, reset, handleSubmit, register, setError } = useForm<NewApplicationFormFieldsT>({ mode: 'onSubmit' });
   const { isCountrySelected, handleCountrySelection, resetCountrySelection } = useCheckFieldDisableStatus();
   const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
@@ -60,13 +61,17 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData }:
           onCountrySelection={handleCountrySelection}
         />
         <InputInfoBox content={countryInformation} />
-        <SelectUniversity
-          register={register}
-          fieldError={errors.universityUuid?.message}
-          fieldId={'universityUuid'}
-          isDisabled={isPending || !isCountrySelected}
-          data={universityData}
-        />
+        {
+          isUniversityDataLoading ?
+            <LoadingIndicator content={'Fetching university list...'} /> :
+            <SelectUniversity
+              register={register}
+              fieldError={errors.universityUuid?.message}
+              fieldId={'universityUuid'}
+              isDisabled={isPending || !isCountrySelected}
+              data={universityData}
+            />
+        }
         <InputInfoBox content={universityInformation} />
         <GenericInputField
           register={register}

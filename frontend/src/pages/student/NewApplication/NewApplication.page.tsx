@@ -8,8 +8,12 @@ const NewApplication = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
   const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
-  const { data: countryData, isError: isCountryError, error: countryError } = useGetCountryOptions();
-  const { data: universityData, isError: isUniversityError, error: universityError } = useGetUniversityOptionsByCountryUuid(isCountryFieldSelected, selectedCountryUuid);
+  const { data: countryData, isError: isCountryError } = useGetCountryOptions();
+  const {
+    data: universityData,
+    isLoading: isUniversityDataLoading,
+    isError: isUniversityError,
+  } = useGetUniversityOptionsByCountryUuid(isCountryFieldSelected, selectedCountryUuid);
 
   const handleCountryField = (countryUuid: string) => {
     setIsCountryFieldSelected(true);
@@ -17,17 +21,7 @@ const NewApplication = () => {
   };
 
   if ((isCountryError || isUniversityError)) {
-    let errorMessage = '';
-
-    if (countryError) {
-      errorMessage += `${countryError.message} '\n'}`;
-    }
-
-    if (universityError) {
-      errorMessage += universityError.message;
-    }
-
-    return <GlobalErrorModal error={errorMessage} />;
+    return <GlobalErrorModal />;
   }
 
   return (
@@ -36,6 +30,7 @@ const NewApplication = () => {
         handleCountryClick={handleCountryField}
         countryData={countryData ?? []}
         universityData={universityData ?? []}
+        isUniversityDataLoading={isUniversityDataLoading}
       />
     </main>
   );

@@ -12,7 +12,7 @@ import {
 import {
   GenericInputField,
   PasswordInputField,
-} from '@components/field-implementations';
+} from '@components/input-implementations';
 import FormSwapButton from '../FormSwapButton';
 import {
   FormSelectorT,

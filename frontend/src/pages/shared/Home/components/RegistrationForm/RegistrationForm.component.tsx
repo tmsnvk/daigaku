@@ -15,7 +15,7 @@ import {
   GenericInputField,
   SelectAccountRole,
   SelectInstitution,
-} from '@components/field-implementations';
+} from '@components/input-implementations';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,

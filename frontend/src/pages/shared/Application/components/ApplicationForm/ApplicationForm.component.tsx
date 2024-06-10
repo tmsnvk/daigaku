@@ -13,7 +13,7 @@ import {
   SubmitInput,
 } from '@components/form';
 import { PageTitle } from '@components/general';
-import { DisabledInputField } from '@components/field-implementations';
+import { DisabledInputField } from '@components/input-implementations';
 import FormMetaData from '../FormMetaData';
 import MarkedForDeletion from '../MarkedForDeletion';
 import ActiveSelectField from '../ActiveSelectField';

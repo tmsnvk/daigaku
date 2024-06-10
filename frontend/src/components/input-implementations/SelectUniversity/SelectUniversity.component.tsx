@@ -45,7 +45,9 @@ const SelectUniversity = <T extends FieldValues>({
         disabled={isDisabled}
       >
         <option hidden value={''}>Select the university of your choice.</option>
-        {data.map((option: UniversityOptionT) => <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>)}
+        {data.map((option: UniversityOptionT) => (
+          <option key={option.uuid} value={option.uuid}>{`${option.name} - ${option.abbreviation}`}</option>
+        ))}
       </select>
       {fieldError && <InputError content={fieldError} />}
     </BaseInputField>

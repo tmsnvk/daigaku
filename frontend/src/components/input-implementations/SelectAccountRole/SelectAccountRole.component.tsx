@@ -8,26 +8,22 @@ import {
   InputError,
   InputLabel,
 } from '@components/form';
-import { CountryOptionT } from '@services/support/country.service.ts';
+import { RoleOptionT } from '@services/role/role.service.ts';
 
 type ComponentPropsT<T extends FieldValues> = {
   register: UseFormRegister<T>,
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
-  data: CountryOptionT[];
-  onCountryClick: (event: string) => void;
-  onCountrySelection: () => void;
+  data: RoleOptionT[];
 }
 
-const SelectCountry = <T extends FieldValues>({
+const SelectAccountType = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
   isDisabled,
   data,
-  onCountryClick,
-  onCountrySelection,
 }: ComponentPropsT<T>) => {
   return (
     <BaseInputField
@@ -35,29 +31,27 @@ const SelectCountry = <T extends FieldValues>({
     >
       <InputLabel
         inputId={fieldId}
-        content={'Country'}
+        content={'Account Type'}
       />
       <select
         {...register(fieldId, {
           required: {
             value: true,
-            message: 'Selecting a country is required.',
-          },
-          onChange: (event) => {
-            onCountryClick(event.target.value);
-            onCountrySelection();
+            message: 'Selecting an account role is required.',
           },
         })}
         id={fieldId}
         name={fieldId}
         disabled={isDisabled}
       >
-        <option hidden value={''}>Select the country of your choice.</option>
-        {data.map((option: CountryOptionT) => <option key={option.uuid} value={option.uuid}>{option.name}</option>)}
+        <option hidden value={''}>Select your account type.</option>
+        {data.map((option: RoleOptionT) => (
+          <option key={option.uuid} value={option.uuid}>{option.name.split('ROLE_')[1].toLowerCase()}</option>
+        ))}
       </select>
       {fieldError && <InputError content={fieldError} />}
     </BaseInputField>
   );
 };
 
-export default SelectCountry;
+export default SelectAccountType;
