@@ -4,9 +4,10 @@ import {
   useUpdatePagination,
 } from './CommentSection.hooks.tsx';
 import { GlobalErrorModal } from '@components/notification';
-import Comments from '../Comments';
-import NewCommentBox from '../NewCommentBox';
 import CommentSectionLoader from '../CommentSectionLoader';
+import Comments from '../Comments';
+import CommentPaginationButton from '../CommentPaginationButton';
+import NewCommentBox from '../NewCommentBox';
 import { Section } from './CommentSection.styles.ts';
 
 type ComponentPropsT = {
@@ -29,9 +30,17 @@ const CommentSection = ({ applicationUuid }: ComponentPropsT) => {
           data={data?.comments ?? []}
         />
         <div>
-          <button onClick={updatePreviousButton}>Previous</button>
+          <CommentPaginationButton
+            onClick={updatePreviousButton}
+            isDisabled={data?.currentPage === 0}
+            content={'Previous'}
+          />
           <span>Page {currentPage + 1}</span>
-          <button onClick={() => updateNextButton(data?.totalPages as number)}>Next</button>
+          <CommentPaginationButton
+            onClick={() => updateNextButton(data?.totalPages as number)}
+            isDisabled={currentPage + 1 === data?.totalPages}
+            content={'Next'}
+          />
         </div>
         <NewCommentBox
           applicationUuid={applicationUuid}
