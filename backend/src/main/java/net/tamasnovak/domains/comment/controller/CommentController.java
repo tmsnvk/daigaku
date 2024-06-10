@@ -3,6 +3,7 @@ package net.tamasnovak.domains.comment.controller;
 import jakarta.validation.Valid;
 import net.tamasnovak.domains.comment.models.dtoRequests.NewCommentDto;
 import net.tamasnovak.domains.comment.models.dtoResponses.CommentDto;
+import net.tamasnovak.domains.comment.models.dtoResponses.CommentsMetaDto;
 import net.tamasnovak.domains.comment.service.CommentService;
 import net.tamasnovak.validation.annotations.uuidConstraint.UuidConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/comments")
@@ -31,8 +31,9 @@ public class CommentController {
   }
 
   @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<CommentDto>> getAllByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint String applicationUuid) {
-    List<CommentDto> response = commentService.getAllCommentDtosByApplicationUuid(applicationUuid);
+  public ResponseEntity<CommentsMetaDto> getAllByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint String applicationUuid,
+                                                                  @RequestParam int page) {
+    CommentsMetaDto response = commentService.getAllCommentDtosByApplicationUuid(applicationUuid, page);
 
     return ResponseEntity
       .status(HttpStatus.OK)

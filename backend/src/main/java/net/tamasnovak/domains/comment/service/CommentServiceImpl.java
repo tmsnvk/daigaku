@@ -6,12 +6,16 @@ import net.tamasnovak.domains.application.application.service.ApplicationService
 import net.tamasnovak.domains.application.shared.models.entity.Application;
 import net.tamasnovak.domains.comment.models.dtoRequests.NewCommentDto;
 import net.tamasnovak.domains.comment.models.dtoResponses.CommentDto;
+import net.tamasnovak.domains.comment.models.dtoResponses.CommentsMetaDto;
 import net.tamasnovak.domains.comment.models.entity.Comment;
 import net.tamasnovak.domains.comment.persistence.CommentRepository;
 import net.tamasnovak.domains.comment.persistence.CommentView;
 import net.tamasnovak.domains.shared.constants.GlobalServiceConstants;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,12 +40,15 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<CommentDto> getAllCommentDtosByApplicationUuid(String applicationUuid) {
-    List<CommentView> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(UUID.fromString(applicationUuid));
+  public CommentsMetaDto getAllCommentDtosByApplicationUuid(String applicationUuid, int page) {
+    Pageable pageable = PageRequest.of(page, 5);
+    Page<CommentView> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(UUID.fromString(applicationUuid), pageable);
 
-    return commentViews.stream()
+    List<CommentDto> comments = commentViews.stream()
       .map(CommentDto::new)
       .collect(Collectors.toList());
+
+    return new CommentsMetaDto(commentViews.getTotalPages(), commentViews.getNumber(), commentViews.getTotalElements(), comments);
   }
 
   @Override
