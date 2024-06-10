@@ -24,7 +24,7 @@ const Button = styled.button`
     background-color: ${({ theme }) => theme.color.tertiaryLight};
     color: ${({ theme }) => theme.color.primaryDark};
   }
-  
+
   &:focus {
     outline: 0.15rem solid ${({ theme }) => theme.color.secondaryDark};
   }
