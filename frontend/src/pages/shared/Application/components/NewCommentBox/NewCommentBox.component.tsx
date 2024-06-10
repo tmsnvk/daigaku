@@ -16,7 +16,7 @@ type ComponentPropsT = {
 
 const NewCommentBox = ({ applicationUuid }: ComponentPropsT) => {
   const { formState: { errors }, handleSubmit, register, setError } = useForm<NewCommentFormFieldsT>({ mode: 'onSubmit' });
-  const { data, isPending, isSuccess, mutate } = useSubmitNewComment({ setError, applicationUuid });
+  const { isPending, isSuccess, mutate } = useSubmitNewComment({ setError, applicationUuid });
 
   return (
     <Form

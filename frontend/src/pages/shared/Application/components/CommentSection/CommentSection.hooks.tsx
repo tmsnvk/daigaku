@@ -8,14 +8,12 @@ const useUpdatePagination = () => {
 
   const updatePreviousButton = () => {
     if (currentPage - 1 >= 0) {
-      window.scroll({ top: 0, behavior: 'smooth' });
       setCurrentPage(currentPage - 1);
     }
   };
 
   const updateNextButton = (totalPages: number) => {
     if (currentPage + 1 < totalPages) {
-      window.scroll({ top: 0, behavior: 'auto' });
       setCurrentPage(currentPage + 1);
     }
   };

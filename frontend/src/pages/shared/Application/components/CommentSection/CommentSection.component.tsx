@@ -38,7 +38,7 @@ const CommentSection = ({ applicationUuid }: ComponentPropsT) => {
           <span>Page {currentPage + 1}</span>
           <CommentPaginationButton
             onClick={() => updateNextButton(data?.totalPages as number)}
-            isDisabled={currentPage + 1 === data?.totalPages || currentPage === 0}
+            isDisabled={(currentPage + 1 === data?.totalPages) || (currentPage === 0 && data?.totalComments === 0)}
             content={'Next'}
           />
         </div>
