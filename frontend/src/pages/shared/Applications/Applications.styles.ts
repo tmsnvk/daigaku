@@ -12,7 +12,6 @@ const MainContainer = styled.main`
 
   & table {
     table-layout: fixed;
-    border-collapse: collapse;
 
     & th,
     & td {

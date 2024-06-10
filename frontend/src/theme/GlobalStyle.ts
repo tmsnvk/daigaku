@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     font-family: ${({ theme }) => theme.fontFamily.primary};
     background-color: ${({ theme }) => theme.color.primaryLight};
     
@@ -45,6 +45,24 @@ const GlobalStyle = createGlobalStyle`
   ol,
   li {
     list-style-type: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input, 
+  button,
+  textarea,
+  select {
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  table {
+    border-collapse: collapse;
   }
 `;
 
