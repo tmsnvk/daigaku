@@ -22,12 +22,10 @@ const Article = styled.article<ArticleT>`
     border-radius: 1rem;
     cursor: pointer;
     
-    & label {
-      margin: 0;
-    }
-    
-    & input {
-      display: none;
+    &:hover {
+      background-color: ${({ theme, $isMarked }) => $isMarked ? theme.color.error : theme.color.secondaryDark};
+      color: ${({ theme }) => theme.color.primaryLight};
+      box-shadow: 0 0 0.5rem ${({ theme }) => theme.color.secondaryDark};
     }
   }
 `;

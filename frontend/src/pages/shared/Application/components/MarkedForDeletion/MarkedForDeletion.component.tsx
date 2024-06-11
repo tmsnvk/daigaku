@@ -19,7 +19,7 @@ const MarkedForDeletion = ({ isMarked, applicationUuid }: ComponentPropsT) => {
         onClick={() => mutate()}
         disabled={isPending}
       >
-        {shouldBeDeleted ? 'Remove deletion request' : 'Mark for deletion'}
+        {shouldBeDeleted ? 'Remove request' : 'Request deletion'}
       </button>
       <InputError content={errorMessage} />
     </Article>
