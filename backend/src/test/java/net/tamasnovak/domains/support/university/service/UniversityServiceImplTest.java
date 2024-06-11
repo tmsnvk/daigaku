@@ -1,7 +1,6 @@
 package net.tamasnovak.domains.support.university.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import jdk.jfr.Description;
 import net.tamasnovak.domains.shared.constants.GlobalServiceConstants;
 import net.tamasnovak.domains.support.country.models.entity.Country;
 import net.tamasnovak.domains.support.country.service.CountryService;
@@ -15,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.annotation.Description;
 
 import java.util.Collections;
 import java.util.List;
