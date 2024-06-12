@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const BaseNavbar = styled.header`
+  position: sticky;
+  top: 0;
   background-color: ${({ theme }) => theme.color.secondaryLight};
   box-shadow: 0 0.1rem 1.5rem 0 ${({ theme }) => theme.color.primaryDark};
 
