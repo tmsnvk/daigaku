@@ -13,7 +13,6 @@ import { confirmationModalMessages } from './Home.utilities.ts';
 
 const Home = () => {
   const { authStatus } = useAuth();
-
   const { isConfirmationModalVisible, showModal, closeModal } = useShowConfirmationModal();
   const { activeFormType, displayActiveFormType } = useRenderSelectedFormComponent(showModal);
 

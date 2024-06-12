@@ -24,7 +24,7 @@ const Applications = () => {
   const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
-    return <GlobalLoadingModal content={'The application is compiling your data...'} />;
+    return <GlobalLoadingModal content={'The application is fetching your data...'} />;
   }
 
   if (isError && error instanceof AxiosError) {

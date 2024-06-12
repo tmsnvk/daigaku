@@ -54,7 +54,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
             <NavbarLink
               resource={'/dashboard'}
               icon={iconLibraryConfig.faGraduationCap}
-              content={'Daigaku'}
+              content={'Dashboard'}
             />
           </div>
           <SmallScreenMenuWrapper

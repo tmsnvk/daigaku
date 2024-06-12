@@ -5,13 +5,13 @@ import {
   useHandleFormSubmission,
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
-import { Toast } from '@components/notification';
 import {
   InputError,
   InputInfoBox,
   LoadingIndicator,
   SubmitInput,
 } from '@components/form';
+import { Toast } from '@components/notification';
 import { PageTitle } from '@components/general';
 import { DisabledInputField } from '@components/input-implementations';
 import FormMetaData from '../FormMetaData';

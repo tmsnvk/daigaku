@@ -33,6 +33,7 @@
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],
+      "@utilities/*": ["utilities/*"],
     },
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

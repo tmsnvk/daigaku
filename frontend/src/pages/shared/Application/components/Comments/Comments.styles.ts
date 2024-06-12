@@ -44,6 +44,16 @@ const ContainerArticle = styled.article`
   }
 `;
 
+const ErrorContainer = styled.article`
+  width: 75%;
+  margin: 5rem auto 5rem auto;
+  color: ${({ theme }) => theme.color.error};
+  font-size: ${({ theme }) => theme.fontSize.medium};
+  font-weight: 800;
+  text-align: center;
+`;
+
 export {
   ContainerArticle,
+  ErrorContainer,
 };

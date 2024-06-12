@@ -1,10 +1,9 @@
-import { NewCommentFormFieldsT } from '@pages/shared/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
 import { axiosConfigWithAuth } from '@configuration';
+import { NewCommentFormFieldsT } from '@pages/shared/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
 
 export type CommentT = {
   uuid: string;
   content: string;
-  // numberOfLikes: number;
   createdAt: number;
   lastUpdatedAt: number;
   createdBy: string;

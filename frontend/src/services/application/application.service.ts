@@ -23,8 +23,6 @@ export type ApplicationT = {
   isRemovable: boolean;
 }
 
-
-
 const applicationService = {
   getByUuid: async (applicationUuid: string): Promise<ApplicationT> => {
     const { data } = await axiosConfigWithAuth.request<ApplicationT>({

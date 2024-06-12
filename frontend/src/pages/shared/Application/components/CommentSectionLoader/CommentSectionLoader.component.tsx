@@ -4,7 +4,7 @@ import { SectionContainer } from './CommentSectionLoader.styles.ts';
 const CommentSectionLoader = () => {
   return (
     <SectionContainer>
-      <LoadingIndicator content={'Fetching comments.'} />
+      <LoadingIndicator content={'Fetching comments...'} />
     </SectionContainer>
   );
 };
