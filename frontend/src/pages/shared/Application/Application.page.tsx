@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useGetAllSelectOptions } from '@hooks/applicationStatuses';
 import { useGetApplication } from './Application.hooks.tsx';
@@ -26,13 +25,11 @@ const Application = () => {
     selectOptions,
     isLoading: isOptionsLoading,
     isError: isOptionsError,
-    error: optionsError,
   } = useGetAllSelectOptions();
   const {
     data,
     isLoading: isApplicationLoading,
     isError: isApplicationError,
-    error: applicationError,
   } = useGetApplication(state, applicationUuid);
 
   if (isOptionsLoading || isApplicationLoading) {
@@ -40,17 +37,7 @@ const Application = () => {
   }
 
   if (isOptionsError || isApplicationError) {
-    let errorMessage = '';
-
-    if (optionsError instanceof AxiosError) {
-      errorMessage += optionsError.response?.data.root;
-    }
-
-    if (applicationError instanceof AxiosError) {
-      errorMessage += applicationError.response?.data.root;
-    }
-
-    return <GlobalErrorModal content={errorMessage} />;
+    return <GlobalErrorModal />;
   }
 
   return (
