@@ -51,7 +51,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     verifyAccountNotExistsByEmail(requestBody.email());
 
     Institution institution = institutionService.getByUuid(requestBody.institutionUuid());
-    Role role = roleService.getRoleByUuid(requestBody.accountRoleUuid());
+    Role role = roleService.getByUuid(requestBody.accountRoleUuid());
 
     PendingAccount pendingAccount = PendingAccount.createPendingAccount(
       requestBody.firstName(),

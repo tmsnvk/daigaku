@@ -29,7 +29,7 @@ public class RoleServiceImpl implements RoleService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "RoleByName", key = "{ #root.methodName, #uuid }")
-  public Role getRoleByUuid(String uuid) {
+  public Role getByUuid(String uuid) {
     return roleRepository.findByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }

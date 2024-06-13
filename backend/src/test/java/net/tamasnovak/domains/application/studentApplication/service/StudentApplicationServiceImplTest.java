@@ -1,5 +1,6 @@
 package net.tamasnovak.domains.application.studentApplication.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.domains.account.account.models.entity.Account;
 import net.tamasnovak.domains.accountRole.mentor.model.entity.Mentor;
 import net.tamasnovak.domains.accountRole.student.models.entity.Student;
@@ -46,6 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -181,15 +183,14 @@ class StudentApplicationServiceImplTest {
   @Nested
   @DisplayName("create() unit tests")
   class CreateUnitTests {
+    Country mockCountry = mock(Country.class);
+    University mockUniversity = mock(University.class);
+    ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
+    NewApplicationByStudentDto requestBody = mock(NewApplicationByStudentDto.class);
+
     @Test
     @Description("Creates an Application record and returns its ApplicationView projection.")
     void shouldCreateApplication_AndReturnApplicationView() {
-      Country mockCountry = mock(Country.class);
-      University mockUniversity = mock(University.class);
-      ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
-
-      NewApplicationByStudentDto requestBody = mock(NewApplicationByStudentDto.class);
-
       ApplicationDto expected = mock(ApplicationDto.class);
 
       when(countryService.getByUuid(requestBody.countryUuid())).thenReturn(mockCountry);
@@ -210,6 +211,16 @@ class StudentApplicationServiceImplTest {
       verify(studentService, times(1)).getByAccount(mockAccount);
       verify(applicationStatusService, times(1)).getByName("Planned");
       verify(applicationService, times(1)).getApplicationDtoByUuid(applicationUuid.toString());
+    }
+
+    @Test
+    @Description("Propagates exception when countryService throws EntityNotFoundException.")
+    void shouldPropagateException_whenCountryServiceThrowsEntityNotFoundException() {
+      when(countryService.getByUuid(requestBody.countryUuid())).thenThrow(new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+
+      assertThrows(EntityNotFoundException.class, () -> underTest.create(mockAccount, requestBody));
+
+      verify(applicationRepository, never()).save(mockApplication);
     }
   }
 

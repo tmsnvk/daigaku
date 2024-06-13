@@ -33,8 +33,8 @@ class PendingAccountRegistrationDtoTest {
   @DisplayName("PendingAccountRegistrationDto validation no-violation unit tests")
   class WhenDtoIsValid {
     @Test
-    @Description("Assert that there are no violations if underTest requestBody contains only valid fields.")
-    void shouldAssert_ThatViolationsSetIsEmpty_IfRequestBodyIsValid() {
+    @Description("Assert that there are no violations when underTest requestBody contains only valid fields.")
+    void shouldAssert_thatViolationsSetIsEmpty_whenRequestBodyIsValid() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -53,8 +53,8 @@ class PendingAccountRegistrationDtoTest {
   @DisplayName("PendingAccountRegistrationDto validation violation unit tests")
   class WhenDtoIsInvalid {
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's firstName fails @NotBlank validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsNotBlankValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's firstName fails @NotBlank validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "",
         "User",
@@ -71,8 +71,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's firstName fails @Pattern validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfFirstNameFailsPatternValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's firstName fails @Pattern validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsPatternValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Inv4l-d",
         "User",
@@ -89,8 +89,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's lastName fails @NotBlank validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsNotBlankValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's lastName fails @NotBlank validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "",
@@ -107,8 +107,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's lastName fails @Pattern validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfLastNameFailsPatternValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's lastName fails @Pattern validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsPatternValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "!s3r",
@@ -125,8 +125,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's email fails @Email validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfEmailFailsEmailValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's email fails @Email validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenEmailFailsEmailValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -143,8 +143,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's institutionUuid fails @NotBlank validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsNotBlankValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's institutionUuid fails @NotBlank validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -161,8 +161,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's institutionUuid fails @UuidConstraint validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfInstitutionUuidFailsUuidConstraintValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's institutionUuid fails @UuidConstraint validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsUuidConstraintValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -179,8 +179,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's accountRoleUuid fails @NotBlank validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsNotBlankValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's accountRoleUuid fails @NotBlank validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsNotBlankValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
@@ -197,8 +197,8 @@ class PendingAccountRegistrationDtoTest {
     }
 
     @Test
-    @Description("Assert that there is a violation if underTest requestBody's accountRoleUuid fails @UuidConstraint validation.")
-    void shouldAssert_ThatViolationsSetIsNotEmpty_IfAccountTypeFailsPatternValidation() {
+    @Description("Assert that there is a violation when underTest requestBody's accountRoleUuid fails @UuidConstraint validation.")
+    void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsPatternValidation() {
       underTest = new PendingAccountRegistrationDto(
         "Valid",
         "User",
