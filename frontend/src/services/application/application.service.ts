@@ -73,6 +73,12 @@ const applicationService = {
 
     return data;
   },
+  getDownloadRequest: async (): Promise<void> => {
+    await axiosConfigWithAuth.request({
+      method: 'GET',
+      url: '/api/applications/download',
+    });
+  },
 };
 
 export default applicationService;

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
 import { useSendDownloadRequest } from './TableHead.hooks.tsx';
+import { GlobalErrorModal } from '@components/notification';
 import {
   ButtonHeaderCell,
   TableHeadRow,
@@ -21,7 +22,11 @@ const TableHead = ({
   toggleModalHandler,
   refetch,
 }: ComponentPropsT) => {
-  const { sendDownloadRequest } = useSendDownloadRequest();
+  const { sendDownloadRequest, isError } = useSendDownloadRequest();
+
+  if (isError) {
+    return <GlobalErrorModal content={'An error happened during your request. Refresh your browser or try again at a later time.'} />;
+  }
 
   return (
     <TableHeadRow>

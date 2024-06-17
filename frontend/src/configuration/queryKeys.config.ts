@@ -27,6 +27,7 @@ const queryKeys = {
   APPLICATION: {
     GET_ALL_BY_ROLE: 'getApplicationsByRole',
     GET_BY_UUID: 'getApplicationByUuid',
+    POST_DOWNLOAD_REQUEST: 'postDownloadRequest',
   },
   APPLICATION_STATUS: {
     GET_AS_SELECT_OPTIONS: 'getAllApplicationStatus',

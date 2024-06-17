@@ -7,7 +7,7 @@ const Dialog = styled(BaseDialog)`
   background-color: ${({ theme }) => theme.color.secondaryLight};
   
   & p {
-    margin: 1.5rem 0 1.5rem 0;
+    margin: 1.5rem 2.5rem 1.5rem 2.5rem;
   }
 `;
 
