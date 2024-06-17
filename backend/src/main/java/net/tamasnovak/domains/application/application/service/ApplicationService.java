@@ -7,6 +7,4 @@ public interface ApplicationService {
   Application getByUuid(String uuid);
 
   ApplicationDto getApplicationDtoByUuid(String uuid);
-
-  void handleApplicationDownloadRequest();
 }

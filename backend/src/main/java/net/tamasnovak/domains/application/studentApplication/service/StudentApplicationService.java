@@ -7,9 +7,10 @@ import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.
 import net.tamasnovak.domains.application.studentApplication.models.dtoResponses.StudentDashboardDataDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface StudentApplicationService {
-  List<ApplicationDto> getAllApplicationDtosByAccount(Account account);
+  List<ApplicationDto> getAllApplicationDtosByAccountUuid(UUID authAccountUuid);
 
   void toggleIsRemovableByApplicationUuid(String uuid);
 
@@ -18,4 +19,6 @@ public interface StudentApplicationService {
   ApplicationDto create(Account account, NewApplicationByStudentDto requestBody);
 
   ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account);
+
+  void handleApplicationDownloadRequest(UUID authAccountUuid);
 }

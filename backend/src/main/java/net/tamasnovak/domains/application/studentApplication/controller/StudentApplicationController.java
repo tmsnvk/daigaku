@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/applications/student")
@@ -39,9 +40,9 @@ public class StudentApplicationController {
 
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<ApplicationDto>> getAllApplications() {
-    Account account = authenticationFacade.getAuthenticatedAccount();
+    UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
 
-    List<ApplicationDto> response = studentApplicationService.getAllApplicationDtosByAccount(account);
+    List<ApplicationDto> response = studentApplicationService.getAllApplicationDtosByAccountUuid(authAccountUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -89,5 +90,16 @@ public class StudentApplicationController {
     return ResponseEntity
       .status(HttpStatus.OK)
       .body(response);
+  }
+
+  @GetMapping(value = "/download")
+  public ResponseEntity<HttpStatus> handleDownload() {
+    UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
+
+    studentApplicationService.handleApplicationDownloadRequest(authAccountUuid);
+
+    return ResponseEntity
+      .status(HttpStatus.OK)
+      .build();
   }
 }

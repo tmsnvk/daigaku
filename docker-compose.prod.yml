@@ -46,6 +46,7 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATA_REDIS_HOST: daigaku-prod-redis-container
+      PDF_DIRECTORY: /student_application_pdfs/
     depends_on:
       - db-psql
       - db-redis

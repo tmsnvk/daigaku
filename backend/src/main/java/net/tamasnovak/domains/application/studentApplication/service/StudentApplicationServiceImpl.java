@@ -30,6 +30,7 @@ import net.tamasnovak.domains.support.university.service.UniversityService;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.ResponseStatusType;
+import net.tamasnovak.services.documentGenerator.pdf.PdfService;
 import net.tamasnovak.validation.applicationFieldValidator.ExistingApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -55,13 +56,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final OfferStatusService offerStatusService;
   private final ResponseStatusService responseStatusService;
   private final FinalDestinationStatusService finalDestinationStatusService;
+  private final PdfService pdfService;
   private final ApplicationRepository applicationRepository;
   private final ExistingApplicationValidator existingApplicationValidator;
   private final StudentApplicationConstants studentApplicationConstants;
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationServiceImpl(StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, PdfService pdfService, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.studentService = studentService;
     this.countryService = countryService;
     this.universityService = universityService;
@@ -71,6 +73,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.offerStatusService = offerStatusService;
     this.responseStatusService = responseStatusService;
     this.finalDestinationStatusService = finalDestinationStatusService;
+    this.pdfService = pdfService;
     this.applicationRepository = applicationRepository;
     this.existingApplicationValidator = existingApplicationValidator;
     this.studentApplicationConstants = studentApplicationConstants;
@@ -79,11 +82,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
-  public List<ApplicationDto> getAllApplicationDtosByAccount(Account account) {
-    Student student = studentService.getByAccount(account);
-
-    List<ApplicationView> applicationViews = applicationRepository.findApplicationViewsByStudentId(student.getId());
+  @Cacheable(value = "AllApplicationRecordsByAccountUuid", key = "{ #authAccountUuid }")
+  public List<ApplicationDto> getAllApplicationDtosByAccountUuid(UUID authAccountUuid) {
+    List<ApplicationView> applicationViews = applicationRepository.findApplicationViewsByAccountUuid(authAccountUuid);
 
     return applicationViews.stream()
       .map(ApplicationDto::new)
@@ -211,5 +212,13 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   private boolean areValuesEqual(String string, String stringToCheckAgainst) {
     return Objects.equals(string, stringToCheckAgainst);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public void handleApplicationDownloadRequest(UUID authAccountUuid) {
+    List<ApplicationDto> applications = this.getAllApplicationDtosByAccountUuid(authAccountUuid);
+
+    pdfService.createStudentApplicationsPdf(authAccountUuid, applications);
   }
 }

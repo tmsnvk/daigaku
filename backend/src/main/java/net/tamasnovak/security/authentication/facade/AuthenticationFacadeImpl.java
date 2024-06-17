@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class AuthenticationFacadeImpl implements AuthenticationFacade {
   private final AuthenticationManager authenticationManager;
@@ -36,5 +38,10 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
   @Override
   public User getUserContext() {
     return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  }
+
+  @Override
+  public UUID getAuthenticatedAccountUuid() {
+    return getAuthenticatedAccount().getUuid();
   }
 }

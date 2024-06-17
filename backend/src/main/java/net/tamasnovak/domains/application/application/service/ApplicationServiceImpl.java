@@ -61,10 +61,4 @@ public class ApplicationServiceImpl implements ApplicationService {
       authAccount.verifyAuthAccountUuidAgainstAnother(application.getStudentMentorAccountUuid(), globalServiceConstants.NO_PERMISSION);
     }
   }
-
-  @Override
-  @Transactional(readOnly = true)
-  public void handleApplicationDownloadRequest() {
-
-  }
 }

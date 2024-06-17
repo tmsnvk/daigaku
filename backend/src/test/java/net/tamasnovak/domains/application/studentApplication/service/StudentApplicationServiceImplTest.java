@@ -119,15 +119,13 @@ class StudentApplicationServiceImplTest {
 
       List<ApplicationDto> expected = Arrays.asList(mockApplicationDto1, mockApplicationDto2);
 
-      when(studentService.getByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationRepository.findApplicationViewsByStudentId(mockStudent.getId())).thenReturn(mockApplicationViews);
+      when(applicationRepository.findApplicationViewsByAccountUuid(mockAccount.getUuid())).thenReturn(mockApplicationViews);
 
-      List<ApplicationDto> actual = underTest.getAllApplicationDtosByAccount(mockAccount);
+      List<ApplicationDto> actual = underTest.getAllApplicationDtosByAccountUuid(mockAccount.getUuid());
 
       assertEquals(expected, actual);
 
-      verify(studentService, times(1)).getByAccount(mockAccount);
-      verify(applicationRepository, times(1)).findApplicationViewsByStudentId(mockStudent.getId());
+      verify(applicationRepository, times(1)).findApplicationViewsByAccountUuid(mockAccount.getUuid());
     }
   }
 

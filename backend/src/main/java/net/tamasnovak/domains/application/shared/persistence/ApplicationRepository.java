@@ -57,9 +57,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
       JOIN
         accounts AS last_modified_by ON applications.last_modified_by = last_modified_by.email
       WHERE
-        applications.student_id = :studentId
+        accounts.uuid = :accountUuid
     """, nativeQuery = true)
-  List<ApplicationView> findApplicationViewsByStudentId(@Param("studentId") long studentId);
+  List<ApplicationView> findApplicationViewsByAccountUuid(@Param("accountUuid") UUID accountUuid);
 
   @Query(value =
     """

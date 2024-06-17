@@ -32,13 +32,4 @@ public class ApplicationController {
       .status(HttpStatus.OK)
       .body(response);
   }
-
-  @GetMapping(value = "/download")
-  public ResponseEntity<HttpStatus> handleDownload() {
-    applicationService.handleApplicationDownloadRequest();
-
-    return ResponseEntity
-      .status(HttpStatus.OK)
-      .build();
-  }
 }
