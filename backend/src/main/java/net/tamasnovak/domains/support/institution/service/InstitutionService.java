@@ -8,5 +8,7 @@ import java.util.List;
 public interface InstitutionService {
   Institution getByUuid(String uuid);
 
+  Institution getById(long id);
+
   List<InstitutionOptionDto> getAllSelectOptions();
 }

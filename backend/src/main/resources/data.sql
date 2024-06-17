@@ -17,8 +17,7 @@ VALUES
 INSERT INTO institutions
   (uuid, address_id, name, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'Budapesti Fazekas Mihály Gyakorló Általános Iskola és Gimnázium', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp,
-   current_timestamp),
+  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'Budapesti Fazekas Mihály Gyakorló Általános Iskola és Gimnázium', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp,  current_timestamp),
   (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'Budapest V. Kerületi Eötvös József Gimnázium', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
   (gen_random_uuid(), (SELECT id FROM addresses OFFSET 2 LIMIT 1), 'ELTE Radnóti Miklós Gyakorló Általános Iskola és Gyakorló Gimnázium', 'sysadmin@test.net',
    'sysadmin@test.net', current_timestamp, current_timestamp),
@@ -35,10 +34,10 @@ WITH role_insert AS (
     id
 )
 INSERT INTO accounts
-  (uuid, address_id, first_name, last_name, email, hashed_password, role_id, created_by, last_modified_by, created_at, last_updated_at)
+  (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'SysAdmin', 'User', 'sysadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert), 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'SysAdmin', 'User', 'sysadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM  role_insert), 'sysadmin2@test.net', 'sysadmin2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'SysAdmin', 'User', 'sysadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'SysAdmin', 'User', 'sysadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM  role_insert), 'sysadmin2@test.net', 'sysadmin2@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO system_admins
   (account_id)
@@ -56,11 +55,10 @@ WITH role_insert AS (
     id
 )
 INSERT INTO accounts
-  (uuid, address_id, first_name, last_name, email, hashed_password, role_id, created_by, last_modified_by, created_at, last_updated_at)
+  (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'InsAdmin', 'User', 'insadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert), 'insadmin@test.net', 'insadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'InsAdmin', 'User', 'insadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm',
-   (SELECT id FROM role_insert), 'insadmin2@test.net', 'insadmin2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'InsAdmin', 'User', 'insadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'insadmin@test.net', 'insadmin@test.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'InsAdmin', 'User', 'insadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'insadmin2@test.net', 'insadmin2@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO institution_admins
 (account_id, institution_id)
@@ -78,11 +76,10 @@ WITH role_insert AS (
     id
 )
 INSERT INTO accounts
-  (uuid, address_id, first_name, last_name, email, hashed_password, role_id, created_by, last_modified_by, created_at, last_updated_at)
+  (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert),
-   'mentor@test.net', 'mentor@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'Mentor', 'User', 'mentor2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM role_insert), 'mentor2@test.net', 'mentor2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'mentor@test.net', 'mentor@test.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'Mentor', 'User', 'mentor2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'mentor2@test.net', 'mentor2@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO mentors
   (account_id, institution_id)
@@ -100,12 +97,10 @@ WITH role_insert AS (
     id
 )
 INSERT INTO accounts
-  (uuid, address_id, first_name, last_name, email, hashed_password, role_id, created_by, last_modified_by, created_at, last_updated_at)
+  (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 2 LIMIT 1), 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm',
-   (SELECT id FROM role_insert), 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 3 LIMIT 1), 'Student', 'User', 'student2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm',
-   (SELECT id FROM role_insert), 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 2 LIMIT 1), 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 3 LIMIT 1), 'Student', 'User', 'student2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO students
   (account_id, mentor_id, institution_id)

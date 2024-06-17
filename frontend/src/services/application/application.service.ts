@@ -76,7 +76,7 @@ const applicationService = {
   getDownloadRequest: async (): Promise<void> => {
     await axiosConfigWithAuth.request({
       method: 'GET',
-      url: '/api/applications/download',
+      url: '/api/applications/student/download',
     });
   },
 };

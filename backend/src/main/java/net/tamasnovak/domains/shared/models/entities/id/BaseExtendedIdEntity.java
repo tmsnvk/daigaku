@@ -28,6 +28,10 @@ public abstract class BaseExtendedIdEntity implements Serializable {
 
   protected BaseExtendedIdEntity() {}
 
+  public long getId() {
+    return this.id;
+  }
+
   public UUID getUuid() {
     return this.uuid;
   }

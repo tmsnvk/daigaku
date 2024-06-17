@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PdfServiceConstants {
-  final String StudentApplicationsTemplate =
+  final String StudentApplicationsCentralTemplate =
     """
       <html>
       <head>
@@ -16,11 +16,25 @@ public class PdfServiceConstants {
         </style>
       <head>
       <body>
-        %s
+        <main>
+          %s
+          %s
+        </main>
+        <footer>
+          <p>The document was generated on %s at %s.</p>
+        </footer>
       </body>
       </html>
     """;
-  final String SingleApplicationData =
+  final String StudentDataChunk =
+    """
+      <section>
+        <p>Name: <span>%s</span></p>
+        <p>Email: <span>%s</span></p>
+        <p>Institution: <span>%s</span></p>
+      </section>
+    """;
+  final String SingleApplicationDataChunk =
     """
       <section>
         <p>%s</p>

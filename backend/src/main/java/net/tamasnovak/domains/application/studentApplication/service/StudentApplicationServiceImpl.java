@@ -1,6 +1,7 @@
 package net.tamasnovak.domains.application.studentApplication.service;
 
 import net.tamasnovak.domains.account.account.models.entity.Account;
+import net.tamasnovak.domains.account.account.service.AccountService;
 import net.tamasnovak.domains.accountRole.student.models.entity.Student;
 import net.tamasnovak.domains.accountRole.student.service.StudentService;
 import net.tamasnovak.domains.application.application.service.ApplicationService;
@@ -25,6 +26,8 @@ import net.tamasnovak.domains.applicationStages.shared.models.entity.BaseStatusE
 import net.tamasnovak.domains.shared.constants.GlobalServiceConstants;
 import net.tamasnovak.domains.support.country.models.entity.Country;
 import net.tamasnovak.domains.support.country.service.CountryService;
+import net.tamasnovak.domains.support.institution.models.entity.Institution;
+import net.tamasnovak.domains.support.institution.service.InstitutionService;
 import net.tamasnovak.domains.support.university.models.entity.University;
 import net.tamasnovak.domains.support.university.service.UniversityService;
 import net.tamasnovak.enums.status.ApplicationStatusType;
@@ -47,7 +50,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
+  private final AccountService accountService;
   private final StudentService studentService;
+  private final InstitutionService institutionService;
   private final CountryService countryService;
   private final UniversityService universityService;
   private final ApplicationService applicationService;
@@ -63,8 +68,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(StudentService studentService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, PdfService pdfService, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, InstitutionService institutionService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, PdfService pdfService, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+    this.accountService = accountService;
     this.studentService = studentService;
+    this.institutionService = institutionService;
     this.countryService = countryService;
     this.universityService = universityService;
     this.applicationService = applicationService;
@@ -217,8 +224,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional(readOnly = true)
   public void handleApplicationDownloadRequest(UUID authAccountUuid) {
+    Account studentAccount = accountService.getByUuid(authAccountUuid);
+    Institution studentInstitution = institutionService.getById(studentAccount.getInstitutionId());
     List<ApplicationDto> applications = this.getAllApplicationDtosByAccountUuid(authAccountUuid);
 
-    pdfService.createStudentApplicationsPdf(authAccountUuid, applications);
+    pdfService.createStudentApplicationsPdf(studentAccount, studentInstitution, authAccountUuid, applications);
   }
 }

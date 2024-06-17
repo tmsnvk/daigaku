@@ -11,5 +11,7 @@ import java.util.UUID;
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
   Optional<Institution> findByUuid(UUID uuid);
 
+  Optional<Institution> findInstitutionById(long id);
+
   List<InstitutionOptionDto> findAllByOrderByNameAsc();
 }

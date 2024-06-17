@@ -47,6 +47,10 @@ public final class Account extends BaseAccount {
     return new Account(firstName, lastName, email, hashedPassword, institution, role);
   }
 
+  public String getFullName() {
+    return this.fullName;
+  }
+
   public String getRoleName() {
     return this.role.getName();
   }

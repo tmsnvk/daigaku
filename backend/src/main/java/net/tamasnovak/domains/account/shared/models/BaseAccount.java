@@ -84,4 +84,8 @@ public abstract class BaseAccount extends Auditable {
   public String getLastName() {
     return this.lastName;
   }
+
+  public long getInstitutionId() {
+    return this.institution.getId();
+  }
 }

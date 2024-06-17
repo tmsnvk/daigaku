@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Qualifier(value = "AccountService")
 public class AccountServiceImpl implements AccountService {
@@ -32,6 +34,12 @@ public class AccountServiceImpl implements AccountService {
   @Transactional(readOnly = true)
   public Account getByEmail(String email) {
     return accountRepository.findByEmail(email)
+      .orElseThrow(() -> new EntityNotFoundException(accountConstants.ACCOUNT_NOT_FOUND));
+  }
+
+  @Override
+  public Account getByUuid(UUID accountUuid) {
+    return accountRepository.findByUuid(accountUuid)
       .orElseThrow(() -> new EntityNotFoundException(accountConstants.ACCOUNT_NOT_FOUND));
   }
 
