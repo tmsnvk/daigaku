@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
+import { useSendDownloadRequest } from './TableHead.hooks.tsx';
 import {
   ButtonHeaderCell,
   TableHeadRow,
@@ -20,6 +21,8 @@ const TableHead = ({
   toggleModalHandler,
   refetch,
 }: ComponentPropsT) => {
+  const { sendDownloadRequest } = useSendDownloadRequest();
+
   return (
     <TableHeadRow>
       {columns.map((column) => {
@@ -50,6 +53,13 @@ const TableHead = ({
         >
           Display
           <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
+        </button>
+        <button
+          type={'button'}
+          onClick={sendDownloadRequest}
+        >
+          Download
+          <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />
         </button>
       </ButtonHeaderCell>
     </TableHeadRow>
