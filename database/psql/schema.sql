@@ -18,14 +18,13 @@ DROP TABLE IF EXISTS final_destination_status CASCADE;
 DROP TABLE IF EXISTS applications CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 
-
 -- TABLES SET UP
 -- database-wide tables
 CREATE TABLE countries(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   name VARCHAR NOT NULL
@@ -49,8 +48,8 @@ CREATE TABLE roles(
 CREATE TABLE institutions(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   name VARCHAR NOT NULL,
@@ -61,8 +60,8 @@ CREATE TABLE institutions(
 CREATE TABLE pending_accounts(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   first_name VARCHAR NOT NULL,
@@ -75,8 +74,8 @@ CREATE TABLE pending_accounts(
 CREATE TABLE accounts(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   first_name VARCHAR NOT NULL,
@@ -117,8 +116,8 @@ CREATE TABLE students(
 CREATE TABLE universities(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   country_id BIGINT REFERENCES countries(id),
@@ -130,8 +129,8 @@ CREATE TABLE universities(
 CREATE TABLE application_status(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   name VARCHAR NOT NULL
@@ -140,8 +139,8 @@ CREATE TABLE application_status(
 CREATE TABLE interview_status(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   name VARCHAR NOT NULL
@@ -150,8 +149,8 @@ CREATE TABLE interview_status(
 CREATE TABLE offer_status(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   name VARCHAR NOT NULL
@@ -160,8 +159,8 @@ CREATE TABLE offer_status(
 CREATE TABLE response_status(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   name VARCHAR NOT NULL
@@ -170,8 +169,8 @@ CREATE TABLE response_status(
 CREATE TABLE final_destination_status(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   name VARCHAR NOT NULL
@@ -181,8 +180,8 @@ CREATE TABLE final_destination_status(
 CREATE TABLE applications(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   student_id BIGINT REFERENCES students(id),
@@ -203,8 +202,8 @@ CREATE TABLE applications(
 CREATE TABLE comments(
   id SERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  last_updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+  last_updated_at TIMESTAMPTZ NOT NULL,
   created_by VARCHAR NOT NULL,
   last_modified_by VARCHAR NOT NULL,
   content TEXT NOT NULL,

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,6 +116,15 @@ public class GlobalControllerExceptionHandler {
 
   @ExceptionHandler(value = { InvalidFormFieldException.class })
   public ResponseEntity<Map<String, String>> onEntityNotFoundException(InvalidFormFieldException exception) {
+    Map<String, String> response = createErrorResponse(exception.getMessage());
+
+    return ResponseEntity
+      .status(HttpStatus.BAD_REQUEST)
+      .body(response);
+  }
+
+  @ExceptionHandler(value = { FileNotFoundException.class })
+  public ResponseEntity<Map<String, String>> onFileNotFoundException(FileNotFoundException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity

@@ -8,6 +8,7 @@ const mutationKeys = {
     POST_BY_STUDENT: 'postApplicationByStudent',
     PATCH_BY_UUID: 'patchApplicationByUuid',
     MARK_FOR_DELETION: 'patchApplicationByUuidForMarkDeletion',
+    POST_DOWNLOAD_REQUEST: 'postDownloadRequest',
   },
   COMMENTS: {
     POST_COMMENT_BY_APPLICATION: 'postCommentByApplicationUuid',
@@ -27,7 +28,6 @@ const queryKeys = {
   APPLICATION: {
     GET_ALL_BY_ROLE: 'getApplicationsByRole',
     GET_BY_UUID: 'getApplicationByUuid',
-    POST_DOWNLOAD_REQUEST: 'postDownloadRequest',
   },
   APPLICATION_STATUS: {
     GET_AS_SELECT_OPTIONS: 'getAllApplicationStatus',

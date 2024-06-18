@@ -1,25 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { applicationService } from '@services/index.ts';
-import { queryKeys } from '@configuration';
-import { useState } from 'react';
+import { mutationKeys } from '@configuration';
 
 const useSendDownloadRequest = () => {
-  const [isRequestSent, setIsRequestSent] = useState<boolean>(false);
+  return useMutation({
+    mutationKey: [mutationKeys.APPLICATION.POST_DOWNLOAD_REQUEST],
+    mutationFn: () => applicationService.getDownloadRequest(),
+    onSuccess: () => {
 
-  const sendDownloadRequest = () => {
-    setIsRequestSent(!isRequestSent);
-  };
+    },
+    onError: () => {
 
-  const query = useQuery({
-    queryKey: [queryKeys.APPLICATION.POST_DOWNLOAD_REQUEST],
-    queryFn: () => applicationService.getDownloadRequest(),
-    enabled: isRequestSent,
+    },
   });
-
-  return {
-    sendDownloadRequest,
-    isError: query.isError,
-  };
 };
 
 export {

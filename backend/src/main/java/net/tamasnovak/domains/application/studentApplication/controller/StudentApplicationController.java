@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -92,8 +93,8 @@ public class StudentApplicationController {
       .body(response);
   }
 
-  @GetMapping(value = "/download")
-  public ResponseEntity<HttpStatus> handleDownload() {
+  @PostMapping(value = "/download")
+  public ResponseEntity<HttpStatus> handleDownload() throws FileNotFoundException {
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
 
     studentApplicationService.handleApplicationDownloadRequest(authAccountUuid);

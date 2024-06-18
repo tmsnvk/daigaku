@@ -8,6 +8,7 @@ import {
 } from './TableHead.styles.ts';
 import { iconLibraryConfig } from '@configuration';
 import { ColumnT } from '../../Applications.hooks.tsx';
+import LoadingIndicator from '../../../../../components/form/LoadingIndicator';
 
 type ComponentPropsT = {
   columns: ColumnT[];
@@ -22,7 +23,7 @@ const TableHead = ({
   toggleModalHandler,
   refetch,
 }: ComponentPropsT) => {
-  const { sendDownloadRequest, isError } = useSendDownloadRequest();
+  const { mutate, isPending, isError } = useSendDownloadRequest();
 
   if (isError) {
     return <GlobalErrorModal content={'An error happened during your request. Refresh your browser or try again at a later time.'} />;
@@ -59,13 +60,15 @@ const TableHead = ({
           Display
           <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
         </button>
-        <button
-          type={'button'}
-          onClick={sendDownloadRequest}
-        >
-          Download
-          <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />
-        </button>
+        {isPending ?
+          <LoadingIndicator content={'Handling your request...'} /> :
+          <button
+            type={'button'}
+            onClick={() => mutate()}
+          >
+            Download
+            <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />
+          </button>}
       </ButtonHeaderCell>
     </TableHeadRow>
   );
