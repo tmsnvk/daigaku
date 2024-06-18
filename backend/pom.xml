@@ -120,6 +120,13 @@
       <artifactId>html2pdf</artifactId>
       <version>5.0.4</version>
     </dependency>
+
+    <!-- s3 -->
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>s3</artifactId>
+      <version>2.26.4</version>
+    </dependency>
   </dependencies>
 
   <build>

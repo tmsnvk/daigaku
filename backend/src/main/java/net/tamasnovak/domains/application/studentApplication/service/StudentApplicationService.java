@@ -6,7 +6,7 @@ import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.
 import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.UpdateApplicationByStudentDto;
 import net.tamasnovak.domains.application.studentApplication.models.dtoResponses.StudentDashboardDataDto;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,5 +21,5 @@ public interface StudentApplicationService {
 
   ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account);
 
-  void handleApplicationDownloadRequest(UUID authAccountUuid) throws FileNotFoundException;
+  void handleApplicationDownloadRequest(UUID authAccountUuid) throws IOException;
 }
