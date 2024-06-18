@@ -4,9 +4,8 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import net.tamasnovak.domains.account.account.models.entity.Account;
 import net.tamasnovak.domains.application.shared.models.dtoResponses.ApplicationDto;
 import net.tamasnovak.domains.support.institution.models.entity.Institution;
-import net.tamasnovak.services.amazonS3Service.AmazonS3ServiceImpl;
+import net.tamasnovak.services.amazonS3Service.AmazonS3Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,39 +18,40 @@ import java.util.UUID;
 
 @Service
 public class PdfServiceImpl implements PdfService {
-  private final AmazonS3ServiceImpl amazonS3Service;
+  private final AmazonS3Service amazonS3Service;
+  private final PdfServiceConstants pdfServiceConstants;
   private final StudentApplicationsConstants studentApplicationsConstants;
 
-  @Value("${pdf.directory}")
-  private String pdfDirectory;
-
   @Autowired
-  public PdfServiceImpl(AmazonS3ServiceImpl amazonS3Service, StudentApplicationsConstants studentApplicationsConstants) {
+  public PdfServiceImpl(AmazonS3Service amazonS3Service, PdfServiceConstants pdfServiceConstants, StudentApplicationsConstants studentApplicationsConstants) {
     this.amazonS3Service = amazonS3Service;
+    this.pdfServiceConstants = pdfServiceConstants;
     this.studentApplicationsConstants = studentApplicationsConstants;
   }
 
   @Override
   @Transactional
-  public void createStudentApplicationsPdf(Account studentAccount, Institution studentInstitution, UUID authAccountUuid, List<ApplicationDto> applications) throws IOException {
-    StringBuilder studentData = compileStudentData(studentAccount, studentInstitution);
-    StringBuilder applicationData = compileStudentApplicationsDynamicData(applications);
+  public void createStudentApplicationsPdf(Account studentAccount, Institution studentInstitution, UUID authAccountUuid, List<ApplicationDto> applications) {
+    try {
+      StringBuilder studentData = compileStudentData(studentAccount, studentInstitution);
+      StringBuilder applicationData = compileStudentApplicationsDynamicData(applications);
 
-    LocalDateTime now = LocalDateTime.now();
+      LocalDateTime now = LocalDateTime.now();
 
-    String htmlSource = String.format(studentApplicationsConstants.StudentApplicationsCentralTemplate,
-      now.toLocalDate(),
-      now.toLocalTime(),
-      studentData,
-      applicationData
-    );
-//    String filePath = Paths.get(pdfDirectory, String.format("%s.pdf", authAccountUuid)).toString();
-    File file = new File(String.format("%s.pdf", authAccountUuid));
-    HtmlConverter.convertToPdf(htmlSource, new FileOutputStream(file));
+      String htmlSource = String.format(studentApplicationsConstants.StudentApplicationsCentralTemplate,
+        now.toLocalDate(),
+        now.toLocalTime(),
+        studentData,
+        applicationData
+      );
 
-//    MultipartFile file = new Multipa(String.format("%s.pdf", authAccountUuid), "application/pdf");
+      File file = new File(String.format("%s.pdf", authAccountUuid));
+      HtmlConverter.convertToPdf(htmlSource, new FileOutputStream(file));
 
-    amazonS3Service.uploadFileToS3Bucket(file.toString(), file);
+      amazonS3Service.uploadFileToS3Bucket(file.toString(), file);
+    } catch (IOException exception) {
+      throw new IllegalStateException(pdfServiceConstants.PDF_ERROR);
+    }
   }
 
   private StringBuilder compileStudentData(Account studentAccount, Institution studentInstitution) {

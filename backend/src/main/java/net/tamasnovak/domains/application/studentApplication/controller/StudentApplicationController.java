@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -94,7 +93,7 @@ public class StudentApplicationController {
   }
 
   @PostMapping(value = "/download")
-  public ResponseEntity<HttpStatus> handleDownload() throws IOException {
+  public ResponseEntity<HttpStatus> handleDownload() {
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
 
     studentApplicationService.handleApplicationDownloadRequest(authAccountUuid);

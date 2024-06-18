@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,17 +122,26 @@ public class GlobalControllerExceptionHandler {
       .body(response);
   }
 
-  @ExceptionHandler(value = { FileNotFoundException.class })
-  public ResponseEntity<Map<String, String>> onFileNotFoundException(FileNotFoundException exception) {
-    Map<String, String> response = createErrorResponse(exception.getMessage());
+//  @ExceptionHandler(value = { FileNotFoundException.class })
+//  public ResponseEntity<Map<String, String>> onFileNotFoundException(FileNotFoundException exception) {
+//    Map<String, String> response = createErrorResponse(exception.getMessage());
+//
+//    return ResponseEntity
+//      .status(HttpStatus.BAD_REQUEST)
+//      .body(response);
+//  }
+//
+//  @ExceptionHandler(value = { IOException.class })
+//  public ResponseEntity<Map<String, String>> onIOException(IOException exception) {
+//    Map<String, String> response = createErrorResponse(exception.getMessage());
+//
+//    return ResponseEntity
+//      .status(HttpStatus.BAD_REQUEST)
+//      .body(response);
+//  }
 
-    return ResponseEntity
-      .status(HttpStatus.BAD_REQUEST)
-      .body(response);
-  }
-
-  @ExceptionHandler(value = { IOException.class })
-  public ResponseEntity<Map<String, String>> onIOException(IOException exception) {
+  @ExceptionHandler(value = { IllegalStateException.class })
+  public ResponseEntity<Map<String, String>> onIllegalStateException(IllegalStateException exception) {
     Map<String, String> response = createErrorResponse(exception.getMessage());
 
     return ResponseEntity

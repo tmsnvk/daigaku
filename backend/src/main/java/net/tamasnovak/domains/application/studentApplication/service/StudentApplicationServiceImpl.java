@@ -42,7 +42,6 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -224,7 +223,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public void handleApplicationDownloadRequest(UUID authAccountUuid) throws IOException {
+  public void handleApplicationDownloadRequest(UUID authAccountUuid) {
     Account studentAccount = accountService.getByUuid(authAccountUuid);
     Institution studentInstitution = institutionService.getById(studentAccount.getInstitutionId());
     List<ApplicationDto> applications = this.getAllApplicationDtosByAccountUuid(authAccountUuid);
