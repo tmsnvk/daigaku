@@ -49,6 +49,8 @@ public class PdfServiceImpl implements PdfService {
       HtmlConverter.convertToPdf(htmlSource, new FileOutputStream(file));
 
       amazonS3Service.uploadFileToS3Bucket(file.toString(), file);
+
+      file.delete();
     } catch (IOException exception) {
       throw new IllegalStateException(pdfServiceConstants.PDF_ERROR);
     }
