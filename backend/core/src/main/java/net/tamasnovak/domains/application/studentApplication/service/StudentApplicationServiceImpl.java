@@ -33,12 +33,9 @@ import net.tamasnovak.domains.support.university.service.UniversityService;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.ResponseStatusType;
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.RabbitMQCommonConfig;
-import net.tamasnovak.rabbitmq.models.application.StudentApplicationQueueDto;
-import net.tamasnovak.rabbitmq.models.queueDto.StudentPdfSaveQueueDto;
-import net.tamasnovak.rabbitmq.models.student.StudentAccountQueueDto;
-import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;
+import net.tamasnovak.services.documentGenerator.pdf.PdfService;
 import net.tamasnovak.services.email.EmailService;
+import net.tamasnovak.services.email.dtos.NewEmailDto;
 import net.tamasnovak.validation.applicationFieldValidator.ExistingApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -47,7 +44,6 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -67,15 +63,15 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final OfferStatusService offerStatusService;
   private final ResponseStatusService responseStatusService;
   private final FinalDestinationStatusService finalDestinationStatusService;
+  private final PdfService pdfService;
   private final EmailService emailService;
-  private final QueueSender queueSender;
   private final ApplicationRepository applicationRepository;
   private final ExistingApplicationValidator existingApplicationValidator;
   private final StudentApplicationConstants studentApplicationConstants;
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, InstitutionService institutionService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, EmailService emailService, QueueSender queueSender, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, InstitutionService institutionService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, PdfService pdfService, EmailService emailService, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.accountService = accountService;
     this.studentService = studentService;
     this.institutionService = institutionService;
@@ -87,9 +83,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.offerStatusService = offerStatusService;
     this.responseStatusService = responseStatusService;
     this.finalDestinationStatusService = finalDestinationStatusService;
+    this.pdfService = pdfService;
     this.emailService = emailService;
-	  this.queueSender = queueSender;
-	  this.applicationRepository = applicationRepository;
+    this.applicationRepository = applicationRepository;
     this.existingApplicationValidator = existingApplicationValidator;
     this.studentApplicationConstants = studentApplicationConstants;
     this.globalServiceConstants = globalServiceConstants;
@@ -236,47 +232,15 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Institution studentInstitution = institutionService.getById(studentAccount.getInstitutionId());
     List<ApplicationDto> applications = this.getAllApplicationDtosByAccountUuid(authAccountUuid);
 
-    StudentPdfSaveQueueDto compiledData = compileStudentPdfSaveData(authAccountUuid, studentAccount, studentInstitution, applications);
-    queueSender.send(RabbitMQCommonConfig.STUDENT_DATA_PDF_SAVE_EXCHANGE_KEY, RabbitMQCommonConfig.STUDENT_PDF_SAVE_ROUTING_KEY, compiledData);
+    String pdfDirectLink = pdfService.createStudentApplicationsPdf(studentAccount, studentInstitution, authAccountUuid, applications);
+    String content = String.format(studentApplicationConstants.STUDENT_PDF_EMAIL_BODY, studentAccount.getFullName(), pdfDirectLink);
 
-    //    String pdfDirectLink = pdfService.createStudentApplicationsPdf(studentAccount, studentInstitution, authAccountUuid, applications);
-//    String content = String.format(studentApplicationConstants.STUDENT_PDF_EMAIL_BODY, studentAccount.getFullName(), pdfDirectLink);
-
-//    NewEmailDto emailContent = new NewEmailDto(
-//      studentAccount.getEmail(),
-//      studentApplicationConstants.STUDENT_PDF_EMAIL_SUBJECT,
-//      content
-//    );
-//
-//    emailService.sendSimpleEmail(emailContent);
-  }
-
-  private StudentPdfSaveQueueDto compileStudentPdfSaveData(UUID authAccountUuid, Account studentAccount, Institution studentInstitution, List<ApplicationDto> applications) {
-    StudentAccountQueueDto studentAccountQueueDto = new StudentAccountQueueDto(studentAccount.getFullName(), studentAccount.getEmail(), studentInstitution.getName());
-
-    List<StudentApplicationQueueDto> queueApplications = new ArrayList<>();
-
-    for (ApplicationDto application : applications) {
-      StudentApplicationQueueDto applicationQueueDto = new StudentApplicationQueueDto(
-        application.createdAt(),
-        application.lastUpdatedAt(),
-        application.courseName(),
-        application.university(),
-        application.country(),
-        application.applicationStatus(),
-        application.interviewStatus(),
-        application.offerStatus(),
-        application.responseStatus(),
-        application.finalDestinationStatus()
-      );
-
-      queueApplications.add(applicationQueueDto);
-    }
-
-    return new StudentPdfSaveQueueDto(
-      authAccountUuid,
-      studentAccountQueueDto,
-      queueApplications
+    NewEmailDto emailContent = new NewEmailDto(
+      studentAccount.getEmail(),
+      studentApplicationConstants.STUDENT_PDF_EMAIL_SUBJECT,
+      content
     );
+
+    emailService.sendSimpleEmail(emailContent);
   }
 }
