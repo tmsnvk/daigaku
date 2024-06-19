@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StudentApplicationsConstants {
-  final String StudentApplicationsCentralTemplate =
+  final String STUDENT_APPLICATION_HTML_MAIN_TEMPLATE =
     """
       <html>
       <head>
@@ -91,7 +91,7 @@ public class StudentApplicationsConstants {
       </body>
       </html>
     """;
-  final String StudentDataChunk =
+  final String STUDENT_HTML_STUDENT_DATA =
     """
       <section class="student-data">
         <p>Name: <span>%s</span></p>
@@ -99,7 +99,7 @@ public class StudentApplicationsConstants {
         <p>Institution: <span>%s</span></p>
       </section>
     """;
-  final String SingleApplicationDataChunk =
+  final String STUDENT_HTML_APPLICATIONS_DATA =
     """
       <section class="application-data">
         <div>

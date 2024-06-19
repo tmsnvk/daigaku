@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PdfService {
-  void createStudentApplicationsPdf(Account studentAccount, Institution studentInstitution, UUID authAccountUuid, List<ApplicationDto> applications);
+  String createStudentApplicationsPdf(Account studentAccount, Institution studentInstitution, UUID authAccountUuid, List<ApplicationDto> applications);
 }

@@ -34,6 +34,8 @@ import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.ResponseStatusType;
 import net.tamasnovak.services.documentGenerator.pdf.PdfService;
+import net.tamasnovak.services.email.EmailService;
+import net.tamasnovak.services.email.dtos.NewEmailDto;
 import net.tamasnovak.validation.applicationFieldValidator.ExistingApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -62,13 +64,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final ResponseStatusService responseStatusService;
   private final FinalDestinationStatusService finalDestinationStatusService;
   private final PdfService pdfService;
+  private final EmailService emailService;
   private final ApplicationRepository applicationRepository;
   private final ExistingApplicationValidator existingApplicationValidator;
   private final StudentApplicationConstants studentApplicationConstants;
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, InstitutionService institutionService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, PdfService pdfService, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
+  public StudentApplicationServiceImpl(AccountService accountService, StudentService studentService, InstitutionService institutionService, CountryService countryService, UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService, FinalDestinationStatusService finalDestinationStatusService, PdfService pdfService, EmailService emailService, ApplicationRepository applicationRepository, ExistingApplicationValidator existingApplicationValidator, StudentApplicationConstants studentApplicationConstants, GlobalServiceConstants globalServiceConstants) {
     this.accountService = accountService;
     this.studentService = studentService;
     this.institutionService = institutionService;
@@ -81,6 +84,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.responseStatusService = responseStatusService;
     this.finalDestinationStatusService = finalDestinationStatusService;
     this.pdfService = pdfService;
+    this.emailService = emailService;
     this.applicationRepository = applicationRepository;
     this.existingApplicationValidator = existingApplicationValidator;
     this.studentApplicationConstants = studentApplicationConstants;
@@ -228,6 +232,15 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Institution studentInstitution = institutionService.getById(studentAccount.getInstitutionId());
     List<ApplicationDto> applications = this.getAllApplicationDtosByAccountUuid(authAccountUuid);
 
-    pdfService.createStudentApplicationsPdf(studentAccount, studentInstitution, authAccountUuid, applications);
+    String pdfDirectLink = pdfService.createStudentApplicationsPdf(studentAccount, studentInstitution, authAccountUuid, applications);
+    String content = String.format(studentApplicationConstants.STUDENT_PDF_EMAIL_BODY, studentAccount.getFullName(), pdfDirectLink);
+
+    NewEmailDto emailContent = new NewEmailDto(
+      studentAccount.getEmail(),
+      studentApplicationConstants.STUDENT_PDF_EMAIL_SUBJECT,
+      content
+    );
+
+    emailService.sendSimpleEmail(emailContent);
   }
 }

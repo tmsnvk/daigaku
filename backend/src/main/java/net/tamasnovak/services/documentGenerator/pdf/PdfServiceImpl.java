@@ -6,6 +6,7 @@ import net.tamasnovak.domains.application.shared.models.dtoResponses.Application
 import net.tamasnovak.domains.support.institution.models.entity.Institution;
 import net.tamasnovak.services.amazonS3Service.AmazonS3Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ import java.util.UUID;
 
 @Service
 public class PdfServiceImpl implements PdfService {
+  @Value("${aws.endpointUrl}")
+  private String endpointUrlRoot;
+
   private final AmazonS3Service amazonS3Service;
   private final PdfServiceConstants pdfServiceConstants;
   private final StudentApplicationsConstants studentApplicationsConstants;
@@ -31,14 +35,14 @@ public class PdfServiceImpl implements PdfService {
 
   @Override
   @Transactional
-  public void createStudentApplicationsPdf(Account studentAccount, Institution studentInstitution, UUID authAccountUuid, List<ApplicationDto> applications) {
+  public String createStudentApplicationsPdf(Account studentAccount, Institution studentInstitution, UUID authAccountUuid, List<ApplicationDto> applications) {
     try {
       StringBuilder studentData = compileStudentData(studentAccount, studentInstitution);
       StringBuilder applicationData = compileStudentApplicationsDynamicData(applications);
 
       LocalDateTime now = LocalDateTime.now();
 
-      String htmlSource = String.format(studentApplicationsConstants.StudentApplicationsCentralTemplate,
+      String htmlSource = String.format(studentApplicationsConstants.STUDENT_APPLICATION_HTML_MAIN_TEMPLATE,
         now.toLocalDate(),
         now.toLocalTime(),
         studentData,
@@ -51,6 +55,8 @@ public class PdfServiceImpl implements PdfService {
       amazonS3Service.uploadFileToS3Bucket(file.toString(), file);
 
       file.delete();
+
+      return endpointUrlRoot + String.format("%s.pdf", authAccountUuid);
     } catch (IOException exception) {
       throw new IllegalStateException(pdfServiceConstants.PDF_ERROR);
     }
@@ -60,7 +66,7 @@ public class PdfServiceImpl implements PdfService {
     StringBuilder studentData = new StringBuilder();
 
     studentData.append(
-      String.format(studentApplicationsConstants.StudentDataChunk,
+      String.format(studentApplicationsConstants.STUDENT_HTML_STUDENT_DATA,
         studentAccount.getFullName(),
         studentAccount.getEmail(),
         studentInstitution.getName()
@@ -75,7 +81,7 @@ public class PdfServiceImpl implements PdfService {
 
     for (ApplicationDto application : applications) {
       applicationData.append(
-        String.format(studentApplicationsConstants.SingleApplicationDataChunk,
+        String.format(studentApplicationsConstants.STUDENT_HTML_APPLICATIONS_DATA,
           application.createdAt(),
           application.lastUpdatedAt(),
           application.courseName(),
