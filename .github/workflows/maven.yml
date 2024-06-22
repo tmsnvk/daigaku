@@ -38,22 +38,20 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build RabbitMQCommonLibSpringApplication
-        run: |
-          cd backend
-          ls -la
-          cd backend/common-libs/rabbitmq
-          ./mvnw install package -DskipTests
+      # - name: Build RabbitMQCommonLibSpringApplication
+      #   run: |
+      #     cd backend/common-libs/rabbitmq
+      #     ./mvnw install package -DskipTests
 
-      - name: Test RabbitMQCommonLibSpringApplication
-        run: |
-          cd backend/common-libs/rabbitmq
-          ./mvnw test
+      # - name: Test RabbitMQCommonLibSpringApplication
+      #   run: |
+      #     cd backend/common-libs/rabbitmq
+      #     ./mvnw test
 
-      - name: Publish RabbitMQCommonLibSpringApplication to GitHub Packages
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      # - name: Publish RabbitMQCommonLibSpringApplication to GitHub Packages
+      #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
