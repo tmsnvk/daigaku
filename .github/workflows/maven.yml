@@ -40,6 +40,8 @@ jobs:
 
       - name: Build RabbitMQCommonLibSpringApplication
         run: |
+          cd backend
+          ls -la
           cd backend/common-libs/rabbitmq
           ./mvnw install package -DskipTests
 
