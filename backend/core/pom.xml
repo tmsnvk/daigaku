@@ -10,7 +10,7 @@
     <groupId>net.tamasnovak</groupId>
     <artifactId>daigaku</artifactId>
     <version>1.0.0</version>
-    <relativePath/>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>core</artifactId>
