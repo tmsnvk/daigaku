@@ -41,6 +41,10 @@ jobs:
           cd backend/common-libs/rabbitmq
           ./mvnw install package -DskipTests
 
+      - name: Verify RabbitMQCommonLibSpringApplication is installed
+        run: |
+          mvn dependency:get -DgroupId=net.tamasnovak -DartifactId=rabbitmq -Dversion=1.0.0 -Dpackaging=jar
+
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
           cd backend/core
