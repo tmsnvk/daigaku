@@ -25,6 +25,14 @@
 		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>daigaku</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/tmsnvk/daigaku</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- rabbitmq -->
 		<dependency>
