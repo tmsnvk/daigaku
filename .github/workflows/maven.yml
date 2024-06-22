@@ -35,7 +35,21 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+          
+      - name: Build RabbitMQCommonLibSpringApplication
+        run: |
+          cd backend/common-libs/rabbitmq
+          ./mvnw install package -DskipTests
 
+      - name: Test RabbitMQCommonLibSpringApplication
+        run: |
+          cd backend/common-libs/rabbitmq
+          ./mvnw test
+
+      - name: Publish to GitHub Packages Apache Maven
+        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
@@ -53,7 +67,7 @@ jobs:
           tamasnovak.app.jwtExpirationMs=10000000
           EOF
         
-      - name: Build DaigakuSpringApplication with Maven
+      - name: Build DaigakuSpringApplication
         run: |
           cd backend/core
           ./mvnw clean package -DskipTests
