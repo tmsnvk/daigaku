@@ -36,21 +36,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Print Maven settings
-        run: cat $HOME/.m2/settings.xml
-
-      - name: Debug Maven dependency resolution
-        run: mvn dependency:list
-        
-      - name: Build RabbitMQCommonLibSpringApplication with Maven
-        run: |
-          cd backend/common-libs/rabbitmq
-          ./mvnw install package -DskipTests
-
-      - name: Verify RabbitMQCommonLibSpringApplication is installed
-        run: |
-          mvn dependency:get -DgroupId=net.tamasnovak -DartifactId=rabbitmq -Dversion=1.0.0 -Dpackaging=jar
-
+      
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
           cd backend/core
