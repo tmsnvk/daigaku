@@ -36,21 +36,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Print Maven version
-        run: mvn --version
-      
       - name: Print Maven settings
         run: cat $HOME/.m2/settings.xml
 
-      - name: Debug
-        run: |
-          pwd
-          ls -l
-          cd backend/common-libs/rabbitmq
-          ls -l
-          cat pom.xml
-          mvn help:effective-pom -Dverbose
-    
+      - name: Debug Maven dependency resolution
+        run: mvn dependency:list
+        
       - name: Build RabbitMQCommonLibSpringApplication with Maven
         run: |
           cd backend/common-libs/rabbitmq
