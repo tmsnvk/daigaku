@@ -43,7 +43,7 @@ jobs:
           
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
-          cd backend/common/libs/target/*.jar backend/core
+          cd "backend/common/libs/target/*.jar" "backend/core"
           cd backend/core
           cat >./src/main/resources/application.properties <<EOF
           spring.config.import=optional:file:.env[.properties]
