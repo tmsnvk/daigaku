@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      db:
+      db-psql:
         image: postgres:latest
         env:
           POSTGRES_DB: daigaku
@@ -21,6 +21,10 @@ jobs:
           POSTGRES_PASSWORD: admin
         ports:
           - 5432:5432
+      db-redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
 
     steps:
       - uses: actions/checkout@v4
@@ -31,10 +35,15 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-  
+
+      - name: Build RabbitMQCommonLibSpringApplication with Maven
+        run: |
+          cd backend/common-libs/rabbitmq
+          ./mvnw clean package -DskipTests
+          
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
-          cd backend
+          cd backend/core
           cat >./src/main/resources/application.properties <<EOF
           spring.config.import=optional:file:.env[.properties]
           spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
@@ -50,10 +59,10 @@ jobs:
         
       - name: Build DaigakuSpringApplication with Maven
         run: |
-          cd backend
+          cd backend/core
           ./mvnw clean package -DskipTests
   
       - name: Test DaigakuSpringApplication
         run: |
-          cd backend
+          cd backend/core
           ./mvnw test
