@@ -35,7 +35,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-          
+
+      - name: Print Maven settings
+        run: cat $HOME/.m2/settings.xml
+
+      - name: Debug Maven dependency resolution
+        run: mvn dependency:list
+        
       - name: Build RabbitMQCommonLibSpringApplication with Maven
         run: |
           cd backend/common-libs/rabbitmq
