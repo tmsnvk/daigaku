@@ -54,10 +54,10 @@ jobs:
         
       - name: Build DaigakuSpringApplication with Maven
         run: |
-          cd backend
+          cd backend/core
           ./mvnw clean package -DskipTests
   
       - name: Test DaigakuSpringApplication
         run: |
-          cd backend
+          cd backend/core
           ./mvnw test
