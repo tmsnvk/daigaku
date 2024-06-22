@@ -35,22 +35,11 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-
-      - name: Install Parent POM if exists
-        run: |
-          if [ -f backend/pom.xml ]; then
-            cd backend
-            ./mvnw clean install -N -DskipTests
-          fi
-
+          
       - name: Build RabbitMQCommonLibSpringApplication with Maven
         run: |
           cd backend/common-libs/rabbitmq
           ./mvnw install package -DskipTests
-
-      - name: Verify RabbitMQCommonLibSpringApplication is installed
-        run: |
-          mvn dependency:get -DgroupId=net.tamasnovak -DartifactId=rabbitmq -Dversion=1.0.0 -Dpackaging=jar
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
