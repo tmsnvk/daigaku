@@ -40,6 +40,14 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<repository>
+			<id>daigaku</id>
+			<name>tmsnvk</name>
+			<url>https://maven.pkg.github.com/tmsnvk/daigaku</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
