@@ -35,7 +35,12 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-  
+
+      - name: Build RabbitMQCommonLibSpringApplication with Maven
+        run: |
+          cd backend/common-libs/rabbitmq
+          ./mvnw clean package -DskipTests
+          
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
           cd backend/common/libs/target
