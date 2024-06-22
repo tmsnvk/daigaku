@@ -33,14 +33,6 @@
 <!--    <module>email-module</module>-->
   </modules>
 
-  <distributionManagement>
-    <repository>
-      <id>daigaku</id>
-      <name>GitHub OWNER Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/tmsnvk/daigaku</url>
-    </repository>
-  </distributionManagement>
-
   <dependencyManagement>
     <dependencies>
       <!-- spring web -->
