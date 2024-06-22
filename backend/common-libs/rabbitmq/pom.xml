@@ -10,7 +10,6 @@
 		<groupId>net.tamasnovak</groupId>
 		<artifactId>daigaku</artifactId>
 		<version>1.0.0</version>
-		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>rabbitmq</artifactId>
