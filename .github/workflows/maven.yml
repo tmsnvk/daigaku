@@ -39,15 +39,15 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # - name: Build RabbitMQCommonLibSpringApplication
-      #   run: |
-      #     cd backend/common-libs/rabbitmq
-      #     mvn -B package --file pom.xml
+      - name: Build RabbitMQCommonLibSpringApplication
+        run: |
+          cd backend/common-libs/rabbitmq
+          mvn clean install -DskipTests
 
-      # - name: Test RabbitMQCommonLibSpringApplication
-      #   run: |
-      #     cd backend/common-libs/rabbitmq
-      #     ./mvnw test
+      - name: Test RabbitMQCommonLibSpringApplication
+        run: |
+          cd backend/common-libs/rabbitmq
+          ./mvnw test
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
@@ -68,7 +68,7 @@ jobs:
       - name: Build DaigakuSpringApplication with Maven
         run: |
           cd backend/core
-          ./mvnw clean package -DskipTests
+          mvn clean install -DskipTests
   
       - name: Test DaigakuSpringApplication
         run: |
