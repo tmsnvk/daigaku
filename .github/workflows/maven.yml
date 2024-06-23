@@ -51,14 +51,26 @@ jobs:
         run: |
           cd common-libs/rabbitmq
           mvn clean install -DskipTests
-          mvn --batch-mode deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mkdir staging && cp target/*.jar staging
 
       - name: Test RabbitMQCommonLibSpringApplication
         run: |
           cd common-libs/rabbitmq
           ./mvnw test
+
+
+      - name: Set up a cache for Maven
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Persist workflow data as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: github-actions-artifact
+          path: staging
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
