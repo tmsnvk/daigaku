@@ -50,14 +50,6 @@ jobs:
         run: |
           mvn install -N
 
-      - name: Debug information
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Maven version: $(mvn --version)"
-          cat pom.xml
-          mvn help:effective-pom
-          mvn dependency:tree
-        
       - name: Build RabbitMQCommonLibSpringApplication
         run: |
           cd common-libs/rabbitmq
