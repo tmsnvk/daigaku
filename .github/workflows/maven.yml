@@ -72,6 +72,11 @@ jobs:
           name: github-actions-artifact
           path: staging
 
+      - name: Publish package
+        run: mvn --batch-mode deploy -Dmaven.test.skip
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
           cd core
