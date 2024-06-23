@@ -51,6 +51,9 @@ jobs:
         run: |
           cd common-libs/rabbitmq
           mvn clean install -DskipTests
+          mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test RabbitMQCommonLibSpringApplication
         run: |

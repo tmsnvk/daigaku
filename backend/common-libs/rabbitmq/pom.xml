@@ -42,8 +42,8 @@
 
 	<distributionManagement>
 		<repository>
-			<id>daigaku</id>
-			<name>tmsnvk</name>
+			<id>github</id>
+			<name>github rabbitmq package</name>
 			<url>https://maven.pkg.github.com/tmsnvk/daigaku</url>
 		</repository>
 	</distributionManagement>
