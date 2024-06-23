@@ -52,6 +52,7 @@ jobs:
 
       - name: Build RabbitMQCommonLibSpringApplication
         run: |
+          mvn install -N
           cd common-libs/rabbitmq
           mvn clean install -DskipTests
 
