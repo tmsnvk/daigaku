@@ -46,13 +46,19 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # - name: Install parent POM
-      #   run: |
-      #     mvn install -N
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2-
+      
+      - name: Install parent POM
+        run: |
+          mvn install -N
 
       - name: Build RabbitMQCommonLibSpringApplication
         run: |
-          mvn install -N
           cd common-libs/rabbitmq
           mvn clean install -DskipTests
 
