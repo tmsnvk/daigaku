@@ -10,10 +10,10 @@
 
 ### I. Project Description
 + The application follows the university application process of high school students and handles complex student-mentor-admin relationships.
-+ Upon registering, users with ``student`` access are able to join an institution (i.e. their school) and have a ``mentor`` user assigned to them who reviews their applications.
++ Upon registering, users with ``student`` access are able to join an institution (i.e. their school) and have a ``mentor`` user assigned to them.
 + Users with ``mentor`` permission are able to access all applications submitted by their allocated students and perform various aggregate operations.
 + Users with ``institution admin`` permission receive admin rights for their institution (e.g. accept incoming student registration requests or access detailed aggregate reports), while ``system admins`` have application-wide rights and data overview.
-+ A currently work-in-progress application with new features being continuously added.
++ A currently work-in-progress application with new features being continuously developed and added.
 
 
 ### II. Techstack
@@ -37,12 +37,14 @@ Backend
     + JWT                                   - authentication token solution.
     + Jakarta Validation                    - annotation-based validation library.
     + Spring Mail                           - email sending library.
+    + RabbitMQ                              - message broker solution.
 ```
 
 ```
 Database
     + PostgreSQL                            - relational database management system.
     + Redis                                 - cache storage solution.
+    + AWS S3                                - file storage solution.
 ```
 
 ```
@@ -53,16 +55,16 @@ DevOps
 ```
 Tools
     + Postman                               - API testing.
+    + RabbitMQ Management UI                - RabbitMQ management and monitoring tool.
 ```
 
 ### III. Running the application
 + Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 + Clone the repository.
-+ Fill in the necessary environment variables:
-    + in a terminal panel, step into the repository's root directory, run the ``cp .env_sample .env`` command and fill in the just created ``.env`` file.
-    + in a terminal panel, step into the repository's /backend directory, run the ``cp env_sample.properties env.properties`` command and fill in the just created ``env.properties`` file.
-+ In a terminal panel, change directory into the repository's root folder and run the ``docker-compose -f docker-compose.prod.yml up --build`` command.
-+ In a browser window run ``http://localhost/``.
++ In a terminal panel, stand in the project root:
+    + run ``bash setup-variables.sh`` to generate the environment fields. Follow the directions of the script.
+    + run ``bash setup-containers.sh`` to build the project and set up the containarised Docker environment.
+    + run ``http://localhost/`` in a browser window.
 + On the application's login page you may log in with the following credentials:
     + account with student role:
         + email - ``student@test.net``;
@@ -76,7 +78,7 @@ student user features:
 - [x] edit invidivual applications.
 - [x] request application deletion.
 - [ ] friend request feature to be able to see each others' applications.
-- [ ] download application data in .pdf format.
+- [x] download application data in .pdf format.
 
 mentor user features:
 - [ ] view/edit assigned students' applications.
@@ -100,19 +102,19 @@ system-admin user features:
 
 application-wide features:
 - [x] login/registration functionality.
-- [ ] comment section under individual applications.
+- [x] comment section under individual applications.
 - [ ] editable profile page.
 - [ ] revamp / make the frontend design more lively.
 - [ ] user in-app messaging system.
 - [ ] various system-related forms (feedback, university request, etc.).
 
 testing:
-- [ ] unit tests.
-- [ ] integration tests.
+- [on-going] unit tests.
+- [on-going] integration tests.
 
 devops features:
 - [x] containerisation.
-- [ ] github CI/CD.
+- [x] github CI/CD.
 - [ ] deployment.
 
 

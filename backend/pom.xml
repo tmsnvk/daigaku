@@ -47,7 +47,7 @@
     <module>core</module>
     <module>common-libs/rabbitmq</module>
     <module>s3</module>
-<!--    <module>email</module>-->
+    <!--    <module>email-module</module>-->
   </modules>
 
   <dependencyManagement>
@@ -109,7 +109,7 @@
       <dependency>
         <groupId>net.tamasnovak</groupId>
         <artifactId>rabbitmq</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
