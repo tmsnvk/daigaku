@@ -13,7 +13,7 @@
   </parent>
 
   <artifactId>s3</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>s3</name>
   <description>s3</description>
 
