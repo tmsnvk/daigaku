@@ -39,13 +39,15 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: List directory structure
-        run: find backend -type f
+      - name: Validate Parent POM Access
+        run: |
+          cd backend/common-libs/rabbitmq
+          ls ../../pom.xml
     
       - name: Build RabbitMQCommonLibSpringApplication
         run: |
           cd backend/common-libs/rabbitmq
-          mvn clean install -DskipTests
+          mvn clean install -DskipTests -f ../../pom.xml
 
       - name: Test RabbitMQCommonLibSpringApplication
         run: |
