@@ -52,8 +52,8 @@ jobs:
 
       - name: Verify parent POM installation
         run: |
-          ls -la ~/.m2/repository/net/tamasnovak/daigaku/1.0.0
-          cat ~/.m2/repository/net/tamasnovak/daigaku/1.0.0/daigaku-1.0.0.pom
+          ls -la ~/.m2/repository/net/tamasnovak/daigaku/backend/1.0.0
+          cat ~/.m2/repository/net/tamasnovak/daigaku/backend/1.0.0/daigaku-1.0.0.pom
   
       - name: Debug information
         run: |
