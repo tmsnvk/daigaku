@@ -14,6 +14,9 @@ on:
 jobs:
   build-then-test:
     runs-on: ubuntu-latest
+    defaults:
+     run:
+      working-directory: ./backend
 
     services:
       db-psql:
@@ -40,19 +43,18 @@ jobs:
           cache: maven
 
       - name: Build RabbitMQCommonLibSpringApplication
-        working-directory: ./backend
         run: |
           cd common-libs/rabbitmq
           mvn clean install -DskipTests
 
       - name: Test RabbitMQCommonLibSpringApplication
         run: |
-          cd backend/common-libs/rabbitmq
+          cd common-libs/rabbitmq
           ./mvnw test
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
-          cd backend/core
+          cd core
           cat >./src/main/resources/application.properties <<EOF
           spring.config.import=optional:file:.env[.properties]
           spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
@@ -68,10 +70,10 @@ jobs:
         
       - name: Build DaigakuSpringApplication with Maven
         run: |
-          cd backend/core
+          cd core
           mvn clean install -DskipTests
   
       - name: Test DaigakuSpringApplication
         run: |
-          cd backend/core
+          cd core
           ./mvnw test
