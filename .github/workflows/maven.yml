@@ -40,7 +40,11 @@ jobs:
           cache: maven
 
       - name: Set up Maven settings
-        run: echo "${{ secrets.MAVEN_SETTINGS }}" > $HOME/.m2/settings.xml
+        run: |
+          mkdir -p $HOME/.m2
+          cat <<EOF > $HOME/.m2/settings.xml
+          ${{ secrets.MAVEN_SETTINGS }}
+          EOF
         
       - name: Build RabbitMQCommonLibSpringApplication
         run: |
