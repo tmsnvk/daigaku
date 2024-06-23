@@ -42,7 +42,7 @@ jobs:
       - name: Build RabbitMQCommonLibSpringApplication
         run: |
           cd backend/common-libs/rabbitmq
-          ./mvnw install package -DskipTests
+          mvn -B package --file pom.xml
 
       - name: Test RabbitMQCommonLibSpringApplication
         run: |
