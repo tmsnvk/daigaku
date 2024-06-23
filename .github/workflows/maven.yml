@@ -52,6 +52,7 @@ jobs:
         run: |
           cd common-libs/rabbitmq
           mvn clean install
+          mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
