@@ -71,9 +71,6 @@ jobs:
         
       - name: Build DaigakuSpringApplication with Maven
         run: |
-          cd common-libs/rabbitmq
-          mvn clean install
-          cd ../..
           cd core
           mvn clean install -DskipTests
   
