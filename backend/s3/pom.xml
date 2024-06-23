@@ -9,12 +9,12 @@
   <parent>
     <groupId>net.tamasnovak</groupId>
     <artifactId>daigaku</artifactId>
-    <version>1.0.0</version>
-    <relativePath/>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>s3</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>s3</name>
   <description>s3</description>
 
@@ -42,7 +42,7 @@
     <!-- rabbitmq -->
     <dependency>
       <groupId>net.tamasnovak</groupId>
-      <artifactId>rabbitmq-module</artifactId>
+      <artifactId>rabbitmq</artifactId>
       <version>1.0.0</version>
     </dependency>
 

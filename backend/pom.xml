@@ -26,11 +26,28 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <developers>
+    <developer>
+      <id>tmsnvk</id>
+      <name>Tms Nvk</name>
+      <organization>Daigaku</organization>
+      <organizationUrl>https://github.com/tmsnvk</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/tmsnvk/daigaku/issues</url>
+  </issueManagement>
+
   <modules>
     <module>core</module>
     <module>common-libs/rabbitmq</module>
     <module>s3</module>
-<!--    <module>email-module</module>-->
+<!--    <module>email</module>-->
   </modules>
 
   <dependencyManagement>
@@ -91,7 +108,7 @@
 
       <dependency>
         <groupId>net.tamasnovak</groupId>
-        <artifactId>rabbitmq-module</artifactId>
+        <artifactId>rabbitmq</artifactId>
         <version>1.0.0</version>
       </dependency>
     </dependencies>
