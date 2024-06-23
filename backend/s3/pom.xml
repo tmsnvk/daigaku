@@ -42,7 +42,7 @@
     <!-- rabbitmq -->
     <dependency>
       <groupId>net.tamasnovak</groupId>
-      <artifactId>rabbitmq-module</artifactId>
+      <artifactId>rabbitmq</artifactId>
       <version>1.0.0</version>
     </dependency>
 
