@@ -5,7 +5,7 @@ on:
   push:
     branches: 
       - master
-      - githubactiontest
+      - githubworkflowtest
   pull_request:
     branches:
       - master
@@ -44,6 +44,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      # - name: Cache local Maven repository
+      #   uses: actions/cache@v2
+      #   with:
+      #       path: ~/.m2
+      #       key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+      #       restore-keys: |
+      #           ${{ runner.os }}-maven-
+
       - name: Install parent POM
         run: |
           mvn install -N
@@ -51,7 +59,7 @@ jobs:
       - name: Build & Test RabbitMQCommonLibSpringApplication
         run: |
           cd common-libs/rabbitmq
-          mvn clean install
+          mvn -B package --file pom.xml
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
@@ -69,12 +77,7 @@ jobs:
           tamasnovak.app.jwtExpirationMs=10000000
           EOF
         
-      - name: Build DaigakuSpringApplication with Maven
+      - name: Build & Test DaigakuSpringApplication
         run: |
           cd core
-          mvn clean install -DskipTests
-  
-      - name: Test DaigakuSpringApplication
-        run: |
-          cd core
-          ./mvnw test
+          mvn -B package --file pom.xml
