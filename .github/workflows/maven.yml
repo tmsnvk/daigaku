@@ -42,7 +42,7 @@ jobs:
       - name: Build RabbitMQCommonLibSpringApplication
         working-directory: ./backend
         run: |
-          cd backend/common-libs/rabbitmq
+          cd common-libs/rabbitmq
           mvn clean install -DskipTests
 
       - name: Test RabbitMQCommonLibSpringApplication
