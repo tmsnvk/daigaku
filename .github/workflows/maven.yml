@@ -39,45 +39,43 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Validate Parent POM Access
+      - name: Set up Maven settings
+        run: echo "${{ secrets.MAVEN_SETTINGS }}" > $HOME/.m2/settings.xml
+        
+      - name: Build RabbitMQCommonLibSpringApplication
         run: |
           cd backend
           mvn clean install -DskipTests
-      
-      # - name: Build RabbitMQCommonLibSpringApplication
-      #   run: |
-      #     cd backend
-      #     mvn clean install -DskipTests
-      #     cd common-libs/rabbitmq
-      #     mvn clean install -DskipTests
+          cd common-libs/rabbitmq
+          mvn clean install -DskipTests
 
-      # - name: Test RabbitMQCommonLibSpringApplication
-      #   run: |
-      #     cd backend/common-libs/rabbitmq
-      #     ./mvnw test
+      - name: Test RabbitMQCommonLibSpringApplication
+        run: |
+          cd backend/common-libs/rabbitmq
+          ./mvnw test
 
-      # - name: Configure DaigakuSpringApplication application.properties variables
-      #   run: |
-      #     cd backend/core
-      #     cat >./src/main/resources/application.properties <<EOF
-      #     spring.config.import=optional:file:.env[.properties]
-      #     spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
-      #     spring.datasource.username=postgres
-      #     spring.datasource.password=admin
-      #     spring.cache.type=redis
-      #     spring.data.redis.host=localhost
-      #     spring.data.redis.port=6379
-      #     spring.datasource.driver-class-name=org.postgresql.Driver
-      #     tamasnovak.app.jwtSecret=fakeSecret
-      #     tamasnovak.app.jwtExpirationMs=10000000
-      #     EOF
+      - name: Configure DaigakuSpringApplication application.properties variables
+        run: |
+          cd backend/core
+          cat >./src/main/resources/application.properties <<EOF
+          spring.config.import=optional:file:.env[.properties]
+          spring.datasource.url=jdbc:postgresql://localhost:5432/daigaku
+          spring.datasource.username=postgres
+          spring.datasource.password=admin
+          spring.cache.type=redis
+          spring.data.redis.host=localhost
+          spring.data.redis.port=6379
+          spring.datasource.driver-class-name=org.postgresql.Driver
+          tamasnovak.app.jwtSecret=fakeSecret
+          tamasnovak.app.jwtExpirationMs=10000000
+          EOF
         
-      # - name: Build DaigakuSpringApplication with Maven
-      #   run: |
-      #     cd backend/core
-      #     mvn clean install -DskipTests
+      - name: Build DaigakuSpringApplication with Maven
+        run: |
+          cd backend/core
+          mvn clean install -DskipTests
   
-      # - name: Test DaigakuSpringApplication
-      #   run: |
-      #     cd backend/core
-      #     ./mvnw test
+      - name: Test DaigakuSpringApplication
+        run: |
+          cd backend/core
+          ./mvnw test
