@@ -40,13 +40,13 @@
 		</dependency>
 	</dependencies>
 
-	<distributionManagement>
+	<repositories>
 		<repository>
-			<id>github</id>
-			<name>github rabbitmq package</name>
+			<id>daigaku</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/tmsnvk/daigaku</url>
 		</repository>
-	</distributionManagement>
+	</repositories>
 
 	<build>
 		<plugins>

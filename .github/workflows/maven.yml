@@ -48,22 +48,19 @@ jobs:
         run: |
           mvn install -N
 
-      - name: Build RabbitMQCommonLibSpringApplication
+      - name: Build & Test RabbitMQCommonLibSpringApplication
         run: |
           cd common-libs/rabbitmq
-          mvn clean install -DskipTests
-
-      - name: Test RabbitMQCommonLibSpringApplication
-        run: |
-          cd common-libs/rabbitmq
-          ./mvnw test
-
-      - name: Publish to GitHub Packages Apache Maven
-        run: |
-          cd common-libs/rabbitmq
-          mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+          mvn clean install
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      # - name: Publish to GitHub Packages Apache Maven
+      #   run: |
+      #     cd common-libs/rabbitmq
+      #     mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
