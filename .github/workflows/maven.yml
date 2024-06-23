@@ -51,7 +51,7 @@ jobs:
       - name: Build & Test RabbitMQCommonLibSpringApplication
         run: |
           cd common-libs/rabbitmq
-          mvn -B package --file pom.xml
+          mvn clean install
 
       - name: Configure DaigakuSpringApplication application.properties variables
         run: |
@@ -72,4 +72,4 @@ jobs:
       - name: Build & Test DaigakuSpringApplication
         run: |
           cd core
-          mvn -B package --file pom.xml
+          mvn clean install
