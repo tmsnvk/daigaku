@@ -39,18 +39,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Set up Maven settings
-        run: |
-          mkdir -p $HOME/.m2
-          cat <<EOF > $HOME/.m2/settings.xml
-          ${{ secrets.MAVEN_SETTINGS }}
-          EOF
-        
       - name: Build RabbitMQCommonLibSpringApplication
+        working-directory: ./backend
         run: |
-          cd backend
-          mvn clean install -DskipTests
-          cd common-libs/rabbitmq
+          cd backend/common-libs/rabbitmq
           mvn clean install -DskipTests
 
       - name: Test RabbitMQCommonLibSpringApplication
