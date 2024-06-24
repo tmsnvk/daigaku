@@ -5,7 +5,7 @@ on:
   push:
     branches: 
       - master
-      - githubactiontest
+      - githubworkflowtest
   pull_request:
     branches:
       - master
@@ -69,12 +69,7 @@ jobs:
           tamasnovak.app.jwtExpirationMs=10000000
           EOF
         
-      - name: Build DaigakuSpringApplication with Maven
+      - name: Build & Test DaigakuSpringApplication
         run: |
           cd core
-          mvn clean install -DskipTests
-  
-      - name: Test DaigakuSpringApplication
-        run: |
-          cd core
-          ./mvnw test
+          mvn clean install
