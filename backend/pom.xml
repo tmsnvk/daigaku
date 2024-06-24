@@ -26,6 +26,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <modules>
+    <module>core</module>
+    <module>common-libs/rabbitmq</module>
+    <module>s3</module>
+    <module>email</module>
+  </modules>
+
   <developers>
     <developer>
       <id>tmsnvk</id>
@@ -42,13 +49,6 @@
     <system>GitHub</system>
     <url>https://github.com/tmsnvk/daigaku/issues</url>
   </issueManagement>
-
-  <modules>
-    <module>core</module>
-    <module>common-libs/rabbitmq</module>
-    <module>s3</module>
-    <!--    <module>email-module</module>-->
-  </modules>
 
   <dependencyManagement>
     <dependencies>
@@ -138,7 +138,7 @@
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>${spring-boot.version}</version>
+          <version>3.3.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

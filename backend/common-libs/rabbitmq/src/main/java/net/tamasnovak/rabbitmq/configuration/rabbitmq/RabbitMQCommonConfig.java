@@ -39,6 +39,11 @@ public class RabbitMQCommonConfig {
 	}
 
 	@Bean
+	public Jackson2JsonMessageConverter jacksonMessageConverter() {
+		return new Jackson2JsonMessageConverter();
+	}
+
+	@Bean
 	public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
 		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
 
@@ -48,19 +53,16 @@ public class RabbitMQCommonConfig {
 	}
 
 	@Bean
-	public Jackson2JsonMessageConverter jacksonMessageConverter() {
-		return new Jackson2JsonMessageConverter();
+	public MappingJackson2MessageConverter consumerJackson2MessageConverter() {
+		return new MappingJackson2MessageConverter();
 	}
 
 	@Bean
 	MessageHandlerMethodFactory messageHandlerMethodFactory() {
 		DefaultMessageHandlerMethodFactory messageHandlerMethodFactory = new DefaultMessageHandlerMethodFactory();
 		messageHandlerMethodFactory.setMessageConverter(consumerJackson2MessageConverter());
+
 		return messageHandlerMethodFactory;
 	}
 
-	@Bean
-	public MappingJackson2MessageConverter consumerJackson2MessageConverter() {
-		return new MappingJackson2MessageConverter();
-	}
 }

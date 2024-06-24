@@ -16,14 +16,14 @@ public class QueueListener {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-//	@RabbitListener(queues = { "#queueName" }, containerFactory = "rabbitListenerContainerFactory")
-//	public <T> void startListening(String queueName, T message) {
-////		rabbitTemplate.setConnectionFactory();
-//	}
+	@RabbitListener(queues = { "#queueName" }, containerFactory = "rabbitListenerContainerFactory")
+	public <T> void startListening(String queueName, T message) {
+//		rabbitTemplate.setConnectionFactory();
+	}
 
 
-//	@RabbitListener(queues = { RabbitMQCommonConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
-//	public void receiveMessage(String message) {
-//		System.out.println(message);
-//	}
+	@RabbitListener(queues = { RabbitMQCommonConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
+	public void receiveMessage(String message) {
+		System.out.println(message);
+	}
 }
