@@ -1,7 +1,7 @@
 package net.tamasnovak.email.service;
 
-import net.tamasnovak.email.dtos.NewEmailDto;
+import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
 
 public interface EmailService {
-	void sendSimpleEmail(NewEmailDto newEmailDto);
+	void onStudentPdfSaveEmail(NewStudentPdfSaveDto newStudentPdfSaveDto);
 }

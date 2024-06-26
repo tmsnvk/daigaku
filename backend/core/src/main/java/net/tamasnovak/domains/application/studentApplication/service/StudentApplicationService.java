@@ -20,5 +20,5 @@ public interface StudentApplicationService {
 
   ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account);
 
-  void handleApplicationDownloadRequest(UUID authAccountUuid);
+  void onApplicationDownloadRequest(UUID authAccountUuid);
 }

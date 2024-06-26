@@ -17,10 +17,10 @@
 
   <dependencies>
     <!-- common dependencies -->
-    <!-- spring web -->
+    <!-- spring json -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter-json</artifactId>
     </dependency>
 
     <!-- rabbitmq -->

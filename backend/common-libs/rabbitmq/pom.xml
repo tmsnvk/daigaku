@@ -18,6 +18,7 @@
 
 	<dependencies>
 		<!-- package-specific dependencies -->
+
 		<!-- rabbitmq -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

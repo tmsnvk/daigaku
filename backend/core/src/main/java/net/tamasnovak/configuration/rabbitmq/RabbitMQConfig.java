@@ -1,4 +1,4 @@
-package net.tamasnovak.s3module.configuration.rabbitMQ;
+package net.tamasnovak.configuration.rabbitmq;
 
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.ConverterConfig;
 import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;

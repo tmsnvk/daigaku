@@ -8,8 +8,6 @@ import net.tamasnovak.domains.role.models.entity.Role;
 import net.tamasnovak.domains.role.service.RoleService;
 import net.tamasnovak.domains.support.institution.models.entity.Institution;
 import net.tamasnovak.domains.support.institution.service.InstitutionService;
-import net.tamasnovak.services.email.EmailService;
-import net.tamasnovak.services.email.dtos.NewEmailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,16 +18,14 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   private final AccountService accountService;
   private final InstitutionService institutionService;
   private final RoleService roleService;
-  private final EmailService emailService;
   private final PendingAccountRepository pendingAccountRepository;
   private final PendingAccountConstants pendingAccountConstants;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, RoleService roleService, EmailService emailService, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants) {
+  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, RoleService roleService, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants) {
     this.accountService = accountService;
     this.institutionService = institutionService;
     this.roleService = roleService;
-    this.emailService = emailService;
     this.pendingAccountRepository = pendingAccountRepository;
     this.pendingAccountConstants = pendingAccountConstants;
   }
@@ -75,8 +71,8 @@ public class PendingAccountServiceImpl implements PendingAccountService {
       role.getNameWithoutPrefix()
     );
 
-    NewEmailDto newEmail = new NewEmailDto(requestBody.email(), pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT, content);
-
-    emailService.sendSimpleEmail(newEmail);
+//    NewEmailDto newEmail = new NewEmailDto(requestBody.email(), pendingAccountConstants.PENDING_ACCOUNT_EMAIL_SUBJECT, content);
+//
+//    emailService.sendSimpleEmail(newEmail);
   }
 }

@@ -1,8 +1,8 @@
-package net.tamasnovak.rabbitmq.models.application;
+package net.tamasnovak.rabbitmq.models.studentPdfSave;
 
 import java.sql.Timestamp;
 
-public record StudentApplicationQueueDto(
+public record StudentApplicationDto(
 	Timestamp createdAt,
 	Timestamp lastUpdatedAt,
 	String courseName,

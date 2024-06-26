@@ -96,7 +96,7 @@ public class StudentApplicationController {
   public ResponseEntity<HttpStatus> handleDownload() {
     UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
 
-    studentApplicationService.handleApplicationDownloadRequest(authAccountUuid);
+    studentApplicationService.onApplicationDownloadRequest(authAccountUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

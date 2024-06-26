@@ -1,6 +1,5 @@
 package net.tamasnovak.exceptions;
 
-import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
@@ -8,7 +7,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -112,24 +110,6 @@ public class GlobalControllerExceptionHandler {
       .status(HttpStatus.BAD_REQUEST)
       .body(response);
   }
-
-//  @ExceptionHandler(value = { FileNotFoundException.class })
-//  public ResponseEntity<Map<String, String>> onFileNotFoundException(FileNotFoundException exception) {
-//    Map<String, String> response = createErrorResponse(exception.getMessage());
-//
-//    return ResponseEntity
-//      .status(HttpStatus.BAD_REQUEST)
-//      .body(response);
-//  }
-//
-//  @ExceptionHandler(value = { IOException.class })
-//  public ResponseEntity<Map<String, String>> onIOException(IOException exception) {
-//    Map<String, String> response = createErrorResponse(exception.getMessage());
-//
-//    return ResponseEntity
-//      .status(HttpStatus.BAD_REQUEST)
-//      .body(response);
-//  }
 
   @ExceptionHandler(value = { IllegalStateException.class })
   public ResponseEntity<Map<String, String>> onIllegalStateException(IllegalStateException exception) {

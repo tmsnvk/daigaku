@@ -5,7 +5,11 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import net.tamasnovak.email.dtos.NewEmailDto;
+import net.tamasnovak.email.constants.PdfSendingEmailTemplates;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSendingRabbitConfig;
+import net.tamasnovak.rabbitmq.models.newEmail.NewEmailQueueDto;
+import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -22,18 +26,28 @@ public class EmailServiceImpl implements EmailService {
 	private String sender;
 	private final JavaMailSender javaMailSender;
 	private final EmailConstants emailConstants;
+	private final PdfSendingEmailTemplates pdfSendingEmailTemplates;
 
 	@Autowired
-	public EmailServiceImpl(JavaMailSender javaMailSender, EmailConstants emailConstants) {
+	public EmailServiceImpl(JavaMailSender javaMailSender, EmailConstants emailConstants, PdfSendingEmailTemplates pdfSendingEmailTemplates) {
 		this.javaMailSender = javaMailSender;
 		this.emailConstants = emailConstants;
+		this.pdfSendingEmailTemplates = pdfSendingEmailTemplates;
 	}
 
 	@Override
 	@Transactional
-	public void sendSimpleEmail(NewEmailDto newEmailDto) {
+	@RabbitListener(queues = { EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_QUEUE_KEY })
+	public void onStudentPdfSaveEmail(NewStudentPdfSaveDto newStudentPdfSaveDto) {
+		String emailBody = String.format(pdfSendingEmailTemplates.STUDENT_PDF_EMAIL_BODY, newStudentPdfSaveDto.fullName(), newStudentPdfSaveDto.pdfDirectDownloadLink());
+		NewEmailQueueDto newEmailQueueDto = new NewEmailQueueDto(newStudentPdfSaveDto.email(), pdfSendingEmailTemplates.STUDENT_PDF_EMAIL_SUBJECT, emailBody);
+
+		this.sendSimpleEmail(newEmailQueueDto);
+	}
+
+	private void sendSimpleEmail(NewEmailQueueDto newEmailQueueDto) {
 		try {
-			InternetAddress emailAddress = new InternetAddress(newEmailDto.recipient());
+			InternetAddress emailAddress = new InternetAddress(newEmailQueueDto.recipient());
 			emailAddress.validate();
 
 			Properties properties = new Properties();
@@ -41,10 +55,10 @@ public class EmailServiceImpl implements EmailService {
 			MimeMessage mailMessage = new MimeMessage(session);
 
 			mailMessage.setFrom(sender);
-			mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(newEmailDto.recipient()));
-			mailMessage.setSubject(newEmailDto.subject());
+			mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(newEmailQueueDto.recipient()));
+			mailMessage.setSubject(newEmailQueueDto.subject());
 
-			mailMessage.setContent(newEmailDto.body(), "text/html; charset=UTF-8");
+			mailMessage.setContent(newEmailQueueDto.body(), "text/html; charset=UTF-8");
 
 			javaMailSender.send(mailMessage);
 		} catch (MailException | MessagingException exception) {

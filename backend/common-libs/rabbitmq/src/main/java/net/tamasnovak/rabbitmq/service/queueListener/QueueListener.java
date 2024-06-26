@@ -1,10 +1,13 @@
 package net.tamasnovak.rabbitmq.service.queueListener;
 
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.RabbitMQCommonConfig;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.PdfSaveRabbitConfig;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.MessageHandler;
+import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,14 +19,14 @@ public class QueueListener {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	@RabbitListener(queues = { "#queueName" }, containerFactory = "rabbitListenerContainerFactory")
-	public <T> void startListening(String queueName, T message) {
-//		rabbitTemplate.setConnectionFactory();
-	}
-
-
-	@RabbitListener(queues = { RabbitMQCommonConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
-	public void receiveMessage(String message) {
-		System.out.println(message);
-	}
+//	@RabbitListener(queues = { "#queueName" })
+//	public <T> void startListening(String queueName, T message) {
+//		this.rabbitTemplate.convertSendAndReceive(message);
+//	}
+//
+//
+//	@RabbitListener(queues = { PdfSaveRabbitConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
+//	public void receiveMessage(String message) {
+//		System.out.println(message);
+//	}
 }

@@ -1,9 +1,12 @@
 package net.tamasnovak.s3module.services.pdf.student;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.RabbitMQCommonConfig;
-import net.tamasnovak.rabbitmq.models.application.StudentApplicationQueueDto;
-import net.tamasnovak.rabbitmq.models.queueDto.StudentPdfSaveQueueDto;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSendingRabbitConfig;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.PdfSaveRabbitConfig;
+import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
+import net.tamasnovak.rabbitmq.models.studentPdfSave.StudentApplicationDto;
+import net.tamasnovak.rabbitmq.models.studentPdfSave.StudentPdfSaveQueueDto;
+import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;
 import net.tamasnovak.s3module.services.amazonS3Service.AmazonS3Service;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +25,21 @@ public class StudentPdfServiceImpl implements StudentPdfService {
   private String endpointUrlRoot;
 
   private final AmazonS3Service amazonS3Service;
+  private final QueueSender queueSender;
   private final PdfServiceConstants pdfServiceConstants;
   private final StudentApplicationsConstants studentApplicationsConstants;
 
   @Autowired
-  public StudentPdfServiceImpl(AmazonS3Service amazonS3Service, PdfServiceConstants pdfServiceConstants, StudentApplicationsConstants studentApplicationsConstants) {
+  public StudentPdfServiceImpl(AmazonS3Service amazonS3Service, QueueSender queueSender, PdfServiceConstants pdfServiceConstants, StudentApplicationsConstants studentApplicationsConstants) {
     this.amazonS3Service = amazonS3Service;
-    this.pdfServiceConstants = pdfServiceConstants;
+	  this.queueSender = queueSender;
+	  this.pdfServiceConstants = pdfServiceConstants;
     this.studentApplicationsConstants = studentApplicationsConstants;
   }
 
   @Override
   @Transactional
-  @RabbitListener(queues = { RabbitMQCommonConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
+  @RabbitListener(queues = { PdfSaveRabbitConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
   public void createStudentApplicationsPdf(StudentPdfSaveQueueDto messageQueueDto) {
     try {
       StringBuilder studentData = compileStudentData(messageQueueDto);
@@ -56,7 +61,17 @@ public class StudentPdfServiceImpl implements StudentPdfService {
 
       file.delete();
 
-//      return endpointUrlRoot + String.format("%s.pdf", authAccountUuid);
+      NewStudentPdfSaveDto newStudentPdfSaveDto = new NewStudentPdfSaveDto(
+        messageQueueDto.studentAccount().fullName(),
+        messageQueueDto.studentAccount().email(),
+        endpointUrlRoot + String.format("%s.pdf", messageQueueDto.authAccountUuid())
+      );
+
+      queueSender.send(
+        EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_EXCHANGE_KEY,
+        EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_ROUTING_KEY,
+        newStudentPdfSaveDto
+      );
     } catch (IOException exception) {
       throw new IllegalStateException(pdfServiceConstants.PDF_ERROR);
     }
@@ -79,7 +94,7 @@ public class StudentPdfServiceImpl implements StudentPdfService {
   private StringBuilder compileStudentApplicationsDynamicData(StudentPdfSaveQueueDto messageQueueDto) {
     StringBuilder applicationData = new StringBuilder();
 
-    for (StudentApplicationQueueDto application : messageQueueDto.applications()) {
+    for (StudentApplicationDto application : messageQueueDto.applications()) {
       applicationData.append(
         String.format(studentApplicationsConstants.STUDENT_HTML_APPLICATIONS_DATA,
           application.createdAt(),
