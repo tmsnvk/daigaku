@@ -76,6 +76,26 @@ services:
       - daigaku
 
 
+  backend-email:
+    image: daigaku-email-image
+    container_name: daigaku-email-container
+    build: 
+      context: ./backend/email
+      dockerfile: Dockerfile
+    environment:
+      JAVAMAIL_HOST: ${JAVAMAIL_HOST}
+      JAVAMAIL_PORT: ${JAVAMAIL_PORT}
+      JAVAMAIL_USER: ${JAVAMAIL_USER}
+      JAVAMAIL_PASSWORD: ${JAVAMAIL_PASSWORD}
+      SPRING_RABBITMQ_HOST: ${RABBITMQ_HOST}
+    ports:
+      - 8082:8082
+    expose:
+      - 8082
+    networks:
+      - daigaku
+
+
   backend-core:
     image: daigaku-core-image
     container_name: daigaku-core-container
@@ -99,6 +119,7 @@ services:
       - db-redis
       - backend-rabbitmq-mgmt
       - backend-s3
+      - backend-email
 
 
   frontend:

@@ -3,5 +3,5 @@ package net.tamasnovak.email.service;
 import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
 
 public interface EmailService {
-	void onStudentPdfSaveEmail(NewStudentPdfSaveDto newStudentPdfSaveDto);
+	void onStudentPdfSave(NewStudentPdfSaveDto newStudentPdfSaveDto);
 }

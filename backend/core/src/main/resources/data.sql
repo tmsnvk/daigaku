@@ -99,13 +99,13 @@ WITH role_insert AS (
 INSERT INTO accounts
   (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 2 LIMIT 1), 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 2 LIMIT 1), 'Student', 'User', 'subscription@tamasnovak.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp),
   (gen_random_uuid(), (SELECT id FROM addresses OFFSET 3 LIMIT 1), 'Student', 'User', 'student2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO students
   (account_id, mentor_id, institution_id)
 VALUES
-  ((SELECT id FROM accounts WHERE email = 'student@test.net'), (SELECT id FROM mentors LIMIT 1), (SELECT id FROM institutions LIMIT 1)),
+  ((SELECT id FROM accounts WHERE email = 'subscription@tamasnovak.net'), (SELECT id FROM mentors LIMIT 1), (SELECT id FROM institutions LIMIT 1)),
   ((SELECT id FROM accounts WHERE email = 'student2@test.net'), (SELECT id FROM mentors OFFSET 1 LIMIT 1), (SELECT id FROM institutions OFFSET 1 LIMIT 1));
 
 -- INSERT countries & universities
@@ -197,11 +197,11 @@ INSERT INTO applications
   (uuid, student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id,
    created_by, last_modified_by, created_at, last_updated_at, is_removable)
 VALUES
-  (gen_random_uuid(), 1, 2, 1, 'Business Administration', 3, 2, 2, 1, 1, 1, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 2, 2, 'Logistics', 3, 2, 2, 1, 2, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 2, 3, 'Information Technology', 3, 2, 2, 1, 3, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 3, 4, 'Computer Science', 3, 2, 1, 1, 3, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 4, 5, 'Mathematics', 3, 2, 1, 1, 2, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 2, 1, 'Business Administration', 3, 2, 2, 1, 1, 1, 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 2, 2, 'Logistics', 3, 2, 2, 1, 2, 3, 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 2, 3, 'Information Technology', 3, 2, 2, 1, 3, 3, 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 3, 4, 'Computer Science', 3, 2, 1, 1, 3, 3, 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 4, 5, 'Mathematics', 3, 2, 1, 1, 2, 3, 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp, false),
   (gen_random_uuid(), 2, 4, 6, 'Business Administration', 3, 2, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp, false),
   (gen_random_uuid(), 2, 3, 4, 'Computer Science', 3, 2, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp, false),
   (gen_random_uuid(), 2, 4, 5, 'Mathematics', 3, 2, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp, false),
@@ -211,6 +211,6 @@ VALUES
 INSERT INTO comments
   (uuid, application_id, account_id, content, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), 1, 7, 'This is the very first test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 1, 7, 'This is the second test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 1, 7, 'This is the third test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), 1, 7, 'This is the very first test comment.', 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), 1, 7, 'This is the second test comment.', 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), 1, 7, 'This is the third test comment.', 'subscription@tamasnovak.net', 'subscription@tamasnovak.net', current_timestamp, current_timestamp);

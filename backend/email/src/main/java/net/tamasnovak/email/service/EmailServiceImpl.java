@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	@Transactional
 	@RabbitListener(queues = { EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_QUEUE_KEY })
-	public void onStudentPdfSaveEmail(NewStudentPdfSaveDto newStudentPdfSaveDto) {
+	public void onStudentPdfSave(NewStudentPdfSaveDto newStudentPdfSaveDto) {
 		String emailBody = String.format(pdfSendingEmailTemplates.STUDENT_PDF_EMAIL_BODY, newStudentPdfSaveDto.fullName(), newStudentPdfSaveDto.pdfDirectDownloadLink());
 		NewEmailQueueDto newEmailQueueDto = new NewEmailQueueDto(newStudentPdfSaveDto.email(), pdfSendingEmailTemplates.STUDENT_PDF_EMAIL_SUBJECT, emailBody);
 

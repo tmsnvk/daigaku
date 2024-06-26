@@ -15,4 +15,9 @@ mvn clean install -DskipTests
 
 cd ../..
 
+cd backend/email
+mvn clean install -DskipTests
+
+cd ../..
+
 docker-compose -f docker-compose.yml up --build
