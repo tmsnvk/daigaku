@@ -1,10 +1,10 @@
 package net.tamasnovak.s3module.configuration.rabbitMQ;
 
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.ConverterConfig;
-import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;
+import net.tamasnovak.rabbitmq.service.QueueSenderImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ ConverterConfig.class, QueueSender.class })
+@Import({ ConverterConfig.class, QueueSenderImpl.class })
 public class RabbitMQConfig {}

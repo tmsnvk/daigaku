@@ -1,15 +1,15 @@
-package net.tamasnovak.rabbitmq.service.queueSender;
+package net.tamasnovak.rabbitmq.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QueueSender {
+public class QueueSenderImpl implements QueueSender {
 	private final RabbitTemplate rabbitTemplate;
 
 	@Autowired
-	public QueueSender(RabbitTemplate rabbitTemplate) {
+	public QueueSenderImpl(RabbitTemplate rabbitTemplate) {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 

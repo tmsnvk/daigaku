@@ -33,11 +33,11 @@ import net.tamasnovak.domains.support.university.service.UniversityService;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.ResponseStatusType;
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.PdfSaveRabbitConfig;
-import net.tamasnovak.rabbitmq.models.studentPdfSave.StudentAccountDto;
-import net.tamasnovak.rabbitmq.models.studentPdfSave.StudentApplicationDto;
-import net.tamasnovak.rabbitmq.models.studentPdfSave.StudentPdfSaveQueueDto;
-import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.PdfRequestRabbitConfig;
+import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentAccountDto;
+import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentApplicationDto;
+import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentPdfRequestDataQueueDto;
+import net.tamasnovak.rabbitmq.service.QueueSender;
 import net.tamasnovak.validation.applicationFieldValidator.ExistingApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -233,14 +233,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     Institution studentInstitution = institutionService.getById(studentAccount.getInstitutionId());
     List<ApplicationDto> applications = this.getAllApplicationDtosByAccountUuid(authAccountUuid);
 
-    StudentPdfSaveQueueDto compiledData = compileStudentPdfSaveData(authAccountUuid, studentAccount, studentInstitution, applications);
-    queueSender.send(PdfSaveRabbitConfig.STUDENT_PDF_SAVE_EXCHANGE_KEY, PdfSaveRabbitConfig.STUDENT_PDF_SAVE_ROUTING_KEY, compiledData);
+    StudentPdfRequestDataQueueDto compiledData = compileStudentPdfSaveData(authAccountUuid, studentAccount, studentInstitution, applications);
+    queueSender.send(PdfRequestRabbitConfig.STUDENT_PDF_SAVE_EXCHANGE_KEY, PdfRequestRabbitConfig.STUDENT_PDF_SAVE_ROUTING_KEY, compiledData);
   }
 
-  private StudentPdfSaveQueueDto compileStudentPdfSaveData(UUID authAccountUuid, Account studentAccount, Institution studentInstitution, List<ApplicationDto> applications) {
-    StudentAccountDto studentAccountDto = new StudentAccountDto(studentAccount.getFullName(), studentAccount.getEmail(), studentInstitution.getName());
+  private StudentPdfRequestDataQueueDto compileStudentPdfSaveData(UUID authAccountUuid, Account studentAccount, Institution studentInstitution, List<ApplicationDto> applications) {
+    StudentAccountDto accountDto = new StudentAccountDto(studentAccount.getFullName(), studentAccount.getEmail(), studentInstitution.getName());
 
-    List<StudentApplicationDto> studentApplicationDtos = new ArrayList<>();
+    List<StudentApplicationDto> applicationDtos = new ArrayList<>();
 
     for (ApplicationDto application : applications) {
       StudentApplicationDto applicationQueueDto = new StudentApplicationDto(
@@ -256,13 +256,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
         application.finalDestinationStatus()
       );
 
-      studentApplicationDtos.add(applicationQueueDto);
+      applicationDtos.add(applicationQueueDto);
     }
 
-    return new StudentPdfSaveQueueDto(
-      authAccountUuid,
-      studentAccountDto,
-      studentApplicationDtos
-    );
+    return new StudentPdfRequestDataQueueDto(authAccountUuid, accountDto, applicationDtos);
   }
 }

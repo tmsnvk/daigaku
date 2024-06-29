@@ -1,11 +1,11 @@
-package net.tamasnovak.rabbitmq.models.studentPdfSave;
+package net.tamasnovak.rabbitmq.models.s3PdfQueue.student;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-public record StudentPdfSaveQueueDto(
+public record StudentPdfRequestDataQueueDto(
 	UUID authAccountUuid,
 	StudentAccountDto studentAccount,
 	List<StudentApplicationDto> applications

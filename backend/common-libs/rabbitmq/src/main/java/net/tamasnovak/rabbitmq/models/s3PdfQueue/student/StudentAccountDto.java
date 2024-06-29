@@ -1,4 +1,4 @@
-package net.tamasnovak.rabbitmq.models.studentPdfSave;
+package net.tamasnovak.rabbitmq.models.s3PdfQueue.student;
 
 public record StudentAccountDto(
 	String fullName,

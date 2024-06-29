@@ -12,10 +12,10 @@ import java.io.File;
 
 @Service
 public class AmazonS3ServiceImpl implements AmazonS3Service {
-  private final S3Client s3Client;
-
   @Value("${aws.bucket}")
   private String bucket;
+
+  private final S3Client s3Client;
 
   @Autowired
   public AmazonS3ServiceImpl(S3Client s3Client) {

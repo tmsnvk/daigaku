@@ -1,13 +1,14 @@
 package net.tamasnovak.s3module.services.pdf.student;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSendingRabbitConfig;
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.PdfSaveRabbitConfig;
-import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
-import net.tamasnovak.rabbitmq.models.studentPdfSave.StudentApplicationDto;
-import net.tamasnovak.rabbitmq.models.studentPdfSave.StudentPdfSaveQueueDto;
-import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSenderRabbitConfig;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.PdfRequestRabbitConfig;
+import net.tamasnovak.rabbitmq.models.emailQueue.StudentPdfRequestQueueDto;
+import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentApplicationDto;
+import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentPdfRequestDataQueueDto;
+import net.tamasnovak.rabbitmq.service.QueueSender;
 import net.tamasnovak.s3module.services.amazonS3Service.AmazonS3Service;
+import net.tamasnovak.s3module.services.pdf.PdfServiceConstants;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,14 +25,14 @@ public class StudentPdfServiceImpl implements StudentPdfService {
   @Value("${aws.endpointUrl}")
   private String endpointUrlRoot;
 
-  private final AmazonS3Service amazonS3Service;
+  private final AmazonS3Service s3Service;
   private final QueueSender queueSender;
   private final PdfServiceConstants pdfServiceConstants;
   private final StudentApplicationsConstants studentApplicationsConstants;
 
   @Autowired
-  public StudentPdfServiceImpl(AmazonS3Service amazonS3Service, QueueSender queueSender, PdfServiceConstants pdfServiceConstants, StudentApplicationsConstants studentApplicationsConstants) {
-    this.amazonS3Service = amazonS3Service;
+  public StudentPdfServiceImpl(AmazonS3Service s3Service, QueueSender queueSender, PdfServiceConstants pdfServiceConstants, StudentApplicationsConstants studentApplicationsConstants) {
+    this.s3Service = s3Service;
 	  this.queueSender = queueSender;
 	  this.pdfServiceConstants = pdfServiceConstants;
     this.studentApplicationsConstants = studentApplicationsConstants;
@@ -39,37 +40,33 @@ public class StudentPdfServiceImpl implements StudentPdfService {
 
   @Override
   @Transactional
-  @RabbitListener(queues = { PdfSaveRabbitConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
-  public void createStudentApplicationsPdf(StudentPdfSaveQueueDto messageQueueDto) {
+  @RabbitListener(queues = { PdfRequestRabbitConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
+  public void onStudentPdfRequest(StudentPdfRequestDataQueueDto queueDto) {
     try {
-      StringBuilder studentData = compileStudentData(messageQueueDto);
-      StringBuilder applicationData = compileStudentApplicationsDynamicData(messageQueueDto);
+      StringBuilder studentData = compileStudentData(queueDto);
+      StringBuilder applicationData = compileStudentApplicationsData(queueDto);
 
       LocalDateTime now = LocalDateTime.now();
 
-      String htmlSource = String.format(studentApplicationsConstants.STUDENT_APPLICATION_HTML_MAIN_TEMPLATE,
+      String htmlSource = String.format(studentApplicationsConstants.STUDENT_REQUEST_MAIN_TEMPLATE,
         now.toLocalDate(),
         now.toLocalTime(),
         studentData,
         applicationData
       );
 
-      File file = new File(String.format("%s.pdf", messageQueueDto.authAccountUuid()));
+      File file = new File(String.format("%s.pdf", queueDto.authAccountUuid()));
       HtmlConverter.convertToPdf(htmlSource, new FileOutputStream(file));
 
-      amazonS3Service.uploadFileToS3Bucket(file.toString(), file);
+      s3Service.uploadFileToS3Bucket(file.toString(), file);
 
-      NewStudentPdfSaveDto newStudentPdfSaveDto = new NewStudentPdfSaveDto(
-        messageQueueDto.studentAccount().fullName(),
-        messageQueueDto.studentAccount().email(),
-        endpointUrlRoot + String.format("%s.pdf", messageQueueDto.authAccountUuid())
+      StudentPdfRequestQueueDto pdfRequestQueueDto = new StudentPdfRequestQueueDto(
+        queueDto.studentAccount().fullName(),
+        queueDto.studentAccount().email(),
+        endpointUrlRoot + String.format("%s.pdf", queueDto.authAccountUuid())
       );
 
-      queueSender.send(
-        EmailSendingRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY,
-        EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_ROUTING_KEY,
-        newStudentPdfSaveDto
-      );
+      queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.EMAIL_STUDENT_PDF_SAVE_ROUTING_KEY, pdfRequestQueueDto);
 
       file.delete();
     } catch (IOException exception) {
@@ -77,26 +74,26 @@ public class StudentPdfServiceImpl implements StudentPdfService {
     }
   }
 
-  private StringBuilder compileStudentData(StudentPdfSaveQueueDto messageQueueDto) {
-    StringBuilder studentData = new StringBuilder();
+  private StringBuilder compileStudentData(StudentPdfRequestDataQueueDto queueDto) {
+    StringBuilder data = new StringBuilder();
 
-    studentData.append(
-      String.format(studentApplicationsConstants.STUDENT_HTML_STUDENT_DATA,
-        messageQueueDto.studentAccount().fullName(),
-        messageQueueDto.studentAccount().email(),
-        messageQueueDto.studentAccount().institutionName()
+    data.append(
+      String.format(studentApplicationsConstants.STUDENT_REQUEST_STUDENT_DATA,
+        queueDto.studentAccount().fullName(),
+        queueDto.studentAccount().email(),
+        queueDto.studentAccount().institutionName()
       )
     );
 
-    return studentData;
+    return data;
   }
 
-  private StringBuilder compileStudentApplicationsDynamicData(StudentPdfSaveQueueDto messageQueueDto) {
-    StringBuilder applicationData = new StringBuilder();
+  private StringBuilder compileStudentApplicationsData(StudentPdfRequestDataQueueDto queueDto) {
+    StringBuilder data = new StringBuilder();
 
-    for (StudentApplicationDto application : messageQueueDto.applications()) {
-      applicationData.append(
-        String.format(studentApplicationsConstants.STUDENT_HTML_APPLICATIONS_DATA,
+    for (StudentApplicationDto application : queueDto.applications()) {
+      data.append(
+        String.format(studentApplicationsConstants.STUDENT_REQUEST_APPLICATIONS_DATA,
           application.createdAt(),
           application.lastUpdatedAt(),
           application.courseName(),
@@ -111,6 +108,6 @@ public class StudentPdfServiceImpl implements StudentPdfService {
       );
     }
 
-    return applicationData;
+    return data;
   }
 }

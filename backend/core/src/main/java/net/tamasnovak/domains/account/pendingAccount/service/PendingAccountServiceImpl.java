@@ -8,9 +8,9 @@ import net.tamasnovak.domains.role.models.entity.Role;
 import net.tamasnovak.domains.role.service.RoleService;
 import net.tamasnovak.domains.support.institution.models.entity.Institution;
 import net.tamasnovak.domains.support.institution.service.InstitutionService;
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSendingRabbitConfig;
-import net.tamasnovak.rabbitmq.models.newEmail.PendingAccountConfirmationQueueDto;
-import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSenderRabbitConfig;
+import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
+import net.tamasnovak.rabbitmq.service.QueueSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -54,13 +54,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     Institution institution = institutionService.getByUuid(requestBody.institutionUuid());
     Role role = roleService.getByUuid(requestBody.accountRoleUuid());
 
-    PendingAccount pendingAccount = PendingAccount.createPendingAccount(
-      requestBody.firstName(),
-      requestBody.lastName(),
-      requestBody.email(),
-      institution,
-      role
-    );
+    PendingAccount pendingAccount = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(), institution, role);
 
     pendingAccountRepository.save(pendingAccount);
 
@@ -72,6 +66,6 @@ public class PendingAccountServiceImpl implements PendingAccountService {
       role.getNameWithoutPrefix()
     );
 
-    queueSender.send(EmailSendingRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSendingRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY, queueDto);
+    queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY, queueDto);
   }
 }

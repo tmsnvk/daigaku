@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 @Configuration
-public class EmailSendingRabbitConfig extends RabbitCommonConfig {
+public class EmailSenderRabbitConfig extends RabbitCommonConfig {
 	public static final String EMAIL_SENDING_EXCHANGE_KEY = "email-sending-topic-exchange";
 
 	public static final String EMAIL_STUDENT_PDF_SAVE_QUEUE_KEY = "q.student-pdf-save-email";

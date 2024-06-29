@@ -1,4 +1,4 @@
-package net.tamasnovak.rabbitmq.models.newEmail;
+package net.tamasnovak.rabbitmq.models.emailQueue;
 
 import java.io.Serial;
 import java.io.Serializable;

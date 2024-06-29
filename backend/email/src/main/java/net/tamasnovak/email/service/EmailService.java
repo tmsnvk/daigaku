@@ -1,9 +1,9 @@
 package net.tamasnovak.email.service;
 
-import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
-import net.tamasnovak.rabbitmq.models.newEmail.PendingAccountConfirmationQueueDto;
+import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
+import net.tamasnovak.rabbitmq.models.emailQueue.StudentPdfRequestQueueDto;
 
 public interface EmailService {
-	void onStudentPdfRequest(NewStudentPdfSaveDto newStudentPdfSaveDto);
+	void onStudentPdfRequest(StudentPdfRequestQueueDto newStudentPdfSaveDto);
 	void onPendingAccountRegistration(PendingAccountConfirmationQueueDto queueDto);
 }

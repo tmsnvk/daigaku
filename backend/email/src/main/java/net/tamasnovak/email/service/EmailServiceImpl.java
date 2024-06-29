@@ -9,9 +9,9 @@ import net.tamasnovak.email.constants.constants.EmailConstants;
 import net.tamasnovak.email.models.SimpleEmailDto;
 import net.tamasnovak.email.constants.templates.AccountEmailTemplates;
 import net.tamasnovak.email.constants.templates.PdfRequestEmailTemplates;
-import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSendingRabbitConfig;
-import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
-import net.tamasnovak.rabbitmq.models.newEmail.PendingAccountConfirmationQueueDto;
+import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSenderRabbitConfig;
+import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
+import net.tamasnovak.rabbitmq.models.emailQueue.StudentPdfRequestQueueDto;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,8 +43,8 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	@Transactional
-	@RabbitListener(queues = { EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_QUEUE_KEY })
-	public void onStudentPdfRequest(NewStudentPdfSaveDto queueDto) {
+	@RabbitListener(queues = { EmailSenderRabbitConfig.EMAIL_STUDENT_PDF_SAVE_QUEUE_KEY })
+	public void onStudentPdfRequest(StudentPdfRequestQueueDto queueDto) {
 		String emailBody = String.format(pdfRequestEmailTemplates.STUDENT_PDF_REQUEST_BODY, queueDto.fullName(), queueDto.pdfDirectDownloadLink());
 		SimpleEmailDto emailDto = new SimpleEmailDto(queueDto.email(), pdfRequestEmailTemplates.STUDENT_PDF_REQUEST_SUBJECT, emailBody);
 
@@ -53,7 +53,7 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	@Transactional
-	@RabbitListener(queues = { EmailSendingRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_QUEUE_KEY })
+	@RabbitListener(queues = { EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_QUEUE_KEY })
 	public void onPendingAccountRegistration(PendingAccountConfirmationQueueDto queueDto) {
 		String emailBody = String.format(accountEmailTemplates.PENDING_ACCOUNT_CONFIRMATION_BODY, queueDto.firstName(), queueDto.lastName(), queueDto.institutionName(), queueDto.roleName());
 		SimpleEmailDto emailDto = new SimpleEmailDto(queueDto.email(), accountEmailTemplates.PENDING_ACCOUNT_CONFIRMATION_SUBJECT, emailBody);

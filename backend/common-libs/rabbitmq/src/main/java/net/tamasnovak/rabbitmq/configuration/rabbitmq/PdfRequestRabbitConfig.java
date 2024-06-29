@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 @Configuration
-public class PdfSaveRabbitConfig extends RabbitCommonConfig {
+public class PdfRequestRabbitConfig extends RabbitCommonConfig {
 	public static final String STUDENT_PDF_SAVE_EXCHANGE_KEY = "pdf-saving-topic-exchange";
 
 	public static final String STUDENT_PDF_SAVE_QUEUE_KEY = "q.student-pdf-save";
