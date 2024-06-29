@@ -13,7 +13,7 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 @Configuration
 public class ConverterConfig {
 	@Bean
-	public Jackson2JsonMessageConverter producerJacksonMessageConverter() {
+	public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
 		return new Jackson2JsonMessageConverter();
 	}
 
@@ -23,16 +23,16 @@ public class ConverterConfig {
 	}
 
 	@Bean
-	@DependsOn("producerJacksonMessageConverter")
+	@DependsOn(value = { "producerJackson2MessageConverter" })
 	public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
-		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-		rabbitTemplate.setMessageConverter(producerJacksonMessageConverter());
+		RabbitTemplate template = new RabbitTemplate(connectionFactory);
+		template.setMessageConverter(producerJackson2MessageConverter());
 
-		return rabbitTemplate;
+		return template;
 	}
 
 	@Bean
-	@DependsOn("consumerJackson2MessageConverter")
+	@DependsOn(value = { "consumerJackson2MessageConverter" })
 	MessageHandlerMethodFactory messageHandlerMethodFactory() {
 		DefaultMessageHandlerMethodFactory messageHandlerMethodFactory = new DefaultMessageHandlerMethodFactory();
 		messageHandlerMethodFactory.setMessageConverter(consumerJackson2MessageConverter());

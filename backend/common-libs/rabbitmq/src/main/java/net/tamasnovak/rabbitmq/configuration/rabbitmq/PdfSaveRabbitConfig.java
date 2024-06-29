@@ -5,6 +5,7 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 @Configuration
 public class PdfSaveRabbitConfig extends RabbitCommonConfig {
@@ -24,6 +25,7 @@ public class PdfSaveRabbitConfig extends RabbitCommonConfig {
 	}
 
 	@Bean
+	@DependsOn(value = { "pdfSavingTopicExchange", "studentPdfSaveQueue" })
 	public Binding studentPdfSaveBinding(Queue studentPdfSaveQueue, TopicExchange pdfSavingTopicExchange) {
 		return createBinding(studentPdfSaveQueue, pdfSavingTopicExchange, STUDENT_PDF_SAVE_ROUTING_KEY);
 	}

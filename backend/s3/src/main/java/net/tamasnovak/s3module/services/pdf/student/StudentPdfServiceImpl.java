@@ -59,8 +59,6 @@ public class StudentPdfServiceImpl implements StudentPdfService {
 
       amazonS3Service.uploadFileToS3Bucket(file.toString(), file);
 
-      file.delete();
-
       NewStudentPdfSaveDto newStudentPdfSaveDto = new NewStudentPdfSaveDto(
         messageQueueDto.studentAccount().fullName(),
         messageQueueDto.studentAccount().email(),
@@ -68,10 +66,12 @@ public class StudentPdfServiceImpl implements StudentPdfService {
       );
 
       queueSender.send(
-        EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_EXCHANGE_KEY,
+        EmailSendingRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY,
         EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_ROUTING_KEY,
         newStudentPdfSaveDto
       );
+
+      file.delete();
     } catch (IOException exception) {
       throw new IllegalStateException(pdfServiceConstants.PDF_ERROR);
     }

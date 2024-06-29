@@ -227,7 +227,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   }
 
   @Override
-  @Transactional(readOnly = true)
+  @Transactional
   public void onApplicationDownloadRequest(UUID authAccountUuid) {
     Account studentAccount = accountService.getByUuid(authAccountUuid);
     Institution studentInstitution = institutionService.getById(studentAccount.getInstitutionId());
