@@ -9,6 +9,7 @@ import net.tamasnovak.domains.role.models.entity.Role;
 import net.tamasnovak.domains.role.service.RoleService;
 import net.tamasnovak.domains.support.institution.models.entity.Institution;
 import net.tamasnovak.domains.support.institution.service.InstitutionService;
+import net.tamasnovak.rabbitmq.service.QueueSender;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,9 @@ class PendingAccountServiceImplTest {
 
   @Mock
   private RoleService roleService;
+
+  @Mock
+  private QueueSender queueSender;
 
   @Mock
   private PendingAccountRepository pendingAccountRepository;
