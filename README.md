@@ -13,7 +13,7 @@
 + Upon registering, users with ``student`` access are able to join an institution (i.e. their school) and have a ``mentor`` user assigned to them.
 + Users with ``mentor`` permission are able to access all applications submitted by their allocated students and perform various aggregate operations.
 + Users with ``institution admin`` permission receive admin rights for their institution (e.g. accept incoming student registration requests or access detailed aggregate reports), while ``system admins`` have application-wide rights and data overview.
-+ A currently work-in-progress application with new features being continuously developed and added.
++ A currently work-in-progress learning-project application with new features being continuously developed and added.
 
 
 ### II. Techstack
@@ -62,7 +62,7 @@ Tools
 + Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 + Clone the repository.
 + In a terminal panel, stand in the project root:
-    + run ``bash setup-variables.sh`` to generate the environment fields. Follow the directions of the script.
+    + run ``bash setup-variables.sh`` to generate environment variables. Follow the directions in the script.
     + run ``bash setup-containers.sh`` to build the project and set up the containarised Docker environment.
     + run ``http://localhost/`` in a browser window.
 + On the application's login page you may log in with the following credentials:
