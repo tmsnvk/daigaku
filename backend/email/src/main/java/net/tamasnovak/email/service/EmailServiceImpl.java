@@ -5,10 +5,11 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import net.tamasnovak.email.constants.AccountEmailSendingTemplates;
-import net.tamasnovak.email.constants.PdfSendingEmailTemplates;
+import net.tamasnovak.email.constants.constants.EmailConstants;
+import net.tamasnovak.email.models.SimpleEmailDto;
+import net.tamasnovak.email.constants.templates.AccountEmailTemplates;
+import net.tamasnovak.email.constants.templates.PdfRequestEmailTemplates;
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSendingRabbitConfig;
-import net.tamasnovak.rabbitmq.models.newEmail.NewEmailQueueDto;
 import net.tamasnovak.rabbitmq.models.newEmail.NewStudentPdfSaveDto;
 import net.tamasnovak.rabbitmq.models.newEmail.PendingAccountConfirmationQueueDto;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -26,42 +27,43 @@ import java.util.Properties;
 public class EmailServiceImpl implements EmailService {
 	@Value("${spring.mail.username}")
 	private String sender;
+
 	private final JavaMailSender javaMailSender;
 	private final EmailConstants emailConstants;
-	private final PdfSendingEmailTemplates pdfSendingEmailTemplates;
-	private final AccountEmailSendingTemplates accountEmailSendingTemplates;
+	private final PdfRequestEmailTemplates pdfRequestEmailTemplates;
+	private final AccountEmailTemplates accountEmailTemplates;
 
 	@Autowired
-	public EmailServiceImpl(JavaMailSender javaMailSender, EmailConstants emailConstants, PdfSendingEmailTemplates pdfSendingEmailTemplates, AccountEmailSendingTemplates accountEmailSendingTemplates) {
+	public EmailServiceImpl(JavaMailSender javaMailSender, EmailConstants emailConstants, PdfRequestEmailTemplates pdfRequestEmailTemplates, AccountEmailTemplates accountEmailTemplates) {
 		this.javaMailSender = javaMailSender;
 		this.emailConstants = emailConstants;
-		this.pdfSendingEmailTemplates = pdfSendingEmailTemplates;
-		this.accountEmailSendingTemplates = accountEmailSendingTemplates;
+		this.pdfRequestEmailTemplates = pdfRequestEmailTemplates;
+		this.accountEmailTemplates = accountEmailTemplates;
 	}
 
 	@Override
 	@Transactional
 	@RabbitListener(queues = { EmailSendingRabbitConfig.EMAIL_STUDENT_PDF_SAVE_QUEUE_KEY })
-	public void onStudentPdfSave(NewStudentPdfSaveDto newStudentPdfSaveDto) {
-		String emailBody = String.format(pdfSendingEmailTemplates.STUDENT_PDF_EMAIL_BODY, newStudentPdfSaveDto.fullName(), newStudentPdfSaveDto.pdfDirectDownloadLink());
-		NewEmailQueueDto newEmailQueueDto = new NewEmailQueueDto(newStudentPdfSaveDto.email(), pdfSendingEmailTemplates.STUDENT_PDF_EMAIL_SUBJECT, emailBody);
+	public void onStudentPdfRequest(NewStudentPdfSaveDto queueDto) {
+		String emailBody = String.format(pdfRequestEmailTemplates.STUDENT_PDF_REQUEST_BODY, queueDto.fullName(), queueDto.pdfDirectDownloadLink());
+		SimpleEmailDto emailDto = new SimpleEmailDto(queueDto.email(), pdfRequestEmailTemplates.STUDENT_PDF_REQUEST_SUBJECT, emailBody);
 
-		this.sendSimpleEmail(newEmailQueueDto);
+		this.sendSimpleEmail(emailDto);
 	}
 
 	@Override
 	@Transactional
 	@RabbitListener(queues = { EmailSendingRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_QUEUE_KEY })
 	public void onPendingAccountRegistration(PendingAccountConfirmationQueueDto queueDto) {
-		String emailBody = String.format(accountEmailSendingTemplates.PENDING_ACCOUNT_CONFIRMATION_EMAIL_BODY, queueDto.firstName(), queueDto.lastName(), queueDto.institutionName(), queueDto.roleName());
-		NewEmailQueueDto newEmailQueueDto = new NewEmailQueueDto(queueDto.email(), accountEmailSendingTemplates.PENDING_ACCOUNT_CONFIRMATION_EMAIL_SUBJECT, emailBody);
+		String emailBody = String.format(accountEmailTemplates.PENDING_ACCOUNT_CONFIRMATION_BODY, queueDto.firstName(), queueDto.lastName(), queueDto.institutionName(), queueDto.roleName());
+		SimpleEmailDto emailDto = new SimpleEmailDto(queueDto.email(), accountEmailTemplates.PENDING_ACCOUNT_CONFIRMATION_SUBJECT, emailBody);
 
-		this.sendSimpleEmail(newEmailQueueDto);
+		this.sendSimpleEmail(emailDto);
 	}
 
-	private void sendSimpleEmail(NewEmailQueueDto newEmailQueueDto) {
+	private void sendSimpleEmail(SimpleEmailDto emailDto) {
 		try {
-			InternetAddress emailAddress = new InternetAddress(newEmailQueueDto.recipient());
+			InternetAddress emailAddress = new InternetAddress(emailDto.recipient());
 			emailAddress.validate();
 
 			Properties properties = new Properties();
@@ -69,10 +71,9 @@ public class EmailServiceImpl implements EmailService {
 			MimeMessage mailMessage = new MimeMessage(session);
 
 			mailMessage.setFrom(sender);
-			mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(newEmailQueueDto.recipient()));
-			mailMessage.setSubject(newEmailQueueDto.subject());
-
-			mailMessage.setContent(newEmailQueueDto.body(), "text/html; charset=UTF-8");
+			mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(emailDto.recipient()));
+			mailMessage.setSubject(emailDto.subject());
+			mailMessage.setContent(emailDto.body(), "text/html; charset=UTF-8");
 
 			javaMailSender.send(mailMessage);
 		} catch (MailException | MessagingException exception) {

@@ -1,4 +1,4 @@
-package net.tamasnovak.configuration.rabbitMQ;
+package net.tamasnovak.email.configuration.rabbitMQ;
 
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.ConverterConfig;
 import net.tamasnovak.rabbitmq.service.queueSender.QueueSender;

@@ -1,11 +1,11 @@
-package net.tamasnovak.email.constants;
+package net.tamasnovak.email.constants.templates;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class AccountEmailSendingTemplates {
-	public final String PENDING_ACCOUNT_CONFIRMATION_EMAIL_SUBJECT = "Thank you for registering an account at Daigaku!";
-	public final String PENDING_ACCOUNT_CONFIRMATION_EMAIL_BODY = """
+public class AccountEmailTemplates {
+	public final String PENDING_ACCOUNT_CONFIRMATION_SUBJECT = "Thank you for registering an account at Daigaku!";
+	public final String PENDING_ACCOUNT_CONFIRMATION_BODY = """
 		<main>
 			<h1>Welcome at Daigaku!</h1>
 			<p>You have submitted a registration with the following data:</p>
@@ -20,5 +20,5 @@ public class AccountEmailSendingTemplates {
 		</main>
 	""";
 
-	private AccountEmailSendingTemplates() {}
+	private AccountEmailTemplates() {}
 }
