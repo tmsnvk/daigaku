@@ -1,12 +1,12 @@
 package net.tamasnovak.domains.account.pendingAccount.models.entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import net.tamasnovak.domains.account.shared.models.BaseAccount;
 import net.tamasnovak.domains.role.models.entity.Role;
 import net.tamasnovak.domains.support.institution.models.entity.Institution;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "pending_accounts")
@@ -21,7 +21,7 @@ public final class PendingAccount extends BaseAccount {
     return new PendingAccount(firstName, lastname, email, institution, role);
   }
 
-  @Override
+@Override
   public int hashCode() {
     return Objects.hash(email, id, uuid);
   }

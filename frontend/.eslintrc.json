@@ -76,7 +76,7 @@
 //    "multiline-comment-style": [ "warn", "separate-lines" ],
     "no-else-return": "warn",
     "no-eval": "warn",
-    "no-implicit-coercion": "warn",
+//    "no-implicit-coercion": "warn",
     "no-implied-eval": "warn",
     "no-invalid-this": "warn",
     "no-lonely-if": "warn",

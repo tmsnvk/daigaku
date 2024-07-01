@@ -1,18 +1,17 @@
-name: DaigakuSpringApplication Workflow
+name: daigaku backend build-and-test workflow
 
 
 on:
   push:
-    branches: 
+    branches:
       - master
-      - githubworkflowtest
   pull_request:
     branches:
       - master
 
 
 jobs:
-  build-then-test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     defaults:
