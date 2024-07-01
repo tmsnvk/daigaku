@@ -124,7 +124,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
           {
             isPending ?
               <LoadingIndicator content={'Your registration is being submitted.'} /> :
-              <SubmitInput type={'submit'} value={'register'} disabled={isPending} />
+              <SubmitInput type={'submit'} name={'register'} value={'register'} disabled={isPending} />
           }
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>

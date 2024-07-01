@@ -1,19 +1,31 @@
+# java and maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 env.properties
 
-*.iws
-*.iml
-*.ipr
 
+# frontend
 .env
 node_modules
 dist
 
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+
+# IDEs
 .idea
 .vscode/*
 .theia/*
 
+*.iws
+*.iml
+*.ipr
+
+
+# macOS
 .DS_Store

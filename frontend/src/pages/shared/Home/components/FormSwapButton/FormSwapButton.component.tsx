@@ -12,6 +12,7 @@ const FormSwapButton = ({ formType, content, clickHandler, isDisabled }: Compone
   return (
     <Button
       type={'button'}
+      name={content}
       onClick={() => clickHandler(formType)}
       disabled={isDisabled}
     >
