@@ -4,7 +4,6 @@ target/
 !**/src/test/**/target/
 env.properties
 
-.idea
 *.iws
 *.iml
 *.ipr
@@ -13,5 +12,8 @@ env.properties
 node_modules
 dist
 
+.idea
 .vscode/*
+.theia/*
+
 .DS_Store
