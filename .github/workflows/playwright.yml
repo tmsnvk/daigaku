@@ -32,13 +32,15 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Daigaku frontend app
-        run: npm run dev
+      - name: Start the development server
+        run: npm run dev &
+        env:
+          CI: true
+
+      - name: Wait for server to be ready
+        run: npx wait-on http://127.0.0.1:5173
 
       - name: Run Playwright tests
         run: |
-          npm run dev
           cd tests
           npx playwright test
-        env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ secrets.PLAYWRIGHT_TEST_BASE_URL }}
