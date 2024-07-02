@@ -37,11 +37,15 @@ export class HomePage {
   }
 
   goToNoAuthHomePage = async () => {
-    await this.page.goto('http://127.0.0.1:5173/');
+    await this.page.goto('/');
   };
 
   verifyFormSectionElement = async () => {
     await expect(this.formSection).toBeVisible();
+  };
+
+  submitForm = async () => {
+    await this.page.locator('[type=submit]').click();
   };
 
   fillInRegisterPendingAccountForm = async ({ firstName, lastName, email, institute, role }: RegisterFormT) => {
@@ -51,19 +55,19 @@ export class HomePage {
     await this.page.getByLabel('Institution').selectOption({ index: institute });
     await this.page.getByLabel('Account Type').selectOption({ index: role });
 
-    await this.page.locator('[type=submit]').click();
+    await this.submitForm();
   };
 
   fillInLoginForm = async ({ email, password }: LoginFormT) => {
     await this.page.getByLabel('Email').fill(email);
     await this.page.getByLabel('Password').fill(password);
 
-    await this.page.locator('[type=submit]').click();
+    await this.submitForm();
   };
 
   fillInForgottenPasswordForm = async ({ email }: ForgottenPasswordFormT) => {
     await this.page.getByLabel('Email').fill(email);
 
-    await this.page.locator('[type=submit]').click();
+    await this.submitForm();
   };
 }

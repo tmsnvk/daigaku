@@ -2,9 +2,11 @@ import {
   expect,
   test,
 } from '@playwright/test';
-import { HomePage } from './pages/home-page';
+import { HomePage } from './home-page';
 
 test.describe('Test the form functionality of', () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
 

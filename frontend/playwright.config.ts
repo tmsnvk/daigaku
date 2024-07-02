@@ -2,6 +2,9 @@ import {
   defineConfig,
   devices,
 } from '@playwright/test';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '.env' });
 
 export default defineConfig({
   testDir: './tests',
@@ -21,14 +24,26 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'global-setup',
+      testMatch: /.*\.setup\.ts/,
+      fullyParallel: true,
     },
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'chromium ui tests',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH,
+      },
+      dependencies: ['global-setup'],
+    },
+    {
+      name: 'firefox ui tests',
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH,
+      },
+      dependencies: ['global-setup'],
+    },
 
     // {
     //   name: 'webkit',
