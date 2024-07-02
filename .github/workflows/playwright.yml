@@ -4,14 +4,14 @@ name: playwright tests
 on:
   push:
     branches:
-      - master
+      # - master
   pull_request:
     branches:
-      - master
+      # - master
 
 
 jobs:
-  test:
+  build-then-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
@@ -27,18 +27,17 @@ jobs:
           node-version: lts/*
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Daigaku frontend app
-        run: npm run dev
+      - name: Start the development server
+        run: npm run dev &
+        env:
+          CI: true
 
       - name: Run Playwright tests
         run: |
-          npm run dev
           cd tests
           npx playwright test
-        env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ secrets.PLAYWRIGHT_TEST_BASE_URL }}
