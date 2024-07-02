@@ -37,7 +37,7 @@ export class HomePage {
   }
 
   goToNoAuthHomePage = async () => {
-    await this.page.goto('./');
+    await this.page.goto('http://127.0.0.1:5173/');
   };
 
   verifyFormSectionElement = async () => {
