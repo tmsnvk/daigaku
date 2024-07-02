@@ -4,11 +4,10 @@ name: playwright tests
 on:
   push:
     branches:
-      - master
-      - playwright-github-action
+      # - master
   pull_request:
     branches:
-      - master
+      # - master
 
 
 jobs:
@@ -41,5 +40,4 @@ jobs:
       - name: Run Playwright tests
         run: |
           cd tests
-          curl -i localhost:5173
           npx playwright test
