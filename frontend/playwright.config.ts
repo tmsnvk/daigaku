@@ -13,12 +13,13 @@ export default defineConfig({
   webServer: {
     command: 'npm run dev',
     reuseExistingServer: !process.env.CI,
-    url: 'http://127.0.0.1:5173/',
+    url: 'http://localhost:5173/',
+    timeout: 120000,
   },
-  // use: {
-  //   baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://127.0.0.1:5173/',
-  //   trace: 'on-first-retry',
-  // },
+  use: {
+    baseURL: 'http://localhost:5173/',
+    trace: 'on-first-retry',
+  },
   projects: [
     {
       name: 'chromium',

@@ -38,18 +38,6 @@ jobs:
         env:
           CI: true
 
-      - name: Wait for the server to be ready
-        run: |
-          for i in {1..30}; do
-            if curl --output /dev/null --silent --head --fail http://127.0.0.1:5173; then
-              echo "Server is up!"
-              break
-            else
-              echo "Waiting for server..."
-              sleep 2
-            fi
-          done
-
       - name: Run Playwright tests
         run: |
           cd tests
