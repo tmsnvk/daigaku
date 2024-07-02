@@ -37,6 +37,7 @@ jobs:
 
       - name: Run Playwright tests
         run: |
+          npm run dev
           cd tests
           npx playwright test
         env:
