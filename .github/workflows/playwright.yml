@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - playwright-github-action
   pull_request:
     branches:
       - master
