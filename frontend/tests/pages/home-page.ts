@@ -4,12 +4,21 @@ import {
   expect,
 } from '@playwright/test';
 
-type LoginFormT = {
+type RegisterFormT = {
   firstName: string;
   lastName: string;
   email: string;
   institute: number;
   role: number;
+}
+
+type LoginFormT = {
+  email: string;
+  password: string;
+}
+
+type ForgottenPasswordFormT = {
+  email: string;
 }
 
 export class HomePage {
@@ -28,20 +37,33 @@ export class HomePage {
   }
 
   goToNoAuthHomePage = async () => {
-    await this.page.goto('/');
+    await this.page.goto('http://127.0.0.1:5173');
   };
 
   verifyFormSectionElement = async () => {
     await expect(this.formSection).toBeVisible();
   };
 
-  registerPendingAccount = async ({ firstName, lastName, email, institute, role }: LoginFormT) => {
+  fillInRegisterPendingAccountForm = async ({ firstName, lastName, email, institute, role }: RegisterFormT) => {
     await this.page.getByLabel('First Name').fill(firstName);
     await this.page.getByLabel('Last Name').fill(lastName);
     await this.page.getByLabel('Email').fill(email);
     await this.page.getByLabel('Institution').selectOption({ index: institute });
     await this.page.getByLabel('Account Type').selectOption({ index: role });
 
-    await this.page.getByRole('button', { name: 'register' }).click();
+    await this.page.locator('[type=submit]').click();
+  };
+
+  fillInLoginForm = async ({ email, password }: LoginFormT) => {
+    await this.page.getByLabel('Email').fill(email);
+    await this.page.getByLabel('Password').fill(password);
+
+    await this.page.locator('[type=submit]').click();
+  };
+
+  fillInForgottenPasswordForm = async ({ email }: ForgottenPasswordFormT) => {
+    await this.page.getByLabel('Email').fill(email);
+
+    await this.page.locator('[type=submit]').click();
   };
 }

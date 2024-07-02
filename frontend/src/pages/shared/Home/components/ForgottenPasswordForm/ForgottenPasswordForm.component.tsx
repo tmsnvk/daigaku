@@ -52,7 +52,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
           {
             isPending ?
               <LoadingIndicator content={'Your registration is being handled.'} /> :
-              <SubmitInput type={'submit'} value={'reset'} disabled={isPending} />
+              <SubmitInput type={'submit'} name={'forgotten-password'} value={'reset'} disabled={isPending} />
           }
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
