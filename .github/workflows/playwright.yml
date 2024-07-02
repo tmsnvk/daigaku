@@ -20,12 +20,6 @@ jobs:
       run:
         working-directory: ./frontend
 
-    services:
-      web:
-        image: node:16
-        ports:
-          - 5173:5173
-
     steps:
       - uses: actions/checkout@v4
 
@@ -47,4 +41,5 @@ jobs:
       - name: Run Playwright tests
         run: |
           cd tests
+          curl -i localhost:5173
           npx playwright test
