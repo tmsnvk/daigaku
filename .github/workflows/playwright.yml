@@ -37,4 +37,4 @@ jobs:
           cd tests
           npx playwright test
         env:
-          PLAYWRIGHT_BASE_URL: 'http://127.0.0.1:5173/'
+          PLAYWRIGHT_TEST_BASE_URL: ${{ secrets.PLAYWRIGHT_TEST_BASE_URL }}
