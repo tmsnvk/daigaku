@@ -248,7 +248,7 @@ public final class Application extends Auditable {
                                                             FinalDestinationStatus currentFinalDestinationStatus,
                                                             ResponseStatus offerDeclined,
                                                             FinalDestinationStatus notFinalDestination) {
-    if (areValuesEqual(newResponseStatus.getName(), offerDeclined.getName())) {
+    if (newResponseStatus != null && areValuesEqual(newResponseStatus.getName(), offerDeclined.getName())) {
       return notFinalDestination;
     }
 
