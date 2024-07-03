@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
 import { useSendDownloadRequest } from './TableHead.hooks.tsx';
 import { GlobalErrorModal } from '@components/notification';
-import LoadingIndicator from '@components/form/LoadingIndicator';
+import LoadingIndicator from 'components/general/LoadingIndicator';
 import {
   ButtonHeaderCell,
   TableHeadRow,

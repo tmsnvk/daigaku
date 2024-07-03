@@ -2,12 +2,13 @@ import { useForm } from 'react-hook-form';
 import {
   NewCommentFormFieldsT,
   useSubmitNewComment,
-} from '@pages/common/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
+} from './NewCommentBox.hooks.tsx';
 import {
-  InputError, InputLabel,
-  LoadingIndicator,
+  InputError,
+  InputLabel,
   SubmitInput,
 } from '@components/form';
+import { LoadingIndicator } from '@components/general';
 import { Form } from './NewCommentBox.styles.ts';
 
 type ComponentPropsT = {

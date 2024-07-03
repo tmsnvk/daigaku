@@ -3,10 +3,12 @@ import {
   LoginFormFieldsT,
   useSubmitLoginForm,
 } from './LoginForm.hooks.tsx';
-import { TextParagraph } from '@components/general';
+import {
+  LoadingIndicator,
+  TextParagraph,
+} from '@components/general';
 import {
   InputError,
-  LoadingIndicator,
   SubmitInput,
 } from '@components/form';
 import {

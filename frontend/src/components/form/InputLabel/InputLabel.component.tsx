@@ -7,7 +7,9 @@ type ComponentPropsT = {
 
 const InputLabel = ({ inputId, content }: ComponentPropsT) => {
   return (
-    <Label htmlFor={inputId}>
+    <Label
+      htmlFor={inputId}
+    >
       {content}
     </Label>
   );

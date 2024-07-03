@@ -7,10 +7,12 @@ import {
 import {
   InputError,
   InputInfoBox,
-  LoadingIndicator,
   SubmitInput,
 } from '@components/form';
-import { PageTitle } from '@components/general';
+import {
+  LoadingIndicator,
+  PageTitle,
+} from '@components/general';
 import {
   GenericInputField,
   SelectCountry,

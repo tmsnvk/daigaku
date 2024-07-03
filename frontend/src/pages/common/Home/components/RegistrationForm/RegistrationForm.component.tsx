@@ -5,10 +5,12 @@ import {
   RegisterFormFieldsT,
   useSubmitRegistrationForm,
 } from './RegistrationForm.hooks.tsx';
-import { TextParagraph } from '@components/general';
+import {
+  LoadingIndicator,
+  TextParagraph,
+} from '@components/general';
 import {
   InputError,
-  LoadingIndicator,
   SubmitInput,
 } from '@components/form';
 import {

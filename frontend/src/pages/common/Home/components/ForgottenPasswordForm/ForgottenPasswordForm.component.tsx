@@ -4,10 +4,12 @@ import {
   useSubmitForgottenPasswordForm,
 } from './ForgottenPasswordForm.hooks.tsx';
 import FormSwapButton from '../FormSwapButton';
-import { TextParagraph } from '@components/general';
+import {
+  LoadingIndicator,
+  TextParagraph,
+} from '@components/general';
 import {
   InputError,
-  LoadingIndicator,
   SubmitInput,
 } from '@components/form';
 import { GenericInputField } from '@components/input-implementations';

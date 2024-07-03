@@ -7,7 +7,7 @@ const Article = styled.article`
   align-items: center;
   color: ${({ theme }) => theme.color.primaryDark};
   font-size: ${({ theme }) => theme.fontSize.medium};
-  font-weight: 800;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   
   & svg {
     display: inline-block;
