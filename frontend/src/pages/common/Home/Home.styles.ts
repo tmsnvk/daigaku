@@ -50,6 +50,7 @@ const MainContainer = styled.main`
 
       & article:last-of-type {
         height: 5rem;
+        margin: 2.5rem 0 0 0;
       }
     }
   }

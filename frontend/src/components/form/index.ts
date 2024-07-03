@@ -1,4 +1,4 @@
-import ApplicationFormGridContainer from './form-containers/ApplicationFormGridContainer';
+import ApplicationFormGridContainer from './ApplicationFormGridContainer';
 import InputError from './InputError';
 import InputInfoBox from './InputInfoBox';
 import InputLabel from './InputLabel';

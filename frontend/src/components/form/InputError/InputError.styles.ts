@@ -1,12 +1,23 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
 
 const Paragraph = styled.p`
   height: 2rem;
-  padding: 0.5rem 0 1rem 0;
+  padding: 1rem 0 0 0;
   text-align: center;
   color: ${({ theme }) => theme.color.error};
   font-size: ${({ theme }) => theme.fontSize.small};
-  font-weight: 800;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  animation: ${fadeIn} 0.25s ease-in;
 `;
 
 export {

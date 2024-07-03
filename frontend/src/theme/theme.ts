@@ -29,6 +29,11 @@ const theme: DefaultTheme = {
     xxLarge: '5rem',
     xxxLarge: '12rem',
   },
+  fontWeight: {
+    normal: 400,
+    semiBold: 600,
+    bold: 800,
+  },
   options: {
     borderRadius: '1.5rem',
   },

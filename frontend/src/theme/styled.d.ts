@@ -23,6 +23,11 @@ declare module 'styled-components' {
       xxLarge: string;
       xxxLarge: string;
     },
+    fontWeight: {
+      normal: number;
+      semiBold: number;
+      bold: number;
+    },
     options: {
       borderRadius: string;
     },
