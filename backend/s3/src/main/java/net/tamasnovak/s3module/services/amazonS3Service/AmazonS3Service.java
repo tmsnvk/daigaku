@@ -4,4 +4,5 @@ import java.io.File;
 
 public interface AmazonS3Service {
   void uploadFileToS3Bucket(String filename, File file);
+  void removeOldPdfFiles();
 }

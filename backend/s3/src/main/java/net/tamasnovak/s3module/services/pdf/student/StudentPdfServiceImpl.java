@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import software.amazon.awssdk.services.s3.S3Client;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +43,8 @@ public class StudentPdfServiceImpl implements StudentPdfService {
   @Transactional
   @RabbitListener(queues = { PdfRequestRabbitConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
   public void onStudentPdfRequest(StudentPdfRequestDataQueueDto queueDto) {
+    s3Service.removeOldPdfFiles();
+
     try {
       StringBuilder studentData = compileStudentData(queueDto);
       StringBuilder applicationData = compileStudentApplicationsData(queueDto);
@@ -60,6 +63,8 @@ public class StudentPdfServiceImpl implements StudentPdfService {
 
       s3Service.uploadFileToS3Bucket(file.toString(), file);
 
+      file.delete();
+
       StudentPdfRequestQueueDto pdfRequestQueueDto = new StudentPdfRequestQueueDto(
         queueDto.studentAccount().fullName(),
         queueDto.studentAccount().email(),
@@ -67,8 +72,6 @@ public class StudentPdfServiceImpl implements StudentPdfService {
       );
 
       queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.EMAIL_STUDENT_PDF_SAVE_ROUTING_KEY, pdfRequestQueueDto);
-
-      file.delete();
     } catch (IOException exception) {
       throw new IllegalStateException(pdfServiceConstants.PDF_ERROR);
     }
