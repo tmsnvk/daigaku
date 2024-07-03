@@ -29,6 +29,9 @@ const theme: DefaultTheme = {
     xxLarge: '5rem',
     xxxLarge: '12rem',
   },
+  options: {
+    borderRadius: '1.5rem',
+  },
   breakpoint: {
     small: '640px',
     medium: '768px',

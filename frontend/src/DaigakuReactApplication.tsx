@@ -17,8 +17,10 @@ import {
   Dashboard,
   Error,
   Home,
+} from '@pages/common/index.ts';
+import {
   NewApplication,
-} from '@pages/index.ts';
+} from '@pages/student/index.ts';
 import {
   PrivateLayout,
   PublicLayout,

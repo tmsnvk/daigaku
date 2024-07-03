@@ -23,6 +23,9 @@ declare module 'styled-components' {
       xxLarge: string;
       xxxLarge: string;
     },
+    options: {
+      borderRadius: string;
+    },
     breakpoint: {
       small: string;
       medium: string;

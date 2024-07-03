@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import {
   NewCommentFormFieldsT,
   useSubmitNewComment,
-} from '@pages/shared/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
+} from '@pages/common/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
 import {
   InputError, InputLabel,
   LoadingIndicator,
