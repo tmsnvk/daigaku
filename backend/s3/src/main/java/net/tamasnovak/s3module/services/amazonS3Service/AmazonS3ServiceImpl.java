@@ -44,7 +44,7 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 
   @Override
   @Transactional
-  @Scheduled(cron = "0 0 */3 * *")
+  @Scheduled(cron = "0 0 */3 * * *")
   public void removeOldPdfFiles() {
     ListObjectsRequest listObjects = ListObjectsRequest
       .builder()
