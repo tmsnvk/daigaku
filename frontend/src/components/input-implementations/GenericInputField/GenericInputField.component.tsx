@@ -3,7 +3,7 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
-import { BaseInputField } from '@components/base-styles';
+import { BaseInput } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
@@ -42,7 +42,7 @@ const GenericInputField = <T extends FieldValues>({
   isDisabled,
 }: ComponentPropsT<T>) => {
   return (
-    <BaseInputField
+    <BaseInput
       $isError={fieldError !== undefined}
     >
       <InputLabel
@@ -60,7 +60,7 @@ const GenericInputField = <T extends FieldValues>({
         defaultValue={defaultValue ?? ''}
       />
       {fieldError && <InputError content={fieldError} />}
-    </BaseInputField>
+    </BaseInput>
   );
 };
 

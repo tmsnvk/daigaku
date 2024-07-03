@@ -1,15 +1,15 @@
 import BaseDarkBorder from './BaseDarkBorder';
 import BaseLightBorder from './BaseLightBorder';
 import BaseDialog from './BaseDialog';
-import BaseInputField from './BaseInputField';
+import BaseInput from './BaseInput';
 import BaseNavbar from './BaseNavbar';
-import BasePasswordInputField from './BasePasswordInputField';
+import BasePasswordInput from './BasePasswordInput';
 
 export {
   BaseDarkBorder,
   BaseLightBorder,
   BaseDialog,
-  BaseInputField,
+  BaseInput,
   BaseNavbar,
-  BasePasswordInputField,
+  BasePasswordInput,
 };

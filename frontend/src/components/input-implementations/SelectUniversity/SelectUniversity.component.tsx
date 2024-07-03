@@ -3,7 +3,7 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
-import { BaseInputField } from '@components/base-styles';
+import { BaseInput } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
@@ -26,7 +26,7 @@ const SelectUniversity = <T extends FieldValues>({
   data,
 }: ComponentPropsT<T>) => {
   return (
-    <BaseInputField
+    <BaseInput
       $isError={fieldError !== undefined}
     >
       <InputLabel
@@ -50,7 +50,7 @@ const SelectUniversity = <T extends FieldValues>({
         ))}
       </select>
       {fieldError && <InputError content={fieldError} />}
-    </BaseInputField>
+    </BaseInput>
   );
 };
 

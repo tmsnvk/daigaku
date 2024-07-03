@@ -1,24 +1,23 @@
 import styled from 'styled-components';
 
-type InputFieldT = {
+type BaseInputT = {
   $isError?: boolean;
   $isDisabled?: boolean;
 }
 
-const BaseInputField = styled.article<InputFieldT>`
+const BaseInput = styled.article<BaseInputT>`
   height: 12.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 0 1.5rem 0;
 
   & input,
   & select {
     width: 75%;
     height: 5rem;
-    padding: 0 0 0 2.5rem;
+    padding: 0 0 0 1.5rem;
     font-size: ${({ theme }) => theme.fontSize.small};
     background-color: ${({ theme, $isDisabled }) => $isDisabled ? theme.color.tertiaryLight : theme.color.secondaryLight};
     border: 0.2rem solid ${({ theme, $isError }) => $isError ? theme.color.error : theme.color.primaryDark};
@@ -64,4 +63,4 @@ const BaseInputField = styled.article<InputFieldT>`
   }
 `;
 
-export default BaseInputField;
+export default BaseInput;

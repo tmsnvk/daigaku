@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import InputFieldStyles from '../BaseInputField';
+import BaseInput from '../BaseInput';
 
-const BasePasswordInputField = styled(InputFieldStyles)`
+const BasePasswordInputField = styled(BaseInput)`
   & input {
     width: 65%;
   }

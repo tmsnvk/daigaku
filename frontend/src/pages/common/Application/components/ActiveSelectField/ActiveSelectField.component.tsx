@@ -3,7 +3,7 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
-import { BaseInputField } from '@components/base-styles';
+import { BaseInput } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
@@ -42,7 +42,7 @@ const ActiveSelectField = <T extends FieldValues>({
   const defaultOption = options?.filter((option) => option.name === previouslySelectedValue)[0];
 
   return (
-    <BaseInputField
+    <BaseInput
       $isError={fieldError !== undefined}
     >
       <InputLabel
@@ -62,7 +62,7 @@ const ActiveSelectField = <T extends FieldValues>({
         {options.map((option: SelectOptionsT) => <option key={option.uuid} value={option.uuid}>{option.name}</option>)}
       </select>
       {fieldError && <InputError content={fieldError} />}
-    </BaseInputField>
+    </BaseInput>
   );
 };
 
