@@ -3,15 +3,15 @@ import { BaseLightBorder } from '@components/base-styles';
 
 const ApplicationFormGridContainer = styled.form`
   ${BaseLightBorder};
-  
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   column-gap: 2.5rem;
   row-gap: 5rem;
   width: 95%;
-  margin: 5rem auto 5rem auto;
-  padding: 5rem 5rem 10rem 5rem;
+  margin: 10rem auto 10rem auto;
+  padding: 5rem 5rem 5rem 5rem;
   justify-items: center;
   align-items: center;
 
