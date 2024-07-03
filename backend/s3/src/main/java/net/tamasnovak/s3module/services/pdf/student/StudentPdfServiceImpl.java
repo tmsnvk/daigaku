@@ -43,8 +43,6 @@ public class StudentPdfServiceImpl implements StudentPdfService {
   @Transactional
   @RabbitListener(queues = { PdfRequestRabbitConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
   public void onStudentPdfRequest(StudentPdfRequestDataQueueDto queueDto) {
-    s3Service.removeOldPdfFiles();
-
     try {
       StringBuilder studentData = compileStudentData(queueDto);
       StringBuilder applicationData = compileStudentApplicationsData(queueDto);
