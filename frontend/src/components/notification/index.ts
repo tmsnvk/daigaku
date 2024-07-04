@@ -1,11 +1,11 @@
 import ConfirmationModal from './ConfirmationModal';
-import Toast from './Toast';
 import GlobalErrorModal from './GlobalErrorModal';
 import GlobalLoadingModal from './GlobalLoadingModal';
+import Toast from './Toast';
 
 export {
   ConfirmationModal,
-  Toast,
   GlobalErrorModal,
   GlobalLoadingModal,
+  Toast,
 };

@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 import { BaseLightBorder } from '@components/base-styles';
 
 const fadeIn = keyframes`
@@ -22,8 +23,9 @@ const Section = styled.section`
   
   width: 30rem;
   height: 10rem;
-  position: absolute;
   z-index: 100;
+  position: fixed;
+  overflow: visible;
   right: 5rem;
   bottom: 10rem;
   display: flex;

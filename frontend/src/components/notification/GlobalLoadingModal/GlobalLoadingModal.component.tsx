@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { Dialog } from './GlobalLoadingModal.styles.ts';
+
 import { iconLibraryConfig } from '@configuration';
 
 type ComponentPropsT = {
@@ -10,7 +12,10 @@ const GlobalLoadingModal = ({ content }: ComponentPropsT) => {
   return (
     <Dialog>
       <p>{content}</p>
-      <FontAwesomeIcon icon={iconLibraryConfig.faSpinner} spin />
+      <FontAwesomeIcon
+        icon={iconLibraryConfig.faSpinner}
+        spin
+      />
     </Dialog>
   );
 };

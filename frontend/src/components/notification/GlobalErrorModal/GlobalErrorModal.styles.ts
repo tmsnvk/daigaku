@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { BaseDialog } from '@components/base-styles';
 
 const Dialog = styled(BaseDialog)`
