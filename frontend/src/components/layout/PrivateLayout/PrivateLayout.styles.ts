@@ -1,8 +1,9 @@
 import { ReactEventHandler } from 'react';
 import styled from 'styled-components';
+
 import { BaseNavbar } from '@components/base-styles';
 
-const HeaderStyle = styled(BaseNavbar)`
+const Header = styled(BaseNavbar)`
   & nav {
     height: 15rem;
 
@@ -52,7 +53,7 @@ const SmallScreenMenuWrapper = styled.div<NavbarComponentPropsT>`
   }
 `;
 
-const SmallScreenMenuToggler = styled.div`
+const SmallScreenMenuToggle = styled.div`
   position: absolute;
   top: 2.5rem;
   right: 2.5rem;
@@ -64,7 +65,7 @@ const SmallScreenMenuToggler = styled.div`
 `;
 
 export {
-  HeaderStyle,
+  Header,
   SmallScreenMenuWrapper,
-  SmallScreenMenuToggler,
+  SmallScreenMenuToggle,
 };

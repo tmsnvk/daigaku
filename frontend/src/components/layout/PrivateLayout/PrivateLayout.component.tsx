@@ -1,28 +1,31 @@
 import {
-  Navigate,
   Outlet,
   useLocation,
+  useNavigate,
 } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
   AccountRoleE,
   AuthStatusE,
   useAuth,
 } from '@context/AuthContext.tsx';
 import { useHandleSmallScreenMenuDisplay } from './PrivateLayout.hooks.tsx';
+
 import { GlobalLoadingModal } from '@components/notification';
-import NavbarLink from '../NavbarLink';
+import NavigationRoute from '../NavigationRoute';
 import Footer from '../PageBottom';
 import {
-  HeaderStyle,
-  SmallScreenMenuToggler,
+  Header,
+  SmallScreenMenuToggle,
   SmallScreenMenuWrapper,
 } from './PrivateLayout.styles.ts';
+
 import { iconLibraryConfig } from '@configuration';
 import {
-  NavbarContentT,
-  navbarAccountTypeLinks,
-  navbarGeneralLinks,
+  NavbarRoutesT,
+  commonNavigationRoutes,
+  roleNavigationRoutes,
 } from './PrivateLayout.utilities.ts';
 
 type ComponentPropsT = {
@@ -31,6 +34,7 @@ type ComponentPropsT = {
 
 const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { authStatus, account, logOut } = useAuth();
   const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick } = useHandleSmallScreenMenuDisplay();
 
@@ -39,19 +43,17 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   }
 
   if (!allowedRoles.includes(account.role as AccountRoleE)) {
-    if (account) {
-      return <Navigate to={'/unauthorised'} state={{ from: location }} replace />;
-    }
-
-    return <Navigate to={'/'} replace />;
+    account ?
+      navigate('/unauthorised', { state : { from: location }, replace: true }) :
+      navigate('/', { replace: true });
   }
 
   return (
     <>
-      <HeaderStyle>
+      <Header>
         <nav>
           <div>
-            <NavbarLink
+            <NavigationRoute
               resource={'/dashboard'}
               icon={iconLibraryConfig.faGraduationCap}
               content={'Dashboard'}
@@ -65,23 +67,23 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
             onKeyDown={handleOutsideClick}
           >
             <ul>
-              {navbarAccountTypeLinks[account.role as AccountRoleE].map((element: NavbarContentT) => {
+              {roleNavigationRoutes[account.role as AccountRoleE].map((route: NavbarRoutesT) => {
                 return (
-                  <li key={element.url}>
-                    <NavbarLink
-                      resource={element.url}
-                      icon={element.icon}
-                      content={element.content}
+                  <li key={route.url}>
+                    <NavigationRoute
+                      resource={route.url}
+                      icon={route.icon}
+                      content={route.content}
                     />
                   </li>
                 );
               })}
             </ul>
             <ul>
-              {navbarGeneralLinks.map((element) => {
+              {commonNavigationRoutes.map((element) => {
                 return (
                   <li key={element.url}>
-                    <NavbarLink
+                    <NavigationRoute
                       resource={element.url}
                       icon={element.icon}
                       content={element.content}
@@ -90,23 +92,23 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
                 );
               })}
               <li>
-                <NavbarLink
+                <NavigationRoute
                   resource={'/'}
                   icon={iconLibraryConfig.faRightFromBracket}
                   content={'Log out'}
-                  onClick={logOut}
+                  handleLogOut={logOut}
                 />
               </li>
             </ul>
-            <SmallScreenMenuToggler onClick={toggleMenu}>
+            <SmallScreenMenuToggle onClick={toggleMenu}>
               <FontAwesomeIcon icon={iconLibraryConfig.faXMark} />
-            </SmallScreenMenuToggler>
+            </SmallScreenMenuToggle>
           </SmallScreenMenuWrapper>
-          <SmallScreenMenuToggler onClick={toggleMenu}>
+          <SmallScreenMenuToggle onClick={toggleMenu}>
             <FontAwesomeIcon icon={iconLibraryConfig.faBars} />
-          </SmallScreenMenuToggler>
+          </SmallScreenMenuToggle>
         </nav>
-      </HeaderStyle>
+      </Header>
       <Outlet />
       <Footer />
     </>

@@ -2,9 +2,9 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const LinkContainer = styled(NavLink)`
+const RouteLink = styled(NavLink)`
   font-size: ${({ theme }) => theme.fontSize.large};
-  font-weight: 600;
+  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   letter-spacing: 0.2rem;
 
   &:hover:not(.active) {
@@ -28,6 +28,6 @@ const NavbarIcon = styled(FontAwesomeIcon)<ComponentPropsT>`
 `;
 
 export {
-  LinkContainer,
+  RouteLink,
   NavbarIcon,
 };

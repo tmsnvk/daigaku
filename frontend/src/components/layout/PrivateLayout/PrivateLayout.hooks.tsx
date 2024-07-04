@@ -8,9 +8,7 @@ const useHandleSmallScreenMenuDisplay = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const toggleMenu = () => {
-    setIsNavbarOpen(!isNavbarOpen);
-  };
+  const toggleMenu = () => setIsNavbarOpen(!isNavbarOpen);
 
   const handleInsideClick = (event: MouseEvent<HTMLDivElement>) => {
     if (!ref.current || ref.current.contains(event.target as HTMLElement)) {
@@ -20,9 +18,7 @@ const useHandleSmallScreenMenuDisplay = () => {
     setIsNavbarOpen(false);
   };
 
-  const handleOutsideClick = () => {
-    setIsNavbarOpen(false);
-  };
+  const handleOutsideClick = () => setIsNavbarOpen(false);
 
   return {
     ref,

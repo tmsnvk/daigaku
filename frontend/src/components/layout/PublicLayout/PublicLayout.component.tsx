@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { BaseNavbar } from '@components/base-styles';
-import NavbarLink from '../NavbarLink';
-import Footer from '../PageBottom';
+import NavigationRoute from '../NavigationRoute';
+import PageBottom from '../PageBottom';
+
 import { iconLibraryConfig } from '@configuration';
 
 const PublicLayout = () => {
@@ -11,12 +13,14 @@ const PublicLayout = () => {
       <BaseNavbar>
         <nav>
           <div>
-            <FontAwesomeIcon icon={iconLibraryConfig.faGraduationCap} />
+            <FontAwesomeIcon
+              icon={iconLibraryConfig.faGraduationCap}
+            />
             Daigaku
           </div>
           <ul>
             <li>
-              <NavbarLink
+              <NavigationRoute
                 resource={'/contact'}
                 icon={iconLibraryConfig.faPaperPlane}
                 content={'Contact us'}
@@ -26,7 +30,7 @@ const PublicLayout = () => {
         </nav>
       </BaseNavbar>
       <Outlet />
-      <Footer />
+      <PageBottom />
     </>
   );
 };

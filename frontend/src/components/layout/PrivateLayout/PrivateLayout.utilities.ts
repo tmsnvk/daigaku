@@ -1,14 +1,16 @@
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
+
 import { AccountRoleE } from '@context/AuthContext.tsx';
+
 import { iconLibraryConfig } from '@configuration';
 
-export type NavbarContentT = {
+export type NavbarRoutesT = {
   url: string;
   icon: IconLookup;
   content: string;
 }
 
-const navbarAccountTypeLinks: { [key in AccountRoleE]: NavbarContentT[] } = {
+const roleNavigationRoutes: { [key in AccountRoleE]: NavbarRoutesT[] } = {
   [AccountRoleE.STUDENT]: [
     { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, content: 'New Application' },
     { url: '/applications', icon: iconLibraryConfig.faScroll, content: 'My Applications' },
@@ -27,13 +29,13 @@ const navbarAccountTypeLinks: { [key in AccountRoleE]: NavbarContentT[] } = {
   ],
 };
 
-const navbarGeneralLinks: NavbarContentT[] = [
+const commonNavigationRoutes: NavbarRoutesT[] = [
   { url: '/account', icon: iconLibraryConfig.faUser, content: 'My Account' },
   { url: '/messages', icon: iconLibraryConfig.faEnvelope, content: 'Messages' },
   { url: '/feedback', icon: iconLibraryConfig.faGears, content: 'Feedback' },
 ];
 
 export {
-  navbarAccountTypeLinks,
-  navbarGeneralLinks,
+  roleNavigationRoutes,
+  commonNavigationRoutes,
 };
