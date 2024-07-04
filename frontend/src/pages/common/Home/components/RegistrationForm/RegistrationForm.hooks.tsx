@@ -36,7 +36,7 @@ type RegisterFormErrorT = {
 
 const useSubmitRegistrationForm = ({ setError, showModal }: RegisterFormT) => {
   return useMutation({
-    mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER_FORM],
+    mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER],
     mutationFn: (data: RegisterFormFieldsT) => pendingAccountService.register(data),
     onSuccess: () => {
       showModal();

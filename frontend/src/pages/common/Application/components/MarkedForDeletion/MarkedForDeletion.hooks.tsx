@@ -13,7 +13,7 @@ const useToggleDeletionMark = (applicationUuid: string, isMarked: boolean) => {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const mutation = useMutation({
-    mutationKey: [mutationKeys.APPLICATION.MARK_FOR_DELETION],
+    mutationKey: [mutationKeys.APPLICATION.IS_REMOVABLE],
     mutationFn: () => applicationService.patchByUuidToMarkForDeletion(applicationUuid),
     onSuccess: () => {
       queryClient.setQueryData<ApplicationT[]>(

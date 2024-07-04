@@ -4,7 +4,7 @@ import { mutationKeys } from '@configuration';
 
 const useSendDownloadRequest = () => {
   return useMutation({
-    mutationKey: [mutationKeys.APPLICATION.POST_DOWNLOAD_REQUEST],
+    mutationKey: [mutationKeys.APPLICATION.POST_PDF_REQUEST],
     mutationFn: () => applicationService.getDownloadRequest(),
     onSuccess: () => {
 
