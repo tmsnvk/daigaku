@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { BaseLightBorder } from '@components/base-styles';
 
 const Section = styled.section`

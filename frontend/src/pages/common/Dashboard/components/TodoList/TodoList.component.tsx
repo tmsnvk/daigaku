@@ -1,7 +1,10 @@
 import { useCreateCurrentTodos } from './TodoList.hooks.tsx';
+
 import { Section } from './TodoList.styles.ts';
-import { DashboardDataT } from '../../Dashboard.hooks.tsx';
+
 import { generalIntroduction } from './TodoList.utilities.ts';
+
+import { DashboardDataT } from '../../Dashboard.hooks.tsx';
 
 type ComponentPropsT = {
   data: DashboardDataT

@@ -1,26 +1,27 @@
 import styled from 'styled-components';
+
 import { BaseDarkBorder } from '@components/base-styles';
 
 const DescriptionList = styled.dl`
   ${BaseDarkBorder};
-  
+
+  width: 15rem;
+  height: 15rem;
+  padding: 0 1rem 2.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 1rem 2.5rem 1rem;
-  width: 15rem;
-  height: 15rem;
   text-align: center;
-  
+
   & dt {
     padding: 0 0 1.5rem 0;
     font-size: ${({ theme }) => theme.fontSize.xLarge};
   }
-  
+
   & dd {
     font-size: ${({ theme }) => theme.fontSize.small};
   }
-  
+
   @media screen and (width > ${({ theme }) => theme.breakpoint.small}) {
     justify-content: space-evenly;
     min-width: 20rem;
