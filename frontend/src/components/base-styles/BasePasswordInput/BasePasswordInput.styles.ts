@@ -14,6 +14,14 @@ const BasePasswordInputField = styled(BaseInput)`
     & svg {
       width: 2.5rem;
       margin: 0 0 0 1rem;
+      cursor: pointer;
+    }
+  }
+
+  @media screen and (width < ${({ theme }) => theme.breakpoint.medium}) {
+    & input,
+    & select {
+      width: 80%;
     }
   }
 `;

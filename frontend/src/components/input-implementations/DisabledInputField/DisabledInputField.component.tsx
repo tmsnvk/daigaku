@@ -10,8 +10,13 @@ type ComponentPropsT = {
 
 const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentPropsT) => {
   return (
-    <BaseInput $isDisabled={true}>
-      <InputLabel inputId={fieldId} content={label} />
+    <BaseInput
+      $isDisabled={true}
+    >
+      <InputLabel
+        inputId={fieldId}
+        content={label}
+      />
       <input
         type={type}
         id={fieldId}

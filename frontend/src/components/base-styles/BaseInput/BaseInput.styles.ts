@@ -58,7 +58,7 @@ const BaseInput = styled.article<BaseInputT>`
   @media screen and (width < ${({ theme }) => theme.breakpoint.medium}) {
     & input,
     & select {
-      width: 100%;
+      width: 90%;
     }
   }
 `;

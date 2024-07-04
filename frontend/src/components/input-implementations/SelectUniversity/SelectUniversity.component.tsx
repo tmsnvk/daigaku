@@ -3,11 +3,13 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
+
 import { BaseInput } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
 } from '@components/form';
+
 import { UniversityOptionT } from '@services/support/university.service.ts';
 
 type ComponentPropsT<T extends FieldValues> = {
