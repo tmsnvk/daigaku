@@ -2,7 +2,9 @@ import {
   useEffect,
   useRef,
 } from 'react';
+
 import { Dialog } from './ColumnSelectorModal.styles.ts';
+
 import { ColumnT } from '../../Applications.hooks.tsx';
 
 type ComponentPropsT = {

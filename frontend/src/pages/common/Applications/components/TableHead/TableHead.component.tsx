@@ -1,13 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useSendDownloadRequest } from './TableHead.hooks.tsx';
+
 import { GlobalErrorModal } from '@components/notification';
-import LoadingIndicator from 'components/general/LoadingIndicator';
+import { LoadingIndicator } from '@components/general';
 import {
   ButtonHeaderCell,
   TableHeadRow,
 } from './TableHead.styles.ts';
+
 import { iconLibraryConfig } from '@configuration';
+
 import { ColumnT } from '../../Applications.hooks.tsx';
 
 type ComponentPropsT = {
@@ -40,7 +44,9 @@ const TableHead = ({
               onClick={() => columnSortHandler(column.id)}
             >
               {column.name}
-              <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
+              <FontAwesomeIcon
+                icon={iconLibraryConfig.faSort}
+              />
             </button>
           </th>
         );
@@ -51,24 +57,32 @@ const TableHead = ({
           onClick={() => refetch({ cancelRefetch: false })}
         >
           Refresh
-          <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
+          <FontAwesomeIcon
+            icon={iconLibraryConfig.faRotateRight}
+          />
         </button>
         <button
           type={'button'}
           onClick={toggleModalHandler}
         >
           Display
-          <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
+          <FontAwesomeIcon
+            icon={iconLibraryConfig.faTable}
+          />
         </button>
-        {isPending ?
-          <LoadingIndicator content={'Handling your request...'} /> :
-          <button
-            type={'button'}
-            onClick={() => mutate()}
-          >
-            Download
-            <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />
-          </button>}
+        {
+          isPending ?
+            <LoadingIndicator content={'Handling your request...'} /> :
+            <button
+              type={'button'}
+              onClick={() => mutate()}
+            >
+              Download
+              <FontAwesomeIcon
+                icon={iconLibraryConfig.faFileArrowDown}
+              />
+            </button>
+        }
       </ButtonHeaderCell>
     </TableHeadRow>
   );

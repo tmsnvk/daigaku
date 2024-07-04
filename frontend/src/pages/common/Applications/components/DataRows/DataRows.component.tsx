@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
   DataCell,
   TableBodyRow,
 } from './DataRows.styles.ts';
+
 import { iconLibraryConfig } from '@configuration';
+import { isColumnFound } from './DataRows.utilities.ts';
+
 import { ColumnT } from '../../Applications.hooks.tsx';
 import { ApplicationT } from '@services/application/application.service.ts';
-import { isColumnFound } from './DataRows.utilities.ts';
 
 type ComponentPropsT = {
   columns: ColumnT[];
@@ -33,7 +36,9 @@ const DataRows = ({ columns, data }: ComponentPropsT) => {
               state={element}
             >
               EDIT
-              <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
+              <FontAwesomeIcon
+                icon={iconLibraryConfig.faWrench}
+              />
             </Link>
           </td>
         </TableBodyRow>

@@ -1,10 +1,12 @@
 import { AxiosError } from 'axios';
+
 import { useGetApplications } from '@hooks/application/index.ts';
 import {
   useDisplayColumnSelectorModal,
   useSetColumns,
   useSetOrder,
 } from './Applications.hooks.tsx';
+
 import {
   ColumnSelectorModal,
   DataRows,
@@ -14,7 +16,8 @@ import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/notification';
-import { MainContainer } from './Applications.styles.ts';
+import { Main } from './Applications.styles.ts';
+
 import { ApplicationT } from '@services/application/application.service.ts';
 
 const Applications = () => {
@@ -34,7 +37,7 @@ const Applications = () => {
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <MainContainer>
+    <Main>
       <table>
         <thead>
           <TableHead
@@ -55,7 +58,7 @@ const Applications = () => {
           isModalVisible={isModalVisible}
           toggleModal={toggleModal}
         />}
-    </MainContainer>
+    </Main>
   );
 };
 

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
 import { BaseDarkBorder } from '@components/base-styles';
 
-const MainContainer = styled.main`
+const Main = styled.main`
   ${BaseDarkBorder};
 
   display: flex;
@@ -18,6 +19,14 @@ const MainContainer = styled.main`
       width: 10%;
       padding: 2.5rem 1rem 2.5rem 1rem;
       text-align: center;
+    }
+
+    & tr:last-of-type td:first-of-type {
+      border-bottom-left-radius: ${({ theme }) => theme.options.borderRadius};
+    }
+    
+    & tr:last-of-type td:last-of-type {
+      border-bottom-right-radius: ${({ theme }) => theme.options.borderRadius};
     }
 
     & svg {
@@ -46,5 +55,5 @@ const MainContainer = styled.main`
 `;
 
 export {
-  MainContainer,
+  Main,
 };

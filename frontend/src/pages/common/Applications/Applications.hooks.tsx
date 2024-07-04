@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
+
 import { queryKeys } from '@configuration';
 import {
   getLocalStorageObjectById,
   setLocalStorageObjectById,
 } from '@utilities/localStorage.utilities.ts';
+
 import { ApplicationT } from '@services/application/application.service.ts';
 
 export type ColumnT = {
@@ -15,24 +17,24 @@ export type ColumnT = {
 }
 
 const useSetColumns = () => {
-  const columnOrder = getLocalStorageObjectById('applications-table-columns');
+  const columnVisibility = getLocalStorageObjectById('applications-table-columns');
 
   const [columns, setColumns] = useState<ColumnT[]>([
     { id: 'courseName', name: 'Course', isCoreColumn: true, isActive: true },
     { id: 'university', name: 'University', isCoreColumn: true, isActive: true },
     { id: 'country', name: 'Country', isCoreColumn: true, isActive: true },
-    { id: 'applicationStatus', name: 'Application Status', isCoreColumn: false, isActive: columnOrder.applicationStatus ?? true },
-    { id: 'interviewStatus', name: 'Interview Status', isCoreColumn: false, isActive: columnOrder.interviewStatus ?? false },
-    { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isActive: columnOrder.offerStatus ?? false },
-    { id: 'responseStatus', name: 'Response Status', isCoreColumn: false, isActive: columnOrder.responseStatus ?? false },
-    { id: 'finalDestinationStatus', name: 'Final Destination Status', isCoreColumn: false, isActive: columnOrder.finalDestinationStatus ?? false },
+    { id: 'applicationStatus', name: 'Application Status', isCoreColumn: false, isActive: columnVisibility.applicationStatus ?? true },
+    { id: 'interviewStatus', name: 'Interview Status', isCoreColumn: false, isActive: columnVisibility.interviewStatus ?? false },
+    { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isActive: columnVisibility.offerStatus ?? false },
+    { id: 'responseStatus', name: 'Response Status', isCoreColumn: false, isActive: columnVisibility.responseStatus ?? false },
+    { id: 'finalDestinationStatus', name: 'Final Destination Status', isCoreColumn: false, isActive: columnVisibility.finalDestinationStatus ?? false },
   ]);
 
   const updateColumnVisibility = (id: string) => {
     setColumns(columns.map((column) => {
       if (column.id === id) {
-        columnOrder[column.id] = !column.isActive;
-        setLocalStorageObjectById('applications-table-columns', columnOrder);
+        columnVisibility[column.id] = !column.isActive;
+        setLocalStorageObjectById('applications-table-columns', columnVisibility);
 
         return { ...column, isActive: !column.isActive };
       }
@@ -50,9 +52,7 @@ const useSetColumns = () => {
 const useDisplayColumnSelectorModal = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-  };
+  const toggleModal = () => setIsModalVisible(!isModalVisible);
 
   return {
     isModalVisible,

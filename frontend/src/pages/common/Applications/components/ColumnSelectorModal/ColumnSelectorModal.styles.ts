@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { BaseDarkBorder } from '@components/base-styles';
 
 const Dialog = styled.dialog`
@@ -24,7 +25,7 @@ const Dialog = styled.dialog`
       }
     }
   }
-  
+
   & button {
     margin: 5rem auto 0 auto;
     padding: 1rem 2.5rem 1rem 2.5rem;
@@ -32,11 +33,12 @@ const Dialog = styled.dialog`
     font-size: inherit;
     font-weight: 800;
     border: 0.2rem solid ${({ theme }) => theme.color.tertiaryLight};
-    border-radius: 0.75rem;
+    border-radius: ${({ theme }) => theme.options.borderRadius};
     cursor: pointer;
 
     &:hover {
       color: ${({ theme }) => theme.color.tertiaryLight};
+      box-shadow: 0 0.1rem 0.5rem 0 ${({ theme }) => theme.color.tertiaryLight};
     }
   }
 `;
