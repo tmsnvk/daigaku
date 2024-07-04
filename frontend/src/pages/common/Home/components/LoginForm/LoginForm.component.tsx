@@ -3,10 +3,7 @@ import {
   LoginFormFieldsT,
   useSubmitLoginForm,
 } from './LoginForm.hooks.tsx';
-import {
-  LoadingIndicator,
-  TextParagraph,
-} from '@components/general';
+import { LoadingIndicator } from '@components/general';
 import {
   InputError,
   SubmitInput,
@@ -16,6 +13,7 @@ import {
   PasswordInputField,
 } from '@components/input-implementations';
 import FormSwapButton from '../FormSwapButton';
+import FormInstructionText from '../FormInstructionText';
 import {
   FormSelectorT,
   FormTypeE,
@@ -29,7 +27,7 @@ const LoginForm = ({ formSelector }: ComponentPropsT) => {
 
   return (
     <section>
-      <TextParagraph
+      <FormInstructionText
         content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'}
       />
       <form

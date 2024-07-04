@@ -10,7 +10,7 @@ const SubmitInput = styled.input`
   text-transform: uppercase;
   background-color: ${({ theme }) => theme.color.primaryDark};
   border: 0.3rem solid ${({ theme }) => theme.color.primaryDark};
-  border-radius: 1rem;
+  border-radius: ${({ theme }) => theme.options.borderRadius};
   cursor: pointer;
 
   &:hover:not([disabled]) {

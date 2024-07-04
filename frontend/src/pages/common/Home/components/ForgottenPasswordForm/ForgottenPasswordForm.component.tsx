@@ -4,15 +4,13 @@ import {
   useSubmitForgottenPasswordForm,
 } from './ForgottenPasswordForm.hooks.tsx';
 import FormSwapButton from '../FormSwapButton';
-import {
-  LoadingIndicator,
-  TextParagraph,
-} from '@components/general';
+import { LoadingIndicator } from '@components/general';
 import {
   InputError,
   SubmitInput,
 } from '@components/form';
 import { GenericInputField } from '@components/input-implementations';
+import FormInstructionText from '../FormInstructionText';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -27,7 +25,7 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentPropsT) => 
 
   return (
     <section>
-      <TextParagraph
+      <FormInstructionText
         content={'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.'}
       />
       <form

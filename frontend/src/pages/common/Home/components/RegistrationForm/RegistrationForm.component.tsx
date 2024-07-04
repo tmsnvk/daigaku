@@ -5,10 +5,7 @@ import {
   RegisterFormFieldsT,
   useSubmitRegistrationForm,
 } from './RegistrationForm.hooks.tsx';
-import {
-  LoadingIndicator,
-  TextParagraph,
-} from '@components/general';
+import { LoadingIndicator } from '@components/general';
 import {
   InputError,
   SubmitInput,
@@ -23,6 +20,7 @@ import {
   GlobalLoadingModal,
 } from '@components/notification';
 import FormSwapButton from '../FormSwapButton';
+import FormInstructionText from '../FormInstructionText';
 import {
   ConfirmationModalT,
   FormSelectorT,
@@ -47,7 +45,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentPropT) => {
 
   return (
     <section>
-      <TextParagraph
+      <FormInstructionText
         content={'Register an account if you are not in our system yet.'}
       />
       <form
