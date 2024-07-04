@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { countryService } from '@services/index.ts';
+
 import { queryKeys } from '@configuration';
 
 const useGetCountryOptions = () => {

@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+
 import { accountService } from '@services/index.ts';
 
 export enum AuthStatusE {

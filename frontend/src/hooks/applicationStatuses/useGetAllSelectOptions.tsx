@@ -1,5 +1,5 @@
 import { useQueries } from '@tanstack/react-query';
-import { queryKeys } from '@configuration';
+
 import {
   applicationStatusService,
   finalDestinationStatusService,
@@ -7,6 +7,9 @@ import {
   offerStatusService,
   responseStatusService,
 } from '@services/index.ts';
+
+import { queryKeys } from '@configuration';
+
 import { ApplicationStatusT } from '@services/status/applicationStatus.service.ts';
 import { InterviewStatusT } from '@services/status/interviewStatusService.service.ts';
 import { OfferStatusT } from '@services/status/offerStatus.service.ts';

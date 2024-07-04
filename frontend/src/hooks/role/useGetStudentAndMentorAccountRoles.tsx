@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { queryKeys } from '@configuration';
+
 import { roleService } from '@services/index.ts';
+
+import { queryKeys } from '@configuration';
 
 const useGetStudentAndMentorAccountRoles = () => {
   return useQuery({
