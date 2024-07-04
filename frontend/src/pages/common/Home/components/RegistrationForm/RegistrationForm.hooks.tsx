@@ -1,7 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+
 import { pendingAccountService } from '@services/index.ts';
+
 import { mutationKeys } from '@configuration';
+
 import { ConfirmationModalT } from '../../Home.types.ts';
 
 export type RegisterFormFieldsT = {

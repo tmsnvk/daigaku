@@ -1,7 +1,8 @@
 import { axiosConfigWithAuth } from '@configuration';
+
 import { NewApplicationFormFieldsT } from '@pages/student/NewApplication/components/NewApplicationForm/NewApplicationForm.hooks.tsx';
-import { DashboardDataT } from '@pages/shared/Dashboard/Dashboard.hooks.tsx';
-import { UpdateApplicationFormFieldsT } from '@pages/shared/Application/components/ApplicationForm/ApplicationForm.hooks.tsx';
+import { DashboardDataT } from '@pages/common/Dashboard/Dashboard.hooks.tsx';
+import { UpdateApplicationFormFieldsT } from '@pages/common/Application/components/ApplicationForm/ApplicationForm.hooks.tsx';
 
 export type ApplicationT = {
   uuid: string;

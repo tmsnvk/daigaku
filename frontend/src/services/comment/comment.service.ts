@@ -1,5 +1,6 @@
 import { axiosConfigWithAuth } from '@configuration';
-import { NewCommentFormFieldsT } from '@pages/shared/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
+
+import { NewCommentFormFieldsT } from '@pages/common/Application/components/NewCommentBox/NewCommentBox.hooks.tsx';
 
 export type CommentT = {
   uuid: string;

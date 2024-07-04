@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { ApplicationFormGridContainer } from '@components/form';
 
-const FormContainer = styled(ApplicationFormGridContainer)`
+import { ApplicationFormGrid } from '@components/form';
+
+const FormContainer = styled(ApplicationFormGrid)`
   & h1,
   & article:first-of-type,
   & article:nth-last-of-type(2),

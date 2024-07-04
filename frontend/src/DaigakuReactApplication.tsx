@@ -6,11 +6,14 @@ import {
 } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'styled-components';
-import { queryClient } from '@configuration';
+
 import {
   AccountRoleE,
   AuthProvider,
 } from '@context/AuthContext.tsx';
+
+import GlobalStyle from '@theme/GlobalStyle.ts';
+import theme from '@theme/theme.ts';
 import {
   Application,
   Applications,
@@ -21,12 +24,13 @@ import {
 import {
   NewApplication,
 } from '@pages/student/index.ts';
+
 import {
   PrivateLayout,
   PublicLayout,
 } from '@components/layout';
-import GlobalStyle from '@theme/GlobalStyle.ts';
-import theme from '@theme/theme.ts';
+
+import { queryClient } from '@configuration';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<Error />}>

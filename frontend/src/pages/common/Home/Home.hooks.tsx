@@ -1,9 +1,11 @@
 import { useState } from 'react';
+
 import {
   ForgottenPasswordForm,
   LoginForm,
   RegistrationForm,
 } from './components';
+
 import { FormTypeE } from './Home.types.ts';
 
 const useShowConfirmationModal = () => {

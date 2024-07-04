@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
+
 import {
   NewApplicationFormFieldsT,
   useCheckFieldDisableStatus,
   useSubmitNewApplicationForm,
 } from './NewApplicationForm.hooks.tsx';
+
 import {
   InputError,
   InputInfoBox,
@@ -20,8 +22,7 @@ import {
 } from '@components/input-implementations';
 import { Toast } from '@components/notification';
 import { FormContainer } from './NewApplicationForm.styles.ts';
-import { CountryOptionT } from '@services/support/country.service.ts';
-import { UniversityOptionT } from '@services/support/university.service.ts';
+
 import {
   countryInformation,
   formInformation,
@@ -31,6 +32,9 @@ import {
   submissionConfirmation,
   universityInformation,
 } from './NewApplicationForm.utilities.ts';
+
+import { CountryOptionT } from '@services/support/country.service.ts';
+import { UniversityOptionT } from '@services/support/university.service.ts';
 
 type ComponentPropsT = {
   handleCountryClick: (event: string) => void;

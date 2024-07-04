@@ -2,11 +2,12 @@ import {
   axiosConfig,
   axiosConfigWithAuth,
 } from '@configuration';
+
 import {
   LoginFormFieldsT,
   LoginFormReturnDataT,
-} from '@pages/shared/Home/components/LoginForm/LoginForm.hooks.tsx';
-import { ForgottenPasswordFormFieldsT } from '@pages/shared/Home/components/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
+} from '@pages/common/Home/components/LoginForm/LoginForm.hooks.tsx';
+import { ForgottenPasswordFormFieldsT } from '@pages/common/Home/components/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
 
 const accountService = {
   login: async (formData: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {

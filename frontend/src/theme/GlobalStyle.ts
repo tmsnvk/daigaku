@@ -16,12 +16,14 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
     line-height: 1.5;
+    scroll-behavior: smooth;
   }
 
   body {
     width: 100vw;
     min-height: 100vh;
     font-family: ${({ theme }) => theme.fontFamily.primary};
+    font-weight: ${({ theme }) => theme.fontWeight.normal};
     background-color: ${({ theme }) => theme.color.primaryLight};
     
     & > div {

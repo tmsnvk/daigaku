@@ -1,3 +1,3 @@
-import ApplicationFormGridContainer from './ApplicationFormGridContainer.styles.ts';
+import ApplicationFormGrid from './ApplicationFormGridContainer.styles.ts';
 
-export default ApplicationFormGridContainer;
+export default ApplicationFormGrid;

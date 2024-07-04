@@ -1,5 +1,6 @@
 import { axiosConfig } from '@configuration';
-import { RegisterFormFieldsT } from '@pages/shared/Home/components/RegistrationForm/RegistrationForm.hooks.tsx';
+
+import { RegisterFormFieldsT } from '@pages/common/Home/components/RegistrationForm/RegistrationForm.hooks.tsx';
 
 const pendingAccountService = {
   register: async (data: RegisterFormFieldsT): Promise<void> => {

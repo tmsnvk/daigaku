@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 import { BaseLightBorder } from '@components/base-styles';
 
 const fadeInFromBottom = keyframes`

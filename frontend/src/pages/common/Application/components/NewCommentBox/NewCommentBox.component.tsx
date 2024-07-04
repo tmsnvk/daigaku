@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
+
 import {
   NewCommentFormFieldsT,
   useSubmitNewComment,
 } from './NewCommentBox.hooks.tsx';
+
 import {
   InputError,
   InputLabel,
@@ -16,7 +18,12 @@ type ComponentPropsT = {
 }
 
 const NewCommentBox = ({ applicationUuid }: ComponentPropsT) => {
-  const { formState: { errors }, handleSubmit, register, setError } = useForm<NewCommentFormFieldsT>({ mode: 'onSubmit' });
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<NewCommentFormFieldsT>({ mode: 'onSubmit' });
   const { isPending, mutate } = useSubmitNewComment({ setError, applicationUuid });
 
   return (

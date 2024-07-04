@@ -1,6 +1,8 @@
 import { useState } from 'react';
+
 import { useGetCountryOptions } from '@hooks/country';
 import { useGetUniversityOptionsByCountryUuid } from '@hooks/university';
+
 import { GlobalErrorModal } from '@components/notification';
 import { NewApplicationForm } from './components';
 

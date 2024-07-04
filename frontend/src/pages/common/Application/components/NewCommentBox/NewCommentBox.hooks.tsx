@@ -1,11 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+
+import { commentService } from '@services/index.ts';
+
 import {
   mutationKeys,
   queryClient,
   queryKeys,
 } from '@configuration';
-import { commentService } from '@services/index.ts';
 
 export type NewCommentFormFieldsT = {
   commentContent: string;

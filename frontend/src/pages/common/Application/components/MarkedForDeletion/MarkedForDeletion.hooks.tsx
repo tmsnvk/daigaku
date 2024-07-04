@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+
+import { applicationService } from '@services/index.ts';
+
 import {
   mutationKeys,
   queryClient,
   queryKeys,
 } from '@configuration';
-import { applicationService } from '@services/index.ts';
+
 import { ApplicationT } from '@services/application/application.service.ts';
 
 const useToggleDeletionMark = (applicationUuid: string, isMarked: boolean) => {

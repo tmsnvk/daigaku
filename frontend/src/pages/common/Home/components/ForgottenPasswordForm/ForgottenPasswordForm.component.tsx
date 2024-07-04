@@ -1,16 +1,19 @@
 import { useForm } from 'react-hook-form';
+
 import {
   ForgottenPasswordFormFieldsT,
   useSubmitForgottenPasswordForm,
 } from './ForgottenPasswordForm.hooks.tsx';
-import FormSwapButton from '../FormSwapButton';
+
 import { LoadingIndicator } from '@components/general';
 import {
   InputError,
   SubmitInput,
 } from '@components/form';
 import { GenericInputField } from '@components/input-implementations';
+import FormSwapButton from '../FormSwapButton';
 import FormInstructionText from '../FormInstructionText';
+
 import {
   ConfirmationModalT,
   FormSelectorT,

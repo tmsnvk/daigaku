@@ -1,7 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+
 import accountService from '@services/account/account.service.ts';
+
 import { mutationKeys } from '@configuration';
+
 import { ConfirmationModalT } from '../../Home.types.ts';
 
 export type ForgottenPasswordFormFieldsT = {

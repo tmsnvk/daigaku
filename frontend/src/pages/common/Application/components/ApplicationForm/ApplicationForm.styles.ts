@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { ApplicationFormGridContainer } from '@components/form';
+import { ApplicationFormGrid } from '@components/form';
 
-const Form = styled(ApplicationFormGridContainer)`
+const Form = styled(ApplicationFormGrid)`
   & h1 {
     grid-column: 1 / 3;
     grid-row: 1 / 2;

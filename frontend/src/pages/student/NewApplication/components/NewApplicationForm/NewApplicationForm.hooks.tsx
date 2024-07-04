@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import {
-  useMutation,
-} from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+
 import {
   mutationKeys,
   queryClient,
   queryKeys,
 } from '@configuration';
-import { ApplicationT } from '@services/application/application.service.ts';
+
 import { applicationService } from '@services/index.ts';
+
+import { ApplicationT } from '@services/application/application.service.ts';
 
 export type NewApplicationFormFieldsT = {
   countryUuid: string;

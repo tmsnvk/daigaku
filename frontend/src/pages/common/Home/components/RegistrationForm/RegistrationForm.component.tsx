@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
+
 import { useGetInstitutionOptions } from '@hooks/institution';
 import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
 import {
   RegisterFormFieldsT,
   useSubmitRegistrationForm,
 } from './RegistrationForm.hooks.tsx';
+
 import { LoadingIndicator } from '@components/general';
 import {
   InputError,
@@ -21,6 +23,7 @@ import {
 } from '@components/notification';
 import FormSwapButton from '../FormSwapButton';
 import FormInstructionText from '../FormInstructionText';
+
 import {
   ConfirmationModalT,
   FormSelectorT,
