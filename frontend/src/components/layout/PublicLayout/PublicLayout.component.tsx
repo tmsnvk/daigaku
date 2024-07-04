@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BaseNavbar } from '@components/base-styles';
 import NavbarLink from '../NavbarLink';
-import Footer from '../Footer';
+import Footer from '../PageBottom';
 import { iconLibraryConfig } from '@configuration';
 
 const PublicLayout = () => {

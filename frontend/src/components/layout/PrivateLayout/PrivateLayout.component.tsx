@@ -12,7 +12,7 @@ import {
 import { useHandleSmallScreenMenuDisplay } from './PrivateLayout.hooks.tsx';
 import { GlobalLoadingModal } from '@components/notification';
 import NavbarLink from '../NavbarLink';
-import Footer from '../Footer';
+import Footer from '../PageBottom';
 import {
   HeaderStyle,
   SmallScreenMenuToggler,

@@ -1,15 +1,15 @@
-import { FooterContainer } from './Footer.styles.ts';
+import { Footer } from './PageBottom.styles.ts';
 
-const Footer = () => {
+const PageBottom = () => {
   return (
     <>
       <div></div>
-      <FooterContainer>
+      <Footer>
         <p>{'\u00A9'} 2024 - {new Date().getFullYear().toString()}</p>
         <p>built with reactjs, spring boot, redis, psql and ❤️</p>
-      </FooterContainer>
+      </Footer>
     </>
   );
 };
 
-export default Footer;
+export default PageBottom;

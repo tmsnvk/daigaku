@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FooterContainer = styled.footer`
+const Footer = styled.footer`
   height: 7.5rem;
   position: absolute;
   width: 100%;
@@ -18,5 +18,5 @@ const FooterContainer = styled.footer`
 `;
 
 export {
-  FooterContainer,
+  Footer,
 };
