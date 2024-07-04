@@ -1,15 +1,16 @@
 import { useLocation } from 'react-router-dom';
+
 import { useGetAllSelectOptions } from '@hooks/applicationStatuses';
 import { useGetApplication } from './Application.hooks.tsx';
+
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/notification';
-import {
-  ApplicationForm,
-  CommentSection,
-} from './components';
-import { MainGridContainer } from './Application.styles.ts';
+import ApplicationForm from './components/ApplicationForm';
+import CommentSection from './components/CommentSection';
+import { MainGrid } from './Application.styles.ts';
+
 import { ApplicationT } from '@services/application/application.service.ts';
 
 type LocationT = {
@@ -41,7 +42,7 @@ const Application = () => {
   }
 
   return (
-    <MainGridContainer>
+    <MainGrid>
       <ApplicationForm
         currentApplicationData={(state && state) || (data && data)}
         applicationUuid={applicationUuid}
@@ -50,7 +51,7 @@ const Application = () => {
       <CommentSection
         applicationUuid={applicationUuid}
       />
-    </MainGridContainer>
+    </MainGrid>
   );
 };
 

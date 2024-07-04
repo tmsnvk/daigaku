@@ -3,11 +3,13 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
+
 import { BaseInput } from '@components/base-styles';
 import {
   InputError,
   InputLabel,
 } from '@components/form';
+
 import { ApplicationStatusT } from '@services/status/applicationStatus.service.ts';
 import { InterviewStatusT } from '@services/status/interviewStatusService.service.ts';
 import { OfferStatusT } from '@services/status/offerStatus.service.ts';

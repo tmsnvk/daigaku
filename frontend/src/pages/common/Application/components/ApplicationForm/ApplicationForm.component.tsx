@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
+
 import {
   UpdateApplicationFormFieldsT,
   useHandleFieldDisableStatuses,
   useHandleFormSubmission,
   useUpdateApplication,
 } from './ApplicationForm.hooks.tsx';
+
 import {
   InputError,
   InputInfoBox,
@@ -16,10 +18,11 @@ import {
   PageTitle,
 } from '@components/general';
 import { DisabledInputField } from '@components/input-implementations';
-import FormMetaData from '../FormMetaData';
+import ApplicationMetaData from '../ApplicationMetaData';
 import MarkedForDeletion from '../MarkedForDeletion';
 import ActiveSelectField from '../ActiveSelectField';
-import { FormContainer } from './ApplicationForm.styles.ts';
+import { Form } from './ApplicationForm.styles.ts';
+
 import {
   applicationStatusInformation,
   countryInformation,
@@ -34,6 +37,7 @@ import {
   submissionConfirmation,
   universityInformation,
 } from './ApplicationForm.utilities.ts';
+
 import { ApplicationOptionStatusesT } from '@hooks/applicationStatuses/useGetAllSelectOptions.tsx';
 import { ApplicationT } from '@services/application/application.service.ts';
 import { FinalDestinationStatusT } from '@services/status/finalDestinationStatus.service.ts';
@@ -48,28 +52,42 @@ type ComponentPropsT = {
   selectOptions: ApplicationOptionStatusesT;
 }
 
-const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOptions }: ComponentPropsT) => {
-  const { formState: { errors }, handleSubmit, register, setError } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
-  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid });
+const ApplicationForm = ({
+  currentApplicationData,
+  applicationUuid,
+  selectOptions,
+}: ComponentPropsT) => {
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<UpdateApplicationFormFieldsT>({ mode: 'onSubmit' });
+  const {
+    data: updatedData,
+    isPending,
+    isSuccess,
+    mutate,
+  } = useUpdateApplication({ setError, applicationUuid });
   const {
     fieldDisabledStatuses,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,
     updateFinalDestinationStatus,
-    disableFields,
+    disableFieldsOnFinalDestinationUpdate,
   } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, selectOptions });
   const { submitForm } = useHandleFormSubmission();
 
   return (
     <>
-      <FormContainer
+      <Form
         id={'updateApplicationForm'}
         method={'PATCH'}
         onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid, mutate, setError }))}
       >
         <PageTitle content={'Update Application Form'} />
-        <FormMetaData
+        <ApplicationMetaData
           createdAt={updatedData?.createdAt ?? currentApplicationData.createdAt}
           createdBy={updatedData?.createdBy ?? currentApplicationData.createdBy}
           lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : currentApplicationData.lastUpdatedAt}
@@ -172,7 +190,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOption
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as FinalDestinationStatusT[]}
           isReadOnly={fieldDisabledStatuses.finalDestinationStatus}
-          onFieldUpdate={disableFields}
+          onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
         />
         <InputInfoBox content={finalDestinationInformation} />
         <article>
@@ -185,7 +203,7 @@ const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOption
         <article>
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
-      </FormContainer>
+      </Form>
       <Toast
         isVisible={isSuccess}
         content={submissionConfirmation}

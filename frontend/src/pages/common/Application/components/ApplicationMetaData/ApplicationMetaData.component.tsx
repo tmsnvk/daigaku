@@ -1,4 +1,4 @@
-import { Article } from './FormMetaData.styles.ts';
+import { Article } from './ApplicationMetaData.styles.ts';
 
 type ComponentPropsT = {
   createdAt: Date;
@@ -7,22 +7,26 @@ type ComponentPropsT = {
   lastModifiedBy: string;
 }
 
-const FormMetaData = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentPropsT) => {
+const ApplicationMetaData = ({
+  createdAt,
+  createdBy,
+  lastUpdatedAt,
+  lastModifiedBy,
+}: ComponentPropsT) => {
   return (
     <Article>
       <dl>
         <div>
           <dt>Submitted at:</dt>
           {' '}
-          <dd>{new Date(createdAt).toLocaleString(
-            'en-GB', {
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-            },
-          )}</dd>
+          <dd>{new Date(createdAt).toLocaleString('en-GB', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
+          </dd>
         </div>
         <div>
           <dt>Submitted by:</dt>
@@ -51,4 +55,4 @@ const FormMetaData = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: C
   );
 };
 
-export default FormMetaData;
+export default ApplicationMetaData;

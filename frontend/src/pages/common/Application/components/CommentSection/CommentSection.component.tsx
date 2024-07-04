@@ -2,6 +2,7 @@ import {
   useGetCommentsByApplication,
   useUpdatePagination,
 } from './CommentSection.hooks.tsx';
+
 import CommentSectionLoader from '../CommentSectionLoader';
 import Comments from '../Comments';
 import CommentPaginationButton from '../CommentPaginationButton';

@@ -1,9 +1,11 @@
 import {
-  ContainerArticle,
+  Article,
   ErrorContainer,
 } from './Comments.styles.ts';
-import { CommentT } from '@services/comment/comment.service.ts';
+
 import { errorMessage } from './Comments.utilities.ts';
+
+import { CommentT } from '@services/comment/comment.service.ts';
 
 type ComponentPropsT = {
   data: CommentT[];
@@ -14,7 +16,7 @@ const Comments = ({ data, isError }: ComponentPropsT) => {
   return (
     isError ?
       <ErrorContainer>{errorMessage}</ErrorContainer> :
-      <ContainerArticle>
+      <Article>
         {data.map((comment) => (
           <article key={comment.uuid}>
             <div>
@@ -32,7 +34,7 @@ const Comments = ({ data, isError }: ComponentPropsT) => {
             )}</p>
           </article>
         ))}
-    </ContainerArticle>
+      </Article>
   );
 };
 

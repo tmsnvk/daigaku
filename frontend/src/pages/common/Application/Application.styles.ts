@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const MainGridContainer = styled.main`
+const MainGrid = styled.main`
   display: grid;
   grid-template-columns: 1fr 0.75fr;
   grid-template-rows: auto;
@@ -12,5 +12,5 @@ const MainGridContainer = styled.main`
 `;
 
 export {
-  MainGridContainer,
+  MainGrid,
 };

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Section = styled.section`
-  margin: 5rem 5rem 0 0;
+  margin: 10rem 5rem 0 0;
   
   & > div {
     width: 75%;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SectionContainer = styled.section`
+const Section = styled.section`
   margin: 15rem 0 auto 0;
 
   @media screen and (width < ${({ theme }) => theme.breakpoint.large}) {
@@ -15,5 +15,5 @@ const SectionContainer = styled.section`
 `;
 
 export {
-  SectionContainer,
+  Section,
 };

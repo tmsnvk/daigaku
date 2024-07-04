@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+
 import { applicationService } from '@services/index.ts';
+
 import {
   mutationKeys,
   queryClient,
   queryKeys,
 } from '@configuration';
+
 import {
   finalDestinationSelectionError,
   firmChoiceSelectionError,
 } from './ApplicationForm.utilities.ts';
+
 import {
   ApplicationStatusE,
   FinalDestinationE,
@@ -122,9 +126,9 @@ const useHandleFormSubmission = () => {
 
 /*
 *
-* useUpdateApplication() is where the mutate() method is called.
+* useUpdateApplication() is where application update API call is executed.
 * onSuccess() puts the updated values into cache.
-* onError() shows error messages if there is any.
+* onError() shows error messages if there is any error.
 *
 */
 
@@ -188,7 +192,7 @@ const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationFo
 /*
 *
 * useHandleFieldDisableStatuses() handles the logic connected to the individual field updates, i.e. when and which field should get disabled.
-* the smaller helper methods set the field values on page load, while the individual update methods set the given field when a given select field is clicked.
+* the helper methods set the field values on page load, while the individual update methods set the given field when a select field is clicked.
 *
 */
 
@@ -207,7 +211,7 @@ const disableIfWithdrawn = (currentApplicationData: ApplicationT, updatedData: A
 };
 
 const setPageLoadApplicationStatus = (currentApplicationData: ApplicationT) => {
-  return Boolean(currentApplicationData.finalDestinationStatus);
+  return !!currentApplicationData.finalDestinationStatus;
 };
 
 const setPageLoadInterviewStatus = (currentApplicationData: ApplicationT, updatedData: ApplicationT | undefined, selectOptions: ApplicationOptionStatusesT) => {
@@ -337,7 +341,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, se
     }
   };
 
-  const disableFields = () => {
+  const disableFieldsOnFinalDestinationUpdate = () => {
     setFieldDisabledStatuses({
       applicationStatus: true,
       interviewStatus: true,
@@ -351,7 +355,7 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, se
     updateOfferStatus,
     updateResponseStatus,
     updateFinalDestinationStatus,
-    disableFields,
+    disableFieldsOnFinalDestinationUpdate,
   };
 };
 

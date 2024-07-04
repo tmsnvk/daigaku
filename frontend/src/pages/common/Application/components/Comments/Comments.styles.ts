@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ContainerArticle = styled.article`
+const Article = styled.article`
   margin: 0 0 5rem 0;
   
   & article:first-of-type {
@@ -47,13 +47,13 @@ const ContainerArticle = styled.article`
 const ErrorContainer = styled.article`
   width: 75%;
   margin: 5rem auto 5rem auto;
+  text-align: center;
   color: ${({ theme }) => theme.color.error};
   font-size: ${({ theme }) => theme.fontSize.medium};
-  font-weight: 800;
-  text-align: center;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 export {
-  ContainerArticle,
+  Article,
   ErrorContainer,
 };

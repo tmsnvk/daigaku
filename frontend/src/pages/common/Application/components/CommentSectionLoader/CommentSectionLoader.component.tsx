@@ -1,11 +1,11 @@
 import { LoadingIndicator } from '@components/general';
-import { SectionContainer } from './CommentSectionLoader.styles.ts';
+import { Section } from './CommentSectionLoader.styles.ts';
 
 const CommentSectionLoader = () => {
   return (
-    <SectionContainer>
+    <Section>
       <LoadingIndicator content={'Fetching comments...'} />
-    </SectionContainer>
+    </Section>
   );
 };
 
