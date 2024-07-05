@@ -12,20 +12,9 @@ const TableHeadRow = styled.tr`
 `;
 
 const ButtonHeaderCell = styled.th`
-  & button:first-of-type {
-    padding: 0 0 1rem 0;
-  }
-
-  & button:last-of-type {
-    padding: 1rem 0 0 0;
-  }
-
-  & button {
-    padding: 1rem 0 1rem 0;
-  }
-
+  & button,
   & article {
-    padding: 1rem 0 0 0;
+    height: 4rem;
   }
 `;
 
