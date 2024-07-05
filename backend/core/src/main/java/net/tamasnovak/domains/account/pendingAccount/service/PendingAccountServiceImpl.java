@@ -12,11 +12,13 @@ import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSenderRabbitConfig;
 import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
 import net.tamasnovak.rabbitmq.service.QueueSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Qualifier(value = "PendingAccountService")
 public class PendingAccountServiceImpl implements PendingAccountService {
   private final AccountService accountService;
   private final InstitutionService institutionService;
@@ -58,13 +60,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
     pendingAccountRepository.save(pendingAccount);
 
-    PendingAccountConfirmationQueueDto queueDto = new PendingAccountConfirmationQueueDto(
-      requestBody.email(),
-      requestBody.firstName(),
-      requestBody.lastName(),
-      institution.getName(),
-      role.getNameWithoutPrefix()
-    );
+    PendingAccountConfirmationQueueDto queueDto = new PendingAccountConfirmationQueueDto(requestBody.email(), requestBody.firstName(), requestBody.lastName(), institution.getName(), role.getNameWithoutPrefix());
 
     queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY, queueDto);
   }

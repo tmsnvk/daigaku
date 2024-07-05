@@ -109,13 +109,7 @@ class PendingAccountServiceImplTest {
       when(institutionService.getByUuid(requestBody.institutionUuid())).thenReturn(mockInstitution);
       when(roleService.getByUuid(requestBody.accountRoleUuid())).thenReturn(mockRole);
 
-      PendingAccount expected = PendingAccount.createPendingAccount(
-        requestBody.firstName(),
-        requestBody.lastName(),
-        requestBody.email(),
-        mockInstitution,
-        mockRole
-      );
+      PendingAccount expected = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(), mockInstitution, mockRole);
 
       underTest.create(requestBody);
 
