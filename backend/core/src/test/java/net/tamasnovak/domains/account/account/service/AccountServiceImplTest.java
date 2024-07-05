@@ -21,11 +21,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -83,6 +85,35 @@ class AccountServiceImplTest {
   }
 
   @Nested
+  @DisplayName("getByUuid() unit tests")
+  class GetByUuidUnitTests {
+    UUID accountUuid = UUID.randomUUID();
+
+    @Test
+    @Description("Returns the correct Account record when corresponding UUID is found.")
+    void shouldReturnAccountRecord_whenUuidIsFound() {
+      Account expected = mock(Account.class);
+      when(accountRepository.findByUuid(accountUuid)).thenReturn(Optional.of(expected));
+
+      Account actual = underTest.getByUuid(accountUuid);
+
+      assertEquals(expected, actual);
+
+      verify(accountRepository, times(1)).findByUuid(accountUuid);
+    }
+
+    @Test
+    @Description("Throws EntityNotFoundException when UUID is not found.")
+    void shouldThrowEntityNotFoundException_whenUuidIsNotFound() {
+      when(accountRepository.findByUuid(accountUuid)).thenReturn(Optional.empty());
+
+      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(accountUuid));
+
+      verify(accountRepository, times(1)).findByUuid(accountUuid);
+    }
+  }
+
+  @Nested
   @DisplayName("getClientAuthContextDto() unit tests")
   class GetClientAuthContextDtoUnitTests {
     @Test
@@ -111,7 +142,7 @@ class AccountServiceImplTest {
   class GetLoginReturnDtoUnitTests {
     @Test
     @Description("Returns the correct LoginReturnDto instance when valid requestBody dto and authentication instance are received.")
-    void shouldReturnLoginReturnDto_whenRequestBodyDtoIsValid() {
+    void shouldReturnLoginReturnDto_whenRequestBodyDtoAndAuthenticationAreValid() {
       LoginRequestDto requestBody = new LoginRequestDto(expectedValidEmail, hashedPassword);
       String jwtToken = "generatedToken";
 
@@ -136,6 +167,7 @@ class AccountServiceImplTest {
       assertThrows(EntityNotFoundException.class, () -> underTest.getLoginReturnDto(requestBody, authentication));
 
       verify(accountRepository, times(1)).findByEmail(notValidEmail);
+      verify(jwtUtilities, never()).generateJwtToken(authentication);
     }
   }
 

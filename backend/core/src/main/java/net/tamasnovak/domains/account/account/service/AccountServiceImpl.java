@@ -38,6 +38,7 @@ public class AccountServiceImpl implements AccountService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Account getByUuid(UUID accountUuid) {
     return accountRepository.findByUuid(accountUuid)
       .orElseThrow(() -> new EntityNotFoundException(accountConstants.ACCOUNT_NOT_FOUND));
