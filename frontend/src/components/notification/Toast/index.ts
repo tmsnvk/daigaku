@@ -1,3 +1,3 @@
-import Toast from './Toast.component.tsx';
+import Toast from './toast.component';
 
 export default Toast;

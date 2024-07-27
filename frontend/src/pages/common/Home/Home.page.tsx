@@ -1,30 +1,32 @@
 import { Navigate } from 'react-router-dom';
 
 import {
-  AuthStatusE,
+  AuthStatus,
   useAuth,
-} from '@context/AuthContext.tsx';
+} from '@context/auth';
 import {
+  RenderSelectedFormComponent,
+  ShowConfirmationModal,
   useRenderSelectedFormComponent,
   useShowConfirmationModal,
-} from './Home.hooks.tsx';
+} from './home.hooks';
 
 import { ConfirmationModal } from '@components/notification';
-import { MainContainer } from './Home.styles.ts';
+import { MainContainer } from './home.styles';
 
-import { confirmationModalMessages } from './Home.utilities.ts';
+import { confirmationModalMessages } from './home.utilities';
 
 const Home = () => {
   const { authStatus } = useAuth();
-  const { isConfirmationModalVisible, showModal, closeModal } = useShowConfirmationModal();
-  const { activeFormType, displayActiveFormType } = useRenderSelectedFormComponent(showModal);
+  const { isConfirmationModalVisible, showModal, closeModal }: ShowConfirmationModal = useShowConfirmationModal();
+  const { activeFormType, displayActiveFormType }: RenderSelectedFormComponent = useRenderSelectedFormComponent(showModal);
 
-  if (authStatus === AuthStatusE.SIGNED_IN) {
+  if (authStatus === AuthStatus.SIGNED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 
   return (
-    authStatus === AuthStatusE.SIGNED_OUT &&
+    authStatus === AuthStatus.SIGNED_OUT &&
     <MainContainer>
       {displayActiveFormType}
       {

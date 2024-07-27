@@ -1,7 +1,7 @@
 import {
   AuthProvider,
   useAuth,
-} from './AuthContext.tsx';
+} from './auth';
 
 export {
   AuthProvider,

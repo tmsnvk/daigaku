@@ -1,8 +1,8 @@
-import Application from './Application';
-import Applications from './Applications';
-import Dashboard from './Dashboard';
-import Error from './Error';
-import Home from './Home';
+import Application from './application';
+import Applications from './applications';
+import Dashboard from './dashboard';
+import Error from './error';
+import Home from './home';
 
 export {
   Application,

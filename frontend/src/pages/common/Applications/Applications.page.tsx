@@ -1,30 +1,34 @@
 import { AxiosError } from 'axios';
 
-import { useGetApplications } from '@hooks/application/index.ts';
+import { useGetApplications } from '@hooks/application/index';
 import {
+  DisplayColumnSelectorModal,
+  SetColumns,
+  SetOrder,
   useDisplayColumnSelectorModal,
   useSetColumns,
   useSetOrder,
-} from './Applications.hooks.tsx';
+} from './applications.hooks';
 
 import {
   ColumnSelectorModal,
   DataRows,
   TableHead,
-} from './components';
+} from './components/index.ts';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/notification';
-import { Main } from './Applications.styles.ts';
+import { Main } from './applications.styles';
 
-import { ApplicationT } from '@services/application/application.service.ts';
+import { ApplicationData } from '@services/application/application.service';
+import { GetApplications } from '@hooks/application/use-get-applications';
 
 const Applications = () => {
-  const { data, isLoading, refetch, isRefetching, isError, error } = useGetApplications();
-  const { columns, updateColumnVisibility } = useSetColumns();
-  const { handleColumnSort } = useSetOrder(data as ApplicationT[]);
-  const { isModalVisible, toggleModal } = useDisplayColumnSelectorModal();
+  const { data, isLoading, refetch, isRefetching, isError, error }: GetApplications = useGetApplications();
+  const { columns, updateColumnVisibility }: SetColumns = useSetColumns();
+  const { handleColumnSort }: SetOrder = useSetOrder(data as Array<ApplicationData>);
+  const { isModalVisible, toggleModal }: DisplayColumnSelectorModal = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
     return <GlobalLoadingModal content={'The application is fetching your data...'} />;

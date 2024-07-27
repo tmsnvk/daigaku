@@ -1,8 +1,8 @@
-import ApplicationFormGrid from './ApplicationFormGridContainer';
-import InputError from './InputError';
-import InputInfoBox from './InputInfoBox';
-import InputLabel from './InputLabel';
-import SubmitInput from './SubmitInput';
+import ApplicationFormGrid from './application-form-grid-container';
+import InputError from './input-error';
+import InputInfoBox from './input-info-box';
+import InputLabel from './input-label';
+import SubmitInput from './submit-input';
 
 export {
   ApplicationFormGrid,

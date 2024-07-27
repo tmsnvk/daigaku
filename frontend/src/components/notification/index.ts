@@ -1,7 +1,7 @@
-import ConfirmationModal from './ConfirmationModal';
-import GlobalErrorModal from './GlobalErrorModal';
-import GlobalLoadingModal from './GlobalLoadingModal';
-import Toast from './Toast';
+import ConfirmationModal from './confirmation-modal';
+import GlobalErrorModal from './global-error-modal';
+import GlobalLoadingModal from './global-loading-modal';
+import Toast from './toast';
 
 export {
   ConfirmationModal,

@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  AccountRoleE,
+  AccountRoleValues,
+  AuthContext,
   useAuth,
-} from '@context/AuthContext.tsx';
+} from '@context/auth';
 
-import { applicationService } from '@services/index.ts';
+import { applicationService } from '@services/index';
 
 import { queryKeys } from '@configuration';
 
-export type DashboardDataT = {
+export interface DashboardData {
   firmChoiceDto: {
     country: string;
     university: string;
@@ -31,8 +32,8 @@ export type DashboardDataT = {
 }
 
 const useGetDashboardData = () => {
-  const { account, getRoleResource } = useAuth();
-  const role = getRoleResource(account.role as AccountRoleE);
+  const { account, getRoleResource }: Partial<AuthContext> = useAuth();
+  const role: string = getRoleResource(account.role as AccountRoleValues);
 
   return useQuery({
     queryKey: [queryKeys.AGGREGATE.GET_DASHBOARD_DATA],

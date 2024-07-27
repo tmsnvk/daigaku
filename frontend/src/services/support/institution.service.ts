@@ -1,14 +1,14 @@
 import { axiosConfigWithAuth } from '@configuration';
 
-export type InstitutionOptionT = {
-  uuid: string;
-  city: string;
-  name: string;
+export interface InstitutionOption {
+  readonly uuid: string;
+  readonly city: string;
+  readonly name: string;
 }
 
 const institutionService = {
-  getAllSelectOptions: async (): Promise<InstitutionOptionT[]> => {
-    const { data } = await axiosConfigWithAuth.request<InstitutionOptionT[]>({
+  getAllSelectOptions: async (): Promise<Array<InstitutionOption>> => {
+    const { data } = await axiosConfigWithAuth.request<Array<InstitutionOption>>({
       method: 'GET',
       url: '/api/institutions/options',
     });

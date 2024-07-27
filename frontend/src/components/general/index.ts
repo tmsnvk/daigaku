@@ -1,5 +1,5 @@
-import LoadingIndicator from './LoadingIndicator';
-import PageTitle from './PageTitle';
+import LoadingIndicator from './loading-indicator';
+import PageTitle from './page-title';
 
 export {
   LoadingIndicator,

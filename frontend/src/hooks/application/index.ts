@@ -1,4 +1,4 @@
-import useGetApplications from './useGetApplications.tsx';
+import useGetApplications from './use-get-applications';
 
 export {
   useGetApplications,

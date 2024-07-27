@@ -1,32 +1,33 @@
 import { useLocation } from 'react-router-dom';
 
-import { useGetAllSelectOptions } from '@hooks/applicationStatuses';
-import { useGetApplication } from './Application.hooks.tsx';
+import { useGetAllSelectOptions } from '@hooks/application-status';
+import { useGetApplication } from './application.hooks';
 
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/notification';
-import ApplicationForm from './components/ApplicationForm';
-import CommentSection from './components/CommentSection';
-import { MainGrid } from './Application.styles.ts';
+import ApplicationForm from './components/application-form';
+import CommentSection from './components/comment-section';
+import { MainGrid } from './application.styles';
 
-import { ApplicationT } from '@services/application/application.service.ts';
+import { ApplicationData } from '@services/application/application.service';
+import { ApplicationOptionsData } from '@hooks/application-status/use-get-all-select-options';
 
-type LocationT = {
-  state: ApplicationT;
-  pathname: string;
+interface Location {
+  readonly state: ApplicationData;
+  readonly pathname: string;
 }
 
 const Application = () => {
-  const { state, pathname } = useLocation() as LocationT;
-  const applicationUuid = pathname.split('/applications/')[1];
+  const { state, pathname } = useLocation() as Location;
+  const applicationUuid: string = pathname.split('/applications/')[1];
 
   const {
     selectOptions,
     isLoading: isOptionsLoading,
     isError: isOptionsError,
-  } = useGetAllSelectOptions();
+  }: ApplicationOptionsData = useGetAllSelectOptions();
   const {
     data,
     isLoading: isApplicationLoading,

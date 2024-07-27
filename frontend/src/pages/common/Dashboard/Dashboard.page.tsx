@@ -1,20 +1,21 @@
 import {
-  AccountRoleE,
+  AccountRoleValues,
+  AuthContext,
   useAuth,
-} from '@context/AuthContext.tsx';
+} from '@context/auth';
 import { useGetApplications } from '@hooks/application';
-import { useGetDashboardData } from './Dashboard.hooks.tsx';
+import { useGetDashboardData } from './dashboard.hooks';
 
-import { StudentLayout } from './layouts';
-import { TodoList } from './components';
+import { StudentLayout } from './layouts/index';
+import { TodoList } from './components/index';
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/notification';
-import { Main } from './Dashboard.styles.ts';
+import { Main } from './dashboard.styles';
 
 const Dashboard = () => {
-  const { account } = useAuth();
+  const { account }: Partial<AuthContext> = useAuth();
   const { data, isLoading, isError, error } = useGetDashboardData();
 
   useGetApplications();
@@ -32,7 +33,7 @@ const Dashboard = () => {
       <Main>
         {/* TodoList will need to go into its related layout */}
         <TodoList data={data} />
-        {account.role === AccountRoleE.STUDENT && <StudentLayout data={data} />}
+        {account.role === AccountRoleValues.STUDENT && <StudentLayout data={data} />}
         {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER data={data} />}*/}

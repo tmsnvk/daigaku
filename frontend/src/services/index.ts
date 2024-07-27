@@ -1,16 +1,16 @@
-import accountService from './account/account.service.ts';
-import pendingAccountService from './account/pendingAccount.service.ts';
-import applicationService from './application/application.service.ts';
-import commentService from './comment/comment.service.ts';
-import roleService from './role/role.service.ts';
-import applicationStatusService from './status/applicationStatus.service.ts';
-import finalDestinationStatusService from './status/finalDestinationStatus.service.ts';
-import interviewStatusService from './status/interviewStatusService.service.ts';
-import offerStatusService from './status/offerStatus.service.ts';
-import responseStatusService from './status/responseStatus.service.ts';
-import countryService from './support/country.service.ts';
-import institutionService from './support/institution.service.ts';
-import universityService from './support/university.service.ts';
+import accountService from './account/account.service';
+import pendingAccountService from './account/pending-account.service';
+import applicationService from './application/application.service';
+import commentService from './comment/comment.service';
+import roleService from './role/role.service';
+import applicationStatusService from './status/application-status.service';
+import finalDestinationStatusService from './status/final-destination-status.service';
+import interviewStatusService from './status/interview-status-service.service';
+import offerStatusService from './status/offer-status.service';
+import responseStatusService from './status/response-status.service';
+import countryService from './support/country.service';
+import institutionService from './support/institution.service';
+import universityService from './support/university.service';
 
 export {
   accountService,

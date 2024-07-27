@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { applicationService } from '@services/index.ts';
+import { applicationService } from '@services/index';
 
 import { queryKeys } from '@configuration';
 
-import { ApplicationT } from '@services/application/application.service.ts';
+import { ApplicationData } from '@services/application/application.service';
 
-const useGetApplication = (state: ApplicationT | null, applicationUuid: string) => {
+const useGetApplication = (state: ApplicationData | null, applicationUuid: string) => {
   return useQuery({
     queryKey: [queryKeys.APPLICATION.GET_BY_UUID],
     queryFn: () => applicationService.getByUuid(applicationUuid),

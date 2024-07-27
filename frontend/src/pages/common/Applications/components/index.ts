@@ -1,6 +1,6 @@
-import ColumnSelectorModal from './ColumnSelectorModal';
-import DataRows from './DataRows';
-import TableHead from './TableHead';
+import ColumnSelectorModal from './column-selector-modal';
+import DataRows from './data-rows';
+import TableHead from './table-head';
 
 export {
   ColumnSelectorModal,

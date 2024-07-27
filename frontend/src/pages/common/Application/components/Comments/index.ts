@@ -1,3 +1,3 @@
-import Comments from './Comments.component.tsx';
+import Comments from './comments.component';
 
 export default Comments;

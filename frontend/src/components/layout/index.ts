@@ -1,5 +1,5 @@
-import PublicLayout from './PublicLayout';
-import PrivateLayout from './PrivateLayout';
+import PublicLayout from './public-layout';
+import PrivateLayout from './private-layout';
 
 export {
   PublicLayout,

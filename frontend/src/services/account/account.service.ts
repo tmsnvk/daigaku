@@ -4,14 +4,14 @@ import {
 } from '@configuration';
 
 import {
-  LoginFormFieldsT,
-  LoginFormReturnDataT,
-} from '@pages/common/Home/components/LoginForm/LoginForm.hooks.tsx';
-import { ForgottenPasswordFormFieldsT } from '@pages/common/Home/components/ForgottenPasswordForm/ForgottenPasswordForm.hooks.tsx';
+  LoginFormFields,
+  LoginFormReturnData,
+} from '@pages/common/home/components/login-form/login-form.hooks';
+import { ForgottenPasswordFormFields } from '@pages/common/home/components/forgotten-password-form/forgotten-password-form.hooks';
 
 const accountService = {
-  login: async (formData: LoginFormFieldsT): Promise<LoginFormReturnDataT> => {
-    const { data } = await axiosConfig.request<LoginFormReturnDataT>({
+  login: async (formData: LoginFormFields): Promise<LoginFormReturnData> => {
+    const { data } = await axiosConfig.request<LoginFormReturnData>({
       method: 'POST',
       url: '/api/accounts/login',
       data: formData,
@@ -19,15 +19,15 @@ const accountService = {
 
     return data;
   },
-  passwordReset: async (data: ForgottenPasswordFormFieldsT): Promise<void> => {
+  passwordReset: async (data: ForgottenPasswordFormFields): Promise<void> => {
     await axiosConfig.request({
       method: 'POST',
       url: '/api/accounts/forgotten-password',
       data,
     });
   },
-  getMe: async (): Promise<LoginFormReturnDataT> => {
-    const { data } = await axiosConfigWithAuth.request<LoginFormReturnDataT>({
+  getMe: async (): Promise<LoginFormReturnData> => {
+    const { data } = await axiosConfigWithAuth.request<LoginFormReturnData>({
       method: 'GET',
       url: '/api/accounts/me',
     });

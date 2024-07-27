@@ -1,5 +1,5 @@
-import ForgottenPasswordForm from './ForgottenPasswordForm';
-import LoginForm from './LoginForm';
+import ForgottenPasswordForm from './forgotten-password-form';
+import LoginForm from './login-form';
 import RegistrationForm from './RegistrationForm';
 
 export {

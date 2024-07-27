@@ -1,11 +1,11 @@
-import { Section } from './Toast.styles.ts';
+import { Section } from './toast.styles.ts';
 
-type ComponentPropsT = {
-  isVisible: boolean;
-  content: string;
+interface ComponentProps {
+  readonly isVisible: boolean;
+  readonly content: string;
 }
 
-const Toast = ({ isVisible, content }: ComponentPropsT) => {
+const Toast = ({ isVisible, content }: ComponentProps) => {
   return (
     isVisible &&
     <Section>

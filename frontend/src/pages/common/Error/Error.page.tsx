@@ -1,7 +1,7 @@
 import { useRouteError } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { ErrorContainer } from './Error.styles.ts';
+import { ErrorContainer } from './error.styles';
 
 import { iconLibraryConfig } from '@configuration';
 
@@ -13,7 +13,9 @@ const ErrorPage = () => {
     <ErrorContainer>
       <h1>Oops!</h1>
       <p>
-        <FontAwesomeIcon icon={iconLibraryConfig.faCircleExclamation} />
+        <FontAwesomeIcon
+          icon={iconLibraryConfig.faCircleExclamation}
+        />
         Sorry, an unexpected error has occurred.
       </p>
       <p>{error.message}</p>

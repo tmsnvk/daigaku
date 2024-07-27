@@ -1,13 +1,13 @@
 import {
   axiosConfig,
   axiosConfigWithAuth,
-} from './axios.config.ts';
-import iconLibraryConfig from './iconLibrary.config.ts';
+} from './axios.config';
+import iconLibraryConfig from './icon-library.config';
 import {
   mutationKeys,
   queryKeys,
-} from './queryKeys.config.ts';
-import queryClient from './queryClient.config.ts';
+} from './query-keys.config';
+import queryClient from './query-client.config';
 
 export {
   axiosConfig,

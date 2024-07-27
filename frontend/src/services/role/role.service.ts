@@ -1,12 +1,12 @@
 import { axiosConfig } from '@configuration';
 
-export type RoleOptionT = {
-  uuid: string;
-  name: string;
+export interface RoleOption {
+  readonly uuid: string;
+  readonly name: string;
 }
 
 const roleService = {
-  getStudentAndMentorRoles: async (): Promise<RoleOptionT[]> => {
+  getStudentAndMentorRoles: async (): Promise<Array<RoleOption>> => {
     const { data } = await axiosConfig.request({
       method: 'GET',
       url: '/api/roles/student-and-mentor',

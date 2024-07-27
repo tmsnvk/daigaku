@@ -1,18 +1,18 @@
 import {
   Article,
   ErrorContainer,
-} from './Comments.styles.ts';
+} from './comments.styles';
 
-import { errorMessage } from './Comments.utilities.ts';
+import { errorMessage } from './comments.utilities';
 
-import { CommentT } from '@services/comment/comment.service.ts';
+import { Comment } from '@services/comment/comment.service';
 
-type ComponentPropsT = {
-  data: CommentT[];
-  isError: boolean;
+interface ComponentProps {
+  readonly data: Array<Comment>;
+  readonly isError: boolean;
 }
 
-const Comments = ({ data, isError }: ComponentPropsT) => {
+const Comments = ({ data, isError }: ComponentProps) => {
   return (
     isError ?
       <ErrorContainer>{errorMessage}</ErrorContainer> :

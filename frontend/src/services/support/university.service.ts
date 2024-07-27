@@ -1,14 +1,14 @@
 import { axiosConfigWithAuth } from '@configuration';
 
-export type UniversityOptionT = {
-  uuid: string;
-  name: string;
-  abbreviation: string;
+export interface UniversityOption {
+  readonly uuid: string;
+  readonly name: string;
+  readonly abbreviation: string;
 }
 
 const universityService = {
-  getOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<UniversityOptionT[]> => {
-    const { data } = await axiosConfigWithAuth.request<UniversityOptionT[]>({
+  getOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<Array<UniversityOption>> => {
+    const { data } = await axiosConfigWithAuth.request<Array<UniversityOption>>({
       method: 'GET',
       url: `api/universities/options/${selectedCountryUuid}`,
     });

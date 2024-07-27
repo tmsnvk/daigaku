@@ -1,13 +1,13 @@
-export enum FormTypeE {
+export enum FormType {
   LOGIN,
   REGISTER,
   RESET
 }
 
-export type FormSelectorT = {
-  formSelector: (formType: FormTypeE) => void;
+export interface FormSelector {
+  readonly formSelector: (formType: FormType) => void;
 }
 
-export type ConfirmationModalT = {
-  showModal: () => void;
+export interface ConfirmationModal {
+  readonly showModal: () => void;
 }

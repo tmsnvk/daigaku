@@ -1,4 +1,4 @@
-import StudentLayout from './StudentLayout';
+import StudentLayout from './student-layout';
 
 export {
   StudentLayout,

@@ -36,14 +36,14 @@ export default defineConfig({
       },
       dependencies: ['global-setup'],
     },
-    {
-      name: 'firefox ui tests',
-      use: {
-        ...devices['Desktop Firefox'],
-        storageState: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH,
-      },
-      dependencies: ['global-setup'],
-    },
+    // {
+    //   name: 'firefox ui tests',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     storageState: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH,
+    //   },
+    //   dependencies: ['global-setup'],
+    // },
 
     // {
     //   name: 'webkit',

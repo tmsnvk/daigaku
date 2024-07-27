@@ -1,4 +1,4 @@
-import NewApplication from './NewApplication';
+import NewApplication from './new-application';
 
 export {
   NewApplication,

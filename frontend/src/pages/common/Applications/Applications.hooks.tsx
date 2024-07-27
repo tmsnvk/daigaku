@@ -5,21 +5,26 @@ import { queryKeys } from '@configuration';
 import {
   getLocalStorageObjectById,
   setLocalStorageObjectById,
-} from '@utilities/localStorage.utilities.ts';
+} from '@utilities/local-storage.utilities';
 
-import { ApplicationT } from '@services/application/application.service.ts';
+import { ApplicationData } from '@services/application/application.service';
 
-export type ColumnT = {
-  id: string;
-  name: string;
-  isCoreColumn: boolean;
-  isActive: boolean;
+export interface Column {
+  readonly id: string;
+  readonly name: string;
+  readonly isCoreColumn: boolean;
+  readonly isActive: boolean;
 }
 
-const useSetColumns = () => {
+export interface SetColumns {
+  columns: Array<Column>;
+  updateColumnVisibility: (id: string) => void;
+}
+
+const useSetColumns = (): SetColumns => {
   const columnVisibility = getLocalStorageObjectById('applications-table-columns');
 
-  const [columns, setColumns] = useState<ColumnT[]>([
+  const [columns, setColumns] = useState<Column[]>([
     { id: 'courseName', name: 'Course', isCoreColumn: true, isActive: true },
     { id: 'university', name: 'University', isCoreColumn: true, isActive: true },
     { id: 'country', name: 'Country', isCoreColumn: true, isActive: true },
@@ -30,7 +35,7 @@ const useSetColumns = () => {
     { id: 'finalDestinationStatus', name: 'Final Destination Status', isCoreColumn: false, isActive: columnVisibility.finalDestinationStatus ?? false },
   ]);
 
-  const updateColumnVisibility = (id: string) => {
+  const updateColumnVisibility = (id: string): void => {
     setColumns(columns.map((column) => {
       if (column.id === id) {
         columnVisibility[column.id] = !column.isActive;
@@ -49,10 +54,17 @@ const useSetColumns = () => {
   };
 };
 
-const useDisplayColumnSelectorModal = () => {
+export interface DisplayColumnSelectorModal {
+  isModalVisible: boolean;
+  toggleModal: () => void;
+}
+
+const useDisplayColumnSelectorModal = (): DisplayColumnSelectorModal => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  const toggleModal = () => setIsModalVisible(!isModalVisible);
+  const toggleModal = (): void => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   return {
     isModalVisible,
@@ -60,28 +72,32 @@ const useDisplayColumnSelectorModal = () => {
   };
 };
 
-enum SortOrderE {
+enum SortOrder {
   ASC,
   DESC
 }
 
-const useSetOrder = (data: ApplicationT[]) => {
-  const [sortedField, setSortedField] = useState<string>('courseName');
-  const [sortOrder, setSortOrder] = useState<SortOrderE>(SortOrderE.DESC);
+export interface SetOrder {
+  handleColumnSort: (columnId: string) => void;
+}
 
-  const sortColumns = () => {
+const useSetOrder = (data: Array<ApplicationData>): SetOrder => {
+  const [sortedField, setSortedField] = useState<string>('courseName');
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
+
+  const sortColumns = (): void => {
     const queryClient = new QueryClient();
 
     const sortedData = data.sort((a, b) => {
-      if (a[sortedField as keyof ApplicationT] === null) {
+      if (a[sortedField as keyof ApplicationData] === null) {
         return 1;
       }
 
-      if (b[sortedField as keyof ApplicationT] === null) {
+      if (b[sortedField as keyof ApplicationData] === null) {
         return -1;
       }
 
-      return String(a[sortedField as keyof ApplicationT]).localeCompare(String(b[sortedField as keyof ApplicationT])) * (sortOrder === SortOrderE.ASC ? 1 : -1);
+      return String(a[sortedField as keyof ApplicationData]).localeCompare(String(b[sortedField as keyof ApplicationData])) * (sortOrder === SortOrder.ASC ? 1 : -1);
     });
 
     queryClient.setQueryData(
@@ -90,8 +106,8 @@ const useSetOrder = (data: ApplicationT[]) => {
     );
   };
 
-  const handleColumnSort = (columnId: string) => {
-    const order = sortOrder === SortOrderE.ASC ? SortOrderE.DESC : SortOrderE.ASC;
+  const handleColumnSort = (columnId: string): void => {
+    const order = sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
 
     setSortedField(columnId);
     setSortOrder(order);
