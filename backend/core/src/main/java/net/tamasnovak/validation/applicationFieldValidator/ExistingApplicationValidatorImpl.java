@@ -1,17 +1,17 @@
 package net.tamasnovak.validation.applicationFieldValidator;
 
-import net.tamasnovak.domains.accountRole.student.models.entity.Student;
-import net.tamasnovak.domains.application.shared.models.entity.Application;
-import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.UpdateApplicationByStudentDto;
-import net.tamasnovak.domains.applicationStages.applicationStatus.models.entity.ApplicationStatus;
+import net.tamasnovak.domains.accountRole.student.entity.Student;
+import net.tamasnovak.domains.application.shared.entity.Application;
+import net.tamasnovak.domains.application.studentApplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.domains.applicationStages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.domains.applicationStages.applicationStatus.service.ApplicationStatusService;
-import net.tamasnovak.domains.applicationStages.finalDestinationStatus.models.entity.FinalDestinationStatus;
+import net.tamasnovak.domains.applicationStages.finalDestinationStatus.entity.FinalDestinationStatus;
 import net.tamasnovak.domains.applicationStages.finalDestinationStatus.service.FinalDestinationStatusService;
-import net.tamasnovak.domains.applicationStages.interviewStatus.models.entity.InterviewStatus;
+import net.tamasnovak.domains.applicationStages.interviewStatus.entity.InterviewStatus;
 import net.tamasnovak.domains.applicationStages.interviewStatus.service.InterviewStatusService;
-import net.tamasnovak.domains.applicationStages.offerStatus.models.entity.OfferStatus;
+import net.tamasnovak.domains.applicationStages.offerStatus.entity.OfferStatus;
 import net.tamasnovak.domains.applicationStages.offerStatus.service.OfferStatusService;
-import net.tamasnovak.domains.applicationStages.responseStatus.models.entity.ResponseStatus;
+import net.tamasnovak.domains.applicationStages.responseStatus.entity.ResponseStatus;
 import net.tamasnovak.domains.applicationStages.responseStatus.service.ResponseStatusService;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationType;
@@ -44,7 +44,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   @Override
-  public void validateStatusFields(UpdateApplicationByStudentDto newApplicationData,
+  public void validateStatusFields(UpdateApplicationByStudent newApplicationData,
                                    Application currentApplication,
                                    Student currentStudent,
                                    ApplicationStatus newApplicationStatus,
@@ -82,7 +82,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   private void validateInterviewStatus(Application currentApplication,
-                                       UpdateApplicationByStudentDto newApplicationData,
+                                       UpdateApplicationByStudent newApplicationData,
                                        InterviewStatus newInterviewStatus) {
     InterviewStatus notInvited = interviewStatusService.getByName(InterviewStatusType.NOT_INVITED.getName());
 
@@ -100,7 +100,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   private void validateOfferStatus(Application currentApplication,
-                                   UpdateApplicationByStudentDto newApplicationData,
+                                   UpdateApplicationByStudent newApplicationData,
                                    OfferStatus newOfferStatus) {
     OfferStatus rejected = offerStatusService.getByName(OfferStatusType.REJECTED.getName());
 
@@ -119,7 +119,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
   private void validateResponseStatus(Application currentApplication,
                                       Student currentStudent,
-                                      UpdateApplicationByStudentDto newApplicationData,
+                                      UpdateApplicationByStudent newApplicationData,
                                       ResponseStatus newResponseStatus) {
     ResponseStatus declined = responseStatusService.getByName(ResponseStatusType.OFFER_DECLINED.getName());
 

@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.applicationStages.responseStatus.service;
 
-import net.tamasnovak.domains.applicationStages.responseStatus.models.entity.ResponseStatus;
-import net.tamasnovak.domains.applicationStages.shared.models.dtoResponses.StageSelectOptionDto;
+import net.tamasnovak.domains.applicationStages.responseStatus.entity.ResponseStatus;
+import net.tamasnovak.domains.applicationStages.shared.dto.StatusSelectOption;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface ResponseStatusService {
 
   ResponseStatus getByName(String statusName);
 
-  List<StageSelectOptionDto> getAllSelectOptions();
+  List<StatusSelectOption> getAllSelectOptions();
 }

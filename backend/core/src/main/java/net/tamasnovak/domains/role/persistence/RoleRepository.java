@@ -1,6 +1,6 @@
 package net.tamasnovak.domains.role.persistence;
 
-import net.tamasnovak.domains.role.models.entity.Role;
+import net.tamasnovak.domains.role.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

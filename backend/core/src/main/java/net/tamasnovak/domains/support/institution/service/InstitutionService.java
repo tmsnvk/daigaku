@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.support.institution.service;
 
-import net.tamasnovak.domains.support.institution.models.dtoResponses.InstitutionOptionDto;
-import net.tamasnovak.domains.support.institution.models.entity.Institution;
+import net.tamasnovak.domains.support.institution.dto.InstitutionOption;
+import net.tamasnovak.domains.support.institution.entity.Institution;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface InstitutionService {
 
   Institution getById(long id);
 
-  List<InstitutionOptionDto> getAllSelectOptions();
+  List<InstitutionOption> getAllSelectOptions();
 }

@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.applicationStages.offerStatus.persistence;
 
-import net.tamasnovak.domains.applicationStages.offerStatus.models.entity.OfferStatus;
-import net.tamasnovak.domains.applicationStages.shared.models.dtoResponses.StageSelectOptionDto;
+import net.tamasnovak.domains.applicationStages.offerStatus.entity.OfferStatus;
+import net.tamasnovak.domains.applicationStages.shared.dto.StatusSelectOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface OfferStatusRepository extends JpaRepository<OfferStatus, Long> 
 
   Optional<OfferStatus> findByName(String statusName);
 
-  List<StageSelectOptionDto> findAllByOrderByNameAsc();
+  List<StatusSelectOption> findAllByOrderByNameAsc();
 }

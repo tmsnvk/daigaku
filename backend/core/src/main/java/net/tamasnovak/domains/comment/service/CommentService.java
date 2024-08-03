@@ -1,13 +1,13 @@
 package net.tamasnovak.domains.comment.service;
 
-import net.tamasnovak.domains.comment.models.dtoRequests.NewCommentDto;
-import net.tamasnovak.domains.comment.models.dtoResponses.CommentDto;
-import net.tamasnovak.domains.comment.models.dtoResponses.CommentsMetaDto;
+import net.tamasnovak.domains.comment.dto.NewComment;
+import net.tamasnovak.domains.comment.dto.CommentDetails;
+import net.tamasnovak.domains.comment.dto.CommentsPagination;
 
 public interface CommentService {
-  CommentsMetaDto getAllCommentDtosByApplicationUuid(String applicationUuid, int page);
+  CommentsPagination getAllCommentResponsesByApplicationUuid(String applicationUuid, int page);
 
-  CommentDto getCommentDtoByUuid(String uuid);
+  CommentDetails getCommentDtoByUuid(String uuid);
 
-  void postCommentByApplicationUuid(String applicationUuid, NewCommentDto requestBody);
+  void postCommentByApplicationUuid(String applicationUuid, NewComment requestBody);
 }

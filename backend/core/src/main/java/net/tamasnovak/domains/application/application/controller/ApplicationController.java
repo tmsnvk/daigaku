@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.application.application.controller;
 
 import net.tamasnovak.domains.application.application.service.ApplicationService;
-import net.tamasnovak.domains.application.shared.models.dtoResponses.ApplicationDto;
+import net.tamasnovak.domains.application.shared.dto.ApplicationData;
 import net.tamasnovak.validation.annotations.uuidConstraint.UuidConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ public class ApplicationController {
   }
 
   @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationDto> getApplicationDto(@PathVariable("uuid") @UuidConstraint String uuid) {
-    ApplicationDto response = applicationService.getApplicationDtoByUuid(uuid);
+  public ResponseEntity<ApplicationData> getApplicationDto(@PathVariable("uuid") @UuidConstraint final String uuid) {
+    final ApplicationData response = applicationService.getApplicationDtoByUuid(uuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

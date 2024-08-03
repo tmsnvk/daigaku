@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.applicationStages.offerStatus.controller;
 
 import net.tamasnovak.domains.applicationStages.offerStatus.service.OfferStatusService;
-import net.tamasnovak.domains.applicationStages.shared.models.dtoResponses.StageSelectOptionDto;
+import net.tamasnovak.domains.applicationStages.shared.dto.StatusSelectOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,8 +23,8 @@ public class OfferStatusController {
   }
 
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<StageSelectOptionDto>> getAllSelectOptions() {
-    List<StageSelectOptionDto> response = offerStatusService.getAllSelectOptions();
+  public ResponseEntity<List<StatusSelectOption>> getAllSelectOptions() {
+    final List<StatusSelectOption> response = offerStatusService.getAllSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)

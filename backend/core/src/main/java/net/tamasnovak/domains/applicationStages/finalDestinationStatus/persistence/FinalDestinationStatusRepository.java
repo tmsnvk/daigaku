@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.applicationStages.finalDestinationStatus.persistence;
 
-import net.tamasnovak.domains.applicationStages.finalDestinationStatus.models.entity.FinalDestinationStatus;
-import net.tamasnovak.domains.applicationStages.shared.models.dtoResponses.StageSelectOptionDto;
+import net.tamasnovak.domains.applicationStages.finalDestinationStatus.entity.FinalDestinationStatus;
+import net.tamasnovak.domains.applicationStages.shared.dto.StatusSelectOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface FinalDestinationStatusRepository extends JpaRepository<FinalDes
 
   Optional<FinalDestinationStatus> findByName(String statusName);
 
-  List<StageSelectOptionDto> findAllByOrderByNameAsc();
+  List<StatusSelectOption> findAllByOrderByNameAsc();
 }

@@ -2,8 +2,8 @@ package net.tamasnovak.domains.support.institution.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.domains.shared.constants.GlobalServiceConstants;
-import net.tamasnovak.domains.support.institution.models.dtoResponses.InstitutionOptionDto;
-import net.tamasnovak.domains.support.institution.models.entity.Institution;
+import net.tamasnovak.domains.support.institution.dto.InstitutionOption;
+import net.tamasnovak.domains.support.institution.entity.Institution;
 import net.tamasnovak.domains.support.institution.persistence.InstitutionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -72,10 +72,10 @@ class InstitutionServiceImplTest {
     @Test
     @Description("Returns the correct list of InstitutionOptionDto records.")
     void shouldReturnAllInstitutionOptionDtos() {
-      List<InstitutionOptionDto> expected = Collections.singletonList(mock(InstitutionOptionDto.class));
+      List<InstitutionOption> expected = Collections.singletonList(mock(InstitutionOption.class));
 
       when(institutionRepository.findAllByOrderByNameAsc()).thenReturn(expected);
-      List<InstitutionOptionDto> actual = underTest.getAllSelectOptions();
+      List<InstitutionOption> actual = underTest.getAllSelectOptions();
 
       assertEquals(expected, actual);
 

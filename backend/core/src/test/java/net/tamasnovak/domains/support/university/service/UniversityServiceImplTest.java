@@ -2,10 +2,10 @@ package net.tamasnovak.domains.support.university.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.domains.shared.constants.GlobalServiceConstants;
-import net.tamasnovak.domains.support.country.models.entity.Country;
+import net.tamasnovak.domains.support.country.entity.Country;
 import net.tamasnovak.domains.support.country.service.CountryService;
-import net.tamasnovak.domains.support.university.models.dtoResponses.UniversitySelectOptionDto;
-import net.tamasnovak.domains.support.university.models.entity.University;
+import net.tamasnovak.domains.support.university.dto.UniversitySelectOption;
+import net.tamasnovak.domains.support.university.entity.University;
 import net.tamasnovak.domains.support.university.persistence.UniversityRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -79,12 +79,12 @@ class UniversityServiceImplTest {
     void shouldReturnAllUniversitySelectOptionDtos() {
       Country mockCountry = mock(Country.class);
       when(mockCountry.getUuid()).thenReturn(UUID.randomUUID());
-      List<UniversitySelectOptionDto> expected = Collections.singletonList(mock(UniversitySelectOptionDto.class));
+      List<UniversitySelectOption> expected = Collections.singletonList(mock(UniversitySelectOption.class));
 
       when(countryService.getByUuid(mockCountry.getUuid().toString())).thenReturn(mockCountry);
       when(universityRepository.findByCountryOrderByNameAsc(mockCountry)).thenReturn(expected);
 
-      List<UniversitySelectOptionDto> actual = underTest.getAllSelectOptionsByCountryUuid(mockCountry.getUuid().toString());
+      List<UniversitySelectOption> actual = underTest.getAllSelectOptionsByCountryUuid(mockCountry.getUuid().toString());
 
       assertEquals(expected, actual);
 

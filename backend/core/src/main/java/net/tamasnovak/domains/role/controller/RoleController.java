@@ -1,6 +1,6 @@
 package net.tamasnovak.domains.role.controller;
 
-import net.tamasnovak.domains.role.models.dtoResponses.RoleOptionsDto;
+import net.tamasnovak.domains.role.dto.RoleOption;
 import net.tamasnovak.domains.role.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +23,8 @@ public class RoleController {
   }
 
   @GetMapping(value = "/student-and-mentor", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<RoleOptionsDto>> getStudentAndMentorRoleSelectOptions() {
-    List<RoleOptionsDto> response = roleService.getStudentAndMentorRoleOptions();
+  public ResponseEntity<List<RoleOption>> getStudentAndMentorRoleSelectOptions() {
+    final List<RoleOption> response = roleService.getStudentAndMentorRoleOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)

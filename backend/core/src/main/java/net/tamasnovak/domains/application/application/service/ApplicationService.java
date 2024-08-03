@@ -1,10 +1,9 @@
 package net.tamasnovak.domains.application.application.service;
 
-import net.tamasnovak.domains.application.shared.models.dtoResponses.ApplicationDto;
-import net.tamasnovak.domains.application.shared.models.entity.Application;
+import net.tamasnovak.domains.application.shared.dto.ApplicationData;
 
 public interface ApplicationService {
-  Application getByUuid(String uuid);
+  net.tamasnovak.domains.application.shared.entity.Application getByUuid(String uuid);
 
-  ApplicationDto getApplicationDtoByUuid(String uuid);
+  ApplicationData getApplicationDtoByUuid(String uuid);
 }

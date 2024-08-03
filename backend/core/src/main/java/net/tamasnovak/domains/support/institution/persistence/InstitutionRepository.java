@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.support.institution.persistence;
 
-import net.tamasnovak.domains.support.institution.models.dtoResponses.InstitutionOptionDto;
-import net.tamasnovak.domains.support.institution.models.entity.Institution;
+import net.tamasnovak.domains.support.institution.dto.InstitutionOption;
+import net.tamasnovak.domains.support.institution.entity.Institution;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface InstitutionRepository extends JpaRepository<Institution, Long> 
 
   Optional<Institution> findInstitutionById(long id);
 
-  List<InstitutionOptionDto> findAllByOrderByNameAsc();
+  List<InstitutionOption> findAllByOrderByNameAsc();
 }

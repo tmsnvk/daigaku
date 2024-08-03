@@ -1,6 +1,6 @@
 package net.tamasnovak.domains.support.country.controller;
 
-import net.tamasnovak.domains.support.country.models.dtoResponses.CountrySelectOptionDto;
+import net.tamasnovak.domains.support.country.dto.CountrySelectOption;
 import net.tamasnovak.domains.support.country.service.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,8 +21,8 @@ public class CountryController {
   }
 
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<CountrySelectOptionDto>> getAllSelectOptions() {
-    List<CountrySelectOptionDto> response = countryService.getAllSelectOptions();
+  public ResponseEntity<List<CountrySelectOption>> getAllSelectOptions() {
+    final List<CountrySelectOption> response = countryService.getAllSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)

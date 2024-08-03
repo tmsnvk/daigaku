@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.applicationStages.finalDestinationStatus.service;
 
-import net.tamasnovak.domains.applicationStages.finalDestinationStatus.models.entity.FinalDestinationStatus;
-import net.tamasnovak.domains.applicationStages.shared.models.dtoResponses.StageSelectOptionDto;
+import net.tamasnovak.domains.applicationStages.finalDestinationStatus.entity.FinalDestinationStatus;
+import net.tamasnovak.domains.applicationStages.shared.dto.StatusSelectOption;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface FinalDestinationStatusService {
 
   FinalDestinationStatus getByName(String statusName);
 
-  List<StageSelectOptionDto> getAllSelectOptions();
+  List<StatusSelectOption> getAllSelectOptions();
 }

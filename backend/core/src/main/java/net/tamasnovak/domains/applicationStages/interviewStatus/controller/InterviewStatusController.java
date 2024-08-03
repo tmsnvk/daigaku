@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.applicationStages.interviewStatus.controller;
 
 import net.tamasnovak.domains.applicationStages.interviewStatus.service.InterviewStatusService;
-import net.tamasnovak.domains.applicationStages.shared.models.dtoResponses.StageSelectOptionDto;
+import net.tamasnovak.domains.applicationStages.shared.dto.StatusSelectOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,8 +23,8 @@ public class InterviewStatusController {
   }
 
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<StageSelectOptionDto>> getAllSelectOptions() {
-    List<StageSelectOptionDto> response = interviewStatusService.getAllSelectOptions();
+  public ResponseEntity<List<StatusSelectOption>> getAllSelectOptions() {
+    final List<StatusSelectOption> response = interviewStatusService.getAllSelectOptions();
 
     return ResponseEntity
       .status(HttpStatus.OK)

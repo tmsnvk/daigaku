@@ -1,6 +1,6 @@
 package net.tamasnovak.domains.support.university.controller;
 
-import net.tamasnovak.domains.support.university.models.dtoResponses.UniversitySelectOptionDto;
+import net.tamasnovak.domains.support.university.dto.UniversitySelectOption;
 import net.tamasnovak.domains.support.university.service.UniversityService;
 import net.tamasnovak.validation.annotations.uuidConstraint.UuidConstraint;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ public class UniversityController {
   }
 
   @GetMapping(value = "/options/{countryUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<UniversitySelectOptionDto>> getSelectOptionsByCountry(@PathVariable("countryUuid") @UuidConstraint String countryUuid) {
-    List<UniversitySelectOptionDto> response = universityService.getAllSelectOptionsByCountryUuid(countryUuid);
+  public ResponseEntity<List<UniversitySelectOption>> getSelectOptionsByCountry(@PathVariable("countryUuid") @UuidConstraint final String countryUuid) {
+    final List<UniversitySelectOption> response = universityService.getAllSelectOptionsByCountryUuid(countryUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

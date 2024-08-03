@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.application.shared.persistence;
 
 import net.tamasnovak.domains.application.application.persistence.ApplicationIdsView;
-import net.tamasnovak.domains.application.shared.models.entity.Application;
+import net.tamasnovak.domains.application.shared.entity.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

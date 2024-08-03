@@ -1,11 +1,12 @@
 package net.tamasnovak.domains.role.service;
 
-import net.tamasnovak.domains.role.models.dtoResponses.RoleOptionsDto;
-import net.tamasnovak.domains.role.models.entity.Role;
+import net.tamasnovak.domains.role.dto.RoleOption;
+import net.tamasnovak.domains.role.entity.Role;
 
 import java.util.List;
 
 public interface RoleService {
   Role getByUuid(String uuid);
-  List<RoleOptionsDto> getStudentAndMentorRoleOptions();
+
+  List<RoleOption> getStudentAndMentorRoleOptions();
 }
