@@ -120,7 +120,6 @@ class AccountServiceImplTest {
     @Description("Returns the correct ClientAuthContextDto instance when email is found.")
     void shouldReturnClientAuthContextDto_whenEmailIsFound() {
       ClientAuthContext expected = new ClientAuthContext(expectedValidEmail, mockAccount.getFirstName(), mockRole.getName());
-
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
 
       ClientAuthContext actual = underTest.getClientAuthContextDto(expectedValidEmail);
@@ -162,8 +161,8 @@ class AccountServiceImplTest {
     @Description("Throws EntityNotFoundException when email is not found.")
     void shouldThrowEntityNotFoundException_whenEmailIsNotFound() {
       LoginRequest requestBody = new LoginRequest(notValidEmail, hashedPassword);
-
       when(accountRepository.findByEmail(notValidEmail)).thenReturn(Optional.empty());
+
       assertThrows(EntityNotFoundException.class, () -> underTest.getLoginReturnDto(requestBody, authentication));
 
       verify(accountRepository, times(1)).findByEmail(notValidEmail);

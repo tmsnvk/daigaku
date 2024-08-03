@@ -30,7 +30,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ApplicationDataServiceImplTest {
+class ApplicationServiceImplTest {
   @Mock
   private AuthenticationFacade authenticationFacade;
 
@@ -87,7 +87,6 @@ class ApplicationDataServiceImplTest {
   @Nested
   @DisplayName("getApplicationDtoByUuid() unit tests")
   class GetApplicationDataByUuidUnitTests {
-
     @Test
     @Description("Returns the correct ApplicationDto instance.")
     void shouldReturnApplicationViewProjection() {

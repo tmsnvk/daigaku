@@ -1,4 +1,4 @@
-package net.tamasnovak.domains.account.pendingAccount.model.dtoRequests;
+package net.tamasnovak.domains.account.pendingAccount.dto;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -30,7 +30,7 @@ class PendingAccountRegistrationTest {
   }
 
   @Nested
-  @DisplayName("PendingAccountRegistrationDto validation no-violation unit tests")
+  @DisplayName("PendingAccountRegistration validation no-violation unit tests")
   class WhenDtoIsValid {
     @Test
     @Description("Assert that there are no violations when underTest requestBody contains only valid fields.")
@@ -50,7 +50,7 @@ class PendingAccountRegistrationTest {
   }
 
   @Nested
-  @DisplayName("PendingAccountRegistrationDto validation violation unit tests")
+  @DisplayName("PendingAccountRegistration validation violation unit tests")
   class WhenDtoIsInvalid {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's firstName fails @NotBlank validation.")
@@ -64,7 +64,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("firstName", actualViolationType);
@@ -82,7 +81,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("firstName", actualViolationType);
@@ -100,7 +98,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("lastName", actualViolationType);
@@ -118,7 +115,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("lastName", actualViolationType);
@@ -136,7 +132,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("email", actualViolationType);
@@ -154,7 +149,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("institutionUuid", actualViolationType);
@@ -172,7 +166,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("institutionUuid", actualViolationType);
@@ -190,7 +183,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("accountRoleUuid", actualViolationType);
@@ -208,7 +200,6 @@ class PendingAccountRegistrationTest {
       );
 
       violations = validate(underTest);
-
       String actualViolationType = violations.iterator().next().getPropertyPath().toString();
 
       assertEquals("accountRoleUuid", actualViolationType);
