@@ -1,11 +1,11 @@
-package net.tamasnovak.domains.account.pendingAccount.models.dtoRequests;
+package net.tamasnovak.domains.account.pendingAccount.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.validation.annotations.uuidConstraint.UuidConstraint;
 
-public record PendingAccountRegistrationDto(
+public record PendingAccountRegistration(
   @NotBlank(message = "Provide a first name. Use only letters and spaces.")
   @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{2,100}$", message = "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
   String firstName,

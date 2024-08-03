@@ -1,9 +1,8 @@
 package net.tamasnovak.domains.comment.controller;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.domains.account.pendingAccount.models.dtoRequests.PendingAccountRegistrationDto;
-import net.tamasnovak.domains.comment.models.dtoRequests.NewCommentDto;
-import net.tamasnovak.domains.comment.models.dtoResponses.CommentsMetaDto;
+import net.tamasnovak.domains.comment.dto.NewComment;
+import net.tamasnovak.domains.comment.dto.CommentsPagination;
 import net.tamasnovak.domains.comment.service.CommentService;
 import net.tamasnovak.validation.annotations.uuidConstraint.UuidConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +30,9 @@ public class CommentController {
   }
 
   @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CommentsMetaDto> getAllByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint String applicationUuid,
-                                                                  @RequestParam int page) {
-    CommentsMetaDto response = commentService.getAllCommentDtosByApplicationUuid(applicationUuid, page);
+  public ResponseEntity<CommentsPagination> getAllByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint final String applicationUuid,
+                                                                    @RequestParam final int page) {
+    final CommentsPagination response = commentService.getAllCommentResponsesByApplicationUuid(applicationUuid, page);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -41,8 +40,8 @@ public class CommentController {
   }
 
   @PostMapping(value = "/{applicationUuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HttpStatus> postCommentByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint String applicationUuid,
-                                                                 @RequestBody @Valid NewCommentDto requestBody) {
+  public ResponseEntity<HttpStatus> postCommentByApplicationUuid(@PathVariable("applicationUuid") @UuidConstraint final String applicationUuid,
+                                                                 @RequestBody @Valid final NewComment requestBody) {
     commentService.postCommentByApplicationUuid(applicationUuid, requestBody);
 
     return ResponseEntity

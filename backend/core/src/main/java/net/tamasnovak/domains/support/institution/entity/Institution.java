@@ -1,4 +1,4 @@
-package net.tamasnovak.domains.support.institution.models.entity;
+package net.tamasnovak.domains.support.institution.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
@@ -6,12 +6,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import net.tamasnovak.domains.account.pendingAccount.models.entity.PendingAccount;
-import net.tamasnovak.domains.accountRole.institutionAdmin.model.entity.InstitutionAdmin;
-import net.tamasnovak.domains.accountRole.mentor.model.entity.Mentor;
-import net.tamasnovak.domains.accountRole.student.models.entity.Student;
-import net.tamasnovak.domains.address.models.entity.Address;
-import net.tamasnovak.domains.support.shared.models.entity.BaseSupportEntity;
+import net.tamasnovak.domains.account.pendingAccount.entity.PendingAccount;
+import net.tamasnovak.domains.accountRole.institutionAdmin.entity.InstitutionAdmin;
+import net.tamasnovak.domains.accountRole.mentor.entity.Mentor;
+import net.tamasnovak.domains.accountRole.student.entity.Student;
+import net.tamasnovak.domains.address.entity.Address;
+import net.tamasnovak.domains.support.shared.entity.BaseSupportEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public final class Institution extends BaseSupportEntity {
     this.institutionAdmins = new ArrayList<>();
   }
 
-  public static Institution createInstitution(String name, Address address) {
+  public static Institution createInstitution(final String name, final Address address) {
     return new Institution(name, address);
   }
 

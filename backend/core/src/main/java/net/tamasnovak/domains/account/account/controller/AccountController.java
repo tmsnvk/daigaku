@@ -1,9 +1,9 @@
 package net.tamasnovak.domains.account.account.controller;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.domains.account.account.models.dtoRequests.LoginRequestDto;
-import net.tamasnovak.domains.account.account.models.dtoResponses.ClientAuthContextDto;
-import net.tamasnovak.domains.account.account.models.dtoResponses.LoginReturnDto;
+import net.tamasnovak.domains.account.account.dto.LoginRequest;
+import net.tamasnovak.domains.account.account.dto.ClientAuthContext;
+import net.tamasnovak.domains.account.account.dto.LoginResponse;
 import net.tamasnovak.domains.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +33,9 @@ public class AccountController {
 
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
-  public ResponseEntity<ClientAuthContextDto> getClientAuthContext() {
-    User userDetails = authenticationFacade.getUserContext();
-
-    ClientAuthContextDto response = accountService.getClientAuthContextDto(userDetails.getUsername());
+  public ResponseEntity<ClientAuthContext> getClientAuthContext() {
+    final User userDetails = authenticationFacade.getUserContext();
+    final ClientAuthContext response = accountService.getClientAuthContextDto(userDetails.getUsername());
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -44,10 +43,9 @@ public class AccountController {
   }
 
   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<LoginReturnDto> login(@Valid @RequestBody LoginRequestDto requestBody) {
-    Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
-
-    LoginReturnDto response = accountService.getLoginReturnDto(requestBody, authentication);
+  public ResponseEntity<LoginResponse> login(@Valid @RequestBody final LoginRequest requestBody) {
+    final Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
+    final LoginResponse response = accountService.getLoginReturnDto(requestBody, authentication);
 
     return ResponseEntity
       .status(HttpStatus.OK)

@@ -1,8 +1,8 @@
 package net.tamasnovak.domains.accountRole.student.persistence;
 
 
-import net.tamasnovak.domains.account.account.models.entity.Account;
-import net.tamasnovak.domains.accountRole.student.models.entity.Student;
+import net.tamasnovak.domains.account.account.entity.Account;
+import net.tamasnovak.domains.accountRole.student.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,12 +1,12 @@
 package net.tamasnovak.domains.account.pendingAccount.service;
 
 import net.tamasnovak.domains.account.account.service.AccountService;
-import net.tamasnovak.domains.account.pendingAccount.models.dtoRequests.PendingAccountRegistrationDto;
-import net.tamasnovak.domains.account.pendingAccount.models.entity.PendingAccount;
+import net.tamasnovak.domains.account.pendingAccount.dto.PendingAccountRegistration;
+import net.tamasnovak.domains.account.pendingAccount.entity.PendingAccount;
 import net.tamasnovak.domains.account.pendingAccount.persistence.PendingAccountRepository;
-import net.tamasnovak.domains.role.models.entity.Role;
+import net.tamasnovak.domains.role.entity.Role;
 import net.tamasnovak.domains.role.service.RoleService;
-import net.tamasnovak.domains.support.institution.models.entity.Institution;
+import net.tamasnovak.domains.support.institution.entity.Institution;
 import net.tamasnovak.domains.support.institution.service.InstitutionService;
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSenderRabbitConfig;
 import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
@@ -25,42 +25,41 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   private final RoleService roleService;
   private final QueueSender queueSender;
   private final PendingAccountRepository pendingAccountRepository;
-  private final PendingAccountConstants pendingAccountConstants;
+  private final PendingAccountServiceConstants pendingAccountServiceConstants;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, RoleService roleService, QueueSender queueSender, PendingAccountRepository pendingAccountRepository, PendingAccountConstants pendingAccountConstants) {
+  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, RoleService roleService, QueueSender queueSender, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants pendingAccountServiceConstants) {
     this.accountService = accountService;
     this.institutionService = institutionService;
     this.roleService = roleService;
     this.queueSender = queueSender;
     this.pendingAccountRepository = pendingAccountRepository;
-    this.pendingAccountConstants = pendingAccountConstants;
+    this.pendingAccountServiceConstants = pendingAccountServiceConstants;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(String email) {
-    boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
+  public void verifyAccountNotExistsByEmail(final String email) {
+    final boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
 
     if (isPendingAccountExists) {
-      throw new DataIntegrityViolationException(pendingAccountConstants.EMAIL_ALREADY_EXISTS);
+      throw new DataIntegrityViolationException(pendingAccountServiceConstants.EMAIL_ALREADY_EXISTS);
     }
   }
 
   @Override
   @Transactional
-  public void create(PendingAccountRegistrationDto requestBody) {
+  public void create(final PendingAccountRegistration requestBody) {
     accountService.verifyAccountNotExistsByEmail(requestBody.email());
     verifyAccountNotExistsByEmail(requestBody.email());
 
-    Institution institution = institutionService.getByUuid(requestBody.institutionUuid());
-    Role role = roleService.getByUuid(requestBody.accountRoleUuid());
+    final Institution institution = institutionService.getByUuid(requestBody.institutionUuid());
+    final Role role = roleService.getByUuid(requestBody.accountRoleUuid());
 
-    PendingAccount pendingAccount = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(), institution, role);
-
+    final PendingAccount pendingAccount = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(), institution, role);
     pendingAccountRepository.save(pendingAccount);
 
-    PendingAccountConfirmationQueueDto queueDto = new PendingAccountConfirmationQueueDto(requestBody.email(), requestBody.firstName(), requestBody.lastName(), institution.getName(), role.getNameWithoutPrefix());
+    final PendingAccountConfirmationQueueDto queueDto = new PendingAccountConfirmationQueueDto(requestBody.email(), requestBody.firstName(), requestBody.lastName(), institution.getName(), role.getNameWithoutPrefix());
 
     queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY, queueDto);
   }

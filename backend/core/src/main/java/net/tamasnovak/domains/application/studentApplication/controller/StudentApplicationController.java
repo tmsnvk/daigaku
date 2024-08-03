@@ -1,11 +1,11 @@
 package net.tamasnovak.domains.application.studentApplication.controller;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.domains.account.account.models.entity.Account;
-import net.tamasnovak.domains.application.shared.models.dtoResponses.ApplicationDto;
-import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.NewApplicationByStudentDto;
-import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.UpdateApplicationByStudentDto;
-import net.tamasnovak.domains.application.studentApplication.models.dtoResponses.StudentDashboardDataDto;
+import net.tamasnovak.domains.account.account.entity.Account;
+import net.tamasnovak.domains.application.shared.dto.ApplicationData;
+import net.tamasnovak.domains.application.studentApplication.dto.NewApplicationByStudent;
+import net.tamasnovak.domains.application.studentApplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.domains.application.studentApplication.dto.StudentDashboardData;
 import net.tamasnovak.domains.application.studentApplication.service.StudentApplicationService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import net.tamasnovak.validation.annotations.uuidConstraint.UuidConstraint;
@@ -39,10 +39,9 @@ public class StudentApplicationController {
   }
 
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<ApplicationDto>> getAllApplications() {
-    UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
-
-    List<ApplicationDto> response = studentApplicationService.getAllApplicationDtosByAccountUuid(authAccountUuid);
+  public ResponseEntity<List<ApplicationData>> getAllApplications() {
+    final UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
+    final List<ApplicationData> response = studentApplicationService.getAllApplicationResponsesByAccountUuid(authAccountUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -50,10 +49,9 @@ public class StudentApplicationController {
   }
 
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationDto> createApplication(@Valid @RequestBody NewApplicationByStudentDto requestBody) {
-    Account account = authenticationFacade.getAuthenticatedAccount();
-
-    ApplicationDto response = studentApplicationService.create(account, requestBody);
+  public ResponseEntity<ApplicationData> createApplication(@Valid @RequestBody final NewApplicationByStudent requestBody) {
+    final Account account = authenticationFacade.getAuthenticatedAccount();
+    final ApplicationData response = studentApplicationService.create(account, requestBody);
 
     return ResponseEntity
       .status(HttpStatus.CREATED)
@@ -61,11 +59,10 @@ public class StudentApplicationController {
   }
 
   @PatchMapping(value = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationDto> patchByUuid(@PathVariable("uuid") @UuidConstraint String uuid,
-                                                    @Valid @RequestBody UpdateApplicationByStudentDto requestBody) {
-    Account account = authenticationFacade.getAuthenticatedAccount();
-
-    ApplicationDto response = studentApplicationService.updateAndRetrieveByUuid(uuid, requestBody, account);
+  public ResponseEntity<ApplicationData> patchByUuid(@PathVariable("uuid") @UuidConstraint final String uuid,
+                                                     @Valid @RequestBody final UpdateApplicationByStudent requestBody) {
+    final Account account = authenticationFacade.getAuthenticatedAccount();
+    final ApplicationData response = studentApplicationService.updateAndRetrieveByUuid(uuid, requestBody, account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -73,7 +70,7 @@ public class StudentApplicationController {
   }
 
   @PatchMapping(value = "/update-is-removable/{uuid}")
-  public ResponseEntity<HttpStatus> toggleIsRemovable(@PathVariable("uuid") @UuidConstraint String uuid) {
+  public ResponseEntity<HttpStatus> toggleIsRemovable(@PathVariable("uuid") @UuidConstraint final String uuid) {
     studentApplicationService.toggleIsRemovableByApplicationUuid(uuid);
 
     return ResponseEntity
@@ -82,10 +79,9 @@ public class StudentApplicationController {
   }
 
   @GetMapping(value = "/dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<StudentDashboardDataDto> getAggregateData() {
-    Account account = authenticationFacade.getAuthenticatedAccount();
-
-    StudentDashboardDataDto response = studentApplicationService.getAggregateDataByAccount(account);
+  public ResponseEntity<StudentDashboardData> getAggregateData() {
+    final Account account = authenticationFacade.getAuthenticatedAccount();
+    final StudentDashboardData response = studentApplicationService.getAggregateDataByAccount(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)
@@ -94,8 +90,7 @@ public class StudentApplicationController {
 
   @PostMapping(value = "/download")
   public ResponseEntity<HttpStatus> handleDownload() {
-    UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
-
+    final UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
     studentApplicationService.onApplicationDownloadRequest(authAccountUuid);
 
     return ResponseEntity

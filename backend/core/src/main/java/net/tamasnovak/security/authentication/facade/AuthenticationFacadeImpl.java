@@ -1,6 +1,6 @@
 package net.tamasnovak.security.authentication.facade;
 
-import net.tamasnovak.domains.account.account.models.entity.Account;
+import net.tamasnovak.domains.account.account.entity.Account;
 import net.tamasnovak.domains.account.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +25,7 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
   @Override
   public Authentication authenticateUser(String email, String password) {
-    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email.toLowerCase(), password);
+    final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email.toLowerCase(), password);
 
     return authenticationManager.authenticate(auth);
   }

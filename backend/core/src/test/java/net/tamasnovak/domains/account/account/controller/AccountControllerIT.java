@@ -1,9 +1,9 @@
 package net.tamasnovak.domains.account.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.tamasnovak.domains.account.account.models.dtoRequests.LoginRequestDto;
-import net.tamasnovak.domains.account.account.models.dtoResponses.ClientAuthContextDto;
-import net.tamasnovak.domains.account.account.models.dtoResponses.LoginReturnDto;
+import net.tamasnovak.domains.account.account.dto.LoginRequest;
+import net.tamasnovak.domains.account.account.dto.ClientAuthContext;
+import net.tamasnovak.domains.account.account.dto.LoginResponse;
 import net.tamasnovak.domains.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.junit.jupiter.api.AfterEach;
@@ -54,12 +54,12 @@ class AccountControllerIT {
       User userDetails = new User("test@user.net", "hashedPassword", Collections.emptyList());
       Mockito.when(authenticationFacade.getUserContext()).thenReturn(userDetails);
 
-      ClientAuthContextDto clientAuthContextDto = new ClientAuthContextDto(
+      ClientAuthContext clientAuthContext = new ClientAuthContext(
         "test@user.net",
         "Student",
         "ROLE_STUDENT"
       );
-      Mockito.when(accountService.getClientAuthContextDto(userDetails.getUsername())).thenReturn(clientAuthContextDto);
+      Mockito.when(accountService.getClientAuthContextDto(userDetails.getUsername())).thenReturn(clientAuthContext);
 
       mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts/me"))
         .andExpect(MockMvcResultMatchers.status().isOk());
@@ -72,7 +72,7 @@ class AccountControllerIT {
     @Test
     @Description("Returns HttpStatus.OK status and LoginReturnDto if no exceptions were thrown.")
     public void shouldReturnHttpStatusOkAndLoginReturnDto_IfNoExceptionsWereThrown() throws Exception {
-      LoginRequestDto requestBody = new LoginRequestDto(
+      LoginRequest requestBody = new LoginRequest(
         "test@user.net",
         "hashedPassword"
       );
@@ -84,8 +84,8 @@ class AccountControllerIT {
       );
       Mockito.when(authenticationFacade.authenticateUser(requestBody.email(), requestBody.password())).thenReturn(authentication);
 
-      LoginReturnDto loginReturnDto = Mockito.mock(LoginReturnDto.class);
-      Mockito.when(accountService.getLoginReturnDto(requestBody, authentication)).thenReturn(loginReturnDto);
+      LoginResponse loginResponse = Mockito.mock(LoginResponse.class);
+      Mockito.when(accountService.getLoginReturnDto(requestBody, authentication)).thenReturn(loginResponse);
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts/login")
         .content(objectMapper.writeValueAsString(requestBody))
@@ -96,7 +96,7 @@ class AccountControllerIT {
     @Test
     @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in RequestBody's fields.")
     public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
-      LoginRequestDto requestBody = new LoginRequestDto(
+      LoginRequest requestBody = new LoginRequest(
         "invalid@email",
         ""
       );

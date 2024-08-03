@@ -1,18 +1,19 @@
 package net.tamasnovak.domains.comment.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.domains.account.account.models.entity.Account;
+import net.tamasnovak.domains.account.account.entity.Account;
 import net.tamasnovak.domains.application.application.service.ApplicationService;
-import net.tamasnovak.domains.application.shared.models.entity.Application;
-import net.tamasnovak.domains.comment.models.dtoRequests.NewCommentDto;
-import net.tamasnovak.domains.comment.models.dtoResponses.CommentDto;
-import net.tamasnovak.domains.comment.models.dtoResponses.CommentsMetaDto;
-import net.tamasnovak.domains.comment.models.entity.Comment;
+import net.tamasnovak.domains.application.shared.entity.Application;
+import net.tamasnovak.domains.comment.dto.NewComment;
+import net.tamasnovak.domains.comment.dto.CommentDetails;
+import net.tamasnovak.domains.comment.dto.CommentsPagination;
+import net.tamasnovak.domains.comment.entity.Comment;
 import net.tamasnovak.domains.comment.persistence.CommentRepository;
 import net.tamasnovak.domains.comment.persistence.CommentView;
 import net.tamasnovak.domains.shared.constants.GlobalServiceConstants;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Qualifier(value = "CommentService")
 public class CommentServiceImpl implements CommentService {
   private final AuthenticationFacade authenticationFacade;
   private final CommentRepository commentRepository;
@@ -40,33 +42,34 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional(readOnly = true)
-  public CommentsMetaDto getAllCommentDtosByApplicationUuid(String applicationUuid, int page) {
-    Pageable pageable = PageRequest.of(page, 5);
-    Page<CommentView> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(UUID.fromString(applicationUuid), pageable);
+  public CommentsPagination getAllCommentResponsesByApplicationUuid(final String applicationUuid,
+                                                                    final int page) {
+    final Pageable pageable = PageRequest.of(page, 5);
+    final Page<CommentView> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(UUID.fromString(applicationUuid), pageable);
 
-    List<CommentDto> comments = commentViews.stream()
-      .map(CommentDto::new)
+    final List<CommentDetails> comments = commentViews.stream()
+      .map(CommentDetails::new)
       .collect(Collectors.toList());
 
-    return new CommentsMetaDto(commentViews.getTotalPages(), commentViews.getNumber(), commentViews.getTotalElements(), comments);
+    return new CommentsPagination(commentViews.getTotalPages(), commentViews.getNumber(), commentViews.getTotalElements(), comments);
   }
 
   @Override
   @Transactional(readOnly = true)
-  public CommentDto getCommentDtoByUuid(String uuid) {
-    CommentView commentView = commentRepository.findCommentViewByUuid(UUID.fromString(uuid))
+  public CommentDetails getCommentDtoByUuid(final String uuid) {
+    final CommentView commentView = commentRepository.findCommentViewByUuid(UUID.fromString(uuid))
       .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
 
-    return new CommentDto(commentView);
+    return new CommentDetails(commentView);
   }
 
   @Override
   @Transactional
-  public void postCommentByApplicationUuid(String applicationUuid, NewCommentDto requestBody) {
-    Account authAccount = authenticationFacade.getAuthenticatedAccount();
-    Application relatedApplication = applicationService.getByUuid(applicationUuid);
+  public void postCommentByApplicationUuid(final String applicationUuid, final NewComment requestBody) {
+    final Account authAccount = authenticationFacade.getAuthenticatedAccount();
+    final Application relatedApplication = applicationService.getByUuid(applicationUuid);
 
-    Comment newComment = Comment.createComment(
+    final Comment newComment = Comment.createComment(
       relatedApplication,
       authAccount,
       requestBody.commentContent()

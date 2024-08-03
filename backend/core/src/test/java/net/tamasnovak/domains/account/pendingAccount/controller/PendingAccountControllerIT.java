@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.account.pendingAccount.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.tamasnovak.domains.account.pendingAccount.models.dtoRequests.PendingAccountRegistrationDto;
+import net.tamasnovak.domains.account.pendingAccount.dto.PendingAccountRegistration;
 import net.tamasnovak.domains.account.pendingAccount.persistence.PendingAccountRepository;
 import net.tamasnovak.domains.account.pendingAccount.service.PendingAccountService;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +42,7 @@ class PendingAccountControllerIT {
     @Test
     @Description("HttpStatus.CREATED status is correctly asserted if no exceptions were thrown.")
     public void shouldReturnHttpStatusCreated_IfNoExceptionsWereThrown() throws Exception {
-      PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
+      PendingAccountRegistration requestBody = new PendingAccountRegistration(
         "Student",
         "Test User",
         "student@test.net",
@@ -59,7 +59,7 @@ class PendingAccountControllerIT {
     @Test
     @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in requestBody's fields.")
     public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
-      PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
+      PendingAccountRegistration requestBody = new PendingAccountRegistration(
         "1nv4l1d Student",
         "",
         "invalid@email",

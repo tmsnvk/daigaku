@@ -1,7 +1,7 @@
 package net.tamasnovak.domains.account.pendingAccount.controller;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.domains.account.pendingAccount.models.dtoRequests.PendingAccountRegistrationDto;
+import net.tamasnovak.domains.account.pendingAccount.dto.PendingAccountRegistration;
 import net.tamasnovak.domains.account.pendingAccount.service.PendingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class PendingAccountController {
   }
 
   @PostMapping(value = "/register")
-  public ResponseEntity<HttpStatus> register(@Valid @RequestBody PendingAccountRegistrationDto requestBody) {
+  public ResponseEntity<HttpStatus> register(@Valid @RequestBody final PendingAccountRegistration requestBody) {
     pendingAccountService.create(requestBody);
 
     return ResponseEntity

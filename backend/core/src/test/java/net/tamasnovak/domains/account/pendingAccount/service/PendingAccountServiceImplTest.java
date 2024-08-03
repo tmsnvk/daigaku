@@ -2,12 +2,12 @@ package net.tamasnovak.domains.account.pendingAccount.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.domains.account.account.service.AccountService;
-import net.tamasnovak.domains.account.pendingAccount.models.dtoRequests.PendingAccountRegistrationDto;
-import net.tamasnovak.domains.account.pendingAccount.models.entity.PendingAccount;
+import net.tamasnovak.domains.account.pendingAccount.dto.PendingAccountRegistration;
+import net.tamasnovak.domains.account.pendingAccount.entity.PendingAccount;
 import net.tamasnovak.domains.account.pendingAccount.persistence.PendingAccountRepository;
-import net.tamasnovak.domains.role.models.entity.Role;
+import net.tamasnovak.domains.role.entity.Role;
 import net.tamasnovak.domains.role.service.RoleService;
-import net.tamasnovak.domains.support.institution.models.entity.Institution;
+import net.tamasnovak.domains.support.institution.entity.Institution;
 import net.tamasnovak.domains.support.institution.service.InstitutionService;
 import net.tamasnovak.rabbitmq.service.QueueSender;
 import org.junit.jupiter.api.DisplayName;
@@ -50,7 +50,7 @@ class PendingAccountServiceImplTest {
   private PendingAccountRepository pendingAccountRepository;
 
   @Mock
-  private PendingAccountConstants pendingAccountConstants;
+  private PendingAccountServiceConstants pendingAccountServiceConstants;
 
   @InjectMocks
   private PendingAccountServiceImpl underTest;
@@ -85,7 +85,7 @@ class PendingAccountServiceImplTest {
   @Nested
   @DisplayName("create() unit tests")
   class CreateUnitTests {
-    PendingAccountRegistrationDto invalidRequestBody = new PendingAccountRegistrationDto(
+    PendingAccountRegistration invalidRequestBody = new PendingAccountRegistration(
       "Student",
       "Test User",
       notExpectedValidEmail,
@@ -96,7 +96,7 @@ class PendingAccountServiceImplTest {
     @Test
     @Description("Saves a PendingAccount record with Student role and returns void.")
     void shouldSavePendingAccount_andReturnVoid() {
-      PendingAccountRegistrationDto requestBody = new PendingAccountRegistrationDto(
+      PendingAccountRegistration requestBody = new PendingAccountRegistration(
         "Student",
         "Test User",
         expectedValidEmail,

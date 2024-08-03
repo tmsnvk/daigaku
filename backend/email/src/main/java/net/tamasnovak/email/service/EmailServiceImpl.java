@@ -12,6 +12,8 @@ import net.tamasnovak.email.constants.templates.PdfRequestEmailTemplates;
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSenderRabbitConfig;
 import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
 import net.tamasnovak.rabbitmq.models.emailQueue.StudentPdfRequestQueueDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +27,7 @@ import java.util.Properties;
 
 @Service
 public class EmailServiceImpl implements EmailService {
+	private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
 	@Value("${spring.mail.username}")
 	private String sender;
 

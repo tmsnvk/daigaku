@@ -1,24 +1,24 @@
 package net.tamasnovak.domains.application.studentApplication.service;
 
-import net.tamasnovak.domains.account.account.models.entity.Account;
-import net.tamasnovak.domains.application.shared.models.dtoResponses.ApplicationDto;
-import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.NewApplicationByStudentDto;
-import net.tamasnovak.domains.application.studentApplication.models.dtoRequests.UpdateApplicationByStudentDto;
-import net.tamasnovak.domains.application.studentApplication.models.dtoResponses.StudentDashboardDataDto;
+import net.tamasnovak.domains.account.account.entity.Account;
+import net.tamasnovak.domains.application.shared.dto.ApplicationData;
+import net.tamasnovak.domains.application.studentApplication.dto.NewApplicationByStudent;
+import net.tamasnovak.domains.application.studentApplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.domains.application.studentApplication.dto.StudentDashboardData;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface StudentApplicationService {
-  List<ApplicationDto> getAllApplicationDtosByAccountUuid(UUID authAccountUuid);
+  List<ApplicationData> getAllApplicationResponsesByAccountUuid(UUID authAccountUuid);
 
   void toggleIsRemovableByApplicationUuid(String uuid);
 
-  StudentDashboardDataDto getAggregateDataByAccount(Account account);
+  StudentDashboardData getAggregateDataByAccount(Account account);
 
-  ApplicationDto create(Account account, NewApplicationByStudentDto requestBody);
+  ApplicationData create(Account account, NewApplicationByStudent requestBody);
 
-  ApplicationDto updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudentDto requestBody, Account account);
+  ApplicationData updateAndRetrieveByUuid(String uuid, UpdateApplicationByStudent requestBody, Account account);
 
   void onApplicationDownloadRequest(UUID authAccountUuid);
 }

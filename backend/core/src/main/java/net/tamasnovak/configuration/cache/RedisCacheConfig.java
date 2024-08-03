@@ -22,7 +22,7 @@ public class RedisCacheConfig {
       .withCacheConfiguration("DashboardAggregateDataDtoByAccountUuid", defaultCacheConfiguration(Duration.ofMinutes(15)));
   }
 
-  private RedisCacheConfiguration defaultCacheConfiguration(Duration duration) {
+  private RedisCacheConfiguration defaultCacheConfiguration(final Duration duration) {
     return RedisCacheConfiguration.defaultCacheConfig()
       .entryTtl(duration)
       .disableCachingNullValues()
