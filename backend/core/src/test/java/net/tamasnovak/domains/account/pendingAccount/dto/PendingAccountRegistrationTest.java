@@ -3,7 +3,6 @@ package net.tamasnovak.domains.account.pendingAccount.dto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import net.tamasnovak.domains.account.pendingAccount.dto.PendingAccountRegistration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
