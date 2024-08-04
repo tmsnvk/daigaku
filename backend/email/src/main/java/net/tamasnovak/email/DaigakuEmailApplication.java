@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableRabbit
-public class EmailModuleApplication {
+public class DaigakuEmailApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(EmailModuleApplication.class, args);
+		SpringApplication.run(DaigakuEmailApplication.class, args);
 	}
 }

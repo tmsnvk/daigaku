@@ -1,4 +1,4 @@
-package net.tamasnovak.email.constants.templates;
+package net.tamasnovak.email.template;
 
 import org.springframework.stereotype.Component;
 

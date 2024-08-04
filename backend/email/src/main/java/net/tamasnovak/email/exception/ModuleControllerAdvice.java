@@ -1,4 +1,4 @@
-package net.tamasnovak.email.exceptions;
+package net.tamasnovak.email.exception;
 
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import java.util.Map;
 public class ModuleControllerAdvice {
 	@ExceptionHandler(value = { MailSendException.class, MessagingException.class })
 	public ResponseEntity<Map<String, String>> onEmailSendingException(Exception exception) {
-		Map<String, String> response = createErrorResponse(exception.getMessage());
+		final Map<String, String> response = createErrorResponse(exception.getMessage());
 
 		return ResponseEntity
 			.status(HttpStatus.INTERNAL_SERVER_ERROR)

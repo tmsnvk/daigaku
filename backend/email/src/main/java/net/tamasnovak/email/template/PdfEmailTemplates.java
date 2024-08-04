@@ -1,11 +1,11 @@
-package net.tamasnovak.email.constants.templates;
+package net.tamasnovak.email.template;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class PdfRequestEmailTemplates {
-	public final String STUDENT_PDF_REQUEST_SUBJECT = "Your application summary is ready for download!";
-	public final String STUDENT_PDF_REQUEST_BODY = """
+public class PdfEmailTemplates {
+	public final String STUDENT_PDF_SUBJECT = "Your application summary is ready for download!";
+	public final String STUDENT_PDF_BODY = """
     <main>
       <h1>Dear %s,</h1>
       <p>You have submitted a request to download your application data. You may download the file at the following link:</p>
@@ -16,5 +16,5 @@ public class PdfRequestEmailTemplates {
     </main>
   """;
 
-	private PdfRequestEmailTemplates() {}
+	private PdfEmailTemplates() {}
 }
