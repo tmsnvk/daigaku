@@ -81,7 +81,7 @@ services:
   backend-email:
     image: daigaku-email-image
     container_name: daigaku-email-container
-    build: 
+    build:
       context: ./backend/email
       dockerfile: Dockerfile
     environment:

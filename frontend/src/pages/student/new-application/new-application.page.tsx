@@ -1,16 +1,15 @@
 import { useState } from 'react';
 
 import {
-  CountryOptions,
   useGetCountryOptions,
-} from '@hooks/country/use-get-country-options';
-import {
-  UniversityOptionsByCountryUuid,
   useGetUniversityOptionsByCountryUuid,
-} from '@hooks/university/use-get-university-options-by-country-uuid';
+} from '@hooks/index';
 
 import { GlobalErrorModal } from '@components/notification';
 import { NewApplicationForm } from './components';
+
+import { CountryOptions } from '@hooks/country/use-get-country-options';
+import { UniversityOptionsByCountryUuid } from '@hooks/university/use-get-university-options-by-country-uuid';
 
 const NewApplication = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);

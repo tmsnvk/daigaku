@@ -11,9 +11,11 @@ import { CountryOption } from '@services/support/country.service';
 
 export type CountryOptions = UseQueryResult<Array<CountryOption>, Error>;
 
-export const useGetCountryOptions = (): CountryOptions => {
+const useGetCountryOptions = (): CountryOptions => {
   return useQuery({
     queryKey: [queryKeys.COUNTRY.GET_AS_SELECT_OPTIONS],
     queryFn: () => countryService.getAllSelectOptions(),
   });
 };
+
+export default useGetCountryOptions;

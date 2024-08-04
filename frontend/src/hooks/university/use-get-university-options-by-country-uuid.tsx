@@ -16,7 +16,7 @@ interface UniversityOptionsByCountryUuidHookParams {
 
 export type UniversityOptionsByCountryUuid = UseQueryResult<Array<UniversityOption>, Error>;
 
-export const useGetUniversityOptionsByCountryUuid = ({
+const useGetUniversityOptionsByCountryUuid = ({
   isCountryFieldSelected,
   selectedCountryUuid,
 }: UniversityOptionsByCountryUuidHookParams): UniversityOptionsByCountryUuid => {
@@ -26,3 +26,5 @@ export const useGetUniversityOptionsByCountryUuid = ({
     enabled: isCountryFieldSelected,
   });
 };
+
+export default useGetUniversityOptionsByCountryUuid;
