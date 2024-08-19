@@ -1,18 +1,18 @@
 package net.tamasnovak.validation.applicationFieldValidator;
 
-import net.tamasnovak.artifact.accountRole.student.entity.Student;
-import net.tamasnovak.artifact.application.shared.entity.Application;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.applicationstages.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstages.applicationstatus.service.ApplicationStatusService;
-import net.tamasnovak.artifact.applicationstages.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstages.finaldestinationstatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstages.interviewstatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstages.interviewstatus.service.InterviewStatusService;
-import net.tamasnovak.artifact.applicationstages.offerstatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstages.offerstatus.service.OfferStatusService;
-import net.tamasnovak.artifact.applicationstages.responsestatus.entity.ResponseStatus;
-import net.tamasnovak.artifact.applicationstages.responsestatus.service.ResponseStatusService;
+import net.tamasnovak.domain.accountRole.student.entity.Student;
+import net.tamasnovak.domain.application.shared.entity.Application;
+import net.tamasnovak.domain.application.studentApplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.domain.applicationStages.applicationStatus.entity.ApplicationStatus;
+import net.tamasnovak.domain.applicationStages.applicationStatus.service.ApplicationStatusService;
+import net.tamasnovak.domain.applicationStages.finalDestinationStatus.entity.FinalDestinationStatus;
+import net.tamasnovak.domain.applicationStages.finalDestinationStatus.service.FinalDestinationStatusService;
+import net.tamasnovak.domain.applicationStages.interviewStatus.entity.InterviewStatus;
+import net.tamasnovak.domain.applicationStages.interviewStatus.service.InterviewStatusService;
+import net.tamasnovak.domain.applicationStages.offerStatus.entity.OfferStatus;
+import net.tamasnovak.domain.applicationStages.offerStatus.service.OfferStatusService;
+import net.tamasnovak.domain.applicationStages.responseStatus.entity.ResponseStatus;
+import net.tamasnovak.domain.applicationStages.responseStatus.service.ResponseStatusService;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationType;
 import net.tamasnovak.enums.status.InterviewStatusType;
@@ -60,9 +60,9 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   private void validateApplicationStatus(Application currentApplication,
-                                         UUID newApplicationStatusUUid,
+                                         String newApplicationStatusUUid,
                                          ApplicationStatus newApplicationStatus) {
-    if (newApplicationStatusUUid.toString().isEmpty() && currentApplication.isApplicationStatusNull()) {
+    if (newApplicationStatusUUid.isEmpty() && currentApplication.isApplicationStatusNull()) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
     }
 
@@ -87,13 +87,13 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     InterviewStatus notInvited = interviewStatusService.getByName(InterviewStatusType.NOT_INVITED.getName());
 
     if (newInterviewStatus != null) {
-      if (areValuesEqual(newInterviewStatus.getUuid(), notInvited.getUuid()) && (!newApplicationData.offerStatusUuid().toString().isEmpty() || !newApplicationData.responseStatusUuid().toString().isEmpty() || !newApplicationData.finalDestinationStatusUuid().toString().isEmpty())) {
+      if (areValuesEqual(newInterviewStatus.getUuid(), notInvited.getUuid()) && (!newApplicationData.offerStatusUuid().isEmpty() || !newApplicationData.responseStatusUuid().isEmpty() || !newApplicationData.finalDestinationStatusUuid().isEmpty())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
     }
 
     if (!currentApplication.isInterviewStatusNull()) {
-      if (areValuesEqual(currentApplication.getInterviewStatusUuid(), notInvited.getUuid()) && newApplicationData.interviewStatusUuid().toString().isEmpty()) {
+      if (areValuesEqual(currentApplication.getInterviewStatusUuid(), notInvited.getUuid()) && newApplicationData.interviewStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.NOT_INVITED_ERROR);
       }
     }
@@ -105,13 +105,13 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     OfferStatus rejected = offerStatusService.getByName(OfferStatusType.REJECTED.getName());
 
     if (newOfferStatus != null) {
-      if (areValuesEqual(newOfferStatus.getUuid(), rejected.getUuid()) && (!newApplicationData.responseStatusUuid().toString().isEmpty() || !newApplicationData.finalDestinationStatusUuid().toString().isEmpty())) {
+      if (areValuesEqual(newOfferStatus.getUuid(), rejected.getUuid()) && (!newApplicationData.responseStatusUuid().isEmpty() || !newApplicationData.finalDestinationStatusUuid().isEmpty())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
       }
     }
 
     if (!currentApplication.isOfferStatusNull()) {
-      if (areValuesEqual(currentApplication.getOfferStatusUuid(), rejected.getUuid()) && newApplicationData.offerStatusUuid().toString().isEmpty()) {
+      if (areValuesEqual(currentApplication.getOfferStatusUuid(), rejected.getUuid()) && newApplicationData.offerStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.REJECTED_ERROR);
       }
     }
@@ -133,7 +133,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     }
 
     if (!currentApplication.isResponseStatusNull()) {
-      if (areValuesEqual(currentApplication.getResponseStatusUuid(), declined.getUuid()) && newApplicationData.responseStatusUuid().toString().isEmpty()) {
+      if (areValuesEqual(currentApplication.getResponseStatusUuid(), declined.getUuid()) && newApplicationData.responseStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.DECLINED_ERROR);
       }
     }

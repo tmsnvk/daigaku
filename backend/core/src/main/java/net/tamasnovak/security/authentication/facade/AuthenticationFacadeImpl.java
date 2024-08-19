@@ -1,7 +1,7 @@
 package net.tamasnovak.security.authentication.facade;
 
-import net.tamasnovak.artifact.account.account.entity.Account;
-import net.tamasnovak.artifact.account.account.service.AccountService;
+import net.tamasnovak.domain.account.account.entity.Account;
+import net.tamasnovak.domain.account.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
