@@ -80,7 +80,8 @@ public class StudentApplicationController {
   @PatchMapping(
     value = "/update-is-removable/{uuid}")
   public ResponseEntity<HttpStatus> toggleIsRemovable(@PathVariable("uuid") @ValidUuid final String uuid) {
-    studentApplicationService.toggleIsRemovableByApplicationUuid(UUID.fromString(uuid));
+    UUID accountUuid = authenticationFacade.getAuthenticatedAccountUuid();
+    studentApplicationService.toggleIsRemovableByApplicationUuid(UUID.fromString(uuid), accountUuid);
 
     return ResponseEntity
       .status(HttpStatus.OK)

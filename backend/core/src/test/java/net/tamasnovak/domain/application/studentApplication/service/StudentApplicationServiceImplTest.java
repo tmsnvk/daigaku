@@ -142,13 +142,13 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.toggleIsRemovableByApplicationUuid(null));
+      assertThrows(IllegalArgumentException.class, () -> underTest.toggleIsRemovableByApplicationUuid(null, null));
     }
 
     @Test
     @Description("Throws NullPointerException if UUID string is null.")
     void shouldThrowNullPointerException_IfUuidStringIsNull() {
-      assertThrows(NullPointerException.class, () -> underTest.toggleIsRemovableByApplicationUuid(null));
+      assertThrows(NullPointerException.class, () -> underTest.toggleIsRemovableByApplicationUuid(null, null));
     }
   }
 
