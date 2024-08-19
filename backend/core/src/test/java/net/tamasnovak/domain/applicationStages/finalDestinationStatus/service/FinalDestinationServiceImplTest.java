@@ -49,7 +49,7 @@ class FinalDestinationServiceImplTest {
 		void shouldReturnFinalDestinationStatusRecord() {
 			when(finalDestinationStatusRepository.findByUuid(finalDestinationUuid)).thenReturn(Optional.of(expected));
 
-			FinalDestinationStatus actual = underTest.getByUuid(finalDestinationUuid.toString());
+			FinalDestinationStatus actual = underTest.getByUuid(finalDestinationUuid);
 
 			assertEquals(expected, actual);
 
@@ -61,7 +61,7 @@ class FinalDestinationServiceImplTest {
 		void shouldThrowEntityNotFoundException_IfFinalDestinationStatusIsNotFound() {
 			when(finalDestinationStatusRepository.findByUuid(finalDestinationUuid)).thenReturn(Optional.empty());
 
-			assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(finalDestinationUuid.toString()));
+			assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(finalDestinationUuid));
 
 			verify(finalDestinationStatusRepository, times(1)).findByUuid(finalDestinationUuid);
 		}

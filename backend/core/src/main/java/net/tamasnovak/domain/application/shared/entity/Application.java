@@ -187,40 +187,40 @@ public final class Application extends Auditable {
     return this.finalDestinationStatus.getName();
   }
 
-  public ApplicationStatus returnApplicationStatusIfSame(final String requestBodyUuidString) {
-    if (!this.isApplicationStatusNull() && areValuesEqual(this.applicationStatus.getUuid().toString(), requestBodyUuidString)) {
+  public ApplicationStatus returnApplicationStatusIfSame(final UUID statusUuid) {
+    if (!this.isApplicationStatusNull() && areValuesEqual(this.applicationStatus.getUuid(), statusUuid)) {
       return this.applicationStatus;
     }
 
     return null;
   }
 
-  public InterviewStatus returnInterviewStatusIfSame(final String requestBodyUuidString) {
-    if (!this.isInterviewStatusNull() && areValuesEqual(this.interviewStatus.getUuid().toString(), requestBodyUuidString)) {
+  public InterviewStatus returnInterviewStatusIfSame(final UUID statusUuid) {
+    if (!this.isInterviewStatusNull() && areValuesEqual(this.interviewStatus.getUuid(), statusUuid)) {
       return this.interviewStatus;
     }
 
     return null;
   }
 
-  public OfferStatus returnOfferStatusIfSame(final String requestBodyUuidString) {
-    if (!this.isOfferStatusNull() && areValuesEqual(this.offerStatus.getUuid().toString(), requestBodyUuidString)) {
+  public OfferStatus returnOfferStatusIfSame(final UUID statusUuid) {
+    if (!this.isOfferStatusNull() && areValuesEqual(this.offerStatus.getUuid(), statusUuid)) {
       return this.offerStatus;
     }
 
     return null;
   }
 
-  public ResponseStatus returnResponseStatusIfSame(final String requestBodyUuidString) {
-    if (!this.isResponseStatusNull() && areValuesEqual(this.responseStatus.getUuid().toString(), requestBodyUuidString)) {
+  public ResponseStatus returnResponseStatusIfSame(final UUID statusUuid) {
+    if (!this.isResponseStatusNull() && areValuesEqual(this.responseStatus.getUuid(), statusUuid)) {
       return this.responseStatus;
     }
 
     return null;
   }
 
-  public FinalDestinationStatus returnFinalDestinationStatusIfSame(final String requestBodyUuidString) {
-    if (!this.isFinalDestinationNull() && areValuesEqual(this.finalDestinationStatus.getUuid().toString(), requestBodyUuidString)) {
+  public FinalDestinationStatus returnFinalDestinationStatusIfSame(final UUID statusUuid) {
+    if (!this.isFinalDestinationNull() && areValuesEqual(this.finalDestinationStatus.getUuid(), statusUuid)) {
       return this.finalDestinationStatus;
     }
 
@@ -263,5 +263,9 @@ public final class Application extends Auditable {
 
   private boolean areValuesEqual(final String string, final String stringToCheckAgainst) {
     return Objects.equals(string, stringToCheckAgainst);
+  }
+
+  private boolean areValuesEqual(final UUID uuid, final UUID uuidToCheckAgainst) {
+    return Objects.equals(uuid, uuidToCheckAgainst);
   }
 }

@@ -41,42 +41,38 @@ public class StudentPdfServiceImpl implements StudentPdfService {
   @Override
   @Transactional
   @RabbitListener(queues = { PdfRequestRabbitConfig.STUDENT_PDF_SAVE_QUEUE_KEY })
-  public void onStudentPdfRequest(StudentPdfRequestDataQueueDto queueDto) {
+  public void onStudentPdfRequest(final StudentPdfRequestDataQueueDto queueDto) {
     try {
-      StringBuilder studentData = compileStudentData(queueDto);
-      StringBuilder applicationData = compileStudentApplicationsData(queueDto);
-
-      LocalDateTime now = LocalDateTime.now();
-
-      String htmlSource = String.format(studentApplicationsConstants.STUDENT_REQUEST_MAIN_TEMPLATE,
+      final StringBuilder studentData = compileStudentData(queueDto);
+      final StringBuilder applicationData = compileStudentApplicationsData(queueDto);
+      final LocalDateTime now = LocalDateTime.now();
+      final String htmlSource = String.format(
+        studentApplicationsConstants.STUDENT_REQUEST_MAIN_TEMPLATE,
         now.toLocalDate(),
         now.toLocalTime(),
         studentData,
-        applicationData
-      );
+        applicationData);
+      final File file = new File(String.format("%s.pdf", queueDto.authAccountUuid()));
 
-      File file = new File(String.format("%s.pdf", queueDto.authAccountUuid()));
       HtmlConverter.convertToPdf(htmlSource, new FileOutputStream(file));
-
       s3Service.uploadFileToS3Bucket(file.toString(), file);
-
       file.delete();
 
-      StudentPdfRequestQueueDto pdfRequestQueueDto = new StudentPdfRequestQueueDto(
+      final StudentPdfRequestQueueDto pdfRequestQueueDto = new StudentPdfRequestQueueDto(
         queueDto.studentAccount().fullName(),
         queueDto.studentAccount().email(),
-        endpointUrlRoot + String.format("%s.pdf", queueDto.authAccountUuid())
-      );
-
-      queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.EMAIL_STUDENT_PDF_SAVE_ROUTING_KEY, pdfRequestQueueDto);
+        endpointUrlRoot + String.format("%s.pdf", queueDto.authAccountUuid()));
+      queueSender.send(
+        EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY,
+        EmailSenderRabbitConfig.EMAIL_STUDENT_PDF_SAVE_ROUTING_KEY,
+        pdfRequestQueueDto);
     } catch (IOException exception) {
       throw new IllegalStateException(pdfServiceConstants.PDF_ERROR);
     }
   }
 
-  private StringBuilder compileStudentData(StudentPdfRequestDataQueueDto queueDto) {
-    StringBuilder data = new StringBuilder();
-
+  private StringBuilder compileStudentData(final StudentPdfRequestDataQueueDto queueDto) {
+    final StringBuilder data = new StringBuilder();
     data.append(
       String.format(studentApplicationsConstants.STUDENT_REQUEST_STUDENT_DATA,
         queueDto.studentAccount().fullName(),
@@ -89,7 +85,7 @@ public class StudentPdfServiceImpl implements StudentPdfService {
   }
 
   private StringBuilder compileStudentApplicationsData(StudentPdfRequestDataQueueDto queueDto) {
-    StringBuilder data = new StringBuilder();
+    final StringBuilder data = new StringBuilder();
 
     for (StudentApplicationDto application : queueDto.applications()) {
       data.append(

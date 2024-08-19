@@ -53,7 +53,7 @@ class UniversityServiceImplTest {
     void shouldReturnUniversityRecord() {
       when(universityRepository.findByUuid(universityUuid)).thenReturn(Optional.of(expected));
 
-      University actual = underTest.getByUuid(universityUuid.toString());
+      University actual = underTest.getByUuid(universityUuid);
 
       assertEquals(expected, actual);
 
@@ -65,7 +65,7 @@ class UniversityServiceImplTest {
     void shouldThrowEntityNotFoundException_IfUniversityIsNotFound() {
       when(universityRepository.findByUuid(universityUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(universityUuid.toString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(universityUuid));
 
       verify(universityRepository, times(1)).findByUuid(universityUuid);
     }
@@ -81,14 +81,14 @@ class UniversityServiceImplTest {
       when(mockCountry.getUuid()).thenReturn(UUID.randomUUID());
       List<UniversitySelectOption> expected = Collections.singletonList(mock(UniversitySelectOption.class));
 
-      when(countryService.getByUuid(mockCountry.getUuid().toString())).thenReturn(mockCountry);
+      when(countryService.getByUuid(mockCountry.getUuid())).thenReturn(mockCountry);
       when(universityRepository.findByCountryOrderByNameAsc(mockCountry)).thenReturn(expected);
 
-      List<UniversitySelectOption> actual = underTest.getAllSelectOptionsByCountryUuid(mockCountry.getUuid().toString());
+      List<UniversitySelectOption> actual = underTest.getAllSelectOptionsByCountryUuid(mockCountry.getUuid());
 
       assertEquals(expected, actual);
 
-      verify(countryService, times(1)).getByUuid(mockCountry.getUuid().toString());
+      verify(countryService, times(1)).getByUuid(mockCountry.getUuid());
       verify(universityRepository, times(1)).findByCountryOrderByNameAsc(mockCountry);
     }
   }

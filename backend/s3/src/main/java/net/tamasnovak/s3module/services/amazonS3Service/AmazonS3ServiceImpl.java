@@ -32,8 +32,8 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 
   @Override
   @Transactional
-  public void uploadFileToS3Bucket(String filename, File file) {
-    PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+  public void uploadFileToS3Bucket(final String filename, final File file) {
+    final PutObjectRequest putObjectRequest = PutObjectRequest.builder()
       .bucket(bucket)
       .key(filename)
       .build();
@@ -46,13 +46,13 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
   @Transactional
   @Scheduled(cron = "0 0 */1 * * *")
   public void removeOldPdfFiles() {
-    ListObjectsRequest listObjects = ListObjectsRequest
+    final ListObjectsRequest listObjects = ListObjectsRequest
       .builder()
       .bucket(bucket)
       .build();
 
-    ListObjectsResponse response = s3Client.listObjects(listObjects);
-    List<S3Object> objects = response.contents();
+    final ListObjectsResponse response = s3Client.listObjects(listObjects);
+    final List<S3Object> objects = response.contents();
 
     for (S3Object pdfFile : objects) {
       Instant lastModifiedDate = Instant.parse(String.valueOf(pdfFile.lastModified()));
@@ -67,8 +67,8 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
     s3Client.close();
   }
 
-  private void deleteObject(String objectKey) {
-    DeleteObjectRequest request = DeleteObjectRequest.builder()
+  private void deleteObject(final String objectKey) {
+    final DeleteObjectRequest request = DeleteObjectRequest.builder()
       .bucket(bucket)
       .key(objectKey)
       .build();

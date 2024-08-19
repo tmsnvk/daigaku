@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableRabbit
 @EnableScheduling
-public class S3ModuleApplication {
+public class DaigakuS3Application {
 	public static void main(String[] args) {
-		SpringApplication.run(S3ModuleApplication.class, args);
+		SpringApplication.run(DaigakuS3Application.class, args);
 	}
 }

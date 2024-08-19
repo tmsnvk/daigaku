@@ -142,7 +142,7 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.toggleIsRemovableByApplicationUuid("invalidUuid"));
+      assertThrows(IllegalArgumentException.class, () -> underTest.toggleIsRemovableByApplicationUuid(null));
     }
 
     @Test
@@ -190,30 +190,30 @@ class StudentApplicationServiceImplTest {
     void shouldCreateApplication_AndReturnApplicationView() {
       ApplicationData expected = mock(ApplicationData.class);
 
-      when(countryService.getByUuid(requestBody.countryUuid())).thenReturn(mockCountry);
-      when(universityService.getByUuid(requestBody.universityUuid())).thenReturn(mockUniversity);
+      when(countryService.getByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
+      when(universityService.getByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
       when(studentService.getByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.getByName("Planned")).thenReturn(mockApplicationStatus);
 
       when(applicationRepository.save(any(net.tamasnovak.domain.application.shared.entity.Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.getApplicationDtoByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getApplicationDtoByUuid(applicationUuid)).thenReturn(expected);
 
       ApplicationData actual = underTest.create(mockAccount, requestBody);
 
       assertEquals(expected, actual);
 
-      verify(countryService, times(1)).getByUuid(requestBody.countryUuid());
-      verify(universityService, times(1)).getByUuid(requestBody.universityUuid());
+      verify(countryService, times(1)).getByUuid(UUID.fromString(requestBody.countryUuid()));
+      verify(universityService, times(1)).getByUuid(UUID.fromString(requestBody.universityUuid()));
       verify(studentService, times(1)).getByAccount(mockAccount);
       verify(applicationStatusService, times(1)).getByName("Planned");
-      verify(applicationService, times(1)).getApplicationDtoByUuid(applicationUuid.toString());
+      verify(applicationService, times(1)).getApplicationDtoByUuid(applicationUuid);
     }
 
     @Test
     @Description("Propagates exception when countryService throws EntityNotFoundException.")
     void shouldPropagateException_whenCountryServiceThrowsEntityNotFoundException() {
-      when(countryService.getByUuid(requestBody.countryUuid())).thenThrow(new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+      when(countryService.getByUuid(UUID.fromString(requestBody.countryUuid()))).thenThrow(new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.create(mockAccount, requestBody));
 
@@ -230,21 +230,21 @@ class StudentApplicationServiceImplTest {
       UpdateApplicationByStudent requestBody = mock(UpdateApplicationByStudent.class);
       Mentor mockMentor = mock(Mentor.class);
 
-      when(applicationService.getByUuid(applicationUuid.toString())).thenReturn(mockApplication);
+      when(applicationService.getByUuid(applicationUuid)).thenReturn(mockApplication);
       when(studentService.getByAccount(mockAccount)).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
       ApplicationData expected = mock(ApplicationData.class);
 
       when(applicationRepository.save(any(net.tamasnovak.domain.application.shared.entity.Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.getApplicationDtoByUuid(applicationUuid.toString())).thenReturn(expected);
+      when(applicationService.getApplicationDtoByUuid(applicationUuid)).thenReturn(expected);
 
-      ApplicationData actual = underTest.updateAndRetrieveByUuid(applicationUuid.toString(), requestBody, mockAccount);
+      ApplicationData actual = underTest.updateAndRetrieveByUuid(applicationUuid, requestBody, mockAccount);
 
       assertEquals(expected, actual);
 
-      verify(applicationService, times(1)).getByUuid(applicationUuid.toString());
-      verify(applicationService, times(1)).getApplicationDtoByUuid(applicationUuid.toString());
+      verify(applicationService, times(1)).getByUuid(applicationUuid);
+      verify(applicationService, times(1)).getApplicationDtoByUuid(applicationUuid);
     }
   }
 }

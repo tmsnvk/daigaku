@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/universities")
@@ -24,9 +25,11 @@ public class UniversityController {
     this.universityService = universityService;
   }
 
-  @GetMapping(value = "/options/{countryUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(
+    value = "/options/{countryUuid}",
+    produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<UniversitySelectOption>> getSelectOptionsByCountry(@PathVariable("countryUuid") @ValidUuid final String countryUuid) {
-    final List<UniversitySelectOption> response = universityService.getAllSelectOptionsByCountryUuid(countryUuid);
+    final List<UniversitySelectOption> response = universityService.getAllSelectOptionsByCountryUuid(UUID.fromString(countryUuid));
 
     return ResponseEntity
       .status(HttpStatus.OK)

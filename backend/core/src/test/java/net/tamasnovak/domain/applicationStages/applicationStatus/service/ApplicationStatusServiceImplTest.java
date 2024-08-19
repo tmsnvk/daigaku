@@ -75,7 +75,7 @@ class ApplicationStatusServiceImplTest {
     void shouldReturnApplicationStatusRecord() {
       when(applicationStatusRepository.findByUuid(applicationStatusUuid)).thenReturn(Optional.of(expected));
 
-      ApplicationStatus actual = underTest.getByUuid(applicationStatusUuid.toString());
+      ApplicationStatus actual = underTest.getByUuid(applicationStatusUuid);
 
       assertEquals(expected, actual);
 
@@ -87,7 +87,7 @@ class ApplicationStatusServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationStatusIsNotFound() {
       when(applicationStatusRepository.findByUuid(applicationStatusUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(applicationStatusUuid.toString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(applicationStatusUuid));
 
       verify(applicationStatusRepository, times(1)).findByUuid(applicationStatusUuid);
     }

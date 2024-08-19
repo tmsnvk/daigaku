@@ -54,7 +54,7 @@ class ApplicationServiceImplTest {
       net.tamasnovak.domain.application.shared.entity.Application expected = mock(net.tamasnovak.domain.application.shared.entity.Application.class);
       when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.of(expected));
 
-      net.tamasnovak.domain.application.shared.entity.Application actual = underTest.getByUuid(applicationUuid.toString());
+      net.tamasnovak.domain.application.shared.entity.Application actual = underTest.getByUuid(applicationUuid);
 
       assertEquals(expected, actual);
 
@@ -66,7 +66,7 @@ class ApplicationServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationIsNotFound() {
       when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(applicationUuid.toString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getByUuid(applicationUuid));
 
       verify(applicationRepository, times(1)).findByUuid(applicationUuid);
     }
@@ -74,7 +74,7 @@ class ApplicationServiceImplTest {
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.getByUuid("invalidUuid"));
+      assertThrows(IllegalArgumentException.class, () -> underTest.getByUuid(null));
     }
 
     @Test
@@ -105,7 +105,7 @@ class ApplicationServiceImplTest {
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(mockAccount);
       when(applicationRepository.findApplicationRelatedIdsByUuid(applicationUuid)).thenReturn(mock(ApplicationIdsView.class));
 
-      ApplicationData actual = underTest.getApplicationDtoByUuid(applicationUuid.toString());
+      ApplicationData actual = underTest.getApplicationDtoByUuid(applicationUuid);
 
       assertEquals(expected, actual);
 
@@ -119,7 +119,7 @@ class ApplicationServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationViewProjectionIsNotFound() {
       when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.getApplicationDtoByUuid(applicationUuid.toString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.getApplicationDtoByUuid(applicationUuid));
 
       verify(applicationRepository, times(1)).findApplicationViewByUuid(applicationUuid);
     }
@@ -127,7 +127,7 @@ class ApplicationServiceImplTest {
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.getApplicationDtoByUuid("invalidUuid"));
+      assertThrows(IllegalArgumentException.class, () -> underTest.getApplicationDtoByUuid(null));
     }
 
     @Test

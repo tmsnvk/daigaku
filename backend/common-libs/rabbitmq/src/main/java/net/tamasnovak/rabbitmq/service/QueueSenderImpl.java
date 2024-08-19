@@ -13,7 +13,7 @@ public class QueueSenderImpl implements QueueSender {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	public <T> void send(String exchangeKey, String routingKey, T messageDto) {
+	public <T> void send(final String exchangeKey, final String routingKey, final T messageDto) {
 		this.rabbitTemplate.convertAndSend(exchangeKey, routingKey, messageDto);
 	}
 }

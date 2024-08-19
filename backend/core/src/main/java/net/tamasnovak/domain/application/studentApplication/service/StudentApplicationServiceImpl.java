@@ -140,9 +140,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional
   @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
   public ApplicationData create(final Account account,
-                                final NewApplicationByStudent requestBody) {
-    final Country country = countryService.getByUuid(requestBody.countryUuid());
-    final University university = universityService.getByUuid(requestBody.universityUuid());
+                                final NewApplicationByStudent body) {
+    final Country country = countryService.getByUuid(UUID.fromString(body.countryUuid()));
+    final University university = universityService.getByUuid(UUID.fromString(body.universityUuid()));
     country.verifyUniversityCountryLink(university, studentApplicationServiceConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     final Student student = studentService.getByAccount(account);
@@ -151,9 +151,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       student,
       country,
       university,
-      requestBody.courseName(),
-      requestBody.minorSubject(),
-      requestBody.programmeLength(),
+      body.courseName(),
+      body.minorSubject(),
+      body.programmeLength(),
       plannedApplicationStatus
     );
     final net.tamasnovak.domain.application.shared.entity.Application savedApplication = applicationRepository.save(newApplication);
@@ -166,7 +166,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Caching(evict = {
     @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }"),
     @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }") })
-  public ApplicationData updateAndRetrieveByUuid(final UUID uuid, final UpdateApplicationByStudent requestBody, final Account account) {
+  public ApplicationData updateAndRetrieveByUuid(final UUID uuid, final UpdateApplicationByStudent body, final Account account) {
     final Application currentApplication = applicationService.getByUuid(uuid);
     final Student currentStudent = studentService.getByAccount(account);
     final UUID studentUuidByApplication = currentApplication.getStudentAccountUuid();
@@ -174,27 +174,27 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     account.verifyAuthAccountUuidAgainstAnother(studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
 
     final ApplicationStatus newApplicationStatus = getStatusOnUpdate(
-      requestBody.applicationStatusUuid(),
+      body.applicationStatusUuid(),
       currentApplication::returnApplicationStatusIfSame,
       applicationStatusService::getByUuid);
     final InterviewStatus newInterviewStatus = getStatusOnUpdate(
-      requestBody.interviewStatusUuid(),
+      body.interviewStatusUuid(),
       currentApplication::returnInterviewStatusIfSame,
       interviewStatusService::getByUuid);
     final OfferStatus newOfferStatus = getStatusOnUpdate(
-      requestBody.offerStatusUuid(),
+      body.offerStatusUuid(),
       currentApplication::returnOfferStatusIfSame,
       offerStatusService::getByUuid);
     final ResponseStatus newResponseStatus = getStatusOnUpdate(
-      requestBody.responseStatusUuid(),
+      body.responseStatusUuid(),
       currentApplication::returnResponseStatusIfSame,
       responseStatusService::getByUuid);
     final FinalDestinationStatus newFinalDestinationStatus = getStatusOnUpdate(
-      requestBody.finalDestinationStatusUuid(),
+      body.finalDestinationStatusUuid(),
       currentApplication::returnFinalDestinationStatusIfSame,
       finalDestinationStatusService::getByUuid);
 
-    existingApplicationValidator.validateStatusFields(requestBody, currentApplication, currentStudent, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
+    existingApplicationValidator.validateStatusFields(body, currentApplication, currentStudent, newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
     final ResponseStatus offerDeclinedStatus = responseStatusService.getByName(ResponseStatusType.OFFER_DECLINED.getName());
     final FinalDestinationStatus notFinalDestinationStatus = finalDestinationStatusService.getByName(FinalDestinationType.NOT_FINAL_DESTINATION.getName());
@@ -205,12 +205,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     return applicationService.getApplicationDtoByUuid(currentApplication.getUuid());
   }
 
-  private <T extends BaseStatusEntity> T getStatusOnUpdate(final String requestBodyStatusUuid,
-                                                           final Function<String, T> checkIfStatusIsSameFn,
-                                                           final Function<String, T> getByUuidFn) {
-    final T statusField = checkIfStatusIsSameFn.apply(requestBodyStatusUuid);
+  private <T extends BaseStatusEntity> T getStatusOnUpdate(final String bodyStatusId,
+                                                           final Function<UUID, T> checkIfStatusIsSameFn,
+                                                           final Function<UUID, T> getByUuidFn) {
+    final T statusField = checkIfStatusIsSameFn.apply(UUID.fromString(bodyStatusId));
 
-    if (!(statusField instanceof ApplicationStatus) && areValuesEqual(requestBodyStatusUuid, "")) {
+    if (!(statusField instanceof ApplicationStatus) && areValuesEqual(bodyStatusId, "")) {
       return null;
     }
 
@@ -218,7 +218,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       return statusField;
     }
 
-    return getByUuidFn.apply(requestBodyStatusUuid);
+    return getByUuidFn.apply(UUID.fromString(bodyStatusId));
   }
 
   private boolean areValuesEqual(final String string, final String stringToCheckAgainst) {
