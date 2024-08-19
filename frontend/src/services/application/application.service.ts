@@ -63,7 +63,7 @@ const applicationService = {
   patchByUuidToMarkForDeletion: async (applicationUuid: string): Promise<void> => {
     await axiosConfigWithAuth.request({
       method: 'PATCH',
-      url: `/api/applications/student/update-is-removable/${applicationUuid}`,
+      url: `/api/applications/student/toggle-is-removable/${applicationUuid}`,
     });
   },
   getDashboardData: async (roleResource: string): Promise<DashboardData> => {
