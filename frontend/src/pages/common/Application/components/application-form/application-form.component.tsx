@@ -20,7 +20,7 @@ import {
 } from '@components/general';
 import { DisabledInputField } from '@components/input-implementations';
 import ApplicationMetaData from '../application-meta-data/index';
-import MarkedForDeletion from '../marked-for-deletion/index';
+import IsRemovableButton from '../is-removable-button/index';
 import ActiveSelectField from '../active-select-field/index';
 import { Form } from './application-form.styles';
 
@@ -97,8 +97,8 @@ const ApplicationForm = ({
           lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : currentApplicationData.lastUpdatedAt}
           lastModifiedBy={updatedData?.lastModifiedBy ?? currentApplicationData.lastModifiedBy}
         />
-        <MarkedForDeletion
-          isMarked={updatedData?.isRemovable ?? currentApplicationData.isRemovable}
+        <IsRemovableButton
+          isRemovable={updatedData?.isRemovable ?? currentApplicationData.isRemovable}
           applicationUuid={applicationUuid}
         />
         <InputInfoBox content={formInformation} />
