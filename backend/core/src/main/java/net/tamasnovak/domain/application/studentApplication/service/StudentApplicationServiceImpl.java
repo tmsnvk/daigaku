@@ -107,7 +107,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public void toggleIsRemovableByApplicationUuid(final UUID uuid) {
+  @Caching(evict = {
+    @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #authAccountId }"),
+    @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }") })
+  public void toggleIsRemovableByApplicationUuid(final UUID uuid, final UUID authAccountId) {
     applicationRepository.updateIsRemovableFieldByUuid(uuid);
   }
 

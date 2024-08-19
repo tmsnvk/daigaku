@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface StudentApplicationService {
   List<ApplicationData> getAllApplicationResponsesByAccountUuid(UUID authAccountUuid);
 
-  void toggleIsRemovableByApplicationUuid(UUID uuid);
+  void toggleIsRemovableByApplicationUuid(UUID uuid, UUID authAccountId);
 
   StudentDashboardData getAggregateDataByAccount(Account account);
 
