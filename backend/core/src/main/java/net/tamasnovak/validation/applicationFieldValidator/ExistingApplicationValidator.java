@@ -1,13 +1,13 @@
 package net.tamasnovak.validation.applicationFieldValidator;
 
-import net.tamasnovak.domains.accountRole.student.entity.Student;
-import net.tamasnovak.domains.application.shared.entity.Application;
-import net.tamasnovak.domains.application.studentApplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.domains.applicationStages.applicationStatus.entity.ApplicationStatus;
-import net.tamasnovak.domains.applicationStages.finalDestinationStatus.entity.FinalDestinationStatus;
-import net.tamasnovak.domains.applicationStages.interviewStatus.entity.InterviewStatus;
-import net.tamasnovak.domains.applicationStages.offerStatus.entity.OfferStatus;
-import net.tamasnovak.domains.applicationStages.responseStatus.entity.ResponseStatus;
+import net.tamasnovak.artifact.accountRole.student.entity.Student;
+import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.artifact.applicationstages.applicationstatus.entity.ApplicationStatus;
+import net.tamasnovak.artifact.applicationstages.finaldestinationstatus.entity.FinalDestinationStatus;
+import net.tamasnovak.artifact.applicationstages.interviewstatus.entity.InterviewStatus;
+import net.tamasnovak.artifact.applicationstages.offerstatus.entity.OfferStatus;
+import net.tamasnovak.artifact.applicationstages.responsestatus.entity.ResponseStatus;
 
 @FunctionalInterface
 public interface ExistingApplicationValidator {

@@ -1,7 +1,7 @@
 package net.tamasnovak.security.service;
 
-import net.tamasnovak.domains.account.account.entity.Account;
-import net.tamasnovak.domains.account.account.persistence.AccountRepository;
+import net.tamasnovak.artifact.account.account.entity.Account;
+import net.tamasnovak.artifact.account.account.persistence.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -1,6 +1,6 @@
 package net.tamasnovak.security.authentication.facade;
 
-import net.tamasnovak.domains.account.account.entity.Account;
+import net.tamasnovak.artifact.account.account.entity.Account;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 
