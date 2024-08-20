@@ -7,10 +7,10 @@ export interface UniversityOption {
 }
 
 const universityService = {
-  getOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<Array<UniversityOption>> => {
+  getDropdownOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<Array<UniversityOption>> => {
     const { data } = await axiosConfigWithAuth.request<Array<UniversityOption>>({
       method: 'GET',
-      url: `api/universities/options/${selectedCountryUuid}`,
+      url: `api/v1/universities/options/${selectedCountryUuid}`,
     });
 
     return data;

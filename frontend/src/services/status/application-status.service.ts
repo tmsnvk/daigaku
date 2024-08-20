@@ -9,7 +9,7 @@ const applicationStatusService = {
   getAll: async (): Promise<Array<ApplicationStatus>> => {
     const { data } = await axiosConfigWithAuth.request<Array<ApplicationStatus>>({
       method: 'GET',
-      url: '/api/application-statuses',
+      url: '/api/v1/application-status',
     });
 
     return data;

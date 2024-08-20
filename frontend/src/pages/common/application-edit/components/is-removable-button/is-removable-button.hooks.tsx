@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { applicationService } from '@services/index';
+import applicationStudentService from '@services/application/application-student.service';
 
 import {
   mutationKeys,
@@ -17,7 +17,7 @@ const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean) => 
 
   const mutation = useMutation({
     mutationKey: [mutationKeys.APPLICATION.IS_REMOVABLE],
-    mutationFn: () => applicationService.patchByUuidToMarkForDeletion(applicationUuid),
+    mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
       queryClient.setQueryData<ApplicationData[]>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],

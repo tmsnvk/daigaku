@@ -13,7 +13,7 @@ const accountService = {
   login: async (formData: LoginFormFields): Promise<LoginFormReturnData> => {
     const { data } = await axiosConfig.request<LoginFormReturnData>({
       method: 'POST',
-      url: '/api/accounts/login',
+      url: '/api/v1/accounts/login',
       data: formData,
     });
 
@@ -22,14 +22,14 @@ const accountService = {
   passwordReset: async (data: ForgottenPasswordFormFields): Promise<void> => {
     await axiosConfig.request({
       method: 'POST',
-      url: '/api/accounts/forgotten-password',
+      url: '/api/v1/accounts/forgotten-password',
       data,
     });
   },
   getMe: async (): Promise<LoginFormReturnData> => {
     const { data } = await axiosConfigWithAuth.request<LoginFormReturnData>({
       method: 'GET',
-      url: '/api/accounts/me',
+      url: '/api/v1/accounts/me',
     });
 
     return data;

@@ -9,7 +9,7 @@ const responseStatusService = {
   getAll: async (): Promise<Array<ResponseStatus>> => {
     const { data } = await axiosConfigWithAuth.request<Array<ResponseStatus>>({
       method: 'GET',
-      url: '/api/response-statuses',
+      url: '/api/v1/response-status',
     });
 
     return data;

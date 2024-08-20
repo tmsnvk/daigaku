@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
-import { applicationService } from '@services/index';
+import applicationStudentService from '@services/application/application-student.service';
 
 import {
   mutationKeys,
@@ -22,7 +22,7 @@ import {
   OfferStatusE,
   ResponseStatusE,
 } from '@constants/application-status.enum';
-import { ApplicationData } from '@services/application/application.service';
+import { Application } from '@custom-types/index';
 import { ApplicationStatus } from '@services/status/application-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { OfferStatus } from '@services/status/offer-status.service';
@@ -74,7 +74,7 @@ const useHandleFormSubmission = () => {
   const handleValidation = (formData: UpdateApplicationFormFields, applicationUuid: string) => {
     const errors: string[] = [];
 
-    const applicationsCache = queryClient.getQueryData<ApplicationData[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
+    const applicationsCache = queryClient.getQueryData<Application[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
     const responseStatusCache = queryClient.getQueryData<ResponseStatus[]>([queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS]);
     const finalDestinationStatusCache = queryClient.getQueryData<FinalDestinationStatus[]>([queryKeys.FINAL_DESTINATION.GET_AS_SELECT_OPTIONS]);
 
@@ -162,9 +162,9 @@ export interface UpdateApplicationFormError {
 const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationForm) => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
-    mutationFn: (data: UpdateApplicationFormFields) => applicationService.patchByUuid(data, applicationUuid),
-    onSuccess: (data: ApplicationData) => {
-      queryClient.setQueryData<Array<ApplicationData>>(
+    mutationFn: (data: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(data, applicationUuid),
+    onSuccess: (data: Application) => {
+      queryClient.setQueryData<Array<Application>>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
         (previousData) => {
           if (!previousData) {
@@ -203,22 +203,22 @@ const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationFo
 type ApplicationStatusesUnionT = ApplicationStatus[] | InterviewStatus[] | OfferStatus[] | ResponseStatus[] | FinalDestinationStatus[];
 
 interface DisabledInputFields {
-  currentApplicationData: ApplicationData;
-  updatedData: ApplicationData | undefined;
+  currentApplicationData: Application;
+  updatedData: Application | undefined;
   selectOptions: ApplicationOptionStatuses;
 }
 
-const disableIfWithdrawn = (currentApplicationData: ApplicationData, updatedData: ApplicationData | undefined, applicationStatusOptions: ApplicationStatus[] | undefined) => {
+const disableIfWithdrawn = (currentApplicationData: Application, updatedData: Application | undefined, applicationStatusOptions: ApplicationStatus[] | undefined) => {
   const withdrawnStatus = applicationStatusOptions?.filter((element) => element.name === ApplicationStatusE.WITHDRAWN)[0] as ApplicationStatus;
 
   return currentApplicationData.applicationStatus === withdrawnStatus.name || updatedData?.applicationStatus === withdrawnStatus.name;
 };
 
-const setPageLoadApplicationStatus = (currentApplicationData: ApplicationData) => {
+const setPageLoadApplicationStatus = (currentApplicationData: Application) => {
   return !!currentApplicationData.finalDestinationStatus;
 };
 
-const setPageLoadInterviewStatus = (currentApplicationData: ApplicationData, updatedData: ApplicationData | undefined, selectOptions: ApplicationOptionStatuses) => {
+const setPageLoadInterviewStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
   if (currentApplicationData.finalDestinationStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
@@ -228,7 +228,7 @@ const setPageLoadInterviewStatus = (currentApplicationData: ApplicationData, upd
   return !(currentApplicationData.applicationStatus === submittedStatus.name || updatedData?.applicationStatus === submittedStatus.name);
 };
 
-const setPageLoadOfferStatus = (currentApplicationData: ApplicationData, updatedData: ApplicationData | undefined, selectOptions: ApplicationOptionStatuses) => {
+const setPageLoadOfferStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
   if (!currentApplicationData.interviewStatus || currentApplicationData.finalDestinationStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
@@ -238,7 +238,7 @@ const setPageLoadOfferStatus = (currentApplicationData: ApplicationData, updated
   return currentApplicationData.interviewStatus === notInvitedStatus.name || updatedData?.interviewStatus === notInvitedStatus.name;
 };
 
-const setPageLoadResponseStatus = (currentApplicationData: ApplicationData, updatedData: ApplicationData | undefined, selectOptions: ApplicationOptionStatuses) => {
+const setPageLoadResponseStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
   if (!currentApplicationData.offerStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
@@ -248,7 +248,7 @@ const setPageLoadResponseStatus = (currentApplicationData: ApplicationData, upda
   return currentApplicationData.offerStatus === rejectedStatus.name || updatedData?.offerStatus === rejectedStatus.name;
 };
 
-const setPageLoadFinalDestinationStatus = (currentApplicationData: ApplicationData, updatedData: ApplicationData | undefined, selectOptions: ApplicationOptionStatuses) => {
+const setPageLoadFinalDestinationStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
   if (!currentApplicationData.responseStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
   }

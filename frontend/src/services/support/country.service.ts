@@ -6,10 +6,10 @@ export interface CountryOption {
 }
 
 const countryService = {
-  getAllSelectOptions: async (): Promise<Array<CountryOption>> => {
+  getAllDropdownOptions: async (): Promise<Array<CountryOption>> => {
     const { data } = await axiosConfigWithAuth.request<Array<CountryOption>>({
       method: 'GET',
-      url: 'api/countries/options',
+      url: 'api/v1/countries/options',
     });
 
     return data;

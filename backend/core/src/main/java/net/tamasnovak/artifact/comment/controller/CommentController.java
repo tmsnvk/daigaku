@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/comments")
+@RequestMapping(path = "/api/v1/comments")
 @Validated
 public class CommentController {
   private final CommentService commentService;

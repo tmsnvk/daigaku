@@ -9,7 +9,7 @@ const interviewStatusService = {
   getAll: async (): Promise<Array<InterviewStatus>> => {
     const { data } = await axiosConfigWithAuth.request<Array<InterviewStatus>>({
       method: 'GET',
-      url: '/api/interview-statuses',
+      url: '/api/v1/interview-status',
     });
 
     return data;

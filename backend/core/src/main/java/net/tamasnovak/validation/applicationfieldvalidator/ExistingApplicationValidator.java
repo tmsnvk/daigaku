@@ -3,11 +3,11 @@ package net.tamasnovak.validation.applicationfieldvalidator;
 import net.tamasnovak.artifact.accountRole.student.entity.Student;
 import net.tamasnovak.artifact.application.shared.entity.Application;
 import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.applicationStages.applicationStatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationStages.finalDestinationStatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationStages.interviewStatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationStages.offerStatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationStages.responseStatus.entity.ResponseStatus;
+import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
+import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
+import net.tamasnovak.artifact.applicationstages.interviewStatus.entity.InterviewStatus;
+import net.tamasnovak.artifact.applicationstages.offerStatus.entity.OfferStatus;
+import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
 
 @FunctionalInterface
 public interface ExistingApplicationValidator {

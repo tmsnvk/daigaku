@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/institutions")
+@RequestMapping(path = "/api/v1/institutions")
 public class InstitutionController {
   private final InstitutionService institutionService;
 

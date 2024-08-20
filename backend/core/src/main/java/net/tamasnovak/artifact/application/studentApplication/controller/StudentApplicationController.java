@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/applications/student")
+@RequestMapping(path = "/api/v1/applications/student")
 @Validated
 public class StudentApplicationController {
   private final AuthenticationFacade authenticationFacade;
