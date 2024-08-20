@@ -6,7 +6,7 @@ const pendingAccountService = {
   register: async (data: RegisterFormFields): Promise<void> => {
     await axiosConfig.request({
       method: 'POST',
-      url: '/api/pending-accounts/register',
+      url: '/api/v1/pending-accounts/register',
       data,
     });
   },

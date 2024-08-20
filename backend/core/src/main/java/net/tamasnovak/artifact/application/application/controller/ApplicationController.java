@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/applications")
+@RequestMapping(path = "/api/v1/applications")
 @Validated
 public class ApplicationController {
   private final ApplicationService applicationService;

@@ -22,7 +22,7 @@ const commentService = {
   getAllByApplicationUUid: async (applicationUuid: string, currentPage: number): Promise<CommentMeta> => {
     const { data } = await axiosConfigWithAuth.request<CommentMeta>({
       method: 'GET',
-      url: `/api/comments/${applicationUuid}?page=${currentPage}`,
+      url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
     });
 
     return data;
@@ -30,7 +30,7 @@ const commentService = {
   postComment: async (formData: NewCommentFormFields, applicationUuid: string): Promise<Comment> => {
     const { data } = await axiosConfigWithAuth.request<Comment>({
       method: 'POST',
-      url: `/api/comments/${applicationUuid}`,
+      url: `/api/v1/comments/${applicationUuid}`,
       data: formData,
     });
 

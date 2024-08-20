@@ -7,10 +7,10 @@ export interface InstitutionOption {
 }
 
 const institutionService = {
-  getAllSelectOptions: async (): Promise<Array<InstitutionOption>> => {
+  getAllDropdownOptions: async (): Promise<Array<InstitutionOption>> => {
     const { data } = await axiosConfigWithAuth.request<Array<InstitutionOption>>({
       method: 'GET',
-      url: '/api/institutions/options',
+      url: '/api/v1/institutions/options',
     });
 
     return data;

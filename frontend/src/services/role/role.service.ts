@@ -9,7 +9,7 @@ const roleService = {
   getStudentAndMentorRoles: async (): Promise<Array<RoleOption>> => {
     const { data } = await axiosConfig.request({
       method: 'GET',
-      url: '/api/roles/student-and-mentor',
+      url: '/api/v1/roles/student-and-mentor',
     });
 
     return data;

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/universities")
+@RequestMapping(path = "/api/v1/universities")
 @Validated
 public class UniversityController {
   private final UniversityService universityService;

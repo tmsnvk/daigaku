@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { applicationService } from '@services/index.ts';
+import applicationStudentService from '@services/application/application-student.service';
 
 import { mutationKeys } from '@configuration';
 
 const useSendDownloadRequest = () => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_PDF_REQUEST],
-    mutationFn: () => applicationService.getDownloadRequest(),
+    mutationFn: () => applicationStudentService.requestDownload(),
     onSuccess: () => {
       // modal pop-up to confirm an email will arrive soon
     },

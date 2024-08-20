@@ -8,7 +8,7 @@ import {
   queryKeys,
 } from '@configuration';
 
-import { applicationService } from '@services/index';
+import { applicationStudentService } from '@services/index';
 
 import { ApplicationData } from '@services/application/application.service';
 
@@ -47,7 +47,7 @@ interface NewApplicationFormError {
 const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }: NewApplicationForm) => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
-    mutationFn: (data: NewApplicationFormFields) => applicationService.postByStudent(data),
+    mutationFn: (data: NewApplicationFormFields) => applicationStudentService.postByStudent(data),
     onSuccess: (data: ApplicationData) => {
       queryClient.setQueryData<Array<ApplicationData>>(
         [queryKeys.APPLICATION.GET_ALL_BY_ROLE],

@@ -1,6 +1,7 @@
 import accountService from './account/account.service';
 import pendingAccountService from './account/pending-account.service';
 import applicationService from './application/application.service';
+import applicationStudentService from './application/application-student.service';
 import commentService from './comment/comment.service';
 import roleService from './role/role.service';
 import applicationStatusService from './status/application-status.service';
@@ -16,6 +17,7 @@ export {
   accountService,
   pendingAccountService,
   applicationService,
+  applicationStudentService,
   commentService,
   roleService,
   applicationStatusService,
