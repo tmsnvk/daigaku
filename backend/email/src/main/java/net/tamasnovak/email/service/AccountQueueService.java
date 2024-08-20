@@ -1,7 +1,7 @@
 package net.tamasnovak.email.service;
 
-import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
+import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueue;
 
 public interface AccountQueueService {
-	void onPendingAccountRegistration(PendingAccountConfirmationQueueDto queueDto);
+	void onPendingAccountRegistration(PendingAccountConfirmationQueue queueDto);
 }

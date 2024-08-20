@@ -4,7 +4,7 @@ import net.tamasnovak.email.dto.SimpleEmail;
 import net.tamasnovak.email.template.AccountEmailTemplates;
 import net.tamasnovak.email.utilities.EmailUtilities;
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.EmailSenderRabbitConfig;
-import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueueDto;
+import net.tamasnovak.rabbitmq.models.emailQueue.PendingAccountConfirmationQueue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,14 +24,14 @@ public class AccountQueueServiceImpl implements AccountQueueService {
 	@Override
 	@Transactional
 	@RabbitListener(queues = { EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_QUEUE_KEY })
-	public void onPendingAccountRegistration(final PendingAccountConfirmationQueueDto queueDto) {
+	public void onPendingAccountRegistration(final PendingAccountConfirmationQueue queueDto) {
 		final String emailBody = createPendingAccountRegistrationEmailBody(accountEmailTemplates.PENDING_ACCOUNT_CONFIRMATION_BODY, queueDto);
 		final SimpleEmail email = new SimpleEmail(queueDto.email(), accountEmailTemplates.PENDING_ACCOUNT_CONFIRMATION_SUBJECT, emailBody);
 
 		emailUtilities.sendSimpleEmail(email);
 	}
 
-	private String createPendingAccountRegistrationEmailBody(String htmlBody, PendingAccountConfirmationQueueDto queueDto) {
+	private String createPendingAccountRegistrationEmailBody(String htmlBody, PendingAccountConfirmationQueue queueDto) {
 		return String.format(htmlBody, queueDto.firstName(), queueDto.lastName(), queueDto.institutionName(), queueDto.roleName());
 	}
 }
