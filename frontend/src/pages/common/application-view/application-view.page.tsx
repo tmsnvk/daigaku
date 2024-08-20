@@ -39,6 +39,7 @@ const ApplicationView = () => {
     <MainGrid>
       <ApplicationDetails
         data={(state && state) || (data && data)}
+        applicationUuid={applicationUuid}
       />
       <CommentSection
         applicationUuid={applicationUuid}

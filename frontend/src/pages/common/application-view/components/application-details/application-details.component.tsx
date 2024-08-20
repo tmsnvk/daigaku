@@ -4,12 +4,14 @@ import ApplicationDetailsField from '../application-details-field';
 import { ApplicationSection } from './application-details.styles';
 
 import { ApplicationData } from '@services/application/application.service';
+import { Link } from 'react-router-dom';
 
 interface ComponentProps {
+  applicationUuid: string;
   data: ApplicationData;
 }
 
-const ApplicationDetails = ({ data }: ComponentProps) => {
+const ApplicationDetails = ({ applicationUuid, data }: ComponentProps) => {
   return (
     <ApplicationSection as={'section'}>
       <PageTitle
@@ -21,6 +23,13 @@ const ApplicationDetails = ({ data }: ComponentProps) => {
         lastUpdatedAt={data.lastUpdatedAt}
         lastModifiedBy={data.lastModifiedBy}
       />
+      <article>
+        <Link
+          to={`/applications/edit/${applicationUuid}`}
+        >
+          EDIT
+        </Link>
+      </article>
       <ApplicationDetailsField
         name={'Country'}
         data={data.country}

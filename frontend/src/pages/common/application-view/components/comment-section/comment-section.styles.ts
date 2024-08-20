@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 const Section = styled.section`
-  margin: 10rem 5rem 0 0;
-  
+  margin: 10rem 2.5rem 5rem 0;
+
   & > div {
-    width: 75%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     margin: 0 auto 5rem auto;
-    
+
     & span {
       font-size: ${({ theme }) => theme.fontSize.large};
     }
