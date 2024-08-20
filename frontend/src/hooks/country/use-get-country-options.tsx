@@ -14,7 +14,7 @@ export type CountryOptions = UseQueryResult<Array<CountryOption>, Error>;
 const useGetCountryOptions = (): CountryOptions => {
   return useQuery({
     queryKey: [queryKeys.COUNTRY.GET_AS_SELECT_OPTIONS],
-    queryFn: () => countryService.getAllSelectOptions(),
+    queryFn: () => countryService.getAllDropdownOptions(),
   });
 };
 

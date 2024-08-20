@@ -10,11 +10,11 @@ import {
 import ApplicationForm from './components/application-form';
 import { MainGrid } from './application-edit.styles';
 
-import { ApplicationData } from '@services/application/application.service';
+import { Application } from '@custom-types/index';
 import { ApplicationOptionsData } from '@hooks/application-status/use-get-all-select-options';
 
 interface Location {
-  readonly state: ApplicationData;
+  readonly state: Application;
   readonly pathname: string;
 }
 

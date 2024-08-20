@@ -28,7 +28,7 @@
       "@components/*": ["components/*"],
       "@constants/*": ["constants/*"],
       "@context/*": ["context/*"],
-      "@custom-types/*": ["types/*"],
+      "@custom-types/*": ["custom-types/*"],
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],

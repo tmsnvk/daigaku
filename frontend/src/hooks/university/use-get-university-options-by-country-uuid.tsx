@@ -22,7 +22,7 @@ const useGetUniversityOptionsByCountryUuid = ({
 }: UniversityOptionsByCountryUuidHookParams): UniversityOptionsByCountryUuid => {
   return useQuery({
     queryKey: [queryKeys.UNIVERSITY.GET_AS_SELECT_OPTIONS, selectedCountryUuid],
-    queryFn: () => universityService.getOptionsByCountryUuid(selectedCountryUuid),
+    queryFn: () => universityService.getDropdownOptionsByCountryUuid(selectedCountryUuid),
     enabled: isCountryFieldSelected,
   });
 };

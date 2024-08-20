@@ -10,10 +10,10 @@ import ApplicationDetails from './components/application-details';
 import CommentSection from './components/comment-section';
 import { MainGrid } from './application-view.styles';
 
-import { ApplicationData } from '@services/application/application.service';
+import { Application } from '@custom-types/index';
 
 interface Location {
-  readonly state: ApplicationData;
+  readonly state: Application;
   readonly pathname: string;
 }
 

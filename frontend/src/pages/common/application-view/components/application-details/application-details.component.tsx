@@ -1,14 +1,15 @@
+import { Link } from 'react-router-dom';
+
 import { PageTitle } from '@components/general';
 import { ApplicationMetaData } from '@components/application';
 import ApplicationDetailsField from '../application-details-field';
 import { ApplicationSection } from './application-details.styles';
 
-import { ApplicationData } from '@services/application/application.service';
-import { Link } from 'react-router-dom';
+import { Application } from '@custom-types/index';
 
 interface ComponentProps {
   applicationUuid: string;
-  data: ApplicationData;
+  data: Application;
 }
 
 const ApplicationDetails = ({ applicationUuid, data }: ComponentProps) => {
