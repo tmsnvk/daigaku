@@ -1,7 +1,4 @@
-import {
-  LoadingIndicator,
-  PageTitle,
-} from '@components/general';
+import { PageTitle } from '@components/general';
 import { ApplicationMetaData } from '@components/application';
 import ApplicationDetailsField from '../application-details-field';
 import { ApplicationSection } from './application-details.styles';
@@ -27,6 +24,39 @@ const ApplicationDetails = ({ data }: ComponentProps) => {
       <ApplicationDetailsField
         name={'Country'}
         data={data.country}
+      />
+      <ApplicationDetailsField
+        name={'Course'}
+        data={data.courseName}
+      />
+      {data.minorSubject &&
+        <ApplicationDetailsField
+          name={'Minor'}
+          data={data.minorSubject}
+        />}
+      <ApplicationDetailsField
+        name={'Programme Length'}
+        data={data.programmeLength}
+      />
+      <ApplicationDetailsField
+        name={'Application Status'}
+        data={data.applicationStatus}
+      />
+      <ApplicationDetailsField
+        name={'Interview Status'}
+        data={data.interviewStatus}
+      />
+      <ApplicationDetailsField
+        name={'Offer Status'}
+        data={data.offerStatus}
+      />
+      <ApplicationDetailsField
+        name={'Response Status'}
+        data={data.responseStatus}
+      />
+      <ApplicationDetailsField
+        name={'Final Destination Status'}
+        data={data.finalDestinationStatus}
       />
     </ApplicationSection>
   );

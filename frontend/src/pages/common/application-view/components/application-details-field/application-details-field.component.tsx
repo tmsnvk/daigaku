@@ -2,7 +2,7 @@ import { Article } from './application-details-field.styles';
 
 interface ComponentProps {
   name: string;
-  data: string;
+  data: string | number;
 }
 
 const ApplicationDetailsField = ({ name, data }: ComponentProps) => {

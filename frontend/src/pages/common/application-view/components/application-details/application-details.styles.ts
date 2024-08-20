@@ -8,9 +8,10 @@ const ApplicationSection = styled(ApplicationFormGrid)`
     grid-row: 1 / 2;
   }
 
-  & article{
+  & article {
     grid-column: 1 / 3;
     grid-row: auto;
+    min-width: fit-content;
   }
 `;
 
