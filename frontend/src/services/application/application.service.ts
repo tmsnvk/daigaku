@@ -2,7 +2,7 @@ import { axiosConfigWithAuth } from '@configuration';
 
 import { NewApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
 import { DashboardData } from '@pages/common/dashboard/dashboard.hooks';
-import { UpdateApplicationFormFields } from '@pages/common/application/components/application-form/application-form.hooks';
+import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
 
 export interface ApplicationData {
   readonly uuid: string;

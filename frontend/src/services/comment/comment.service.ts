@@ -1,6 +1,6 @@
 import { axiosConfigWithAuth } from '@configuration';
 
-import { NewCommentFormFields } from '@pages/common/application/components/new-comment-box/new-comment-box.hooks';
+import { NewCommentFormFields } from '@pages/common/application-edit/components/new-comment-box/new-comment-box.hooks';
 
 export interface Comment {
   readonly uuid: string;
