@@ -11,7 +11,7 @@ import {
 
 import { ApplicationData } from '@services/application/application.service';
 
-const useToggleDeletionMark = (applicationUuid: string, isRemovable: boolean) => {
+const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean) => {
   const [shouldBeDeleted, setShouldBeDeleted] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -52,5 +52,5 @@ const useToggleDeletionMark = (applicationUuid: string, isRemovable: boolean) =>
 };
 
 export {
-  useToggleDeletionMark,
+  useToggleIsRemovable,
 };

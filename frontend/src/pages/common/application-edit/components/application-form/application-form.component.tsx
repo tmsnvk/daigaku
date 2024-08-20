@@ -19,7 +19,7 @@ import {
   PageTitle,
 } from '@components/general';
 import { DisabledInputField } from '@components/input-implementations';
-import ApplicationMetaData from '../application-meta-data/index';
+import { ApplicationMetaData } from '@components/application';
 import IsRemovableButton from '../is-removable-button/index';
 import ActiveSelectField from '../active-select-field/index';
 import { Form } from './application-form.styles';

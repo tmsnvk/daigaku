@@ -1,4 +1,4 @@
-import { useToggleDeletionMark } from './is-removable-button.hooks';
+import { useToggleIsRemovable } from './is-removable-button.hooks';
 
 import { InputError } from '@components/form';
 import { Article } from './is-removable-button.styles';
@@ -9,7 +9,7 @@ interface ComponentProps {
 }
 
 const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentProps) => {
-  const { mutate, isPending, shouldBeDeleted, errorMessage } = useToggleDeletionMark(applicationUuid, isRemovable);
+  const { mutate, isPending, shouldBeDeleted, errorMessage } = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (
     <Article
