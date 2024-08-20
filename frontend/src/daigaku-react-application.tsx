@@ -15,8 +15,9 @@ import {
 import GlobalStyle from '@theme/global-style';
 import theme from '@theme/theme';
 import {
-  Application,
+  ApplicationEdit,
   Applications,
+  ApplicationView,
   Dashboard,
   Error,
   Home,
@@ -43,7 +44,8 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/applications'}>
           <Route index element={<Applications />} />
-          <Route path={':uuid'} element={<Application />} />
+          <Route path={'edit/:uuid'} element={<ApplicationEdit />} />
+          <Route path={'view/:uuid'} element={<ApplicationView />} />
         </Route>
         <Route path={'/account'} element={<div>ACCOUNT PLACEHOLDER</div>} />
         <Route path={'/messages'} element={<div>MESSAGES PLACEHOLDER</div>} />

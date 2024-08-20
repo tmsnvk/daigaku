@@ -24,7 +24,7 @@ const ApplicationFormGrid = styled.form`
   & article:last-of-type {
     min-width: fit-content;
   }
-  
+
   @media screen and (width > ${({ theme }) => theme.breakpoint.large}) {
     width: 75%;
   }

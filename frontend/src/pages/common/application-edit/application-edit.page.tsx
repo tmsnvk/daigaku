@@ -1,15 +1,14 @@
 import { useLocation } from 'react-router-dom';
 
 import { useGetAllSelectOptions } from '@hooks/application-status';
-import { useGetApplication } from './application.hooks';
+import { useGetApplication } from '@hooks/application';
 
 import {
   GlobalErrorModal,
   GlobalLoadingModal,
 } from '@components/notification';
 import ApplicationForm from './components/application-form';
-import CommentSection from './components/comment-section';
-import { MainGrid } from './application.styles';
+import { MainGrid } from './application-edit.styles';
 
 import { ApplicationData } from '@services/application/application.service';
 import { ApplicationOptionsData } from '@hooks/application-status/use-get-all-select-options';
@@ -19,9 +18,9 @@ interface Location {
   readonly pathname: string;
 }
 
-const Application = () => {
+const ApplicationEdit = () => {
   const { state, pathname } = useLocation() as Location;
-  const applicationUuid: string = pathname.split('/applications/')[1];
+  const applicationUuid: string = pathname.split('/applications/edit/')[1];
 
   const {
     selectOptions,
@@ -49,11 +48,8 @@ const Application = () => {
         applicationUuid={applicationUuid}
         selectOptions={selectOptions}
       />
-      <CommentSection
-        applicationUuid={applicationUuid}
-      />
     </MainGrid>
   );
 };
 
-export default Application;
+export default ApplicationEdit;

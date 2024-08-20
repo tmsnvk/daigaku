@@ -32,12 +32,21 @@ const DataRows = ({ columns, data }: ComponentProps) => {
           <DataCell $shouldDisplay={isColumnFound(columns, 'finalDestinationStatus')}>{element.finalDestinationStatus ?? '-'}</DataCell>
           <td>
             <Link
-              to={element.uuid}
+              to={`edit/${element.uuid}`}
               state={element}
             >
-              EDIT
+              Edit
               <FontAwesomeIcon
                 icon={iconLibraryConfig.faWrench}
+              />
+            </Link>
+            <Link
+              to={`view/${element.uuid}`}
+              state={element}
+            >
+              View
+              <FontAwesomeIcon
+                icon={iconLibraryConfig.faMagnifyingGlass}
               />
             </Link>
           </td>
