@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const TableHeadRow = styled.tr`
+export const TableHeadRow = styled.tr`
   & th {
     &::before,
     &::after {
@@ -11,14 +15,9 @@ const TableHeadRow = styled.tr`
   }
 `;
 
-const ButtonHeaderCell = styled.th`
+export const ButtonHeaderCell = styled.th`
   & button,
   & article {
     height: 4rem;
   }
 `;
-
-export {
-  TableHeadRow,
-  ButtonHeaderCell,
-};

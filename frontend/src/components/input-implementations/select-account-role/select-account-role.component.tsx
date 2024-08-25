@@ -1,26 +1,23 @@
-import {
-  FieldValues,
-  Path,
-  UseFormRegister,
-} from 'react-hook-form';
+/**
+ * @prettier
+ */
+
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 import { BaseInput } from '@components/base-styles';
-import {
-  InputError,
-  InputLabel,
-} from '@components/form';
+import { InputError, InputLabel } from '@components/form';
 
 import { RoleOption } from '@services/role/role.service';
 
 interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>,
+  register: UseFormRegister<T>;
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
   data: Array<RoleOption>;
 }
 
-const SelectAccountType = <T extends FieldValues>({
+export const SelectAccountType = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
@@ -28,9 +25,7 @@ const SelectAccountType = <T extends FieldValues>({
   data,
 }: ComponentProps<T>) => {
   return (
-    <BaseInput
-      $isError={fieldError !== undefined}
-    >
+    <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
         inputId={fieldId}
         content={'Account Type'}
@@ -67,5 +62,3 @@ const SelectAccountType = <T extends FieldValues>({
     </BaseInput>
   );
 };
-
-export default SelectAccountType;

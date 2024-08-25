@@ -1,3 +1,7 @@
-import ApplicationDetailsField from './application-details-field.component';
+/**
+ * @prettier
+ */
 
-export default ApplicationDetailsField;
+import { ApplicationDetailsField } from './application-details-field.component';
+
+export { ApplicationDetailsField };

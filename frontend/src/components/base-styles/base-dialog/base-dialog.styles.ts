@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseLightBorder } from '@components/base-styles';
 
-const BaseDialog = styled.dialog`
+export const BaseDialog = styled.dialog`
   ${BaseLightBorder};
 
   width: 40%;
@@ -30,5 +34,3 @@ const BaseDialog = styled.dialog`
     width: 75%;
   }
 `;
-
-export default BaseDialog;

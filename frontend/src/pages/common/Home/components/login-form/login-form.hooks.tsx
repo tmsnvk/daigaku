@@ -1,13 +1,12 @@
+/**
+ * @prettier
+ */
+
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
-import {
-  AccountData,
-  AuthContext,
-  AuthStatus,
-  useAuth,
-} from '@context/auth';
+import { AccountData, AuthContext, AuthStatus, useAuth } from '@context/auth';
 
 import { accountService } from '@services/index';
 
@@ -36,11 +35,11 @@ interface LoginFormError {
     status: number;
     data: {
       [key: string]: LoginFormErrorFieldsT;
-    }
-  }
+    };
+  };
 }
 
-const useSubmitLoginForm = ({ setError }: LoginForm) => {
+export const useSubmitLoginForm = ({ setError }: LoginForm) => {
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
   const navigate = useNavigate();
 
@@ -72,8 +71,4 @@ const useSubmitLoginForm = ({ setError }: LoginForm) => {
       }
     },
   });
-};
-
-export {
-  useSubmitLoginForm,
 };

@@ -1,53 +1,37 @@
+/**
+ * @prettier
+ */
+
 import { useForm } from 'react-hook-form';
 
 import { useGetInstitutionOptions } from '@hooks/institution';
 import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
-import {
-  RegisterFormFields,
-  useSubmitRegistrationForm,
-} from './registration-form.hooks';
+import { RegisterFormFields, useSubmitRegistrationForm } from './registration-form.hooks';
 
 import { LoadingIndicator } from '@components/general';
-import {
-  InputError,
-  SubmitInput,
-} from '@components/form';
-import {
-  GenericInputField,
-  SelectAccountRole,
-  SelectInstitution,
-} from '@components/input-implementations';
-import {
-  GlobalErrorModal,
-  GlobalLoadingModal,
-} from '@components/notification';
-import FormSwapButton from '../form-swap-button/index';
-import FormInstructionText from '../form-instruction-text/index';
+import { InputError, SubmitInput } from '@components/form';
+import { GenericInputField, SelectAccountType, SelectInstitution } from '@components/input-implementations';
+import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { FormSwapButton } from '../form-swap-button/index';
+import { FormInstructionText } from '../form-instruction-text/index';
 
-import {
-  ConfirmationModal,
-  FormSelector,
-  FormType,
-} from '../../home.types';
+import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
 import { InstitutionOptions } from '@hooks/institution/use-get-institution-options';
 import { StudentAndMentorAccountRoles } from '@hooks/role/use-get-student-and-mentor-account-roles';
 
 type ComponentProp = FormSelector & ConfirmationModal;
 
-const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
-  const {
-    data: institutionData,
-    isLoading: isInstitutionLoading,
-    isError: isInstitutionError,
-  }: InstitutionOptions = useGetInstitutionOptions();
+export const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
+  const { data: institutionData, isLoading: isInstitutionLoading, isError: isInstitutionError }: InstitutionOptions = useGetInstitutionOptions();
+
+  const { data: roleData, isLoading: isRoleLoading, isError: isRoleError }: StudentAndMentorAccountRoles = useGetStudentAndMentorAccountRoles();
 
   const {
-    data: roleData,
-    isLoading: isRoleLoading,
-    isError: isRoleError,
-  }: StudentAndMentorAccountRoles = useGetStudentAndMentorAccountRoles();
-
-  const { formState: { errors }, handleSubmit, register, setError } = useForm<RegisterFormFields>({ mode: 'onSubmit' });
+    formState: { errors },
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<RegisterFormFields>({ mode: 'onSubmit' });
   const { isPending, mutate, error } = useSubmitRegistrationForm({ setError, showModal });
 
   if (isInstitutionLoading || isRoleLoading) {
@@ -60,9 +44,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
 
   return (
     <section>
-      <FormInstructionText
-        content={'Register an account if you are not in our system yet.'}
-      />
+      <FormInstructionText content={'Register an account if you are not in our system yet.'} />
       <form
         id={'postPendingAccountRegisterForm'}
         method={'POST'}
@@ -128,7 +110,7 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
           isDisabled={isPending}
           data={institutionData ?? []}
         />
-        <SelectAccountRole
+        <SelectAccountType
           register={register}
           fieldError={errors.accountRoleUuid?.message}
           fieldId={'accountRoleUuid'}
@@ -136,11 +118,16 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
           data={roleData ?? []}
         />
         <article>
-          {
-            isPending ?
-              <LoadingIndicator content={'Your registration is being submitted.'} /> :
-              <SubmitInput type={'submit'} name={'register'} value={'register'} disabled={isPending} />
-          }
+          {isPending ? (
+            <LoadingIndicator content={'Your registration is being submitted.'} />
+          ) : (
+            <SubmitInput
+              type={'submit'}
+              name={'register'}
+              value={'register'}
+              disabled={isPending}
+            />
+          )}
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
@@ -161,5 +148,3 @@ const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
     </section>
   );
 };
-
-export default RegistrationForm;

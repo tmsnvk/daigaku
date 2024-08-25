@@ -1,5 +1,7 @@
-import StudentLayout from './student-layout';
+/**
+ * @prettier
+ */
 
-export {
-  StudentLayout,
-};
+import { StudentLayout } from './student-layout';
+
+export { StudentLayout };

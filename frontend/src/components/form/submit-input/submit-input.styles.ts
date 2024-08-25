@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const SubmitInput = styled.input`
+export const SubmitInput = styled.input`
   height: 5rem;
   padding: 0 2.5rem 0 2.5rem;
   text-align: center;
@@ -27,5 +31,3 @@ const SubmitInput = styled.input`
     outline: 0.15rem solid ${({ theme }) => theme.color.secondaryDark};
   }
 `;
-
-export default SubmitInput;

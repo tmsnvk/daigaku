@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 export enum ApplicationStatusE {
   PLANNED = 'Planned',
   SUBMITTED = 'Submitted',

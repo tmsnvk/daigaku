@@ -1,9 +1,10 @@
+/**
+ * @prettier
+ */
+
 import { useState } from 'react';
 
-import {
-  useGetCountryOptions,
-  useGetUniversityOptionsByCountryUuid,
-} from '@hooks/index';
+import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks/index';
 
 import { GlobalErrorModal } from '@components/notification';
 import { NewApplicationForm } from './components';
@@ -11,7 +12,7 @@ import { NewApplicationForm } from './components';
 import { CountryOptions } from '@hooks/country/use-get-country-options';
 import { UniversityOptionsByCountryUuid } from '@hooks/university/use-get-university-options-by-country-uuid';
 
-const NewApplication = () => {
+export const NewApplication = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
   const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
@@ -28,7 +29,7 @@ const NewApplication = () => {
     setSelectedCountryUuid(countryUuid);
   };
 
-  if ((isCountryError || isUniversityError)) {
+  if (isCountryError || isUniversityError) {
     return <GlobalErrorModal />;
   }
 
@@ -43,5 +44,3 @@ const NewApplication = () => {
     </main>
   );
 };
-
-export default NewApplication;

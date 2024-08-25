@@ -1,3 +1,7 @@
-import NavigationRoute from './navigation-route.component';
+/**
+ * @prettier
+ */
 
-export default NavigationRoute;
+import { NavigationRoute } from './navigation-route.component';
+
+export { NavigationRoute };

@@ -1,3 +1,7 @@
-import SelectUniversity from './select-university.component';
+/**
+ * @prettier
+ */
 
-export default SelectUniversity;
+import { SelectUniversity } from './select-university.component';
+
+export { SelectUniversity };

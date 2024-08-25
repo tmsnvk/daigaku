@@ -1,17 +1,17 @@
+/**
+ * @prettier
+ */
+
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import applicationStudentService from '@services/application/application-student.service';
+import { applicationStudentService } from '@services/application/application-student.service';
 
-import {
-  mutationKeys,
-  queryClient,
-  queryKeys,
-} from '@configuration';
+import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
-import { ApplicationData } from '@services/application/application.service';
+import { Application } from '@custom-types/index';
 
-const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean) => {
+export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean) => {
   const [shouldBeDeleted, setShouldBeDeleted] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -19,20 +19,17 @@ const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean) => 
     mutationKey: [mutationKeys.APPLICATION.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
-      queryClient.setQueryData<ApplicationData[]>(
-        [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
-        (previousData) => {
-          if (!previousData) {
-            return;
-          }
+      queryClient.setQueryData<Application[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (previousData) => {
+        if (!previousData) {
+          return;
+        }
 
-          const currentApplication = previousData.filter((row) => row.uuid === applicationUuid);
+        const currentApplication = previousData.filter((row) => row.uuid === applicationUuid);
 
-          currentApplication[0].isRemovable = !currentApplication[0].isRemovable;
+        currentApplication[0].isRemovable = !currentApplication[0].isRemovable;
 
-          return [...previousData];
-        },
-      );
+        return [...previousData];
+      });
 
       setShouldBeDeleted(!shouldBeDeleted);
 
@@ -49,8 +46,4 @@ const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean) => 
     isPending: mutation.isPending,
     mutate: mutation.mutate,
   };
-};
-
-export {
-  useToggleIsRemovable,
 };

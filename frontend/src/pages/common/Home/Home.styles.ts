@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import styled, { keyframes } from 'styled-components';
 
 import { BaseLightBorder } from '@components/base-styles';
@@ -14,7 +18,7 @@ const fadeInFromBottom = keyframes`
   }
 `;
 
-const MainContainer = styled.main`
+export const MainContainer = styled.main`
   container-type: inline-size;
   container-name: main;
   display: flex;
@@ -62,7 +66,3 @@ const MainContainer = styled.main`
     }
   }
 `;
-
-export {
-  MainContainer,
-};

@@ -1,27 +1,18 @@
+/**
+ * @prettier
+ */
+
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
-import applicationStudentService from '@services/application/application-student.service';
+import { applicationStudentService } from '@services/application/application-student.service';
 
-import {
-  mutationKeys,
-  queryClient,
-  queryKeys,
-} from '@configuration';
+import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
-import {
-  finalDestinationSelectionError,
-  firmChoiceSelectionError,
-} from './application-form.utilities';
+import { finalDestinationSelectionError, firmChoiceSelectionError } from './application-form.utilities';
 
-import {
-  ApplicationStatusE,
-  FinalDestinationE,
-  InterviewStatusE,
-  OfferStatusE,
-  ResponseStatusE,
-} from '@constants/application-status.enum';
+import { ApplicationStatusE, FinalDestinationE, InterviewStatusE, OfferStatusE, ResponseStatusE } from '@constants/application-status.enum';
 import { Application } from '@custom-types/index';
 import { ApplicationStatus } from '@services/status/application-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
@@ -31,14 +22,14 @@ import { FinalDestinationStatus } from '@services/status/final-destination-statu
 import { ApplicationOptionStatuses } from '@hooks/application-status/use-get-all-select-options';
 
 /*
-*
-* useHandleFormSubmission() validates and submits the formData towards the backend.
-*
-* handleValidation() - based on reactQuery cache - checks whether there is already a firm choice / final destination set in any of the user's applications.
-* if there is no cache available, this task falls solely to the backend.
-*
-* submitForm() calls mutate() on reactQuery.
-*/
+ *
+ * useHandleFormSubmission() validates and submits the formData towards the backend.
+ *
+ * handleValidation() - based on reactQuery cache - checks whether there is already a firm choice / final destination set in any of the user's applications.
+ * if there is no cache available, this task falls solely to the backend.
+ *
+ * submitForm() calls mutate() on reactQuery.
+ */
 
 export type UpdateApplicationFormFields = {
   applicationStatusUuid: string | undefined;
@@ -46,21 +37,21 @@ export type UpdateApplicationFormFields = {
   offerStatusUuid: string | undefined;
   responseStatusUuid: string | undefined;
   finalDestinationStatusUuid: string | undefined;
-}
+};
 
 type FormSubmissionT = {
   formData: UpdateApplicationFormFields;
   applicationUuid: string;
   mutate: (formData: UpdateApplicationFormFields) => void;
   setError: UseFormSetError<UpdateApplicationFormFields>;
-}
+};
 
 type CachedData = {
   name: string;
   uuid: string;
 };
 
-const filterCacheByUuid = <T extends CachedData> (cache: T[], optionName: string): string => {
+const filterCacheByUuid = <T extends CachedData>(cache: T[], optionName: string): string => {
   const filteredOption = cache?.filter((option) => option.name === optionName)[0];
 
   return filteredOption.uuid;
@@ -70,7 +61,7 @@ export interface HandleFormSubmissionHook {
   submitForm: ({ formData, applicationUuid, mutate, setError }: FormSubmissionT) => void;
 }
 
-const useHandleFormSubmission = () => {
+export const useHandleFormSubmission = () => {
   const handleValidation = (formData: UpdateApplicationFormFields, applicationUuid: string) => {
     const errors: string[] = [];
 
@@ -92,11 +83,17 @@ const useHandleFormSubmission = () => {
           errors.push(firmChoiceSelectionError);
         }
 
-        if (application.finalDestinationStatus === FinalDestinationE.FINAL_DESTINATION && formData.finalDestinationStatusUuid === finalDestinationUuid) {
+        if (
+          application.finalDestinationStatus === FinalDestinationE.FINAL_DESTINATION &&
+          formData.finalDestinationStatusUuid === finalDestinationUuid
+        ) {
           errors.push(finalDestinationSelectionError);
         }
 
-        if (application.finalDestinationStatus === FinalDestinationE.DEFERRED_ENTRY && formData.finalDestinationStatusUuid === finalDestinationDeferredUuid) {
+        if (
+          application.finalDestinationStatus === FinalDestinationE.DEFERRED_ENTRY &&
+          formData.finalDestinationStatusUuid === finalDestinationDeferredUuid
+        ) {
           errors.push(finalDestinationSelectionError);
         }
       }
@@ -129,12 +126,12 @@ const useHandleFormSubmission = () => {
 };
 
 /*
-*
-* useUpdateApplication() is where application update API call is executed.
-* onSuccess() puts the updated values into cache.
-* onError() shows error messages if there is any error.
-*
-*/
+ *
+ * useUpdateApplication() is where application update API call is executed.
+ * onSuccess() puts the updated values into cache.
+ * onError() shows error messages if there is any error.
+ *
+ */
 
 interface UpdateApplicationForm {
   setError: UseFormSetError<UpdateApplicationFormFields>;
@@ -142,40 +139,37 @@ interface UpdateApplicationForm {
 }
 
 type UpdateApplicationFormErrorFieldsT =
-  `root.${string}` |
-  'root' |
-  'applicationStatusUuid' |
-  'interviewStatusUuid' |
-  'offerStatusUuid' |
-  'responseStatusUuid' |
-  'finalDestinationStatusUuid';
+  | `root.${string}`
+  | 'root'
+  | 'applicationStatusUuid'
+  | 'interviewStatusUuid'
+  | 'offerStatusUuid'
+  | 'responseStatusUuid'
+  | 'finalDestinationStatusUuid';
 
 export interface UpdateApplicationFormError {
   response: {
     status: number;
     data: {
       [key: string]: UpdateApplicationFormErrorFieldsT;
-    }
-  }
+    };
+  };
 }
 
-const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationForm) => {
+export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationForm) => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
     mutationFn: (data: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(data, applicationUuid),
     onSuccess: (data: Application) => {
-      queryClient.setQueryData<Array<Application>>(
-        [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
-        (previousData) => {
-          if (!previousData) {
-            return;
-          }
+      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (previousData) => {
+        if (!previousData) {
+          return;
+        }
 
-          const filteredList = previousData.filter((row) => row.uuid !== data.uuid);
+        const filteredList = previousData.filter((row) => row.uuid !== data.uuid);
 
-          return [...filteredList, data];
-        },
-      );
+        return [...filteredList, data];
+      });
 
       history.replaceState(data, '', `/applications/${data.uuid}`);
     },
@@ -194,11 +188,11 @@ const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationFo
 };
 
 /*
-*
-* useHandleFieldDisableStatuses() handles the logic connected to the individual field updates, i.e. when and which field should get disabled.
-* the helper methods set the field values on page load, while the individual update methods set the given field when a select field is clicked.
-*
-*/
+ *
+ * useHandleFieldDisableStatuses() handles the logic connected to the individual field updates, i.e. when and which field should get disabled.
+ * the helper methods set the field values on page load, while the individual update methods set the given field when a select field is clicked.
+ *
+ */
 
 type ApplicationStatusesUnionT = ApplicationStatus[] | InterviewStatus[] | OfferStatus[] | ResponseStatus[] | FinalDestinationStatus[];
 
@@ -208,7 +202,11 @@ interface DisabledInputFields {
   selectOptions: ApplicationOptionStatuses;
 }
 
-const disableIfWithdrawn = (currentApplicationData: Application, updatedData: Application | undefined, applicationStatusOptions: ApplicationStatus[] | undefined) => {
+const disableIfWithdrawn = (
+  currentApplicationData: Application,
+  updatedData: Application | undefined,
+  applicationStatusOptions: ApplicationStatus[] | undefined,
+) => {
   const withdrawnStatus = applicationStatusOptions?.filter((element) => element.name === ApplicationStatusE.WITHDRAWN)[0] as ApplicationStatus;
 
   return currentApplicationData.applicationStatus === withdrawnStatus.name || updatedData?.applicationStatus === withdrawnStatus.name;
@@ -218,7 +216,11 @@ const setPageLoadApplicationStatus = (currentApplicationData: Application) => {
   return !!currentApplicationData.finalDestinationStatus;
 };
 
-const setPageLoadInterviewStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
+const setPageLoadInterviewStatus = (
+  currentApplicationData: Application,
+  updatedData: Application | undefined,
+  selectOptions: ApplicationOptionStatuses,
+) => {
   if (currentApplicationData.finalDestinationStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
@@ -228,8 +230,16 @@ const setPageLoadInterviewStatus = (currentApplicationData: Application, updated
   return !(currentApplicationData.applicationStatus === submittedStatus.name || updatedData?.applicationStatus === submittedStatus.name);
 };
 
-const setPageLoadOfferStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
-  if (!currentApplicationData.interviewStatus || currentApplicationData.finalDestinationStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
+const setPageLoadOfferStatus = (
+  currentApplicationData: Application,
+  updatedData: Application | undefined,
+  selectOptions: ApplicationOptionStatuses,
+) => {
+  if (
+    !currentApplicationData.interviewStatus ||
+    currentApplicationData.finalDestinationStatus ||
+    disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)
+  ) {
     return true;
   }
 
@@ -238,7 +248,11 @@ const setPageLoadOfferStatus = (currentApplicationData: Application, updatedData
   return currentApplicationData.interviewStatus === notInvitedStatus.name || updatedData?.interviewStatus === notInvitedStatus.name;
 };
 
-const setPageLoadResponseStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
+const setPageLoadResponseStatus = (
+  currentApplicationData: Application,
+  updatedData: Application | undefined,
+  selectOptions: ApplicationOptionStatuses,
+) => {
   if (!currentApplicationData.offerStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
@@ -248,7 +262,11 @@ const setPageLoadResponseStatus = (currentApplicationData: Application, updatedD
   return currentApplicationData.offerStatus === rejectedStatus.name || updatedData?.offerStatus === rejectedStatus.name;
 };
 
-const setPageLoadFinalDestinationStatus = (currentApplicationData: Application, updatedData: Application | undefined, selectOptions: ApplicationOptionStatuses) => {
+const setPageLoadFinalDestinationStatus = (
+  currentApplicationData: Application,
+  updatedData: Application | undefined,
+  selectOptions: ApplicationOptionStatuses,
+) => {
   if (!currentApplicationData.responseStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
@@ -258,7 +276,7 @@ const setPageLoadFinalDestinationStatus = (currentApplicationData: Application, 
   return currentApplicationData.responseStatus === offerDeclinedStatus.name || updatedData?.responseStatus === offerDeclinedStatus.name;
 };
 
-const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, selectOptions }: DisabledInputFields) => {
+export const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, selectOptions }: DisabledInputFields) => {
   const [fieldDisabledStatuses, setFieldDisabledStatuses] = useState<{ [key: string]: boolean }>({
     applicationStatus: setPageLoadApplicationStatus(currentApplicationData),
     interviewStatus: setPageLoadInterviewStatus(currentApplicationData, updatedData, selectOptions),
@@ -330,7 +348,9 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, se
   };
 
   const updateFinalDestinationStatus = (eventTargetValue: string) => {
-    const positiveResponseStatuses = selectOptions.responseStatus?.filter((element) => element.name !== ResponseStatusE.OFFER_DECLINED) as ResponseStatus[];
+    const positiveResponseStatuses = selectOptions.responseStatus?.filter(
+      (element) => element.name !== ResponseStatusE.OFFER_DECLINED,
+    ) as ResponseStatus[];
 
     if (isStatusInList(positiveResponseStatuses, eventTargetValue)) {
       setFieldDisabledStatuses({
@@ -361,10 +381,4 @@ const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, se
     updateFinalDestinationStatus,
     disableFieldsOnFinalDestinationUpdate,
   };
-};
-
-export {
-  useHandleFormSubmission,
-  useUpdateApplication,
-  useHandleFieldDisableStatuses,
 };

@@ -1,14 +1,14 @@
-import {
-  RefObject,
-  useEffect,
-  useRef,
-} from 'react';
+/**
+ * @prettier
+ */
 
-export interface DisplayModalHook {
+import { RefObject, useEffect, useRef } from 'react';
+
+export interface DisplayModal {
   dialogRef: RefObject<HTMLDialogElement>;
 }
 
-const useDisplayModal = (isVisible: boolean) => {
+export const useDisplayModal = (isVisible: boolean): DisplayModal => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -24,8 +24,4 @@ const useDisplayModal = (isVisible: boolean) => {
   return {
     dialogRef,
   };
-};
-
-export {
-  useDisplayModal,
 };

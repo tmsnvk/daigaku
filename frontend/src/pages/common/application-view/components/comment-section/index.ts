@@ -1,3 +1,7 @@
-import CommentSection from './comment-section.component';
+/**
+ * @prettier
+ */
 
-export default CommentSection;
+import { CommentSection } from './comment-section.component';
+
+export { CommentSection };

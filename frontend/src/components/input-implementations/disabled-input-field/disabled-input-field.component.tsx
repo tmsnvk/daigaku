@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { BaseInput } from '@components/base-styles';
 import { InputLabel } from '@components/form';
 
@@ -8,11 +12,9 @@ interface ComponentProps {
   readonly defaultValue: string | number;
 }
 
-const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentProps) => {
+export const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentProps) => {
   return (
-    <BaseInput
-      $isDisabled={true}
-    >
+    <BaseInput $isDisabled={true}>
       <InputLabel
         inputId={fieldId}
         content={label}
@@ -28,5 +30,3 @@ const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentPro
     </BaseInput>
   );
 };
-
-export default DisabledInputField;

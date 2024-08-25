@@ -1,10 +1,14 @@
+/**
+ * @prettier
+ */
+
 import { useMutation } from '@tanstack/react-query';
 
-import applicationStudentService from '@services/application/application-student.service';
+import { applicationStudentService } from '@services/application/application-student.service';
 
 import { mutationKeys } from '@configuration';
 
-const useSendDownloadRequest = () => {
+export const useSendDownloadRequest = () => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_PDF_REQUEST],
     mutationFn: () => applicationStudentService.requestDownload(),
@@ -15,8 +19,4 @@ const useSendDownloadRequest = () => {
       // show error component
     },
   });
-};
-
-export {
-  useSendDownloadRequest,
 };

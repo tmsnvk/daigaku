@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { useGetStudentAndMentorAccountRoles } from './role';
 import { useGetApplications } from './application';
 import { useGetAllSelectOptions } from './application-status';

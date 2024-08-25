@@ -1,7 +1,8 @@
-import PublicLayout from './public-layout';
-import PrivateLayout from './private-layout';
+/**
+ * @prettier
+ */
 
-export {
-  PublicLayout,
-  PrivateLayout,
-};
+import { PublicLayout } from './public-layout';
+import { PrivateLayout } from './private-layout';
+
+export { PublicLayout, PrivateLayout };

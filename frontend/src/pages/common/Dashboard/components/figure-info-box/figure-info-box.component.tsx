@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { DescriptionList } from './figure-info-box.styles.ts';
 
 interface ComponentProps {
@@ -5,17 +9,11 @@ interface ComponentProps {
   readonly content: string | number;
 }
 
-const FigureInfoBox = ({ title, content }: ComponentProps) => {
+export const FigureInfoBox = ({ title, content }: ComponentProps) => {
   return (
     <DescriptionList>
-      <dt>
-        {content}
-      </dt>
-      <dd>
-        {title}
-      </dd>
+      <dt>{content}</dt>
+      <dd>{title}</dd>
     </DescriptionList>
   );
 };
-
-export default FigureInfoBox;

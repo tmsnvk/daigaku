@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfigWithAuth } from '@configuration';
 
 export interface UniversityOption {
@@ -6,7 +10,7 @@ export interface UniversityOption {
   readonly abbreviation: string;
 }
 
-const universityService = {
+export const universityService = {
   getDropdownOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<Array<UniversityOption>> => {
     const { data } = await axiosConfigWithAuth.request<Array<UniversityOption>>({
       method: 'GET',
@@ -16,5 +20,3 @@ const universityService = {
     return data;
   },
 };
-
-export default universityService;

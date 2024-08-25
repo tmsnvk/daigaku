@@ -1,3 +1,7 @@
-import IsRemovableButton from './is-removable-button.component';
+/**
+ * @prettier
+ */
 
-export default IsRemovableButton;
+import { IsRemovableButton } from './is-removable-button.component';
+
+export { IsRemovableButton };

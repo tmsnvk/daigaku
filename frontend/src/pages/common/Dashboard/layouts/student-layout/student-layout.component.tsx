@@ -1,7 +1,8 @@
-import {
-  FigureInfoBox,
-  TextInfoBox,
-} from '../../components/index';
+/**
+ * @prettier
+ */
+
+import { FigureInfoBox, TextInfoBox } from '../../components/index';
 
 import { DashboardData } from '../../dashboard.hooks';
 
@@ -9,7 +10,7 @@ interface ComponentProps {
   readonly data: DashboardData;
 }
 
-const StudentLayout = ({ data }: ComponentProps) => {
+export const StudentLayout = ({ data }: ComponentProps) => {
   return (
     <>
       <section>
@@ -45,25 +46,23 @@ const StudentLayout = ({ data }: ComponentProps) => {
           title={'Offers'}
           content={data.numberOfOffers}
         />
-        {data.firmChoiceDto &&
+        {data.firmChoiceDto && (
           <TextInfoBox
             title={'Firm Choice'}
             country={data.firmChoiceDto.country ?? ''}
             university={data.firmChoiceDto.university ?? 'Not yet selected.'}
             courseName={data.firmChoiceDto.courseName ?? ''}
           />
-        }
-        {data.finalDestinationDto &&
+        )}
+        {data.finalDestinationDto && (
           <TextInfoBox
             title={'Final Destination'}
             country={data.finalDestinationDto.country ?? ''}
             university={data.finalDestinationDto.university ?? 'Not yet selected.'}
             courseName={data.finalDestinationDto.courseName ?? ''}
           />
-        }
+        )}
       </section>
     </>
   );
 };
-
-export default StudentLayout;

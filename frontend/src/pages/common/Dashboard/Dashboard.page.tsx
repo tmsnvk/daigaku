@@ -1,20 +1,17 @@
-import {
-  AccountRoleValues,
-  AuthContext,
-  useAuth,
-} from '@context/auth';
+/**
+ * @prettier
+ */
+
+import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { useGetApplications } from '@hooks/application';
 import { useGetDashboardData } from './dashboard.hooks';
 
 import { StudentLayout } from './layouts/index';
 import { TodoList } from './components/index';
-import {
-  GlobalErrorModal,
-  GlobalLoadingModal,
-} from '@components/notification';
+import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { Main } from './dashboard.styles';
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const { account }: Partial<AuthContext> = useAuth();
   const { data, isLoading, isError, error } = useGetDashboardData();
 
@@ -29,7 +26,7 @@ const Dashboard = () => {
   }
 
   return (
-    data &&
+    data && (
       <Main>
         {/* TodoList will need to go into its related layout */}
         <TodoList data={data} />
@@ -38,7 +35,6 @@ const Dashboard = () => {
         {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER data={data} />}*/}
       </Main>
+    )
   );
 };
-
-export default Dashboard;

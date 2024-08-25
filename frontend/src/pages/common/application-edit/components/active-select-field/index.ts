@@ -1,3 +1,7 @@
-import ActiveSelectField from './active-select-field.component';
+/**
+ * @prettier
+ */
 
-export default ActiveSelectField;
+import { ActiveSelectField } from './active-select-field.component';
+
+export { ActiveSelectField };

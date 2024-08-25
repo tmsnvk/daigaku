@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { Article } from './text-info-box.styles';
 
 interface ComponentProps {
@@ -7,7 +11,7 @@ interface ComponentProps {
   readonly courseName: string;
 }
 
-const TextInfoBox = ({ title, country, university, courseName }: ComponentProps) => {
+export const TextInfoBox = ({ title, country, university, courseName }: ComponentProps) => {
   return (
     <Article>
       <p>{country}</p>
@@ -17,5 +21,3 @@ const TextInfoBox = ({ title, country, university, courseName }: ComponentProps)
     </Article>
   );
 };
-
-export default TextInfoBox;

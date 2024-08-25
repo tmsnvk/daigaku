@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import {
   noApplications,
   noFinalDestinationSet,
@@ -13,7 +17,7 @@ export interface CreateCurrentTodos {
   currentTodos: Array<string>;
 }
 
-const useCreateCurrentTodos = (data: DashboardData): CreateCurrentTodos => {
+export const useCreateCurrentTodos = (data: DashboardData): CreateCurrentTodos => {
   const currentTodos: string[] = [];
 
   const getCurrentTodos = (): void => {
@@ -38,8 +42,4 @@ const useCreateCurrentTodos = (data: DashboardData): CreateCurrentTodos => {
   return {
     currentTodos,
   };
-};
-
-export {
-  useCreateCurrentTodos,
 };

@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import styled, { keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
@@ -10,7 +14,7 @@ const fadeIn = keyframes`
   }
 `;
 
-const Paragraph = styled.p`
+export const Paragraph = styled.p`
   height: 2rem;
   padding: 1rem 0 0 0;
   text-align: center;
@@ -19,7 +23,3 @@ const Paragraph = styled.p`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   animation: ${fadeIn} 0.25s ease-in;
 `;
-
-export {
-  Paragraph,
-};

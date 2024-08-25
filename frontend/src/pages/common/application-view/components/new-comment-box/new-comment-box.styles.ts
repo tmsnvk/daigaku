@@ -1,10 +1,14 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   & textarea {
     margin: 0 0 5rem 0;
     padding: 2rem 1.5rem 2rem 1.5rem;
@@ -19,7 +23,3 @@ const Form = styled.form`
     }
   }
 `;
-
-export {
-  Form,
-};

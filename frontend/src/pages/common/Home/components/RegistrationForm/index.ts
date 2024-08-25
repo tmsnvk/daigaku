@@ -1,3 +1,7 @@
-import RegistrationForm from './registration-form.component';
+/**
+ * @prettier
+ */
 
-export default RegistrationForm;
+import { RegistrationForm } from './registration-form.component';
+
+export { RegistrationForm };

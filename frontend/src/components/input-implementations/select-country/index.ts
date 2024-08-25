@@ -1,3 +1,7 @@
-import SelectCountry from './select-country.component';
+/**
+ * @prettier
+ */
 
-export default SelectCountry;
+import { SelectCountry } from './select-country.component';
+
+export { SelectCountry };

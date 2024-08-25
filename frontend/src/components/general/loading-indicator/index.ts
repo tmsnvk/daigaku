@@ -1,3 +1,7 @@
-import LoadingIndicator from './loading-indicator.component';
+/**
+ * @prettier
+ */
 
-export default LoadingIndicator;
+import { LoadingIndicator } from './loading-indicator.component';
+
+export { LoadingIndicator };

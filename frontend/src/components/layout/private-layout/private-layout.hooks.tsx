@@ -1,8 +1,8 @@
-import {
-  MouseEvent,
-  useRef,
-  useState,
-} from 'react';
+/**
+ * @prettier
+ */
+
+import { MouseEvent, useRef, useState } from 'react';
 
 export interface HandleSmallScreenMenuDisplayHook {
   ref: React.MutableRefObject<HTMLDivElement | null>;
@@ -12,7 +12,7 @@ export interface HandleSmallScreenMenuDisplayHook {
   handleOutsideClick: () => void;
 }
 
-const useHandleSmallScreenMenuDisplay = (): HandleSmallScreenMenuDisplayHook => {
+export const useHandleSmallScreenMenuDisplay = (): HandleSmallScreenMenuDisplayHook => {
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -39,8 +39,4 @@ const useHandleSmallScreenMenuDisplay = (): HandleSmallScreenMenuDisplayHook => 
     handleInsideClick,
     handleOutsideClick,
   };
-};
-
-export {
-  useHandleSmallScreenMenuDisplay,
 };

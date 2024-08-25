@@ -1,3 +1,7 @@
-import TableHead from './table-head.component';
+/**
+ * @prettier
+ */
 
-export default TableHead;
+import { TableHead } from './table-head.component';
+
+export { TableHead };

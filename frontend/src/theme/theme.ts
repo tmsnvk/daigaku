@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { DefaultTheme } from 'styled-components';
 
 const coralRed = '#F94144';
@@ -7,7 +11,7 @@ const jacarta = '#31304D';
 const darkGunMetal = '#161A30';
 const indianYellow = '#eaa14f';
 
-const theme: DefaultTheme = {
+export const theme: DefaultTheme = {
   color: {
     primaryDark: darkGunMetal,
     primaryLight: white,
@@ -44,5 +48,3 @@ const theme: DefaultTheme = {
     xLarge: '1280px',
   },
 };
-
-export default theme;

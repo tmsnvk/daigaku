@@ -1,7 +1,8 @@
-import {
-  Article,
-  ErrorContainer,
-} from './comments.styles';
+/**
+ * @prettier
+ */
+
+import { Article, ErrorContainer } from './comments.styles';
 
 import { errorMessage } from './comments.utilities';
 
@@ -12,30 +13,28 @@ interface ComponentProps {
   readonly isError: boolean;
 }
 
-const Comments = ({ data, isError }: ComponentProps) => {
-  return (
-    isError ?
-      <ErrorContainer>{errorMessage}</ErrorContainer> :
-      <Article>
-        {data.map((comment) => (
-          <article key={comment.uuid}>
-            <div>
-              <p>{comment.createdBy}</p>
-              <p>{comment.content}</p>
-            </div>
-            <p>{new Date(comment.createdAt).toLocaleString(
-              'en-GB', {
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-              },
-            )}</p>
-          </article>
-        ))}
-      </Article>
+export const Comments = ({ data, isError }: ComponentProps) => {
+  return isError ? (
+    <ErrorContainer>{errorMessage}</ErrorContainer>
+  ) : (
+    <Article>
+      {data.map((comment) => (
+        <article key={comment.uuid}>
+          <div>
+            <p>{comment.createdBy}</p>
+            <p>{comment.content}</p>
+          </div>
+          <p>
+            {new Date(comment.createdAt).toLocaleString('en-GB', {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </p>
+        </article>
+      ))}
+    </Article>
   );
 };
-
-export default Comments;

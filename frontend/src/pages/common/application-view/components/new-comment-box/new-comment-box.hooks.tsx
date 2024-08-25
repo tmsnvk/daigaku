@@ -1,13 +1,13 @@
+/**
+ * @prettier
+ */
+
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
 import { commentService } from '@services/index';
 
-import {
-  mutationKeys,
-  queryClient,
-  queryKeys,
-} from '@configuration';
+import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
 export interface NewCommentFormFields {
   readonly commentContent: string;
@@ -18,21 +18,18 @@ interface NewCommentForm {
   applicationUuid: string;
 }
 
-type NewCommentFormErrorFieldsT =
-  `root.${string}` |
-  'root' |
-  'commentContent';
+type NewCommentFormErrorFieldsT = `root.${string}` | 'root' | 'commentContent';
 
 interface NewCommentFormError {
   response: {
     status: number;
     data: {
       [key: string]: NewCommentFormErrorFieldsT;
-    }
-  }
+    };
+  };
 }
 
-const useSubmitNewComment = ({ setError, applicationUuid }: NewCommentForm) => {
+export const useSubmitNewComment = ({ setError, applicationUuid }: NewCommentForm) => {
   return useMutation({
     mutationKey: [mutationKeys.COMMENTS.POST_COMMENT_BY_APPLICATION],
     mutationFn: (data: NewCommentFormFields) => commentService.postComment(data, applicationUuid),
@@ -51,8 +48,4 @@ const useSubmitNewComment = ({ setError, applicationUuid }: NewCommentForm) => {
       }
     },
   });
-};
-
-export {
-  useSubmitNewComment,
 };

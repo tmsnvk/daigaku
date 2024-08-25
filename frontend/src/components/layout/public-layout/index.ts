@@ -1,3 +1,7 @@
-import PublicLayout from './public-layout.component';
+/**
+ * @prettier
+ */
 
-export default PublicLayout;
+import { PublicLayout } from './public-layout.component';
+
+export { PublicLayout };

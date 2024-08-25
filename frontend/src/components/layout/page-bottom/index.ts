@@ -1,3 +1,7 @@
-import PageBottom from './page-bottom.component';
+/**
+ * @prettier
+ */
 
-export default PageBottom;
+import { PageBottom } from './page-bottom.component';
+
+export { PageBottom };

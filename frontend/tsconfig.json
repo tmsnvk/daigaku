@@ -33,10 +33,10 @@
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],
-      "@utilities/*": ["utilities/*"],
-    },
+      "@utilities/*": ["utilities/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": [ "node_modules" ],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

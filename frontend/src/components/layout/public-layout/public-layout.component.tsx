@@ -1,21 +1,23 @@
+/**
+ * @prettier
+ */
+
 import { Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { BaseNavbar } from '@components/base-styles';
-import NavigationRoute from '../navigation-route';
-import PageBottom from '../page-bottom';
+import { NavigationRoute } from '../navigation-route';
+import { PageBottom } from '../page-bottom';
 
 import { iconLibraryConfig } from '@configuration';
 
-const PublicLayout = () => {
+export const PublicLayout = () => {
   return (
     <>
       <BaseNavbar>
         <nav>
           <div>
-            <FontAwesomeIcon
-              icon={iconLibraryConfig.faGraduationCap}
-            />
+            <FontAwesomeIcon icon={iconLibraryConfig.faGraduationCap} />
             Daigaku
           </div>
           <ul>
@@ -34,5 +36,3 @@ const PublicLayout = () => {
     </>
   );
 };
-
-export default PublicLayout;

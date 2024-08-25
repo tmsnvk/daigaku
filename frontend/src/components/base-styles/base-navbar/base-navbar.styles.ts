@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const BaseNavbar = styled.header`
+export const BaseNavbar = styled.header`
   z-index: 100;
   position: sticky;
   top: 0;
@@ -51,5 +55,3 @@ const BaseNavbar = styled.header`
     }
   }
 `;
-
-export default BaseNavbar;

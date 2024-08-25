@@ -1,3 +1,7 @@
-import PageTitle from './page-title.component';
+/**
+ * @prettier
+ */
 
-export default PageTitle;
+import { PageTitle } from './page-title.component';
+
+export { PageTitle };

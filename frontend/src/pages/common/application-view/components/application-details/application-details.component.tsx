@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import { Link } from 'react-router-dom';
 
 import { PageTitle } from '@components/general';
 import { ApplicationMetaData } from '@components/application';
-import ApplicationDetailsField from '../application-details-field';
+import { ApplicationDetailsField } from '../application-details-field';
 import { ApplicationSection } from './application-details.styles';
 
 import { Application } from '@custom-types/index';
@@ -12,12 +16,10 @@ interface ComponentProps {
   data: Application;
 }
 
-const ApplicationDetails = ({ applicationUuid, data }: ComponentProps) => {
+export const ApplicationDetails = ({ applicationUuid, data }: ComponentProps) => {
   return (
     <ApplicationSection as={'section'}>
-      <PageTitle
-        content={'View Application'}
-      />
+      <PageTitle content={'View Application'} />
       <ApplicationMetaData
         createdAt={data.createdAt}
         createdBy={data.createdBy}
@@ -25,11 +27,7 @@ const ApplicationDetails = ({ applicationUuid, data }: ComponentProps) => {
         lastModifiedBy={data.lastModifiedBy}
       />
       <article>
-        <Link
-          to={`/applications/edit/${applicationUuid}`}
-        >
-          EDIT
-        </Link>
+        <Link to={`/applications/edit/${applicationUuid}`}>EDIT</Link>
       </article>
       <ApplicationDetailsField
         name={'Country'}
@@ -39,11 +37,12 @@ const ApplicationDetails = ({ applicationUuid, data }: ComponentProps) => {
         name={'Course'}
         data={data.courseName}
       />
-      {data.minorSubject &&
+      {data.minorSubject && (
         <ApplicationDetailsField
           name={'Minor'}
           data={data.minorSubject}
-        />}
+        />
+      )}
       <ApplicationDetailsField
         name={'Programme Length'}
         data={data.programmeLength}
@@ -71,5 +70,3 @@ const ApplicationDetails = ({ applicationUuid, data }: ComponentProps) => {
     </ApplicationSection>
   );
 };
-
-export default ApplicationDetails;

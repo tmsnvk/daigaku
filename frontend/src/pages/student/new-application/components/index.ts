@@ -1,5 +1,7 @@
-import NewApplicationForm from './new-application-form';
+/**
+ * @prettier
+ */
 
-export {
-  NewApplicationForm,
-};
+import { NewApplicationForm } from './new-application-form';
+
+export { NewApplicationForm };

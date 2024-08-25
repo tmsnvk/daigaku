@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import 'styled-components';
 
 declare module 'styled-components' {
@@ -9,11 +13,11 @@ declare module 'styled-components' {
       secondaryLight: string;
       tertiaryLight: string;
       error: string;
-    },
+    };
     fontFamily: {
       primary: string;
       secondary: string;
-    },
+    };
     fontSize: {
       default: string;
       small: string;
@@ -22,20 +26,20 @@ declare module 'styled-components' {
       xLarge: string;
       xxLarge: string;
       xxxLarge: string;
-    },
+    };
     fontWeight: {
       normal: number;
       semiBold: number;
       bold: number;
-    },
+    };
     options: {
       borderRadius: string;
-    },
+    };
     breakpoint: {
       small: string;
       medium: string;
       large: string;
       xLarge: string;
-    }
+    };
   }
 }

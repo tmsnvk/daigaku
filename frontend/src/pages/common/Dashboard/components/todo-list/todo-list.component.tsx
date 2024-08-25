@@ -1,7 +1,8 @@
-import {
-  CreateCurrentTodos,
-  useCreateCurrentTodos,
-} from './todo-list.hooks';
+/**
+ * @prettier
+ */
+
+import { CreateCurrentTodos, useCreateCurrentTodos } from './todo-list.hooks';
 
 import { Section } from './todo-list.styles';
 
@@ -13,19 +14,21 @@ interface ComponentProps {
   readonly data: DashboardData;
 }
 
-const TodoList = ({ data }: ComponentProps) => {
+export const TodoList = ({ data }: ComponentProps) => {
   const { currentTodos }: CreateCurrentTodos = useCreateCurrentTodos(data);
 
   return (
     <Section>
       <ul>
-        {generalIntroduction.map((paragraph, index) => <li key={index}>{paragraph}</li>)}
+        {generalIntroduction.map((paragraph, index) => (
+          <li key={index}>{paragraph}</li>
+        ))}
       </ul>
       <ol>
-        {currentTodos.map((paragraph, index) => <li key={index}>{paragraph}</li>)}
+        {currentTodos.map((paragraph, index) => (
+          <li key={index}>{paragraph}</li>
+        ))}
       </ol>
     </Section>
   );
 };
-
-export default TodoList;

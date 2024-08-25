@@ -1,7 +1,8 @@
-import {
-  expect,
-  test,
-} from '@playwright/test';
+/**
+ * @prettier
+ */
+
+import { expect, test } from '@playwright/test';
 import { HomePage } from './home-page';
 
 test.describe('Test the form functionality of', () => {

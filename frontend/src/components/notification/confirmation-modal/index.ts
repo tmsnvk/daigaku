@@ -1,3 +1,7 @@
-import ConfirmationModal from './confirmation-modal.component';
+/**
+ * @prettier
+ */
 
-export default ConfirmationModal;
+import { ConfirmationModal } from './confirmation-modal.component';
+
+export { ConfirmationModal };

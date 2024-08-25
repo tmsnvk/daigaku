@@ -1,7 +1,8 @@
-import {
-  UseQueryResult,
-  useQuery,
-} from '@tanstack/react-query';
+/**
+ * @prettier
+ */
+
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 import { universityService } from '@services/index.ts';
 
@@ -16,7 +17,7 @@ interface UniversityOptionsByCountryUuidHookParams {
 
 export type UniversityOptionsByCountryUuid = UseQueryResult<Array<UniversityOption>, Error>;
 
-const useGetUniversityOptionsByCountryUuid = ({
+export const useGetUniversityOptionsByCountryUuid = ({
   isCountryFieldSelected,
   selectedCountryUuid,
 }: UniversityOptionsByCountryUuidHookParams): UniversityOptionsByCountryUuid => {
@@ -26,5 +27,3 @@ const useGetUniversityOptionsByCountryUuid = ({
     enabled: isCountryFieldSelected,
   });
 };
-
-export default useGetUniversityOptionsByCountryUuid;

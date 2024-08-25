@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseNavbar } from '@components/base-styles';
 
-const Header = styled(BaseNavbar)`
+export const Header = styled(BaseNavbar)`
   & nav {
     height: 15rem;
 
@@ -29,8 +33,8 @@ interface SmallScreenMenuWrapper {
   readonly $isNavbarOpen: boolean;
 }
 
-const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`
-  right: ${({ $isNavbarOpen }) => $isNavbarOpen ? '0' : '-100%'};
+export const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`
+  right: ${({ $isNavbarOpen }) => ($isNavbarOpen ? '0' : '-100%')};
 
   @media screen and (width < ${({ theme }) => theme.breakpoint.large}) {
     z-index: 100;
@@ -49,7 +53,7 @@ const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`
   }
 `;
 
-const SmallScreenMenuToggle = styled.div`
+export const SmallScreenMenuToggle = styled.div`
   position: absolute;
   top: 2.5rem;
   right: 2.5rem;
@@ -59,9 +63,3 @@ const SmallScreenMenuToggle = styled.div`
     display: none;
   }
 `;
-
-export {
-  Header,
-  SmallScreenMenuWrapper,
-  SmallScreenMenuToggle,
-};

@@ -1,3 +1,7 @@
-import ColumnSelectorModal from './column-selector-modal.component';
+/**
+ * @prettier
+ */
 
-export default ColumnSelectorModal;
+import { ColumnSelectorModal } from './column-selector-modal.component';
+
+export { ColumnSelectorModal };

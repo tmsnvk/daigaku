@@ -1,3 +1,7 @@
-import Home from './home.page';
+/**
+ * @prettier
+ */
 
-export default Home;
+import { Home } from './home.page';
+
+export { Home };

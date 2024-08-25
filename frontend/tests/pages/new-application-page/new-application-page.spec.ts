@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { test } from '@playwright/test';
 import { NewApplicationPage } from './new-application-page';
 

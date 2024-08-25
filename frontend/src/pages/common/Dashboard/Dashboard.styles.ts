@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const Main = styled.main`
+export const Main = styled.main`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -23,7 +27,3 @@ const Main = styled.main`
     }
   }
 `;
-
-export {
-  Main,
-};

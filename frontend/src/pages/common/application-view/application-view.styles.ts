@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const MainGrid = styled.main`
+export const MainGrid = styled.main`
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   grid-template-rows: auto;
@@ -14,7 +18,3 @@ const MainGrid = styled.main`
     grid-template-columns: 1fr;
   }
 `;
-
-export {
-  MainGrid,
-};

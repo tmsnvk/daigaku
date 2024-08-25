@@ -1,7 +1,8 @@
-import {
-  useEffect,
-  useRef,
-} from 'react';
+/**
+ * @prettier
+ */
+
+import { useEffect, useRef } from 'react';
 
 import { Dialog } from './column-selector-modal.styles';
 
@@ -14,12 +15,7 @@ interface ComponentProps {
   readonly toggleModal: () => void;
 }
 
-const ColumnSelectorModal = ({
-  columns,
-  handleColumnVisibility,
-  isModalVisible,
-  toggleModal,
-}: ComponentProps) => {
+export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, toggleModal }: ComponentProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -59,5 +55,3 @@ const ColumnSelectorModal = ({
     </Dialog>
   );
 };
-
-export default ColumnSelectorModal;

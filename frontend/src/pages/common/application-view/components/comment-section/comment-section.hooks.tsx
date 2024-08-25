@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -11,7 +15,7 @@ export interface UpdatePagination {
   updateNextButton: (totalPages: number) => void;
 }
 
-const useUpdatePagination = (): UpdatePagination => {
+export const useUpdatePagination = (): UpdatePagination => {
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const updatePreviousButton = (): void => {
@@ -29,14 +33,9 @@ const useUpdatePagination = (): UpdatePagination => {
   };
 };
 
-const useGetCommentsByApplication = (applicationUuid: string, currentPage: number) => {
+export const useGetCommentsByApplication = (applicationUuid: string, currentPage: number) => {
   return useQuery({
     queryKey: [queryKeys.COMMENTS.GET_ALL_BY_APPLICATION_UUID, applicationUuid, currentPage],
     queryFn: () => commentService.getAllByApplicationUUid(applicationUuid, currentPage),
   });
-};
-
-export {
-  useUpdatePagination,
-  useGetCommentsByApplication,
 };

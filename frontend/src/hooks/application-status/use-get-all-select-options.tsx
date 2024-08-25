@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { useQueries } from '@tanstack/react-query';
 
 import {
@@ -30,7 +34,7 @@ export interface ApplicationOptionsData {
   isError: boolean;
 }
 
-const useGetAllSelectOptions = (): ApplicationOptionsData => {
+export const useGetAllSelectOptions = (): ApplicationOptionsData => {
   return useQueries({
     queries: [
       {
@@ -68,8 +72,4 @@ const useGetAllSelectOptions = (): ApplicationOptionsData => {
       };
     },
   });
-};
-
-export {
-  useGetAllSelectOptions,
 };

@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   * {
     border: 0;
     margin: 0;
@@ -25,11 +29,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${({ theme }) => theme.fontFamily.primary};
     font-weight: ${({ theme }) => theme.fontWeight.normal};
     background-color: ${({ theme }) => theme.color.primaryLight};
-    
+
     & > div {
       position: relative;
       min-height: 100vh;
-      
+
       & > div {
         height: 7.5rem;
       }
@@ -55,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100%;
   }
 
-  input, 
+  input,
   button,
   textarea,
   select {
@@ -67,5 +71,3 @@ const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
   }
 `;
-
-export default GlobalStyle;

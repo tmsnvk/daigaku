@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { ApplicationFormGrid } from '@components/form';
 
-const ApplicationSection = styled(ApplicationFormGrid)`
+export const ApplicationSection = styled(ApplicationFormGrid)`
   height: fit-content;
 
   & h1 {
@@ -50,7 +54,3 @@ const ApplicationSection = styled(ApplicationFormGrid)`
     width: 85%;
   }
 `;
-
-export {
-  ApplicationSection,
-};

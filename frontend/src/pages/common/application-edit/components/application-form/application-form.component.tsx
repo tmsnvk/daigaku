@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { useForm } from 'react-hook-form';
 
 import {
@@ -8,20 +12,13 @@ import {
   useUpdateApplication,
 } from './application-form.hooks';
 
-import {
-  InputError,
-  InputInfoBox,
-  SubmitInput,
-} from '@components/form';
+import { InputError, InputInfoBox, SubmitInput } from '@components/form';
 import { Toast } from '@components/notification';
-import {
-  LoadingIndicator,
-  PageTitle,
-} from '@components/general';
+import { LoadingIndicator, PageTitle } from '@components/general';
 import { DisabledInputField } from '@components/input-implementations';
 import { ApplicationMetaData } from '@components/application';
-import IsRemovableButton from '../is-removable-button/index';
-import ActiveSelectField from '../active-select-field/index';
+import { IsRemovableButton } from '../is-removable-button/index';
+import { ActiveSelectField } from '../active-select-field/index';
 import { Form } from './application-form.styles';
 
 import {
@@ -40,7 +37,7 @@ import {
 } from './application-form.utilities';
 
 import { ApplicationOptionStatuses } from '@hooks/application-status/use-get-all-select-options';
-import { ApplicationData } from '@services/application/application.service';
+import { Application } from '@custom-types/index';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 import { OfferStatus } from '@services/status/offer-status.service';
@@ -48,16 +45,12 @@ import { InterviewStatus } from '@services/status/interview-status-service.servi
 import { ApplicationStatus } from '@services/status/application-status.service';
 
 interface ComponentProps {
-  readonly currentApplicationData: ApplicationData;
+  readonly currentApplicationData: Application;
   readonly applicationUuid: string;
   readonly selectOptions: ApplicationOptionStatuses;
 }
 
-const ApplicationForm = ({
-  currentApplicationData,
-  applicationUuid,
-  selectOptions,
-}: ComponentProps) => {
+export const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOptions }: ComponentProps) => {
   const {
     formState: { errors },
     handleSubmit,
@@ -65,12 +58,7 @@ const ApplicationForm = ({
     setError,
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
 
-  const {
-    data: updatedData,
-    isPending,
-    isSuccess,
-    mutate,
-  } = useUpdateApplication({ setError, applicationUuid });
+  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid });
 
   const {
     fieldDisabledStatuses,
@@ -142,7 +130,7 @@ const ApplicationForm = ({
           fieldError={errors.applicationStatusUuid?.message}
           fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
-          selectPrompt={'Update the application\'s current status.'}
+          selectPrompt={"Update the application's current status."}
           previouslySelectedValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
           options={selectOptions.applicationStatus as ApplicationStatus[]}
           isReadOnly={fieldDisabledStatuses.applicationStatus}
@@ -154,7 +142,7 @@ const ApplicationForm = ({
           fieldError={errors.interviewStatusUuid?.message}
           fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
-          selectPrompt={'Update the application\'s interview status.'}
+          selectPrompt={"Update the application's interview status."}
           previouslySelectedValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
           options={selectOptions.interviewStatus as InterviewStatus[]}
           isReadOnly={fieldDisabledStatuses.interviewStatus}
@@ -166,7 +154,7 @@ const ApplicationForm = ({
           fieldError={errors.offerStatusUuid?.message}
           fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
-          selectPrompt={'Update the university\'s decision.'}
+          selectPrompt={"Update the university's decision."}
           previouslySelectedValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
           options={selectOptions.offerStatus as OfferStatus[]}
           isReadOnly={fieldDisabledStatuses.offerStatus}
@@ -198,15 +186,17 @@ const ApplicationForm = ({
         />
         <InputInfoBox content={finalDestinationInformation} />
         <article>
-          {
-            isPending ?
-              <LoadingIndicator content={'Your application is being updated.'} /> :
-              <SubmitInput type={'submit'} value={'update application'} disabled={isPending} />
-          }
+          {isPending ? (
+            <LoadingIndicator content={'Your application is being updated.'} />
+          ) : (
+            <SubmitInput
+              type={'submit'}
+              value={'update application'}
+              disabled={isPending}
+            />
+          )}
         </article>
-        <article>
-          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
-        </article>
+        <article>{errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}</article>
       </Form>
       <Toast
         isVisible={isSuccess}
@@ -215,5 +205,3 @@ const ApplicationForm = ({
     </>
   );
 };
-
-export default ApplicationForm;

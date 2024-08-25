@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { iconLibraryConfig } from '@configuration';
@@ -8,12 +12,10 @@ interface ComponentProps {
   readonly content: string;
 }
 
-const LoadingIndicator = ({ content }: ComponentProps) => {
+export const LoadingIndicator = ({ content }: ComponentProps) => {
   return (
     <Article>
-      <p>
-        {content}
-      </p>
+      <p>{content}</p>
       <FontAwesomeIcon
         icon={iconLibraryConfig.faSpinner}
         spin
@@ -21,5 +23,3 @@ const LoadingIndicator = ({ content }: ComponentProps) => {
     </Article>
   );
 };
-
-export default LoadingIndicator;

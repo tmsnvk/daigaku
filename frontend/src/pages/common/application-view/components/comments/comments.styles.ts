@@ -1,15 +1,19 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const Article = styled.article`
+export const Article = styled.article`
   margin: 0 0 5rem 0;
-  
+
   & article:first-of-type {
     margin: 0 auto 5rem auto;
   }
-  
+
   & article {
     width: 75%;
-    margin: 5rem auto 5rem auto; 
+    margin: 5rem auto 5rem auto;
     font-size: ${({ theme }) => theme.fontSize.medium};
 
     & > div {
@@ -34,7 +38,7 @@ const Article = styled.article`
       font-weight: 800;
     }
   }
-  
+
   & article:not(:last-of-type)::after {
     content: '';
     display: block;
@@ -44,7 +48,7 @@ const Article = styled.article`
   }
 `;
 
-const ErrorContainer = styled.article`
+export const ErrorContainer = styled.article`
   width: 75%;
   margin: 5rem auto 5rem auto;
   text-align: center;
@@ -52,8 +56,3 @@ const ErrorContainer = styled.article`
   font-size: ${({ theme }) => theme.fontSize.medium};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
-
-export {
-  Article,
-  ErrorContainer,
-};

@@ -1,22 +1,18 @@
+/**
+ * @prettier
+ */
+
 import { Navigate } from 'react-router-dom';
 
-import {
-  AuthStatus,
-  useAuth,
-} from '@context/auth';
-import {
-  RenderSelectedFormComponent,
-  ShowConfirmationModal,
-  useRenderSelectedFormComponent,
-  useShowConfirmationModal,
-} from './home.hooks';
+import { AuthStatus, useAuth } from '@context/auth';
+import { RenderSelectedFormComponent, ShowConfirmationModal, useRenderSelectedFormComponent, useShowConfirmationModal } from './home.hooks';
 
 import { ConfirmationModal } from '@components/notification';
 import { MainContainer } from './home.styles';
 
 import { confirmationModalMessages } from './home.utilities';
 
-const Home = () => {
+export const Home = () => {
   const { authStatus } = useAuth();
   const { isConfirmationModalVisible, showModal, closeModal }: ShowConfirmationModal = useShowConfirmationModal();
   const { activeFormType, displayActiveFormType }: RenderSelectedFormComponent = useRenderSelectedFormComponent(showModal);
@@ -26,19 +22,17 @@ const Home = () => {
   }
 
   return (
-    authStatus === AuthStatus.SIGNED_OUT &&
-    <MainContainer>
-      {displayActiveFormType}
-      {
-        isConfirmationModalVisible &&
-        <ConfirmationModal
-          isVisible={isConfirmationModalVisible}
-          message={confirmationModalMessages[activeFormType]}
-          closeModal={closeModal}
-        />
-      }
-    </MainContainer>
+    authStatus === AuthStatus.SIGNED_OUT && (
+      <MainContainer>
+        {displayActiveFormType}
+        {isConfirmationModalVisible && (
+          <ConfirmationModal
+            isVisible={isConfirmationModalVisible}
+            message={confirmationModalMessages[activeFormType]}
+            closeModal={closeModal}
+          />
+        )}
+      </MainContainer>
+    )
   );
 };
-
-export default Home;

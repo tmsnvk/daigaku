@@ -1,5 +1,7 @@
-import useGetInstitutionOptions from './use-get-institution-options';
+/**
+ * @prettier
+ */
 
-export {
-  useGetInstitutionOptions,
-};
+import { useGetInstitutionOptions } from './use-get-institution-options';
+
+export { useGetInstitutionOptions };

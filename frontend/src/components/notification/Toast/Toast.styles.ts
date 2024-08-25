@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import styled, { keyframes } from 'styled-components';
 
 import { BaseLightBorder } from '@components/base-styles';
@@ -18,9 +22,9 @@ const fadeOut = keyframes`
   }
 `;
 
-const Section = styled.section`
+export const Section = styled.section`
   ${BaseLightBorder};
-  
+
   width: 30rem;
   height: 10rem;
   z-index: 100;
@@ -34,9 +38,7 @@ const Section = styled.section`
   padding: 0 1.5rem 0 1.5rem;
   font-size: ${({ theme }) => theme.fontSize.medium};
   background-color: ${({ theme }) => theme.color.tertiaryLight};
-  animation: ${fadeIn} 0.1s ease-in forwards, ${fadeOut} 5s 0.5s ease-out forwards;
+  animation:
+    ${fadeIn} 0.1s ease-in forwards,
+    ${fadeOut} 5s 0.5s ease-out forwards;
 `;
-
-export {
-  Section,
-};

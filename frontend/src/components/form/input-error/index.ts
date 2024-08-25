@@ -1,3 +1,7 @@
-import InputError from './input-error.component';
+/**
+ * @prettier
+ */
 
-export default InputError;
+import { InputError } from './input-error.component';
+
+export { InputError };

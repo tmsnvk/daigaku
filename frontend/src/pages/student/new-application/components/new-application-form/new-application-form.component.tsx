@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { useForm } from 'react-hook-form';
 
 import {
@@ -7,20 +11,9 @@ import {
   useSubmitNewApplicationForm,
 } from './new-application-form.hooks';
 
-import {
-  InputError,
-  InputInfoBox,
-  SubmitInput,
-} from '@components/form';
-import {
-  LoadingIndicator,
-  PageTitle,
-} from '@components/general';
-import {
-  GenericInputField,
-  SelectCountry,
-  SelectUniversity,
-} from '@components/input-implementations';
+import { InputError, InputInfoBox, SubmitInput } from '@components/form';
+import { LoadingIndicator, PageTitle } from '@components/general';
+import { GenericInputField, SelectCountry, SelectUniversity } from '@components/input-implementations';
 import { Toast } from '@components/notification';
 import { FormContainer } from './new-application-form.styles';
 
@@ -44,7 +37,7 @@ interface ComponentProps {
   readonly isUniversityDataLoading: boolean;
 }
 
-const NewApplicationForm = ({ handleCountryClick, countryData, universityData, isUniversityDataLoading }: ComponentProps) => {
+export const NewApplicationForm = ({ handleCountryClick, countryData, universityData, isUniversityDataLoading }: ComponentProps) => {
   const {
     formState: { errors },
     reset,
@@ -53,17 +46,9 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData, i
     setError,
   } = useForm<NewApplicationFormFields>({ mode: 'onSubmit' });
 
-  const {
-    isCountrySelected,
-    handleCountrySelection,
-    resetCountrySelection,
-  }: CheckFieldDisableStatus = useCheckFieldDisableStatus();
+  const { isCountrySelected, handleCountrySelection, resetCountrySelection }: CheckFieldDisableStatus = useCheckFieldDisableStatus();
 
-  const {
-    isPending,
-    isSuccess,
-    mutate,
-  } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
+  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
 
   return (
     <>
@@ -84,17 +69,17 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData, i
           onCountrySelection={handleCountrySelection}
         />
         <InputInfoBox content={countryInformation} />
-        {
-          isUniversityDataLoading ?
-            <LoadingIndicator content={'Fetching university list...'} /> :
-            <SelectUniversity
-              register={register}
-              fieldError={errors.universityUuid?.message}
-              fieldId={'universityUuid'}
-              isDisabled={isPending || !isCountrySelected}
-              data={universityData}
-            />
-        }
+        {isUniversityDataLoading ? (
+          <LoadingIndicator content={'Fetching university list...'} />
+        ) : (
+          <SelectUniversity
+            register={register}
+            fieldError={errors.universityUuid?.message}
+            fieldId={'universityUuid'}
+            isDisabled={isPending || !isCountrySelected}
+            data={universityData}
+          />
+        )}
         <InputInfoBox content={universityInformation} />
         <GenericInputField
           register={register}
@@ -121,7 +106,8 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData, i
           validationRules={{
             pattern: {
               value: /^[\p{L}\s]{5,255}$/u,
-              message: 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
+              message:
+                'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
             },
           }}
           fieldError={errors.minorSubject?.message}
@@ -154,15 +140,17 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData, i
         />
         <InputInfoBox content={programmeLengthInformation} />
         <article>
-          {
-            isPending ?
-              <LoadingIndicator content={'Your application is being submitted.'} /> :
-              <SubmitInput type={'submit'} value={'submit application'} disabled={isPending} />
-          }
+          {isPending ? (
+            <LoadingIndicator content={'Your application is being submitted.'} />
+          ) : (
+            <SubmitInput
+              type={'submit'}
+              value={'submit application'}
+              disabled={isPending}
+            />
+          )}
         </article>
-        <article>
-          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
-        </article>
+        <article>{errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}</article>
       </FormContainer>
       <Toast
         isVisible={isSuccess}
@@ -171,5 +159,3 @@ const NewApplicationForm = ({ handleCountryClick, countryData, universityData, i
     </>
   );
 };
-
-export default NewApplicationForm;

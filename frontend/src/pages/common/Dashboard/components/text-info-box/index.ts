@@ -1,3 +1,7 @@
-import TextInfoBox from './text-info-box.component';
+/**
+ * @prettier
+ */
 
-export default TextInfoBox;
+import { TextInfoBox } from './text-info-box.component';
+
+export { TextInfoBox };

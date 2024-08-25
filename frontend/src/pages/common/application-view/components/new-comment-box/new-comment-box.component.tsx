@@ -1,15 +1,12 @@
+/**
+ * @prettier
+ */
+
 import { useForm } from 'react-hook-form';
 
-import {
-  NewCommentFormFields,
-  useSubmitNewComment,
-} from './new-comment-box.hooks';
+import { NewCommentFormFields, useSubmitNewComment } from './new-comment-box.hooks';
 
-import {
-  InputError,
-  InputLabel,
-  SubmitInput,
-} from '@components/form';
+import { InputError, InputLabel, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { Form } from './new-comment-box.styles';
 
@@ -17,7 +14,7 @@ interface ComponentProps {
   readonly applicationUuid: string;
 }
 
-const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
+export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
   const {
     formState: { errors },
     handleSubmit,
@@ -49,17 +46,17 @@ const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
         placeholder={'Write a comment...'}
       />
       <article>
-        {
-          isPending ?
-            <LoadingIndicator content={'Your comment is being submitted.'} /> :
-            <SubmitInput type={'submit'} value={'add comment'} disabled={isPending} />
-        }
+        {isPending ? (
+          <LoadingIndicator content={'Your comment is being submitted.'} />
+        ) : (
+          <SubmitInput
+            type={'submit'}
+            value={'add comment'}
+            disabled={isPending}
+          />
+        )}
       </article>
-      <article>
-        {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
-      </article>
+      <article>{errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}</article>
     </Form>
   );
 };
-
-export default NewCommentBox;

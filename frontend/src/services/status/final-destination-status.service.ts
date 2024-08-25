@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfigWithAuth } from '@configuration';
 
 export interface FinalDestinationStatus {
@@ -5,7 +9,7 @@ export interface FinalDestinationStatus {
   readonly name: string;
 }
 
-const finalDestinationStatusService = {
+export const finalDestinationStatusService = {
   getAll: async (): Promise<Array<FinalDestinationStatus>> => {
     const { data } = await axiosConfigWithAuth.request<Array<FinalDestinationStatus>>({
       method: 'GET',
@@ -15,5 +19,3 @@ const finalDestinationStatusService = {
     return data;
   },
 };
-
-export default finalDestinationStatusService;

@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseDarkBorder } from '@components/base-styles';
 
-const Dialog = styled.dialog`
+export const Dialog = styled.dialog`
   ${BaseDarkBorder};
 
   display: flex;
@@ -15,10 +19,10 @@ const Dialog = styled.dialog`
     display: flex;
     flex-direction: row;
     margin: 1.5rem 0 0 0;
-    
+
     & input {
       margin: 0 1.5rem 0 0;
-  
+
       &:focus,
       &:hover {
         outline: none;
@@ -42,7 +46,3 @@ const Dialog = styled.dialog`
     }
   }
 `;
-
-export {
-  Dialog,
-};

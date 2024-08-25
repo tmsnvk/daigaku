@@ -1,3 +1,7 @@
-import NewApplication from './new-application.page';
+/**
+ * @prettier
+ */
 
-export default NewApplication;
+import { NewApplication } from './new-application.page';
+
+export { NewApplication };

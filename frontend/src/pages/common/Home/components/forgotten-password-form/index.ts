@@ -1,3 +1,7 @@
-import ForgottenPasswordForm from './forgotten-password-form.component';
+/**
+ * @prettier
+ */
 
-export default ForgottenPasswordForm;
+import { ForgottenPasswordForm } from './forgotten-password-form.component';
+
+export { ForgottenPasswordForm };

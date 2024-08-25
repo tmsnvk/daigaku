@@ -1,3 +1,7 @@
-import DataRows from './data-rows.component';
+/**
+ * @prettier
+ */
 
-export default DataRows;
+import { DataRows } from './data-rows.component';
+
+export { DataRows };

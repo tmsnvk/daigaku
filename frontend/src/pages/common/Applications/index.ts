@@ -1,3 +1,7 @@
-import Applications from './applications.page';
+/**
+ * @prettier
+ */
 
-export default Applications;
+import { Applications } from './applications.page';
+
+export { Applications };

@@ -1,3 +1,7 @@
-import PrivateLayout from './private-layout.component';
+/**
+ * @prettier
+ */
 
-export default PrivateLayout;
+import { PrivateLayout } from './private-layout.component';
+
+export { PrivateLayout };

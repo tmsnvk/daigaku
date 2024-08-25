@@ -1,1 +1,5 @@
+/**
+ * @prettier
+ */
+
 export * from './application';

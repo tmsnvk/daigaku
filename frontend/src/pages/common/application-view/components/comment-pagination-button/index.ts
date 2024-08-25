@@ -1,3 +1,7 @@
-import CommentPaginationButton from './comment-pagination-button.component';
+/**
+ * @prettier
+ */
 
-export default CommentPaginationButton;
+import { CommentPaginationButton } from './comment-pagination-button.component';
+
+export { CommentPaginationButton };

@@ -1,3 +1,7 @@
-import GenericInputField from './generic-input-field.component';
+/**
+ * @prettier
+ */
 
-export default GenericInputField;
+import { GenericInputField } from './generic-input-field.component';
+
+export { GenericInputField };

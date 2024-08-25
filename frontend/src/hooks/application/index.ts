@@ -1,7 +1,8 @@
-import useGetApplications from './use-get-applications';
+/**
+ * @prettier
+ */
+
+import { useGetApplications } from './use-get-applications';
 import { useGetApplication } from './use-get-application';
 
-export {
-  useGetApplications,
-  useGetApplication,
-};
+export { useGetApplications, useGetApplication };

@@ -1,3 +1,7 @@
-import TodoList from './todo-list.component';
+/**
+ * @prettier
+ */
 
-export default TodoList;
+import { TodoList } from './todo-list.component';
+
+export { TodoList };

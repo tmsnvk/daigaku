@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -19,25 +23,18 @@ type RegisterForm = {
   setError: UseFormSetError<RegisterFormFields>;
 } & ConfirmationModal;
 
-type RegisterFormErrorFields =
-  `root.${string}` |
-  'root' |
-  'firstName' |
-  'lastName' |
-  'email' |
-  'institutionUuid' |
-  'accountRoleUuid';
+type RegisterFormErrorFields = `root.${string}` | 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
 interface RegisterFormError {
   response: {
     status: number;
     data: {
       [key: string]: RegisterFormErrorFields;
-    }
-  }
+    };
+  };
 }
 
-const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm) => {
+export const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm) => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER],
     mutationFn: (data: RegisterFormFields) => pendingAccountService.register(data),
@@ -56,8 +53,4 @@ const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm) => {
       }
     },
   });
-};
-
-export {
-  useSubmitRegistrationForm,
 };

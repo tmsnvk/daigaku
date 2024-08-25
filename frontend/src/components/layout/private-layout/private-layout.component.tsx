@@ -1,71 +1,40 @@
+/**
+ * @prettier
+ */
+
 import { MouseEvent } from 'react';
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-  AccountRoleValues,
-  AuthContext,
-  AuthStatus,
-  useAuth,
-} from '@context/auth';
-import {
-  HandleSmallScreenMenuDisplayHook,
-  useHandleSmallScreenMenuDisplay,
-} from './private-layout.hooks';
+import { AccountRoleValues, AuthContext, AuthStatus, useAuth } from '@context/auth';
+import { HandleSmallScreenMenuDisplayHook, useHandleSmallScreenMenuDisplay } from './private-layout.hooks';
 
 import { GlobalLoadingModal } from '@components/notification';
-import NavigationRoute from '../navigation-route/index';
-import Footer from '../page-bottom/index';
-import {
-  Header,
-  SmallScreenMenuToggle,
-  SmallScreenMenuWrapper,
-} from './private-layout.styles';
+import { NavigationRoute } from '../navigation-route/index';
+import { PageBottom } from '../page-bottom/index';
+import { Header, SmallScreenMenuToggle, SmallScreenMenuWrapper } from './private-layout.styles';
 
 import { iconLibraryConfig } from '@configuration';
-import {
-  NavbarRoute,
-  commonNavigationRoutes,
-  roleNavigationRoutes,
-} from './private-layout.utilities';
+import { NavbarRoute, commonNavigationRoutes, roleNavigationRoutes } from './private-layout.utilities';
 
 interface ComponentPropsT {
   readonly allowedRoles: Array<AccountRoleValues>;
 }
 
-const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
+export const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const {
-    authStatus,
-    account,
-    logOut,
-  }: Partial<AuthContext> = useAuth();
-  const {
-    ref,
-    toggleMenu,
-    isNavbarOpen,
-    handleInsideClick,
-    handleOutsideClick,
-  }: HandleSmallScreenMenuDisplayHook = useHandleSmallScreenMenuDisplay();
+  const { authStatus, account, logOut }: Partial<AuthContext> = useAuth();
+  const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick }: HandleSmallScreenMenuDisplayHook =
+    useHandleSmallScreenMenuDisplay();
 
   if (authStatus === AuthStatus.LOADING) {
-    return (
-      <GlobalLoadingModal
-        content={'The application is compiling your data...'}
-      />
-    );
+    return <GlobalLoadingModal content={'The application is compiling your data...'} />;
   }
 
   if (!allowedRoles.includes(account.role as AccountRoleValues)) {
-    account ?
-      navigate('/unauthorised', { state : { from: location }, replace: true }) :
-      navigate('/', { replace: true });
+    account ? navigate('/unauthorised', { state: { from: location }, replace: true }) : navigate('/', { replace: true });
   }
 
   return (
@@ -102,9 +71,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
             <ul>
               {commonNavigationRoutes.map((route: NavbarRoute) => {
                 return (
-                  <li
-                    key={route.url}
-                  >
+                  <li key={route.url}>
                     <NavigationRoute
                       resource={route.url}
                       icon={route.icon}
@@ -132,9 +99,7 @@ const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
         </nav>
       </Header>
       <Outlet />
-      <Footer />
+      <PageBottom />
     </>
   );
 };
-
-export default PrivateLayout;

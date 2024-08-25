@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import axios from 'axios';
 
-const axiosConfig = axios.create({
+export const axiosConfig = axios.create({
   timeout: 30000,
   headers: {
     'Accept': 'application/json',
@@ -10,7 +14,7 @@ const axiosConfig = axios.create({
   },
 });
 
-const axiosConfigWithAuth = axios.create({
+export const axiosConfigWithAuth = axios.create({
   timeout: 30000,
   withCredentials: true,
   headers: {
@@ -35,8 +39,3 @@ axiosConfigWithAuth.interceptors.request.use(
   },
   (error) => Promise.reject(error),
 );
-
-export {
-  axiosConfig,
-  axiosConfigWithAuth,
-};

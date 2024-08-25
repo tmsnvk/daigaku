@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfigWithAuth } from '@configuration';
 
 import { NewCommentFormFields } from '@pages/common/application-view/components/new-comment-box/new-comment-box.hooks';
@@ -18,7 +22,7 @@ export interface CommentMeta {
   readonly comments: Array<Comment>;
 }
 
-const commentService = {
+export const commentService = {
   getAllByApplicationUUid: async (applicationUuid: string, currentPage: number): Promise<CommentMeta> => {
     const { data } = await axiosConfigWithAuth.request<CommentMeta>({
       method: 'GET',
@@ -37,5 +41,3 @@ const commentService = {
     return data;
   },
 };
-
-export default commentService;
