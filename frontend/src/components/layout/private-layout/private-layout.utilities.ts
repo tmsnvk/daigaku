@@ -14,7 +14,7 @@ export interface NavbarRoute {
   readonly content: string;
 }
 
-export const roleNavigationRoutes: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
+export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [
     { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, content: 'New Application' },
     { url: '/applications', icon: iconLibraryConfig.faScroll, content: 'My Applications' },
@@ -32,7 +32,7 @@ export const roleNavigationRoutes: { [key in AccountRoleValues]: Array<NavbarRou
   ],
 };
 
-export const commonNavigationRoutes: Array<NavbarRoute> = [
+export const sharedNavigationRoutes: Array<NavbarRoute> = [
   { url: '/account', icon: iconLibraryConfig.faUser, content: 'My Account' },
   { url: '/messages', icon: iconLibraryConfig.faEnvelope, content: 'Messages' },
   { url: '/feedback', icon: iconLibraryConfig.faGears, content: 'Feedback' },

@@ -7,18 +7,11 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
+import { FormFieldValidation } from '@common-types/index';
+
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
-  validationRules?: {
-    required?: {
-      value: boolean;
-      message: string;
-    };
-    pattern?: {
-      value: RegExp;
-      message: string;
-    };
-  };
+  validationRules?: FormFieldValidation;
   fieldError: string | undefined;
   fieldId: Path<T>;
   label: string;

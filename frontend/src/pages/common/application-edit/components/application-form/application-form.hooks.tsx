@@ -12,14 +12,13 @@ import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
 import { finalDestinationSelectionError, firmChoiceSelectionError } from './application-form.utilities';
 
-import { ApplicationStatusE, FinalDestinationE, InterviewStatusE, OfferStatusE, ResponseStatusE } from '@constants/application-status.enum';
-import { Application } from '@custom-types/index';
+import { Application, ApplicationStatusE, FinalDestinationE, InterviewStatusE, OfferStatusE, ResponseStatusE } from '@common-types/index';
 import { ApplicationStatus } from '@services/status/application-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-import { ApplicationOptionStatuses } from '@hooks/application-status/use-get-all-select-options';
+import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
 
 /*
  *
@@ -199,7 +198,7 @@ type ApplicationStatusesUnionT = ApplicationStatus[] | InterviewStatus[] | Offer
 interface DisabledInputFields {
   currentApplicationData: Application;
   updatedData: Application | undefined;
-  selectOptions: ApplicationOptionStatuses;
+  selectOptions: ApplicationStatusOption;
 }
 
 const disableIfWithdrawn = (
@@ -219,7 +218,7 @@ const setPageLoadApplicationStatus = (currentApplicationData: Application) => {
 const setPageLoadInterviewStatus = (
   currentApplicationData: Application,
   updatedData: Application | undefined,
-  selectOptions: ApplicationOptionStatuses,
+  selectOptions: ApplicationStatusOption,
 ) => {
   if (currentApplicationData.finalDestinationStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
@@ -233,7 +232,7 @@ const setPageLoadInterviewStatus = (
 const setPageLoadOfferStatus = (
   currentApplicationData: Application,
   updatedData: Application | undefined,
-  selectOptions: ApplicationOptionStatuses,
+  selectOptions: ApplicationStatusOption,
 ) => {
   if (
     !currentApplicationData.interviewStatus ||
@@ -251,7 +250,7 @@ const setPageLoadOfferStatus = (
 const setPageLoadResponseStatus = (
   currentApplicationData: Application,
   updatedData: Application | undefined,
-  selectOptions: ApplicationOptionStatuses,
+  selectOptions: ApplicationStatusOption,
 ) => {
   if (!currentApplicationData.offerStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;
@@ -265,7 +264,7 @@ const setPageLoadResponseStatus = (
 const setPageLoadFinalDestinationStatus = (
   currentApplicationData: Application,
   updatedData: Application | undefined,
-  selectOptions: ApplicationOptionStatuses,
+  selectOptions: ApplicationStatusOption,
 ) => {
   if (!currentApplicationData.responseStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
     return true;

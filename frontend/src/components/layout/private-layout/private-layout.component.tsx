@@ -7,27 +7,26 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { AccountRoleValues, AuthContext, AuthStatus, useAuth } from '@context/auth';
-import { HandleSmallScreenMenuDisplayHook, useHandleSmallScreenMenuDisplay } from './private-layout.hooks';
+import { SmallScreenMenuDisplay, useHandleSmallScreenMenuDisplay } from './private-layout.hooks';
 
 import { GlobalLoadingModal } from '@components/notification';
-import { NavigationRoute } from '../navigation-route/index';
-import { PageBottom } from '../page-bottom/index';
+import { NavigationRoute } from '../navigation-route';
+import { PageBottom } from '../page-bottom';
 import { Header, SmallScreenMenuToggle, SmallScreenMenuWrapper } from './private-layout.styles';
 
 import { iconLibraryConfig } from '@configuration';
-import { NavbarRoute, commonNavigationRoutes, roleNavigationRoutes } from './private-layout.utilities';
+import { NavbarRoute, navigationRoutesByRole, sharedNavigationRoutes } from './private-layout.utilities';
 
-interface ComponentPropsT {
+interface ComponentProps {
   readonly allowedRoles: Array<AccountRoleValues>;
 }
 
-export const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
+export const PrivateLayout = ({ allowedRoles }: ComponentProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const { authStatus, account, logOut }: Partial<AuthContext> = useAuth();
-  const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick }: HandleSmallScreenMenuDisplayHook =
-    useHandleSmallScreenMenuDisplay();
+  const { ref, toggleMenu, isNavbarOpen, handleInsideClick, handleOutsideClick }: SmallScreenMenuDisplay = useHandleSmallScreenMenuDisplay();
 
   if (authStatus === AuthStatus.LOADING) {
     return <GlobalLoadingModal content={'The application is compiling your data...'} />;
@@ -56,7 +55,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
             onKeyDown={() => handleOutsideClick()}
           >
             <ul>
-              {roleNavigationRoutes[account.role as AccountRoleValues].map((route: NavbarRoute) => {
+              {navigationRoutesByRole[account.role as AccountRoleValues].map((route: NavbarRoute) => {
                 return (
                   <li key={route.url}>
                     <NavigationRoute
@@ -69,7 +68,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentPropsT) => {
               })}
             </ul>
             <ul>
-              {commonNavigationRoutes.map((route: NavbarRoute) => {
+              {sharedNavigationRoutes.map((route: NavbarRoute) => {
                 return (
                   <li key={route.url}>
                     <NavigationRoute

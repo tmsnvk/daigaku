@@ -9,20 +9,21 @@ import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hoo
 import { GlobalErrorModal } from '@components/notification';
 import { NewApplicationForm } from './components';
 
-import { CountryOptions } from '@hooks/country/use-get-country-options';
-import { UniversityOptionsByCountryUuid } from '@hooks/university/use-get-university-options-by-country-uuid';
+import { CountryOption } from '@services/support/country.service';
+import { UniversityOption } from '@services/support/university.service';
+import { ListQueryResult } from '@common-types';
 
 export const NewApplication = () => {
   const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
   const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
-  const { data: countryData, isError: isCountryError }: CountryOptions = useGetCountryOptions();
+  const { data: countryData, isError: isCountryError }: ListQueryResult<CountryOption> = useGetCountryOptions();
 
   const {
     data: universityData,
     isLoading: isUniversityDataLoading,
     isError: isUniversityError,
-  }: UniversityOptionsByCountryUuid = useGetUniversityOptionsByCountryUuid({ isCountryFieldSelected, selectedCountryUuid });
+  }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountryFieldSelected, selectedCountryUuid);
 
   const handleCountryField = (countryUuid: string): void => {
     setIsCountryFieldSelected(true);

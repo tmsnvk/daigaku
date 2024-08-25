@@ -76,7 +76,7 @@
     "no-invalid-this": "warn",
     "no-lonely-if": "warn",
     "no-loop-func": "warn",
-    "no-magic-numbers": ["warn", { "ignoreArrayIndexes": true, "ignore": [-1, 0, 1, 2, 200] }],
+    // "no-magic-numbers": ["warn", { "ignoreArrayIndexes": true, "ignore": [-1, 0, 1, 2] }],
     "no-mixed-operators": "warn",
     "no-nested-ternary": "warn",
     "no-return-assign": "warn",

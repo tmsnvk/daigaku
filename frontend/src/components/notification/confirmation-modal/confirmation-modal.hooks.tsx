@@ -4,11 +4,11 @@
 
 import { RefObject, useEffect, useRef } from 'react';
 
-export interface DisplayModal {
+export interface RenderModal {
   dialogRef: RefObject<HTMLDialogElement>;
 }
 
-export const useDisplayModal = (isVisible: boolean): DisplayModal => {
+export const useRenderModal = (isVisible: boolean): RenderModal => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {

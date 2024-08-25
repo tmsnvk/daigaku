@@ -20,7 +20,7 @@ import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 
-export interface ApplicationOptionStatuses {
+export interface ApplicationStatusOption {
   applicationStatus: Array<ApplicationStatus> | undefined;
   interviewStatus: Array<InterviewStatus> | undefined;
   offerStatus: Array<OfferStatus> | undefined;
@@ -29,7 +29,7 @@ export interface ApplicationOptionStatuses {
 }
 
 export interface ApplicationOptionsData {
-  selectOptions: ApplicationOptionStatuses;
+  selectOptions: ApplicationStatusOption;
   isLoading: boolean;
   isError: boolean;
 }

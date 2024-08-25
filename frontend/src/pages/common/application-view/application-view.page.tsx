@@ -4,25 +4,20 @@
 
 import { useLocation } from 'react-router-dom';
 
-import { useGetApplication } from '@hooks/application';
+import { useGetApplicationByUuid } from '@hooks/application';
 
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { ApplicationDetails } from './components/application-details';
 import { CommentSection } from './components/comment-section';
 import { MainGrid } from './application-view.styles';
 
-import { Application } from '@custom-types/index';
-
-interface Location {
-  readonly state: Application;
-  readonly pathname: string;
-}
+import { Application, Location, SimpleQueryResult } from '@common-types';
 
 export const ApplicationView = () => {
-  const { state, pathname } = useLocation() as Location;
+  const { state, pathname }: Location = useLocation();
   const applicationUuid: string = pathname.split('/applications/view/')[1];
 
-  const { data, isLoading, isError } = useGetApplication(state, applicationUuid);
+  const { data, isLoading, isError }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
 
   if (isLoading) {
     return <GlobalLoadingModal content={'The application is compiling your data...'} />;

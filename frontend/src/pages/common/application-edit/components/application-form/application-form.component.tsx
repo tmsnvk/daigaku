@@ -36,8 +36,8 @@ import {
   universityInformation,
 } from './application-form.utilities';
 
-import { ApplicationOptionStatuses } from '@hooks/application-status/use-get-all-select-options';
-import { Application } from '@custom-types/index';
+import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
+import { Application } from '@common-types/index';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 import { OfferStatus } from '@services/status/offer-status.service';
@@ -47,7 +47,7 @@ import { ApplicationStatus } from '@services/status/application-status.service';
 interface ComponentProps {
   readonly currentApplicationData: Application;
   readonly applicationUuid: string;
-  readonly selectOptions: ApplicationOptionStatuses;
+  readonly selectOptions: ApplicationStatusOption;
 }
 
 export const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOptions }: ComponentProps) => {
@@ -186,15 +186,17 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
         />
         <InputInfoBox content={finalDestinationInformation} />
         <article>
-          {isPending ? (
-            <LoadingIndicator content={'Your application is being updated.'} />
-          ) : (
-            <SubmitInput
-              type={'submit'}
-              value={'update application'}
-              disabled={isPending}
-            />
-          )}
+          {isPending ?
+            (
+              <LoadingIndicator content={'Your application is being updated.'} />
+            ) :
+            (
+              <SubmitInput
+                type={'submit'}
+                value={'update application'}
+                disabled={isPending}
+              />
+            )}
         </article>
         <article>{errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}</article>
       </Form>

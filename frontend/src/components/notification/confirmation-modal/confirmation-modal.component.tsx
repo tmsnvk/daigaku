@@ -2,7 +2,7 @@
  * @prettier
  */
 
-import { DisplayModal, useDisplayModal } from './confirmation-modal.hooks';
+import { RenderModal, useRenderModal } from './confirmation-modal.hooks';
 
 import { SubmitInput } from '@components/form';
 import { Dialog } from './confirmation-modal.styles';
@@ -14,7 +14,7 @@ interface ComponentProps {
 }
 
 export const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentProps) => {
-  const { dialogRef }: DisplayModal = useDisplayModal(isVisible);
+  const { dialogRef }: RenderModal = useRenderModal(isVisible);
 
   return (
     <Dialog ref={dialogRef}>

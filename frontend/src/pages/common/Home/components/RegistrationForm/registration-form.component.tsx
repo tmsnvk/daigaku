@@ -16,15 +16,16 @@ import { FormSwapButton } from '../form-swap-button/index';
 import { FormInstructionText } from '../form-instruction-text/index';
 
 import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
-import { InstitutionOptions } from '@hooks/institution/use-get-institution-options';
-import { StudentAndMentorAccountRoles } from '@hooks/role/use-get-student-and-mentor-account-roles';
+import { ListQueryResult } from '@common-types';
+import { InstitutionOption } from '@services/support/institution.service';
+import { RoleOption } from '@services/role/role.service';
 
 type ComponentProp = FormSelector & ConfirmationModal;
 
 export const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
-  const { data: institutionData, isLoading: isInstitutionLoading, isError: isInstitutionError }: InstitutionOptions = useGetInstitutionOptions();
+  const { data: institutionData, isLoading: isInstitutionLoading, isError: isInstitutionError }: ListQueryResult<InstitutionOption> = useGetInstitutionOptions();
 
-  const { data: roleData, isLoading: isRoleLoading, isError: isRoleError }: StudentAndMentorAccountRoles = useGetStudentAndMentorAccountRoles();
+  const { data: roleData, isLoading: isRoleLoading, isError: isRoleError }: ListQueryResult<RoleOption> = useGetStudentAndMentorAccountRoles();
 
   const {
     formState: { errors },
@@ -118,16 +119,18 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => 
           data={roleData ?? []}
         />
         <article>
-          {isPending ? (
-            <LoadingIndicator content={'Your registration is being submitted.'} />
-          ) : (
-            <SubmitInput
-              type={'submit'}
-              name={'register'}
-              value={'register'}
-              disabled={isPending}
-            />
-          )}
+          {isPending ?
+            (
+              <LoadingIndicator content={'Your registration is being submitted.'} />
+            ) :
+            (
+              <SubmitInput
+                type={'submit'}
+                name={'register'}
+                value={'register'}
+                disabled={isPending}
+              />
+            )}
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>

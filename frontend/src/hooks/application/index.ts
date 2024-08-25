@@ -3,6 +3,6 @@
  */
 
 import { useGetApplications } from './use-get-applications';
-import { useGetApplication } from './use-get-application';
+import { useGetApplicationByUuid } from './use-get-application-by-uuid';
 
-export { useGetApplications, useGetApplication };
+export { useGetApplications, useGetApplicationByUuid };

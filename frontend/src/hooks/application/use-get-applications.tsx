@@ -2,18 +2,17 @@
  * @prettier
  */
 
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
-import { queryKeys } from '@configuration';
 
 import { applicationService } from '@services/index';
 
-import { Application } from '@custom-types/index';
+import { queryKeys } from '@configuration';
 
-export type GetApplications = UseQueryResult<Array<Application>, Error>;
+import { Application, ListQueryResult } from '@common-types';
 
-export const useGetApplications = (): GetApplications => {
+export const useGetApplications = (): ListQueryResult<Application> => {
   const { account, getRoleResource }: Partial<AuthContext> = useAuth();
   const role: string = getRoleResource(account.role as AccountRoleValues);
 

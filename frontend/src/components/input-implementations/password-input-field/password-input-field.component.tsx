@@ -12,18 +12,11 @@ import { InputError, InputLabel } from '@components/form';
 
 import { iconLibraryConfig } from '@configuration';
 
+import { FormFieldValidation } from '@common-types/index';
+
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
-  validationRules?: {
-    required?: {
-      value: boolean;
-      message: string;
-    };
-    pattern?: {
-      value: RegExp;
-      message: string;
-    };
-  };
+  validationRules?: FormFieldValidation;
   fieldError: string | undefined;
   fieldId: Path<T>;
   labelContent: string;
