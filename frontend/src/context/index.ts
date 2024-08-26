@@ -1,9 +1,7 @@
-import {
-  AuthProvider,
-  useAuth,
-} from './auth';
+/**
+ * @prettier
+ */
 
-export {
-  AuthProvider,
-  useAuth,
-};
+import { AuthProvider, useAuth } from './auth';
+
+export { AuthProvider, useAuth };

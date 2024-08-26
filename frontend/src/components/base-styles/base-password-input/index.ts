@@ -1,3 +1,7 @@
-import BasePasswordInput from './base-password-input.styles.ts';
+/**
+ * @prettier
+ */
 
-export default BasePasswordInput;
+import { BasePasswordInput } from './base-password-input.styles.ts';
+
+export { BasePasswordInput };

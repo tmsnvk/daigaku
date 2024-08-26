@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import { QueryClient } from '@tanstack/react-query';
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       enabled: true,
@@ -9,5 +13,3 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-export default queryClient;

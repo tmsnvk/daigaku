@@ -1,13 +1,14 @@
+/**
+ * @prettier
+ */
+
 import { useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 
 import { queryKeys } from '@configuration';
-import {
-  getLocalStorageObjectById,
-  setLocalStorageObjectById,
-} from '@utilities/local-storage.utilities';
+import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
-import { ApplicationData } from '@services/application/application.service';
+import { Application } from '@common-types';
 
 export interface Column {
   readonly id: string;
@@ -21,31 +22,53 @@ export interface SetColumns {
   updateColumnVisibility: (id: string) => void;
 }
 
-const useSetColumns = (): SetColumns => {
+export const useSetColumns = (): SetColumns => {
   const columnVisibility = getLocalStorageObjectById('applications-table-columns');
 
-  const [columns, setColumns] = useState<Column[]>([
+  const [columns, setColumns] = useState<Array<Column>>([
     { id: 'courseName', name: 'Course', isCoreColumn: true, isActive: true },
     { id: 'university', name: 'University', isCoreColumn: true, isActive: true },
     { id: 'country', name: 'Country', isCoreColumn: true, isActive: true },
-    { id: 'applicationStatus', name: 'Application Status', isCoreColumn: false, isActive: columnVisibility.applicationStatus ?? true },
-    { id: 'interviewStatus', name: 'Interview Status', isCoreColumn: false, isActive: columnVisibility.interviewStatus ?? false },
+    {
+      id: 'applicationStatus',
+      name: 'Application Status',
+      isCoreColumn: false,
+      isActive: columnVisibility.applicationStatus ?? true,
+    },
+    {
+      id: 'interviewStatus',
+      name: 'Interview Status',
+      isCoreColumn: false,
+      isActive: columnVisibility.interviewStatus ?? false,
+    },
     { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isActive: columnVisibility.offerStatus ?? false },
-    { id: 'responseStatus', name: 'Response Status', isCoreColumn: false, isActive: columnVisibility.responseStatus ?? false },
-    { id: 'finalDestinationStatus', name: 'Final Destination Status', isCoreColumn: false, isActive: columnVisibility.finalDestinationStatus ?? false },
+    {
+      id: 'responseStatus',
+      name: 'Response Status',
+      isCoreColumn: false,
+      isActive: columnVisibility.responseStatus ?? false,
+    },
+    {
+      id: 'finalDestinationStatus',
+      name: 'Final Destination Status',
+      isCoreColumn: false,
+      isActive: columnVisibility.finalDestinationStatus ?? false,
+    },
   ]);
 
   const updateColumnVisibility = (id: string): void => {
-    setColumns(columns.map((column) => {
-      if (column.id === id) {
-        columnVisibility[column.id] = !column.isActive;
-        setLocalStorageObjectById('applications-table-columns', columnVisibility);
+    setColumns(
+      columns.map((column) => {
+        if (column.id === id) {
+          columnVisibility[column.id] = !column.isActive;
+          setLocalStorageObjectById('applications-table-columns', columnVisibility);
 
-        return { ...column, isActive: !column.isActive };
-      }
+          return { ...column, isActive: !column.isActive };
+        }
 
-      return column;
-    }));
+        return column;
+      }),
+    );
   };
 
   return {
@@ -59,7 +82,7 @@ export interface DisplayColumnSelectorModal {
   toggleModal: () => void;
 }
 
-const useDisplayColumnSelectorModal = (): DisplayColumnSelectorModal => {
+export const useDisplayColumnSelectorModal = (): DisplayColumnSelectorModal => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const toggleModal = (): void => {
@@ -74,14 +97,14 @@ const useDisplayColumnSelectorModal = (): DisplayColumnSelectorModal => {
 
 enum SortOrder {
   ASC,
-  DESC
+  DESC,
 }
 
 export interface SetOrder {
   handleColumnSort: (columnId: string) => void;
 }
 
-const useSetOrder = (data: Array<ApplicationData>): SetOrder => {
+export const useSetOrder = (data: Array<Application>): SetOrder => {
   const [sortedField, setSortedField] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
 
@@ -89,21 +112,21 @@ const useSetOrder = (data: Array<ApplicationData>): SetOrder => {
     const queryClient = new QueryClient();
 
     const sortedData = data.sort((a, b) => {
-      if (a[sortedField as keyof ApplicationData] === null) {
+      if (a[sortedField as keyof Application] === null) {
         return 1;
       }
 
-      if (b[sortedField as keyof ApplicationData] === null) {
+      if (b[sortedField as keyof Application] === null) {
         return -1;
       }
 
-      return String(a[sortedField as keyof ApplicationData]).localeCompare(String(b[sortedField as keyof ApplicationData])) * (sortOrder === SortOrder.ASC ? 1 : -1);
+      return (
+        String(a[sortedField as keyof Application]).localeCompare(String(b[sortedField as keyof Application])) *
+        (sortOrder === SortOrder.ASC ? 1 : -1)
+      );
     });
 
-    queryClient.setQueryData(
-      [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
-      [...sortedData],
-    );
+    queryClient.setQueryData([queryKeys.APPLICATION.GET_ALL_BY_ROLE], [...sortedData]);
   };
 
   const handleColumnSort = (columnId: string): void => {
@@ -118,10 +141,4 @@ const useSetOrder = (data: Array<ApplicationData>): SetOrder => {
   return {
     handleColumnSort,
   };
-};
-
-export {
-  useSetColumns,
-  useDisplayColumnSelectorModal,
-  useSetOrder,
 };

@@ -1,3 +1,7 @@
-import ErrorPage from './error.page';
+/**
+ * @prettier
+ */
 
-export default ErrorPage;
+import { Error } from './error.page';
+
+export { Error };

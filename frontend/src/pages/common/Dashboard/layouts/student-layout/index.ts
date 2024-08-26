@@ -1,3 +1,7 @@
-import StudentLayout from './student-layout.component';
+/**
+ * @prettier
+ */
 
-export default StudentLayout;
+import { StudentLayout } from './student-layout.component';
+
+export { StudentLayout };

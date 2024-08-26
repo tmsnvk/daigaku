@@ -1,3 +1,7 @@
-import BaseLightBorder from './base-light-border.styles';
+/**
+ * @prettier
+ */
 
-export default BaseLightBorder;
+import { BaseLightBorder } from './base-light-border.styles';
+
+export { BaseLightBorder };

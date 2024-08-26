@@ -4,7 +4,7 @@ interface Article {
   readonly $isRemovable: boolean;
 }
 
-const Article = styled.article<Article>`
+export const Article = styled.article<Article>`
   margin: 0 0 0 auto;
 
   & button {
@@ -29,7 +29,3 @@ const Article = styled.article<Article>`
     }
   }
 `;
-
-export {
-  Article,
-};

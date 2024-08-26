@@ -1,35 +1,22 @@
-import {
-  FieldValues,
-  Path,
-  UseFormRegister,
-} from 'react-hook-form';
+/**
+ * @prettier
+ */
+
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-  RevealPasswordHook,
-  useRevealPassword,
-} from './password-input-field.hooks';
+import { RevealPassword, useRevealPassword } from './password-input-field.hooks';
 
 import { BasePasswordInput } from '@components/base-styles';
-import {
-  InputError,
-  InputLabel,
-} from '@components/form';
+import { InputError, InputLabel } from '@components/form';
 
 import { iconLibraryConfig } from '@configuration';
 
+import { FormFieldValidation } from '@common-types/index';
+
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
-  validationRules?: {
-    required?: {
-      value: boolean;
-      message: string;
-    }
-    pattern?: {
-      value: RegExp;
-      message: string;
-    }
-  }
+  validationRules?: FormFieldValidation;
   fieldError: string | undefined;
   fieldId: Path<T>;
   labelContent: string;
@@ -38,7 +25,7 @@ interface ComponentProps<T extends FieldValues> {
   isDisabled: boolean;
 }
 
-const PasswordInputField = <T extends FieldValues>({
+export const PasswordInputField = <T extends FieldValues>({
   register,
   validationRules,
   fieldError,
@@ -48,12 +35,10 @@ const PasswordInputField = <T extends FieldValues>({
   defaultValue,
   isDisabled,
 }: ComponentProps<T>) => {
-  const { isRevealed, toggleRevealIcon }: RevealPasswordHook = useRevealPassword();
+  const { isRevealed, toggleRevealIcon }: RevealPassword = useRevealPassword();
 
   return (
-    <BasePasswordInput
-      $isError={fieldError !== undefined}
-    >
+    <BasePasswordInput $isError={fieldError !== undefined}>
       <InputLabel
         inputId={fieldId}
         content={labelContent}
@@ -78,5 +63,3 @@ const PasswordInputField = <T extends FieldValues>({
     </BasePasswordInput>
   );
 };
-
-export default PasswordInputField;

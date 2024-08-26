@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfig } from '@configuration';
 
 export interface RoleOption {
@@ -5,7 +9,7 @@ export interface RoleOption {
   readonly name: string;
 }
 
-const roleService = {
+export const roleService = {
   getStudentAndMentorRoles: async (): Promise<Array<RoleOption>> => {
     const { data } = await axiosConfig.request({
       method: 'GET',
@@ -15,5 +19,3 @@ const roleService = {
     return data;
   },
 };
-
-export default roleService;

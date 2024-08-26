@@ -1,7 +1,8 @@
-import {
-  IconLookup,
-  library,
-} from '@fortawesome/fontawesome-svg-core';
+/**
+ * @prettier
+ */
+
+import { IconLookup, library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
   faCircleExclamation,
@@ -55,18 +56,18 @@ library.add(
 );
 
 interface IconLibraryConfig {
-  [key: string]: IconLookup
+  [key: string]: IconLookup;
 }
 
-const iconLibraryConfig: IconLibraryConfig = {
+export const iconLibraryConfig: IconLibraryConfig = {
   faBars: { prefix: 'fas', iconName: 'bars' },
   faCircleExclamation: { prefix: 'fas', iconName: 'circle-exclamation' },
   faCircleNotch: { prefix: 'fas', iconName: 'circle-notch' },
   faEnvelope: { prefix: 'fas', iconName: 'envelope' },
   faEye: { prefix: 'fas', iconName: 'eye' },
   faEyeSlash: { prefix: 'fas', iconName: 'eye-slash' },
-  faFileCirclePlus:  { prefix: 'fas', iconName: 'file-circle-plus' },
-  faFileArrowDown:  { prefix: 'fas', iconName: 'file-arrow-down' },
+  faFileCirclePlus: { prefix: 'fas', iconName: 'file-circle-plus' },
+  faFileArrowDown: { prefix: 'fas', iconName: 'file-arrow-down' },
   faGears: { prefix: 'fas', iconName: 'gears' },
   faGraduationCap: { prefix: 'fas', iconName: 'graduation-cap' },
   faHouseUser: { prefix: 'fas', iconName: 'house-user' },
@@ -83,5 +84,3 @@ const iconLibraryConfig: IconLibraryConfig = {
   faWrench: { prefix: 'fas', iconName: 'wrench' },
   faXMark: { prefix: 'fas', iconName: 'xmark' },
 };
-
-export default iconLibraryConfig;

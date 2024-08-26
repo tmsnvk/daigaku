@@ -1,3 +1,7 @@
-import FormSwapButton from './form-swap-button.component';
+/**
+ * @prettier
+ */
 
-export default FormSwapButton;
+import { FormSwapButton } from './form-swap-button.component';
+
+export { FormSwapButton };

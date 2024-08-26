@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { ApplicationFormGrid } from '@components/form';
 
-const FormContainer = styled(ApplicationFormGrid)`
+export const FormContainer = styled(ApplicationFormGrid)`
   & h1,
   & article:first-of-type,
   & article:nth-last-of-type(2),
@@ -14,7 +18,3 @@ const FormContainer = styled(ApplicationFormGrid)`
     height: 2rem;
   }
 `;
-
-export {
-  FormContainer,
-};

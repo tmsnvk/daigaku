@@ -1,3 +1,7 @@
-import NewCommentBox from './new-comment-box.component';
+/**
+ * @prettier
+ */
 
-export default NewCommentBox;
+import { NewCommentBox } from './new-comment-box.component';
+
+export { NewCommentBox };

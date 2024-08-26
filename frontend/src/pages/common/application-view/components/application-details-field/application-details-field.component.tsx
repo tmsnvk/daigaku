@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { Article } from './application-details-field.styles';
 
 interface ComponentProps {
@@ -5,7 +9,7 @@ interface ComponentProps {
   data: string | number;
 }
 
-const ApplicationDetailsField = ({ name, data }: ComponentProps) => {
+export const ApplicationDetailsField = ({ name, data }: ComponentProps) => {
   return (
     <Article>
       <h2>{name}</h2>
@@ -13,5 +17,3 @@ const ApplicationDetailsField = ({ name, data }: ComponentProps) => {
     </Article>
   );
 };
-
-export default ApplicationDetailsField;

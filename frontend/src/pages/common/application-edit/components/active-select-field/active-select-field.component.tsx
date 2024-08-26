@@ -1,14 +1,11 @@
-import {
-  FieldValues,
-  Path,
-  UseFormRegister,
-} from 'react-hook-form';
+/**
+ * @prettier
+ */
+
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 import { BaseInput } from '@components/base-styles';
-import {
-  InputError,
-  InputLabel,
-} from '@components/form';
+import { InputError, InputLabel } from '@components/form';
 
 import { ApplicationStatus } from '@services/status/application-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
@@ -19,7 +16,7 @@ import { FinalDestinationStatus } from '@services/status/final-destination-statu
 type SelectOptions = ApplicationStatus | InterviewStatus | OfferStatus | ResponseStatus | FinalDestinationStatus;
 
 interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>,
+  register: UseFormRegister<T>;
   fieldError: string | undefined;
   fieldId: Path<T>;
   labelContent: string;
@@ -30,7 +27,7 @@ interface ComponentProps<T extends FieldValues> {
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
-const ActiveSelectField = <T extends FieldValues>({
+export const ActiveSelectField = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
@@ -44,9 +41,7 @@ const ActiveSelectField = <T extends FieldValues>({
   const defaultOption: SelectOptions = options?.filter((option: SelectOptions) => option.name === previouslySelectedValue)[0];
 
   return (
-    <BaseInput
-      $isError={fieldError !== undefined}
-    >
+    <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
         inputId={fieldId}
         content={labelContent}
@@ -81,5 +76,3 @@ const ActiveSelectField = <T extends FieldValues>({
     </BaseInput>
   );
 };
-
-export default ActiveSelectField;

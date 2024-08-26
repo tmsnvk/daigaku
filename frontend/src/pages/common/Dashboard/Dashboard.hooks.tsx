@@ -1,14 +1,15 @@
+/**
+ * @prettier
+ */
+
 import { useQuery } from '@tanstack/react-query';
 
-import {
-  AccountRoleValues,
-  AuthContext,
-  useAuth,
-} from '@context/auth';
+import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 
 import { applicationService } from '@services/index';
 
 import { queryKeys } from '@configuration';
+import { SimpleQueryResult } from '@common-types';
 
 export interface DashboardData {
   firmChoiceDto: {
@@ -31,7 +32,7 @@ export interface DashboardData {
   numberOfOffers: number;
 }
 
-const useGetDashboardData = () => {
+export const useGetDashboardData = (): SimpleQueryResult<DashboardData> => {
   const { account, getRoleResource }: Partial<AuthContext> = useAuth();
   const role: string = getRoleResource(account.role as AccountRoleValues);
 
@@ -40,8 +41,4 @@ const useGetDashboardData = () => {
     queryFn: () => applicationService.getDashboardData(role),
     refetchOnMount: 'always',
   });
-};
-
-export {
-  useGetDashboardData,
 };

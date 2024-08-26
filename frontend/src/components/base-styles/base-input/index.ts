@@ -1,3 +1,7 @@
-import BaseInput from './base-input.styles';
+/**
+ * @prettier
+ */
 
-export default BaseInput;
+import { BaseInput } from './base-input.styles';
+
+export { BaseInput };

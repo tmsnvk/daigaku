@@ -1,19 +1,16 @@
-import {
-  FieldValues,
-  Path,
-  UseFormRegister,
-} from 'react-hook-form';
+/**
+ * @prettier
+ */
+
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 import { BaseInput } from '@components/base-styles';
-import {
-  InputError,
-  InputLabel,
-} from '@components/form';
+import { InputError, InputLabel } from '@components/form';
 
 import { CountryOption } from '@services/support/country.service';
 
 interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>,
+  register: UseFormRegister<T>;
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
@@ -22,7 +19,7 @@ interface ComponentProps<T extends FieldValues> {
   onCountrySelection: () => void;
 }
 
-const SelectCountry = <T extends FieldValues>({
+export const SelectCountry = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
@@ -32,9 +29,7 @@ const SelectCountry = <T extends FieldValues>({
   onCountrySelection,
 }: ComponentProps<T>) => {
   return (
-    <BaseInput
-      $isError={fieldError !== undefined}
-    >
+    <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
         inputId={fieldId}
         content={'Country'}
@@ -75,5 +70,3 @@ const SelectCountry = <T extends FieldValues>({
     </BaseInput>
   );
 };
-
-export default SelectCountry;

@@ -1,10 +1,11 @@
+/**
+ * @prettier
+ */
+
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 
-import theme from '@theme/theme';
-import {
-  NavbarIcon,
-  RouteLink,
-} from './navigation-route.styles';
+import { theme } from '@theme/theme';
+import { NavbarIcon, RouteLink } from './navigation-route.styles';
 
 interface ComponentProps {
   readonly resource: string;
@@ -13,12 +14,7 @@ interface ComponentProps {
   readonly handleLogOut?: () => void;
 }
 
-const NavigationRoute = ({
-  resource,
-  icon,
-  content,
-  handleLogOut,
-}: ComponentProps) => {
+export const NavigationRoute = ({ resource, icon, content, handleLogOut }: ComponentProps) => {
   return (
     <RouteLink
       to={resource}
@@ -37,5 +33,3 @@ const NavigationRoute = ({
     </RouteLink>
   );
 };
-
-export default NavigationRoute;

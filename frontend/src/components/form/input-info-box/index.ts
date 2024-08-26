@@ -1,3 +1,7 @@
-import InputInfoBox from './input-info-box.component';
+/**
+ * @prettier
+ */
 
-export default InputInfoBox;
+import { InputInfoBox } from './input-info-box.component';
+
+export { InputInfoBox };

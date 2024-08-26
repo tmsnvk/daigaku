@@ -1,3 +1,7 @@
-import PasswordInputField from './password-input-field.component';
+/**
+ * @prettier
+ */
 
-export default PasswordInputField;
+import { PasswordInputField } from './password-input-field.component';
+
+export { PasswordInputField };

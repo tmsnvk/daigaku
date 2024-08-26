@@ -1,37 +1,21 @@
-import {
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from 'react-router-dom';
+/* eslint-disable react/jsx-max-props-per-line */
+/**
+ * @prettier
+*/
+
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'styled-components';
 
-import {
-  AccountRoleValues,
-  AuthProvider,
-} from '@context/auth';
-
-import GlobalStyle from '@theme/global-style';
-import theme from '@theme/theme';
-import {
-  ApplicationEdit,
-  Applications,
-  ApplicationView,
-  Dashboard,
-  Error,
-  Home,
-} from '@pages/common/index';
-import {
-  NewApplication,
-} from '@pages/student/index';
-
-import {
-  PrivateLayout,
-  PublicLayout,
-} from '@components/layout';
-
+import { AccountRoleValues, AuthProvider } from '@context/auth';
 import { queryClient } from '@configuration';
+
+import { GlobalStyle } from '@theme/global-style';
+import { theme } from '@theme/theme';
+
+import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@pages/common/index';
+import { NewApplication } from '@pages/student/index';
+import { PrivateLayout, PublicLayout } from '@components/layout';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<Error />}>
@@ -77,7 +61,7 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>,
 ));
 
-const DaigakuReactApplication = () => {
+export const DaigakuReactApplication = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -89,5 +73,3 @@ const DaigakuReactApplication = () => {
     </QueryClientProvider>
   );
 };
-
-export default DaigakuReactApplication;

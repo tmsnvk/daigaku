@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Dialog } from './global-loading-modal.styles';
@@ -8,12 +12,10 @@ interface ComponentProps {
   readonly content: string;
 }
 
-const GlobalLoadingModal = ({ content }: ComponentProps) => {
+export const GlobalLoadingModal = ({ content }: ComponentProps) => {
   return (
     <Dialog>
-      <p>
-        {content}
-      </p>
+      <p>{content}</p>
       <FontAwesomeIcon
         icon={iconLibraryConfig.faSpinner}
         spin
@@ -21,5 +23,3 @@ const GlobalLoadingModal = ({ content }: ComponentProps) => {
     </Dialog>
   );
 };
-
-export default GlobalLoadingModal;

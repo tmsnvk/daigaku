@@ -1,11 +1,11 @@
-import {
-  useEffect,
-  useRef,
-} from 'react';
+/**
+ * @prettier
+ */
 
 import { Dialog } from './column-selector-modal.styles';
 
 import { Column } from '../../applications.hooks';
+import { ToggleColumnSelectorModal, useToggleColumnSelectorModal } from './column-selector-modal.hooks';
 
 interface ComponentProps {
   readonly columns: Array<Column>;
@@ -14,23 +14,13 @@ interface ComponentProps {
   readonly toggleModal: () => void;
 }
 
-const ColumnSelectorModal = ({
+export const ColumnSelectorModal = ({
   columns,
   handleColumnVisibility,
   isModalVisible,
   toggleModal,
 }: ComponentProps) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    if (dialogRef.current?.open && !isModalVisible) {
-      dialogRef.current?.close();
-    }
-
-    if (!dialogRef.current?.open && isModalVisible) {
-      dialogRef.current?.showModal();
-    }
-  }, [isModalVisible]);
+  const { dialogRef }: ToggleColumnSelectorModal = useToggleColumnSelectorModal(isModalVisible);
 
   return (
     <Dialog ref={dialogRef}>
@@ -59,5 +49,3 @@ const ColumnSelectorModal = ({
     </Dialog>
   );
 };
-
-export default ColumnSelectorModal;

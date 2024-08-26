@@ -1,9 +1,7 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const ErrorContainer = styled.div`
-
-`;
-
-export {
-  ErrorContainer,
-};
+export const ErrorContainer = styled.div``;

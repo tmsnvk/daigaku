@@ -1,5 +1,7 @@
-import useGetStudentAndMentorAccountRoles from './use-get-student-and-mentor-account-roles';
+/**
+ * @prettier
+ */
 
-export {
-  useGetStudentAndMentorAccountRoles,
-};
+import { useGetStudentAndMentorAccountRoles } from './use-get-student-and-mentor-account-roles';
+
+export { useGetStudentAndMentorAccountRoles };

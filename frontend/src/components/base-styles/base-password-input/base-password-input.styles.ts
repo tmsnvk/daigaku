@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-import BaseInput from '../base-input';
+import { BaseInput } from '../base-input';
 
-const BasePasswordInputField = styled(BaseInput)`
+export const BasePasswordInput = styled(BaseInput)`
   & input {
     width: 65%;
   }
@@ -26,5 +30,3 @@ const BasePasswordInputField = styled(BaseInput)`
     }
   }
 `;
-
-export default BasePasswordInputField;

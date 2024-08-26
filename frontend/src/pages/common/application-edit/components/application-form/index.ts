@@ -1,3 +1,7 @@
-import ApplicationForm from './application-form.component';
+/**
+ * @prettier
+ */
 
-export default ApplicationForm;
+import { ApplicationForm } from './application-form.component';
+
+export { ApplicationForm };

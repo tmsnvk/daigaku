@@ -1,3 +1,7 @@
-import LoginForm from './login-form.component';
+/**
+ * @prettier
+ */
 
-export default LoginForm;
+import { LoginForm } from './login-form.component';
+
+export { LoginForm };

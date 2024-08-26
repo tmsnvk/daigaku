@@ -1,10 +1,14 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfigWithAuth } from '@configuration';
 
 import { DashboardData } from '@pages/common/dashboard/dashboard.hooks';
 
-import { Application } from '@custom-types/index';
+import { Application } from '@common-types';
 
-const applicationService = {
+export const applicationService = {
   getByUuid: async (applicationUuid: string): Promise<Application> => {
     const { data } = await axiosConfigWithAuth.request<Application>({
       method: 'GET',
@@ -30,5 +34,3 @@ const applicationService = {
     return data;
   },
 };
-
-export default applicationService;

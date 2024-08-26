@@ -1,10 +1,14 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseDarkBorder } from '@components/base-styles';
 
-const Article = styled.article`
+export const Article = styled.article`
   ${BaseDarkBorder};
-  
+
   width: 15rem;
   height: 15rem;
   padding: 0 1rem 2.5rem 1rem;
@@ -12,7 +16,7 @@ const Article = styled.article`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  
+
   & p:not(p:last-of-type) {
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     font-size: ${({ theme }) => theme.fontSize.small};
@@ -37,7 +41,7 @@ const Article = styled.article`
     }
   }
 
-  @media screen and (width > ${({ theme }) => theme.breakpoint.medium}) {  
+  @media screen and (width > ${({ theme }) => theme.breakpoint.medium}) {
     justify-content: space-evenly;
     width: 25rem;
     height: 25rem;
@@ -53,7 +57,3 @@ const Article = styled.article`
     }
   }
 `;
-
-export {
-  Article,
-};

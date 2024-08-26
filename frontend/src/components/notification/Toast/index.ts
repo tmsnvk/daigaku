@@ -1,3 +1,7 @@
-import Toast from './toast.component';
+/**
+ * @prettier
+ */
 
-export default Toast;
+import { Toast } from './toast.component';
+
+export { Toast };

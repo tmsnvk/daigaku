@@ -1,10 +1,8 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+/**
+ * @prettier
+ */
+
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 import { accountService } from '@services/index';
 
@@ -20,7 +18,7 @@ export enum AccountRoleValues {
   STUDENT,
   MENTOR,
   INSTITUTION_ADMIN,
-  SYSTEM_ADMIN
+  SYSTEM_ADMIN,
 }
 
 interface AccountRole {
@@ -35,7 +33,7 @@ export type AccountData = {
   email: string;
   firstName: string;
   role: AccountRoleValues | typeof AccountRoleValues;
-}
+};
 
 const initialAccountState: AccountData = {
   email: '',
@@ -55,16 +53,16 @@ export interface AuthContext {
 
 const AuthContext = createContext<AuthContext>({} as AuthContext);
 
-const AuthProvider = ({ children }: AuthContextProviderT) => {
+export const AuthProvider = ({ children }: AuthContextProviderT) => {
   const [account, setAccount] = useState<AccountData>(initialAccountState);
   const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.LOADING);
 
   const getAccountRole = (role: string): AccountRoleValues => {
     const roles: AccountRole = {
-      'ROLE_STUDENT': AccountRoleValues.STUDENT,
-      'ROLE_MENTOR': AccountRoleValues.MENTOR,
-      'ROLE_INSTITUTION_ADMIN': AccountRoleValues.INSTITUTION_ADMIN,
-      'ROLE_SYSTEM_ADMIN': AccountRoleValues.SYSTEM_ADMIN,
+      ROLE_STUDENT: AccountRoleValues.STUDENT,
+      ROLE_MENTOR: AccountRoleValues.MENTOR,
+      ROLE_INSTITUTION_ADMIN: AccountRoleValues.INSTITUTION_ADMIN,
+      ROLE_SYSTEM_ADMIN: AccountRoleValues.SYSTEM_ADMIN,
     };
 
     return roles[role];
@@ -115,21 +113,20 @@ const AuthProvider = ({ children }: AuthContextProviderT) => {
   };
 
   return (
-    <AuthContext.Provider value={{
-      account, setAccount,
-      authStatus, setAuthStatus,
-      getAccountRole,
-      getRoleResource,
-      logOut,
-    }}>
+    <AuthContext.Provider
+      value={{
+        account,
+        setAccount,
+        authStatus,
+        setAuthStatus,
+        getAccountRole,
+        getRoleResource,
+        logOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-const useAuth = (): AuthContext => useContext(AuthContext);
-
-export {
-  useAuth,
-  AuthProvider,
-};
+export const useAuth = (): AuthContext => useContext(AuthContext);

@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfigWithAuth } from '@configuration';
 
 export interface InterviewStatus {
@@ -5,7 +9,7 @@ export interface InterviewStatus {
   readonly name: string;
 }
 
-const interviewStatusService = {
+export const interviewStatusService = {
   getAll: async (): Promise<Array<InterviewStatus>> => {
     const { data } = await axiosConfigWithAuth.request<Array<InterviewStatus>>({
       method: 'GET',
@@ -15,5 +19,3 @@ const interviewStatusService = {
     return data;
   },
 };
-
-export default interviewStatusService;

@@ -1,11 +1,15 @@
+/**
+ * @prettier
+ */
+
 import { useState } from 'react';
 
-export interface RevealPasswordHook {
+export interface RevealPassword {
   isRevealed: boolean;
   toggleRevealIcon: () => void;
 }
 
-const useRevealPassword = (): RevealPasswordHook => {
+export const useRevealPassword = (): RevealPassword => {
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
 
   const toggleRevealIcon = (): void => {
@@ -16,8 +20,4 @@ const useRevealPassword = (): RevealPasswordHook => {
     isRevealed,
     toggleRevealIcon,
   };
-};
-
-export {
-  useRevealPassword,
 };

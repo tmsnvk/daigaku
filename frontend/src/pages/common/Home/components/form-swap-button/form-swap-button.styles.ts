@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const Button = styled.button`
+export const Button = styled.button`
   height: 5rem;
   padding: 0 1.5rem 0 1.5rem;
   font-size: ${({ theme }) => theme.fontSize.medium};
@@ -14,12 +18,8 @@ const Button = styled.button`
   &:hover {
     outline: 0.25rem solid ${({ theme }) => theme.color.secondaryDark};
   }
-  
+
   &:disabled {
     cursor: not-allowed;
   }
 `;
-
-export {
-  Button,
-};

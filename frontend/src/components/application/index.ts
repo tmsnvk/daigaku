@@ -1,5 +1,7 @@
-import ApplicationMetaData from './application-meta-data';
+/**
+ * @prettier
+ */
 
-export {
-  ApplicationMetaData,
-};
+import { ApplicationMetaData } from './application-meta-data';
+
+export { ApplicationMetaData };

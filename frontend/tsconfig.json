@@ -25,18 +25,18 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@configuration": ["configuration/index.ts"],
+      "@common-types": ["common-types/index.ts"],
       "@components/*": ["components/*"],
       "@constants/*": ["constants/*"],
       "@context/*": ["context/*"],
-      "@custom-types/*": ["custom-types/*"],
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],
-      "@utilities/*": ["utilities/*"],
-    },
+      "@utilities/*": ["utilities/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": [ "node_modules" ],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

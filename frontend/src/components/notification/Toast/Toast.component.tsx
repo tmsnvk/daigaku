@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { Section } from './toast.styles.ts';
 
 interface ComponentProps {
@@ -5,13 +9,6 @@ interface ComponentProps {
   readonly content: string;
 }
 
-const Toast = ({ isVisible, content }: ComponentProps) => {
-  return (
-    isVisible &&
-    <Section>
-      {content}
-    </Section>
-  );
+export const Toast = ({ isVisible, content }: ComponentProps) => {
+  return isVisible && <Section>{content}</Section>;
 };
-
-export default Toast;

@@ -1,37 +1,32 @@
+/**
+ * @prettier
+ */
+
 import { useLocation } from 'react-router-dom';
 
-import { useGetAllSelectOptions } from '@hooks/application-status';
-import { useGetApplication } from '@hooks/application';
+import { useGetAllSelectOptions, useGetApplicationByUuid } from '@hooks/index';
 
-import {
-  GlobalErrorModal,
-  GlobalLoadingModal,
-} from '@components/notification';
-import ApplicationForm from './components/application-form';
+import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { ApplicationForm } from './components/application-form';
 import { MainGrid } from './application-edit.styles';
 
-import { Application } from '@custom-types/index';
-import { ApplicationOptionsData } from '@hooks/application-status/use-get-all-select-options';
+import { ApplicationOptions } from '@hooks/application-status/use-get-all-select-options';
+import { Application, Location, SimpleQueryResult } from '@common-types';
 
-interface Location {
-  readonly state: Application;
-  readonly pathname: string;
-}
-
-const ApplicationEdit = () => {
-  const { state, pathname } = useLocation() as Location;
+export const ApplicationEdit = () => {
+  const { state, pathname }: Location = useLocation();
   const applicationUuid: string = pathname.split('/applications/edit/')[1];
 
   const {
     selectOptions,
     isLoading: isOptionsLoading,
     isError: isOptionsError,
-  }: ApplicationOptionsData = useGetAllSelectOptions();
+  }: ApplicationOptions = useGetAllSelectOptions();
   const {
     data,
     isLoading: isApplicationLoading,
     isError: isApplicationError,
-  } = useGetApplication(state, applicationUuid);
+  }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
 
   if (isOptionsLoading || isApplicationLoading) {
     return <GlobalLoadingModal content={'The application is compiling your data...'} />;
@@ -51,5 +46,3 @@ const ApplicationEdit = () => {
     </MainGrid>
   );
 };
-
-export default ApplicationEdit;

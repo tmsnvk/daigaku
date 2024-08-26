@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseDarkBorder } from '@components/base-styles';
 
-const Main = styled.main`
+export const Main = styled.main`
   ${BaseDarkBorder};
 
   display: flex;
@@ -53,7 +57,3 @@ const Main = styled.main`
     }
   }
 `;
-
-export {
-  Main,
-};

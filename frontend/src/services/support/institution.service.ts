@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfigWithAuth } from '@configuration';
 
 export interface InstitutionOption {
@@ -6,7 +10,7 @@ export interface InstitutionOption {
   readonly name: string;
 }
 
-const institutionService = {
+export const institutionService = {
   getAllDropdownOptions: async (): Promise<Array<InstitutionOption>> => {
     const { data } = await axiosConfigWithAuth.request<Array<InstitutionOption>>({
       method: 'GET',
@@ -16,5 +20,3 @@ const institutionService = {
     return data;
   },
 };
-
-export default institutionService;

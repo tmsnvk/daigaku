@@ -1,3 +1,7 @@
-import GlobalLoadingModal from './global-loading-modal.component';
+/**
+ * @prettier
+ */
 
-export default GlobalLoadingModal;
+import { GlobalLoadingModal } from './global-loading-modal.component';
+
+export { GlobalLoadingModal };

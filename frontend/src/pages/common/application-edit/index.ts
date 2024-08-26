@@ -1,3 +1,7 @@
-import ApplicationEdit from './application-edit.page';
+/**
+ * @prettier
+ */
 
-export default ApplicationEdit;
+import { ApplicationEdit } from './application-edit.page';
+
+export { ApplicationEdit };

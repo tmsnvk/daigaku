@@ -1,3 +1,7 @@
-import GlobalErrorModal from './global-error-modal.component';
+/**
+ * @prettier
+ */
 
-export default GlobalErrorModal;
+import { GlobalErrorModal } from './global-error-modal.component';
+
+export { GlobalErrorModal };

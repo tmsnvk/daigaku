@@ -1,3 +1,7 @@
-import ApplicationView from './application-view.page';
+/**
+ * @prettier
+ */
 
-export default ApplicationView;
+import { ApplicationView } from './application-view.page';
+
+export { ApplicationView };

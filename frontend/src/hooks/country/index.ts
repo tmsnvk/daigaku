@@ -1,5 +1,7 @@
-import useGetCountryOptions from './use-get-country-options';
+/**
+ * @prettier
+ */
 
-export {
-  useGetCountryOptions,
-};
+import { useGetCountryOptions } from './use-get-country-options';
+
+export { useGetCountryOptions };

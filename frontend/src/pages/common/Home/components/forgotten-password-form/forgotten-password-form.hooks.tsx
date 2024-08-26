@@ -1,11 +1,16 @@
+/**
+ * @prettier
+ */
+
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
-import accountService from '@services/account/account.service';
+import { accountService } from '@services/account/account.service';
 
 import { mutationKeys } from '@configuration';
 
 import { ConfirmationModal } from '../../home.types';
+import { MutationResult } from '@common-types';
 
 export interface ForgottenPasswordFormFields {
   email: string;
@@ -22,11 +27,16 @@ interface ForgottenPasswordFormError {
     status: number;
     data: {
       [key: string]: ForgottenPasswordFormErrorFieldsT;
-    }
-  }
+    };
+  };
 }
 
-const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordForm) => {
+export type SubmitForgottenPasswordForm = MutationResult<void, ForgottenPasswordFormError, ForgottenPasswordFormFields>;
+
+export const useSubmitForgottenPasswordForm = ({
+  setError,
+  showModal,
+}: ForgottenPasswordForm): SubmitForgottenPasswordForm => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_FORGOTTEN_PASSWORD],
     mutationFn: (data: ForgottenPasswordFormFields) => accountService.passwordReset(data),
@@ -43,8 +53,4 @@ const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswo
       }
     },
   });
-};
-
-export {
-  useSubmitForgottenPasswordForm,
 };

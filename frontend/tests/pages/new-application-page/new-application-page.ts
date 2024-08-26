@@ -1,8 +1,8 @@
-import {
-  type Locator,
-  type Page,
-  expect,
-} from '@playwright/test';
+/**
+ * @prettier
+ */
+
+import { type Locator, type Page, expect } from '@playwright/test';
 
 type NewApplicationFormT = {
   country: number;
@@ -10,7 +10,7 @@ type NewApplicationFormT = {
   courseName: string;
   minorSubject?: string;
   programmeLength?: string;
-}
+};
 
 export class NewApplicationPage {
   readonly page: Page;

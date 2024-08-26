@@ -1,5 +1,7 @@
-import NewApplication from './new-application';
+/**
+ * @prettier
+ */
 
-export {
-  NewApplication,
-};
+import { NewApplication } from './new-application';
+
+export { NewApplication };

@@ -1,10 +1,14 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseLightBorder } from '@components/base-styles';
 
-const Section = styled.section`
+export const Section = styled.section`
   ${BaseLightBorder};
-  
+
   width: 95%;
   margin: 0 auto 5rem auto;
   padding: 1rem 3.5rem 1rem 3.5rem;
@@ -49,12 +53,8 @@ const Section = styled.section`
       margin: 0 0 0 7.5rem;
     }
   }
-  
+
   @media screen and (width > ${({ theme }) => theme.breakpoint.large}) {
     width: 65%;
   }
 `;
-
-export {
-  Section,
-};

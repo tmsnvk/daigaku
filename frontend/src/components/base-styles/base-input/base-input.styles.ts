@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 interface BaseInput {
@@ -5,7 +9,7 @@ interface BaseInput {
   readonly $isDisabled?: boolean;
 }
 
-const BaseInput = styled.article<BaseInput>`
+export const BaseInput = styled.article<BaseInput>`
   height: 12.5rem;
   width: 100%;
   display: flex;
@@ -19,8 +23,8 @@ const BaseInput = styled.article<BaseInput>`
     height: 5rem;
     padding: 0 0 0 1.5rem;
     font-size: ${({ theme }) => theme.fontSize.small};
-    background-color: ${({ theme, $isDisabled }) => $isDisabled ? theme.color.tertiaryLight : theme.color.secondaryLight};
-    border: 0.2rem solid ${({ theme, $isError }) => $isError ? theme.color.error : theme.color.primaryDark};
+    background-color: ${({ theme, $isDisabled }) => ($isDisabled ? theme.color.tertiaryLight : theme.color.secondaryLight)};
+    border: 0.2rem solid ${({ theme, $isError }) => ($isError ? theme.color.error : theme.color.primaryDark)};
     border-radius: 1.25rem;
 
     &:hover:not([disabled]) {
@@ -45,7 +49,7 @@ const BaseInput = styled.article<BaseInput>`
     }
   }
 
-  & input[type=number] {
+  & input[type='number'] {
     width: 10rem;
     padding: 0;
     text-align: center;
@@ -62,5 +66,3 @@ const BaseInput = styled.article<BaseInput>`
     }
   }
 `;
-
-export default BaseInput;

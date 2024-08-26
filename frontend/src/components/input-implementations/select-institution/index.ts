@@ -1,3 +1,7 @@
-import SelectInstitution from './select-institution.component';
+/**
+ * @prettier
+ */
 
-export default SelectInstitution;
+import { SelectInstitution } from './select-institution.component';
+
+export { SelectInstitution };

@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const TitleHeading = styled.h1`
+export const TitleHeading = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.xLarge};
 
   &::after {
@@ -11,7 +15,3 @@ const TitleHeading = styled.h1`
     border-bottom: 0.5rem solid ${({ theme }) => theme.color.primaryDark};
   }
 `;
-
-export {
-  TitleHeading,
-};

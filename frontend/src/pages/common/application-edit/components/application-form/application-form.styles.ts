@@ -1,13 +1,17 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { ApplicationFormGrid } from '@components/form';
 
-const Form = styled(ApplicationFormGrid)`
+export const Form = styled(ApplicationFormGrid)`
   & h1 {
     grid-column: 1 / 3;
     grid-row: 1 / 2;
   }
-  
+
   & article:first-of-type {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
@@ -18,7 +22,7 @@ const Form = styled(ApplicationFormGrid)`
     grid-row: 2 / 3;
     min-width: fit-content;
   }
-  
+
   & article:nth-of-type(3),
   & article:nth-last-of-type(2),
   & article:last-of-type {
@@ -33,7 +37,3 @@ const Form = styled(ApplicationFormGrid)`
     width: 85%;
   }
 `;
-
-export {
-  Form,
-};

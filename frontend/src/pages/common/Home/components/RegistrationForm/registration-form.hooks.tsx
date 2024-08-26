@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -6,6 +10,7 @@ import { pendingAccountService } from '@services/index';
 import { mutationKeys } from '@configuration';
 
 import { ConfirmationModal } from '../../home.types';
+import { MutationResult } from '@common-types';
 
 export interface RegisterFormFields {
   readonly firstName: string;
@@ -20,24 +25,26 @@ type RegisterForm = {
 } & ConfirmationModal;
 
 type RegisterFormErrorFields =
-  `root.${string}` |
-  'root' |
-  'firstName' |
-  'lastName' |
-  'email' |
-  'institutionUuid' |
-  'accountRoleUuid';
+  | `root.${string}`
+  | 'root'
+  | 'firstName'
+  | 'lastName'
+  | 'email'
+  | 'institutionUuid'
+  | 'accountRoleUuid';
 
 interface RegisterFormError {
   response: {
     status: number;
     data: {
       [key: string]: RegisterFormErrorFields;
-    }
-  }
+    };
+  };
 }
 
-const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm) => {
+export type SubmitRegistrationForm = MutationResult<void, RegisterFormError, RegisterFormFields>;
+
+export const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm): SubmitRegistrationForm => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER],
     mutationFn: (data: RegisterFormFields) => pendingAccountService.register(data),
@@ -56,8 +63,4 @@ const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm) => {
       }
     },
   });
-};
-
-export {
-  useSubmitRegistrationForm,
 };

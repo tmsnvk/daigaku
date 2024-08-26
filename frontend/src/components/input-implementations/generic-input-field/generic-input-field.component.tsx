@@ -1,27 +1,17 @@
-import {
-  FieldValues,
-  Path,
-  UseFormRegister,
-} from 'react-hook-form';
+/**
+ * @prettier
+ */
+
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 import { BaseInput } from '@components/base-styles';
-import {
-  InputError,
-  InputLabel,
-} from '@components/form';
+import { InputError, InputLabel } from '@components/form';
+
+import { FormFieldValidation } from '@common-types/index';
 
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
-  validationRules?: {
-    required?: {
-      value: boolean;
-      message: string;
-    }
-    pattern?: {
-      value: RegExp;
-      message: string;
-    }
-  }
+  validationRules?: FormFieldValidation;
   fieldError: string | undefined;
   fieldId: Path<T>;
   label: string;
@@ -31,7 +21,7 @@ interface ComponentProps<T extends FieldValues> {
   isDisabled: boolean;
 }
 
-const GenericInputField = <T extends FieldValues>({
+export const GenericInputField = <T extends FieldValues>({
   register,
   validationRules,
   fieldError,
@@ -43,9 +33,7 @@ const GenericInputField = <T extends FieldValues>({
   isDisabled,
 }: ComponentProps<T>) => {
   return (
-    <BaseInput
-      $isError={fieldError !== undefined}
-    >
+    <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
         inputId={fieldId}
         content={label}
@@ -64,5 +52,3 @@ const GenericInputField = <T extends FieldValues>({
     </BaseInput>
   );
 };
-
-export default GenericInputField;

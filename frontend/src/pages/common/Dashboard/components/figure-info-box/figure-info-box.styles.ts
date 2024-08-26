@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseDarkBorder } from '@components/base-styles';
 
-const DescriptionList = styled.dl`
+export const DescriptionList = styled.dl`
   ${BaseDarkBorder};
 
   width: 15rem;
@@ -47,7 +51,3 @@ const DescriptionList = styled.dl`
     }
   }
 `;
-
-export {
-  DescriptionList,
-};

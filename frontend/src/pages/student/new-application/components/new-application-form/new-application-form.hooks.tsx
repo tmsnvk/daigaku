@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { UseFormSetError } from 'react-hook-form';
+/**
+ * @prettier
+ */
 
-import {
-  mutationKeys,
-  queryClient,
-  queryKeys,
-} from '@configuration';
+import { useState } from 'react';
+import { UseFormSetError } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+
+import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
 import { applicationStudentService } from '@services/index';
 
-import { ApplicationData } from '@services/application/application.service';
+import { Application, MutationResult } from '@common-types';
 
 export interface NewApplicationFormFields {
   readonly countryUuid: string;
@@ -27,38 +27,41 @@ interface NewApplicationForm {
 }
 
 type NewApplicationFormErrorFields =
-  `root.${string}` |
-  'root' |
-  'countryUuid' |
-  'universityUuid' |
-  'courseName' |
-  'minorSubject' |
-  'programmeLength';
+  | `root.${string}`
+  | 'root'
+  | 'countryUuid'
+  | 'universityUuid'
+  | 'courseName'
+  | 'minorSubject'
+  | 'programmeLength';
 
 interface NewApplicationFormError {
   response: {
     status: number;
     data: {
       [key: string]: NewApplicationFormErrorFields;
-    }
-  }
+    };
+  };
 }
 
-const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }: NewApplicationForm) => {
+export type SubmitNewApplicationForm = MutationResult<Application, NewApplicationFormError, NewApplicationFormFields>;
+
+export const useSubmitNewApplicationForm = ({
+  setError,
+  resetCountrySelection,
+  reset,
+}: NewApplicationForm): SubmitNewApplicationForm => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFields) => applicationStudentService.postByStudent(data),
-    onSuccess: (data: ApplicationData) => {
-      queryClient.setQueryData<Array<ApplicationData>>(
-        [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
-        (previousData) => {
-          if (!previousData) {
-            return;
-          }
+    onSuccess: (data: Application) => {
+      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (previousData) => {
+        if (!previousData) {
+          return;
+        }
 
-          return [...previousData, data];
-        },
-      );
+        return [...previousData, data];
+      });
 
       resetCountrySelection();
       reset();
@@ -83,7 +86,7 @@ export interface CheckFieldDisableStatus {
   handleCountrySelection: () => void;
 }
 
-const useCheckFieldDisableStatus = (): CheckFieldDisableStatus => {
+export const useCheckFieldDisableStatus = (): CheckFieldDisableStatus => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
 
   const handleCountrySelection = (): void => {
@@ -99,9 +102,4 @@ const useCheckFieldDisableStatus = (): CheckFieldDisableStatus => {
     resetCountrySelection,
     handleCountrySelection,
   };
-};
-
-export {
-  useSubmitNewApplicationForm,
-  useCheckFieldDisableStatus,
 };

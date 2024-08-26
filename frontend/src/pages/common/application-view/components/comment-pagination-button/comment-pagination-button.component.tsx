@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { Button } from './comment-pagination-button.styles.ts';
 
 interface ComponentProps {
@@ -6,7 +10,7 @@ interface ComponentProps {
   readonly content: string;
 }
 
-const CommentPaginationButton = ({ onClick, isDisabled, content }: ComponentProps) => {
+export const CommentPaginationButton = ({ onClick, isDisabled, content }: ComponentProps) => {
   return (
     <Button
       onClick={onClick}
@@ -16,5 +20,3 @@ const CommentPaginationButton = ({ onClick, isDisabled, content }: ComponentProp
     </Button>
   );
 };
-
-export default CommentPaginationButton;

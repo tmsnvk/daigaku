@@ -1,8 +1,12 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
 import { BaseLightBorder } from '@components/base-styles';
 
-const ApplicationFormGrid = styled.form`
+export const ApplicationFormGrid = styled.form`
   ${BaseLightBorder};
 
   display: grid;
@@ -33,5 +37,3 @@ const ApplicationFormGrid = styled.form`
     width: 55%;
   }
 `;
-
-export default ApplicationFormGrid;

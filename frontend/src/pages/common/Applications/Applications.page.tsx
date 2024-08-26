@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { AxiosError } from 'axios';
 
 import { useGetApplications } from '@hooks/application/index';
@@ -8,26 +12,18 @@ import {
   useDisplayColumnSelectorModal,
   useSetColumns,
   useSetOrder,
-} from './applications.hooks';
+} from './applications.hooks.tsx';
 
-import {
-  ColumnSelectorModal,
-  DataRows,
-  TableHead,
-} from './components/index.ts';
-import {
-  GlobalErrorModal,
-  GlobalLoadingModal,
-} from '@components/notification';
-import { Main } from './applications.styles';
+import { ColumnSelectorModal, DataRows, TableHead } from './components/index.ts';
+import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { Main } from './applications.styles.ts';
 
-import { ApplicationData } from '@services/application/application.service';
-import { GetApplications } from '@hooks/application/use-get-applications';
+import { Application, ListQueryResult } from '@common-types';
 
-const Applications = () => {
-  const { data, isLoading, refetch, isRefetching, isError, error }: GetApplications = useGetApplications();
+export const Applications = () => {
+  const { data, isLoading, refetch, isRefetching, isError, error }: ListQueryResult<Application> = useGetApplications();
   const { columns, updateColumnVisibility }: SetColumns = useSetColumns();
-  const { handleColumnSort }: SetOrder = useSetOrder(data as Array<ApplicationData>);
+  const { handleColumnSort }: SetOrder = useSetOrder(data as Array<Application>);
   const { isModalVisible, toggleModal }: DisplayColumnSelectorModal = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
@@ -52,18 +48,22 @@ const Applications = () => {
           />
         </thead>
         <tbody>
-          {data && <DataRows columns={columns} data={data} />}
+          {data && (
+            <DataRows
+              columns={columns}
+              data={data}
+            />
+          )}
         </tbody>
       </table>
-      {isModalVisible &&
+      {isModalVisible && (
         <ColumnSelectorModal
           columns={columns}
           handleColumnVisibility={updateColumnVisibility}
           isModalVisible={isModalVisible}
           toggleModal={toggleModal}
-        />}
+        />
+      )}
     </Main>
   );
 };
-
-export default Applications;

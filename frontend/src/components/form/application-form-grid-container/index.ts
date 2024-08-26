@@ -1,3 +1,7 @@
-import ApplicationFormGrid from './application-form-grid-container.styles';
+/**
+ * @prettier
+ */
 
-export default ApplicationFormGrid;
+import { ApplicationFormGrid } from './application-form-grid-container.styles';
+
+export { ApplicationFormGrid };

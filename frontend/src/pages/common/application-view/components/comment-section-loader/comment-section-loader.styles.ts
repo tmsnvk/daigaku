@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const Section = styled.section`
+export const Section = styled.section`
   margin: 15rem 0 auto 0;
 
   @media screen and (width < ${({ theme }) => theme.breakpoint.large}) {
@@ -13,7 +17,3 @@ const Section = styled.section`
     margin: 5rem auto 10rem auto;
   }
 `;
-
-export {
-  Section,
-};

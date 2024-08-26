@@ -1,35 +1,41 @@
+/**
+ * @prettier
+ */
+
 import { useForm } from 'react-hook-form';
 
 import {
   ForgottenPasswordFormFields,
+  SubmitForgottenPasswordForm,
   useSubmitForgottenPasswordForm,
 } from './forgotten-password-form.hooks';
 
 import { LoadingIndicator } from '@components/general';
-import {
-  InputError,
-  SubmitInput,
-} from '@components/form';
+import { InputError, SubmitInput } from '@components/form';
 import { GenericInputField } from '@components/input-implementations';
-import FormSwapButton from '../form-swap-button/index';
-import FormInstructionText from '../form-instruction-text/index';
+import { FormSwapButton } from '../form-swap-button/index';
 
-import {
-  ConfirmationModal,
-  FormSelector,
-  FormType,
-} from '../../home.types';
+import { FormInstructionText } from '../form-instruction-text/index';
+
+import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
 
 type ComponentProps = FormSelector & ConfirmationModal;
 
-const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProps) => {
-  const { formState: { errors }, handleSubmit, register, setError } = useForm<ForgottenPasswordFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitForgottenPasswordForm({ setError, showModal });
+export const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProps) => {
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<ForgottenPasswordFormFields>({ mode: 'onSubmit' });
+  const { isPending, mutate }: SubmitForgottenPasswordForm = useSubmitForgottenPasswordForm({ setError, showModal });
 
   return (
     <section>
       <FormInstructionText
-        content={'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.'}
+        content={
+          'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.'
+        }
       />
       <form
         id={'postAccountForgottenPasswordForm'}
@@ -52,11 +58,16 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProps) => {
           isDisabled={isPending}
         />
         <article>
-          {
-            isPending ?
-              <LoadingIndicator content={'Your registration is being handled.'} /> :
-              <SubmitInput type={'submit'} name={'forgotten-password'} value={'reset'} disabled={isPending} />
-          }
+          {isPending ? (
+            <LoadingIndicator content={'Your registration is being handled.'} />
+          ) : (
+            <SubmitInput
+              type={'submit'}
+              name={'forgotten-password'}
+              value={'reset'}
+              disabled={isPending}
+            />
+          )}
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>
@@ -77,5 +88,3 @@ const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProps) => {
     </section>
   );
 };
-
-export default ForgottenPasswordForm;

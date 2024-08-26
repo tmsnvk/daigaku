@@ -1,7 +1,11 @@
+/**
+ * @prettier
+ */
+
 export enum FormType {
   LOGIN,
   REGISTER,
-  RESET
+  RESET,
 }
 
 export interface FormSelector {

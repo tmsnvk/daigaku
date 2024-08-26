@@ -1,3 +1,7 @@
-import BaseNavbar from './base-navbar.styles';
+/**
+ * @prettier
+ */
 
-export default BaseNavbar;
+import { BaseNavbar } from './base-navbar.styles';
+
+export { BaseNavbar };

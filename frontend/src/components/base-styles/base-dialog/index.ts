@@ -1,3 +1,7 @@
-import BaseDialog from './base-dialog.styles';
+/**
+ * @prettier
+ */
 
-export default BaseDialog;
+import { BaseDialog } from './base-dialog.styles';
+
+export { BaseDialog };

@@ -1,3 +1,7 @@
-import SelectAccountRole from './select-account-role.component';
+/**
+ * @prettier
+ */
 
-export default SelectAccountRole;
+import { SelectAccountType } from './select-account-role.component';
+
+export { SelectAccountType };

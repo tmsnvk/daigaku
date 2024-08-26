@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { axiosConfigWithAuth } from '@configuration';
 
 export interface OfferStatus {
@@ -5,7 +9,7 @@ export interface OfferStatus {
   readonly name: string;
 }
 
-const offerStatusService = {
+export const offerStatusService = {
   getAll: async (): Promise<Array<OfferStatus>> => {
     const { data } = await axiosConfigWithAuth.request<Array<OfferStatus>>({
       method: 'GET',
@@ -15,5 +19,3 @@ const offerStatusService = {
     return data;
   },
 };
-
-export default offerStatusService;

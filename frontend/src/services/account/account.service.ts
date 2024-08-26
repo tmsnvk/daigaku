@@ -1,15 +1,13 @@
-import {
-  axiosConfig,
-  axiosConfigWithAuth,
-} from '@configuration';
+/**
+ * @prettier
+ */
 
-import {
-  LoginFormFields,
-  LoginFormReturnData,
-} from '@pages/common/home/components/login-form/login-form.hooks';
+import { axiosConfig, axiosConfigWithAuth } from '@configuration';
+
+import { LoginFormFields, LoginFormReturnData } from '@pages/common/home/components/login-form/login-form.hooks';
 import { ForgottenPasswordFormFields } from '@pages/common/home/components/forgotten-password-form/forgotten-password-form.hooks';
 
-const accountService = {
+export const accountService = {
   login: async (formData: LoginFormFields): Promise<LoginFormReturnData> => {
     const { data } = await axiosConfig.request<LoginFormReturnData>({
       method: 'POST',
@@ -35,5 +33,3 @@ const accountService = {
     return data;
   },
 };
-
-export default accountService;

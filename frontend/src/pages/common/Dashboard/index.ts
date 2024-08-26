@@ -1,3 +1,7 @@
-import Dashboard from './dashboard.page';
+/**
+ * @prettier
+ */
 
-export default Dashboard;
+import { Dashboard } from './dashboard.page';
+
+export { Dashboard };

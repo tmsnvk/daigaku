@@ -1,3 +1,7 @@
-import ApplicationDetails from './application-details.component';
+/**
+ * @prettier
+ */
 
-export default ApplicationDetails;
+import { ApplicationDetails } from './application-details.component';
+
+export { ApplicationDetails };

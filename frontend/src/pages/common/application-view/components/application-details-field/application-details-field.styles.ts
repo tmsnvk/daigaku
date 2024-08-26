@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const Article = styled.article`
+export const Article = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +17,3 @@ const Article = styled.article`
     font-size: ${({ theme }) => theme.fontSize.large};
   }
 `;
-
-export {
-  Article,
-};

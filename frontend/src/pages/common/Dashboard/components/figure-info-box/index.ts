@@ -1,3 +1,7 @@
-import FigureInfoBox from './figure-info-box.component';
+/**
+ * @prettier
+ */
 
-export default FigureInfoBox;
+import { FigureInfoBox } from './figure-info-box.component';
+
+export { FigureInfoBox };

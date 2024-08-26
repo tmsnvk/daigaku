@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { Label } from './input-label.styles';
 
 interface ComponentProps {
@@ -5,14 +9,6 @@ interface ComponentProps {
   readonly content: string;
 }
 
-const InputLabel = ({ inputId, content }: ComponentProps) => {
-  return (
-    <Label
-      htmlFor={inputId}
-    >
-      {content}
-    </Label>
-  );
+export const InputLabel = ({ inputId, content }: ComponentProps) => {
+  return <Label htmlFor={inputId}>{content}</Label>;
 };
-
-export default InputLabel;

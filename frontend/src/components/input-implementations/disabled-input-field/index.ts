@@ -1,3 +1,7 @@
-import DisabledInputField from './disabled-input-field.component';
+/**
+ * @prettier
+ */
 
-export default DisabledInputField;
+import { DisabledInputField } from './disabled-input-field.component';
+
+export { DisabledInputField };

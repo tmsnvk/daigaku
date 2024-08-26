@@ -1,8 +1,8 @@
-import {
-  type Locator,
-  type Page,
-  expect,
-} from '@playwright/test';
+/**
+ * @prettier
+ */
+
+import { type Locator, type Page, expect } from '@playwright/test';
 
 type RegisterFormT = {
   firstName: string;
@@ -10,16 +10,16 @@ type RegisterFormT = {
   email: string;
   institute: number;
   role: number;
-}
+};
 
 type LoginFormT = {
   email: string;
   password: string;
-}
+};
 
 type ForgottenPasswordFormT = {
   email: string;
-}
+};
 
 export class HomePage {
   readonly page: Page;

@@ -1,3 +1,7 @@
-import Comments from './comments.component';
+/**
+ * @prettier
+ */
 
-export default Comments;
+import { Comments } from './comments.component';
+
+export { Comments };

@@ -1,3 +1,7 @@
-import SubmitInput from './submit-input.styles';
+/**
+ * @prettier
+ */
 
-export default SubmitInput;
+import { SubmitInput } from './submit-input.styles';
+
+export { SubmitInput };

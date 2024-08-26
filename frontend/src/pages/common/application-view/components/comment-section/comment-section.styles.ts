@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 import styled from 'styled-components';
 
-const Section = styled.section`
+export const Section = styled.section`
   margin: 10rem 2.5rem 5rem 0;
 
   & > div {
@@ -26,7 +30,3 @@ const Section = styled.section`
     margin: 5rem auto 5rem auto;
   }
 `;
-
-export {
-  Section,
-};

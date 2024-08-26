@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 export interface Application {
   readonly uuid: string;
   readonly account: string;
@@ -15,5 +19,5 @@ export interface Application {
   readonly lastUpdatedAt: Date;
   readonly createdBy: string;
   readonly lastModifiedBy: string;
-  readonly isRemovable: boolean;
+  isRemovable: boolean;
 }

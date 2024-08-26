@@ -1,4 +1,8 @@
-const mutationKeys = {
+/**
+ * @prettier
+ */
+
+export const mutationKeys = {
   ACCOUNT: {
     POST_LOGIN: 'postAccountLoginForm',
     POST_REGISTER: 'postPendingAccountRegisterForm',
@@ -15,7 +19,7 @@ const mutationKeys = {
   },
 };
 
-const queryKeys = {
+export const queryKeys = {
   ACCOUNT: {
     GET_ME: 'getMe',
   },
@@ -56,9 +60,4 @@ const queryKeys = {
   COMMENTS: {
     GET_ALL_BY_APPLICATION_UUID: 'getAllByApplicationUuid',
   },
-};
-
-export {
-  mutationKeys,
-  queryKeys,
 };

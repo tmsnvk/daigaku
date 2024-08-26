@@ -1,3 +1,7 @@
-import FormInstructionText from './form-instruction-text.component';
+/**
+ * @prettier
+ */
 
-export default FormInstructionText;
+import { FormInstructionText } from './form-instruction-text.component';
+
+export { FormInstructionText };

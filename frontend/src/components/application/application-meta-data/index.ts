@@ -1,3 +1,7 @@
-import ApplicationMetaData from './application-meta-data.component';
+/**
+ * @prettier
+ */
 
-export default ApplicationMetaData;
+import { ApplicationMetaData } from './application-meta-data.component';
+
+export { ApplicationMetaData };

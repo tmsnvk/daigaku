@@ -1,3 +1,7 @@
-import InputLabel from './input-label.component';
+/**
+ * @prettier
+ */
 
-export default InputLabel;
+import { InputLabel } from './input-label.component';
+
+export { InputLabel };

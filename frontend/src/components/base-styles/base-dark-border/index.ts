@@ -1,3 +1,7 @@
-import BaseDarkBorder from './base-dark-border.styles';
+/**
+ * @prettier
+ */
 
-export default BaseDarkBorder;
+import { BaseDarkBorder } from './base-dark-border.styles';
+
+export { BaseDarkBorder };

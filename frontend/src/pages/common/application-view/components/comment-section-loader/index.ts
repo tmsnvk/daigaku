@@ -1,3 +1,7 @@
-import CommentSectionLoader from './comment-section-loader.component';
+/**
+ * @prettier
+ */
 
-export default CommentSectionLoader;
+import { CommentSectionLoader } from './comment-section-loader.component';
+
+export { CommentSectionLoader };

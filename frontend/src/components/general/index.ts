@@ -1,7 +1,8 @@
-import LoadingIndicator from './loading-indicator';
-import PageTitle from './page-title';
+/**
+ * @prettier
+ */
 
-export {
-  LoadingIndicator,
-  PageTitle,
-};
+import { LoadingIndicator } from './loading-indicator';
+import { PageTitle } from './page-title';
+
+export { LoadingIndicator, PageTitle };
