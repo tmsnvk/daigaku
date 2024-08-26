@@ -4,7 +4,7 @@
 
 import { axiosConfig } from '@configuration';
 
-import { RegisterFormFields } from '@pages/common/home/components/RegistrationForm/registration-form.hooks';
+import { RegisterFormFields } from '@pages/common/home/components/registration-form/registration-form.hooks';
 
 export const pendingAccountService = {
   register: async (data: RegisterFormFields): Promise<void> => {
