@@ -8,7 +8,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@configuration';
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
-import { Application } from '@custom-types/index';
+import { Application } from '@common-types';
 
 export interface Column {
   readonly id: string;
@@ -25,14 +25,29 @@ export interface SetColumns {
 export const useSetColumns = (): SetColumns => {
   const columnVisibility = getLocalStorageObjectById('applications-table-columns');
 
-  const [columns, setColumns] = useState<Column[]>([
+  const [columns, setColumns] = useState<Array<Column>>([
     { id: 'courseName', name: 'Course', isCoreColumn: true, isActive: true },
     { id: 'university', name: 'University', isCoreColumn: true, isActive: true },
     { id: 'country', name: 'Country', isCoreColumn: true, isActive: true },
-    { id: 'applicationStatus', name: 'Application Status', isCoreColumn: false, isActive: columnVisibility.applicationStatus ?? true },
-    { id: 'interviewStatus', name: 'Interview Status', isCoreColumn: false, isActive: columnVisibility.interviewStatus ?? false },
+    {
+      id: 'applicationStatus',
+      name: 'Application Status',
+      isCoreColumn: false,
+      isActive: columnVisibility.applicationStatus ?? true,
+    },
+    {
+      id: 'interviewStatus',
+      name: 'Interview Status',
+      isCoreColumn: false,
+      isActive: columnVisibility.interviewStatus ?? false,
+    },
     { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isActive: columnVisibility.offerStatus ?? false },
-    { id: 'responseStatus', name: 'Response Status', isCoreColumn: false, isActive: columnVisibility.responseStatus ?? false },
+    {
+      id: 'responseStatus',
+      name: 'Response Status',
+      isCoreColumn: false,
+      isActive: columnVisibility.responseStatus ?? false,
+    },
     {
       id: 'finalDestinationStatus',
       name: 'Final Destination Status',

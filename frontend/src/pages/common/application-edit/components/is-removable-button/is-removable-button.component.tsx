@@ -2,7 +2,7 @@
  * @prettier
  */
 
-import { useToggleIsRemovable } from './is-removable-button.hooks';
+import { ToggleIsRemovable, useToggleIsRemovable } from './is-removable-button.hooks';
 
 import { InputError } from '@components/form';
 import { Article } from './is-removable-button.styles';
@@ -13,7 +13,10 @@ interface ComponentProps {
 }
 
 export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentProps) => {
-  const { mutate, isPending, shouldBeDeleted, errorMessage } = useToggleIsRemovable(applicationUuid, isRemovable);
+  const { mutate, isPending, shouldBeDeleted, errorMessage }: ToggleIsRemovable = useToggleIsRemovable(
+    applicationUuid,
+    isRemovable,
+  );
 
   return (
     <Article $isRemovable={shouldBeDeleted}>

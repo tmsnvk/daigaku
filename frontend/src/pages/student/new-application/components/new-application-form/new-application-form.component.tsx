@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import {
   CheckFieldDisableStatus,
   NewApplicationFormFields,
+  SubmitNewApplicationForm,
   useCheckFieldDisableStatus,
   useSubmitNewApplicationForm,
 } from './new-application-form.hooks';
@@ -37,7 +38,12 @@ interface ComponentProps {
   readonly isUniversityDataLoading: boolean;
 }
 
-export const NewApplicationForm = ({ handleCountryClick, countryData, universityData, isUniversityDataLoading }: ComponentProps) => {
+export const NewApplicationForm = ({
+  handleCountryClick,
+  countryData,
+  universityData,
+  isUniversityDataLoading,
+}: ComponentProps) => {
   const {
     formState: { errors },
     reset,
@@ -45,10 +51,13 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
     register,
     setError,
   } = useForm<NewApplicationFormFields>({ mode: 'onSubmit' });
-
-  const { isCountrySelected, handleCountrySelection, resetCountrySelection }: CheckFieldDisableStatus = useCheckFieldDisableStatus();
-
-  const { isPending, isSuccess, mutate } = useSubmitNewApplicationForm({ setError, resetCountrySelection, reset });
+  const { isCountrySelected, handleCountrySelection, resetCountrySelection }: CheckFieldDisableStatus =
+    useCheckFieldDisableStatus();
+  const { isPending, isSuccess, mutate }: SubmitNewApplicationForm = useSubmitNewApplicationForm({
+    setError,
+    resetCountrySelection,
+    reset,
+  });
 
   return (
     <>
@@ -150,7 +159,9 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
             />
           )}
         </article>
-        <article>{errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}</article>
+        <article>
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
+        </article>
       </FormContainer>
       <Toast
         isVisible={isSuccess}

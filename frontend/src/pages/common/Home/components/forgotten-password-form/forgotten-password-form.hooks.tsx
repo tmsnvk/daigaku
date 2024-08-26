@@ -10,6 +10,7 @@ import { accountService } from '@services/account/account.service';
 import { mutationKeys } from '@configuration';
 
 import { ConfirmationModal } from '../../home.types';
+import { MutationResult } from '@common-types';
 
 export interface ForgottenPasswordFormFields {
   email: string;
@@ -30,7 +31,12 @@ interface ForgottenPasswordFormError {
   };
 }
 
-export const useSubmitForgottenPasswordForm = ({ setError, showModal }: ForgottenPasswordForm) => {
+export type SubmitForgottenPasswordForm = MutationResult<void, ForgottenPasswordFormError, ForgottenPasswordFormFields>;
+
+export const useSubmitForgottenPasswordForm = ({
+  setError,
+  showModal,
+}: ForgottenPasswordForm): SubmitForgottenPasswordForm => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_FORGOTTEN_PASSWORD],
     mutationFn: (data: ForgottenPasswordFormFields) => accountService.passwordReset(data),

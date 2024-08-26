@@ -4,12 +4,17 @@
 
 import { useForm } from 'react-hook-form';
 
-import { ForgottenPasswordFormFields, useSubmitForgottenPasswordForm } from './forgotten-password-form.hooks';
+import {
+  ForgottenPasswordFormFields,
+  SubmitForgottenPasswordForm,
+  useSubmitForgottenPasswordForm,
+} from './forgotten-password-form.hooks';
 
 import { LoadingIndicator } from '@components/general';
 import { InputError, SubmitInput } from '@components/form';
 import { GenericInputField } from '@components/input-implementations';
 import { FormSwapButton } from '../form-swap-button/index';
+
 import { FormInstructionText } from '../form-instruction-text/index';
 
 import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
@@ -23,12 +28,14 @@ export const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProp
     register,
     setError,
   } = useForm<ForgottenPasswordFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitForgottenPasswordForm({ setError, showModal });
+  const { isPending, mutate }: SubmitForgottenPasswordForm = useSubmitForgottenPasswordForm({ setError, showModal });
 
   return (
     <section>
       <FormInstructionText
-        content={'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.'}
+        content={
+          'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.'
+        }
       />
       <form
         id={'postAccountForgottenPasswordForm'}

@@ -9,7 +9,7 @@ import { ApplicationMetaData } from '@components/application';
 import { ApplicationDetailsField } from '../application-details-field';
 import { ApplicationSection } from './application-details.styles';
 
-import { Application } from '@custom-types/index';
+import { Application } from '@common-types';
 
 interface ComponentProps {
   applicationUuid: string;

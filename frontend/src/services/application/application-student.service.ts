@@ -7,7 +7,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { NewApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
 import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
 
-import { Application } from '@custom-types/index';
+import { Application } from '@common-types';
 
 export const applicationStudentService = {
   postByStudent: async (formData: NewApplicationFormFields): Promise<Application> => {

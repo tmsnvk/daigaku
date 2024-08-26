@@ -5,7 +5,7 @@
 import { UseQueryResult } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useSendDownloadRequest } from './table-head.hooks';
+import { SendDownloadRequest, useSendDownloadRequest } from './table-head.hooks';
 
 import { GlobalErrorModal } from '@components/notification';
 import { LoadingIndicator } from '@components/general';
@@ -23,10 +23,14 @@ interface ComponentProps {
 }
 
 export const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refetch }: ComponentProps) => {
-  const { mutate, isPending, isError } = useSendDownloadRequest();
+  const { mutate, isPending, isError }: SendDownloadRequest = useSendDownloadRequest();
 
   if (isError) {
-    return <GlobalErrorModal content={'An error happened during your request. Refresh your browser or try again at a later time.'} />;
+    return (
+      <GlobalErrorModal
+        content={'An error happened during your request. Refresh your browser or try again at a later time.'}
+      />
+    );
   }
 
   return (

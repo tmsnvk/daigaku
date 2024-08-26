@@ -6,34 +6,41 @@ import { useForm } from 'react-hook-form';
 
 import { useGetInstitutionOptions } from '@hooks/institution';
 import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
-import { RegisterFormFields, useSubmitRegistrationForm } from './registration-form.hooks';
+import { RegisterFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
 
 import { LoadingIndicator } from '@components/general';
 import { InputError, SubmitInput } from '@components/form';
 import { GenericInputField, SelectAccountType, SelectInstitution } from '@components/input-implementations';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormSwapButton } from '../form-swap-button/index';
+
 import { FormInstructionText } from '../form-instruction-text/index';
 
 import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
-import { ListQueryResult } from '@common-types';
 import { InstitutionOption } from '@services/support/institution.service';
 import { RoleOption } from '@services/role/role.service';
+import { ListQueryResult } from '@common-types';
 
-type ComponentProp = FormSelector & ConfirmationModal;
+type ComponentProps = FormSelector & ConfirmationModal;
 
-export const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => {
-  const { data: institutionData, isLoading: isInstitutionLoading, isError: isInstitutionError }: ListQueryResult<InstitutionOption> = useGetInstitutionOptions();
-
-  const { data: roleData, isLoading: isRoleLoading, isError: isRoleError }: ListQueryResult<RoleOption> = useGetStudentAndMentorAccountRoles();
-
+export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) => {
+  const {
+    data: institutionData,
+    isLoading: isInstitutionLoading,
+    isError: isInstitutionError,
+  }: ListQueryResult<InstitutionOption> = useGetInstitutionOptions();
+  const {
+    data: roleData,
+    isLoading: isRoleLoading,
+    isError: isRoleError,
+  }: ListQueryResult<RoleOption> = useGetStudentAndMentorAccountRoles();
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<RegisterFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate, error } = useSubmitRegistrationForm({ setError, showModal });
+  const { isPending, mutate, error }: SubmitRegistrationForm = useSubmitRegistrationForm({ setError, showModal });
 
   if (isInstitutionLoading || isRoleLoading) {
     return <GlobalLoadingModal content={'The application is fetching the registration data...'} />;
@@ -119,18 +126,16 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProp) => 
           data={roleData ?? []}
         />
         <article>
-          {isPending ?
-            (
-              <LoadingIndicator content={'Your registration is being submitted.'} />
-            ) :
-            (
-              <SubmitInput
-                type={'submit'}
-                name={'register'}
-                value={'register'}
-                disabled={isPending}
-              />
-            )}
+          {isPending ? (
+            <LoadingIndicator content={'Your registration is being submitted.'} />
+          ) : (
+            <SubmitInput
+              type={'submit'}
+              name={'register'}
+              value={'register'}
+              disabled={isPending}
+            />
+          )}
           {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
         </article>
       </form>

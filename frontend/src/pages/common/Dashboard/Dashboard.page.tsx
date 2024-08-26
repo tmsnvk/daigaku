@@ -4,16 +4,18 @@
 
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { useGetApplications } from '@hooks/application';
-import { useGetDashboardData } from './dashboard.hooks';
+import { DashboardData, useGetDashboardData } from './dashboard.hooks';
 
 import { StudentLayout } from './layouts/index';
 import { TodoList } from './components/index';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { Main } from './dashboard.styles';
 
+import { SimpleQueryResult } from '@common-types';
+
 export const Dashboard = () => {
   const { account }: Partial<AuthContext> = useAuth();
-  const { data, isLoading, isError, error } = useGetDashboardData();
+  const { data, isLoading, isError, error }: SimpleQueryResult<DashboardData> = useGetDashboardData();
 
   useGetApplications();
 

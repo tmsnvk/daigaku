@@ -9,6 +9,7 @@ import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { applicationService } from '@services/index';
 
 import { queryKeys } from '@configuration';
+import { SimpleQueryResult } from '@common-types';
 
 export interface DashboardData {
   firmChoiceDto: {
@@ -31,7 +32,7 @@ export interface DashboardData {
   numberOfOffers: number;
 }
 
-export const useGetDashboardData = () => {
+export const useGetDashboardData = (): SimpleQueryResult<DashboardData> => {
   const { account, getRoleResource }: Partial<AuthContext> = useAuth();
   const role: string = getRoleResource(account.role as AccountRoleValues);
 

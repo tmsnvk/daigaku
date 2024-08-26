@@ -4,7 +4,7 @@
 
 import { useForm } from 'react-hook-form';
 
-import { NewCommentFormFields, useSubmitNewComment } from './new-comment-box.hooks';
+import { NewCommentFormFields, SubmitNewComment, useSubmitNewComment } from './new-comment-box.hooks';
 
 import { InputError, InputLabel, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
@@ -21,7 +21,7 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
     register,
     setError,
   } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitNewComment({ setError, applicationUuid });
+  const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
 
   return (
     <Form
@@ -56,7 +56,9 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
           />
         )}
       </article>
-      <article>{errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}</article>
+      <article>
+        {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
+      </article>
     </Form>
   );
 };

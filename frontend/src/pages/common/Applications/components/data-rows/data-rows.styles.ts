@@ -18,6 +18,6 @@ export const TableBodyRow = styled.tr`
   }
 `;
 
-export const DataCell = styled.td<RowType>`
+export const Cell = styled.td<RowType>`
   display: ${({ $shouldDisplay }) => ($shouldDisplay ? '' : 'none')};
 `;

@@ -28,13 +28,13 @@ export interface ApplicationStatusOption {
   finalDestinationStatus: Array<FinalDestinationStatus> | undefined;
 }
 
-export interface ApplicationOptionsData {
+export interface ApplicationOptions {
   selectOptions: ApplicationStatusOption;
   isLoading: boolean;
   isError: boolean;
 }
 
-export const useGetAllSelectOptions = (): ApplicationOptionsData => {
+export const useGetAllSelectOptions = (): ApplicationOptions => {
   return useQueries({
     queries: [
       {

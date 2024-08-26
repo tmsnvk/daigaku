@@ -18,12 +18,14 @@ export const NewApplication = () => {
   const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
   const { data: countryData, isError: isCountryError }: ListQueryResult<CountryOption> = useGetCountryOptions();
-
   const {
     data: universityData,
     isLoading: isUniversityDataLoading,
     isError: isUniversityError,
-  }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountryFieldSelected, selectedCountryUuid);
+  }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(
+    isCountryFieldSelected,
+    selectedCountryUuid,
+  );
 
   const handleCountryField = (countryUuid: string): void => {
     setIsCountryFieldSelected(true);

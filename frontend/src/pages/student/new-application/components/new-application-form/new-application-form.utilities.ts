@@ -8,7 +8,7 @@ export const formInformation = [
   'Make sure to come back in the following months and properly update their statuses.',
   'Once you have submitted an application, you will not be able to change the country, university and course fields.',
   'Submit an application only if you are committed to it.',
-  'If you do not find your selected country or university in the dropdown lists, reach out to an admin via the' + " 'Feedback' form.",
+  `If you do not find your selected country or university in the dropdown lists, reach out to an admin via the 'Feedback' form.`,
 ];
 export const countryInformation = [
   'The first step of your application process is selecting the country of your choice.',
@@ -31,4 +31,5 @@ export const programmeLengthInformation = [
   'Enter the length of your selected course (years).',
   'By default, the value is set to 3 years, update it only if it is different for you.',
 ];
-export const submissionConfirmation = 'Your submission was successful. Wishing you the best of luck with your application!';
+export const submissionConfirmation =
+  'Your submission was successful. Wishing you the best of luck with your application!';

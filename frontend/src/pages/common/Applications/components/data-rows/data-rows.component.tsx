@@ -5,13 +5,13 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { DataCell, TableBodyRow } from './data-rows.styles';
+import { Cell, TableBodyRow } from './data-rows.styles';
 
 import { iconLibraryConfig } from '@configuration';
 import { isColumnFound } from './data-rows.utilities';
 
 import { Column } from '../../applications.hooks';
-import { Application } from '@custom-types/index';
+import { Application } from '@common-types';
 
 interface ComponentProps {
   readonly columns: Array<Column>;
@@ -19,28 +19,30 @@ interface ComponentProps {
 }
 
 export const DataRows = ({ columns, data }: ComponentProps) => {
-  return data.map((element) => {
+  return data.map((application: Application) => {
     return (
-      <TableBodyRow key={element.uuid}>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'courseName')}>{element.courseName}</DataCell>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'university')}>{element.university}</DataCell>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'country')}>{element.country}</DataCell>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'applicationStatus')}>{element.applicationStatus ?? '-'}</DataCell>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'interviewStatus')}>{element.interviewStatus ?? '-'}</DataCell>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'offerStatus')}>{element.offerStatus ?? '-'}</DataCell>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'responseStatus')}>{element.responseStatus ?? '-'}</DataCell>
-        <DataCell $shouldDisplay={isColumnFound(columns, 'finalDestinationStatus')}>{element.finalDestinationStatus ?? '-'}</DataCell>
+      <TableBodyRow key={application.uuid}>
+        <Cell $shouldDisplay={isColumnFound(columns, 'courseName')}>{application.courseName}</Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'university')}>{application.university}</Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'country')}>{application.country}</Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'applicationStatus')}>{application.applicationStatus ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'interviewStatus')}>{application.interviewStatus ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'offerStatus')}>{application.offerStatus ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'responseStatus')}>{application.responseStatus ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'finalDestinationStatus')}>
+          {application.finalDestinationStatus ?? '-'}
+        </Cell>
         <td>
           <Link
-            to={`edit/${element.uuid}`}
-            state={element}
+            to={`edit/${application.uuid}`}
+            state={application}
           >
             Edit
             <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
           </Link>
           <Link
-            to={`view/${element.uuid}`}
-            state={element}
+            to={`view/${application.uuid}`}
+            state={application}
           >
             View
             <FontAwesomeIcon icon={iconLibraryConfig.faMagnifyingGlass} />

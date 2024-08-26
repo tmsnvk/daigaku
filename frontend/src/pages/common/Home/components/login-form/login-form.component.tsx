@@ -4,12 +4,13 @@
 
 import { useForm } from 'react-hook-form';
 
-import { LoginFormFields, useSubmitLoginForm } from './login-form.hooks';
+import { LoginFormFields, SubmitLoginForm, useSubmitLoginForm } from './login-form.hooks';
 
 import { LoadingIndicator } from '@components/general';
 import { InputError, SubmitInput } from '@components/form';
 import { GenericInputField, PasswordInputField } from '@components/input-implementations';
 import { FormSwapButton } from '../form-swap-button/index';
+
 import { FormInstructionText } from '../form-instruction-text/index';
 
 import { FormSelector, FormType } from '../../home.types';
@@ -23,11 +24,13 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
     register,
     setError,
   } = useForm<LoginFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitLoginForm({ setError });
+  const { isPending, mutate }: SubmitLoginForm = useSubmitLoginForm({ setError });
 
   return (
     <section>
-      <FormInstructionText content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'} />
+      <FormInstructionText
+        content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'}
+      />
       <form
         id={'postAccountLoginForm'}
         method={'POST'}

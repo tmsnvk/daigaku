@@ -11,6 +11,7 @@ import { AccountData, AuthContext, AuthStatus, useAuth } from '@context/auth';
 import { accountService } from '@services/index';
 
 import { mutationKeys } from '@configuration';
+import { MutationResult } from '@common-types';
 
 export interface LoginFormFields {
   readonly email: string;
@@ -39,7 +40,9 @@ interface LoginFormError {
   };
 }
 
-export const useSubmitLoginForm = ({ setError }: LoginForm) => {
+export type SubmitLoginForm = MutationResult<LoginFormReturnData, LoginFormError, LoginFormFields>;
+
+export const useSubmitLoginForm = ({ setError }: LoginForm): SubmitLoginForm => {
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
   const navigate = useNavigate();
 

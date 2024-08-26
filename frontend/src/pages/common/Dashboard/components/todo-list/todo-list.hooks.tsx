@@ -18,7 +18,7 @@ export interface CreateCurrentTodos {
 }
 
 export const useCreateCurrentTodos = (data: DashboardData): CreateCurrentTodos => {
-  const currentTodos: string[] = [];
+  const currentTodos: Array<string> = [];
 
   const getCurrentTodos = (): void => {
     !data.numberOfApplications && currentTodos.push(noApplications);

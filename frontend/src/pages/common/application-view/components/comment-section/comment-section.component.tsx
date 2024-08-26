@@ -10,13 +10,19 @@ import { CommentPaginationButton } from '../comment-pagination-button/index';
 import { NewCommentBox } from '../new-comment-box/index';
 import { Section } from './comment-section.styles';
 
+import { CommentMeta } from '@services/comment/comment.service';
+import { SimpleQueryResult } from '@common-types';
+
 interface ComponentProps {
   readonly applicationUuid: string;
 }
 
 export const CommentSection = ({ applicationUuid }: ComponentProps) => {
   const { currentPage, updatePreviousButton, updateNextButton }: UpdatePagination = useUpdatePagination();
-  const { data, isLoading, isError } = useGetCommentsByApplication(applicationUuid, currentPage);
+  const { data, isLoading, isError }: SimpleQueryResult<CommentMeta> = useGetCommentsByApplication(
+    applicationUuid,
+    currentPage,
+  );
 
   return (
     <>

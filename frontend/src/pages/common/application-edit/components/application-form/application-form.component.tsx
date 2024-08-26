@@ -37,7 +37,7 @@ import {
 } from './application-form.utilities';
 
 import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
-import { Application } from '@common-types/index';
+import { Application } from '@common-types';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 import { OfferStatus } from '@services/status/offer-status.service';
@@ -57,9 +57,7 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
     register,
     setError,
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
-
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid });
-
   const {
     fieldDisabledStatuses,
     updateInterviewStatus,
@@ -68,7 +66,6 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
     updateFinalDestinationStatus,
     disableFieldsOnFinalDestinationUpdate,
   } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, selectOptions });
-
   const { submitForm }: HandleFormSubmissionHook = useHandleFormSubmission();
 
   return (
@@ -186,19 +183,19 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
         />
         <InputInfoBox content={finalDestinationInformation} />
         <article>
-          {isPending ?
-            (
-              <LoadingIndicator content={'Your application is being updated.'} />
-            ) :
-            (
-              <SubmitInput
-                type={'submit'}
-                value={'update application'}
-                disabled={isPending}
-              />
-            )}
+          {isPending ? (
+            <LoadingIndicator content={'Your application is being updated.'} />
+          ) : (
+            <SubmitInput
+              type={'submit'}
+              value={'update application'}
+              disabled={isPending}
+            />
+          )}
         </article>
-        <article>{errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}</article>
+        <article>
+          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
+        </article>
       </Form>
       <Toast
         isVisible={isSuccess}

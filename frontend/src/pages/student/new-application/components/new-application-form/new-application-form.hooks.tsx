@@ -3,14 +3,14 @@
  */
 
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
 import { applicationStudentService } from '@services/index';
 
-import { Application } from '@custom-types/index';
+import { Application, MutationResult } from '@common-types';
 
 export interface NewApplicationFormFields {
   readonly countryUuid: string;
@@ -26,7 +26,14 @@ interface NewApplicationForm {
   reset: () => void;
 }
 
-type NewApplicationFormErrorFields = `root.${string}` | 'root' | 'countryUuid' | 'universityUuid' | 'courseName' | 'minorSubject' | 'programmeLength';
+type NewApplicationFormErrorFields =
+  | `root.${string}`
+  | 'root'
+  | 'countryUuid'
+  | 'universityUuid'
+  | 'courseName'
+  | 'minorSubject'
+  | 'programmeLength';
 
 interface NewApplicationFormError {
   response: {
@@ -37,7 +44,13 @@ interface NewApplicationFormError {
   };
 }
 
-export const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }: NewApplicationForm) => {
+export type SubmitNewApplicationForm = MutationResult<Application, NewApplicationFormError, NewApplicationFormFields>;
+
+export const useSubmitNewApplicationForm = ({
+  setError,
+  resetCountrySelection,
+  reset,
+}: NewApplicationForm): SubmitNewApplicationForm => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFields) => applicationStudentService.postByStudent(data),

@@ -18,11 +18,10 @@ import { ColumnSelectorModal, DataRows, TableHead } from './components/index.ts'
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { Main } from './applications.styles.ts';
 
-import { Application } from '@custom-types/index.ts';
-import { GetApplications } from '@hooks/application/use-get-applications';
+import { Application, ListQueryResult } from '@common-types';
 
 export const Applications = () => {
-  const { data, isLoading, refetch, isRefetching, isError, error }: GetApplications = useGetApplications();
+  const { data, isLoading, refetch, isRefetching, isError, error }: ListQueryResult<Application> = useGetApplications();
   const { columns, updateColumnVisibility }: SetColumns = useSetColumns();
   const { handleColumnSort }: SetOrder = useSetOrder(data as Array<Application>);
   const { isModalVisible, toggleModal }: DisplayColumnSelectorModal = useDisplayColumnSelectorModal();

@@ -3,15 +3,22 @@
  */
 
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { UseMutateFunction, useMutation } from '@tanstack/react-query';
 
 import { applicationStudentService } from '@services/application/application-student.service';
 
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
-import { Application } from '@custom-types/index';
+import { Application } from '@common-types';
 
-export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean) => {
+export interface ToggleIsRemovable {
+  shouldBeDeleted: boolean;
+  errorMessage: string;
+  isPending: boolean;
+  mutate: UseMutateFunction<void, Error, void, unknown>;
+}
+
+export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): ToggleIsRemovable => {
   const [shouldBeDeleted, setShouldBeDeleted] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 

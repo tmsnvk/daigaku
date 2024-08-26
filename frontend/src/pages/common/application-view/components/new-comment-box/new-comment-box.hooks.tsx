@@ -9,13 +9,11 @@ import { commentService } from '@services/index';
 
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
+import { Comment } from '@services/comment/comment.service';
+import { MutationResult } from '@common-types';
+
 export interface NewCommentFormFields {
   readonly commentContent: string;
-}
-
-interface NewCommentForm {
-  setError: UseFormSetError<NewCommentFormFields>;
-  applicationUuid: string;
 }
 
 type NewCommentFormErrorFieldsT = `root.${string}` | 'root' | 'commentContent';
@@ -29,7 +27,12 @@ interface NewCommentFormError {
   };
 }
 
-export const useSubmitNewComment = ({ setError, applicationUuid }: NewCommentForm) => {
+export type SubmitNewComment = MutationResult<Comment, NewCommentFormError, NewCommentFormFields>;
+
+export const useSubmitNewComment = (
+  setError: UseFormSetError<NewCommentFormFields>,
+  applicationUuid: string,
+): SubmitNewComment => {
   return useMutation({
     mutationKey: [mutationKeys.COMMENTS.POST_COMMENT_BY_APPLICATION],
     mutationFn: (data: NewCommentFormFields) => commentService.postComment(data, applicationUuid),
