@@ -59,13 +59,16 @@ export const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, r
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFields) => applicationStudentService.postByStudent(data),
     onSuccess: (data: Application) => {
-      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (previousData) => {
-        if (!previousData) {
-          return;
-        }
+      queryClient.setQueryData<Array<Application>>(
+        [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
+        (applications: Array<Application> | undefined) => {
+          if (!applications) {
+            return;
+          }
 
-        return [...previousData, data];
-      });
+          return [...applications, data];
+        },
+      );
 
       resetCountrySelection();
       reset();

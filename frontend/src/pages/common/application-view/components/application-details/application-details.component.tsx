@@ -16,14 +16,13 @@ import { Application } from '@common-types';
 
 /* interfaces, types, enums */
 interface ComponentProps {
-  applicationUuid: string;
   application: Application;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const ApplicationDetails = ({ applicationUuid, application }: ComponentProps) => {
+export const ApplicationDetails = ({ application }: ComponentProps) => {
   return (
     <ApplicationSection as={'section'}>
       <PageTitle content={'View Application'} />
@@ -34,7 +33,7 @@ export const ApplicationDetails = ({ applicationUuid, application }: ComponentPr
         lastModifiedBy={application.lastModifiedBy}
       />
       <article>
-        <Link to={`/applications/edit/${applicationUuid}`}>EDIT</Link>
+        <Link to={`/applications/edit/${application.uuid}`}>EDIT</Link>
       </article>
       <ApplicationDetailsField
         name={'Country'}

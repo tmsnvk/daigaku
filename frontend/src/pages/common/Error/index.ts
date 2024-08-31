@@ -2,6 +2,6 @@
  * @prettier
  */
 
-import { Error } from './error.page';
+import { Error } from './eerror.page';
 
 export { Error };

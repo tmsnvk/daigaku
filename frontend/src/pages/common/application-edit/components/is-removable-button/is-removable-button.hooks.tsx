@@ -34,21 +34,23 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
     mutationKey: [mutationKeys.APPLICATION.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
-      queryClient.setQueryData<Application[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (previousData) => {
-        if (!previousData) {
+      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (applications) => {
+        if (!applications) {
           return;
         }
 
-        const currentApplication = previousData.filter((row) => row.uuid === applicationUuid);
+        const currentApplications: Array<Application> = applications.filter((application: Application) => {
+          return application.uuid === applicationUuid;
+        });
 
-        currentApplication[0].isRemovable = !currentApplication[0].isRemovable;
+        currentApplications[0].isRemovable = !currentApplications[0].isRemovable;
 
-        return [...previousData];
+        return [...applications];
       });
 
       setShouldBeDeleted(!shouldBeDeleted);
 
-      history.replaceState('', `/applications/${applicationUuid}`);
+      history.replaceState('', `/applications/view/${applicationUuid}`);
     },
     onError: () => {
       setErrorMessage('An error has happened. Refresh your browser and try again.');

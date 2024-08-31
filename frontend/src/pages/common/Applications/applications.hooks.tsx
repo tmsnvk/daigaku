@@ -67,7 +67,7 @@ export const useSetColumns = (): SetColumns => {
 
   const updateColumnVisibility = (id: string): void => {
     setColumns(
-      columns.map((column) => {
+      columns.map((column: Column) => {
         if (column.id === id) {
           columnVisibility[column.id] = !column.isActive;
           setLocalStorageObjectById('applications-table-columns', columnVisibility);

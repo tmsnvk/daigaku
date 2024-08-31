@@ -50,30 +50,29 @@ import { ApplicationStatus } from '@services/status/application-status.service';
 
 /* interfaces, types, enums */
 interface ComponentProps {
-  readonly currentApplicationData: Application;
-  readonly applicationUuid: string;
+  readonly application: Application;
   readonly selectOptions: ApplicationStatusOption;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOptions }: ComponentProps) => {
+export const ApplicationForm = ({ application, selectOptions }: ComponentProps) => {
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
-  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid });
+  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid: application.uuid });
   const {
-    fieldDisabledStatuses,
+    fieldsReadOnlyStatus,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,
     updateFinalDestinationStatus,
     disableFieldsOnFinalDestinationUpdate,
-  } = useHandleFieldDisableStatuses({ currentApplicationData, updatedData, selectOptions });
+  } = useHandleFieldDisableStatuses({ application, updatedData, selectOptions });
   const { submitForm }: HandleFormSubmissionHook = useHandleFormSubmission();
 
   return (
@@ -81,53 +80,53 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
       <Form
         id={'updateApplicationForm'}
         method={'PATCH'}
-        onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid, mutate, setError }))}
+        onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid: application.uuid, mutate, setError }))}
       >
         <PageTitle content={'Update Application Form'} />
         <ApplicationMetaData
-          createdAt={updatedData?.createdAt ?? currentApplicationData.createdAt}
-          createdBy={updatedData?.createdBy ?? currentApplicationData.createdBy}
-          lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : currentApplicationData.lastUpdatedAt}
-          lastModifiedBy={updatedData?.lastModifiedBy ?? currentApplicationData.lastModifiedBy}
+          createdAt={updatedData?.createdAt ?? application.createdAt}
+          createdBy={updatedData?.createdBy ?? application.createdBy}
+          lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : application.lastUpdatedAt}
+          lastModifiedBy={updatedData?.lastModifiedBy ?? application.lastModifiedBy}
         />
         <IsRemovableButton
-          isRemovable={updatedData?.isRemovable ?? currentApplicationData.isRemovable}
-          applicationUuid={applicationUuid}
+          isRemovable={updatedData?.isRemovable ?? application.isRemovable}
+          applicationUuid={application.uuid}
         />
         <InputFieldGuideText content={formInformation} />
         <DisabledInputField
           fieldId={'country'}
           label={'Country'}
           type={'text'}
-          defaultValue={currentApplicationData.country}
+          defaultValue={application.country}
         />
         <InputFieldGuideText content={countryInformation} />
         <DisabledInputField
           fieldId={'university'}
           label={'University'}
           type={'text'}
-          defaultValue={currentApplicationData.university}
+          defaultValue={application.university}
         />
         <InputFieldGuideText content={universityInformation} />
         <DisabledInputField
           fieldId={'courseName'}
           label={'Course Name'}
           type={'text'}
-          defaultValue={currentApplicationData.courseName}
+          defaultValue={application.courseName}
         />
         <InputFieldGuideText content={courseNameInformation} />
         <DisabledInputField
           fieldId={'minorSubject'}
           label={'Minor Subject'}
           type={'text'}
-          defaultValue={currentApplicationData.minorSubject ?? '-'}
+          defaultValue={application.minorSubject ?? '-'}
         />
         <InputFieldGuideText content={minorSubjectInformation} />
         <DisabledInputField
           fieldId={'programmeLength'}
           label={'Programme Length'}
           type={'number'}
-          defaultValue={currentApplicationData.programmeLength}
+          defaultValue={application.programmeLength}
         />
         <InputFieldGuideText content={programmeLengthInformation} />
         <ActiveSelectField
@@ -136,9 +135,9 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           fieldId={'applicationStatusUuid'}
           labelContent={'Application Status'}
           selectPrompt={"Update the application's current status."}
-          previouslySelectedValue={updatedData?.applicationStatus ?? currentApplicationData.applicationStatus}
+          previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
           options={selectOptions.applicationStatus as ApplicationStatus[]}
-          isReadOnly={fieldDisabledStatuses.applicationStatus}
+          isReadOnly={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
           onFieldUpdate={updateInterviewStatus}
         />
         <InputFieldGuideText content={applicationStatusInformation} />
@@ -148,9 +147,9 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           fieldId={'interviewStatusUuid'}
           labelContent={'Interview Status'}
           selectPrompt={"Update the application's interview status."}
-          previouslySelectedValue={updatedData?.interviewStatus ?? currentApplicationData.interviewStatus}
+          previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
           options={selectOptions.interviewStatus as InterviewStatus[]}
-          isReadOnly={fieldDisabledStatuses.interviewStatus}
+          isReadOnly={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
           onFieldUpdate={updateOfferStatus}
         />
         <InputFieldGuideText content={interviewStatusInformation} />
@@ -160,9 +159,9 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           fieldId={'offerStatusUuid'}
           labelContent={'Offer Status'}
           selectPrompt={"Update the university's decision."}
-          previouslySelectedValue={updatedData?.offerStatus ?? currentApplicationData.offerStatus}
+          previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
           options={selectOptions.offerStatus as OfferStatus[]}
-          isReadOnly={fieldDisabledStatuses.offerStatus}
+          isReadOnly={fieldsReadOnlyStatus.isOfferStatusReadOnly}
           onFieldUpdate={updateResponseStatus}
         />
         <InputFieldGuideText content={offerStatusInformation} />
@@ -172,9 +171,9 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           fieldId={'responseStatusUuid'}
           labelContent={'Response Status'}
           selectPrompt={'Update your response status.'}
-          previouslySelectedValue={updatedData?.responseStatus ?? currentApplicationData.responseStatus}
+          previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
           options={selectOptions.responseStatus as ResponseStatus[]}
-          isReadOnly={fieldDisabledStatuses.responseStatus}
+          isReadOnly={fieldsReadOnlyStatus.isResponseStatusReadOnly}
           onFieldUpdate={updateFinalDestinationStatus}
         />
         <InputFieldGuideText content={responseStatusInformation} />
@@ -184,9 +183,9 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           fieldId={'finalDestinationStatusUuid'}
           labelContent={'Final Destination Status'}
           selectPrompt={'Update your final decision regarding this application.'}
-          previouslySelectedValue={updatedData?.finalDestinationStatus ?? currentApplicationData.finalDestinationStatus}
+          previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as FinalDestinationStatus[]}
-          isReadOnly={fieldDisabledStatuses.finalDestinationStatus}
+          isReadOnly={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
           onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
         />
         <InputFieldGuideText content={finalDestinationInformation} />
