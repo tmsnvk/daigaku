@@ -1,8 +1,16 @@
 {
-  "name": "frontend",
+  "name": "daigaku-frontend",
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "author": "Tamas N. <dev@tamasnovak.net>",
+  "description": "The application follows the university application process of high school students and handles complex student-mentor-admin relationships.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmsnvk/daigaku"
+  },
+  "keywords": ["react", "typescript", "styled-components", "react-query", "react-hooks"],
+  "main": "main.tsx",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
