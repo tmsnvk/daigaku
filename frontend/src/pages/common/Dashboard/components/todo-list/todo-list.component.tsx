@@ -2,18 +2,26 @@
  * @prettier
  */
 
+/* logic imports */
 import { CreateCurrentTodos, useCreateCurrentTodos } from './todo-list.hooks';
 
+/* component, style imports */
 import { Section } from './todo-list.styles';
 
+/* utilities imports */
 import { generalIntroduction } from './todo-list.utilities';
 
+/* interface, type, enum imports */
 import { DashboardData } from '../../dashboard.hooks';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly data: DashboardData;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const TodoList = ({ data }: ComponentProps) => {
   const { currentTodos }: CreateCurrentTodos = useCreateCurrentTodos(data);
 

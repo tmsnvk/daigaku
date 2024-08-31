@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* external imports */
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`

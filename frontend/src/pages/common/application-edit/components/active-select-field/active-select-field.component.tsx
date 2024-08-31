@@ -2,19 +2,17 @@
  * @prettier
  */
 
+/* external imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+/* logic imports */
+import { SelectOptions, useGetPreviouslySelectedValue } from './active-select-field.hooks';
+
+/* component, style imports */
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
-import { ApplicationStatus } from '@services/status/application-status.service';
-import { InterviewStatus } from '@services/status/interview-status-service.service';
-import { OfferStatus } from '@services/status/offer-status.service';
-import { ResponseStatus } from '@services/status/response-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-
-type SelectOptions = ApplicationStatus | InterviewStatus | OfferStatus | ResponseStatus | FinalDestinationStatus;
-
+/* interfaces, types, enums */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   fieldError: string | undefined;
@@ -27,6 +25,9 @@ interface ComponentProps<T extends FieldValues> {
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const ActiveSelectField = <T extends FieldValues>({
   register,
   fieldError,
@@ -38,12 +39,12 @@ export const ActiveSelectField = <T extends FieldValues>({
   isReadOnly,
   onFieldUpdate,
 }: ComponentProps<T>) => {
-  const defaultOption: SelectOptions = options?.filter((option: SelectOptions) => option.name === previouslySelectedValue)[0];
+  const previousOption: SelectOptions = useGetPreviouslySelectedValue(options, previouslySelectedValue);
 
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        inputId={fieldId}
+        fieldId={fieldId}
         content={labelContent}
       />
       <select
@@ -53,7 +54,7 @@ export const ActiveSelectField = <T extends FieldValues>({
         id={fieldId}
         name={fieldId}
         disabled={isReadOnly}
-        defaultValue={defaultOption?.uuid}
+        defaultValue={previousOption?.uuid}
       >
         <option
           hidden
@@ -72,7 +73,7 @@ export const ActiveSelectField = <T extends FieldValues>({
           );
         })}
       </select>
-      {fieldError && <InputError content={fieldError} />}
+      {fieldError && <InputError message={fieldError} />}
     </BaseInput>
   );
 };

@@ -2,14 +2,21 @@
  * @prettier
  */
 
+/* external imports */
 import { useQuery } from '@tanstack/react-query';
 
+/* service imports */
 import { applicationService } from '@services/index';
 
+/* configuration imports */
 import { queryKeys } from '@configuration';
 
+/* interface, type, enum imports */
 import { Application, SimpleQueryResult } from '@common-types';
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useGetApplicationByUuid = (state: Application | null, applicationUuid: string): SimpleQueryResult<Application> => {
   return useQuery({
     queryKey: [queryKeys.APPLICATION.GET_BY_UUID],

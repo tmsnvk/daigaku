@@ -2,18 +2,25 @@
  * @prettier
  */
 
+/* external imports */
 import { useForm } from 'react-hook-form';
 
+/* logic imports */
 import { NewCommentFormFields, SubmitNewComment, useSubmitNewComment } from './new-comment-box.hooks';
 
+/* component, style imports */
 import { InputError, InputLabel, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { Form } from './new-comment-box.styles';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly applicationUuid: string;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
   const {
     formState: { errors },
@@ -21,6 +28,8 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
     register,
     setError,
   } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
+  const ROW_NUMBER = 10;
+  const COLUMN_NUMBER = 50;
   const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
 
   return (
@@ -30,7 +39,7 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
       onSubmit={handleSubmit((formData) => mutate(formData))}
     >
       <InputLabel
-        inputId={'commentContent'}
+        fieldId={'commentContent'}
         content={'Write your comment'}
       />
       <textarea
@@ -40,14 +49,14 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
         })}
         id={'commentContent'}
         name={'commentContent'}
-        rows={10}
-        cols={50}
+        rows={ROW_NUMBER}
+        cols={COLUMN_NUMBER}
         autoComplete={'off'}
         placeholder={'Write a comment...'}
       />
       <article>
         {isPending ? (
-          <LoadingIndicator content={'Your comment is being submitted.'} />
+          <LoadingIndicator message={'Your comment is being submitted.'} />
         ) : (
           <SubmitInput
             type={'submit'}
@@ -56,9 +65,7 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
           />
         )}
       </article>
-      <article>
-        {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
-      </article>
+      <article>{errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}</article>
     </Form>
   );
 };

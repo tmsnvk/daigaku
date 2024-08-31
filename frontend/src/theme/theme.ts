@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* external imports */
 import { DefaultTheme } from 'styled-components';
 
 const coralRed = '#F94144';

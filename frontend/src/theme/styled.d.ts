@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* external imports */
 import 'styled-components';
 
 declare module 'styled-components' {

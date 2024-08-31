@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import { useForm } from 'react-hook-form';
 
+/* logic imports */
 import {
   CheckFieldDisableStatus,
   NewApplicationFormFields,
@@ -12,12 +14,13 @@ import {
   useSubmitNewApplicationForm,
 } from './new-application-form.hooks';
 
-import { InputError, InputInfoBox, SubmitInput } from '@components/form';
+/* component, style imports */
+import { GenericInputField, InputError, InputFieldGuideText, SelectCountry, SelectUniversity, SubmitInput } from '@components/form';
 import { LoadingIndicator, PageTitle } from '@components/general';
-import { GenericInputField, SelectCountry, SelectUniversity } from '@components/input-implementations';
 import { Toast } from '@components/notification';
 import { FormContainer } from './new-application-form.styles';
 
+/* utilities imports */
 import {
   countryInformation,
   formInformation,
@@ -28,9 +31,11 @@ import {
   universityInformation,
 } from './new-application-form.utilities';
 
+/* interface, type, enum imports */
 import { CountryOption } from '@services/support/country.service';
 import { UniversityOption } from '@services/support/university.service';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly handleCountryClick: (event: string) => void;
   readonly countryData: CountryOption[];
@@ -38,12 +43,10 @@ interface ComponentProps {
   readonly isUniversityDataLoading: boolean;
 }
 
-export const NewApplicationForm = ({
-  handleCountryClick,
-  countryData,
-  universityData,
-  isUniversityDataLoading,
-}: ComponentProps) => {
+/*
+ * component - TODO - add functionality description
+ */
+export const NewApplicationForm = ({ handleCountryClick, countryData, universityData, isUniversityDataLoading }: ComponentProps) => {
   const {
     formState: { errors },
     reset,
@@ -51,8 +54,7 @@ export const NewApplicationForm = ({
     register,
     setError,
   } = useForm<NewApplicationFormFields>({ mode: 'onSubmit' });
-  const { isCountrySelected, handleCountrySelection, resetCountrySelection }: CheckFieldDisableStatus =
-    useCheckFieldDisableStatus();
+  const { isCountrySelected, handleCountrySelection, resetCountrySelection }: CheckFieldDisableStatus = useCheckFieldDisableStatus();
   const { isPending, isSuccess, mutate }: SubmitNewApplicationForm = useSubmitNewApplicationForm({
     setError,
     resetCountrySelection,
@@ -67,29 +69,29 @@ export const NewApplicationForm = ({
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <PageTitle content={'New Application Form'} />
-        <InputInfoBox content={formInformation} />
+        <InputFieldGuideText content={formInformation} />
         <SelectCountry
           register={register}
           fieldError={errors.countryUuid?.message}
           fieldId={'countryUuid'}
           isDisabled={isPending}
-          data={countryData}
+          countryOptions={countryData}
           onCountryClick={handleCountryClick}
           onCountrySelection={handleCountrySelection}
         />
-        <InputInfoBox content={countryInformation} />
+        <InputFieldGuideText content={countryInformation} />
         {isUniversityDataLoading ? (
-          <LoadingIndicator content={'Fetching university list...'} />
+          <LoadingIndicator message={'Fetching university list...'} />
         ) : (
           <SelectUniversity
             register={register}
             fieldError={errors.universityUuid?.message}
             fieldId={'universityUuid'}
             isDisabled={isPending || !isCountrySelected}
-            data={universityData}
+            universityOptions={universityData}
           />
         )}
-        <InputInfoBox content={universityInformation} />
+        <InputFieldGuideText content={universityInformation} />
         <GenericInputField
           register={register}
           validationRules={{
@@ -109,7 +111,7 @@ export const NewApplicationForm = ({
           placeholder={'Provide the course of your choice.'}
           isDisabled={isPending}
         />
-        <InputInfoBox content={majorSubjectInformation} />
+        <InputFieldGuideText content={majorSubjectInformation} />
         <GenericInputField
           register={register}
           validationRules={{
@@ -126,7 +128,7 @@ export const NewApplicationForm = ({
           placeholder={'Provide your minor course.'}
           isDisabled={isPending}
         />
-        <InputInfoBox content={minorSubjectInformation} />
+        <InputFieldGuideText content={minorSubjectInformation} />
         <GenericInputField
           register={register}
           validationRules={{
@@ -147,10 +149,10 @@ export const NewApplicationForm = ({
           defaultValue={3}
           isDisabled={isPending}
         />
-        <InputInfoBox content={programmeLengthInformation} />
+        <InputFieldGuideText content={programmeLengthInformation} />
         <article>
           {isPending ? (
-            <LoadingIndicator content={'Your application is being submitted.'} />
+            <LoadingIndicator message={'Your application is being submitted.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -159,13 +161,11 @@ export const NewApplicationForm = ({
             />
           )}
         </article>
-        <article>
-          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
-        </article>
+        <article>{errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}</article>
       </FormContainer>
       <Toast
         isVisible={isSuccess}
-        content={submissionConfirmation}
+        message={submissionConfirmation}
       />
     </>
   );

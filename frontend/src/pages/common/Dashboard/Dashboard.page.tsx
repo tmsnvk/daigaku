@@ -2,17 +2,23 @@
  * @prettier
  */
 
+/* logic imports */
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { useGetApplications } from '@hooks/application';
 import { DashboardData, useGetDashboardData } from './dashboard.hooks';
 
-import { StudentLayout } from './layouts/index';
-import { TodoList } from './components/index';
+/* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { TodoList } from './components/index';
+import { StudentLayout } from './layouts/index';
 import { Main } from './dashboard.styles';
 
+/* interface, type, enum imports */
 import { SimpleQueryResult } from '@common-types';
 
+/*
+ * component - TODO - add functionality description
+ */
 export const Dashboard = () => {
   const { account }: Partial<AuthContext> = useAuth();
   const { data, isLoading, isError, error }: SimpleQueryResult<DashboardData> = useGetDashboardData();
@@ -20,11 +26,11 @@ export const Dashboard = () => {
   useGetApplications();
 
   if (isLoading) {
-    return <GlobalLoadingModal content={'The application is compiling your data...'} />;
+    return <GlobalLoadingModal message={'The application is compiling your data...'} />;
   }
 
   if (isError) {
-    return <GlobalErrorModal content={error.message} />;
+    return <GlobalErrorModal message={error.message} />;
   }
 
   return (

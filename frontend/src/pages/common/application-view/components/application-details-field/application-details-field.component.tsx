@@ -2,18 +2,23 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Article } from './application-details-field.styles';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   name: string;
-  data: string | number;
+  applicationDetail: string | number;
 }
 
-export const ApplicationDetailsField = ({ name, data }: ComponentProps) => {
+/*
+ * component - TODO - add functionality description
+ */
+export const ApplicationDetailsField = ({ name, applicationDetail }: ComponentProps) => {
   return (
     <Article>
       <h2>{name}</h2>
-      <p>{data}</p>
+      <p>{applicationDetail}</p>
     </Article>
   );
 };

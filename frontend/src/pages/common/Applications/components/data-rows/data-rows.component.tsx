@@ -2,22 +2,32 @@
  * @prettier
  */
 
+/* external imports */
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/* component, style imports */
 import { Cell, TableBodyRow } from './data-rows.styles';
 
+/* configuration imports */
 import { iconLibraryConfig } from '@configuration';
+
+/* utilities imports */
 import { isColumnFound } from './data-rows.utilities';
 
+/* interface, type, enum imports */
 import { Column } from '../../applications.hooks';
 import { Application } from '@common-types';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;
   readonly data: Array<Application>;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const DataRows = ({ columns, data }: ComponentProps) => {
   return data.map((application: Application) => {
     return (
@@ -29,9 +39,7 @@ export const DataRows = ({ columns, data }: ComponentProps) => {
         <Cell $shouldDisplay={isColumnFound(columns, 'interviewStatus')}>{application.interviewStatus ?? '-'}</Cell>
         <Cell $shouldDisplay={isColumnFound(columns, 'offerStatus')}>{application.offerStatus ?? '-'}</Cell>
         <Cell $shouldDisplay={isColumnFound(columns, 'responseStatus')}>{application.responseStatus ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnFound(columns, 'finalDestinationStatus')}>
-          {application.finalDestinationStatus ?? '-'}
-        </Cell>
+        <Cell $shouldDisplay={isColumnFound(columns, 'finalDestinationStatus')}>{application.finalDestinationStatus ?? '-'}</Cell>
         <td>
           <Link
             to={`edit/${application.uuid}`}

@@ -2,27 +2,35 @@
  * @prettier
  */
 
+/* external imports */
 import { useForm } from 'react-hook-form';
 
+/* logic imports */
 import { useGetInstitutionOptions } from '@hooks/institution';
 import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
 import { RegisterFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
 
+/* component, style imports */
 import { LoadingIndicator } from '@components/general';
-import { InputError, SubmitInput } from '@components/form';
-import { GenericInputField, SelectAccountType, SelectInstitution } from '@components/input-implementations';
+import { GenericInputField, InputError, SelectAccountRole, SelectInstitution, SubmitInput } from '@components/form';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormSwapButton } from '../form-swap-button/index';
 
+/* utilities imports */
 import { FormInstructionText } from '../form-instruction-text/index';
 
+/* interface, type, enum imports */
 import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
 import { InstitutionOption } from '@services/support/institution.service';
 import { RoleOption } from '@services/role/role.service';
 import { ListQueryResult } from '@common-types';
 
+/* interfaces, types, enums */
 type ComponentProps = FormSelector & ConfirmationModal;
 
+/*
+ * component - TODO - add functionality description
+ */
 export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) => {
   const {
     data: institutionData,
@@ -43,11 +51,11 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
   const { isPending, mutate, error }: SubmitRegistrationForm = useSubmitRegistrationForm({ setError, showModal });
 
   if (isInstitutionLoading || isRoleLoading) {
-    return <GlobalLoadingModal content={'The application is fetching the registration data...'} />;
+    return <GlobalLoadingModal message={'The application is fetching the registration data...'} />;
   }
 
   if (isInstitutionError || isRoleError) {
-    return <GlobalErrorModal content={error?.response.data.root as string} />;
+    return <GlobalErrorModal message={error?.response.data.root as string} />;
   }
 
   return (
@@ -116,18 +124,18 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
           fieldError={errors.institutionUuid?.message}
           fieldId={'institutionUuid'}
           isDisabled={isPending}
-          data={institutionData ?? []}
+          institutionOptions={institutionData ?? []}
         />
-        <SelectAccountType
+        <SelectAccountRole
           register={register}
           fieldError={errors.accountRoleUuid?.message}
           fieldId={'accountRoleUuid'}
           isDisabled={isPending}
-          data={roleData ?? []}
+          roleOptions={roleData ?? []}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator content={'Your registration is being submitted.'} />
+            <LoadingIndicator message={'Your registration is being submitted.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -136,7 +144,7 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
               disabled={isPending}
             />
           )}
-          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

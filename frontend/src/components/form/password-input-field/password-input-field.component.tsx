@@ -2,18 +2,24 @@
  * @prettier
  */
 
+/* external imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/* logic imports */
 import { RevealPassword, useRevealPassword } from './password-input-field.hooks';
 
+/* component, style imports */
 import { BasePasswordInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
+/* configuration imports */
 import { iconLibraryConfig } from '@configuration';
 
-import { FormFieldValidation } from '@common-types/index';
+/* interface, type, enum imports */
+import { FormFieldValidation } from '@common-types';
 
+/* interfaces, types, enums */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
@@ -25,6 +31,9 @@ interface ComponentProps<T extends FieldValues> {
   isDisabled: boolean;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const PasswordInputField = <T extends FieldValues>({
   register,
   validationRules,
@@ -40,7 +49,7 @@ export const PasswordInputField = <T extends FieldValues>({
   return (
     <BasePasswordInput $isError={fieldError !== undefined}>
       <InputLabel
-        inputId={fieldId}
+        fieldId={fieldId}
         content={labelContent}
       />
       <div>
@@ -59,7 +68,7 @@ export const PasswordInputField = <T extends FieldValues>({
           icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
         />
       </div>
-      {fieldError && <InputError content={fieldError} />}
+      {fieldError && <InputError message={fieldError} />}
     </BasePasswordInput>
   );
 };

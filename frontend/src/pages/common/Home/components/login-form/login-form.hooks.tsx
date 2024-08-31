@@ -2,17 +2,24 @@
  * @prettier
  */
 
+/* external imports */
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
-import { AccountData, AuthContext, AuthStatus, useAuth } from '@context/auth';
+/* logic imports */
+import { Account, AuthContext, AuthStatus, useAuth } from '@context/auth';
 
+/* service imports */
 import { accountService } from '@services/index';
 
+/* configuration imports */
 import { mutationKeys } from '@configuration';
+
+/* interface, type, enum imports */
 import { MutationResult } from '@common-types';
 
+/* interfaces, types, enums */
 export interface LoginFormFields {
   readonly email: string;
   readonly password: string;
@@ -42,6 +49,9 @@ interface LoginFormError {
 
 export type SubmitLoginForm = MutationResult<LoginFormReturnData, LoginFormError, LoginFormFields>;
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useSubmitLoginForm = ({ setError }: LoginForm): SubmitLoginForm => {
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
   const navigate = useNavigate();
@@ -52,7 +62,7 @@ export const useSubmitLoginForm = ({ setError }: LoginForm): SubmitLoginForm => 
     onSuccess: (data: LoginFormReturnData) => {
       localStorage.setItem('token', data.jwtToken);
 
-      const userData: AccountData = {
+      const userData: Account = {
         ...data,
         role: getAccountRole(data.role),
       };

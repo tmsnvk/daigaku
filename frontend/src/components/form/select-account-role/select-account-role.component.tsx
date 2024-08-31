@@ -2,32 +2,33 @@
  * @prettier
  */
 
+/* external imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+/* component, style imports */
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
+/* interface, type, enum imports */
 import { RoleOption } from '@services/role/role.service';
 
+/* interfaces, types, enums */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
-  data: Array<RoleOption>;
+  roleOptions: Array<RoleOption>;
 }
 
-export const SelectAccountType = <T extends FieldValues>({
-  register,
-  fieldError,
-  fieldId,
-  isDisabled,
-  data,
-}: ComponentProps<T>) => {
+/*
+ * component - TODO - add functionality description
+ */
+export const SelectAccountRole = <T extends FieldValues>({ register, fieldError, fieldId, isDisabled, roleOptions }: ComponentProps<T>) => {
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        inputId={fieldId}
+        fieldId={fieldId}
         content={'Account Type'}
       />
       <select
@@ -47,18 +48,18 @@ export const SelectAccountType = <T extends FieldValues>({
         >
           Select your account type.
         </option>
-        {data.map((option: RoleOption) => {
+        {roleOptions.map((roleOption: RoleOption) => {
           return (
             <option
-              key={option.uuid}
-              value={option.uuid}
+              key={roleOption.uuid}
+              value={roleOption.uuid}
             >
-              {option.name.split('ROLE_')[1].toLowerCase()}
+              {roleOption.name.split('ROLE_')[1].toLowerCase()}
             </option>
           );
         })}
       </select>
-      {fieldError && <InputError content={fieldError} />}
+      {fieldError && <InputError message={fieldError} />}
     </BaseInput>
   );
 };

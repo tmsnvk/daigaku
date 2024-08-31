@@ -2,11 +2,16 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Dialog } from './column-selector-modal.styles';
 
-import { Column } from '../../applications.hooks';
+/* logic imports */
 import { ToggleColumnSelectorModal, useToggleColumnSelectorModal } from './column-selector-modal.hooks';
 
+/* interface, type, enum imports */
+import { Column } from '../../applications.hooks';
+
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;
   readonly handleColumnVisibility: (id: string) => void;
@@ -14,12 +19,10 @@ interface ComponentProps {
   readonly toggleModal: () => void;
 }
 
-export const ColumnSelectorModal = ({
-  columns,
-  handleColumnVisibility,
-  isModalVisible,
-  toggleModal,
-}: ComponentProps) => {
+/*
+ * custom hook - TODO - add functionality description
+ */
+export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, toggleModal }: ComponentProps) => {
   const { dialogRef }: ToggleColumnSelectorModal = useToggleColumnSelectorModal(isModalVisible);
 
   return (

@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import styled from 'styled-components';
 
+/* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
 export const ApplicationFormGrid = styled.form`

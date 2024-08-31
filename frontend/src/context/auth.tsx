@@ -2,12 +2,16 @@
  * @prettier
  */
 
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+/* external imports */
+import { Context, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
+/* service imports */
 import { accountService } from '@services/index';
 
+/* interface, type, enum imports */
 import { LoginFormReturnData } from '@pages/common/home/components/login-form/login-form.hooks';
 
+/* interfaces, types, enums */
 export enum AuthStatus {
   LOADING,
   SIGNED_IN,
@@ -29,21 +33,15 @@ interface AuthContextProviderT {
   children: ReactNode;
 }
 
-export type AccountData = {
+export type Account = {
   email: string;
   firstName: string;
   role: AccountRoleValues | typeof AccountRoleValues;
 };
 
-const initialAccountState: AccountData = {
-  email: '',
-  firstName: '',
-  role: AccountRoleValues,
-};
-
 export interface AuthContext {
-  account: AccountData;
-  setAccount: (value: AccountData) => void;
+  account: Account;
+  setAccount: (value: Account) => void;
   authStatus: AuthStatus;
   setAuthStatus: (value: AuthStatus) => void;
   getAccountRole: (role: string) => AccountRoleValues;
@@ -51,10 +49,19 @@ export interface AuthContext {
   logOut: () => void;
 }
 
-const AuthContext = createContext<AuthContext>({} as AuthContext);
+const initialAccountState: Account = {
+  email: '',
+  firstName: '',
+  role: AccountRoleValues,
+};
 
+const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
+
+/*
+ * context provider - TODO - add functionality description
+ */
 export const AuthProvider = ({ children }: AuthContextProviderT) => {
-  const [account, setAccount] = useState<AccountData>(initialAccountState);
+  const [account, setAccount] = useState<Account>(initialAccountState);
   const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.LOADING);
 
   const getAccountRole = (role: string): AccountRoleValues => {
@@ -69,7 +76,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   };
 
   const getRoleResource = (role: AccountRoleValues): string => {
-    const roleUrl = {
+    const roleUrl: { [key in AccountRoleValues]: string } = {
       [AccountRoleValues.STUDENT]: 'student',
       [AccountRoleValues.MENTOR]: 'mentor',
       [AccountRoleValues.INSTITUTION_ADMIN]: 'institution-admin',
@@ -92,12 +99,12 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
       try {
         const data: LoginFormReturnData = await accountService.getMe();
 
-        const userData: AccountData = {
+        const loggedInAccount: Account = {
           ...data,
           role: getAccountRole(data.role),
         };
 
-        setAccount(userData);
+        setAccount(loggedInAccount);
         setAuthStatus(AuthStatus.SIGNED_IN);
       } catch (error) {
         setAuthStatus(AuthStatus.SIGNED_OUT);

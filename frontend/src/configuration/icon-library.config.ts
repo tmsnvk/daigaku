@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* external imports */
 import { IconLookup, library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
@@ -55,6 +56,7 @@ library.add(
   faXmark,
 );
 
+/* interfaces, types, enums */
 interface IconLibraryConfig {
   [key: string]: IconLookup;
 }

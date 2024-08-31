@@ -2,8 +2,12 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Footer } from './page-bottom.styles';
 
+/*
+ * component - TODO - add functionality description
+ */
 export const PageBottom = () => {
   return (
     <>

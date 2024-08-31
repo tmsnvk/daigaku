@@ -2,10 +2,13 @@
  * @prettier
  */
 
+/* configuration imports */
 import { axiosConfigWithAuth } from '@configuration';
 
+/* interface, type, enum imports */
 import { NewCommentFormFields } from '@pages/common/application-view/components/new-comment-box/new-comment-box.hooks';
 
+/* interfaces, types, enums */
 export interface Comment {
   readonly uuid: string;
   readonly content: string;
@@ -23,6 +26,9 @@ export interface CommentMeta {
 }
 
 export const commentService = {
+  /*
+   * TODO - comment
+   */
   getAllByApplicationUUid: async (applicationUuid: string, currentPage: number): Promise<CommentMeta> => {
     const { data } = await axiosConfigWithAuth.request<CommentMeta>({
       method: 'GET',
@@ -31,6 +37,9 @@ export const commentService = {
 
     return data;
   },
+  /*
+   * TODO - comment
+   */
   postComment: async (formData: NewCommentFormFields, applicationUuid: string): Promise<Comment> => {
     const { data } = await axiosConfigWithAuth.request<Comment>({
       method: 'POST',

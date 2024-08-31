@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import styled from 'styled-components';
 
+/* interfaces, types, enums */
 interface BaseInput {
   readonly $isError?: boolean;
   readonly $isDisabled?: boolean;

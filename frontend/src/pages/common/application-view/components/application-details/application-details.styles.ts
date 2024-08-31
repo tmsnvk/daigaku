@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import styled from 'styled-components';
 
+/* component, style imports */
 import { ApplicationFormGrid } from '@components/form';
 
 export const ApplicationSection = styled(ApplicationFormGrid)`

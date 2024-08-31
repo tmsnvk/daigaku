@@ -2,16 +2,21 @@
  * @prettier
  */
 
+/* external imports */
 import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 
+/* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
+/* service imports */
 import { applicationStudentService } from '@services/index';
 
+/* interface, type, enum imports */
 import { Application, MutationResult } from '@common-types';
 
+/* interfaces, types, enums */
 export interface NewApplicationFormFields {
   readonly countryUuid: string;
   readonly universityUuid: string;
@@ -46,11 +51,10 @@ interface NewApplicationFormError {
 
 export type SubmitNewApplicationForm = MutationResult<Application, NewApplicationFormError, NewApplicationFormFields>;
 
-export const useSubmitNewApplicationForm = ({
-  setError,
-  resetCountrySelection,
-  reset,
-}: NewApplicationForm): SubmitNewApplicationForm => {
+/*
+ * custom hook - TODO - add functionality description
+ */
+export const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }: NewApplicationForm): SubmitNewApplicationForm => {
   return useMutation({
     mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFields) => applicationStudentService.postByStudent(data),
@@ -80,12 +84,16 @@ export const useSubmitNewApplicationForm = ({
   });
 };
 
+/* interfaces, types, enums */
 export interface CheckFieldDisableStatus {
   isCountrySelected: boolean;
   resetCountrySelection: () => void;
   handleCountrySelection: () => void;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useCheckFieldDisableStatus = (): CheckFieldDisableStatus => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
 

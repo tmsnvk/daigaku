@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import { useQueries } from '@tanstack/react-query';
 
+/* service imports */
 import {
   applicationStatusService,
   finalDestinationStatusService,
@@ -12,14 +14,17 @@ import {
   responseStatusService,
 } from '@services/index';
 
+/* configuration imports */
 import { queryKeys } from '@configuration';
 
+/* interface, type, enum imports */
 import { ApplicationStatus } from '@services/status/application-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 
+/* interfaces, types, enums */
 export interface ApplicationStatusOption {
   applicationStatus: Array<ApplicationStatus> | undefined;
   interviewStatus: Array<InterviewStatus> | undefined;
@@ -34,6 +39,9 @@ export interface ApplicationOptions {
   isError: boolean;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useGetAllSelectOptions = (): ApplicationOptions => {
   return useQueries({
     queries: [

@@ -2,12 +2,17 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Paragraph } from './input-error.styles';
 
+/* interfaces, types, enums */
 interface ComponentProps {
-  readonly content: string;
+  readonly message: string;
 }
 
-export const InputError = ({ content }: ComponentProps) => {
-  return <Paragraph>{content}</Paragraph>;
+/*
+ * component - TODO - add functionality description
+ */
+export const InputError = ({ message }: ComponentProps) => {
+  return <Paragraph>{message}</Paragraph>;
 };

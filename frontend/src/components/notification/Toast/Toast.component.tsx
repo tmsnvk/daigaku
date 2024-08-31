@@ -2,13 +2,18 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Section } from './toast.styles.ts';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly isVisible: boolean;
-  readonly content: string;
+  readonly message: string;
 }
 
-export const Toast = ({ isVisible, content }: ComponentProps) => {
-  return isVisible && <Section>{content}</Section>;
+/*
+ * component - TODO - add functionality description
+ */
+export const Toast = ({ isVisible, message }: ComponentProps) => {
+  return isVisible && <Section>{message}</Section>;
 };

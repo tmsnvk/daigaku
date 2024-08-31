@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import { AxiosError } from 'axios';
 
+/* logic imports */
 import { useGetApplications } from '@hooks/application/index';
 import {
   DisplayColumnSelectorModal,
@@ -14,12 +16,17 @@ import {
   useSetOrder,
 } from './applications.hooks.tsx';
 
+/* component, style imports */
 import { ColumnSelectorModal, DataRows, TableHead } from './components/index.ts';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { Main } from './applications.styles.ts';
 
+/* interface, type, enum imports */
 import { Application, ListQueryResult } from '@common-types';
 
+/*
+ * component - TODO - add functionality description
+ */
 export const Applications = () => {
   const { data, isLoading, refetch, isRefetching, isError, error }: ListQueryResult<Application> = useGetApplications();
   const { columns, updateColumnVisibility }: SetColumns = useSetColumns();
@@ -27,11 +34,11 @@ export const Applications = () => {
   const { isModalVisible, toggleModal }: DisplayColumnSelectorModal = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
-    return <GlobalLoadingModal content={'The application is fetching your data...'} />;
+    return <GlobalLoadingModal message={'The application is fetching your data...'} />;
   }
 
   if (isError && error instanceof AxiosError) {
-    return <GlobalErrorModal content={error.response?.data.root} />;
+    return <GlobalErrorModal message={error.response?.data.root} />;
   }
 
   // add student selector dropdown for mentors
