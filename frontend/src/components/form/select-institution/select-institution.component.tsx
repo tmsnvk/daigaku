@@ -2,32 +2,39 @@
  * @prettier
  */
 
+/* external imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+/* component, style imports */
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
+/* interface, type, enum imports */
 import { InstitutionOption } from '@services/support/institution.service';
 
+/* interfaces, types, enums */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
-  data: Array<InstitutionOption>;
+  institutionOptions: Array<InstitutionOption>;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const SelectInstitution = <T extends FieldValues>({
   register,
   fieldError,
   fieldId,
   isDisabled,
-  data,
+  institutionOptions,
 }: ComponentProps<T>) => {
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        inputId={fieldId}
+        fieldId={fieldId}
         content={'Institution'}
       />
       <select
@@ -47,16 +54,16 @@ export const SelectInstitution = <T extends FieldValues>({
         >
           Select the institution you currently attend.
         </option>
-        {data.map((option: InstitutionOption) => (
+        {institutionOptions.map((institutionOption: InstitutionOption) => (
           <option
-            key={option.uuid}
-            value={option.uuid}
+            key={institutionOption.uuid}
+            value={institutionOption.uuid}
           >
-            {option.name}
+            {institutionOption.name}
           </option>
         ))}
       </select>
-      {fieldError && <InputError content={fieldError} />}
+      {fieldError && <InputError message={fieldError} />}
     </BaseInput>
   );
 };

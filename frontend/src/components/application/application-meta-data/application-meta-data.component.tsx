@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Article } from './application-meta-data.styles';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly createdAt: Date;
   readonly createdBy: string;
@@ -11,6 +13,9 @@ interface ComponentProps {
   readonly lastModifiedBy: string;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const ApplicationMetaData = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps) => {
   return (
     <Article>

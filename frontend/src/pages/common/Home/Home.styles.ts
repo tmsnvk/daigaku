@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import styled, { keyframes } from 'styled-components';
 
+/* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
 const fadeInFromBottom = keyframes`

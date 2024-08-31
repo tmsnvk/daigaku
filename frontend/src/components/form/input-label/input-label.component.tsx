@@ -2,13 +2,18 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Label } from './input-label.styles';
 
+/* interfaces, types, enums */
 interface ComponentProps {
-  readonly inputId: string;
+  readonly fieldId: string;
   readonly content: string;
 }
 
-export const InputLabel = ({ inputId, content }: ComponentProps) => {
-  return <Label htmlFor={inputId}>{content}</Label>;
+/*
+ * component - TODO - add functionality description
+ */
+export const InputLabel = ({ fieldId, content }: ComponentProps) => {
+  return <Label htmlFor={fieldId}>{content}</Label>;
 };

@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import { useForm } from 'react-hook-form';
 
+/* logic imports */
 import {
   HandleFormSubmissionHook,
   UpdateApplicationFormFields,
@@ -12,15 +14,16 @@ import {
   useUpdateApplication,
 } from './application-form.hooks';
 
-import { InputError, InputInfoBox, SubmitInput } from '@components/form';
+/* component, style imports */
+import { DisabledInputField, InputError, InputFieldGuideText, SubmitInput } from '@components/form';
 import { Toast } from '@components/notification';
 import { LoadingIndicator, PageTitle } from '@components/general';
-import { DisabledInputField } from '@components/input-implementations';
 import { ApplicationMetaData } from '@components/application';
 import { IsRemovableButton } from '../is-removable-button/index';
 import { ActiveSelectField } from '../active-select-field/index';
 import { Form } from './application-form.styles';
 
+/* utilities imports */
 import {
   applicationStatusInformation,
   countryInformation,
@@ -36,20 +39,25 @@ import {
   universityInformation,
 } from './application-form.utilities';
 
-import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
+/* interface, type, enum imports */
 import { Application } from '@common-types';
+import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 import { OfferStatus } from '@services/status/offer-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { ApplicationStatus } from '@services/status/application-status.service';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly currentApplicationData: Application;
   readonly applicationUuid: string;
   readonly selectOptions: ApplicationStatusOption;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const ApplicationForm = ({ currentApplicationData, applicationUuid, selectOptions }: ComponentProps) => {
   const {
     formState: { errors },
@@ -86,42 +94,42 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           isRemovable={updatedData?.isRemovable ?? currentApplicationData.isRemovable}
           applicationUuid={applicationUuid}
         />
-        <InputInfoBox content={formInformation} />
+        <InputFieldGuideText content={formInformation} />
         <DisabledInputField
           fieldId={'country'}
           label={'Country'}
           type={'text'}
           defaultValue={currentApplicationData.country}
         />
-        <InputInfoBox content={countryInformation} />
+        <InputFieldGuideText content={countryInformation} />
         <DisabledInputField
           fieldId={'university'}
           label={'University'}
           type={'text'}
           defaultValue={currentApplicationData.university}
         />
-        <InputInfoBox content={universityInformation} />
+        <InputFieldGuideText content={universityInformation} />
         <DisabledInputField
           fieldId={'courseName'}
           label={'Course Name'}
           type={'text'}
           defaultValue={currentApplicationData.courseName}
         />
-        <InputInfoBox content={courseNameInformation} />
+        <InputFieldGuideText content={courseNameInformation} />
         <DisabledInputField
           fieldId={'minorSubject'}
           label={'Minor Subject'}
           type={'text'}
           defaultValue={currentApplicationData.minorSubject ?? '-'}
         />
-        <InputInfoBox content={minorSubjectInformation} />
+        <InputFieldGuideText content={minorSubjectInformation} />
         <DisabledInputField
           fieldId={'programmeLength'}
           label={'Programme Length'}
           type={'number'}
           defaultValue={currentApplicationData.programmeLength}
         />
-        <InputInfoBox content={programmeLengthInformation} />
+        <InputFieldGuideText content={programmeLengthInformation} />
         <ActiveSelectField
           register={register}
           fieldError={errors.applicationStatusUuid?.message}
@@ -133,7 +141,7 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           isReadOnly={fieldDisabledStatuses.applicationStatus}
           onFieldUpdate={updateInterviewStatus}
         />
-        <InputInfoBox content={applicationStatusInformation} />
+        <InputFieldGuideText content={applicationStatusInformation} />
         <ActiveSelectField
           register={register}
           fieldError={errors.interviewStatusUuid?.message}
@@ -145,7 +153,7 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           isReadOnly={fieldDisabledStatuses.interviewStatus}
           onFieldUpdate={updateOfferStatus}
         />
-        <InputInfoBox content={interviewStatusInformation} />
+        <InputFieldGuideText content={interviewStatusInformation} />
         <ActiveSelectField
           register={register}
           fieldError={errors.offerStatusUuid?.message}
@@ -157,7 +165,7 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           isReadOnly={fieldDisabledStatuses.offerStatus}
           onFieldUpdate={updateResponseStatus}
         />
-        <InputInfoBox content={offerStatusInformation} />
+        <InputFieldGuideText content={offerStatusInformation} />
         <ActiveSelectField
           register={register}
           fieldError={errors.responseStatusUuid?.message}
@@ -169,7 +177,7 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           isReadOnly={fieldDisabledStatuses.responseStatus}
           onFieldUpdate={updateFinalDestinationStatus}
         />
-        <InputInfoBox content={responseStatusInformation} />
+        <InputFieldGuideText content={responseStatusInformation} />
         <ActiveSelectField
           register={register}
           fieldError={errors.finalDestinationStatusUuid?.message}
@@ -181,10 +189,10 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
           isReadOnly={fieldDisabledStatuses.finalDestinationStatus}
           onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
         />
-        <InputInfoBox content={finalDestinationInformation} />
+        <InputFieldGuideText content={finalDestinationInformation} />
         <article>
           {isPending ? (
-            <LoadingIndicator content={'Your application is being updated.'} />
+            <LoadingIndicator message={'Your application is being updated.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -193,13 +201,11 @@ export const ApplicationForm = ({ currentApplicationData, applicationUuid, selec
             />
           )}
         </article>
-        <article>
-          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
-        </article>
+        <article>{errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}</article>
       </Form>
       <Toast
         isVisible={isSuccess}
-        content={submissionConfirmation}
+        message={submissionConfirmation}
       />
     </>
   );

@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* interface, type, enum imports */
 import { FormType } from './home.types.ts';
 
 export const confirmationModalMessages: Record<FormType, string> = {

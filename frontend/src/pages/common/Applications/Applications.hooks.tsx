@@ -2,14 +2,20 @@
  * @prettier
  */
 
+/* external imports */
 import { useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 
+/* configuration imports */
 import { queryKeys } from '@configuration';
+
+/* utilities imports */
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
+/* interface, type, enum imports */
 import { Application } from '@common-types';
 
+/* interfaces, types, enums */
 export interface Column {
   readonly id: string;
   readonly name: string;
@@ -22,6 +28,9 @@ export interface SetColumns {
   updateColumnVisibility: (id: string) => void;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useSetColumns = (): SetColumns => {
   const columnVisibility = getLocalStorageObjectById('applications-table-columns');
 
@@ -77,11 +86,15 @@ export const useSetColumns = (): SetColumns => {
   };
 };
 
+/* interfaces, types, enums */
 export interface DisplayColumnSelectorModal {
   isModalVisible: boolean;
   toggleModal: () => void;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useDisplayColumnSelectorModal = (): DisplayColumnSelectorModal => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -100,10 +113,14 @@ enum SortOrder {
   DESC,
 }
 
+/* interfaces, types, enums */
 export interface SetOrder {
   handleColumnSort: (columnId: string) => void;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useSetOrder = (data: Array<Application>): SetOrder => {
   const [sortedField, setSortedField] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);

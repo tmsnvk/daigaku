@@ -2,15 +2,20 @@
  * @prettier
  */
 
+/* external imports */
 import { useState } from 'react';
 import { UseMutateFunction, useMutation } from '@tanstack/react-query';
 
+/* service imports */
 import { applicationStudentService } from '@services/application/application-student.service';
 
+/* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
+/* interface, type, enum imports */
 import { Application } from '@common-types';
 
+/* interfaces, types, enums */
 export interface ToggleIsRemovable {
   shouldBeDeleted: boolean;
   errorMessage: string;
@@ -18,6 +23,9 @@ export interface ToggleIsRemovable {
   mutate: UseMutateFunction<void, Error, void, unknown>;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): ToggleIsRemovable => {
   const [shouldBeDeleted, setShouldBeDeleted] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');

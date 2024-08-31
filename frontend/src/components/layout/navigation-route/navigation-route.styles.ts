@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* external imports */
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,6 +22,7 @@ export const RouteLink = styled(NavLink)`
   }
 `;
 
+/* interfaces, types, enums */
 interface NavbarIcon {
   readonly $isActive?: boolean;
 }

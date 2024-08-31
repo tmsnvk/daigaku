@@ -2,13 +2,17 @@
  * @prettier
  */
 
+/* external imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+/* component, style imports */
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
-import { FormFieldValidation } from '@common-types/index';
+/* interface, type, enum imports */
+import { FormFieldValidation } from '@common-types';
 
+/* interfaces, types, enums */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
@@ -21,6 +25,9 @@ interface ComponentProps<T extends FieldValues> {
   isDisabled: boolean;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const GenericInputField = <T extends FieldValues>({
   register,
   validationRules,
@@ -35,7 +42,7 @@ export const GenericInputField = <T extends FieldValues>({
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        inputId={fieldId}
+        fieldId={fieldId}
         content={label}
       />
       <input
@@ -48,7 +55,7 @@ export const GenericInputField = <T extends FieldValues>({
         disabled={isDisabled}
         defaultValue={defaultValue ?? ''}
       />
-      {fieldError && <InputError content={fieldError} />}
+      {fieldError && <InputError message={fieldError} />}
     </BaseInput>
   );
 };

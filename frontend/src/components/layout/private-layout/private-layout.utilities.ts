@@ -2,12 +2,16 @@
  * @prettier
  */
 
+/* external imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 
+/* interface, type, enum imports */
 import { AccountRoleValues } from '@context/auth';
 
+/* configuration imports */
 import { iconLibraryConfig } from '@configuration';
 
+/* interfaces, types, enums */
 export interface NavbarRoute {
   readonly url: string;
   readonly icon: IconLookup;

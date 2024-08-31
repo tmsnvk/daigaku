@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* interfaces, types, enums */
 export enum FormType {
   LOGIN,
   REGISTER,

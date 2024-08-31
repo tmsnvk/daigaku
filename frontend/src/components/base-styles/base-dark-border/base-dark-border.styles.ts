@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* external imports */
 import { css } from 'styled-components';
 
 export const BaseDarkBorder = css`

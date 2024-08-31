@@ -11,6 +11,6 @@
   "arrowParens": "always",
   "requirePragma": true,
   "endOfLine": "lf",
-  "printWidth": 120,
+  "printWidth": 140,
   "singleAttributePerLine": true
 }

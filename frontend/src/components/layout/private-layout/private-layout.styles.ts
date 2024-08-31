@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import styled from 'styled-components';
 
+/* component, style imports */
 import { BaseNavbar } from '@components/base-styles';
 
 export const Header = styled(BaseNavbar)`
@@ -29,6 +31,7 @@ export const Header = styled(BaseNavbar)`
   }
 `;
 
+/* interfaces, types, enums */
 interface SmallScreenMenuWrapper {
   readonly $isNavbarOpen: boolean;
 }

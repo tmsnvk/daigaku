@@ -2,9 +2,11 @@
  * @prettier
  */
 
+/* external imports */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+/* component, style imports */
 import { DaigakuReactApplication } from './daigaku-react-application.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

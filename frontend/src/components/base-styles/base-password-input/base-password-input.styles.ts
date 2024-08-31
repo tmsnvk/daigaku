@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import styled from 'styled-components';
 
+/* component, style imports */
 import { BaseInput } from '../base-input';
 
 export const BasePasswordInput = styled(BaseInput)`

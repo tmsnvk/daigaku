@@ -2,19 +2,25 @@
  * @prettier
  */
 
+/* external imports */
 import { UseQueryResult } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/* logic imports */
 import { SendDownloadRequest, useSendDownloadRequest } from './table-head.hooks';
 
+/* component, style imports */
 import { GlobalErrorModal } from '@components/notification';
 import { LoadingIndicator } from '@components/general';
 import { ButtonHeaderCell, TableHeadRow } from './table-head.styles';
 
+/* configuration imports */
 import { iconLibraryConfig } from '@configuration';
 
+/* interface, type, enum imports */
 import { Column } from '../../applications.hooks';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;
   readonly columnSortHandler: (id: string) => void;
@@ -22,15 +28,14 @@ interface ComponentProps {
   readonly refetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refetch }: ComponentProps) => {
   const { mutate, isPending, isError }: SendDownloadRequest = useSendDownloadRequest();
 
   if (isError) {
-    return (
-      <GlobalErrorModal
-        content={'An error happened during your request. Refresh your browser or try again at a later time.'}
-      />
-    );
+    return <GlobalErrorModal message={'An error happened during your request. Refresh your browser or try again at a later time.'} />;
   }
 
   return (
@@ -66,7 +71,7 @@ export const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refe
           <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
         </button>
         {isPending ? (
-          <LoadingIndicator content={'Handling your request...'} />
+          <LoadingIndicator message={'Handling your request...'} />
         ) : (
           <button
             type={'button'}

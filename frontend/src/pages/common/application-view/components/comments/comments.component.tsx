@@ -2,23 +2,30 @@
  * @prettier
  */
 
+/* component, style imports */
 import { Article, ErrorContainer } from './comments.styles';
 
+/* utilities imports */
 import { errorMessage } from './comments.utilities';
 
+/* interface, type, enum imports */
 import { Comment } from '@services/comment/comment.service';
 
+/* interfaces, types, enums */
 interface ComponentProps {
-  readonly data: Array<Comment>;
+  readonly comments: Array<Comment>;
   readonly isError: boolean;
 }
 
-export const Comments = ({ data, isError }: ComponentProps) => {
+/*
+ * component - TODO - add functionality description
+ */
+export const Comments = ({ comments, isError }: ComponentProps) => {
   return isError ? (
     <ErrorContainer>{errorMessage}</ErrorContainer>
   ) : (
     <Article>
-      {data.map((comment) => (
+      {comments.map((comment: Comment) => (
         <article key={comment.uuid}>
           <div>
             <p>{comment.createdBy}</p>

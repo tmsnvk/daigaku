@@ -2,18 +2,25 @@
  * @prettier
  */
 
+/* external imports */
 import { useState } from 'react';
 
+/* component, style imports */
 import { ForgottenPasswordForm, LoginForm, RegistrationForm } from './components/index';
 
+/* interface, type, enum imports */
 import { FormType } from './home.types';
 
+/* interfaces, types, enums */
 export interface ShowConfirmationModal {
   isConfirmationModalVisible: boolean;
   showModal: () => void;
   closeModal: () => void;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useShowConfirmationModal = (): ShowConfirmationModal => {
   const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
 
@@ -32,11 +39,15 @@ export const useShowConfirmationModal = (): ShowConfirmationModal => {
   };
 };
 
+/* interfaces, types, enums */
 export interface RenderSelectedFormComponent {
   activeFormType: FormType;
   displayActiveFormType: JSX.Element;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useRenderSelectedFormComponent = (showModal: () => void): RenderSelectedFormComponent => {
   const [activeFormType, setActiveFormType] = useState<FormType>(FormType.LOGIN);
 

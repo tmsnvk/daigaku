@@ -2,16 +2,21 @@
  * @prettier
  */
 
+/* external imports */
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
+/* service imports */
 import { pendingAccountService } from '@services/index';
 
+/* configuration imports */
 import { mutationKeys } from '@configuration';
 
+/* interface, type, enum imports */
 import { ConfirmationModal } from '../../home.types';
 import { MutationResult } from '@common-types';
 
+/* interfaces, types, enums */
 export interface RegisterFormFields {
   readonly firstName: string;
   readonly lastName: string;
@@ -24,14 +29,7 @@ type RegisterForm = {
   setError: UseFormSetError<RegisterFormFields>;
 } & ConfirmationModal;
 
-type RegisterFormErrorFields =
-  | `root.${string}`
-  | 'root'
-  | 'firstName'
-  | 'lastName'
-  | 'email'
-  | 'institutionUuid'
-  | 'accountRoleUuid';
+type RegisterFormErrorFields = `root.${string}` | 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
 interface RegisterFormError {
   response: {
@@ -44,6 +42,9 @@ interface RegisterFormError {
 
 export type SubmitRegistrationForm = MutationResult<void, RegisterFormError, RegisterFormFields>;
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm): SubmitRegistrationForm => {
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER],

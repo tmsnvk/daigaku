@@ -2,6 +2,7 @@
  * @prettier
  */
 
+/* utilities imports */
 import {
   noApplications,
   noFinalDestinationSet,
@@ -11,12 +12,18 @@ import {
   noSubmittedApplications,
   noTodo,
 } from './todo-list.utilities';
+
+/* interface, type, enum imports */
 import { DashboardData } from '../../dashboard.hooks';
 
+/* interfaces, types, enums */
 export interface CreateCurrentTodos {
   currentTodos: Array<string>;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useCreateCurrentTodos = (data: DashboardData): CreateCurrentTodos => {
   const currentTodos: Array<string> = [];
 

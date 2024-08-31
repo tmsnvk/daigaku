@@ -2,21 +2,29 @@
  * @prettier
  */
 
+/* external imports */
 import { useForm } from 'react-hook-form';
 
+/* logic imports */
 import { LoginFormFields, SubmitLoginForm, useSubmitLoginForm } from './login-form.hooks';
 
+/* component, style imports */
 import { LoadingIndicator } from '@components/general';
-import { InputError, SubmitInput } from '@components/form';
-import { GenericInputField, PasswordInputField } from '@components/input-implementations';
+import { GenericInputField, InputError, PasswordInputField, SubmitInput } from '@components/form';
 import { FormSwapButton } from '../form-swap-button/index';
 
+/* utilities imports */
 import { FormInstructionText } from '../form-instruction-text/index';
 
+/* interface, type, enum imports */
 import { FormSelector, FormType } from '../../home.types';
 
+/* interfaces, types, enums */
 type ComponentProps = FormSelector;
 
+/*
+ * component - TODO - add functionality description
+ */
 export const LoginForm = ({ formSelector }: ComponentProps) => {
   const {
     formState: { errors },
@@ -28,9 +36,7 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
 
   return (
     <section>
-      <FormInstructionText
-        content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'}
-      />
+      <FormInstructionText content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'} />
       <form
         id={'postAccountLoginForm'}
         method={'POST'}
@@ -67,7 +73,7 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
         />
         <article>
           {isPending ? (
-            <LoadingIndicator content={'You are being logged in.'} />
+            <LoadingIndicator message={'You are being logged in.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -76,7 +82,7 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
               disabled={isPending}
             />
           )}
-          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

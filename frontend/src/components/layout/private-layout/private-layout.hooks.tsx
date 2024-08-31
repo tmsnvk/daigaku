@@ -2,8 +2,10 @@
  * @prettier
  */
 
+/* external imports */
 import { MouseEvent, useRef, useState } from 'react';
 
+/* interfaces, types, enums */
 export interface SmallScreenMenuDisplay {
   ref: React.MutableRefObject<HTMLDivElement | null>;
   toggleMenu: () => void;
@@ -12,6 +14,9 @@ export interface SmallScreenMenuDisplay {
   handleOutsideClick: () => void;
 }
 
+/*
+ * custom hook - TODO - add functionality description
+ */
 export const useHandleSmallScreenMenuDisplay = (): SmallScreenMenuDisplay => {
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement | null>(null);

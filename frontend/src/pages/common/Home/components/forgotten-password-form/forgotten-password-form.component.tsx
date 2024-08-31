@@ -2,25 +2,29 @@
  * @prettier
  */
 
+/* external imports */
 import { useForm } from 'react-hook-form';
 
-import {
-  ForgottenPasswordFormFields,
-  SubmitForgottenPasswordForm,
-  useSubmitForgottenPasswordForm,
-} from './forgotten-password-form.hooks';
+/* logic imports */
+import { ForgottenPasswordFormFields, SubmitForgottenPasswordForm, useSubmitForgottenPasswordForm } from './forgotten-password-form.hooks';
 
+/* component, style imports */
 import { LoadingIndicator } from '@components/general';
-import { InputError, SubmitInput } from '@components/form';
-import { GenericInputField } from '@components/input-implementations';
+import { GenericInputField, InputError, SubmitInput } from '@components/form';
 import { FormSwapButton } from '../form-swap-button/index';
 
+/* utilities imports */
 import { FormInstructionText } from '../form-instruction-text/index';
 
+/* interface, type, enum imports */
 import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
 
+/* interfaces, types, enums */
 type ComponentProps = FormSelector & ConfirmationModal;
 
+/*
+ * component - TODO - add functionality description
+ */
 export const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProps) => {
   const {
     formState: { errors },
@@ -59,7 +63,7 @@ export const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProp
         />
         <article>
           {isPending ? (
-            <LoadingIndicator content={'Your registration is being handled.'} />
+            <LoadingIndicator message={'Your registration is being handled.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -68,7 +72,7 @@ export const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProp
               disabled={isPending}
             />
           )}
-          {errors.root?.serverError && <InputError content={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>

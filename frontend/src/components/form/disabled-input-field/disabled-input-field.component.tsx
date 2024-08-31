@@ -2,9 +2,11 @@
  * @prettier
  */
 
+/* component, style imports */
 import { BaseInput } from '@components/base-styles';
 import { InputLabel } from '@components/form';
 
+/* interfaces, types, enums */
 interface ComponentProps {
   readonly fieldId: string;
   readonly label: string;
@@ -12,11 +14,14 @@ interface ComponentProps {
   readonly defaultValue: string | number;
 }
 
+/*
+ * component - TODO - add functionality description
+ */
 export const DisabledInputField = ({ fieldId, label, type, defaultValue }: ComponentProps) => {
   return (
     <BaseInput $isDisabled={true}>
       <InputLabel
-        inputId={fieldId}
+        fieldId={fieldId}
         content={label}
       />
       <input
