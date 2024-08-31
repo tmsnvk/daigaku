@@ -201,13 +201,13 @@ export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplic
 type ApplicationStatusesUnionT = ApplicationStatus[] | InterviewStatus[] | OfferStatus[] | ResponseStatus[] | FinalDestinationStatus[];
 
 interface DisabledInputFields {
-  currentApplicationData: Application;
+  application: Application;
   updatedData: Application | undefined;
   selectOptions: ApplicationStatusOption;
 }
 
 const disableIfWithdrawn = (
-  currentApplicationData: Application,
+  application: Application,
   updatedData: Application | undefined,
   applicationStatusOptions: ApplicationStatus[] | undefined,
 ) => {
@@ -215,22 +215,19 @@ const disableIfWithdrawn = (
     (element) => element.name === ApplicationStatusE.WITHDRAWN,
   )[0] as ApplicationStatus;
 
-  return currentApplicationData.applicationStatus === withdrawnStatus.name || updatedData?.applicationStatus === withdrawnStatus.name;
+  return application.applicationStatus === withdrawnStatus.name || updatedData?.applicationStatus === withdrawnStatus.name;
 };
 
-const setPageLoadApplicationStatus = (currentApplicationData: Application) => {
-  return !!currentApplicationData.finalDestinationStatus;
+const setPageLoadApplicationStatus = (application: Application) => {
+  return !!application.finalDestinationStatus;
 };
 
 const setPageLoadInterviewStatus = (
-  currentApplicationData: Application,
+  application: Application,
   updatedData: Application | undefined,
   selectOptions: ApplicationStatusOption,
 ) => {
-  if (
-    currentApplicationData.finalDestinationStatus ||
-    disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)
-  ) {
+  if (application.finalDestinationStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
 
@@ -238,18 +235,14 @@ const setPageLoadInterviewStatus = (
     (element) => element.name === ApplicationStatusE.SUBMITTED,
   )[0] as ApplicationStatus;
 
-  return !(currentApplicationData.applicationStatus === submittedStatus.name || updatedData?.applicationStatus === submittedStatus.name);
+  return !(application.applicationStatus === submittedStatus.name || updatedData?.applicationStatus === submittedStatus.name);
 };
 
-const setPageLoadOfferStatus = (
-  currentApplicationData: Application,
-  updatedData: Application | undefined,
-  selectOptions: ApplicationStatusOption,
-) => {
+const setPageLoadOfferStatus = (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption) => {
   if (
-    !currentApplicationData.interviewStatus ||
-    currentApplicationData.finalDestinationStatus ||
-    disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)
+    !application.interviewStatus ||
+    application.finalDestinationStatus ||
+    disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)
   ) {
     return true;
   }
@@ -258,29 +251,29 @@ const setPageLoadOfferStatus = (
     (element) => element.name === InterviewStatusE.NOT_INVITED,
   )[0] as InterviewStatus;
 
-  return currentApplicationData.interviewStatus === notInvitedStatus.name || updatedData?.interviewStatus === notInvitedStatus.name;
+  return application.interviewStatus === notInvitedStatus.name || updatedData?.interviewStatus === notInvitedStatus.name;
 };
 
 const setPageLoadResponseStatus = (
-  currentApplicationData: Application,
+  application: Application,
   updatedData: Application | undefined,
   selectOptions: ApplicationStatusOption,
 ) => {
-  if (!currentApplicationData.offerStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
+  if (!application.offerStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
 
   const rejectedStatus = selectOptions.offerStatus?.filter((element) => element.name === OfferStatusE.REJECTED)[0] as OfferStatus;
 
-  return currentApplicationData.offerStatus === rejectedStatus.name || updatedData?.offerStatus === rejectedStatus.name;
+  return application.offerStatus === rejectedStatus.name || updatedData?.offerStatus === rejectedStatus.name;
 };
 
 const setPageLoadFinalDestinationStatus = (
-  currentApplicationData: Application,
+  application: Application,
   updatedData: Application | undefined,
   selectOptions: ApplicationStatusOption,
 ) => {
-  if (!currentApplicationData.responseStatus || disableIfWithdrawn(currentApplicationData, updatedData, selectOptions.applicationStatus)) {
+  if (!application.responseStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
     return true;
   }
 
@@ -288,7 +281,7 @@ const setPageLoadFinalDestinationStatus = (
     (element) => element.name === ResponseStatusE.OFFER_DECLINED,
   )[0] as ResponseStatus;
 
-  return currentApplicationData.responseStatus === offerDeclinedStatus.name || updatedData?.responseStatus === offerDeclinedStatus.name;
+  return application.responseStatus === offerDeclinedStatus.name || updatedData?.responseStatus === offerDeclinedStatus.name;
 };
 
 /*
@@ -298,13 +291,13 @@ const setPageLoadFinalDestinationStatus = (
  * the helper methods set the field values on page load, while the individual update methods set the given field when a select field is clicked.
  *
  */
-export const useHandleFieldDisableStatuses = ({ currentApplicationData, updatedData, selectOptions }: DisabledInputFields) => {
+export const useHandleFieldDisableStatuses = ({ application, updatedData, selectOptions }: DisabledInputFields) => {
   const [fieldDisabledStatuses, setFieldDisabledStatuses] = useState<{ [key: string]: boolean }>({
-    applicationStatus: setPageLoadApplicationStatus(currentApplicationData),
-    interviewStatus: setPageLoadInterviewStatus(currentApplicationData, updatedData, selectOptions),
-    offerStatus: setPageLoadOfferStatus(currentApplicationData, updatedData, selectOptions),
-    responseStatus: setPageLoadResponseStatus(currentApplicationData, updatedData, selectOptions),
-    finalDestinationStatus: setPageLoadFinalDestinationStatus(currentApplicationData, updatedData, selectOptions),
+    applicationStatus: setPageLoadApplicationStatus(application),
+    interviewStatus: setPageLoadInterviewStatus(application, updatedData, selectOptions),
+    offerStatus: setPageLoadOfferStatus(application, updatedData, selectOptions),
+    responseStatus: setPageLoadResponseStatus(application, updatedData, selectOptions),
+    finalDestinationStatus: setPageLoadFinalDestinationStatus(application, updatedData, selectOptions),
   });
 
   const isStatusInList = (statusList: ApplicationStatusesUnionT, statusName: string) => {

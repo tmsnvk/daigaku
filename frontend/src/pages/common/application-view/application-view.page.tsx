@@ -23,8 +23,8 @@ import { Application, Location, SimpleQueryResult } from '@common-types';
 export const ApplicationView = () => {
   const { state, pathname }: Location = useLocation();
   const applicationUuid: string = pathname.split('/applications/view/')[1];
-
   const { data, isLoading, isError }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
+  const application: Application = state || data;
 
   if (isLoading) {
     return <GlobalLoadingModal message={'The application is compiling your data...'} />;
@@ -36,10 +36,7 @@ export const ApplicationView = () => {
 
   return (
     <MainGrid>
-      <ApplicationDetails
-        application={(state && state) || (data && data)}
-        applicationUuid={applicationUuid}
-      />
+      <ApplicationDetails application={application} />
       <CommentSection applicationUuid={applicationUuid} />
     </MainGrid>
   );

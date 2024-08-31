@@ -23,13 +23,13 @@ import { Application, Location, SimpleQueryResult } from '@common-types';
 export const ApplicationEdit = () => {
   const { state, pathname }: Location = useLocation();
   const applicationUuid: string = pathname.split('/applications/edit/')[1];
-
   const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError }: ApplicationOptions = useGetAllSelectOptions();
   const {
     data,
     isLoading: isApplicationLoading,
     isError: isApplicationError,
   }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
+  const application: Application = state || data;
 
   if (isOptionsLoading || isApplicationLoading) {
     return <GlobalLoadingModal message={'The application is compiling your data...'} />;
@@ -42,8 +42,7 @@ export const ApplicationEdit = () => {
   return (
     <MainGrid>
       <ApplicationForm
-        currentApplicationData={(state && state) || (data && data)}
-        applicationUuid={applicationUuid}
+        application={application}
         selectOptions={selectOptions}
       />
     </MainGrid>
