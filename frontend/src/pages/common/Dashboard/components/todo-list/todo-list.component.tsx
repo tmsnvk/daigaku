@@ -12,7 +12,7 @@ import { Section } from './todo-list.styles';
 import { generalIntroduction } from './todo-list.utilities';
 
 /* interface, type, enum imports */
-import { DashboardData } from '../../dashboard.hooks';
+import { DashboardData } from '../../ddashboard.hooks';
 
 /* interfaces, types, enums */
 interface ComponentProps {

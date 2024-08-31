@@ -16,7 +16,7 @@ import { iconLibraryConfig } from '@configuration';
 import { isColumnFound } from './data-rows.utilities';
 
 /* interface, type, enum imports */
-import { Column } from '../../applications.hooks';
+import { Column } from '../../aapplications.hooks';
 import { Application } from '@common-types';
 
 /* interfaces, types, enums */

@@ -13,7 +13,7 @@ import { pendingAccountService } from '@services/index';
 import { mutationKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ConfirmationModal } from '../../home.types';
+import { ConfirmationModal } from '../../hhome.types';
 import { MutationResult } from '@common-types';
 
 /* interfaces, types, enums */

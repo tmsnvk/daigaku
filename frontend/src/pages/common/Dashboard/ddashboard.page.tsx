@@ -5,13 +5,13 @@
 /* logic imports */
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { useGetApplications } from '@hooks/application';
-import { DashboardData, useGetDashboardData } from './dashboard.hooks';
+import { DashboardData, useGetDashboardData } from './ddashboard.hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { TodoList } from './components/index';
 import { StudentLayout } from './layouts/index';
-import { Main } from './dashboard.styles';
+import { Main } from './ddashboard.styles';
 
 /* interface, type, enum imports */
 import { SimpleQueryResult } from '@common-types';

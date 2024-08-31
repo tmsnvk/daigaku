@@ -2,6 +2,6 @@
  * @prettier
  */
 
-import { Home } from './home.page';
+import { Home } from './hhome.page';
 
 export { Home };

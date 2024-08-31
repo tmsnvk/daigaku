@@ -20,7 +20,7 @@ import { FormSwapButton } from '../form-swap-button/index';
 import { FormInstructionText } from '../form-instruction-text/index';
 
 /* interface, type, enum imports */
-import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
+import { ConfirmationModal, FormSelector, FormType } from '../../hhome.types';
 import { InstitutionOption } from '@services/support/institution.service';
 import { RoleOption } from '@services/role/role.service';
 import { ListQueryResult } from '@common-types';

@@ -9,7 +9,7 @@ import { Dialog } from './column-selector-modal.styles';
 import { ToggleColumnSelectorModal, useToggleColumnSelectorModal } from './column-selector-modal.hooks';
 
 /* interface, type, enum imports */
-import { Column } from '../../applications.hooks';
+import { Column } from '../../aapplications.hooks';
 
 /* interfaces, types, enums */
 interface ComponentProps {

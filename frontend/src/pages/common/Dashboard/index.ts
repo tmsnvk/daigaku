@@ -2,6 +2,6 @@
  * @prettier
  */
 
-import { Dashboard } from './dashboard.page';
+import { Dashboard } from './ddashboard.page';
 
 export { Dashboard };

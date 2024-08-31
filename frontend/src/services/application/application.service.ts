@@ -6,7 +6,7 @@
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { DashboardData } from '@pages/common/dashboard/dashboard.hooks';
+import { DashboardData } from '@pages/common/dashboard/ddashboard.hooks';
 import { Application } from '@common-types';
 
 export const applicationService = {

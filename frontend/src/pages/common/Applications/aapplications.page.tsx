@@ -14,12 +14,12 @@ import {
   useDisplayColumnSelectorModal,
   useSetColumns,
   useSetOrder,
-} from './applications.hooks.tsx';
+} from './aapplications.hooks.tsx';
 
 /* component, style imports */
 import { ColumnSelectorModal, DataRows, TableHead } from './components/index.ts';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { Main } from './applications.styles.ts';
+import { Main } from './aapplications.styles.ts';
 
 /* interface, type, enum imports */
 import { Application, ListQueryResult } from '@common-types';

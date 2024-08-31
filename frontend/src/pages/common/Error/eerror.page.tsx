@@ -7,7 +7,7 @@ import { useRouteError } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /* component, style imports */
-import { ErrorContainer } from './error.styles';
+import { ErrorContainer } from './eerror.styles';
 
 /* configuration imports */
 import { iconLibraryConfig } from '@configuration';

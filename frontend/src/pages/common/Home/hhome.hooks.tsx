@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { ForgottenPasswordForm, LoginForm, RegistrationForm } from './components/index';
 
 /* interface, type, enum imports */
-import { FormType } from './home.types';
+import { FormType } from './hhome.types';
 
 /* interfaces, types, enums */
 export interface ShowConfirmationModal {
