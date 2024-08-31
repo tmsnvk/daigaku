@@ -170,17 +170,17 @@ export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplic
     mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
     mutationFn: (data: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(data, applicationUuid),
     onSuccess: (data: Application) => {
-      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (previousData) => {
-        if (!previousData) {
+      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (applications) => {
+        if (!applications) {
           return;
         }
 
-        const filteredList = previousData.filter((row) => row.uuid !== data.uuid);
+        const filteredList: Array<Application> = applications.filter((application: Application) => application.uuid !== data.uuid);
 
         return [...filteredList, data];
       });
 
-      history.replaceState(data, '', `/applications/${data.uuid}`);
+      history.replaceState(data, '', `/applications/view/${data.uuid}`);
     },
     onError: (error: UpdateApplicationFormError) => {
       for (const fieldId in error.response.data) {
