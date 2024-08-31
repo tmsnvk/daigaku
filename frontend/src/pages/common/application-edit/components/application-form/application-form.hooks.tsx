@@ -198,7 +198,12 @@ export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplic
 };
 
 /* interfaces, types, enums */
-type ApplicationStatusesUnionT = ApplicationStatus[] | InterviewStatus[] | OfferStatus[] | ResponseStatus[] | FinalDestinationStatus[];
+type ApplicationStatusUnion =
+  | Array<ApplicationStatus>
+  | Array<InterviewStatus>
+  | Array<OfferStatus>
+  | Array<ResponseStatus>
+  | Array<FinalDestinationStatus>;
 
 interface DisabledInputFields {
   application: Application;
@@ -206,82 +211,106 @@ interface DisabledInputFields {
   selectOptions: ApplicationStatusOption;
 }
 
+interface FieldsReadOnlyStatus {
+  isApplicationStatusReadOnly: boolean;
+  isInterviewStatusReadOnly: boolean;
+  isOfferStatusReadOnly: boolean;
+  isResponseStatusReadOnly: boolean;
+  isFinalDestinationStatusReadOnly: boolean;
+}
+
 const disableIfWithdrawn = (
   application: Application,
   updatedData: Application | undefined,
-  applicationStatusOptions: ApplicationStatus[] | undefined,
-) => {
-  const withdrawnStatus = applicationStatusOptions?.filter(
-    (element) => element.name === ApplicationStatusE.WITHDRAWN,
-  )[0] as ApplicationStatus;
+  applicationStatusOptions: Array<ApplicationStatus> | undefined,
+): boolean => {
+  const withdrawnStatus: ApplicationStatus | undefined = applicationStatusOptions?.filter((element) => {
+    return element.name === ApplicationStatusE.WITHDRAWN;
+  })[0];
 
-  return application.applicationStatus === withdrawnStatus.name || updatedData?.applicationStatus === withdrawnStatus.name;
-};
-
-const setPageLoadApplicationStatus = (application: Application) => {
-  return !!application.finalDestinationStatus;
-};
-
-const setPageLoadInterviewStatus = (
-  application: Application,
-  updatedData: Application | undefined,
-  selectOptions: ApplicationStatusOption,
-) => {
-  if (application.finalDestinationStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
-    return true;
+  if (withdrawnStatus) {
+    return application.applicationStatus === withdrawnStatus.name || updatedData?.applicationStatus === withdrawnStatus.name;
   }
 
-  const submittedStatus = selectOptions.applicationStatus?.filter(
-    (element) => element.name === ApplicationStatusE.SUBMITTED,
-  )[0] as ApplicationStatus;
-
-  return !(application.applicationStatus === submittedStatus.name || updatedData?.applicationStatus === submittedStatus.name);
+  return false;
 };
 
-const setPageLoadOfferStatus = (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption) => {
-  if (
-    !application.interviewStatus ||
-    application.finalDestinationStatus ||
-    disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)
-  ) {
-    return true;
-  }
+const pageLoadFieldSetup = {
+  applicationStatus: (application: Application): boolean => {
+    return !!application.finalDestinationStatus;
+  },
+  interviewStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption): boolean => {
+    if (application.finalDestinationStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
+      return true;
+    }
 
-  const notInvitedStatus = selectOptions.interviewStatus?.filter(
-    (element) => element.name === InterviewStatusE.NOT_INVITED,
-  )[0] as InterviewStatus;
+    const submittedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter((element: ApplicationStatus) => {
+      return element.name === ApplicationStatusE.SUBMITTED;
+    })[0];
 
-  return application.interviewStatus === notInvitedStatus.name || updatedData?.interviewStatus === notInvitedStatus.name;
+    if (submittedStatus) {
+      return !(application.applicationStatus === submittedStatus.name || updatedData?.applicationStatus === submittedStatus.name);
+    }
+
+    return false;
+  },
+  offerStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption): boolean => {
+    if (
+      !application.interviewStatus ||
+      application.finalDestinationStatus ||
+      disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)
+    ) {
+      return true;
+    }
+
+    const notInvitedStatus: InterviewStatus | undefined = selectOptions.interviewStatus?.filter((element: ApplicationStatus) => {
+      return element.name === InterviewStatusE.NOT_INVITED;
+    })[0];
+
+    if (notInvitedStatus) {
+      return application.interviewStatus === notInvitedStatus.name || updatedData?.interviewStatus === notInvitedStatus.name;
+    }
+
+    return false;
+  },
+  responseStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption): boolean => {
+    if (!application.offerStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
+      return true;
+    }
+
+    const rejectedStatus: OfferStatus | undefined = selectOptions.offerStatus?.filter((element: ApplicationStatus) => {
+      return element.name === OfferStatusE.REJECTED;
+    })[0];
+
+    if (rejectedStatus) {
+      return application.offerStatus === rejectedStatus.name || updatedData?.offerStatus === rejectedStatus.name;
+    }
+
+    return false;
+  },
+  finalDestinationStatus: (
+    application: Application,
+    updatedData: Application | undefined,
+    selectOptions: ApplicationStatusOption,
+  ): boolean => {
+    if (!application.responseStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
+      return true;
+    }
+
+    const offerDeclinedStatus: ResponseStatus | undefined = selectOptions.responseStatus?.filter((element: ApplicationStatus) => {
+      return element.name === ResponseStatusE.OFFER_DECLINED;
+    })[0];
+
+    if (offerDeclinedStatus) {
+      return application.responseStatus === offerDeclinedStatus.name || updatedData?.responseStatus === offerDeclinedStatus.name;
+    }
+
+    return false;
+  },
 };
 
-const setPageLoadResponseStatus = (
-  application: Application,
-  updatedData: Application | undefined,
-  selectOptions: ApplicationStatusOption,
-) => {
-  if (!application.offerStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
-    return true;
-  }
-
-  const rejectedStatus = selectOptions.offerStatus?.filter((element) => element.name === OfferStatusE.REJECTED)[0] as OfferStatus;
-
-  return application.offerStatus === rejectedStatus.name || updatedData?.offerStatus === rejectedStatus.name;
-};
-
-const setPageLoadFinalDestinationStatus = (
-  application: Application,
-  updatedData: Application | undefined,
-  selectOptions: ApplicationStatusOption,
-) => {
-  if (!application.responseStatus || disableIfWithdrawn(application, updatedData, selectOptions.applicationStatus)) {
-    return true;
-  }
-
-  const offerDeclinedStatus = selectOptions.responseStatus?.filter(
-    (element) => element.name === ResponseStatusE.OFFER_DECLINED,
-  )[0] as ResponseStatus;
-
-  return application.responseStatus === offerDeclinedStatus.name || updatedData?.responseStatus === offerDeclinedStatus.name;
+const isStatusInList = (statusList: ApplicationStatusUnion, statusName: string): boolean => {
+  return statusList.some((element) => element.uuid === statusName);
 };
 
 /*
@@ -292,112 +321,116 @@ const setPageLoadFinalDestinationStatus = (
  *
  */
 export const useHandleFieldDisableStatuses = ({ application, updatedData, selectOptions }: DisabledInputFields) => {
-  const [fieldDisabledStatuses, setFieldDisabledStatuses] = useState<{ [key: string]: boolean }>({
-    applicationStatus: setPageLoadApplicationStatus(application),
-    interviewStatus: setPageLoadInterviewStatus(application, updatedData, selectOptions),
-    offerStatus: setPageLoadOfferStatus(application, updatedData, selectOptions),
-    responseStatus: setPageLoadResponseStatus(application, updatedData, selectOptions),
-    finalDestinationStatus: setPageLoadFinalDestinationStatus(application, updatedData, selectOptions),
+  const [fieldsReadOnlyStatus, setFieldsReadOnlyStatus] = useState<FieldsReadOnlyStatus>({
+    isApplicationStatusReadOnly: pageLoadFieldSetup.applicationStatus(application),
+    isInterviewStatusReadOnly: pageLoadFieldSetup.interviewStatus(application, updatedData, selectOptions),
+    isOfferStatusReadOnly: pageLoadFieldSetup.offerStatus(application, updatedData, selectOptions),
+    isResponseStatusReadOnly: pageLoadFieldSetup.responseStatus(application, updatedData, selectOptions),
+    isFinalDestinationStatusReadOnly: pageLoadFieldSetup.finalDestinationStatus(application, updatedData, selectOptions),
   });
 
-  const isStatusInList = (statusList: ApplicationStatusesUnionT, statusName: string) => {
-    return statusList.some((element) => element.uuid === statusName);
-  };
+  const updateInterviewStatus = (eventTargetValue: string): void => {
+    const planned: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter((element: ApplicationStatus) => {
+      return element.name === ApplicationStatusE.SUBMITTED;
+    })[0];
+    const withdrawn: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter((element: ApplicationStatus) => {
+      return element.name === ApplicationStatusE.WITHDRAWN;
+    })[0];
 
-  const updateInterviewStatus = (eventTargetValue: string) => {
-    const planned = selectOptions.applicationStatus?.filter(
-      (element) => element.name === ApplicationStatusE.SUBMITTED,
-    ) as ApplicationStatus[];
-    const withdrawn = selectOptions.applicationStatus?.filter(
-      (element) => element.name === ApplicationStatusE.WITHDRAWN,
-    ) as ApplicationStatus[];
-
-    if (eventTargetValue === planned[0].uuid) {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        interviewStatus: false,
+    if (planned && eventTargetValue === planned.uuid) {
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isInterviewStatusReadOnly: false,
       });
-    } else if (eventTargetValue === withdrawn[0].uuid) {
-      setFieldDisabledStatuses({
-        interviewStatus: true,
-        offerStatus: true,
-        responseStatus: true,
-        finalDestinationStatus: true,
+    } else if (withdrawn && eventTargetValue === withdrawn.uuid) {
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isInterviewStatusReadOnly: true,
+        isOfferStatusReadOnly: true,
+        isResponseStatusReadOnly: true,
+        isFinalDestinationStatusReadOnly: true,
       });
     } else {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        interviewStatus: true,
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isInterviewStatusReadOnly: true,
       });
     }
   };
 
-  const updateOfferStatus = (eventTargetValue: string) => {
-    const invitedStatuses = selectOptions.interviewStatus?.filter(
-      (element) => element.name !== InterviewStatusE.NOT_INVITED,
-    ) as OfferStatus[];
+  const updateOfferStatus = (eventTargetValue: string): void => {
+    const invitedStatuses: Array<OfferStatus> | undefined = selectOptions.interviewStatus?.filter((element: InterviewStatus) => {
+      return element.name !== InterviewStatusE.NOT_INVITED;
+    });
 
-    if (isStatusInList(invitedStatuses, eventTargetValue)) {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        offerStatus: false,
-      });
-    } else {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        offerStatus: true,
-        responseStatus: true,
-        finalDestinationStatus: true,
-      });
+    if (invitedStatuses) {
+      if (isStatusInList(invitedStatuses, eventTargetValue)) {
+        setFieldsReadOnlyStatus({
+          ...fieldsReadOnlyStatus,
+          isOfferStatusReadOnly: false,
+        });
+      } else {
+        setFieldsReadOnlyStatus({
+          ...fieldsReadOnlyStatus,
+          isOfferStatusReadOnly: true,
+          isResponseStatusReadOnly: true,
+          isFinalDestinationStatusReadOnly: true,
+        });
+      }
     }
   };
 
-  const updateResponseStatus = (eventTargetValue: string) => {
-    const positiveResponseStatuses = selectOptions.offerStatus?.filter(
-      (element) => element.name !== OfferStatusE.REJECTED,
-    ) as ResponseStatus[];
+  const updateResponseStatus = (eventTargetValue: string): void => {
+    const positiveResponseStatuses: Array<ResponseStatus> | undefined = selectOptions.offerStatus?.filter((element: OfferStatus) => {
+      return element.name !== OfferStatusE.REJECTED;
+    });
 
-    if (isStatusInList(positiveResponseStatuses, eventTargetValue)) {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        responseStatus: false,
-      });
-    } else {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        responseStatus: true,
-      });
+    if (positiveResponseStatuses) {
+      if (isStatusInList(positiveResponseStatuses, eventTargetValue)) {
+        setFieldsReadOnlyStatus({
+          ...fieldsReadOnlyStatus,
+          isResponseStatusReadOnly: false,
+        });
+      } else {
+        setFieldsReadOnlyStatus({
+          ...fieldsReadOnlyStatus,
+          isResponseStatusReadOnly: true,
+        });
+      }
     }
   };
 
-  const updateFinalDestinationStatus = (eventTargetValue: string) => {
-    const positiveResponseStatuses = selectOptions.responseStatus?.filter(
-      (element) => element.name !== ResponseStatusE.OFFER_DECLINED,
-    ) as ResponseStatus[];
+  const updateFinalDestinationStatus = (eventTargetValue: string): void => {
+    const positiveResponseStatuses: Array<ResponseStatus> | undefined = selectOptions.responseStatus?.filter((element: ResponseStatus) => {
+      return element.name !== ResponseStatusE.OFFER_DECLINED;
+    });
 
-    if (isStatusInList(positiveResponseStatuses, eventTargetValue)) {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        finalDestinationStatus: false,
-      });
-    } else {
-      setFieldDisabledStatuses({
-        ...fieldDisabledStatuses,
-        finalDestinationStatus: true,
-      });
+    if (positiveResponseStatuses) {
+      if (isStatusInList(positiveResponseStatuses, eventTargetValue)) {
+        setFieldsReadOnlyStatus({
+          ...fieldsReadOnlyStatus,
+          isFinalDestinationStatusReadOnly: false,
+        });
+      } else {
+        setFieldsReadOnlyStatus({
+          ...fieldsReadOnlyStatus,
+          isFinalDestinationStatusReadOnly: true,
+        });
+      }
     }
   };
 
-  const disableFieldsOnFinalDestinationUpdate = () => {
-    setFieldDisabledStatuses({
-      applicationStatus: true,
-      interviewStatus: true,
-      offerStatus: true,
+  const disableFieldsOnFinalDestinationUpdate = (): void => {
+    setFieldsReadOnlyStatus({
+      ...fieldsReadOnlyStatus,
+      isApplicationStatusReadOnly: true,
+      isInterviewStatusReadOnly: true,
+      isOfferStatusReadOnly: true,
     });
   };
 
   return {
-    fieldDisabledStatuses,
+    fieldsReadOnlyStatus,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,

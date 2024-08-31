@@ -66,7 +66,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid: application.uuid });
   const {
-    fieldDisabledStatuses,
+    fieldsReadOnlyStatus,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,
@@ -137,7 +137,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
           selectPrompt={"Update the application's current status."}
           previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
           options={selectOptions.applicationStatus as ApplicationStatus[]}
-          isReadOnly={fieldDisabledStatuses.applicationStatus}
+          isReadOnly={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
           onFieldUpdate={updateInterviewStatus}
         />
         <InputFieldGuideText content={applicationStatusInformation} />
@@ -149,7 +149,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
           selectPrompt={"Update the application's interview status."}
           previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
           options={selectOptions.interviewStatus as InterviewStatus[]}
-          isReadOnly={fieldDisabledStatuses.interviewStatus}
+          isReadOnly={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
           onFieldUpdate={updateOfferStatus}
         />
         <InputFieldGuideText content={interviewStatusInformation} />
@@ -161,7 +161,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
           selectPrompt={"Update the university's decision."}
           previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
           options={selectOptions.offerStatus as OfferStatus[]}
-          isReadOnly={fieldDisabledStatuses.offerStatus}
+          isReadOnly={fieldsReadOnlyStatus.isOfferStatusReadOnly}
           onFieldUpdate={updateResponseStatus}
         />
         <InputFieldGuideText content={offerStatusInformation} />
@@ -173,7 +173,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
           selectPrompt={'Update your response status.'}
           previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
           options={selectOptions.responseStatus as ResponseStatus[]}
-          isReadOnly={fieldDisabledStatuses.responseStatus}
+          isReadOnly={fieldsReadOnlyStatus.isResponseStatusReadOnly}
           onFieldUpdate={updateFinalDestinationStatus}
         />
         <InputFieldGuideText content={responseStatusInformation} />
@@ -185,7 +185,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
           selectPrompt={'Update your final decision regarding this application.'}
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as FinalDestinationStatus[]}
-          isReadOnly={fieldDisabledStatuses.finalDestinationStatus}
+          isReadOnly={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
           onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
         />
         <InputFieldGuideText content={finalDestinationInformation} />
