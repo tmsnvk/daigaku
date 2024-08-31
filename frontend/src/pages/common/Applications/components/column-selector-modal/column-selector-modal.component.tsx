@@ -20,7 +20,7 @@ interface ComponentProps {
 }
 
 /*
- * custom hook - TODO - add functionality description
+ * custom component - TODO - add functionality description
  */
 export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, toggleModal }: ComponentProps) => {
   const { dialogRef }: ToggleColumnSelectorModal = useToggleColumnSelectorModal(isModalVisible);
