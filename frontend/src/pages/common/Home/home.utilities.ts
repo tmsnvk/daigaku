@@ -3,7 +3,7 @@
  */
 
 /* interface, type, enum imports */
-import { FormType } from './hhome.types.ts';
+import { FormType } from './home.types.ts';
 
 export const confirmationModalMessages: Record<FormType, string> = {
   [FormType.LOGIN]: '',

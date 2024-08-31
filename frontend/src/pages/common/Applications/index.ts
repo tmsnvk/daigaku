@@ -2,6 +2,6 @@
  * @prettier
  */
 
-import { Applications } from './aapplications.page';
+import { Applications } from './applications.page';
 
 export { Applications };

@@ -3,7 +3,7 @@
  */
 
 /* component, style imports */
-import { Section } from './toast.styles.ts';
+import { Section } from './ttoast.styles.ts';
 
 /* interfaces, types, enums */
 interface ComponentProps {

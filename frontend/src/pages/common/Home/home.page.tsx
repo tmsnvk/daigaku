@@ -7,14 +7,14 @@ import { Navigate } from 'react-router-dom';
 
 /* logic imports */
 import { AuthStatus, useAuth } from '@context/auth';
-import { RenderSelectedFormComponent, ShowConfirmationModal, useRenderSelectedFormComponent, useShowConfirmationModal } from './hhome.hooks';
+import { RenderSelectedFormComponent, ShowConfirmationModal, useRenderSelectedFormComponent, useShowConfirmationModal } from './home.hooks';
 
 /* component, style imports */
 import { ConfirmationModal } from '@components/notification';
-import { MainContainer } from './hhome.styles';
+import { MainContainer } from './home.styles';
 
 /* utilities imports */
-import { confirmationModalMessages } from './hhome.utilities';
+import { confirmationModalMessages } from './home.utilities';
 
 /*
  * component - TODO - add functionality description

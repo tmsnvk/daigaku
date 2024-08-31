@@ -6,7 +6,7 @@
 import { Button } from './form-swap-button.styles';
 
 /* interface, type, enum imports */
-import { FormType } from '../../hhome.types';
+import { FormType } from '../../home.types';
 
 /* interfaces, types, enums */
 interface ComponentProps {

@@ -2,6 +2,6 @@
  * @prettier
  */
 
-import { Toast } from './toast.component';
+import { Toast } from './ttoast.component';
 
 export { Toast };

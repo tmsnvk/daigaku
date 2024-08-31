@@ -17,7 +17,7 @@ import { FormSwapButton } from '../form-swap-button/index';
 import { FormInstructionText } from '../form-instruction-text/index';
 
 /* interface, type, enum imports */
-import { FormSelector, FormType } from '../../hhome.types';
+import { FormSelector, FormType } from '../../home.types';
 
 /* interfaces, types, enums */
 type ComponentProps = FormSelector;

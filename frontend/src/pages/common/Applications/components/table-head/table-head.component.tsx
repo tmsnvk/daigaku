@@ -18,7 +18,7 @@ import { ButtonHeaderCell, TableHeadRow } from './table-head.styles';
 import { iconLibraryConfig } from '@configuration';
 
 /* interface, type, enum imports */
-import { Column } from '../../aapplications.hooks';
+import { Column } from '../../applications.hooks';
 
 /* interfaces, types, enums */
 interface ComponentProps {

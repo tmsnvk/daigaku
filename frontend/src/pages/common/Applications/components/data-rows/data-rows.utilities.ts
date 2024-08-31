@@ -3,7 +3,7 @@
  */
 
 /* interface, type, enum imports */
-import { Column } from '../../aapplications.hooks.tsx';
+import { Column } from '../../applications.hooks.tsx';
 
 /*
  * custom method - TODO - add functionality description
