@@ -68,39 +68,38 @@ export interface HandleFormSubmissionHook {
  *
  */
 export const useHandleFormSubmission = () => {
-  const handleValidation = (formData: UpdateApplicationFormFields, applicationUuid: string) => {
-    const errors: string[] = [];
+  const handleValidation = (formData: UpdateApplicationFormFields, applicationUuid: string): Array<string> => {
+    const errors: Array<string> = [];
 
-    const applicationsCache = queryClient.getQueryData<Application[]>([queryKeys.APPLICATION.GET_ALL_BY_ROLE]);
-    const responseStatusCache = queryClient.getQueryData<ResponseStatus[]>([queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS]);
-    const finalDestinationStatusCache = queryClient.getQueryData<FinalDestinationStatus[]>([
+    const applicationsCache: Array<Application> | undefined = queryClient.getQueryData<Array<Application>>([
+      queryKeys.APPLICATION.GET_ALL_BY_ROLE,
+    ]);
+    const responseStatusCache: Array<ResponseStatus> | undefined = queryClient.getQueryData<Array<ResponseStatus>>([
+      queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS,
+    ]);
+    const finalDestinationStatusCache: Array<FinalDestinationStatus> | undefined = queryClient.getQueryData<Array<FinalDestinationStatus>>([
       queryKeys.FINAL_DESTINATION.GET_AS_SELECT_OPTIONS,
     ]);
 
     if (!applicationsCache || !responseStatusCache || !finalDestinationStatusCache) {
-      return [];
+      return errors;
     }
 
-    const firmChoiceUuid = filterCacheByUuid(responseStatusCache, ResponseStatusE.FIRM_CHOICE);
-    const finalDestinationUuid = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.FINAL_DESTINATION);
-    const finalDestinationDeferredUuid = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.DEFERRED_ENTRY);
+    const firmChoiceUuid: string = filterCacheByUuid(responseStatusCache, ResponseStatusE.FIRM_CHOICE);
+    const finalDestinationUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.FINAL_DESTINATION);
+    const finalDestinationDeferredUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.DEFERRED_ENTRY);
 
-    applicationsCache.forEach((application) => {
+    applicationsCache.forEach((application: Application) => {
       if (application.uuid !== applicationUuid) {
         if (application.responseStatus === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
           errors.push(firmChoiceSelectionError);
         }
 
         if (
-          application.finalDestinationStatus === FinalDestinationE.FINAL_DESTINATION &&
-          formData.finalDestinationStatusUuid === finalDestinationUuid
-        ) {
-          errors.push(finalDestinationSelectionError);
-        }
-
-        if (
-          application.finalDestinationStatus === FinalDestinationE.DEFERRED_ENTRY &&
-          formData.finalDestinationStatusUuid === finalDestinationDeferredUuid
+          (application.finalDestinationStatus === FinalDestinationE.FINAL_DESTINATION &&
+            formData.finalDestinationStatusUuid === finalDestinationUuid) ||
+          (application.finalDestinationStatus === FinalDestinationE.DEFERRED_ENTRY &&
+            formData.finalDestinationStatusUuid === finalDestinationDeferredUuid)
         ) {
           errors.push(finalDestinationSelectionError);
         }
@@ -111,7 +110,7 @@ export const useHandleFormSubmission = () => {
   };
 
   const submitForm = ({ formData, applicationUuid, mutate, setError }: FormSubmissionT): void => {
-    const validationError = handleValidation(formData, applicationUuid);
+    const validationError: Array<string> = handleValidation(formData, applicationUuid);
 
     if (!validationError.length) {
       const fieldKeys = Object.keys(formData) as (keyof UpdateApplicationFormFields)[];
