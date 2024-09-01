@@ -4,7 +4,8 @@
 
 /**
  * @fileoverview
- * @author Tamas N. <dev@tamasnovak.net>
+ * @author tmsnvk
+ *
  *
  * Copyright © [Daigaku].
  *

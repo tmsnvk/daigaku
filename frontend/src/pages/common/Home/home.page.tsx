@@ -4,7 +4,8 @@
 
 /**
  * @fileoverview
- * @author Tamas N. <dev@tamasnovak.net>
+ * @author tmsnvk
+ *
  *
  * Copyright © [Daigaku].
  *
@@ -23,7 +24,7 @@ import { ActiveFormComponent, ConfirmationModalControl, useActiveFormComponent, 
 import { ConfirmationModal } from '@components/notification';
 import { MainContainer } from './home.styles';
 
-/* utilities imports */
+/* configuration, utilities, constants imports */
 import { confirmationModalMessages } from './home.utilities';
 
 /**

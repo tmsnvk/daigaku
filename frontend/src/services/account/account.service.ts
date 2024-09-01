@@ -2,15 +2,35 @@
  * @prettier
  */
 
-/* configuration imports */
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+/* external imports */
+import { AxiosResponse } from 'axios';
+
+/* configuration, utilities, constants imports */
 import { axiosConfig, axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
 import { LoginFormFields, LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
 import { ForgottenPasswordFormFields } from '@pages/common/home/components/reset-form/reset-form.hooks';
-import { AxiosResponse } from 'axios';
 
-export const accountService = {
+/* interfaces, types, enums */
+interface AccountService {
+  login: (formData: LoginFormFields) => Promise<LoginFormResponse>;
+  passwordReset: (data: ForgottenPasswordFormFields) => Promise<void>;
+  getMe: () => Promise<LoginFormResponse>;
+}
+
+export const accountService: AccountService = {
   /*
    * TODO - comment
    */

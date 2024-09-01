@@ -4,7 +4,8 @@
 
 /**
  * @fileoverview
- * @author Tamas N. <dev@tamasnovak.net>
+ * @author tmsnvk
+ *
  *
  * Copyright © [Daigaku].
  *
@@ -21,9 +22,11 @@ import { LoginForm, RegistrationForm, ResetForm } from './components/index';
 /* interface, type, enum imports */
 import { FormType } from './home.types';
 
-// ===============
-// Custom Hook - useConfirmationModal()
-// ===============
+/**
+ * ===============
+ * Custom Hook {@link useConfirmationModal}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 export interface ConfirmationModalControl {
@@ -61,9 +64,11 @@ export const useConfirmationModal = (): ConfirmationModalControl => {
   };
 };
 
-// ===============
-// Helper Method - getFormComponent()
-// ===============
+/**
+ * ===============
+ * Helper Method {@link getFormComponent}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface GetFormComponentParams {
@@ -109,9 +114,11 @@ const getFormComponent = ({ activeFormType, selectFormType, showModal }: GetForm
   }
 };
 
-// ===============
-// Custom Hook - useActiveFormComponent()
-// ===============
+/**
+ * ===============
+ * Custom Hook {@link useActiveFormComponent}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ActiveFormComponentParams {

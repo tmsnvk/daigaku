@@ -4,7 +4,8 @@
 
 /**
  * @fileoverview
- * @author Tamas N. <dev@tamasnovak.net>
+ * @author tmsnvk
+ *
  *
  * Copyright © [Daigaku].
  *
@@ -23,8 +24,16 @@ import { LoadingIndicator } from '@components/general';
 import { GenericInputField, InputError, PasswordInputField, SubmitInput } from '@components/form';
 import { FormSwapButton } from '../form-swap-button/index';
 
-/* utilities imports */
+/* configuration, utilities, constants imports */
 import { FormInstructionText } from '../form-instruction-text/index';
+import * as constants from './login-form.contants.json';
+import { formTypeContent } from '../../home.utilities';
+
+/**
+ * ===============
+ * Component {@link LoginForm}
+ * ===============
+ */
 
 /* interface, type, enum imports */
 import { FormSelector, FormType } from '../../home.types';
@@ -46,9 +55,9 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
 
   return (
     <section>
-      <FormInstructionText content={'Sign in if you already have an admin-approved account, otherwise, apply for one first.'} />
+      <FormInstructionText content={constants.uiMessages.FORM_INSTRUCTION} />
       <form
-        id={'postAccountLoginForm'}
+        id={'post-account-login-form'}
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
@@ -57,14 +66,14 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
           validationRules={{
             required: {
               value: true,
-              message: 'Providing your email address is required.',
+              message: constants.validation.REQUIRED_EMAIL,
             },
           }}
           fieldError={errors.email?.message}
           fieldId={'email'}
-          label={'Email'}
+          label={constants.form.EMAIL_LABEL}
           type={'email'}
-          placeholder={'Enter your email address'}
+          placeholder={constants.form.EMAIL_PLACEHOLDER}
           isDisabled={isPending}
         />
         <PasswordInputField
@@ -72,23 +81,23 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
           validationRules={{
             required: {
               value: true,
-              message: 'Providing your password is required.',
+              message: constants.validation.REQUIRED_PASSWORD,
             },
           }}
           fieldError={errors.password?.message}
           fieldId={'password'}
-          labelContent={'Password'}
-          placeholder={'Enter your password'}
+          labelContent={constants.form.PASSWORD_LABEL}
+          placeholder={constants.form.PASSWORD_PLACEHOLDER}
           isDisabled={isPending}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator message={'You are being logged in.'} />
+            <LoadingIndicator message={constants.uiMessages.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               name={'login'}
-              value={'sign in'}
+              value={constants.form.SUBMIT}
               disabled={isPending}
             />
           )}
@@ -98,13 +107,13 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
       <article>
         <FormSwapButton
           formType={FormType.RESET}
-          content={'Forgot password?'}
+          content={formTypeContent.RESET}
           clickHandler={formSelector}
           isDisabled={isPending}
         />
         <FormSwapButton
           formType={FormType.REGISTER}
-          content={'Create account'}
+          content={formTypeContent.REGISTER}
           clickHandler={formSelector}
           isDisabled={isPending}
         />

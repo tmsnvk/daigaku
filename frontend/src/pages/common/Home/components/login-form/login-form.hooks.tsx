@@ -4,7 +4,8 @@
 
 /**
  * @fileoverview
- * @author Tamas N. <dev@tamasnovak.net>
+ * @author tmsnvk
+ *
  *
  * Copyright © [Daigaku].
  *
@@ -20,8 +21,6 @@ import axios, { AxiosError } from 'axios';
 
 /* logic imports */
 import { Account, AuthContext, AuthStatus, useAuth } from '@context/auth';
-
-/* service imports */
 import { accountService } from '@services/index';
 
 /* configuration, utilities, constants imports */
@@ -32,9 +31,9 @@ import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 import { MutationResult } from '@common-types';
 
 /**
- * =============
+ * ===============
  * Custom Hook {@link useHandleLoginForm}
- * ============
+ * ===============
  */
 
 /* interfaces, types, enums */
@@ -58,8 +57,17 @@ type LoginFormErrorT = 'root';
 
 export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<LoginFormErrorT>, LoginFormFields>;
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * @description
+ * A custom hook that manages the {@link LoginForm} submission process, including api request, error handling,
+ * and post-success actions, such as setting account context and authentication status.
+ *
+ * @param {LoginHandlerParams} params
+ * @param {UseFormSetError<LoginFormFields>} params.setError - A function to handle form errors.
+ *
+ * @returns {HandleLoginForm} - The mutation object to handle the login process.
+ *
+ * @since 0.0.1
  */
 export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleLoginForm => {
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
