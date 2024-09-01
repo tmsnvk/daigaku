@@ -4,10 +4,11 @@
 
 /**
  * @fileoverview
+ * @author Tamas N. <dev@tamasnovak.net>
  *
- * Copyright © [2023-2024] [Daigaku].
+ * Copyright © [Daigaku].
  *
- * This file is part of Daigaku and contains proprietary code.
+ * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
@@ -25,7 +26,7 @@ import { FormType } from './home.types';
 // ===============
 
 /* interfaces, types, enums */
-export interface ConfirmationModalControls {
+export interface ConfirmationModalControl {
   isModalVisible: boolean;
   showModal: () => void;
   closeModal: () => void;
@@ -35,14 +36,14 @@ export interface ConfirmationModalControls {
  * @description
  * A custom hook that manages the display of a {@link ConfirmationModal} component.
  *
- * @returns {ConfirmationModalControls} An object containing the following:
+ * @returns {ConfirmationModalControl} An object containing the following:
  * - `isModalVisible` (boolean) - The current visibility state of the modal.
  * - `showModal` (function) - A function to set the modal as visible.
  * - `closeModal` (function) - A function to hide the modal.
  *
  * @since 0.0.1
  */
-export const useConfirmationModal = (): ConfirmationModalControls => {
+export const useConfirmationModal = (): ConfirmationModalControl => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const showModal = (): void => {
@@ -64,6 +65,7 @@ export const useConfirmationModal = (): ConfirmationModalControls => {
 // Helper Method - getFormComponent()
 // ===============
 
+/* interfaces, types, enums */
 interface GetFormComponentParams {
   activeFormType: FormType;
   selectFormType: (formType: FormType) => void;
