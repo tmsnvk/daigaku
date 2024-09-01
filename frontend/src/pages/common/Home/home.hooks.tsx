@@ -2,79 +2,151 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ *
+ * Copyright © [2023-2024] [Daigaku].
+ *
+ * This file is part of Daigaku and contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useState } from 'react';
 
 /* component, style imports */
-import { ForgottenPasswordForm, LoginForm, RegistrationForm } from './components/index';
+import { LoginForm, RegistrationForm, ResetForm } from './components/index';
 
 /* interface, type, enum imports */
 import { FormType } from './home.types';
 
+// ===============
+// Custom Hook - useConfirmationModal()
+// ===============
+
 /* interfaces, types, enums */
-export interface ShowConfirmationModal {
-  isConfirmationModalVisible: boolean;
+export interface ConfirmationModalControls {
+  isModalVisible: boolean;
   showModal: () => void;
   closeModal: () => void;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * @description
+ * A custom hook that manages the display of a {@link ConfirmationModal} component.
+ *
+ * @returns {ConfirmationModalControls} An object containing the following:
+ * - `isModalVisible` (boolean) - The current visibility state of the modal.
+ * - `showModal` (function) - A function to set the modal as visible.
+ * - `closeModal` (function) - A function to hide the modal.
+ *
+ * @since 0.0.1
  */
-export const useShowConfirmationModal = (): ShowConfirmationModal => {
-  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
+export const useConfirmationModal = (): ConfirmationModalControls => {
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const showModal = (): void => {
-    setIsConfirmationModalVisible(true);
+    setIsModalVisible(true);
   };
 
   const closeModal = (): void => {
-    setIsConfirmationModalVisible(false);
+    setIsModalVisible(false);
   };
 
   return {
-    isConfirmationModalVisible,
+    isModalVisible,
     showModal,
     closeModal,
   };
 };
 
-/* interfaces, types, enums */
-export interface RenderSelectedFormComponent {
+// ===============
+// Helper Method - getFormComponent()
+// ===============
+
+interface GetFormComponentParams {
   activeFormType: FormType;
-  displayActiveFormType: JSX.Element;
+  selectFormType: (formType: FormType) => void;
+  showModal: () => void;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * @description
+ * A helper method used by {@link useActiveFormComponent} that retrieves
+ * the appropriate form component based on the provided {@link FormType}.
+ *
+ * @param {GetFormComponentParams} params
+ * @param {FormType} params.activeFormType - The current {@link FormType} to determine which component to render.
+ * @param {(formType: FormType) => void} params.selectFormType - A function to change the form type.
+ * @param {() => void} params.showModal - A function to trigger the modal display.
+ *
+ * @returns {JSX.Element} The form component corresponding to the current {@link FormType}.
+ *
+ * @since 0.0.1
  */
-export const useRenderSelectedFormComponent = (showModal: () => void): RenderSelectedFormComponent => {
+const getFormComponent = ({ activeFormType, selectFormType, showModal }: GetFormComponentParams): JSX.Element => {
+  switch (activeFormType) {
+    case FormType.REGISTER:
+      return (
+        <RegistrationForm
+          formSelector={selectFormType}
+          showModal={showModal}
+        />
+      );
+
+    case FormType.RESET:
+      return (
+        <ResetForm
+          formSelector={selectFormType}
+          showModal={showModal}
+        />
+      );
+
+    default:
+      return <LoginForm formSelector={selectFormType} />;
+  }
+};
+
+// ===============
+// Custom Hook - useActiveFormComponent()
+// ===============
+
+/* interfaces, types, enums */
+interface ActiveFormComponentParams {
+  showModal: () => void;
+}
+
+export interface ActiveFormComponent {
+  activeFormType: FormType;
+  activeFormComponent: JSX.Element;
+}
+
+/**
+ * @description
+ * A custom hook that manages the state of the currently active {@link FormType} form component. These are:
+ * - {@link RegistrationForm}
+ * - {@link LoginForm}
+ * - {@link ResetForm}
+ *
+ * @param {() => void} showModal - A function to show the modal, used in form components.
+ *
+ * @returns {ActiveFormComponent} An object containing the following:
+ * - `activeFormType` (useState) - The currently selected {@link FormType}.
+ * - `activeFormComponent` (JSX.Element) - The JSX element of the currently active form component.
+ *
+ * @since 0.0.1
+ */
+export const useActiveFormComponent = ({ showModal }: ActiveFormComponentParams): ActiveFormComponent => {
   const [activeFormType, setActiveFormType] = useState<FormType>(FormType.LOGIN);
 
-  const handleFormSelection = (formType: FormType): void => {
+  const selectFormType = (formType: FormType): void => {
     setActiveFormType(formType);
   };
 
-  const formComponents: Record<FormType, JSX.Element> = {
-    [FormType.REGISTER]: (
-      <RegistrationForm
-        formSelector={handleFormSelection}
-        showModal={showModal}
-      />
-    ),
-    [FormType.LOGIN]: <LoginForm formSelector={handleFormSelection} />,
-    [FormType.RESET]: (
-      <ForgottenPasswordForm
-        formSelector={handleFormSelection}
-        showModal={showModal}
-      />
-    ),
-  };
-
-  const displayActiveFormType: JSX.Element = formComponents[activeFormType];
+  const activeFormComponent: JSX.Element = getFormComponent({ activeFormType, selectFormType, showModal });
 
   return {
     activeFormType,
-    displayActiveFormType,
+    activeFormComponent,
   };
 };

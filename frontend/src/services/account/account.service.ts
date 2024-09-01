@@ -7,7 +7,7 @@ import { axiosConfig, axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
 import { LoginFormFields, LoginFormReturnData } from '@pages/common/home/components/login-form/login-form.hooks';
-import { ForgottenPasswordFormFields } from '@pages/common/home/components/forgotten-password-form/forgotten-password-form.hooks';
+import { ForgottenPasswordFormFields } from '@pages/common/home/components/reset-password-form/forgotten-password-form.hooks';
 
 export const accountService = {
   /*

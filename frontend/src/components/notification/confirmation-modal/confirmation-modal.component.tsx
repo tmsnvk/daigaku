@@ -16,7 +16,7 @@ interface ComponentProps {
   readonly closeModal: () => void;
 }
 
-/*
+/**
  * component - TODO - add functionality description
  */
 export const ConfirmationModal = ({ isVisible, message, closeModal }: ComponentProps) => {

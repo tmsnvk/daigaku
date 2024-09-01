@@ -2,8 +2,8 @@
  * @prettier
  */
 
-import { ForgottenPasswordForm } from './forgotten-password-form';
 import { LoginForm } from './login-form';
 import { RegistrationForm } from './registration-form';
+import { ResetForm } from './reset-form';
 
-export { ForgottenPasswordForm, LoginForm, RegistrationForm };
+export { LoginForm, RegistrationForm, ResetForm };
