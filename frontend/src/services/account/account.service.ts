@@ -6,21 +6,21 @@
 import { axiosConfig, axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { LoginFormFields, LoginFormReturnData } from '@pages/common/home/components/login-form/login-form.hooks';
-import { ForgottenPasswordFormFields } from '@pages/common/home/components/reset-password-form/forgotten-password-form.hooks';
+import { LoginFormFields, LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
+import { ForgottenPasswordFormFields } from '@pages/common/home/components/reset-form/reset-form.hooks';
+import { AxiosResponse } from 'axios';
 
 export const accountService = {
   /*
    * TODO - comment
    */
-  login: async (formData: LoginFormFields): Promise<LoginFormReturnData> => {
-    const { data } = await axiosConfig.request<LoginFormReturnData>({
+  login: async (formData: LoginFormFields): Promise<LoginFormResponse> => {
+    const response: AxiosResponse<LoginFormResponse> = await axiosConfig.request<LoginFormResponse>({
       method: 'POST',
       url: '/api/v1/accounts/login',
       data: formData,
     });
-
-    return data;
+    return response.data;
   },
   /*
    * TODO - comment
@@ -35,8 +35,8 @@ export const accountService = {
   /*
    * TODO - comment
    */
-  getMe: async (): Promise<LoginFormReturnData> => {
-    const { data } = await axiosConfigWithAuth.request<LoginFormReturnData>({
+  getMe: async (): Promise<LoginFormResponse> => {
+    const { data } = await axiosConfigWithAuth.request<LoginFormResponse>({
       method: 'GET',
       url: '/api/v1/accounts/me',
     });

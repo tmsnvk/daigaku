@@ -2,10 +2,21 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author Tamas N. <dev@tamasnovak.net>
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
+import axios, { AxiosError } from 'axios';
 
 /* logic imports */
 import { Account, AuthContext, AuthStatus, useAuth } from '@context/auth';
@@ -13,11 +24,18 @@ import { Account, AuthContext, AuthStatus, useAuth } from '@context/auth';
 /* service imports */
 import { accountService } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
+import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { MutationResult } from '@common-types';
+
+/**
+ * =============
+ * Custom Hook {@link useHandleLoginForm}
+ * ============
+ */
 
 /* interfaces, types, enums */
 export interface LoginFormFields {
@@ -25,62 +43,57 @@ export interface LoginFormFields {
   readonly password: string;
 }
 
-export interface LoginFormReturnData {
+export interface LoginFormResponse {
   readonly email: string;
   readonly firstName: string;
   readonly jwtToken: string;
   readonly role: string;
 }
 
-interface LoginForm {
+interface HandleLoginFormParams {
   setError: UseFormSetError<LoginFormFields>;
 }
 
-type LoginFormErrorFieldsT = `root.${string}` | 'root' | 'email' | 'password';
+type LoginFormErrorT = 'root';
 
-interface LoginFormError {
-  response: {
-    status: number;
-    data: {
-      [key: string]: LoginFormErrorFieldsT;
-    };
-  };
-}
-
-export type SubmitLoginForm = MutationResult<LoginFormReturnData, LoginFormError, LoginFormFields>;
+export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<LoginFormErrorT>, LoginFormFields>;
 
 /*
  * custom hook - TODO - add functionality description
  */
-export const useSubmitLoginForm = ({ setError }: LoginForm): SubmitLoginForm => {
+export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleLoginForm => {
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
 
   return useMutation({
     mutationKey: [mutationKeys.ACCOUNT.POST_LOGIN],
-    mutationFn: (data: LoginFormFields) => accountService.login(data),
-    onSuccess: (data: LoginFormReturnData) => {
-      localStorage.setItem('token', data.jwtToken);
+    mutationFn: (formData: LoginFormFields) => accountService.login(formData),
+    onSuccess: (response: LoginFormResponse) => {
+      localStorage.setItem('auth-token', response.jwtToken);
 
-      const userData: Account = {
-        ...data,
-        role: getAccountRole(data.role),
+      const account: Account = {
+        ...response,
+        role: getAccountRole(response.role),
       };
 
-      setAccount(userData);
+      setAccount(account);
       setAuthStatus(AuthStatus.SIGNED_IN);
 
       navigate('/dashboard');
     },
-    onError: (error: LoginFormError) => {
-      for (const fieldId in error.response.data) {
-        if (error.response.data[fieldId]) {
-          setError(fieldId as LoginFormErrorFieldsT, { message: error.response.data[fieldId] });
-        }
-      }
+    onError: (error: AxiosError<LoginFormErrorT>) => {
+      if (axios.isAxiosError(error)) {
+        const status: number | undefined = error.response?.status;
 
-      if (error.response.data.root) {
-        setError('root.serverError', { message: error.response.data.root });
+        if (status) {
+          if (status === 401) {
+            setError('root', { message: error.response?.data });
+          } else if (status >= 500) {
+            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+          }
+        } else {
+          setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
+        }
       }
     },
   });

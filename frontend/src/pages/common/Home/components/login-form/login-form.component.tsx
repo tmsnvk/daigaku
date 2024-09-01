@@ -2,11 +2,21 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author Tamas N. <dev@tamasnovak.net>
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { LoginFormFields, SubmitLoginForm, useSubmitLoginForm } from './login-form.hooks';
+import { LoginFormFields, HandleLoginForm, useHandleLoginForm } from './login-form.hooks';
 
 /* component, style imports */
 import { LoadingIndicator } from '@components/general';
@@ -32,7 +42,7 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
     register,
     setError,
   } = useForm<LoginFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: SubmitLoginForm = useSubmitLoginForm({ setError });
+  const { isPending, mutate }: HandleLoginForm = useHandleLoginForm({ setError });
 
   return (
     <section>
@@ -82,7 +92,7 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
               disabled={isPending}
             />
           )}
-          {errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}
+          {errors.root && <InputError message={errors?.root?.message} />}
         </article>
       </form>
       <article>

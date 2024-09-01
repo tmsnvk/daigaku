@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
   @Override
   @Transactional(readOnly = true)
   public ClientAuthContext fetchClientAuthContextDto(final String email) {
-    final Account account = findByEmail(email);
+    final Account account = this.findByEmail(email);
 
     return account.getAuthContext();
   }
@@ -55,7 +55,7 @@ public class AccountServiceImpl implements AccountService {
   @Override
   @Transactional(readOnly = true)
   public LoginResponse fetchLoginReturnDto(final LoginRequest requestBody, final Authentication authentication) {
-    final Account account = findByEmail(requestBody.email());
+    final Account account = this.findByEmail(requestBody.email());
     final String jwtToken = jwtUtilities.generateJwtToken(authentication);
 
     return account.getLoginData(jwtToken);

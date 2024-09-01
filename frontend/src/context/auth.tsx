@@ -9,7 +9,7 @@ import { Context, ReactNode, createContext, useContext, useEffect, useState } fr
 import { accountService } from '@services/index';
 
 /* interface, type, enum imports */
-import { LoginFormReturnData } from '@pages/common/home/components/login-form/login-form.hooks';
+import { LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
 
 /* interfaces, types, enums */
 export enum AuthStatus {
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   };
 
   useEffect(() => {
-    const token: string | null = localStorage.getItem('token');
+    const token: string | null = localStorage.getItem('auth-token');
 
     if (!token) {
       setAuthStatus(AuthStatus.SIGNED_OUT);
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 
     const getMe = async (): Promise<void> => {
       try {
-        const data: LoginFormReturnData = await accountService.getMe();
+        const data: LoginFormResponse = await accountService.getMe();
 
         const loggedInAccount: Account = {
           ...data,

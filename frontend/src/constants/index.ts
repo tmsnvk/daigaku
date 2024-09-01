@@ -12,6 +12,4 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { LoginForm } from './login-form.component';
-
-export { LoginForm };
+export * from './error-messages';
