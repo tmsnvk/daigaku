@@ -6,7 +6,7 @@
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { ForgottenPasswordFormFields, SubmitForgottenPasswordForm, useSubmitForgottenPasswordForm } from './forgotten-password-form.hooks';
+import { ForgottenPasswordFormFields, SubmitForgottenPasswordForm, useSubmitForgottenPasswordForm } from './reset-form.hooks';
 
 /* component, style imports */
 import { LoadingIndicator } from '@components/general';
@@ -25,7 +25,7 @@ type ComponentProps = FormSelector & ConfirmationModal;
 /*
  * component - TODO - add functionality description
  */
-export const ForgottenPasswordForm = ({ formSelector, showModal }: ComponentProps) => {
+export const ResetForm = ({ formSelector, showModal }: ComponentProps) => {
   const {
     formState: { errors },
     handleSubmit,

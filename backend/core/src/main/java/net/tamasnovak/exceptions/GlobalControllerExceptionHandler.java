@@ -85,8 +85,8 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { BadCredentialsException.class })
-  public ResponseEntity<Map<String, String>> onBadCredentialsException() {
-    final Map<String, String> response = createErrorResponse("Incorrect authentication credentials were provided.");
+  public ResponseEntity<String> onBadCredentialsException() {
+    final String response = "Incorrect authentication credentials were provided.";
 
     return ResponseEntity
       .status(HttpStatus.UNAUTHORIZED)

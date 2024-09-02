@@ -12,5 +12,6 @@
   "requirePragma": true,
   "endOfLine": "lf",
   "printWidth": 140,
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "useTabs": false
 }

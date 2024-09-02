@@ -27,7 +27,7 @@
       "@configuration": ["configuration/index.ts"],
       "@common-types": ["common-types/index.ts"],
       "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
+      "@constants": ["constants/index.ts"],
       "@context/*": ["context/*"],
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],

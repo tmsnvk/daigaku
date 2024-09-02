@@ -7,7 +7,7 @@ import { Paragraph } from './input-error.styles';
 
 /* interfaces, types, enums */
 interface ComponentProps {
-  readonly message: string;
+  readonly message: string | undefined;
 }
 
 /*
