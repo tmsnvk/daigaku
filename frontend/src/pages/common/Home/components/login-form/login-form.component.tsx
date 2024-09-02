@@ -17,17 +17,17 @@
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { LoginFormFields, HandleLoginForm, useHandleLoginForm } from './login-form.hooks';
+import { HandleLoginForm, LoginFormFields, useHandleLoginForm } from './login-form.hooks';
 
 /* component, style imports */
-import { LoadingIndicator } from '@components/general';
 import { GenericInputField, InputError, PasswordInputField, SubmitInput } from '@components/form';
+import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button/index';
 
 /* configuration, utilities, constants imports */
-import { FormInstructionText } from '../form-instruction-text/index';
-import * as constants from './login-form.contants.json';
 import { formTypeContent } from '../../home.utilities';
+import { FormInstructionText } from '../form-instruction-text/index';
+import * as constants from './login-form.constants.json';
 
 /**
  * ===============
@@ -55,7 +55,7 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
 
   return (
     <section>
-      <FormInstructionText content={constants.uiMessages.FORM_INSTRUCTION} />
+      <FormInstructionText content={constants.uiMessage.FORM_INSTRUCTION} />
       <form
         id={'post-account-login-form'}
         method={'POST'}
@@ -92,7 +92,7 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
         />
         <article>
           {isPending ? (
-            <LoadingIndicator message={constants.uiMessages.LOADING} />
+            <LoadingIndicator message={constants.uiMessage.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}

@@ -25,7 +25,7 @@ import { ConfirmationModal } from '@components/notification';
 import { MainContainer } from './home.styles';
 
 /* configuration, utilities, constants imports */
-import { confirmationModalMessages } from './home.utilities';
+import { confirmationModalFeedback } from './home.utilities';
 
 /**
  * @description
@@ -63,7 +63,7 @@ export const Home = (): JSX.Element => {
       {isModalVisible && (
         <ConfirmationModal
           isVisible={isModalVisible}
-          message={confirmationModalMessages[activeFormType]}
+          message={confirmationModalFeedback[activeFormType]}
           closeModal={closeModal}
         />
       )}

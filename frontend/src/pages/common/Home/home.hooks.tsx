@@ -82,7 +82,6 @@ interface GetFormComponentParams {
  * A helper method used by {@link useActiveFormComponent} that retrieves
  * the appropriate form component based on the provided {@link FormType}.
  *
- * @param {GetFormComponentParams} params
  * @param {FormType} params.activeFormType - The current {@link FormType} to determine which component to render.
  * @param {(formType: FormType) => void} params.selectFormType - A function to change the form type.
  * @param {() => void} params.showModal - A function to trigger the modal display.

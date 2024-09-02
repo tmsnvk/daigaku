@@ -13,8 +13,8 @@ import { pendingAccountService } from '@services/index';
 import { mutationKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ConfirmationModal } from '../../home.types';
 import { MutationResult } from '@common-types';
+import { ConfirmationModal } from '../../home.types';
 
 /* interfaces, types, enums */
 export interface RegisterFormFields {
@@ -47,7 +47,7 @@ export type SubmitRegistrationForm = MutationResult<void, RegisterFormError, Reg
  */
 export const useSubmitRegistrationForm = ({ setError, showModal }: RegisterForm): SubmitRegistrationForm => {
   return useMutation({
-    mutationKey: [mutationKeys.ACCOUNT.POST_REGISTER],
+    mutationKey: [mutationKeys.account.POST_REGISTER],
     mutationFn: (data: RegisterFormFields) => pendingAccountService.register(data),
     onSuccess: () => {
       showModal();

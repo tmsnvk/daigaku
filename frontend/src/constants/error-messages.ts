@@ -6,6 +6,7 @@
  * @fileoverview
  * @author tmsnvk
  *
+ *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.

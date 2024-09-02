@@ -1,5 +1,5 @@
 {
-  "uiMessages": {
+  "uiMessage": {
     "FORM_INSTRUCTION": "Sign in if you already have an admin-approved account, otherwise, apply for one first.",
     "LOADING": "You are being logged in."
   },
