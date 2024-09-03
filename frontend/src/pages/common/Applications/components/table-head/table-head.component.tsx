@@ -3,15 +3,15 @@
  */
 
 /* external imports */
-import { UseQueryResult } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { UseQueryResult } from '@tanstack/react-query';
 
 /* logic imports */
 import { SendDownloadRequest, useSendDownloadRequest } from './table-head.hooks';
 
 /* component, style imports */
-import { GlobalErrorModal } from '@components/notification';
 import { LoadingIndicator } from '@components/general';
+import { GlobalErrorModal } from '@components/notification';
 import { ButtonHeaderCell, TableHeadRow } from './table-head.styles';
 
 /* configuration imports */
@@ -71,7 +71,7 @@ export const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refe
           <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
         </button>
         {isPending ? (
-          <LoadingIndicator message={'Handling your request...'} />
+          <LoadingIndicator loadingText={'Handling your request...'} />
         ) : (
           <button
             type={'button'}

@@ -14,7 +14,7 @@
  */
 
 /* external imports */
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister, UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
 import { HandleLoginForm, LoginFormFields, useHandleLoginForm } from './login-form.hooks';
@@ -25,9 +25,12 @@ import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button/index';
 
 /* configuration, utilities, constants imports */
-import { formTypeContent } from '../../home.utilities';
-import { FormInstructionText } from '../form-instruction-text/index';
+import { formTypeButtonLabel } from '../../home.utilities';
+import { FormInstruction } from '../form-instruction/index';
 import * as constants from './login-form.constants.json';
+
+/* interface, type, enum imports */
+import { FormSelector, FormType } from '../../home.types';
 
 /**
  * ===============
@@ -35,31 +38,46 @@ import * as constants from './login-form.constants.json';
  * ===============
  */
 
-/* interface, type, enum imports */
-import { FormSelector, FormType } from '../../home.types';
-
 /* interfaces, types, enums */
 type ComponentProps = FormSelector;
 
-/*
- * component - TODO - add functionality description
+interface LoginFormHook {
+  formState: {
+    errors: FieldErrors<LoginFormFields>;
+  };
+  handleSubmit: UseFormHandleSubmit<LoginFormFields>;
+  register: UseFormRegister<LoginFormFields>;
+  setError: UseFormSetError<LoginFormFields>;
+}
+
+/**
+ * @description
+ * - The {@link LoginForm} component is responsible for rendering a login form that allows users to submit their email and password for authentication.
+ * - The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
+ * - Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} components.
+ *
+ * @param {Function} props.formSelector - A function that handles {@link FormType} switching.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const LoginForm = ({ formSelector }: ComponentProps) => {
+export const LoginForm = ({ formSelector }: ComponentProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  } = useForm<LoginFormFields>({ mode: 'onSubmit' });
+  }: LoginFormHook = useForm<LoginFormFields>({ mode: 'onSubmit' });
   const { isPending, mutate }: HandleLoginForm = useHandleLoginForm({ setError });
 
   return (
     <section>
-      <FormInstructionText content={constants.uiMessage.FORM_INSTRUCTION} />
+      <FormInstruction content={constants.uiMessage.FORM_INSTRUCTION} />
       <form
         id={'post-account-login-form'}
         method={'POST'}
-        onSubmit={handleSubmit((formData) => mutate(formData))}
+        onSubmit={handleSubmit((formData: LoginFormFields) => mutate(formData))}
       >
         <GenericInputField
           register={register}
@@ -69,12 +87,12 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
               message: constants.validation.REQUIRED_EMAIL,
             },
           }}
-          fieldError={errors.email?.message}
-          fieldId={'email'}
-          label={constants.form.EMAIL_LABEL}
           type={'email'}
+          id={'email'}
+          label={constants.form.EMAIL_LABEL}
           placeholder={constants.form.EMAIL_PLACEHOLDER}
           isDisabled={isPending}
+          error={errors.email?.message}
         />
         <PasswordInputField
           register={register}
@@ -84,37 +102,38 @@ export const LoginForm = ({ formSelector }: ComponentProps) => {
               message: constants.validation.REQUIRED_PASSWORD,
             },
           }}
-          fieldError={errors.password?.message}
-          fieldId={'password'}
-          labelContent={constants.form.PASSWORD_LABEL}
+          id={'password'}
+          label={constants.form.PASSWORD_LABEL}
           placeholder={constants.form.PASSWORD_PLACEHOLDER}
           isDisabled={isPending}
+          error={errors.password?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator message={constants.uiMessage.LOADING} />
+            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
+              id={'login'}
               name={'login'}
               value={constants.form.SUBMIT}
               disabled={isPending}
             />
           )}
-          {errors.root && <InputError message={errors?.root?.message} />}
+          {errors.root && <InputError errorText={errors?.root?.message} />}
         </article>
       </form>
       <article>
         <FormSwapButton
           formType={FormType.RESET}
-          content={formTypeContent.RESET}
-          clickHandler={formSelector}
+          buttonLabel={formTypeButtonLabel[FormType.RESET]}
+          onFormSelect={formSelector}
           isDisabled={isPending}
         />
         <FormSwapButton
           formType={FormType.REGISTER}
-          content={formTypeContent.REGISTER}
-          clickHandler={formSelector}
+          buttonLabel={formTypeButtonLabel[FormType.REGISTER]}
+          onFormSelect={formSelector}
           isDisabled={isPending}
         />
       </article>

@@ -28,7 +28,7 @@ export const SelectAccountRole = <T extends FieldValues>({ register, fieldError,
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        fieldId={fieldId}
+        id={fieldId}
         content={'Account Type'}
       />
       <select
@@ -59,7 +59,7 @@ export const SelectAccountRole = <T extends FieldValues>({ register, fieldError,
           );
         })}
       </select>
-      {fieldError && <InputError message={fieldError} />}
+      {fieldError && <InputError errorText={fieldError} />}
     </BaseInput>
   );
 };

@@ -11,19 +11,19 @@ import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
 import { RegisterFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
 
 /* component, style imports */
-import { LoadingIndicator } from '@components/general';
 import { GenericInputField, InputError, SelectAccountRole, SelectInstitution, SubmitInput } from '@components/form';
+import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormSwapButton } from '../form-swap-button/index';
 
 /* utilities imports */
-import { FormInstructionText } from '../form-instruction-text/index';
+import { FormInstruction } from '../form-instruction/index';
 
 /* interface, type, enum imports */
-import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
-import { InstitutionOption } from '@services/support/institution.service';
-import { RoleOption } from '@services/role/role.service';
 import { ListQueryResult } from '@common-types';
+import { RoleOption } from '@services/role/role.service';
+import { InstitutionOption } from '@services/support/institution.service';
+import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
 
 /* interfaces, types, enums */
 type ComponentProps = FormSelector & ConfirmationModal;
@@ -60,7 +60,7 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
 
   return (
     <section>
-      <FormInstructionText content={'Register an account if you are not in our system yet.'} />
+      <FormInstruction content={'Register an account if you are not in our system yet.'} />
       <form
         id={'postPendingAccountRegisterForm'}
         method={'POST'}
@@ -78,8 +78,8 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
               message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
             },
           }}
-          fieldError={errors.firstName?.message}
-          fieldId={'firstName'}
+          error={errors.firstName?.message}
+          id={'firstName'}
           label={'First Name'}
           type={'text'}
           placeholder={'Enter your first name(s)'}
@@ -97,8 +97,8 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
               message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
             },
           }}
-          fieldError={errors.lastName?.message}
-          fieldId={'lastName'}
+          error={errors.lastName?.message}
+          id={'lastName'}
           label={'Last Name'}
           type={'text'}
           placeholder={'Enter your last name(s)'}
@@ -112,8 +112,8 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
               message: 'Providing your email address is required.',
             },
           }}
-          fieldError={errors.email?.message}
-          fieldId={'email'}
+          error={errors.email?.message}
+          id={'email'}
           label={'Email'}
           type={'email'}
           placeholder={'Enter your email address'}
@@ -135,7 +135,7 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
         />
         <article>
           {isPending ? (
-            <LoadingIndicator message={'Your registration is being submitted.'} />
+            <LoadingIndicator loadingText={'Your registration is being submitted.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -144,20 +144,20 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
               disabled={isPending}
             />
           )}
-          {errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
         <FormSwapButton
           formType={FormType.RESET}
-          content={'Forgot password?'}
-          clickHandler={formSelector}
+          buttonLabel={'Forgot password?'}
+          onFormSelect={formSelector}
           isDisabled={isPending}
         />
         <FormSwapButton
           formType={FormType.LOGIN}
-          content={'Log in'}
-          clickHandler={formSelector}
+          buttonLabel={'Log in'}
+          onFormSelect={formSelector}
           isDisabled={isPending}
         />
       </article>

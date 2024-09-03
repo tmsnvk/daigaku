@@ -39,7 +39,7 @@ export interface ConfirmationModalControl {
  * @description
  * A custom hook that manages the display of a {@link ConfirmationModal} component.
  *
- * @returns {ConfirmationModalControl} An object containing the following:
+ * @returns {ConfirmationModalControl} An object containing:
  * - `isModalVisible` (boolean) - The current visibility state of the modal.
  * - `showModal` (function) - A function to set the modal as visible.
  * - `closeModal` (function) - A function to hide the modal.
@@ -79,8 +79,7 @@ interface GetFormComponentParams {
 
 /**
  * @description
- * A helper method used by {@link useActiveFormComponent} that retrieves
- * the appropriate form component based on the provided {@link FormType}.
+ * A helper method used by {@link useActiveFormComponent} that retrieves the appropriate form component based on the provided {@link FormType}.
  *
  * @param {FormType} params.activeFormType - The current {@link FormType} to determine which component to render.
  * @param {(formType: FormType) => void} params.selectFormType - A function to change the form type.
@@ -136,9 +135,9 @@ export interface ActiveFormComponent {
  * - {@link LoginForm}
  * - {@link ResetForm}
  *
- * @param {() => void} showModal - A function to show the modal, used in form components.
+ * @param {() => void} params.showModal - A function to show the modal, used in form components.
  *
- * @returns {ActiveFormComponent} An object containing the following:
+ * @returns {ActiveFormComponent} An object containing:
  * - `activeFormType` (useState) - The currently selected {@link FormType}.
  * - `activeFormComponent` (JSX.Element) - The JSX element of the currently active form component.
  *

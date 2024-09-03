@@ -12,7 +12,7 @@ import { Section } from './comment-section-loader.styles';
 export const CommentSectionLoader = () => {
   return (
     <Section>
-      <LoadingIndicator message={'Fetching comments...'} />
+      <LoadingIndicator loadingText={'Fetching comments...'} />
     </Section>
   );
 };

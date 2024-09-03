@@ -22,8 +22,8 @@ export const confirmationModalFeedback: Record<FormType, string> = {
   [FormType.RESET]: 'Your password has been reset. You will soon receive an email with further instructions.',
 };
 
-export const formTypeContent = {
-  LOGIN: 'Log in',
-  REGISTER: 'Create account',
-  RESET: 'Forgot password?',
+export const formTypeButtonLabel: Record<FormType, string> = {
+  [FormType.LOGIN]: 'Log in',
+  [FormType.REGISTER]: 'Create account',
+  [FormType.RESET]: 'Forgot password?',
 };

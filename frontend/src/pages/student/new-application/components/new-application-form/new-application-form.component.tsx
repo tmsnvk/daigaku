@@ -81,7 +81,7 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
         />
         <InputFieldGuideText content={countryInformation} />
         {isUniversityDataLoading ? (
-          <LoadingIndicator message={'Fetching university list...'} />
+          <LoadingIndicator loadingText={'Fetching university list...'} />
         ) : (
           <SelectUniversity
             register={register}
@@ -104,8 +104,8 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
               message: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
             },
           }}
-          fieldError={errors.courseName?.message}
-          fieldId={'courseName'}
+          error={errors.courseName?.message}
+          id={'courseName'}
           label={'Course name'}
           type={'text'}
           placeholder={'Provide the course of your choice.'}
@@ -121,8 +121,8 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
                 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
             },
           }}
-          fieldError={errors.minorSubject?.message}
-          fieldId={'minorSubject'}
+          error={errors.minorSubject?.message}
+          id={'minorSubject'}
           label={'Minor subject'}
           type={'text'}
           placeholder={'Provide your minor course.'}
@@ -141,8 +141,8 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
               message: 'You may enter numeric values only between 2 and 5.',
             },
           }}
-          fieldError={errors.programmeLength?.message}
-          fieldId={'programmeLength'}
+          error={errors.programmeLength?.message}
+          id={'programmeLength'}
           label={'Programme length'}
           type={'number'}
           placeholder={'Provide the length of the course of your choice.'}
@@ -152,7 +152,7 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
         <InputFieldGuideText content={programmeLengthInformation} />
         <article>
           {isPending ? (
-            <LoadingIndicator message={'Your application is being submitted.'} />
+            <LoadingIndicator loadingText={'Your application is being submitted.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -161,7 +161,7 @@ export const NewApplicationForm = ({ handleCountryClick, countryData, university
             />
           )}
         </article>
-        <article>{errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}</article>
+        <article>{errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}</article>
       </FormContainer>
       <Toast
         isVisible={isSuccess}

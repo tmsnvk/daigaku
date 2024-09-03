@@ -3,7 +3,7 @@
  */
 
 /* component, style imports */
-import { Paragraph } from './form-instruction-text.styles';
+import { Paragraph } from './form-instruction.styles';
 
 /* interfaces, types, enums */
 interface ComponentProps {
@@ -13,6 +13,6 @@ interface ComponentProps {
 /*
  * component - TODO - add functionality description
  */
-export const FormInstructionText = ({ content }: ComponentProps) => {
+export const FormInstruction = ({ content }: ComponentProps) => {
   return <Paragraph>{content}</Paragraph>;
 };

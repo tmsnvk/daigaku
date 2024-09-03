@@ -29,7 +29,7 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentPro
       >
         {shouldBeDeleted ? 'Remove request' : 'Request deletion'}
       </button>
-      <InputError message={errorMessage} />
+      <InputError errorText={errorMessage} />
     </Article>
   );
 };

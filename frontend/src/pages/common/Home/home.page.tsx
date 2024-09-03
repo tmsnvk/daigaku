@@ -28,21 +28,18 @@ import { MainContainer } from './home.styles';
 import { confirmationModalFeedback } from './home.utilities';
 
 /**
+ * ===============
+ * Component {@link Home}
+ * ===============
+ */
+
+/**
  * @description
- * The `Home` page-level component is responsible for rendering the root page of the application.
- *
+ * - The {@link Home} page-level component that renders the root page of the application.
  * - If the user is signed in, they are redirected to the `/dashboard` route. Otherwise, it renders the main container, and
  * one of three possible form components based on the user's selection.
- * - It displays a confirmation modal component when the `isModalVisible` state is true,
+ * - The component displays a {@link ConfirmationModal} component when the `isModalVisible` state is true,
  * with a message corresponding to the current `activeFormType`.
- *
- * @see {@link LoginForm}
- * @see {@link RegistrationForm}
- * @see {@link ResetForm}
- * @see {@link useAuth}
- * @see {@link useConfirmationModal}
- * @see {@link useActiveFormComponent}
- * @see {@link ConfirmationModal}
  *
  * @returns {JSX.Element}
  *

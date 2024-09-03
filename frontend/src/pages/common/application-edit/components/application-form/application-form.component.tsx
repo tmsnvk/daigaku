@@ -15,12 +15,12 @@ import {
 } from './application-form.hooks';
 
 /* component, style imports */
-import { DisabledInputField, InputError, InputFieldGuideText, SubmitInput } from '@components/form';
-import { Toast } from '@components/notification';
-import { LoadingIndicator, PageTitle } from '@components/general';
 import { ApplicationMetaData } from '@components/application';
-import { IsRemovableButton } from '../is-removable-button/index';
+import { DisabledInputField, InputError, InputFieldGuideText, SubmitInput } from '@components/form';
+import { LoadingIndicator, PageTitle } from '@components/general';
+import { Toast } from '@components/notification';
 import { ActiveSelectField } from '../active-select-field/index';
+import { IsRemovableButton } from '../is-removable-button/index';
 import { Form } from './application-form.styles';
 
 /* utilities imports */
@@ -42,11 +42,11 @@ import {
 /* interface, type, enum imports */
 import { Application } from '@common-types';
 import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-import { ResponseStatus } from '@services/status/response-status.service';
-import { OfferStatus } from '@services/status/offer-status.service';
-import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { ApplicationStatus } from '@services/status/application-status.service';
+import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
+import { InterviewStatus } from '@services/status/interview-status-service.service';
+import { OfferStatus } from '@services/status/offer-status.service';
+import { ResponseStatus } from '@services/status/response-status.service';
 
 /* interfaces, types, enums */
 interface ComponentProps {
@@ -191,7 +191,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
         <InputFieldGuideText content={finalDestinationInformation} />
         <article>
           {isPending ? (
-            <LoadingIndicator message={'Your application is being updated.'} />
+            <LoadingIndicator loadingText={'Your application is being updated.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -200,7 +200,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
             />
           )}
         </article>
-        <article>{errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}</article>
+        <article>{errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}</article>
       </Form>
       <Toast
         isVisible={isSuccess}

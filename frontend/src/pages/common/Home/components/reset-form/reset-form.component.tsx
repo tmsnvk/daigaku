@@ -9,12 +9,12 @@ import { useForm } from 'react-hook-form';
 import { ForgottenPasswordFormFields, SubmitForgottenPasswordForm, useSubmitForgottenPasswordForm } from './reset-form.hooks';
 
 /* component, style imports */
-import { LoadingIndicator } from '@components/general';
 import { GenericInputField, InputError, SubmitInput } from '@components/form';
+import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button/index';
 
 /* utilities imports */
-import { FormInstructionText } from '../form-instruction-text/index';
+import { FormInstruction } from '../form-instruction/index';
 
 /* interface, type, enum imports */
 import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
@@ -36,7 +36,7 @@ export const ResetForm = ({ formSelector, showModal }: ComponentProps) => {
 
   return (
     <section>
-      <FormInstructionText
+      <FormInstruction
         content={
           'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.'
         }
@@ -54,8 +54,8 @@ export const ResetForm = ({ formSelector, showModal }: ComponentProps) => {
               message: 'Providing your email address is required.',
             },
           }}
-          fieldError={errors.email?.message}
-          fieldId={'email'}
+          error={errors.email?.message}
+          id={'email'}
           label={'Email'}
           type={'email'}
           placeholder={'Enter your email address'}
@@ -63,7 +63,7 @@ export const ResetForm = ({ formSelector, showModal }: ComponentProps) => {
         />
         <article>
           {isPending ? (
-            <LoadingIndicator message={'Your registration is being handled.'} />
+            <LoadingIndicator loadingText={'Your registration is being handled.'} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -72,20 +72,20 @@ export const ResetForm = ({ formSelector, showModal }: ComponentProps) => {
               disabled={isPending}
             />
           )}
-          {errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}
+          {errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}
         </article>
       </form>
       <article>
         <FormSwapButton
           formType={FormType.LOGIN}
-          content={'Log in'}
-          clickHandler={formSelector}
+          buttonLabel={'Log in'}
+          onFormSelect={formSelector}
           isDisabled={isPending}
         />
         <FormSwapButton
           formType={FormType.REGISTER}
-          content={'Create account'}
-          clickHandler={formSelector}
+          buttonLabel={'Create account'}
+          onFormSelect={formSelector}
           isDisabled={isPending}
         />
       </article>

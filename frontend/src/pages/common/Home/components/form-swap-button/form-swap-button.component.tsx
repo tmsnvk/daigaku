@@ -11,23 +11,24 @@ import { FormType } from '../../home.types';
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly formType: FormType;
-  readonly content: string;
-  readonly clickHandler: (formType: FormType) => void;
+  readonly buttonLabel: string;
+  readonly onFormSelect: (formType: FormType) => void;
   readonly isDisabled: boolean;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const FormSwapButton = ({ formType, content, clickHandler, isDisabled }: ComponentProps) => {
+export const FormSwapButton = ({ formType, buttonLabel, onFormSelect, isDisabled }: ComponentProps) => {
   return (
     <Button
       type={'button'}
-      name={content}
-      onClick={() => clickHandler(formType)}
+      id={buttonLabel}
+      name={buttonLabel}
+      onClick={() => onFormSelect(formType)}
       disabled={isDisabled}
     >
-      {content}
+      {buttonLabel}
     </Button>
   );
 };
