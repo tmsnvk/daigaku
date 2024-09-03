@@ -23,15 +23,25 @@ import { FormInstruction } from '../form-instruction/index';
 import { ListQueryResult } from '@common-types';
 import { RoleOption } from '@services/role/role.service';
 import { InstitutionOption } from '@services/support/institution.service';
-import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
+import { ConfirmationModal, FormType, SelectForm } from '../../home.types';
 
 /* interfaces, types, enums */
-type ComponentProps = FormSelector & ConfirmationModal;
+type ComponentProps = SelectForm & ConfirmationModal;
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * - The {@link ResetForm} component is responsible for rendering a login form that allows users to submit their email and password for authentication.
+ * - The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
+ * - Additionally, users can switch to other forms, such as {@link LoginForm} or {@link RegistrationForm} using the {@link FormSwapButton} components.
+ *
+ * @param {Function} props.selectForm - A function that handles {@link FormType} switching.
+ * @param {Function} props.showModal - A function to show the {@link ConfirmationModal}, used in form components.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) => {
+export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
   const {
     data: institutionData,
     isLoading: isInstitutionLoading,
@@ -151,13 +161,13 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
         <FormSwapButton
           formType={FormType.RESET}
           buttonLabel={'Forgot password?'}
-          onFormSelect={formSelector}
+          onFormSelect={selectForm}
           isDisabled={isPending}
         />
         <FormSwapButton
           formType={FormType.LOGIN}
           buttonLabel={'Log in'}
-          onFormSelect={formSelector}
+          onFormSelect={selectForm}
           isDisabled={isPending}
         />
       </article>

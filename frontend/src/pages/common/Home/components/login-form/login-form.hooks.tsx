@@ -74,7 +74,7 @@ export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleL
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
-    mutationFn: (formData: LoginFormFields) => accountService.login(formData),
+    mutationFn: (formData: LoginFormFields) => accountService.logIn(formData),
     onSuccess: (response: LoginFormResponse) => {
       localStorage.setItem('auth-token', response.jwtToken);
 
@@ -98,9 +98,9 @@ export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleL
           } else if (status >= 500) {
             setError('root', { message: UNEXPECTED_SERVER_ERROR });
           }
-        } else {
-          setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
         }
+      } else {
+        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });

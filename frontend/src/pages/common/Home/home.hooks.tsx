@@ -82,8 +82,8 @@ interface GetFormComponentParams {
  * A helper method used by {@link useActiveFormComponent} that retrieves the appropriate form component based on the provided {@link FormType}.
  *
  * @param {FormType} params.activeFormType - The current {@link FormType} to determine which component to render.
- * @param {(formType: FormType) => void} params.selectFormType - A function to change the form type.
- * @param {() => void} params.showModal - A function to trigger the modal display.
+ * @param {Function} params.selectFormType - A function to change the form type.
+ * @param {Function} params.showModal - A function to trigger the modal display.
  *
  * @returns {JSX.Element} The form component corresponding to the current {@link FormType}.
  *
@@ -94,7 +94,7 @@ const getFormComponent = ({ activeFormType, selectFormType, showModal }: GetForm
     case FormType.REGISTER:
       return (
         <RegistrationForm
-          formSelector={selectFormType}
+          selectForm={selectFormType}
           showModal={showModal}
         />
       );
@@ -102,13 +102,13 @@ const getFormComponent = ({ activeFormType, selectFormType, showModal }: GetForm
     case FormType.RESET:
       return (
         <ResetForm
-          formSelector={selectFormType}
+          selectForm={selectFormType}
           showModal={showModal}
         />
       );
 
     default:
-      return <LoginForm formSelector={selectFormType} />;
+      return <LoginForm selectForm={selectFormType} />;
   }
 };
 
@@ -135,7 +135,7 @@ export interface ActiveFormComponent {
  * - {@link LoginForm}
  * - {@link ResetForm}
  *
- * @param {() => void} params.showModal - A function to show the modal, used in form components.
+ * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in form components.
  *
  * @returns {ActiveFormComponent} An object containing:
  * - `activeFormType` (useState) - The currently selected {@link FormType}.

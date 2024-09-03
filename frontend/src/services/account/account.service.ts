@@ -21,12 +21,18 @@ import { axiosConfig, axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
 import { LoginFormFields, LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
-import { ForgottenPasswordFormFields } from '@pages/common/home/components/reset-form/reset-form.hooks';
+import { ResetFormFields } from '@pages/common/home/components/reset-form/reset-form.hooks';
+
+/**
+ * ===============
+ * Service API Calls {@link accountService}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface AccountService {
-  login: (formData: LoginFormFields) => Promise<LoginFormResponse>;
-  passwordReset: (data: ForgottenPasswordFormFields) => Promise<void>;
+  logIn: (formData: LoginFormFields) => Promise<LoginFormResponse>;
+  resetPassword: (formData: ResetFormFields) => Promise<void>;
   getMe: () => Promise<LoginFormResponse>;
 }
 
@@ -34,10 +40,10 @@ export const accountService: AccountService = {
   /*
    * TODO - comment
    */
-  login: async (formData: LoginFormFields): Promise<LoginFormResponse> => {
+  logIn: async (formData: LoginFormFields): Promise<LoginFormResponse> => {
     const response: AxiosResponse<LoginFormResponse> = await axiosConfig.request<LoginFormResponse>({
       method: 'POST',
-      url: '/api/v1/accounts/login',
+      url: '/api/v1/accounts/log-in',
       data: formData,
     });
     return response.data;
@@ -45,11 +51,11 @@ export const accountService: AccountService = {
   /*
    * TODO - comment
    */
-  passwordReset: async (data: ForgottenPasswordFormFields): Promise<void> => {
+  resetPassword: async (formData: ResetFormFields): Promise<void> => {
     await axiosConfig.request({
       method: 'POST',
-      url: '/api/v1/accounts/forgotten-password',
-      data,
+      url: '/api/v1/accounts/reset-password',
+      data: formData,
     });
   },
   /*

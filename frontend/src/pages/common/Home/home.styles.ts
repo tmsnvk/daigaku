@@ -19,6 +19,12 @@ import styled, { keyframes } from 'styled-components';
 /* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
+/**
+ * ===============
+ * Styled Component {@link MainContainer}
+ * ===============
+ */
+
 const fadeInFromBottom = keyframes`
   0% {
     transform: translateY(100%);

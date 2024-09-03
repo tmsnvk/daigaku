@@ -14,7 +14,7 @@
  */
 
 /* external imports */
-import { FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister, UseFormSetError } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 /* logic imports */
 import { HandleLoginForm, LoginFormFields, useHandleLoginForm } from './login-form.hooks';
@@ -27,10 +27,10 @@ import { FormSwapButton } from '../form-swap-button/index';
 /* configuration, utilities, constants imports */
 import { formTypeButtonLabel } from '../../home.utilities';
 import { FormInstruction } from '../form-instruction/index';
-import * as constants from './login-form.constants.json';
+import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
-import { FormSelector, FormType } from '../../home.types';
+import { FormType, SelectForm, UseFormHook } from '../../home.types';
 
 /**
  * ===============
@@ -39,16 +39,7 @@ import { FormSelector, FormType } from '../../home.types';
  */
 
 /* interfaces, types, enums */
-type ComponentProps = FormSelector;
-
-interface LoginFormHook {
-  formState: {
-    errors: FieldErrors<LoginFormFields>;
-  };
-  handleSubmit: UseFormHandleSubmit<LoginFormFields>;
-  register: UseFormRegister<LoginFormFields>;
-  setError: UseFormSetError<LoginFormFields>;
-}
+type ComponentProps = SelectForm;
 
 /**
  * @description
@@ -56,19 +47,19 @@ interface LoginFormHook {
  * - The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * - Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} components.
  *
- * @param {Function} props.formSelector - A function that handles {@link FormType} switching.
+ * @param {Function} props.selectForm - A function that handles {@link FormType} switching.
  *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
  */
-export const LoginForm = ({ formSelector }: ComponentProps): JSX.Element => {
+export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  }: LoginFormHook = useForm<LoginFormFields>({ mode: 'onSubmit' });
+  }: UseFormHook<LoginFormFields> = useForm<LoginFormFields>({ mode: 'onSubmit' });
   const { isPending, mutate }: HandleLoginForm = useHandleLoginForm({ setError });
 
   return (
@@ -120,20 +111,20 @@ export const LoginForm = ({ formSelector }: ComponentProps): JSX.Element => {
               disabled={isPending}
             />
           )}
-          {errors.root && <InputError errorText={errors?.root?.message} />}
+          {errors.root && <InputError errorText={errors.root.message} />}
         </article>
       </form>
       <article>
         <FormSwapButton
           formType={FormType.RESET}
           buttonLabel={formTypeButtonLabel[FormType.RESET]}
-          onFormSelect={formSelector}
+          onFormSelect={selectForm}
           isDisabled={isPending}
         />
         <FormSwapButton
           formType={FormType.REGISTER}
           buttonLabel={formTypeButtonLabel[FormType.REGISTER]}
-          onFormSelect={formSelector}
+          onFormSelect={selectForm}
           isDisabled={isPending}
         />
       </article>

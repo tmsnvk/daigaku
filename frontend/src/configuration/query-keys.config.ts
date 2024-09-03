@@ -6,7 +6,7 @@ export const mutationKeys = {
   account: {
     POST_LOGIN_FORM: 'post-account-login-form',
     POST_REGISTER: 'postPendingAccountRegisterForm',
-    POST_FORGOTTEN_PASSWORD: 'postAccountForgottenPasswordForm',
+    POST_RESET_FORM: 'post-account-reset-form',
   },
   APPLICATION: {
     POST_BY_STUDENT: 'postApplicationByStudent',
