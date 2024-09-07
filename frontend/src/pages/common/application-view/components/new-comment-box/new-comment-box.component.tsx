@@ -39,7 +39,7 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
       onSubmit={handleSubmit((formData) => mutate(formData))}
     >
       <InputLabel
-        fieldId={'commentContent'}
+        id={'commentContent'}
         content={'Write your comment'}
       />
       <textarea
@@ -56,7 +56,7 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
       />
       <article>
         {isPending ? (
-          <LoadingIndicator message={'Your comment is being submitted.'} />
+          <LoadingIndicator loadingText={'Your comment is being submitted.'} />
         ) : (
           <SubmitInput
             type={'submit'}
@@ -65,7 +65,7 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
           />
         )}
       </article>
-      <article>{errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}</article>
+      <article>{errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}</article>
     </Form>
   );
 };

@@ -45,7 +45,7 @@ public class AccountController {
   }
 
   @PostMapping(
-    value = "/login",
+    value = "/log-in",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<LoginResponse> logIn(@Valid @RequestBody final LoginRequest requestBody) {

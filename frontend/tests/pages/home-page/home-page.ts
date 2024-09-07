@@ -2,6 +2,18 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+/* external imports */
 import { type Locator, type Page, expect } from '@playwright/test';
 
 type RegisterFormT = {
@@ -26,14 +38,14 @@ export class HomePage {
   readonly formSection: Locator;
   readonly createAccountButton: Locator;
   readonly loginButton: Locator;
-  readonly forgottenPasswordButton: Locator;
+  readonly resetPasswordButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.formSection = page.locator('main > section');
     this.createAccountButton = page.getByRole('button', { name: 'Create account' });
     this.loginButton = page.getByRole('button', { name: 'Log in' });
-    this.forgottenPasswordButton = page.getByRole('button', { name: 'Forgot password?' });
+    this.resetPasswordButton = page.getByRole('button', { name: 'Forgot password?' });
   }
 
   goToNoAuthHomePage = async () => {

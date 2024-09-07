@@ -17,9 +17,9 @@ import {
 } from './applications.hooks.tsx';
 
 /* component, style imports */
-import { ColumnSelectorModal, DataRows, TableHead } from './components/index.ts';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { Main } from './applications.styles.ts';
+import { ColumnSelectorModal, DataRows, TableHead } from './components/index.ts';
 
 /* interface, type, enum imports */
 import { Application, ListQueryResult } from '@common-types';
@@ -34,11 +34,11 @@ export const Applications = () => {
   const { isModalVisible, toggleModal }: DisplayColumnSelectorModal = useDisplayColumnSelectorModal();
 
   if (isLoading || isRefetching) {
-    return <GlobalLoadingModal message={'The application is fetching your data...'} />;
+    return <GlobalLoadingModal loadingText={'The application is fetching your data...'} />;
   }
 
   if (isError && error instanceof AxiosError) {
-    return <GlobalErrorModal message={error.response?.data.root} />;
+    return <GlobalErrorModal errorText={error.response?.data.root} />;
   }
 
   // add student selector dropdown for mentors

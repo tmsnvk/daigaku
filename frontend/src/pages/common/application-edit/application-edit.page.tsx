@@ -10,12 +10,12 @@ import { useGetAllSelectOptions, useGetApplicationByUuid } from '@hooks/index';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { ApplicationForm } from './components/application-form';
 import { MainGrid } from './application-edit.styles';
+import { ApplicationForm } from './components/application-form';
 
 /* interface, type, enum imports */
-import { ApplicationOptions } from '@hooks/application-status/use-get-all-select-options';
 import { Application, Location, SimpleQueryResult } from '@common-types';
+import { ApplicationOptions } from '@hooks/application-status/use-get-all-select-options';
 
 /*
  * component - TODO - add functionality description
@@ -32,7 +32,7 @@ export const ApplicationEdit = () => {
   const application: Application = state || data;
 
   if (isOptionsLoading || isApplicationLoading) {
-    return <GlobalLoadingModal message={'The application is compiling your data...'} />;
+    return <GlobalLoadingModal loadingText={'The application is compiling your data...'} />;
   }
 
   if (isOptionsError || isApplicationError) {

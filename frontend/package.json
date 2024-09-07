@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "author": "Tamas N. <dev@tamasnovak.net>",
+  "author": "tmsnvk <dev@tamasnovak.net>",
   "description": "The application follows the university application process of high school students and handles complex student-mentor-admin relationships.",
   "repository": {
     "type": "git",
@@ -13,6 +13,7 @@
   "main": "main.tsx",
   "scripts": {
     "dev": "vite",
+    "test": "npx playwright test",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

@@ -7,12 +7,12 @@ import { Paragraph } from './input-error.styles';
 
 /* interfaces, types, enums */
 interface ComponentProps {
-  readonly message: string | undefined;
+  readonly errorText: string | undefined;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const InputError = ({ message }: ComponentProps) => {
-  return <Paragraph>{message}</Paragraph>;
+export const InputError = ({ errorText }: ComponentProps) => {
+  return <Paragraph>{errorText}</Paragraph>;
 };

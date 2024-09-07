@@ -14,10 +14,10 @@
  */
 
 /* external imports */
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { UseFormSetError } from 'react-hook-form';
 import axios, { AxiosError } from 'axios';
+import { UseFormSetError } from 'react-hook-form';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { Account, AuthContext, AuthStatus, useAuth } from '@context/auth';
@@ -59,13 +59,12 @@ export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<Login
 
 /**
  * @description
- * A custom hook that manages the {@link LoginForm} submission process, including api request, error handling,
+ * The custom hook manages the {@link LoginForm} submission process, including REST API request, error handling,
  * and post-success actions, such as setting account context and authentication status.
  *
- * @param {LoginHandlerParams} params
- * @param {UseFormSetError<LoginFormFields>} params.setError - A function to handle form errors.
+ * @param {UseFormSetError<LoginFormFields>} params.setError - A `react-hook-form` function to set form errors.
  *
- * @returns {HandleLoginForm} - The mutation object to handle the login process.
+ * @returns {HandleLoginForm} - The `react-query` mutation object.
  *
  * @since 0.0.1
  */
@@ -74,8 +73,8 @@ export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleL
   const navigate: NavigateFunction = useNavigate();
 
   return useMutation({
-    mutationKey: [mutationKeys.ACCOUNT.POST_LOGIN],
-    mutationFn: (formData: LoginFormFields) => accountService.login(formData),
+    mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
+    mutationFn: (formData: LoginFormFields) => accountService.logIn(formData),
     onSuccess: (response: LoginFormResponse) => {
       localStorage.setItem('auth-token', response.jwtToken);
 
@@ -99,9 +98,9 @@ export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleL
           } else if (status >= 500) {
             setError('root', { message: UNEXPECTED_SERVER_ERROR });
           }
-        } else {
-          setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
         }
+      } else {
+        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });

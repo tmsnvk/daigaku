@@ -2,10 +2,21 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 import { accountService } from './account/account.service';
 import { pendingAccountService } from './account/pending-account.service';
-import { applicationService } from './application/application.service';
 import { applicationStudentService } from './application/application-student.service';
+import { applicationService } from './application/application.service';
 import { commentService } from './comment/comment.service';
 import { roleService } from './role/role.service';
 import { applicationStatusService } from './status/application-status.service';
@@ -19,17 +30,17 @@ import { universityService } from './support/university.service';
 
 export {
   accountService,
-  pendingAccountService,
   applicationService,
+  applicationStatusService,
   applicationStudentService,
   commentService,
-  roleService,
-  applicationStatusService,
+  countryService,
   finalDestinationStatusService,
+  institutionService,
   interviewStatusService,
   offerStatusService,
+  pendingAccountService,
   responseStatusService,
-  countryService,
-  institutionService,
+  roleService,
   universityService,
 };

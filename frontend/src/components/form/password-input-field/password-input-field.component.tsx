@@ -3,8 +3,8 @@
  */
 
 /* external imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 /* logic imports */
 import { RevealPassword, useRevealPassword } from './password-input-field.hooks';
@@ -23,9 +23,9 @@ import { FormFieldValidation } from '@common-types';
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
-  fieldError: string | undefined;
-  fieldId: Path<T>;
-  labelContent: string;
+  error: string | undefined;
+  id: Path<T>;
+  label: string;
   placeholder: string;
   defaultValue?: string | number;
   isDisabled: boolean;
@@ -37,9 +37,9 @@ interface ComponentProps<T extends FieldValues> {
 export const PasswordInputField = <T extends FieldValues>({
   register,
   validationRules,
-  fieldError,
-  fieldId,
-  labelContent,
+  error,
+  id,
+  label,
   placeholder,
   defaultValue,
   isDisabled,
@@ -47,17 +47,17 @@ export const PasswordInputField = <T extends FieldValues>({
   const { isRevealed, toggleRevealIcon }: RevealPassword = useRevealPassword();
 
   return (
-    <BasePasswordInput $isError={fieldError !== undefined}>
+    <BasePasswordInput $isError={error !== undefined}>
       <InputLabel
-        fieldId={fieldId}
-        content={labelContent}
+        fieldId={id}
+        content={label}
       />
       <div>
         <input
-          {...register(fieldId, validationRules)}
+          {...register(id, validationRules)}
           type={isRevealed ? 'text' : 'password'}
-          id={fieldId}
-          name={fieldId}
+          id={id}
+          name={id}
           autoComplete={'off'}
           placeholder={placeholder}
           disabled={isDisabled}
@@ -68,7 +68,7 @@ export const PasswordInputField = <T extends FieldValues>({
           icon={isRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
         />
       </div>
-      {fieldError && <InputError message={fieldError} />}
+      {error && <InputError errorText={error} />}
     </BasePasswordInput>
   );
 };

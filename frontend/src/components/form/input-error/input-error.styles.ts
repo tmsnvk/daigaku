@@ -16,7 +16,6 @@ const fadeIn = keyframes`
 `;
 
 export const Paragraph = styled.p`
-  height: 2rem;
   padding: 1rem 0 0 0;
   text-align: center;
   color: ${({ theme }) => theme.color.error};

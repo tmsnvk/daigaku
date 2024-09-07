@@ -13,6 +13,8 @@ export const BaseDialog = styled.dialog`
 
   width: 40%;
   margin: 35rem auto 0 auto;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  font-size: ${({ theme }) => theme.fontSize.large};
   padding: 5rem 2.5rem 5rem 2.5rem;
   transition: all 0.5s ease-out;
 

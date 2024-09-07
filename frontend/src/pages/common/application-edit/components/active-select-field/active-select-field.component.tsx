@@ -44,7 +44,7 @@ export const ActiveSelectField = <T extends FieldValues>({
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        fieldId={fieldId}
+        id={fieldId}
         content={labelContent}
       />
       <select
@@ -73,7 +73,7 @@ export const ActiveSelectField = <T extends FieldValues>({
           );
         })}
       </select>
-      {fieldError && <InputError message={fieldError} />}
+      {fieldError && <InputError errorText={fieldError} />}
     </BaseInput>
   );
 };

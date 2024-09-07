@@ -21,7 +21,7 @@ export const DisabledInputField = ({ fieldId, label, type, defaultValue }: Compo
   return (
     <BaseInput $isDisabled={true}>
       <InputLabel
-        fieldId={fieldId}
+        id={fieldId}
         content={label}
       />
       <input

@@ -16,30 +16,30 @@ import { RoleOption } from '@services/role/role.service';
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   fieldError: string | undefined;
-  fieldId: Path<T>;
+  id: Path<T>;
   isDisabled: boolean;
-  roleOptions: Array<RoleOption>;
+  roles: Array<RoleOption>;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const SelectAccountRole = <T extends FieldValues>({ register, fieldError, fieldId, isDisabled, roleOptions }: ComponentProps<T>) => {
+export const SelectAccountRole = <T extends FieldValues>({ register, fieldError, id, isDisabled, roles }: ComponentProps<T>) => {
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        fieldId={fieldId}
+        fieldId={id}
         content={'Account Type'}
       />
       <select
-        {...register(fieldId, {
+        {...register(id, {
           required: {
             value: true,
             message: 'Selecting an account role is required.',
           },
         })}
-        id={fieldId}
-        name={fieldId}
+        id={id}
+        name={id}
         disabled={isDisabled}
       >
         <option
@@ -48,18 +48,18 @@ export const SelectAccountRole = <T extends FieldValues>({ register, fieldError,
         >
           Select your account type.
         </option>
-        {roleOptions.map((roleOption: RoleOption) => {
+        {roles.map((role: RoleOption) => {
           return (
             <option
-              key={roleOption.uuid}
-              value={roleOption.uuid}
+              key={role.uuid}
+              value={role.uuid}
             >
-              {roleOption.name.split('ROLE_')[1].toLowerCase()}
+              {role.name.split('ROLE_')[1].toLowerCase()}
             </option>
           );
         })}
       </select>
-      {fieldError && <InputError message={fieldError} />}
+      {fieldError && <InputError errorText={fieldError} />}
     </BaseInput>
   );
 };

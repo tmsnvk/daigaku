@@ -24,48 +24,6 @@ import { FormType } from './home.types';
 
 /**
  * ===============
- * Custom Hook {@link useConfirmationModal}
- * ===============
- */
-
-/* interfaces, types, enums */
-export interface ConfirmationModalControl {
-  isModalVisible: boolean;
-  showModal: () => void;
-  closeModal: () => void;
-}
-
-/**
- * @description
- * A custom hook that manages the display of a {@link ConfirmationModal} component.
- *
- * @returns {ConfirmationModalControl} An object containing the following:
- * - `isModalVisible` (boolean) - The current visibility state of the modal.
- * - `showModal` (function) - A function to set the modal as visible.
- * - `closeModal` (function) - A function to hide the modal.
- *
- * @since 0.0.1
- */
-export const useConfirmationModal = (): ConfirmationModalControl => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
-  const showModal = (): void => {
-    setIsModalVisible(true);
-  };
-
-  const closeModal = (): void => {
-    setIsModalVisible(false);
-  };
-
-  return {
-    isModalVisible,
-    showModal,
-    closeModal,
-  };
-};
-
-/**
- * ===============
  * Helper Method {@link getFormComponent}
  * ===============
  */
@@ -79,13 +37,11 @@ interface GetFormComponentParams {
 
 /**
  * @description
- * A helper method used by {@link useActiveFormComponent} that retrieves
- * the appropriate form component based on the provided {@link FormType}.
+ * A helper method used by {@link useActiveFormComponent} that retrieves the appropriate form component based on the provided {@link FormType}.
  *
- * @param {GetFormComponentParams} params
  * @param {FormType} params.activeFormType - The current {@link FormType} to determine which component to render.
- * @param {(formType: FormType) => void} params.selectFormType - A function to change the form type.
- * @param {() => void} params.showModal - A function to trigger the modal display.
+ * @param {Function} params.selectFormType - A function to change the form type.
+ * @param {Function} params.showModal - A function to trigger the modal display.
  *
  * @returns {JSX.Element} The form component corresponding to the current {@link FormType}.
  *
@@ -96,7 +52,7 @@ const getFormComponent = ({ activeFormType, selectFormType, showModal }: GetForm
     case FormType.REGISTER:
       return (
         <RegistrationForm
-          formSelector={selectFormType}
+          selectForm={selectFormType}
           showModal={showModal}
         />
       );
@@ -104,13 +60,13 @@ const getFormComponent = ({ activeFormType, selectFormType, showModal }: GetForm
     case FormType.RESET:
       return (
         <ResetForm
-          formSelector={selectFormType}
+          selectForm={selectFormType}
           showModal={showModal}
         />
       );
 
     default:
-      return <LoginForm formSelector={selectFormType} />;
+      return <LoginForm selectForm={selectFormType} />;
   }
 };
 
@@ -132,14 +88,14 @@ export interface ActiveFormComponent {
 
 /**
  * @description
- * A custom hook that manages the state of the currently active {@link FormType} form component. These are:
+ * The custom hook manages the state of the currently active {@link FormType} form component. These are:
  * - {@link RegistrationForm}
  * - {@link LoginForm}
  * - {@link ResetForm}
  *
- * @param {() => void} showModal - A function to show the modal, used in form components.
+ * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in form components.
  *
- * @returns {ActiveFormComponent} An object containing the following:
+ * @returns {ActiveFormComponent} An object containing:
  * - `activeFormType` (useState) - The currently selected {@link FormType}.
  * - `activeFormComponent` (JSX.Element) - The JSX element of the currently active form component.
  *

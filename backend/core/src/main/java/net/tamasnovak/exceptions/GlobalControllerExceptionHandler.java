@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
@@ -41,16 +43,11 @@ public class GlobalControllerExceptionHandler {
   }
 
   @ExceptionHandler(value = { MethodArgumentNotValidException.class })
-  public ResponseEntity<Map<String, String>> onInvalidMethodArgumentExceptions(MethodArgumentNotValidException exception) {
-    final Map<String, String> response = new HashMap<>();
-
-    exception.getBindingResult().getAllErrors()
-      .forEach((error) -> {
-        String fieldName = ((FieldError) error).getField();
-        String errorMessage = error.getDefaultMessage();
-
-        response.put(fieldName, errorMessage);
-    });
+  public ResponseEntity<List<FieldValidationErrorResponse>> onInvalidMethodArgumentException(MethodArgumentNotValidException exception) {
+    final List<FieldValidationErrorResponse> response = exception.getBindingResult().getAllErrors()
+      .stream()
+      .map(error -> new FieldValidationErrorResponse(((FieldError) error).getField(), error.getDefaultMessage()))
+      .collect(Collectors.toList());
 
     return ResponseEntity
       .status(HttpStatus.BAD_REQUEST)

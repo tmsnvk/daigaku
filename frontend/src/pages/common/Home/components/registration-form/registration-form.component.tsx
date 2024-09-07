@@ -2,67 +2,102 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useGetInstitutionOptions } from '@hooks/institution';
 import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
-import { RegisterFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
+import { RegistrationFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
 
 /* component, style imports */
-import { LoadingIndicator } from '@components/general';
 import { GenericInputField, InputError, SelectAccountRole, SelectInstitution, SubmitInput } from '@components/form';
+import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormSwapButton } from '../form-swap-button/index';
 
-/* utilities imports */
-import { FormInstructionText } from '../form-instruction-text/index';
+/* configuration, utilities, constants imports */
+import { formTypeButtonLabel } from '../../home.utilities';
+import { FormInstruction } from '../form-instruction/index';
+import { constants } from './registration-form.constants';
 
 /* interface, type, enum imports */
-import { ConfirmationModal, FormSelector, FormType } from '../../home.types';
-import { InstitutionOption } from '@services/support/institution.service';
-import { RoleOption } from '@services/role/role.service';
 import { ListQueryResult } from '@common-types';
+import { RoleOption } from '@services/role/role.service';
+import { InstitutionOption } from '@services/support/institution.service';
+import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.types';
+
+/**
+ * ===============
+ * Component {@link RegistrationForm}
+ * ===============
+ */
 
 /* interfaces, types, enums */
-type ComponentProps = FormSelector & ConfirmationModal;
+type ComponentProps = SelectForm & ConfirmationModal;
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component is responsible for rendering a registration form that allows users to submit a form to get a pending account.
+ * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
+ * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link ResetForm} using the {@link FormSwapButton} component.
+ *
+ * @param {Function} props.selectForm - A function to handle {@link FormType} switching.
+ * @param {Function} props.showModal - A function to show the {@link ConfirmationModal}, used in form components.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) => {
+export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
   const {
-    data: institutionData,
+    data: institutions,
     isLoading: isInstitutionLoading,
     isError: isInstitutionError,
   }: ListQueryResult<InstitutionOption> = useGetInstitutionOptions();
-  const {
-    data: roleData,
-    isLoading: isRoleLoading,
-    isError: isRoleError,
-  }: ListQueryResult<RoleOption> = useGetStudentAndMentorAccountRoles();
+  const { data: roles, isLoading: isRoleLoading, isError: isRoleError }: ListQueryResult<RoleOption> = useGetStudentAndMentorAccountRoles();
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  } = useForm<RegisterFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate, error }: SubmitRegistrationForm = useSubmitRegistrationForm({ setError, showModal });
+  }: UseFormHook<RegistrationFormFields> = useForm<RegistrationFormFields>({ mode: 'onSubmit' });
+  const { isPending, mutate }: SubmitRegistrationForm = useSubmitRegistrationForm({ setError, showModal });
 
   if (isInstitutionLoading || isRoleLoading) {
-    return <GlobalLoadingModal message={'The application is fetching the registration data...'} />;
+    return (
+      <GlobalLoadingModal
+        isVisible={isInstitutionLoading || isRoleLoading}
+        loadingText={constants.pageMessage.LOADING}
+      />
+    );
   }
 
   if (isInstitutionError || isRoleError) {
-    return <GlobalErrorModal message={error?.response.data.root as string} />;
+    return (
+      <GlobalErrorModal
+        isVisible={isInstitutionError || isRoleError}
+        onCloseModal={() => selectForm(FormType.LOGIN)}
+      />
+    );
   }
 
   return (
     <section>
-      <FormInstructionText content={'Register an account if you are not in our system yet.'} />
+      <FormInstruction instructionText={constants.uiMessage.FORM_INSTRUCTION} />
       <form
-        id={'postPendingAccountRegisterForm'}
+        id={'post-pending-account-registration-form'}
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
@@ -71,93 +106,94 @@ export const RegistrationForm = ({ formSelector, showModal }: ComponentProps) =>
           validationRules={{
             required: {
               value: true,
-              message: 'Providing your first name is required.',
+              message: constants.validation.REQUIRED_FIRST_NAME,
             },
             pattern: {
               value: /^[\p{L}\s]{2,100}$/u,
-              message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
+              message: constants.validation.PATTERN_FIRST_NAME,
             },
           }}
-          fieldError={errors.firstName?.message}
-          fieldId={'firstName'}
-          label={'First Name'}
           type={'text'}
-          placeholder={'Enter your first name(s)'}
+          id={'firstName'}
+          label={constants.form.FIRST_NAME_LABEL}
+          placeholder={constants.form.FIRST_NAME_PLACEHOLDER}
           isDisabled={isPending}
+          error={errors.firstName?.message}
         />
         <GenericInputField
           register={register}
           validationRules={{
             required: {
               value: true,
-              message: 'Providing your last name is required.',
+              message: constants.validation.REQUIRED_LAST_NAME,
             },
             pattern: {
               value: /^[\p{L}\s]{2,100}$/u,
-              message: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
+              message: constants.validation.PATTERN_LAST_NAME,
             },
           }}
-          fieldError={errors.lastName?.message}
-          fieldId={'lastName'}
-          label={'Last Name'}
           type={'text'}
-          placeholder={'Enter your last name(s)'}
+          id={'lastName'}
+          label={constants.form.LAST_NAME_LABEL}
+          placeholder={constants.form.LAST_NAME_PLACEHOLDER}
           isDisabled={isPending}
+          error={errors.lastName?.message}
         />
         <GenericInputField
           register={register}
           validationRules={{
             required: {
               value: true,
-              message: 'Providing your email address is required.',
+              message: constants.validation.REQUIRED_EMAIL,
             },
           }}
-          fieldError={errors.email?.message}
-          fieldId={'email'}
-          label={'Email'}
           type={'email'}
-          placeholder={'Enter your email address'}
+          id={'email'}
+          label={constants.form.EMAIL_LABEL}
+          placeholder={constants.form.EMAIL_PLACEHOLDER}
           isDisabled={isPending}
+          error={errors.email?.message}
         />
         <SelectInstitution
           register={register}
-          fieldError={errors.institutionUuid?.message}
-          fieldId={'institutionUuid'}
+          id={'institutionUuid'}
+          institutions={institutions ?? []}
           isDisabled={isPending}
-          institutionOptions={institutionData ?? []}
+          fieldError={errors.institutionUuid?.message}
         />
         <SelectAccountRole
           register={register}
-          fieldError={errors.accountRoleUuid?.message}
-          fieldId={'accountRoleUuid'}
+          id={'accountRoleUuid'}
+          roles={roles ?? []}
           isDisabled={isPending}
-          roleOptions={roleData ?? []}
+          fieldError={errors.accountRoleUuid?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator message={'Your registration is being submitted.'} />
+            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
+              id={'register'}
               name={'register'}
-              value={'register'}
+              value={constants.form.SUBMIT}
               disabled={isPending}
             />
           )}
-          {errors.root?.serverError && <InputError message={errors.root.serverError.message as string} />}
+          {errors.root && <InputError errorText={errors.root.message} />}
         </article>
       </form>
       <article>
         <FormSwapButton
           formType={FormType.RESET}
-          content={'Forgot password?'}
-          clickHandler={formSelector}
+          buttonLabel={formTypeButtonLabel[FormType.RESET]}
+          onFormSelect={selectForm}
           isDisabled={isPending}
         />
         <FormSwapButton
           formType={FormType.LOGIN}
-          content={'Log in'}
-          clickHandler={formSelector}
+          buttonLabel={formTypeButtonLabel[FormType.LOGIN]}
+          onFormSelect={selectForm}
           isDisabled={isPending}
         />
       </article>

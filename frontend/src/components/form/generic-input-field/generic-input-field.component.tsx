@@ -16,8 +16,8 @@ import { FormFieldValidation } from '@common-types';
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
-  fieldError: string | undefined;
-  fieldId: Path<T>;
+  error: string | undefined;
+  id: Path<T>;
   label: string;
   type: string;
   placeholder: string;
@@ -31,8 +31,8 @@ interface ComponentProps<T extends FieldValues> {
 export const GenericInputField = <T extends FieldValues>({
   register,
   validationRules,
-  fieldError,
-  fieldId,
+  error,
+  id,
   label,
   type,
   placeholder,
@@ -40,22 +40,22 @@ export const GenericInputField = <T extends FieldValues>({
   isDisabled,
 }: ComponentProps<T>) => {
   return (
-    <BaseInput $isError={fieldError !== undefined}>
+    <BaseInput $isError={error !== undefined}>
       <InputLabel
-        fieldId={fieldId}
+        fieldId={id}
         content={label}
       />
       <input
-        {...register(fieldId, validationRules)}
+        {...register(id, validationRules)}
         type={type}
-        id={fieldId}
-        name={fieldId}
+        id={id}
+        name={id}
         autoComplete={'off'}
         placeholder={placeholder}
         disabled={isDisabled}
         defaultValue={defaultValue ?? ''}
       />
-      {fieldError && <InputError message={fieldError} />}
+      {error && <InputError errorText={error} />}
     </BaseInput>
   );
 };

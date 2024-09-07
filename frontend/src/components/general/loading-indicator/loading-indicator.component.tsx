@@ -13,16 +13,16 @@ import { iconLibraryConfig } from '@configuration';
 
 /* interfaces, types, enums */
 interface ComponentProps {
-  readonly message: string;
+  readonly loadingText: string;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const LoadingIndicator = ({ message }: ComponentProps) => {
+export const LoadingIndicator = ({ loadingText }: ComponentProps) => {
   return (
     <Article>
-      <p>{message}</p>
+      <p>{loadingText}</p>
       <FontAwesomeIcon
         icon={iconLibraryConfig.faSpinner}
         spin
