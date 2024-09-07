@@ -2,6 +2,18 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+/* external imports */
 import { type Locator, type Page, expect } from '@playwright/test';
 
 type NewApplicationFormT = {
@@ -30,8 +42,8 @@ export class NewApplicationPage {
   };
 
   fillInNewApplicationForm = async ({ country, university, courseName, minorSubject, programmeLength }: NewApplicationFormT) => {
-    await this.page.getByLabel('Country').selectOption({ index: country });
-    await this.page.getByLabel('University').selectOption({ index: university });
+    await this.page.selectOption('#countryUuid', { index: country });
+    await this.page.selectOption('#universityUuid', { index: university });
     await this.page.getByLabel('Course name').fill(courseName);
 
     if (minorSubject) {

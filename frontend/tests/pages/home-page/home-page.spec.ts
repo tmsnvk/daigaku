@@ -2,10 +2,25 @@
  * @prettier
  */
 
-import { expect, test } from '@playwright/test';
-import { HomePage } from './home-page';
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
 
-test.describe('Test the form functionality of', () => {
+/* external imports */
+import { expect, test } from '@playwright/test';
+
+/* test imports */
+import { HomePage } from './home-page';
+import { logInParameters, registerPendingAccountParameters, resetPasswordParameters } from './home-page.parameters';
+
+test.describe('Home page functionality testing', () => {
   test.use({ storageState: { cookies: [], origins: [] } });
 
   test.beforeEach(async ({ page }) => {
@@ -14,11 +29,8 @@ test.describe('Test the form functionality of', () => {
     await homePage.goToNoAuthHomePage();
   });
 
-  [
-    { firstName: 'Student', lastName: 'User', email: 'new@student.net', institute: 1, role: 1 },
-    { firstName: 'Mentor', lastName: 'User', email: 'new@mentor.net', institute: 1, role: 0 },
-  ].forEach(({ firstName, lastName, email, institute, role }) => {
-    test(`the register pending account form with ${email} address`, async ({ page }) => {
+  registerPendingAccountParameters.forEach(({ firstName, lastName, email, institute, role }) => {
+    test(`should register a pending account form with ${email} address`, async ({ page }) => {
       const homePage = new HomePage(page);
 
       await homePage.verifyFormSectionElement();
@@ -30,13 +42,8 @@ test.describe('Test the form functionality of', () => {
     });
   });
 
-  [
-    { email: 'student@test.net', password: '1', userType: 'student' },
-    { email: 'mentor@test.net', password: '1', userType: 'mentor' },
-    { email: 'insadmin@test.net', password: '1', userType: 'institution admin' },
-    { email: 'sysadmin@test.net', password: '1', userType: 'system admin' },
-  ].forEach(({ email, password, userType }) => {
-    test(`the login form with ${userType} account type`, async ({ page }) => {
+  logInParameters.forEach(({ email, password, userType }) => {
+    test(`should log in with ${userType} account type`, async ({ page }) => {
       const homePage = new HomePage(page);
 
       await homePage.verifyFormSectionElement();
@@ -46,17 +53,13 @@ test.describe('Test the form functionality of', () => {
     });
   });
 
-  [
-    { email: 'student@test.net', userType: 'student' },
-    { email: 'mentor@test.net', userType: 'mentor' },
-    { email: 'insadmin@test.net', userType: 'institution admin' },
-  ].forEach(({ email, userType }) => {
-    test(`the forgotten password form with ${userType} account type`, async ({ page }) => {
+  resetPasswordParameters.forEach(({ email, userType }) => {
+    test(`should send a reset password request with ${userType} account type`, async ({ page }) => {
       const homePage = new HomePage(page);
 
       await homePage.verifyFormSectionElement();
 
-      await homePage.forgottenPasswordButton.click();
+      await homePage.resetPasswordButton.click();
       await homePage.fillInForgottenPasswordForm({ email });
     });
   });
