@@ -13,7 +13,7 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-export const constants: Record<string, Record<string, string>> = {
+export const constants = {
   uiMessage: {
     FORM_INSTRUCTION:
       'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.',

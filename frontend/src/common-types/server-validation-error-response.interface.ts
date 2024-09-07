@@ -13,6 +13,7 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { UseQueryResult } from '@tanstack/react-query';
-
-export type SimpleQueryResult<T> = UseQueryResult<T, Error>;
+export interface ServerValidationErrorResponse {
+  fieldName: string;
+  errorMessage: string;
+}

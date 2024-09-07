@@ -10,8 +10,8 @@ import { DashboardData, useGetDashboardData } from './dashboard.hooks';
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { TodoList } from './components/index';
-import { StudentLayout } from './layouts/index';
 import { Main } from './dashboard.styles';
+import { StudentLayout } from './layouts/index';
 
 /* interface, type, enum imports */
 import { SimpleQueryResult } from '@common-types';
@@ -26,11 +26,11 @@ export const Dashboard = () => {
   useGetApplications();
 
   if (isLoading) {
-    return <GlobalLoadingModal message={'The application is compiling your data...'} />;
+    return <GlobalLoadingModal loadingText={'The application is compiling your data...'} />;
   }
 
   if (isError) {
-    return <GlobalErrorModal message={error.message} />;
+    return <GlobalErrorModal errorText={error.message} />;
   }
 
   return (

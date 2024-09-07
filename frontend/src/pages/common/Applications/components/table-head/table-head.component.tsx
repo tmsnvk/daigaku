@@ -35,7 +35,7 @@ export const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refe
   const { mutate, isPending, isError }: SendDownloadRequest = useSendDownloadRequest();
 
   if (isError) {
-    return <GlobalErrorModal message={'An error happened during your request. Refresh your browser or try again at a later time.'} />;
+    return <GlobalErrorModal errorText={'An error happened during your request. Refresh your browser or try again at a later time.'} />;
   }
 
   return (

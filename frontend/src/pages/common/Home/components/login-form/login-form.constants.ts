@@ -13,7 +13,7 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-export const constants: Record<string, Record<string, string>> = {
+export const constants = {
   uiMessage: {
     FORM_INSTRUCTION: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',
     LOADING: 'You are being logged in.',

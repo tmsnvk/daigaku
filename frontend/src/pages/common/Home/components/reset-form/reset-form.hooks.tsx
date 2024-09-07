@@ -50,19 +50,19 @@ export type HandleResetForm = MutationResult<void, AxiosError<ResetFormErrorT>, 
 
 /**
  * @description
- * The custom hook manages the {@link ResetForm} submission process, including api request, error handling, and post-success actions.
+ * The custom hook manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
  *
  * @param {UseFormSetError<ResetFormFields>} params.setError - A `react-hook-form` function to set form errors.
- * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in form components.
+ * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in the component.
  *
- * @returns {HandleResetForm} - The `react-query` mutation object to handle the login process.
+ * @returns {HandleResetForm} - The `react-query` mutation object.
  *
  * @since 0.0.1
  */
 export const useHandleResetForm = ({ setError, showModal }: HandleResetFormParams): HandleResetForm => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_RESET_FORM],
-    mutationFn: (data: ResetFormFields) => accountService.resetPassword(data),
+    mutationFn: (formData: ResetFormFields) => accountService.resetPassword(formData),
     onSuccess: () => {
       showModal();
     },

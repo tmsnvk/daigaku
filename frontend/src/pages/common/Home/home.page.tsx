@@ -18,7 +18,8 @@ import { Navigate } from 'react-router-dom';
 
 /* logic imports */
 import { AuthContext, AuthStatus, useAuth } from '@context/auth';
-import { ActiveFormComponent, ConfirmationModalControl, useActiveFormComponent, useConfirmationModal } from './home.hooks';
+import { ModalControl, useModalControl } from '@hooks/modal-components/use-modal-control';
+import { ActiveFormComponent, useActiveFormComponent } from './home.hooks';
 
 /* component, style imports */
 import { ConfirmationModal } from '@components/notification';
@@ -35,10 +36,10 @@ import { confirmationModalFeedback } from './home.utilities';
 
 /**
  * @description
- * - The page-level component renders the root page of the application.
- * - If the user is signed in, they are redirected to the `/dashboard` route. Otherwise, it renders the main container, and
+ * The page-level component renders the root page of the application.
+ * If the user is signed in, they are redirected to the `/dashboard` route. Otherwise, it renders the main container, and
  * one of three possible form components based on the user's selection.
- * - The component displays a {@link ConfirmationModal} component when the `isModalVisible` state is true,
+ * The component displays a {@link ConfirmationModal} component when the `isModalVisible` state is true,
  * with a message corresponding to the current `activeFormType`.
  *
  * @returns {JSX.Element}
@@ -47,7 +48,7 @@ import { confirmationModalFeedback } from './home.utilities';
  */
 export const Home = (): JSX.Element => {
   const { authStatus }: Partial<AuthContext> = useAuth();
-  const { isModalVisible, showModal, closeModal }: ConfirmationModalControl = useConfirmationModal();
+  const { isModalVisible, showModal, closeModal }: ModalControl = useModalControl();
   const { activeFormType, activeFormComponent }: ActiveFormComponent = useActiveFormComponent({ showModal });
 
   if (authStatus === AuthStatus.SIGNED_IN) {
@@ -61,7 +62,7 @@ export const Home = (): JSX.Element => {
         <ConfirmationModal
           isVisible={isModalVisible}
           message={confirmationModalFeedback[activeFormType]}
-          closeModal={closeModal}
+          onCloseModal={closeModal}
         />
       )}
     </MainContainer>

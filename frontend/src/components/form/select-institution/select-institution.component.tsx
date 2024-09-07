@@ -16,36 +16,30 @@ import { InstitutionOption } from '@services/support/institution.service';
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   fieldError: string | undefined;
-  fieldId: Path<T>;
+  id: Path<T>;
   isDisabled: boolean;
-  institutionOptions: Array<InstitutionOption>;
+  institutions: Array<InstitutionOption>;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const SelectInstitution = <T extends FieldValues>({
-  register,
-  fieldError,
-  fieldId,
-  isDisabled,
-  institutionOptions,
-}: ComponentProps<T>) => {
+export const SelectInstitution = <T extends FieldValues>({ register, fieldError, id, isDisabled, institutions }: ComponentProps<T>) => {
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        id={fieldId}
+        fieldId={id}
         content={'Institution'}
       />
       <select
-        {...register(fieldId, {
+        {...register(id, {
           required: {
             value: true,
             message: 'Selecting an institution is required.',
           },
         })}
-        id={fieldId}
-        name={fieldId}
+        id={id}
+        name={id}
         disabled={isDisabled}
       >
         <option
@@ -54,12 +48,12 @@ export const SelectInstitution = <T extends FieldValues>({
         >
           Select the institution you currently attend.
         </option>
-        {institutionOptions.map((institutionOption: InstitutionOption) => (
+        {institutions.map((institution: InstitutionOption) => (
           <option
-            key={institutionOption.uuid}
-            value={institutionOption.uuid}
+            key={institution.uuid}
+            value={institution.uuid}
           >
-            {institutionOption.name}
+            {institution.name}
           </option>
         ))}
       </select>

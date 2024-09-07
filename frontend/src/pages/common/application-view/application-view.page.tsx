@@ -10,9 +10,9 @@ import { useGetApplicationByUuid } from '@hooks/application';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { MainGrid } from './application-view.styles';
 import { ApplicationDetails } from './components/application-details';
 import { CommentSection } from './components/comment-section';
-import { MainGrid } from './application-view.styles';
 
 /* interface, type, enum imports */
 import { Application, Location, SimpleQueryResult } from '@common-types';
@@ -27,7 +27,7 @@ export const ApplicationView = () => {
   const application: Application = state || data;
 
   if (isLoading) {
-    return <GlobalLoadingModal message={'The application is compiling your data...'} />;
+    return <GlobalLoadingModal loadingText={'The application is compiling your data...'} />;
   }
 
   if (isError) {

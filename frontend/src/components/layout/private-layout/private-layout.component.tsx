@@ -3,9 +3,9 @@
  */
 
 /* external imports */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MouseEvent } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /* logic imports */
 import { AccountRoleValues, AuthContext, AuthStatus, useAuth } from '@context/auth';
@@ -40,7 +40,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps) => {
     useHandleSmallScreenMenuDisplay();
 
   if (authStatus === AuthStatus.LOADING) {
-    return <GlobalLoadingModal message={'The application is compiling your data...'} />;
+    return <GlobalLoadingModal loadingText={'The application is compiling your data...'} />;
   }
 
   if (!allowedRoles.includes(account.role as AccountRoleValues)) {

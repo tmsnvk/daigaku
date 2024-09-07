@@ -43,9 +43,9 @@ type ComponentProps = SelectForm & ConfirmationModal;
 
 /**
  * @description
- * - The component is responsible for rendering a password reset form that allows users to reset their account.
- * - The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
- * - Additionally, users can switch to other forms, such as {@link LoginForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
+ * The component is responsible for rendering a password reset form that allows users to reset their account.
+ * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
+ * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
  * @param {Function} props.selectForm - A function to handle {@link FormType} switching.
  * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in form components.
@@ -65,7 +65,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
 
   return (
     <section>
-      <FormInstruction content={constants.uiMessage.FORM_INSTRUCTION} />
+      <FormInstruction instructionText={constants.uiMessage.FORM_INSTRUCTION} />
       <form
         id={'post-account-reset-form'}
         method={'POST'}

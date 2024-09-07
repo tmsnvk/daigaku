@@ -24,48 +24,6 @@ import { FormType } from './home.types';
 
 /**
  * ===============
- * Custom Hook {@link useConfirmationModal}
- * ===============
- */
-
-/* interfaces, types, enums */
-export interface ConfirmationModalControl {
-  isModalVisible: boolean;
-  showModal: () => void;
-  closeModal: () => void;
-}
-
-/**
- * @description
- * A custom hook that manages the display of a {@link ConfirmationModal} component.
- *
- * @returns {ConfirmationModalControl} An object containing:
- * - `isModalVisible` (boolean) - The current visibility state of the modal.
- * - `showModal` (function) - A function to set the modal as visible.
- * - `closeModal` (function) - A function to hide the modal.
- *
- * @since 0.0.1
- */
-export const useConfirmationModal = (): ConfirmationModalControl => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
-  const showModal = (): void => {
-    setIsModalVisible(true);
-  };
-
-  const closeModal = (): void => {
-    setIsModalVisible(false);
-  };
-
-  return {
-    isModalVisible,
-    showModal,
-    closeModal,
-  };
-};
-
-/**
- * ===============
  * Helper Method {@link getFormComponent}
  * ===============
  */
