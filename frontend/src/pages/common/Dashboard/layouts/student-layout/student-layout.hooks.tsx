@@ -54,16 +54,16 @@ export const useTodoList = (data: DashboardStatistics): TodoList => {
   const todos: Array<Todo> = [];
 
   const evaluateTodos = (): void => {
-    data.numberOfApplications === 0 && todos.push(noApplications);
-    data.numberOfSubmittedStatus === 0 && todos.push(noSubmittedApplications);
+    data.plannedApplicationsCount === 0 && todos.push(noApplications);
+    data.submittedApplicationsCount === 0 && todos.push(noSubmittedApplications);
 
-    if (data.numberOfSubmittedStatus > 0) {
-      data.numberOfNotSetInterviewStatus && todos.push(noInterviewStatusSet);
+    if (data.submittedApplicationsCount > 0) {
+      data.notSetInterviewStatusCount && todos.push(noInterviewStatusSet);
       !data.firmChoice && todos.push(noFirmChoiceSet);
-      data.numberOfOffers === 0 && todos.push(noOfferStatusSet);
+      data.offersCount === 0 && todos.push(noOfferStatusSet);
     }
 
-    data.numberOfOffers && !data.finalDestination && todos.push(noFinalDestinationSet);
+    data.offersCount && !data.finalDestination && todos.push(noFinalDestinationSet);
 
     if (todos.length === 0) {
       todos.push(noTodo);

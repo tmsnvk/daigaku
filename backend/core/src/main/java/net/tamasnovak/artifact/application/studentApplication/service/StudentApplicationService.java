@@ -4,7 +4,7 @@ import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardData;
+import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +14,7 @@ public interface StudentApplicationService {
 
   void toggleIsRemovableByApplicationUuid(UUID applicationUuid, UUID accountUuid);
 
-  StudentDashboardData findStudentDashboardDataByAccount(Account account);
+  StudentDashboardStatistics findStudentDashboardDataByAccount(Account account);
 
   ApplicationData createApplication(Account account, NewApplicationByStudent requestBody);
 

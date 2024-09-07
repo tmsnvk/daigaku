@@ -11,7 +11,7 @@ import net.tamasnovak.artifact.application.shared.persistence.ApplicationReposit
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardData;
+import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
@@ -165,8 +165,8 @@ class StudentApplicationServiceImplTest {
       when(responseStatusService.findByName(anyString())).thenReturn(mock(ResponseStatus.class));
       when(finalDestinationStatusService.findByName(anyString())).thenReturn(mock(FinalDestinationStatus.class));
 
-      StudentDashboardData expected = new StudentDashboardData(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
-      StudentDashboardData actual = underTest.findStudentDashboardDataByAccount(mockAccount);
+      StudentDashboardStatistics expected = new StudentDashboardStatistics(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
+      StudentDashboardStatistics actual = underTest.findStudentDashboardDataByAccount(mockAccount);
 
       assertEquals(expected, actual);
 

@@ -17,7 +17,7 @@
 import { TodoList, useTodoList } from './student-layout.hooks';
 
 /* component, style imports */
-import { FigureInfoBox, TextInfoBox, TodosView } from '../../components';
+import { StatTile, TextInfoBox, TodosView } from '../../components';
 
 /* configuration, utilities, constants imports */
 import { constants } from '../../dashboard.constants';
@@ -52,39 +52,42 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
 
   return (
     <>
-      <TodosView introduction={introduction} todos={todos} />
+      <TodosView
+        introduction={introduction}
+        todos={todos}
+      />
       <section>
-        <FigureInfoBox
+        <StatTile
           title={constants.categories.APPLICATIONS}
-          content={data.numberOfApplications}
+          value={data.plannedApplicationsCount}
         />
-        <FigureInfoBox
+        <StatTile
           title={constants.categories.PLANNED_APPLICATIONS}
-          content={data.numberOfPlannedStatus}
+          value={data.plannedApplicationsCount}
         />
-        <FigureInfoBox
+        <StatTile
           title={constants.categories.SUBMITTED_APPLICATIONS}
-          content={data.numberOfSubmittedStatus}
+          value={data.submittedApplicationsCount}
         />
-        <FigureInfoBox
+        <StatTile
           title={constants.categories.WITHDRAWN_APPLICATIONS}
-          content={data.numberOfWithdrawnStatus}
+          value={data.withdrawnStatusCount}
         />
       </section>
       <section>
-        <FigureInfoBox
+        <StatTile
           title={constants.categories.DISTINCT_COUNTRIES}
-          content={data.numberOfDifferentCountries}
+          value={data.distinctCountriesCount}
         />
-        <FigureInfoBox
+        <StatTile
           title={constants.categories.DISTINCT_UNIVERSITIES}
-          content={data.numberOfDifferentUniversities}
+          value={data.distinctUniversitiesCount}
         />
       </section>
       <section>
-        <FigureInfoBox
+        <StatTile
           title={constants.categories.OFFERS}
-          content={data.numberOfOffers}
+          value={data.offersCount}
         />
         {data.firmChoice && (
           <TextInfoBox

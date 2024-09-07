@@ -5,7 +5,7 @@ import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardData;
+import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.application.studentApplication.service.StudentApplicationService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
@@ -91,9 +91,9 @@ public class StudentApplicationController {
   @GetMapping(
     value = "/dashboard",
     produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<StudentDashboardData> fetchStudentDashboardData() {
+  public ResponseEntity<StudentDashboardStatistics> fetchStudentDashboardData() {
     final Account account = authenticationFacade.getAuthenticatedAccount();
-    final StudentDashboardData response = studentApplicationService.findStudentDashboardDataByAccount(account);
+    final StudentDashboardStatistics response = studentApplicationService.findStudentDashboardDataByAccount(account);
 
     return ResponseEntity
       .status(HttpStatus.OK)

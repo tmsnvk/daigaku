@@ -11,7 +11,7 @@ import net.tamasnovak.artifact.application.shared.persistence.ApplicationReposit
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardData;
+import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
@@ -116,7 +116,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional(readOnly = true)
-  public StudentDashboardData findStudentDashboardDataByAccount(final Account account) {
+  public StudentDashboardStatistics findStudentDashboardDataByAccount(final Account account) {
     final Student student = studentService.getByAccount(account);
     final String plannedApplicationName = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName()).getName();
     final String submittedApplicationName = applicationStatusService.findByName(ApplicationStatusType.SUBMITTED.getName()).getName();
@@ -125,7 +125,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final String finalDestinationName = finalDestinationStatusService.findByName(FinalDestinationType.FINAL_DESTINATION.getName()).getName();
     final String deferredFinalDestinationName = finalDestinationStatusService.findByName(FinalDestinationType.DEFERRED_FINAL_DESTINATION.getName()).getName();
 
-    return new StudentDashboardData(
+    return new StudentDashboardStatistics(
       student.getFirmChoiceDto(firmChoiceName),
       student.getFinalDestinationDto(finalDestinationName, deferredFinalDestinationName),
       student.getApplicationNumber(),

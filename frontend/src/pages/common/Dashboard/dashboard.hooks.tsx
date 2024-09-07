@@ -44,14 +44,14 @@ export interface DashboardStatistics {
     university: string;
     courseName: string;
   };
-  numberOfApplications: number;
-  numberOfPlannedStatus: number;
-  numberOfSubmittedStatus: number;
-  numberOfWithdrawnStatus: number;
-  numberOfDifferentCountries: number;
-  numberOfDifferentUniversities: number;
-  numberOfNotSetInterviewStatus: number;
-  numberOfOffers: number;
+  applicationsCount: number;
+  plannedApplicationsCount: number;
+  submittedApplicationsCount: number;
+  withdrawnStatusCount: number;
+  distinctCountriesCount: number;
+  distinctUniversitiesCount: number;
+  notSetInterviewStatusCount: number;
+  offersCount: number;
 }
 
 /**
