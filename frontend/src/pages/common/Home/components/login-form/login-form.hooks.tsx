@@ -59,12 +59,12 @@ export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<Login
 
 /**
  * @description
- * A custom hook that manages the {@link LoginForm} submission process, including api request, error handling,
+ * The custom hook manages the {@link LoginForm} submission process, including api request, error handling,
  * and post-success actions, such as setting account context and authentication status.
  *
- * @param {UseFormSetError<LoginFormFields>} params.setError - A react-hook-form function to set form errors.
+ * @param {UseFormSetError<LoginFormFields>} params.setError - A `react-hook-form` function to set form errors.
  *
- * @returns {HandleLoginForm} - The mutation object to handle the login process.
+ * @returns {HandleLoginForm} - The `react-query` mutation object to handle the login process.
  *
  * @since 0.0.1
  */

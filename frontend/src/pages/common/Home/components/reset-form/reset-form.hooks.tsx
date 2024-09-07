@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
@@ -39,11 +50,12 @@ export type HandleResetForm = MutationResult<void, AxiosError<ResetFormErrorT>, 
 
 /**
  * @description
- * A custom hook that manages the {@link ResetForm} submission process, including api request, error handling, and post-success actions.
+ * The custom hook manages the {@link ResetForm} submission process, including api request, error handling, and post-success actions.
  *
- * @param {UseFormSetError<ResetFormFields>} params.setError - A react-hook-form function to set form errors.
+ * @param {UseFormSetError<ResetFormFields>} params.setError - A `react-hook-form` function to set form errors.
+ * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in form components.
  *
- * @returns {HandleResetForm} - The mutation object to handle the login process.
+ * @returns {HandleResetForm} - The `react-query` mutation object to handle the login process.
  *
  * @since 0.0.1
  */

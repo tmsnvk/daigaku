@@ -130,7 +130,7 @@ export interface ActiveFormComponent {
 
 /**
  * @description
- * A custom hook that manages the state of the currently active {@link FormType} form component. These are:
+ * The custom hook manages the state of the currently active {@link FormType} form component. These are:
  * - {@link RegistrationForm}
  * - {@link LoginForm}
  * - {@link ResetForm}

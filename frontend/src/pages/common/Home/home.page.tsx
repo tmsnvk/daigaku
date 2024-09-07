@@ -35,7 +35,7 @@ import { confirmationModalFeedback } from './home.utilities';
 
 /**
  * @description
- * - The {@link Home} page-level component that renders the root page of the application.
+ * - The page-level component renders the root page of the application.
  * - If the user is signed in, they are redirected to the `/dashboard` route. Otherwise, it renders the main container, and
  * one of three possible form components based on the user's selection.
  * - The component displays a {@link ConfirmationModal} component when the `isModalVisible` state is true,

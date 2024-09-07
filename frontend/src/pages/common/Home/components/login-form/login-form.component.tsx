@@ -43,11 +43,11 @@ type ComponentProps = SelectForm;
 
 /**
  * @description
- * - The {@link LoginForm} component is responsible for rendering a login form that allows users to submit their email and password for authentication.
+ * - The component is responsible for rendering a login form that allows users to submit their email and password for authentication.
  * - The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * - Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} components.
  *
- * @param {Function} props.selectForm - A function that handles {@link FormType} switching.
+ * @param {Function} props.selectForm - A function to handle {@link FormType} switching.
  *
  * @returns {JSX.Element}
  *
