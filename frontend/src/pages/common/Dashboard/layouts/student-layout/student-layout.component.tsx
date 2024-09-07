@@ -11,15 +11,17 @@
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
- */ /**
- * @prettier
  */
 
+/* logic imports */
+import { TodoList, useTodoList } from './student-layout.hooks';
+
 /* component, style imports */
-import { FigureInfoBox, TextInfoBox } from '../../components';
+import { FigureInfoBox, TextInfoBox, TodosView } from '../../components';
 
 /* configuration, utilities, constants imports */
 import { constants } from '../../dashboard.constants';
+import { introduction } from './student-layout.utilities';
 
 /* interface, type, enum imports */
 import { DashboardStatistics } from '../../dashboard.hooks';
@@ -46,8 +48,11 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
+  const { todos }: TodoList = useTodoList(data);
+
   return (
     <>
+      <TodosView introduction={introduction} todos={todos} />
       <section>
         <FigureInfoBox
           title={constants.categories.APPLICATIONS}

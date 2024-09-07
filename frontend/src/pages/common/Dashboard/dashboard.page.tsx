@@ -20,7 +20,6 @@ import { DashboardStatistics, useGetDashboardStatistics } from './dashboard.hook
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { TodoList } from './components/index';
 import { Main } from './dashboard.styles';
 import { StudentLayout } from './layouts/index';
 
@@ -78,8 +77,6 @@ export const Dashboard = (): JSX.Element | undefined => {
   return (
     data && (
       <Main>
-        {/* TodoList will need to go into its related layout */}
-        <TodoList data={data} />
         {account.role === AccountRoleValues.STUDENT && <StudentLayout data={data} />}
         {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER data={data} />}*/}
         {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER data={data} />}*/}
