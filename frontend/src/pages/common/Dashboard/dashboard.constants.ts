@@ -13,6 +13,8 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { Dashboard } from './dashboard.page';
-
-export { Dashboard };
+export const constants = {
+  pageMessage: {
+    LOADING: 'The application is compiling your data...',
+  },
+};

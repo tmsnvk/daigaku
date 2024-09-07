@@ -2,20 +2,35 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
-
-/* service imports */
 import { applicationService } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
 import { SimpleQueryResult } from '@common-types';
+
+/**
+ * ===============
+ * Custom Hook {@link useGetDashboardData}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 export interface DashboardData {

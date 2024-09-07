@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* logic imports */
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { useGetApplications } from '@hooks/application';
@@ -13,24 +24,42 @@ import { TodoList } from './components/index';
 import { Main } from './dashboard.styles';
 import { StudentLayout } from './layouts/index';
 
+/* configuration, utilities, constants imports */
+import { constants } from './dashboard.constants';
+
 /* interface, type, enum imports */
 import { SimpleQueryResult } from '@common-types';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /*
  * component - TODO - add functionality description
  */
 export const Dashboard = () => {
+  const navigate: NavigateFunction = useNavigate();
   const { account }: Partial<AuthContext> = useAuth();
   const { data, isLoading, isError, error }: SimpleQueryResult<DashboardData> = useGetDashboardData();
 
   useGetApplications();
 
   if (isLoading) {
-    return <GlobalLoadingModal loadingText={'The application is compiling your data...'} />;
+    return (
+      <GlobalLoadingModal
+        isVisible={isLoading}
+        loadingText={constants.pageMessage.LOADING}
+      />
+    );
   }
 
   if (isError) {
-    return <GlobalErrorModal errorText={error.message} />;
+    return (
+      <GlobalErrorModal
+        isVisible={isError}
+        errorText={error.message}
+        onCloseModal={() => {
+          navigate('/');
+        }}
+      />
+    );
   }
 
   return (
