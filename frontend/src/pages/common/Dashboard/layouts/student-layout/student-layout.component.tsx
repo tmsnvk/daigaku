@@ -2,70 +2,99 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */ /**
+ * @prettier
+ */
+
 /* component, style imports */
-import { FigureInfoBox, TextInfoBox } from '@pages/common/dashboard/components';
+import { FigureInfoBox, TextInfoBox } from '../../components';
+
+/* configuration, utilities, constants imports */
+import { constants } from '../../dashboard.constants';
 
 /* interface, type, enum imports */
-import { Dashboard } from '../../dashboard.hooks';
+import { DashboardStatistics } from '../../dashboard.hooks';
+
+/**
+ * ===============
+ * Component {@link StudentLayout}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ComponentProps {
-  readonly data: Dashboard;
+  readonly data: DashboardStatistics;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the application's dashboard for users with student level authorisation.
+ *
+ * @param {DashboardStatistics} props.data - The object containing the {@link DashboardStatistics} data.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const StudentLayout = ({ data }: ComponentProps) => {
+export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
   return (
     <>
       <section>
         <FigureInfoBox
-          title={'Applications'}
+          title={constants.categories.APPLICATIONS}
           content={data.numberOfApplications}
         />
         <FigureInfoBox
-          title={'Planned Applications'}
+          title={constants.categories.PLANNED_APPLICATIONS}
           content={data.numberOfPlannedStatus}
         />
         <FigureInfoBox
-          title={'Submitted Applications'}
+          title={constants.categories.SUBMITTED_APPLICATIONS}
           content={data.numberOfSubmittedStatus}
         />
         <FigureInfoBox
-          title={'Withdrawn Applications'}
+          title={constants.categories.WITHDRAWN_APPLICATIONS}
           content={data.numberOfWithdrawnStatus}
         />
       </section>
       <section>
         <FigureInfoBox
-          title={'Distinct Countries'}
+          title={constants.categories.DISTINCT_COUNTRIES}
           content={data.numberOfDifferentCountries}
         />
         <FigureInfoBox
-          title={'Distinct Universities'}
+          title={constants.categories.DISTINCT_UNIVERSITIES}
           content={data.numberOfDifferentUniversities}
         />
       </section>
       <section>
         <FigureInfoBox
-          title={'Offers'}
+          title={constants.categories.OFFERS}
           content={data.numberOfOffers}
         />
-        {data.firmChoiceDto && (
+        {data.firmChoice && (
           <TextInfoBox
-            title={'Firm Choice'}
-            country={data.firmChoiceDto.country ?? ''}
-            university={data.firmChoiceDto.university ?? 'Not yet selected.'}
-            courseName={data.firmChoiceDto.courseName ?? ''}
+            title={constants.categories.FIRM_CHOICE}
+            country={data.firmChoice.country ?? ''}
+            university={data.firmChoice.university ?? constants.categories.NOT_YET_SELECTED}
+            courseName={data.firmChoice.courseName ?? ''}
           />
         )}
-        {data.finalDestinationDto && (
+        {data.finalDestination && (
           <TextInfoBox
-            title={'Final Destination'}
-            country={data.finalDestinationDto.country ?? ''}
-            university={data.finalDestinationDto.university ?? 'Not yet selected.'}
-            courseName={data.finalDestinationDto.courseName ?? ''}
+            title={constants.categories.FINAL_DESTINATION}
+            country={data.finalDestination.country ?? ''}
+            university={data.finalDestination.university ?? constants.categories.NOT_YET_SELECTED}
+            courseName={data.finalDestination.courseName ?? ''}
           />
         )}
       </section>

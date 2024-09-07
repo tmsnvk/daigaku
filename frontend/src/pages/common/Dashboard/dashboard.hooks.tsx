@@ -34,12 +34,12 @@ import { SimpleQueryResult } from '@common-types';
 
 /* interfaces, types, enums */
 export interface DashboardStatistics {
-  firmChoiceDto: {
+  firmChoice: {
     country: string;
     university: string;
     courseName: string;
   };
-  finalDestinationDto: {
+  finalDestination: {
     country: string;
     university: string;
     courseName: string;
