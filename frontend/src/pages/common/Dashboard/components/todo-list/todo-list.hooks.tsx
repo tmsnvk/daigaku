@@ -14,7 +14,7 @@ import {
 } from './todo-list.utilities';
 
 /* interface, type, enum imports */
-import { DashboardData } from '../../dashboard.hooks';
+import { Dashboard } from '../../dashboard.hooks';
 
 /* interfaces, types, enums */
 export interface CreateCurrentTodos {
@@ -24,7 +24,7 @@ export interface CreateCurrentTodos {
 /*
  * custom hook - TODO - add functionality description
  */
-export const useCreateCurrentTodos = (data: DashboardData): CreateCurrentTodos => {
+export const useCreateCurrentTodos = (data: Dashboard): CreateCurrentTodos => {
   const currentTodos: Array<string> = [];
 
   const getCurrentTodos = (): void => {

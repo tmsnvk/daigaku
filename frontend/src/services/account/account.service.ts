@@ -54,7 +54,7 @@ export const accountService: AccountService = {
    *
    * @param {LoginFormFields} formData - The login form data object.
    *
-   * @returns {Promise<LoginFormResponse>} - A promise that resolves to the login response data.
+   * @returns {Promise<LoginFormResponse>} - A promise that resolves when the request is successfully sent.
    *
    * @throws {AxiosError} - Throws an error if the request fails.
    *
@@ -76,7 +76,7 @@ export const accountService: AccountService = {
    *
    * @param {ResetFormFields} formData - The reset form data object.
    *
-   * @returns {Promise<void>} - A promise that resolves when the password reset request is successfully sent.
+   * @returns {Promise<void>} - A promise that resolves when the request is successfully sent.
    *
    * @throws {AxiosError} - Throws an error if the request fails.
    */
@@ -91,11 +91,11 @@ export const accountService: AccountService = {
    * TODO - comment
    */
   getMe: async (): Promise<LoginFormResponse> => {
-    const { data } = await axiosConfigWithAuth.request<LoginFormResponse>({
+    const response: AxiosResponse<LoginFormResponse> = await axiosConfigWithAuth.request<LoginFormResponse>({
       method: 'GET',
       url: '/api/v1/accounts/me',
     });
 
-    return data;
+    return response.data;
   },
 };

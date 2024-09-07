@@ -55,7 +55,7 @@ export type HandleResetForm = MutationResult<void, AxiosError<ResetFormErrorT>, 
  * @param {UseFormSetError<ResetFormFields>} params.setError - A `react-hook-form` function to set form errors.
  * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in the component.
  *
- * @returns {HandleResetForm} - The `react-query` mutation object.
+ * @returns {HandleResetForm} - A `react-query` mutation object.
  *
  * @since 0.0.1
  */

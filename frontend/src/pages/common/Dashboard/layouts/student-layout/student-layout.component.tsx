@@ -6,11 +6,11 @@
 import { FigureInfoBox, TextInfoBox } from '@pages/common/dashboard/components';
 
 /* interface, type, enum imports */
-import { DashboardData } from '../../dashboard.hooks';
+import { Dashboard } from '../../dashboard.hooks';
 
 /* interfaces, types, enums */
 interface ComponentProps {
-  readonly data: DashboardData;
+  readonly data: Dashboard;
 }
 
 /*

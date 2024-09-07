@@ -17,7 +17,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
+import { AuthContext, useAuth } from '@context/auth';
 import { applicationService } from '@services/index';
 
 /* configuration, utilities, constants imports */
@@ -28,12 +28,12 @@ import { SimpleQueryResult } from '@common-types';
 
 /**
  * ===============
- * Custom Hook {@link useGetDashboardData}
+ * Custom Hook {@link useGetDashboardStatistics}
  * ===============
  */
 
 /* interfaces, types, enums */
-export interface DashboardData {
+export interface DashboardStatistics {
   firmChoiceDto: {
     country: string;
     university: string;
@@ -54,16 +54,21 @@ export interface DashboardData {
   numberOfOffers: number;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * @description
+ * The custom hook manages fetch of dashboard-related data. The data returned depends on the user's authorisation.
+ *
+ * @returns {SimpleQueryResult<DashboardStatistics>} -  A `react-query` mutation object.
+ *
+ * @since 0.0.1
  */
-export const useGetDashboardData = (): SimpleQueryResult<DashboardData> => {
-  const { account, getRoleResource }: Partial<AuthContext> = useAuth();
-  const role: string = getRoleResource(account.role as AccountRoleValues);
+export const useGetDashboardStatistics = (): SimpleQueryResult<DashboardStatistics> => {
+  const { getRoleResource }: Partial<AuthContext> = useAuth();
+  const accountRole: string = getRoleResource();
 
   return useQuery({
-    queryKey: [queryKeys.AGGREGATE.GET_DASHBOARD_DATA],
-    queryFn: () => applicationService.getDashboardData(role),
+    queryKey: [queryKeys.aggregate.GET_DASHBOARD_STATISTICS],
+    queryFn: () => applicationService.getDashboardStatistics(accountRole),
     refetchOnMount: 'always',
   });
 };

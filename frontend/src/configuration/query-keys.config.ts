@@ -54,8 +54,8 @@ export const queryKeys = {
   FINAL_DESTINATION: {
     GET_AS_SELECT_OPTIONS: 'getAllFinalDestinationStatusSelectOptions',
   },
-  AGGREGATE: {
-    GET_DASHBOARD_DATA: 'getDashboardData',
+  aggregate: {
+    GET_DASHBOARD_STATISTICS: 'get-dashboard-statistics',
   },
   COMMENTS: {
     GET_ALL_BY_APPLICATION_UUID: 'getAllByApplicationUuid',

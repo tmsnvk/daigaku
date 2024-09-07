@@ -16,7 +16,7 @@
 /* logic imports */
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { useGetApplications } from '@hooks/application';
-import { DashboardData, useGetDashboardData } from './dashboard.hooks';
+import { DashboardStatistics, useGetDashboardStatistics } from './dashboard.hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
@@ -31,13 +31,25 @@ import { constants } from './dashboard.constants';
 import { SimpleQueryResult } from '@common-types';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
-/*
- * component - TODO - add functionality description
+/**
+ * ===============
+ * Component {@link Dashboard}
+ * ===============
  */
-export const Dashboard = () => {
+
+/**
+ * @description
+ * The page-level component renders the application's dashboard for the logged-in user.
+ * The component displays various aggregate data components based on the user's authorization level.
+ *
+ * @returns {JSX.Element | undefined}
+ *
+ * @since 0.0.1
+ */
+export const Dashboard = (): JSX.Element | undefined => {
   const navigate: NavigateFunction = useNavigate();
-  const { account }: Partial<AuthContext> = useAuth();
-  const { data, isLoading, isError, error }: SimpleQueryResult<DashboardData> = useGetDashboardData();
+  const { account, logOut }: Partial<AuthContext> = useAuth();
+  const { data, isLoading, isError, error }: SimpleQueryResult<DashboardStatistics> = useGetDashboardStatistics();
 
   useGetApplications();
 
@@ -56,6 +68,7 @@ export const Dashboard = () => {
         isVisible={isError}
         errorText={error.message}
         onCloseModal={() => {
+          logOut();
           navigate('/');
         }}
       />

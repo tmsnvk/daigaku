@@ -59,7 +59,7 @@ export type SubmitRegistrationForm = MutationResult<void, AxiosError<Array<Serve
  * @param {UseFormSetError<RegistrationFormFields>} params.setError - A `react-hook-form` function to set form errors.
  * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in the component.
  *
- * @returns {HandleLoginForm} - The `react-query` mutation object.
+ * @returns {HandleLoginForm} - A `react-query` mutation object.
  *
  * @since 0.0.1
  */
