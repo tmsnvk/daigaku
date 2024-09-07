@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { Dashboard } from './dashboard.page';
+import { DetailTile } from './detail-tile.component';
 
-export { Dashboard };
+export { DetailTile };

@@ -45,7 +45,7 @@ export interface AuthContext {
   authStatus: AuthStatus;
   setAuthStatus: (value: AuthStatus) => void;
   getAccountRole: (role: string) => AccountRoleValues;
-  getRoleResource: (role: AccountRoleValues) => string;
+  getRoleResource: () => string;
   logOut: () => void;
 }
 
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
     return roles[role];
   };
 
-  const getRoleResource = (role: AccountRoleValues): string => {
+  const getRoleResource = (): string => {
     const roleUrl: { [key in AccountRoleValues]: string } = {
       [AccountRoleValues.STUDENT]: 'student',
       [AccountRoleValues.MENTOR]: 'mentor',
@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
       [AccountRoleValues.SYSTEM_ADMIN]: 'system-admin',
     };
 
-    return roleUrl[role];
+    return roleUrl[account.role as AccountRoleValues];
   };
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   }, []);
 
   const logOut = (): void => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('auth-token');
     setAuthStatus(AuthStatus.SIGNED_OUT);
   };
 

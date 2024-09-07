@@ -2,8 +2,19 @@
  * @prettier
  */
 
-import { FigureInfoBox } from './figure-info-box';
-import { TextInfoBox } from './text-info-box';
-import { TodoList } from './todo-list';
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
 
-export { FigureInfoBox, TextInfoBox, TodoList };
+import { DetailTile } from './detail-tile';
+import { StatTile } from './stat-tile';
+import { TodosView } from './todos-view';
+
+export { DetailTile, StatTile, TodosView };

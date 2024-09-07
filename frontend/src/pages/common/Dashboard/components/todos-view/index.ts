@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { Dashboard } from './dashboard.page';
+import { TodosView } from './todos-view.component';
 
-export { Dashboard };
+export { TodosView };

@@ -64,7 +64,7 @@ export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<Login
  *
  * @param {UseFormSetError<LoginFormFields>} params.setError - A `react-hook-form` function to set form errors.
  *
- * @returns {HandleLoginForm} - The `react-query` mutation object.
+ * @returns {HandleLoginForm} - A `react-query` mutation object.
  *
  * @since 0.0.1
  */

@@ -46,7 +46,7 @@ export const pendingAccountService: PendingAccountService = {
    *
    * @param {RegistrationFormFields} formData - The registration form data object.
    *
-   * @returns {Promise<void>} - A promise that resolves when the registration request is successfully sent.
+   * @returns {Promise<void>} - A promise that resolves when the request is successfully sent.
    *
    * @throws {AxiosError} - Throws an error if the request fails.
    *
