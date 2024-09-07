@@ -13,6 +13,9 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/* external imports */
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+
 /* logic imports */
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
 import { useGetApplications } from '@hooks/application';
@@ -28,7 +31,6 @@ import { constants } from './dashboard.constants';
 
 /* interface, type, enum imports */
 import { SimpleQueryResult } from '@common-types';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /**
  * ===============

@@ -36,7 +36,7 @@ interface ComponentProps {
  * The component renders an introduction text as well as the user's active todo list.
  *
  * @param {Array<string>} props.introduction - The component's summary text.
- * @param {Array<string>} props.todos - The todo list array.
+ * @param {Array<Todo>} props.todos - The todo list array.
  *
  * @returns {JSX.Element}
  *

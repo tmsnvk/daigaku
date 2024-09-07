@@ -14,7 +14,7 @@
  */
 
 /* component, style imports */
-import { DescriptionList } from './stat-tile.styles.ts';
+import { DescriptionList } from './stat-tile.styles';
 
 /**
  * ===============

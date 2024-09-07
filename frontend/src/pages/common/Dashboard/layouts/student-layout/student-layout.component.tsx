@@ -17,7 +17,7 @@
 import { TodoList, useTodoList } from './student-layout.hooks';
 
 /* component, style imports */
-import { StatTile, TextInfoBox, TodosView } from '../../components';
+import { DetailTile, StatTile, TodosView } from '../../components';
 
 /* configuration, utilities, constants imports */
 import { constants } from '../../dashboard.constants';
@@ -90,7 +90,7 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           value={data.offersCount}
         />
         {data.firmChoice && (
-          <TextInfoBox
+          <DetailTile
             title={constants.categories.FIRM_CHOICE}
             country={data.firmChoice.country ?? ''}
             university={data.firmChoice.university ?? constants.categories.NOT_YET_SELECTED}
@@ -98,7 +98,7 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           />
         )}
         {data.finalDestination && (
-          <TextInfoBox
+          <DetailTile
             title={constants.categories.FINAL_DESTINATION}
             country={data.finalDestination.country ?? ''}
             university={data.finalDestination.university ?? constants.categories.NOT_YET_SELECTED}
