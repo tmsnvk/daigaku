@@ -7,7 +7,6 @@ import { UseMutateFunction, useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 
 /* service imports */
-import { applicationStudentService } from '@services/application/application-student.service';
 
 /* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';

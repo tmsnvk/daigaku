@@ -32,8 +32,10 @@ interface ComponentProps {
  * @description
  * The component renders a statistic tile with a title and corresponding data.
  *
- * @param {string} props.title - The tile's title
- * @param {number} props.value - The tile's value.
+ * @param {string} props.title
+ * The tile's title
+ * @param {number} props.value
+ * The tile's value.
  *
  * @returns {JSX.Element}
  *

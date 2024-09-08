@@ -39,11 +39,15 @@ interface GetFormComponentParams {
  * @description
  * A helper method used by {@link useActiveFormComponent} that retrieves the appropriate form component based on the provided {@link FormType}.
  *
- * @param {FormType} params.activeFormType - The current {@link FormType} to determine which component to render.
- * @param {Function} params.selectFormType - A function to change the form type.
- * @param {Function} params.showModal - A function to trigger the modal display.
+ * @param {FormType} params.activeFormType
+ * The current {@link FormType} to determine which component to render.
+ * @param {Function} params.selectFormType
+ * A function to change the form type.
+ * @param {Function} params.showModal
+ * A function to trigger the modal display.
  *
- * @returns {JSX.Element} The form component corresponding to the current {@link FormType}.
+ * @returns {JSX.Element}
+ * The form component corresponding to the selected {@link FormType}.
  *
  * @since 0.0.1
  */
@@ -93,11 +97,13 @@ export interface ActiveFormComponent {
  * - {@link LoginForm}
  * - {@link ResetForm}
  *
- * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in form components.
+ * @param {Function} params.showModal
+ * A function to show the {@link ConfirmationModal}, used in form components.
  *
- * @returns {ActiveFormComponent} An object containing:
- * - `activeFormType` (useState) - The currently selected {@link FormType}.
- * - `activeFormComponent` (JSX.Element) - The JSX element of the currently active form component.
+ * @returns {ActiveFormComponent}
+ * An object containing:
+ * - `activeFormType` - The currently selected {@link FormType}.
+ * - `activeFormComponent` - The JSX element of the currently active form component.
  *
  * @since 0.0.1
  */

@@ -23,13 +23,13 @@ import { RequestPdfDownload, useRequestPdfDownload } from './table-header.hooks'
 
 /* component, style imports */
 import { LoadingIndicator } from '@components/general';
+import { GlobalErrorModal } from '@components/notification';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { GlobalErrorModal } from '@components/notification';
 import { Column } from '../../applications.hooks';
 
 /**

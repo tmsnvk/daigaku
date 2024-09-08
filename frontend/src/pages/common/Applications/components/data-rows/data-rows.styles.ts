@@ -2,8 +2,25 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
+
+/**
+ * ===============
+ * Styled Component {@link TableBodyRow}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface RowType {
@@ -19,6 +36,12 @@ export const TableBodyRow = styled.tr`
     height: 4rem;
   }
 `;
+
+/**
+ * ===============
+ * Styled Component {@link Cell}
+ * ===============
+ */
 
 export const Cell = styled.td<RowType>`
   display: ${({ $shouldDisplay }) => ($shouldDisplay ? '' : 'none')};

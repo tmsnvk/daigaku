@@ -44,9 +44,11 @@ export type Todo = string;
  * @description
  * The custom hook evaluates the current todo items based on the provided dashboard statistics.
  *
- * @param {DashboardStatistics} data - The dashboard statistics containing application-related aggregate data.
+ * @param {DashboardStatistics} data
+ * The dashboard statistics containing application-related aggregate data.
 
- * @returns {TodoList} - The list of active todo items.
+ * @returns {TodoList}
+ * The list of active todo items.
  *
  * @since 0.0.1
  */

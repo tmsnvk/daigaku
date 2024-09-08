@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* component, style imports */
 import { Dialog } from './column-selector-modal.styles';
 
@@ -10,6 +21,12 @@ import { ToggleColumnSelectorModal, useToggleColumnSelectorModal } from './colum
 
 /* interface, type, enum imports */
 import { Column } from '../../applications.hooks';
+
+/**
+ * ===============
+ * Component {@link ColumnSelectorModal}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ComponentProps {
@@ -35,6 +52,8 @@ export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVi
           >
             <input
               type={'checkbox'}
+              id={column.id}
+              name={column.id}
               checked={column.isVisible}
               disabled={column.isCoreColumn}
               readOnly
@@ -45,6 +64,8 @@ export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVi
       })}
       <button
         type={'button'}
+        id={'modal-toggle'}
+        name={'modal-toggle'}
         onClick={() => toggleModal()}
       >
         Close

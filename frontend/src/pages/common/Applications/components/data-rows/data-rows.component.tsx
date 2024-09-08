@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -9,16 +20,19 @@ import { Link } from 'react-router-dom';
 /* component, style imports */
 import { Cell, TableBodyRow } from './data-rows.styles';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-
-/* utilities imports */
 import { isColumnFound } from './data-rows.utilities';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
 import { Column } from '../../applications.hooks';
 
+/**
+ * ===============
+ * Component {@link DataRows}
+ * ===============
+ */
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;

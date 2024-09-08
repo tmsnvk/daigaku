@@ -18,7 +18,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 /* logic imports */
-import { applicationStudentService } from '@services/application/application-student.service';
+import { applicationStudentService } from '@services/index';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';

@@ -28,7 +28,7 @@ import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormSwapButton } from '../form-swap-button/index';
 
 /* configuration, utilities, constants imports */
-import { formTypeButtonLabel } from '../../home.utilities';
+import { formTypeButtonLabel } from '../../home.constants';
 import { FormInstruction } from '../form-instruction/index';
 import { constants } from './registration-form.constants';
 
@@ -53,8 +53,10 @@ type ComponentProps = SelectForm & ConfirmationModal;
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link ResetForm} using the {@link FormSwapButton} component.
  *
- * @param {Function} props.selectForm - A function to handle {@link FormType} switching.
- * @param {Function} props.showModal - A function to show the {@link ConfirmationModal}, used in form components.
+ * @param {Function} props.selectForm
+ * A function to handle {@link FormType} switching.
+ * @param {Function} props.showModal
+ * A function to show the {@link ConfirmationModal}, used in form components.
  *
  * @returns {JSX.Element}
  *

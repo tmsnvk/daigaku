@@ -39,10 +39,14 @@ interface ComponentProps {
  * The form selection is triggered when the component is clicked.
  * The component is disabled while there are ongoing REST API requests.
  *
- * @param {FormType} props.formType -  The type of the form to switch to.
- * @param {string} props.buttonLabel - The button label to be displayed and used for identifying the button.
- * @param {Function} props.onFormSelect - A callback function that is triggered when the button is clicked.
- * @param {boolean} props.isDisabled - A boolean indicating whether the button should be disabled or not.
+ * @param {FormType} props.formType
+ * The type of the form to switch to.
+ * @param {string} props.buttonLabel
+ * The button label to be displayed and used for identifying the button.
+ * @param {Function} props.onFormSelect
+ * A callback function that is triggered when the button is clicked.
+ * @param {boolean} props.isDisabled
+ * A boolean indicating whether the button should be disabled or not.
  *
  * @returns {JSX.Element}
  *

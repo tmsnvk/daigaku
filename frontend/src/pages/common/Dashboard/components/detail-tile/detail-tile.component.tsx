@@ -34,10 +34,14 @@ interface ComponentProps {
  * @description
  * The component renders a detail tile with a title and corresponding data.
  *
- * @param {string} props.title - The tile's title.
- * @param {string} props.country - The tile's country value.
- * @param {string} props.university - The tile's university value.
- * @param {number} props.courseName - The tile's courseName value.
+ * @param {string} props.title
+ * The tile's title.
+ * @param {string} props.country
+ * The tile's country value.
+ * @param {string} props.university
+ * The tile's university value.
+ * @param {number} props.courseName
+ * The tile's courseName value.
  *
  * @returns {JSX.Element}
  *

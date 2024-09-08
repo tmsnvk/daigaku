@@ -52,11 +52,14 @@ export const accountService: AccountService = {
    * The method sends a POST request with the provided login credentials.
    * The server handles the login process and responds accordingly. If the authentication was successful, the user is logged in.
    *
-   * @param {LoginFormFields} formData - The login form data object.
+   * @param {LoginFormFields} formData
+   * The login form data object.
    *
-   * @returns {Promise<LoginFormResponse>} - A promise that resolves when the request is successfully sent.
+   * @returns {Promise<LoginFormResponse>}
+   * A promise that resolves when the request is successfully sent.
    *
-   * @throws {AxiosError} - Throws an error if the request fails.
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
    *
    * @since 0.0.1
    */
@@ -74,11 +77,16 @@ export const accountService: AccountService = {
    * The server handles the registration process and responds accordingly. If the authentication was successful,
    * the user receives an email to reset their password.
    *
-   * @param {ResetFormFields} formData - The reset form data object.
+   * @param {ResetFormFields} formData
+   * The reset form data object.
    *
-   * @returns {Promise<void>} - A promise that resolves when the request is successfully sent.
+   * @returns {Promise<void>}
+   * A promise that resolves when the request is successfully sent.
    *
-   * @throws {AxiosError} - Throws an error if the request fails.
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
+   *
+   * @since 0.0.1
    */
   resetPassword: async (formData: ResetFormFields): Promise<void> => {
     await axiosConfig.request({

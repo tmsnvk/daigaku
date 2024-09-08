@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
 
 /* service imports */
-import { applicationStudentService } from '@services/application/application-student.service';
 
 /* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';

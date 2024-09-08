@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* configuration imports */
 import { axiosConfigWithAuth } from '@configuration';
 
@@ -10,7 +21,32 @@ import { Application } from '@common-types';
 import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
 import { NewApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
 
-export const applicationStudentService = {
+/**
+ * ===============
+ * Service API Calls {@link applicationStudentService}
+ * ===============
+ */
+
+/* interfaces, types, enums */
+interface ApplicationStudentService {
+  postByStudent: (formData: NewApplicationFormFields) => Promise<Application>;
+  patchByUuid: (formData: UpdateApplicationFormFields, applicationUuid: string) => Promise<Application>;
+  toggleIsRemovable: (applicationUuid: string) => Promise<void>;
+  requestPdfDownload: () => Promise<void>;
+}
+
+/**
+ * @description
+ * The service manages student authorisation-related application REST API operations.
+ *
+ * @property {Function} postByStudent
+ * @property {Function} patchByUuid
+ * @property {Function} toggleIsRemovable
+ * @property {Function} requestPdfDownload
+ *
+ * @since 0.0.1
+ */
+export const applicationStudentService: ApplicationStudentService = {
   /*
    * TODO - comment
    */
@@ -45,8 +81,16 @@ export const applicationStudentService = {
       url: `/api/v1/applications/student/toggle-is-removable/${applicationUuid}`,
     });
   },
-  /*
-   * TODO - comment
+  /**
+   * @description
+   * The method sends a POST request to the server to start handling the .pdf download process.
+   *
+   * @returns {Promise<void>}
+   *
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
+   *
+   * @since 0.0.1
    */
   requestPdfDownload: async (): Promise<void> => {
     await axiosConfigWithAuth.request({
