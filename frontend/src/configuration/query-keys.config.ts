@@ -8,11 +8,11 @@ export const mutationKeys = {
     POST_REGISTER: 'post-pending-account-registration-form',
     POST_RESET_FORM: 'post-account-reset-form',
   },
-  APPLICATION: {
+  application: {
     POST_BY_STUDENT: 'postApplicationByStudent',
     PATCH_BY_UUID: 'patchApplicationByUuid',
     IS_REMOVABLE: 'patchApplicationByUuidForIsRemovable',
-    POST_PDF_REQUEST: 'postDownloadRequest',
+    POST_REQUEST_PDF_DOWNLOAD: 'post-request-pdf-download',
   },
   COMMENTS: {
     POST_COMMENT_BY_APPLICATION: 'postCommentByApplicationUuid',

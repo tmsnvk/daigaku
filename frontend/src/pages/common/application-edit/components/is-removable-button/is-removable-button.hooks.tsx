@@ -31,7 +31,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const mutation = useMutation({
-    mutationKey: [mutationKeys.APPLICATION.IS_REMOVABLE],
+    mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {

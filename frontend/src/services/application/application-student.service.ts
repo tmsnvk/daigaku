@@ -6,9 +6,9 @@
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { NewApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
-import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
 import { Application } from '@common-types';
+import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
+import { NewApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
 
 export const applicationStudentService = {
   /*
@@ -36,7 +36,7 @@ export const applicationStudentService = {
 
     return data;
   },
-    /*
+  /*
    * TODO - comment
    */
   toggleIsRemovable: async (applicationUuid: string): Promise<void> => {
@@ -45,13 +45,13 @@ export const applicationStudentService = {
       url: `/api/v1/applications/student/toggle-is-removable/${applicationUuid}`,
     });
   },
-    /*
+  /*
    * TODO - comment
    */
-  requestDownload: async (): Promise<void> => {
+  requestPdfDownload: async (): Promise<void> => {
     await axiosConfigWithAuth.request({
       method: 'POST',
-      url: '/api/v1/applications/student/download',
+      url: '/api/v1/applications/student/download-pdf',
     });
   },
 };

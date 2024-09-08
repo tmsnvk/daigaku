@@ -167,7 +167,7 @@ export interface UpdateApplicationFormError {
  */
 export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationForm) => {
   return useMutation({
-    mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
+    mutationKey: [mutationKeys.application.PATCH_BY_UUID],
     mutationFn: (data: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(data, applicationUuid),
     onSuccess: (data: Application) => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {

@@ -56,7 +56,7 @@ export type SubmitNewApplicationForm = MutationResult<Application, NewApplicatio
  */
 export const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, reset }: NewApplicationForm): SubmitNewApplicationForm => {
   return useMutation({
-    mutationKey: [mutationKeys.APPLICATION.POST_BY_STUDENT],
+    mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (data: NewApplicationFormFields) => applicationStudentService.postByStudent(data),
     onSuccess: (data: Application) => {
       queryClient.setQueryData<Array<Application>>(

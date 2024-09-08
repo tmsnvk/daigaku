@@ -23,7 +23,7 @@ import { ColumnVisibility, SetOrder, useColumnVisibility, useSortOrder } from '.
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { Main } from './applications.styles';
-import { ColumnSelectorModal, DataRows, TableHead } from './components';
+import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
 import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
@@ -82,7 +82,7 @@ export const Applications = (): JSX.Element => {
     <Main>
       <table>
         <thead>
-          <TableHead
+          <TableHeader
             columns={columns}
             columnSortHandler={handleColumnSort}
             toggleModalHandler={toggleModal}

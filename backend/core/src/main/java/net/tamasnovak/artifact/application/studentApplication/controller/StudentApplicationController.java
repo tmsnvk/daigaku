@@ -101,7 +101,7 @@ public class StudentApplicationController {
   }
 
   @PostMapping(
-    value = "/download")
+    value = "/download-pdf")
   public ResponseEntity<HttpStatus> handleDownloadRequest() {
     final UUID authAccountUuid = authenticationFacade.getAuthenticatedAccountUuid();
     studentApplicationService.handleDownloadRequest(authAccountUuid);
