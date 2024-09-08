@@ -24,6 +24,7 @@ import { RequestPdfDownload, useRequestPdfDownload } from './table-header.hooks'
 /* component, style imports */
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal } from '@components/notification';
+import { TableHeadRow } from './table-header.styles';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
@@ -76,15 +77,13 @@ export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, re
   }
 
   return (
-    <tr>
+    <TableHeadRow>
       {columns.map((column: Column) => {
         return (
           column.isVisible && (
             <th key={column.id}>
               <button
                 type={'button'}
-                id={column.id}
-                name={column.id}
                 onClick={() => columnSortHandler(column.id)}
               >
                 {column.name}
@@ -97,8 +96,6 @@ export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, re
       <th>
         <button
           type={'button'}
-          id={'refresh-data'}
-          name={'refresh-data'}
           onClick={() => refetch({ cancelRefetch: false })}
         >
           Refresh
@@ -106,8 +103,6 @@ export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, re
         </button>
         <button
           type={'button'}
-          id={'toggle-modal'}
-          name={'toggle-modal'}
           onClick={toggleModalHandler}
         >
           Display
@@ -118,8 +113,6 @@ export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, re
         ) : (
           <button
             type={'button'}
-            id={'pdf-download'}
-            name={'pdf-download'}
             onClick={() => mutate()}
           >
             Download
@@ -127,6 +120,6 @@ export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, re
           </button>
         )}
       </th>
-    </tr>
+    </TableHeadRow>
   );
 };

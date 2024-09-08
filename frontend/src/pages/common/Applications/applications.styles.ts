@@ -44,32 +44,6 @@ export const Main = styled.main`
       text-align: center;
     }
 
-    & tr:first-of-type {
-      & th {
-        &::before,
-        &::after {
-          height: 1rem;
-          display: table-row;
-          content: '';
-        }
-      }
-
-      & th:last-of-type {
-        & button,
-        & article {
-          height: 4rem;
-        }
-      }
-    }
-
-    & tr:last-of-type td:first-of-type {
-      border-bottom-left-radius: ${({ theme }) => theme.options.borderRadius};
-    }
-
-    & tr:last-of-type td:last-of-type {
-      border-bottom-right-radius: ${({ theme }) => theme.options.borderRadius};
-    }
-
     & svg {
       display: inline-block;
       margin: 0 0 0 1rem;

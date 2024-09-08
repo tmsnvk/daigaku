@@ -35,6 +35,14 @@ export const TableBodyRow = styled.tr`
   & td:last-of-type a {
     height: 4rem;
   }
+
+  &:last-of-type td:first-of-type {
+    border-bottom-left-radius: ${({ theme }) => theme.options.borderRadius};
+  }
+
+  &:last-of-type td:last-of-type {
+    border-bottom-right-radius: ${({ theme }) => theme.options.borderRadius};
+  }
 `;
 
 /**
