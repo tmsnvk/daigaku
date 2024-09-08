@@ -18,6 +18,7 @@ import { TodoList, useTodoList } from './student-layout.hooks';
 
 /* component, style imports */
 import { DetailTile, StatTile, TodosView } from '../../components';
+import { TileUnit } from './student-layout.styles';
 
 /* configuration, utilities, constants imports */
 import { constants } from '../../dashboard.constants';
@@ -57,10 +58,10 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
         introduction={introduction}
         todos={todos}
       />
-      <section>
+      <TileUnit>
         <StatTile
           title={constants.categories.APPLICATIONS}
-          value={data.plannedApplicationsCount}
+          value={data.applicationsCount}
         />
         <StatTile
           title={constants.categories.PLANNED_APPLICATIONS}
@@ -74,8 +75,8 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           title={constants.categories.WITHDRAWN_APPLICATIONS}
           value={data.withdrawnStatusCount}
         />
-      </section>
-      <section>
+      </TileUnit>
+      <TileUnit>
         <StatTile
           title={constants.categories.DISTINCT_COUNTRIES}
           value={data.distinctCountriesCount}
@@ -84,8 +85,8 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           title={constants.categories.DISTINCT_UNIVERSITIES}
           value={data.distinctUniversitiesCount}
         />
-      </section>
-      <section>
+      </TileUnit>
+      <TileUnit>
         <StatTile
           title={constants.categories.OFFERS}
           value={data.offersCount}
@@ -106,7 +107,7 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
             courseName={data.finalDestination.courseName ?? ''}
           />
         )}
-      </section>
+      </TileUnit>
     </>
   );
 };

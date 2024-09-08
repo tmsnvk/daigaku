@@ -56,7 +56,7 @@ export const useTodoList = (data: DashboardStatistics): TodoList => {
   const todos: Array<Todo> = [];
 
   const evaluateTodos = (): void => {
-    data.plannedApplicationsCount === 0 && todos.push(noApplications);
+    data.applicationsCount === 0 && todos.push(noApplications);
     data.submittedApplicationsCount === 0 && todos.push(noSubmittedApplications);
 
     if (data.submittedApplicationsCount > 0) {
