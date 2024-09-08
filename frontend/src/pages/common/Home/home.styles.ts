@@ -21,7 +21,7 @@ import { BaseLightBorder } from '@components/base-styles';
 
 /**
  * ===============
- * Styled Component {@link MainContainer}
+ * Styled Component {@link Main}
  * ===============
  */
 
@@ -37,7 +37,7 @@ const fadeInFromBottom = keyframes`
   }
 `;
 
-export const MainContainer = styled.main`
+export const Main = styled.main`
   container-type: inline-size;
   container-name: main;
   display: flex;

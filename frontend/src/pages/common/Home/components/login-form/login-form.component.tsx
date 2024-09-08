@@ -30,7 +30,7 @@ import { FormInstruction } from '../form-instruction';
 import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
-import { FormType, SelectForm, UseFormHook } from '../../home.types';
+import { FormType, SelectForm, UseFormHook } from '../../home.interfaces';
 
 /**
  * ===============

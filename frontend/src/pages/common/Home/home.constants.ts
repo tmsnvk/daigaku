@@ -14,7 +14,7 @@
  */
 
 /* interface, type, enum imports */
-import { FormType } from './home.types.ts';
+import { FormType } from './home.interfaces.ts';
 
 export const confirmationModalFeedback: Record<FormType, string> = {
   [FormType.LOGIN]: '',

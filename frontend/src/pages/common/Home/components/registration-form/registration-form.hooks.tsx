@@ -27,7 +27,7 @@ import { mutationKeys } from '@configuration';
 /* interface, type, enum imports */
 import { MutationResult, ServerValidationErrorResponse } from '@common-types';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
-import { ConfirmationModal } from '../../home.types';
+import { ConfirmationModal } from '../../home.interfaces';
 
 /**
  * ===============

@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { LoginForm, RegistrationForm, ResetForm } from './components/index';
 
 /* interface, type, enum imports */
-import { FormType } from './home.types';
+import { FormType } from './home.interfaces';
 
 /**
  * ===============

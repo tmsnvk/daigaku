@@ -36,7 +36,7 @@ import { constants } from './registration-form.constants';
 import { ListQueryResult } from '@common-types';
 import { RoleOption } from '@services/role/role.service';
 import { InstitutionOption } from '@services/support/institution.service';
-import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.types';
+import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.interfaces';
 
 /**
  * ===============

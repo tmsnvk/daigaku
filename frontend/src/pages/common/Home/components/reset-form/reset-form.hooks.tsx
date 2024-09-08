@@ -27,7 +27,7 @@ import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { MutationResult } from '@common-types';
-import { ConfirmationModal } from '../../home.types';
+import { ConfirmationModal } from '../../home.interfaces';
 
 /**
  * ===============

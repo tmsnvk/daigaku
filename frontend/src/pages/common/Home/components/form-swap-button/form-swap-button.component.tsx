@@ -17,7 +17,7 @@
 import { Button } from './form-swap-button.styles';
 
 /* interface, type, enum imports */
-import { FormType } from '../../home.types';
+import { FormType } from '../../home.interfaces';
 
 /**
  * ===============
