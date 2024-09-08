@@ -14,6 +14,7 @@
  */
 
 import { useModalControl } from './use-modal-control';
+import { useModalToggle } from './use-modal-toggle';
 import { useRenderModal } from './use-render-modal';
 
-export { useModalControl, useRenderModal };
+export { useModalControl, useModalToggle, useRenderModal };

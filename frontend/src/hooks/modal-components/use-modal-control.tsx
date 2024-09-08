@@ -31,9 +31,10 @@ export interface ModalControl {
 
 /**
  * @description
- * A custom hook that manages the display of various modal components.
+ * The custom hook manages the display of modal components that have separate show and close actions.
  *
- * @returns {ModalControl} An object containing:
+ * @returns {ModalControl}
+ * An object containing:
  * - `isModalVisible` (boolean) - The current visibility state of the modal.
  * - `showModal` (function) - A function to set the modal as visible.
  * - `closeModal` (function) - A function to hide the modal.

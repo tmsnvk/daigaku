@@ -35,7 +35,7 @@ export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVi
           >
             <input
               type={'checkbox'}
-              checked={column.isActive}
+              checked={column.isVisible}
               disabled={column.isCoreColumn}
               readOnly
             />

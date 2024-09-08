@@ -17,7 +17,7 @@ import { useGetApplicationByUuid, useGetApplications } from './application';
 import { useGetAllSelectOptions } from './application-status';
 import { useGetCountryOptions } from './country';
 import { useGetInstitutionOptions } from './institution';
-import { useModalControl, useRenderModal } from './modal-components';
+import { useModalControl, useModalToggle, useRenderModal } from './modal-components';
 import { useGetStudentAndMentorAccountRoles } from './role';
 import { useGetUniversityOptionsByCountryUuid } from './university';
 
@@ -30,5 +30,6 @@ export {
   useGetStudentAndMentorAccountRoles,
   useGetUniversityOptionsByCountryUuid,
   useModalControl,
+  useModalToggle,
   useRenderModal,
 };

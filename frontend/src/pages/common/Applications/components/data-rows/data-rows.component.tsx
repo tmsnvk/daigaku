@@ -3,8 +3,8 @@
  */
 
 /* external imports */
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 /* component, style imports */
 import { Cell, TableBodyRow } from './data-rows.styles';
@@ -16,8 +16,8 @@ import { iconLibraryConfig } from '@configuration';
 import { isColumnFound } from './data-rows.utilities';
 
 /* interface, type, enum imports */
-import { Column } from '../../applications.hooks';
 import { Application } from '@common-types';
+import { Column } from '../../applications.hooks';
 
 /* interfaces, types, enums */
 interface ComponentProps {

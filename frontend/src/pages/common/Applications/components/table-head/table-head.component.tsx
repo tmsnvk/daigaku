@@ -42,7 +42,7 @@ export const TableHead = ({ columns, columnSortHandler, toggleModalHandler, refe
     <TableHeadRow>
       {columns.map((column: Column) => {
         return (
-          column.isActive && (
+          column.isVisible && (
             <th key={column.id}>
               <button
                 type={'button'}

@@ -12,6 +12,9 @@
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
-import { Applications } from './applications.page';
 
-export { Applications };
+export const constants = {
+  uiMessage: {
+    LOADING: 'The application is compiling your data...',
+  },
+};

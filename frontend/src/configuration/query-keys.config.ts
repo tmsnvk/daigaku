@@ -26,8 +26,8 @@ export const queryKeys = {
   ACCOUNT_ROLE: {
     GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS: 'getStudentAndMentorRoleSelectOptions',
   },
-  APPLICATION: {
-    GET_ALL_BY_ROLE: 'getApplicationsByRole',
+  application: {
+    GET_ALL_BY_ROLE: 'get-applications-by-role',
     GET_BY_UUID: 'getApplicationByUuid',
   },
   INSTITUTIONS: {

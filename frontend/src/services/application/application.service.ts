@@ -58,26 +58,41 @@ export const applicationService: ApplicationService = {
 
     return data;
   },
-  /*
-   * TODO - comment
+  /**
+   * @description
+   * The method sends a GET request to fetch a list of Application objects based on the user's authorisation.
+   *
+   * @param {string} accountRole
+   * The user's authorisation.
+   *
+   * @returns {Promise<Array<Application>>}
+   * A promise that resolves when the request is successfully sent.
+   *
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
+   *
+   * @since 0.0.1
    */
-  getAllByRole: async (roleResource: string): Promise<Array<Application>> => {
-    const { data } = await axiosConfigWithAuth.request<Array<Application>>({
+  getAllByRole: async (accountRole: string): Promise<Array<Application>> => {
+    const response: AxiosResponse<Array<Application>> = await axiosConfigWithAuth.request<Array<Application>>({
       method: 'GET',
-      url: `/api/v1/applications/${roleResource}`,
+      url: `/api/v1/applications/${accountRole}`,
     });
 
-    return data;
+    return response.data;
   },
   /**
    * @description
    * The method sends a GET request to fetch dashboard-related statistics based on the user's authorisation.
    *
-   * @param {string} accountRole - The user's authorisation.
+   * @param {string} accountRole
+   * The user's authorisation.
    *
-   * @returns {Promise<DashboardStatistics>} - A promise that resolves when the request is successfully sent.
+   * @returns {Promise<DashboardStatistics>}
+   * A promise that resolves when the request is successfully sent.
    *
-   * @throws {AxiosError} - Throws an error if the request fails.
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
    *
    * @since 0.0.1
    */

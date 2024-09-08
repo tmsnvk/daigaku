@@ -2,77 +2,116 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
-import { useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
-
-/* utilities imports */
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
 
+/**
+ * ===============
+ * Custom Hook {@link useColumnVisibility}
+ * ===============
+ */
+
 /* interfaces, types, enums */
+interface ColumnConfig {
+  applicationStatus: boolean;
+  interviewStatus: boolean;
+  offerStatus: boolean;
+  responseStatus: boolean;
+  finalDestinationStatus: boolean;
+}
+
 export interface Column {
   readonly id: string;
   readonly name: string;
   readonly isCoreColumn: boolean;
-  readonly isActive: boolean;
+  readonly isVisible: boolean;
 }
 
-export interface SetColumns {
+export interface ColumnVisibility {
   columns: Array<Column>;
-  updateColumnVisibility: (id: string) => void;
+  toggleColumnVisibility: (id: string) => void;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * @description
+ * The custom hook manages the visibility of columns in the Applications page's table.
+ *
+ * @returns {ColumnVisibility}
+ * An object containing:
+ * - `columns` - The current column configuratio
+ * - `toggleColumnVisibility` - A function to toggle column visibility.
+ *
+ * @since 0.0.1
  */
-export const useSetColumns = (): SetColumns => {
-  const columnVisibility = getLocalStorageObjectById('applications-table-columns');
+export const useColumnVisibility = (): ColumnVisibility => {
+  const defaultColumnConfig: ColumnConfig = {
+    applicationStatus: true,
+    interviewStatus: false,
+    offerStatus: false,
+    responseStatus: false,
+    finalDestinationStatus: false,
+  };
+  const columnConfig: ColumnConfig = getLocalStorageObjectById<ColumnConfig>('applications-table-columns', defaultColumnConfig);
 
   const [columns, setColumns] = useState<Array<Column>>([
-    { id: 'courseName', name: 'Course', isCoreColumn: true, isActive: true },
-    { id: 'university', name: 'University', isCoreColumn: true, isActive: true },
-    { id: 'country', name: 'Country', isCoreColumn: true, isActive: true },
+    { id: 'courseName', name: 'Course', isCoreColumn: true, isVisible: true },
+    { id: 'university', name: 'University', isCoreColumn: true, isVisible: true },
+    { id: 'country', name: 'Country', isCoreColumn: true, isVisible: true },
     {
       id: 'applicationStatus',
       name: 'Application Status',
       isCoreColumn: false,
-      isActive: columnVisibility.applicationStatus ?? true,
+      isVisible: columnConfig.applicationStatus ?? true,
     },
     {
       id: 'interviewStatus',
       name: 'Interview Status',
       isCoreColumn: false,
-      isActive: columnVisibility.interviewStatus ?? false,
+      isVisible: columnConfig.interviewStatus ?? false,
     },
-    { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isActive: columnVisibility.offerStatus ?? false },
+    { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isVisible: columnConfig.offerStatus ?? false },
     {
       id: 'responseStatus',
       name: 'Response Status',
       isCoreColumn: false,
-      isActive: columnVisibility.responseStatus ?? false,
+      isVisible: columnConfig.responseStatus ?? false,
     },
     {
       id: 'finalDestinationStatus',
       name: 'Final Destination Status',
       isCoreColumn: false,
-      isActive: columnVisibility.finalDestinationStatus ?? false,
+      isVisible: columnConfig.finalDestinationStatus ?? false,
     },
   ]);
 
-  const updateColumnVisibility = (id: string): void => {
-    setColumns(
-      columns.map((column: Column) => {
+  const toggleColumnVisibility = (id: string): void => {
+    setColumns((previousColumns: Array<Column>) =>
+      previousColumns.map((column: Column) => {
         if (column.id === id) {
-          columnVisibility[column.id] = !column.isActive;
-          setLocalStorageObjectById('applications-table-columns', columnVisibility);
+          const updatedColumnConfig: ColumnConfig = { ...columnConfig, [column.id]: !column.isVisible };
 
-          return { ...column, isActive: !column.isActive };
+          setLocalStorageObjectById('applications-table-columns', updatedColumnConfig);
+
+          return { ...column, isVisible: !column.isVisible };
         }
 
         return column;
@@ -82,53 +121,44 @@ export const useSetColumns = (): SetColumns => {
 
   return {
     columns,
-    updateColumnVisibility,
+    toggleColumnVisibility,
   };
 };
 
-/* interfaces, types, enums */
-export interface DisplayColumnSelectorModal {
-  isModalVisible: boolean;
-  toggleModal: () => void;
-}
-
-/*
- * custom hook - TODO - add functionality description
+/**
+ * ===============
+ * Custom Hook {@link useSortOrder}
+ * ===============
  */
-export const useDisplayColumnSelectorModal = (): DisplayColumnSelectorModal => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
-  const toggleModal = (): void => {
-    setIsModalVisible(!isModalVisible);
-  };
-
-  return {
-    isModalVisible,
-    toggleModal,
-  };
-};
-
-enum SortOrder {
-  ASC,
-  DESC,
-}
 
 /* interfaces, types, enums */
 export interface SetOrder {
   handleColumnSort: (columnId: string) => void;
 }
 
-/*
- * custom hook - TODO - add functionality description
+enum SortOrder {
+  ASC,
+  DESC,
+}
+
+/**
+ * @description
+ * The custom hook manages the sorting of data rows in the Applications page's table.
+ *
+ * @returns {SetOrder}
+ * An object containing:
+ * - `handleColumnSort` - A function that manages the sorting updates.
+ *
+ * @since 0.0.1
  */
-export const useSetOrder = (data: Array<Application>): SetOrder => {
+export const useSortOrder = (data: Array<Application>): SetOrder => {
   const [sortedField, setSortedField] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
 
-  const sortColumns = (): void => {
-    const queryClient = new QueryClient();
+  const queryClient: QueryClient = new QueryClient();
 
-    const sortedData = data.sort((a, b) => {
+  const sortColumns = (): void => {
+    const sortedData: Array<Application> = data.sort((a, b) => {
       if (a[sortedField as keyof Application] === null) {
         return 1;
       }
@@ -143,11 +173,11 @@ export const useSetOrder = (data: Array<Application>): SetOrder => {
       );
     });
 
-    queryClient.setQueryData([queryKeys.APPLICATION.GET_ALL_BY_ROLE], [...sortedData]);
+    queryClient.setQueryData([queryKeys.application.GET_ALL_BY_ROLE], [...sortedData]);
   };
 
   const handleColumnSort = (columnId: string): void => {
-    const order = sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
+    const order: SortOrder = sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
 
     setSortedField(columnId);
     setSortOrder(order);

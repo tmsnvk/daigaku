@@ -3,9 +3,9 @@
  */
 
 /* external imports */
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
 
 /* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
@@ -60,7 +60,7 @@ export const useSubmitNewApplicationForm = ({ setError, resetCountrySelection, r
     mutationFn: (data: NewApplicationFormFields) => applicationStudentService.postByStudent(data),
     onSuccess: (data: Application) => {
       queryClient.setQueryData<Array<Application>>(
-        [queryKeys.APPLICATION.GET_ALL_BY_ROLE],
+        [queryKeys.application.GET_ALL_BY_ROLE],
         (applications: Array<Application> | undefined) => {
           if (!applications) {
             return;
