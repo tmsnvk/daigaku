@@ -36,14 +36,14 @@ import { Column } from '../../applications.hooks';
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;
-  readonly data: Array<Application>;
+  readonly applications: Array<Application>;
 }
 
 /*
  * component - TODO - add functionality description
  */
-export const DataRows = ({ columns, data }: ComponentProps) => {
-  return data.map((application: Application) => {
+export const DataRows = ({ columns, applications }: ComponentProps) => {
+  return applications.map((application: Application) => {
     return (
       <TableBodyRow key={application.uuid}>
         <Cell $shouldDisplay={isColumnFound(columns, 'courseName')}>{application.courseName}</Cell>

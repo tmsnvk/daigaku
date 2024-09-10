@@ -32,6 +32,7 @@ import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { Column } from '../../applications.hooks';
+import { constants } from './table-header.constants';
 
 /**
  * ===============
@@ -42,9 +43,9 @@ import { Column } from '../../applications.hooks';
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;
-  readonly columnSortHandler: (id: string) => void;
-  readonly toggleModalHandler: () => void;
-  readonly refetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
+  readonly onColumnSort: (id: string) => void;
+  readonly onToggleModal: () => void;
+  readonly onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
 /**
@@ -56,7 +57,7 @@ interface ComponentProps {
  *
  * @since 0.0.1
  */
-export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, refetch }: ComponentProps): JSX.Element => {
+export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }: ComponentProps): JSX.Element => {
   const { mutate, isPending, isError, error }: RequestPdfDownload = useRequestPdfDownload();
 
   if (isError) {
@@ -84,7 +85,7 @@ export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, re
             <th key={column.id}>
               <button
                 type={'button'}
-                onClick={() => columnSortHandler(column.id)}
+                onClick={() => onColumnSort(column.id)}
               >
                 {column.name}
                 <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
@@ -96,20 +97,20 @@ export const TableHeader = ({ columns, columnSortHandler, toggleModalHandler, re
       <th>
         <button
           type={'button'}
-          onClick={() => refetch({ cancelRefetch: false })}
+          onClick={() => onRefetch({ cancelRefetch: false })}
         >
           Refresh
           <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
         </button>
         <button
           type={'button'}
-          onClick={toggleModalHandler}
+          onClick={onToggleModal}
         >
           Display
           <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
         </button>
         {isPending ? (
-          <LoadingIndicator loadingText={'Handling your request...'} />
+          <LoadingIndicator loadingText={constants.uiMessage.DOWNLOAD_REQUEST} />
         ) : (
           <button
             type={'button'}

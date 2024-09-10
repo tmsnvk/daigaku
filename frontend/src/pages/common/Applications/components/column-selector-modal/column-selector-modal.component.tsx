@@ -17,9 +17,10 @@
 import { Dialog } from './column-selector-modal.styles';
 
 /* logic imports */
-import { ToggleColumnSelectorModal, useToggleColumnSelectorModal } from './column-selector-modal.hooks';
+import { useRenderModal } from '@hooks/index';
 
 /* interface, type, enum imports */
+import { RenderModal } from '@hooks/modal-components/use-render-modal';
 import { Column } from '../../applications.hooks';
 
 /**
@@ -31,16 +32,16 @@ import { Column } from '../../applications.hooks';
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;
-  readonly handleColumnVisibility: (id: string) => void;
+  readonly onToggleColumnVisibility: (id: string) => void;
   readonly isModalVisible: boolean;
-  readonly toggleModal: () => void;
+  readonly onToggle: () => void;
 }
 
 /*
  * custom component - TODO - add functionality description
  */
-export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, toggleModal }: ComponentProps) => {
-  const { dialogRef }: ToggleColumnSelectorModal = useToggleColumnSelectorModal(isModalVisible);
+export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps) => {
+  const { dialogRef }: RenderModal = useRenderModal(isModalVisible);
 
   return (
     <Dialog ref={dialogRef}>
@@ -48,7 +49,7 @@ export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVi
         return (
           <article
             key={column.id}
-            onClick={() => !column.isCoreColumn && handleColumnVisibility(column.id)}
+            onClick={() => !column.isCoreColumn && onToggleColumnVisibility(column.id)}
           >
             <input
               type={'checkbox'}
@@ -66,7 +67,7 @@ export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVi
         type={'button'}
         id={'modal-toggle'}
         name={'modal-toggle'}
-        onClick={() => toggleModal()}
+        onClick={onToggle}
       >
         Close
       </button>

@@ -84,16 +84,16 @@ export const Applications = (): JSX.Element => {
         <thead>
           <TableHeader
             columns={columns}
-            columnSortHandler={handleColumnSort}
-            toggleModalHandler={toggleModal}
-            refetch={refetch}
+            onColumnSort={handleColumnSort}
+            onToggleModal={toggleModal}
+            onRefetch={refetch}
           />
         </thead>
         <tbody>
           {data && (
             <DataRows
               columns={columns}
-              data={data}
+              applications={data}
             />
           )}
         </tbody>
@@ -101,9 +101,9 @@ export const Applications = (): JSX.Element => {
       {isModalVisible && (
         <ColumnSelectorModal
           columns={columns}
-          handleColumnVisibility={toggleColumnVisibility}
+          onToggleColumnVisibility={toggleColumnVisibility}
           isModalVisible={isModalVisible}
-          toggleModal={toggleModal}
+          onToggle={toggleModal}
         />
       )}
     </Main>

@@ -22,7 +22,8 @@ import { queryKeys } from '@configuration';
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
+import { Application, ApplicationFieldsE } from '@common-types';
+import { APPLICATION_TABLE_COLUMNS } from '@constants';
 
 /**
  * ===============
@@ -70,34 +71,34 @@ export const useColumnVisibility = (): ColumnVisibility => {
     responseStatus: false,
     finalDestinationStatus: false,
   };
-  const columnConfig: ColumnConfig = getLocalStorageObjectById<ColumnConfig>('applications-table-columns', defaultColumnConfig);
+  const columnConfig: ColumnConfig = getLocalStorageObjectById<ColumnConfig>(APPLICATION_TABLE_COLUMNS, defaultColumnConfig);
 
   const [columns, setColumns] = useState<Array<Column>>([
-    { id: 'courseName', name: 'Course', isCoreColumn: true, isVisible: true },
-    { id: 'university', name: 'University', isCoreColumn: true, isVisible: true },
-    { id: 'country', name: 'Country', isCoreColumn: true, isVisible: true },
+    { id: 'courseName', name: ApplicationFieldsE.COURSE, isCoreColumn: true, isVisible: true },
+    { id: 'university', name: ApplicationFieldsE.UNIVERSITY, isCoreColumn: true, isVisible: true },
+    { id: 'country', name: ApplicationFieldsE.COUNTRY, isCoreColumn: true, isVisible: true },
     {
       id: 'applicationStatus',
-      name: 'Application Status',
+      name: ApplicationFieldsE.APPLICATION_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.applicationStatus ?? true,
     },
     {
       id: 'interviewStatus',
-      name: 'Interview Status',
+      name: ApplicationFieldsE.INTERVIEW_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.interviewStatus ?? false,
     },
-    { id: 'offerStatus', name: 'Offer Status', isCoreColumn: false, isVisible: columnConfig.offerStatus ?? false },
+    { id: 'offerStatus', name: ApplicationFieldsE.OFFER_STATUS, isCoreColumn: false, isVisible: columnConfig.offerStatus ?? false },
     {
       id: 'responseStatus',
-      name: 'Response Status',
+      name: ApplicationFieldsE.RESPONSE_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.responseStatus ?? false,
     },
     {
       id: 'finalDestinationStatus',
-      name: 'Final Destination Status',
+      name: ApplicationFieldsE.FINAL_DESTINATION_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.finalDestinationStatus ?? false,
     },
@@ -109,7 +110,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
         if (column.id === id) {
           const updatedColumnConfig: ColumnConfig = { ...columnConfig, [column.id]: !column.isVisible };
 
-          setLocalStorageObjectById('applications-table-columns', updatedColumnConfig);
+          setLocalStorageObjectById(APPLICATION_TABLE_COLUMNS, updatedColumnConfig);
 
           return { ...column, isVisible: !column.isVisible };
         }

@@ -16,5 +16,6 @@
 export const constants = {
   uiMessage: {
     LOADING: 'The application is compiling your data...',
+    DOWNLOAD_REQUEST: 'Handling your request...',
   },
 };
