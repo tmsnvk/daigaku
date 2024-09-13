@@ -44,10 +44,5 @@ export const useRequestPdfDownload = (): RequestPdfDownload => {
   return useMutation({
     mutationKey: [mutationKeys.application.POST_REQUEST_PDF_DOWNLOAD],
     mutationFn: () => applicationStudentService.requestPdfDownload(),
-    onSuccess: () => {
-      // TODO - modal pop-up to confirm an email will arrive soon
-      // confirmation modal, pass in the showModal() method same as in reset-form
-    },
-    onError: (error: AxiosError<SendDownloadRequestErrorT>) => {},
   });
 };

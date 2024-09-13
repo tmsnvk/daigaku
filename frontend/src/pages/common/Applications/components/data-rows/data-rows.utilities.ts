@@ -18,13 +18,14 @@ import { Column } from '../../applications.hooks.tsx';
 
 /**
  * ===============
- * Helper Method {@link isColumnFound}
+ * Helper Method {@link shouldColumnBeVisible}
  * ===============
  */
 
 /**
  * @description
- * The helper method determines if a column with a specific `columnId` is found in the array of columns and returns its `isVisible` value.
+ * The helper method determines if a column with a specific `columnId` is found in the array of columns to be displayed
+ * and returns its `isVisible` value.
  *
  * @param {Array<Column>} columns
  * An array of column objects.
@@ -36,7 +37,7 @@ import { Column } from '../../applications.hooks.tsx';
  *
  * @since 0.0.1
  */
-export const isColumnFound = (columns: Array<Column>, columnId: string): boolean => {
+export const shouldColumnBeVisible = (columns: Array<Column>, columnId: string): boolean => {
   const column: Column | undefined = columns.find((column: Column) => column.id === columnId);
 
   if (column) {

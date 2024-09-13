@@ -23,7 +23,7 @@ import { RequestPdfDownload, useRequestPdfDownload } from './table-header.hooks'
 
 /* component, style imports */
 import { LoadingIndicator } from '@components/general';
-import { GlobalErrorModal } from '@components/notification';
+import { GlobalErrorModal, Toast } from '@components/notification';
 import { TableHeadRow } from './table-header.styles';
 
 /* configuration, utilities, constants imports */
@@ -58,7 +58,7 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }: ComponentProps): JSX.Element => {
-  const { mutate, isPending, isError, error }: RequestPdfDownload = useRequestPdfDownload();
+  const { mutate, isSuccess, isPending, isError, error }: RequestPdfDownload = useRequestPdfDownload();
 
   if (isError) {
     let errorMessage = '';
@@ -78,49 +78,55 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
   }
 
   return (
-    <TableHeadRow>
-      {columns.map((column: Column) => {
-        return (
-          column.isVisible && (
-            <th key={column.id}>
-              <button
-                type={'button'}
-                onClick={() => onColumnSort(column.id)}
-              >
-                {column.name}
-                <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
-              </button>
-            </th>
-          )
-        );
-      })}
-      <th>
-        <button
-          type={'button'}
-          onClick={() => onRefetch({ cancelRefetch: false })}
-        >
-          Refresh
-          <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
-        </button>
-        <button
-          type={'button'}
-          onClick={onToggleModal}
-        >
-          Display
-          <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
-        </button>
-        {isPending ? (
-          <LoadingIndicator loadingText={constants.uiMessage.DOWNLOAD_REQUEST} />
-        ) : (
+    <>
+      <TableHeadRow>
+        {columns.map((column: Column) => {
+          return (
+            column.isVisible && (
+              <th key={column.id}>
+                <button
+                  type={'button'}
+                  onClick={() => onColumnSort(column.id)}
+                >
+                  {column.name}
+                  <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
+                </button>
+              </th>
+            )
+          );
+        })}
+        <th>
           <button
             type={'button'}
-            onClick={() => mutate()}
+            onClick={() => onRefetch({ cancelRefetch: false })}
           >
-            Download
-            <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />
+            Refresh
+            <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
           </button>
-        )}
-      </th>
-    </TableHeadRow>
+          <button
+            type={'button'}
+            onClick={onToggleModal}
+          >
+            Display
+            <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
+          </button>
+          {isPending ? (
+            <LoadingIndicator loadingText={constants.uiMessage.DOWNLOAD_REQUEST} />
+          ) : (
+            <button
+              type={'button'}
+              onClick={() => mutate()}
+            >
+              Download
+              <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />
+            </button>
+          )}
+        </th>
+      </TableHeadRow>
+      <Toast
+        isVisible={isSuccess}
+        message={constants.uiMessage.DOWNLOAD_TOAST}
+      />
+    </>
   );
 };

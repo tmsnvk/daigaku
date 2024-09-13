@@ -13,11 +13,11 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-/* component, style imports */
-import { Dialog } from './column-selector-modal.styles';
-
 /* logic imports */
 import { useRenderModal } from '@hooks/index';
+
+/* component, style imports */
+import { Dialog } from './column-selector-modal.styles';
 
 /* interface, type, enum imports */
 import { RenderModal } from '@hooks/modal-components/use-render-modal';
@@ -37,10 +37,15 @@ interface ComponentProps {
   readonly onToggle: () => void;
 }
 
-/*
- * custom component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the column selector modal that lets users to choose which data columns they wish to view on the page.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps) => {
+export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps): JSX.Element => {
   const { dialogRef }: RenderModal = useRenderModal(isModalVisible);
 
   return (
