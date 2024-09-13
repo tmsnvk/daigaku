@@ -22,15 +22,15 @@ import { HandleLoginForm, LoginFormFields, useHandleLoginForm } from './login-fo
 /* component, style imports */
 import { GenericInputField, InputError, PasswordInputField, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { FormSwapButton } from '../form-swap-button/index';
+import { FormSwapButton } from '../form-swap-button';
 
 /* configuration, utilities, constants imports */
-import { formTypeButtonLabel } from '../../home.utilities';
-import { FormInstruction } from '../form-instruction/index';
+import { formTypeButtonLabel } from '../../home.constants';
+import { FormInstruction } from '../form-instruction';
 import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
-import { FormType, SelectForm, UseFormHook } from '../../home.types';
+import { FormType, SelectForm, UseFormHook } from '../../home.interfaces';
 
 /**
  * ===============
@@ -47,7 +47,8 @@ type ComponentProps = SelectForm;
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
- * @param {Function} props.selectForm - A function to handle {@link FormType} switching.
+ * @param {Function} props.selectForm
+ * A function to handle {@link FormType} switching.
  *
  * @returns {JSX.Element}
  *

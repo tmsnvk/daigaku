@@ -3,11 +3,10 @@
  */
 
 /* external imports */
-import { useState } from 'react';
 import { UseMutateFunction, useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 
 /* service imports */
-import { applicationStudentService } from '@services/application/application-student.service';
 
 /* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
@@ -31,10 +30,10 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const mutation = useMutation({
-    mutationKey: [mutationKeys.APPLICATION.IS_REMOVABLE],
+    mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
-      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (applications) => {
+      queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }

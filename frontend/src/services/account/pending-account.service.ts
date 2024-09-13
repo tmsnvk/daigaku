@@ -44,11 +44,13 @@ export const pendingAccountService: PendingAccountService = {
    * The method sends a POST request with the provided registration credentials.
    * The server handles the registration process and responds accordingly.
    *
-   * @param {RegistrationFormFields} formData - The registration form data object.
+   * @param {RegistrationFormFields} formData
+   * The registration form data object.
    *
-   * @returns {Promise<void>} - A promise that resolves when the request is successfully sent.
+   * @returns {Promise<void>}
    *
-   * @throws {AxiosError} - Throws an error if the request fails.
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
    *
    * @since 0.0.1
    */

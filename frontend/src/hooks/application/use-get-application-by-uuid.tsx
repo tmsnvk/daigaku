@@ -19,7 +19,7 @@ import { Application, SimpleQueryResult } from '@common-types';
  */
 export const useGetApplicationByUuid = (state: Application | null, applicationUuid: string): SimpleQueryResult<Application> => {
   return useQuery({
-    queryKey: [queryKeys.APPLICATION.GET_BY_UUID],
+    queryKey: [queryKeys.application.GET_BY_UUID],
     queryFn: () => applicationService.getByUuid(applicationUuid),
     enabled: state === null,
   });

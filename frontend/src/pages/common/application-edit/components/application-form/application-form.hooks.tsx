@@ -3,12 +3,11 @@
  */
 
 /* external imports */
-import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
 
 /* service imports */
-import { applicationStudentService } from '@services/application/application-student.service';
 
 /* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
@@ -18,12 +17,12 @@ import { finalDestinationSelectionError, firmChoiceSelectionError } from './appl
 
 /* interface, type, enum imports */
 import { Application, ApplicationStatusE, FinalDestinationE, InterviewStatusE, OfferStatusE, ResponseStatusE } from '@common-types';
+import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
 import { ApplicationStatus } from '@services/status/application-status.service';
+import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
 
 /* interfaces, types, enums */
 export type UpdateApplicationFormFields = {
@@ -72,7 +71,7 @@ export const useHandleFormSubmission = () => {
     const errors: Array<string> = [];
 
     const applicationsCache: Array<Application> | undefined = queryClient.getQueryData<Array<Application>>([
-      queryKeys.APPLICATION.GET_ALL_BY_ROLE,
+      queryKeys.application.GET_ALL_BY_ROLE,
     ]);
     const responseStatusCache: Array<ResponseStatus> | undefined = queryClient.getQueryData<Array<ResponseStatus>>([
       queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS,
@@ -167,10 +166,10 @@ export interface UpdateApplicationFormError {
  */
 export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationForm) => {
   return useMutation({
-    mutationKey: [mutationKeys.APPLICATION.PATCH_BY_UUID],
+    mutationKey: [mutationKeys.application.PATCH_BY_UUID],
     mutationFn: (data: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(data, applicationUuid),
     onSuccess: (data: Application) => {
-      queryClient.setQueryData<Array<Application>>([queryKeys.APPLICATION.GET_ALL_BY_ROLE], (applications) => {
+      queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }

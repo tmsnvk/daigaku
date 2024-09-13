@@ -30,10 +30,13 @@ export interface RenderModal {
 /**
  * @description
  * The custom hook manages the visibility of various modal components.
- * @param {boolean} isVisible - A boolean indicating whether the modal should be visible.
  *
- * @returns {RenderModal} An object containing:
- *  - `dialogRef` {@link React.RefObject<HTMLDialogElement>} - A ref that should be attached to the modal component to control its visibility.
+ * @param {boolean} isVisible
+ * A boolean indicating whether the modal should be visible.
+ *
+ * @returns {RenderModal}
+ * An object containing:
+ *  - `dialogRef` - A ref objcet that should be attached to the modal component to control its visibility.
  *
  * @since 0.0.1
  */

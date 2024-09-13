@@ -2,11 +2,28 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseDarkBorder } from '@components/base-styles';
+
+/**
+ * ===============
+ * Styled Component {@link Main}
+ * ===============
+ */
 
 export const Main = styled.main`
   ${BaseDarkBorder};
@@ -25,14 +42,6 @@ export const Main = styled.main`
       width: 10%;
       padding: 2.5rem 1rem 2.5rem 1rem;
       text-align: center;
-    }
-
-    & tr:last-of-type td:first-of-type {
-      border-bottom-left-radius: ${({ theme }) => theme.options.borderRadius};
-    }
-
-    & tr:last-of-type td:last-of-type {
-      border-bottom-right-radius: ${({ theme }) => theme.options.borderRadius};
     }
 
     & svg {

@@ -13,6 +13,7 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+export * from './application-fields.enum';
 export * from './application-status.enum';
 export * from './application.interface';
 export * from './form-field-validation.interface';

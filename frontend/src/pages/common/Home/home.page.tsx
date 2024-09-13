@@ -18,15 +18,18 @@ import { Navigate } from 'react-router-dom';
 
 /* logic imports */
 import { AuthContext, AuthStatus, useAuth } from '@context/auth';
-import { ModalControl, useModalControl } from '@hooks/modal-components/use-modal-control';
+import { useModalControl } from '@hooks/index';
 import { ActiveFormComponent, useActiveFormComponent } from './home.hooks';
 
 /* component, style imports */
 import { ConfirmationModal } from '@components/notification';
-import { MainContainer } from './home.styles';
+import { Main } from './home.styles';
 
 /* configuration, utilities, constants imports */
-import { confirmationModalFeedback } from './home.utilities';
+import { confirmationModalFeedback } from './home.constants';
+
+/* interface, type, enum imports */
+import { ModalControl } from '@hooks/modal-components/use-modal-control';
 
 /**
  * ===============
@@ -56,7 +59,7 @@ export const Home = (): JSX.Element => {
   }
 
   return (
-    <MainContainer>
+    <Main>
       {activeFormComponent}
       {isModalVisible && (
         <ConfirmationModal
@@ -65,6 +68,6 @@ export const Home = (): JSX.Element => {
           onCloseModal={closeModal}
         />
       )}
-    </MainContainer>
+    </Main>
   );
 };

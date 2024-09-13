@@ -27,7 +27,7 @@ import { mutationKeys } from '@configuration';
 /* interface, type, enum imports */
 import { MutationResult, ServerValidationErrorResponse } from '@common-types';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
-import { ConfirmationModal } from '../../home.types';
+import { ConfirmationModal } from '../../home.interfaces';
 
 /**
  * ===============
@@ -56,10 +56,13 @@ export type SubmitRegistrationForm = MutationResult<void, AxiosError<Array<Serve
  * @description
  * The custom hook manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
  *
- * @param {UseFormSetError<RegistrationFormFields>} params.setError - A `react-hook-form` function to set form errors.
- * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in the component.
+ * @param {UseFormSetError<RegistrationFormFields>} params.setError
+ * A `react-hook-form` function to set form errors.
+ * @param {Function} params.showModal
+ * A function to show the {@link ConfirmationModal}, used in the component.
  *
- * @returns {HandleLoginForm} - A `react-query` mutation object.
+ * @returns {HandleLoginForm}
+ * A `react-query` mutation object.
  *
  * @since 0.0.1
  */

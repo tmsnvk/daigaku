@@ -58,7 +58,8 @@ export interface DashboardStatistics {
  * @description
  * The custom hook manages fetch of dashboard-related data. The data returned depends on the user's authorisation.
  *
- * @returns {SimpleQueryResult<DashboardStatistics>} -  A `react-query` mutation object.
+ * @returns {SimpleQueryResult<DashboardStatistics>}
+ * A `react-query` mutation object.
  *
  * @since 0.0.1
  */

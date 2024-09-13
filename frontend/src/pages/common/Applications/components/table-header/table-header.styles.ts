@@ -18,14 +18,24 @@ import styled from 'styled-components';
 
 /**
  * ===============
- * Styled Component {@link Main}
+ * Styled Component {@link TableBodyRow}
  * ===============
  */
 
-export const Main = styled.main`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  row-gap: 5rem;
-  margin: 5% 5% 5% 5%;
+export const TableHeadRow = styled.tr`
+  & th {
+    &::before,
+    &::after {
+      height: 1rem;
+      display: table-row;
+      content: '';
+    }
+  }
+
+  & th:last-of-type {
+    & button,
+    & article {
+      height: 4rem;
+    }
+  }
 `;

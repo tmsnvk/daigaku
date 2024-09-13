@@ -27,7 +27,7 @@ import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { MutationResult } from '@common-types';
-import { ConfirmationModal } from '../../home.types';
+import { ConfirmationModal } from '../../home.interfaces';
 
 /**
  * ===============
@@ -52,10 +52,13 @@ export type HandleResetForm = MutationResult<void, AxiosError<ResetFormErrorT>, 
  * @description
  * The custom hook manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
  *
- * @param {UseFormSetError<ResetFormFields>} params.setError - A `react-hook-form` function to set form errors.
- * @param {Function} params.showModal - A function to show the {@link ConfirmationModal}, used in the component.
+ * @param {UseFormSetError<ResetFormFields>} params.setError
+ * A `react-hook-form` function to set form errors.
+ * @param {Function} params.showModal
+ * A function to show the {@link ConfirmationModal}, used in the component.
  *
- * @returns {HandleResetForm} - A `react-query` mutation object.
+ * @returns {HandleResetForm}
+ * A `react-query` mutation object.
  *
  * @since 0.0.1
  */

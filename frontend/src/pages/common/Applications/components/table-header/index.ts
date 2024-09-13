@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { Applications } from './applications.page';
+import { TableHeader } from './table-header.component';
 
-export { Applications };
+export { TableHeader };

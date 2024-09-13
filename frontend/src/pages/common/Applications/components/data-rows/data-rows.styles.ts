@@ -2,13 +2,25 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
-/* interfaces, types, enums */
-interface RowType {
-  readonly $shouldDisplay: boolean;
-}
+/**
+ * ===============
+ * Styled Component {@link TableBodyRow}
+ * ===============
+ */
 
 export const TableBodyRow = styled.tr`
   &:nth-child(odd) {
@@ -18,7 +30,26 @@ export const TableBodyRow = styled.tr`
   & td:last-of-type a {
     height: 4rem;
   }
+
+  &:last-of-type td:first-of-type {
+    border-bottom-left-radius: ${({ theme }) => theme.options.borderRadius};
+  }
+
+  &:last-of-type td:last-of-type {
+    border-bottom-right-radius: ${({ theme }) => theme.options.borderRadius};
+  }
 `;
+
+/**
+ * ===============
+ * Styled Component {@link Cell}
+ * ===============
+ */
+
+/* interfaces, types, enums */
+interface RowType {
+  readonly $shouldDisplay: boolean;
+}
 
 export const Cell = styled.td<RowType>`
   display: ${({ $shouldDisplay }) => ($shouldDisplay ? '' : 'none')};

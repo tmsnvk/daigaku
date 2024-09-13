@@ -31,7 +31,8 @@ interface ComponentProps {
  * @description
  * The component responsible for showing the instruction text of the given form component.
  *
- * @param {string} props.instructionText - The instruction text to be displayed.
+ * @param {string} props.instructionText
+ * The instruction text to be displayed.
  *
  * @returns {JSX.Element}
  *

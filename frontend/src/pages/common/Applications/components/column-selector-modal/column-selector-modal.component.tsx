@@ -2,28 +2,51 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+/* logic imports */
+import { useRenderModal } from '@hooks/index';
+
 /* component, style imports */
 import { Dialog } from './column-selector-modal.styles';
 
-/* logic imports */
-import { ToggleColumnSelectorModal, useToggleColumnSelectorModal } from './column-selector-modal.hooks';
-
 /* interface, type, enum imports */
+import { RenderModal } from '@hooks/modal-components/use-render-modal';
 import { Column } from '../../applications.hooks';
+
+/**
+ * ===============
+ * Component {@link ColumnSelectorModal}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly columns: Array<Column>;
-  readonly handleColumnVisibility: (id: string) => void;
+  readonly onToggleColumnVisibility: (id: string) => void;
   readonly isModalVisible: boolean;
-  readonly toggleModal: () => void;
+  readonly onToggle: () => void;
 }
 
-/*
- * custom component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the column selector modal that lets users to choose which data columns they wish to view on the page.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVisible, toggleModal }: ComponentProps) => {
-  const { dialogRef }: ToggleColumnSelectorModal = useToggleColumnSelectorModal(isModalVisible);
+export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps): JSX.Element => {
+  const { dialogRef }: RenderModal = useRenderModal(isModalVisible);
 
   return (
     <Dialog ref={dialogRef}>
@@ -31,11 +54,13 @@ export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVi
         return (
           <article
             key={column.id}
-            onClick={() => !column.isCoreColumn && handleColumnVisibility(column.id)}
+            onClick={() => !column.isCoreColumn && onToggleColumnVisibility(column.id)}
           >
             <input
               type={'checkbox'}
-              checked={column.isActive}
+              id={column.id}
+              name={column.id}
+              checked={column.isVisible}
               disabled={column.isCoreColumn}
               readOnly
             />
@@ -45,7 +70,9 @@ export const ColumnSelectorModal = ({ columns, handleColumnVisibility, isModalVi
       })}
       <button
         type={'button'}
-        onClick={() => toggleModal()}
+        id={'modal-toggle'}
+        name={'modal-toggle'}
+        onClick={onToggle}
       >
         Close
       </button>

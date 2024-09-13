@@ -44,9 +44,11 @@ export type Todo = string;
  * @description
  * The custom hook evaluates the current todo items based on the provided dashboard statistics.
  *
- * @param {DashboardStatistics} data - The dashboard statistics containing application-related aggregate data.
+ * @param {DashboardStatistics} data
+ * The dashboard statistics containing application-related aggregate data.
 
- * @returns {TodoList} - The list of active todo items.
+ * @returns {TodoList}
+ * The list of active todo items.
  *
  * @since 0.0.1
  */
@@ -54,7 +56,7 @@ export const useTodoList = (data: DashboardStatistics): TodoList => {
   const todos: Array<Todo> = [];
 
   const evaluateTodos = (): void => {
-    data.plannedApplicationsCount === 0 && todos.push(noApplications);
+    data.applicationsCount === 0 && todos.push(noApplications);
     data.submittedApplicationsCount === 0 && todos.push(noSubmittedApplications);
 
     if (data.submittedApplicationsCount > 0) {
