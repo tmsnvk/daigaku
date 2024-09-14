@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
@@ -12,12 +23,18 @@ import { SelectOptions, useGetPreviouslySelectedValue } from './active-select-fi
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
+/**
+ * ===============
+ * Component {@link ActiveSelectField}
+ * ===============
+ */
+
 /* interfaces, types, enums */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   fieldError: string | undefined;
-  fieldId: Path<T>;
-  labelContent: string;
+  id: Path<T>;
+  label: string;
   previouslySelectedValue: string;
   selectPrompt: string;
   options: Array<SelectOptions>;
@@ -31,8 +48,8 @@ interface ComponentProps<T extends FieldValues> {
 export const ActiveSelectField = <T extends FieldValues>({
   register,
   fieldError,
-  fieldId,
-  labelContent,
+  id,
+  label,
   previouslySelectedValue,
   selectPrompt,
   options,
@@ -44,15 +61,21 @@ export const ActiveSelectField = <T extends FieldValues>({
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        id={fieldId}
-        content={labelContent}
+        fieldId={id}
+        content={label}
       />
       <select
-        {...register(fieldId, {
-          onChange: (event) => onFieldUpdate(event.target.value),
+        {...register(id, {
+          onChange: (event: Event) => {
+            const target = event.target as HTMLSelectElement | null;
+
+            if (target) {
+              onFieldUpdate(target.value);
+            }
+          },
         })}
-        id={fieldId}
-        name={fieldId}
+        id={id}
+        name={id}
         disabled={isReadOnly}
         defaultValue={previousOption?.uuid}
       >

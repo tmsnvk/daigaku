@@ -10,8 +10,8 @@ export const mutationKeys = {
   },
   application: {
     POST_BY_STUDENT: 'postApplicationByStudent',
-    PATCH_BY_UUID: 'patchApplicationByUuid',
-    IS_REMOVABLE: 'patchApplicationByUuidForIsRemovable',
+    PATCH_BY_UUID: 'patch-application-by-uuid',
+    IS_REMOVABLE: 'patch-application-by-uuid-for-is-removable',
     POST_REQUEST_PDF_DOWNLOAD: 'post-request-pdf-download',
   },
   COMMENTS: {

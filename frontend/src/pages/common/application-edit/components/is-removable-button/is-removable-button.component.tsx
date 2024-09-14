@@ -14,13 +14,14 @@
  */
 
 /* logic imports */
-import { ToggleIsRemovable, useToggleIsRemovable } from './is-removable-button.hooks';
+import { HandleToggleIsRemovable, useToggleIsRemovable } from './is-removable-button.hooks';
 
 /* component, style imports */
 import { InputError } from '@components/form';
 import { Article } from './is-removable-button.styles';
 
 /* configuration, utilities, constants imports */
+import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
 import { constants } from './is-removable-button.constants';
 
 /**
@@ -43,18 +44,18 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentProps): JSX.Element => {
-  const { mutate, isPending, shouldBeDeleted, errorMessage }: ToggleIsRemovable = useToggleIsRemovable(applicationUuid, isRemovable);
+  const { mutate, isPending, isError, shouldBeRemoved }: HandleToggleIsRemovable = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (
-    <Article $isRemovable={shouldBeDeleted}>
+    <Article $isRemovable={shouldBeRemoved}>
       <button
         type={'button'}
         onClick={() => mutate()}
         disabled={isPending}
       >
-        {shouldBeDeleted ? constants.render.REVERT_REQUEST : constants.render.REQUEST_DELETION}
+        {shouldBeRemoved ? constants.render.REVERT_REQUEST : constants.render.REQUEST_DELETION}
       </button>
-      <InputError errorText={errorMessage} />
+      {isError && <InputError errorText={UNEXPECTED_GLOBAL_ERROR} />}
     </Article>
   );
 };

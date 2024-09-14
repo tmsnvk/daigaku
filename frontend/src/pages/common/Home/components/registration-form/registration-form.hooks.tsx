@@ -61,7 +61,7 @@ export type SubmitRegistrationForm = MutationResult<void, AxiosError<Array<Serve
  * @param {Function} params.showModal
  * A function to show the {@link ConfirmationModal}, used in the component.
  *
- * @returns {HandleLoginForm}
+ * @returns {SubmitRegistrationForm}
  * A `react-query` mutation object.
  *
  * @since 0.0.1

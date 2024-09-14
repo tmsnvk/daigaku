@@ -15,6 +15,7 @@
 
 /* external imports */
 import { UseMutateFunction, useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useState } from 'react';
 
 /* service imports */
@@ -22,9 +23,10 @@ import { applicationStudentService } from '@services/index';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
+import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
+import { Application, MutationResult } from '@common-types';
 
 /**
  * ===============
@@ -33,10 +35,11 @@ import { Application } from '@common-types';
  */
 
 /* interfaces, types, enums */
-export interface ToggleIsRemovable {
-  shouldBeDeleted: boolean;
+export interface HandleToggleIsRemovable {
+  shouldBeRemoved: boolean;
   errorMessage: string;
   isPending: boolean;
+  isError: boolean;
   mutate: UseMutateFunction<void, Error, void, unknown>;
 }
 
@@ -54,11 +57,11 @@ export interface ToggleIsRemovable {
  *
  * @since 0.0.1
  */
-export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): ToggleIsRemovable => {
-  const [shouldBeDeleted, setShouldBeDeleted] = useState<boolean>(isRemovable);
+export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
+  const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const mutation = useMutation({
+  const mutation: MutationResult<void, AxiosError<Error>, void> = useMutation({
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
@@ -67,28 +70,29 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
           return;
         }
 
-        const currentApplications: Array<Application> = applications.filter((application: Application) => {
+        const currentApplication: Application = applications.filter((application: Application) => {
           return application.uuid === applicationUuid;
-        });
+        })[0];
 
-        currentApplications[0].isRemovable = !currentApplications[0].isRemovable;
+        currentApplication.isRemovable = !currentApplication.isRemovable;
 
         return [...applications];
       });
 
-      setShouldBeDeleted(!shouldBeDeleted);
+      setShouldBeRemoved(!shouldBeRemoved);
 
       history.replaceState('', `/applications/view/${applicationUuid}`);
     },
     onError: () => {
-      setErrorMessage('An error has happened. Refresh your browser and try again.');
+      setErrorMessage(UNEXPECTED_GLOBAL_ERROR);
     },
   });
 
   return {
-    shouldBeDeleted,
+    shouldBeRemoved,
     errorMessage,
     isPending: mutation.isPending,
+    isError: mutation.isError,
     mutate: mutation.mutate,
   };
 };

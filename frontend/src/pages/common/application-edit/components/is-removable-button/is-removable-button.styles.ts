@@ -2,8 +2,25 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
+
+/**
+ * ===============
+ * Styled Component {@link Article}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface Article {
@@ -11,8 +28,6 @@ interface Article {
 }
 
 export const Article = styled.article<Article>`
-  margin: 0 0 0 auto;
-
   & button {
     display: flex;
     flex-direction: column;

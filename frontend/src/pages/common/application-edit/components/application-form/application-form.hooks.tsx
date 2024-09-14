@@ -2,27 +2,56 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useMutation } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
 
-/* service imports */
+/* logic imports */
+import { applicationStudentService } from '@services/index';
 
 /* configuration imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
 /* utilities imports */
-import { finalDestinationSelectionError, firmChoiceSelectionError } from './application-form.utilities';
+import { constants } from './application-form.constants';
 
 /* interface, type, enum imports */
-import { Application, ApplicationStatusE, FinalDestinationE, InterviewStatusE, OfferStatusE, ResponseStatusE } from '@common-types';
+import {
+  Application,
+  ApplicationStatusE,
+  FinalDestinationE,
+  InterviewStatusE,
+  MutationResult,
+  OfferStatusE,
+  ResponseStatusE,
+  ServerValidationErrorResponse,
+} from '@common-types';
+import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
 import { ApplicationStatus } from '@services/status/application-status.service';
 import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
+
+/**
+ * ===============
+ * Shared Types
+ * ===============
+ */
 
 /* interfaces, types, enums */
 export type UpdateApplicationFormFields = {
@@ -33,6 +62,44 @@ export type UpdateApplicationFormFields = {
   finalDestinationStatusUuid: string | undefined;
 };
 
+/**
+ * ===============
+ * Helper Method {@link filterCacheByUuid}
+ * ===============
+ */
+
+type CachedData = {
+  name: string;
+  uuid: string;
+};
+
+/**
+ * @description
+ * The helper method used by {@link useHandleFormSubmission} filters various local `react-query` cache lists
+ * by a given option name and returns the UUID of the first matching entry.
+ *
+ * @param {Array<T>} cache
+ * The array of cached data to filter.
+ * @param {string} optionName
+ * The name of the option to match in the cached data.
+ *
+ * @returns {string}
+ * The UUID of the first cached data entry that matches the provided option name.
+ *
+ * @since 0.0.1
+ */
+const filterCacheByUuid = <T extends CachedData>(cache: Array<T>, optionName: string): string => {
+  const filteredOption: T = cache?.filter((option: T) => option.name === optionName)[0];
+
+  return filteredOption.uuid;
+};
+
+/**
+ * ===============
+ * Custom Hook {@link useHandleFormSubmission}
+ * ===============
+ */
+
 type FormSubmissionT = {
   formData: UpdateApplicationFormFields;
   applicationUuid: string;
@@ -40,33 +107,22 @@ type FormSubmissionT = {
   setError: UseFormSetError<UpdateApplicationFormFields>;
 };
 
-type CachedData = {
-  name: string;
-  uuid: string;
-};
-
-const filterCacheByUuid = <T extends CachedData>(cache: T[], optionName: string): string => {
-  const filteredOption = cache?.filter((option) => option.name === optionName)[0];
-
-  return filteredOption.uuid;
-};
-
-export interface HandleFormSubmissionHook {
+export interface HandleFormSubmission {
   submitForm: ({ formData, applicationUuid, mutate, setError }: FormSubmissionT) => void;
 }
 
-/*
+/**
+ * @description
+ * The custom hook manages the {@link LoginForm} submission process, including REST API request, error handling,
+ * and post-success actions, such as setting account context and authentication status.
  *
- * custom hook - useHandleFormSubmission()
- * it validates and submits the formData towards the backend.
+ * @returns {HandleFormSubmission}
+ * An object containing:
+ * - a `submitForm` void method
  *
- *  * handleValidation() - based on reactQuery cache - checks whether there is already a firm choice / final destination set in any of the user's applications.
- * if there is no cache available, this task falls solely to the backend.
- *
- * submitForm() calls mutate() on reactQuery.
- *
+ * @since 0.0.1
  */
-export const useHandleFormSubmission = () => {
+export const useHandleFormSubmission = (): HandleFormSubmission => {
   const handleValidation = (formData: UpdateApplicationFormFields, applicationUuid: string): Array<string> => {
     const errors: Array<string> = [];
 
@@ -91,7 +147,7 @@ export const useHandleFormSubmission = () => {
     applicationsCache.forEach((application: Application) => {
       if (application.uuid !== applicationUuid) {
         if (application.responseStatus === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
-          errors.push(firmChoiceSelectionError);
+          errors.push(constants.ui.errors.FIRM_CHOICE_SELECTION);
         }
 
         if (
@@ -100,7 +156,7 @@ export const useHandleFormSubmission = () => {
           (application.finalDestinationStatus === FinalDestinationE.DEFERRED_ENTRY &&
             formData.finalDestinationStatusUuid === finalDestinationDeferredUuid)
         ) {
-          errors.push(finalDestinationSelectionError);
+          errors.push(constants.ui.errors.FINAL_DESTINATION_SELECTION);
         }
       }
     });
@@ -109,10 +165,10 @@ export const useHandleFormSubmission = () => {
   };
 
   const submitForm = ({ formData, applicationUuid, mutate, setError }: FormSubmissionT): void => {
-    const validationError: Array<string> = handleValidation(formData, applicationUuid);
+    const validationErrors: Array<string> = handleValidation(formData, applicationUuid);
 
-    if (!validationError.length) {
-      const fieldKeys = Object.keys(formData) as (keyof UpdateApplicationFormFields)[];
+    if (!validationErrors.length) {
+      const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationFormFields>;
 
       for (const key in fieldKeys) {
         if (formData[fieldKeys[key]] === undefined) {
@@ -122,7 +178,7 @@ export const useHandleFormSubmission = () => {
 
       mutate(formData);
     } else {
-      setError('root.serverError', { message: validationError.join(' ') });
+      setError('root', { message: validationErrors.join(' ') });
     }
   };
 
@@ -131,14 +187,19 @@ export const useHandleFormSubmission = () => {
   };
 };
 
+/**
+ * ===============
+ * Custom Hook {@link useUpdateApplication}
+ * ===============
+ */
+
 /* interfaces, types, enums */
-interface UpdateApplicationForm {
+interface UpdateApplication {
   setError: UseFormSetError<UpdateApplicationFormFields>;
   applicationUuid: string;
 }
 
-type UpdateApplicationFormErrorFieldsT =
-  | `root.${string}`
+type UpdateApplicationFormErrorT =
   | 'root'
   | 'applicationStatusUuid'
   | 'interviewStatusUuid'
@@ -146,50 +207,61 @@ type UpdateApplicationFormErrorFieldsT =
   | 'responseStatusUuid'
   | 'finalDestinationStatusUuid';
 
-export interface UpdateApplicationFormError {
-  response: {
-    status: number;
-    data: {
-      [key: string]: UpdateApplicationFormErrorFieldsT;
-    };
-  };
-}
+export type UpdateApplicationForm = MutationResult<
+  Application,
+  AxiosError<Array<ServerValidationErrorResponse>>,
+  UpdateApplicationFormFields
+>;
 
-/*
- * custom hook - useUpdateApplication()
- * it is where application update API call is executed.
+/**
+ * @description
+ * The custom hook manages the POST GET API call.
  *
- * onSuccess() puts the updated values into cache.
+ * @param {UseFormSetError<UpdateApplicationFormFields>} params.setError
+ * `react-hook-form`'s error setting method.
+ * @param {string} params.applicationUuid
+ * The application's UUID.
  *
- * onError() shows error messages if there is any error.
+ * @returns {UpdateApplication}
+ * A `react-query` mutation object.
  *
+ * @since 0.0.1
  */
-export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplicationForm) => {
+export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplication): UpdateApplicationForm => {
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
-    mutationFn: (data: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(data, applicationUuid),
-    onSuccess: (data: Application) => {
+    mutationFn: (formData: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(formData, applicationUuid),
+    onSuccess: (response: Application) => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }
 
-        const filteredList: Array<Application> = applications.filter((application: Application) => application.uuid !== data.uuid);
+        const filteredList: Array<Application> = applications.filter((application: Application) => application.uuid !== response.uuid);
 
-        return [...filteredList, data];
+        return [...filteredList, response];
       });
 
-      history.replaceState(data, '', `/applications/view/${data.uuid}`);
+      history.replaceState(response, '', `/applications/view/${response.uuid}`);
     },
-    onError: (error: UpdateApplicationFormError) => {
-      for (const fieldId in error.response.data) {
-        if (error.response.data[fieldId]) {
-          setError(fieldId as UpdateApplicationFormErrorFieldsT, { message: error.response.data[fieldId] });
-        }
-      }
+    onError: (error: AxiosError<Array<ServerValidationErrorResponse>>) => {
+      if (axios.isAxiosError(error)) {
+        const status: number | undefined = error.response?.status;
+        const errors: Array<ServerValidationErrorResponse> | undefined = error.response?.data;
 
-      if (error.response.data.root) {
-        setError('root.serverError', { message: error.response.data.root });
+        if (status) {
+          if (status === 400 && errors) {
+            errors.forEach((error: ServerValidationErrorResponse) => {
+              if (error.fieldName) {
+                setError(error.fieldName as UpdateApplicationFormErrorT, { message: error.errorMessage });
+              }
+            });
+          } else if (status >= 500) {
+            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+          }
+        }
+      } else {
+        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });

@@ -2,12 +2,23 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
 import {
-  HandleFormSubmissionHook,
+  HandleFormSubmission,
   UpdateApplicationFormFields,
   useHandleFieldDisableStatuses,
   useHandleFormSubmission,
@@ -23,21 +34,8 @@ import { ActiveSelectField } from '../active-select-field/index';
 import { IsRemovableButton } from '../is-removable-button/index';
 import { Form } from './application-form.styles';
 
-/* utilities imports */
-import {
-  applicationStatusInformation,
-  countryInformation,
-  courseNameInformation,
-  finalDestinationInformation,
-  formInformation,
-  interviewStatusInformation,
-  minorSubjectInformation,
-  offerStatusInformation,
-  programmeLengthInformation,
-  responseStatusInformation,
-  submissionConfirmation,
-  universityInformation,
-} from './application-form.utilities';
+/* configuration, utilities, constants imports */
+import { constants } from './application-form.constants';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
@@ -48,16 +46,27 @@ import { InterviewStatus } from '@services/status/interview-status-service.servi
 import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 
+/**
+ * ===============
+ * Component {@link ApplicationForm}
+ * ===============
+ */
+
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly application: Application;
   readonly selectOptions: ApplicationStatusOption;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the form edit page where users are able to amend their application data.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const ApplicationForm = ({ application, selectOptions }: ComponentProps) => {
+export const ApplicationForm = ({ application, selectOptions }: ComponentProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
@@ -73,16 +82,16 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
     updateFinalDestinationStatus,
     disableFieldsOnFinalDestinationUpdate,
   } = useHandleFieldDisableStatuses({ application, updatedData, selectOptions });
-  const { submitForm }: HandleFormSubmissionHook = useHandleFormSubmission();
+  const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
 
   return (
     <>
       <Form
-        id={'updateApplicationForm'}
+        id={'update-application-form'}
         method={'PATCH'}
         onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid: application.uuid, mutate, setError }))}
       >
-        <PageTitle content={'Update Application Form'} />
+        <PageTitle content={constants.form.TITLE} />
         <ApplicationMetaData
           createdAt={updatedData?.createdAt ?? application.createdAt}
           createdBy={updatedData?.createdBy ?? application.createdBy}
@@ -93,118 +102,118 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps) 
           isRemovable={updatedData?.isRemovable ?? application.isRemovable}
           applicationUuid={application.uuid}
         />
-        <InputFieldGuideText content={formInformation} />
+        <InputFieldGuideText content={constants.form.INFORMATION} />
         <DisabledInputField
           fieldId={'country'}
-          label={'Country'}
           type={'text'}
-          defaultValue={application.country}
+          label={constants.fields.country.NAME}
+          value={application.country}
         />
-        <InputFieldGuideText content={countryInformation} />
+        <InputFieldGuideText content={constants.fields.country.INFORMATION} />
         <DisabledInputField
           fieldId={'university'}
-          label={'University'}
           type={'text'}
-          defaultValue={application.university}
+          label={constants.fields.university.NAME}
+          value={application.university}
         />
-        <InputFieldGuideText content={universityInformation} />
+        <InputFieldGuideText content={constants.fields.university.INFORMATION} />
         <DisabledInputField
           fieldId={'courseName'}
-          label={'Course Name'}
           type={'text'}
-          defaultValue={application.courseName}
+          label={constants.fields.courseName.NAME}
+          value={application.courseName}
         />
-        <InputFieldGuideText content={courseNameInformation} />
+        <InputFieldGuideText content={constants.fields.courseName.INFORMATION} />
         <DisabledInputField
           fieldId={'minorSubject'}
-          label={'Minor Subject'}
           type={'text'}
-          defaultValue={application.minorSubject ?? '-'}
+          label={constants.fields.minorSubject.NAME}
+          value={application.minorSubject ?? '-'}
         />
-        <InputFieldGuideText content={minorSubjectInformation} />
+        <InputFieldGuideText content={constants.fields.minorSubject.INFORMATION} />
         <DisabledInputField
           fieldId={'programmeLength'}
-          label={'Programme Length'}
           type={'number'}
-          defaultValue={application.programmeLength}
+          label={constants.fields.programmeLength.NAME}
+          value={application.programmeLength}
         />
-        <InputFieldGuideText content={programmeLengthInformation} />
+        <InputFieldGuideText content={constants.fields.programmeLength.INFORMATION} />
         <ActiveSelectField
           register={register}
-          fieldError={errors.applicationStatusUuid?.message}
-          fieldId={'applicationStatusUuid'}
-          labelContent={'Application Status'}
-          selectPrompt={"Update the application's current status."}
+          id={'applicationStatusUuid'}
+          label={constants.fields.applicationStatus.NAME}
+          selectPrompt={constants.fields.applicationStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
-          options={selectOptions.applicationStatus as ApplicationStatus[]}
+          options={selectOptions.applicationStatus as Array<ApplicationStatus>}
           isReadOnly={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
           onFieldUpdate={updateInterviewStatus}
+          fieldError={errors.applicationStatusUuid?.message}
         />
-        <InputFieldGuideText content={applicationStatusInformation} />
+        <InputFieldGuideText content={constants.fields.applicationStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
-          fieldError={errors.interviewStatusUuid?.message}
-          fieldId={'interviewStatusUuid'}
-          labelContent={'Interview Status'}
-          selectPrompt={"Update the application's interview status."}
+          id={'interviewStatusUuid'}
+          label={constants.fields.interviewStatus.NAME}
+          selectPrompt={constants.fields.interviewStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
-          options={selectOptions.interviewStatus as InterviewStatus[]}
+          options={selectOptions.interviewStatus as Array<InterviewStatus>}
           isReadOnly={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
           onFieldUpdate={updateOfferStatus}
+          fieldError={errors.interviewStatusUuid?.message}
         />
-        <InputFieldGuideText content={interviewStatusInformation} />
+        <InputFieldGuideText content={constants.fields.interviewStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
-          fieldError={errors.offerStatusUuid?.message}
-          fieldId={'offerStatusUuid'}
-          labelContent={'Offer Status'}
-          selectPrompt={"Update the university's decision."}
+          id={'offerStatusUuid'}
+          label={constants.fields.offerStatus.NAME}
+          selectPrompt={constants.fields.offerStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
-          options={selectOptions.offerStatus as OfferStatus[]}
+          options={selectOptions.offerStatus as Array<OfferStatus>}
           isReadOnly={fieldsReadOnlyStatus.isOfferStatusReadOnly}
           onFieldUpdate={updateResponseStatus}
+          fieldError={errors.offerStatusUuid?.message}
         />
-        <InputFieldGuideText content={offerStatusInformation} />
+        <InputFieldGuideText content={constants.fields.offerStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
-          fieldError={errors.responseStatusUuid?.message}
-          fieldId={'responseStatusUuid'}
-          labelContent={'Response Status'}
-          selectPrompt={'Update your response status.'}
+          id={'responseStatusUuid'}
+          label={constants.fields.responseStatus.NAME}
+          selectPrompt={constants.fields.responseStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
-          options={selectOptions.responseStatus as ResponseStatus[]}
+          options={selectOptions.responseStatus as Array<ResponseStatus>}
           isReadOnly={fieldsReadOnlyStatus.isResponseStatusReadOnly}
           onFieldUpdate={updateFinalDestinationStatus}
+          fieldError={errors.responseStatusUuid?.message}
         />
-        <InputFieldGuideText content={responseStatusInformation} />
+        <InputFieldGuideText content={constants.fields.responseStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
-          fieldError={errors.finalDestinationStatusUuid?.message}
-          fieldId={'finalDestinationStatusUuid'}
-          labelContent={'Final Destination Status'}
-          selectPrompt={'Update your final decision regarding this application.'}
+          id={'finalDestinationStatusUuid'}
+          label={constants.fields.finalDestination.NAME}
+          selectPrompt={constants.fields.finalDestination.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
-          options={selectOptions.finalDestinationStatus as FinalDestinationStatus[]}
+          options={selectOptions.finalDestinationStatus as Array<FinalDestinationStatus>}
           isReadOnly={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
           onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
+          fieldError={errors.finalDestinationStatusUuid?.message}
         />
-        <InputFieldGuideText content={finalDestinationInformation} />
+        <InputFieldGuideText content={constants.fields.finalDestination.INFORMATION} />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={'Your application is being updated.'} />
+            <LoadingIndicator loadingText={constants.ui.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
-              value={'update application'}
+              value={constants.ui.SUBMIT}
               disabled={isPending}
             />
           )}
         </article>
-        <article>{errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}</article>
+        <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
       </Form>
       <Toast
         isVisible={isSuccess}
-        message={submissionConfirmation}
+        message={constants.form.SUBMISSION}
       />
     </>
   );
