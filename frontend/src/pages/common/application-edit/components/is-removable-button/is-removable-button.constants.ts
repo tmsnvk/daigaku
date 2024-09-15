@@ -13,6 +13,9 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { IsRemovableButton } from './is-removable-button.component';
-
-export { IsRemovableButton };
+export const constants = {
+  render: {
+    REQUEST_DELETION: 'Request deletion',
+    REVERT_REQUEST: 'Remove request',
+  },
+};
