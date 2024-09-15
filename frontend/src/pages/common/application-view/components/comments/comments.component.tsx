@@ -2,14 +2,31 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* component, style imports */
 import { Article, ErrorContainer } from './comments.styles';
 
-/* utilities imports */
-import { errorMessage } from './comments.utilities';
+/* configuration, utilities, constants imports */
+import { constants } from './comments.constants';
 
 /* interface, type, enum imports */
 import { Comment } from '@services/comment/comment.service';
+
+/**
+ * ===============
+ * Component {@link Comments}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ComponentProps {
@@ -17,12 +34,22 @@ interface ComponentProps {
   readonly isError: boolean;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the comments on the selected pagination page.
+ *
+ * @param {Array<Comment>} props.comments
+ * The list of comments.
+ * @param {boolean} props.isError
+ * A boolean value signaling whether there was an error while fetching the comments.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const Comments = ({ comments, isError }: ComponentProps) => {
+export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => {
   return isError ? (
-    <ErrorContainer>{errorMessage}</ErrorContainer>
+    <ErrorContainer>{constants.ui.error}</ErrorContainer>
   ) : (
     <Article>
       {comments.map((comment: Comment) => (

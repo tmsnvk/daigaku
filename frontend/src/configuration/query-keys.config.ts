@@ -57,7 +57,7 @@ export const queryKeys = {
   aggregate: {
     GET_DASHBOARD_STATISTICS: 'get-dashboard-statistics',
   },
-  COMMENTS: {
-    GET_ALL_BY_APPLICATION_UUID: 'getAllByApplicationUuid',
+  comments: {
+    GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION: 'get-all-by-application-uuid-and-pagination',
   },
 };

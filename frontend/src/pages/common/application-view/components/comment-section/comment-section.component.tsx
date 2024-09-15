@@ -2,36 +2,64 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* logic imports */
-import { UpdatePagination, useGetCommentsByApplication, useUpdatePagination } from './comment-section.hooks';
+import { CommentPagination, useCommentPagination, useCommentsByApplicationAndPagination } from './comment-section.hooks';
 
 /* component, style imports */
-import { CommentSectionLoader } from '../comment-section-loader/index';
-import { Comments } from '../comments/index';
 import { CommentPaginationButton } from '../comment-pagination-button/index';
+import { Comments } from '../comments/index';
 import { NewCommentBox } from '../new-comment-box/index';
 import { Section } from './comment-section.styles';
 
+/* configuration, utilities, constants imports */
+import { constants } from './comment-section.constants';
+
 /* interface, type, enum imports */
-import { CommentMeta } from '@services/comment/comment.service';
 import { SimpleQueryResult } from '@common-types';
+import { LoadingIndicator } from '@components/general';
+import { CommentMeta } from '@services/comment/comment.service';
+
+/**
+ * ===============
+ * Component {@link CommentSection}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly applicationUuid: string;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the comment section in a single application's {@link ApplicationView} page.
+ *
+ * @param {string} props.applicationUuid
+ * The application's UUID is used in the REST API request when the user submits a new comment.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const CommentSection = ({ applicationUuid }: ComponentProps) => {
-  const { currentPage, updatePreviousButton, updateNextButton }: UpdatePagination = useUpdatePagination();
-  const { data, isLoading, isError }: SimpleQueryResult<CommentMeta> = useGetCommentsByApplication(applicationUuid, currentPage);
+export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element => {
+  const { currentPage, goToPreviousPage, goToNextPage }: CommentPagination = useCommentPagination();
+  const { data, isLoading, isError }: SimpleQueryResult<CommentMeta> = useCommentsByApplicationAndPagination(applicationUuid, currentPage);
 
   return (
     <>
       {isLoading ? (
-        <CommentSectionLoader />
+        <LoadingIndicator loadingText={constants.ui.LOADING} />
       ) : (
         <Section>
           <Comments
@@ -40,15 +68,17 @@ export const CommentSection = ({ applicationUuid }: ComponentProps) => {
           />
           <div>
             <CommentPaginationButton
-              onClick={updatePreviousButton}
+              onClick={goToPreviousPage}
               isDisabled={data?.currentPage === 0}
-              content={'Previous'}
+              value={constants.ui.PREVIOUS}
             />
-            <span>Page {currentPage + 1}</span>
+            <span>
+              {constants.ui.PAGE} {currentPage + 1}
+            </span>
             <CommentPaginationButton
-              onClick={() => updateNextButton(data?.totalPages as number)}
+              onClick={() => goToNextPage(data?.totalPages as number)}
               isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
-              content={'Next'}
+              value={constants.ui.NEXT}
             />
           </div>
           <NewCommentBox applicationUuid={applicationUuid} />

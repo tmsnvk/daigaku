@@ -13,6 +13,11 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { CommentSection } from './comment-section.component';
-
-export { CommentSection };
+export const constants = {
+  ui: {
+    PREVIOUS: 'Previous',
+    NEXT: 'Next',
+    LOADING: 'Fetching comments...',
+    PAGE: 'Page',
+  },
+};

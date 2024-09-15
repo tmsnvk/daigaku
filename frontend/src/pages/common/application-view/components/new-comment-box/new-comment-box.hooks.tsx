@@ -2,19 +2,36 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useMutation } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
-/* service imports */
+/* logic imports */
 import { commentService } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { Comment } from '@services/comment/comment.service';
 import { MutationResult } from '@common-types';
+import { Comment } from '@services/comment/comment.service';
+
+/**
+ * ===============
+ * Custom Hook {@link useSubmitNewComment}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 export interface NewCommentFormFields {
@@ -42,7 +59,7 @@ export const useSubmitNewComment = (setError: UseFormSetError<NewCommentFormFiel
     mutationKey: [mutationKeys.COMMENTS.POST_COMMENT_BY_APPLICATION],
     mutationFn: (data: NewCommentFormFields) => commentService.postComment(data, applicationUuid),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.COMMENTS.GET_ALL_BY_APPLICATION_UUID, applicationUuid] });
+      queryClient.invalidateQueries({ queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid] });
     },
     onError: (error: NewCommentFormError) => {
       for (const fieldId in error.response.data) {

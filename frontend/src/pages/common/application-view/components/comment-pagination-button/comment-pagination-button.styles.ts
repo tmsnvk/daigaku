@@ -2,21 +2,34 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
-export const Button = styled.button`
-  height: 5rem;
-  padding: 0 2.5rem 0 2.5rem;
-  text-align: center;
+/* component, style imports */
+import { BaseButton } from '@components/base-styles/base-button';
+
+/**
+ * ===============
+ * Styled Component {@link PaginationButton}
+ * ===============
+ */
+
+export const PaginationButton = styled.button`
+  ${BaseButton}
+
   color: ${({ theme }) => theme.color.primaryLight};
-  font-size: ${({ theme }) => theme.fontSize.large};
-  letter-spacing: 0.3rem;
-  text-transform: uppercase;
   background-color: ${({ theme }) => theme.color.primaryDark};
-  border: 0.3rem solid ${({ theme }) => theme.color.primaryDark};
-  border-radius: ${({ theme }) => theme.options.borderRadius};
-  cursor: pointer;
 
   &:hover:not([disabled]) {
     background-color: ${({ theme }) => theme.color.secondaryDark};
@@ -25,7 +38,6 @@ export const Button = styled.button`
   }
 
   &:disabled {
-    cursor: not-allowed;
     background-color: ${({ theme }) => theme.color.tertiaryLight};
     color: ${({ theme }) => theme.color.primaryDark};
   }

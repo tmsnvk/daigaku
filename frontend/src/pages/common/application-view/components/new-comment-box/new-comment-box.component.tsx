@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useForm } from 'react-hook-form';
 
@@ -13,54 +24,69 @@ import { InputError, InputLabel, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { Form } from './new-comment-box.styles';
 
+/* configuration, utilities, constants imports */
+import { constants } from './new-comment-box.constants';
+
+/**
+ * ===============
+ * Component {@link NewCommentBox}
+ * ===============
+ */
+
 /* interfaces, types, enums */
 interface ComponentProps {
   readonly applicationUuid: string;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the comments on the selected pagination page.
+ *
+ * @param {Array<Comment>} props.applicationUuid
+ * The application's UUID is used in the REST API request when the user submits a new comment.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const NewCommentBox = ({ applicationUuid }: ComponentProps) => {
+export const NewCommentBox = ({ applicationUuid }: ComponentProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
-  const ROW_NUMBER = 10;
-  const COLUMN_NUMBER = 50;
   const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
 
   return (
     <Form
-      id={'postCommentForm'}
+      id={'post-comment-form'}
       method={'POST'}
       onSubmit={handleSubmit((formData) => mutate(formData))}
     >
       <InputLabel
-        id={'commentContent'}
-        content={'Write your comment'}
+        fieldId={'commentContent'}
+        content={constants.form.commentConent.LABEL}
       />
       <textarea
         {...register('commentContent', {
-          required: { value: true, message: 'Add your comment.' },
-          pattern: { value: /^(.|\s){5,1000}$/, message: 'Provide a minimum of 15 and a maximum of 1000 characters.' },
+          required: { value: true, message: constants.validation.REQUIRED_COMMENT },
+          pattern: { value: /^(.|\s){5,1000}$/, message: constants.validation.PATTERN_COMMENT },
         })}
         id={'commentContent'}
         name={'commentContent'}
-        rows={ROW_NUMBER}
-        cols={COLUMN_NUMBER}
+        rows={constants.ui.ROW_SIZE}
+        cols={constants.ui.COLUMN_SIZE}
         autoComplete={'off'}
-        placeholder={'Write a comment...'}
+        placeholder={constants.form.commentConent.PLACEHOLDER}
       />
       <article>
         {isPending ? (
-          <LoadingIndicator loadingText={'Your comment is being submitted.'} />
+          <LoadingIndicator loadingText={constants.ui.SUBMIT_LOADING} />
         ) : (
           <SubmitInput
             type={'submit'}
-            value={'add comment'}
+            value={constants.ui.SUBMIT_INPUT}
             disabled={isPending}
           />
         )}
