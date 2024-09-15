@@ -29,11 +29,26 @@ import { ResponseStatus } from '@services/status/response-status.service';
 /* interfaces, types, enums */
 export type SelectOptions = ApplicationStatus | InterviewStatus | OfferStatus | ResponseStatus | FinalDestinationStatus;
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * @description
+ * The custom hook manages the selection of a previously selected value.
+ * This is necessary to retrieve the previous value's UUID and set it as the input's value.
+ *
+ * @returns {SelectOptions | null}
+ * If a previously selected value exists, an object containing `name` and `uuid` fields is returned.
+ * Otherwise a null value is returned.
+ *
+ * @since 0.0.1
  */
-export const useGetPreviouslySelectedValue = (options: Array<SelectOptions>, previouslySelectedValue: string): SelectOptions => {
-  const previousOption: SelectOptions = options?.filter((option: SelectOptions) => option.name === previouslySelectedValue)[0];
+export const useGetPreviouslySelectedValue = (
+  options: Array<SelectOptions>,
+  previouslySelectedValue: string | null,
+): SelectOptions | null => {
+  if (previouslySelectedValue) {
+    const previousOption: SelectOptions = options.filter((option: SelectOptions) => option.name === previouslySelectedValue)[0];
 
-  return previousOption;
+    return previousOption;
+  } else {
+    return null;
+  }
 };

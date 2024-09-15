@@ -35,15 +35,20 @@ interface ComponentProps<T extends FieldValues> {
   fieldError: string | undefined;
   id: Path<T>;
   label: string;
-  previouslySelectedValue: string;
+  previouslySelectedValue: string | null;
   selectPrompt: string;
   options: Array<SelectOptions>;
   isReadOnly: boolean;
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders `select` input fields whose input type is included in the {@link SelectOptions} union type.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
 export const ActiveSelectField = <T extends FieldValues>({
   register,
@@ -55,8 +60,8 @@ export const ActiveSelectField = <T extends FieldValues>({
   options,
   isReadOnly,
   onFieldUpdate,
-}: ComponentProps<T>) => {
-  const previousOption: SelectOptions = useGetPreviouslySelectedValue(options, previouslySelectedValue);
+}: ComponentProps<T>): JSX.Element => {
+  const previousOption: SelectOptions | null = useGetPreviouslySelectedValue(options, previouslySelectedValue);
 
   return (
     <BaseInput $isError={fieldError !== undefined}>

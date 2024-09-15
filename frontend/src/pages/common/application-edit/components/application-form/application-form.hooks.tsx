@@ -49,7 +49,7 @@ import { ResponseStatus } from '@services/status/response-status.service';
 
 /**
  * ===============
- * Shared Types
+ * Shared Interfaces, Types, Enums
  * ===============
  */
 
@@ -267,27 +267,11 @@ export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplic
   });
 };
 
-/* interfaces, types, enums */
-type ApplicationStatusUnion =
-  | Array<ApplicationStatus>
-  | Array<InterviewStatus>
-  | Array<OfferStatus>
-  | Array<ResponseStatus>
-  | Array<FinalDestinationStatus>;
-
-interface DisabledInputFields {
-  application: Application;
-  updatedData: Application | undefined;
-  selectOptions: ApplicationStatusOption;
-}
-
-interface FieldsReadOnlyStatus {
-  isApplicationStatusReadOnly: boolean;
-  isInterviewStatusReadOnly: boolean;
-  isOfferStatusReadOnly: boolean;
-  isResponseStatusReadOnly: boolean;
-  isFinalDestinationStatusReadOnly: boolean;
-}
+/**
+ * ===============
+ * Helper Method {@link disableIfWithdrawn}
+ * ===============
+ */
 
 const disableIfWithdrawn = (
   application: Application,
@@ -305,7 +289,26 @@ const disableIfWithdrawn = (
   return false;
 };
 
-const pageLoadFieldSetup = {
+/**
+ * ===============
+ * Helper Service {@link pageLoadFieldSetup}
+ * ===============
+ */
+
+/* interfaces, types, enums */
+interface PageLoadFieldSetup {
+  applicationStatus: (application: Application) => boolean;
+  interviewStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption) => boolean;
+  offerStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption) => boolean;
+  responseStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption) => boolean;
+  finalDestinationStatus: (
+    application: Application,
+    updatedData: Application | undefined,
+    selectOptions: ApplicationStatusOption,
+  ) => boolean;
+}
+
+const pageLoadFieldSetup: PageLoadFieldSetup = {
   applicationStatus: (application: Application): boolean => {
     return !!application.finalDestinationStatus;
   },
@@ -379,9 +382,44 @@ const pageLoadFieldSetup = {
   },
 };
 
+/**
+ * ===============
+ * Helper Method {@link isStatusInList}
+ * ===============
+ */
+
+/* interfaces, types, enums */
+type ApplicationStatusUnion =
+  | Array<ApplicationStatus>
+  | Array<InterviewStatus>
+  | Array<OfferStatus>
+  | Array<ResponseStatus>
+  | Array<FinalDestinationStatus>;
+
 const isStatusInList = (statusList: ApplicationStatusUnion, statusName: string): boolean => {
   return statusList.some((element) => element.uuid === statusName);
 };
+
+/**
+ * ===============
+ * Custom Hook {@link useHandleFieldDisableStatuses}
+ * ===============
+ */
+
+/* interfaces, types, enums */
+interface DisabledInputFields {
+  application: Application;
+  updatedData: Application | undefined;
+  selectOptions: ApplicationStatusOption;
+}
+
+interface FieldsReadOnlyStatus {
+  isApplicationStatusReadOnly: boolean;
+  isInterviewStatusReadOnly: boolean;
+  isOfferStatusReadOnly: boolean;
+  isResponseStatusReadOnly: boolean;
+  isFinalDestinationStatusReadOnly: boolean;
+}
 
 /*
  *
