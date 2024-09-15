@@ -2,13 +2,30 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { ApplicationFormGrid } from '@components/form';
 
-export const ApplicationSection = styled(ApplicationFormGrid)`
+/**
+ * ===============
+ * Styled Component {@link Section}
+ * ===============
+ */
+
+export const Section = styled(ApplicationFormGrid)`
   height: fit-content;
 
   & h1 {

@@ -28,7 +28,7 @@ export const queryKeys = {
   },
   application: {
     GET_ALL_BY_ROLE: 'get-applications-by-role',
-    GET_BY_UUID: 'getApplicationByUuid',
+    GET_BY_UUID: 'get-application-by-uuid',
   },
   INSTITUTIONS: {
     GET_AS_SELECT_OPTIONS: 'getAllInstitutionSelectOptions',

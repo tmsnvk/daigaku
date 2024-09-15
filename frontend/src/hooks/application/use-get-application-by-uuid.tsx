@@ -2,20 +2,49 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useQuery } from '@tanstack/react-query';
 
-/* service imports */
+/* logic imports */
 import { applicationService } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
 import { Application, SimpleQueryResult } from '@common-types';
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * ===============
+ * Custom Hook {@link useGetApplicationByUuid}
+ * ===============
+ */
+
+/**
+ * @description
+ * The custom hook fetches an {@link Application} object by UUID.
+ * The server-side REST API request is launched only if the object is not in the local cache.
+ *
+ * @param {Application | null} state
+ * An `Application` object from the local `react-router-dom` cache, if it exists, otherwise null.
+ * @param {string} applicationUuid
+ * The application's uuid.
+ *
+ * @returns {SimpleQueryResult<Application>}
+ * A `react-query` query object.
+ *
+ * @since 0.0.1
  */
 export const useGetApplicationByUuid = (state: Application | null, applicationUuid: string): SimpleQueryResult<Application> => {
   return useQuery({

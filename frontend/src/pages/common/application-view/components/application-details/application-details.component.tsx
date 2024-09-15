@@ -2,30 +2,55 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { Link } from 'react-router-dom';
 
 /* component, style imports */
-import { PageTitle } from '@components/general';
 import { ApplicationMetaData } from '@components/application';
-import { ApplicationDetailsField } from '../application-details-field';
-import { ApplicationSection } from './application-details.styles';
+import { PageTitle } from '@components/general';
+import { ApplicationDetail } from '../application-detail';
+import { Section } from './application-details.styles';
+
+/* configuration, utilities, constants imports */
+import { constants } from './application-details.constants';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
+
+/**
+ * ===============
+ * Component {@link ApplicationDetails}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ComponentProps {
   application: Application;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the details of a single application.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const ApplicationDetails = ({ application }: ComponentProps) => {
+export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element => {
   return (
-    <ApplicationSection as={'section'}>
-      <PageTitle content={'View Application'} />
+    <Section as={'section'}>
+      <PageTitle content={constants.ui.TITLE} />
       <ApplicationMetaData
         createdAt={application.createdAt}
         createdBy={application.createdBy}
@@ -33,46 +58,44 @@ export const ApplicationDetails = ({ application }: ComponentProps) => {
         lastModifiedBy={application.lastModifiedBy}
       />
       <article>
-        <Link to={`/applications/edit/${application.uuid}`}>EDIT</Link>
+        <Link to={`/applications/edit/${application.uuid}`}>{constants.ui.EDIT_BUTTON}</Link>
       </article>
-      <ApplicationDetailsField
-        name={'Country'}
-        applicationDetail={application.country}
+      <ApplicationDetail
+        name={constants.fields.country.NAME}
+        value={application.country}
       />
-      <ApplicationDetailsField
-        name={'Course'}
-        applicationDetail={application.courseName}
+      <ApplicationDetail
+        name={constants.fields.courseName.NAME}
+        value={application.courseName}
       />
-      {application.minorSubject && (
-        <ApplicationDetailsField
-          name={'Minor'}
-          applicationDetail={application.minorSubject}
-        />
-      )}
-      <ApplicationDetailsField
-        name={'Programme Length'}
-        applicationDetail={application.programmeLength}
+      <ApplicationDetail
+        name={constants.fields.minorSubject.NAME}
+        value={application.minorSubject ?? '-'}
       />
-      <ApplicationDetailsField
-        name={'Application Status'}
-        applicationDetail={application.applicationStatus}
+      <ApplicationDetail
+        name={constants.fields.programmeLength.NAME}
+        value={application.programmeLength}
       />
-      <ApplicationDetailsField
-        name={'Interview Status'}
-        applicationDetail={application.interviewStatus}
+      <ApplicationDetail
+        name={constants.fields.applicationStatus.NAME}
+        value={application.applicationStatus}
       />
-      <ApplicationDetailsField
-        name={'Offer Status'}
-        applicationDetail={application.offerStatus}
+      <ApplicationDetail
+        name={constants.fields.interviewStatus.NAME}
+        value={application.interviewStatus}
       />
-      <ApplicationDetailsField
-        name={'Response Status'}
-        applicationDetail={application.responseStatus}
+      <ApplicationDetail
+        name={constants.fields.offerStatus.NAME}
+        value={application.offerStatus}
       />
-      <ApplicationDetailsField
-        name={'Final Destination Status'}
-        applicationDetail={application.finalDestinationStatus}
+      <ApplicationDetail
+        name={constants.fields.responseStatus.NAME}
+        value={application.responseStatus}
       />
-    </ApplicationSection>
+      <ApplicationDetail
+        name={constants.fields.finalDestination.NAME}
+        value={application.finalDestinationStatus}
+      />
+    </Section>
   );
 };

@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { ApplicationDetails } from './application-details.component';
+import { ApplicationDetail } from './application-detail.component';
 
-export { ApplicationDetails };
+export { ApplicationDetail };
