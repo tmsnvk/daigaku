@@ -13,6 +13,10 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { NewCommentBox } from './new-comment-box.component';
+/* interface, type, enum imports */
+import { Application } from './application.interface';
 
-export { NewCommentBox };
+export interface ApplicationLocation {
+  readonly state: Application;
+  readonly pathname: string;
+}

@@ -20,7 +20,7 @@ import { Article, ErrorContainer } from './comments.styles';
 import { constants } from './comments.constants';
 
 /* interface, type, enum imports */
-import { Comment } from '@services/comment/comment.service';
+import { Comment } from '@common-types';
 
 /**
  * ===============
@@ -56,7 +56,7 @@ export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => 
         <article key={comment.uuid}>
           <div>
             <p>{comment.createdBy}</p>
-            <p>{comment.content}</p>
+            <p>{comment.comment}</p>
           </div>
           <p>
             {new Date(comment.createdAt).toLocaleString('en-GB', {

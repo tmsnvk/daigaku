@@ -32,6 +32,11 @@ interface ComponentProps {
  * @description
  * The component renders a single value on the {@link ApplicationDetails} form.
  *
+ * @param {string} props.name
+ * An application detail's name property.
+ * @param {string | number} props.value
+ * An application detail's value property.
+ *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

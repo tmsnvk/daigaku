@@ -24,8 +24,7 @@ import { commentService } from '@services/index';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { SimpleQueryResult } from '@common-types';
-import { CommentMeta } from '@services/comment/comment.service';
+import { CommentMeta, SimpleQueryResult } from '@common-types';
 
 /**
  * ===============

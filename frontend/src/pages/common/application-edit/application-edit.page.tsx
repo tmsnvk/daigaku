@@ -28,7 +28,7 @@ import { ApplicationForm } from './components/application-form';
 import { constants } from './application-edit.constants';
 
 /* interface, type, enum imports */
-import { Application, Location, SimpleQueryResult } from '@common-types';
+import { Application, ApplicationLocation, SimpleQueryResult } from '@common-types';
 import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
 import { ApplicationOptions } from '@hooks/application-status/use-get-all-select-options';
 
@@ -50,7 +50,7 @@ import { ApplicationOptions } from '@hooks/application-status/use-get-all-select
  * @since 0.0.1
  */
 export const ApplicationEdit = (): JSX.Element => {
-  const { state, pathname }: Location = useLocation();
+  const { state, pathname }: ApplicationLocation = useLocation();
   const applicationUuid: string = pathname.split('/applications/edit/')[1];
   const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError }: ApplicationOptions = useGetAllSelectOptions();
   const {

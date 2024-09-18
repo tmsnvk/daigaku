@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { UseQueryResult } from '@tanstack/react-query';
+import { GenericTextarea } from './generic-textarea.component';
 
-export type SimpleQueryResult<T> = UseQueryResult<T, Error>;
+export { GenericTextarea };

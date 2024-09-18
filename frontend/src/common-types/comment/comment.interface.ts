@@ -13,9 +13,11 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { Application } from './application.interface';
-
-export interface Location {
-  readonly state: Application;
-  readonly pathname: string;
+export interface Comment {
+  readonly uuid: string;
+  readonly comment: string;
+  readonly createdAt: number;
+  readonly lastUpdatedAt: number;
+  readonly createdBy: string;
+  readonly lastModifiedBy: string;
 }

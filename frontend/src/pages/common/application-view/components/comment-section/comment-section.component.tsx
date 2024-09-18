@@ -19,16 +19,15 @@ import { CommentPagination, useCommentPagination, useCommentsByApplicationAndPag
 /* component, style imports */
 import { CommentPaginationButton } from '../comment-pagination-button/index';
 import { Comments } from '../comments/index';
-import { NewCommentBox } from '../new-comment-box/index';
+import { NewCommentForm } from '../new-comment-form/index';
 import { Section } from './comment-section.styles';
 
 /* configuration, utilities, constants imports */
 import { constants } from './comment-section.constants';
 
 /* interface, type, enum imports */
-import { SimpleQueryResult } from '@common-types';
+import { CommentMeta, SimpleQueryResult } from '@common-types';
 import { LoadingIndicator } from '@components/general';
-import { CommentMeta } from '@services/comment/comment.service';
 
 /**
  * ===============
@@ -76,12 +75,16 @@ export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element
               {constants.ui.PAGE} {currentPage + 1}
             </span>
             <CommentPaginationButton
-              onClick={() => goToNextPage(data?.totalPages as number)}
+              onClick={() => {
+                if (data?.totalPages) {
+                  goToNextPage(data.totalPages);
+                }
+              }}
               isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
               value={constants.ui.NEXT}
             />
           </div>
-          <NewCommentBox applicationUuid={applicationUuid} />
+          <NewCommentForm applicationUuid={applicationUuid} />
         </Section>
       )}
     </>

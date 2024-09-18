@@ -43,6 +43,9 @@ interface ComponentProps {
  * @description
  * The component renders the details of a single application.
  *
+ * @param {Application} props.application
+ * The selected {@link Application} object.
+ *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

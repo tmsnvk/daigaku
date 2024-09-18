@@ -14,8 +14,8 @@ export const mutationKeys = {
     IS_REMOVABLE: 'patch-application-by-uuid-for-is-removable',
     POST_REQUEST_PDF_DOWNLOAD: 'post-request-pdf-download',
   },
-  COMMENTS: {
-    POST_COMMENT_BY_APPLICATION: 'postCommentByApplicationUuid',
+  comment: {
+    POST_BY_APPLICATION_UUID: 'post-by-application-uuid',
   },
 };
 

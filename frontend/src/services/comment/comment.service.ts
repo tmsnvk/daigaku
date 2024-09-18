@@ -20,7 +20,8 @@ import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { NewCommentFormFields } from '@pages/common/application-view/components/new-comment-box/new-comment-box.hooks';
+import { Comment, CommentMeta } from '@common-types';
+import { NewCommentFormFields } from '@pages/common/application-view/components/new-comment-form/new-comment-form.hooks';
 
 /**
  * ===============
@@ -30,24 +31,7 @@ import { NewCommentFormFields } from '@pages/common/application-view/components/
 
 interface CommentService {
   getAllByApplicationUUidAndPagination: (applicationUuid: string, currentPage: number) => Promise<CommentMeta>;
-  postComment: (formData: NewCommentFormFields, applicationUuid: string) => Promise<Comment>;
-}
-
-/* interfaces, types, enums */
-export interface Comment {
-  readonly uuid: string;
-  readonly content: string;
-  readonly createdAt: number;
-  readonly lastUpdatedAt: number;
-  readonly createdBy: string;
-  readonly lastModifiedBy: string;
-}
-
-export interface CommentMeta {
-  readonly totalPages: number;
-  readonly currentPage: number;
-  readonly totalComments: number;
-  readonly comments: Array<Comment>;
+  postCommentByApplicationUuid: (formData: NewCommentFormFields, applicationUuid: string) => Promise<Comment>;
 }
 
 export const commentService: CommentService = {
@@ -76,16 +60,30 @@ export const commentService: CommentService = {
 
     return response.data;
   },
-  /*
-   * TODO - comment
+  /**
+   * @description
+   * The method sends a POST request with the provided {@link NewCommentForm} data.
+   *
+   * @param {NewCommentFormFields} formData
+   * The new comment form's data object.
+   * @param {string} applicationUuid
+   * The selected application's UUID.
+   *
+   * @returns {Promise<Comment>}
+   * A promise that resolves when the request is successfully sent.
+   *
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
+   *
+   * @since 0.0.1
    */
-  postComment: async (formData: NewCommentFormFields, applicationUuid: string): Promise<Comment> => {
-    const { data } = await axiosConfigWithAuth.request<Comment>({
+  postCommentByApplicationUuid: async (formData: NewCommentFormFields, applicationUuid: string): Promise<Comment> => {
+    const response: AxiosResponse<Comment> = await axiosConfigWithAuth.request<Comment>({
       method: 'POST',
       url: `/api/v1/comments/${applicationUuid}`,
       data: formData,
     });
 
-    return data;
+    return response.data;
   },
 };

@@ -72,7 +72,7 @@ public class CommentServiceImpl implements CommentService {
     final Comment newComment = Comment.createComment(
       relatedApplication,
       authAccount,
-      requestBody.commentContent()
+      requestBody.comment()
     );
 
     commentRepository.save(newComment);

@@ -17,19 +17,19 @@
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { NewCommentFormFields, SubmitNewComment, useSubmitNewComment } from './new-comment-box.hooks';
+import { NewCommentFormFields, SubmitNewComment, useSubmitNewComment } from './new-comment-form.hooks';
 
 /* component, style imports */
-import { InputError, InputLabel, SubmitInput } from '@components/form';
+import { GenericTextarea, InputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { Form } from './new-comment-box.styles';
+import { Form } from './new-comment-form.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './new-comment-box.constants';
+import { constants } from './new-comment-form.constants';
 
 /**
  * ===============
- * Component {@link NewCommentBox}
+ * Component {@link NewCommentForm}
  * ===============
  */
 
@@ -49,14 +49,14 @@ interface ComponentProps {
  *
  * @since 0.0.1
  */
-export const NewCommentBox = ({ applicationUuid }: ComponentProps): JSX.Element => {
+export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
+  const { isPending, mutate }: SubmitNewComment = useSubmitNewComment({ setError, applicationUuid });
 
   return (
     <Form
@@ -64,21 +64,25 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps): JSX.Element 
       method={'POST'}
       onSubmit={handleSubmit((formData) => mutate(formData))}
     >
-      <InputLabel
-        fieldId={'commentContent'}
-        content={constants.form.commentConent.LABEL}
-      />
-      <textarea
-        {...register('commentContent', {
-          required: { value: true, message: constants.validation.REQUIRED_COMMENT },
-          pattern: { value: /^(.|\s){5,1000}$/, message: constants.validation.PATTERN_COMMENT },
-        })}
-        id={'commentContent'}
-        name={'commentContent'}
+      <GenericTextarea
+        register={register}
+        validationRules={{
+          required: {
+            value: true,
+            message: constants.validation.REQUIRED_COMMENT,
+          },
+          pattern: {
+            value: /^(.|\s){15,1000}$/,
+            message: constants.validation.PATTERN_COMMENT,
+          },
+        }}
+        id={'comment'}
+        label={constants.form.commentConent.LABEL}
         rows={constants.ui.ROW_SIZE}
         cols={constants.ui.COLUMN_SIZE}
-        autoComplete={'off'}
         placeholder={constants.form.commentConent.PLACEHOLDER}
+        isDisabled={isPending}
+        error={errors.comment?.message}
       />
       <article>
         {isPending ? (
@@ -91,7 +95,7 @@ export const NewCommentBox = ({ applicationUuid }: ComponentProps): JSX.Element 
           />
         )}
       </article>
-      <article>{errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}</article>
+      <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
     </Form>
   );
 };
