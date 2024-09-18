@@ -69,6 +69,7 @@ export const accountService: AccountService = {
       url: '/api/v1/accounts/log-in',
       data: formData,
     });
+
     return response.data;
   },
   /**

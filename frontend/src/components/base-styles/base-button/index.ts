@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { CommentSection } from './comment-section.component';
+import { BaseButton } from './base-button.styles';
 
-export { CommentSection };
+export { BaseButton };

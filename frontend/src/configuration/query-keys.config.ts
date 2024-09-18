@@ -14,8 +14,8 @@ export const mutationKeys = {
     IS_REMOVABLE: 'patch-application-by-uuid-for-is-removable',
     POST_REQUEST_PDF_DOWNLOAD: 'post-request-pdf-download',
   },
-  COMMENTS: {
-    POST_COMMENT_BY_APPLICATION: 'postCommentByApplicationUuid',
+  comment: {
+    POST_BY_APPLICATION_UUID: 'post-by-application-uuid',
   },
 };
 
@@ -28,7 +28,7 @@ export const queryKeys = {
   },
   application: {
     GET_ALL_BY_ROLE: 'get-applications-by-role',
-    GET_BY_UUID: 'getApplicationByUuid',
+    GET_BY_UUID: 'get-application-by-uuid',
   },
   INSTITUTIONS: {
     GET_AS_SELECT_OPTIONS: 'getAllInstitutionSelectOptions',
@@ -57,7 +57,7 @@ export const queryKeys = {
   aggregate: {
     GET_DASHBOARD_STATISTICS: 'get-dashboard-statistics',
   },
-  COMMENTS: {
-    GET_ALL_BY_APPLICATION_UUID: 'getAllByApplicationUuid',
+  comments: {
+    GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION: 'get-all-by-application-uuid-and-pagination',
   },
 };

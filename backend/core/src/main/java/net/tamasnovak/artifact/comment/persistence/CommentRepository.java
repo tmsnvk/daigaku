@@ -15,7 +15,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     """
       SELECT
         comments.uuid AS uuid,
-        comments.content AS content,
+        comments.content AS comment,
         comments.created_at AS createdAt,
         comments.last_updated_at AS lastUpdatedAt,
         accounts.full_name AS createdBy,
@@ -48,7 +48,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     """
       SELECT
         comments.uuid AS uuid,
-        comments.content AS content,
+        comments.content AS comment,
         comments.created_at AS createdAt,
         comments.last_updated_at AS lastUpdatedAt,
         accounts.full_name AS createdBy,

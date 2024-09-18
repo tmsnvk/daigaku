@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface CommentView {
   UUID getUuid();
-  String getContent();
+  String getComment();
   Instant getCreatedAt();
   Instant getLastUpdatedAt();
   String getCreatedBy();

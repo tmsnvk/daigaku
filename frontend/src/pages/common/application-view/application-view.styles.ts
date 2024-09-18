@@ -2,10 +2,27 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
-export const MainGrid = styled.main`
+/**
+ * ===============
+ * Styled Component {@link Main}
+ * ===============
+ */
+
+export const Main = styled.main`
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   grid-template-rows: auto;

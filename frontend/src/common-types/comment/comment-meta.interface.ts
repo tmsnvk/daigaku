@@ -13,6 +13,12 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { CommentSection } from './comment-section.component';
+/* interface, type, enum imports */
+import { Comment } from './comment.interface';
 
-export { CommentSection };
+export interface CommentMeta {
+  readonly totalPages: number;
+  readonly currentPage: number;
+  readonly totalComments: number;
+  readonly comments: Array<Comment>;
+}

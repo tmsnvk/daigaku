@@ -5,6 +5,7 @@
 import { ApplicationFormGrid } from './application-form-grid-container';
 import { DisabledInputField } from './disabled-input-field';
 import { GenericInputField } from './generic-input-field';
+import { GenericTextarea } from './generic-textarea';
 import { InputError } from './input-error';
 import { InputFieldGuideText } from './input-field-guide-text';
 import { InputLabel } from './input-label';
@@ -19,13 +20,14 @@ export {
   ApplicationFormGrid,
   DisabledInputField,
   GenericInputField,
+  GenericTextarea,
   InputError,
   InputFieldGuideText,
   InputLabel,
   PasswordInputField,
   SelectAccountRole,
   SelectCountry,
-  SelectUniversity,
   SelectInstitution,
+  SelectUniversity,
   SubmitInput,
 };

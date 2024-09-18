@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { CommentSection } from './comment-section.component';
+import { NewCommentForm } from './new-comment-form.component';
 
-export { CommentSection };
+export { NewCommentForm };

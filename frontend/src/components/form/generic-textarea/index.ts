@@ -13,9 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { Application } from './application.interface';
+import { GenericTextarea } from './generic-textarea.component';
 
-export interface Location {
-  readonly state: Application;
-  readonly pathname: string;
-}
+export { GenericTextarea };

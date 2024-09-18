@@ -2,54 +2,101 @@
  * @prettier
  */
 
-/* external imports */
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
 
-/* service imports */
+/* external imports */
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+
+/* logic imports */
 import { commentService } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { SimpleQueryResult } from '@common-types';
-import { CommentMeta } from '@services/comment/comment.service';
+import { CommentMeta, SimpleQueryResult } from '@common-types';
+
+/**
+ * ===============
+ * Custom Hook {@link useCommentPagination}
+ * ===============
+ */
 
 /* interfaces, types, enums */
-export interface UpdatePagination {
+export interface CommentPagination {
   currentPage: number;
-  updatePreviousButton: () => void;
-  updateNextButton: (totalPages: number) => void;
+  goToPreviousPage: () => void;
+  goToNextPage: (totalPages: number) => void;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * @description
+ * The custom hook manages the page number tracking of the comment pagination feature.
+ *
+ * @returns {CommentPagination}
+ * An object with the following values:
+ * - `currentPage` - the current page number.
+ * - `goToPreviousPage` - a method that updates the `currentPage` value when the paginating backwards button is clicked.
+ * - `goToNextPage`- a method that updates the `currentPage` value when the paginating forwards button is clicked.
+ *
+ * @since 0.0.1
  */
-export const useUpdatePagination = (): UpdatePagination => {
+export const useCommentPagination = (): CommentPagination => {
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  const updatePreviousButton = (): void => {
-    currentPage - 1 >= 0 && setCurrentPage(currentPage - 1);
+  const goToPreviousPage = (): void => {
+    if (currentPage >= 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
-  const updateNextButton = (totalPages: number): void => {
-    currentPage + 1 < totalPages && setCurrentPage(currentPage + 1);
+  const goToNextPage = (totalPages: number): void => {
+    if (totalPages > 0 && currentPage + 1 < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   return {
     currentPage,
-    updatePreviousButton,
-    updateNextButton,
+    goToPreviousPage,
+    goToNextPage,
   };
 };
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * ===============
+ * Custom Hook {@link useCommentsByApplicationAndPagination}
+ * ===============
  */
-export const useGetCommentsByApplication = (applicationUuid: string, currentPage: number): SimpleQueryResult<CommentMeta> => {
+
+/**
+ * @description
+ * The custom hook manages the fetching of comments for a given application
+ * that belong to the selected page number in the pagination list, utilising the `react-query` library.
+ *
+ * @param {string} applicationUuid
+ * The selected application's UUID.
+ * @param {number} currentPage
+ * The current page number for pagination.
+ *
+ * @returns {SimpleQueryResult<CommentMeta>}
+ * A `react-query` query object.
+ *
+ * @since 0.0.1
+ */
+export const useCommentsByApplicationAndPagination = (applicationUuid: string, currentPage: number): SimpleQueryResult<CommentMeta> => {
   return useQuery({
-    queryKey: [queryKeys.COMMENTS.GET_ALL_BY_APPLICATION_UUID, applicationUuid, currentPage],
-    queryFn: () => commentService.getAllByApplicationUUid(applicationUuid, currentPage),
+    queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
+    queryFn: () => commentService.getAllByApplicationUUidAndPagination(applicationUuid, currentPage),
   });
 };

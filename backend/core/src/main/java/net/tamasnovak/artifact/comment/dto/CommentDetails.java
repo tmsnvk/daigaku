@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public record CommentDetails(
   UUID uuid,
-  String content,
+  String comment,
   Timestamp createdAt,
   Timestamp lastUpdatedAt,
   String createdBy,
@@ -16,7 +16,7 @@ public record CommentDetails(
   public CommentDetails(CommentView commentView) {
     this(
       commentView.getUuid(),
-      commentView.getContent(),
+      commentView.getComment(),
       Timestamp.from(commentView.getCreatedAt()),
       Timestamp.from(commentView.getLastUpdatedAt()),
       commentView.getCreatedBy(),

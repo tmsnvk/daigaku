@@ -13,6 +13,7 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { CommentSection } from './comment-section.component';
+/* interface, type, enum imports */
+import { UseMutationResult } from '@tanstack/react-query';
 
-export { CommentSection };
+export type MutationResult<T, E, V> = UseMutationResult<T, E, V, unknown>;

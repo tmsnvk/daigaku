@@ -13,6 +13,10 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { UseQueryResult } from '@tanstack/react-query';
+/* interface, type, enum imports */
+import { Application } from './application.interface';
 
-export type SimpleQueryResult<T> = UseQueryResult<T, Error>;
+export interface ApplicationLocation {
+  readonly state: Application;
+  readonly pathname: string;
+}
