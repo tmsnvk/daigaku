@@ -9,7 +9,7 @@ export const mutationKeys = {
     POST_RESET_FORM: 'post-account-reset-form',
   },
   application: {
-    POST_BY_STUDENT: 'postApplicationByStudent',
+    POST_BY_STUDENT: 'post-application-by-student',
     PATCH_BY_UUID: 'patch-application-by-uuid',
     IS_REMOVABLE: 'patch-application-by-uuid-for-is-removable',
     POST_REQUEST_PDF_DOWNLOAD: 'post-request-pdf-download',

@@ -2,52 +2,40 @@
  * @prettier
  */
 
-/* external imports */
-import { useState } from 'react';
-
-/* logic imports */
-import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks/index';
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
 
 /* component, style imports */
-import { GlobalErrorModal } from '@components/notification';
 import { NewApplicationForm } from './components';
 
 /* interface, type, enum imports */
-import { CountryOption } from '@services/support/country.service';
-import { UniversityOption } from '@services/support/university.service';
-import { ListQueryResult } from '@common-types';
 
-/*
- * component - TODO - add functionality description
+/**
+ * ===============
+ * Component {@link NewApplication}
+ * ===============
  */
-export const NewApplication = () => {
-  const [isCountryFieldSelected, setIsCountryFieldSelected] = useState<boolean>(false);
-  const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
-  const { data: countryData, isError: isCountryError }: ListQueryResult<CountryOption> = useGetCountryOptions();
-  const {
-    data: universityData,
-    isLoading: isUniversityDataLoading,
-    isError: isUniversityError,
-  }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountryFieldSelected, selectedCountryUuid);
-
-  const handleCountryField = (countryUuid: string): void => {
-    setIsCountryFieldSelected(true);
-    setSelectedCountryUuid(countryUuid);
-  };
-
-  if (isCountryError || isUniversityError) {
-    return <GlobalErrorModal />;
-  }
-
+/**
+ * @description
+ * The page-level component renders the new application form submission page for `student` authorisation users.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
+ */
+export const NewApplication = (): JSX.Element => {
   return (
     <main>
-      <NewApplicationForm
-        handleCountryClick={handleCountryField}
-        countryData={countryData ?? []}
-        universityData={universityData ?? []}
-        isUniversityDataLoading={isUniversityDataLoading}
-      />
+      <NewApplicationForm />
     </main>
   );
 };
