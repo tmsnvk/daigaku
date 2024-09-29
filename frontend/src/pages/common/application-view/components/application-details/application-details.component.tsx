@@ -17,7 +17,7 @@
 import { Link } from 'react-router-dom';
 
 /* component, style imports */
-import { ApplicationMetaData } from '@components/application';
+import { ApplicationMetadata } from '@components/application';
 import { PageTitle } from '@components/general';
 import { ApplicationDetail } from '../application-detail';
 import { Section } from './application-details.styles';
@@ -54,7 +54,7 @@ export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element
   return (
     <Section as={'section'}>
       <PageTitle content={constants.ui.TITLE} />
-      <ApplicationMetaData
+      <ApplicationMetadata
         createdAt={application.createdAt}
         createdBy={application.createdBy}
         lastUpdatedAt={application.lastUpdatedAt}

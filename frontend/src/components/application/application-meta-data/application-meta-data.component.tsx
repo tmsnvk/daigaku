@@ -2,8 +2,25 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* component, style imports */
 import { Article } from './application-meta-data.styles';
+
+/**
+ * ===============
+ * Component {@link ApplicationMetadata}
+ * ===============
+ */
 
 /* interfaces, types, enums */
 interface ComponentProps {
@@ -13,10 +30,24 @@ interface ComponentProps {
   readonly lastModifiedBy: string;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * @description
+ * The component renders the metadata of a single selected application.
+ *
+ * @param {string} props.createdAt
+ * The date and time when the application was initially created.
+ * @param {string} props.createdBy
+ * The name of the user who created the application.
+ * @param {string} props.lastUpdatedAt
+ * The date and time when the application was last updated.
+ * @param {string} props.lastModifiedBy
+ * The name of the user who last modified the application.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const ApplicationMetaData = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps) => {
+export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps): JSX.Element => {
   return (
     <Article>
       <dl>

@@ -26,7 +26,7 @@ import {
 } from './application-form.hooks';
 
 /* component, style imports */
-import { ApplicationMetaData } from '@components/application';
+import { ApplicationMetadata } from '@components/application';
 import { DisabledInputField, InputError, InputFieldGuideText, SubmitInput } from '@components/form';
 import { LoadingIndicator, PageTitle } from '@components/general';
 import { Toast } from '@components/notification';
@@ -92,7 +92,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
         onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid: application.uuid, mutate, setError }))}
       >
         <PageTitle content={constants.form.TITLE} />
-        <ApplicationMetaData
+        <ApplicationMetadata
           createdAt={updatedData?.createdAt ?? application.createdAt}
           createdBy={updatedData?.createdBy ?? application.createdBy}
           lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : application.lastUpdatedAt}
