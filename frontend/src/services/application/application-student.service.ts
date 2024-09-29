@@ -13,13 +13,16 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/* external imports */
+import { AxiosResponse } from 'axios';
+
 /* configuration imports */
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
 import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
-import { NewApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
+import { CreateApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
 
 /**
  * ===============
@@ -29,7 +32,7 @@ import { NewApplicationFormFields } from '@pages/student/new-application/compone
 
 /* interfaces, types, enums */
 interface ApplicationStudentService {
-  postByStudent: (formData: NewApplicationFormFields) => Promise<Application>;
+  postByStudent: (formData: CreateApplicationFormFields) => Promise<Application>;
   patchByUuid: (formData: UpdateApplicationFormFields, applicationUuid: string) => Promise<Application>;
   toggleIsRemovable: (applicationUuid: string) => Promise<void>;
   requestPdfDownload: () => Promise<void>;
@@ -47,10 +50,18 @@ interface ApplicationStudentService {
  * @since 0.0.1
  */
 export const applicationStudentService: ApplicationStudentService = {
-  /*
-   * TODO - comment
+  /**
+   * @description
+   * The method sends a POST request to the server to persist the entered data in the database.
+   *
+   * @returns {Promise<Application>}
+   *
+   * @throws {AxiosError}
+   * Throws an error if the request fails.
+   *
+   * @since 0.0.1
    */
-  postByStudent: async (formData: NewApplicationFormFields): Promise<Application> => {
+  postByStudent: async (formData: CreateApplicationFormFields): Promise<Application> => {
     const { data } = await axiosConfigWithAuth.request<Application>({
       method: 'POST',
       url: '/api/v1/applications/student',
@@ -64,13 +75,13 @@ export const applicationStudentService: ApplicationStudentService = {
    */
   patchByUuid: async (formData: UpdateApplicationFormFields, applicationUuid: string): Promise<Application> => {
     // update this appropriate for mentor/admin links
-    const { data } = await axiosConfigWithAuth.request<Application>({
+    const response: AxiosResponse<Application> = await axiosConfigWithAuth.request<Application>({
       method: 'PATCH',
       url: `/api/v1/applications/student/${applicationUuid}`,
       data: formData,
     });
 
-    return data;
+    return response.data;
   },
   /*
    * TODO - comment

@@ -20,7 +20,7 @@ interface ComponentProps<T extends FieldValues> {
   id: Path<T>;
   label: string;
   type: string;
-  placeholder: string;
+  placeholder?: string;
   defaultValue?: string | number;
   isDisabled: boolean;
 }

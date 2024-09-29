@@ -18,9 +18,8 @@ interface ComponentProps<T extends FieldValues> {
   fieldError: string | undefined;
   fieldId: Path<T>;
   isDisabled: boolean;
-  countryOptions: Array<CountryOption>;
-  onCountryClick: (event: string) => void;
-  onCountrySelection: () => void;
+  options: Array<CountryOption>;
+  onCountrySelection: (event: string) => void;
 }
 
 /*
@@ -31,14 +30,13 @@ export const SelectCountry = <T extends FieldValues>({
   fieldError,
   fieldId,
   isDisabled,
-  countryOptions,
-  onCountryClick,
+  options,
   onCountrySelection,
 }: ComponentProps<T>) => {
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        id={fieldId}
+        fieldId={fieldId}
         content={'Country'}
       />
       <select
@@ -48,8 +46,7 @@ export const SelectCountry = <T extends FieldValues>({
             message: 'Selecting a country is required.',
           },
           onChange: (event) => {
-            onCountryClick(event.target.value);
-            onCountrySelection();
+            onCountrySelection(event.target.value);
           },
         })}
         id={fieldId}
@@ -62,7 +59,7 @@ export const SelectCountry = <T extends FieldValues>({
         >
           Select the country of your choice.
         </option>
-        {countryOptions.map((countryOption: CountryOption) => (
+        {options.map((countryOption: CountryOption) => (
           <option
             key={countryOption.uuid}
             value={countryOption.uuid}

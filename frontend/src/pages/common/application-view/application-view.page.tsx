@@ -65,7 +65,6 @@ export const ApplicationView = (): JSX.Element => {
     return (
       <GlobalErrorModal
         isVisible={isError}
-        errorText={''}
         onCloseModal={() => console.log('FIX ME')}
       />
     );

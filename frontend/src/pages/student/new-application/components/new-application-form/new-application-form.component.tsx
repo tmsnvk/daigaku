@@ -2,170 +2,201 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
 import {
-  CheckFieldDisableStatus,
-  NewApplicationFormFields,
-  SubmitNewApplicationForm,
-  useCheckFieldDisableStatus,
-  useSubmitNewApplicationForm,
+  CountrySelection,
+  CreateApplication,
+  CreateApplicationFormFields,
+  useCountrySelection,
+  useCreateApplication,
 } from './new-application-form.hooks';
 
 /* component, style imports */
 import { GenericInputField, InputError, InputFieldGuideText, SelectCountry, SelectUniversity, SubmitInput } from '@components/form';
 import { LoadingIndicator, PageTitle } from '@components/general';
-import { Toast } from '@components/notification';
-import { FormContainer } from './new-application-form.styles';
+import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
+import { Form } from './new-application-form.styles';
 
-/* utilities imports */
-import {
-  countryInformation,
-  formInformation,
-  majorSubjectInformation,
-  minorSubjectInformation,
-  programmeLengthInformation,
-  submissionConfirmation,
-  universityInformation,
-} from './new-application-form.utilities';
+/* configuration, utilities, constants imports */
+import { constants } from './new-application-form.constants';
 
 /* interface, type, enum imports */
+import { ListQueryResult } from '@common-types';
+import { useGetCountryOptions } from '@hooks/country';
+import { useGetUniversityOptionsByCountryUuid } from '@hooks/university';
 import { CountryOption } from '@services/support/country.service';
 import { UniversityOption } from '@services/support/university.service';
 
-/* interfaces, types, enums */
-interface ComponentProps {
-  readonly handleCountryClick: (event: string) => void;
-  readonly countryData: CountryOption[];
-  readonly universityData: UniversityOption[];
-  readonly isUniversityDataLoading: boolean;
-}
-
-/*
- * component - TODO - add functionality description
+/**
+ * ===============
+ * Component {@link NewApplicationForm}
+ * ===============
  */
-export const NewApplicationForm = ({ handleCountryClick, countryData, universityData, isUniversityDataLoading }: ComponentProps) => {
+
+/**
+ * @description
+ * The component is responsible for rendering the new application submission form for student users.
+ * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
+ */
+export const NewApplicationForm = (): JSX.Element => {
+  const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid }: CountrySelection = useCountrySelection();
+  const {
+    data: countryOptions,
+    isLoading: isCountryDataLoading,
+    isError: isCountryError,
+  }: ListQueryResult<CountryOption> = useGetCountryOptions();
+  const {
+    data: universityOptions,
+    isLoading: isUniversityDataLoading,
+    isError: isUniversityError,
+  }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
   const {
     formState: { errors },
     reset,
     handleSubmit,
     register,
     setError,
-  } = useForm<NewApplicationFormFields>({ mode: 'onSubmit' });
-  const { isCountrySelected, handleCountrySelection, resetCountrySelection }: CheckFieldDisableStatus = useCheckFieldDisableStatus();
-  const { isPending, isSuccess, mutate }: SubmitNewApplicationForm = useSubmitNewApplicationForm({
-    setError,
-    resetCountrySelection,
-    reset,
-  });
+  } = useForm<CreateApplicationFormFields>({ mode: 'onSubmit' });
+  const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication({ setError, resetCountrySelection, reset });
+
+  if (isCountryDataLoading) {
+    return (
+      <GlobalLoadingModal
+        isVisible={isCountryDataLoading}
+        loadingText={constants.pageMessage.LOADING}
+      />
+    );
+  }
+
+  if (isCountryError || isUniversityError) {
+    return (
+      <GlobalErrorModal
+        isVisible={isCountryError || isUniversityError}
+        onCloseModal={() => console.log('FIX ME')}
+      />
+    );
+  }
 
   return (
     <>
-      <FormContainer
-        id={'newApplicationForm'}
+      <Form
+        id={'new-application-form'}
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <PageTitle content={'New Application Form'} />
-        <InputFieldGuideText content={formInformation} />
+        <PageTitle content={constants.form.TITLE} />
+        <InputFieldGuideText content={constants.form.country.INFORMATION} />
         <SelectCountry
           register={register}
           fieldError={errors.countryUuid?.message}
           fieldId={'countryUuid'}
           isDisabled={isPending}
-          countryOptions={countryData}
-          onCountryClick={handleCountryClick}
-          onCountrySelection={handleCountrySelection}
+          options={countryOptions ?? []}
+          onCountrySelection={selectCountry}
         />
-        <InputFieldGuideText content={countryInformation} />
+        <InputFieldGuideText content={constants.form.country.INFORMATION} />
         {isUniversityDataLoading ? (
-          <LoadingIndicator loadingText={'Fetching university list...'} />
+          <LoadingIndicator loadingText={constants.uiMessage.UNIVERSITY_LOADING} />
         ) : (
           <SelectUniversity
             register={register}
             fieldError={errors.universityUuid?.message}
             fieldId={'universityUuid'}
             isDisabled={isPending || !isCountrySelected}
-            universityOptions={universityData}
+            universityOptions={universityOptions ?? []}
           />
         )}
-        <InputFieldGuideText content={universityInformation} />
+        <InputFieldGuideText content={constants.form.university.INFORMATION} />
         <GenericInputField
           register={register}
           validationRules={{
             required: {
               value: true,
-              message: 'Providing the name of your selected course is required.',
+              message: constants.validation.courseName.REQUIRED,
             },
             pattern: {
               value: /^[\p{L}\s]{5,255}$/u,
-              message: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
+              message: constants.validation.courseName.PATTERN,
             },
           }}
           error={errors.courseName?.message}
           id={'courseName'}
-          label={'Course name'}
+          label={constants.form.courseName.LABEL}
           type={'text'}
-          placeholder={'Provide the course of your choice.'}
+          placeholder={constants.form.courseName.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={majorSubjectInformation} />
+        <InputFieldGuideText content={constants.form.courseName.INFORMATION} />
         <GenericInputField
           register={register}
           validationRules={{
             pattern: {
               value: /^[\p{L}\s]{5,255}$/u,
-              message:
-                'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
+              message: constants.validation.minorSubject.PATTERN,
             },
           }}
           error={errors.minorSubject?.message}
           id={'minorSubject'}
-          label={'Minor subject'}
+          label={constants.form.minorSubject.LABEL}
           type={'text'}
-          placeholder={'Provide your minor course.'}
+          placeholder={constants.form.minorSubject.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={minorSubjectInformation} />
+        <InputFieldGuideText content={constants.form.minorSubject.INFORMATION} />
         <GenericInputField
           register={register}
           validationRules={{
             required: {
               value: true,
-              message: 'Providing the length of your selected course is required.',
+              message: constants.validation.programmeLength.REQUIRED,
             },
             pattern: {
               value: /^\b[2-5]\b$/,
-              message: 'You may enter numeric values only between 2 and 5.',
+              message: constants.validation.programmeLength.PATTERN,
             },
           }}
           error={errors.programmeLength?.message}
           id={'programmeLength'}
-          label={'Programme length'}
+          label={constants.form.programmeLength.LABEL}
           type={'number'}
-          placeholder={'Provide the length of the course of your choice.'}
           defaultValue={3}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={programmeLengthInformation} />
+        <InputFieldGuideText content={constants.form.programmeLength.INFORMATION} />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={'Your application is being submitted.'} />
+            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
-              value={'submit application'}
+              value={constants.form.SUBMIT}
               disabled={isPending}
             />
           )}
         </article>
-        <article>{errors.root?.serverError && <InputError errorText={errors.root.serverError.message as string} />}</article>
-      </FormContainer>
+        <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
+      </Form>
       <Toast
         isVisible={isSuccess}
-        message={submissionConfirmation}
+        message={constants.uiMessage.SUCCESS_TOAST}
       />
     </>
   );
