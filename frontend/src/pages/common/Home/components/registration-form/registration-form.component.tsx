@@ -22,7 +22,7 @@ import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
 import { RegistrationFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
 
 /* component, style imports */
-import { GenericInputField, InputError, SelectAccountRole, SelectInstitution, SubmitInput } from '@components/form';
+import { AccountRoleDropdown, GenericInputField, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormSwapButton } from '../form-swap-button/index';
@@ -108,11 +108,11 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.REQUIRED_FIRST_NAME,
+              message: constants.validation.FIRST_NAME_REQUIRED,
             },
             pattern: {
               value: /^[\p{L}\s]{2,100}$/u,
-              message: constants.validation.PATTERN_FIRST_NAME,
+              message: constants.validation.FIRST_NAME_PATTERN,
             },
           }}
           type={'text'}
@@ -127,11 +127,11 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.REQUIRED_LAST_NAME,
+              message: constants.validation.LAST_NAME_REQUIRED,
             },
             pattern: {
               value: /^[\p{L}\s]{2,100}$/u,
-              message: constants.validation.PATTERN_LAST_NAME,
+              message: constants.validation.LAST_NAME_PATTERN,
             },
           }}
           type={'text'}
@@ -146,7 +146,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.REQUIRED_EMAIL,
+              message: constants.validation.EMAIL_REQUIRED,
             },
           }}
           type={'email'}
@@ -156,19 +156,31 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           isDisabled={isPending}
           error={errors.email?.message}
         />
-        <SelectInstitution
+        <InstitutionDropdown
           register={register}
+          validationRules={{
+            required: {
+              value: true,
+              message: constants.validation.INSTITUTION_REQUIRED,
+            },
+          }}
           id={'institutionUuid'}
           institutions={institutions ?? []}
           isDisabled={isPending}
-          fieldError={errors.institutionUuid?.message}
+          error={errors.institutionUuid?.message}
         />
-        <SelectAccountRole
+        <AccountRoleDropdown
           register={register}
+          validationRules={{
+            required: {
+              value: true,
+              message: constants.validation.ACCOUNT_ROLE_REQUIRED,
+            },
+          }}
           id={'accountRoleUuid'}
           roles={roles ?? []}
           isDisabled={isPending}
-          fieldError={errors.accountRoleUuid?.message}
+          error={errors.accountRoleUuid?.message}
         />
         <article>
           {isPending ? (
@@ -182,7 +194,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
               disabled={isPending}
             />
           )}
-          {errors.root && <InputError errorText={errors.root.message} />}
+          {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
       <article>

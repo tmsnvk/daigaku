@@ -26,7 +26,7 @@ import {
 } from './new-application-form.hooks';
 
 /* component, style imports */
-import { GenericInputField, InputError, InputFieldGuideText, SelectCountry, SelectUniversity, SubmitInput } from '@components/form';
+import { CountryDropdown, GenericInputField, InputError, InputFieldGuideText, SubmitInput, UniversityDropdown } from '@components/form';
 import { LoadingIndicator, PageTitle } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
 import { Form } from './new-application-form.styles';
@@ -102,29 +102,41 @@ export const NewApplicationForm = (): JSX.Element => {
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <PageTitle content={constants.form.TITLE} />
-        <InputFieldGuideText content={constants.form.country.INFORMATION} />
-        <SelectCountry
+        <PageTitle title={constants.form.TITLE} />
+        <InputFieldGuideText paragraphs={constants.form.country.INFORMATION} />
+        <CountryDropdown
           register={register}
-          fieldError={errors.countryUuid?.message}
-          fieldId={'countryUuid'}
+          validationRules={{
+            required: {
+              value: true,
+              message: constants.validation.country.REQUIRED,
+            },
+          }}
+          error={errors.countryUuid?.message}
+          id={'countryUuid'}
           isDisabled={isPending}
           options={countryOptions ?? []}
           onCountrySelection={selectCountry}
         />
-        <InputFieldGuideText content={constants.form.country.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.form.country.INFORMATION} />
         {isUniversityDataLoading ? (
           <LoadingIndicator loadingText={constants.uiMessage.UNIVERSITY_LOADING} />
         ) : (
-          <SelectUniversity
+          <UniversityDropdown
             register={register}
-            fieldError={errors.universityUuid?.message}
-            fieldId={'universityUuid'}
+            validationRules={{
+              required: {
+                value: true,
+                message: constants.validation.university.REQUIRED,
+              },
+            }}
+            error={errors.universityUuid?.message}
+            id={'universityUuid'}
             isDisabled={isPending || !isCountrySelected}
             universityOptions={universityOptions ?? []}
           />
         )}
-        <InputFieldGuideText content={constants.form.university.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.form.university.INFORMATION} />
         <GenericInputField
           register={register}
           validationRules={{
@@ -144,7 +156,7 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={constants.form.courseName.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={constants.form.courseName.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.form.courseName.INFORMATION} />
         <GenericInputField
           register={register}
           validationRules={{
@@ -160,7 +172,7 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={constants.form.minorSubject.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={constants.form.minorSubject.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.form.minorSubject.INFORMATION} />
         <GenericInputField
           register={register}
           validationRules={{
@@ -180,7 +192,7 @@ export const NewApplicationForm = (): JSX.Element => {
           defaultValue={3}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={constants.form.programmeLength.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.form.programmeLength.INFORMATION} />
         <article>
           {isPending ? (
             <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
@@ -192,7 +204,7 @@ export const NewApplicationForm = (): JSX.Element => {
             />
           )}
         </article>
-        <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
+        <article>{errors.root && <InputError message={errors.root.message} />}</article>
       </Form>
       <Toast
         isVisible={isSuccess}

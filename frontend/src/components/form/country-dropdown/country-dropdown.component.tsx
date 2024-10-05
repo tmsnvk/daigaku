@@ -16,16 +16,23 @@
 /* external imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+/* logic imports */
+import { SelectCountry, useSelectCountry } from './country-dropdown.hooks';
+
 /* component, style imports */
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
+/* configuration, utilities, constants imports */
+import { constants } from './country-dropdown.constants';
+
 /* interface, type, enum imports */
 import { FormFieldValidation } from '@common-types';
+import { CountryOption } from '@services/support/country.service';
 
 /**
  * ===============
- * Component {@link GenericInputField}
+ * Component {@link CountryDropdown}
  * ===============
  */
 
@@ -35,59 +42,67 @@ interface ComponentProps<T extends FieldValues> {
   validationRules?: FormFieldValidation;
   error: string | undefined;
   id: Path<T>;
-  label: string;
-  type: string;
-  placeholder?: string;
-  defaultValue?: string | number;
   isDisabled: boolean;
+  options: Array<CountryOption>;
+  onCountrySelection: (event: string) => void;
 }
 
 /**
  * @description
- * The component renders a generic input field incorporated with the `react-hook-form` library to handle validation and error display.
+ * A dropdown component to select a country.
  *
- * @param {ComponentProps} props
+ * @param {ComponentProps<T extends FieldValues>} props
  * @param props.register `react-hook-form` register method.
  * @param props.validationRules Validation rules for `react-hook-form` validation handling.
  * @param props.error Error message if any.
  * @param props.id The id of the input field.
- * @param props.label The label of the input field.
- * @param props.type The type of the input field.
- * @param props.placeholder The placeholder text of the input field.
- * @param props.defaultValue The default value of the input field.
  * @param props.isDisabled The disabled status of the input field.
+ * @param props.options The list of countries that should be available in the dropdown field.
+ * @param props.onCountrySelection The callback method that handles logic once a country is selected.
  *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
  */
-export const GenericInputField = <T extends FieldValues>({
+export const CountryDropdown = <T extends FieldValues>({
   register,
   validationRules,
   error,
   id,
-  label,
-  type,
-  placeholder,
-  defaultValue,
   isDisabled,
+  options,
+  onCountrySelection,
 }: ComponentProps<T>): JSX.Element => {
+  const { handleCountrySelection }: SelectCountry = useSelectCountry({ onCountrySelection });
+
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        labelText={constants.input.LABEL_TEXT}
       />
-      <input
+      <select
         {...register(id, validationRules)}
-        type={type}
+        onChange={handleCountrySelection}
         id={id}
         name={id}
-        autoComplete={'off'}
-        placeholder={placeholder}
         disabled={isDisabled}
-        defaultValue={defaultValue ?? ''}
-      />
+      >
+        <option
+          hidden
+          value={''}
+        >
+          Select the country of your choice.
+        </option>
+        {options.map((countryOption: CountryOption) => (
+          <option
+            key={countryOption.uuid}
+            value={countryOption.uuid}
+          >
+            {countryOption.name}
+          </option>
+        ))}
+      </select>
       {error && <InputError message={error} />}
     </BaseInput>
   );

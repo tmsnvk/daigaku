@@ -34,13 +34,13 @@ interface ComponentProps {
  * @description
  * The component renders the metadata of a single selected application.
  *
- * @param {string} props.createdAt
+ * @param createdAt
  * The date and time when the application was initially created.
- * @param {string} props.createdBy
+ * @param createdBy
  * The name of the user who created the application.
- * @param {string} props.lastUpdatedAt
+ * @param lastUpdatedAt
  * The date and time when the application was last updated.
- * @param {string} props.lastModifiedBy
+ * @param lastModifiedBy
  * The name of the user who last modified the application.
  *
  * @returns {JSX.Element}

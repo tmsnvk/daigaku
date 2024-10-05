@@ -17,15 +17,19 @@
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 /* component, style imports */
-import { BaseTextarea } from '@components/base-styles';
+import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
+
+/* configuration, utilities, constants imports */
+import { constants } from './university-dropdown.constants';
 
 /* interface, type, enum imports */
 import { FormFieldValidation } from '@common-types';
+import { UniversityOption } from '@services/support/university.service';
 
 /**
  * ===============
- * Component {@link GenericTextarea}
+ * Component {@link UniversityDropdown}
  * ===============
  */
 
@@ -35,60 +39,62 @@ interface ComponentProps<T extends FieldValues> {
   validationRules?: FormFieldValidation;
   error: string | undefined;
   id: Path<T>;
-  label: string;
-  rows: number;
-  cols: number;
-  placeholder: string;
   isDisabled: boolean;
+  universityOptions: Array<UniversityOption>;
 }
 
 /**
  * @description
- * The component renders a generic textarea field incorporated with the `react-hook-form` library to handle validation and error display.
+ * A dropdown component to select an institution.
  *
- * @param {ComponentProps} props
+ * @param {ComponentProps<T extends FieldValues>} props
  * @param props.register `react-hook-form` register method.
  * @param props.validationRules Validation rules for `react-hook-form` validation handling.
  * @param props.error Error message if any.
- * @param props.id The id of the textarea field.
- * @param props.label The label of the textarea field.
- * @param props.rows The number of default rows the field should take up.
- * @param props.cols The number of default columns the field should take up.
- * @param props.placeholder The placeholder text of the textarea field.
- * @param props.isDisabled The disabled status of the textarea field.
+ * @param props.id The id of the input field.
+ * @param props.isDisabled The disabled status of the input field.
+ * @param props.institutions The list of institutions that should be available in the dropdown field.
  *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
  */
-export const GenericTextarea = <T extends FieldValues>({
+export const UniversityDropdown = <T extends FieldValues>({
   register,
   validationRules,
   error,
   id,
-  label,
-  rows,
-  cols,
-  placeholder,
   isDisabled,
+  universityOptions,
 }: ComponentProps<T>): JSX.Element => {
   return (
-    <BaseTextarea $isError={error !== undefined}>
+    <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        labelText={constants.input.LABEL_TEXT}
       />
-      <textarea
+      <select
         {...register(id, validationRules)}
         id={id}
         name={id}
-        rows={rows}
-        cols={cols}
-        autoComplete={'off'}
-        placeholder={placeholder}
         disabled={isDisabled}
-      />
+      >
+        <option
+          hidden
+          value={''}
+        >
+          Select the university of your choice.
+        </option>
+        {universityOptions.map((universityOption: UniversityOption) => (
+          <option
+            key={universityOption.uuid}
+            value={universityOption.uuid}
+          >
+            {`${universityOption.name} - ${universityOption.abbreviation}`}
+          </option>
+        ))}
+      </select>
       {error && <InputError message={error} />}
-    </BaseTextarea>
+    </BaseInput>
   );
 };

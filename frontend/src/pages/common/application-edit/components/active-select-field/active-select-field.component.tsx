@@ -66,8 +66,8 @@ export const ActiveSelectField = <T extends FieldValues>({
   return (
     <BaseInput $isError={fieldError !== undefined}>
       <InputLabel
-        fieldId={id}
-        content={label}
+        inputId={id}
+        labelText={label}
       />
       <select
         {...register(id, {
@@ -101,7 +101,7 @@ export const ActiveSelectField = <T extends FieldValues>({
           );
         })}
       </select>
-      {fieldError && <InputError errorText={fieldError} />}
+      {fieldError && <InputError message={fieldError} />}
     </BaseInput>
   );
 };

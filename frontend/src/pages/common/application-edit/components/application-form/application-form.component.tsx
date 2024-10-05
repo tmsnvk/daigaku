@@ -91,7 +91,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
         method={'PATCH'}
         onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid: application.uuid, mutate, setError }))}
       >
-        <PageTitle content={constants.form.TITLE} />
+        <PageTitle title={constants.form.TITLE} />
         <ApplicationMetadata
           createdAt={updatedData?.createdAt ?? application.createdAt}
           createdBy={updatedData?.createdBy ?? application.createdBy}
@@ -102,42 +102,42 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           isRemovable={updatedData?.isRemovable ?? application.isRemovable}
           applicationUuid={application.uuid}
         />
-        <InputFieldGuideText content={constants.form.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.form.INFORMATION} />
         <DisabledInputField
           fieldId={'country'}
           type={'text'}
           label={constants.fields.country.NAME}
           value={application.country}
         />
-        <InputFieldGuideText content={constants.fields.country.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.country.INFORMATION} />
         <DisabledInputField
           fieldId={'university'}
           type={'text'}
           label={constants.fields.university.NAME}
           value={application.university}
         />
-        <InputFieldGuideText content={constants.fields.university.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.university.INFORMATION} />
         <DisabledInputField
           fieldId={'courseName'}
           type={'text'}
           label={constants.fields.courseName.NAME}
           value={application.courseName}
         />
-        <InputFieldGuideText content={constants.fields.courseName.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.courseName.INFORMATION} />
         <DisabledInputField
           fieldId={'minorSubject'}
           type={'text'}
           label={constants.fields.minorSubject.NAME}
           value={application.minorSubject ?? '-'}
         />
-        <InputFieldGuideText content={constants.fields.minorSubject.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.minorSubject.INFORMATION} />
         <DisabledInputField
           fieldId={'programmeLength'}
           type={'number'}
           label={constants.fields.programmeLength.NAME}
           value={application.programmeLength}
         />
-        <InputFieldGuideText content={constants.fields.programmeLength.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.programmeLength.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'applicationStatusUuid'}
@@ -149,7 +149,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           onFieldUpdate={updateInterviewStatus}
           fieldError={errors.applicationStatusUuid?.message}
         />
-        <InputFieldGuideText content={constants.fields.applicationStatus.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.applicationStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'interviewStatusUuid'}
@@ -161,7 +161,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           onFieldUpdate={updateOfferStatus}
           fieldError={errors.interviewStatusUuid?.message}
         />
-        <InputFieldGuideText content={constants.fields.interviewStatus.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.interviewStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'offerStatusUuid'}
@@ -173,7 +173,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           onFieldUpdate={updateResponseStatus}
           fieldError={errors.offerStatusUuid?.message}
         />
-        <InputFieldGuideText content={constants.fields.offerStatus.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.offerStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'responseStatusUuid'}
@@ -185,7 +185,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           onFieldUpdate={updateFinalDestinationStatus}
           fieldError={errors.responseStatusUuid?.message}
         />
-        <InputFieldGuideText content={constants.fields.responseStatus.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.responseStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'finalDestinationStatusUuid'}
@@ -197,7 +197,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
           fieldError={errors.finalDestinationStatusUuid?.message}
         />
-        <InputFieldGuideText content={constants.fields.finalDestination.INFORMATION} />
+        <InputFieldGuideText paragraphs={constants.fields.finalDestination.INFORMATION} />
         <article>
           {isPending ? (
             <LoadingIndicator loadingText={constants.ui.LOADING} />
@@ -209,7 +209,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
             />
           )}
         </article>
-        <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
+        <article>{errors.root && <InputError message={errors.root.message} />}</article>
       </Form>
       <Toast
         isVisible={isSuccess}

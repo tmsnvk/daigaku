@@ -17,78 +17,87 @@
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 /* component, style imports */
-import { BaseTextarea } from '@components/base-styles';
+import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
+
+/* configuration, utilities, constants imports */
+import { constants } from './account-role-dropdown.constants';
+import { formatRoleName } from './account-role-dropdown.utilities';
 
 /* interface, type, enum imports */
 import { FormFieldValidation } from '@common-types';
+import { RoleOption } from '@services/role/role.service';
 
 /**
  * ===============
- * Component {@link GenericTextarea}
+ * Component {@link AccountRoleDropdown}
  * ===============
  */
 
 /* interfaces, types, enums */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
-  validationRules?: FormFieldValidation;
   error: string | undefined;
+  validationRules?: FormFieldValidation;
   id: Path<T>;
-  label: string;
-  rows: number;
-  cols: number;
-  placeholder: string;
   isDisabled: boolean;
+  roles: Array<RoleOption>;
 }
 
 /**
  * @description
- * The component renders a generic textarea field incorporated with the `react-hook-form` library to handle validation and error display.
+ * A dropdown component to select an account role.
  *
- * @param {ComponentProps} props
+ * @param {ComponentProps<T extends FieldValues>} props
  * @param props.register `react-hook-form` register method.
  * @param props.validationRules Validation rules for `react-hook-form` validation handling.
  * @param props.error Error message if any.
- * @param props.id The id of the textarea field.
- * @param props.label The label of the textarea field.
- * @param props.rows The number of default rows the field should take up.
- * @param props.cols The number of default columns the field should take up.
- * @param props.placeholder The placeholder text of the textarea field.
- * @param props.isDisabled The disabled status of the textarea field.
+ * @param props.id The id of the input field.
+ * @param props.isDisabled The disabled status of the input field.
+ * @param props.roles The list of roles that should be available in the dropdown field.
  *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
  */
-export const GenericTextarea = <T extends FieldValues>({
+export const AccountRoleDropdown = <T extends FieldValues>({
   register,
   validationRules,
   error,
   id,
-  label,
-  rows,
-  cols,
-  placeholder,
   isDisabled,
+  roles,
 }: ComponentProps<T>): JSX.Element => {
   return (
-    <BaseTextarea $isError={error !== undefined}>
+    <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        labelText={constants.input.LABEL_TEXT}
       />
-      <textarea
+      <select
         {...register(id, validationRules)}
         id={id}
         name={id}
-        rows={rows}
-        cols={cols}
-        autoComplete={'off'}
-        placeholder={placeholder}
         disabled={isDisabled}
-      />
+      >
+        <option
+          hidden
+          value={''}
+        >
+          Select your account type.
+        </option>
+        {roles.map((role: RoleOption) => {
+          return (
+            <option
+              key={role.uuid}
+              value={role.uuid}
+            >
+              {formatRoleName(role.name)}
+            </option>
+          );
+        })}
+      </select>
       {error && <InputError message={error} />}
-    </BaseTextarea>
+    </BaseInput>
   );
 };

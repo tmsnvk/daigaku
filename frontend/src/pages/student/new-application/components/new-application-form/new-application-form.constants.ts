@@ -72,6 +72,12 @@ export const constants = {
     },
   },
   validation: {
+    country: {
+      REQUIRED: 'Selecting a country is required.',
+    },
+    university: {
+      REQUIRED: 'Selecting a university is required.',
+    },
     courseName: {
       REQUIRED: 'Providing the name of your selected course is required.',
       PATTERN: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',

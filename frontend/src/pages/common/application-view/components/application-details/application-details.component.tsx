@@ -53,7 +53,7 @@ interface ComponentProps {
 export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element => {
   return (
     <Section as={'section'}>
-      <PageTitle content={constants.ui.TITLE} />
+      <PageTitle title={constants.ui.TITLE} />
       <ApplicationMetadata
         createdAt={application.createdAt}
         createdBy={application.createdBy}

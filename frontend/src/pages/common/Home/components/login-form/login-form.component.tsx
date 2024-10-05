@@ -112,7 +112,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
               disabled={isPending}
             />
           )}
-          {errors.root && <InputError errorText={errors.root.message} />}
+          {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
       <article>

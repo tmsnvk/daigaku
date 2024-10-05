@@ -95,7 +95,7 @@ export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element
           />
         )}
       </article>
-      <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
+      <article>{errors.root && <InputError message={errors.root.message} />}</article>
     </Form>
   );
 };

@@ -35,6 +35,12 @@ interface ComponentProps {
  * @description
  * The component renders a readonly input field.
  *
+ * @param {ComponentProps} props
+ * @param props.fieldId The id of the input field.
+ * @param props.label The label of the input field.
+ * @param props.type The type of the input field.
+ * @param props.value The default value of the input field.
+ *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
@@ -43,8 +49,8 @@ export const DisabledInputField = ({ fieldId, label, type, value }: ComponentPro
   return (
     <BaseInput $isDisabled={true}>
       <InputLabel
-        fieldId={fieldId}
-        content={label}
+        inputId={fieldId}
+        labelText={label}
       />
       <input
         type={type}

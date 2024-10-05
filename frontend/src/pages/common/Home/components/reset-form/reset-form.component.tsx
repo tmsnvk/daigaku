@@ -100,7 +100,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
               disabled={isPending}
             />
           )}
-          {errors.root && <InputError errorText={errors.root.message} />}
+          {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
       <article>

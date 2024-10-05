@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { PageTitle } from './page-title.component';
+import { CountryDropdown } from './country-dropdown.component';
 
-export { PageTitle };
+export { CountryDropdown };

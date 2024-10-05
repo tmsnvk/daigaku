@@ -55,7 +55,7 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentPro
       >
         {shouldBeRemoved ? constants.render.REVERT_REQUEST : constants.render.REQUEST_DELETION}
       </button>
-      {isError && <InputError errorText={UNEXPECTED_GLOBAL_ERROR} />}
+      {isError && <InputError message={UNEXPECTED_GLOBAL_ERROR} />}
     </Article>
   );
 };
