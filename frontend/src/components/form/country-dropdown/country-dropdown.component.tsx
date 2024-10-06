@@ -36,7 +36,13 @@ import { CountryOption } from '@services/support/country.service';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link CountryDropdown} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
@@ -48,6 +54,7 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
+ * @component
  * @description
  * A dropdown component to select a country.
  *
@@ -92,7 +99,7 @@ export const CountryDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          Select the country of your choice.
+          {constants.input.DEFAULT_OPTION}
         </option>
         {options.map((countryOption: CountryOption) => (
           <option

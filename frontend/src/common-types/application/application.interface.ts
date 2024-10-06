@@ -13,6 +13,13 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/**
+ * @interface
+ * @description
+ * The interface represents the details of a user's application, including its status, associated account, and relevant timestamps.
+ *
+ * @since 0.0.1
+ */
 export interface Application {
   readonly uuid: string;
   readonly account: string;

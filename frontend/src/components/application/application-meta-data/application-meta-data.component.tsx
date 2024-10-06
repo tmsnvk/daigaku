@@ -22,7 +22,13 @@ import { Article } from './application-meta-data.styles';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link ApplicationMetadata} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly createdAt: Date;
   readonly createdBy: string;
@@ -31,17 +37,15 @@ interface ComponentProps {
 }
 
 /**
+ * @component
  * @description
  * The component renders the metadata of a single selected application.
  *
- * @param createdAt
- * The date and time when the application was initially created.
- * @param createdBy
- * The name of the user who created the application.
- * @param lastUpdatedAt
- * The date and time when the application was last updated.
- * @param lastModifiedBy
- * The name of the user who last modified the application.
+ * @param {ComponentProps} props
+ * @param props.createdAt The date and time when the application was initially created.
+ * @param props.createdBy The name of the user who created the application.
+ * @param props.lastUpdatedAt The date and time when the application was last updated.
+ * @param props.lastModifiedBy The name of the user who last modified the application.
  *
  * @returns {JSX.Element}
  *

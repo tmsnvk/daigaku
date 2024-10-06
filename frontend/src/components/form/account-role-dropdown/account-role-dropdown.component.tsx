@@ -34,7 +34,13 @@ import { RoleOption } from '@services/role/role.service';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link AccountRoleDropdown} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   error: string | undefined;
@@ -45,6 +51,7 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
+ * @component
  * @description
  * A dropdown component to select an account role.
  *
@@ -84,7 +91,7 @@ export const AccountRoleDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          Select your account type.
+          {constants.input.DEFAULT_OPTION}
         </option>
         {roles.map((role: RoleOption) => {
           return (

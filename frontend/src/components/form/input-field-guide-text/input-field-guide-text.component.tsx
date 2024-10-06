@@ -22,12 +22,19 @@ import { Article } from './input-field-guide-text.styles';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link InputFieldGuideText} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly paragraphs: Array<string>;
 }
 
 /**
+ * @component
  * @description
  * The component renders a list of paragraphs for a given input field.
  *

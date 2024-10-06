@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* logic imports */
 import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-modal';
 
@@ -9,7 +20,19 @@ import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-
 import { SubmitInput } from '@components/form';
 import { Dialog } from './confirmation-modal.styles';
 
-/* interfaces, types, enums */
+/**
+ * ===============
+ * Component {@link ConfirmationModal}
+ * ===============
+ */
+
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link ConfirmationModal} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly isVisible: boolean;
   readonly message: string;
@@ -17,9 +40,20 @@ interface ComponentProps {
 }
 
 /**
- * component - TODO - add functionality description
+ * @component
+ * @description
+ * The component renders a modal dialog for user confirmation with a message.
+ *
+ * @param {ComponentProps} props
+ * @param props.isVisible Boolean value to indicate whether the modal should be visible.
+ * @param props.message The message to be displayed in the modal.
+ * @param props.onCloseModal A callback function to be called when the modal is closed.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const ConfirmationModal = ({ isVisible, message, onCloseModal }: ComponentProps) => {
+export const ConfirmationModal = ({ isVisible, message, onCloseModal }: ComponentProps): JSX.Element => {
   const { dialogRef }: RenderModal = useRenderModal(isVisible);
 
   return (
@@ -29,7 +63,7 @@ export const ConfirmationModal = ({ isVisible, message, onCloseModal }: Componen
         type={'button'}
         value={'ok'}
         autoFocus={true}
-        onClick={() => onCloseModal()}
+        onClick={onCloseModal}
       />
     </Dialog>
   );

@@ -22,12 +22,23 @@ import styled from 'styled-components';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link BaseTextarea} styled-component used to define styling or state behaviours such as errors and disabled states.
+ *
+ * @since 0.0.1
+ */
 interface BaseTextarea {
   readonly $isError?: boolean;
   readonly $isDisabled?: boolean;
 }
 
+/**
+ * @component
+ *
+ * @since 0.0.1
+ */
 export const BaseTextarea = styled.article<BaseTextarea>`
   width: 100%;
   height: 27.5rem;

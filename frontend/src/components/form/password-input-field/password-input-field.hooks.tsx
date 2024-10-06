@@ -22,13 +22,20 @@ import { useState } from 'react';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link TogglePassword} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface TogglePassword {
   isTextRevealed: boolean;
   toggleTextVisibility: () => void;
 }
 
 /**
+ * @function
  * @description
  * The custom hook manages the visibility of text within a password input field.
  * The hook toggles whether the entered text in a password field is shown as plain text or obfuscated characters.

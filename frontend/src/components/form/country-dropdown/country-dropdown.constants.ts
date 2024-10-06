@@ -16,5 +16,6 @@
 export const constants = {
   input: {
     LABEL_TEXT: 'Country',
+    DEFAULT_OPTION: 'Select the country of your choice.',
   },
 };

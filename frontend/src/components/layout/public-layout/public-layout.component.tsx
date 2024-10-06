@@ -2,22 +2,46 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
-import { Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Outlet } from 'react-router-dom';
 
 /* component, style imports */
 import { BaseNavbar } from '@components/base-styles';
 import { NavigationRoute } from '../navigation-route';
-import { PageBottom } from '../page-bottom';
+import { PageFooter } from '../page-footer';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
+import { constants } from './public-layout.constants';
 
-/*
- * component - TODO - add functionality description
+/**
+ * ===============
+ * Component {@link PublicLayout}
+ * ===============
  */
-export const PublicLayout = () => {
+
+/**
+ * @component
+ * @description
+ * The layout component renders navigation and content for unauthorised users.
+ *
+ * @returns {JSX.Element}
+ *
+ * @since 0.0.1
+ */
+export const PublicLayout = (): JSX.Element => {
   return (
     <>
       <BaseNavbar>
@@ -31,14 +55,14 @@ export const PublicLayout = () => {
               <NavigationRoute
                 resource={'/contact'}
                 icon={iconLibraryConfig.faPaperPlane}
-                content={'Contact us'}
+                label={constants.routes.contactUs.LABEL}
               />
             </li>
           </ul>
         </nav>
       </BaseNavbar>
       <Outlet />
-      <PageBottom />
+      <PageFooter />
     </>
   );
 };

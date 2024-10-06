@@ -22,6 +22,11 @@ import styled, { keyframes } from 'styled-components';
  * ===============
  */
 
+/**
+ * @function
+ *
+ * @since 0.0.1
+ */
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -32,6 +37,11 @@ const fadeIn = keyframes`
   }
 `;
 
+/**
+ * @component
+ *
+ * @since 0.0.1
+ */
 export const Paragraph = styled.p`
   padding: 1rem 0 0 0;
   text-align: center;

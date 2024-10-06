@@ -16,5 +16,6 @@
 export const constants = {
   input: {
     LABEL_TEXT: 'University',
+    DEFAULT_VALUE: 'Select the university of your choice.',
   },
 };

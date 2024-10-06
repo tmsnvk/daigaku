@@ -14,8 +14,6 @@
  */
 
 export const constants = {
-  input: {
-    LABEL_TEXT: 'Institution',
-    DEFAULT_OPTION: 'Select the institution you currently attend.',
-  },
-};
+  START_YEAR: 2024,
+  MESSAGE: '© built with reactjs, spring boot, redis, psql and ❤️'
+}

@@ -14,8 +14,9 @@
  */
 
 export const constants = {
-  input: {
-    LABEL_TEXT: 'Institution',
-    DEFAULT_OPTION: 'Select the institution you currently attend.',
+  routes: {
+    contactUs: {
+      LABEL: 'Contact us',
+    },
   },
 };

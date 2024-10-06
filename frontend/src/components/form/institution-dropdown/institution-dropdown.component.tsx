@@ -24,8 +24,8 @@ import { InputError, InputLabel } from '@components/form';
 import { constants } from './institution-dropdown.constants';
 
 /* interface, type, enum imports */
-import { InstitutionOption } from '@services/support/institution.service';
 import { FormFieldValidation } from '@common-types';
+import { InstitutionOption } from '@services/support/institution.service';
 
 /**
  * ===============
@@ -33,7 +33,13 @@ import { FormFieldValidation } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link InstitutionDropdown} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
@@ -44,6 +50,7 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
+ * @component
  * @description
  * A dropdown component to select an institution.
  *
@@ -83,7 +90,7 @@ export const InstitutionDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          Select the institution you currently attend.
+          {constants.input.DEFAULT_OPTION}
         </option>
         {institutions.map((institution: InstitutionOption) => (
           <option

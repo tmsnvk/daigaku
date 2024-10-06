@@ -24,7 +24,7 @@ import { TogglePassword, useTogglePassword } from './password-input-field.hooks'
 import { BasePasswordInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 
 /* interface, type, enum imports */
@@ -36,7 +36,13 @@ import { FormFieldValidation } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link PasswordInputField} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
@@ -49,6 +55,7 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
+ * @component
  * @description
  * The component renders a password type input field incorporated with the `react-hook-form` library to handle validation and error display.
  *

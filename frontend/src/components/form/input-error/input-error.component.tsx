@@ -22,12 +22,19 @@ import { Paragraph } from './input-error.styles';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link InputError} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly message: string | undefined;
 }
 
 /**
+ * @component
  * @description
  * The component renders a simple error message for various input fields.
  *

@@ -14,12 +14,13 @@
  */
 
 /**
+ * @function
  * @description
  * The helper method formats the role name by removing the prefix "ROLE_" and converting it to lowercase.
  *
  * @param roleName The raw role name to be formatted.
  *
- * @returns {string} The cleaned and formatted role name.
+ * @returns {string} The formatted role name.
  *
  * @since 0.0.1
  */

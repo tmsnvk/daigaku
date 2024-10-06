@@ -19,21 +19,35 @@
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the return value properties of the {@link useSelectCountry} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface SelectCountry {
   handleCountrySelection: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
+/**
+ * @interface
+ * @description
+ * The interface represents the params of the {@link useSelectCountry} custom hook.
+ *
+ * @since 0.0.1
+ */
 interface SelectCountryParams {
   onCountrySelection: (countryUuid: string) => void;
 }
 
 /**
+ * @function
  * @description
  * The custom hook manages the component's country selection callback method.
  *
  * @returns {SelectCountry} An object containing:
- * - `handleCountrySelection` A callback method that has the selected country's uuid as its parameter.
+ * - `handleCountrySelection`: A function to manage dropdown value changes.
  *
  * @since 0.0.1
  */

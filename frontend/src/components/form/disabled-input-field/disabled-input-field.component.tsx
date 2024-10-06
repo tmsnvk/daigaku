@@ -23,7 +23,13 @@ import { InputLabel } from '@components/form';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link DisabledInputField} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly fieldId: string;
   readonly label: string;
@@ -32,6 +38,7 @@ interface ComponentProps {
 }
 
 /**
+ * @component
  * @description
  * The component renders a readonly input field.
  *

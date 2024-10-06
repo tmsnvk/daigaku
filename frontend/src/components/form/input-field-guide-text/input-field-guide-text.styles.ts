@@ -22,6 +22,11 @@ import styled from 'styled-components';
  * ===============
  */
 
+/**
+ * @component
+ *
+ * @since 0.0.1
+ */
 export const Article = styled.article`
   padding: 2rem 1.5rem 2rem 1.5rem;
   background-color: ${({ theme }) => theme.color.secondaryLight};

@@ -29,7 +29,13 @@ import { FormFieldValidation } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link GenericInputField} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
@@ -43,6 +49,7 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
+ * @component
  * @description
  * The component renders a generic input field incorporated with the `react-hook-form` library to handle validation and error display.
  *

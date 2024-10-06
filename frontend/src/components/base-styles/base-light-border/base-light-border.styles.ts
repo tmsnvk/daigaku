@@ -22,6 +22,11 @@ import { css } from 'styled-components';
  * ===============
  */
 
+/**
+ * @component
+ *
+ * @since 0.0.1
+ */
 export const BaseLightBorder = css`
   background-color: ${({ theme }) => theme.color.primaryLight};
   border: 0.1rem solid ${({ theme }) => theme.color.secondaryLight};

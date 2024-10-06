@@ -14,8 +14,7 @@
  */
 
 export const constants = {
-  input: {
-    LABEL_TEXT: 'Institution',
-    DEFAULT_OPTION: 'Select the institution you currently attend.',
+  ui: {
+    ERROR_MESSAGE: ['The application has encountered an unexpected error.', 'Refresh your browser and try again.'],
   },
 };

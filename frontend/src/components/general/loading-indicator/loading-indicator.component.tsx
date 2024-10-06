@@ -28,12 +28,19 @@ import { iconLibraryConfig } from '@configuration';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link LoadingIndicator} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly loadingText: string;
 }
 
 /**
+ * @component
  * @description
  * A loading indicator component that displays a loading message and a spinner icon.
  *

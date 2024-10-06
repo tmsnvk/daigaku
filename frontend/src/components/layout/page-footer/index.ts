@@ -13,9 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-export const constants = {
-  input: {
-    LABEL_TEXT: 'Institution',
-    DEFAULT_OPTION: 'Select the institution you currently attend.',
-  },
-};
+import { PageFooter } from './page-footer.component';
+
+export { PageFooter };

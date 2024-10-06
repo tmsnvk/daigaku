@@ -22,6 +22,11 @@ import styled from 'styled-components';
  * ===============
  */
 
+/**
+ * @component
+ *
+ * @since 0.0.1
+ */
 export const Article = styled.article`
   display: flex;
   flex-direction: row;

@@ -25,6 +25,11 @@ import { BaseInput } from '../base-input';
  * ===============
  */
 
+/**
+ * @component
+ *
+ * @since 0.0.1
+ */
 export const BasePasswordInput = styled(BaseInput)`
   & input {
     width: 65%;

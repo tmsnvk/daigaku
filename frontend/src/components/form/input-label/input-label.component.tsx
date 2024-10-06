@@ -22,13 +22,20 @@ import { Label } from './input-label.styles';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link InputLabel} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly inputId: string;
   readonly labelText: string;
 }
 
 /**
+ * @component
  * @description
  * The component renders a list of paragraphs for a given input field.
  *

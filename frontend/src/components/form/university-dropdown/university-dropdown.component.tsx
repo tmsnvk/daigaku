@@ -33,7 +33,13 @@ import { UniversityOption } from '@services/support/university.service';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link UniversityDropdown} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   validationRules?: FormFieldValidation;
@@ -44,6 +50,7 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
+ * @component
  * @description
  * A dropdown component to select an institution.
  *
@@ -83,7 +90,7 @@ export const UniversityDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          Select the university of your choice.
+          {constants.input.DEFAULT_VALUE}
         </option>
         {universityOptions.map((universityOption: UniversityOption) => (
           <option

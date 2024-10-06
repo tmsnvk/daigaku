@@ -16,6 +16,13 @@
 /* interface, type, enum imports */
 import { Comment } from './comment.interface';
 
+/**
+ * @interface
+ * @description
+ * The interface represents the high level data of all comments associated with a given {@link Application}.
+ *
+ * @since 0.0.1
+ */
 export interface CommentMeta {
   readonly totalPages: number;
   readonly currentPage: number;

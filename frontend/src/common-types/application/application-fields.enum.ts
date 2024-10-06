@@ -13,6 +13,13 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/**
+ * @enum
+ * @description
+ * The enum represents the fields of an {@link Application} object.
+ *
+ * @since 0.0.1
+ */
 export enum ApplicationFieldsE {
   COURSE = 'Course',
   UNIVERSITY = 'University',

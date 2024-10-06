@@ -22,12 +22,23 @@ import styled from 'styled-components';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * @interface
+ * @description
+ * The interface represents the properties of the {@link BaseInput} styled-component used to define styling or state behaviours such as errors and disabled states.
+ *
+ * @since 0.0.1
+ */
 interface BaseInput {
   readonly $isError?: boolean;
   readonly $isDisabled?: boolean;
 }
 
+/**
+ * @component
+ *
+ * @since 0.0.1
+ */
 export const BaseInput = styled.article<BaseInput>`
   height: 12.5rem;
   width: 100%;
