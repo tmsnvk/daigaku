@@ -29,10 +29,10 @@ import { TableHeadRow } from './table-header.styles';
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { constants } from './table-header.constants';
 
 /* interface, type, enum imports */
 import { Column } from '../../applications.hooks';
-import { constants } from './table-header.constants';
 
 /**
  * ===============
@@ -40,7 +40,11 @@ import { constants } from './table-header.constants';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link TableHeader} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly columns: Array<Column>;
   readonly onColumnSort: (id: string) => void;
@@ -49,7 +53,6 @@ interface ComponentProps {
 }
 
 /**
- * @description
  * The component renders the table header row on the Applications page. A number of buttons are rendered in the component as well, such as
  * row ordering, .pdf report downloading, data refresh or modal pop-up buttons.
  *

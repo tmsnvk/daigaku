@@ -35,8 +35,6 @@ import { RoleOption } from '@services/role/role.service';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link AccountRoleDropdown} component.
  *
  * @since 0.0.1
@@ -51,8 +49,6 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
- * @component
- * @description
  * A dropdown component to select an account role.
  *
  * @param {ComponentProps<T extends FieldValues>} props

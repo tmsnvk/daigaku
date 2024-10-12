@@ -17,8 +17,6 @@
 import { UseQueryResult } from '@tanstack/react-query';
 
 /**
- * @type
- * @description
  * The interface represents the result of a `react-query` query that returns a list of items.
  *
  * @template T The type of each item in the list returned by the query.

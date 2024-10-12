@@ -28,20 +28,22 @@ import { Comment } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link Comments} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly comments: Array<Comment>;
   readonly isError: boolean;
 }
 
 /**
- * @description
  * The component renders the comments on the selected pagination page.
  *
- * @param {Array<Comment>} props.comments
- * The list of comments.
- * @param {boolean} props.isError
- * A boolean value signaling whether there was an error while fetching the comments.
+ * @param {ComponentProps} props
+ * @param props.comments The list of comments.
+ * @param props.isError A boolean value signaling whether there was an error while fetching the comments.
  *
  * @returns {JSX.Element}
  *

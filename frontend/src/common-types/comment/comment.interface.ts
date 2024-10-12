@@ -14,8 +14,6 @@
  */
 
 /**
- * @interface
- * @description
  * The interface represents a single comment associated with a given {@link Application}.
  *
  * @since 0.0.1

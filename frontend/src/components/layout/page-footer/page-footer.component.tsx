@@ -27,8 +27,6 @@ import { getCurrentYear } from './page-footer.utilities';
  */
 
 /**
- * @component
- * @description
  * The component renders the footer area of each page.
  *
  * @returns {JSX.Element}

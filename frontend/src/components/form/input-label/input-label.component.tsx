@@ -23,8 +23,6 @@ import { Label } from './input-label.styles';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link InputLabel} component.
  *
  * @since 0.0.1
@@ -35,8 +33,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a list of paragraphs for a given input field.
  *
  * @param {ComponentProps} props

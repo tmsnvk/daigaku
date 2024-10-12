@@ -30,8 +30,6 @@ import { FormFieldValidation } from '@common-types';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link GenericTextarea} component.
  *
  * @since 0.0.1
@@ -49,8 +47,6 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
- * @component
- * @description
  * The component renders a generic textarea field incorporated with the `react-hook-form` library to handle validation and error display.
  *
  * @param {ComponentProps} props

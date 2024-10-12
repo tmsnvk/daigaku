@@ -23,8 +23,6 @@ import styled, { keyframes } from 'styled-components';
  */
 
 /**
- * @function
- *
  * @since 0.0.1
  */
 const fadeIn = keyframes`
@@ -38,8 +36,6 @@ const fadeIn = keyframes`
 `;
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const Paragraph = styled.p`

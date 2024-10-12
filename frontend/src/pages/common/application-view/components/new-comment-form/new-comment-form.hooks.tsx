@@ -34,35 +34,40 @@ import { Comment, MutationResult, ServerValidationErrorResponse } from '@common-
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * TODO
+ *
+ * @since 0.0.1
+ */
 export interface NewCommentFormFields {
   readonly comment: string;
 }
 
-type NewCommentForm = {
-  setError: UseFormSetError<NewCommentFormFields>;
-  applicationUuid: string;
-};
-
-type NewCommentFormErrorT = 'root' | 'comment';
-
-export type SubmitNewComment = MutationResult<Comment, AxiosError<Array<ServerValidationErrorResponse>>, NewCommentFormFields>;
-
 /**
- * @description
- * The custom hook manages the {@link NewCommentForm} submission process, including REST API request, error handling, and post-success actions.
- *
- * @param {UseFormSetError<NewCommentFormFields>} params.setError
- * A `react-hook-form` function to set form errors.
- * @param {string} params.applicationUuid
- * The UUID of the application to which the comment belongs to.
- *
- * @returns {SubmitNewComment}
- * A `react-query` mutation object.
+ * The type represents the possible error field names in the {@link useSubmitNewComment} custom hook.
  *
  * @since 0.0.1
  */
-export const useSubmitNewComment = ({ setError, applicationUuid }: NewCommentForm): SubmitNewComment => {
+type NewCommentFormErrorT = 'root' | 'comment';
+
+/**
+ * The type represents the return value properties of the {@link useSubmitNewComment} custom hook.
+ *
+ * @since 0.0.1
+ */
+export type SubmitNewComment = MutationResult<Comment, AxiosError<Array<ServerValidationErrorResponse>>, NewCommentFormFields>;
+
+/**
+ * The custom hook manages the comment submission process, including REST API request, error handling, and post-success actions.
+ *
+ * @param setError A `react-hook-form` function to set form errors.
+ * @param applicationUuid The UUID of the application to which the comment belongs to.
+ *
+ * @returns {SubmitNewComment} A `react-query` mutation object.
+ *
+ * @since 0.0.1
+ */
+export const useSubmitNewComment = (setError: UseFormSetError<NewCommentFormFields>, applicationUuid: string): SubmitNewComment => {
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
     mutationFn: (formData: NewCommentFormFields) => commentService.postCommentByApplicationUuid(formData, applicationUuid),

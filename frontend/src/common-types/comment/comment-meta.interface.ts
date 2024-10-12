@@ -17,8 +17,6 @@
 import { Comment } from './comment.interface';
 
 /**
- * @interface
- * @description
  * The interface represents the high level data of all comments associated with a given {@link Application}.
  *
  * @since 0.0.1

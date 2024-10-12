@@ -30,13 +30,17 @@ import { constants } from './is-removable-button.constants';
  * ===============
  */
 
+/**
+ * The interface represents the properties of the {@link IsRemovableButton} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly isRemovable: boolean;
   readonly applicationUuid: string;
 }
 
 /**
- * @description
  * The component renders and sets the state of the delete request button on each applcation edit page.
  *
  * @returns {JSX.Element}

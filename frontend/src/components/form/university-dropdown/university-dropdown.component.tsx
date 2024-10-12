@@ -34,8 +34,6 @@ import { UniversityOption } from '@services/support/university.service';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link UniversityDropdown} component.
  *
  * @since 0.0.1
@@ -50,8 +48,6 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
- * @component
- * @description
  * A dropdown component to select an institution.
  *
  * @param {ComponentProps<T extends FieldValues>} props

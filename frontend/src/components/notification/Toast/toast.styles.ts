@@ -26,8 +26,6 @@ import { BaseLightBorder } from '@components/base-styles';
  */
 
 /**
- * @function
- *
  * @since 0.0.1
  */
 const fadeIn = keyframes`
@@ -37,8 +35,6 @@ const fadeIn = keyframes`
 `;
 
 /**
- * @function
- *
  * @since 0.0.1
  */
 const fadeOut = keyframes`
@@ -52,8 +48,6 @@ const fadeOut = keyframes`
 `;
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const Section = styled.section`

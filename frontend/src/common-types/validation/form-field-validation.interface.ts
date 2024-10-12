@@ -14,8 +14,6 @@
  */
 
 /**
- * @interface
- * @description
  * The interface represents the `react-hook-form` validation rules for a form field.
  * The interface defines the structure for the validation criteria that can be applied to a form field.
  *

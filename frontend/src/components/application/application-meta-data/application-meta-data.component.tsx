@@ -23,8 +23,6 @@ import { Article } from './application-meta-data.styles';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link ApplicationMetadata} component.
  *
  * @since 0.0.1
@@ -37,8 +35,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders the metadata of a single selected application.
  *
  * @param {ComponentProps} props

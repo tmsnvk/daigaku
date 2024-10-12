@@ -14,8 +14,6 @@
  */
 
 /**
- * @enum
- * @description
  * The enum represents the fields of an {@link Application} object.
  *
  * @since 0.0.1

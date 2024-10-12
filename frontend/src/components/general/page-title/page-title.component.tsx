@@ -23,8 +23,6 @@ import { TitleHeading } from './page-title.styles.ts';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link PageTitle} component.
  *
  * @since 0.0.1
@@ -34,8 +32,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * A component that renders a h1 html element as the given page's title.
  *
  * @param {ComponentProps} props

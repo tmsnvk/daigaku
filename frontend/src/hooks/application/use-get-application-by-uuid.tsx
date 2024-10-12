@@ -32,17 +32,13 @@ import { Application, SimpleQueryResult } from '@common-types';
  */
 
 /**
- * @description
  * The custom hook fetches an {@link Application} object by UUID.
  * The server-side REST API request is launched only if the object is not in the local cache.
  *
- * @param {Application | null} state
- * An `Application` object from the local `react-router-dom` cache, if it exists, otherwise null.
- * @param {string} applicationUuid
- * The application's uuid.
+ * @param state An `Application` object from the local `react-router-dom` cache, if it exists, otherwise null.
+ * @param applicationUuid The application's uuid.
  *
  * @returns {SimpleQueryResult<Application>}
- * A `react-query` query object.
  *
  * @since 0.0.1
  */

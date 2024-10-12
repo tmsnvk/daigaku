@@ -33,11 +33,9 @@ import { Application, ListQueryResult } from '@common-types';
  */
 
 /**
- * @description
  * The custom hook fetches a list of Application objects based on the user's authorisation.
  *
  * @returns {ListQueryResult<Application>}
- * A `react-query` query object.
  *
  * @since 0.0.1
  */

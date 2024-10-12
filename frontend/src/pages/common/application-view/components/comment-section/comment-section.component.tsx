@@ -35,17 +35,19 @@ import { LoadingIndicator } from '@components/general';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link CommentSection} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly applicationUuid: string;
 }
 
 /**
- * @description
  * The component renders the comment section in a single application's {@link ApplicationView} page.
  *
- * @param {string} props.applicationUuid
- * The application's UUID is used in the REST API request when the user submits a new comment.
+ * @param props.applicationUuid The application's UUID is used in the REST API request when the user submits a new comment.
  *
  * @returns {JSX.Element}
  *

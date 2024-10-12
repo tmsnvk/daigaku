@@ -22,10 +22,8 @@ import { UseFormSetError } from 'react-hook-form';
 /* logic imports */
 import { applicationStudentService } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
-
-/* utilities imports */
 import { constants } from './application-form.constants';
 
 /* interface, type, enum imports */
@@ -53,7 +51,11 @@ import { ResponseStatus } from '@services/status/response-status.service';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the form data fields.
+ *
+ * @since 0.0.1
+ */
 export type UpdateApplicationFormFields = {
   applicationStatusUuid: string | undefined;
   interviewStatusUuid: string | undefined;
@@ -68,23 +70,24 @@ export type UpdateApplicationFormFields = {
  * ===============
  */
 
-type CachedData = {
+/**
+ * The interface represents the properties of `react-query` cache objects.
+ *
+ * @since 0.0.1
+ */
+interface CachedData {
   name: string;
   uuid: string;
-};
+}
 
 /**
- * @description
  * The helper method used by {@link useHandleFormSubmission} filters various local `react-query` cache lists
  * by a given option name and returns the UUID of the first matching entry.
  *
- * @param {Array<T>} cache
- * The array of cached data to filter.
- * @param {string} optionName
- * The name of the option to match in the cached data.
+ * @param cache The array of cached data to filter.
+ * @param optionName The name of the option to match in the cached data.
  *
- * @returns {string}
- * The UUID of the first cached data entry that matches the provided option name.
+ * @returns {string} The UUID of the first cached data entry that matches the provided option name.
  *
  * @since 0.0.1
  */
@@ -100,25 +103,26 @@ const filterCacheByUuid = <T extends CachedData>(cache: Array<T>, optionName: st
  * ===============
  */
 
-type FormSubmissionT = {
-  formData: UpdateApplicationFormFields;
-  applicationUuid: string;
-  mutate: (formData: UpdateApplicationFormFields) => void;
-  setError: UseFormSetError<UpdateApplicationFormFields>;
-};
-
+/**
+ * The interface represents the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
+ *
+ * @since 0.0.1
+ */
 export interface HandleFormSubmission {
-  submitForm: ({ formData, applicationUuid, mutate, setError }: FormSubmissionT) => void;
+  submitForm: (
+    formData: UpdateApplicationFormFields,
+    applicationUuid: string,
+    mutate: (formData: UpdateApplicationFormFields) => void,
+    setError: UseFormSetError<UpdateApplicationFormFields>,
+  ) => void;
 }
 
 /**
- * @description
  * The custom hook manages the {@link LoginForm} submission process, including REST API request, error handling,
  * and post-success actions, such as setting account context and authentication status.
  *
- * @returns {HandleFormSubmission}
- * An object containing:
- * - a `submitForm` void method
+ * @returns {HandleFormSubmission} An object containing:
+ * - a `submitForm` void method.
  *
  * @since 0.0.1
  */
@@ -164,7 +168,12 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
     return errors;
   };
 
-  const submitForm = ({ formData, applicationUuid, mutate, setError }: FormSubmissionT): void => {
+  const submitForm = (
+    formData: UpdateApplicationFormFields,
+    applicationUuid: string,
+    mutate: (formData: UpdateApplicationFormFields) => void,
+    setError: UseFormSetError<UpdateApplicationFormFields>,
+  ): void => {
     const validationErrors: Array<string> = handleValidation(formData, applicationUuid);
 
     if (!validationErrors.length) {
@@ -193,12 +202,11 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
  * ===============
  */
 
-/* interfaces, types, enums */
-interface UpdateApplication {
-  setError: UseFormSetError<UpdateApplicationFormFields>;
-  applicationUuid: string;
-}
-
+/**
+ * The type represents the possible error field names in the {@link useUpdateApplication} custom hook.
+ *
+ * @since 0.0.1
+ */
 type UpdateApplicationFormErrorT =
   | 'root'
   | 'applicationStatusUuid'
@@ -207,6 +215,11 @@ type UpdateApplicationFormErrorT =
   | 'responseStatusUuid'
   | 'finalDestinationStatusUuid';
 
+/**
+ * The type represents the return value properties of the {@link useUpdateApplication} custom hook.
+ *
+ * @since 0.0.1
+ */
 export type UpdateApplicationForm = MutationResult<
   Application,
   AxiosError<Array<ServerValidationErrorResponse>>,
@@ -214,20 +227,19 @@ export type UpdateApplicationForm = MutationResult<
 >;
 
 /**
- * @description
  * The custom hook manages the POST GET API call.
  *
- * @param {UseFormSetError<UpdateApplicationFormFields>} params.setError
- * `react-hook-form`'s error setting method.
- * @param {string} params.applicationUuid
- * The application's UUID.
+ * @param setError `react-hook-form`'s error setting method.
+ * @param applicationUuid The application's UUID.
  *
- * @returns {UpdateApplication}
- * A `react-query` mutation object.
+ * @returns {UpdateApplicationForm} A `react-query` mutation object.
  *
  * @since 0.0.1
  */
-export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplication): UpdateApplicationForm => {
+export const useUpdateApplication = (
+  setError: UseFormSetError<UpdateApplicationFormFields>,
+  applicationUuid: string,
+): UpdateApplicationForm => {
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
     mutationFn: (formData: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(formData, applicationUuid),
@@ -273,6 +285,17 @@ export const useUpdateApplication = ({ setError, applicationUuid }: UpdateApplic
  * ===============
  */
 
+/**
+ * TODO
+ *
+ * @param application
+ * @param updatedData
+ * @param applicationStatusOptions
+ *
+ * @returns {boolean}
+ *
+ * @since 0.0.1
+ */
 const disableIfWithdrawn = (
   application: Application,
   updatedData: Application | undefined,
@@ -295,7 +318,11 @@ const disableIfWithdrawn = (
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * TODO
+ *
+ * @since 0.0.1
+ */
 interface PageLoadFieldSetup {
   applicationStatus: (application: Application) => boolean;
   interviewStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption) => boolean;
@@ -388,7 +415,11 @@ const pageLoadFieldSetup: PageLoadFieldSetup = {
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * TODO
+ *
+ * @since 0.0.1
+ */
 type ApplicationStatusUnion =
   | Array<ApplicationStatus>
   | Array<InterviewStatus>
@@ -396,22 +427,25 @@ type ApplicationStatusUnion =
   | Array<ResponseStatus>
   | Array<FinalDestinationStatus>;
 
+/**
+ * TODO
+ *
+ * @param statusList
+ * @param statusName
+ *
+ * @returns {boolean}
+ *
+ * @since 0.0.1
+ */
 const isStatusInList = (statusList: ApplicationStatusUnion, statusName: string): boolean => {
   return statusList.some((element) => element.uuid === statusName);
 };
 
 /**
  * ===============
- * Custom Hook {@link useHandleFieldDisableStatuses}
+ * Custom Hook {@link useHandleFieldDisableStatus}
  * ===============
  */
-
-/* interfaces, types, enums */
-interface DisabledInputFields {
-  application: Application;
-  updatedData: Application | undefined;
-  selectOptions: ApplicationStatusOption;
-}
 
 interface FieldsReadOnlyStatus {
   isApplicationStatusReadOnly: boolean;
@@ -421,14 +455,31 @@ interface FieldsReadOnlyStatus {
   isFinalDestinationStatusReadOnly: boolean;
 }
 
-/*
+export interface HandleFieldDisableStatus {
+  fieldsReadOnlyStatus: FieldsReadOnlyStatus;
+  updateInterviewStatus: (eventTargetValue: string) => void;
+  updateOfferStatus: (eventTargetValue: string) => void;
+  updateResponseStatus: (eventTargetValue: string) => void;
+  updateFinalDestinationStatus: (eventTargetValue: string) => void;
+  disableFieldsOnFinalDestinationUpdate: () => void;
+}
+
+/**
+ * The custom hook handles the logic connected to the individual field updates, i.e. when and which field should get disabled.
  *
- * custom hook - useHandleFieldDisableStatuses()
- * it handles the logic connected to the individual field updates, i.e. when and which field should get disabled.
- * the helper methods set the field values on page load, while the individual update methods set the given field when a select field is clicked.
+ * @param application The {@link Application} that is going to be updated.
+ * @param updatedData The updated data.
+ * @param selectOptions Every possible dropdown option.
  *
+ * @returns {HandleFieldDisableStatus}
+ *
+ * @since 0.0.1
  */
-export const useHandleFieldDisableStatuses = ({ application, updatedData, selectOptions }: DisabledInputFields) => {
+export const useHandleFieldDisableStatus = (
+  application: Application,
+  updatedData: Application | undefined,
+  selectOptions: ApplicationStatusOption,
+): HandleFieldDisableStatus => {
   const [fieldsReadOnlyStatus, setFieldsReadOnlyStatus] = useState<FieldsReadOnlyStatus>({
     isApplicationStatusReadOnly: pageLoadFieldSetup.applicationStatus(application),
     isInterviewStatusReadOnly: pageLoadFieldSetup.interviewStatus(application, updatedData, selectOptions),

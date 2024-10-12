@@ -18,7 +18,7 @@ import { UseMutateFunction, useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
-/* service imports */
+/* logic imports */
 import { applicationStudentService } from '@services/index';
 
 /* configuration, utilities, constants imports */
@@ -34,7 +34,11 @@ import { Application, MutationResult } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the return value properties of the {@link useToggleIsRemovable} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface HandleToggleIsRemovable {
   shouldBeRemoved: boolean;
   errorMessage: string;
@@ -44,16 +48,12 @@ export interface HandleToggleIsRemovable {
 }
 
 /**
- * @description
  * The custom hook manages the toggling the user's delete request.
  *
- * @param {string} applicationUuid
- * The application's UUID for identification purposes.
- * @param {boolean} isRemovable
- * The application's current is_removable boolean state.
+ * @param applicationUuid The application's UUID for identification purposes.
+ * @param isRemovable The application's current is_removable boolean state.
  *
- * @returns {SimpleQueryResult<DashboardStatistics>}
- * A `react-query` mutation object.
+ * @returns {SimpleQueryResult<DashboardStatistics>} A `react-query` mutation object.
  *
  * @since 0.0.1
  */

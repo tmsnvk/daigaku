@@ -14,8 +14,6 @@
  */
 
 /**
- * @enum
- * @description
  * The enum represents the possible values of the Application Status field of an {@link Application} object as enum values.
  *
  * @since 0.0.1
@@ -27,8 +25,6 @@ export enum ApplicationStatusE {
 }
 
 /**
- * @enum
- * @description
  * The enum represents the possible values of the Interview Status field of an {@link Application} object as enum values.
  *
  * @since 0.0.1
@@ -40,8 +36,6 @@ export enum InterviewStatusE {
 }
 
 /**
- * @enum
- * @description
  * The enum represents the possible values of the Offer Status field of an {@link Application} object as enum values.
  *
  * @since 0.0.1
@@ -54,8 +48,6 @@ export enum OfferStatusE {
 }
 
 /**
- * @enum
- * @description
  * The enum represents the possible values of the Response Status field of an {@link Application} object as enum values.
  *
  * @since 0.0.1
@@ -67,8 +59,6 @@ export enum ResponseStatusE {
 }
 
 /**
- * @enum
- * @description
  * The enum represents the possible values of the Final Destination Status field of an {@link Application} object as enum values.
  *
  * @since 0.0.1

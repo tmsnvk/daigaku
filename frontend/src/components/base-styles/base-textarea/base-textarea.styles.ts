@@ -23,9 +23,8 @@ import styled from 'styled-components';
  */
 
 /**
- * @interface
- * @description
- * The interface represents the properties of the {@link BaseTextarea} styled-component used to define styling or state behaviours such as errors and disabled states.
+ * The interface represents the properties of the {@link BaseTextarea} styled-component used to
+ * define styling or state behaviours such as errors and disabled states.
  *
  * @since 0.0.1
  */
@@ -35,8 +34,6 @@ interface BaseTextarea {
 }
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const BaseTextarea = styled.article<BaseTextarea>`

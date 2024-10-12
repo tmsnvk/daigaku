@@ -28,8 +28,6 @@ import { Dialog } from './global-error-modal.styles.ts';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link GlobalErrorModal} component.
  *
  * @since 0.0.1
@@ -41,8 +39,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a modal dialog when an unexpected error occurs in the application.
  *
  * @param {ComponentProps} props

@@ -24,8 +24,6 @@ import { InputLabel } from '@components/form';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link DisabledInputField} component.
  *
  * @since 0.0.1
@@ -38,8 +36,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a readonly input field.
  *
  * @param {ComponentProps} props

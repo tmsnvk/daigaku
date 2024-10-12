@@ -34,17 +34,20 @@ import { Application } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link ApplicationDetails} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   application: Application;
 }
 
 /**
- * @description
  * The component renders the details of a single application.
  *
- * @param {Application} props.application
- * The selected {@link Application} object.
+ * @param {ComponentProps} props
+ * @param props.application The selected {@link Application} object.
  *
  * @returns {JSX.Element}
  *

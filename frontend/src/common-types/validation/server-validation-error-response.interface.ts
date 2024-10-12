@@ -14,8 +14,6 @@
  */
 
 /**
- * @interface
- * @description
  * The interface represents the validation error response object for a given form field.
  *
  * @since 0.0.1

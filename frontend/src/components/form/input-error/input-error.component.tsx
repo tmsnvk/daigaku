@@ -23,8 +23,6 @@ import { Paragraph } from './input-error.styles';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link InputError} component.
  *
  * @since 0.0.1
@@ -34,8 +32,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a simple error message for various input fields.
  *
  * @param {ComponentProps} props

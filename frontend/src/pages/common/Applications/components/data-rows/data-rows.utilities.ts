@@ -23,17 +23,13 @@ import { Column } from '../../applications.hooks.tsx';
  */
 
 /**
- * @description
  * The helper method determines if a column with a specific `columnId` is found in the array of columns to be displayed
  * and returns its `isVisible` value.
  *
- * @param {Array<Column>} columns
- * An array of column objects.
- * @param {string} columnId
- * The id for the column to search for.
+ * @param columns An array of column objects.
+ * @param columnId The id for the column to search for.
  *
- * @returns {boolean}
- * If the column was found, its `isVisible` property is returned, otherwise `false` is returned.
+ * @returns {boolean} If the column is found, its `isVisible` property is returned, otherwise `false` is returned.
  *
  * @since 0.0.1
  */

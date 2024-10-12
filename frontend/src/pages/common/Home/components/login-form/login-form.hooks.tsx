@@ -25,7 +25,7 @@ import { accountService } from '@services/index';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { localStorageKeyConstants, UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { MutationResult } from '@common-types';
@@ -78,7 +78,7 @@ export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleL
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
     mutationFn: (formData: LoginFormFields) => accountService.logIn(formData),
     onSuccess: (response: LoginFormResponse) => {
-      localStorage.setItem('auth-token', response.jwtToken);
+      localStorage.setItem(localStorageKeyConstants.APPLICATION_TABLE_COLUMNS, response.jwtToken);
 
       const account: Account = {
         ...response,

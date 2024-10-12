@@ -26,8 +26,6 @@ import { BaseDialog } from '@components/base-styles';
  */
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const Dialog = styled(BaseDialog)`

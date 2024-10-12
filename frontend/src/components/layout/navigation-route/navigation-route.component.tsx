@@ -27,8 +27,6 @@ import { NavbarIcon, RouteLink } from './navigation-route.styles';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link NavigationRoute} component.
  *
  * @since 0.0.1
@@ -41,8 +39,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a single navigation route that enables navigating in-between the application's pages.
  *
  * @param {ComponentProps} props

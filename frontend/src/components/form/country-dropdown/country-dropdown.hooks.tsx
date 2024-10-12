@@ -20,8 +20,6 @@
  */
 
 /**
- * @interface
- * @description
  * The interface represents the return value properties of the {@link useSelectCountry} custom hook.
  *
  * @since 0.0.1
@@ -31,19 +29,6 @@ export interface SelectCountry {
 }
 
 /**
- * @interface
- * @description
- * The interface represents the params of the {@link useSelectCountry} custom hook.
- *
- * @since 0.0.1
- */
-interface SelectCountryParams {
-  onCountrySelection: (countryUuid: string) => void;
-}
-
-/**
- * @function
- * @description
  * The custom hook manages the component's country selection callback method.
  *
  * @returns {SelectCountry} An object containing:
@@ -51,7 +36,7 @@ interface SelectCountryParams {
  *
  * @since 0.0.1
  */
-export const useSelectCountry = ({ onCountrySelection }: SelectCountryParams): SelectCountry => {
+export const useSelectCountry = (onCountrySelection: (countryUuid: string) => void): SelectCountry => {
   const handleCountrySelection = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     onCountrySelection(event.target.value);
   };

@@ -34,15 +34,18 @@ import { Column } from '../../applications.hooks';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link DataRows} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly columns: Array<Column>;
   readonly applications: Array<Application>;
 }
 
 /**
- * @description
- * The component renders a `JSX.Element` for each data element in the applications array.
+ * The component renders a {@link Cell} component for each data element in the applications array.
  * In addition, it appends an edit and a view buttons to the end of the row in table.
  *
  * @returns {Array<JSX.Element>}

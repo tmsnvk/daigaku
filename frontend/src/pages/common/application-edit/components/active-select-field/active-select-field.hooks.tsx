@@ -26,16 +26,20 @@ import { ResponseStatus } from '@services/status/response-status.service';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the possible SelectOption types.
+ *
+ * @template T The type of the SelectOption.
+ *
+ * @since 0.0.1
+ */
 export type SelectOptions = ApplicationStatus | InterviewStatus | OfferStatus | ResponseStatus | FinalDestinationStatus;
 
 /**
- * @description
  * The custom hook manages the selection of a previously selected value.
  * This is necessary to retrieve the previous value's UUID and set it as the input's value.
  *
- * @returns {SelectOptions | null}
- * If a previously selected value exists, an object containing `name` and `uuid` fields is returned.
+ * @returns {SelectOptions | null} If a previously selected value exists, an object containing `name` and `uuid` fields is returned.
  * Otherwise a null value is returned.
  *
  * @since 0.0.1

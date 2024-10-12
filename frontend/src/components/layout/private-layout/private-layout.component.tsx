@@ -39,8 +39,6 @@ import { NavbarRoute, navigationRoutesByRole, sharedNavigationRoutes } from './p
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link PrivateLayout} component.
  *
  * @since 0.0.1
@@ -50,8 +48,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The layout component renders navigation and content for authorised users. Unauthorised users are redirected.
  *
  * @param {ComponentProps} props

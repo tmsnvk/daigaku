@@ -32,7 +32,11 @@ import { CommentMeta, SimpleQueryResult } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the return value properties of the {@link useCommentPagination} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface CommentPagination {
   currentPage: number;
   goToPreviousPage: () => void;
@@ -40,11 +44,9 @@ export interface CommentPagination {
 }
 
 /**
- * @description
  * The custom hook manages the page number tracking of the comment pagination feature.
  *
- * @returns {CommentPagination}
- * An object with the following values:
+ * @returns {CommentPagination} An object with the following values:
  * - `currentPage` - the current page number.
  * - `goToPreviousPage` - a method that updates the `currentPage` value when the paginating backwards button is clicked.
  * - `goToNextPage`- a method that updates the `currentPage` value when the paginating forwards button is clicked.
@@ -80,17 +82,13 @@ export const useCommentPagination = (): CommentPagination => {
  */
 
 /**
- * @description
  * The custom hook manages the fetching of comments for a given application
  * that belong to the selected page number in the pagination list, utilising the `react-query` library.
  *
- * @param {string} applicationUuid
- * The selected application's UUID.
- * @param {number} currentPage
- * The current page number for pagination.
+ * @param applicationUuid The selected application's UUID.
+ * @param currentPage The current page number for pagination.
  *
  * @returns {SimpleQueryResult<CommentMeta>}
- * A `react-query` query object.
  *
  * @since 0.0.1
  */

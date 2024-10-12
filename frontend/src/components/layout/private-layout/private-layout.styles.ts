@@ -26,8 +26,6 @@ import { BaseNavbar } from '@components/base-styles';
  */
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const Header = styled(BaseNavbar)`
@@ -60,8 +58,6 @@ export const Header = styled(BaseNavbar)`
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link SmallScreenMenuWrapper} styled-component used to define styling states.
  *
  * @since 0.0.1
@@ -71,8 +67,6 @@ interface SmallScreenMenuWrapper {
 }
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`
@@ -102,8 +96,6 @@ export const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`
  */
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const SmallScreenMenuToggle = styled.div`

@@ -2,22 +2,37 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useQuery } from '@tanstack/react-query';
 
-/* service imports */
+/* logic imports */
 import { institutionService } from '@services/index.ts';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { InstitutionOption } from '@services/support/institution.service';
 import { ListQueryResult } from '@common-types';
+import { InstitutionOption } from '@services/support/institution.service';
 
-/*
-* custom hook - TODO - add functionality description
-*/
+/**
+ * The custom hook fetches a list of {@link InstitutionOption} objects.
+ *
+ * @returns {ListQueryResult<InstitutionOption>}
+ *
+ * @since 0.0.1
+ */
 export const useGetInstitutionOptions = (): ListQueryResult<InstitutionOption> => {
   return useQuery({
     queryKey: [queryKeys.INSTITUTIONS.GET_AS_SELECT_OPTIONS],

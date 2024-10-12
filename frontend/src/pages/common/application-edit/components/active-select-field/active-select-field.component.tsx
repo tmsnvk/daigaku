@@ -29,7 +29,11 @@ import { InputError, InputLabel } from '@components/form';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link ActiveSelectField} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   fieldError: string | undefined;
@@ -43,7 +47,6 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
- * @description
  * The component renders `select` input fields whose input type is included in the {@link SelectOptions} union type.
  *
  * @returns {JSX.Element}

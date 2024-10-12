@@ -2,10 +2,21 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useQueries } from '@tanstack/react-query';
 
-/* service imports */
+/* logic imports */
 import {
   applicationStatusService,
   finalDestinationStatusService,
@@ -14,17 +25,21 @@ import {
   responseStatusService,
 } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
 import { ApplicationStatus } from '@services/status/application-status.service';
+import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 import { InterviewStatus } from '@services/status/interview-status-service.service';
 import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of all application status fields.
+ *
+ * @since 0.0.1
+ */
 export interface ApplicationStatusOption {
   applicationStatus: Array<ApplicationStatus> | undefined;
   interviewStatus: Array<InterviewStatus> | undefined;
@@ -33,14 +48,23 @@ export interface ApplicationStatusOption {
   finalDestinationStatus: Array<FinalDestinationStatus> | undefined;
 }
 
+/**
+ * The interface represents the return properties of the {@link useGetAllSelectOptions} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface ApplicationOptions {
   selectOptions: ApplicationStatusOption;
   isLoading: boolean;
   isError: boolean;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * The custom hook fetches all status objects for the application form.
+ *
+ * @returns {ApplicationOptions}
+ *
+ * @since 0.0.1
  */
 export const useGetAllSelectOptions = (): ApplicationOptions => {
   return useQueries({

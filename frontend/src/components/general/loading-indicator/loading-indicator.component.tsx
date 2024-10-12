@@ -29,8 +29,6 @@ import { iconLibraryConfig } from '@configuration';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link LoadingIndicator} component.
  *
  * @since 0.0.1
@@ -40,8 +38,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * A loading indicator component that displays a loading message and a spinner icon.
  *
  * @param {ComponentProps} props

@@ -25,11 +25,11 @@ import { Main } from './application-edit.styles';
 import { ApplicationForm } from './components/application-form';
 
 /* configuration, utilities, constants imports */
+import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
 import { constants } from './application-edit.constants';
 
 /* interface, type, enum imports */
 import { Application, ApplicationLocation, SimpleQueryResult } from '@common-types';
-import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
 import { ApplicationOptions } from '@hooks/application-status/use-get-all-select-options';
 
 /**
@@ -39,7 +39,6 @@ import { ApplicationOptions } from '@hooks/application-status/use-get-all-select
  */
 
 /**
- * @description
  * The page-level component renders the edit mode of a single application.
  * The user is not allowed to change the basic elements of the application, i.e. Country, University Course Name, Minor Subject and Programme Length fields.
  * The rest of the fields may be update based on a conditional validation rules.

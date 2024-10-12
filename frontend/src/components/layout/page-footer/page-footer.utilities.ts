@@ -14,7 +14,6 @@
  */
 
 /**
- * @description
  * The utility method returns the current year as string.
  *
  * @returns {string}

@@ -17,8 +17,6 @@
 import { UseMutationResult } from '@tanstack/react-query';
 
 /**
- * @type
- * @description
  * The interface represents the result of a `react-query` mutation operation.
  *
  * @template T The type of the data returned from the mutation on success.

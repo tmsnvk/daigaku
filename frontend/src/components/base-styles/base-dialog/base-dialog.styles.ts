@@ -26,8 +26,6 @@ import { BaseLightBorder } from '../base-light-border';
  */
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const BaseDialog = styled.dialog`

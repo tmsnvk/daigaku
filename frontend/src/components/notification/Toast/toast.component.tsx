@@ -23,8 +23,6 @@ import { Section } from './toast.styles.ts';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link Toast} component.
  *
  * @since 0.0.1
@@ -35,8 +33,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a pop-up toast dialog as a feedback to the user.
  *
  * @param {ComponentProps} props

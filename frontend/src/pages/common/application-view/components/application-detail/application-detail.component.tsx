@@ -22,20 +22,22 @@ import { Article } from './application-detail.styles';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link ApplicationDetail} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   name: string;
   value: string | number;
 }
 
 /**
- * @description
  * The component renders a single value on the {@link ApplicationDetails} form.
  *
- * @param {string} props.name
- * An application detail's name property.
- * @param {string | number} props.value
- * An application detail's value property.
+ * @param {ComponentProps} props
+ * @param props.name An application detail's name property.
+ * @param props.value An application detail's value property.
  *
  * @returns {JSX.Element}
  *

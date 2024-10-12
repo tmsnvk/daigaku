@@ -32,8 +32,6 @@ import { iconLibraryConfig } from '@configuration';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link GlobalLoadingModal} component.
  *
  * @since 0.0.1
@@ -44,8 +42,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a modal dialog while loading data, providing feedback to the user.
  *
  * @param {ComponentProps} props

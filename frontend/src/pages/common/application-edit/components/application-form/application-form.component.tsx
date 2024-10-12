@@ -18,9 +18,10 @@ import { useForm } from 'react-hook-form';
 
 /* logic imports */
 import {
+  HandleFieldDisableStatus,
   HandleFormSubmission,
   UpdateApplicationFormFields,
-  useHandleFieldDisableStatuses,
+  useHandleFieldDisableStatus,
   useHandleFormSubmission,
   useUpdateApplication,
 } from './application-form.hooks';
@@ -52,14 +53,17 @@ import { ResponseStatus } from '@services/status/response-status.service';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link ApplicationForm} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly application: Application;
   readonly selectOptions: ApplicationStatusOption;
 }
 
 /**
- * @description
  * The component renders the form edit page where users are able to amend their application data.
  *
  * @returns {JSX.Element}
@@ -73,7 +77,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     register,
     setError,
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
-  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication({ setError, applicationUuid: application.uuid });
+  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
   const {
     fieldsReadOnlyStatus,
     updateInterviewStatus,
@@ -81,7 +85,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     updateResponseStatus,
     updateFinalDestinationStatus,
     disableFieldsOnFinalDestinationUpdate,
-  } = useHandleFieldDisableStatuses({ application, updatedData, selectOptions });
+  }: HandleFieldDisableStatus = useHandleFieldDisableStatus(application, updatedData, selectOptions);
   const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
 
   return (
@@ -89,7 +93,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
       <Form
         id={'update-application-form'}
         method={'PATCH'}
-        onSubmit={handleSubmit((formData) => submitForm({ formData, applicationUuid: application.uuid, mutate, setError }))}
+        onSubmit={handleSubmit((formData) => submitForm(formData, application.uuid, mutate, setError))}
       >
         <PageTitle title={constants.form.TITLE} />
         <ApplicationMetadata

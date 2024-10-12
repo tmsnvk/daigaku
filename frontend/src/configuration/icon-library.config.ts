@@ -2,6 +2,17 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { IconLookup, library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -56,11 +67,18 @@ library.add(
   faXmark,
 );
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link iconLibraryConfig} configuration object.
+ *
+ * @since 0.0.1
+ */
 interface IconLibraryConfig {
   [key: string]: IconLookup;
 }
 
+/**
+ * @since 0.0.1
+ */
 export const iconLibraryConfig: IconLibraryConfig = {
   faBars: { prefix: 'fas', iconName: 'bars' },
   faCircleExclamation: { prefix: 'fas', iconName: 'circle-exclamation' },

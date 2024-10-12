@@ -37,8 +37,6 @@ import { CountryOption } from '@services/support/country.service';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link CountryDropdown} component.
  *
  * @since 0.0.1
@@ -54,8 +52,6 @@ interface ComponentProps<T extends FieldValues> {
 }
 
 /**
- * @component
- * @description
  * A dropdown component to select a country.
  *
  * @param {ComponentProps<T extends FieldValues>} props
@@ -80,7 +76,7 @@ export const CountryDropdown = <T extends FieldValues>({
   options,
   onCountrySelection,
 }: ComponentProps<T>): JSX.Element => {
-  const { handleCountrySelection }: SelectCountry = useSelectCountry({ onCountrySelection });
+  const { handleCountrySelection }: SelectCountry = useSelectCountry(onCountrySelection);
 
   return (
     <BaseInput $isError={error !== undefined}>

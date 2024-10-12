@@ -24,8 +24,6 @@ import { constants } from './private-layout.constants';
 import { AccountRoleValues } from '@context/auth';
 
 /**
- * @interface
- * @description
  * The interface represents a navigation route in the application.
  *
  * @since 0.0.1

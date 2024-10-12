@@ -27,8 +27,6 @@ import { Dialog } from './confirmation-modal.styles';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link ConfirmationModal} component.
  *
  * @since 0.0.1
@@ -40,8 +38,6 @@ interface ComponentProps {
 }
 
 /**
- * @component
- * @description
  * The component renders a modal dialog for user confirmation with a message.
  *
  * @param {ComponentProps} props

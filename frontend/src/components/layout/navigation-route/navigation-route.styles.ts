@@ -25,8 +25,6 @@ import styled from 'styled-components';
  */
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const RouteLink = styled(NavLink)`
@@ -51,8 +49,6 @@ export const RouteLink = styled(NavLink)`
  */
 
 /**
- * @interface
- * @description
  * The interface represents the properties of the {@link NavbarIcon} styled-component used to define styling states.
  *
  * @since 0.0.1
@@ -62,8 +58,6 @@ interface NavbarIcon {
 }
 
 /**
- * @component
- *
  * @since 0.0.1
  */
 export const NavbarIcon = styled(FontAwesomeIcon)<NavbarIcon>`

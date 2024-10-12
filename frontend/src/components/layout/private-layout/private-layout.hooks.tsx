@@ -23,8 +23,6 @@ import { useState } from 'react';
  */
 
 /**
- * @interface
- * @description
  * The interface represents the return value properties of the {@link useSmallScreenNavbarDisplay} custom hook.
  *
  * @since 0.0.1
@@ -37,8 +35,6 @@ export interface SmallScreenNavbarDisplay {
 }
 
 /**
- * @function
- * @description
  * The custom hook toggles the visibility state of the navigation bar on small screens.
  *
  * @returns {SmallScreenNavbarDisplay} An object containing:

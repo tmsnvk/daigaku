@@ -38,7 +38,6 @@ import { Application, ApplicationLocation, SimpleQueryResult } from '@common-typ
  */
 
 /**
- * @description
  * The page-level component renders the view mode of a single application.
  * In a future feature, other users will also be able to view these applications.
  *

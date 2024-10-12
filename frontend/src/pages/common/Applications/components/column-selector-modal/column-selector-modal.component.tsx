@@ -29,7 +29,11 @@ import { Column } from '../../applications.hooks';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of the {@link ColumnSelectorModal} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly columns: Array<Column>;
   readonly onToggleColumnVisibility: (id: string) => void;
@@ -38,7 +42,6 @@ interface ComponentProps {
 }
 
 /**
- * @description
  * The component renders the column selector modal that lets users to choose which data columns they wish to view on the page.
  *
  * @returns {JSX.Element}
