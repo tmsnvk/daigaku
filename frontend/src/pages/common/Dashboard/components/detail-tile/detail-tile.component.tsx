@@ -22,7 +22,11 @@ import { Article } from './detail-tile.styles';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the component's properties.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly title: string;
   readonly country: string;
@@ -34,14 +38,11 @@ interface ComponentProps {
  * @description
  * The component renders a detail tile with a title and corresponding data.
  *
- * @param {string} props.title
- * The tile's title.
- * @param {string} props.country
- * The tile's country value.
- * @param {string} props.university
- * The tile's university value.
- * @param {number} props.courseName
- * The tile's courseName value.
+ * @param {ComponentProps} props
+ * @param props.title The tile's title.
+ * @param props.country The tile's country value.
+ * @param props.university The tile's university value.
+ * @param props.courseName The tile's courseName value.
  *
  * @returns {JSX.Element}
  *

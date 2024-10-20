@@ -23,22 +23,26 @@ import { Label } from './input-label.styles';
  */
 
 /**
- * The interface represents the properties of the {@link InputLabel} component.
+ * Defines the properties of the {@link InputLabel} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The id of the input that the label is associated with.
+   */
   readonly inputId: string;
+
+  /**
+   *  The text to display inside the label.
+   */
   readonly labelText: string;
 }
 
 /**
- * The component renders a list of paragraphs for a given input field.
+ * Renders a label for a given input field.
  *
  * @param {ComponentProps} props
- * @param props.inputId The id of the input field that the label is associated with.
- * @param props.labelText The text to display inside the label.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

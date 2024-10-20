@@ -29,21 +29,16 @@ import { constants } from './application-form.constants';
 /* interface, type, enum imports */
 import {
   Application,
-  ApplicationStatusE,
-  FinalDestinationE,
-  InterviewStatusE,
+  ApplicationStatus,
+  FinalDestinationStatus,
+  InterviewStatus,
   MutationResult,
-  OfferStatusE,
-  ResponseStatusE,
+  OfferStatus,
+  ResponseStatus,
   ServerValidationErrorResponse,
 } from '@common-types';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
-import { ApplicationStatus } from '@services/status/application-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-import { InterviewStatus } from '@services/status/interview-status-service.service';
-import { OfferStatus } from '@services/status/offer-status.service';
-import { ResponseStatus } from '@services/status/response-status.service';
 
 /**
  * ===============
@@ -144,20 +139,20 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
       return errors;
     }
 
-    const firmChoiceUuid: string = filterCacheByUuid(responseStatusCache, ResponseStatusE.FIRM_CHOICE);
-    const finalDestinationUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.FINAL_DESTINATION);
-    const finalDestinationDeferredUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationE.DEFERRED_ENTRY);
+    const firmChoiceUuid: string = filterCacheByUuid(responseStatusCache, ResponseStatus.FIRM_CHOICE);
+    const finalDestinationUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatus.FINAL_DESTINATION);
+    const finalDestinationDeferredUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatus.DEFERRED_ENTRY);
 
     applicationsCache.forEach((application: Application) => {
       if (application.uuid !== applicationUuid) {
-        if (application.responseStatus === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
+        if (application.responseStatus === ResponseStatus.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
           errors.push(constants.ui.errors.FIRM_CHOICE_SELECTION);
         }
 
         if (
-          (application.finalDestinationStatus === FinalDestinationE.FINAL_DESTINATION &&
+          (application.finalDestinationStatus === FinalDestinationStatus.FINAL_DESTINATION &&
             formData.finalDestinationStatusUuid === finalDestinationUuid) ||
-          (application.finalDestinationStatus === FinalDestinationE.DEFERRED_ENTRY &&
+          (application.finalDestinationStatus === FinalDestinationStatus.DEFERRED_ENTRY &&
             formData.finalDestinationStatusUuid === finalDestinationDeferredUuid)
         ) {
           errors.push(constants.ui.errors.FINAL_DESTINATION_SELECTION);
@@ -302,7 +297,7 @@ const disableIfWithdrawn = (
   applicationStatusOptions: Array<ApplicationStatus> | undefined,
 ): boolean => {
   const withdrawnStatus: ApplicationStatus | undefined = applicationStatusOptions?.filter((element) => {
-    return element.name === ApplicationStatusE.WITHDRAWN;
+    return element.name === ApplicationStatus.WITHDRAWN;
   })[0];
 
   if (withdrawnStatus) {
@@ -345,7 +340,7 @@ const pageLoadFieldSetup: PageLoadFieldSetup = {
     }
 
     const submittedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter((element: ApplicationStatus) => {
-      return element.name === ApplicationStatusE.SUBMITTED;
+      return element.name === ApplicationStatus.SUBMITTED;
     })[0];
 
     if (submittedStatus) {
@@ -364,7 +359,7 @@ const pageLoadFieldSetup: PageLoadFieldSetup = {
     }
 
     const notInvitedStatus: InterviewStatus | undefined = selectOptions.interviewStatus?.filter((element: ApplicationStatus) => {
-      return element.name === InterviewStatusE.NOT_INVITED;
+      return element.name === InterviewStatus.NOT_INVITED;
     })[0];
 
     if (notInvitedStatus) {
@@ -379,7 +374,7 @@ const pageLoadFieldSetup: PageLoadFieldSetup = {
     }
 
     const rejectedStatus: OfferStatus | undefined = selectOptions.offerStatus?.filter((element: ApplicationStatus) => {
-      return element.name === OfferStatusE.REJECTED;
+      return element.name === OfferStatus.REJECTED;
     })[0];
 
     if (rejectedStatus) {
@@ -398,7 +393,7 @@ const pageLoadFieldSetup: PageLoadFieldSetup = {
     }
 
     const offerDeclinedStatus: ResponseStatus | undefined = selectOptions.responseStatus?.filter((element: ApplicationStatus) => {
-      return element.name === ResponseStatusE.OFFER_DECLINED;
+      return element.name === ResponseStatus.OFFER_DECLINED;
     })[0];
 
     if (offerDeclinedStatus) {
@@ -490,10 +485,10 @@ export const useHandleFieldDisableStatus = (
 
   const updateInterviewStatus = (eventTargetValue: string): void => {
     const planned: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter((element: ApplicationStatus) => {
-      return element.name === ApplicationStatusE.SUBMITTED;
+      return element.name === ApplicationStatus.SUBMITTED;
     })[0];
     const withdrawn: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter((element: ApplicationStatus) => {
-      return element.name === ApplicationStatusE.WITHDRAWN;
+      return element.name === ApplicationStatus.WITHDRAWN;
     })[0];
 
     if (planned && eventTargetValue === planned.uuid) {
@@ -519,7 +514,7 @@ export const useHandleFieldDisableStatus = (
 
   const updateOfferStatus = (eventTargetValue: string): void => {
     const invitedStatuses: Array<OfferStatus> | undefined = selectOptions.interviewStatus?.filter((element: InterviewStatus) => {
-      return element.name !== InterviewStatusE.NOT_INVITED;
+      return element.name !== InterviewStatus.NOT_INVITED;
     });
 
     if (invitedStatuses) {
@@ -541,7 +536,7 @@ export const useHandleFieldDisableStatus = (
 
   const updateResponseStatus = (eventTargetValue: string): void => {
     const positiveResponseStatuses: Array<ResponseStatus> | undefined = selectOptions.offerStatus?.filter((element: OfferStatus) => {
-      return element.name !== OfferStatusE.REJECTED;
+      return element.name !== OfferStatus.REJECTED;
     });
 
     if (positiveResponseStatuses) {
@@ -561,7 +556,7 @@ export const useHandleFieldDisableStatus = (
 
   const updateFinalDestinationStatus = (eventTargetValue: string): void => {
     const positiveResponseStatuses: Array<ResponseStatus> | undefined = selectOptions.responseStatus?.filter((element: ResponseStatus) => {
-      return element.name !== ResponseStatusE.OFFER_DECLINED;
+      return element.name !== ResponseStatus.OFFER_DECLINED;
     });
 
     if (positiveResponseStatuses) {

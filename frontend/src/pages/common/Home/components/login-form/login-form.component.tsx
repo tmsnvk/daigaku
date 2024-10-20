@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { HandleLoginForm, LoginFormFields, useHandleLoginForm } from './login-form.hooks';
 
 /* component, style imports */
-import { GenericInputField, InputError, PasswordInputField, SubmitInput } from '@components/form';
+import { GenericInput, InputError, PasswordInput, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button';
 
@@ -38,7 +38,11 @@ import { FormType, SelectForm, UseFormHook } from '../../home.interfaces';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The type represents the component's properties.
+ *
+ * @since 0.0.1
+ */
 type ComponentProps = SelectForm;
 
 /**
@@ -47,8 +51,8 @@ type ComponentProps = SelectForm;
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
- * @param {Function} props.selectForm
- * A function to handle {@link FormType} switching.
+ * @param {ComponentProps} props
+ * @param props.selectForm A function to handle {@link FormType} switching.
  *
  * @returns {JSX.Element}
  *
@@ -61,7 +65,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
     register,
     setError,
   }: UseFormHook<LoginFormFields> = useForm<LoginFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: HandleLoginForm = useHandleLoginForm({ setError });
+  const { isPending, mutate }: HandleLoginForm = useHandleLoginForm(setError);
 
   return (
     <section>
@@ -71,7 +75,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
         method={'POST'}
         onSubmit={handleSubmit((formData: LoginFormFields) => mutate(formData))}
       >
-        <GenericInputField
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -86,7 +90,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           isDisabled={isPending}
           error={errors.email?.message}
         />
-        <PasswordInputField
+        <PasswordInput
           register={register}
           validationRules={{
             required: {

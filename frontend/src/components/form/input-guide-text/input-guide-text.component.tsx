@@ -14,34 +14,35 @@
  */
 
 /* component, style imports */
-import { Article } from './input-field-guide-text.styles';
+import { Article } from './input-guide-text.styles';
 
 /**
  * ===============
- * Component {@link InputFieldGuideText}
+ * Component {@link InputGuideText}
  * ===============
  */
 
 /**
- * The interface represents the properties of the {@link InputFieldGuideText} component.
+ * Defines the properties of the {@link InputGuideText} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * A list of paragraphs rendered as instruction.
+   */
   readonly paragraphs: Array<string>;
 }
 
 /**
- * The component renders a list of paragraphs for a given input field.
+ * Renders a list of paragraphs for a given input.
  *
  * @param {ComponentProps} props
- * @param props.paragraphs A list of paragraphs.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
  */
-export const InputFieldGuideText = ({ paragraphs }: ComponentProps): JSX.Element => {
+export const InputGuideText = ({ paragraphs }: ComponentProps): JSX.Element => {
   return (
     <Article>
       {paragraphs.map((paragraph: string, index: number) => (

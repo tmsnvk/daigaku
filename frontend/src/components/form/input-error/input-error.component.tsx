@@ -23,20 +23,21 @@ import { Paragraph } from './input-error.styles';
  */
 
 /**
- * The interface represents the properties of the {@link InputError} component.
+ * Defines the properties of the {@link InputError} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The rendered error message, if any.
+   */
   readonly message: string | undefined;
 }
 
 /**
- * The component renders a simple error message for various input fields.
+ * Renders a simple error message for various input fields.
  *
  * @param {ComponentProps} props
- * @param props.message The rendered error message.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

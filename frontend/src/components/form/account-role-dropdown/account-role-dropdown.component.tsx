@@ -14,7 +14,7 @@
  */
 
 /* external imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 /* component, style imports */
 import { BaseInput } from '@components/base-styles';
@@ -25,7 +25,7 @@ import { constants } from './account-role-dropdown.constants';
 import { formatRoleName } from './account-role-dropdown.utilities';
 
 /* interface, type, enum imports */
-import { FormFieldValidation } from '@common-types';
+import { DropdownInput } from '@common-types';
 import { RoleOption } from '@services/role/role.service';
 
 /**
@@ -35,30 +35,9 @@ import { RoleOption } from '@services/role/role.service';
  */
 
 /**
- * The interface represents the properties of the {@link AccountRoleDropdown} component.
+ * Renders a dropdown component to select a {@link RoleOption}.
  *
- * @since 0.0.1
- */
-interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>;
-  error: string | undefined;
-  validationRules?: FormFieldValidation;
-  id: Path<T>;
-  isDisabled: boolean;
-  roles: Array<RoleOption>;
-}
-
-/**
- * A dropdown component to select an account role.
- *
- * @param {ComponentProps<T extends FieldValues>} props
- * @param props.register `react-hook-form` register method.
- * @param props.validationRules Validation rules for `react-hook-form` validation handling.
- * @param props.error Error message if any.
- * @param props.id The id of the input field.
- * @param props.isDisabled The disabled status of the input field.
- * @param props.roles The list of roles that should be available in the dropdown field.
- *
+ * @param {DropdownInput<T, RoleOption>} props
  * @returns {JSX.Element}
  *
  * @since 0.0.1
@@ -69,8 +48,8 @@ export const AccountRoleDropdown = <T extends FieldValues>({
   error,
   id,
   isDisabled,
-  roles,
-}: ComponentProps<T>): JSX.Element => {
+  options,
+}: DropdownInput<T, RoleOption>): JSX.Element => {
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
@@ -89,7 +68,7 @@ export const AccountRoleDropdown = <T extends FieldValues>({
         >
           {constants.input.DEFAULT_OPTION}
         </option>
-        {roles.map((role: RoleOption) => {
+        {options.map((role: RoleOption) => {
           return (
             <option
               key={role.uuid}

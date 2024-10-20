@@ -49,7 +49,7 @@ export const RouteLink = styled(NavLink)`
  */
 
 /**
- * The interface represents the properties of the {@link NavbarIcon} styled-component used to define styling states.
+ * Defines the properties of the {@link NavbarIcon} styled-component used to define styling states.
  *
  * @since 0.0.1
  */

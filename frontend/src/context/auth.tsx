@@ -26,7 +26,7 @@ import { localStorageKeyConstants } from '@constants';
 import { LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
 
 /**
- * The enum represents the authentication status options.
+ * Defines the authentication status options.
  *
  * @since 0.0.1
  */
@@ -37,7 +37,7 @@ export enum AuthStatus {
 }
 
 /**
- * The enum represents the various account types.
+ * Defines the various account types.
  *
  * @since 0.0.1
  */
@@ -72,7 +72,7 @@ export type Account = {
 };
 
 /**
- * The interface represents the properties of the AuthContext object.
+ * Defines the properties of the AuthContext object.
  *
  * @since 0.0.1
  */
@@ -124,6 +124,9 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   };
 
   useEffect(() => {
+    // The useEffect that activates whenever the user refreshes their browser.
+    // The action locally checks for the user's authentication token, then a token authentication request is sent to the server.
+    // If the token is unavailable or the server request fails the user is signed out.
     const token: string | null = localStorage.getItem(localStorageKeyConstants.AUTH_TOKEN);
 
     if (!token) {
@@ -152,6 +155,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   }, []);
 
   const logOut = (): void => {
+    // Logs the user out.
     localStorage.removeItem(localStorageKeyConstants.AUTH_TOKEN);
     setAuthStatus(AuthStatus.SIGNED_OUT);
   };
@@ -174,6 +178,8 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 };
 
 /**
+ * The AuthContext object is turned into a custom hook for simplier usage within the application's components.
+ *
  * @since 0.0.1
  */
 export const useAuth = (): AuthContext => useContext(AuthContext);

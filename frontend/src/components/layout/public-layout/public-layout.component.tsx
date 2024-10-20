@@ -33,7 +33,7 @@ import { constants } from './public-layout.constants';
  */
 
 /**
- * The layout component renders navigation and content for unauthorised users.
+ * Renders the navigation routes for unauthorised users.
  *
  * @returns {JSX.Element}
  *

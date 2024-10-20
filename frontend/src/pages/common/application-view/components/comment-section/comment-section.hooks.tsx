@@ -24,7 +24,7 @@ import { commentService } from '@services/index';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { CommentMeta, SimpleQueryResult } from '@common-types';
+import { CommentPagination, SimpleQueryResult } from '@common-types';
 
 /**
  * ===============
@@ -88,11 +88,14 @@ export const useCommentPagination = (): CommentPagination => {
  * @param applicationUuid The selected application's UUID.
  * @param currentPage The current page number for pagination.
  *
- * @returns {SimpleQueryResult<CommentMeta>}
+ * @returns {SimpleQueryResult<CommentPagination>}
  *
  * @since 0.0.1
  */
-export const useCommentsByApplicationAndPagination = (applicationUuid: string, currentPage: number): SimpleQueryResult<CommentMeta> => {
+export const useCommentsByApplicationAndPagination = (
+  applicationUuid: string,
+  currentPage: number,
+): SimpleQueryResult<CommentPagination> => {
   return useQuery({
     queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
     queryFn: () => commentService.getAllByApplicationUUidAndPagination(applicationUuid, currentPage),

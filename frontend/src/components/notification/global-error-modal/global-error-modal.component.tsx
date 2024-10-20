@@ -28,24 +28,31 @@ import { Dialog } from './global-error-modal.styles.ts';
  */
 
 /**
- * The interface represents the properties of the {@link GlobalErrorModal} component.
+ * Represents the properties of the {@link GlobalErrorModal} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * Indicates whether the modal should be visible.
+   */
   readonly isVisible: boolean;
+
+  /**
+   * The specific error message to be displayed, if available.
+   */
   readonly errorText?: string;
+
+  /**
+   * Callback function invoked to close the modal.
+   */
   readonly onCloseModal: () => void;
 }
 
 /**
- * The component renders a modal dialog when an unexpected error occurs in the application.
+ * Renders a modal when an unexpected error occurs in the application.
  *
  * @param {ComponentProps} props
- * @param props.isVisible Boolean value to indicate whether the modal should be visible.
- * @param props.errorText The specific error message to be displayed, if available.
- * @param props.onCloseModal A callback function to close the modal.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
@@ -60,7 +67,7 @@ export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: Compone
       <p>{constants.ui.ERROR_MESSAGE[1]}</p>
       <SubmitInput
         type={'button'}
-        value={'ok'}
+        value={constants.ui.ACCEPTANCE}
         autoFocus={true}
         onClick={onCloseModal}
       />

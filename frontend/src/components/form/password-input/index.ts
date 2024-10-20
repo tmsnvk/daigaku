@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { InputFieldGuideText } from './input-field-guide-text.component';
+import { PasswordInput } from './password-input.component';
 
-export { InputFieldGuideText };
+export { PasswordInput };

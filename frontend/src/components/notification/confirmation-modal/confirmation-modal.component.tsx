@@ -27,24 +27,31 @@ import { Dialog } from './confirmation-modal.styles';
  */
 
 /**
- * The interface represents the properties of the {@link ConfirmationModal} component.
+ * Defines the properties of the {@link ConfirmationModal} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * Indicates whether the modal should be visible.
+   */
   readonly isVisible: boolean;
+
+  /**
+   * The message to be displayed in the modal.
+   */
   readonly message: string;
+
+  /**
+   * Callback function invoked to close the modal.
+   */
   readonly onCloseModal: () => void;
 }
 
 /**
- * The component renders a modal dialog for user confirmation with a message.
+ * Renders a modal dialog for user confirmation with a message.
  *
  * @param {ComponentProps} props
- * @param props.isVisible Boolean value to indicate whether the modal should be visible.
- * @param props.message The message to be displayed in the modal.
- * @param props.onCloseModal A callback function to be called when the modal is closed.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

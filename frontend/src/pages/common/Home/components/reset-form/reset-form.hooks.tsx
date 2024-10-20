@@ -35,34 +35,44 @@ import { ConfirmationModal } from '../../home.interfaces';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of a single user registration form submission.
+ *
+ * @since 0.0.1
+ */
 export interface ResetFormFields {
   email: string;
 }
 
-type HandleResetFormParams = {
-  setError: UseFormSetError<ResetFormFields>;
-} & ConfirmationModal;
-
+/**
+ * The type represents the {@link useSubmitRegistrationForm} custom hook's error types.
+ *
+ * @since 0.0.1
+ */
 type ResetFormErrorT = 'root';
 
+/**
+ * The type represents the {@link useSubmitRegistrationForm} custom hook's return value properties.
+ *
+ * @since 0.0.1
+ */
 export type HandleResetForm = MutationResult<void, AxiosError<ResetFormErrorT>, ResetFormFields>;
 
 /**
  * @description
  * The custom hook manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
  *
- * @param {UseFormSetError<ResetFormFields>} params.setError
- * A `react-hook-form` function to set form errors.
- * @param {Function} params.showModal
- * A function to show the {@link ConfirmationModal}, used in the component.
+ * @param setError A `react-hook-form` function to set form errors.
+ * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
  *
- * @returns {HandleResetForm}
- * A `react-query` mutation object.
+ * @returns {HandleResetForm} A `react-query` mutation object.
  *
  * @since 0.0.1
  */
-export const useHandleResetForm = ({ setError, showModal }: HandleResetFormParams): HandleResetForm => {
+export const useHandleResetForm = (
+  setError: UseFormSetError<ResetFormFields>,
+  showModal: ConfirmationModal['showModal'],
+): HandleResetForm => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_RESET_FORM],
     mutationFn: (formData: ResetFormFields) => accountService.resetPassword(formData),

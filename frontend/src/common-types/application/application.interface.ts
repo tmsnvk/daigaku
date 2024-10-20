@@ -13,8 +13,11 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/* interface, type, enum imports */
+import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from './application-status.enum';
+
 /**
- * The interface represents the details of a user's application, including its status, associated account, and relevant timestamps.
+ * Defines the details of a user's {@link Application}, including its status, associated account, and relevant timestamps.
  *
  * @since 0.0.1
  */
@@ -26,11 +29,11 @@ export interface Application {
   readonly courseName: string;
   readonly minorSubject: string;
   readonly programmeLength: number;
-  readonly applicationStatus: string;
-  readonly interviewStatus: string;
-  readonly offerStatus: string;
-  readonly responseStatus: string;
-  readonly finalDestinationStatus: string;
+  readonly applicationStatus: ApplicationStatus;
+  readonly interviewStatus: InterviewStatus;
+  readonly offerStatus: OfferStatus;
+  readonly responseStatus: ResponseStatus;
+  readonly finalDestinationStatus: FinalDestinationStatus;
   readonly createdAt: Date;
   readonly lastUpdatedAt: Date;
   readonly createdBy: string;

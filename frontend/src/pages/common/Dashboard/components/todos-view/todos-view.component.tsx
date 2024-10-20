@@ -25,7 +25,11 @@ import { Todo } from '../../layouts/student-layout/student-layout.hooks';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the component's properties.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly introduction: Array<string>;
   readonly todos: Array<string>;
@@ -35,10 +39,9 @@ interface ComponentProps {
  * @description
  * The component renders an introduction text as well as the user's active todo list.
  *
- * @param {Array<string>} props.introduction
- * The component's summary text.
- * @param {Array<Todo>} props.todos
- * The todo list array.
+ * @param {ComponentProps} props
+ * @param props.introduction The component's summary text.
+ * @param props.todos The todo list array.
  *
  * @returns {JSX.Element}
  *

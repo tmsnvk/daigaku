@@ -14,16 +14,22 @@
  */
 
 /**
- * The interface represents the `react-hook-form` validation rules for a form field.
- * The interface defines the structure for the validation criteria that can be applied to a form field.
+ * Defines validation rules for an input using `react-hook-form`.
  *
  * @since 0.0.1
  */
 export interface FormFieldValidation {
+  /**
+   * Whether the input is mandatory to fill in and a custom error message if it is violated.
+   */
   required?: {
     value: boolean;
     message: string;
   };
+
+  /**
+   * Whether the input has a pattern to match and a custom error message if it is violated.
+   */
   pattern?: {
     value: RegExp;
     message: string;

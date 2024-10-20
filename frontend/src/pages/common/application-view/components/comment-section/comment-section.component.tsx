@@ -26,7 +26,7 @@ import { Section } from './comment-section.styles';
 import { constants } from './comment-section.constants';
 
 /* interface, type, enum imports */
-import { CommentMeta, SimpleQueryResult } from '@common-types';
+import { SimpleQueryResult } from '@common-types';
 import { LoadingIndicator } from '@components/general';
 
 /**
@@ -55,7 +55,10 @@ interface ComponentProps {
  */
 export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element => {
   const { currentPage, goToPreviousPage, goToNextPage }: CommentPagination = useCommentPagination();
-  const { data, isLoading, isError }: SimpleQueryResult<CommentMeta> = useCommentsByApplicationAndPagination(applicationUuid, currentPage);
+  const { data, isLoading, isError }: SimpleQueryResult<CommentPagination> = useCommentsByApplicationAndPagination(
+    applicationUuid,
+    currentPage,
+  );
 
   return (
     <>

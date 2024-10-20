@@ -14,7 +14,7 @@
  */
 
 /* external imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
 import { SelectCountry, useSelectCountry } from './country-dropdown.hooks';
@@ -27,7 +27,7 @@ import { InputError, InputLabel } from '@components/form';
 import { constants } from './country-dropdown.constants';
 
 /* interface, type, enum imports */
-import { FormFieldValidation } from '@common-types';
+import { DropdownInput } from '@common-types';
 import { CountryOption } from '@services/support/country.service';
 
 /**
@@ -37,32 +37,21 @@ import { CountryOption } from '@services/support/country.service';
  */
 
 /**
- * The interface represents the properties of the {@link CountryDropdown} component.
+ * Defines the properties of the {@link CountryDropdown} component.
  *
  * @since 0.0.1
  */
-interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>;
-  validationRules?: FormFieldValidation;
-  error: string | undefined;
-  id: Path<T>;
-  isDisabled: boolean;
-  options: Array<CountryOption>;
+interface ComponentProps<T extends FieldValues, U> extends DropdownInput<T, U> {
+  /**
+   * The callback method that handles the logic once a country is selected.
+   */
   onCountrySelection: (event: string) => void;
 }
 
 /**
- * A dropdown component to select a country.
+ * Renders a dropdown component to select a {@link CountryOption}.
  *
  * @param {ComponentProps<T extends FieldValues>} props
- * @param props.register `react-hook-form` register method.
- * @param props.validationRules Validation rules for `react-hook-form` validation handling.
- * @param props.error Error message if any.
- * @param props.id The id of the input field.
- * @param props.isDisabled The disabled status of the input field.
- * @param props.options The list of countries that should be available in the dropdown field.
- * @param props.onCountrySelection The callback method that handles logic once a country is selected.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
@@ -75,7 +64,7 @@ export const CountryDropdown = <T extends FieldValues>({
   isDisabled,
   options,
   onCountrySelection,
-}: ComponentProps<T>): JSX.Element => {
+}: ComponentProps<T, CountryOption>): JSX.Element => {
   const { handleCountrySelection }: SelectCountry = useSelectCountry(onCountrySelection);
 
   return (

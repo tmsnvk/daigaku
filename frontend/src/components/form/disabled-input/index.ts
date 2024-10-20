@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { PasswordInputField } from './password-input-field.component';
+import { DisabledInput } from './disabled-input.component';
 
-export { PasswordInputField };
+export { DisabledInput };

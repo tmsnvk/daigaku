@@ -26,7 +26,7 @@ import {
 } from './new-application-form.hooks';
 
 /* component, style imports */
-import { CountryDropdown, GenericInputField, InputError, InputFieldGuideText, SubmitInput, UniversityDropdown } from '@components/form';
+import { CountryDropdown, GenericInput, InputError, InputGuideText, SubmitInput, UniversityDropdown } from '@components/form';
 import { LoadingIndicator, PageTitle } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
 import { Form } from './new-application-form.styles';
@@ -75,7 +75,7 @@ export const NewApplicationForm = (): JSX.Element => {
     register,
     setError,
   } = useForm<CreateApplicationFormFields>({ mode: 'onSubmit' });
-  const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication({ setError, resetCountrySelection, reset });
+  const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication(setError, resetCountrySelection, reset);
 
   if (isCountryDataLoading) {
     return (
@@ -103,7 +103,7 @@ export const NewApplicationForm = (): JSX.Element => {
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <PageTitle title={constants.form.TITLE} />
-        <InputFieldGuideText paragraphs={constants.form.country.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.country.INFORMATION} />
         <CountryDropdown
           register={register}
           validationRules={{
@@ -118,7 +118,7 @@ export const NewApplicationForm = (): JSX.Element => {
           options={countryOptions ?? []}
           onCountrySelection={selectCountry}
         />
-        <InputFieldGuideText paragraphs={constants.form.country.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.country.INFORMATION} />
         {isUniversityDataLoading ? (
           <LoadingIndicator loadingText={constants.uiMessage.UNIVERSITY_LOADING} />
         ) : (
@@ -133,11 +133,11 @@ export const NewApplicationForm = (): JSX.Element => {
             error={errors.universityUuid?.message}
             id={'universityUuid'}
             isDisabled={isPending || !isCountrySelected}
-            universityOptions={universityOptions ?? []}
+            options={universityOptions ?? []}
           />
         )}
-        <InputFieldGuideText paragraphs={constants.form.university.INFORMATION} />
-        <GenericInputField
+        <InputGuideText paragraphs={constants.form.university.INFORMATION} />
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -156,8 +156,8 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={constants.form.courseName.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText paragraphs={constants.form.courseName.INFORMATION} />
-        <GenericInputField
+        <InputGuideText paragraphs={constants.form.courseName.INFORMATION} />
+        <GenericInput
           register={register}
           validationRules={{
             pattern: {
@@ -172,8 +172,8 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={constants.form.minorSubject.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText paragraphs={constants.form.minorSubject.INFORMATION} />
-        <GenericInputField
+        <InputGuideText paragraphs={constants.form.minorSubject.INFORMATION} />
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -189,10 +189,10 @@ export const NewApplicationForm = (): JSX.Element => {
           id={'programmeLength'}
           label={constants.form.programmeLength.LABEL}
           type={'number'}
-          defaultValue={3}
+          initialValue={3}
           isDisabled={isPending}
         />
-        <InputFieldGuideText paragraphs={constants.form.programmeLength.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.programmeLength.INFORMATION} />
         <article>
           {isPending ? (
             <LoadingIndicator loadingText={constants.uiMessage.LOADING} />

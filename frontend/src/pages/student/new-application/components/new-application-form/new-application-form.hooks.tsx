@@ -35,7 +35,11 @@ import { Application, MutationResult, ServerValidationErrorResponse } from '@com
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of a single {@link Application} submission.
+ *
+ * @since 0.0.1
+ */
 export interface CreateApplicationFormFields {
   readonly countryUuid: string;
   readonly universityUuid: string;
@@ -44,33 +48,37 @@ export interface CreateApplicationFormFields {
   readonly programmeLength: number;
 }
 
-interface CreateApplicationForm {
-  setError: UseFormSetError<CreateApplicationFormFields>;
-  resetCountrySelection: () => void;
-  reset: () => void;
-}
-
+/**
+ * The type represents the {@link useCreateApplication} custom hook's error types.
+ *
+ * @since 0.0.1
+ */
 type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | 'courseName' | 'minorSubject' | 'programmeLength';
 
+/**
+ * The type represents the {@link useCreateApplication} custom hook's return value properties.
+ *
+ * @since 0.0.1
+ */
 export type CreateApplication = MutationResult<Application, AxiosError<Array<ServerValidationErrorResponse>>, CreateApplicationFormFields>;
 
 /**
  * @description
  * The custom hook manages the submission of new application submission via the `react-query` package.
  *
- * @param {Function} params.setError
- * Function to set validation errors for form fields.
- * @param {Function} params.resetCountrySelection
- * Function to reset the country selection in the form.
- * @param {Function} params.reset
- * A `react-hook-form` method to reset the entire form.
+ * @param setError A function to set validation errors for form fields.
+ * @param resetCountrySelection A function to reset the country selection in the form.
+ * @param reset A `react-hook-form` method to reset the entire form.
  *
- * @returns {CreateApplication}
- * A `react-query` mutation object.
+ * @returns {CreateApplication} A `react-query` mutation object.
  *
  * @since 0.0.1
  */
-export const useCreateApplication = ({ setError, resetCountrySelection, reset }: CreateApplicationForm): CreateApplication => {
+export const useCreateApplication = (
+  setError: UseFormSetError<CreateApplicationFormFields>,
+  resetCountrySelection: () => void,
+  reset: () => void,
+): CreateApplication => {
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationFormFields) => applicationStudentService.postByStudent(formData),
@@ -118,23 +126,38 @@ export const useCreateApplication = ({ setError, resetCountrySelection, reset }:
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the {@link useCountrySelection} custom hook's return value properties.
+ *
+ * @since 0.0.1
+ */
 export interface CountrySelection {
+  /**
+   * A function to update the selected country using a given UUID.
+   * @param countryUuid The to be selected country's UUID.
+   */
   selectCountry: (countryUuid: string) => void;
+
+  /**
+   * A function to reset the country selection status.
+   */
   resetCountrySelection: () => void;
+
+  /**
+   * Indicates if a country is selected.
+   */
   isCountrySelected: boolean;
+
+  /**
+   * The currently selected country's UUID.
+   */
   currentCountryUuid: string;
 }
 
 /**
- * @description
  * The custom hook manages the state of country selection. It tracks whether a country has been selected and stores the currently selected country's UUID.
  *
- * @returns {CountrySelection} An object containing:
- * - `isCountrySelected` - Indicates if a country is selected.
- * - `currentCountryUuid` - UUID of the currently selected country.
- * - `selectCountry` - A function to update the selected country using a given UUID.
- * - `resetCountrySelection` - A function to reset the country selection status.
+ * @returns {CountrySelection} The object that manages the country selection state.
  *
  * @since 0.0.1
  */
@@ -143,18 +166,20 @@ export const useCountrySelection = (): CountrySelection => {
   const [currentCountryUuid, setCurrentCountryUuid] = useState<string>('');
 
   const selectCountry = (countryUuid: string): void => {
+    // Sets the selected country and marks it as selected.
     setIsCountrySelected(true);
     setCurrentCountryUuid(countryUuid);
   };
 
   const resetCountrySelection = (): void => {
+    // Resets the selection state.
     setIsCountrySelected(false);
   };
 
   return {
-    resetCountrySelection,
-    selectCountry,
     isCountrySelected,
     currentCountryUuid,
+    selectCountry,
+    resetCountrySelection,
   };
 };

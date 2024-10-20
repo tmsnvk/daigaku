@@ -33,22 +33,29 @@ import { DashboardStatistics } from '../../dashboard.hooks';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the {@link useSortOrder} custom hook's return value properties.
+ *
+ * @since 0.0.1
+ */
 export interface TodoList {
   todos: Array<Todo>;
 }
 
+/**
+ * The type represents a single Todo item.
+ *
+ * @since 0.0.1
+ */
 export type Todo = string;
 
 /**
  * @description
  * The custom hook evaluates the current todo items based on the provided dashboard statistics.
  *
- * @param {DashboardStatistics} data
- * The dashboard statistics containing application-related aggregate data.
+ * @param data The dashboard statistics containing application-related aggregate data.
 
- * @returns {TodoList}
- * The list of active todo items.
+ * @returns {TodoList} The list of active todo items.
  *
  * @since 0.0.1
  */

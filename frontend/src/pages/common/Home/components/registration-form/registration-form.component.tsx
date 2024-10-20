@@ -22,7 +22,7 @@ import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
 import { RegistrationFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
 
 /* component, style imports */
-import { AccountRoleDropdown, GenericInputField, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
+import { AccountRoleDropdown, GenericInput, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormSwapButton } from '../form-swap-button/index';
@@ -44,7 +44,11 @@ import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The type represents the component's properties.
+ *
+ * @since 0.0.1
+ */
 type ComponentProps = SelectForm & ConfirmationModal;
 
 /**
@@ -53,10 +57,9 @@ type ComponentProps = SelectForm & ConfirmationModal;
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link ResetForm} using the {@link FormSwapButton} component.
  *
- * @param {Function} props.selectForm
- * A function to handle {@link FormType} switching.
- * @param {Function} props.showModal
- * A function to show the {@link ConfirmationModal}, used in form components.
+ * @param {ComponentProps} props
+ * @param props.selectForm A function to handle {@link FormType} switching.
+ * @param props.showModal A function to show the {@link ConfirmationModal}, used in form components.
  *
  * @returns {JSX.Element}
  *
@@ -75,7 +78,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
     register,
     setError,
   }: UseFormHook<RegistrationFormFields> = useForm<RegistrationFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: SubmitRegistrationForm = useSubmitRegistrationForm({ setError, showModal });
+  const { isPending, mutate }: SubmitRegistrationForm = useSubmitRegistrationForm(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {
     return (
@@ -103,7 +106,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <GenericInputField
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -122,7 +125,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           isDisabled={isPending}
           error={errors.firstName?.message}
         />
-        <GenericInputField
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -141,7 +144,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           isDisabled={isPending}
           error={errors.lastName?.message}
         />
-        <GenericInputField
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -165,7 +168,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
             },
           }}
           id={'institutionUuid'}
-          institutions={institutions ?? []}
+          options={institutions ?? []}
           isDisabled={isPending}
           error={errors.institutionUuid?.message}
         />
@@ -178,7 +181,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
             },
           }}
           id={'accountRoleUuid'}
-          roles={roles ?? []}
+          options={roles ?? []}
           isDisabled={isPending}
           error={errors.accountRoleUuid?.message}
         />

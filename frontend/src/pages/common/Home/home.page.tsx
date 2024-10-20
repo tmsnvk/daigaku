@@ -52,7 +52,7 @@ import { ModalControl } from '@hooks/modal-components/use-modal-control';
 export const Home = (): JSX.Element => {
   const { authStatus }: Partial<AuthContext> = useAuth();
   const { isModalVisible, showModal, closeModal }: ModalControl = useModalControl();
-  const { activeFormType, activeFormComponent }: ActiveFormComponent = useActiveFormComponent({ showModal });
+  const { activeFormType, activeFormComponent }: ActiveFormComponent = useActiveFormComponent(showModal);
 
   if (authStatus === AuthStatus.SIGNED_IN) {
     return <Navigate to={'/dashboard'} />;

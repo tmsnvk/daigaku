@@ -22,8 +22,8 @@ import { queryKeys } from '@configuration';
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
 /* interface, type, enum imports */
-import { Application, ApplicationFieldsE } from '@common-types';
-import { APPLICATION_TABLE_COLUMNS } from '@constants';
+import { Application, ApplicationField } from '@common-types';
+import { localStorageKeyConstants } from '@constants';
 
 /**
  * ===============
@@ -31,7 +31,11 @@ import { APPLICATION_TABLE_COLUMNS } from '@constants';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of what a single column can display.
+ *
+ * @since 0.0.1
+ */
 interface ColumnConfig {
   applicationStatus: boolean;
   interviewStatus: boolean;
@@ -40,6 +44,11 @@ interface ColumnConfig {
   finalDestinationStatus: boolean;
 }
 
+/**
+ * The interface represents the core properties of a single column.
+ *
+ * @since 0.0.1
+ */
 export interface Column {
   readonly id: string;
   readonly name: string;
@@ -47,6 +56,11 @@ export interface Column {
   readonly isVisible: boolean;
 }
 
+/**
+ * The type represents the return value properties of the {@link useColumnVisibility} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface ColumnVisibility {
   columns: Array<Column>;
   toggleColumnVisibility: (id: string) => void;
@@ -56,10 +70,9 @@ export interface ColumnVisibility {
  * @description
  * The custom hook manages the visibility of columns in the Applications page's table.
  *
- * @returns {ColumnVisibility}
- * An object containing:
- * - `columns` - The current column configuratio
- * - `toggleColumnVisibility` - A function to toggle column visibility.
+ * @returns {ColumnVisibility} An object containing:
+ * - `columns` The current column configuration.
+ * - `toggleColumnVisibility` A function to toggle column visibility.
  *
  * @since 0.0.1
  */
@@ -71,34 +84,37 @@ export const useColumnVisibility = (): ColumnVisibility => {
     responseStatus: false,
     finalDestinationStatus: false,
   };
-  const columnConfig: ColumnConfig = getLocalStorageObjectById<ColumnConfig>(APPLICATION_TABLE_COLUMNS, defaultColumnConfig);
+  const columnConfig: ColumnConfig = getLocalStorageObjectById<ColumnConfig>(
+    localStorageKeyConstants.APPLICATION_TABLE_COLUMNS,
+    defaultColumnConfig,
+  );
 
   const [columns, setColumns] = useState<Array<Column>>([
-    { id: 'courseName', name: ApplicationFieldsE.COURSE, isCoreColumn: true, isVisible: true },
-    { id: 'university', name: ApplicationFieldsE.UNIVERSITY, isCoreColumn: true, isVisible: true },
-    { id: 'country', name: ApplicationFieldsE.COUNTRY, isCoreColumn: true, isVisible: true },
+    { id: 'courseName', name: ApplicationField.COURSE, isCoreColumn: true, isVisible: true },
+    { id: 'university', name: ApplicationField.UNIVERSITY, isCoreColumn: true, isVisible: true },
+    { id: 'country', name: ApplicationField.COUNTRY, isCoreColumn: true, isVisible: true },
     {
       id: 'applicationStatus',
-      name: ApplicationFieldsE.APPLICATION_STATUS,
+      name: ApplicationField.APPLICATION_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.applicationStatus ?? true,
     },
     {
       id: 'interviewStatus',
-      name: ApplicationFieldsE.INTERVIEW_STATUS,
+      name: ApplicationField.INTERVIEW_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.interviewStatus ?? false,
     },
-    { id: 'offerStatus', name: ApplicationFieldsE.OFFER_STATUS, isCoreColumn: false, isVisible: columnConfig.offerStatus ?? false },
+    { id: 'offerStatus', name: ApplicationField.OFFER_STATUS, isCoreColumn: false, isVisible: columnConfig.offerStatus ?? false },
     {
       id: 'responseStatus',
-      name: ApplicationFieldsE.RESPONSE_STATUS,
+      name: ApplicationField.RESPONSE_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.responseStatus ?? false,
     },
     {
       id: 'finalDestinationStatus',
-      name: ApplicationFieldsE.FINAL_DESTINATION_STATUS,
+      name: ApplicationField.FINAL_DESTINATION_STATUS,
       isCoreColumn: false,
       isVisible: columnConfig.finalDestinationStatus ?? false,
     },
@@ -110,7 +126,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
         if (column.id === id) {
           const updatedColumnConfig: ColumnConfig = { ...columnConfig, [column.id]: !column.isVisible };
 
-          setLocalStorageObjectById(APPLICATION_TABLE_COLUMNS, updatedColumnConfig);
+          setLocalStorageObjectById(localStorageKeyConstants.APPLICATION_TABLE_COLUMNS, updatedColumnConfig);
 
           return { ...column, isVisible: !column.isVisible };
         }
@@ -132,11 +148,20 @@ export const useColumnVisibility = (): ColumnVisibility => {
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The type represents the return value properties of the {@link useSortOrder} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface SetOrder {
   handleColumnSort: (columnId: string) => void;
 }
 
+/**
+ * The enum represents the possible sorting options.
+ *
+ * @since 0.0.1
+ */
 enum SortOrder {
   ASC,
   DESC,
@@ -146,9 +171,8 @@ enum SortOrder {
  * @description
  * The custom hook manages the sorting of data rows in the Applications page's table.
  *
- * @returns {SetOrder}
- * An object containing:
- * - `handleColumnSort` - A function that manages the sorting updates.
+ * @returns {SetOrder} An object containing:
+ * - `handleColumnSort` A function that manages the sorting updates.
  *
  * @since 0.0.1
  */

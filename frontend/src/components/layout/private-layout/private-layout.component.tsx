@@ -39,20 +39,22 @@ import { NavbarRoute, navigationRoutesByRole, sharedNavigationRoutes } from './p
  */
 
 /**
- * The interface represents the properties of the {@link PrivateLayout} component.
+ * Defines the properties of the {@link PrivateLayout} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The list of roles permitted to view this layout.
+   */
   readonly allowedRoles: Array<AccountRoleValues>;
 }
 
 /**
- * The layout component renders navigation and content for authorised users. Unauthorised users are redirected.
+ * Renders navigation and content for authorised users.
+ * Unauthorised users are redirected.
  *
  * @param {ComponentProps} props
- * @param props.allowedRoles The list of roles permitted to view this layout.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
@@ -64,10 +66,13 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
   const { authStatus, account, logOut }: Partial<AuthContext> = useAuth();
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur }: SmallScreenNavbarDisplay = useSmallScreenNavbarDisplay();
 
+  // Redirect unauthorised users.
   if (!allowedRoles.includes(account.role as AccountRoleValues)) {
-    account ? navigate('/unauthorised', { state: { from: location }, replace: true }) : navigate('/', { replace: true });
+    const redirectPath = account ? '/unauthorised' : '/';
+    navigate(redirectPath, { state: { from: location }, replace: true });
   }
 
+  // Show loading modal while authentication status is AuthStatus.LOADING.
   if (authStatus === AuthStatus.LOADING) {
     return (
       <GlobalLoadingModal

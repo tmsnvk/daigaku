@@ -24,16 +24,32 @@ import { constants } from './private-layout.constants';
 import { AccountRoleValues } from '@context/auth';
 
 /**
- * The interface represents a navigation route in the application.
+ * Defines a navigation route in the application.
  *
  * @since 0.0.1
  */
 export interface NavbarRoute {
+  /**
+   * The URL associated with the navigation route.
+   */
   readonly url: string;
+
+  /**
+   * The FontAwesome icon associated with the navigation route.
+   */
   readonly icon: IconLookup;
+
+  /**
+   * The label displayed for the navigation route.
+   */
   readonly label: string;
 }
 
+/**
+ * Defines navigation routes based on user roles in the application.
+ *
+ * @since 0.0.1
+ */
 export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [
     { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, label: constants.routes.student.newApplication.LABEL },
@@ -52,6 +68,11 @@ export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarR
   ],
 };
 
+/**
+ * Defines shared navigation routes accessible to all authenticated users.
+ *
+ * @since 0.0.1
+ */
 export const sharedNavigationRoutes: Array<NavbarRoute> = [
   { url: '/account', icon: iconLibraryConfig.faUser, label: constants.routes.shared.myAccount.LABEL },
   { url: '/messages', icon: iconLibraryConfig.faEnvelope, label: constants.routes.shared.messages.LABEL },

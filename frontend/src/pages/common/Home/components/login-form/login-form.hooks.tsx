@@ -36,12 +36,21 @@ import { MutationResult } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the properties of a single user login form submission.
+ *
+ * @since 0.0.1
+ */
 export interface LoginFormFields {
   readonly email: string;
   readonly password: string;
 }
 
+/**
+ * The interface represents the properties of a successful login request.
+ *
+ * @since 0.0.1
+ */
 export interface LoginFormResponse {
   readonly email: string;
   readonly firstName: string;
@@ -49,12 +58,18 @@ export interface LoginFormResponse {
   readonly role: string;
 }
 
-interface HandleLoginFormParams {
-  setError: UseFormSetError<LoginFormFields>;
-}
-
+/**
+ * The type represents the {@link useHandleLoginForm} custom hook's error types.
+ *
+ * @since 0.0.1
+ */
 type LoginFormErrorT = 'root';
 
+/**
+ * The type represents the {@link useHandleLoginForm} custom hook's return value properties.
+ *
+ * @since 0.0.1
+ */
 export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<LoginFormErrorT>, LoginFormFields>;
 
 /**
@@ -62,15 +77,13 @@ export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<Login
  * The custom hook manages the {@link LoginForm} submission process, including REST API request, error handling,
  * and post-success actions, such as setting account context and authentication status.
  *
- * @param {UseFormSetError<LoginFormFields>} params.setError
- * A `react-hook-form` function to set form errors.
+ * @param setError A `react-hook-form` function to set form errors.
  *
- * @returns {HandleLoginForm}
- * A `react-query` mutation object.
+ * @returns {HandleLoginForm} A `react-query` mutation object.
  *
  * @since 0.0.1
  */
-export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleLoginForm => {
+export const useHandleLoginForm = (setError: UseFormSetError<LoginFormFields>): HandleLoginForm => {
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
   const navigate: NavigateFunction = useNavigate();
 
@@ -78,7 +91,7 @@ export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleL
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
     mutationFn: (formData: LoginFormFields) => accountService.logIn(formData),
     onSuccess: (response: LoginFormResponse) => {
-      localStorage.setItem(localStorageKeyConstants.APPLICATION_TABLE_COLUMNS, response.jwtToken);
+      localStorage.setItem(localStorageKeyConstants.AUTH_TOKEN, response.jwtToken);
 
       const account: Account = {
         ...response,

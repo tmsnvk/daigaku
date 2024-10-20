@@ -19,46 +19,56 @@ import { InputLabel } from '@components/form';
 
 /**
  * ===============
- * Component {@link DisabledInputField}
+ * Component {@link DisabledInput}
  * ===============
  */
 
 /**
- * The interface represents the properties of the {@link DisabledInputField} component.
+ * Defines the properties of the {@link DisabledInput} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
-  readonly fieldId: string;
+  /**
+   * Input id.
+   */
+  readonly id: string;
+
+  /**
+   * Input label.
+   */
   readonly label: string;
+
+  /**
+   * Input type, e.g. 'text', 'email', 'number', etc.
+   */
   readonly type: string;
+
+  /**
+   * The input's readonly value.
+   */
   readonly value: string | number;
 }
 
 /**
- * The component renders a readonly input field.
+ * Renders a disabled, readonly input.
  *
  * @param {ComponentProps} props
- * @param props.fieldId The id of the input field.
- * @param props.label The label of the input field.
- * @param props.type The type of the input field.
- * @param props.value The default value of the input field.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
  */
-export const DisabledInputField = ({ fieldId, label, type, value }: ComponentProps): JSX.Element => {
+export const DisabledInput = ({ id, label, type, value }: ComponentProps): JSX.Element => {
   return (
     <BaseInput $isDisabled={true}>
       <InputLabel
-        inputId={fieldId}
+        inputId={id}
         labelText={label}
       />
       <input
         type={type}
-        id={fieldId}
-        name={fieldId}
+        id={id}
+        name={id}
         disabled
         readOnly
         defaultValue={value}

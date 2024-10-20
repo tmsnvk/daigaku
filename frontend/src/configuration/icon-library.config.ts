@@ -68,7 +68,7 @@ library.add(
 );
 
 /**
- * The interface represents the properties of the {@link iconLibraryConfig} configuration object.
+ * Defines the properties of the {@link iconLibraryConfig} configuration object.
  *
  * @since 0.0.1
  */

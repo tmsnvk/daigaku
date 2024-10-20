@@ -23,13 +23,19 @@ import styled from 'styled-components';
  */
 
 /**
- * The interface represents the properties of the {@link BaseInput} styled-component used to
- * define styling or state behaviours such as errors and disabled states.
+ * Defines the properties of the {@link BaseInput} styled-component, allowing for styling variations based on error and disabled states.
  *
  * @since 0.0.1
  */
 interface BaseInput {
+  /**
+   * Indicates if there is an error state.
+   */
   readonly $isError?: boolean;
+
+  /**
+   * Indicates if the input is disabled.
+   */
   readonly $isDisabled?: boolean;
 }
 

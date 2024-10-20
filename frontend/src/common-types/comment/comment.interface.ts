@@ -14,15 +14,15 @@
  */
 
 /**
- * The interface represents a single comment associated with a given {@link Application}.
+ * Defines a comment associated with a given {@link Application}.
  *
  * @since 0.0.1
  */
 export interface Comment {
   readonly uuid: string;
   readonly comment: string;
-  readonly createdAt: number;
-  readonly lastUpdatedAt: number;
+  readonly createdAt: Date;
+  readonly lastUpdatedAt: Date;
   readonly createdBy: string;
   readonly lastModifiedBy: string;
 }

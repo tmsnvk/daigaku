@@ -22,7 +22,11 @@ import { DescriptionList } from './stat-tile.styles';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The interface represents the component's properties.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly title: string;
   readonly value: number;
@@ -32,10 +36,9 @@ interface ComponentProps {
  * @description
  * The component renders a statistic tile with a title and corresponding data.
  *
- * @param {string} props.title
- * The tile's title
- * @param {number} props.value
- * The tile's value.
+ * @param {ComponentProps} props
+ * @param props.title The tile's title
+ * @param props.value The tile's value.
  *
  * @returns {JSX.Element}
  *

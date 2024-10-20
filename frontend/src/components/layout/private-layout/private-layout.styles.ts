@@ -58,11 +58,14 @@ export const Header = styled(BaseNavbar)`
  */
 
 /**
- * The interface represents the properties of the {@link SmallScreenMenuWrapper} styled-component used to define styling states.
+ * Defines the properties of the {@link SmallScreenMenuWrapper} styled-component used to define styling states.
  *
  * @since 0.0.1
  */
 interface SmallScreenMenuWrapper {
+  /**
+   * A boolean indicating whether the navbar is currently open.
+   */
   readonly $isNavbarOpen: boolean;
 }
 

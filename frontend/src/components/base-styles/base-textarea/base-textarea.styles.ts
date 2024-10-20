@@ -23,20 +23,26 @@ import styled from 'styled-components';
  */
 
 /**
- * The interface represents the properties of the {@link BaseTextarea} styled-component used to
- * define styling or state behaviours such as errors and disabled states.
+ * Defines the properties of the {@link BaseTextarea} styled-component, allowing for styling variations based on error and disabled states.
  *
  * @since 0.0.1
  */
-interface BaseTextarea {
+interface BaseTextareaProps {
+  /**
+   * Indicates if there is an error state.
+   */
   readonly $isError?: boolean;
+
+  /**
+   * Indicates if the textarea is disabled.
+   */
   readonly $isDisabled?: boolean;
 }
 
 /**
  * @since 0.0.1
  */
-export const BaseTextarea = styled.article<BaseTextarea>`
+export const BaseTextarea = styled.article<BaseTextareaProps>`
   width: 100%;
   height: 27.5rem;
   display: flex;

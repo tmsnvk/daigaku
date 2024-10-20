@@ -29,20 +29,21 @@ import { iconLibraryConfig } from '@configuration';
  */
 
 /**
- * The interface represents the properties of the {@link LoadingIndicator} component.
+ * Defines the properties of the {@link LoadingIndicator} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The message displayed while loading, providing context to the user.
+   */
   readonly loadingText: string;
 }
 
 /**
- * A loading indicator component that displays a loading message and a spinner icon.
+ * Renders a loading indicator component that displays a loading message and a spinner icon.
  *
  * @param {ComponentProps} props
- * @param props.loadingText The text message that appears while the given component is loading and the indicator is active.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

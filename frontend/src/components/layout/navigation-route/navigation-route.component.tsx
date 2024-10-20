@@ -27,26 +27,36 @@ import { NavbarIcon, RouteLink } from './navigation-route.styles';
  */
 
 /**
- * The interface represents the properties of the {@link NavigationRoute} component.
+ * Defines the properties of the {@link NavigationRoute} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The URL resource for the navigation link.
+   */
   readonly resource: string;
+
+  /**
+   * The FontAwesome icon accompanying the link title.
+   */
   readonly icon: IconLookup;
+
+  /**
+   * The link's label.
+   */
   readonly label: string;
+
+  /**
+   * A callback method that handles logging the user out.
+   */
   readonly onLogOutClick?: () => void;
 }
 
 /**
- * The component renders a single navigation route that enables navigating in-between the application's pages.
+ * Renders a single navigation route component that enables navigating in-between the application's pages.
  *
  * @param {ComponentProps} props
- * @param props.resource The url resource.
- * @param props.icon The FontAwesome icon accompanying the link title.
- * @param props.label The link's label.
- * @param props.onLogOutClick A callback method that handles logging the user out.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1
@@ -56,7 +66,7 @@ export const NavigationRoute = ({ resource, icon, label, onLogOutClick }: Compon
     <RouteLink
       to={resource}
       style={({ isActive }) => ({ color: isActive ? theme.color.tertiaryLight : theme.color.primaryDark })}
-      onClick={onLogOutClick}
+      onClick={onLogOutClick ? () => onLogOutClick() : undefined}
     >
       {({ isActive }) => (
         <>

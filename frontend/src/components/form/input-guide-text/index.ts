@@ -13,6 +13,6 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-import { DisabledInputField } from './disabled-input-field.component';
+import { InputGuideText } from './input-guide-text.component';
 
-export { DisabledInputField };
+export { InputGuideText };

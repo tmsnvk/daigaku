@@ -32,22 +32,26 @@ import { iconLibraryConfig } from '@configuration';
  */
 
 /**
- * The interface represents the properties of the {@link GlobalLoadingModal} component.
+ * Defines the properties of the {@link GlobalLoadingModal} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * Indicates whether the modal should be visible.
+   */
   readonly isVisible: boolean;
+
+  /**
+   * The loading text to be displayed in the modal.
+   */
   readonly loadingText: string;
 }
 
 /**
- * The component renders a modal dialog while loading data, providing feedback to the user.
+ * Renders a modal to indicate loading status, providing feedback to the user.
  *
  * @param {ComponentProps} props
- * @param props.isVisible Boolean value to indicate whether the modal should be visible.
- * @param props.loadingText The specific loading text to be displayed.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

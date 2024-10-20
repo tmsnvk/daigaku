@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { HandleResetForm, ResetFormFields, useHandleResetForm } from './reset-form.hooks';
 
 /* component, style imports */
-import { GenericInputField, InputError, SubmitInput } from '@components/form';
+import { GenericInput, InputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button/index';
 
@@ -38,7 +38,11 @@ import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * The type represents the component's properties.
+ *
+ * @since 0.0.1
+ */
 type ComponentProps = SelectForm & ConfirmationModal;
 
 /**
@@ -47,10 +51,9 @@ type ComponentProps = SelectForm & ConfirmationModal;
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
- * @param {Function} props.selectForm
- * A function to handle {@link FormType} switching.
- * @param {Function} params.showModal
- * A function to show the {@link ConfirmationModal}, used in form components.
+ * @param {ComponentProps} props
+ * @param props.selectForm A function to handle {@link FormType} switching.
+ * @param params.showModal A function to show the {@link ConfirmationModal}, used in form components.
 
  * @returns {JSX.Element}
  *
@@ -63,7 +66,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
     register,
     setError,
   }: UseFormHook<ResetFormFields> = useForm<ResetFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: HandleResetForm = useHandleResetForm({ setError, showModal });
+  const { isPending, mutate }: HandleResetForm = useHandleResetForm(setError, showModal);
 
   return (
     <section>
@@ -73,7 +76,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
         method={'POST'}
         onSubmit={handleSubmit((formData: ResetFormFields) => mutate(formData))}
       >
-        <GenericInputField
+        <GenericInput
           register={register}
           validationRules={{
             required: {

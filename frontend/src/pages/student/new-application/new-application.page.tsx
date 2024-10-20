@@ -16,8 +16,6 @@
 /* component, style imports */
 import { NewApplicationForm } from './components';
 
-/* interface, type, enum imports */
-
 /**
  * ===============
  * Component {@link NewApplication}
@@ -25,7 +23,6 @@ import { NewApplicationForm } from './components';
  */
 
 /**
- * @description
  * The page-level component renders the new application form submission page for `student` authorisation users.
  *
  * @returns {JSX.Element}

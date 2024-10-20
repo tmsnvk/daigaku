@@ -23,26 +23,30 @@ import { Section } from './toast.styles.ts';
  */
 
 /**
- * The interface represents the properties of the {@link Toast} component.
+ * Defines the properties of the {@link Toast} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * Indicates whether the component should be visible.
+   */
   readonly isVisible: boolean;
+
+  /**
+   * The specific error message to be displayed.
+   */
   readonly message: string;
 }
 
 /**
- * The component renders a pop-up toast dialog as a feedback to the user.
+ * Renders a pop-up toast dialog as a feedback to the user.
  *
  * @param {ComponentProps} props
- * @param props.isVisible Boolean value to indicate whether the pop-up toast should be visible.
- * @param props.message The specific message to be displayed.
- *
- * @returns {JSX.Element | false}
+ * @returns {JSX.Element | null}
  *
  * @since 0.0.1
  */
-export const Toast = ({ isVisible, message }: ComponentProps): JSX.Element | false => {
-  return isVisible && <Section>{message}</Section>;
+export const Toast = ({ isVisible, message }: ComponentProps): JSX.Element | null => {
+  return isVisible ? <Section>{message}</Section> : null;
 };

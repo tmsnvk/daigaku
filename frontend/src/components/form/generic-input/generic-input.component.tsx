@@ -17,81 +17,54 @@
 import { FieldValues } from 'react-hook-form';
 
 /* component, style imports */
-import { BaseTextarea } from '@components/base-styles';
+import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
-import { CoreInput } from '@common-types';
+import { CommonInput } from '@common-types';
 
 /**
  * ===============
- * Component {@link GenericTextarea}
+ * Component {@link GenericInput}
  * ===============
  */
 
 /**
- * Defines the properties of the {@link GenericTextarea} component.
- *
- * @since 0.0.1
- */
-interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
-  /**
-   * Textarea label.
-   */
-  label: string;
-
-  /**
-   * The default number of rows for the textarea.
-   */
-  rows: number;
-
-  /**
-   * The default number of columns for the textarea.
-   */
-  cols: number;
-
-  /**
-   * Textarea placeholder text.
-   */
-  placeholder: string;
-}
-
-/**
- * Renders a generic textarea incorporated with the `react-hook-form` library to handle validation and error display.
+ * Renders a generic input, integrated with the `react-hook-form` library to handle validation and error display.
  *
  * @param {ComponentProps} props
  * @returns {JSX.Element}
  *
  * @since 0.0.1
  */
-export const GenericTextarea = <T extends FieldValues>({
+export const GenericInput = <T extends FieldValues>({
   register,
   validationRules,
   error,
   id,
   label,
-  rows,
-  cols,
+  type,
   placeholder,
+  initialValue,
   isDisabled,
-}: ComponentProps<T>): JSX.Element => {
+}: CommonInput<T>): JSX.Element => {
   return (
-    <BaseTextarea $isError={error !== undefined}>
+    <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
         labelText={label}
       />
-      <textarea
+      <input
         {...register(id, validationRules)}
+        type={type}
         id={id}
         name={id}
-        rows={rows}
-        cols={cols}
         autoComplete={'off'}
         placeholder={placeholder}
         disabled={isDisabled}
+        defaultValue={initialValue ?? ''}
       />
       {error && <InputError message={error} />}
-    </BaseTextarea>
+    </BaseInput>
   );
 };

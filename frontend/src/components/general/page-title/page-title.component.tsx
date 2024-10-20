@@ -23,20 +23,21 @@ import { TitleHeading } from './page-title.styles.ts';
  */
 
 /**
- * The interface represents the properties of the {@link PageTitle} component.
+ * Defines the properties of the {@link PageTitle} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The title to be displayed on the page layout.
+   */
   readonly title: string;
 }
 
 /**
- * A component that renders a h1 html element as the given page's title.
+ * Renders an h1 HTML element as the given page's title.
  *
  * @param {ComponentProps} props
- * @param props.title The title to be displayed on the page layout.
- *
  * @returns {JSX.Element}
  *
  * @since 0.0.1

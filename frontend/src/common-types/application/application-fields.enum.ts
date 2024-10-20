@@ -14,11 +14,11 @@
  */
 
 /**
- * The enum represents the fields of an {@link Application} object.
+ * Defines the fields of an {@link Application} object.
  *
  * @since 0.0.1
  */
-export enum ApplicationFieldsE {
+export enum ApplicationField {
   COURSE = 'Course',
   UNIVERSITY = 'University',
   COUNTRY = 'Country',

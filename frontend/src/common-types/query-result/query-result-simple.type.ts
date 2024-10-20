@@ -17,10 +17,11 @@
 import { UseQueryResult } from '@tanstack/react-query';
 
 /**
- * The interface represents the result of a `react-query` query that returns a single item.
+ * Defines the result of a `react-query` query that returns a single item.
  *
  * @template T The type of the item returned by the query.
+ * @template E The error type returned if the query fails.
  *
  * @since 0.0.1
  */
-export type SimpleQueryResult<T> = UseQueryResult<T, Error>;
+export type SimpleQueryResult<T, E = Error> = UseQueryResult<T, E>;

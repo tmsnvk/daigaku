@@ -20,7 +20,7 @@ import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { Comment, CommentMeta } from '@common-types';
+import { Comment, CommentPagination } from '@common-types';
 import { NewCommentFormFields } from '@pages/common/application-view/components/new-comment-form/new-comment-form.hooks';
 
 /**
@@ -30,7 +30,7 @@ import { NewCommentFormFields } from '@pages/common/application-view/components/
  */
 
 interface CommentService {
-  getAllByApplicationUUidAndPagination: (applicationUuid: string, currentPage: number) => Promise<CommentMeta>;
+  getAllByApplicationUUidAndPagination: (applicationUuid: string, currentPage: number) => Promise<CommentPagination>;
   postCommentByApplicationUuid: (formData: NewCommentFormFields, applicationUuid: string) => Promise<Comment>;
 }
 
@@ -44,7 +44,7 @@ export const commentService: CommentService = {
    * @param {number} currentPage
    * The current page number for pagination.
    *
-   * @returns {Promise<Array<CommentMeta>>}
+   * @returns {Promise<Array<CommentPagination>>}
    * A promise that resolves when the request is successfully sent.
    *
    * @throws {AxiosError}
@@ -52,8 +52,8 @@ export const commentService: CommentService = {
    *
    * @since 0.0.1
    */
-  getAllByApplicationUUidAndPagination: async (applicationUuid: string, currentPage: number): Promise<CommentMeta> => {
-    const response: AxiosResponse<CommentMeta> = await axiosConfigWithAuth.request<CommentMeta>({
+  getAllByApplicationUUidAndPagination: async (applicationUuid: string, currentPage: number): Promise<CommentPagination> => {
+    const response: AxiosResponse<CommentPagination> = await axiosConfigWithAuth.request<CommentPagination>({
       method: 'GET',
       url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
     });

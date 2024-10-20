@@ -14,7 +14,7 @@
  */
 
 /* external imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 /* component, style imports */
 import { BaseInput } from '@components/base-styles';
@@ -24,7 +24,7 @@ import { InputError, InputLabel } from '@components/form';
 import { constants } from './institution-dropdown.constants';
 
 /* interface, type, enum imports */
-import { FormFieldValidation } from '@common-types';
+import { DropdownInput } from '@common-types';
 import { InstitutionOption } from '@services/support/institution.service';
 
 /**
@@ -34,30 +34,9 @@ import { InstitutionOption } from '@services/support/institution.service';
  */
 
 /**
- * The interface represents the properties of the {@link InstitutionDropdown} component.
+ * Renders a dropdown input component to select an {@link InstitutionOption}.
  *
- * @since 0.0.1
- */
-interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>;
-  validationRules?: FormFieldValidation;
-  error: string | undefined;
-  id: Path<T>;
-  isDisabled: boolean;
-  institutions: Array<InstitutionOption>;
-}
-
-/**
- * A dropdown component to select an institution.
- *
- * @param {ComponentProps<T extends FieldValues>} props
- * @param props.register `react-hook-form` register method.
- * @param props.validationRules Validation rules for `react-hook-form` validation handling.
- * @param props.error Error message if any.
- * @param props.id The id of the input field.
- * @param props.isDisabled The disabled status of the input field.
- * @param props.institutions The list of institutions that should be available in the dropdown field.
- *
+ * @param {DropdownInput<T, InstitutionOption>} props
  * @returns {JSX.Element}
  *
  * @since 0.0.1
@@ -68,8 +47,8 @@ export const InstitutionDropdown = <T extends FieldValues>({
   error,
   id,
   isDisabled,
-  institutions,
-}: ComponentProps<T>): JSX.Element => {
+  options,
+}: DropdownInput<T, InstitutionOption>): JSX.Element => {
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
@@ -88,7 +67,7 @@ export const InstitutionDropdown = <T extends FieldValues>({
         >
           {constants.input.DEFAULT_OPTION}
         </option>
-        {institutions.map((institution: InstitutionOption) => (
+        {options.map((institution: InstitutionOption) => (
           <option
             key={institution.uuid}
             value={institution.uuid}
