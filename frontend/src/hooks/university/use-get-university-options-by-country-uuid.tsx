@@ -27,9 +27,11 @@ import { ListQueryResult } from '@common-types';
 import { UniversityOption } from '@services/support/university.service';
 
 /**
- * The custom hook fetches a list of {@link UniversityOption} objects.
- * The API call is sent to the server only once a country has been selected in the form.
+ * Fetches a list of {@link UniversityOption} objects.
+ * The request to the server is initiated only when a country has been chosen in the form.
  *
+ * @param isCountryFieldSelected Indicates if a country is selected.
+ * @param selectedCountryUuid The selected country's uuid.
  * @returns {ListQueryResult<UniversityOption>}
  *
  * @since 0.0.1

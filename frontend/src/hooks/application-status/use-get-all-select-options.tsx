@@ -36,20 +36,39 @@ import { OfferStatus } from '@services/status/offer-status.service';
 import { ResponseStatus } from '@services/status/response-status.service';
 
 /**
- * The interface represents the properties of all application status fields.
+ * Defines the properties of all {@link Application} status fields.
  *
  * @since 0.0.1
  */
 export interface ApplicationStatusOption {
+  /**
+   * All {@link ApplicationStatus} objects.
+   */
   applicationStatus: Array<ApplicationStatus> | undefined;
+
+  /**
+   * All {@link InterviewStatus} objects.
+   */
   interviewStatus: Array<InterviewStatus> | undefined;
+
+  /**
+   * All {@link OfferStatus} objects.
+   */
   offerStatus: Array<OfferStatus> | undefined;
+
+  /**
+   * All {@link ResponseStatus} objects.
+   */
   responseStatus: Array<ResponseStatus> | undefined;
+
+  /**
+   * All {@link FinalDestinationStatus} objects.
+   */
   finalDestinationStatus: Array<FinalDestinationStatus> | undefined;
 }
 
 /**
- * The interface represents the return properties of the {@link useGetAllSelectOptions} custom hook.
+ * Defines the return properties of the {@link useGetAllSelectOptions} custom hook.
  *
  * @since 0.0.1
  */
@@ -60,7 +79,7 @@ export interface ApplicationOptions {
 }
 
 /**
- * The custom hook fetches all status objects for the application form.
+ * Fetches all status objects for the application form.
  *
  * @returns {ApplicationOptions}
  *

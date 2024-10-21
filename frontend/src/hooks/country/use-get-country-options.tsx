@@ -27,7 +27,7 @@ import { ListQueryResult } from '@common-types';
 import { CountryOption } from '@services/support/country.service';
 
 /**
- * The custom hook fetches a list of {@link CountryOption} objects.
+ * Fetches a list of {@link CountryOption} objects.
  *
  * @returns {ListQueryResult<CountryOption>}
  *

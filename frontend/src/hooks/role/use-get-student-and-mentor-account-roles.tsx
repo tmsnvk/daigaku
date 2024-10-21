@@ -27,7 +27,7 @@ import { ListQueryResult } from '@common-types';
 import { RoleOption } from '@services/role/role.service';
 
 /**
- * The custom hook fetches a list of {@link RoleOption} objects.
+ * Fetches a list of {@link RoleOption} objects.
  *
  * @returns {ListQueryResult<RoleOption>}
  *

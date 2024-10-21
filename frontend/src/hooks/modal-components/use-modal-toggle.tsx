@@ -23,28 +23,35 @@ import { useState } from 'react';
  */
 
 /**
- * The interface represents the properties of the {@link useModalToggle} custom hook.
+ * Defines the properties of the {@link useModalToggle} custom hook.
  *
  * @since 0.0.1
  */
 export interface ModalToggle {
+  /**
+   * Indicates whether the modal is currently visible.
+   */
   isModalVisible: boolean;
+
+  /**
+   * Toggles the modal's visibility.
+   */
   toggleModal: () => void;
 }
 
 /**
- * The custom hook manages the display of modal components that have a single toggle action.
+ * Manages the display of modal components that have a single toggle action.
  *
- * @returns {ModalControl} An object containing:
- * - `isModalVisible` The current visibility state of the modal.
- * - `toggleModal` A function to toggle the modal.
+ * @returns {ModalControl}
  *
  * @since 0.0.1
  */
 export const useModalToggle = (): ModalToggle => {
+  // Tracks the modal's visibility state.
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const toggleModal = (): void => {
+    // Toggles the modal's visibility.
     setIsModalVisible(!isModalVisible);
   };
 

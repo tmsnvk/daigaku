@@ -33,7 +33,7 @@ import { Application, ListQueryResult } from '@common-types';
  */
 
 /**
- * The custom hook fetches a list of Application objects based on the user's authorisation.
+ * Fetches a list of {@link Application} objects based on the user's authorisation role.
  *
  * @returns {ListQueryResult<Application>}
  *
@@ -44,7 +44,7 @@ export const useGetApplications = (): ListQueryResult<Application> => {
   const accountRole: string = getRoleResource();
 
   return useQuery({
-    queryKey: [queryKeys.application.GET_ALL_BY_ROLE],
+    queryKey: [queryKeys.application.GET_ALL_BY_ROLE, accountRole],
     queryFn: () => applicationService.getAllByRole(accountRole),
   });
 };

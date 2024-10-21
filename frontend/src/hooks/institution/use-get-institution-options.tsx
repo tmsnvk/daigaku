@@ -27,7 +27,7 @@ import { ListQueryResult } from '@common-types';
 import { InstitutionOption } from '@services/support/institution.service';
 
 /**
- * The custom hook fetches a list of {@link InstitutionOption} objects.
+ * Fetches a list of {@link InstitutionOption} objects.
  *
  * @returns {ListQueryResult<InstitutionOption>}
  *
