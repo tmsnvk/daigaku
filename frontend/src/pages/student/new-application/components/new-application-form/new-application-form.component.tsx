@@ -48,11 +48,10 @@ import { UniversityOption } from '@services/support/university.service';
  */
 
 /**
- * @description
- * The component is responsible for rendering the new application submission form for student users.
+ * Renders the new application submission form for student users.
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

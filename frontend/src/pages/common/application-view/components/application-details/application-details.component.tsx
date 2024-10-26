@@ -35,21 +35,22 @@ import { Application } from '@common-types';
  */
 
 /**
- * The interface represents the properties of the {@link ApplicationDetails} component.
+ * Defines the properties of the {@link ApplicationDetails} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The selected {@link Application} object.
+   */
   application: Application;
 }
 
 /**
- * The component renders the details of a single application.
+ * Renders the details of a single application.
  *
  * @param {ComponentProps} props
- * @param props.application The selected {@link Application} object.
- *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

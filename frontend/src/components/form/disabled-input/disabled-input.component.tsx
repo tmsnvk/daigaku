@@ -54,7 +54,7 @@ interface ComponentProps {
  * Renders a disabled, readonly input.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

@@ -52,7 +52,7 @@ interface ComponentProps<T extends FieldValues, U> extends DropdownInput<T, U> {
  * Renders a dropdown component to select a {@link CountryOption}.
  *
  * @param {ComponentProps<T extends FieldValues>} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

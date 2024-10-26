@@ -23,9 +23,9 @@ import { NewApplicationForm } from './components';
  */
 
 /**
- * The page-level component renders the new application form submission page for `student` authorisation users.
+ * Renders the {@link NewApplicationForm} form submission page for `student` authorisation users.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

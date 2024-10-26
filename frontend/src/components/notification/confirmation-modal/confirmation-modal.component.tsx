@@ -52,7 +52,7 @@ interface ComponentProps {
  * Renders a modal dialog for user confirmation with a message.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

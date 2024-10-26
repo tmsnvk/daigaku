@@ -36,7 +36,7 @@ import { ConfirmationModal } from '../../home.interfaces';
  */
 
 /**
- * The interface represents the properties of a single user registration form submission.
+ * Defines the properties of a single user registration form submission.
  *
  * @since 0.0.1
  */
@@ -49,27 +49,25 @@ export interface RegistrationFormFields {
 }
 
 /**
- * The type represents the {@link useSubmitRegistrationForm} custom hook's error types.
+ * Defines the {@link useSubmitRegistrationForm} custom hook's error types.
  *
  * @since 0.0.1
  */
 type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
 /**
- * The type represents the {@link useSubmitRegistrationForm} custom hook's return value properties.
+ * Defines the {@link useSubmitRegistrationForm} custom hook's return value properties.
  *
  * @since 0.0.1
  */
 export type SubmitRegistrationForm = MutationResult<void, AxiosError<Array<ServerValidationErrorResponse>>, RegistrationFormFields>;
 
 /**
- * @description
- * The custom hook manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
+ * Manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
  *
  * @param setError A `react-hook-form` function to set form errors.
  * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
- *
- * @returns {SubmitRegistrationForm} A `react-query` mutation object.
+ * @return {SubmitRegistrationForm}
  *
  * @since 0.0.1
  */

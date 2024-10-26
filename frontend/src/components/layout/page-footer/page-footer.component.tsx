@@ -29,7 +29,7 @@ import { getCurrentYear } from './page-footer.utilities';
 /**
  * Renders the footer area of each page.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

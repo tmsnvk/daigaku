@@ -35,7 +35,7 @@ import { Comment, MutationResult, ServerValidationErrorResponse } from '@common-
  */
 
 /**
- * TODO
+ * Defines the structure of the form fields for submitting a new comment.
  *
  * @since 0.0.1
  */
@@ -44,26 +44,26 @@ export interface NewCommentFormFields {
 }
 
 /**
- * The type represents the possible error field names in the {@link useSubmitNewComment} custom hook.
+ * Defines the possible error field names in the {@link useSubmitNewComment} custom hook.
  *
  * @since 0.0.1
  */
 type NewCommentFormErrorT = 'root' | 'comment';
 
 /**
- * The type represents the return value properties of the {@link useSubmitNewComment} custom hook.
+ * Defines the return value properties of the {@link useSubmitNewComment} custom hook.
  *
  * @since 0.0.1
  */
 export type SubmitNewComment = MutationResult<Comment, AxiosError<Array<ServerValidationErrorResponse>>, NewCommentFormFields>;
 
 /**
- * The custom hook manages the comment submission process, including REST API request, error handling, and post-success actions.
+ * Mnages the comment submission process, including REST API request, error handling, and post-success actions.
  *
  * @param setError A `react-hook-form` function to set form errors.
- * @param applicationUuid The UUID of the application to which the comment belongs to.
+ * @param applicationUuid The uuid of the application to which the comment belongs to.
  *
- * @returns {SubmitNewComment} A `react-query` mutation object.
+ * @returns {SubmitNewComment}
  *
  * @since 0.0.1
  */

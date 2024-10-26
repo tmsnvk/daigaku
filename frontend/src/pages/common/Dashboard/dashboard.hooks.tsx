@@ -33,7 +33,7 @@ import { SimpleQueryResult } from '@common-types';
  */
 
 /**
- * The interface represents the {@link useGetDashboardStatistics} custom hook's return value properties.
+ * Defines the {@link useGetDashboardStatistics} custom hook's return value properties.
  *
  * @since 0.0.1
  */
@@ -59,10 +59,9 @@ export interface DashboardStatistics {
 }
 
 /**
- * @description
- * The custom hook manages the fetching of dashboard-related data. The data returned depends on the user's authorisation.
+ * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation.
  *
- * @returns {SimpleQueryResult<DashboardStatistics>} A `react-query` mutation object.
+ * @return {SimpleQueryResult<DashboardStatistics>}
  *
  * @since 0.0.1
  */

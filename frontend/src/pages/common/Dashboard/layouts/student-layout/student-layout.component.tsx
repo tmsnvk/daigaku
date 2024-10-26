@@ -34,22 +34,22 @@ import { DashboardStatistics } from '../../dashboard.hooks';
  */
 
 /**
- * The interface represents the component's properties.
+ * Defines the component's properties.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The object containing the {@link DashboardStatistics} data.
+   */
   readonly data: DashboardStatistics;
 }
 
 /**
- * @description
- * The component renders the application's dashboard for users with student level authorisation.
+ * Renders the application's dashboard for users with student level authorisation.
  *
  * @param {ComponentProps} props
- * @param props.data The object containing the {@link DashboardStatistics} data.
- *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

@@ -23,24 +23,27 @@ import { DescriptionList } from './stat-tile.styles';
  */
 
 /**
- * The interface represents the component's properties.
+ * Defines the component's properties.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The tile's title
+   */
   readonly title: string;
+
+  /**
+   * The tile's value.
+   */
   readonly value: number;
 }
 
 /**
- * @description
- * The component renders a statistic tile with a title and corresponding data.
+ * Renders a statistic tile with a title and corresponding data.
  *
  * @param {ComponentProps} props
- * @param props.title The tile's title
- * @param props.value The tile's value.
- *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

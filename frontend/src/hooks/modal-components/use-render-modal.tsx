@@ -38,7 +38,7 @@ export interface RenderModal {
  * Manages the visibility of various modal components.
  *
  * @param isVisible A boolean indicating whether the modal should be visible.
- * @returns {RenderModal}
+ * @return {RenderModal}
  *
  * @since 0.0.1
  */

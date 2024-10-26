@@ -39,12 +39,12 @@ import { ApplicationOptions } from '@hooks/application-status/use-get-all-select
  */
 
 /**
- * The page-level component renders the edit mode of a single application.
+ * Renders the edit mode of a single {@link Application}.
  * The user is not allowed to change the basic elements of the application, i.e. Country, University Course Name, Minor Subject and Programme Length fields.
- * The rest of the fields may be update based on a conditional validation rules.
+ * The rest of the fields may be updated based on conditional validation rules.
  * The user is guided by either not being able to select certain fields or by various error messages.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

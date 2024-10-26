@@ -40,11 +40,10 @@ import { ModalToggle } from '@hooks/modal-components/use-modal-toggle';
  */
 
 /**
- * @description
- * The page-level component renders, in a table format, the list of applications that the user has authorisation to view.
+ * Renders, in a table format, the list of {@link Application} objects that the user has authorisation to view.
  * The component displays a table with data rows as well as various buttons and components to interact with the loaded-in data.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

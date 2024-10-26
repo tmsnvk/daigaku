@@ -42,7 +42,7 @@ export interface ModalToggle {
 /**
  * Manages the display of modal components that have a single toggle action.
  *
- * @returns {ModalControl}
+ * @return {ModalControl}
  *
  * @since 0.0.1
  */

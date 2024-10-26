@@ -23,7 +23,7 @@ import styled from 'styled-components';
  */
 
 /**
- * The interface represents the properties of the {@link Article} styled-component.
+ * Defines the properties of the {@link Article} styled-component.
  *
  * @since 0.0.1
  */

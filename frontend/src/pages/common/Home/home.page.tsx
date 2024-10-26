@@ -38,14 +38,11 @@ import { ModalControl } from '@hooks/modal-components/use-modal-control';
  */
 
 /**
- * @description
- * The page-level component renders the root page of the application.
- * If the user is signed in, they are redirected to the `/dashboard` route. Otherwise, it renders the main container, and
- * one of three possible form components based on the user's selection.
- * The component displays a {@link ConfirmationModal} component when the `isModalVisible` state is true,
- * with a message corresponding to the current `activeFormType`.
+ * Renders the root page of the application.
+ * If the user is signed in, they are redirected to the `/dashboard` route. Otherwise, it renders one of three possible form components based on the user's selection.
+ * A {@link ConfirmationModal} component is displayed when the `isModalVisible` state is true, with a message corresponding to the current `activeFormType`.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

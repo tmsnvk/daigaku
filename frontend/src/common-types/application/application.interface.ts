@@ -14,7 +14,7 @@
  */
 
 /* interface, type, enum imports */
-import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from './application-status.enum';
+import { ApplicationStatusE, FinalDestinationStatusE, InterviewStatusE, OfferStatusE, ResponseStatusE } from './application-status.enum';
 
 /**
  * Defines the details of a user's {@link Application}, including its status, associated account, and relevant timestamps.
@@ -29,11 +29,11 @@ export interface Application {
   readonly courseName: string;
   readonly minorSubject: string;
   readonly programmeLength: number;
-  readonly applicationStatus: ApplicationStatus;
-  readonly interviewStatus: InterviewStatus;
-  readonly offerStatus: OfferStatus;
-  readonly responseStatus: ResponseStatus;
-  readonly finalDestinationStatus: FinalDestinationStatus;
+  readonly applicationStatus: ApplicationStatusE;
+  readonly interviewStatus: InterviewStatusE;
+  readonly offerStatus: OfferStatusE;
+  readonly responseStatus: ResponseStatusE;
+  readonly finalDestinationStatus: FinalDestinationStatusE;
   readonly createdAt: Date;
   readonly lastUpdatedAt: Date;
   readonly createdBy: string;

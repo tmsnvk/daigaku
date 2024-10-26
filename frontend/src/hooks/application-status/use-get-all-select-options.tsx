@@ -81,7 +81,7 @@ export interface ApplicationOptions {
 /**
  * Fetches all status objects for the application form.
  *
- * @returns {ApplicationOptions}
+ * @return {ApplicationOptions}
  *
  * @since 0.0.1
  */

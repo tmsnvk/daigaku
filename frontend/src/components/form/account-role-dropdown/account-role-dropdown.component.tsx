@@ -38,7 +38,7 @@ import { RoleOption } from '@services/role/role.service';
  * Renders a dropdown component to select a {@link RoleOption}.
  *
  * @param {DropdownInput<T, RoleOption>} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

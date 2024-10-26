@@ -52,7 +52,7 @@ export interface SmallScreenNavbarDisplay {
 /**
  * Toggles the visibility state of the navigation bar on small screens.
  *
- * @returns {SmallScreenNavbarDisplay}
+ * @return {SmallScreenNavbarDisplay}
  *
  * @since 0.0.1
  */

@@ -54,7 +54,7 @@ import { ResponseStatus } from '@services/status/response-status.service';
  */
 
 /**
- * The interface represents the properties of the {@link ApplicationForm} component.
+ * Defines the properties of the {@link ApplicationForm} component.
  *
  * @since 0.0.1
  */
@@ -64,20 +64,25 @@ interface ComponentProps {
 }
 
 /**
- * The component renders the form edit page where users are able to amend their application data.
+ * Renders the form edit page where users are able to amend their application data.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const ApplicationForm = ({ application, selectOptions }: ComponentProps): JSX.Element => {
+  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
+
+  // Application updating hook.
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
+
+  // Application field availability checking hook.
   const {
     fieldsReadOnlyStatus,
     updateInterviewStatus,
@@ -86,6 +91,8 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     updateFinalDestinationStatus,
     disableFieldsOnFinalDestinationUpdate,
   }: HandleFieldDisableStatus = useHandleFieldDisableStatus(application, updatedData, selectOptions);
+
+  // Form submission hook.
   const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
 
   return (
@@ -149,9 +156,9 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.fields.applicationStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
           options={selectOptions.applicationStatus as Array<ApplicationStatus>}
-          isReadOnly={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
+          isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
           onFieldUpdate={updateInterviewStatus}
-          fieldError={errors.applicationStatusUuid?.message}
+          error={errors.applicationStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.fields.applicationStatus.INFORMATION} />
         <ActiveSelectField
@@ -161,9 +168,9 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.fields.interviewStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
           options={selectOptions.interviewStatus as Array<InterviewStatus>}
-          isReadOnly={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
+          isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
           onFieldUpdate={updateOfferStatus}
-          fieldError={errors.interviewStatusUuid?.message}
+          error={errors.interviewStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.fields.interviewStatus.INFORMATION} />
         <ActiveSelectField
@@ -173,9 +180,9 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.fields.offerStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
           options={selectOptions.offerStatus as Array<OfferStatus>}
-          isReadOnly={fieldsReadOnlyStatus.isOfferStatusReadOnly}
+          isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
           onFieldUpdate={updateResponseStatus}
-          fieldError={errors.offerStatusUuid?.message}
+          error={errors.offerStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.fields.offerStatus.INFORMATION} />
         <ActiveSelectField
@@ -185,9 +192,9 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.fields.responseStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
           options={selectOptions.responseStatus as Array<ResponseStatus>}
-          isReadOnly={fieldsReadOnlyStatus.isResponseStatusReadOnly}
+          isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
           onFieldUpdate={updateFinalDestinationStatus}
-          fieldError={errors.responseStatusUuid?.message}
+          error={errors.responseStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.fields.responseStatus.INFORMATION} />
         <ActiveSelectField
@@ -197,9 +204,9 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.fields.finalDestination.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as Array<FinalDestinationStatus>}
-          isReadOnly={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
+          isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
           onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
-          fieldError={errors.finalDestinationStatusUuid?.message}
+          error={errors.finalDestinationStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.fields.finalDestination.INFORMATION} />
         <article>

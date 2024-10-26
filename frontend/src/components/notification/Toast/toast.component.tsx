@@ -43,7 +43,7 @@ interface ComponentProps {
  * Renders a pop-up toast dialog as a feedback to the user.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element | null}
+ * @return {JSX.Element | null}
  *
  * @since 0.0.1
  */

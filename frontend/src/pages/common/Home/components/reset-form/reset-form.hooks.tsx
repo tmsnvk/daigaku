@@ -36,7 +36,7 @@ import { ConfirmationModal } from '../../home.interfaces';
  */
 
 /**
- * The interface represents the properties of a single user registration form submission.
+ * Defines the properties of a single user registration form submission.
  *
  * @since 0.0.1
  */
@@ -45,27 +45,25 @@ export interface ResetFormFields {
 }
 
 /**
- * The type represents the {@link useSubmitRegistrationForm} custom hook's error types.
+ * Defines the {@link useSubmitRegistrationForm} custom hook's error types.
  *
  * @since 0.0.1
  */
 type ResetFormErrorT = 'root';
 
 /**
- * The type represents the {@link useSubmitRegistrationForm} custom hook's return value properties.
+ * Defines the {@link useSubmitRegistrationForm} custom hook's return value properties.
  *
  * @since 0.0.1
  */
 export type HandleResetForm = MutationResult<void, AxiosError<ResetFormErrorT>, ResetFormFields>;
 
 /**
- * @description
- * The custom hook manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
+ * Manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
  *
  * @param setError A `react-hook-form` function to set form errors.
  * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
- *
- * @returns {HandleResetForm} A `react-query` mutation object.
+ * @return {HandleResetForm}
  *
  * @since 0.0.1
  */

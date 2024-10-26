@@ -39,22 +39,20 @@ import { FormType, SelectForm, UseFormHook } from '../../home.interfaces';
  */
 
 /**
- * The type represents the component's properties.
+ * Defines the component's properties.
+ * A function to handle {@link FormType} switching.
  *
  * @since 0.0.1
  */
 type ComponentProps = SelectForm;
 
 /**
- * @description
- * The component is responsible for rendering a login form that allows users to submit their email and password for authentication.
+ * Renders a login form that allows users to submit their email and password for authentication.
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
  * @param {ComponentProps} props
- * @param props.selectForm A function to handle {@link FormType} switching.
- *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

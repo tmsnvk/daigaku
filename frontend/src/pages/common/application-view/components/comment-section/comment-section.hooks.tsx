@@ -24,7 +24,7 @@ import { commentService } from '@services/index';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { CommentPagination, SimpleQueryResult } from '@common-types';
+import { CommentPaginationData, SimpleQueryResult } from '@common-types';
 
 /**
  * ===============
@@ -33,36 +33,47 @@ import { CommentPagination, SimpleQueryResult } from '@common-types';
  */
 
 /**
- * The interface represents the return value properties of the {@link useCommentPagination} custom hook.
+ * Defines the return value properties of the {@link useCommentPagination} custom hook.
  *
  * @since 0.0.1
  */
 export interface CommentPagination {
+  /**
+   * The current page number being displayed.
+   */
   currentPage: number;
+
+  /**
+   * Decrements the `currentPage` value by one when the "Previous" button is clicked, as long as it is above 0.
+   */
   goToPreviousPage: () => void;
+
+  /**
+   * Increments the `currentPage` value by one when the "Next" button is clicked, as long as the current page is less than the `totalPages` limit.
+   */
   goToNextPage: (totalPages: number) => void;
 }
 
 /**
- * The custom hook manages the page number tracking of the comment pagination feature.
+ * Manages page number tracking for the comment pagination feature.
  *
- * @returns {CommentPagination} An object with the following values:
- * - `currentPage` - the current page number.
- * - `goToPreviousPage` - a method that updates the `currentPage` value when the paginating backwards button is clicked.
- * - `goToNextPage`- a method that updates the `currentPage` value when the paginating forwards button is clicked.
+ * @return {CommentPagination}
  *
  * @since 0.0.1
  */
 export const useCommentPagination = (): CommentPagination => {
+  // Holds the current page number in the pagination flow.
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const goToPreviousPage = (): void => {
+    // Decreases the page number by 1, staying within bounds.
     if (currentPage >= 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
   const goToNextPage = (totalPages: number): void => {
+    // Increases the page number by 1, limited by the total number of pages.
     if (totalPages > 0 && currentPage + 1 < totalPages) {
       setCurrentPage(currentPage + 1);
     }
@@ -82,20 +93,19 @@ export const useCommentPagination = (): CommentPagination => {
  */
 
 /**
- * The custom hook manages the fetching of comments for a given application
- * that belong to the selected page number in the pagination list, utilising the `react-query` library.
+ * Manages fetching comments for a specific {@link Application} based on the selected page number in the pagination list.
+ * Utilizes the `react-query` library for data fetching and caching.
  *
- * @param applicationUuid The selected application's UUID.
- * @param currentPage The current page number for pagination.
- *
- * @returns {SimpleQueryResult<CommentPagination>}
+ * @param applicationUuid The selected application's uuid.
+ * @param currentPage The current page number in the pagination sequence.
+ * @return {SimpleQueryResult<CommentPaginationData>}
  *
  * @since 0.0.1
  */
 export const useCommentsByApplicationAndPagination = (
   applicationUuid: string,
   currentPage: number,
-): SimpleQueryResult<CommentPagination> => {
+): SimpleQueryResult<CommentPaginationData> => {
   return useQuery({
     queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
     queryFn: () => commentService.getAllByApplicationUUidAndPagination(applicationUuid, currentPage),

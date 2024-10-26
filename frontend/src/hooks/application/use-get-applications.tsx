@@ -35,7 +35,7 @@ import { Application, ListQueryResult } from '@common-types';
 /**
  * Fetches a list of {@link Application} objects based on the user's authorisation role.
  *
- * @returns {ListQueryResult<Application>}
+ * @return {ListQueryResult<Application>}
  *
  * @since 0.0.1
  */

@@ -29,7 +29,7 @@ import { InstitutionOption } from '@services/support/institution.service';
 /**
  * Fetches a list of {@link InstitutionOption} objects.
  *
- * @returns {ListQueryResult<InstitutionOption>}
+ * @return {ListQueryResult<InstitutionOption>}
  *
  * @since 0.0.1
  */

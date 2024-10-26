@@ -18,7 +18,7 @@
  *
  * @since 0.0.1
  */
-export enum ApplicationStatus {
+export enum ApplicationStatusE {
   PLANNED = 'Planned',
   SUBMITTED = 'Submitted',
   WITHDRAWN = 'Withdrawn',
@@ -29,7 +29,7 @@ export enum ApplicationStatus {
  *
  * @since 0.0.1
  */
-export enum InterviewStatus {
+export enum InterviewStatusE {
   INVITED = 'Invited',
   NO_INTERVIEW = 'No Interview',
   NOT_INVITED = 'Not Invited',
@@ -40,7 +40,7 @@ export enum InterviewStatus {
  *
  * @since 0.0.1
  */
-export enum OfferStatus {
+export enum OfferStatusE {
   CONDITIONAL = 'Conditional',
   DEFERRED = 'Deferred',
   REJECTED = 'Rejected',
@@ -52,7 +52,7 @@ export enum OfferStatus {
  *
  * @since 0.0.1
  */
-export enum ResponseStatus {
+export enum ResponseStatusE {
   FIRM_CHOICE = 'Firm Choice',
   INSURANCE_CHOICE = 'Insurance Choice',
   OFFER_DECLINED = 'Offer Declined',
@@ -63,7 +63,7 @@ export enum ResponseStatus {
  *
  * @since 0.0.1
  */
-export enum FinalDestinationStatus {
+export enum FinalDestinationStatusE {
   FINAL_DESTINATION = 'Final Destination',
   DEFERRED_ENTRY = 'Final Destination (Deferred Entry)',
   NOT_FINAL_DESTINATION = 'Not Final Destination',

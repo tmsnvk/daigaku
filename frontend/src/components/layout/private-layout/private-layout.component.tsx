@@ -55,7 +55,7 @@ interface ComponentProps {
  * Unauthorised users are redirected.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

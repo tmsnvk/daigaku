@@ -30,10 +30,9 @@ import { iconLibraryConfig } from '@configuration';
  */
 
 /**
- * @description
- * The page-level component renders the application's error page.
+ * Renders the application's error page.
  *
- * @returns {JSX.Element | undefined}
+ * @return {JSX.Element | undefined}
  *
  * @since 0.0.1
  */

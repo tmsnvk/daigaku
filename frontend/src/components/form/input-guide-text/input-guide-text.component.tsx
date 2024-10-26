@@ -38,7 +38,7 @@ interface ComponentProps {
  * Renders a list of paragraphs for a given input.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

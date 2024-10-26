@@ -38,7 +38,7 @@ interface ComponentProps {
  * Renders a simple error message for various input fields.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

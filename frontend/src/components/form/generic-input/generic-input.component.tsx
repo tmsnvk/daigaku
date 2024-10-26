@@ -33,7 +33,7 @@ import { CommonInput } from '@common-types';
  * Renders a generic input, integrated with the `react-hook-form` library to handle validation and error display.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

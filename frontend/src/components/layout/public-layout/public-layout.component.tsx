@@ -35,7 +35,7 @@ import { constants } from './public-layout.constants';
 /**
  * Renders the navigation routes for unauthorised users.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

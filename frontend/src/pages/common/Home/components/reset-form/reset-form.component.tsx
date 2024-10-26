@@ -39,23 +39,19 @@ import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home
  */
 
 /**
- * The type represents the component's properties.
+ * Defines the component's properties.
  *
  * @since 0.0.1
  */
 type ComponentProps = SelectForm & ConfirmationModal;
 
 /**
- * @description
- * The component is responsible for rendering a password reset form that allows users to reset their account.
+ * Renders a password reset form that allows users to reset their account.
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
  * @param {ComponentProps} props
- * @param props.selectForm A function to handle {@link FormType} switching.
- * @param params.showModal A function to show the {@link ConfirmationModal}, used in form components.
-
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

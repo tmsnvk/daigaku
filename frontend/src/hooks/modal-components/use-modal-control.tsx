@@ -47,7 +47,7 @@ export interface ModalControl {
 /**
  * Manages modal visibility, providing methods to show or hide the modal.
  *
- * @returns {ModalControl}
+ * @return {ModalControl}
  *
  * @since 0.0.1
  */

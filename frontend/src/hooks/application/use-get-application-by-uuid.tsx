@@ -37,7 +37,7 @@ import { Application, SimpleQueryResult } from '@common-types';
  *
  * @param state An {@link Application} object from the local `react-router-dom` cache, if it exists, otherwise null.
  * @param applicationUuid The application's uuid.
- * @returns {SimpleQueryResult<Application>}
+ * @return {SimpleQueryResult<Application>}
  *
  * @since 0.0.1
  */

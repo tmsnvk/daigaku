@@ -32,7 +32,7 @@ import { UniversityOption } from '@services/support/university.service';
  *
  * @param isCountryFieldSelected Indicates if a country is selected.
  * @param selectedCountryUuid The selected country's uuid.
- * @returns {ListQueryResult<UniversityOption>}
+ * @return {ListQueryResult<UniversityOption>}
  *
  * @since 0.0.1
  */

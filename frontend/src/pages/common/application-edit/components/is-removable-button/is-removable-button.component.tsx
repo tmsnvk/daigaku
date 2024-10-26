@@ -31,7 +31,7 @@ import { constants } from './is-removable-button.constants';
  */
 
 /**
- * The interface represents the properties of the {@link IsRemovableButton} component.
+ * Defines the properties of the {@link IsRemovableButton} component.
  *
  * @since 0.0.1
  */
@@ -41,13 +41,14 @@ interface ComponentProps {
 }
 
 /**
- * The component renders and sets the state of the delete request button on each applcation edit page.
+ * Renders and sets the state of the delete request button on each applcation edit page.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentProps): JSX.Element => {
+  // Toggle handling custom hook.
   const { mutate, isPending, isError, shouldBeRemoved }: HandleToggleIsRemovable = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (

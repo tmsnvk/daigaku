@@ -43,7 +43,7 @@ interface ComponentProps {
  * Renders a label for a given input field.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

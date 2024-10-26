@@ -42,7 +42,7 @@ export interface TogglePassword {
 /**
  * A custom hook for managing password visibility in input fields. It toggles the display of password text between plain text and obfuscated characters.
  *
- * @returns {TogglePassword}
+ * @return {TogglePassword}
  *
  * @since 0.0.1
  */

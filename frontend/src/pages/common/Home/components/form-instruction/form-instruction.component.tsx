@@ -23,22 +23,22 @@ import { Paragraph } from './form-instruction.styles';
  */
 
 /**
- * The interface represents the component's properties.
+ * Defines the component's properties.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The instruction text to be displayed.
+   */
   readonly instructionText: string;
 }
 
 /**
- * @description
- * The component responsible for showing the instruction text of the given form component.
+ * Renders the instruction text of the given form component.
  *
  * @param {ComponentProps} props
- * @param props.instructionText The instruction text to be displayed.
- *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

@@ -44,7 +44,7 @@ interface ComponentProps {
  * Renders a loading indicator component that displays a loading message and a spinner icon.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

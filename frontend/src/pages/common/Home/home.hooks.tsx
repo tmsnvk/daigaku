@@ -29,14 +29,12 @@ import { ConfirmationModal, FormType } from './home.interfaces';
  */
 
 /**
- * @description
  * A helper method used by {@link useActiveFormComponent} that retrieves the appropriate form component based on the provided {@link FormType}.
  *
  * @param activeFormType The current {@link FormType} to determine which component to render.
  * @param selectFormType A function to change the form type.
  * @param showModal A function to trigger the modal display.
- *
- * @returns {JSX.Element} The form component corresponding to the selected {@link FormType}.
+ * @return {JSX.Element} The form component corresponding to the selected {@link FormType}.
  *
  * @since 0.0.1
  */
@@ -74,7 +72,7 @@ const getFormComponent = (
  */
 
 /**
- * The interface represents the {@link useActiveFormComponent} custom hook's return value properties.
+ * Defines the {@link useActiveFormComponent} custom hook's return value properties.
  *
  * @since 0.0.1
  */
@@ -83,6 +81,7 @@ export interface ActiveFormComponent {
    * The currently selected {@link FormType}.
    */
   activeFormType: FormType;
+
   /**
    * The currently active form component's JSX.Element.
    */
@@ -90,15 +89,13 @@ export interface ActiveFormComponent {
 }
 
 /**
- * @description
- * The custom hook manages the currently active {@link FormType} form component's state. These are:
+ * Manages the currently active {@link FormType} form component's state. These are:
  * - {@link RegistrationForm}
  * - {@link LoginForm}
  * - {@link ResetForm}
  *
  * @param showModal A function to show the {@link ConfirmationModal}, used in form components.
- *
- * @returns {ActiveFormComponent}
+ * @return {ActiveFormComponent}
  *
  * @since 0.0.1
  */

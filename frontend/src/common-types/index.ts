@@ -17,7 +17,7 @@ export * from './application/application-fields.enum';
 export * from './application/application-location.interface';
 export * from './application/application-status.enum';
 export * from './application/application.interface';
-export * from './comment/comment-pagination.interface';
+export * from './comment/comment-pagination-data.interface';
 export * from './comment/comment.interface';
 export * from './component/common-input.interface';
 export * from './component/core-input.interface';

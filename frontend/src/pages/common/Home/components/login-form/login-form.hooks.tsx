@@ -37,7 +37,7 @@ import { MutationResult } from '@common-types';
  */
 
 /**
- * The interface represents the properties of a single user login form submission.
+ * Defines the properties of a single user login form submission.
  *
  * @since 0.0.1
  */
@@ -47,7 +47,7 @@ export interface LoginFormFields {
 }
 
 /**
- * The interface represents the properties of a successful login request.
+ * Defines the properties of a successful login request.
  *
  * @since 0.0.1
  */
@@ -59,27 +59,25 @@ export interface LoginFormResponse {
 }
 
 /**
- * The type represents the {@link useHandleLoginForm} custom hook's error types.
+ * Defines the {@link useHandleLoginForm} custom hook's error types.
  *
  * @since 0.0.1
  */
 type LoginFormErrorT = 'root';
 
 /**
- * The type represents the {@link useHandleLoginForm} custom hook's return value properties.
+ * Defines the {@link useHandleLoginForm} custom hook's return value properties.
  *
  * @since 0.0.1
  */
 export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<LoginFormErrorT>, LoginFormFields>;
 
 /**
- * @description
- * The custom hook manages the {@link LoginForm} submission process, including REST API request, error handling,
+ * Manages the {@link LoginForm} submission process, including REST API request, error handling,
  * and post-success actions, such as setting account context and authentication status.
  *
  * @param setError A `react-hook-form` function to set form errors.
- *
- * @returns {HandleLoginForm} A `react-query` mutation object.
+ * @return {HandleLoginForm} A `react-query` mutation object.
  *
  * @since 0.0.1
  */

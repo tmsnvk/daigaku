@@ -29,7 +29,7 @@ import { CountryOption } from '@services/support/country.service';
 /**
  * Fetches a list of {@link CountryOption} objects.
  *
- * @returns {ListQueryResult<CountryOption>}
+ * @return {ListQueryResult<CountryOption>}
  *
  * @since 0.0.1
  */

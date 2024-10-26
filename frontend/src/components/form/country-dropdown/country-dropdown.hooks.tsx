@@ -35,7 +35,7 @@ export interface SelectCountry {
  * The custom hook manages the country selection callback method.
  *
  * @param onCountrySelection A callback function that receives the selected country uuid.
- * @returns {SelectCountry}
+ * @return {SelectCountry}
  *
  * @since 0.0.1
  */

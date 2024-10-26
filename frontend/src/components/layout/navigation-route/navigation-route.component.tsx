@@ -57,7 +57,7 @@ interface ComponentProps {
  * Renders a single navigation route component that enables navigating in-between the application's pages.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

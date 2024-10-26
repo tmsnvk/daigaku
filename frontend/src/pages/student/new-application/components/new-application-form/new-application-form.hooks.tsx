@@ -36,7 +36,7 @@ import { Application, MutationResult, ServerValidationErrorResponse } from '@com
  */
 
 /**
- * The interface represents the properties of a single {@link Application} submission.
+ * Defines the properties of a single {@link Application} submission.
  *
  * @since 0.0.1
  */
@@ -49,28 +49,26 @@ export interface CreateApplicationFormFields {
 }
 
 /**
- * The type represents the {@link useCreateApplication} custom hook's error types.
+ * Defines the {@link useCreateApplication} custom hook's error types.
  *
  * @since 0.0.1
  */
 type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | 'courseName' | 'minorSubject' | 'programmeLength';
 
 /**
- * The type represents the {@link useCreateApplication} custom hook's return value properties.
+ * Defines the {@link useCreateApplication} custom hook's return value properties.
  *
  * @since 0.0.1
  */
 export type CreateApplication = MutationResult<Application, AxiosError<Array<ServerValidationErrorResponse>>, CreateApplicationFormFields>;
 
 /**
- * @description
- * The custom hook manages the submission of new application submission via the `react-query` package.
+ * Manages the submission of new application submission via the `react-query` package.
  *
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- *
- * @returns {CreateApplication} A `react-query` mutation object.
+ * @return {CreateApplication} A `react-query` mutation object.
  *
  * @since 0.0.1
  */
@@ -127,7 +125,7 @@ export const useCreateApplication = (
  */
 
 /**
- * The interface represents the {@link useCountrySelection} custom hook's return value properties.
+ * Defines the {@link useCountrySelection} custom hook's return value properties.
  *
  * @since 0.0.1
  */
@@ -155,9 +153,9 @@ export interface CountrySelection {
 }
 
 /**
- * The custom hook manages the state of country selection. It tracks whether a country has been selected and stores the currently selected country's UUID.
+ * Manages the state of country selection. It tracks whether a country has been selected and stores the currently selected country's UUID.
  *
- * @returns {CountrySelection} The object that manages the country selection state.
+ * @return {CountrySelection} The object that manages the country selection state.
  *
  * @since 0.0.1
  */

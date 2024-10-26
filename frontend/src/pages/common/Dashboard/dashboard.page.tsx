@@ -39,11 +39,10 @@ import { SimpleQueryResult } from '@common-types';
  */
 
 /**
- * @description
- * The page-level component renders the application's dashboard for the logged-in user.
+ * Renders the application's dashboard for the logged-in user.
  * The component displays various aggregate data components based on the user's authorization level.
  *
- * @returns {JSX.Element | undefined}
+ * @return {JSX.Element | undefined}
  *
  * @since 0.0.1
  */

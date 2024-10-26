@@ -37,7 +37,7 @@ import { InstitutionOption } from '@services/support/institution.service';
  * Renders a dropdown input component to select an {@link InstitutionOption}.
  *
  * @param {DropdownInput<T, InstitutionOption>} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

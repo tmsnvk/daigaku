@@ -14,12 +14,13 @@
  */
 
 /* external imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { SelectOptions, useGetPreviouslySelectedValue } from './active-select-field.hooks';
+import { FieldUpdate, SelectOptions, useGetPreviouslySelectedValue, useOnFieldUpdate } from './active-select-field.hooks';
 
 /* component, style imports */
+import { CoreInput } from '@common-types';
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
@@ -30,61 +31,52 @@ import { InputError, InputLabel } from '@components/form';
  */
 
 /**
- * The interface represents the properties of the {@link ActiveSelectField} component.
+ * Represents the properties of the {@link ActiveSelectField} component.
  *
  * @since 0.0.1
  */
-interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>;
-  fieldError: string | undefined;
-  id: Path<T>;
+interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   label: string;
   previouslySelectedValue: string | null;
   selectPrompt: string;
   options: Array<SelectOptions>;
-  isReadOnly: boolean;
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
 /**
- * The component renders `select` input fields whose input type is included in the {@link SelectOptions} union type.
+ * Renders a `select` input field whose input type is included in the {@link SelectOptions} union type.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const ActiveSelectField = <T extends FieldValues>({
   register,
-  fieldError,
+  error,
   id,
   label,
   previouslySelectedValue,
   selectPrompt,
   options,
-  isReadOnly,
+  isDisabled,
   onFieldUpdate,
 }: ComponentProps<T>): JSX.Element => {
   const previousOption: SelectOptions | null = useGetPreviouslySelectedValue(options, previouslySelectedValue);
+  const { updateField }: FieldUpdate = useOnFieldUpdate(onFieldUpdate);
 
   return (
-    <BaseInput $isError={fieldError !== undefined}>
+    <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
         labelText={label}
       />
       <select
         {...register(id, {
-          onChange: (event: Event) => {
-            const target = event.target as HTMLSelectElement | null;
-
-            if (target) {
-              onFieldUpdate(target.value);
-            }
-          },
+          onChange: (event: Event) => updateField(event),
         })}
         id={id}
         name={id}
-        disabled={isReadOnly}
+        disabled={isDisabled}
         defaultValue={previousOption?.uuid}
       >
         <option
@@ -104,7 +96,7 @@ export const ActiveSelectField = <T extends FieldValues>({
           );
         })}
       </select>
-      {fieldError && <InputError message={fieldError} />}
+      {error && <InputError message={error} />}
     </BaseInput>
   );
 };

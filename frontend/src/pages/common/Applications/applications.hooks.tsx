@@ -32,7 +32,7 @@ import { localStorageKeyConstants } from '@constants';
  */
 
 /**
- * The interface represents the properties of what a single column can display.
+ * Defines the properties of what a single column can display.
  *
  * @since 0.0.1
  */
@@ -45,7 +45,7 @@ interface ColumnConfig {
 }
 
 /**
- * The interface represents the core properties of a single column.
+ * Defines the core properties of a single column.
  *
  * @since 0.0.1
  */
@@ -57,22 +57,26 @@ export interface Column {
 }
 
 /**
- * The type represents the return value properties of the {@link useColumnVisibility} custom hook.
+ * Defines the return value properties of the {@link useColumnVisibility} custom hook.
  *
  * @since 0.0.1
  */
 export interface ColumnVisibility {
+  /**
+   * The current column configuration.
+   */
   columns: Array<Column>;
+
+  /**
+   * A function to toggle column visibility.
+   */
   toggleColumnVisibility: (id: string) => void;
 }
 
 /**
- * @description
- * The custom hook manages the visibility of columns in the Applications page's table.
+ * Manages the visibility of columns in the Applications page's table.
  *
- * @returns {ColumnVisibility} An object containing:
- * - `columns` The current column configuration.
- * - `toggleColumnVisibility` A function to toggle column visibility.
+ * @return {ColumnVisibility}
  *
  * @since 0.0.1
  */
@@ -149,16 +153,19 @@ export const useColumnVisibility = (): ColumnVisibility => {
  */
 
 /**
- * The type represents the return value properties of the {@link useSortOrder} custom hook.
+ * Defines the return value properties of the {@link useSortOrder} custom hook.
  *
  * @since 0.0.1
  */
 export interface SetOrder {
+  /**
+   * A function that manages the sorting updates.
+   */
   handleColumnSort: (columnId: string) => void;
 }
 
 /**
- * The enum represents the possible sorting options.
+ * Defines the possible sorting options.
  *
  * @since 0.0.1
  */
@@ -168,11 +175,9 @@ enum SortOrder {
 }
 
 /**
- * @description
- * The custom hook manages the sorting of data rows in the Applications page's table.
+ * Manages the sorting of data rows in the Applications page's table.
  *
- * @returns {SetOrder} An object containing:
- * - `handleColumnSort` A function that manages the sorting updates.
+ * @return {SetOrder}
  *
  * @since 0.0.1
  */

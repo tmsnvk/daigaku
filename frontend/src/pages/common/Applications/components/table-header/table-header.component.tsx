@@ -41,26 +41,42 @@ import { Column } from '../../applications.hooks';
  */
 
 /**
- * The interface represents the properties of the {@link TableHeader} component.
+ * Defines the properties of the {@link TableHeader} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   *
+   */
   readonly columns: Array<Column>;
+
+  /**
+   *
+   */
   readonly onColumnSort: (id: string) => void;
+
+  /**
+   *
+   */
   readonly onToggleModal: () => void;
+
+  /**
+   *
+   */
   readonly onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
 /**
- * The component renders the table header row on the Applications page. A number of buttons are rendered in the component as well, such as
+ * Renders the table header row on the {@link Applications} page. A number of buttons are rendered in the component as well, such as
  * row ordering, .pdf report downloading, data refresh or modal pop-up buttons.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }: ComponentProps): JSX.Element => {
+  // .pdf download request handling custom hook.
   const { mutate, isSuccess, isPending, isError, error }: RequestPdfDownload = useRequestPdfDownload();
 
   if (isError) {

@@ -52,7 +52,7 @@ interface ComponentProps {
  * Renders a modal to indicate loading status, providing feedback to the user.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

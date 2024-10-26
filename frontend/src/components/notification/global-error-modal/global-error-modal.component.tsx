@@ -53,7 +53,7 @@ interface ComponentProps {
  * Renders a modal when an unexpected error occurs in the application.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

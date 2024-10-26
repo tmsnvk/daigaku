@@ -37,7 +37,7 @@ import { UniversityOption } from '@services/support/university.service';
  * Renders a dropdown input component to select an {@link UniversityOption}.
  *
  * @param {DropdownInput<T, UniversityOption>} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

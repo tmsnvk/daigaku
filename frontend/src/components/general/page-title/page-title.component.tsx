@@ -38,7 +38,7 @@ interface ComponentProps {
  * Renders an h1 HTML element as the given page's title.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

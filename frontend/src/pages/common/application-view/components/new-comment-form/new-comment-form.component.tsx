@@ -34,31 +34,35 @@ import { constants } from './new-comment-form.constants';
  */
 
 /**
- * The interface represents the properties of the {@link NewCommentForm} component.
+ * Defines the properties of the {@link NewCommentForm} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The application's UUID is used in the REST API request when the user submits a new comment.
+   */
   readonly applicationUuid: string;
 }
 
 /**
- * The component renders the comments on the selected pagination page.
+ * Renders the comments on the selected pagination page.
  *
  * @param {ComponentProps} props
- * @param props.applicationUuid The application's UUID is used in the REST API request when the user submits a new comment.
- *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
+  // The necessary `react-hook-form` methods and states.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
+
+  // Form submission hook.
   const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
 
   return (

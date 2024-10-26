@@ -30,25 +30,41 @@ import { Column } from '../../applications.hooks';
  */
 
 /**
- * The interface represents the properties of the {@link ColumnSelectorModal} component.
+ * Defines the properties of the {@link ColumnSelectorModal} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * An array of columns that are available for selection in the modal.
+   */
   readonly columns: Array<Column>;
+
+  /**
+   * A function that toggles the visibility of a column when a checkbox is clicked.
+   */
   readonly onToggleColumnVisibility: (id: string) => void;
+
+  /**
+   * A boolean indicating whether the modal should be visible.
+   */
   readonly isModalVisible: boolean;
+
+  /**
+   * A function that handles closing the modal.
+   */
   readonly onToggle: () => void;
 }
 
 /**
- * The component renders the column selector modal that lets users to choose which data columns they wish to view on the page.
+ * Renders the column selector modal that lets users to choose which data columns they wish to view on the page.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps): JSX.Element => {
+  // The modal rendering custom hook.
   const { dialogRef }: RenderModal = useRenderModal(isModalVisible);
 
   return (

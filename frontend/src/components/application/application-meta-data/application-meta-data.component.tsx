@@ -53,7 +53,7 @@ interface ComponentProps {
  * Renders the metadata for a selected application.
  *
  * @param {ComponentProps} props
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

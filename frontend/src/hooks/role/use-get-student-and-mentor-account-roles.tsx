@@ -29,7 +29,7 @@ import { RoleOption } from '@services/role/role.service';
 /**
  * Fetches a list of {@link RoleOption} objects.
  *
- * @returns {ListQueryResult<RoleOption>}
+ * @return {ListQueryResult<RoleOption>}
  *
  * @since 0.0.1
  */

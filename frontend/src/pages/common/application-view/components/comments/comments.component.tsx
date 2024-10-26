@@ -29,30 +29,36 @@ import { Comment } from '@common-types';
  */
 
 /**
- * The interface represents the properties of the {@link Comments} component.
+ * Defines the properties of the {@link Comments} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps {
+  /**
+   * The list of comments to be displayed.
+   */
   readonly comments: Array<Comment>;
+
+  /**
+   * A boolean value indicating if an error occurred while fetching the comments.
+   */
   readonly isError: boolean;
 }
 
 /**
- * The component renders the comments on the selected pagination page.
+ * Renders the comments on the selected pagination page.
  *
  * @param {ComponentProps} props
- * @param props.comments The list of comments.
- * @param props.isError A boolean value signaling whether there was an error while fetching the comments.
- *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => {
-  return isError ? (
-    <ErrorContainer>{constants.ui.error}</ErrorContainer>
-  ) : (
+  if (isError) {
+    return <ErrorContainer>{constants.ui.error}</ErrorContainer>;
+  }
+
+  return (
     <Article>
       {comments.map((comment: Comment) => (
         <article key={comment.uuid}>
