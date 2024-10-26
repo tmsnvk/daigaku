@@ -17,12 +17,21 @@
  * @since 0.0.1
  */
 export const constants = {
-  pageMessage: {
-    LOADING: 'The application is fetching the necessary data for the form submission...',
-  },
-  uiMessage: {
-    FORM_INSTRUCTION: 'Register an account if you are not in our system yet.',
-    LOADING: 'Your registration is being submitted.',
+  ui: {
+    messages: {
+      PAGE_LOADING: 'The application is fetching the necessary data for the form submission...',
+      FORM_LOADING: 'Your registration is being submitted.',
+    },
+    form: {
+      INSTRUCTION: 'Register an account if you are not in our system yet.',
+      FIRST_NAME_LABEL: 'First Name',
+      FIRST_NAME_PLACEHOLDER: 'Enter your first name(s)',
+      LAST_NAME_LABEL: 'Last Name',
+      LAST_NAME_PLACEHOLDER: 'Enter your last name(s)',
+      EMAIL_PLACEHOLDER: 'Enter your email address',
+      EMAIL_LABEL: 'Email',
+      SUBMIT: 'register',
+    },
   },
   validation: {
     FIRST_NAME_REQUIRED: 'Providing your first name is required.',
@@ -32,14 +41,5 @@ export const constants = {
     EMAIL_REQUIRED: 'Providing your email address is required.',
     ACCOUNT_ROLE_REQUIRED: 'Selecting an account role is required.',
     INSTITUTION_REQUIRED: 'Selecting an institution is required.',
-  },
-  form: {
-    FIRST_NAME_LABEL: 'First Name',
-    FIRST_NAME_PLACEHOLDER: 'Enter your first name(s)',
-    LAST_NAME_LABEL: 'Last Name',
-    LAST_NAME_PLACEHOLDER: 'Enter your last name(s)',
-    EMAIL_PLACEHOLDER: 'Enter your email address',
-    EMAIL_LABEL: 'Email',
-    SUBMIT: 'register',
   },
 };

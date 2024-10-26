@@ -17,7 +17,7 @@
  * @since 0.0.1
  */
 export const constants = {
-  uiMessage: {
+  ui: {
     LOADING: 'The application is compiling your data...',
   },
 };

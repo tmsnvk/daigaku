@@ -77,13 +77,16 @@ export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<Login
  * and post-success actions, such as setting account context and authentication status.
  *
  * @param setError A `react-hook-form` function to set form errors.
- * @return {HandleLoginForm} A `react-query` mutation object.
+ * @return {HandleLoginForm}
  *
  * @since 0.0.1
  */
 export const useHandleLoginForm = (setError: UseFormSetError<LoginFormFields>): HandleLoginForm => {
-  const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
+  // `react-router-dom` navigate object.
   const navigate: NavigateFunction = useNavigate();
+
+  // Authentication context.
+  const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],

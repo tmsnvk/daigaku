@@ -48,13 +48,13 @@ interface ComponentProps {
   readonly label: string;
 
   /**
-   * A callback method that handles logging the user out.
+   * Callback method that handles logging the user out.
    */
   readonly onLogOutClick?: () => void;
 }
 
 /**
- * Renders a single navigation route component that enables navigating in-between the application's pages.
+ * Renders a navigation route component that enables navigating in-between the application's pages.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -66,7 +66,7 @@ export const NavigationRoute = ({ resource, icon, label, onLogOutClick }: Compon
     <RouteLink
       to={resource}
       style={({ isActive }) => ({ color: isActive ? theme.color.tertiaryLight : theme.color.primaryDark })}
-      onClick={onLogOutClick ? () => onLogOutClick() : undefined}
+      onClick={onLogOutClick}
     >
       {({ isActive }) => (
         <>

@@ -18,7 +18,11 @@
  */
 export const constants = {
   ui: {
-    ACCEPTANCE: 'OK',
-    ERROR_MESSAGE: ['The application has encountered an unexpected error.', 'Refresh your browser and try again.'],
+    button: {
+      ACCEPTANCE: 'OK',
+    },
+    errors: {
+      MESSAGE: ['The application has encountered an unexpected error.', 'Refresh your browser and try again.'],
+    },
   },
 };

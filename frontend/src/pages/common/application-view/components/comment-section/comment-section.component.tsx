@@ -50,16 +50,16 @@ interface ComponentProps {
 /**
  * Renders the comment section in an application's {@link ApplicationView} page.
  *
- * @param props.applicationUuid
+ * @param {ComponentProps} props
  * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element => {
-  // Handles the comment page pagination.
+  // Custom hook that handles the comment page pagination.
   const { currentPage, goToPreviousPage, goToNextPage }: CommentPagination = useCommentPagination();
 
-  // Fetches comments for the given application.
+  // Custom hook that fetches comments for the selected application.
   const { data, isLoading, isError }: SimpleQueryResult<CommentPaginationData> = useCommentsByApplicationAndPagination(
     applicationUuid,
     currentPage,

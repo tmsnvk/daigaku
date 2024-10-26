@@ -39,9 +39,9 @@ export const PageFooter = (): JSX.Element => {
       <div></div>
       <Footer>
         <p>
-          {constants.START_YEAR} - {getCurrentYear()}
+          {constants.ui.START_YEAR} - {getCurrentYear()}
         </p>
-        <p>{constants.MESSAGE}</p>
+        <p>{constants.ui.INFO}</p>
       </Footer>
     </>
   );

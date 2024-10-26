@@ -31,15 +31,34 @@ import { InputError, InputLabel } from '@components/form';
  */
 
 /**
- * Represents the properties of the {@link ActiveSelectField} component.
+ * Defines the properties of the {@link ActiveSelectField} component.
  *
  * @since 0.0.1
  */
 interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
+  /**
+   * The label text to be displayed above the select input.
+   */
   label: string;
+
+  /**
+   * The value previously selected by the user, or null if none.
+   */
   previouslySelectedValue: string | null;
+
+  /**
+   * The prompt text displayed in the select input when no option is selected.
+   */
   selectPrompt: string;
+
+  /**
+   * An array of options available for selection, of type {@link SelectOptions}.
+   */
   options: Array<SelectOptions>;
+
+  /**
+   * Callback function invoked when the field's value is updated.
+   */
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
@@ -61,7 +80,10 @@ export const ActiveSelectField = <T extends FieldValues>({
   isDisabled,
   onFieldUpdate,
 }: ComponentProps<T>): JSX.Element => {
+  // Get the previously selected option from the list of available options.
   const previousOption: SelectOptions | null = useGetPreviouslySelectedValue(options, previouslySelectedValue);
+
+  // Custom hook that updates the field's value.
   const { updateField }: FieldUpdate = useOnFieldUpdate(onFieldUpdate);
 
   return (

@@ -57,7 +57,7 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
 }
 
 /**
- * Renders a generic textarea incorporated with the `react-hook-form` library to handle validation and error display.
+ * Renders a generic textarea integrated with the `react-hook-form` library for validation and error handling.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

@@ -50,8 +50,8 @@ export const useModalToggle = (): ModalToggle => {
   // Tracks the modal's visibility state.
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
+  // Toggles the modal's visibility.
   const toggleModal = (): void => {
-    // Toggles the modal's visibility.
     setIsModalVisible(!isModalVisible);
   };
 

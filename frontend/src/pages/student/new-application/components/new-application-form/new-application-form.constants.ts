@@ -20,7 +20,7 @@ export const constants = {
   pageMessage: {
     LOADING: 'The application is fetching the necessary data for the form submission...',
   },
-  uiMessage: {
+  ui: {
     FORM_INSTRUCTION: 'Register an account if you are not in our system yet.',
     LOADING: 'Your application is being submitted.',
     UNIVERSITY_LOADING: 'Fetching university list...',

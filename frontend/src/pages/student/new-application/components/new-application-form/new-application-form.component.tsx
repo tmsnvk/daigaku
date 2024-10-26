@@ -56,17 +56,22 @@ import { UniversityOption } from '@services/support/university.service';
  * @since 0.0.1
  */
 export const NewApplicationForm = (): JSX.Element => {
+  // Custom hook that manages the country selection.
   const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid }: CountrySelection = useCountrySelection();
   const {
     data: countryOptions,
     isLoading: isCountryDataLoading,
     isError: isCountryError,
   }: ListQueryResult<CountryOption> = useGetCountryOptions();
+
+  // Custom hook that fetches UniversityOptions by selected country.
   const {
     data: universityOptions,
     isLoading: isUniversityDataLoading,
     isError: isUniversityError,
   }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
+
+  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     reset,
@@ -74,6 +79,8 @@ export const NewApplicationForm = (): JSX.Element => {
     register,
     setError,
   } = useForm<CreateApplicationFormFields>({ mode: 'onSubmit' });
+
+  // Custom hook that submits the form.
   const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication(setError, resetCountrySelection, reset);
 
   if (isCountryDataLoading) {
@@ -119,7 +126,7 @@ export const NewApplicationForm = (): JSX.Element => {
         />
         <InputGuideText paragraphs={constants.form.country.INFORMATION} />
         {isUniversityDataLoading ? (
-          <LoadingIndicator loadingText={constants.uiMessage.UNIVERSITY_LOADING} />
+          <LoadingIndicator loadingText={constants.ui.UNIVERSITY_LOADING} />
         ) : (
           <UniversityDropdown
             register={register}
@@ -194,7 +201,7 @@ export const NewApplicationForm = (): JSX.Element => {
         <InputGuideText paragraphs={constants.form.programmeLength.INFORMATION} />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
+            <LoadingIndicator loadingText={constants.ui.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -207,7 +214,7 @@ export const NewApplicationForm = (): JSX.Element => {
       </Form>
       <Toast
         isVisible={isSuccess}
-        message={constants.uiMessage.SUCCESS_TOAST}
+        message={constants.ui.SUCCESS_TOAST}
       />
     </>
   );

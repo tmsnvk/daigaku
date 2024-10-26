@@ -52,7 +52,7 @@ import { ResponseStatus } from '@services/status/response-status.service';
  */
 
 /**
- * The interface represents the properties of the form data fields.
+ * Defines the properties of the form data fields.
  *
  * @since 0.0.1
  */
@@ -71,7 +71,7 @@ export type UpdateApplicationFormFields = {
  */
 
 /**
- * The interface represents the properties of `react-query` cache objects.
+ * Defines the properties of `react-query` cache objects.
  *
  * @since 0.0.1
  */
@@ -104,7 +104,7 @@ const filterCacheByUuid = <T extends CachedData>(cache: Array<T>, optionName: st
  */
 
 /**
- * The interface represents the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
+ * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
  *
  * @since 0.0.1
  */
@@ -118,11 +118,10 @@ export interface HandleFormSubmission {
 }
 
 /**
- * The custom hook manages the {@link LoginForm} submission process, including REST API request, error handling,
+ * Manages the {@link LoginForm} submission process, including REST API request, error handling,
  * and post-success actions, such as setting account context and authentication status.
  *
- * @returns {HandleFormSubmission} An object containing:
- * - a `submitForm` void method.
+ * @return {HandleFormSubmission}
  *
  * @since 0.0.1
  */
@@ -151,7 +150,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
     applicationsCache.forEach((application: Application) => {
       if (application.uuid !== applicationUuid) {
         if (application.responseStatus === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
-          errors.push(constants.ui.errors.FIRM_CHOICE_SELECTION);
+          errors.push(constants.notifications.errors.FIRM_CHOICE_SELECTION);
         }
 
         if (
@@ -160,7 +159,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
           (application.finalDestinationStatus === FinalDestinationStatusE.DEFERRED_ENTRY &&
             formData.finalDestinationStatusUuid === finalDestinationDeferredUuid)
         ) {
-          errors.push(constants.ui.errors.FINAL_DESTINATION_SELECTION);
+          errors.push(constants.notifications.errors.FINAL_DESTINATION_SELECTION);
         }
       }
     });
@@ -203,7 +202,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
  */
 
 /**
- * The type represents the possible error field names in the {@link useUpdateApplication} custom hook.
+ * Defines the possible error field names in the {@link useUpdateApplication} custom hook.
  *
  * @since 0.0.1
  */
@@ -216,7 +215,7 @@ type UpdateApplicationFormErrorT =
   | 'finalDestinationStatusUuid';
 
 /**
- * The type represents the return value properties of the {@link useUpdateApplication} custom hook.
+ * Defines the return value properties of the {@link useUpdateApplication} custom hook.
  *
  * @since 0.0.1
  */
@@ -227,12 +226,11 @@ export type UpdateApplicationForm = MutationResult<
 >;
 
 /**
- * The custom hook manages the POST GET API call.
+ * Mnages the POST GET API call.
  *
  * @param setError `react-hook-form`'s error setting method.
- * @param applicationUuid The application's UUID.
- *
- * @returns {UpdateApplicationForm} A `react-query` mutation object.
+ * @param applicationUuid The application's uuid.
+ * @return {UpdateApplicationForm}
  *
  * @since 0.0.1
  */
@@ -291,8 +289,7 @@ export const useUpdateApplication = (
  * @param application
  * @param updatedData
  * @param applicationStatusOptions
- *
- * @returns {boolean}
+ * @return {boolean}
  *
  * @since 0.0.1
  */

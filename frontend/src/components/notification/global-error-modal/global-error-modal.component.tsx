@@ -58,16 +58,17 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: ComponentProps): JSX.Element => {
+  // Custom hook that manages the rendering of the modal based on visibility state.
   const { dialogRef }: RenderModal = useRenderModal(isVisible);
 
   return (
     <Dialog ref={dialogRef}>
-      <p>{constants.ui.ERROR_MESSAGE[0]}</p>
+      <p>{constants.ui.errors.MESSAGE[0]}</p>
       {errorText && <p>{errorText}</p>}
-      <p>{constants.ui.ERROR_MESSAGE[1]}</p>
+      <p>{constants.ui.errors.MESSAGE[1]}</p>
       <SubmitInput
         type={'button'}
-        value={constants.ui.ACCEPTANCE}
+        value={constants.ui.button.ACCEPTANCE}
         autoFocus={true}
         onClick={onCloseModal}
       />

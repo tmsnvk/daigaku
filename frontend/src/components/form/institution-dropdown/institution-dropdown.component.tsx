@@ -53,7 +53,7 @@ export const InstitutionDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.input.LABEL_TEXT}
+        labelText={constants.ui.dropdown.LABEL_TEXT}
       />
       <select
         {...register(id, validationRules)}
@@ -65,7 +65,7 @@ export const InstitutionDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          {constants.input.DEFAULT_OPTION}
+          {constants.ui.dropdown.DEFAULT_OPTION}
         </option>
         {options.map((institution: InstitutionOption) => (
           <option

@@ -57,20 +57,21 @@ export interface SmallScreenNavbarDisplay {
  * @since 0.0.1
  */
 export const useSmallScreenNavbarDisplay = (): SmallScreenNavbarDisplay => {
+  // State to track whether the navbar is open.
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
 
+  // Toggles the open state of the navbar.
   const toggleNavbar = (): void => {
-    // Toggles the open state of the navbar.
     setIsNavbarOpen(!isNavbarOpen);
   };
 
+  // Sets the navbar to open when focused.
   const handleOnFocus = (): void => {
-    // Sets the navbar to open when focused.
     setIsNavbarOpen(true);
   };
 
+  // Closes the navbar when it loses focus.
   const handleOnBlur = (): void => {
-    // Closes the navbar when it loses focus.
     setIsNavbarOpen(false);
   };
 

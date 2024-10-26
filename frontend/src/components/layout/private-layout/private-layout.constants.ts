@@ -26,7 +26,7 @@ export const constants = {
         LABEL: 'Dashboard',
       },
       logOut: {
-        LABEL: 'Log out',
+        LABEL: 'Log Out',
       },
       myAccount: {
         LABEL: 'My Account',
@@ -54,7 +54,9 @@ export const constants = {
         LABEL: 'My Student Applications',
       },
     },
-    institutionAdmin: {},
+    institutionAdmin: {
+      // Placeholder for future constants.
+    },
     systemAdmin: {
       allStudents: {
         LABEL: 'All Students',

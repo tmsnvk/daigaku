@@ -65,15 +65,15 @@ export const useCommentPagination = (): CommentPagination => {
   // Holds the current page number in the pagination flow.
   const [currentPage, setCurrentPage] = useState<number>(0);
 
+  // Decreases the page number by 1, staying within bounds.
   const goToPreviousPage = (): void => {
-    // Decreases the page number by 1, staying within bounds.
     if (currentPage >= 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
+  // Increases the page number by 1, limited by the total number of pages.
   const goToNextPage = (totalPages: number): void => {
-    // Increases the page number by 1, limited by the total number of pages.
     if (totalPages > 0 && currentPage + 1 < totalPages) {
       setCurrentPage(currentPage + 1);
     }

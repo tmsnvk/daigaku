@@ -55,13 +55,13 @@ export const useModalControl = (): ModalControl => {
   // Tracks the modal's visibility state.
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
+  // Sets the modal as visible.
   const showModal = (): void => {
-    // Sets the modal as visible.
     setIsModalVisible(true);
   };
 
+  // Sets the modal as hidden.
   const closeModal = (): void => {
-    // Sets the modal as hidden.
     setIsModalVisible(false);
   };
 

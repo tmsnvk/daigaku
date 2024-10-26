@@ -73,8 +73,19 @@ export interface ApplicationStatusOption {
  * @since 0.0.1
  */
 export interface ApplicationOptions {
+  /**
+   * An object containing all select options for the application statuses.
+   */
   selectOptions: ApplicationStatusOption;
+
+  /**
+   * Indicates whether the queries are currently loading.
+   */
   isLoading: boolean;
+
+  /**
+   * Indicates whether an error occurred during the queries.
+   */
   isError: boolean;
 }
 

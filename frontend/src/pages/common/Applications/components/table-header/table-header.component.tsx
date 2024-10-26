@@ -76,7 +76,7 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }: ComponentProps): JSX.Element => {
-  // .pdf download request handling custom hook.
+  // Custom hook that handles the .pdf download requests.
   const { mutate, isSuccess, isPending, isError, error }: RequestPdfDownload = useRequestPdfDownload();
 
   if (isError) {
@@ -130,7 +130,7 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
             <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
           </button>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.DOWNLOAD_REQUEST} />
+            <LoadingIndicator loadingText={constants.ui.DOWNLOAD_REQUEST} />
           ) : (
             <button
               type={'button'}
@@ -144,7 +144,7 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
       </TableHeadRow>
       <Toast
         isVisible={isSuccess}
-        message={constants.uiMessage.DOWNLOAD_TOAST}
+        message={constants.ui.DOWNLOAD_TOAST}
       />
     </>
   );

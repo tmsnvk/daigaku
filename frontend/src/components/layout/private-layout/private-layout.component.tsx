@@ -60,10 +60,16 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => {
+  // `react-router-dom` location object.
   const location: Location = useLocation();
+
+  // `react-router-dom` navigate object.
   const navigate: NavigateFunction = useNavigate();
 
+  // Authentication context.
   const { authStatus, account, logOut }: Partial<AuthContext> = useAuth();
+
+  // Custom hook that manages small screen navbar display state.
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur }: SmallScreenNavbarDisplay = useSmallScreenNavbarDisplay();
 
   // Redirect unauthorised users.

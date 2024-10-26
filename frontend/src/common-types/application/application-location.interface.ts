@@ -17,7 +17,7 @@
 import { Application } from './application.interface';
 
 /**
- * Defines a `react-router` location object containing an {@link Application} object and its URL path.
+ * Defines a `react-router-dom` location object containing an {@link Application} object and its URL path.
  *
  * @since 0.0.1
  */

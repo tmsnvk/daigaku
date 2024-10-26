@@ -29,13 +29,13 @@ import { Article } from './input-guide-text.styles';
  */
 interface ComponentProps {
   /**
-   * A list of paragraphs rendered as instruction.
+   * An array of strings representing the instruction paragraphs to be displayed.
    */
   readonly paragraphs: Array<string>;
 }
 
 /**
- * Renders a list of paragraphs for a given input.
+ * Renders a list of instruction paragraphs for a given input.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

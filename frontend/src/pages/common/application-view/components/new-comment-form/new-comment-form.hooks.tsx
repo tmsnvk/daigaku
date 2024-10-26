@@ -62,8 +62,7 @@ export type SubmitNewComment = MutationResult<Comment, AxiosError<Array<ServerVa
  *
  * @param setError A `react-hook-form` function to set form errors.
  * @param applicationUuid The uuid of the application to which the comment belongs to.
- *
- * @returns {SubmitNewComment}
+ * @return {SubmitNewComment}
  *
  * @since 0.0.1
  */

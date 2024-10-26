@@ -29,18 +29,18 @@ import { Label } from './input-label.styles';
  */
 interface ComponentProps {
   /**
-   * The id of the input that the label is associated with.
+   * The id of the associated input element.
    */
   readonly inputId: string;
 
   /**
-   *  The text to display inside the label.
+   * The text displayed inside the label.
    */
   readonly labelText: string;
 }
 
 /**
- * Renders a label for a given input field.
+ * Renders a label for an input field, associated with the specified input id.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

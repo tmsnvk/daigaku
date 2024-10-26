@@ -48,7 +48,7 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentProps): JSX.Element => {
-  // Toggle handling custom hook.
+  // Custom hook that handles toggling the component.
   const { mutate, isPending, isError, shouldBeRemoved }: HandleToggleIsRemovable = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (
@@ -58,7 +58,7 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentPro
         onClick={() => mutate()}
         disabled={isPending}
       >
-        {shouldBeRemoved ? constants.render.REVERT_REQUEST : constants.render.REQUEST_DELETION}
+        {shouldBeRemoved ? constants.buttonState.REVERT_REQUEST : constants.buttonState.REQUEST_DELETION}
       </button>
       {isError && <InputError message={UNEXPECTED_GLOBAL_ERROR} />}
     </Article>

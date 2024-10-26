@@ -14,7 +14,7 @@
  */
 
 /**
- * Formats the role name by removing the prefix "ROLE_" and converting it to lowercase.
+ * Formats the role name by removing the "ROLE_" prefix and converting it to lowercase.
  *
  * @param roleName The raw role name to be formatted.
  * @return {string} The formatted role name.

@@ -56,17 +56,20 @@ type ComponentProps = SelectForm & ConfirmationModal;
  * @since 0.0.1
  */
 export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
+  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   }: UseFormHook<ResetFormFields> = useForm<ResetFormFields>({ mode: 'onSubmit' });
+
+  // Custom hook that submits the form.
   const { isPending, mutate }: HandleResetForm = useHandleResetForm(setError, showModal);
 
   return (
     <section>
-      <FormInstruction instructionText={constants.uiMessage.FORM_INSTRUCTION} />
+      <FormInstruction instructionText={constants.ui.form.INSTRUCTION} />
       <form
         id={'post-account-reset-form'}
         method={'POST'}
@@ -82,20 +85,20 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
           }}
           type={'email'}
           id={'email'}
-          label={constants.form.EMAIL_LABEL}
-          placeholder={constants.form.EMAIL_PLACEHOLDER}
+          label={constants.ui.form.EMAIL_LABEL}
+          placeholder={constants.ui.form.EMAIL_PLACEHOLDER}
           isDisabled={isPending}
           error={errors.email?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
+            <LoadingIndicator loadingText={constants.ui.messages.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               id={'reset'}
               name={'reset'}
-              value={constants.form.SUBMIT}
+              value={constants.ui.form.SUBMIT}
               disabled={isPending}
             />
           )}

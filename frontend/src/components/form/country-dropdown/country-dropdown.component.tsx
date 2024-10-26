@@ -39,17 +39,20 @@ import { CountryOption } from '@services/support/country.service';
 /**
  * Defines the properties of the {@link CountryDropdown} component.
  *
+ * @template T - The type of form values extending the `react-hook-form` library.
+ * @template U - The type of options available in the dropdown.
+ *
  * @since 0.0.1
  */
 interface ComponentProps<T extends FieldValues, U> extends DropdownInput<T, U> {
   /**
-   * The callback method that handles the logic once a country is selected.
+   * Callback invoked when a country is selected.
    */
   onCountrySelection: (event: string) => void;
 }
 
 /**
- * Renders a dropdown component to select a {@link CountryOption}.
+ * Renders a dropdown component to select a {@link CountryOption} value.
  *
  * @param {ComponentProps<T extends FieldValues>} props
  * @return {JSX.Element}
@@ -65,13 +68,14 @@ export const CountryDropdown = <T extends FieldValues>({
   options,
   onCountrySelection,
 }: ComponentProps<T, CountryOption>): JSX.Element => {
+  // Custom hook that handles the country selection logic.
   const { handleCountrySelection }: SelectCountry = useSelectCountry(onCountrySelection);
 
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.input.LABEL_TEXT}
+        labelText={constants.ui.dropdown.LABEL_TEXT}
       />
       <select
         {...register(id, validationRules)}
@@ -84,7 +88,7 @@ export const CountryDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          {constants.input.DEFAULT_OPTION}
+          {constants.ui.dropdown.DEFAULT_OPTION}
         </option>
         {options.map((countryOption: CountryOption) => (
           <option

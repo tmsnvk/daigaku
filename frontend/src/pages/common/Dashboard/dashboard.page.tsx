@@ -47,8 +47,13 @@ import { SimpleQueryResult } from '@common-types';
  * @since 0.0.1
  */
 export const Dashboard = (): JSX.Element | undefined => {
+  // `react-router-dom` navigate object.
   const navigate: NavigateFunction = useNavigate();
+
+  // Authentication context.
   const { account, logOut }: Partial<AuthContext> = useAuth();
+
+  // Custom hook that fetches the user's dashboard statistics.
   const { data, isLoading, isError, error }: SimpleQueryResult<DashboardStatistics> = useGetDashboardStatistics();
 
   useGetApplications();
@@ -57,7 +62,7 @@ export const Dashboard = (): JSX.Element | undefined => {
     return (
       <GlobalLoadingModal
         isVisible={isLoading}
-        loadingText={constants.pageMessage.LOADING}
+        loadingText={constants.ui.LOADING}
       />
     );
   }

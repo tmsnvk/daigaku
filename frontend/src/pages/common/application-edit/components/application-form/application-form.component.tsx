@@ -79,10 +79,10 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     setError,
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
 
-  // Application updating hook.
+  // Custom hook that updates the application.
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
 
-  // Application field availability checking hook.
+  // Custom hook that checks the application's fields availability.
   const {
     fieldsReadOnlyStatus,
     updateInterviewStatus,
@@ -92,7 +92,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     disableFieldsOnFinalDestinationUpdate,
   }: HandleFieldDisableStatus = useHandleFieldDisableStatus(application, updatedData, selectOptions);
 
-  // Form submission hook.
+  // Custom hook that submits the form.
   const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
 
   return (
@@ -117,105 +117,105 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
         <DisabledInput
           id={'country'}
           type={'text'}
-          label={constants.fields.country.NAME}
+          label={constants.form.fields.country.NAME}
           value={application.country}
         />
-        <InputGuideText paragraphs={constants.fields.country.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.country.INFORMATION} />
         <DisabledInput
           id={'university'}
           type={'text'}
-          label={constants.fields.university.NAME}
+          label={constants.form.fields.university.NAME}
           value={application.university}
         />
-        <InputGuideText paragraphs={constants.fields.university.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.university.INFORMATION} />
         <DisabledInput
           id={'courseName'}
           type={'text'}
-          label={constants.fields.courseName.NAME}
+          label={constants.form.fields.courseName.NAME}
           value={application.courseName}
         />
-        <InputGuideText paragraphs={constants.fields.courseName.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.courseName.INFORMATION} />
         <DisabledInput
           id={'minorSubject'}
           type={'text'}
-          label={constants.fields.minorSubject.NAME}
+          label={constants.form.fields.minorSubject.NAME}
           value={application.minorSubject ?? '-'}
         />
-        <InputGuideText paragraphs={constants.fields.minorSubject.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.minorSubject.INFORMATION} />
         <DisabledInput
           id={'programmeLength'}
           type={'number'}
-          label={constants.fields.programmeLength.NAME}
+          label={constants.form.fields.programmeLength.NAME}
           value={application.programmeLength}
         />
-        <InputGuideText paragraphs={constants.fields.programmeLength.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.programmeLength.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'applicationStatusUuid'}
-          label={constants.fields.applicationStatus.NAME}
-          selectPrompt={constants.fields.applicationStatus.SELECT_PROMPT}
+          label={constants.form.fields.applicationStatus.NAME}
+          selectPrompt={constants.form.fields.applicationStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
           options={selectOptions.applicationStatus as Array<ApplicationStatus>}
           isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
           onFieldUpdate={updateInterviewStatus}
           error={errors.applicationStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.fields.applicationStatus.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.applicationStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'interviewStatusUuid'}
-          label={constants.fields.interviewStatus.NAME}
-          selectPrompt={constants.fields.interviewStatus.SELECT_PROMPT}
+          label={constants.form.fields.interviewStatus.NAME}
+          selectPrompt={constants.form.fields.interviewStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
           options={selectOptions.interviewStatus as Array<InterviewStatus>}
           isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
           onFieldUpdate={updateOfferStatus}
           error={errors.interviewStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.fields.interviewStatus.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.interviewStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'offerStatusUuid'}
-          label={constants.fields.offerStatus.NAME}
-          selectPrompt={constants.fields.offerStatus.SELECT_PROMPT}
+          label={constants.form.fields.offerStatus.NAME}
+          selectPrompt={constants.form.fields.offerStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
           options={selectOptions.offerStatus as Array<OfferStatus>}
           isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
           onFieldUpdate={updateResponseStatus}
           error={errors.offerStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.fields.offerStatus.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.offerStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'responseStatusUuid'}
-          label={constants.fields.responseStatus.NAME}
-          selectPrompt={constants.fields.responseStatus.SELECT_PROMPT}
+          label={constants.form.fields.responseStatus.NAME}
+          selectPrompt={constants.form.fields.responseStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
           options={selectOptions.responseStatus as Array<ResponseStatus>}
           isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
           onFieldUpdate={updateFinalDestinationStatus}
           error={errors.responseStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.fields.responseStatus.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.responseStatus.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'finalDestinationStatusUuid'}
-          label={constants.fields.finalDestination.NAME}
-          selectPrompt={constants.fields.finalDestination.SELECT_PROMPT}
+          label={constants.form.fields.finalDestination.NAME}
+          selectPrompt={constants.form.fields.finalDestination.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as Array<FinalDestinationStatus>}
           isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
           onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
           error={errors.finalDestinationStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.fields.finalDestination.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.fields.finalDestination.INFORMATION} />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.ui.LOADING} />
+            <LoadingIndicator loadingText={constants.notifications.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
-              value={constants.ui.SUBMIT}
+              value={constants.notifications.SUBMIT}
               disabled={isPending}
             />
           )}

@@ -57,17 +57,20 @@ type ComponentProps = SelectForm;
  * @since 0.0.1
  */
 export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
+  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   }: UseFormHook<LoginFormFields> = useForm<LoginFormFields>({ mode: 'onSubmit' });
+
+  // Custom hook that submits the form.
   const { isPending, mutate }: HandleLoginForm = useHandleLoginForm(setError);
 
   return (
     <section>
-      <FormInstruction instructionText={constants.uiMessage.FORM_INSTRUCTION} />
+      <FormInstruction instructionText={constants.ui.form.INSTRUCTION} />
       <form
         id={'post-account-login-form'}
         method={'POST'}
@@ -83,8 +86,8 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           }}
           type={'email'}
           id={'email'}
-          label={constants.form.EMAIL_LABEL}
-          placeholder={constants.form.EMAIL_PLACEHOLDER}
+          label={constants.ui.form.EMAIL_LABEL}
+          placeholder={constants.ui.form.EMAIL_PLACEHOLDER}
           isDisabled={isPending}
           error={errors.email?.message}
         />
@@ -97,20 +100,20 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
             },
           }}
           id={'password'}
-          label={constants.form.PASSWORD_LABEL}
-          placeholder={constants.form.PASSWORD_PLACEHOLDER}
+          label={constants.ui.form.PASSWORD_LABEL}
+          placeholder={constants.ui.form.PASSWORD_PLACEHOLDER}
           isDisabled={isPending}
           error={errors.password?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
+            <LoadingIndicator loadingText={constants.ui.messages.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               id={'login'}
               name={'login'}
-              value={constants.form.SUBMIT}
+              value={constants.ui.form.SUBMIT}
               disabled={isPending}
             />
           )}

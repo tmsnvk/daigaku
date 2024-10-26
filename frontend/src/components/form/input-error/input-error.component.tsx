@@ -29,13 +29,13 @@ import { Paragraph } from './input-error.styles';
  */
 interface ComponentProps {
   /**
-   * The rendered error message, if any.
+   * The error message to be displayed. If there is no error, this should be undefined.
    */
   readonly message: string | undefined;
 }
 
 /**
- * Renders a simple error message for various input fields.
+ * Renders an error message for various input fields.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

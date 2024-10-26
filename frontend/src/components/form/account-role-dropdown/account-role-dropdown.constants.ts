@@ -17,8 +17,10 @@
  * @since 0.0.1
  */
 export const constants = {
-  input: {
-    LABEL_TEXT: 'Account Type',
-    DEFAULT_OPTION: 'Select your account type.',
+  ui: {
+    dropdown: {
+      LABEL_TEXT: 'Account Type',
+      DEFAULT_OPTION: 'Select your account type.',
+    },
   },
 };

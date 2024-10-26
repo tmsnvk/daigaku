@@ -23,22 +23,22 @@ import { Comment } from './comment.interface';
  */
 export interface CommentPaginationData {
   /**
-   * The total page number.
+   * The total number of pages available for comments.
    */
   readonly totalPages: number;
 
   /**
-   * The current page number.
+   * The current page number of the comments being viewed.
    */
   readonly currentPage: number;
 
   /**
-   * The number of total comments under the given {@link Application} object.
+   * The total number of comments associated with the given {@link Application} object.
    */
   readonly totalComments: number;
 
   /**
-   * The list of comments under the given {@link Application} object.
+   * A list of comments associated with the given {@link Application} object.
    */
   readonly comments: Array<Comment>;
 }

@@ -58,7 +58,7 @@ export const Applications = (): JSX.Element => {
     return (
       <GlobalLoadingModal
         isVisible={isLoading || isRefetching}
-        loadingText={constants.uiMessage.LOADING}
+        loadingText={constants.ui.LOADING}
       />
     );
   }

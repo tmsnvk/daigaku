@@ -66,6 +66,7 @@ export interface DashboardStatistics {
  * @since 0.0.1
  */
 export const useGetDashboardStatistics = (): SimpleQueryResult<DashboardStatistics> => {
+  // Authentication context.
   const { getRoleResource }: Partial<AuthContext> = useAuth();
   const accountRole: string = getRoleResource();
 

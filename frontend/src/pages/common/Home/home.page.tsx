@@ -47,8 +47,13 @@ import { ModalControl } from '@hooks/modal-components/use-modal-control';
  * @since 0.0.1
  */
 export const Home = (): JSX.Element => {
+  // Authentication context.
   const { authStatus }: Partial<AuthContext> = useAuth();
+
+  // Custom hook that handles the post-submit modal visibility.
   const { isModalVisible, showModal, closeModal }: ModalControl = useModalControl();
+
+  // Custom hook that manages which form should be displayed.
   const { activeFormType, activeFormComponent }: ActiveFormComponent = useActiveFormComponent(showModal);
 
   if (authStatus === AuthStatus.SIGNED_IN) {

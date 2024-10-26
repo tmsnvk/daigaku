@@ -40,17 +40,19 @@ export interface TogglePassword {
 }
 
 /**
- * A custom hook for managing password visibility in input fields. It toggles the display of password text between plain text and obfuscated characters.
+ * Manages password visibility in input fields.
+ * Toggles the display of password text between plain text and obfuscated characters.
  *
  * @return {TogglePassword}
  *
  * @since 0.0.1
  */
 export const useTogglePassword = (): TogglePassword => {
+  // State to determine if the password text is currently revealed.
   const [isTextRevealed, setIsTextRevealed] = useState<boolean>(false);
 
+  // Toggles the current state of password visibility.
   const toggleTextVisibility = (): void => {
-    // Toggles the current state of password visibility.
     setIsTextRevealed(!isTextRevealed);
   };
 

@@ -17,6 +17,8 @@
  * @since 0.0.1
  */
 export const constants = {
-  START_YEAR: 2024,
-  MESSAGE: '© built with reactjs, spring boot, redis, psql and ❤️',
+  ui: {
+    START_YEAR: 2024,
+    INFO: '© built with reactjs, spring boot, redis, psql and ❤️',
+  },
 };

@@ -64,7 +64,7 @@ interface ComponentProps {
  * @since 0.0.1
  */
 export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps): JSX.Element => {
-  // The modal rendering custom hook.
+  // Custom hook that renders the modal.
   const { dialogRef }: RenderModal = useRenderModal(isModalVisible);
 
   return (

@@ -49,9 +49,14 @@ import { ApplicationOptions } from '@hooks/application-status/use-get-all-select
  * @since 0.0.1
  */
 export const ApplicationEdit = (): JSX.Element => {
+  // `react-router-dom` location object.
   const { state, pathname }: ApplicationLocation = useLocation();
   const applicationUuid: string = pathname.split('/applications/edit/')[1];
+
+  // Custom hook that fetches all SelectOptions.
   const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError }: ApplicationOptions = useGetAllSelectOptions();
+
+  // Custom hook that fetches an application by uuid.
   const {
     data,
     isLoading: isApplicationLoading,
@@ -63,7 +68,7 @@ export const ApplicationEdit = (): JSX.Element => {
     return (
       <GlobalLoadingModal
         isVisible={isApplicationLoading}
-        loadingText={constants.pageMessage.LOADING}
+        loadingText={constants.ui.LOADING}
       />
     );
   }

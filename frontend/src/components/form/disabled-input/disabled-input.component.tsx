@@ -35,7 +35,7 @@ interface ComponentProps {
   readonly id: string;
 
   /**
-   * Input label.
+   * Input label text.
    */
   readonly label: string;
 

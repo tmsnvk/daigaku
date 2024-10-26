@@ -37,7 +37,7 @@ import { CommonInput } from '@common-types';
  */
 
 /**
- * Renders a password type input incorporated with the `react-hook-form` library to handle validation and error display.
+ * Renders a password input field that integrates with the `react-hook-form` library for validation and error handling.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -54,6 +54,7 @@ export const PasswordInput = <T extends FieldValues>({
   initialValue,
   isDisabled,
 }: CommonInput<T>): JSX.Element => {
+  // Custom hook that manages password visibility toggle.
   const { isTextRevealed, toggleTextVisibility }: TogglePassword = useTogglePassword();
 
   return (

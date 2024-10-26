@@ -81,6 +81,7 @@ export const useCreateApplication = (
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationFormFields) => applicationStudentService.postByStudent(formData),
     onSuccess: (response: Application) => {
+      // After a successful submission, the newly created application is added to `react-query`'s local cache.
       queryClient.setQueryData<Array<Application>>(
         [queryKeys.application.GET_ALL_BY_ROLE],
         (applications: Array<Application> | undefined) => {
@@ -153,7 +154,7 @@ export interface CountrySelection {
 }
 
 /**
- * Manages the state of country selection. It tracks whether a country has been selected and stores the currently selected country's UUID.
+ * Manages the state of country selection. It tracks whether a country has been selected and stores the currently selected country's uuid.
  *
  * @return {CountrySelection} The object that manages the country selection state.
  *
@@ -163,14 +164,14 @@ export const useCountrySelection = (): CountrySelection => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
   const [currentCountryUuid, setCurrentCountryUuid] = useState<string>('');
 
+  // Sets the selected country and marks it as selected.
   const selectCountry = (countryUuid: string): void => {
-    // Sets the selected country and marks it as selected.
     setIsCountrySelected(true);
     setCurrentCountryUuid(countryUuid);
   };
 
+  // Resets the selection state.
   const resetCountrySelection = (): void => {
-    // Resets the selection state.
     setIsCountrySelected(false);
   };
 

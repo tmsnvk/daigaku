@@ -37,9 +37,9 @@ import { iconLibraryConfig } from '@configuration';
  * @since 0.0.1
  */
 export const Error = (): JSX.Element => {
+  // `react-router-dom` error object.
   const error = useRouteError() as Error;
 
-  // - add styling.
   return (
     <ErrorContainer>
       <h1>Oops!</h1>

@@ -27,9 +27,7 @@ import { ResponseStatus } from '@services/status/response-status.service';
  */
 
 /**
- * Represents the possible option types.
- *
- * @template T The dropdown input's type.
+ * Defines the possible option types.
  *
  * @since 0.0.1
  */
@@ -37,7 +35,7 @@ export type SelectOptions = ApplicationStatus | InterviewStatus | OfferStatus | 
 
 /**
  * Retrieves a previously selected value from a list of options.
- * It is necessary to retrieve the previous value's UUID and set it as the input's value.
+ * It is necessary to retrieve the previous value's uuid and set it as the input's value.
  *
  * @return {SelectOptions | null} If a previously selected value exists, an object containing `name` and `uuid` fields is returned.
  * Otherwise a null value is returned.

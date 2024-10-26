@@ -62,7 +62,7 @@ export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element
     setError,
   } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
 
-  // Form submission hook.
+  // Custom hook that submits a new comment.
   const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
 
   return (

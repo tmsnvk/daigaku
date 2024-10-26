@@ -17,8 +17,10 @@
  * @since 0.0.1
  */
 export const constants = {
-  input: {
-    LABEL_TEXT: 'University',
-    DEFAULT_VALUE: 'Select the university of your choice.',
+  ui: {
+    dropdown: {
+      LABEL_TEXT: 'University',
+      DEFAULT_VALUE: 'Select the university of your choice.',
+    },
   },
 };

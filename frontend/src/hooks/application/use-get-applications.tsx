@@ -40,6 +40,7 @@ import { Application, ListQueryResult } from '@common-types';
  * @since 0.0.1
  */
 export const useGetApplications = (): ListQueryResult<Application> => {
+  // Authentication context.
   const { getRoleResource }: Partial<AuthContext> = useAuth();
   const accountRole: string = getRoleResource();
 

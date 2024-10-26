@@ -50,7 +50,8 @@ interface ComponentProps {
 }
 
 /**
- * Renders the metadata for a selected application.
+ * Renders the metadata for a selected application, including the creation and
+ * last update timestamps, as well as the respective users responsible for these actions.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

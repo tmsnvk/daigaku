@@ -61,20 +61,32 @@ export type Todo = string;
  * @since 0.0.1
  */
 export const useTodoList = (data: DashboardStatistics): TodoList => {
+  // An array of todo items.
   const todos: Array<Todo> = [];
 
+  // Evaluates which todo items should be added to the todos array.
   const evaluateTodos = (): void => {
+    // No applications made.
     data.applicationsCount === 0 && todos.push(noApplications);
+
+    // No applications are in the 'Submitted' status.
     data.submittedApplicationsCount === 0 && todos.push(noSubmittedApplications);
 
     if (data.submittedApplicationsCount > 0) {
+      // There is no InterviewStatus set for submitted applications.
       data.notSetInterviewStatusCount && todos.push(noInterviewStatusSet);
+
+      // There is no firm choice application selected.
       !data.firmChoice && todos.push(noFirmChoiceSet);
+
+      // OfferStatus is not updated on any of the 'Submitted' applications.
       data.offersCount === 0 && todos.push(noOfferStatusSet);
     }
 
+    // There are offers but no FinalDestinationStatus is set.
     data.offersCount && !data.finalDestination && todos.push(noFinalDestinationSet);
 
+    // There are no todo items.
     if (todos.length === 0) {
       todos.push(noTodo);
     }

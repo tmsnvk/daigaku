@@ -49,7 +49,7 @@ export const ApplicationView = (): JSX.Element => {
   const { state, pathname }: ApplicationLocation = useLocation();
   const applicationUuid: string = pathname.split('/applications/view/')[1];
 
-  // Application fetching custom hook.
+  // Custom hook that fetches an application by uuid.
   const { data, isLoading, isError }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
   const application: Application = state || data;
 

@@ -42,12 +42,12 @@ import { constants } from './data-rows.constants';
  */
 interface ComponentProps {
   /**
-   *
+   * An array of columns configuration, defining which columns should be displayed.
    */
   readonly columns: Array<Column>;
 
   /**
-   *
+   * An array of {@link Application} objects to be displayed in the table rows.
    */
   readonly applications: Array<Application>;
 }

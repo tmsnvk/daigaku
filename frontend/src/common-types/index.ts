@@ -25,5 +25,5 @@ export * from './component/dropdown-input.interface';
 export * from './mutation-result/mutation-result.type';
 export * from './query-result/query-result-list.type';
 export * from './query-result/query-result-simple.type';
-export * from './validation/form-field-validation.interface';
+export * from './validation/form-input-validation.interface';
 export * from './validation/server-validation-error-response.interface';
