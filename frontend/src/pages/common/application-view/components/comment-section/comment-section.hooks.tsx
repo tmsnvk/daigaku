@@ -108,6 +108,6 @@ export const useCommentsByApplicationAndPagination = (
 ): SimpleQueryResult<CommentPaginationData> => {
   return useQuery({
     queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
-    queryFn: () => commentService.getAllByApplicationUUidAndPagination(applicationUuid, currentPage),
+    queryFn: () => commentService.getAllByApplicationUuidAndPagination(applicationUuid, currentPage),
   });
 };

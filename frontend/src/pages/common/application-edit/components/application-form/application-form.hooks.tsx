@@ -29,21 +29,21 @@ import { constants } from './application-form.constants';
 /* interface, type, enum imports */
 import {
   Application,
+  ApplicationStatus,
   ApplicationStatusE,
+  FinalDestinationStatus,
   FinalDestinationStatusE,
+  InterviewStatus,
   InterviewStatusE,
   MutationResult,
+  OfferStatus,
   OfferStatusE,
+  ResponseStatus,
   ResponseStatusE,
   ServerValidationErrorResponse,
 } from '@common-types';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
-import { ApplicationStatus } from '@services/status/application-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-import { InterviewStatus } from '@services/status/interview-status-service.service';
-import { OfferStatus } from '@services/status/offer-status.service';
-import { ResponseStatus } from '@services/status/response-status.service';
 
 /**
  * ===============

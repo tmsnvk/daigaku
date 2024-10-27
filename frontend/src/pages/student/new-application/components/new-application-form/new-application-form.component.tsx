@@ -35,11 +35,9 @@ import { Form } from './new-application-form.styles';
 import { constants } from './new-application-form.constants';
 
 /* interface, type, enum imports */
-import { ListQueryResult } from '@common-types';
+import { CountryOption, ListQueryResult, UniversityOption } from '@common-types';
 import { useGetCountryOptions } from '@hooks/country';
 import { useGetUniversityOptionsByCountryUuid } from '@hooks/university';
-import { CountryOption } from '@services/support/country.service';
-import { UniversityOption } from '@services/support/university.service';
 
 /**
  * ===============

@@ -23,8 +23,7 @@ import { institutionService } from '@services/index.ts';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ListQueryResult } from '@common-types';
-import { InstitutionOption } from '@services/support/institution.service';
+import { InstitutionOption, ListQueryResult } from '@common-types';
 
 /**
  * Fetches a list of {@link InstitutionOption} objects.
@@ -36,6 +35,6 @@ import { InstitutionOption } from '@services/support/institution.service';
 export const useGetInstitutionOptions = (): ListQueryResult<InstitutionOption> => {
   return useQuery({
     queryKey: [queryKeys.INSTITUTIONS.GET_AS_SELECT_OPTIONS],
-    queryFn: () => institutionService.getAllDropdownOptions(),
+    queryFn: () => institutionService.getAllOptions(),
   });
 };

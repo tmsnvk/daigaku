@@ -23,8 +23,7 @@ import { countryService } from '@services/index';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ListQueryResult } from '@common-types';
-import { CountryOption } from '@services/support/country.service';
+import { CountryOption, ListQueryResult } from '@common-types';
 
 /**
  * Fetches a list of {@link CountryOption} objects.
@@ -36,6 +35,6 @@ import { CountryOption } from '@services/support/country.service';
 export const useGetCountryOptions = (): ListQueryResult<CountryOption> => {
   return useQuery({
     queryKey: [queryKeys.COUNTRY.GET_AS_SELECT_OPTIONS],
-    queryFn: () => countryService.getAllDropdownOptions(),
+    queryFn: () => countryService.getAllOptions(),
   });
 };

@@ -23,8 +23,7 @@ import { universityService } from '@services/index.ts';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ListQueryResult } from '@common-types';
-import { UniversityOption } from '@services/support/university.service';
+import { ListQueryResult, UniversityOption } from '@common-types';
 
 /**
  * Fetches a list of {@link UniversityOption} objects.
@@ -42,7 +41,7 @@ export const useGetUniversityOptionsByCountryUuid = (
 ): ListQueryResult<UniversityOption> => {
   return useQuery({
     queryKey: [queryKeys.UNIVERSITY.GET_AS_SELECT_OPTIONS, selectedCountryUuid],
-    queryFn: () => universityService.getDropdownOptionsByCountryUuid(selectedCountryUuid),
+    queryFn: () => universityService.getAllOptionsByCountryUuid(selectedCountryUuid),
     enabled: isCountryFieldSelected,
   });
 };

@@ -27,8 +27,7 @@ import { InputError, InputLabel } from '@components/form';
 import { constants } from './country-dropdown.constants';
 
 /* interface, type, enum imports */
-import { DropdownInput } from '@common-types';
-import { CountryOption } from '@services/support/country.service';
+import { CountryOption, DropdownInput } from '@common-types';
 
 /**
  * ===============

@@ -2,25 +2,59 @@
  * @prettier
  */
 
-/* configuration imports */
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+/* external imports */
+import { AxiosResponse } from 'axios';
+
+/* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@configuration';
 
-/* interfaces, types, enums */
-export interface OfferStatus {
-  readonly uuid: string;
-  readonly name: string;
+/* interface, type, enum imports */
+import { OfferStatus } from '@common-types';
+
+/**
+ * ===============
+ * Service API Calls {@link offerStatusService}
+ * ===============
+ */
+
+/**
+ * Defines the operations of the {@link offerStatusService} object, responsible for managing offer-status-related API requests.
+ *
+ * @since 0.0.1
+ */
+interface OfferStatusService {
+  /**
+   * Retrieves all available options for the OfferStatus field of the {@link Application} object.
+   *
+   * @return {Promise<Array<OfferStatus>>}
+   * @throws {AxiosError}
+   */
+  getAll: () => Promise<Array<OfferStatus>>;
 }
 
-export const offerStatusService = {
-  /*
-   * TODO - comment
-   */
+/**
+ * Manages offer-status-related REST API operations, implementing {@link OfferStatusService}.
+ *
+ * @since 0.0.1
+ */
+export const offerStatusService: OfferStatusService = {
   getAll: async (): Promise<Array<OfferStatus>> => {
-    const { data } = await axiosConfigWithAuth.request<Array<OfferStatus>>({
+    const response: AxiosResponse<Array<OfferStatus>> = await axiosConfigWithAuth.request<Array<OfferStatus>>({
       method: 'GET',
       url: '/api/v1/offer-status',
     });
 
-    return data;
+    return response.data;
   },
 };

@@ -29,11 +29,7 @@ import {
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ApplicationStatus } from '@services/status/application-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-import { InterviewStatus } from '@services/status/interview-status-service.service';
-import { OfferStatus } from '@services/status/offer-status.service';
-import { ResponseStatus } from '@services/status/response-status.service';
+import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 
 /**
  * Defines the properties of all {@link Application} status fields.

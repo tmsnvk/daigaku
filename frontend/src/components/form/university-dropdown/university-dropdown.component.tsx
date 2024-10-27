@@ -24,8 +24,7 @@ import { InputError, InputLabel } from '@components/form';
 import { constants } from './university-dropdown.constants';
 
 /* interface, type, enum imports */
-import { DropdownInput } from '@common-types';
-import { UniversityOption } from '@services/support/university.service';
+import { DropdownInput, UniversityOption } from '@common-types';
 
 /**
  * ===============

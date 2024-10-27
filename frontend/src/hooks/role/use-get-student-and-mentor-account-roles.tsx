@@ -23,8 +23,7 @@ import { roleService } from '@services/index';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ListQueryResult } from '@common-types';
-import { RoleOption } from '@services/role/role.service';
+import { ListQueryResult, RoleOption } from '@common-types';
 
 /**
  * Fetches a list of {@link RoleOption} objects.

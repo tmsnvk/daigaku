@@ -33,9 +33,7 @@ import { FormInstruction } from '../form-instruction/index';
 import { constants } from './registration-form.constants';
 
 /* interface, type, enum imports */
-import { ListQueryResult } from '@common-types';
-import { RoleOption } from '@services/role/role.service';
-import { InstitutionOption } from '@services/support/institution.service';
+import { InstitutionOption, ListQueryResult, RoleOption } from '@common-types';
 import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.interfaces';
 
 /**

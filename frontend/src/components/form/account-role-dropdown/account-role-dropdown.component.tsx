@@ -25,8 +25,7 @@ import { constants } from './account-role-dropdown.constants';
 import { formatRoleName } from './account-role-dropdown.utilities';
 
 /* interface, type, enum imports */
-import { DropdownInput } from '@common-types';
-import { RoleOption } from '@services/role/role.service';
+import { DropdownInput, RoleOption } from '@common-types';
 
 /**
  * ===============
