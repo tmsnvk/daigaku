@@ -2,25 +2,39 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useQuery } from '@tanstack/react-query';
 
-/* service imports */
+/* logic imports */
 import { countryService } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { CountryOption } from '@services/support/country.service';
-import { ListQueryResult } from '@common-types';
+import { CountryOption, ListQueryResult } from '@common-types';
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * Fetches a list of {@link CountryOption} objects.
+ *
+ * @return {ListQueryResult<CountryOption>}
+ *
+ * @since 0.0.1
  */
 export const useGetCountryOptions = (): ListQueryResult<CountryOption> => {
   return useQuery({
     queryKey: [queryKeys.COUNTRY.GET_AS_SELECT_OPTIONS],
-    queryFn: () => countryService.getAllDropdownOptions(),
+    queryFn: () => countryService.getAllOptions(),
   });
 };

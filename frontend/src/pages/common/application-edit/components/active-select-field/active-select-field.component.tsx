@@ -14,12 +14,13 @@
  */
 
 /* external imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { SelectOptions, useGetPreviouslySelectedValue } from './active-select-field.hooks';
+import { FieldUpdate, SelectOptions, useGetPreviouslySelectedValue, useOnFieldUpdate } from './active-select-field.hooks';
 
 /* component, style imports */
+import { CoreInput } from '@common-types';
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
@@ -29,59 +30,75 @@ import { InputError, InputLabel } from '@components/form';
  * ===============
  */
 
-/* interfaces, types, enums */
-interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>;
-  fieldError: string | undefined;
-  id: Path<T>;
+/**
+ * Defines the properties of the {@link ActiveSelectField} component.
+ *
+ * @since 0.0.1
+ */
+interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
+  /**
+   * The label text to be displayed above the select input.
+   */
   label: string;
+
+  /**
+   * The value previously selected by the user, or null if none.
+   */
   previouslySelectedValue: string | null;
+
+  /**
+   * The prompt text displayed in the select input when no option is selected.
+   */
   selectPrompt: string;
+
+  /**
+   * An array of options available for selection, of type {@link SelectOptions}.
+   */
   options: Array<SelectOptions>;
-  isReadOnly: boolean;
+
+  /**
+   * Callback function invoked when the field's value is updated.
+   */
   onFieldUpdate: (eventTargetValue: string) => void;
 }
 
 /**
- * @description
- * The component renders `select` input fields whose input type is included in the {@link SelectOptions} union type.
+ * Renders a `select` input field whose input type is included in the {@link SelectOptions} union type.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const ActiveSelectField = <T extends FieldValues>({
   register,
-  fieldError,
+  error,
   id,
   label,
   previouslySelectedValue,
   selectPrompt,
   options,
-  isReadOnly,
+  isDisabled,
   onFieldUpdate,
 }: ComponentProps<T>): JSX.Element => {
+  // Get the previously selected option from the list of available options.
   const previousOption: SelectOptions | null = useGetPreviouslySelectedValue(options, previouslySelectedValue);
 
+  // Custom hook that updates the field's value.
+  const { updateField }: FieldUpdate = useOnFieldUpdate(onFieldUpdate);
+
   return (
-    <BaseInput $isError={fieldError !== undefined}>
+    <BaseInput $isError={error !== undefined}>
       <InputLabel
-        fieldId={id}
-        content={label}
+        inputId={id}
+        labelText={label}
       />
       <select
         {...register(id, {
-          onChange: (event: Event) => {
-            const target = event.target as HTMLSelectElement | null;
-
-            if (target) {
-              onFieldUpdate(target.value);
-            }
-          },
+          onChange: (event: Event) => updateField(event),
         })}
         id={id}
         name={id}
-        disabled={isReadOnly}
+        disabled={isDisabled}
         defaultValue={previousOption?.uuid}
       >
         <option
@@ -101,7 +118,7 @@ export const ActiveSelectField = <T extends FieldValues>({
           );
         })}
       </select>
-      {fieldError && <InputError errorText={fieldError} />}
+      {error && <InputError message={error} />}
     </BaseInput>
   );
 };

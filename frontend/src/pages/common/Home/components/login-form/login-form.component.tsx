@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { HandleLoginForm, LoginFormFields, useHandleLoginForm } from './login-form.hooks';
 
 /* component, style imports */
-import { GenericInputField, InputError, PasswordInputField, SubmitInput } from '@components/form';
+import { GenericInput, InputError, PasswordInput, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button';
 
@@ -38,40 +38,45 @@ import { FormType, SelectForm, UseFormHook } from '../../home.interfaces';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the component's properties.
+ * A function to handle {@link FormType} switching.
+ *
+ * @since 0.0.1
+ */
 type ComponentProps = SelectForm;
 
 /**
- * @description
- * The component is responsible for rendering a login form that allows users to submit their email and password for authentication.
+ * Renders a login form that allows users to submit their email and password for authentication.
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
- * @param {Function} props.selectForm
- * A function to handle {@link FormType} switching.
- *
- * @returns {JSX.Element}
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
+  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   }: UseFormHook<LoginFormFields> = useForm<LoginFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: HandleLoginForm = useHandleLoginForm({ setError });
+
+  // Custom hook that submits the form.
+  const { isPending, mutate }: HandleLoginForm = useHandleLoginForm(setError);
 
   return (
     <section>
-      <FormInstruction instructionText={constants.uiMessage.FORM_INSTRUCTION} />
+      <FormInstruction instructionText={constants.ui.form.INSTRUCTION} />
       <form
         id={'post-account-login-form'}
         method={'POST'}
         onSubmit={handleSubmit((formData: LoginFormFields) => mutate(formData))}
       >
-        <GenericInputField
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -81,12 +86,12 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           }}
           type={'email'}
           id={'email'}
-          label={constants.form.EMAIL_LABEL}
-          placeholder={constants.form.EMAIL_PLACEHOLDER}
+          label={constants.ui.form.EMAIL_LABEL}
+          placeholder={constants.ui.form.EMAIL_PLACEHOLDER}
           isDisabled={isPending}
           error={errors.email?.message}
         />
-        <PasswordInputField
+        <PasswordInput
           register={register}
           validationRules={{
             required: {
@@ -95,24 +100,24 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
             },
           }}
           id={'password'}
-          label={constants.form.PASSWORD_LABEL}
-          placeholder={constants.form.PASSWORD_PLACEHOLDER}
+          label={constants.ui.form.PASSWORD_LABEL}
+          placeholder={constants.ui.form.PASSWORD_PLACEHOLDER}
           isDisabled={isPending}
           error={errors.password?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
+            <LoadingIndicator loadingText={constants.ui.messages.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               id={'login'}
               name={'login'}
-              value={constants.form.SUBMIT}
+              value={constants.ui.form.SUBMIT}
               disabled={isPending}
             />
           )}
-          {errors.root && <InputError errorText={errors.root.message} />}
+          {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
       <article>

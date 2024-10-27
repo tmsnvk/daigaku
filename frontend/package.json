@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "author": "tmsnvk <dev@tamasnovak.net>",
+  "author": "tmsnvk",
   "description": "The application follows the university application process of high school students and handles complex student-mentor-admin relationships.",
   "repository": {
     "type": "git",

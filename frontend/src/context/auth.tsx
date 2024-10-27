@@ -2,22 +2,45 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { Context, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
-/* service imports */
+/* logic imports */
 import { accountService } from '@services/index';
+
+/* configuration, utilities, constants imports */
+import { localStorageKeyConstants } from '@constants';
 
 /* interface, type, enum imports */
 import { LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
 
-/* interfaces, types, enums */
+/**
+ * Defines the authentication status options.
+ *
+ * @since 0.0.1
+ */
 export enum AuthStatus {
   LOADING,
   SIGNED_IN,
   SIGNED_OUT,
 }
 
+/**
+ * Defines the various account types.
+ *
+ * @since 0.0.1
+ */
 export enum AccountRoleValues {
   STUDENT,
   MENTOR,
@@ -25,20 +48,34 @@ export enum AccountRoleValues {
   SYSTEM_ADMIN,
 }
 
+/**
+ * @since 0.0.1
+ */
 interface AccountRole {
   [key: string]: AccountRoleValues;
 }
 
+/**
+ * @since 0.0.1
+ */
 interface AuthContextProviderT {
   children: ReactNode;
 }
 
+/**
+ * @since 0.0.1
+ */
 export type Account = {
   email: string;
   firstName: string;
   role: AccountRoleValues | typeof AccountRoleValues;
 };
 
+/**
+ * Defines the properties of the AuthContext object.
+ *
+ * @since 0.0.1
+ */
 export interface AuthContext {
   account: Account;
   setAccount: (value: Account) => void;
@@ -57,8 +94,8 @@ const initialAccountState: Account = {
 
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
 
-/*
- * context provider - TODO - add functionality description
+/**
+ * @since 0.0.1
  */
 export const AuthProvider = ({ children }: AuthContextProviderT) => {
   const [account, setAccount] = useState<Account>(initialAccountState);
@@ -87,7 +124,10 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   };
 
   useEffect(() => {
-    const token: string | null = localStorage.getItem('auth-token');
+    // The useEffect that activates whenever the user refreshes their browser.
+    // The action locally checks for the user's authentication token, then a token authentication request is sent to the server.
+    // If the token is unavailable or the server request fails the user is signed out.
+    const token: string | null = localStorage.getItem(localStorageKeyConstants.AUTH_TOKEN);
 
     if (!token) {
       setAuthStatus(AuthStatus.SIGNED_OUT);
@@ -115,7 +155,8 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   }, []);
 
   const logOut = (): void => {
-    localStorage.removeItem('auth-token');
+    // Logs the user out.
+    localStorage.removeItem(localStorageKeyConstants.AUTH_TOKEN);
     setAuthStatus(AuthStatus.SIGNED_OUT);
   };
 
@@ -136,4 +177,9 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   );
 };
 
+/**
+ * The AuthContext object is turned into a custom hook for simplier usage within the application's components.
+ *
+ * @since 0.0.1
+ */
 export const useAuth = (): AuthContext => useContext(AuthContext);

@@ -33,30 +33,37 @@ import { constants } from './new-comment-form.constants';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link NewCommentForm} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
+  /**
+   * The application's UUID is used in the REST API request when the user submits a new comment.
+   */
   readonly applicationUuid: string;
 }
 
 /**
- * @description
- * The component renders the comments on the selected pagination page.
+ * Renders the comments on the selected pagination page.
  *
- * @param {Array<Comment>} props.applicationUuid
- * The application's UUID is used in the REST API request when the user submits a new comment.
- *
- * @returns {JSX.Element}
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
+  // The necessary `react-hook-form` methods and states.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: SubmitNewComment = useSubmitNewComment({ setError, applicationUuid });
+
+  // Custom hook that submits a new comment.
+  const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
 
   return (
     <Form
@@ -95,7 +102,7 @@ export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element
           />
         )}
       </article>
-      <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
+      <article>{errors.root && <InputError message={errors.root.message} />}</article>
     </Form>
   );
 };

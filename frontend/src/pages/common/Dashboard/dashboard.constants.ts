@@ -13,8 +13,11 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/**
+ * @since 0.0.1
+ */
 export const constants = {
-  pageMessage: {
+  ui: {
     LOADING: 'The application is compiling your data...',
   },
   categories: {

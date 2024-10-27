@@ -32,13 +32,27 @@ import { MutationResult } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the possible error types of the {@link useRequestPdfDownload} custom hook.
+ *
+ * @since 0.0.1
+ */
 type SendDownloadRequestErrorT = 'root';
 
+/**
+ * Defines the return value properties of the {@link useRequestPdfDownload} custom hook.
+ * A `react-query` mutation object.
+ *
+ * @since 0.0.1
+ */
 export type RequestPdfDownload = MutationResult<void, AxiosError<SendDownloadRequestErrorT>, void>;
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * Manages the user's .pdf download request.
+ *
+ * @returns {RequestPdfDownload}
+ *
+ * @since 0.0.1
  */
 export const useRequestPdfDownload = (): RequestPdfDownload => {
   return useMutation({

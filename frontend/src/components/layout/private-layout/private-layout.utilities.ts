@@ -2,42 +2,79 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
+
+/* configuration, utilities, constants imports */
+import { iconLibraryConfig } from '@configuration';
+import { constants } from './private-layout.constants';
 
 /* interface, type, enum imports */
 import { AccountRoleValues } from '@context/auth';
 
-/* configuration imports */
-import { iconLibraryConfig } from '@configuration';
-
-/* interfaces, types, enums */
+/**
+ * Defines a navigation route in the application.
+ *
+ * @since 0.0.1
+ */
 export interface NavbarRoute {
+  /**
+   * The URL associated with the navigation route.
+   */
   readonly url: string;
+
+  /**
+   * The FontAwesome icon associated with the navigation route.
+   */
   readonly icon: IconLookup;
-  readonly content: string;
+
+  /**
+   * The label displayed for the navigation route.
+   */
+  readonly label: string;
 }
 
+/**
+ * Defines navigation routes based on user roles in the application.
+ *
+ * @since 0.0.1
+ */
 export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [
-    { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, content: 'New Application' },
-    { url: '/applications', icon: iconLibraryConfig.faScroll, content: 'My Applications' },
+    { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, label: constants.routes.student.newApplication.LABEL },
+    { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.student.myApplications.LABEL },
   ],
   [AccountRoleValues.MENTOR]: [
-    { url: '/my-students', icon: iconLibraryConfig.faUserGroup, content: 'My Students' },
-    { url: '/applications', icon: iconLibraryConfig.faScroll, content: 'My Student Applications' },
+    { url: '/my-students', icon: iconLibraryConfig.faUserGroup, label: constants.routes.mentor.myStudents.LABEL },
+    { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.mentor.myStudentApplications.LABEL },
   ],
   [AccountRoleValues.INSTITUTION_ADMIN]: [],
   [AccountRoleValues.SYSTEM_ADMIN]: [
-    { url: '/all-students', icon: iconLibraryConfig.faUserGroup, content: 'All Students' },
-    { url: '/all-mentors', icon: iconLibraryConfig.faUserGroup, content: 'All Mentors' },
-    { url: '/applications', icon: iconLibraryConfig.faScroll, content: 'All Applications' },
-    { url: '/system', icon: iconLibraryConfig.faGears, content: 'System' },
+    { url: '/all-students', icon: iconLibraryConfig.faUserGroup, label: constants.routes.systemAdmin.allStudents.LABEL },
+    { url: '/all-mentors', icon: iconLibraryConfig.faUserGroup, label: constants.routes.systemAdmin.allMentors.LABEL },
+    { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.systemAdmin.allApplications.LABEL },
+    { url: '/system', icon: iconLibraryConfig.faGears, label: constants.routes.systemAdmin.system.LABEL },
   ],
 };
 
+/**
+ * Defines shared navigation routes accessible to all authenticated users.
+ *
+ * @since 0.0.1
+ */
 export const sharedNavigationRoutes: Array<NavbarRoute> = [
-  { url: '/account', icon: iconLibraryConfig.faUser, content: 'My Account' },
-  { url: '/messages', icon: iconLibraryConfig.faEnvelope, content: 'Messages' },
-  { url: '/feedback', icon: iconLibraryConfig.faGears, content: 'Feedback' },
+  { url: '/account', icon: iconLibraryConfig.faUser, label: constants.routes.shared.myAccount.LABEL },
+  { url: '/messages', icon: iconLibraryConfig.faEnvelope, label: constants.routes.shared.messages.LABEL },
+  { url: '/feedback', icon: iconLibraryConfig.faGears, label: constants.routes.shared.feedback.LABEL },
 ];

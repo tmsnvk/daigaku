@@ -38,17 +38,18 @@ import { Application, ApplicationLocation, SimpleQueryResult } from '@common-typ
  */
 
 /**
- * @description
- * The page-level component renders the view mode of a single application.
- * In a future feature, other users will also be able to view these applications.
+ * Renders the view mode of an {@link Application} object.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const ApplicationView = (): JSX.Element => {
+  // `react-router-dom` useLocation object.
   const { state, pathname }: ApplicationLocation = useLocation();
   const applicationUuid: string = pathname.split('/applications/view/')[1];
+
+  // Custom hook that fetches an application by uuid.
   const { data, isLoading, isError }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
   const application: Application = state || data;
 

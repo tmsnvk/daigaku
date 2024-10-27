@@ -22,6 +22,9 @@ import { css } from 'styled-components';
  * ===============
  */
 
+/**
+ * @since 0.0.1
+ */
 export const BaseButton = css`
   height: 5rem;
   padding: 0 2.5rem 0 2.5rem;

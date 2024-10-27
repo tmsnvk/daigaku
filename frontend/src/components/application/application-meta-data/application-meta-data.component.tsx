@@ -2,21 +2,63 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* component, style imports */
 import { Article } from './application-meta-data.styles';
 
-/* interfaces, types, enums */
+/**
+ * ===============
+ * Component {@link ApplicationMetadata}
+ * ===============
+ */
+
+/**
+ * Defines the properties for the {@link ApplicationMetadata} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
+  /**
+   * The date and time when the application was initially created.
+   */
   readonly createdAt: Date;
+
+  /**
+   *  The name of the user who created the application.
+   */
   readonly createdBy: string;
+
+  /**
+   * The date and time when the application was last updated.
+   */
   readonly lastUpdatedAt: Date;
+
+  /**
+   *  The name of the user who last modified the application.
+   */
   readonly lastModifiedBy: string;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * Renders the metadata for a selected application, including the creation and
+ * last update timestamps, as well as the respective users responsible for these actions.
+ *
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const ApplicationMetaData = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps) => {
+export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps): JSX.Element => {
   return (
     <Article>
       <dl>

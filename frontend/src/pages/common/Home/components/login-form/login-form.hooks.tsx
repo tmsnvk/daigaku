@@ -25,7 +25,7 @@ import { accountService } from '@services/index';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { localStorageKeyConstants, UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { MutationResult } from '@common-types';
@@ -36,12 +36,21 @@ import { MutationResult } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of a single user login form submission.
+ *
+ * @since 0.0.1
+ */
 export interface LoginFormFields {
   readonly email: string;
   readonly password: string;
 }
 
+/**
+ * Defines the properties of a successful login request.
+ *
+ * @since 0.0.1
+ */
 export interface LoginFormResponse {
   readonly email: string;
   readonly firstName: string;
@@ -49,36 +58,41 @@ export interface LoginFormResponse {
   readonly role: string;
 }
 
-interface HandleLoginFormParams {
-  setError: UseFormSetError<LoginFormFields>;
-}
-
-type LoginFormErrorT = 'root';
-
-export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<LoginFormErrorT>, LoginFormFields>;
-
 /**
- * @description
- * The custom hook manages the {@link LoginForm} submission process, including REST API request, error handling,
- * and post-success actions, such as setting account context and authentication status.
- *
- * @param {UseFormSetError<LoginFormFields>} params.setError
- * A `react-hook-form` function to set form errors.
- *
- * @returns {HandleLoginForm}
- * A `react-query` mutation object.
+ * Defines the {@link useHandleLoginForm} custom hook's error types.
  *
  * @since 0.0.1
  */
-export const useHandleLoginForm = ({ setError }: HandleLoginFormParams): HandleLoginForm => {
-  const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
+type LoginFormErrorT = 'root';
+
+/**
+ * Defines the {@link useHandleLoginForm} custom hook's return value properties.
+ *
+ * @since 0.0.1
+ */
+export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<LoginFormErrorT>, LoginFormFields>;
+
+/**
+ * Manages the {@link LoginForm} submission process, including REST API request, error handling,
+ * and post-success actions, such as setting account context and authentication status.
+ *
+ * @param setError A `react-hook-form` function to set form errors.
+ * @return {HandleLoginForm}
+ *
+ * @since 0.0.1
+ */
+export const useHandleLoginForm = (setError: UseFormSetError<LoginFormFields>): HandleLoginForm => {
+  // `react-router-dom` navigate object.
   const navigate: NavigateFunction = useNavigate();
+
+  // Authentication context.
+  const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
     mutationFn: (formData: LoginFormFields) => accountService.logIn(formData),
     onSuccess: (response: LoginFormResponse) => {
-      localStorage.setItem('auth-token', response.jwtToken);
+      localStorage.setItem(localStorageKeyConstants.AUTH_TOKEN, response.jwtToken);
 
       const account: Account = {
         ...response,

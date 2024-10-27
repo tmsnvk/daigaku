@@ -2,18 +2,51 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* component, style imports */
 import { Label } from './input-label.styles';
 
-/* interfaces, types, enums */
+/**
+ * ===============
+ * Component {@link InputLabel}
+ * ===============
+ */
+
+/**
+ * Defines the properties of the {@link InputLabel} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
-  readonly fieldId: string;
-  readonly content: string;
+  /**
+   * The id of the associated input element.
+   */
+  readonly inputId: string;
+
+  /**
+   * The text displayed inside the label.
+   */
+  readonly labelText: string;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * Renders a label for an input field, associated with the specified input id.
+ *
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
+ *
+ * @since 0.0.1
  */
-export const InputLabel = ({ fieldId, content }: ComponentProps) => {
-  return <Label htmlFor={fieldId}>{content}</Label>;
+export const InputLabel = ({ inputId, labelText }: ComponentProps): JSX.Element => {
+  return <Label htmlFor={inputId}>{labelText}</Label>;
 };

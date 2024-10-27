@@ -39,17 +39,21 @@ import { SimpleQueryResult } from '@common-types';
  */
 
 /**
- * @description
- * The page-level component renders the application's dashboard for the logged-in user.
+ * Renders the application's dashboard for the logged-in user.
  * The component displays various aggregate data components based on the user's authorization level.
  *
- * @returns {JSX.Element | undefined}
+ * @return {JSX.Element | undefined}
  *
  * @since 0.0.1
  */
 export const Dashboard = (): JSX.Element | undefined => {
+  // `react-router-dom` navigate object.
   const navigate: NavigateFunction = useNavigate();
+
+  // Authentication context.
   const { account, logOut }: Partial<AuthContext> = useAuth();
+
+  // Custom hook that fetches the user's dashboard statistics.
   const { data, isLoading, isError, error }: SimpleQueryResult<DashboardStatistics> = useGetDashboardStatistics();
 
   useGetApplications();
@@ -58,7 +62,7 @@ export const Dashboard = (): JSX.Element | undefined => {
     return (
       <GlobalLoadingModal
         isVisible={isLoading}
-        loadingText={constants.pageMessage.LOADING}
+        loadingText={constants.ui.LOADING}
       />
     );
   }

@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { HandleResetForm, ResetFormFields, useHandleResetForm } from './reset-form.hooks';
 
 /* component, style imports */
-import { GenericInputField, InputError, SubmitInput } from '@components/form';
+import { GenericInput, InputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button/index';
 
@@ -38,42 +38,44 @@ import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the component's properties.
+ *
+ * @since 0.0.1
+ */
 type ComponentProps = SelectForm & ConfirmationModal;
 
 /**
- * @description
- * The component is responsible for rendering a password reset form that allows users to reset their account.
+ * Renders a password reset form that allows users to reset their account.
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
  *
- * @param {Function} props.selectForm
- * A function to handle {@link FormType} switching.
- * @param {Function} params.showModal
- * A function to show the {@link ConfirmationModal}, used in form components.
-
- * @returns {JSX.Element}
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
+  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   }: UseFormHook<ResetFormFields> = useForm<ResetFormFields>({ mode: 'onSubmit' });
-  const { isPending, mutate }: HandleResetForm = useHandleResetForm({ setError, showModal });
+
+  // Custom hook that submits the form.
+  const { isPending, mutate }: HandleResetForm = useHandleResetForm(setError, showModal);
 
   return (
     <section>
-      <FormInstruction instructionText={constants.uiMessage.FORM_INSTRUCTION} />
+      <FormInstruction instructionText={constants.ui.form.INSTRUCTION} />
       <form
         id={'post-account-reset-form'}
         method={'POST'}
         onSubmit={handleSubmit((formData: ResetFormFields) => mutate(formData))}
       >
-        <GenericInputField
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -83,24 +85,24 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
           }}
           type={'email'}
           id={'email'}
-          label={constants.form.EMAIL_LABEL}
-          placeholder={constants.form.EMAIL_PLACEHOLDER}
+          label={constants.ui.form.EMAIL_LABEL}
+          placeholder={constants.ui.form.EMAIL_PLACEHOLDER}
           isDisabled={isPending}
           error={errors.email?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
+            <LoadingIndicator loadingText={constants.ui.messages.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               id={'reset'}
               name={'reset'}
-              value={constants.form.SUBMIT}
+              value={constants.ui.form.SUBMIT}
               disabled={isPending}
             />
           )}
-          {errors.root && <InputError errorText={errors.root.message} />}
+          {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
       <article>

@@ -2,12 +2,32 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseNavbar } from '@components/base-styles';
 
+/**
+ * ===============
+ * Styled Component {@link Header}
+ * ===============
+ */
+
+/**
+ * @since 0.0.1
+ */
 export const Header = styled(BaseNavbar)`
   & nav {
     height: 15rem;
@@ -31,11 +51,27 @@ export const Header = styled(BaseNavbar)`
   }
 `;
 
-/* interfaces, types, enums */
+/**
+ * ===============
+ * Styled Component {@link SmallScreenMenuWrapper}
+ * ===============
+ */
+
+/**
+ * Defines the properties of the {@link SmallScreenMenuWrapper} styled-component used to define styling states.
+ *
+ * @since 0.0.1
+ */
 interface SmallScreenMenuWrapper {
+  /**
+   * A boolean indicating whether the navbar is currently open.
+   */
   readonly $isNavbarOpen: boolean;
 }
 
+/**
+ * @since 0.0.1
+ */
 export const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`
   right: ${({ $isNavbarOpen }) => ($isNavbarOpen ? '0' : '-100%')};
 
@@ -56,6 +92,15 @@ export const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`
   }
 `;
 
+/**
+ * ===============
+ * Styled Component {@link SmallScreenMenuToggle}
+ * ===============
+ */
+
+/**
+ * @since 0.0.1
+ */
 export const SmallScreenMenuToggle = styled.div`
   position: absolute;
   top: 2.5rem;

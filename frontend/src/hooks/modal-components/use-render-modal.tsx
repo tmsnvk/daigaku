@@ -22,32 +22,37 @@ import { RefObject, useEffect, useRef } from 'react';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link useRenderModal} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface RenderModal {
+  /**
+   * A ref object that is attached to the modal component to control its visibility.
+   */
   dialogRef: RefObject<HTMLDialogElement>;
 }
 
 /**
- * @description
- * The custom hook manages the visibility of various modal components.
+ * Manages the visibility of various modal components.
  *
- * @param {boolean} isVisible
- * A boolean indicating whether the modal should be visible.
- *
- * @returns {RenderModal}
- * An object containing:
- *  - `dialogRef` - A ref objcet that should be attached to the modal component to control its visibility.
+ * @param isVisible A boolean indicating whether the modal should be visible.
+ * @return {RenderModal}
  *
  * @since 0.0.1
  */
 export const useRenderModal = (isVisible: boolean): RenderModal => {
+  // Create a ref for the modal dialog.
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
+    // Close the modal if it is open and visibility is set to false.
     if (dialogRef.current?.open && !isVisible) {
       dialogRef.current?.close();
     }
 
+    // Show the modal if it is closed and visibility is set to true.
     if (!dialogRef.current?.open && isVisible) {
       dialogRef.current?.showModal();
     }

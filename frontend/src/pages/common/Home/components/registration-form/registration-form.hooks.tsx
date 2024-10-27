@@ -35,7 +35,11 @@ import { ConfirmationModal } from '../../home.interfaces';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of a single user registration form submission.
+ *
+ * @since 0.0.1
+ */
 export interface RegistrationFormFields {
   readonly firstName: string;
   readonly lastName: string;
@@ -44,29 +48,33 @@ export interface RegistrationFormFields {
   readonly accountRoleUuid: string;
 }
 
-type RegistrationForm = {
-  setError: UseFormSetError<RegistrationFormFields>;
-} & ConfirmationModal;
-
-type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
-
-export type SubmitRegistrationForm = MutationResult<void, AxiosError<Array<ServerValidationErrorResponse>>, RegistrationFormFields>;
-
 /**
- * @description
- * The custom hook manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
- *
- * @param {UseFormSetError<RegistrationFormFields>} params.setError
- * A `react-hook-form` function to set form errors.
- * @param {Function} params.showModal
- * A function to show the {@link ConfirmationModal}, used in the component.
- *
- * @returns {SubmitRegistrationForm}
- * A `react-query` mutation object.
+ * Defines the {@link useSubmitRegistrationForm} custom hook's error types.
  *
  * @since 0.0.1
  */
-export const useSubmitRegistrationForm = ({ setError, showModal }: RegistrationForm): SubmitRegistrationForm => {
+type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
+
+/**
+ * Defines the {@link useSubmitRegistrationForm} custom hook's return value properties.
+ *
+ * @since 0.0.1
+ */
+export type SubmitRegistrationForm = MutationResult<void, AxiosError<Array<ServerValidationErrorResponse>>, RegistrationFormFields>;
+
+/**
+ * Manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
+ *
+ * @param setError A `react-hook-form` function to set form errors.
+ * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
+ * @return {SubmitRegistrationForm}
+ *
+ * @since 0.0.1
+ */
+export const useSubmitRegistrationForm = (
+  setError: UseFormSetError<RegistrationFormFields>,
+  showModal: ConfirmationModal['showModal'],
+): SubmitRegistrationForm => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER],
     mutationFn: (formData: RegistrationFormFields) => pendingAccountService.register(formData),

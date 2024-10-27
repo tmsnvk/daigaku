@@ -20,7 +20,7 @@ import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { Comment, CommentMeta } from '@common-types';
+import { Comment, CommentPaginationData } from '@common-types';
 import { NewCommentFormFields } from '@pages/common/application-view/components/new-comment-form/new-comment-form.hooks';
 
 /**
@@ -29,54 +29,47 @@ import { NewCommentFormFields } from '@pages/common/application-view/components/
  * ===============
  */
 
+/**
+ * Defines the operations of the {@link commentService} object, responsible for managing comment-related API requests.
+ *
+ * @since 0.0.1
+ */
 interface CommentService {
-  getAllByApplicationUUidAndPagination: (applicationUuid: string, currentPage: number) => Promise<CommentMeta>;
+  /**
+   * Retrieves a paginated list of comments for a specific application.
+   *
+   * @param applicationUuid The selected application's uuid.
+   * @param currentPage The current page number for pagination.
+   * @return {Promise<Array<CommentPaginationData>>}
+   * @throws {AxiosError}
+   */
+  getAllByApplicationUuidAndPagination: (applicationUuid: string, currentPage: number) => Promise<CommentPaginationData>;
+
+  /**
+   * Posts a new comment for a specific application.
+   *
+   * @param formData The new comment form's data object.
+   * @param applicationUuid The selected application's uuid.
+   * @return {Promise<Comment>}
+   * @throws {AxiosError}
+   */
   postCommentByApplicationUuid: (formData: NewCommentFormFields, applicationUuid: string) => Promise<Comment>;
 }
 
+/**
+ * Manages comment-related REST API operations, implementing {@link CommentService}.
+ *
+ * @since 0.0.1
+ */
 export const commentService: CommentService = {
-  /**
-   * @description
-   * The method sends a GET request to fetch a list of Application objects based on the user's authorisation.
-   *
-   * @param {string} applicationUuid
-   * The selected application's UUID.
-   * @param {number} currentPage
-   * The current page number for pagination.
-   *
-   * @returns {Promise<Array<CommentMeta>>}
-   * A promise that resolves when the request is successfully sent.
-   *
-   * @throws {AxiosError}
-   * Throws an error if the request fails.
-   *
-   * @since 0.0.1
-   */
-  getAllByApplicationUUidAndPagination: async (applicationUuid: string, currentPage: number): Promise<CommentMeta> => {
-    const response: AxiosResponse<CommentMeta> = await axiosConfigWithAuth.request<CommentMeta>({
+  getAllByApplicationUuidAndPagination: async (applicationUuid: string, currentPage: number): Promise<CommentPaginationData> => {
+    const response: AxiosResponse<CommentPaginationData> = await axiosConfigWithAuth.request<CommentPaginationData>({
       method: 'GET',
       url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
     });
 
     return response.data;
   },
-  /**
-   * @description
-   * The method sends a POST request with the provided {@link NewCommentForm} data.
-   *
-   * @param {NewCommentFormFields} formData
-   * The new comment form's data object.
-   * @param {string} applicationUuid
-   * The selected application's UUID.
-   *
-   * @returns {Promise<Comment>}
-   * A promise that resolves when the request is successfully sent.
-   *
-   * @throws {AxiosError}
-   * Throws an error if the request fails.
-   *
-   * @since 0.0.1
-   */
   postCommentByApplicationUuid: async (formData: NewCommentFormFields, applicationUuid: string): Promise<Comment> => {
     const response: AxiosResponse<Comment> = await axiosConfigWithAuth.request<Comment>({
       method: 'POST',

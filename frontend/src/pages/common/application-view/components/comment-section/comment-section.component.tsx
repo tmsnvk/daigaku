@@ -26,7 +26,7 @@ import { Section } from './comment-section.styles';
 import { constants } from './comment-section.constants';
 
 /* interface, type, enum imports */
-import { CommentMeta, SimpleQueryResult } from '@common-types';
+import { CommentPaginationData, SimpleQueryResult } from '@common-types';
 import { LoadingIndicator } from '@components/general';
 
 /**
@@ -35,25 +35,35 @@ import { LoadingIndicator } from '@components/general';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link CommentSection} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
+  /**
+   * The application's uuid is used in the REST API request when the user submits a new comment.
+   */
   readonly applicationUuid: string;
 }
 
 /**
- * @description
- * The component renders the comment section in a single application's {@link ApplicationView} page.
+ * Renders the comment section in an application's {@link ApplicationView} page.
  *
- * @param {string} props.applicationUuid
- * The application's UUID is used in the REST API request when the user submits a new comment.
- *
- * @returns {JSX.Element}
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element => {
+  // Custom hook that handles the comment page pagination.
   const { currentPage, goToPreviousPage, goToNextPage }: CommentPagination = useCommentPagination();
-  const { data, isLoading, isError }: SimpleQueryResult<CommentMeta> = useCommentsByApplicationAndPagination(applicationUuid, currentPage);
+
+  // Custom hook that fetches comments for the selected application.
+  const { data, isLoading, isError }: SimpleQueryResult<CommentPaginationData> = useCommentsByApplicationAndPagination(
+    applicationUuid,
+    currentPage,
+  );
 
   return (
     <>

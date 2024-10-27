@@ -25,6 +25,9 @@ import { BaseLightBorder } from '@components/base-styles';
  * ===============
  */
 
+/**
+ * @since 0.0.1
+ */
 const fadeInFromBottom = keyframes`
   0% {
     transform: translateY(100%);
@@ -37,6 +40,9 @@ const fadeInFromBottom = keyframes`
   }
 `;
 
+/**
+ * @since 0.0.1
+ */
 export const Main = styled.main`
   container-type: inline-size;
   container-name: main;

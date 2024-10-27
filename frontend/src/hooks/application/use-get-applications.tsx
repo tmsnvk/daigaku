@@ -33,20 +33,19 @@ import { Application, ListQueryResult } from '@common-types';
  */
 
 /**
- * @description
- * The custom hook fetches a list of Application objects based on the user's authorisation.
+ * Fetches a list of {@link Application} objects based on the user's authorisation role.
  *
- * @returns {ListQueryResult<Application>}
- * A `react-query` query object.
+ * @return {ListQueryResult<Application>}
  *
  * @since 0.0.1
  */
 export const useGetApplications = (): ListQueryResult<Application> => {
+  // Authentication context.
   const { getRoleResource }: Partial<AuthContext> = useAuth();
   const accountRole: string = getRoleResource();
 
   return useQuery({
-    queryKey: [queryKeys.application.GET_ALL_BY_ROLE],
+    queryKey: [queryKeys.application.GET_ALL_BY_ROLE, accountRole],
     queryFn: () => applicationService.getAllByRole(accountRole),
   });
 };

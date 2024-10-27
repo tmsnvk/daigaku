@@ -30,20 +30,25 @@ import { constants } from './is-removable-button.constants';
  * ===============
  */
 
+/**
+ * Defines the properties of the {@link IsRemovableButton} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
   readonly isRemovable: boolean;
   readonly applicationUuid: string;
 }
 
 /**
- * @description
- * The component renders and sets the state of the delete request button on each applcation edit page.
+ * Renders and sets the state of the delete request button on each applcation edit page.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentProps): JSX.Element => {
+  // Custom hook that handles toggling the component.
   const { mutate, isPending, isError, shouldBeRemoved }: HandleToggleIsRemovable = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (
@@ -53,9 +58,9 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentPro
         onClick={() => mutate()}
         disabled={isPending}
       >
-        {shouldBeRemoved ? constants.render.REVERT_REQUEST : constants.render.REQUEST_DELETION}
+        {shouldBeRemoved ? constants.buttonState.REVERT_REQUEST : constants.buttonState.REQUEST_DELETION}
       </button>
-      {isError && <InputError errorText={UNEXPECTED_GLOBAL_ERROR} />}
+      {isError && <InputError message={UNEXPECTED_GLOBAL_ERROR} />}
     </Article>
   );
 };

@@ -29,10 +29,10 @@ import { TableHeadRow } from './table-header.styles';
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { constants } from './table-header.constants';
 
 /* interface, type, enum imports */
 import { Column } from '../../applications.hooks';
-import { constants } from './table-header.constants';
 
 /**
  * ===============
@@ -40,24 +40,43 @@ import { constants } from './table-header.constants';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link TableHeader} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
+  /**
+   *
+   */
   readonly columns: Array<Column>;
+
+  /**
+   *
+   */
   readonly onColumnSort: (id: string) => void;
+
+  /**
+   *
+   */
   readonly onToggleModal: () => void;
+
+  /**
+   *
+   */
   readonly onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
 /**
- * @description
- * The component renders the table header row on the Applications page. A number of buttons are rendered in the component as well, such as
+ * Renders the table header row on the {@link Applications} page. A number of buttons are rendered in the component as well, such as
  * row ordering, .pdf report downloading, data refresh or modal pop-up buttons.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }: ComponentProps): JSX.Element => {
+  // Custom hook that handles the .pdf download requests.
   const { mutate, isSuccess, isPending, isError, error }: RequestPdfDownload = useRequestPdfDownload();
 
   if (isError) {
@@ -111,7 +130,7 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
             <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
           </button>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.DOWNLOAD_REQUEST} />
+            <LoadingIndicator loadingText={constants.ui.DOWNLOAD_REQUEST} />
           ) : (
             <button
               type={'button'}
@@ -125,7 +144,7 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
       </TableHeadRow>
       <Toast
         isVisible={isSuccess}
-        message={constants.uiMessage.DOWNLOAD_TOAST}
+        message={constants.ui.DOWNLOAD_TOAST}
       />
     </>
   );

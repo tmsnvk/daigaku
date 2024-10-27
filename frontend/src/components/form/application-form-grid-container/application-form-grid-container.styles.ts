@@ -2,12 +2,32 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
+/**
+ * ===============
+ * Styled Component {@link ApplicationFormGrid}
+ * ===============
+ */
+
+/**
+ * @since 0.0.1
+ */
 export const ApplicationFormGrid = styled.form`
   ${BaseLightBorder};
 

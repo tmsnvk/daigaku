@@ -14,36 +14,55 @@
  */
 
 /* external imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 /* component, style imports */
 import { BaseTextarea } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
-import { FormFieldValidation } from '@common-types';
+import { CoreInput } from '@common-types';
 
 /**
  * ===============
- * Styled Component {@link GenericTextarea}
+ * Component {@link GenericTextarea}
  * ===============
  */
 
-/* interfaces, types, enums */
-interface ComponentProps<T extends FieldValues> {
-  register: UseFormRegister<T>;
-  validationRules?: FormFieldValidation;
-  error: string | undefined;
-  id: Path<T>;
+/**
+ * Defines the properties of the {@link GenericTextarea} component.
+ *
+ * @since 0.0.1
+ */
+interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
+  /**
+   * Textarea label.
+   */
   label: string;
+
+  /**
+   * The default number of rows for the textarea.
+   */
   rows: number;
+
+  /**
+   * The default number of columns for the textarea.
+   */
   cols: number;
+
+  /**
+   * Textarea placeholder text.
+   */
   placeholder: string;
-  isDisabled: boolean;
 }
 
-/*
- * component - TODO - add functionality description
+/**
+ * Renders a generic textarea integrated with the `react-hook-form` library for validation and error handling.
+ *
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
+ *
+ * @since 0.0.1
  */
 export const GenericTextarea = <T extends FieldValues>({
   register,
@@ -55,12 +74,12 @@ export const GenericTextarea = <T extends FieldValues>({
   cols,
   placeholder,
   isDisabled,
-}: ComponentProps<T>) => {
+}: ComponentProps<T>): JSX.Element => {
   return (
     <BaseTextarea $isError={error !== undefined}>
       <InputLabel
-        fieldId={id}
-        content={label}
+        inputId={id}
+        labelText={label}
       />
       <textarea
         {...register(id, validationRules)}
@@ -72,7 +91,7 @@ export const GenericTextarea = <T extends FieldValues>({
         placeholder={placeholder}
         disabled={isDisabled}
       />
-      {error && <InputError errorText={error} />}
+      {error && <InputError message={error} />}
     </BaseTextarea>
   );
 };

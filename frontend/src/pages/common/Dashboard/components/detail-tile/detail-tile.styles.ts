@@ -25,6 +25,9 @@ import { BaseDarkBorder } from '@components/base-styles';
  * ===============
  */
 
+/**
+ * @since 0.0.1
+ */
 export const Article = styled.article`
   ${BaseDarkBorder};
 

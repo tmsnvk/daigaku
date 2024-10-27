@@ -27,6 +27,7 @@ import { shouldColumnBeVisible } from './data-rows.utilities';
 /* interface, type, enum imports */
 import { Application } from '@common-types';
 import { Column } from '../../applications.hooks';
+import { constants } from './data-rows.constants';
 
 /**
  * ===============
@@ -34,18 +35,27 @@ import { Column } from '../../applications.hooks';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link DataRows} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
+  /**
+   * An array of columns configuration, defining which columns should be displayed.
+   */
   readonly columns: Array<Column>;
+
+  /**
+   * An array of {@link Application} objects to be displayed in the table rows.
+   */
   readonly applications: Array<Application>;
 }
 
 /**
- * @description
- * The component renders a `JSX.Element` for each data element in the applications array.
- * In addition, it appends an edit and a view buttons to the end of the row in table.
+ * Renders a {@link Cell} component for each data element in the applications array.
  *
- * @returns {Array<JSX.Element>}
+ * @return {Array<JSX.Element>}
  *
  * @since 0.0.1
  */
@@ -66,14 +76,14 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
             to={`edit/${application.uuid}`}
             state={application}
           >
-            Edit
+            {constants.ui.EDIT}
             <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
           </Link>
           <Link
             to={`view/${application.uuid}`}
             state={application}
           >
-            View
+            {constants.ui.VIEW}
             <FontAwesomeIcon icon={iconLibraryConfig.faMagnifyingGlass} />
           </Link>
         </td>

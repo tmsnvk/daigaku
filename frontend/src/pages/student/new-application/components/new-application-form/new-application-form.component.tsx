@@ -26,7 +26,7 @@ import {
 } from './new-application-form.hooks';
 
 /* component, style imports */
-import { GenericInputField, InputError, InputFieldGuideText, SelectCountry, SelectUniversity, SubmitInput } from '@components/form';
+import { CountryDropdown, GenericInput, InputError, InputGuideText, SubmitInput, UniversityDropdown } from '@components/form';
 import { LoadingIndicator, PageTitle } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
 import { Form } from './new-application-form.styles';
@@ -35,11 +35,9 @@ import { Form } from './new-application-form.styles';
 import { constants } from './new-application-form.constants';
 
 /* interface, type, enum imports */
-import { ListQueryResult } from '@common-types';
+import { CountryOption, ListQueryResult, UniversityOption } from '@common-types';
 import { useGetCountryOptions } from '@hooks/country';
 import { useGetUniversityOptionsByCountryUuid } from '@hooks/university';
-import { CountryOption } from '@services/support/country.service';
-import { UniversityOption } from '@services/support/university.service';
 
 /**
  * ===============
@@ -48,26 +46,30 @@ import { UniversityOption } from '@services/support/university.service';
  */
 
 /**
- * @description
- * The component is responsible for rendering the new application submission form for student users.
+ * Renders the new application submission form for student users.
  * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
  *
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const NewApplicationForm = (): JSX.Element => {
+  // Custom hook that manages the country selection.
   const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid }: CountrySelection = useCountrySelection();
   const {
     data: countryOptions,
     isLoading: isCountryDataLoading,
     isError: isCountryError,
   }: ListQueryResult<CountryOption> = useGetCountryOptions();
+
+  // Custom hook that fetches UniversityOptions by selected country.
   const {
     data: universityOptions,
     isLoading: isUniversityDataLoading,
     isError: isUniversityError,
   }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
+
+  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     reset,
@@ -75,7 +77,9 @@ export const NewApplicationForm = (): JSX.Element => {
     register,
     setError,
   } = useForm<CreateApplicationFormFields>({ mode: 'onSubmit' });
-  const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication({ setError, resetCountrySelection, reset });
+
+  // Custom hook that submits the form.
+  const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication(setError, resetCountrySelection, reset);
 
   if (isCountryDataLoading) {
     return (
@@ -102,30 +106,42 @@ export const NewApplicationForm = (): JSX.Element => {
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <PageTitle content={constants.form.TITLE} />
-        <InputFieldGuideText content={constants.form.country.INFORMATION} />
-        <SelectCountry
+        <PageTitle title={constants.form.TITLE} />
+        <InputGuideText paragraphs={constants.form.country.INFORMATION} />
+        <CountryDropdown
           register={register}
-          fieldError={errors.countryUuid?.message}
-          fieldId={'countryUuid'}
+          validationRules={{
+            required: {
+              value: true,
+              message: constants.validation.country.REQUIRED,
+            },
+          }}
+          error={errors.countryUuid?.message}
+          id={'countryUuid'}
           isDisabled={isPending}
           options={countryOptions ?? []}
           onCountrySelection={selectCountry}
         />
-        <InputFieldGuideText content={constants.form.country.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.country.INFORMATION} />
         {isUniversityDataLoading ? (
-          <LoadingIndicator loadingText={constants.uiMessage.UNIVERSITY_LOADING} />
+          <LoadingIndicator loadingText={constants.ui.UNIVERSITY_LOADING} />
         ) : (
-          <SelectUniversity
+          <UniversityDropdown
             register={register}
-            fieldError={errors.universityUuid?.message}
-            fieldId={'universityUuid'}
+            validationRules={{
+              required: {
+                value: true,
+                message: constants.validation.university.REQUIRED,
+              },
+            }}
+            error={errors.universityUuid?.message}
+            id={'universityUuid'}
             isDisabled={isPending || !isCountrySelected}
-            universityOptions={universityOptions ?? []}
+            options={universityOptions ?? []}
           />
         )}
-        <InputFieldGuideText content={constants.form.university.INFORMATION} />
-        <GenericInputField
+        <InputGuideText paragraphs={constants.form.university.INFORMATION} />
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -144,8 +160,8 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={constants.form.courseName.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={constants.form.courseName.INFORMATION} />
-        <GenericInputField
+        <InputGuideText paragraphs={constants.form.courseName.INFORMATION} />
+        <GenericInput
           register={register}
           validationRules={{
             pattern: {
@@ -160,8 +176,8 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={constants.form.minorSubject.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={constants.form.minorSubject.INFORMATION} />
-        <GenericInputField
+        <InputGuideText paragraphs={constants.form.minorSubject.INFORMATION} />
+        <GenericInput
           register={register}
           validationRules={{
             required: {
@@ -177,13 +193,13 @@ export const NewApplicationForm = (): JSX.Element => {
           id={'programmeLength'}
           label={constants.form.programmeLength.LABEL}
           type={'number'}
-          defaultValue={3}
+          initialValue={3}
           isDisabled={isPending}
         />
-        <InputFieldGuideText content={constants.form.programmeLength.INFORMATION} />
+        <InputGuideText paragraphs={constants.form.programmeLength.INFORMATION} />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.uiMessage.LOADING} />
+            <LoadingIndicator loadingText={constants.ui.LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
@@ -192,11 +208,11 @@ export const NewApplicationForm = (): JSX.Element => {
             />
           )}
         </article>
-        <article>{errors.root && <InputError errorText={errors.root.message} />}</article>
+        <article>{errors.root && <InputError message={errors.root.message} />}</article>
       </Form>
       <Toast
         isVisible={isSuccess}
-        message={constants.uiMessage.SUCCESS_TOAST}
+        message={constants.ui.SUCCESS_TOAST}
       />
     </>
   );

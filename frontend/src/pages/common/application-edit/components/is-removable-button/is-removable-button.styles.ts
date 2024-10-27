@@ -22,11 +22,18 @@ import styled from 'styled-components';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link Article} styled-component.
+ *
+ * @since 0.0.1
+ */
 interface Article {
   readonly $isRemovable: boolean;
 }
 
+/**
+ * @since 0.0.1
+ */
 export const Article = styled.article<Article>`
   & button {
     display: flex;

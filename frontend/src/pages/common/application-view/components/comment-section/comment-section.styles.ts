@@ -22,6 +22,9 @@ import styled from 'styled-components';
  * ===============
  */
 
+/**
+ * @since 0.0.1
+ */
 export const Section = styled.section`
   margin: 10rem 2.5rem 5rem 0;
 

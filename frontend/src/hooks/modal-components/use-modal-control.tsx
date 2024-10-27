@@ -22,32 +22,45 @@ import { useState } from 'react';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link useModalControl} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface ModalControl {
+  /**
+   * Indicates whether the modal is currently visible.
+   */
   isModalVisible: boolean;
+
+  /**
+   * Shows the modal.
+   */
   showModal: () => void;
+
+  /**
+   * Hides the modal.
+   */
   closeModal: () => void;
 }
 
 /**
- * @description
- * The custom hook manages the display of modal components that have separate show and close actions.
+ * Manages modal visibility, providing methods to show or hide the modal.
  *
- * @returns {ModalControl}
- * An object containing:
- * - `isModalVisible` (boolean) - The current visibility state of the modal.
- * - `showModal` (function) - A function to set the modal as visible.
- * - `closeModal` (function) - A function to hide the modal.
+ * @return {ModalControl}
  *
  * @since 0.0.1
  */
 export const useModalControl = (): ModalControl => {
+  // Tracks the modal's visibility state.
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
+  // Sets the modal as visible.
   const showModal = (): void => {
     setIsModalVisible(true);
   };
 
+  // Sets the modal as hidden.
   const closeModal = (): void => {
     setIsModalVisible(false);
   };

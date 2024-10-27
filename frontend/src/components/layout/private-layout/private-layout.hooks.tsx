@@ -2,46 +2,83 @@
  * @prettier
  */
 
-/* external imports */
-import { MouseEvent, useRef, useState } from 'react';
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
 
-/* interfaces, types, enums */
-export interface SmallScreenMenuDisplay {
-  ref: React.MutableRefObject<HTMLDivElement | null>;
-  toggleMenu: () => void;
+/* external imports */
+import { useState } from 'react';
+
+/**
+ * ===============
+ * Custom Hook {@link useSmallScreenNavbarDisplay}
+ * ===============
+ */
+
+/**
+ * Defines the return value properties of the {@link useSmallScreenNavbarDisplay} custom hook.
+ *
+ * @since 0.0.1
+ */
+export interface SmallScreenNavbarDisplay {
+  /**
+   * A boolean indicating whether the navbar is currently open.
+   */
   isNavbarOpen: boolean;
-  handleInsideClick: (event: MouseEvent<HTMLDivElement>) => void;
-  handleOutsideClick: () => void;
+
+  /**
+   * A function to toggle the navbar's open state.
+   */
+  toggleNavbar: () => void;
+
+  /**
+   * A function to open the navbar when it gains focus.
+   */
+  handleOnFocus: () => void;
+
+  /**
+   * A function to close the navbar when it loses focus.
+   */
+  handleOnBlur: () => void;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * Toggles the visibility state of the navigation bar on small screens.
+ *
+ * @return {SmallScreenNavbarDisplay}
+ *
+ * @since 0.0.1
  */
-export const useHandleSmallScreenMenuDisplay = (): SmallScreenMenuDisplay => {
+export const useSmallScreenNavbarDisplay = (): SmallScreenNavbarDisplay => {
+  // State to track whether the navbar is open.
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement | null>(null);
 
-  const toggleMenu = (): void => {
+  // Toggles the open state of the navbar.
+  const toggleNavbar = (): void => {
     setIsNavbarOpen(!isNavbarOpen);
   };
 
-  const handleInsideClick = (event: MouseEvent<HTMLDivElement>): void => {
-    if (!ref.current || ref.current.contains(event.target as HTMLElement)) {
-      return;
-    }
-
-    setIsNavbarOpen(false);
+  // Sets the navbar to open when focused.
+  const handleOnFocus = (): void => {
+    setIsNavbarOpen(true);
   };
 
-  const handleOutsideClick = (): void => {
+  // Closes the navbar when it loses focus.
+  const handleOnBlur = (): void => {
     setIsNavbarOpen(false);
   };
 
   return {
-    ref,
-    toggleMenu,
     isNavbarOpen,
-    handleInsideClick,
-    handleOutsideClick,
+    toggleNavbar,
+    handleOnFocus,
+    handleOnBlur,
   };
 };

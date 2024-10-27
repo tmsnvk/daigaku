@@ -2,10 +2,21 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { useQueries } from '@tanstack/react-query';
 
-/* service imports */
+/* logic imports */
 import {
   applicationStatusService,
   finalDestinationStatusService,
@@ -14,33 +25,72 @@ import {
   responseStatusService,
 } from '@services/index';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ApplicationStatus } from '@services/status/application-status.service';
-import { InterviewStatus } from '@services/status/interview-status-service.service';
-import { OfferStatus } from '@services/status/offer-status.service';
-import { ResponseStatus } from '@services/status/response-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
+import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of all {@link Application} status fields.
+ *
+ * @since 0.0.1
+ */
 export interface ApplicationStatusOption {
+  /**
+   * All {@link ApplicationStatus} objects.
+   */
   applicationStatus: Array<ApplicationStatus> | undefined;
+
+  /**
+   * All {@link InterviewStatus} objects.
+   */
   interviewStatus: Array<InterviewStatus> | undefined;
+
+  /**
+   * All {@link OfferStatus} objects.
+   */
   offerStatus: Array<OfferStatus> | undefined;
+
+  /**
+   * All {@link ResponseStatus} objects.
+   */
   responseStatus: Array<ResponseStatus> | undefined;
+
+  /**
+   * All {@link FinalDestinationStatus} objects.
+   */
   finalDestinationStatus: Array<FinalDestinationStatus> | undefined;
 }
 
+/**
+ * Defines the return properties of the {@link useGetAllSelectOptions} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface ApplicationOptions {
+  /**
+   * An object containing all select options for the application statuses.
+   */
   selectOptions: ApplicationStatusOption;
+
+  /**
+   * Indicates whether the queries are currently loading.
+   */
   isLoading: boolean;
+
+  /**
+   * Indicates whether an error occurred during the queries.
+   */
   isError: boolean;
 }
 
-/*
- * custom hook - TODO - add functionality description
+/**
+ * Fetches all status objects for the application form.
+ *
+ * @return {ApplicationOptions}
+ *
+ * @since 0.0.1
  */
 export const useGetAllSelectOptions = (): ApplicationOptions => {
   return useQueries({

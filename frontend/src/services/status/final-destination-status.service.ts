@@ -2,25 +2,59 @@
  * @prettier
  */
 
-/* configuration imports */
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+/* external imports */
+import { AxiosResponse } from 'axios';
+
+/* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@configuration';
 
-/* interfaces, types, enums */
-export interface FinalDestinationStatus {
-  readonly uuid: string;
-  readonly name: string;
+/* interface, type, enum imports */
+import { FinalDestinationStatus } from '@common-types';
+
+/**
+ * ===============
+ * Service API Calls {@link applicationStatusService}
+ * ===============
+ */
+
+/**
+ * Defines the operations of the {@link applicationStatusService} object, responsible for managing final-destination-status-related API requests.
+ *
+ * @since 0.0.1
+ */
+interface FinalDestinationStatusService {
+  /**
+   * Retrieves all available options for the FinalDestinationStatus field of the {@link Application} object.
+   *
+   * @return {Promise<Array<FinalDestinationStatus>>}
+   * @throws {AxiosError}
+   */
+  getAll: () => Promise<Array<FinalDestinationStatus>>;
 }
 
-export const finalDestinationStatusService = {
-  /*
-   * TODO - comment
-   */
+/**
+ * Manages final-destination-status-related REST API operations, implementing {@link FinalDestinationStatusService}.
+ *
+ * @since 0.0.1
+ */
+export const finalDestinationStatusService: FinalDestinationStatusService = {
   getAll: async (): Promise<Array<FinalDestinationStatus>> => {
-    const { data } = await axiosConfigWithAuth.request<Array<FinalDestinationStatus>>({
+    const response: AxiosResponse<Array<FinalDestinationStatus>> = await axiosConfigWithAuth.request<Array<FinalDestinationStatus>>({
       method: 'GET',
       url: '/api/v1/final-destination-status',
     });
 
-    return data;
+    return response.data;
   },
 };

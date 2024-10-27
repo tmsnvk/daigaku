@@ -13,7 +13,12 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
-export enum ApplicationFieldsE {
+/**
+ * Defines the fields of an {@link Application} object.
+ *
+ * @since 0.0.1
+ */
+export enum ApplicationField {
   COURSE = 'Course',
   UNIVERSITY = 'University',
   COUNTRY = 'Country',

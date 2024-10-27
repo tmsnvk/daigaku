@@ -2,25 +2,59 @@
  * @prettier
  */
 
-/* configuration imports */
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+/* external imports */
+import { AxiosResponse } from 'axios';
+
+/* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@configuration';
 
-/* interfaces, types, enums */
-export interface ResponseStatus {
-  readonly uuid: string;
-  readonly name: string;
+/* interface, type, enum imports */
+import { ResponseStatus } from '@common-types';
+
+/**
+ * ===============
+ * Service API Calls {@link responseStatusService}
+ * ===============
+ */
+
+/**
+ * Defines the operations of the {@link responseStatusService} object, responsible for managing response-status-related API requests.
+ *
+ * @since 0.0.1
+ */
+interface ResponseStatusService {
+  /**
+   * Retrieves all available options for the ResponseStatus field of the {@link Application} object.
+   *
+   * @return {Promise<Array<ResponseStatus>>}
+   * @throws {AxiosError}
+   */
+  getAll: () => Promise<Array<ResponseStatus>>;
 }
 
-export const responseStatusService = {
-  /*
-   * TODO - comment
-   */
+/**
+ * Manages response-status-related REST API operations, implementing {@link ResponseStatusService}.
+ *
+ * @since 0.0.1
+ */
+export const responseStatusService: ResponseStatusService = {
   getAll: async (): Promise<Array<ResponseStatus>> => {
-    const { data } = await axiosConfigWithAuth.request<Array<ResponseStatus>>({
+    const response: AxiosResponse<Array<ResponseStatus>> = await axiosConfigWithAuth.request<Array<ResponseStatus>>({
       method: 'GET',
       url: '/api/v1/response-status',
     });
 
-    return data;
+    return response.data;
   },
 };

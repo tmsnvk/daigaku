@@ -17,7 +17,7 @@
 import { Link } from 'react-router-dom';
 
 /* component, style imports */
-import { ApplicationMetaData } from '@components/application';
+import { ApplicationMetadata } from '@components/application';
 import { PageTitle } from '@components/general';
 import { ApplicationDetail } from '../application-detail';
 import { Section } from './application-details.styles';
@@ -34,27 +34,31 @@ import { Application } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the properties of the {@link ApplicationDetails} component.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
+  /**
+   * The selected {@link Application} object.
+   */
   application: Application;
 }
 
 /**
- * @description
- * The component renders the details of a single application.
+ * Renders the details of a single application.
  *
- * @param {Application} props.application
- * The selected {@link Application} object.
- *
- * @returns {JSX.Element}
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */
 export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element => {
   return (
     <Section as={'section'}>
-      <PageTitle content={constants.ui.TITLE} />
-      <ApplicationMetaData
+      <PageTitle title={constants.ui.TITLE} />
+      <ApplicationMetadata
         createdAt={application.createdAt}
         createdBy={application.createdBy}
         lastUpdatedAt={application.lastUpdatedAt}

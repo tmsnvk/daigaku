@@ -3,22 +3,33 @@
  * @prettier
 */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 /* logic imports */
 import { AccountRoleValues, AuthProvider } from '@context/auth';
 
 /* component, style imports */
-import { GlobalStyle } from '@theme/global-style';
-import { theme } from '@theme/theme';
+import { PrivateLayout, PublicLayout } from '@components/layout';
 import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@pages/common/index';
 import { NewApplication } from '@pages/student/index';
-import { PrivateLayout, PublicLayout } from '@components/layout';
+import { GlobalStyle } from '@theme/global-style';
+import { theme } from '@theme/theme';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { queryClient } from '@configuration';
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -65,7 +76,7 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>,
 ));
 
-export const DaigakuReactApplication = () => {
+export const DaigakuReactApplication = (): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>

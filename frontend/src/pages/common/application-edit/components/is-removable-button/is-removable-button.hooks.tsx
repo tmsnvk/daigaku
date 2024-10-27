@@ -18,7 +18,7 @@ import { UseMutateFunction, useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
-/* service imports */
+/* logic imports */
 import { applicationStudentService } from '@services/index';
 
 /* configuration, utilities, constants imports */
@@ -34,7 +34,11 @@ import { Application, MutationResult } from '@common-types';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the return value properties of the {@link useToggleIsRemovable} custom hook.
+ *
+ * @since 0.0.1
+ */
 export interface HandleToggleIsRemovable {
   shouldBeRemoved: boolean;
   errorMessage: string;
@@ -44,27 +48,26 @@ export interface HandleToggleIsRemovable {
 }
 
 /**
- * @description
- * The custom hook manages the toggling the user's delete request.
+ * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link Application}.
  *
- * @param {string} applicationUuid
- * The application's UUID for identification purposes.
- * @param {boolean} isRemovable
- * The application's current is_removable boolean state.
- *
- * @returns {SimpleQueryResult<DashboardStatistics>}
- * A `react-query` mutation object.
+ * @param applicationUuid The application's uuid for identification purposes.
+ * @param isRemovable The application's current is_removable boolean state.
+ * @return {SimpleQueryResult<HandleToggleIsRemovable>}
  *
  * @since 0.0.1
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
+  // Tracks if the application should be removed.
   const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
+
+  // Holds any error message from mutation failure
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const mutation: MutationResult<void, AxiosError<Error>, void> = useMutation({
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
+      // Finds the current application by UUID in the local `react-query` cache and toggles its `isRemovable` status.
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;

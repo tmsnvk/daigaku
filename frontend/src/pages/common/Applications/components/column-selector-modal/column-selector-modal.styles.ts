@@ -25,6 +25,9 @@ import { BaseDarkBorder } from '@components/base-styles';
  * ===============
  */
 
+/**
+ * @since 0.0.1
+ */
 export const Dialog = styled.dialog`
   ${BaseDarkBorder};
 

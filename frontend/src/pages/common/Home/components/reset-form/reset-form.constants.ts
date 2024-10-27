@@ -13,18 +13,23 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/**
+ * @since 0.0.1
+ */
 export const constants = {
-  uiMessage: {
-    FORM_INSTRUCTION:
-      'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.',
-    LOADING: 'Your registration is being handled.',
+  ui: {
+    messages: {
+      LOADING: 'Your registration is being handled.',
+    },
+    form: {
+      INSTRUCTION:
+        'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.',
+      EMAIL_PLACEHOLDER: 'Enter your email address',
+      EMAIL_LABEL: 'Email',
+      SUBMIT: 'reset',
+    },
   },
   validation: {
     REQUIRED_EMAIL: 'Providing your email address is required.',
-  },
-  form: {
-    EMAIL_PLACEHOLDER: 'Enter your email address',
-    EMAIL_LABEL: 'Email',
-    SUBMIT: 'reset',
   },
 };

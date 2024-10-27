@@ -30,51 +30,66 @@ import { CreateApplicationFormFields } from '@pages/student/new-application/comp
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the operations of the {@link applicationStudentService} object, responsible for managing student-application-related API requests.
+ *
+ * @since 0.0.1
+ */
 interface ApplicationStudentService {
+  /**
+   * Sends a POST request to save application data in the database.
+   *
+   * @param formData The application form data object to be saved.
+   * @return {Promise<Application>}
+   * @throws {AxiosError}
+   */
   postByStudent: (formData: CreateApplicationFormFields) => Promise<Application>;
+
+  /**
+   * Updates an existing application record by uuid.
+   *
+   * @param formData The application update form data object.
+   * @param applicationUuid The unique identifier of the application to be updated.
+   * @return {Promise<Application>}
+   * @throws {AxiosError}
+   */
   patchByUuid: (formData: UpdateApplicationFormFields, applicationUuid: string) => Promise<Application>;
+
+  /**
+   * Toggles the is_removable status of an application by uuid.
+   *
+   * @param applicationUuid The unique identifier of the application to toggle.
+   * @return {Promise<void>}
+   * @throws {AxiosError}
+   */
   toggleIsRemovable: (applicationUuid: string) => Promise<void>;
+
+  /**
+   * Initiates a .pdf download for all applications by sending a POST request to the server.
+   * On success, the server sends an email to the user with the download link.
+   *
+   * @return {Promise<void>}
+   * @throws {AxiosError}
+   */
   requestPdfDownload: () => Promise<void>;
 }
 
 /**
- * @description
- * The service manages student authorisation-related application REST API operations.
- *
- * @property {Function} postByStudent
- * @property {Function} patchByUuid
- * @property {Function} toggleIsRemovable
- * @property {Function} requestPdfDownload
+ * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
  *
  * @since 0.0.1
  */
 export const applicationStudentService: ApplicationStudentService = {
-  /**
-   * @description
-   * The method sends a POST request to the server to persist the entered data in the database.
-   *
-   * @returns {Promise<Application>}
-   *
-   * @throws {AxiosError}
-   * Throws an error if the request fails.
-   *
-   * @since 0.0.1
-   */
   postByStudent: async (formData: CreateApplicationFormFields): Promise<Application> => {
-    const { data } = await axiosConfigWithAuth.request<Application>({
+    const response: AxiosResponse<Application> = await axiosConfigWithAuth.request<Application>({
       method: 'POST',
       url: '/api/v1/applications/student',
       data: formData,
     });
 
-    return data;
+    return response.data;
   },
-  /*
-   * TODO - comment
-   */
   patchByUuid: async (formData: UpdateApplicationFormFields, applicationUuid: string): Promise<Application> => {
-    // update this appropriate for mentor/admin links
     const response: AxiosResponse<Application> = await axiosConfigWithAuth.request<Application>({
       method: 'PATCH',
       url: `/api/v1/applications/student/${applicationUuid}`,
@@ -83,28 +98,14 @@ export const applicationStudentService: ApplicationStudentService = {
 
     return response.data;
   },
-  /*
-   * TODO - comment
-   */
   toggleIsRemovable: async (applicationUuid: string): Promise<void> => {
-    await axiosConfigWithAuth.request({
+    await axiosConfigWithAuth.request<void>({
       method: 'PATCH',
       url: `/api/v1/applications/student/toggle-is-removable/${applicationUuid}`,
     });
   },
-  /**
-   * @description
-   * The method sends a POST request to the server to start handling the .pdf download process.
-   *
-   * @returns {Promise<void>}
-   *
-   * @throws {AxiosError}
-   * Throws an error if the request fails.
-   *
-   * @since 0.0.1
-   */
   requestPdfDownload: async (): Promise<void> => {
-    await axiosConfigWithAuth.request({
+    await axiosConfigWithAuth.request<void>({
       method: 'POST',
       url: '/api/v1/applications/student/download-pdf',
     });

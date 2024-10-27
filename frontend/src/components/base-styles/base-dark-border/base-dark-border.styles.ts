@@ -2,9 +2,29 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import { css } from 'styled-components';
 
+/**
+ * ===============
+ * Styled Component {@link BaseDarkBorder}
+ * ===============
+ */
+
+/**
+ * @since 0.0.1
+ */
 export const BaseDarkBorder = css`
   background-color: ${({ theme }) => theme.color.secondaryLight};
   border: 0.1rem solid ${({ theme }) => theme.color.secondaryLight};

@@ -2,32 +2,43 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+import { AccountRoleDropdown } from './account-role-dropdown';
 import { ApplicationFormGrid } from './application-form-grid-container';
-import { DisabledInputField } from './disabled-input-field';
-import { GenericInputField } from './generic-input-field';
+import { CountryDropdown } from './country-dropdown';
+import { DisabledInput } from './disabled-input';
+import { GenericInput } from './generic-input';
 import { GenericTextarea } from './generic-textarea';
 import { InputError } from './input-error';
-import { InputFieldGuideText } from './input-field-guide-text';
+import { InputGuideText } from './input-guide-text';
 import { InputLabel } from './input-label';
-import { PasswordInputField } from './password-input-field';
-import { SelectAccountRole } from './select-account-role';
-import { SelectCountry } from './select-country';
-import { SelectInstitution } from './select-institution';
-import { SelectUniversity } from './select-university';
+import { InstitutionDropdown } from './institution-dropdown';
+import { PasswordInput } from './password-input';
 import { SubmitInput } from './submit-input';
+import { UniversityDropdown } from './university-dropdown';
 
 export {
+  AccountRoleDropdown,
   ApplicationFormGrid,
-  DisabledInputField,
-  GenericInputField,
+  CountryDropdown,
+  DisabledInput,
+  GenericInput,
   GenericTextarea,
   InputError,
-  InputFieldGuideText,
+  InputGuideText,
   InputLabel,
-  PasswordInputField,
-  SelectAccountRole,
-  SelectCountry,
-  SelectInstitution,
-  SelectUniversity,
+  InstitutionDropdown,
+  PasswordInput,
   SubmitInput,
+  UniversityDropdown,
 };

@@ -2,9 +2,29 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled, { keyframes } from 'styled-components';
 
+/**
+ * ===============
+ * Styled Component {@link Paragraph}
+ * ===============
+ */
+
+/**
+ * @since 0.0.1
+ */
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -15,6 +35,9 @@ const fadeIn = keyframes`
   }
 `;
 
+/**
+ * @since 0.0.1
+ */
 export const Paragraph = styled.p`
   padding: 1rem 0 0 0;
   text-align: center;

@@ -2,15 +2,46 @@
  * @prettier
  */
 
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
 /* external imports */
 import styled from 'styled-components';
 
-/* interfaces, types, enums */
+/**
+ * ===============
+ * Styled Component {@link BaseInput}
+ * ===============
+ */
+
+/**
+ * Defines the properties of the {@link BaseInput} styled-component, allowing for styling variations based on error and disabled states.
+ *
+ * @since 0.0.1
+ */
 interface BaseInput {
+  /**
+   * Indicates if there is an error state.
+   */
   readonly $isError?: boolean;
+
+  /**
+   * Indicates if the input is disabled.
+   */
   readonly $isDisabled?: boolean;
 }
 
+/**
+ * @since 0.0.1
+ */
 export const BaseInput = styled.article<BaseInput>`
   height: 12.5rem;
   width: 100%;

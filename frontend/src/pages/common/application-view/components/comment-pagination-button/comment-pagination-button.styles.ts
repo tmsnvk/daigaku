@@ -25,6 +25,9 @@ import { BaseButton } from '@components/base-styles/base-button';
  * ===============
  */
 
+/**
+ * @since 0.0.1
+ */
 export const PaginationButton = styled.button`
   ${BaseButton}
 

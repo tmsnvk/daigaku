@@ -25,30 +25,40 @@ import { FormType } from '../../home.interfaces';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the component's properties.
+ *
+ * @since 0.0.1
+ */
 interface ComponentProps {
+  /**
+   * The type of the form to switch to.
+   */
   readonly formType: FormType;
+
+  /**
+   * The button label to be displayed and used for identifying the button.
+   */
   readonly buttonLabel: string;
+
+  /**
+   * A callback function that is triggered when the button is clicked.
+   */
   readonly onFormSelect: (formType: FormType) => void;
+
+  /**
+   * A boolean indicating whether the button should be disabled or not.
+   */
   readonly isDisabled: boolean;
 }
 
 /**
- * @description
- * The component responsible for switching between different {@link FormType}.
+ * Manages the responsibility of switching between different {@link FormType}.
  * The form selection is triggered when the component is clicked.
  * The component is disabled while there are ongoing REST API requests.
  *
- * @param {FormType} props.formType
- * The type of the form to switch to.
- * @param {string} props.buttonLabel
- * The button label to be displayed and used for identifying the button.
- * @param {Function} props.onFormSelect
- * A callback function that is triggered when the button is clicked.
- * @param {boolean} props.isDisabled
- * A boolean indicating whether the button should be disabled or not.
- *
- * @returns {JSX.Element}
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
  *
  * @since 0.0.1
  */

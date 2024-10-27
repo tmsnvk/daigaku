@@ -14,11 +14,7 @@
  */
 
 /* interface, type, enum imports */
-import { ApplicationStatus } from '@services/status/application-status.service';
-import { FinalDestinationStatus } from '@services/status/final-destination-status.service';
-import { InterviewStatus } from '@services/status/interview-status-service.service';
-import { OfferStatus } from '@services/status/offer-status.service';
-import { ResponseStatus } from '@services/status/response-status.service';
+import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 
 /**
  * ===============
@@ -26,16 +22,18 @@ import { ResponseStatus } from '@services/status/response-status.service';
  * ===============
  */
 
-/* interfaces, types, enums */
+/**
+ * Defines the possible option types.
+ *
+ * @since 0.0.1
+ */
 export type SelectOptions = ApplicationStatus | InterviewStatus | OfferStatus | ResponseStatus | FinalDestinationStatus;
 
 /**
- * @description
- * The custom hook manages the selection of a previously selected value.
- * This is necessary to retrieve the previous value's UUID and set it as the input's value.
+ * Retrieves a previously selected value from a list of options.
+ * It is necessary to retrieve the previous value's uuid and set it as the input's value.
  *
- * @returns {SelectOptions | null}
- * If a previously selected value exists, an object containing `name` and `uuid` fields is returned.
+ * @return {SelectOptions | null} If a previously selected value exists, an object containing `name` and `uuid` fields is returned.
  * Otherwise a null value is returned.
  *
  * @since 0.0.1
@@ -51,4 +49,47 @@ export const useGetPreviouslySelectedValue = (
   } else {
     return null;
   }
+};
+
+/**
+ * ===============
+ * Custom Hook {@link useOnFieldUpdate}
+ * ===============
+ */
+
+/**
+ * Defines the structure for the field update function returned by {@link useOnFieldUpdate}.
+ *
+ * @since 0.0.1
+ */
+export interface FieldUpdate {
+  /**
+   * Function to handle field update events by retrieving the target value.
+   */
+  updateField: (event: Event) => void;
+}
+
+/**
+ * Manages field update events.
+ * Captures the value from the event target and passes it to the provided `onFieldUpdate` callback.
+ *
+ * @param onFieldUpdate Callback function to handle the target value from the field update.
+ * @return {FieldUpdate}
+ *
+ * @since 0.0.1
+ */
+export const useOnFieldUpdate = (onFieldUpdate: (eventTargetValue: string) => void): FieldUpdate => {
+  const updateField = (event: Event) => {
+    // Cast event target to HTMLSelectElement.
+    const target = event.target as HTMLSelectElement | null;
+
+    if (target) {
+      // Passes the selected value to the callback.
+      onFieldUpdate(target.value);
+    }
+  };
+
+  return {
+    updateField,
+  };
 };

@@ -2,6 +2,17 @@
  * @prettier
  */
 
-import { Error } from './eerror.page';
+/**
+ * @fileoverview
+ * @author tmsnvk
+ *
+ *
+ * Copyright © [Daigaku].
+ *
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ */
+
+import { Error } from './error.page';
 
 export { Error };

@@ -13,11 +13,14 @@
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
  */
 
+/**
+ * @since 0.0.1
+ */
 export const constants = {
   pageMessage: {
     LOADING: 'The application is fetching the necessary data for the form submission...',
   },
-  uiMessage: {
+  ui: {
     FORM_INSTRUCTION: 'Register an account if you are not in our system yet.',
     LOADING: 'Your application is being submitted.',
     UNIVERSITY_LOADING: 'Fetching university list...',
@@ -72,6 +75,12 @@ export const constants = {
     },
   },
   validation: {
+    country: {
+      REQUIRED: 'Selecting a country is required.',
+    },
+    university: {
+      REQUIRED: 'Selecting a university is required.',
+    },
     courseName: {
       REQUIRED: 'Providing the name of your selected course is required.',
       PATTERN: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
