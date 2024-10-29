@@ -1,5 +1,12 @@
 package net.tamasnovak.artifact.application.studentApplication.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.artifact.accountRole.student.entity.Student;
@@ -10,8 +17,8 @@ import net.tamasnovak.artifact.application.shared.entity.Application;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
+import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
@@ -47,13 +54,6 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 @Service
 @Qualifier(value = "StudentApplicationService")
 public class StudentApplicationServiceImpl implements StudentApplicationService {
@@ -87,8 +87,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.offerStatusService = offerStatusService;
     this.responseStatusService = responseStatusService;
     this.finalDestinationStatusService = finalDestinationStatusService;
-	  this.queueSender = queueSender;
-	  this.applicationRepository = applicationRepository;
+    this.queueSender = queueSender;
+    this.applicationRepository = applicationRepository;
     this.existingApplicationValidator = existingApplicationValidator;
     this.serviceConstants = serviceConstants;
     this.globalServiceConstants = globalServiceConstants;
@@ -101,8 +101,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final List<ApplicationView> applicationViews = applicationRepository.findApplicationViewsByAccountUuid(accountUuid);
 
     return applicationViews.stream()
-      .map(ApplicationData::new)
-      .collect(Collectors.toList());
+                           .map(ApplicationData::new)
+                           .collect(Collectors.toList());
   }
 
   @Override
@@ -118,12 +118,18 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional(readOnly = true)
   public StudentDashboardStatistics findStudentDashboardDataByAccount(final Account account) {
     final Student student = studentService.getByAccount(account);
-    final String plannedApplicationName = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName()).getName();
-    final String submittedApplicationName = applicationStatusService.findByName(ApplicationStatusType.SUBMITTED.getName()).getName();
-    final String withdrawnApplicationName = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName()).getName();
-    final String firmChoiceName = responseStatusService.findByName(ResponseStatusType.FIRM_CHOICE.getName()).getName();
-    final String finalDestinationName = finalDestinationStatusService.findByName(FinalDestinationType.FINAL_DESTINATION.getName()).getName();
-    final String deferredFinalDestinationName = finalDestinationStatusService.findByName(FinalDestinationType.DEFERRED_FINAL_DESTINATION.getName()).getName();
+    final String plannedApplicationName = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName())
+                                                                  .getName();
+    final String submittedApplicationName = applicationStatusService.findByName(ApplicationStatusType.SUBMITTED.getName())
+                                                                    .getName();
+    final String withdrawnApplicationName = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName())
+                                                                    .getName();
+    final String firmChoiceName = responseStatusService.findByName(ResponseStatusType.FIRM_CHOICE.getName())
+                                                       .getName();
+    final String finalDestinationName = finalDestinationStatusService.findByName(FinalDestinationType.FINAL_DESTINATION.getName())
+                                                                     .getName();
+    final String deferredFinalDestinationName = finalDestinationStatusService.findByName(FinalDestinationType.DEFERRED_FINAL_DESTINATION.getName())
+                                                                             .getName();
 
     return new StudentDashboardStatistics(
       student.getFirmChoiceDto(firmChoiceName),
@@ -142,8 +148,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
-  public ApplicationData createApplication(final Account account,
-                                           final NewApplicationByStudent requestBody) {
+  public ApplicationData createApplication(
+    final Account account,
+    final NewApplicationByStudent requestBody) {
     final Country country = countryService.findByUuid(UUID.fromString(requestBody.countryUuid()));
     final University university = universityService.findByUuid(UUID.fromString(requestBody.universityUuid()));
     country.verifyUniversityCountryMatch(university, serviceConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
@@ -208,9 +215,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     return applicationService.fetchApplicationDataByUuid(currentApplication.getUuid());
   }
 
-  private <T extends BaseStatusEntity> T getStatusOnUpdate(final String bodyStatusId,
-                                                           final Function<UUID, T> checkIfStatusIsSameFn,
-                                                           final Function<UUID, T> getByUuidFn) {
+  private <T extends BaseStatusEntity> T getStatusOnUpdate(
+    final String bodyStatusId,
+    final Function<UUID, T> checkIfStatusIsSameFn,
+    final Function<UUID, T> getByUuidFn) {
     final T statusField = checkIfStatusIsSameFn.apply(UUID.fromString(bodyStatusId));
 
     if (!(statusField instanceof ApplicationStatus) && areValuesEqual(bodyStatusId, "")) {
@@ -231,7 +239,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   public void handleDownloadRequest(final UUID accountUuid) {
-    final Account studentAccount = accountService.findByUuid(accountUuid);
+    final Account studentAccount = accountService.findAccountByUuid(accountUuid);
     final Institution studentInstitution = institutionService.findById(studentAccount.getInstitutionId());
     final List<ApplicationData> applicationData = this.findApplicationDataByAccountUuid(accountUuid);
 
@@ -239,10 +247,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     queueSender.send(PdfRequestRabbitConfig.STUDENT_PDF_SAVE_EXCHANGE_KEY, PdfRequestRabbitConfig.STUDENT_PDF_SAVE_ROUTING_KEY, compiledData);
   }
 
-  private StudentPdfRequestDataQueueDto compileStudentPdfSaveData(final UUID authAccountUuid,
-                                                                  final Account studentAccount,
-                                                                  final Institution studentInstitution,
-                                                                  final List<ApplicationData> applications) {
+  private StudentPdfRequestDataQueueDto compileStudentPdfSaveData(
+    final UUID authAccountUuid,
+    final Account studentAccount,
+    final Institution studentInstitution,
+    final List<ApplicationData> applications) {
     final StudentAccountDto accountDto = new StudentAccountDto(studentAccount.getFullName(), studentAccount.getEmail(), studentInstitution.getName());
     final List<StudentApplicationDto> applicationDtos = new ArrayList<>();
 

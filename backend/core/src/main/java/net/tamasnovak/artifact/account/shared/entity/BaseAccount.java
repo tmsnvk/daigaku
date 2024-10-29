@@ -1,5 +1,8 @@
 package net.tamasnovak.artifact.account.shared.entity;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -12,9 +15,9 @@ import net.tamasnovak.artifact.role.entity.Role;
 import net.tamasnovak.artifact.shared.entity.audit.Auditable;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
+/**
+ *
+ */
 @MappedSuperclass
 public abstract class BaseAccount extends Auditable {
   @Column(name = "first_name", nullable = false)
@@ -41,7 +44,8 @@ public abstract class BaseAccount extends Auditable {
   @JsonBackReference(value = "role-account_reference")
   protected Role role;
 
-  protected BaseAccount() {}
+  protected BaseAccount() {
+  }
 
   protected BaseAccount(String firstName, String lastName, String email, Institution institution, Role role) {
     this.firstName = capitaliseName(firstName);
@@ -52,29 +56,33 @@ public abstract class BaseAccount extends Auditable {
   }
 
   private static String capitaliseName(String word) {
-    return Arrays.stream(word.trim().split("\\s+"))
-    .map(element -> {
-      if (!element.contains("-")) {
-        return capitaliseWithoutHyphen(element);
-      } else {
-        return capitaliseWithHyphen(element);
-      }
-    })
-    .collect(Collectors.joining(" "));
+    return Arrays.stream(word.trim()
+                             .split("\\s+"))
+                 .map(element -> {
+                   if (!element.contains("-")) {
+                     return capitaliseWithoutHyphen(element);
+                   } else {
+                     return capitaliseWithHyphen(element);
+                   }
+                 })
+                 .collect(Collectors.joining(" "));
   }
 
   private static String capitaliseWithoutHyphen(String word) {
-    return Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase();
+    return Character.toUpperCase(word.charAt(0)) + word.substring(1)
+                                                       .toLowerCase();
   }
 
   private static String capitaliseWithHyphen(String word) {
     return Arrays.stream(word.split("-"))
-      .map(element -> Character.toUpperCase(element.charAt(0)) + element.substring(1).toLowerCase())
-      .collect(Collectors.joining("-"));
+                 .map(element -> Character.toUpperCase(element.charAt(0)) + element.substring(1)
+                                                                                   .toLowerCase())
+                 .collect(Collectors.joining("-"));
   }
 
   private static String lowerCaseEmail(String email) {
-    return email.trim().toLowerCase();
+    return email.trim()
+                .toLowerCase();
   }
 
   public String getFirstName() {

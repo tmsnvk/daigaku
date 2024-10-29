@@ -1,5 +1,7 @@
 package net.tamasnovak.security.authentication.facade;
 
+import java.util.UUID;
+
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class AuthenticationFacadeImpl implements AuthenticationFacade {
@@ -32,12 +32,14 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
   @Override
   public Account getAuthenticatedAccount() {
-    return accountService.findByEmail(getUserContext().getUsername());
+    return accountService.findAccountByEmail(getUserContext().getUsername());
   }
 
   @Override
   public User getUserContext() {
-    return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return (User) SecurityContextHolder.getContext()
+                                       .getAuthentication()
+                                       .getPrincipal();
   }
 
   @Override

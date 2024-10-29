@@ -1,9 +1,11 @@
 package net.tamasnovak.artifact.account.account.controller;
 
+import java.util.Collections;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
-import net.tamasnovak.artifact.account.account.dto.ClientAuthContext;
-import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.junit.jupiter.api.AfterEach;
@@ -25,8 +27,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Collections;
-
 @WebMvcTest(controllers = AccountController.class)
 @AutoConfigureMockMvc(addFilters = false)
 class AccountControllerIT {
@@ -43,7 +43,8 @@ class AccountControllerIT {
   private AccountService accountService;
 
   @AfterEach
-  void tearDown() {}
+  void tearDown() {
+  }
 
   @Nested
   @DisplayName("findUser() method tests")
@@ -52,17 +53,20 @@ class AccountControllerIT {
     @Description("Returns HttpStatus.OK status and ClientAuthContextDto if no exceptions were thrown.")
     public void shouldReturnHttpStatusOkAndClientAuthContextDto_IfNoExceptionsWereThrown() throws Exception {
       User userDetails = new User("test@user.net", "hashedPassword", Collections.emptyList());
-      Mockito.when(authenticationFacade.getUserContext()).thenReturn(userDetails);
+      Mockito.when(authenticationFacade.getUserContext())
+             .thenReturn(userDetails);
 
-      ClientAuthContext clientAuthContext = new ClientAuthContext(
+      AuthContext authContext = new AuthContext(
         "test@user.net",
         "Student",
         "ROLE_STUDENT"
       );
-      Mockito.when(accountService.fetchClientAuthContextDto(userDetails.getUsername())).thenReturn(clientAuthContext);
+      Mockito.when(accountService.retrieveAuthContextByAccountEmail(userDetails.getUsername()))
+             .thenReturn(authContext);
 
       mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts/me"))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+             .andExpect(MockMvcResultMatchers.status()
+                                             .isOk());
     }
   }
 
@@ -82,15 +86,18 @@ class AccountControllerIT {
         "hashedPassword",
         Collections.singletonList(new SimpleGrantedAuthority("ROLE_STUDENT"))
       );
-      Mockito.when(authenticationFacade.authenticateUser(requestBody.email(), requestBody.password())).thenReturn(authentication);
+      Mockito.when(authenticationFacade.authenticateUser(requestBody.email(), requestBody.password()))
+             .thenReturn(authentication);
 
-      LoginResponse loginResponse = Mockito.mock(LoginResponse.class);
-      Mockito.when(accountService.fetchLoginReturnDto(requestBody, authentication)).thenReturn(loginResponse);
+      AuthResponse authResponse = Mockito.mock(AuthResponse.class);
+      Mockito.when(accountService.createAuthResponse(requestBody, authentication))
+             .thenReturn(authResponse);
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts/login")
-        .content(objectMapper.writeValueAsString(requestBody))
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+                                            .content(objectMapper.writeValueAsString(requestBody))
+                                            .contentType(MediaType.APPLICATION_JSON))
+             .andExpect(MockMvcResultMatchers.status()
+                                             .isOk());
     }
 
     @Test
@@ -102,9 +109,10 @@ class AccountControllerIT {
       );
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts/login")
-        .content(objectMapper.writeValueAsString(requestBody))
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
+                                            .content(objectMapper.writeValueAsString(requestBody))
+                                            .contentType(MediaType.APPLICATION_JSON))
+             .andExpect(MockMvcResultMatchers.status()
+                                             .isBadRequest());
     }
   }
 }

@@ -1,9 +1,11 @@
 package net.tamasnovak.artifact.account.account.service;
 
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
-import net.tamasnovak.artifact.account.account.dto.ClientAuthContext;
-import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.persistence.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
@@ -14,8 +16,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
+/**
+ * Service class that manages "/api/v1/accounts" endpoint root REST API operations, implementing {@link AccountService}.
+ *
+ * @since 0.0.1
+ */
 @Service
 @Qualifier(value = "AccountService")
 public class AccountServiceImpl implements AccountService {
@@ -32,38 +37,38 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public Account findByEmail(final String email) {
+  public Account findAccountByEmail(final String email) {
     return accountRepository.findByEmail(email)
-      .orElseThrow(() -> new EntityNotFoundException(serviceConstants.ACCOUNT_NOT_FOUND));
+                            .orElseThrow(() -> new EntityNotFoundException(serviceConstants.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public Account findByUuid(final UUID uuid) {
+  public Account findAccountByUuid(final UUID uuid) {
     return accountRepository.findByUuid(uuid)
-      .orElseThrow(() -> new EntityNotFoundException(serviceConstants.ACCOUNT_NOT_FOUND));
+                            .orElseThrow(() -> new EntityNotFoundException(serviceConstants.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public ClientAuthContext fetchClientAuthContextDto(final String email) {
-    final Account account = this.findByEmail(email);
+  public AuthContext retrieveAuthContextByAccountEmail(final String email) {
+    final Account account = this.findAccountByEmail(email);
 
-    return account.getAuthContext();
+    return account.createAuthContext();
   }
 
   @Override
   @Transactional(readOnly = true)
-  public LoginResponse fetchLoginReturnDto(final LoginRequest requestBody, final Authentication authentication) {
-    final Account account = this.findByEmail(requestBody.email());
+  public AuthResponse createAuthResponse(final LoginRequest requestBody, final Authentication authentication) {
+    final Account account = this.findAccountByEmail(requestBody.email());
     final String jwtToken = jwtUtilities.generateJwtToken(authentication);
 
-    return account.getLoginData(jwtToken);
+    return account.createAuthResponse(jwtToken);
   }
 
   @Override
   @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(final String email) {
+  public void checkAccountDoesNotExistByEmail(final String email) {
     final boolean isAccountExists = accountRepository.existsByEmail(email);
 
     if (isAccountExists) {

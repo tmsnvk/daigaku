@@ -1,5 +1,7 @@
 package net.tamasnovak.artifact.account.pendingaccount.service;
 
+import java.util.UUID;
+
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistration;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
@@ -16,8 +18,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 @Service
 @Qualifier(value = "PendingAccountService")
@@ -52,7 +52,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   @Override
   @Transactional
   public void createPendingAccount(final PendingAccountRegistration requestBody) {
-    accountService.verifyAccountNotExistsByEmail(requestBody.email());
+    accountService.checkAccountDoesNotExistByEmail(requestBody.email());
     verifyAccountNotExistsByEmail(requestBody.email());
 
     final Institution institution = institutionService.findByUuid(UUID.fromString(requestBody.institutionUuid()));
