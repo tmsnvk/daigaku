@@ -9,15 +9,17 @@
 package net.tamasnovak.artifact.account.account.dto;
 
 /**
- * Represents the authentication context for a user.
+ * Represents the response object returned after successful user login and authentication.
  *
  * @since 0.0.1
  */
-public record AuthContext(
+public record LoginResponse(
   String email,
 
   String firstName,
 
-  String role
+  String role,
+
+  String jwtToken
 ) {
 }

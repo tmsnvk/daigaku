@@ -65,17 +65,18 @@ class PendingAccountServiceImplTest {
     public void shouldReturnVoid_whenEmailIsNotFound() {
       when(pendingAccountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
 
-      assertDoesNotThrow(() -> underTest.verifyAccountNotExistsByEmail(expectedValidEmail));
+      assertDoesNotThrow(() -> underTest.checkAccountDoesNotExistByEmail(expectedValidEmail));
 
       verify(pendingAccountRepository, times(1)).existsByEmail(expectedValidEmail);
     }
 
     @Test
-    @Description("Throws DataIntegrityViolationException when email is found, i.e. the user is not allowed to register with the provided email.")
+    @Description("Throws DataIntegrityViolationException when email is found, i.e. the user is not allowed to register with the provided " +
+      "email.")
     void shouldThrowDataIntegrityViolationException_whenEmailExists() {
       when(pendingAccountRepository.existsByEmail(notExpectedValidEmail)).thenReturn(true);
 
-      assertThrows(DataIntegrityViolationException.class, () -> underTest.verifyAccountNotExistsByEmail(notExpectedValidEmail));
+      assertThrows(DataIntegrityViolationException.class, () -> underTest.checkAccountDoesNotExistByEmail(notExpectedValidEmail));
 
       verify(pendingAccountRepository, times(1)).existsByEmail(notExpectedValidEmail);
     }
@@ -112,7 +113,8 @@ class PendingAccountServiceImplTest {
       when(institutionService.findByUuid(UUID.fromString(requestBody.institutionUuid()))).thenReturn(mockInstitution);
       when(roleService.findByUuid(UUID.fromString(requestBody.accountRoleUuid()))).thenReturn(mockRole);
 
-      PendingAccount expected = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(), mockInstitution, mockRole);
+      PendingAccount expected = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(),
+        mockInstitution, mockRole);
 
       underTest.createPendingAccount(requestBody);
 
@@ -148,7 +150,8 @@ class PendingAccountServiceImplTest {
     @Test
     @Description("Throws EntityNotFoundException when Institution instance is not found.")
     void shouldThrowEntityNotFoundException_whenInstitutionIsNotFound() {
-      when(institutionService.findByUuid(UUID.fromString(invalidRequestBody.institutionUuid()))).thenThrow(new EntityNotFoundException("Exception message."));
+      when(institutionService.findByUuid(UUID.fromString(invalidRequestBody.institutionUuid()))).thenThrow(new EntityNotFoundException(
+        "Exception message."));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createPendingAccount(invalidRequestBody));
     }
@@ -156,7 +159,8 @@ class PendingAccountServiceImplTest {
     @Test
     @Description("Throws EntityNotFoundException when Role instance is not found.")
     void shouldThrowEntityNotFoundException_whenRoleIsNotFound() {
-      when(roleService.findByUuid(UUID.fromString(invalidRequestBody.accountRoleUuid()))).thenThrow(new EntityNotFoundException("Exception message."));
+      when(roleService.findByUuid(UUID.fromString(invalidRequestBody.accountRoleUuid()))).thenThrow(new EntityNotFoundException(
+        "Exception message."));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createPendingAccount(invalidRequestBody));
     }

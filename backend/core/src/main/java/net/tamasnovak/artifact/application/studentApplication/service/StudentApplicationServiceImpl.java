@@ -181,7 +181,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final Student currentStudent = studentService.getByAccount(account);
     final UUID studentUuidByApplication = currentApplication.getStudentAccountUuid();
 
-    account.verifyAuthAccountUuidAgainstAnother(studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
+    account.verifyAccountUuidMatch(studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
 
     final ApplicationStatus newApplicationStatus = getStatusOnUpdate(
       requestBody.applicationStatusUuid(),

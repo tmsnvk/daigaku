@@ -1,11 +1,19 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.account.account.service;
 
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.dto.AuthContext;
-import net.tamasnovak.artifact.account.account.dto.AuthResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.persistence.AccountRepository;
 import net.tamasnovak.security.utilities.JwtUtilities;
@@ -25,13 +33,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Qualifier(value = "AccountService")
 public class AccountServiceImpl implements AccountService {
   private final AccountRepository accountRepository;
-  private final AccountServiceConstants serviceConstants;
   private final JwtUtilities jwtUtilities;
 
   @Autowired
-  public AccountServiceImpl(AccountRepository accountRepository, AccountServiceConstants serviceConstants, JwtUtilities jwtUtilities) {
+  public AccountServiceImpl(AccountRepository accountRepository, JwtUtilities jwtUtilities) {
     this.accountRepository = accountRepository;
-    this.serviceConstants = serviceConstants;
     this.jwtUtilities = jwtUtilities;
   }
 
@@ -39,14 +45,14 @@ public class AccountServiceImpl implements AccountService {
   @Transactional(readOnly = true)
   public Account findAccountByEmail(final String email) {
     return accountRepository.findByEmail(email)
-                            .orElseThrow(() -> new EntityNotFoundException(serviceConstants.ACCOUNT_NOT_FOUND));
+                            .orElseThrow(() -> new EntityNotFoundException(AccountServiceConstants.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   public Account findAccountByUuid(final UUID uuid) {
     return accountRepository.findByUuid(uuid)
-                            .orElseThrow(() -> new EntityNotFoundException(serviceConstants.ACCOUNT_NOT_FOUND));
+                            .orElseThrow(() -> new EntityNotFoundException(AccountServiceConstants.ACCOUNT_NOT_FOUND));
   }
 
   @Override
@@ -59,11 +65,11 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public AuthResponse createAuthResponse(final LoginRequest requestBody, final Authentication authentication) {
+  public LoginResponse createLoginResponse(final LoginRequest requestBody, final Authentication authentication) {
     final Account account = this.findAccountByEmail(requestBody.email());
     final String jwtToken = jwtUtilities.generateJwtToken(authentication);
 
-    return account.createAuthResponse(jwtToken);
+    return account.createLoginResponse(jwtToken);
   }
 
   @Override
@@ -72,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
     final boolean isAccountExists = accountRepository.existsByEmail(email);
 
     if (isAccountExists) {
-      throw new DataIntegrityViolationException(serviceConstants.EMAIL_ALREADY_EXISTS);
+      throw new DataIntegrityViolationException(AccountServiceConstants.EMAIL_ALREADY_EXISTS);
     }
   }
 }

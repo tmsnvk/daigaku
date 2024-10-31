@@ -1,9 +1,17 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.account.account.controller;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.artifact.account.account.dto.AuthContext;
-import net.tamasnovak.artifact.account.account.dto.AuthResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller class that manages REST API requests related to "/api/v1/accounts" endpoint root.
+ * Controller class that manages REST API requests related to "/api/v1/accounts" endpoint.
  *
  * @since 0.0.1
  */
@@ -30,8 +38,7 @@ public class AccountController {
   private final AuthenticationFacade authenticationFacade;
   private final AccountService accountService;
 
-  @Autowired
-  public AccountController(AuthenticationFacade authenticationFacade, AccountService accountService) {
+  @Autowired public AccountController(AuthenticationFacade authenticationFacade, AccountService accountService) {
     this.authenticationFacade = authenticationFacade;
     this.accountService = accountService;
   }
@@ -40,7 +47,7 @@ public class AccountController {
    * Fetches the authentication context object {@link AuthContext} for the currently logged-in user.
    * On the frontend, the object is used by the authentication context to verify that the user is still logged in.
    *
-   * @return ResponseEntity containing `HttpStatus.OK` status code and the {@link AuthContext} object.
+   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link AuthContext} object.
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
@@ -57,12 +64,12 @@ public class AccountController {
    * The `@Valid` annotation validates the {@link LoginRequest} object as per its validation criteria.
    *
    * @param requestBody The login request body.
-   * @return ResponseEntity containing `HttpStatus.OK` status code and the {@link AuthResponse} object.
+   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link LoginResponse} object.
    */
   @PostMapping(value = "/log-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<AuthResponse> logIn(@Valid @RequestBody final LoginRequest requestBody) {
+  public ResponseEntity<LoginResponse> logIn(@Valid @RequestBody final LoginRequest requestBody) {
     final Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
-    final AuthResponse response = accountService.createAuthResponse(requestBody, authentication);
+    final LoginResponse response = accountService.createLoginResponse(requestBody, authentication);
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

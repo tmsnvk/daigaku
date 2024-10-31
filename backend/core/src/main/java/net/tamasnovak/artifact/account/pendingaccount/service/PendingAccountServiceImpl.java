@@ -1,6 +1,12 @@
-package net.tamasnovak.artifact.account.pendingaccount.service;
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
 
-import java.util.UUID;
+package net.tamasnovak.artifact.account.pendingaccount.service;
 
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistration;
@@ -19,6 +25,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service class that manages "/api/v1/pending-accounts" endpoint root REST API operations, implementing {@link PendingAccountService}.
+ *
+ * @since 0.0.1
+ */
 @Service
 @Qualifier(value = "PendingAccountService")
 public class PendingAccountServiceImpl implements PendingAccountService {
@@ -27,51 +38,48 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   private final RoleService roleService;
   private final QueueSender queueSender;
   private final PendingAccountRepository pendingAccountRepository;
-  private final PendingAccountServiceConstants serviceConstants;
 
   @Autowired
-  public PendingAccountServiceImpl(AccountService accountService, InstitutionService institutionService, RoleService roleService, QueueSender queueSender, PendingAccountRepository pendingAccountRepository, PendingAccountServiceConstants serviceConstants) {
+  public PendingAccountServiceImpl(
+    AccountService accountService, InstitutionService institutionService, RoleService roleService,
+    QueueSender queueSender, PendingAccountRepository pendingAccountRepository) {
     this.accountService = accountService;
     this.institutionService = institutionService;
     this.roleService = roleService;
     this.queueSender = queueSender;
     this.pendingAccountRepository = pendingAccountRepository;
-    this.serviceConstants = serviceConstants;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public void verifyAccountNotExistsByEmail(final String email) {
+  public void checkAccountDoesNotExistByEmail(final String email) {
     final boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
 
     if (isPendingAccountExists) {
-      throw new DataIntegrityViolationException(serviceConstants.EMAIL_ALREADY_EXISTS);
+      throw new DataIntegrityViolationException(PendingAccountServiceConstants.EMAIL_ALREADY_EXISTS);
     }
   }
 
   @Override
   @Transactional
   public void createPendingAccount(final PendingAccountRegistration requestBody) {
+    // Check if account with provided email already exists.
     accountService.checkAccountDoesNotExistByEmail(requestBody.email());
-    verifyAccountNotExistsByEmail(requestBody.email());
+    this.checkAccountDoesNotExistByEmail(requestBody.email());
 
-    final Institution institution = institutionService.findByUuid(UUID.fromString(requestBody.institutionUuid()));
-    final Role role = roleService.findByUuid(UUID.fromString(requestBody.accountRoleUuid()));
+    // Find the selected institution and role objects.
+    final Institution institution = institutionService.findByUuid(requestBody.institutionUuid());
+    final Role role = roleService.findByUuid(requestBody.accountRoleUuid());
 
-    final PendingAccount pendingAccount = PendingAccount.createPendingAccount(
-      requestBody.firstName(),
-      requestBody.lastName(),
-      requestBody.email(),
-      institution,
-      role);
+    // Create the new pending account object, then save it in the database.
+    final PendingAccount pendingAccount = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(),
+      requestBody.email(), institution, role);
     pendingAccountRepository.save(pendingAccount);
 
-    final PendingAccountConfirmationQueue queueDto = new PendingAccountConfirmationQueue(
-      requestBody.email(),
-      requestBody.firstName(),
-      requestBody.lastName(),
-      institution.getName(),
-      role.getNameWithoutPrefix());
-    queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY, queueDto);
+    // Initiate a message via rabbit-mq that the user should receive the pending-registration-welcome-email.
+    final PendingAccountConfirmationQueue queueDto = new PendingAccountConfirmationQueue(requestBody.email(), requestBody.firstName(),
+      requestBody.lastName(), institution.getName(), role.getNameWithoutPrefix());
+    queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY
+      , queueDto);
   }
 }

@@ -4,8 +4,8 @@ import java.util.Collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tamasnovak.artifact.account.account.dto.AuthContext;
-import net.tamasnovak.artifact.account.account.dto.AuthResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.junit.jupiter.api.AfterEach;
@@ -89,9 +89,9 @@ class AccountControllerIT {
       Mockito.when(authenticationFacade.authenticateUser(requestBody.email(), requestBody.password()))
              .thenReturn(authentication);
 
-      AuthResponse authResponse = Mockito.mock(AuthResponse.class);
-      Mockito.when(accountService.createAuthResponse(requestBody, authentication))
-             .thenReturn(authResponse);
+      LoginResponse loginResponse = Mockito.mock(LoginResponse.class);
+      Mockito.when(accountService.createLoginResponse(requestBody, authentication))
+             .thenReturn(loginResponse);
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts/login")
                                             .content(objectMapper.writeValueAsString(requestBody))

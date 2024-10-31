@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.dto.AuthContext;
-import net.tamasnovak.artifact.account.account.dto.AuthResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.persistence.AccountRepository;
 import net.tamasnovak.artifact.role.entity.Role;
@@ -137,18 +137,18 @@ class AccountServiceImplTest {
 
   @Nested
   @DisplayName("getLoginReturnDto() unit tests")
-  class GetAuthResponseUnitTests {
+  class GetLoginResponseUnitTests {
     @Test
     @Description("Returns the correct LoginReturnDto instance when valid requestBody dto and authentication instance are received.")
     void shouldReturnLoginReturnDto_whenRequestBodyDtoAndAuthenticationAreValid() {
       LoginRequest requestBody = new LoginRequest(expectedValidEmail, hashedPassword);
       String jwtToken = "generatedToken";
 
-      AuthResponse expected = new AuthResponse(expectedValidEmail, mockAccount.getFirstName(), mockAccount.getRoleName(), jwtToken);
+      LoginResponse expected = new LoginResponse(expectedValidEmail, mockAccount.getFirstName(), mockAccount.getRoleName(), jwtToken);
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
       when(jwtUtilities.generateJwtToken(authentication)).thenReturn(jwtToken);
 
-      AuthResponse actual = underTest.createAuthResponse(requestBody, authentication);
+      LoginResponse actual = underTest.createLoginResponse(requestBody, authentication);
 
       assertEquals(expected, actual);
 
@@ -162,7 +162,7 @@ class AccountServiceImplTest {
       LoginRequest requestBody = new LoginRequest(notValidEmail, hashedPassword);
       when(accountRepository.findByEmail(notValidEmail)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.createAuthResponse(requestBody, authentication));
+      assertThrows(EntityNotFoundException.class, () -> underTest.createLoginResponse(requestBody, authentication));
 
       verify(accountRepository, times(1)).findByEmail(notValidEmail);
       verify(jwtUtilities, never()).generateJwtToken(authentication);

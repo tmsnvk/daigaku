@@ -1,17 +1,25 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.account.account.service;
 
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.dto.AuthContext;
-import net.tamasnovak.artifact.account.account.dto.AuthResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 
 /**
- * Service interface that manages the  "/api/v1/accounts" endpoint root.
+ * Service interface that manages the "/api/v1/accounts" endpoint.
  *
  * @since 0.0.1
  */
@@ -44,13 +52,13 @@ public interface AccountService {
   AuthContext retrieveAuthContextByAccountEmail(String email);
 
   /**
-   * Creates an {@link AuthResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
+   * Creates an {@link LoginResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
    *
    * @param requestBody The login request object containing user credentials.
    * @param authentication The authentication details of the user provided by the Spring Framework.
-   * @return {@link AuthResponse}
+   * @return {@link LoginResponse}
    */
-  AuthResponse createAuthResponse(LoginRequest requestBody, Authentication authentication);
+  LoginResponse createLoginResponse(LoginRequest requestBody, Authentication authentication);
 
   /**
    * Checks that no {@link Account} exists with the provided email.

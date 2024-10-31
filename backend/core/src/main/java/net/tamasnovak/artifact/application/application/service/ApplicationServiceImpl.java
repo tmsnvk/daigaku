@@ -1,5 +1,8 @@
 package net.tamasnovak.artifact.application.application.service;
 
+import java.util.Objects;
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.application.persistence.ApplicationIdsView;
@@ -13,9 +16,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
-import java.util.UUID;
 
 @Service
 @Qualifier(value = "ApplicationService")
@@ -35,7 +35,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Transactional(readOnly = true)
   public net.tamasnovak.artifact.application.shared.entity.Application findByUuid(final UUID uuid) {
     return applicationRepository.findByUuid(uuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
@@ -43,7 +43,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
   public ApplicationData fetchApplicationDataByUuid(final UUID uuid) {
     final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(uuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                                                 .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
 
     verifyUserAccessToViewApplication(uuid);
 
@@ -55,11 +55,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(uuid);
 
     if (Objects.equals(authAccount.getRoleName(), "ROLE_STUDENT")) {
-      authAccount.verifyAuthAccountUuidAgainstAnother(application.getStudentOwnerAccountUuid(), globalServiceConstants.NO_PERMISSION);
+      authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), globalServiceConstants.NO_PERMISSION);
     }
 
     if (Objects.equals(authAccount.getRoleName(), "ROLE_MENTOR")) {
-      authAccount.verifyAuthAccountUuidAgainstAnother(application.getStudentMentorAccountUuid(), globalServiceConstants.NO_PERMISSION);
+      authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), globalServiceConstants.NO_PERMISSION);
     }
   }
 }

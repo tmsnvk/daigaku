@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.account.account.entity;
 
 import java.util.List;
@@ -12,7 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import net.tamasnovak.artifact.account.account.dto.AuthContext;
-import net.tamasnovak.artifact.account.account.dto.AuthResponse;
+import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.shared.entity.BaseAccount;
 import net.tamasnovak.artifact.address.entity.Address;
 import net.tamasnovak.artifact.comment.entity.Comment;
@@ -20,7 +28,7 @@ import net.tamasnovak.artifact.role.entity.Role;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 
 /**
- * Class representing the accounts database entity.
+ * Entity class that represents the accounts database table.
  *
  * @since 0.0.1
  */
@@ -52,15 +60,19 @@ public final class Account extends BaseAccount {
   }
 
   /**
-   * @param firstName
-   * @param lastName
-   * @param email
-   * @param hashedPassword
-   * @param institution
-   * @param role
-   * @return
+   * The default account creator method.
+   *
+   * @param firstName The account's first name.
+   * @param lastName The account's last name.
+   * @param email The account's email.
+   * @param hashedPassword The account's hashed password.
+   * @param institution The account's institution.
+   * @param role The account's role.
+   * @return {@link Account}
    */
-  public static Account createAccount(final String firstName, final String lastName, final String email, final String hashedPassword, final Institution institution, final Role role) {
+  public static Account createAccount(
+    final String firstName, final String lastName, final String email, final String hashedPassword, final Institution institution,
+    final Role role) {
     return new Account(firstName, lastName, email, hashedPassword, institution, role);
   }
 
@@ -81,26 +93,33 @@ public final class Account extends BaseAccount {
   }
 
   /**
-   * @return
+   * Creates an {@link AuthContext} object for the logged-in user.
+   *
+   * @return {@link AuthContext}
    */
   public AuthContext createAuthContext() {
     return new AuthContext(this.email, this.firstName, this.role.getName());
   }
 
   /**
-   * @param token
-   * @return
+   * Creates a {@link LoginResponse} object after the user's login was successfully authenticated.
+   *
+   * @param token token The user's authentication token.
+   * @return {@link LoginResponse}
    */
-  public AuthResponse createAuthResponse(final String token) {
-    return new AuthResponse(this.email, this.firstName, this.role.getName(), token);
+  public LoginResponse createLoginResponse(final String token) {
+    return new LoginResponse(this.email, this.firstName, this.role.getName(), token);
   }
 
   /**
-   * @param verifyAgainst
-   * @param exceptionMessage
+   * Verifies that the uuid of the authenticated account matches a given uuid.
+   *
+   * @param uuidToMatch The uuid to compare against the authenticated account's uuid.
+   * @param exceptionMessage The message for the exception if the UUIDs do not match.
+   * @throws IllegalArgumentException If the uuids do not match.
    */
-  public void verifyAuthAccountUuidAgainstAnother(final UUID verifyAgainst, final String exceptionMessage) {
-    if (!this.uuid.equals(verifyAgainst)) {
+  public void verifyAccountUuidMatch(final UUID uuidToMatch, final String exceptionMessage) {
+    if (!this.uuid.equals(uuidToMatch)) {
       throw new IllegalArgumentException(exceptionMessage);
     }
   }
