@@ -68,8 +68,8 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     this.checkAccountDoesNotExistByEmail(requestBody.email());
 
     // Find the selected institution and role objects.
-    final Institution institution = institutionService.findByUuid(requestBody.institutionUuid());
-    final Role role = roleService.findByUuid(requestBody.accountRoleUuid());
+    final Institution institution = institutionService.findByUuid(requestBody.getInstituionUuid());
+    final Role role = roleService.findByUuid(requestBody.getAccountRoleUuid());
 
     // Create the new pending account object, then save it in the database.
     final PendingAccount pendingAccount = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(),
