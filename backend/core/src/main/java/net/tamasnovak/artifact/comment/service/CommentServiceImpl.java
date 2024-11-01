@@ -1,16 +1,19 @@
 package net.tamasnovak.artifact.comment.service;
 
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.application.service.ApplicationService;
 import net.tamasnovak.artifact.application.shared.entity.Application;
-import net.tamasnovak.artifact.comment.dto.NewComment;
 import net.tamasnovak.artifact.comment.dto.CommentDetails;
 import net.tamasnovak.artifact.comment.dto.CommentPagination;
+import net.tamasnovak.artifact.comment.dto.NewComment;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.comment.persistence.CommentRepository;
 import net.tamasnovak.artifact.comment.persistence.CommentView;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,10 +22,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Qualifier(value = "CommentService")
@@ -33,7 +32,8 @@ public class CommentServiceImpl implements CommentService {
   private final GlobalServiceConstants globalConstants;
 
   @Autowired
-  public CommentServiceImpl(AuthenticationFacade authenticationFacade, CommentRepository commentRepository, ApplicationService applicationService, GlobalServiceConstants globalConstants) {
+  public CommentServiceImpl(AuthenticationFacade authenticationFacade, CommentRepository commentRepository,
+                            ApplicationService applicationService, GlobalServiceConstants globalConstants) {
     this.authenticationFacade = authenticationFacade;
     this.commentRepository = commentRepository;
     this.applicationService = applicationService;
@@ -42,14 +42,15 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional(readOnly = true)
-  public CommentPagination findAllByApplicationUuid(final UUID uuid,
-                                                    final int page) {
+  public CommentPagination findAllByApplicationUuid(
+    final UUID uuid,
+    final int page) {
     final Pageable pageable = PageRequest.of(page, 5);
     final Page<CommentView> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(uuid, pageable);
 
     final List<CommentDetails> comments = commentViews.stream()
-      .map(CommentDetails::new)
-      .collect(Collectors.toList());
+                                                      .map(CommentDetails::new)
+                                                      .collect(Collectors.toList());
 
     return new CommentPagination(commentViews.getTotalPages(), commentViews.getNumber(), commentViews.getTotalElements(), comments);
   }

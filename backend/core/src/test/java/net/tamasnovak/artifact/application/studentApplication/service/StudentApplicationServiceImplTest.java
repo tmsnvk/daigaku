@@ -1,17 +1,23 @@
 package net.tamasnovak.artifact.application.studentApplication.service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
-import net.tamasnovak.artifact.accountRole.mentor.entity.Mentor;
-import net.tamasnovak.artifact.accountRole.student.entity.Student;
-import net.tamasnovak.artifact.accountRole.student.service.StudentService;
+import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
+import net.tamasnovak.artifact.accounttype.student.entity.Student;
+import net.tamasnovak.artifact.accounttype.student.service.StudentService;
 import net.tamasnovak.artifact.application.application.service.ApplicationService;
 import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
+import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
@@ -20,7 +26,7 @@ import net.tamasnovak.artifact.applicationstages.interviewStatus.service.Intervi
 import net.tamasnovak.artifact.applicationstages.offerStatus.service.OfferStatusService;
 import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.applicationstages.responseStatus.service.ResponseStatusService;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.university.entity.University;
@@ -34,13 +40,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
-
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -98,7 +97,8 @@ class StudentApplicationServiceImplTest {
   private final Account mockAccount = mock(Account.class);
   private final Student mockStudent = mock(Student.class);
   private final UUID applicationUuid = UUID.randomUUID();
-  private final net.tamasnovak.artifact.application.shared.entity.Application mockApplication = mock(net.tamasnovak.artifact.application.shared.entity.Application.class);
+  private final net.tamasnovak.artifact.application.shared.entity.Application mockApplication = mock(
+    net.tamasnovak.artifact.application.shared.entity.Application.class);
 
   @Nested
   @DisplayName("getAllApplicationDtosByAccount() unit tests")
@@ -109,8 +109,10 @@ class StudentApplicationServiceImplTest {
       Instant now = Instant.now();
 
       List<ApplicationView> mockApplicationViews = Arrays.asList(mock(ApplicationView.class), mock(ApplicationView.class));
-      ApplicationData mockApplicationData1 = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null, Timestamp.from(now), Timestamp.from(now), null, null, false);
-      ApplicationData mockApplicationData2 = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null, Timestamp.from(now), Timestamp.from(now), null, null, false);
+      ApplicationData mockApplicationData1 = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null,
+        Timestamp.from(now), Timestamp.from(now), null, null, false);
+      ApplicationData mockApplicationData2 = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null,
+        Timestamp.from(now), Timestamp.from(now), null, null, false);
       when(mockApplicationViews.get(0).getCreatedAt()).thenReturn(now);
       when(mockApplicationViews.get(0).getLastUpdatedAt()).thenReturn(now);
       when(mockApplicationViews.get(1).getCreatedAt()).thenReturn(now);
@@ -158,7 +160,7 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Returns a DashboardAggregateDataDto instance.")
     void shouldReturnDashboardAggregateDataDto() {
-      when(studentService.getByAccount(mockAccount)).thenReturn(mockStudent);
+      when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.findByName(anyString())).thenReturn(mock(ApplicationStatus.class));
       when(applicationStatusService.findByName(anyString())).thenReturn(mock(ApplicationStatus.class));
       when(applicationStatusService.findByName(anyString())).thenReturn(mock(ApplicationStatus.class));
@@ -170,7 +172,7 @@ class StudentApplicationServiceImplTest {
 
       assertEquals(expected, actual);
 
-      verify(studentService, times(1)).getByAccount(mockAccount);
+      verify(studentService, times(1)).findStudentByAccount(mockAccount);
       verify(applicationStatusService, times(3)).findByName(anyString());
       verify(responseStatusService, times(1)).findByName(anyString());
       verify(finalDestinationStatusService, times(2)).findByName(anyString());
@@ -192,10 +194,11 @@ class StudentApplicationServiceImplTest {
 
       when(countryService.findByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
       when(universityService.findByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
-      when(studentService.getByAccount(mockAccount)).thenReturn(mockStudent);
+      when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.findByName("Planned")).thenReturn(mockApplicationStatus);
 
-      when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(mockApplication);
+      when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
+        mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
       when(applicationService.fetchApplicationDataByUuid(applicationUuid)).thenReturn(expected);
 
@@ -205,7 +208,7 @@ class StudentApplicationServiceImplTest {
 
       verify(countryService, times(1)).findByUuid(UUID.fromString(requestBody.countryUuid()));
       verify(universityService, times(1)).findByUuid(UUID.fromString(requestBody.universityUuid()));
-      verify(studentService, times(1)).getByAccount(mockAccount);
+      verify(studentService, times(1)).findStudentByAccount(mockAccount);
       verify(applicationStatusService, times(1)).findByName("Planned");
       verify(applicationService, times(1)).fetchApplicationDataByUuid(applicationUuid);
     }
@@ -213,7 +216,8 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Propagates exception when countryService throws EntityNotFoundException.")
     void shouldPropagateException_whenCountryServiceThrowsEntityNotFoundException() {
-      when(countryService.findByUuid(UUID.fromString(requestBody.countryUuid()))).thenThrow(new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+      when(countryService.findByUuid(UUID.fromString(requestBody.countryUuid()))).thenThrow(
+        new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createApplication(mockAccount, requestBody));
 
@@ -231,11 +235,12 @@ class StudentApplicationServiceImplTest {
       Mentor mockMentor = mock(Mentor.class);
 
       when(applicationService.findByUuid(applicationUuid)).thenReturn(mockApplication);
-      when(studentService.getByAccount(mockAccount)).thenReturn(Student.createStudent(mockAccount, mockMentor));
+      when(studentService.findStudentByAccount(mockAccount)).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
       ApplicationData expected = mock(ApplicationData.class);
 
-      when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(mockApplication);
+      when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
+        mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
       when(applicationService.fetchApplicationDataByUuid(applicationUuid)).thenReturn(expected);
 

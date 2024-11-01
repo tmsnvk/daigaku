@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
@@ -53,7 +53,8 @@ class AccountServiceImplTest {
   private final String hashedPassword = "$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm";
   private final Institution mockInstitution = mock(Institution.class);
   private final Role mockRole = Role.createRole("STUDENT");
-  private final Account mockAccount = Account.createAccount("Student", "Test User", expectedValidEmail, hashedPassword, mockInstitution, mockRole);
+  private final Account mockAccount = Account.createAccount("Student", "Test User", expectedValidEmail, hashedPassword, mockInstitution,
+    mockRole);
 
   @Nested
   @DisplayName("getByEmail() unit tests")
@@ -114,14 +115,14 @@ class AccountServiceImplTest {
 
   @Nested
   @DisplayName("getClientAuthContextDto() unit tests")
-  class GetAuthContextUnitTests {
+  class GetAuthContextResponseUnitTests {
     @Test
     @Description("Returns the correct ClientAuthContextDto instance when email is found.")
     void shouldReturnClientAuthContextDto_whenEmailIsFound() {
-      AuthContext expected = new AuthContext(expectedValidEmail, mockAccount.getFirstName(), mockRole.getName());
+      AuthContextResponse expected = new AuthContextResponse(expectedValidEmail, mockAccount.getFirstName(), mockRole.getName());
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
 
-      AuthContext actual = underTest.retrieveAuthContextByAccountEmail(expectedValidEmail);
+      AuthContextResponse actual = underTest.retrieveAuthContextResponseByAccountEmail(expectedValidEmail);
 
       assertEquals(expected, actual);
 
@@ -131,7 +132,7 @@ class AccountServiceImplTest {
     @Test
     @Description("Propagates exception when accountService throws EntityNotFoundException.")
     void shouldPropagateException_whenAccountServiceThrowsEntityNotFoundException() {
-      assertThrows(EntityNotFoundException.class, () -> underTest.retrieveAuthContextByAccountEmail(notValidEmail));
+      assertThrows(EntityNotFoundException.class, () -> underTest.retrieveAuthContextResponseByAccountEmail(notValidEmail));
     }
   }
 
@@ -144,11 +145,11 @@ class AccountServiceImplTest {
       LoginRequest requestBody = new LoginRequest(expectedValidEmail, hashedPassword);
       String jwtToken = "generatedToken";
 
-      LoginResponse expected = new LoginResponse(expectedValidEmail, mockAccount.getFirstName(), mockAccount.getRoleName(), jwtToken);
+      LoginResponse expected = new LoginResponse(expectedValidEmail, mockAccount.getFirstName(), mockAccount.retrieveRoleName(), jwtToken);
       when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
       when(jwtUtilities.generateJwtToken(authentication)).thenReturn(jwtToken);
 
-      LoginResponse actual = underTest.createLoginResponse(requestBody, authentication);
+      LoginResponse actual = underTest.retrieveLoginResponse(requestBody, authentication);
 
       assertEquals(expected, actual);
 
@@ -162,7 +163,7 @@ class AccountServiceImplTest {
       LoginRequest requestBody = new LoginRequest(notValidEmail, hashedPassword);
       when(accountRepository.findByEmail(notValidEmail)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.createLoginResponse(requestBody, authentication));
+      assertThrows(EntityNotFoundException.class, () -> underTest.retrieveLoginResponse(requestBody, authentication));
 
       verify(accountRepository, times(1)).findByEmail(notValidEmail);
       verify(jwtUtilities, never()).generateJwtToken(authentication);
@@ -183,7 +184,8 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @Description("Throws DataIntegrityViolationException when email is found, i.e. the user is not allowed to register with the provided email.")
+    @Description("Throws DataIntegrityViolationException when email is found, i.e. the user is not allowed to register with the provided " +
+      "email.")
     void shouldThrowDataIntegrityViolationException_whenEmailExists() {
       when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(true);
 

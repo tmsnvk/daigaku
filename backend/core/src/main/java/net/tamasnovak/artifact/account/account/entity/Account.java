@@ -19,9 +19,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
-import net.tamasnovak.artifact.account.shared.entity.BaseAccount;
+import net.tamasnovak.artifact.account.common.entity.BaseAccount;
 import net.tamasnovak.artifact.address.entity.Address;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.role.entity.Role;
@@ -80,25 +80,17 @@ public final class Account extends BaseAccount {
     return this.fullName;
   }
 
-  public String getRoleName() {
-    return this.role.getName();
-  }
-
-  public String getPasswordForGrantedAuthority() {
+  public String getHashedPassword() {
     return this.hashedPassword;
   }
 
-  public String getEmail() {
-    return this.email;
-  }
-
   /**
-   * Creates an {@link AuthContext} object for the logged-in user.
+   * Creates an {@link AuthContextResponse} object for the logged-in user.
    *
-   * @return {@link AuthContext}
+   * @return {@link AuthContextResponse}
    */
-  public AuthContext createAuthContext() {
-    return new AuthContext(this.email, this.firstName, this.role.getName());
+  public AuthContextResponse createAuthContextResponse() {
+    return new AuthContextResponse(this.email, this.firstName, this.role.getName());
   }
 
   /**
@@ -124,11 +116,13 @@ public final class Account extends BaseAccount {
     }
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     return Objects.hash(email, id, uuid);
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }

@@ -1,5 +1,10 @@
 package net.tamasnovak.artifact.application.shared.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
@@ -13,21 +18,16 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import net.tamasnovak.artifact.accountRole.student.entity.Student;
+import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
 import net.tamasnovak.artifact.applicationstages.interviewStatus.entity.InterviewStatus;
 import net.tamasnovak.artifact.applicationstages.offerStatus.entity.OfferStatus;
 import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.comment.entity.Comment;
-import net.tamasnovak.artifact.shared.entity.audit.Auditable;
+import net.tamasnovak.artifact.common.entity.audit.Auditable;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.university.entity.University;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "applications")
@@ -49,11 +49,13 @@ public final class Application extends Auditable {
 
   @Column(name = "course_name", nullable = false)
   @NotBlank(message = "Provide the title of your course.")
-  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of " +
+    "255 characters.")
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum" +
+    " of 255 characters.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
@@ -95,9 +97,12 @@ public final class Application extends Auditable {
   @JsonManagedReference(value = "application-comment_reference")
   private List<Comment> comments;
 
-  protected Application() {}
+  protected Application() {
+  }
 
-  private Application(Student student, Country country, University university, String courseName, String minorSubject, int programmeLength, ApplicationStatus applicationStatus) {
+  private Application(
+    Student student, Country country, University university, String courseName, String minorSubject,
+    int programmeLength, ApplicationStatus applicationStatus) {
     this.student = student;
     this.country = country;
     this.university = university;
@@ -109,25 +114,26 @@ public final class Application extends Auditable {
     this.comments = new ArrayList<>();
   }
 
-  public static Application createApplicationByStudent(final Student student,
-                                                       final Country country,
-                                                       final University university,
-                                                       final String courseName,
-                                                       final String minorSubject,
-                                                       final int programmeLength,
-                                                       final ApplicationStatus applicationStatus) {
+  public static Application createApplicationByStudent(
+    final Student student,
+    final Country country,
+    final University university,
+    final String courseName,
+    final String minorSubject,
+    final int programmeLength,
+    final ApplicationStatus applicationStatus) {
     return new Application(student, country, university, courseName, minorSubject, programmeLength, applicationStatus);
   }
 
   public UUID getStudentAccountUuid() {
-    return this.student.getStudentAccountUuid();
+    return this.student.retrieveStudentAccountUuid();
   }
 
-  public String getCountryName() {
+  public String retrieveCountryName() {
     return this.country.getName();
   }
 
-  public String getUniversityName() {
+  public String retrieveUniversityName() {
     return this.university.getName();
   }
 
@@ -179,11 +185,11 @@ public final class Application extends Auditable {
     return this.applicationStatus.getName();
   }
 
-  public String getResponseStatusName() {
+  public String retrieveResponseStatusName() {
     return this.responseStatus.getName();
   }
 
-  public String getFinalDestinationName() {
+  public String retrieveFinalDestinationName() {
     return this.finalDestinationStatus.getName();
   }
 
@@ -227,25 +233,28 @@ public final class Application extends Auditable {
     return null;
   }
 
-  public void updateStatusFields(final ApplicationStatus applicationStatus,
-                                 final InterviewStatus interviewStatus,
-                                 final OfferStatus offerStatus,
-                                 final ResponseStatus responseStatus,
-                                 final FinalDestinationStatus finalDestinationStatus,
-                                 final ResponseStatus offerDeclined,
-                                 final FinalDestinationStatus notFinalDestination) {
+  public void updateStatusFields(
+    final ApplicationStatus applicationStatus,
+    final InterviewStatus interviewStatus,
+    final OfferStatus offerStatus,
+    final ResponseStatus responseStatus,
+    final FinalDestinationStatus finalDestinationStatus,
+    final ResponseStatus offerDeclined,
+    final FinalDestinationStatus notFinalDestination) {
     this.applicationStatus = updateOnlyIfNotNull(applicationStatus, this.applicationStatus);
     this.interviewStatus = updateOnlyIfNotNull(interviewStatus, this.interviewStatus);
     this.offerStatus = updateOnlyIfNotNull(offerStatus, this.offerStatus);
     this.responseStatus = updateOnlyIfNotNull(responseStatus, this.responseStatus);
-    this.finalDestinationStatus = updateFinalDestinationField(responseStatus, finalDestinationStatus, this.finalDestinationStatus, offerDeclined, notFinalDestination);
+    this.finalDestinationStatus = updateFinalDestinationField(responseStatus, finalDestinationStatus, this.finalDestinationStatus,
+      offerDeclined, notFinalDestination);
   }
 
-  public FinalDestinationStatus updateFinalDestinationField(final ResponseStatus newResponseStatus,
-                                                            final FinalDestinationStatus newFinalDestinationStatus,
-                                                            final FinalDestinationStatus currentFinalDestinationStatus,
-                                                            final ResponseStatus offerDeclined,
-                                                            final FinalDestinationStatus notFinalDestination) {
+  public FinalDestinationStatus updateFinalDestinationField(
+    final ResponseStatus newResponseStatus,
+    final FinalDestinationStatus newFinalDestinationStatus,
+    final FinalDestinationStatus currentFinalDestinationStatus,
+    final ResponseStatus offerDeclined,
+    final FinalDestinationStatus notFinalDestination) {
     if (newResponseStatus != null && areValuesEqual(newResponseStatus.getName(), offerDeclined.getName())) {
       return notFinalDestination;
     }

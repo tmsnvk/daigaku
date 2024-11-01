@@ -11,7 +11,7 @@ public enum ResponseStatusType {
     this.name = name;
   }
 
-  public String getName() {
+  public String getValue() {
     return name;
   }
 }

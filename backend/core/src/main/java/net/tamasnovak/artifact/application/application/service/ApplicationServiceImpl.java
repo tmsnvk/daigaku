@@ -7,9 +7,10 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.application.persistence.ApplicationIdsView;
 import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
+import net.tamasnovak.artifact.application.shared.entity.Application;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,8 @@ public class ApplicationServiceImpl implements ApplicationService {
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public ApplicationServiceImpl(AuthenticationFacade authenticationFacade, ApplicationRepository applicationRepository, GlobalServiceConstants globalServiceConstants) {
+  public ApplicationServiceImpl(
+    AuthenticationFacade authenticationFacade, ApplicationRepository applicationRepository, GlobalServiceConstants globalServiceConstants) {
     this.authenticationFacade = authenticationFacade;
     this.applicationRepository = applicationRepository;
     this.globalServiceConstants = globalServiceConstants;
@@ -33,7 +35,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public net.tamasnovak.artifact.application.shared.entity.Application findByUuid(final UUID uuid) {
+  public Application findByUuid(final UUID uuid) {
     return applicationRepository.findByUuid(uuid)
                                 .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
@@ -43,7 +45,8 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
   public ApplicationData fetchApplicationDataByUuid(final UUID uuid) {
     final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(uuid)
-                                                                 .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                                                 .orElseThrow(() -> new EntityNotFoundException(
+                                                                   globalServiceConstants.NO_RECORD_FOUND));
 
     verifyUserAccessToViewApplication(uuid);
 
@@ -54,11 +57,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
     final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(uuid);
 
-    if (Objects.equals(authAccount.getRoleName(), "ROLE_STUDENT")) {
+    if (Objects.equals(authAccount.retrieveRoleName(), "ROLE_STUDENT")) {
       authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), globalServiceConstants.NO_PERMISSION);
     }
 
-    if (Objects.equals(authAccount.getRoleName(), "ROLE_MENTOR")) {
+    if (Objects.equals(authAccount.retrieveRoleName(), "ROLE_MENTOR")) {
       authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), globalServiceConstants.NO_PERMISSION);
     }
   }

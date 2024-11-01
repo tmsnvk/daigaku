@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.shared.entity.Application;
-import net.tamasnovak.artifact.shared.entity.audit.Auditable;
+import net.tamasnovak.artifact.common.entity.audit.Auditable;
 
 @Entity
 @Table(name = "comments")
@@ -30,7 +30,8 @@ public final class Comment extends Auditable {
   @Pattern(regexp = "^(.|\\s){5,1000}$", message = "Provide a minimum of 5 and a maximum of 1000 characters.")
   private String content;
 
-  protected Comment() {}
+  protected Comment() {
+  }
 
   private Comment(Application application, Account account, String content) {
     this.application = application;
@@ -38,9 +39,10 @@ public final class Comment extends Auditable {
     this.content = content;
   }
 
-  public static Comment createComment(final Application application,
-                                      final Account account,
-                                      final String content) {
+  public static Comment createComment(
+    final Application application,
+    final Account account,
+    final String content) {
     return new Comment(application, account, content);
   }
 }

@@ -3,7 +3,7 @@ package net.tamasnovak.artifact.account.account.controller;
 import java.util.Collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.service.AccountService;
@@ -56,13 +56,13 @@ class AccountControllerIT {
       Mockito.when(authenticationFacade.getUserContext())
              .thenReturn(userDetails);
 
-      AuthContext authContext = new AuthContext(
+      AuthContextResponse authContextResponse = new AuthContextResponse(
         "test@user.net",
         "Student",
         "ROLE_STUDENT"
       );
-      Mockito.when(accountService.retrieveAuthContextByAccountEmail(userDetails.getUsername()))
-             .thenReturn(authContext);
+      Mockito.when(accountService.retrieveAuthContextResponseByAccountEmail(userDetails.getUsername()))
+             .thenReturn(authContextResponse);
 
       mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts/me"))
              .andExpect(MockMvcResultMatchers.status()
@@ -90,7 +90,7 @@ class AccountControllerIT {
              .thenReturn(authentication);
 
       LoginResponse loginResponse = Mockito.mock(LoginResponse.class);
-      Mockito.when(accountService.createLoginResponse(requestBody, authentication))
+      Mockito.when(accountService.retrieveLoginResponse(requestBody, authentication))
              .thenReturn(loginResponse);
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts/login")

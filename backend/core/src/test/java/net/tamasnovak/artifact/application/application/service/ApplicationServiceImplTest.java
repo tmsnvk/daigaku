@@ -1,12 +1,17 @@
 package net.tamasnovak.artifact.application.application.service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Optional;
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.application.persistence.ApplicationIdsView;
 import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,12 +21,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
-
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Optional;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -51,7 +50,8 @@ class ApplicationServiceImplTest {
     @Test
     @Description("Returns the correct Application record.")
     void shouldReturnApplication() {
-      net.tamasnovak.artifact.application.shared.entity.Application expected = mock(net.tamasnovak.artifact.application.shared.entity.Application.class);
+      net.tamasnovak.artifact.application.shared.entity.Application expected = mock(
+        net.tamasnovak.artifact.application.shared.entity.Application.class);
       when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.of(expected));
 
       net.tamasnovak.artifact.application.shared.entity.Application actual = underTest.findByUuid(applicationUuid);
@@ -97,9 +97,10 @@ class ApplicationServiceImplTest {
       when(mockApplicationView.getCreatedAt()).thenReturn(now);
       when(mockApplicationView.getLastUpdatedAt()).thenReturn(now);
 
-      ApplicationData expected = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null, Timestamp.from(now), Timestamp.from(now), null, null, false);
+      ApplicationData expected = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null,
+        Timestamp.from(now), Timestamp.from(now), null, null, false);
 
-      when(mockAccount.getRoleName()).thenReturn("ROLE_STUDENT");
+      when(mockAccount.retrieveRoleName()).thenReturn("ROLE_STUDENT");
 
       when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.of(mockApplicationView));
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(mockAccount);

@@ -77,14 +77,14 @@ export const useTodoList = (data: DashboardStatistics): TodoList => {
       data.notSetInterviewStatusCount && todos.push(noInterviewStatusSet);
 
       // There is no firm choice application selected.
-      !data.firmChoice && todos.push(noFirmChoiceSet);
+      !data.firmChoiceTileDto && todos.push(noFirmChoiceSet);
 
       // OfferStatus is not updated on any of the 'Submitted' applications.
       data.offersCount === 0 && todos.push(noOfferStatusSet);
     }
 
     // There are offers but no FinalDestinationStatus is set.
-    data.offersCount && !data.finalDestination && todos.push(noFinalDestinationSet);
+    data.offersCount && !data.finalDestinationTileDto && todos.push(noFinalDestinationSet);
 
     // There are no todo items.
     if (todos.length === 0) {

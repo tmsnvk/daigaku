@@ -13,7 +13,7 @@ import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
- * Service interface that manages the "/api/v1/pending-accounts" endpoint.
+ * Service interface that manages {@link PendingAccount} entity-related API calls towards the database.
  *
  * @since 0.0.1
  */

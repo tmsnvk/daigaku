@@ -3,7 +3,7 @@ package net.tamasnovak.artifact.applicationstages.shared.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
-import net.tamasnovak.artifact.shared.entity.audit.Auditable;
+import net.tamasnovak.artifact.common.entity.audit.Auditable;
 
 @MappedSuperclass
 public abstract class BaseStatusEntity extends Auditable {
@@ -11,7 +11,8 @@ public abstract class BaseStatusEntity extends Auditable {
   @NotBlank(message = "Provide the name of your application entity.")
   private String name;
 
-  protected BaseStatusEntity() {}
+  protected BaseStatusEntity() {
+  }
 
   protected BaseStatusEntity(String name) {
     this.name = name;

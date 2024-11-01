@@ -115,7 +115,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
               message: constants.validation.FIRST_NAME_REQUIRED,
             },
             pattern: {
-              value: /^[\p{L}\s]{2,100}$/u,
+              value: /^[\p{L}\s\-]{2,100}$/u,
               message: constants.validation.FIRST_NAME_PATTERN,
             },
           }}
@@ -134,7 +134,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
               message: constants.validation.LAST_NAME_REQUIRED,
             },
             pattern: {
-              value: /^[\p{L}\s]{2,100}$/u,
+              value: /^[\p{L}\s\-]{2,100}$/u,
               message: constants.validation.LAST_NAME_PATTERN,
             },
           }}

@@ -1,7 +1,12 @@
 package net.tamasnovak.artifact.support.institution.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
 import net.tamasnovak.artifact.support.institution.dto.InstitutionDropdownOption;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 import net.tamasnovak.artifact.support.institution.persistence.InstitutionRepository;
@@ -13,12 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;

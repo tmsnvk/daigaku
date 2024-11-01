@@ -1,7 +1,10 @@
 package net.tamasnovak.artifact.support.university.service;
 
+import java.util.List;
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.university.dto.UniversityDropdownOption;
@@ -13,9 +16,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
-
 @Service
 @Qualifier(value = "UniversityService")
 public class UniversityServiceImpl implements UniversityService {
@@ -24,7 +24,8 @@ public class UniversityServiceImpl implements UniversityService {
   private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public UniversityServiceImpl(CountryService countryService, UniversityRepository universityRepository, GlobalServiceConstants globalServiceConstants) {
+  public UniversityServiceImpl(CountryService countryService, UniversityRepository universityRepository,
+                               GlobalServiceConstants globalServiceConstants) {
     this.countryService = countryService;
     this.universityRepository = universityRepository;
     this.globalServiceConstants = globalServiceConstants;
@@ -35,7 +36,7 @@ public class UniversityServiceImpl implements UniversityService {
   @Cacheable(value = "UniversityByUuid", key = "{ #uuid }")
   public University findByUuid(final UUID uuid) {
     return universityRepository.findByUuid(uuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                               .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override

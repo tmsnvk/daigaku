@@ -9,7 +9,7 @@
 package net.tamasnovak.artifact.account.account.controller;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.service.AccountService;
@@ -38,22 +38,23 @@ public class AccountController {
   private final AuthenticationFacade authenticationFacade;
   private final AccountService accountService;
 
-  @Autowired public AccountController(AuthenticationFacade authenticationFacade, AccountService accountService) {
+  @Autowired
+  public AccountController(AuthenticationFacade authenticationFacade, AccountService accountService) {
     this.authenticationFacade = authenticationFacade;
     this.accountService = accountService;
   }
 
   /**
-   * Fetches the authentication context object {@link AuthContext} for the currently logged-in user.
+   * Fetches the authentication context object {@link AuthContextResponse} for the currently logged-in user.
    * On the frontend, the object is used by the authentication context to verify that the user is still logged in.
    *
-   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link AuthContext} object.
+   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link AuthContextResponse} object.
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
-  public ResponseEntity<AuthContext> fetchClientAuthContext() {
+  public ResponseEntity<AuthContextResponse> retrieveAuthContextResponse() {
     final User userDetails = authenticationFacade.getUserContext();
-    final AuthContext response = accountService.retrieveAuthContextByAccountEmail(userDetails.getUsername());
+    final AuthContextResponse response = accountService.retrieveAuthContextResponseByAccountEmail(userDetails.getUsername());
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);
@@ -67,9 +68,9 @@ public class AccountController {
    * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link LoginResponse} object.
    */
   @PostMapping(value = "/log-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<LoginResponse> logIn(@Valid @RequestBody final LoginRequest requestBody) {
+  public ResponseEntity<LoginResponse> logInUser(@Valid @RequestBody final LoginRequest requestBody) {
     final Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
-    final LoginResponse response = accountService.createLoginResponse(requestBody, authentication);
+    final LoginResponse response = accountService.retrieveLoginResponse(requestBody, authentication);
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

@@ -11,7 +11,7 @@ package net.tamasnovak.artifact.account.account.service;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class that manages "/api/v1/accounts" endpoint root REST API operations, implementing {@link AccountService}.
+ * Service class that manages {@link Account} entity-related API operations, implementing {@link AccountService}.
  *
  * @since 0.0.1
  */
@@ -57,15 +57,15 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public AuthContext retrieveAuthContextByAccountEmail(final String email) {
+  public AuthContextResponse retrieveAuthContextResponseByAccountEmail(final String email) {
     final Account account = this.findAccountByEmail(email);
 
-    return account.createAuthContext();
+    return account.createAuthContextResponse();
   }
 
   @Override
   @Transactional(readOnly = true)
-  public LoginResponse createLoginResponse(final LoginRequest requestBody, final Authentication authentication) {
+  public LoginResponse retrieveLoginResponse(final LoginRequest requestBody, final Authentication authentication) {
     final Account account = this.findAccountByEmail(requestBody.email());
     final String jwtToken = jwtUtilities.generateJwtToken(authentication);
 

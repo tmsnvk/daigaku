@@ -11,7 +11,7 @@ package net.tamasnovak.artifact.account.account.service;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.account.account.dto.AuthContext;
+import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginRequest;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
@@ -19,7 +19,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 
 /**
- * Service interface that manages the "/api/v1/accounts" endpoint.
+ * Service interface that manages {@link Account} entity-related API calls towards the database.
  *
  * @since 0.0.1
  */
@@ -43,13 +43,13 @@ public interface AccountService {
   Account findAccountByUuid(UUID uuid);
 
   /**
-   * Retrieves the {@link AuthContext} object associated with the provided email.
+   * Retrieves the {@link AuthContextResponse} object associated with the provided email.
    * The object contains authentication details for the logged-in user.
    *
    * @param email The email of the account whose authentication context is to be retrieved.
-   * @return {@link AuthContext}
+   * @return {@link AuthContextResponse}
    */
-  AuthContext retrieveAuthContextByAccountEmail(String email);
+  AuthContextResponse retrieveAuthContextResponseByAccountEmail(String email);
 
   /**
    * Creates an {@link LoginResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
@@ -58,7 +58,7 @@ public interface AccountService {
    * @param authentication The authentication details of the user provided by the Spring Framework.
    * @return {@link LoginResponse}
    */
-  LoginResponse createLoginResponse(LoginRequest requestBody, Authentication authentication);
+  LoginResponse retrieveLoginResponse(LoginRequest requestBody, Authentication authentication);
 
   /**
    * Checks that no {@link Account} exists with the provided email.

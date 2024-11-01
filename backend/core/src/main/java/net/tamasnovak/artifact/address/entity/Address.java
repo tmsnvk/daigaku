@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import net.tamasnovak.artifact.shared.entity.id.BaseSimpleIdEntity;
+import net.tamasnovak.artifact.common.entity.id.BaseSimpleIdEntity;
 import net.tamasnovak.artifact.support.country.entity.Country;
 
 @Entity
@@ -26,7 +26,8 @@ public final class Address extends BaseSimpleIdEntity {
   @Column(name = "zipcode")
   private String zipcode;
 
-  protected Address() {}
+  protected Address() {
+  }
 
   private Address(String street, String city, Country country, String zipcode) {
     this.street = street;

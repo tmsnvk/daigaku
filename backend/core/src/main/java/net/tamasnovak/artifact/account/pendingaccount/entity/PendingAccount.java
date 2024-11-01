@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import net.tamasnovak.artifact.account.shared.entity.BaseAccount;
+import net.tamasnovak.artifact.account.common.entity.BaseAccount;
 import net.tamasnovak.artifact.role.entity.Role;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 
@@ -48,11 +48,13 @@ public final class PendingAccount extends BaseAccount {
     return new PendingAccount(firstName, lastname, email, institution, role);
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     return Objects.hash(email, id, uuid);
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }

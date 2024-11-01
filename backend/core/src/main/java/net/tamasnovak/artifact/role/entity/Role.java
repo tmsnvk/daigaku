@@ -1,15 +1,15 @@
 package net.tamasnovak.artifact.role.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import net.tamasnovak.artifact.account.account.entity.Account;
-import net.tamasnovak.artifact.shared.entity.id.BaseExtendedIdEntity;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.tamasnovak.artifact.common.entity.id.BaseExtendedIdEntity;
 
 @Entity
 @Table(name = "roles")
@@ -21,7 +21,8 @@ public final class Role extends BaseExtendedIdEntity {
   @JsonManagedReference(value = "role-account_reference")
   private List<Account> accounts;
 
-  protected Role() {}
+  protected Role() {
+  }
 
   private Role(String name) {
     this.name = name;
