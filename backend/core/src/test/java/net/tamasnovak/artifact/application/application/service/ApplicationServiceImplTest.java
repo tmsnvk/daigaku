@@ -54,7 +54,7 @@ class ApplicationServiceImplTest {
         net.tamasnovak.artifact.application.shared.entity.Application.class);
       when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.of(expected));
 
-      net.tamasnovak.artifact.application.shared.entity.Application actual = underTest.findByUuid(applicationUuid);
+      net.tamasnovak.artifact.application.shared.entity.Application actual = underTest.retrieveApplicationByUuid(applicationUuid);
 
       assertEquals(expected, actual);
 
@@ -66,7 +66,7 @@ class ApplicationServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationIsNotFound() {
       when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.findByUuid(applicationUuid));
+      assertThrows(EntityNotFoundException.class, () -> underTest.retrieveApplicationByUuid(applicationUuid));
 
       verify(applicationRepository, times(1)).findByUuid(applicationUuid);
     }
@@ -74,13 +74,13 @@ class ApplicationServiceImplTest {
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.findByUuid(null));
+      assertThrows(IllegalArgumentException.class, () -> underTest.retrieveApplicationByUuid(null));
     }
 
     @Test
     @Description("Throws NullPointerException if UUID string is null.")
     void shouldThrowNullPointerException_IfUuidStringIsNull() {
-      assertThrows(NullPointerException.class, () -> underTest.findByUuid(null));
+      assertThrows(NullPointerException.class, () -> underTest.retrieveApplicationByUuid(null));
     }
   }
 
@@ -106,7 +106,7 @@ class ApplicationServiceImplTest {
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(mockAccount);
       when(applicationRepository.findApplicationRelatedIdsByUuid(applicationUuid)).thenReturn(mock(ApplicationIdsView.class));
 
-      ApplicationData actual = underTest.fetchApplicationDataByUuid(applicationUuid);
+      ApplicationData actual = underTest.createApplicationDataByUuid(applicationUuid);
 
       assertEquals(expected, actual);
 
@@ -120,7 +120,7 @@ class ApplicationServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationViewProjectionIsNotFound() {
       when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.fetchApplicationDataByUuid(applicationUuid));
+      assertThrows(EntityNotFoundException.class, () -> underTest.createApplicationDataByUuid(applicationUuid));
 
       verify(applicationRepository, times(1)).findApplicationViewByUuid(applicationUuid);
     }
@@ -128,13 +128,13 @@ class ApplicationServiceImplTest {
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.fetchApplicationDataByUuid(null));
+      assertThrows(IllegalArgumentException.class, () -> underTest.createApplicationDataByUuid(null));
     }
 
     @Test
     @Description("Throws NullPointerException if UUID string is null.")
     void shouldThrowNullPointerException_IfUuidStringIsNull() {
-      assertThrows(NullPointerException.class, () -> underTest.fetchApplicationDataByUuid(null));
+      assertThrows(NullPointerException.class, () -> underTest.createApplicationDataByUuid(null));
     }
   }
 }

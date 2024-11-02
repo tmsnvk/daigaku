@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller class that manages REST API requests related to "/api/v1/accounts" endpoint.
+ * Controller class managing REST API requests related to "/api/v1/accounts" endpoint.
  *
  * @since 0.0.1
  */

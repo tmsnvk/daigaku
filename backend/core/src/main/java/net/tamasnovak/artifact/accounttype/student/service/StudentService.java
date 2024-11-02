@@ -13,7 +13,7 @@ import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 
 /**
- * Service interface that manages {@link Student} entity-related API calls towards the database.
+ * Service interface managing {@link Student} entity-related API calls towards the database.
  *
  * @since 0.0.1
  */

@@ -90,7 +90,7 @@ public abstract class BaseAccount extends Auditable {
   }
 
   /**
-   * Retrieves the {@link Institution}'s id that is connected to the given {@link Account} or {@link PendingAccount}.
+   * Retrieves the {@link Institution}'s id connected to the given {@link Account} or {@link PendingAccount}.
    *
    * @return Institution id.
    */
@@ -99,7 +99,7 @@ public abstract class BaseAccount extends Auditable {
   }
 
   /**
-   * Retrieves the {@link Role}'s name that is associated with the account.
+   * Retrieves the {@link Role}'s name associated with the account.
    *
    * @return Role name.
    */

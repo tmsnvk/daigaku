@@ -13,7 +13,7 @@ import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
- * Service interface that manages {@link PendingAccount} entity-related API calls towards the database.
+ * Service interface managing {@link PendingAccount} entity-related API calls towards the database.
  *
  * @since 0.0.1
  */
@@ -27,7 +27,7 @@ public interface PendingAccountService {
   void checkAccountDoesNotExistByEmail(String email);
 
   /**
-   * Creates an {@link PendingAccount}.
+   * Creates a {@link PendingAccount}.
    *
    * @param requestBody The pending account object containing the user's details.
    */

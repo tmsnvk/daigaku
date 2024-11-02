@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class that manages {@link PendingAccount} entity-related API operations, implementing {@link PendingAccountService}.
+ * Service class managing {@link PendingAccount} entity-related API operations, implementing {@link PendingAccountService}.
  *
  * @since 0.0.1
  */

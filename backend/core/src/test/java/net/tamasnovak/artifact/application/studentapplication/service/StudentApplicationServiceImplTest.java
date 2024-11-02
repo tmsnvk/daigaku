@@ -1,4 +1,4 @@
-package net.tamasnovak.artifact.application.studentApplication.service;
+package net.tamasnovak.artifact.application.studentapplication.service;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -15,9 +15,9 @@ import net.tamasnovak.artifact.application.application.service.ApplicationServic
 import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
-import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
-import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
@@ -136,9 +136,9 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("is_removable field is successfully updated.")
     void shouldSuccessfullyUpdateIsRemovableField() {
-      applicationRepository.updateIsRemovableFieldByUuid(applicationUuid);
+      applicationRepository.toggleIsRemovableByApplicationUuid(applicationUuid);
 
-      verify(applicationRepository, times(1)).updateIsRemovableFieldByUuid(applicationUuid);
+      verify(applicationRepository, times(1)).toggleIsRemovableByApplicationUuid(applicationUuid);
     }
 
     @Test
@@ -200,7 +200,7 @@ class StudentApplicationServiceImplTest {
       when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
         mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.fetchApplicationDataByUuid(applicationUuid)).thenReturn(expected);
+      when(applicationService.createApplicationDataByUuid(applicationUuid)).thenReturn(expected);
 
       ApplicationData actual = underTest.createApplication(mockAccount, requestBody);
 
@@ -210,7 +210,7 @@ class StudentApplicationServiceImplTest {
       verify(universityService, times(1)).findByUuid(UUID.fromString(requestBody.universityUuid()));
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
       verify(applicationStatusService, times(1)).findByName("Planned");
-      verify(applicationService, times(1)).fetchApplicationDataByUuid(applicationUuid);
+      verify(applicationService, times(1)).createApplicationDataByUuid(applicationUuid);
     }
 
     @Test
@@ -234,7 +234,7 @@ class StudentApplicationServiceImplTest {
       UpdateApplicationByStudent requestBody = mock(UpdateApplicationByStudent.class);
       Mentor mockMentor = mock(Mentor.class);
 
-      when(applicationService.findByUuid(applicationUuid)).thenReturn(mockApplication);
+      when(applicationService.retrieveApplicationByUuid(applicationUuid)).thenReturn(mockApplication);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
       ApplicationData expected = mock(ApplicationData.class);
@@ -242,14 +242,14 @@ class StudentApplicationServiceImplTest {
       when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
         mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.fetchApplicationDataByUuid(applicationUuid)).thenReturn(expected);
+      when(applicationService.createApplicationDataByUuid(applicationUuid)).thenReturn(expected);
 
       ApplicationData actual = underTest.updateApplicationAndFetchByUuid(applicationUuid, requestBody, mockAccount);
 
       assertEquals(expected, actual);
 
-      verify(applicationService, times(1)).findByUuid(applicationUuid);
-      verify(applicationService, times(1)).fetchApplicationDataByUuid(applicationUuid);
+      verify(applicationService, times(1)).retrieveApplicationByUuid(applicationUuid);
+      verify(applicationService, times(1)).createApplicationDataByUuid(applicationUuid);
     }
   }
 }

@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.application.shared.entity;
 
 import java.util.ArrayList;
@@ -26,9 +34,15 @@ import net.tamasnovak.artifact.applicationstages.offerStatus.entity.OfferStatus;
 import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.common.entity.audit.Auditable;
+import net.tamasnovak.artifact.common.utils.StringUtils;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.university.entity.University;
 
+/**
+ * Entity class that represents the applications database table.
+ *
+ * @since 0.0.1
+ */
 @Entity
 @Table(name = "applications")
 public final class Application extends Auditable {
@@ -49,13 +63,13 @@ public final class Application extends Auditable {
 
   @Column(name = "course_name", nullable = false)
   @NotBlank(message = "Provide the title of your course.")
-  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum of " +
-    "255 characters.")
+  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message =
+    "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message = "Use only letters and spaces. Provide a minimum of 5 and a maximum" +
-    " of 255 characters.")
+  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message =
+    "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
@@ -98,6 +112,8 @@ public final class Application extends Auditable {
   private List<Comment> comments;
 
   protected Application() {
+    // Not public as it should not be initialised blank.
+    // Cannot be private or package-private as it is an @Entity class.
   }
 
   private Application(
@@ -114,6 +130,18 @@ public final class Application extends Auditable {
     this.comments = new ArrayList<>();
   }
 
+  /**
+   * The default application creator method for student authorised users.
+   *
+   * @param student The student account.
+   * @param country The selected university's country.
+   * @param university The selected university.
+   * @param courseName The chosen course.
+   * @param minorSubject The chosen courses minor, if there is one.
+   * @param programmeLength The length of the programme.
+   * @param applicationStatus The default status of the 'Application Status' field.
+   * @return {@link Application}
+   */
   public static Application createApplicationByStudent(
     final Student student,
     final Country country,
@@ -125,20 +153,35 @@ public final class Application extends Auditable {
     return new Application(student, country, university, courseName, minorSubject, programmeLength, applicationStatus);
   }
 
-  public UUID getStudentAccountUuid() {
+  public String getCourseName() {
+    return this.courseName;
+  }
+
+  /**
+   * Retrieves the {@link Student} account's uuid that is associated with the application.
+   *
+   * @return The {@link Student} account's uuid.
+   */
+  public UUID retrieveStudentAccountUuid() {
     return this.student.retrieveStudentAccountUuid();
   }
 
+  /**
+   * Retrieves the application's {@link Country} name.
+   *
+   * @return The {@link Country} name.
+   */
   public String retrieveCountryName() {
     return this.country.getName();
   }
 
+  /**
+   * Retrieves the application's {@link University} name.
+   *
+   * @return The {@link University} name.
+   */
   public String retrieveUniversityName() {
     return this.university.getName();
-  }
-
-  public String getCourseName() {
-    return this.courseName;
   }
 
   public boolean isApplicationStatusNull() {
@@ -255,7 +298,7 @@ public final class Application extends Auditable {
     final FinalDestinationStatus currentFinalDestinationStatus,
     final ResponseStatus offerDeclined,
     final FinalDestinationStatus notFinalDestination) {
-    if (newResponseStatus != null && areValuesEqual(newResponseStatus.getName(), offerDeclined.getName())) {
+    if (newResponseStatus != null && StringUtils.areEqual(newResponseStatus.getName(), offerDeclined.getName())) {
       return notFinalDestination;
     }
 
@@ -268,10 +311,6 @@ public final class Application extends Auditable {
     }
 
     return newStatus;
-  }
-
-  private boolean areValuesEqual(final String string, final String stringToCheckAgainst) {
-    return Objects.equals(string, stringToCheckAgainst);
   }
 
   private boolean areValuesEqual(final UUID uuid, final UUID uuidToCheckAgainst) {

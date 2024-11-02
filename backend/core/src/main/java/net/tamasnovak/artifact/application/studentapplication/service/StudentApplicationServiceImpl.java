@@ -1,4 +1,12 @@
-package net.tamasnovak.artifact.application.studentApplication.service;
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
+package net.tamasnovak.artifact.application.studentapplication.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +24,9 @@ import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.shared.entity.Application;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
-import net.tamasnovak.artifact.application.studentApplication.dto.NewApplicationByStudent;
-import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
-import net.tamasnovak.artifact.application.studentApplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
@@ -54,6 +62,12 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service class managing {@link Student}-related {@link Application} entity-related API operations, implementing
+ * {@link StudentApplicationService}.
+ *
+ * @since 0.0.1
+ */
 @Service
 @Qualifier(value = "StudentApplicationService")
 public class StudentApplicationServiceImpl implements StudentApplicationService {
@@ -71,20 +85,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final QueueSender queueSender;
   private final ApplicationRepository applicationRepository;
   private final ExistingApplicationValidator existingApplicationValidator;
-  private final StudentApplicationServiceConstants serviceConstants;
-  private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
   public StudentApplicationServiceImpl(
-    AccountService accountService, StudentService studentService,
-    InstitutionService institutionService, CountryService countryService,
-    UniversityService universityService, ApplicationService applicationService,
-    ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService,
-    OfferStatusService offerStatusService, ResponseStatusService responseStatusService,
-    FinalDestinationStatusService finalDestinationStatusService, QueueSender queueSender,
-    ApplicationRepository applicationRepository,
-    ExistingApplicationValidator existingApplicationValidator,
-    StudentApplicationServiceConstants serviceConstants, GlobalServiceConstants globalServiceConstants) {
+    AccountService accountService, StudentService studentService, InstitutionService institutionService, CountryService countryService,
+    UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService,
+    InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService,
+    FinalDestinationStatusService finalDestinationStatusService, QueueSender queueSender, ApplicationRepository applicationRepository,
+    ExistingApplicationValidator existingApplicationValidator) {
     this.accountService = accountService;
     this.studentService = studentService;
     this.institutionService = institutionService;
@@ -99,8 +107,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.queueSender = queueSender;
     this.applicationRepository = applicationRepository;
     this.existingApplicationValidator = existingApplicationValidator;
-    this.serviceConstants = serviceConstants;
-    this.globalServiceConstants = globalServiceConstants;
   }
 
   @Override
@@ -118,25 +124,21 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional
   @Caching(evict = {
     @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #accountUuid }"),
-    @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #applicationUuid }") })
+    @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #applicationUuid }")
+  })
   public void toggleIsRemovableByApplicationUuid(final UUID applicationUuid, final UUID accountUuid) {
-    applicationRepository.updateIsRemovableFieldByUuid(applicationUuid);
+    applicationRepository.toggleIsRemovableByApplicationUuid(applicationUuid);
   }
 
   @Override
   @Transactional(readOnly = true)
   public StudentDashboardStatistics findStudentDashboardDataByAccount(final Account account) {
     final Student student = studentService.findStudentByAccount(account);
-    final String plannedApplicationName = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName())
-                                                                  .getName();
-    final String submittedApplicationName = applicationStatusService.findByName(ApplicationStatusType.SUBMITTED.getName())
-                                                                    .getName();
-    final String withdrawnApplicationName = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName())
-                                                                    .getName();
+    final String plannedApplicationName = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName()).getName();
+    final String submittedApplicationName = applicationStatusService.findByName(ApplicationStatusType.SUBMITTED.getName()).getName();
+    final String withdrawnApplicationName = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName()).getName();
 
-    return new StudentDashboardStatistics(
-      student.createFirmChoiceTileDto(),
-      student.createFinalDestinationTileDto(),
+    return new StudentDashboardStatistics(student.createFirmChoiceTileDto(), student.createFinalDestinationTileDto(),
       student.retrieveApplicationNumber(),
       student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), plannedApplicationName)),
       student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), submittedApplicationName)),
@@ -144,70 +146,51 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       student.countDistinctApplicationsByValue(Application::retrieveCountryName),
       student.countDistinctApplicationsByValue(Application::retrieveUniversityName),
       student.countApplicationsMatchingPredicate(Application::isInterviewStatusNull),
-      student.countApplicationsMatchingPredicate(element -> !element.isOfferStatusNull())
-    );
+      student.countApplicationsMatchingPredicate(element -> !element.isOfferStatusNull()));
   }
 
   @Override
   @Transactional
   @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
-  public ApplicationData createApplication(
-    final Account account,
-    final NewApplicationByStudent requestBody) {
+  public ApplicationData createApplication(final Account account, final NewApplicationByStudent requestBody) {
     final Country country = countryService.findByUuid(UUID.fromString(requestBody.countryUuid()));
     final University university = universityService.findByUuid(UUID.fromString(requestBody.universityUuid()));
-    country.verifyUniversityCountryMatch(university, serviceConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
+    country.verifyUniversityCountryMatch(university, StudentApplicationServiceConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     final Student student = studentService.findStudentByAccount(account);
     final ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("Planned");
-    final Application newApplication = Application.createApplicationByStudent(
-      student,
-      country,
-      university,
-      requestBody.courseName(),
-      requestBody.minorSubject(),
-      requestBody.programmeLength(),
-      plannedApplicationStatus
-    );
+    final Application newApplication = Application.createApplicationByStudent(student, country, university, requestBody.courseName(),
+      requestBody.minorSubject(), requestBody.programmeLength(), plannedApplicationStatus);
     final Application savedApplication = applicationRepository.save(newApplication);
 
-    return applicationService.fetchApplicationDataByUuid(savedApplication.getUuid());
+    return applicationService.createApplicationDataByUuid(savedApplication.getUuid());
   }
 
   @Override
   @Transactional
   @Caching(evict = {
     @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }"),
-    @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }") })
+    @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
+  })
   public ApplicationData updateApplicationAndFetchByUuid(
     final UUID uuid, final UpdateApplicationByStudent requestBody,
     final Account account) {
-    final Application currentApplication = applicationService.findByUuid(uuid);
+    final Application currentApplication = applicationService.retrieveApplicationByUuid(uuid);
     final Student currentStudent = studentService.findStudentByAccount(account);
-    final UUID studentUuidByApplication = currentApplication.getStudentAccountUuid();
+    final UUID studentUuidByApplication = currentApplication.retrieveStudentAccountUuid();
 
-    account.verifyAccountUuidMatch(studentUuidByApplication, globalServiceConstants.NO_PERMISSION);
+    account.verifyAccountUuidMatch(studentUuidByApplication, GlobalServiceConstants.NO_PERMISSION);
 
-    final ApplicationStatus newApplicationStatus = getStatusOnUpdate(
-      requestBody.applicationStatusUuid(),
-      currentApplication::returnApplicationStatusIfSame,
-      applicationStatusService::findByUuid);
-    final InterviewStatus newInterviewStatus = getStatusOnUpdate(
-      requestBody.interviewStatusUuid(),
-      currentApplication::returnInterviewStatusIfSame,
-      interviewStatusService::findByUuid);
-    final OfferStatus newOfferStatus = getStatusOnUpdate(
-      requestBody.offerStatusUuid(),
-      currentApplication::returnOfferStatusIfSame,
+    final ApplicationStatus newApplicationStatus = getStatusOnUpdate(requestBody.applicationStatusUuid(),
+      currentApplication::returnApplicationStatusIfSame, applicationStatusService::findByUuid);
+    final InterviewStatus newInterviewStatus = getStatusOnUpdate(requestBody.interviewStatusUuid(),
+      currentApplication::returnInterviewStatusIfSame, interviewStatusService::findByUuid);
+    final OfferStatus newOfferStatus = getStatusOnUpdate(requestBody.offerStatusUuid(), currentApplication::returnOfferStatusIfSame,
       offerStatusService::findByUuid);
-    final ResponseStatus newResponseStatus = getStatusOnUpdate(
-      requestBody.responseStatusUuid(),
-      currentApplication::returnResponseStatusIfSame,
-      responseStatusService::findByUuid);
-    final FinalDestinationStatus newFinalDestinationStatus = getStatusOnUpdate(
-      requestBody.finalDestinationStatusUuid(),
-      currentApplication::returnFinalDestinationStatusIfSame,
-      finalDestinationStatusService::findByUuid);
+    final ResponseStatus newResponseStatus = getStatusOnUpdate(requestBody.responseStatusUuid(),
+      currentApplication::returnResponseStatusIfSame, responseStatusService::findByUuid);
+    final FinalDestinationStatus newFinalDestinationStatus = getStatusOnUpdate(requestBody.finalDestinationStatusUuid(),
+      currentApplication::returnFinalDestinationStatusIfSame, finalDestinationStatusService::findByUuid);
 
     existingApplicationValidator.validateStatusFields(requestBody, currentApplication, currentStudent, newApplicationStatus,
       newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
@@ -220,12 +203,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(currentApplication);
 
-    return applicationService.fetchApplicationDataByUuid(currentApplication.getUuid());
+    return applicationService.createApplicationDataByUuid(currentApplication.getUuid());
   }
 
   private <T extends BaseStatusEntity> T getStatusOnUpdate(
-    final String bodyStatusId,
-    final Function<UUID, T> checkIfStatusIsSameFn,
+    final String bodyStatusId, final Function<UUID, T> checkIfStatusIsSameFn,
     final Function<UUID, T> getByUuidFn) {
     final T statusField = checkIfStatusIsSameFn.apply(UUID.fromString(bodyStatusId));
 
@@ -246,7 +228,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
   @Override
   @Transactional
-  public void handleDownloadRequest(final UUID accountUuid) {
+  public void initiateApplicationPdfDownloadRequest(final UUID accountUuid) {
     final Account studentAccount = accountService.findAccountByUuid(accountUuid);
     final Institution studentInstitution = institutionService.findById(studentAccount.retrieveInstitutionId());
     final List<ApplicationData> applicationData = this.findApplicationDataByAccountUuid(accountUuid);
@@ -258,8 +240,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   }
 
   private StudentPdfRequestDataQueueDto compileStudentPdfSaveData(
-    final UUID authAccountUuid,
-    final Account studentAccount,
+    final UUID authAccountUuid, final Account studentAccount,
     final Institution studentInstitution,
     final List<ApplicationData> applications) {
     final StudentAccountDto accountDto = new StudentAccountDto(studentAccount.getFullName(), studentAccount.getEmail(),
@@ -267,18 +248,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final List<StudentApplicationDto> applicationDtos = new ArrayList<>();
 
     for (ApplicationData application : applications) {
-      final StudentApplicationDto applicationQueueDto = new StudentApplicationDto(
-        application.createdAt(),
-        application.lastUpdatedAt(),
-        application.courseName(),
-        application.university(),
-        application.country(),
-        application.applicationStatus(),
-        application.interviewStatus(),
-        application.offerStatus(),
-        application.responseStatus(),
-        application.finalDestinationStatus()
-      );
+      final StudentApplicationDto applicationQueueDto = new StudentApplicationDto(application.createdAt(), application.lastUpdatedAt(),
+        application.courseName(), application.university(), application.country(), application.applicationStatus(),
+        application.interviewStatus(), application.offerStatus(), application.responseStatus(), application.finalDestinationStatus());
 
       applicationDtos.add(applicationQueueDto);
     }

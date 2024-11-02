@@ -32,8 +32,9 @@ public class CommentServiceImpl implements CommentService {
   private final GlobalServiceConstants globalConstants;
 
   @Autowired
-  public CommentServiceImpl(AuthenticationFacade authenticationFacade, CommentRepository commentRepository,
-                            ApplicationService applicationService, GlobalServiceConstants globalConstants) {
+  public CommentServiceImpl(
+    AuthenticationFacade authenticationFacade, CommentRepository commentRepository,
+    ApplicationService applicationService, GlobalServiceConstants globalConstants) {
     this.authenticationFacade = authenticationFacade;
     this.commentRepository = commentRepository;
     this.applicationService = applicationService;
@@ -68,7 +69,7 @@ public class CommentServiceImpl implements CommentService {
   @Transactional
   public void createByApplicationUuid(final UUID uuid, final NewComment requestBody) {
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
-    final Application relatedApplication = applicationService.findByUuid(uuid);
+    final Application relatedApplication = applicationService.retrieveApplicationByUuid(uuid);
 
     final Comment newComment = Comment.createComment(
       relatedApplication,

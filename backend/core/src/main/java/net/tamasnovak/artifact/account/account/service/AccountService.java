@@ -19,7 +19,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 
 /**
- * Service interface that manages {@link Account} entity-related API calls towards the database.
+ * Service interface managing {@link Account} entity-related API calls towards the database.
  *
  * @since 0.0.1
  */
@@ -29,7 +29,7 @@ public interface AccountService {
    *
    * @param email The account's email.
    * @return {@link Account}
-   * @throws EntityNotFoundException If no account is found with the given email.
+   * @throws EntityNotFoundException If no account is found with the provided email.
    */
   Account findAccountByEmail(String email);
 
@@ -38,13 +38,13 @@ public interface AccountService {
    *
    * @param uuid The account's uuid.
    * @return {@link Account}
-   * @throws EntityNotFoundException If no account is found with the given uuid.
+   * @throws EntityNotFoundException If no account is found with the provided uuid.
    */
   Account findAccountByUuid(UUID uuid);
 
   /**
    * Retrieves the {@link AuthContextResponse} object associated with the provided email.
-   * The object contains authentication details for the logged-in user.
+   * The object contains authentication details for the user.
    *
    * @param email The email of the account whose authentication context is to be retrieved.
    * @return {@link AuthContextResponse}
@@ -52,7 +52,7 @@ public interface AccountService {
   AuthContextResponse retrieveAuthContextResponseByAccountEmail(String email);
 
   /**
-   * Creates an {@link LoginResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
+   * Creates a {@link LoginResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
    *
    * @param requestBody The login request object containing user credentials.
    * @param authentication The authentication details of the user provided by the Spring Framework.

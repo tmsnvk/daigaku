@@ -43,7 +43,7 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
   }
 
   @Override
-  public UUID getAuthenticatedAccountUuid() {
+  public UUID retrieveAuthAccountUuid() {
     return getAuthenticatedAccount().getUuid();
   }
 }

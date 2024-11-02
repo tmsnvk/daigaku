@@ -77,9 +77,9 @@ public final class Student extends BaseAccountType {
   }
 
   /**
-   * Retrieves the {@link Account}'s id that is connected to the given {@link Student} entity.
+   * Retrieves the {@link Account}'s id connected to the given {@link Student} entity.
    *
-   * @return The {@link Account} id that is connected with the given {@link Student} entity.
+   * @return The {@link Account} id connected with the given {@link Student} entity.
    */
   public UUID retrieveStudentAccountUuid() {
     return this.account.getUuid();
@@ -193,7 +193,7 @@ public final class Student extends BaseAccountType {
   /**
    * Counts the number of {@link Application} objects that match the specified predicate.
    *
-   * @param predicate A condition that each application object must satisfy to be counted.
+   * @param predicate A condition each application object must satisfy to be counted.
    * @return The number of {@link Application} objects that match the predicate.
    */
   public int countApplicationsMatchingPredicate(final Predicate<? super Application> predicate) {

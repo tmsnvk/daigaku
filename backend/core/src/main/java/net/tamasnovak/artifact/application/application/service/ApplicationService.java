@@ -1,12 +1,40 @@
-package net.tamasnovak.artifact.application.application.service;
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
 
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+package net.tamasnovak.artifact.application.application.service;
 
 import java.util.UUID;
 
-public interface ApplicationService {
-  Application findByUuid(UUID uuid);
+import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
+import net.tamasnovak.artifact.application.shared.entity.Application;
 
-  ApplicationData fetchApplicationDataByUuid(UUID uuid);
+/**
+ * Service interface managing {@link Application} entity-related API calls towards the database.
+ *
+ * @since 0.0.1
+ */
+public interface ApplicationService {
+  /**
+   * Retrieves an {@link Application} entity by its uuid.
+   *
+   * @param uuid The uuid of the {@link Application} to retrieve.
+   * @return {@link Application}
+   * @throws EntityNotFoundException If no application is found with the provided uuid.
+   */
+  Application retrieveApplicationByUuid(UUID uuid);
+
+  /**
+   * Retrieves an {@link ApplicationData} entity by its uuid.
+   *
+   * @param uuid The uuid of the application.
+   * @return {@link ApplicationData}
+   * @throws EntityNotFoundException If no application is found with the provided uuid.
+   */
+  ApplicationData createApplicationDataByUuid(UUID uuid);
 }

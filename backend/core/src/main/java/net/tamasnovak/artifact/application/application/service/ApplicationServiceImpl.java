@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.application.application.service;
 
 import java.util.Objects;
@@ -18,51 +26,62 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service class managing {@link Application} entity-related API operations, implementing {@link ApplicationService}.
+ *
+ * @since 0.0.1
+ */
 @Service
 @Qualifier(value = "ApplicationService")
 public class ApplicationServiceImpl implements ApplicationService {
   private final AuthenticationFacade authenticationFacade;
   private final ApplicationRepository applicationRepository;
-  private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
   public ApplicationServiceImpl(
-    AuthenticationFacade authenticationFacade, ApplicationRepository applicationRepository, GlobalServiceConstants globalServiceConstants) {
+    AuthenticationFacade authenticationFacade, ApplicationRepository applicationRepository) {
     this.authenticationFacade = authenticationFacade;
     this.applicationRepository = applicationRepository;
-    this.globalServiceConstants = globalServiceConstants;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public Application findByUuid(final UUID uuid) {
+  public Application retrieveApplicationByUuid(final UUID uuid) {
     return applicationRepository.findByUuid(uuid)
-                                .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                .orElseThrow(() -> new EntityNotFoundException(GlobalServiceConstants.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
-  public ApplicationData fetchApplicationDataByUuid(final UUID uuid) {
+  public ApplicationData createApplicationDataByUuid(final UUID uuid) {
+    verifyUserAccessToViewApplication(uuid);
+
     final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(uuid)
                                                                  .orElseThrow(() -> new EntityNotFoundException(
-                                                                   globalServiceConstants.NO_RECORD_FOUND));
-
-    verifyUserAccessToViewApplication(uuid);
+                                                                   GlobalServiceConstants.NO_RECORD_FOUND));
 
     return new ApplicationData(applicationView);
   }
 
+  /**
+   * Verifies that the authenticated user has permission to view an application. The method checks the authenticated user's role and
+   * ensures they have the correct association with the specified {@link Application} to access it.
+   * If the user is a student, they must match the application's owner uuid.
+   * If the user is a mentor, they must match the application's assigned mentor uuid.
+   *
+   * @param uuid The uuid of the application the user is attempting to access.
+   */
   private void verifyUserAccessToViewApplication(final UUID uuid) {
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
     final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(uuid);
 
     if (Objects.equals(authAccount.retrieveRoleName(), "ROLE_STUDENT")) {
-      authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), globalServiceConstants.NO_PERMISSION);
+      authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), GlobalServiceConstants.NO_PERMISSION);
     }
 
     if (Objects.equals(authAccount.retrieveRoleName(), "ROLE_MENTOR")) {
-      authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), globalServiceConstants.NO_PERMISSION);
+      authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), GlobalServiceConstants.NO_PERMISSION);
     }
   }
 }

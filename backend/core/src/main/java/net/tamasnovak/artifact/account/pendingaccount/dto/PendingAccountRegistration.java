@@ -13,10 +13,11 @@ import java.util.UUID;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
 
 /**
- * Represents the registration details for a new pending_account entity.
+ * Represents the registration details for a new {@link PendingAccount} entity.
  *
  * @since 0.0.1
  */

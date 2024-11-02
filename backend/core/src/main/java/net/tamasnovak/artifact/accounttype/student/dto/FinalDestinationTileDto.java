@@ -8,7 +8,7 @@
 
 package net.tamasnovak.artifact.accounttype.student.dto;
 
-import net.tamasnovak.artifact.application.studentApplication.dto.StudentDashboardStatistics;
+import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
 
 /**
  * Represents a final destination object that is part of the {@link StudentDashboardStatistics} object.

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class that manages {@link Student} entity-related API operations, implementing {@link StudentService}.
+ * Service class managing {@link Student} entity-related API operations, implementing {@link StudentService}.
  *
  * @since 0.0.1
  */
