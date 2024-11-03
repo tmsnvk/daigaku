@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
  * @since 0.0.1
  */
 @Component
-public final class GlobalServiceConstants {
+public final class GlobalServiceMessages {
   public static final String NO_RECORD_FOUND = "A requested record was not found in the database. Refresh your browser or try again later.";
   public static final String NO_PERMISSION = "You have no permission to view this record.";
 
-  private GlobalServiceConstants() {
+  private GlobalServiceMessages() {
     // Class should not be initialised.
   }
 }

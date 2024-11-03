@@ -7,7 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.persistence.FinalDestinationStatusRepository;
 import net.tamasnovak.artifact.applicationstages.shared.dto.StatusDropdownOption;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,13 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Qualifier(value = "FinalDestinationStatusService")
 public class FinalDestinationServiceImpl implements FinalDestinationStatusService {
   private final FinalDestinationStatusRepository finalDestinationStatusRepository;
-  private final GlobalServiceConstants globalServiceConstants;
+  private final GlobalServiceMessages globalServiceMessages;
 
   @Autowired
-  public FinalDestinationServiceImpl(FinalDestinationStatusRepository finalDestinationStatusRepository,
-                                     GlobalServiceConstants globalServiceConstants) {
+  public FinalDestinationServiceImpl(
+    FinalDestinationStatusRepository finalDestinationStatusRepository,
+    GlobalServiceMessages globalServiceMessages) {
     this.finalDestinationStatusRepository = finalDestinationStatusRepository;
-    this.globalServiceConstants = globalServiceConstants;
+    this.globalServiceMessages = globalServiceMessages;
   }
 
   @Override
@@ -32,7 +33,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
   @Cacheable(value = "FinalDestinationStatusByUuid", key = "{ #uuid }")
   public FinalDestinationStatus findByUuid(final UUID uuid) {
     return finalDestinationStatusRepository.findByUuid(uuid)
-                                           .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                           .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
@@ -40,7 +41,7 @@ public class FinalDestinationServiceImpl implements FinalDestinationStatusServic
   @Cacheable(value = "FinalDestinationStatusByName", key = "{ #statusName }")
   public FinalDestinationStatus findByName(final String statusName) {
     return finalDestinationStatusRepository.findByName(statusName)
-                                           .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                           .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override

@@ -21,13 +21,13 @@ import net.tamasnovak.artifact.application.shared.entity.Application;
  */
 public interface ApplicationService {
   /**
-   * Retrieves an {@link Application} entity by its uuid.
+   * Finds an {@link Application} entity by its uuid.
    *
    * @param uuid The uuid of the {@link Application} to retrieve.
    * @return {@link Application}
    * @throws EntityNotFoundException If no application is found with the provided uuid.
    */
-  Application retrieveApplicationByUuid(UUID uuid);
+  Application findApplicationByUuid(UUID uuid);
 
   /**
    * Retrieves an {@link ApplicationData} entity by its uuid.

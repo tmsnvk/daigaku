@@ -53,12 +53,12 @@ public class StudentApplicationController {
   }
 
   /**
-   * Retrieves all {@link ApplicationData} objects associated with the authenticated user.
+   * Fetches all {@link ApplicationData} objects associated with the authenticated user.
    *
    * @return A ResponseEntity containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<ApplicationData>> retrieveAllApplicationsByAccount() {
+  public ResponseEntity<List<ApplicationData>> fetchAllApplicationsByAccount() {
     final UUID authAccountUuid = authenticationFacade.retrieveAuthAccountUuid();
     final List<ApplicationData> response = studentApplicationService.findApplicationDataByAccountUuid(authAccountUuid);
 
@@ -117,12 +117,12 @@ public class StudentApplicationController {
   }
 
   /**
-   * Retrieves the authenticated student account's {@link StudentDashboardStatistics} object.
+   * Fetches the authenticated student account's {@link StudentDashboardStatistics} object.
    *
    * @return {@link StudentDashboardStatistics}
    */
   @GetMapping(value = "/dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<StudentDashboardStatistics> retrieveStudentDashboardData() {
+  public ResponseEntity<StudentDashboardStatistics> fetchStudentDashboardData() {
     final Account account = authenticationFacade.getAuthenticatedAccount();
     final StudentDashboardStatistics response = studentApplicationService.findStudentDashboardDataByAccount(account);
 

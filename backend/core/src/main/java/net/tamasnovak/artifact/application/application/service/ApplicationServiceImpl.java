@@ -18,7 +18,7 @@ import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.shared.entity.Application;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,20 +46,20 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public Application retrieveApplicationByUuid(final UUID uuid) {
-    return applicationRepository.findByUuid(uuid)
-                                .orElseThrow(() -> new EntityNotFoundException(GlobalServiceConstants.NO_RECORD_FOUND));
+  public Application findApplicationByUuid(final UUID uuid) {
+    return applicationRepository.findApplicationByUuid(uuid)
+                                .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
   public ApplicationData createApplicationDataByUuid(final UUID uuid) {
-    verifyUserAccessToViewApplication(uuid);
+    validateUserAccessToViewApplication(uuid);
 
     final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(uuid)
                                                                  .orElseThrow(() -> new EntityNotFoundException(
-                                                                   GlobalServiceConstants.NO_RECORD_FOUND));
+                                                                   GlobalServiceMessages.NO_RECORD_FOUND));
 
     return new ApplicationData(applicationView);
   }
@@ -72,16 +72,16 @@ public class ApplicationServiceImpl implements ApplicationService {
    *
    * @param uuid The uuid of the application the user is attempting to access.
    */
-  private void verifyUserAccessToViewApplication(final UUID uuid) {
+  private void validateUserAccessToViewApplication(final UUID uuid) {
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
     final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(uuid);
 
-    if (Objects.equals(authAccount.retrieveRoleName(), "ROLE_STUDENT")) {
-      authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), GlobalServiceConstants.NO_PERMISSION);
+    if (Objects.equals(authAccount.fetchRoleName(), "ROLE_STUDENT")) {
+      authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), GlobalServiceMessages.NO_PERMISSION);
     }
 
-    if (Objects.equals(authAccount.retrieveRoleName(), "ROLE_MENTOR")) {
-      authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), GlobalServiceConstants.NO_PERMISSION);
+    if (Objects.equals(authAccount.fetchRoleName(), "ROLE_MENTOR")) {
+      authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), GlobalServiceMessages.NO_PERMISSION);
     }
   }
 }

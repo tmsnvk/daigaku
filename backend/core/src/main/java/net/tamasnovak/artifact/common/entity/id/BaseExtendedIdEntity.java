@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.common.entity.id;
 
 import java.io.Serial;
@@ -11,6 +19,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import org.hibernate.annotations.UuidGenerator;
 
+/**
+ * Abstract base class for all entities that utilise an extended identification mechanism.
+ *
+ * @since 0.0.1
+ */
 @MappedSuperclass
 public abstract class BaseExtendedIdEntity implements Serializable {
   @Serial

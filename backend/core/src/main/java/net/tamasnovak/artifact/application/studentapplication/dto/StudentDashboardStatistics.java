@@ -18,14 +18,23 @@ import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDto;
  */
 public record StudentDashboardStatistics(
   FirmChoiceTileDto firmChoiceTileDto,
+
   FinalDestinationTileDto finalDestinationTileDto,
+
   int applicationsCount,
+
   int plannedApplicationsCount,
+
   int submittedApplicationsCount,
+
   int withdrawnStatusCount,
+
   int distinctCountriesCount,
+
   int distinctUniversitiesCount,
+
   int notSetInterviewStatusCount,
+
   int offersCount
 ) {
 }

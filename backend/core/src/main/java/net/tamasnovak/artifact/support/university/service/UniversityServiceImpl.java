@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.university.dto.UniversityDropdownOption;
@@ -21,14 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class UniversityServiceImpl implements UniversityService {
   private final CountryService countryService;
   private final UniversityRepository universityRepository;
-  private final GlobalServiceConstants globalServiceConstants;
+  private final GlobalServiceMessages globalServiceMessages;
 
   @Autowired
-  public UniversityServiceImpl(CountryService countryService, UniversityRepository universityRepository,
-                               GlobalServiceConstants globalServiceConstants) {
+  public UniversityServiceImpl(
+    CountryService countryService, UniversityRepository universityRepository,
+    GlobalServiceMessages globalServiceMessages) {
     this.countryService = countryService;
     this.universityRepository = universityRepository;
-    this.globalServiceConstants = globalServiceConstants;
+    this.globalServiceMessages = globalServiceMessages;
   }
 
   @Override
@@ -36,7 +37,7 @@ public class UniversityServiceImpl implements UniversityService {
   @Cacheable(value = "UniversityByUuid", key = "{ #uuid }")
   public University findByUuid(final UUID uuid) {
     return universityRepository.findByUuid(uuid)
-                               .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                               .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override

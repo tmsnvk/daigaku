@@ -7,7 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstages.offerStatus.entity.OfferStatus;
 import net.tamasnovak.artifact.applicationstages.offerStatus.persistence.OfferStatusRepository;
 import net.tamasnovak.artifact.applicationstages.shared.dto.StatusDropdownOption;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,10 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Qualifier(value = "OfferStatusService")
 public class OfferStatusServiceImpl implements OfferStatusService {
   private final OfferStatusRepository offerStatusRepository;
-  private final GlobalServiceConstants globalConstants;
+  private final GlobalServiceMessages globalConstants;
 
   @Autowired
-  public OfferStatusServiceImpl(OfferStatusRepository offerStatusRepository, GlobalServiceConstants globalConstants) {
+  public OfferStatusServiceImpl(OfferStatusRepository offerStatusRepository, GlobalServiceMessages globalConstants) {
     this.offerStatusRepository = offerStatusRepository;
     this.globalConstants = globalConstants;
   }

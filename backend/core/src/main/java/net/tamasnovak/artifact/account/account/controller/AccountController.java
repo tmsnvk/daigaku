@@ -35,12 +35,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/v1/accounts")
 public class AccountController {
-  private final AuthenticationFacade authenticationFacade;
+  private final AuthenticationFacade authFacade;
   private final AccountService accountService;
 
   @Autowired
-  public AccountController(AuthenticationFacade authenticationFacade, AccountService accountService) {
-    this.authenticationFacade = authenticationFacade;
+  public AccountController(AuthenticationFacade authFacade, AccountService accountService) {
+    this.authFacade = authFacade;
     this.accountService = accountService;
   }
 
@@ -52,9 +52,9 @@ public class AccountController {
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
-  public ResponseEntity<AuthContextResponse> retrieveAuthContextResponse() {
-    final User userDetails = authenticationFacade.getUserContext();
-    final AuthContextResponse response = accountService.retrieveAuthContextResponseByAccountEmail(userDetails.getUsername());
+  public ResponseEntity<AuthContextResponse> fetchAuthContextResponse() {
+    final User userDetails = authFacade.getUserContext();
+    final AuthContextResponse response = accountService.fetchAuthContextResponseByAccountEmail(userDetails.getUsername());
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);
@@ -69,8 +69,8 @@ public class AccountController {
    */
   @PostMapping(value = "/log-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<LoginResponse> logInUser(@Valid @RequestBody final LoginRequest requestBody) {
-    final Authentication authentication = authenticationFacade.authenticateUser(requestBody.email(), requestBody.password());
-    final LoginResponse response = accountService.retrieveLoginResponse(requestBody, authentication);
+    final Authentication authentication = authFacade.authenticateUser(requestBody.email(), requestBody.password());
+    final LoginResponse response = accountService.fetchLoginResponse(requestBody, authentication);
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

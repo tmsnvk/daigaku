@@ -18,11 +18,11 @@ import org.springframework.stereotype.Component;
  * @since 0.0.1
  */
 @Component
-public final class StudentApplicationServiceConstants {
+public final class StudentApplicationServiceMessages {
   static final String UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY =
     "Invalid country/university match is found. Resubmit your application with valid values.";
 
-  private StudentApplicationServiceConstants() {
+  private StudentApplicationServiceMessages() {
     // Class should not be initialised.
   }
 }

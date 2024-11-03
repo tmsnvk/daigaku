@@ -49,7 +49,7 @@ public interface AccountService {
    * @param email The email of the account whose authentication context is to be retrieved.
    * @return {@link AuthContextResponse}
    */
-  AuthContextResponse retrieveAuthContextResponseByAccountEmail(String email);
+  AuthContextResponse fetchAuthContextResponseByAccountEmail(String email);
 
   /**
    * Creates a {@link LoginResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
@@ -58,7 +58,7 @@ public interface AccountService {
    * @param authentication The authentication details of the user provided by the Spring Framework.
    * @return {@link LoginResponse}
    */
-  LoginResponse retrieveLoginResponse(LoginRequest requestBody, Authentication authentication);
+  LoginResponse fetchLoginResponse(LoginRequest requestBody, Authentication authentication);
 
   /**
    * Checks that no {@link Account} exists with the provided email.
@@ -66,5 +66,5 @@ public interface AccountService {
    * @param email The email to check for an existing account.
    * @throws DataIntegrityViolationException If an account with the given email already exists.
    */
-  void checkAccountDoesNotExistByEmail(String email);
+  void validateAccountDoesNotExistByEmail(String email);
 }

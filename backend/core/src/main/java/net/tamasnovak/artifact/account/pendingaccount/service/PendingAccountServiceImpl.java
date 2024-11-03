@@ -9,7 +9,7 @@
 package net.tamasnovak.artifact.account.pendingaccount.service;
 
 import net.tamasnovak.artifact.account.account.service.AccountService;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistration;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegisterRequest;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.role.entity.Role;
@@ -41,8 +41,8 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Autowired
   public PendingAccountServiceImpl(
-    AccountService accountService, InstitutionService institutionService, RoleService roleService, QueueSender queueSender,
-    PendingAccountRepository pendingAccountRepository) {
+    AccountService accountService, InstitutionService institutionService, RoleService roleService,
+    QueueSender queueSender, PendingAccountRepository pendingAccountRepository) {
     this.accountService = accountService;
     this.institutionService = institutionService;
     this.roleService = roleService;
@@ -52,20 +52,20 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void checkAccountDoesNotExistByEmail(final String email) {
-    final boolean isPendingAccountExists = pendingAccountRepository.existsByEmail(email);
+  public void validateAccountDoesNotExistByEmail(final String email) {
+    final boolean isPendingAccountExists = pendingAccountRepository.existsPendingAccountByEmail(email);
 
     if (isPendingAccountExists) {
-      throw new DataIntegrityViolationException(PendingAccountServiceConstants.EMAIL_ALREADY_EXISTS);
+      throw new DataIntegrityViolationException(PendingAccountServiceMessages.EMAIL_ALREADY_EXISTS);
     }
   }
 
   @Override
   @Transactional
-  public void createPendingAccount(final PendingAccountRegistration requestBody) {
+  public void createPendingAccount(final PendingAccountRegisterRequest requestBody) {
     // Check if account with provided email already exists.
-    accountService.checkAccountDoesNotExistByEmail(requestBody.email());
-    this.checkAccountDoesNotExistByEmail(requestBody.email());
+    accountService.validateAccountDoesNotExistByEmail(requestBody.email());
+    this.validateAccountDoesNotExistByEmail(requestBody.email());
 
     // Find the selected institution and role objects.
     final Institution selectedInstitution = institutionService.findByUuid(requestBody.getInstituionUuid());

@@ -9,7 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
 import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.persistence.FinalDestinationStatusRepository;
 import net.tamasnovak.artifact.applicationstages.shared.dto.StatusDropdownOption;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class FinalDestinationTileDtoServiceImplTest {
   FinalDestinationStatusRepository finalDestinationStatusRepository;
 
   @Mock
-  GlobalServiceConstants globalServiceConstants;
+  GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   FinalDestinationServiceImpl underTest;

@@ -38,7 +38,7 @@ import net.tamasnovak.artifact.applicationstages.offerStatus.service.OfferStatus
 import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.applicationstages.responseStatus.service.ResponseStatusService;
 import net.tamasnovak.artifact.applicationstages.shared.entity.BaseStatusEntity;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
@@ -139,12 +139,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final String withdrawnApplicationName = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName()).getName();
 
     return new StudentDashboardStatistics(student.createFirmChoiceTileDto(), student.createFinalDestinationTileDto(),
-      student.retrieveApplicationNumber(),
+      student.fetchApplicationNumber(),
       student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), plannedApplicationName)),
       student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), submittedApplicationName)),
       student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), withdrawnApplicationName)),
-      student.countDistinctApplicationsByValue(Application::retrieveCountryName),
-      student.countDistinctApplicationsByValue(Application::retrieveUniversityName),
+      student.countDistinctApplicationsByValue(Application::fetchCountryName),
+      student.countDistinctApplicationsByValue(Application::fetchUniversityName),
       student.countApplicationsMatchingPredicate(Application::isInterviewStatusNull),
       student.countApplicationsMatchingPredicate(element -> !element.isOfferStatusNull()));
   }
@@ -155,7 +155,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   public ApplicationData createApplication(final Account account, final NewApplicationByStudent requestBody) {
     final Country country = countryService.findByUuid(UUID.fromString(requestBody.countryUuid()));
     final University university = universityService.findByUuid(UUID.fromString(requestBody.universityUuid()));
-    country.verifyUniversityCountryMatch(university, StudentApplicationServiceConstants.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
+    country.verifyUniversityCountryMatch(university, StudentApplicationServiceMessages.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     final Student student = studentService.findStudentByAccount(account);
     final ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("Planned");
@@ -175,11 +175,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   public ApplicationData updateApplicationAndFetchByUuid(
     final UUID uuid, final UpdateApplicationByStudent requestBody,
     final Account account) {
-    final Application currentApplication = applicationService.retrieveApplicationByUuid(uuid);
+    final Application currentApplication = applicationService.findApplicationByUuid(uuid);
     final Student currentStudent = studentService.findStudentByAccount(account);
-    final UUID studentUuidByApplication = currentApplication.retrieveStudentAccountUuid();
+    final UUID studentUuidByApplication = currentApplication.fetchStudentAccountUuid();
 
-    account.verifyAccountUuidMatch(studentUuidByApplication, GlobalServiceConstants.NO_PERMISSION);
+    account.verifyAccountUuidMatch(studentUuidByApplication, GlobalServiceMessages.NO_PERMISSION);
 
     final ApplicationStatus newApplicationStatus = getStatusOnUpdate(requestBody.applicationStatusUuid(),
       currentApplication::returnApplicationStatusIfSame, applicationStatusService::findByUuid);
@@ -230,7 +230,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional
   public void initiateApplicationPdfDownloadRequest(final UUID accountUuid) {
     final Account studentAccount = accountService.findAccountByUuid(accountUuid);
-    final Institution studentInstitution = institutionService.findById(studentAccount.retrieveInstitutionId());
+    final Institution studentInstitution = institutionService.findById(studentAccount.fetchInstitutionId());
     final List<ApplicationData> applicationData = this.findApplicationDataByAccountUuid(accountUuid);
 
     final StudentPdfRequestDataQueueDto compiledData = compileStudentPdfSaveData(accountUuid, studentAccount, studentInstitution,

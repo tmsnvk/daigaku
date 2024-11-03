@@ -27,7 +27,7 @@ import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicat
  */
 public interface StudentApplicationService {
   /**
-   * Retrieves a list of {@link ApplicationData} objects for a {@link Student} based on the provided account uuid.
+   * Finds a list of {@link ApplicationData} objects for a {@link Student} based on the provided account uuid.
    *
    * @param accountUuid The uuid of the student's account.
    * @return A list of {@link ApplicationData}.
@@ -43,7 +43,7 @@ public interface StudentApplicationService {
   void toggleIsRemovableByApplicationUuid(UUID applicationUuid, UUID accountUuid);
 
   /**
-   * Retrieves dashboard statistics data for a {@link Student} user.
+   * Finds dashboard statistics data for a {@link Student} user.
    *
    * @param account The student's account.
    * @return {@link StudentDashboardStatistics}

@@ -7,7 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.applicationstages.responseStatus.persistence.ResponseStatusRepository;
 import net.tamasnovak.artifact.applicationstages.shared.dto.StatusDropdownOption;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,10 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Qualifier(value = "ResponseStatusService")
 public class ResponseStatusServiceImpl implements ResponseStatusService {
   private final ResponseStatusRepository responseStatusRepository;
-  private final GlobalServiceConstants globalConstants;
+  private final GlobalServiceMessages globalConstants;
 
   @Autowired
-  public ResponseStatusServiceImpl(ResponseStatusRepository responseStatusRepository, GlobalServiceConstants globalConstants) {
+  public ResponseStatusServiceImpl(ResponseStatusRepository responseStatusRepository, GlobalServiceMessages globalConstants) {
     this.responseStatusRepository = responseStatusRepository;
     this.globalConstants = globalConstants;
   }

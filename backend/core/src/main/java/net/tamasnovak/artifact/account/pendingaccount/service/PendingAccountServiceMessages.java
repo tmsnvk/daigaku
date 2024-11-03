@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
  * @since 0.0.1
  */
 @Component
-public final class PendingAccountServiceConstants {
+public final class PendingAccountServiceMessages {
   static final String EMAIL_ALREADY_EXISTS = "This email is already registered in our system.";
 
-  private PendingAccountServiceConstants() {
+  private PendingAccountServiceMessages() {
     // Class should not be initialised.
   }
 }

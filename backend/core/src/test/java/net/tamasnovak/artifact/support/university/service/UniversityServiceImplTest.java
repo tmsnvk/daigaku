@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.university.dto.UniversityDropdownOption;
@@ -36,7 +36,7 @@ class UniversityServiceImplTest {
   UniversityRepository universityRepository;
 
   @Mock
-  GlobalServiceConstants globalServiceConstants;
+  GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   UniversityServiceImpl underTest;

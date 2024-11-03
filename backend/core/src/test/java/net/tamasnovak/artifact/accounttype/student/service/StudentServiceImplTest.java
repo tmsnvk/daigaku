@@ -6,7 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.accounttype.student.persistence.StudentRepository;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class StudentServiceImplTest {
   private StudentRepository studentRepository;
 
   @Mock
-  private GlobalServiceConstants globalServiceConstants;
+  private GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   private StudentServiceImpl underTest;
@@ -42,23 +42,23 @@ class StudentServiceImplTest {
     @Description("Returns the correct Student record if it is found.")
     void shouldReturnStudentRecord() {
       Student expected = mock(Student.class);
-      when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.of(expected));
+      when(studentRepository.findStudentByAccount(mockAccount)).thenReturn(Optional.of(expected));
 
       Student actual = underTest.findStudentByAccount(mockAccount);
 
       assertEquals(expected, actual);
 
-      verify(studentRepository, times(1)).findByAccount(mockAccount);
+      verify(studentRepository, times(1)).findStudentByAccount(mockAccount);
     }
 
     @Test
     @Description("Throws EntityNotFoundException if Student record is not found.")
     void shouldThrowEntityNotFoundException_IfStudentRecordIsNotFound() {
-      when(studentRepository.findByAccount(mockAccount)).thenReturn(Optional.empty());
+      when(studentRepository.findStudentByAccount(mockAccount)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.findStudentByAccount(mockAccount));
 
-      verify(studentRepository, times(1)).findByAccount(mockAccount);
+      verify(studentRepository, times(1)).findStudentByAccount(mockAccount);
     }
   }
 }

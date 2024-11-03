@@ -21,5 +21,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface StudentRepository extends JpaRepository<Student, Long> {
-  Optional<Student> findByAccount(Account account);
+  Optional<Student> findStudentByAccount(Account account);
 }

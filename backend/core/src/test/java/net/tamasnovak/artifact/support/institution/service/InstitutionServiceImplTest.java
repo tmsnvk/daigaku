@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.institution.dto.InstitutionDropdownOption;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 import net.tamasnovak.artifact.support.institution.persistence.InstitutionRepository;
@@ -31,7 +31,7 @@ class InstitutionServiceImplTest {
   InstitutionRepository institutionRepository;
 
   @Mock
-  GlobalServiceConstants globalServiceConstants;
+  GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   InstitutionServiceImpl underTest;

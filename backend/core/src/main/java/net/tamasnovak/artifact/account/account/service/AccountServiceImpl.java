@@ -44,20 +44,20 @@ public class AccountServiceImpl implements AccountService {
   @Override
   @Transactional(readOnly = true)
   public Account findAccountByEmail(final String email) {
-    return accountRepository.findByEmail(email)
-                            .orElseThrow(() -> new EntityNotFoundException(AccountServiceConstants.ACCOUNT_NOT_FOUND));
+    return accountRepository.findAccountByEmail(email)
+                            .orElseThrow(() -> new EntityNotFoundException(AccountServiceMessages.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   public Account findAccountByUuid(final UUID uuid) {
-    return accountRepository.findByUuid(uuid)
-                            .orElseThrow(() -> new EntityNotFoundException(AccountServiceConstants.ACCOUNT_NOT_FOUND));
+    return accountRepository.findAccountByUuid(uuid)
+                            .orElseThrow(() -> new EntityNotFoundException(AccountServiceMessages.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public AuthContextResponse retrieveAuthContextResponseByAccountEmail(final String email) {
+  public AuthContextResponse fetchAuthContextResponseByAccountEmail(final String email) {
     final Account account = this.findAccountByEmail(email);
 
     return account.createAuthContextResponse();
@@ -65,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public LoginResponse retrieveLoginResponse(final LoginRequest requestBody, final Authentication authentication) {
+  public LoginResponse fetchLoginResponse(final LoginRequest requestBody, final Authentication authentication) {
     final Account account = this.findAccountByEmail(requestBody.email());
     final String jwtToken = jwtUtilities.generateJwtToken(authentication);
 
@@ -74,11 +74,11 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void checkAccountDoesNotExistByEmail(final String email) {
-    final boolean isAccountExists = accountRepository.existsByEmail(email);
+  public void validateAccountDoesNotExistByEmail(final String email) {
+    final boolean isAccountExists = accountRepository.existsAccountByEmail(email);
 
     if (isAccountExists) {
-      throw new DataIntegrityViolationException(AccountServiceConstants.EMAIL_ALREADY_EXISTS);
+      throw new DataIntegrityViolationException(AccountServiceMessages.EMAIL_ALREADY_EXISTS);
     }
   }
 }

@@ -9,7 +9,7 @@
 package net.tamasnovak.artifact.account.pendingaccount.controller;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistration;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegisterRequest;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import net.tamasnovak.artifact.account.pendingaccount.service.PendingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +38,13 @@ public class PendingAccountController {
 
   /**
    * Registers a new user's {@link PendingAccount}.
-   * The @Valid annotation validates the {@link PendingAccountRegistration} object as per its validation criteria.
+   * The @Valid annotation validates the {@link PendingAccountRegisterRequest} object as per its validation criteria.
    *
    * @param requestBody The registration request body.
    * @return A responseEntity containing the `HttpStatus.OK` status code.
    */
   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HttpStatus> registerUser(@Valid @RequestBody final PendingAccountRegistration requestBody) {
+  public ResponseEntity<HttpStatus> registerUser(@Valid @RequestBody final PendingAccountRegisterRequest requestBody) {
     pendingAccountService.createPendingAccount(requestBody);
 
     return ResponseEntity.status(HttpStatus.CREATED)

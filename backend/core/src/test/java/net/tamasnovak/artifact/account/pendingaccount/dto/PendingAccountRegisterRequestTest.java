@@ -1,5 +1,9 @@
 package net.tamasnovak.artifact.account.pendingaccount.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -8,19 +12,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class PendingAccountRegistrationTest {
+class PendingAccountRegisterRequestTest {
   private final String expectedValidEmail = "notexistingemail@test.net";
   private final String validUuidString = UUID.randomUUID().toString();
-  Set<ConstraintViolation<PendingAccountRegistration>> violations = new HashSet<>();
-  PendingAccountRegistration underTest = null;
+  Set<ConstraintViolation<PendingAccountRegisterRequest>> violations = new HashSet<>();
+  PendingAccountRegisterRequest underTest = null;
 
   @AfterEach
   void tearDown() {
@@ -34,7 +33,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there are no violations when underTest requestBody contains only valid fields.")
     void shouldAssert_thatViolationsSetIsEmpty_whenRequestBodyIsValid() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -54,7 +53,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's firstName fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "",
         "User",
         expectedValidEmail,
@@ -71,7 +70,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's firstName fails @Pattern validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsPatternValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Inv4l-d",
         "User",
         expectedValidEmail,
@@ -88,7 +87,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's lastName fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "",
         expectedValidEmail,
@@ -105,7 +104,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's lastName fails @Pattern validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsPatternValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "!s3r",
         expectedValidEmail,
@@ -122,7 +121,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's email fails @Email validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenEmailFailsEmailValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "User",
         "invalidemail.com",
@@ -139,7 +138,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's institutionUuid fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -156,7 +155,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's institutionUuid fails @UuidConstraint validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsUuidConstraintValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -173,7 +172,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's accountRoleUuid fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -190,7 +189,7 @@ class PendingAccountRegistrationTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's accountRoleUuid fails @UuidConstraint validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsPatternValidation() {
-      underTest = new PendingAccountRegistration(
+      underTest = new PendingAccountRegisterRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -205,7 +204,7 @@ class PendingAccountRegistrationTest {
     }
   }
 
-  private Set<ConstraintViolation<PendingAccountRegistration>> validate(PendingAccountRegistration underTest) {
+  private Set<ConstraintViolation<PendingAccountRegisterRequest>> validate(PendingAccountRegisterRequest underTest) {
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     return validator.validate(underTest);

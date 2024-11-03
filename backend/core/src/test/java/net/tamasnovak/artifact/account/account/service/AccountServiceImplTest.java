@@ -37,7 +37,7 @@ class AccountServiceImplTest {
   private AccountRepository accountRepository;
 
   @Mock
-  private AccountServiceConstants accountServiceConstants;
+  private AccountServiceMessages accountServiceMessages;
 
   @Mock
   private JwtUtilities jwtUtilities;
@@ -63,24 +63,24 @@ class AccountServiceImplTest {
     @Description("Returns the correct Account record when corresponding email is found.")
     void shouldReturnAccountRecord_whenEmailIsFound() {
       Account expected = mock(Account.class);
-      when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(expected));
+      when(accountRepository.findAccountByEmail(expectedValidEmail)).thenReturn(Optional.of(expected));
 
       Account actual = underTest.findAccountByEmail(expectedValidEmail);
 
       assertEquals(expected, actual);
 
-      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
+      verify(accountRepository, times(1)).findAccountByEmail(expectedValidEmail);
     }
 
     @Test
     @Description("Throws EntityNotFoundException when email is not found.")
     void shouldThrowEntityNotFoundException_whenEmailIsNotFound() {
       String notExistingEmail = "notexistingemail@test.net";
-      when(accountRepository.findByEmail(notExistingEmail)).thenReturn(Optional.empty());
+      when(accountRepository.findAccountByEmail(notExistingEmail)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.findAccountByEmail(notExistingEmail));
 
-      verify(accountRepository, times(1)).findByEmail(notExistingEmail);
+      verify(accountRepository, times(1)).findAccountByEmail(notExistingEmail);
     }
   }
 
@@ -93,23 +93,23 @@ class AccountServiceImplTest {
     @Description("Returns the correct Account record when corresponding UUID is found.")
     void shouldReturnAccountRecord_whenUuidIsFound() {
       Account expected = mock(Account.class);
-      when(accountRepository.findByUuid(accountUuid)).thenReturn(Optional.of(expected));
+      when(accountRepository.findAccountByUuid(accountUuid)).thenReturn(Optional.of(expected));
 
       Account actual = underTest.findAccountByUuid(accountUuid);
 
       assertEquals(expected, actual);
 
-      verify(accountRepository, times(1)).findByUuid(accountUuid);
+      verify(accountRepository, times(1)).findAccountByUuid(accountUuid);
     }
 
     @Test
     @Description("Throws EntityNotFoundException when UUID is not found.")
     void shouldThrowEntityNotFoundException_whenUuidIsNotFound() {
-      when(accountRepository.findByUuid(accountUuid)).thenReturn(Optional.empty());
+      when(accountRepository.findAccountByUuid(accountUuid)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.findAccountByUuid(accountUuid));
 
-      verify(accountRepository, times(1)).findByUuid(accountUuid);
+      verify(accountRepository, times(1)).findAccountByUuid(accountUuid);
     }
   }
 
@@ -120,19 +120,19 @@ class AccountServiceImplTest {
     @Description("Returns the correct ClientAuthContextDto instance when email is found.")
     void shouldReturnClientAuthContextDto_whenEmailIsFound() {
       AuthContextResponse expected = new AuthContextResponse(expectedValidEmail, mockAccount.getFirstName(), mockRole.getName());
-      when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
+      when(accountRepository.findAccountByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
 
-      AuthContextResponse actual = underTest.retrieveAuthContextResponseByAccountEmail(expectedValidEmail);
+      AuthContextResponse actual = underTest.fetchAuthContextResponseByAccountEmail(expectedValidEmail);
 
       assertEquals(expected, actual);
 
-      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
+      verify(accountRepository, times(1)).findAccountByEmail(expectedValidEmail);
     }
 
     @Test
     @Description("Propagates exception when accountService throws EntityNotFoundException.")
     void shouldPropagateException_whenAccountServiceThrowsEntityNotFoundException() {
-      assertThrows(EntityNotFoundException.class, () -> underTest.retrieveAuthContextResponseByAccountEmail(notValidEmail));
+      assertThrows(EntityNotFoundException.class, () -> underTest.fetchAuthContextResponseByAccountEmail(notValidEmail));
     }
   }
 
@@ -145,15 +145,15 @@ class AccountServiceImplTest {
       LoginRequest requestBody = new LoginRequest(expectedValidEmail, hashedPassword);
       String jwtToken = "generatedToken";
 
-      LoginResponse expected = new LoginResponse(expectedValidEmail, mockAccount.getFirstName(), mockAccount.retrieveRoleName(), jwtToken);
-      when(accountRepository.findByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
+      LoginResponse expected = new LoginResponse(expectedValidEmail, mockAccount.getFirstName(), mockAccount.fetchRoleName(), jwtToken);
+      when(accountRepository.findAccountByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
       when(jwtUtilities.generateJwtToken(authentication)).thenReturn(jwtToken);
 
-      LoginResponse actual = underTest.retrieveLoginResponse(requestBody, authentication);
+      LoginResponse actual = underTest.fetchLoginResponse(requestBody, authentication);
 
       assertEquals(expected, actual);
 
-      verify(accountRepository, times(1)).findByEmail(expectedValidEmail);
+      verify(accountRepository, times(1)).findAccountByEmail(expectedValidEmail);
       verify(jwtUtilities, times(1)).generateJwtToken(authentication);
     }
 
@@ -161,11 +161,11 @@ class AccountServiceImplTest {
     @Description("Throws EntityNotFoundException when email is not found.")
     void shouldThrowEntityNotFoundException_whenEmailIsNotFound() {
       LoginRequest requestBody = new LoginRequest(notValidEmail, hashedPassword);
-      when(accountRepository.findByEmail(notValidEmail)).thenReturn(Optional.empty());
+      when(accountRepository.findAccountByEmail(notValidEmail)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.retrieveLoginResponse(requestBody, authentication));
+      assertThrows(EntityNotFoundException.class, () -> underTest.fetchLoginResponse(requestBody, authentication));
 
-      verify(accountRepository, times(1)).findByEmail(notValidEmail);
+      verify(accountRepository, times(1)).findAccountByEmail(notValidEmail);
       verify(jwtUtilities, never()).generateJwtToken(authentication);
     }
   }
@@ -176,22 +176,22 @@ class AccountServiceImplTest {
     @Test
     @Description("Returns void when email is not found, i.e. the user can register with the provided email.")
     void shouldReturnVoid_whenEmailIsNotFound() {
-      when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(false);
+      when(accountRepository.existsAccountByEmail(expectedValidEmail)).thenReturn(false);
 
-      assertDoesNotThrow(() -> underTest.checkAccountDoesNotExistByEmail(expectedValidEmail));
+      assertDoesNotThrow(() -> underTest.validateAccountDoesNotExistByEmail(expectedValidEmail));
 
-      verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
+      verify(accountRepository, times(1)).existsAccountByEmail(expectedValidEmail);
     }
 
     @Test
     @Description("Throws DataIntegrityViolationException when email is found, i.e. the user is not allowed to register with the provided " +
       "email.")
     void shouldThrowDataIntegrityViolationException_whenEmailExists() {
-      when(accountRepository.existsByEmail(expectedValidEmail)).thenReturn(true);
+      when(accountRepository.existsAccountByEmail(expectedValidEmail)).thenReturn(true);
 
-      assertThrows(DataIntegrityViolationException.class, () -> underTest.checkAccountDoesNotExistByEmail(expectedValidEmail));
+      assertThrows(DataIntegrityViolationException.class, () -> underTest.validateAccountDoesNotExistByEmail(expectedValidEmail));
 
-      verify(accountRepository, times(1)).existsByEmail(expectedValidEmail);
+      verify(accountRepository, times(1)).existsAccountByEmail(expectedValidEmail);
     }
   }
 }

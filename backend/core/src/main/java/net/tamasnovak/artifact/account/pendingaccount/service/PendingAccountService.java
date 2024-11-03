@@ -8,7 +8,7 @@
 
 package net.tamasnovak.artifact.account.pendingaccount.service;
 
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistration;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegisterRequest;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -19,17 +19,17 @@ import org.springframework.dao.DataIntegrityViolationException;
  */
 public interface PendingAccountService {
   /**
-   * Checks that no {@link PendingAccount} exists with the provided email.
+   * Validates that no {@link PendingAccount} exists with the provided email.
    *
    * @param email The email to check for an existing account.
    * @throws DataIntegrityViolationException If a pending account with the given email already exists.
    */
-  void checkAccountDoesNotExistByEmail(String email);
+  void validateAccountDoesNotExistByEmail(String email);
 
   /**
    * Creates a {@link PendingAccount}.
    *
    * @param requestBody The pending account object containing the user's details.
    */
-  void createPendingAccount(PendingAccountRegistration requestBody);
+  void createPendingAccount(PendingAccountRegisterRequest requestBody);
 }

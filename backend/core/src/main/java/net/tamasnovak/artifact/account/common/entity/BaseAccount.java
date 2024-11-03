@@ -64,7 +64,7 @@ public abstract class BaseAccount extends Auditable {
   protected BaseAccount(String firstName, String lastName, String email, Institution institution, Role role) {
     this.firstName = capitaliseName(firstName);
     this.lastName = capitaliseName(lastName);
-    this.email = email;
+    this.email = normaliseEmail(email);
     this.institution = institution;
     this.role = role;
   }
@@ -90,20 +90,20 @@ public abstract class BaseAccount extends Auditable {
   }
 
   /**
-   * Retrieves the {@link Institution}'s id connected to the given {@link Account} or {@link PendingAccount}.
+   * Fetches the id of the {@link Institution} associated with the authenticated {@link Account} or {@link PendingAccount}.
    *
    * @return Institution id.
    */
-  public long retrieveInstitutionId() {
+  public long fetchInstitutionId() {
     return this.getInstitution().getId();
   }
 
   /**
-   * Retrieves the {@link Role}'s name associated with the account.
+   * Fetches the name of the {@link Role} associated with the authenticated {@link Account}.
    *
    * @return Role name.
    */
-  public String retrieveRoleName() {
+  public String fetchRoleName() {
     return this.getRole().getName();
   }
 
@@ -140,5 +140,15 @@ public abstract class BaseAccount extends Auditable {
    */
   private static String capitaliseFirstLetter(String part) {
     return Character.toUpperCase(part.charAt(0)) + part.substring(1).toLowerCase();
+  }
+
+  /**
+   * Normalises the user's entered email.
+   *
+   * @param email The user's email.
+   * @return The normalised email.
+   */
+  private static String normaliseEmail(String email) {
+    return email.toLowerCase();
   }
 }

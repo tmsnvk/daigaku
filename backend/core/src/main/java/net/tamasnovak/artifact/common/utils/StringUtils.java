@@ -21,13 +21,13 @@ public final class StringUtils {
   }
 
   /**
-   * Checks whether two strings are equal.
+   * Checks whether two string objects are equal.
    *
    * @param string The first string.
    * @param stringToCheckAgainst The string to check against the first one.
    * @return boolean
    */
-  public static boolean areEqual(final String string, final String stringToCheckAgainst) {
+  public static boolean validateStringsAreEqual(final String string, final String stringToCheckAgainst) {
     return Objects.equals(string, stringToCheckAgainst);
   }
 }

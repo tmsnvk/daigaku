@@ -26,7 +26,7 @@ import net.tamasnovak.artifact.applicationstages.interviewStatus.service.Intervi
 import net.tamasnovak.artifact.applicationstages.offerStatus.service.OfferStatusService;
 import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.applicationstages.responseStatus.service.ResponseStatusService;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.university.entity.University;
@@ -86,10 +86,10 @@ class StudentApplicationServiceImplTest {
   ExistingApplicationValidator existingApplicationValidator;
 
   @Mock
-  StudentApplicationServiceConstants studentApplicationServiceConstants;
+  StudentApplicationServiceMessages studentApplicationServiceMessages;
 
   @Mock
-  GlobalServiceConstants globalServiceConstants;
+  GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   StudentApplicationServiceImpl underTest;
@@ -217,7 +217,7 @@ class StudentApplicationServiceImplTest {
     @Description("Propagates exception when countryService throws EntityNotFoundException.")
     void shouldPropagateException_whenCountryServiceThrowsEntityNotFoundException() {
       when(countryService.findByUuid(UUID.fromString(requestBody.countryUuid()))).thenThrow(
-        new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+        new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createApplication(mockAccount, requestBody));
 
@@ -234,7 +234,7 @@ class StudentApplicationServiceImplTest {
       UpdateApplicationByStudent requestBody = mock(UpdateApplicationByStudent.class);
       Mentor mockMentor = mock(Mentor.class);
 
-      when(applicationService.retrieveApplicationByUuid(applicationUuid)).thenReturn(mockApplication);
+      when(applicationService.findApplicationByUuid(applicationUuid)).thenReturn(mockApplication);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
       ApplicationData expected = mock(ApplicationData.class);
@@ -248,7 +248,7 @@ class StudentApplicationServiceImplTest {
 
       assertEquals(expected, actual);
 
-      verify(applicationService, times(1)).retrieveApplicationByUuid(applicationUuid);
+      verify(applicationService, times(1)).findApplicationByUuid(applicationUuid);
       verify(applicationService, times(1)).createApplicationDataByUuid(applicationUuid);
     }
   }

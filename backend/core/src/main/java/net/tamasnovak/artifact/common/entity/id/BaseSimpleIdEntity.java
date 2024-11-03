@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.common.entity.id;
 
 import java.io.Serial;
@@ -9,6 +17,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
+/**
+ * Abstract base class for all entities that utilise a simple identification mechanism.
+ *
+ * @since 0.0.1
+ */
 @MappedSuperclass
 public abstract class BaseSimpleIdEntity implements Serializable {
   @Serial

@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.common.entity.audit;
 
 import java.sql.Timestamp;
@@ -14,6 +22,11 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+/**
+ * Abstract base class for all entities that track timestamps and information on creation and updates.
+ *
+ * @since 0.0.1
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Auditable extends BaseExtendedIdEntity {

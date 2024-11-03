@@ -14,7 +14,7 @@ import java.util.UUID;
 import net.tamasnovak.artifact.application.shared.entity.Application;
 
 /**
- * Interface projection providing a view of selected identifiers for an {@link Application}.
+ * Represents a projection of selected identifiers for an {@link Application}.
  *
  * @since 0.0.1
  */

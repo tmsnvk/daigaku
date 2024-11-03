@@ -40,14 +40,14 @@ public class ApplicationController {
   }
 
   /**
-   * Retrieves {@link ApplicationData} for a specified application uuid.
-   * The @Valid annotation validates the uuid string.
+   * Fetches {@link ApplicationData} for a specified application uuid.
+   * The @ValidUuid annotation validates the uuid string.
    *
    * @param uuid The uuid of the application to retrieve.
    * @return A responseEntity containing the `HttpStatus.OK` status code and the created {@link ApplicationData} object.
    */
   @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationData> retrieveApplicationData(@PathVariable("uuid") @ValidUuid final String uuid) {
+  public ResponseEntity<ApplicationData> fetchApplicationData(@PathVariable("uuid") @ValidUuid final String uuid) {
     final ApplicationData response = applicationService.createApplicationDataByUuid(UUID.fromString(uuid));
 
     return ResponseEntity.status(HttpStatus.OK)

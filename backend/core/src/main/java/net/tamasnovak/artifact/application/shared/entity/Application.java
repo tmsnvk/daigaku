@@ -158,29 +158,29 @@ public final class Application extends Auditable {
   }
 
   /**
-   * Retrieves the {@link Student} account's uuid that is associated with the application.
+   * Fetches the {@link Student} account's uuid that is associated with the application.
    *
    * @return The {@link Student} account's uuid.
    */
-  public UUID retrieveStudentAccountUuid() {
-    return this.student.retrieveStudentAccountUuid();
+  public UUID fetchStudentAccountUuid() {
+    return this.student.fetchStudentAccountUuid();
   }
 
   /**
-   * Retrieves the application's {@link Country} name.
+   * Fetches the application's {@link Country} name.
    *
    * @return The {@link Country} name.
    */
-  public String retrieveCountryName() {
+  public String fetchCountryName() {
     return this.country.getName();
   }
 
   /**
-   * Retrieves the application's {@link University} name.
+   * Fetches the application's {@link University} name.
    *
    * @return The {@link University} name.
    */
-  public String retrieveUniversityName() {
+  public String fetchUniversityName() {
     return this.university.getName();
   }
 
@@ -298,7 +298,7 @@ public final class Application extends Auditable {
     final FinalDestinationStatus currentFinalDestinationStatus,
     final ResponseStatus offerDeclined,
     final FinalDestinationStatus notFinalDestination) {
-    if (newResponseStatus != null && StringUtils.areEqual(newResponseStatus.getName(), offerDeclined.getName())) {
+    if (newResponseStatus != null && StringUtils.validateStringsAreEqual(newResponseStatus.getName(), offerDeclined.getName())) {
       return notFinalDestination;
     }
 

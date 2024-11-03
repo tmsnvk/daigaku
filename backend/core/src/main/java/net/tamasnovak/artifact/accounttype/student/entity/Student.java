@@ -77,11 +77,11 @@ public final class Student extends BaseAccountType {
   }
 
   /**
-   * Retrieves the {@link Account}'s id connected to the given {@link Student} entity.
+   * Fetches the {@link Account}'s id connected to the given {@link Student} entity.
    *
    * @return The {@link Account} id connected with the given {@link Student} entity.
    */
-  public UUID retrieveStudentAccountUuid() {
+  public UUID fetchStudentAccountUuid() {
     return this.account.getUuid();
   }
 
@@ -97,7 +97,7 @@ public final class Student extends BaseAccountType {
       return null;
     }
 
-    return new FirmChoiceTileDto(firmChoiceApplication.retrieveCountryName(), firmChoiceApplication.retrieveUniversityName(),
+    return new FirmChoiceTileDto(firmChoiceApplication.fetchCountryName(), firmChoiceApplication.fetchUniversityName(),
       firmChoiceApplication.getCourseName());
   }
 
@@ -121,7 +121,7 @@ public final class Student extends BaseAccountType {
    * @return boolean
    */
   private boolean hasFirmChoiceStatus(final Application application) {
-    return StringUtils.areEqual(application.retrieveResponseStatusName(), ResponseStatusType.FIRM_CHOICE.getValue());
+    return StringUtils.validateStringsAreEqual(application.retrieveResponseStatusName(), ResponseStatusType.FIRM_CHOICE.getValue());
   }
 
   /**
@@ -136,8 +136,8 @@ public final class Student extends BaseAccountType {
       return null;
     }
 
-    return new FinalDestinationTileDto(finalDestinationApplication.retrieveCountryName(),
-      finalDestinationApplication.retrieveUniversityName(), finalDestinationApplication.getCourseName());
+    return new FinalDestinationTileDto(finalDestinationApplication.fetchCountryName(),
+      finalDestinationApplication.fetchUniversityName(), finalDestinationApplication.getCourseName());
   }
 
   /**
@@ -162,16 +162,18 @@ public final class Student extends BaseAccountType {
    * @return boolean
    */
   private boolean hasFinalDestinationStatus(final Application application) {
-    return StringUtils.areEqual(application.retrieveFinalDestinationName(), FinalDestinationStatusType.FINAL_DESTINATION.getValue())
-      || StringUtils.areEqual(application.retrieveFinalDestinationName(), FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue());
+    return StringUtils.validateStringsAreEqual(application.retrieveFinalDestinationName(),
+      FinalDestinationStatusType.FINAL_DESTINATION.getValue())
+      || StringUtils.validateStringsAreEqual(application.retrieveFinalDestinationName(),
+      FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue());
   }
 
   /**
-   * Retrieves the count of {@link Application} objects associated with the given {@link Student} account.
+   * Fetches the count of {@link Application} objects associated with the given {@link Student} account.
    *
    * @return The count of {@link Application} objects associated with the given {@link Student} account.
    */
-  public int retrieveApplicationNumber() {
+  public int fetchApplicationNumber() {
     return this.applications.size();
   }
 

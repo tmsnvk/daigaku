@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.dto.CountryDropdownOption;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.persistence.CountryRepository;
@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Qualifier(value = "CountryService")
 public class CountryServiceImpl implements CountryService {
   private final CountryRepository countryRepository;
-  private final GlobalServiceConstants globalServiceConstants;
+  private final GlobalServiceMessages globalServiceMessages;
 
   @Autowired
-  public CountryServiceImpl(CountryRepository countryRepository, GlobalServiceConstants globalServiceConstants) {
+  public CountryServiceImpl(CountryRepository countryRepository, GlobalServiceMessages globalServiceMessages) {
     this.countryRepository = countryRepository;
-    this.globalServiceConstants = globalServiceConstants;
+    this.globalServiceMessages = globalServiceMessages;
   }
 
   @Override
@@ -31,7 +31,7 @@ public class CountryServiceImpl implements CountryService {
   @Cacheable(value = "CountryByUuid", key = "{ #uuid }")
   public Country findByUuid(final UUID uuid) {
     return countryRepository.findByUuid(uuid)
-                            .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                            .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override

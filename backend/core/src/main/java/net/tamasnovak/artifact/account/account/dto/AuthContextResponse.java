@@ -9,7 +9,7 @@
 package net.tamasnovak.artifact.account.account.dto;
 
 /**
- * Represents the authentication context for a user.
+ * Represents the authentication context for the logged-in user.
  *
  * @since 0.0.1
  */

@@ -9,7 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstages.applicationStatus.persistence.ApplicationStatusRepository;
 import net.tamasnovak.artifact.applicationstages.shared.dto.StatusDropdownOption;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class ApplicationStatusServiceImplTest {
   ApplicationStatusRepository applicationStatusRepository;
 
   @Mock
-  GlobalServiceConstants globalServiceConstants;
+  GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   ApplicationStatusServiceImpl underTest;

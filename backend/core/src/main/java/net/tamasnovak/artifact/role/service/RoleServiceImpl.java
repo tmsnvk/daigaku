@@ -5,7 +5,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.role.dto.RoleDropdownOption;
 import net.tamasnovak.artifact.role.entity.Role;
 import net.tamasnovak.artifact.role.persistence.RoleOptionView;
@@ -20,12 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Qualifier(value = "RoleService")
 public class RoleServiceImpl implements RoleService {
   private final RoleRepository roleRepository;
-  private final GlobalServiceConstants globalServiceConstants;
+  private final GlobalServiceMessages globalServiceMessages;
 
   @Autowired
-  public RoleServiceImpl(RoleRepository roleRepository, GlobalServiceConstants globalServiceConstants) {
+  public RoleServiceImpl(RoleRepository roleRepository, GlobalServiceMessages globalServiceMessages) {
     this.roleRepository = roleRepository;
-    this.globalServiceConstants = globalServiceConstants;
+    this.globalServiceMessages = globalServiceMessages;
   }
 
   @Override
@@ -33,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
   @Cacheable(value = "RoleByUuid", key = "{ #root.methodName, #uuid }")
   public Role findByUuid(final UUID uuid) {
     return roleRepository.findByUuid(uuid)
-                         .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                         .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override

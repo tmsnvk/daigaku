@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
  * @since 0.0.1
  */
 @Component
-public final class AccountServiceConstants {
+public final class AccountServiceMessages {
   static final String EMAIL_ALREADY_EXISTS = "This email is already registered in our system.";
   static final String ACCOUNT_NOT_FOUND = "This email is not found in our database.";
 
-  private AccountServiceConstants() {
+  private AccountServiceMessages() {
     // Class should not be initialised.
   }
 }

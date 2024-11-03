@@ -21,9 +21,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface AccountRepository extends JpaRepository<Account, Long> {
-  Optional<Account> findByEmail(String email);
+  Optional<Account> findAccountByEmail(String email);
 
-  Optional<Account> findByUuid(UUID uuid);
+  Optional<Account> findAccountByUuid(UUID uuid);
 
-  boolean existsByEmail(String email);
+  boolean existsAccountByEmail(String email);
 }

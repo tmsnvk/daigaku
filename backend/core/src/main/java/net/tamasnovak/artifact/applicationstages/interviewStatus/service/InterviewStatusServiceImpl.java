@@ -7,7 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstages.interviewStatus.entity.InterviewStatus;
 import net.tamasnovak.artifact.applicationstages.interviewStatus.persistence.InterviewStatusRepository;
 import net.tamasnovak.artifact.applicationstages.shared.dto.StatusDropdownOption;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Qualifier(value = "InterviewStatusService")
 public class InterviewStatusServiceImpl implements InterviewStatusService {
   private final InterviewStatusRepository interviewStatusRepository;
-  private final GlobalServiceConstants globalServiceConstants;
+  private final GlobalServiceMessages globalServiceMessages;
 
   @Autowired
-  public InterviewStatusServiceImpl(InterviewStatusRepository interviewStatusRepository, GlobalServiceConstants globalServiceConstants) {
+  public InterviewStatusServiceImpl(InterviewStatusRepository interviewStatusRepository, GlobalServiceMessages globalServiceMessages) {
     this.interviewStatusRepository = interviewStatusRepository;
-    this.globalServiceConstants = globalServiceConstants;
+    this.globalServiceMessages = globalServiceMessages;
   }
 
   @Override
@@ -31,7 +31,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
   @Cacheable(value = "InterviewStatusByUuid", key = "{ #uuid }")
   public InterviewStatus findByUuid(final UUID uuid) {
     return interviewStatusRepository.findByUuid(uuid)
-                                    .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                    .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
@@ -39,7 +39,7 @@ public class InterviewStatusServiceImpl implements InterviewStatusService {
   @Cacheable(value = "InterviewStatusByName", key = "{ #statusName }")
   public InterviewStatus findByName(final String statusName) {
     return interviewStatusRepository.findByName(statusName)
-                                    .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+                                    .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override

@@ -11,7 +11,7 @@ import net.tamasnovak.artifact.application.application.persistence.ApplicationId
 import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
-import net.tamasnovak.artifact.common.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -37,7 +37,7 @@ class ApplicationServiceImplTest {
   private ApplicationRepository applicationRepository;
 
   @Mock
-  private GlobalServiceConstants globalServiceConstants;
+  private GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   private ApplicationServiceImpl underTest;
@@ -52,35 +52,35 @@ class ApplicationServiceImplTest {
     void shouldReturnApplication() {
       net.tamasnovak.artifact.application.shared.entity.Application expected = mock(
         net.tamasnovak.artifact.application.shared.entity.Application.class);
-      when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.of(expected));
+      when(applicationRepository.findApplicationByUuid(applicationUuid)).thenReturn(Optional.of(expected));
 
-      net.tamasnovak.artifact.application.shared.entity.Application actual = underTest.retrieveApplicationByUuid(applicationUuid);
+      net.tamasnovak.artifact.application.shared.entity.Application actual = underTest.findApplicationByUuid(applicationUuid);
 
       assertEquals(expected, actual);
 
-      verify(applicationRepository, times(1)).findByUuid(applicationUuid);
+      verify(applicationRepository, times(1)).findApplicationByUuid(applicationUuid);
     }
 
     @Test
     @Description("Throws EntityNotFoundException if Application record is not found.")
     void shouldThrowEntityNotFoundException_IfApplicationIsNotFound() {
-      when(applicationRepository.findByUuid(applicationUuid)).thenReturn(Optional.empty());
+      when(applicationRepository.findApplicationByUuid(applicationUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.retrieveApplicationByUuid(applicationUuid));
+      assertThrows(EntityNotFoundException.class, () -> underTest.findApplicationByUuid(applicationUuid));
 
-      verify(applicationRepository, times(1)).findByUuid(applicationUuid);
+      verify(applicationRepository, times(1)).findApplicationByUuid(applicationUuid);
     }
 
     @Test
     @Description("Throws IllegalArgumentException if UUID string is invalid.")
     void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.retrieveApplicationByUuid(null));
+      assertThrows(IllegalArgumentException.class, () -> underTest.findApplicationByUuid(null));
     }
 
     @Test
     @Description("Throws NullPointerException if UUID string is null.")
     void shouldThrowNullPointerException_IfUuidStringIsNull() {
-      assertThrows(NullPointerException.class, () -> underTest.retrieveApplicationByUuid(null));
+      assertThrows(NullPointerException.class, () -> underTest.findApplicationByUuid(null));
     }
   }
 
@@ -100,7 +100,7 @@ class ApplicationServiceImplTest {
       ApplicationData expected = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null,
         Timestamp.from(now), Timestamp.from(now), null, null, false);
 
-      when(mockAccount.retrieveRoleName()).thenReturn("ROLE_STUDENT");
+      when(mockAccount.fetchRoleName()).thenReturn("ROLE_STUDENT");
 
       when(applicationRepository.findApplicationViewByUuid(applicationUuid)).thenReturn(Optional.of(mockApplicationView));
       when(authenticationFacade.getAuthenticatedAccount()).thenReturn(mockAccount);

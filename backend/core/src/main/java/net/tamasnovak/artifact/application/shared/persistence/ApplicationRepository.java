@@ -138,7 +138,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
       """, nativeQuery = true)
   Optional<ApplicationView> findApplicationViewByUuid(@Param("uuid") UUID uuid);
 
-  Optional<Application> findByUuid(UUID uuid);
+  Optional<Application> findApplicationByUuid(UUID uuid);
 
   /**
    * Toggles an {@link Application}'s is_removable field.
