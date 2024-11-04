@@ -18,6 +18,7 @@ import net.tamasnovak.artifact.comment.dto.CommentViewResponse;
  *
  * @since 0.0.1
  */
+@SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface CommentViewProjection {
   UUID getUuid();
 

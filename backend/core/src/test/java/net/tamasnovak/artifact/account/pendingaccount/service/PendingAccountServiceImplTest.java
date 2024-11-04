@@ -109,9 +109,10 @@ class PendingAccountServiceImplTest {
       );
 
       Institution mockInstitution = mock(Institution.class);
-      Role mockRole = Role.createRole("ROLE_TEST");
+      Role mockRole = mock(Role.class);
       when(institutionService.findByUuid(UUID.fromString(requestBody.institutionUuid()))).thenReturn(mockInstitution);
-      when(roleService.findByUuid(UUID.fromString(requestBody.accountRoleUuid()))).thenReturn(mockRole);
+      when(mockRole.getName()).thenReturn("ROLE_STUDENT");
+      when(roleService.findRoleByUuid(UUID.fromString(requestBody.accountRoleUuid()))).thenReturn(mockRole);
 
       PendingAccount expected = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(),
         mockInstitution, mockRole);
@@ -159,7 +160,7 @@ class PendingAccountServiceImplTest {
     @Test
     @Description("Throws EntityNotFoundException when Role instance is not found.")
     void shouldThrowEntityNotFoundException_whenRoleIsNotFound() {
-      when(roleService.findByUuid(UUID.fromString(invalidRequestBody.accountRoleUuid()))).thenThrow(new EntityNotFoundException(
+      when(roleService.findRoleByUuid(UUID.fromString(invalidRequestBody.accountRoleUuid()))).thenThrow(new EntityNotFoundException(
         "Exception message."));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createPendingAccount(invalidRequestBody));

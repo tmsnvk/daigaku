@@ -52,7 +52,7 @@ class AccountServiceImplTest {
   private final String notValidEmail = "existingemail@test.net";
   private final String hashedPassword = "$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm";
   private final Institution mockInstitution = mock(Institution.class);
-  private final Role mockRole = Role.createRole("STUDENT");
+  private final Role mockRole = mock(Role.class);
   private final Account mockAccount = Account.createAccount("Student", "Test User", expectedValidEmail, hashedPassword, mockInstitution,
     mockRole);
 
@@ -119,6 +119,7 @@ class AccountServiceImplTest {
     @Test
     @Description("Returns the correct ClientAuthContextDto instance when email is found.")
     void shouldReturnClientAuthContextDto_whenEmailIsFound() {
+      when(mockRole.getName()).thenReturn("STUDENT");
       AuthContextResponse expected = new AuthContextResponse(expectedValidEmail, mockAccount.getFirstName(), mockRole.getName());
       when(accountRepository.findAccountByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
 

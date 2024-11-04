@@ -69,7 +69,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
     // Find the selected institution and role objects.
     final Institution selectedInstitution = institutionService.findByUuid(requestBody.getInstituionUuid());
-    final Role selectedRole = roleService.findByUuid(requestBody.getAccountRoleUuid());
+    final Role selectedRole = roleService.findRoleByUuid(requestBody.getAccountRoleUuid());
 
     // Create the new pending account object, then save it in the database.
     final PendingAccount pendingAccount = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(),
@@ -79,7 +79,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
     // Initiate a message via rabbit-mq that the user should receive the pending-registration-welcome-email.
     final PendingAccountConfirmationQueue queueDto = new PendingAccountConfirmationQueue(savedEntity.getEmail(),
       savedEntity.getFirstName(), savedEntity.getLastName(), savedEntity.getInstitution().getName(),
-      savedEntity.getRole().getNameWithoutPrefix());
+      savedEntity.getRole().fetchNameWithoutPrefix());
     queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY,
       queueDto);
   }

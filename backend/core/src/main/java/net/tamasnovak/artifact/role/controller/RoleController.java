@@ -1,4 +1,14 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.role.controller;
+
+import java.util.List;
 
 import net.tamasnovak.artifact.role.dto.RoleDropdownOption;
 import net.tamasnovak.artifact.role.service.RoleService;
@@ -10,8 +20,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
+/**
+ * Controller class managing REST API requests related to "/api/v1/roles" endpoint.
+ *
+ * @since 0.0.1
+ */
 @RestController
 @RequestMapping(path = "/api/v1/roles")
 public class RoleController {
@@ -22,14 +35,16 @@ public class RoleController {
     this.roleService = roleService;
   }
 
-  @GetMapping(
-    value = "/student-and-mentor",
-    produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<RoleDropdownOption>> fetchStudentAndMentorDropdownOptions() {
+  /**
+   * Fetches student and mentor dropdown options for the pending account registration form.
+   *
+   * @return ResponseEntity Contains `HttpStatus.OK` status code and a list of {@link RoleDropdownOption} object.
+   */
+  @GetMapping(value = "/student-and-mentor", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<RoleDropdownOption>> fetchPendingAccountRegistrationFormRoleOptions() {
     final List<RoleDropdownOption> response = roleService.findStudentAndMentorDropdownOptions();
 
-    return ResponseEntity
-      .status(HttpStatus.OK)
-      .body(response);
+    return ResponseEntity.status(HttpStatus.OK)
+                         .body(response);
   }
 }

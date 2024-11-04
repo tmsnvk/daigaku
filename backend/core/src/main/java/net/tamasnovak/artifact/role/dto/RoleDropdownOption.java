@@ -1,22 +1,36 @@
-package net.tamasnovak.artifact.role.dto;
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
 
-import net.tamasnovak.artifact.role.persistence.RoleOptionView;
+package net.tamasnovak.artifact.role.dto;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
+import net.tamasnovak.artifact.role.persistence.RoleOptionViewProjection;
+
+/**
+ * Represents a dropdown option object.
+ *
+ * @since 0.0.1
+ */
 public record RoleDropdownOption(
   UUID uuid,
+
   String name
 ) implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  public RoleDropdownOption(RoleOptionView roleOptionView) {
+  public RoleDropdownOption(RoleOptionViewProjection roleOptionViewProjection) {
     this(
-      roleOptionView.getUuid(),
-      roleOptionView.getName()
+      roleOptionViewProjection.getUuid(),
+      roleOptionViewProjection.getName()
     );
   }
 }

@@ -18,6 +18,7 @@ import net.tamasnovak.artifact.application.shared.entity.Application;
  *
  * @since 0.0.1
  */
+@SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface ApplicationView {
   UUID getUuid();
 
