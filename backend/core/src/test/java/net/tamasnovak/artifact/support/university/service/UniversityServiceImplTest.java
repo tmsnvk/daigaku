@@ -80,14 +80,14 @@ class UniversityServiceImplTest {
       when(mockCountry.getUuid()).thenReturn(UUID.randomUUID());
       List<UniversityDropdownOption> expected = Collections.singletonList(mock(UniversityDropdownOption.class));
 
-      when(countryService.findByUuid(mockCountry.getUuid())).thenReturn(mockCountry);
+      when(countryService.findCountryByUuid(mockCountry.getUuid())).thenReturn(mockCountry);
       when(universityRepository.findByCountryOrderByNameAsc(mockCountry)).thenReturn(expected);
 
       List<UniversityDropdownOption> actual = underTest.findAllByCountryUuidAndSortedByName(mockCountry.getUuid());
 
       assertEquals(expected, actual);
 
-      verify(countryService, times(1)).findByUuid(mockCountry.getUuid());
+      verify(countryService, times(1)).findCountryByUuid(mockCountry.getUuid());
       verify(universityRepository, times(1)).findByCountryOrderByNameAsc(mockCountry);
     }
   }

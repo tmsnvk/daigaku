@@ -1,4 +1,16 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.support.country.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
@@ -11,10 +23,11 @@ import net.tamasnovak.artifact.application.shared.entity.Application;
 import net.tamasnovak.artifact.support.shared.entity.BaseSupportEntity;
 import net.tamasnovak.artifact.support.university.entity.University;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+/**
+ * Entity class that represents the countries database table.
+ *
+ * @since 0.0.1
+ */
 @Entity
 @Table(name = "countries")
 public final class Country extends BaseSupportEntity {
@@ -30,7 +43,10 @@ public final class Country extends BaseSupportEntity {
   @JsonManagedReference(value = "country-application_reference")
   private List<Application> applications;
 
-  protected Country() {}
+  protected Country() {
+    // Not public as it should not be initialised blank.
+    // Cannot be private or package-private as it is an @Entity class.
+  }
 
   private Country(String name) {
     super(name);
@@ -39,11 +55,24 @@ public final class Country extends BaseSupportEntity {
     this.applications = new ArrayList<>();
   }
 
+  /**
+   * The default country creator method.
+   *
+   * @param name The name of the country.
+   * @return {@link Country}.
+   */
   public static Country createCountry(final String name) {
     return new Country(name);
   }
 
-  public void verifyUniversityCountryMatch(final University university, final String exceptionMessage) {
+  /**
+   * Validates whether a selected {@link University} is associated with the provided {@link Country}.
+   *
+   * @param university The selected university object.
+   * @param exceptionMessage The exception message to throw in case of an error.
+   * @throws EntityNotFoundException If the university and country do not match.
+   */
+  public void validateUniversityCountryMatch(final University university, final String exceptionMessage) {
     if (!universities.contains(university)) {
       throw new EntityNotFoundException(exceptionMessage);
     }
@@ -56,10 +85,14 @@ public final class Country extends BaseSupportEntity {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
-    if (o == null || getClass() != o.getClass())
+    }
+
+    if (o == null || getClass() != o.getClass()) {
       return false;
+    }
+
     Country that = (Country) o;
     return Objects.equals(name, that.name) && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid);
   }

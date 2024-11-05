@@ -192,7 +192,7 @@ class StudentApplicationServiceImplTest {
     void shouldCreateApplication_AndReturnApplicationView() {
       ApplicationData expected = mock(ApplicationData.class);
 
-      when(countryService.findByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
+      when(countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
       when(universityService.findByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.findByName("Planned")).thenReturn(mockApplicationStatus);
@@ -206,7 +206,7 @@ class StudentApplicationServiceImplTest {
 
       assertEquals(expected, actual);
 
-      verify(countryService, times(1)).findByUuid(UUID.fromString(requestBody.countryUuid()));
+      verify(countryService, times(1)).findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
       verify(universityService, times(1)).findByUuid(UUID.fromString(requestBody.universityUuid()));
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
       verify(applicationStatusService, times(1)).findByName("Planned");
@@ -216,7 +216,7 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Propagates exception when countryService throws EntityNotFoundException.")
     void shouldPropagateException_whenCountryServiceThrowsEntityNotFoundException() {
-      when(countryService.findByUuid(UUID.fromString(requestBody.countryUuid()))).thenThrow(
+      when(countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()))).thenThrow(
         new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createApplication(mockAccount, requestBody));

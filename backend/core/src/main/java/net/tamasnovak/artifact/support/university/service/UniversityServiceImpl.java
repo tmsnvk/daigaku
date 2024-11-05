@@ -44,7 +44,7 @@ public class UniversityServiceImpl implements UniversityService {
   @Transactional(readOnly = true)
   @Cacheable(value = "UniversitySelectOptionsByCountryUuid", key = "{ #countryUuid }")
   public List<UniversityDropdownOption> findAllByCountryUuidAndSortedByName(final UUID countryUuid) {
-    final Country country = countryService.findByUuid(countryUuid);
+    final Country country = countryService.findCountryByUuid(countryUuid);
 
     return universityRepository.findByCountryOrderByNameAsc(country);
   }

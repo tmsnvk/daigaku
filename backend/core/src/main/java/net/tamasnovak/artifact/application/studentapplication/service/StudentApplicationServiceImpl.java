@@ -153,9 +153,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional
   @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
   public ApplicationData createApplication(final Account account, final NewApplicationByStudent requestBody) {
-    final Country country = countryService.findByUuid(UUID.fromString(requestBody.countryUuid()));
+    final Country country = countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
     final University university = universityService.findByUuid(UUID.fromString(requestBody.universityUuid()));
-    country.verifyUniversityCountryMatch(university, StudentApplicationServiceMessages.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
+    country.validateUniversityCountryMatch(university, StudentApplicationServiceMessages.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     final Student student = studentService.findStudentByAccount(account);
     final ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("Planned");
