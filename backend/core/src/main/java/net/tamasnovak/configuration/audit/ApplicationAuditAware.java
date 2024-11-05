@@ -1,11 +1,24 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.configuration.audit;
+
+import java.util.Optional;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Optional;
-
+/**
+ * {@link AuditorAware} implementation.
+ *
+ * @since 0.0.1
+ */
 public final class ApplicationAuditAware implements AuditorAware<String> {
   @Override
   public Optional<String> getCurrentAuditor() {

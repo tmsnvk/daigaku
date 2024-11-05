@@ -20,8 +20,7 @@ import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboa
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
 
 /**
- * Service interface managing {@link Application} entity-related API calls towards the database related to {@link Student}
- * authenticated users.
+ * Service interface for handling database API calls related to the {@link Application} entity and {@link Student} authenticated users.
  *
  * @since 0.0.1
  */
@@ -30,7 +29,7 @@ public interface StudentApplicationService {
    * Finds a list of {@link ApplicationData} objects for a {@link Student} based on the provided account uuid.
    *
    * @param accountUuid The uuid of the student's account.
-   * @return A list of {@link ApplicationData}.
+   * @return A list of {@link ApplicationData} objects.
    */
   List<ApplicationData> findApplicationDataByAccountUuid(UUID accountUuid);
 
@@ -46,7 +45,7 @@ public interface StudentApplicationService {
    * Finds dashboard statistics data for a {@link Student} user.
    *
    * @param account The student's account.
-   * @return {@link StudentDashboardStatistics}
+   * @return A single {@link StudentDashboardStatistics} object.
    */
   StudentDashboardStatistics findStudentDashboardDataByAccount(Account account);
 
@@ -55,7 +54,7 @@ public interface StudentApplicationService {
    *
    * @param account The authenticated user account.
    * @param requestBody The application creation request body.
-   * @return {@link ApplicationData}
+   * @return A single {@link ApplicationData} object.
    */
   ApplicationData createApplication(Account account, NewApplicationByStudent requestBody);
 
@@ -65,7 +64,7 @@ public interface StudentApplicationService {
    * @param uuid The to-be-updated application's uuid.
    * @param requestBody The application update request body.
    * @param account The account associated with the to-be-updated application.
-   * @return {@link ApplicationData}
+   * @return A single {@link ApplicationData} object.
    */
   ApplicationData updateApplicationAndFetchByUuid(UUID uuid, UpdateApplicationByStudent requestBody, Account account);
 

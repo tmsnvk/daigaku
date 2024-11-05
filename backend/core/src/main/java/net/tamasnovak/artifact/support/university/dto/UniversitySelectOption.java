@@ -6,31 +6,26 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.role.dto;
+package net.tamasnovak.artifact.support.university.dto;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-import net.tamasnovak.artifact.role.persistence.RoleOptionViewProjection;
+import net.tamasnovak.artifact.support.university.entity.University;
 
 /**
- * Represents a dropdown option object.
+ * Represents the response object associated with a {@link University} select option.
  *
  * @since 0.0.1
  */
-public record RoleDropdownOption(
+public record UniversitySelectOption(
   UUID uuid,
 
-  String name
+  String name,
+
+  String abbreviation
 ) implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
-
-  public RoleDropdownOption(RoleOptionViewProjection roleOptionViewProjection) {
-    this(
-      roleOptionViewProjection.getUuid(),
-      roleOptionViewProjection.getName()
-    );
-  }
 }

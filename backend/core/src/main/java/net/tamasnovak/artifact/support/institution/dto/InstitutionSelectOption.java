@@ -6,20 +6,20 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.support.country.dto;
+package net.tamasnovak.artifact.support.institution.dto;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-import net.tamasnovak.artifact.support.country.entity.Country;
+import net.tamasnovak.artifact.support.institution.entity.Institution;
 
 /**
- * Represents the response object associated with a {@link Country} select option.
+ * Represents the response object associated with a {@link Institution} select option.
  *
  * @since 0.0.1
  */
-public record CountrySelectOption(
+public record InstitutionSelectOption(
   UUID uuid,
 
   String name

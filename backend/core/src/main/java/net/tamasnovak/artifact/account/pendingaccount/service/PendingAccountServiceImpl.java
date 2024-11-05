@@ -52,7 +52,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void validateAccountDoesNotExistByEmail(final String email) {
+  public void validateAccountDoesNotExist(final String email) {
     final boolean isPendingAccountExists = pendingAccountRepository.existsPendingAccountByEmail(email);
 
     if (isPendingAccountExists) {
@@ -64,11 +64,11 @@ public class PendingAccountServiceImpl implements PendingAccountService {
   @Transactional
   public void createPendingAccount(final PendingAccountRegisterRequest requestBody) {
     // Check if account with provided email already exists.
-    accountService.validateAccountDoesNotExistByEmail(requestBody.email());
-    this.validateAccountDoesNotExistByEmail(requestBody.email());
+    accountService.validateAccountDoesNotExist(requestBody.email());
+    this.validateAccountDoesNotExist(requestBody.email());
 
     // Find the selected institution and role objects.
-    final Institution selectedInstitution = institutionService.findByUuid(requestBody.getInstituionUuid());
+    final Institution selectedInstitution = institutionService.findInstitutionByUuid(requestBody.getInstituionUuid());
     final Role selectedRole = roleService.findRoleByUuid(requestBody.getAccountRoleUuid());
 
     // Create the new pending account object, then save it in the database.
@@ -76,7 +76,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
       requestBody.email(), selectedInstitution, selectedRole);
     final PendingAccount savedEntity = pendingAccountRepository.save(pendingAccount);
 
-    // Initiate a message via rabbit-mq that the user should receive the pending-registration-welcome-email.
+    // Initiate a message queue via RabbitMQ that the user should receive the pending-registration-welcome-email.
     final PendingAccountConfirmationQueue queueDto = new PendingAccountConfirmationQueue(savedEntity.getEmail(),
       savedEntity.getFirstName(), savedEntity.getLastName(), savedEntity.getInstitution().getName(),
       savedEntity.getRole().fetchNameWithoutPrefix());

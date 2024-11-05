@@ -6,24 +6,32 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.support.country.dto;
+package net.tamasnovak.artifact.role.dto;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-import net.tamasnovak.artifact.support.country.entity.Country;
+import net.tamasnovak.artifact.role.entity.Role;
+import net.tamasnovak.artifact.role.persistence.RoleOptionViewProjection;
 
 /**
- * Represents the response object associated with a {@link Country} select option.
+ * Represents a {@link Role} select option object.
  *
  * @since 0.0.1
  */
-public record CountrySelectOption(
+public record RoleSelectOption(
   UUID uuid,
 
   String name
 ) implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
+
+  public RoleSelectOption(RoleOptionViewProjection roleOptionViewProjection) {
+    this(
+      roleOptionViewProjection.getUuid(),
+      roleOptionViewProjection.getName()
+    );
+  }
 }

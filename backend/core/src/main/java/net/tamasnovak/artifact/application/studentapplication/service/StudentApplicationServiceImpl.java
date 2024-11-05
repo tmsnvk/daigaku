@@ -154,7 +154,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
   public ApplicationData createApplication(final Account account, final NewApplicationByStudent requestBody) {
     final Country country = countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
-    final University university = universityService.findByUuid(UUID.fromString(requestBody.universityUuid()));
+    final University university = universityService.findUniversityByUuid(UUID.fromString(requestBody.universityUuid()));
     country.validateUniversityCountryMatch(university, StudentApplicationServiceMessages.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     final Student student = studentService.findStudentByAccount(account);
@@ -163,7 +163,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       requestBody.minorSubject(), requestBody.programmeLength(), plannedApplicationStatus);
     final Application savedApplication = applicationRepository.save(newApplication);
 
-    return applicationService.createApplicationDataByUuid(savedApplication.getUuid());
+    return applicationService.createApplicationData(savedApplication.getUuid());
   }
 
   @Override
@@ -172,9 +172,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }"),
     @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
   })
-  public ApplicationData updateApplicationAndFetchByUuid(
-    final UUID uuid, final UpdateApplicationByStudent requestBody,
-    final Account account) {
+  public ApplicationData updateApplicationAndFetchByUuid(final UUID uuid, final UpdateApplicationByStudent requestBody,
+                                                         final Account account) {
     final Application currentApplication = applicationService.findApplicationByUuid(uuid);
     final Student currentStudent = studentService.findStudentByAccount(account);
     final UUID studentUuidByApplication = currentApplication.fetchStudentAccountUuid();
@@ -203,7 +202,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     applicationRepository.save(currentApplication);
 
-    return applicationService.createApplicationDataByUuid(currentApplication.getUuid());
+    return applicationService.createApplicationData(currentApplication.getUuid());
   }
 
   private <T extends BaseStatusEntity> T getStatusOnUpdate(
@@ -230,7 +229,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional
   public void initiateApplicationPdfDownloadRequest(final UUID accountUuid) {
     final Account studentAccount = accountService.findAccountByUuid(accountUuid);
-    final Institution studentInstitution = institutionService.findById(studentAccount.fetchInstitutionId());
+    final Institution studentInstitution = institutionService.findInstitutionById(studentAccount.fetchInstitutionId());
     final List<ApplicationData> applicationData = this.findApplicationDataByAccountUuid(accountUuid);
 
     final StudentPdfRequestDataQueueDto compiledData = compileStudentPdfSaveData(accountUuid, studentAccount, studentInstitution,

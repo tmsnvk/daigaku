@@ -15,26 +15,26 @@ import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
 import net.tamasnovak.artifact.application.shared.entity.Application;
 
 /**
- * Service interface managing {@link Application} entity-related API calls towards the database.
+ * Service interface for handling database API calls related to the {@link Application} entity.
  *
  * @since 0.0.1
  */
 public interface ApplicationService {
   /**
-   * Finds an {@link Application} entity by its uuid.
+   * Finds an {@link Application} object by its uuid.
    *
-   * @param uuid The uuid of the {@link Application} to retrieve.
-   * @return {@link Application}
+   * @param applicationUuid The application's uuid.
+   * @return A single {@link Application} object.
    * @throws EntityNotFoundException If no application is found with the provided uuid.
    */
-  Application findApplicationByUuid(UUID uuid);
+  Application findApplicationByUuid(UUID applicationUuid);
 
   /**
    * Retrieves an {@link ApplicationData} entity by its uuid.
    *
-   * @param uuid The uuid of the application.
-   * @return {@link ApplicationData}
+   * @param applicationUuid The application's uuid.
+   * @return A single {@link ApplicationData} object.
    * @throws EntityNotFoundException If no application is found with the provided uuid.
    */
-  ApplicationData createApplicationDataByUuid(UUID uuid);
+  ApplicationData createApplicationData(UUID applicationUuid);
 }

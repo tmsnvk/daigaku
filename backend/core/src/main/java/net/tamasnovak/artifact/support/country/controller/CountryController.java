@@ -35,12 +35,12 @@ public class CountryController {
   }
 
   /**
-   * Fetches all {@link Country} objects as dropdown options for frontend forms.
+   * Fetches all {@link Country} objects as select options for frontend forms.
    *
-   * @return a list of {@link CountrySelectOption}.
+   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and a list {@link CountrySelectOption} object.
    */
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<CountrySelectOption>> fetchDropdownOptions() {
+  public ResponseEntity<List<CountrySelectOption>> fetchCountrySelectOptions() {
     final List<CountrySelectOption> response = countryService.findCountrySelectOptionsSortedByName();
 
     return ResponseEntity.status(HttpStatus.OK)

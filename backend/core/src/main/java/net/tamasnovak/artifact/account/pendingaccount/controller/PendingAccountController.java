@@ -41,7 +41,7 @@ public class PendingAccountController {
    * The @Valid annotation validates the {@link PendingAccountRegisterRequest} object as per its validation criteria.
    *
    * @param requestBody The registration request body.
-   * @return A responseEntity containing the `HttpStatus.OK` status code.
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code.
    */
   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> registerUser(@Valid @RequestBody final PendingAccountRegisterRequest requestBody) {

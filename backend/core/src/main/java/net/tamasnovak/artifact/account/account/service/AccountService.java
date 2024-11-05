@@ -19,7 +19,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 
 /**
- * Service interface managing {@link Account} entity-related API calls towards the database.
+ * Service interface for handling database API calls related to the {@link Account} entity.
  *
  * @since 0.0.1
  */
@@ -28,7 +28,7 @@ public interface AccountService {
    * Retrieves an {@link Account} object by the provided email.
    *
    * @param email The account's email.
-   * @return {@link Account}
+   * @return A single {@link Account} object.
    * @throws EntityNotFoundException If no account is found with the provided email.
    */
   Account findAccountByEmail(String email);
@@ -36,27 +36,27 @@ public interface AccountService {
   /**
    * Retrieves an {@link Account} object by the provided uuid.
    *
-   * @param uuid The account's uuid.
-   * @return {@link Account}
+   * @param accountUuid The account's uuid.
+   * @return A single {@link Account} object.
    * @throws EntityNotFoundException If no account is found with the provided uuid.
    */
-  Account findAccountByUuid(UUID uuid);
+  Account findAccountByUuid(UUID accountUuid);
 
   /**
    * Retrieves the {@link AuthContextResponse} object associated with the provided email.
    * The object contains authentication details for the user.
    *
    * @param email The email of the account whose authentication context is to be retrieved.
-   * @return {@link AuthContextResponse}
+   * @return A single {@link AuthContextResponse} object.
    */
-  AuthContextResponse fetchAuthContextResponseByAccountEmail(String email);
+  AuthContextResponse fetchAuthContextResponse(String email);
 
   /**
    * Creates a {@link LoginResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
    *
    * @param requestBody The login request object containing user credentials.
    * @param authentication The authentication details of the user provided by the Spring Framework.
-   * @return {@link LoginResponse}
+   * @return A single {@link LoginResponse} object.
    */
   LoginResponse fetchLoginResponse(LoginRequest requestBody, Authentication authentication);
 
@@ -66,5 +66,5 @@ public interface AccountService {
    * @param email The email to check for an existing account.
    * @throws DataIntegrityViolationException If an account with the given email already exists.
    */
-  void validateAccountDoesNotExistByEmail(String email);
+  void validateAccountDoesNotExist(String email);
 }

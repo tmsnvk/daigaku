@@ -10,10 +10,10 @@ package net.tamasnovak.artifact.role.persistence;
 
 import java.util.UUID;
 
-import net.tamasnovak.artifact.role.dto.RoleDropdownOption;
+import net.tamasnovak.artifact.role.dto.RoleSelectOption;
 
 /**
- * Represents the projection of a {@link RoleDropdownOption} object.
+ * Represents the projection of a {@link RoleSelectOption} object.
  *
  * @since 0.0.1
  */

@@ -61,7 +61,7 @@ class AccountControllerIT {
         "Student",
         "ROLE_STUDENT"
       );
-      Mockito.when(accountService.fetchAuthContextResponseByAccountEmail(userDetails.getUsername()))
+      Mockito.when(accountService.fetchAuthContextResponse(userDetails.getUsername()))
              .thenReturn(authContextResponse);
 
       mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts/me"))

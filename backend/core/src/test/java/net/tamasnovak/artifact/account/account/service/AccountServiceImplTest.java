@@ -123,7 +123,7 @@ class AccountServiceImplTest {
       AuthContextResponse expected = new AuthContextResponse(expectedValidEmail, mockAccount.getFirstName(), mockRole.getName());
       when(accountRepository.findAccountByEmail(expectedValidEmail)).thenReturn(Optional.of(mockAccount));
 
-      AuthContextResponse actual = underTest.fetchAuthContextResponseByAccountEmail(expectedValidEmail);
+      AuthContextResponse actual = underTest.fetchAuthContextResponse(expectedValidEmail);
 
       assertEquals(expected, actual);
 
@@ -133,7 +133,7 @@ class AccountServiceImplTest {
     @Test
     @Description("Propagates exception when accountService throws EntityNotFoundException.")
     void shouldPropagateException_whenAccountServiceThrowsEntityNotFoundException() {
-      assertThrows(EntityNotFoundException.class, () -> underTest.fetchAuthContextResponseByAccountEmail(notValidEmail));
+      assertThrows(EntityNotFoundException.class, () -> underTest.fetchAuthContextResponse(notValidEmail));
     }
   }
 
@@ -179,7 +179,7 @@ class AccountServiceImplTest {
     void shouldReturnVoid_whenEmailIsNotFound() {
       when(accountRepository.existsAccountByEmail(expectedValidEmail)).thenReturn(false);
 
-      assertDoesNotThrow(() -> underTest.validateAccountDoesNotExistByEmail(expectedValidEmail));
+      assertDoesNotThrow(() -> underTest.validateAccountDoesNotExist(expectedValidEmail));
 
       verify(accountRepository, times(1)).existsAccountByEmail(expectedValidEmail);
     }
@@ -190,7 +190,7 @@ class AccountServiceImplTest {
     void shouldThrowDataIntegrityViolationException_whenEmailExists() {
       when(accountRepository.existsAccountByEmail(expectedValidEmail)).thenReturn(true);
 
-      assertThrows(DataIntegrityViolationException.class, () -> underTest.validateAccountDoesNotExistByEmail(expectedValidEmail));
+      assertThrows(DataIntegrityViolationException.class, () -> underTest.validateAccountDoesNotExist(expectedValidEmail));
 
       verify(accountRepository, times(1)).existsAccountByEmail(expectedValidEmail);
     }

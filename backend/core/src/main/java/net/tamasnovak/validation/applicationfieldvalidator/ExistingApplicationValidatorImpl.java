@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.validation.applicationfieldvalidator;
 
 import java.util.Objects;
@@ -21,8 +29,8 @@ import net.tamasnovak.enums.status.FinalDestinationStatusType;
 import net.tamasnovak.enums.status.InterviewStatusType;
 import net.tamasnovak.enums.status.OfferStatusType;
 import net.tamasnovak.enums.status.ResponseStatusType;
-import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldException;
-import net.tamasnovak.exceptions.invalidFormFieldException.InvalidFormFieldExceptionConstants;
+import net.tamasnovak.exceptions.invalidformfieldexception.InvalidFormFieldException;
+import net.tamasnovak.exceptions.invalidformfieldexception.InvalidFormFieldExceptionMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -69,7 +77,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     String newApplicationStatusUUid,
     ApplicationStatus newApplicationStatus) {
     if (newApplicationStatusUUid.isEmpty() && currentApplication.isApplicationStatusNull()) {
-      throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.MISSING_APPLICATION_STATUS);
+      throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.MISSING_APPLICATION_STATUS);
     }
 
     ApplicationStatus planned = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName());
@@ -77,14 +85,14 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     if (newApplicationStatus != null) {
       if (areValuesEqual(newApplicationStatus.getUuid(), planned.getUuid()) && areValuesEqual(currentApplication.getApplicationStatusUuid(),
         planned.getUuid())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.PLANNED_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.PLANNED_ERROR);
       }
 
       ApplicationStatus withdrawn = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName());
 
       if (areValuesEqual(newApplicationStatus.getUuid(), withdrawn.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(),
         currentApplication.getUuid())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.WITHDRAWN_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.WITHDRAWN_ERROR);
       }
     }
   }
@@ -100,14 +108,14 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
                                                                                                     .isEmpty() || !newApplicationData.responseStatusUuid()
                                                                                                                                      .isEmpty() || !newApplicationData.finalDestinationStatusUuid()
                                                                                                                                                                       .isEmpty())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.GENERIC_ERROR);
       }
     }
 
     if (!currentApplication.isInterviewStatusNull()) {
       if (areValuesEqual(currentApplication.getInterviewStatusUuid(), notInvited.getUuid()) && newApplicationData.interviewStatusUuid()
                                                                                                                  .isEmpty()) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.NOT_INVITED_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.NOT_INVITED_ERROR);
       }
     }
   }
@@ -122,13 +130,13 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
       if (areValuesEqual(newOfferStatus.getUuid(), rejected.getUuid()) && (!newApplicationData.responseStatusUuid()
                                                                                               .isEmpty() || !newApplicationData.finalDestinationStatusUuid()
                                                                                                                                .isEmpty())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.GENERIC_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.GENERIC_ERROR);
       }
     }
 
     if (!currentApplication.isOfferStatusNull()) {
       if (areValuesEqual(currentApplication.getOfferStatusUuid(), rejected.getUuid()) && newApplicationData.offerStatusUuid().isEmpty()) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.REJECTED_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.REJECTED_ERROR);
       }
     }
   }
@@ -146,14 +154,14 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
       if (firmChoiceApplication != null && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.getUuid()) && areValuesEqual(
         newResponseStatus.getUuid(), firmChoice.getUuid())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FIRM_CHOICE_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.FIRM_CHOICE_ERROR);
       }
     }
 
     if (!currentApplication.isResponseStatusNull()) {
       if (areValuesEqual(currentApplication.getResponseStatusUuid(), declined.getUuid()) && newApplicationData.responseStatusUuid()
                                                                                                               .isEmpty()) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.DECLINED_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.DECLINED_ERROR);
       }
     }
   }
@@ -174,7 +182,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
       if (finalDestinationApplication != null && !areValuesEqual(currentApplication.getUuid(),
         finalDestinationApplication.getUuid()) && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestination.getUuid())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionConstants.FINAL_DESTINATION_ERROR);
+        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.FINAL_DESTINATION_ERROR);
       }
     }
   }

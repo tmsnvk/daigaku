@@ -10,7 +10,7 @@ package net.tamasnovak.artifact.role.controller;
 
 import java.util.List;
 
-import net.tamasnovak.artifact.role.dto.RoleDropdownOption;
+import net.tamasnovak.artifact.role.dto.RoleSelectOption;
 import net.tamasnovak.artifact.role.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,11 +38,11 @@ public class RoleController {
   /**
    * Fetches student and mentor dropdown options for the pending account registration form.
    *
-   * @return ResponseEntity Contains `HttpStatus.OK` status code and a list of {@link RoleDropdownOption} object.
+   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and a list of {@link RoleSelectOption} object.
    */
   @GetMapping(value = "/student-and-mentor", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<RoleDropdownOption>> fetchPendingAccountRegistrationFormRoleOptions() {
-    final List<RoleDropdownOption> response = roleService.findStudentAndMentorDropdownOptions();
+  public ResponseEntity<List<RoleSelectOption>> fetchPendingAccountRegistrationFormRoleOptions() {
+    final List<RoleSelectOption> response = roleService.findStudentAndMentorDropdownOptions();
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

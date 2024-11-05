@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
-import net.tamasnovak.artifact.role.dto.RoleDropdownOption;
+import net.tamasnovak.artifact.role.dto.RoleSelectOption;
 import net.tamasnovak.artifact.role.entity.Role;
 import net.tamasnovak.artifact.role.persistence.RoleOptionViewProjection;
 import net.tamasnovak.artifact.role.persistence.RoleRepository;
@@ -50,11 +50,11 @@ public class RoleServiceImpl implements RoleService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "RoleDropdownOption", key = "#root.methodName")
-  public List<RoleDropdownOption> findStudentAndMentorDropdownOptions() {
+  public List<RoleSelectOption> findStudentAndMentorDropdownOptions() {
     final List<RoleOptionViewProjection> roleProjections = roleRepository.findStudentAndMentorRoleOptions();
 
     return roleProjections.stream()
-                          .map(RoleDropdownOption::new)
+                          .map(RoleSelectOption::new)
                           .collect(Collectors.toList());
   }
 }

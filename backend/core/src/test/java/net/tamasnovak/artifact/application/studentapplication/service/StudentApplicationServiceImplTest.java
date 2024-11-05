@@ -193,24 +193,24 @@ class StudentApplicationServiceImplTest {
       ApplicationData expected = mock(ApplicationData.class);
 
       when(countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
-      when(universityService.findByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
+      when(universityService.findUniversityByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.findByName("Planned")).thenReturn(mockApplicationStatus);
 
       when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
         mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.createApplicationDataByUuid(applicationUuid)).thenReturn(expected);
+      when(applicationService.createApplicationData(applicationUuid)).thenReturn(expected);
 
       ApplicationData actual = underTest.createApplication(mockAccount, requestBody);
 
       assertEquals(expected, actual);
 
       verify(countryService, times(1)).findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
-      verify(universityService, times(1)).findByUuid(UUID.fromString(requestBody.universityUuid()));
+      verify(universityService, times(1)).findUniversityByUuid(UUID.fromString(requestBody.universityUuid()));
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
       verify(applicationStatusService, times(1)).findByName("Planned");
-      verify(applicationService, times(1)).createApplicationDataByUuid(applicationUuid);
+      verify(applicationService, times(1)).createApplicationData(applicationUuid);
     }
 
     @Test
@@ -242,14 +242,14 @@ class StudentApplicationServiceImplTest {
       when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
         mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
-      when(applicationService.createApplicationDataByUuid(applicationUuid)).thenReturn(expected);
+      when(applicationService.createApplicationData(applicationUuid)).thenReturn(expected);
 
       ApplicationData actual = underTest.updateApplicationAndFetchByUuid(applicationUuid, requestBody, mockAccount);
 
       assertEquals(expected, actual);
 
       verify(applicationService, times(1)).findApplicationByUuid(applicationUuid);
-      verify(applicationService, times(1)).createApplicationDataByUuid(applicationUuid);
+      verify(applicationService, times(1)).createApplicationData(applicationUuid);
     }
   }
 }

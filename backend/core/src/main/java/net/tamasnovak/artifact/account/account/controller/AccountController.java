@@ -54,18 +54,18 @@ public class AccountController {
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
   public ResponseEntity<AuthContextResponse> fetchAuthContextResponse() {
     final User userDetails = authFacade.getUserContext();
-    final AuthContextResponse response = accountService.fetchAuthContextResponseByAccountEmail(userDetails.getUsername());
+    final AuthContextResponse response = accountService.fetchAuthContextResponse(userDetails.getUsername());
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);
   }
 
   /**
-   * Authenticates the user and logs them in based on the provided credentials.
+   * Authenticates and logs in the user based on the provided credentials.
    * The `@Valid` annotation validates the {@link LoginRequest} object as per its validation criteria.
    *
    * @param requestBody The login request body.
-   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link LoginResponse} object.
+   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and the {@link LoginResponse} object.
    */
   @PostMapping(value = "/log-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<LoginResponse> logInUser(@Valid @RequestBody final LoginRequest requestBody) {

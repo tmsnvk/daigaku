@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.security.service;
 
 import java.util.Collections;
@@ -12,6 +20,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Spring Security {@link UserDetailsService} implementation.
+ *
+ * @since 0.0.1
+ */
 @Service
 public final class UserDetailsServiceImpl implements UserDetailsService {
   private final AccountRepository accountRepository;

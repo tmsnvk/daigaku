@@ -22,9 +22,9 @@ public interface PendingAccountService {
    * Validates that no {@link PendingAccount} exists with the provided email.
    *
    * @param email The email to check for an existing account.
-   * @throws DataIntegrityViolationException If a pending account with the given email already exists.
+   * @throws DataIntegrityViolationException If a pending account with the provided email already exists.
    */
-  void validateAccountDoesNotExistByEmail(String email);
+  void validateAccountDoesNotExist(String email);
 
   /**
    * Creates a {@link PendingAccount}.

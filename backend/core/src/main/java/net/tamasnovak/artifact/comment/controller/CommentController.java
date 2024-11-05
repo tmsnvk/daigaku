@@ -53,7 +53,7 @@ public class CommentController {
    *
    * @param applicationUuid The application's uuid associated with the queried comments.
    * @param page The current page number.
-   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link CommentPaginationResponse} object.
+   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and the {@link CommentPaginationResponse} object.
    */
   @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CommentPaginationResponse> fetchPaginationByApplicationUuid(
@@ -69,7 +69,7 @@ public class CommentController {
    *
    * @param uuid The associated application's uuid.
    * @param requestBody The new comment request body.
-   * @return ResponseEntity Contains `HttpStatus.OK` status code.
+   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code.
    */
   @PostMapping(value = "/{applicationUuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> createCommentByApplicationUuid(

@@ -53,9 +53,9 @@ public class StudentApplicationController {
   }
 
   /**
-   * Fetches all {@link ApplicationData} objects associated with the authenticated user.
+   * Fetches a list of {@link ApplicationData} objects associated with the authenticated user.
    *
-   * @return A ResponseEntity containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<ApplicationData>> fetchAllApplicationsByAccount() {
@@ -71,7 +71,7 @@ public class StudentApplicationController {
    * The @Valid annotation validates the {@link NewApplicationByStudent} object as per its validation criteria.
    *
    * @param requestBody The application creation request body.
-   * @return A ResponseEntity containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
    */
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplicationData> createApplication(@Valid @RequestBody final NewApplicationByStudent requestBody) {
@@ -88,7 +88,7 @@ public class StudentApplicationController {
    *
    * @param uuid The to-be-updated application's uuid.
    * @param requestBody The application update request body.
-   * @return A ResponseEntity containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
    */
   @PatchMapping(value = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplicationData> updateApplicationByUuid(
@@ -105,7 +105,7 @@ public class StudentApplicationController {
    * The @Valid annotation validates the uuid string.
    *
    * @param uuid The application's uuid.
-   * @return A ResponseEntity containing the `HttpStatus.OK` status code.
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code.
    */
   @PatchMapping(value = "/toggle-is-removable/{uuid}")
   public ResponseEntity<HttpStatus> toggleIsRemovableByApplicationUuid(@PathVariable("uuid") @ValidUuid final String uuid) {
@@ -119,7 +119,7 @@ public class StudentApplicationController {
   /**
    * Fetches the authenticated student account's {@link StudentDashboardStatistics} object.
    *
-   * @return {@link StudentDashboardStatistics}
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link StudentDashboardStatistics} object.
    */
   @GetMapping(value = "/dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<StudentDashboardStatistics> fetchStudentDashboardData() {
@@ -131,9 +131,9 @@ public class StudentApplicationController {
   }
 
   /**
-   * Initiates the user's request to download their submitted {@link Application} objects in .pdf format.
+   * Initiates the authenticated user's request to download their submitted {@link Application} objects in .pdf format.
    *
-   * @return A ResponseEntity containing the `HttpStatus.OK` status code.
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code.
    */
   @PostMapping(value = "/download-pdf")
   public ResponseEntity<HttpStatus> initiateApplicationPdfDownloadRequest() {

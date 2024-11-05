@@ -50,14 +50,14 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public Account findAccountByUuid(final UUID uuid) {
-    return accountRepository.findAccountByUuid(uuid)
+  public Account findAccountByUuid(final UUID accountUuid) {
+    return accountRepository.findAccountByUuid(accountUuid)
                             .orElseThrow(() -> new EntityNotFoundException(AccountServiceMessages.ACCOUNT_NOT_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public AuthContextResponse fetchAuthContextResponseByAccountEmail(final String email) {
+  public AuthContextResponse fetchAuthContextResponse(final String email) {
     final Account account = this.findAccountByEmail(email);
 
     return account.createAuthContextResponse();
@@ -74,7 +74,7 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public void validateAccountDoesNotExistByEmail(final String email) {
+  public void validateAccountDoesNotExist(final String email) {
     final boolean isAccountExists = accountRepository.existsAccountByEmail(email);
 
     if (isAccountExists) {

@@ -55,10 +55,10 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional(readOnly = true)
-  public CommentPaginationResponse findAllCommentsByApplicationUuid(final UUID uuid, final int page) {
+  public CommentPaginationResponse findAllCommentsByApplicationUuid(final UUID applicationUuid, final int page) {
     // Finds all comments for the selected page number.
     final Pageable pageable = PageRequest.of(page, NUMBER_OF_COMMENTS_PER_PAGE);
-    final Page<CommentViewProjection> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(uuid, pageable);
+    final Page<CommentViewProjection> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(applicationUuid, pageable);
 
     // Transform the db projection into a list of view objects.
     final List<CommentViewResponse> comments = commentViews.stream()
@@ -71,12 +71,11 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional
-  public void createCommentByApplicationUuid(final UUID uuid, final NewCommentRequest requestBody) {
+  public void createCommentByApplicationUuid(final UUID applicationUuid, final NewCommentRequest requestBody) {
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
-    final Application relatedApplication = applicationService.findApplicationByUuid(uuid);
+    final Application relatedApplication = applicationService.findApplicationByUuid(applicationUuid);
 
     final Comment newComment = Comment.createComment(relatedApplication, authAccount, requestBody.comment());
-
     commentRepository.save(newComment);
   }
 }

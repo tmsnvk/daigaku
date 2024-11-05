@@ -39,9 +39,9 @@ public class CountryServiceImpl implements CountryService {
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "CountryByUuid", key = "{ #uuid }")
-  public Country findCountryByUuid(final UUID uuid) {
-    return countryRepository.findCountryByUuid(uuid)
+  @Cacheable(value = "CountryByUuid", key = "{ #countryUuid }")
+  public Country findCountryByUuid(final UUID countryUuid) {
+    return countryRepository.findCountryByUuid(countryUuid)
                             .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 

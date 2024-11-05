@@ -16,7 +16,7 @@ import net.tamasnovak.artifact.comment.dto.NewCommentRequest;
 import net.tamasnovak.artifact.comment.entity.Comment;
 
 /**
- * Service interface managing {@link Comment} entity-related API calls towards the database.
+ * Service interface for handling database API calls related to the {@link Comment} entity.
  *
  * @since 0.0.1
  */
@@ -25,17 +25,17 @@ public interface CommentService {
    * Finds all comments associated with a specific {@link Application}, identified by the provided uuid, and returns them in a paginated
    * format.
    *
-   * @param uuid The application's uuid.
+   * @param applicationUuid The application's uuid.
    * @param page The selected page number.
-   * @return {@link CommentPaginationResponse}
+   * @return A single {@link CommentPaginationResponse} uuid.
    */
-  CommentPaginationResponse findAllCommentsByApplicationUuid(UUID uuid, int page);
+  CommentPaginationResponse findAllCommentsByApplicationUuid(UUID applicationUuid, int page);
 
   /**
    * Creates a new comment associated with a specific application, identified by the provided uuid.
    *
-   * @param uuid The application's uuid.
+   * @param applicationUuid The application's uuid.
    * @param requestBody The request body data.
    */
-  void createCommentByApplicationUuid(UUID uuid, NewCommentRequest requestBody);
+  void createCommentByApplicationUuid(UUID applicationUuid, NewCommentRequest requestBody);
 }

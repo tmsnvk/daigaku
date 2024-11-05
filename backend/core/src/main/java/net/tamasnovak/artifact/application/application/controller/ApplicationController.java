@@ -44,11 +44,11 @@ public class ApplicationController {
    * The @ValidUuid annotation validates the uuid string.
    *
    * @param uuid The uuid of the application to retrieve.
-   * @return A responseEntity containing the `HttpStatus.OK` status code and the created {@link ApplicationData} object.
+   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the created {@link ApplicationData} object.
    */
   @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplicationData> fetchApplicationData(@PathVariable("uuid") @ValidUuid final String uuid) {
-    final ApplicationData response = applicationService.createApplicationDataByUuid(UUID.fromString(uuid));
+    final ApplicationData response = applicationService.createApplicationData(UUID.fromString(uuid));
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

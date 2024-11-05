@@ -46,18 +46,18 @@ public class ApplicationServiceImpl implements ApplicationService {
 
   @Override
   @Transactional(readOnly = true)
-  public Application findApplicationByUuid(final UUID uuid) {
-    return applicationRepository.findApplicationByUuid(uuid)
+  public Application findApplicationByUuid(final UUID applicationUuid) {
+    return applicationRepository.findApplicationByUuid(applicationUuid)
                                 .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
-  public ApplicationData createApplicationDataByUuid(final UUID uuid) {
-    validateUserAccessToViewApplication(uuid);
+  @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #applicationUuid }")
+  public ApplicationData createApplicationData(final UUID applicationUuid) {
+    validateUserAccessToViewApplication(applicationUuid);
 
-    final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(uuid)
+    final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(applicationUuid)
                                                                  .orElseThrow(() -> new EntityNotFoundException(
                                                                    GlobalServiceMessages.NO_RECORD_FOUND));
 
