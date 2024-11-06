@@ -27,17 +27,17 @@ import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
-import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstages.interviewStatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstages.interviewStatus.service.InterviewStatusService;
-import net.tamasnovak.artifact.applicationstages.offerStatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstages.offerStatus.service.OfferStatusService;
-import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
-import net.tamasnovak.artifact.applicationstages.responseStatus.service.ResponseStatusService;
-import net.tamasnovak.artifact.applicationstages.shared.entity.BaseStatusEntity;
+import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
+import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
+import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
+import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
+import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
+import net.tamasnovak.artifact.applicationstatus.interviewstatus.service.InterviewStatusService;
+import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
+import net.tamasnovak.artifact.applicationstatus.offerstatus.service.OfferStatusService;
+import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
+import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
+import net.tamasnovak.artifact.applicationstatus.shared.entity.BaseStatusEntity;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
@@ -134,9 +134,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Transactional(readOnly = true)
   public StudentDashboardStatistics findStudentDashboardDataByAccount(final Account account) {
     final Student student = studentService.findStudentByAccount(account);
-    final String plannedApplicationName = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName()).getName();
-    final String submittedApplicationName = applicationStatusService.findByName(ApplicationStatusType.SUBMITTED.getName()).getName();
-    final String withdrawnApplicationName = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName()).getName();
+    final String plannedApplicationName = applicationStatusService.findApplicationStatusByName(ApplicationStatusType.PLANNED.getName())
+                                                                  .getName();
+    final String submittedApplicationName = applicationStatusService.findApplicationStatusByName(ApplicationStatusType.SUBMITTED.getName())
+                                                                    .getName();
+    final String withdrawnApplicationName = applicationStatusService.findApplicationStatusByName(ApplicationStatusType.WITHDRAWN.getName())
+                                                                    .getName();
 
     return new StudentDashboardStatistics(student.createFirmChoiceTileDto(), student.createFinalDestinationTileDto(),
       student.fetchApplicationNumber(),
@@ -158,7 +161,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     country.validateUniversityCountryMatch(university, StudentApplicationServiceMessages.UNIVERSITY_BELONGS_TO_DIFFERENT_COUNTRY);
 
     final Student student = studentService.findStudentByAccount(account);
-    final ApplicationStatus plannedApplicationStatus = applicationStatusService.findByName("Planned");
+    final ApplicationStatus plannedApplicationStatus = applicationStatusService.findApplicationStatusByName("Planned");
     final Application newApplication = Application.createApplicationByStudent(student, country, university, requestBody.courseName(),
       requestBody.minorSubject(), requestBody.programmeLength(), plannedApplicationStatus);
     final Application savedApplication = applicationRepository.save(newApplication);
@@ -172,8 +175,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }"),
     @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
   })
-  public ApplicationData updateApplicationAndFetchByUuid(final UUID uuid, final UpdateApplicationByStudent requestBody,
-                                                         final Account account) {
+  public ApplicationData updateApplicationAndFetchByUuid(
+    final UUID uuid, final UpdateApplicationByStudent requestBody,
+    final Account account) {
     final Application currentApplication = applicationService.findApplicationByUuid(uuid);
     final Student currentStudent = studentService.findStudentByAccount(account);
     final UUID studentUuidByApplication = currentApplication.fetchStudentAccountUuid();
@@ -181,7 +185,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     account.verifyAccountUuidMatch(studentUuidByApplication, GlobalServiceMessages.NO_PERMISSION);
 
     final ApplicationStatus newApplicationStatus = getStatusOnUpdate(requestBody.applicationStatusUuid(),
-      currentApplication::returnApplicationStatusIfSame, applicationStatusService::findByUuid);
+      currentApplication::returnApplicationStatusIfSame, applicationStatusService::findApplicationStatusByUuid);
     final InterviewStatus newInterviewStatus = getStatusOnUpdate(requestBody.interviewStatusUuid(),
       currentApplication::returnInterviewStatusIfSame, interviewStatusService::findByUuid);
     final OfferStatus newOfferStatus = getStatusOnUpdate(requestBody.offerStatusUuid(), currentApplication::returnOfferStatusIfSame,

@@ -14,16 +14,16 @@ import java.util.UUID;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.shared.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
-import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstages.interviewStatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstages.interviewStatus.service.InterviewStatusService;
-import net.tamasnovak.artifact.applicationstages.offerStatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstages.offerStatus.service.OfferStatusService;
-import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
-import net.tamasnovak.artifact.applicationstages.responseStatus.service.ResponseStatusService;
+import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
+import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
+import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
+import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
+import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
+import net.tamasnovak.artifact.applicationstatus.interviewstatus.service.InterviewStatusService;
+import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
+import net.tamasnovak.artifact.applicationstatus.offerstatus.service.OfferStatusService;
+import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
+import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
 import net.tamasnovak.enums.status.ApplicationStatusType;
 import net.tamasnovak.enums.status.FinalDestinationStatusType;
 import net.tamasnovak.enums.status.InterviewStatusType;
@@ -80,7 +80,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
       throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.MISSING_APPLICATION_STATUS);
     }
 
-    ApplicationStatus planned = applicationStatusService.findByName(ApplicationStatusType.PLANNED.getName());
+    ApplicationStatus planned = applicationStatusService.findApplicationStatusByName(ApplicationStatusType.PLANNED.getName());
 
     if (newApplicationStatus != null) {
       if (areValuesEqual(newApplicationStatus.getUuid(), planned.getUuid()) && areValuesEqual(currentApplication.getApplicationStatusUuid(),
@@ -88,7 +88,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
         throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.PLANNED_ERROR);
       }
 
-      ApplicationStatus withdrawn = applicationStatusService.findByName(ApplicationStatusType.WITHDRAWN.getName());
+      ApplicationStatus withdrawn = applicationStatusService.findApplicationStatusByName(ApplicationStatusType.WITHDRAWN.getName());
 
       if (areValuesEqual(newApplicationStatus.getUuid(), withdrawn.getUuid()) && areValuesEqual(newApplicationStatus.getUuid(),
         currentApplication.getUuid())) {

@@ -82,12 +82,12 @@ interface CachedData {
 
 /**
  * The helper method used by {@link useHandleFormSubmission} filters various local `react-query` cache lists
- * by a given option name and returns the UUID of the first matching entry.
+ * by the provided option name and returns the uuid of the first matching entry.
  *
  * @param cache The array of cached data to filter.
  * @param optionName The name of the option to match in the cached data.
  *
- * @returns {string} The UUID of the first cached data entry that matches the provided option name.
+ * @returns {string} The uuid of the first cached data entry that matches the provided option name.
  *
  * @since 0.0.1
  */
@@ -95,6 +95,18 @@ const filterCacheByUuid = <T extends CachedData>(cache: Array<T>, optionName: st
   const filteredOption: T = cache?.filter((option: T) => option.name === optionName)[0];
 
   return filteredOption.uuid;
+};
+
+/**
+ * The helper method finds the provided local `react-query` cache type.
+ *
+ * @template T The `react-query` cache type.
+ * @param querykey The cache's query key identifier.
+ *
+ * @returns {Array<T> | undefined}
+ */
+const findQueryCache = <T extends {}>(queryKey: string): Array<T> | undefined => {
+  return queryClient.getQueryData<Array<T>>([queryKey]);
 };
 
 /**
@@ -118,37 +130,40 @@ export interface HandleFormSubmission {
 }
 
 /**
- * Manages the {@link LoginForm} submission process, including REST API request, error handling,
- * and post-success actions, such as setting account context and authentication status.
+ * Manages the form submission's first step. It checks if the user already has an {@link Application} set to either {@link ResponseStatusE.FIRM_CHOICE},
+ * {@link FinalDestinationStatusE.FINAL_DESTINATION} or {@link FinalDestinationStatusE.DEFERRED_ENTRY}. If yes, an error message stops the submission.
+ * If no error was found, the `react-query` mutate() method is called.
  *
  * @return {HandleFormSubmission}
  *
  * @since 0.0.1
  */
 export const useHandleFormSubmission = (): HandleFormSubmission => {
-  const handleValidation = (formData: UpdateApplicationFormFields, applicationUuid: string): Array<string> => {
+  const handleValidation = (formData: UpdateApplicationFormFields, currentApplicationUuid: string): Array<string> => {
     const errors: Array<string> = [];
 
-    const applicationsCache: Array<Application> | undefined = queryClient.getQueryData<Array<Application>>([
-      queryKeys.application.GET_ALL_BY_ROLE,
-    ]);
-    const responseStatusCache: Array<ResponseStatus> | undefined = queryClient.getQueryData<Array<ResponseStatus>>([
+    // Find application, response status and final destination status react-query caches.
+    const applicationsCache: Array<Application> | undefined = findQueryCache<Application>(queryKeys.application.GET_ALL_BY_ROLE);
+    const responseStatusCache: Array<ResponseStatus> | undefined = findQueryCache<ResponseStatus>(
       queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS,
-    ]);
-    const finalDestinationStatusCache: Array<FinalDestinationStatus> | undefined = queryClient.getQueryData<Array<FinalDestinationStatus>>([
+    );
+    const finalDestinationStatusCache: Array<FinalDestinationStatus> | undefined = findQueryCache(
       queryKeys.FINAL_DESTINATION.GET_AS_SELECT_OPTIONS,
-    ]);
+    );
 
     if (!applicationsCache || !responseStatusCache || !finalDestinationStatusCache) {
       return errors;
     }
 
+    // Find the three specific status uuids.
     const firmChoiceUuid: string = filterCacheByUuid(responseStatusCache, ResponseStatusE.FIRM_CHOICE);
     const finalDestinationUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatusE.FINAL_DESTINATION);
     const finalDestinationDeferredUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatusE.DEFERRED_ENTRY);
 
+    // Check each application (except for the current) if they have any of the three status set.
+    // If yes, error messages are thrown to the ui and the submission is stopped before hitting the API call.
     applicationsCache.forEach((application: Application) => {
-      if (application.uuid !== applicationUuid) {
+      if (application.uuid !== currentApplicationUuid) {
         if (application.responseStatus === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
           errors.push(constants.notifications.errors.FIRM_CHOICE_SELECTION);
         }
@@ -169,15 +184,19 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
 
   const submitForm = (
     formData: UpdateApplicationFormFields,
-    applicationUuid: string,
+    currentApplicationUuid: string,
     mutate: (formData: UpdateApplicationFormFields) => void,
     setError: UseFormSetError<UpdateApplicationFormFields>,
   ): void => {
-    const validationErrors: Array<string> = handleValidation(formData, applicationUuid);
+    const validationErrors: Array<string> = handleValidation(formData, currentApplicationUuid);
 
     if (!validationErrors.length) {
       const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationFormFields>;
 
+      /**
+       * Disabled inputs are returned as undefined. These undefined inputs are replaced with an empty string,
+       *so the backend uuid validation would not fail.
+       */
       for (const key in fieldKeys) {
         if (formData[fieldKeys[key]] === undefined) {
           formData[fieldKeys[key]] = '';
@@ -226,7 +245,8 @@ export type UpdateApplicationForm = MutationResult<
 >;
 
 /**
- * Mnages the POST GET API call.
+ * Manages the {@link ApplicationForm} submission process, including REST API request, error handling,
+ * and post-success actions, such as setting account context and authentication status.
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid.

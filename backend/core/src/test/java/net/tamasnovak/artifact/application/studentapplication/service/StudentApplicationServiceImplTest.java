@@ -18,14 +18,14 @@ import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
-import net.tamasnovak.artifact.applicationstages.applicationStatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstages.applicationStatus.service.ApplicationStatusService;
-import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstages.finalDestinationStatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstages.interviewStatus.service.InterviewStatusService;
-import net.tamasnovak.artifact.applicationstages.offerStatus.service.OfferStatusService;
-import net.tamasnovak.artifact.applicationstages.responseStatus.entity.ResponseStatus;
-import net.tamasnovak.artifact.applicationstages.responseStatus.service.ResponseStatusService;
+import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
+import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
+import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
+import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
+import net.tamasnovak.artifact.applicationstatus.interviewstatus.service.InterviewStatusService;
+import net.tamasnovak.artifact.applicationstatus.offerstatus.service.OfferStatusService;
+import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
+import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
@@ -161,9 +161,9 @@ class StudentApplicationServiceImplTest {
     @Description("Returns a DashboardAggregateDataDto instance.")
     void shouldReturnDashboardAggregateDataDto() {
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationStatusService.findByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(applicationStatusService.findByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(applicationStatusService.findByName(anyString())).thenReturn(mock(ApplicationStatus.class));
+      when(applicationStatusService.findApplicationStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
+      when(applicationStatusService.findApplicationStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
+      when(applicationStatusService.findApplicationStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
       when(responseStatusService.findByName(anyString())).thenReturn(mock(ResponseStatus.class));
       when(finalDestinationStatusService.findByName(anyString())).thenReturn(mock(FinalDestinationStatus.class));
 
@@ -173,7 +173,7 @@ class StudentApplicationServiceImplTest {
       assertEquals(expected, actual);
 
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
-      verify(applicationStatusService, times(3)).findByName(anyString());
+      verify(applicationStatusService, times(3)).findApplicationStatusByName(anyString());
       verify(responseStatusService, times(1)).findByName(anyString());
       verify(finalDestinationStatusService, times(2)).findByName(anyString());
     }
@@ -195,7 +195,7 @@ class StudentApplicationServiceImplTest {
       when(countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
       when(universityService.findUniversityByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationStatusService.findByName("Planned")).thenReturn(mockApplicationStatus);
+      when(applicationStatusService.findApplicationStatusByName("Planned")).thenReturn(mockApplicationStatus);
 
       when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
         mockApplication);
@@ -209,7 +209,7 @@ class StudentApplicationServiceImplTest {
       verify(countryService, times(1)).findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
       verify(universityService, times(1)).findUniversityByUuid(UUID.fromString(requestBody.universityUuid()));
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
-      verify(applicationStatusService, times(1)).findByName("Planned");
+      verify(applicationStatusService, times(1)).findApplicationStatusByName("Planned");
       verify(applicationService, times(1)).createApplicationData(applicationUuid);
     }
 
