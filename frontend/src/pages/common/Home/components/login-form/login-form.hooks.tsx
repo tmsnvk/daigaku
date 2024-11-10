@@ -28,7 +28,7 @@ import { mutationKeys } from '@configuration';
 import { localStorageKeyConstants, UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { MutationResult } from '@common-types';
+import { DefaultErrorResponse, MutationResult } from '@common-types';
 
 /**
  * ===============
@@ -59,18 +59,11 @@ export interface LoginFormResponse {
 }
 
 /**
- * Defines the {@link useHandleLoginForm} custom hook's error types.
- *
- * @since 0.0.1
- */
-type LoginFormErrorT = 'root';
-
-/**
  * Defines the {@link useHandleLoginForm} custom hook's return value properties.
  *
  * @since 0.0.1
  */
-export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<LoginFormErrorT>, LoginFormFields>;
+export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<DefaultErrorResponse>, LoginFormFields>;
 
 /**
  * Manages the {@link LoginForm} submission process, including REST API request, error handling,
@@ -104,13 +97,13 @@ export const useHandleLoginForm = (setError: UseFormSetError<LoginFormFields>): 
 
       navigate('/dashboard');
     },
-    onError: (error: AxiosError<LoginFormErrorT>) => {
+    onError: (error: AxiosError<DefaultErrorResponse>) => {
       if (axios.isAxiosError(error)) {
-        const status: number | undefined = error.response?.status;
+        const status: number | undefined = error.response?.data.errorCode;
 
         if (status) {
           if (status === 401) {
-            setError('root', { message: error.response?.data });
+            setError('root', { message: error.response?.data.errors[0].errorMessage });
           } else if (status >= 500) {
             setError('root', { message: UNEXPECTED_SERVER_ERROR });
           }
