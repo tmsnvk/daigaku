@@ -12,9 +12,9 @@ import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.accounttype.student.service.StudentService;
 import net.tamasnovak.artifact.application.application.service.ApplicationService;
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
+import net.tamasnovak.artifact.application.common.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
@@ -97,8 +97,8 @@ class StudentApplicationServiceImplTest {
   private final Account mockAccount = mock(Account.class);
   private final Student mockStudent = mock(Student.class);
   private final UUID applicationUuid = UUID.randomUUID();
-  private final net.tamasnovak.artifact.application.shared.entity.Application mockApplication = mock(
-    net.tamasnovak.artifact.application.shared.entity.Application.class);
+  private final net.tamasnovak.artifact.application.common.entity.Application mockApplication = mock(
+    net.tamasnovak.artifact.application.common.entity.Application.class);
 
   @Nested
   @DisplayName("getAllApplicationDtosByAccount() unit tests")
@@ -197,7 +197,7 @@ class StudentApplicationServiceImplTest {
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.findApplicationStatusByName("Planned")).thenReturn(mockApplicationStatus);
 
-      when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
+      when(applicationRepository.save(any(net.tamasnovak.artifact.application.common.entity.Application.class))).thenReturn(
         mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
       when(applicationService.createApplicationData(applicationUuid)).thenReturn(expected);
@@ -239,7 +239,7 @@ class StudentApplicationServiceImplTest {
 
       ApplicationData expected = mock(ApplicationData.class);
 
-      when(applicationRepository.save(any(net.tamasnovak.artifact.application.shared.entity.Application.class))).thenReturn(
+      when(applicationRepository.save(any(net.tamasnovak.artifact.application.common.entity.Application.class))).thenReturn(
         mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
       when(applicationService.createApplicationData(applicationUuid)).thenReturn(expected);

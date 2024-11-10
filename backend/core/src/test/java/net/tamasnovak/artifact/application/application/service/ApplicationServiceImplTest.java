@@ -8,9 +8,9 @@ import java.util.UUID;
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.application.persistence.ApplicationIdsView;
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
+import net.tamasnovak.artifact.application.common.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.junit.jupiter.api.DisplayName;
@@ -50,11 +50,11 @@ class ApplicationServiceImplTest {
     @Test
     @Description("Returns the correct Application record.")
     void shouldReturnApplication() {
-      net.tamasnovak.artifact.application.shared.entity.Application expected = mock(
-        net.tamasnovak.artifact.application.shared.entity.Application.class);
+      net.tamasnovak.artifact.application.common.entity.Application expected = mock(
+        net.tamasnovak.artifact.application.common.entity.Application.class);
       when(applicationRepository.findApplicationByUuid(applicationUuid)).thenReturn(Optional.of(expected));
 
-      net.tamasnovak.artifact.application.shared.entity.Application actual = underTest.findApplicationByUuid(applicationUuid);
+      net.tamasnovak.artifact.application.common.entity.Application actual = underTest.findApplicationByUuid(applicationUuid);
 
       assertEquals(expected, actual);
 

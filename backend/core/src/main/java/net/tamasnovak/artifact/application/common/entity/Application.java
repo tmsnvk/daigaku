@@ -6,7 +6,7 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.application.shared.entity;
+package net.tamasnovak.artifact.application.common.entity;
 
 import java.util.ArrayList;
 import java.util.List;

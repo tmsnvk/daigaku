@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
@@ -44,9 +44,8 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
   @Autowired
   public ExistingApplicationValidatorImpl(
-    ApplicationStatusService applicationStatusService,
-    InterviewStatusService interviewStatusService, OfferStatusService offerStatusService,
-    ResponseStatusService responseStatusService,
+    ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService,
+    OfferStatusService offerStatusService, ResponseStatusService responseStatusService,
     FinalDestinationStatusService finalDestinationStatusService) {
     this.applicationStatusService = applicationStatusService;
     this.interviewStatusService = interviewStatusService;
@@ -57,14 +56,9 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
   @Override
   public void validateStatusFields(
-    UpdateApplicationByStudent newApplicationData,
-    Application currentApplication,
-    Student currentStudent,
-    ApplicationStatus newApplicationStatus,
-    InterviewStatus newInterviewStatus,
-    OfferStatus newOfferStatus,
-    ResponseStatus newResponseStatus,
-    FinalDestinationStatus newFinalDestinationStatus) {
+    UpdateApplicationByStudent newApplicationData, Application currentApplication, Student currentStudent,
+    ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus,
+    ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
     validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
     validateInterviewStatus(currentApplication, newApplicationData, newInterviewStatus);
     validateOfferStatus(currentApplication, newApplicationData, newOfferStatus);
@@ -73,9 +67,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   private void validateApplicationStatus(
-    Application currentApplication,
-    String newApplicationStatusUUid,
-    ApplicationStatus newApplicationStatus) {
+    Application currentApplication, String newApplicationStatusUUid, ApplicationStatus newApplicationStatus) {
     if (newApplicationStatusUUid.isEmpty() && currentApplication.isApplicationStatusNull()) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.MISSING_APPLICATION_STATUS);
     }
@@ -98,38 +90,32 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   private void validateInterviewStatus(
-    Application currentApplication,
-    UpdateApplicationByStudent newApplicationData,
-    InterviewStatus newInterviewStatus) {
+    Application currentApplication, UpdateApplicationByStudent newApplicationData, InterviewStatus newInterviewStatus) {
     InterviewStatus notInvited = interviewStatusService.findByName(InterviewStatusType.NOT_INVITED.getName());
 
     if (newInterviewStatus != null) {
-      if (areValuesEqual(newInterviewStatus.getUuid(), notInvited.getUuid()) && (!newApplicationData.offerStatusUuid()
-                                                                                                    .isEmpty() || !newApplicationData.responseStatusUuid()
-                                                                                                                                     .isEmpty() || !newApplicationData.finalDestinationStatusUuid()
-                                                                                                                                                                      .isEmpty())) {
+      if (areValuesEqual(newInterviewStatus.getUuid(), notInvited.getUuid())
+        && (!newApplicationData.offerStatusUuid().isEmpty() || !newApplicationData.responseStatusUuid().isEmpty()
+        || !newApplicationData.finalDestinationStatusUuid().isEmpty())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.GENERIC_ERROR);
       }
     }
 
     if (!currentApplication.isInterviewStatusNull()) {
-      if (areValuesEqual(currentApplication.getInterviewStatusUuid(), notInvited.getUuid()) && newApplicationData.interviewStatusUuid()
-                                                                                                                 .isEmpty()) {
+      if (areValuesEqual(currentApplication.getInterviewStatusUuid(), notInvited.getUuid())
+        && newApplicationData.interviewStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.NOT_INVITED_ERROR);
       }
     }
   }
 
   private void validateOfferStatus(
-    Application currentApplication,
-    UpdateApplicationByStudent newApplicationData,
-    OfferStatus newOfferStatus) {
+    Application currentApplication, UpdateApplicationByStudent newApplicationData, OfferStatus newOfferStatus) {
     OfferStatus rejected = offerStatusService.findByName(OfferStatusType.REJECTED.getName());
 
     if (newOfferStatus != null) {
-      if (areValuesEqual(newOfferStatus.getUuid(), rejected.getUuid()) && (!newApplicationData.responseStatusUuid()
-                                                                                              .isEmpty() || !newApplicationData.finalDestinationStatusUuid()
-                                                                                                                               .isEmpty())) {
+      if (areValuesEqual(newOfferStatus.getUuid(), rejected.getUuid())
+        && (!newApplicationData.responseStatusUuid().isEmpty() || !newApplicationData.finalDestinationStatusUuid().isEmpty())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.GENERIC_ERROR);
       }
     }
@@ -142,9 +128,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   }
 
   private void validateResponseStatus(
-    Application currentApplication,
-    Student currentStudent,
-    UpdateApplicationByStudent newApplicationData,
+    Application currentApplication, Student currentStudent, UpdateApplicationByStudent newApplicationData,
     ResponseStatus newResponseStatus) {
     ResponseStatus declined = responseStatusService.findByName(ResponseStatusType.OFFER_DECLINED.getValue());
 
@@ -159,22 +143,19 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     }
 
     if (!currentApplication.isResponseStatusNull()) {
-      if (areValuesEqual(currentApplication.getResponseStatusUuid(), declined.getUuid()) && newApplicationData.responseStatusUuid()
-                                                                                                              .isEmpty()) {
+      if (areValuesEqual(currentApplication.getResponseStatusUuid(), declined.getUuid())
+        && newApplicationData.responseStatusUuid().isEmpty()) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.DECLINED_ERROR);
       }
     }
   }
 
   private void validateFinalDestinationStatus(
-    Application currentApplication,
-    Student currentStudent,
-    FinalDestinationStatus newFinalDestinationStatus) {
+    Application currentApplication, Student currentStudent, FinalDestinationStatus newFinalDestinationStatus) {
     if (newFinalDestinationStatus != null) {
       String finalDestination = finalDestinationStatusService.findByName(FinalDestinationStatusType.FINAL_DESTINATION.getValue()).getName();
       String deferredFinalDestination = finalDestinationStatusService.findByName(
-                                                                       FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue())
-                                                                     .getName();
+        FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue()).getName();
       FinalDestinationStatus notFinalDestination = finalDestinationStatusService.findByName(
         FinalDestinationStatusType.NOT_FINAL_DESTINATION.getValue());
 

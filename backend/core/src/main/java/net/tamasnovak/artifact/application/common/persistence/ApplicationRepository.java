@@ -6,7 +6,7 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.application.shared.persistence;
+package net.tamasnovak.artifact.application.common.persistence;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,7 @@ import java.util.UUID;
 import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.application.persistence.ApplicationIdsView;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -44,11 +44,16 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           applications.course_name AS courseName,
           applications.minor_subject AS minorSubject,
           applications.programme_length AS programmeLength,
-          application_status.name AS applicationStatus,
-          interview_status.name AS interviewStatus,
-          offer_status.name AS offerStatus,
-          response_status.name AS responseStatus,
-          final_destination_status.name AS finalDestinationStatus,
+          application_status.uuid AS applicationStatusUuid,
+          application_status.name AS applicationStatusName,
+          interview_status.uuid AS interviewStatusUuid,
+          interview_status.name AS interviewStatusName,
+          offer_status.uuid AS offerStatusUuid,
+          offer_status.name AS offerStatusName,
+          response_status.uuid AS responseStatusUuid,
+          response_status.name AS responseStatusName,
+          final_destination_status.uuid AS finalDestinationStatusUuid,
+          final_destination_status.name AS finalDestinationStatusName,
           applications.created_at AS createdAt,
           applications.last_updated_at AS lastUpdatedAt,
           created_by.full_name AS createdBy,
@@ -99,11 +104,16 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           applications.course_name AS courseName,
           applications.minor_subject AS minorSubject,
           applications.programme_length AS programmeLength,
-          application_status.name AS applicationStatus,
-          interview_status.name AS interviewStatus,
-          offer_status.name AS offerStatus,
-          response_status.name AS responseStatus,
-          final_destination_status.name AS finalDestinationStatus,
+          application_status.uuid AS applicationStatusUuid,
+          application_status.name AS applicationStatusName,
+          interview_status.uuid AS interviewStatusUuid,
+          interview_status.name AS interviewStatusName,
+          offer_status.uuid AS offerStatusUuid,
+          offer_status.name AS offerStatusName,
+          response_status.uuid AS responseStatusUuid,
+          response_status.name AS responseStatusName,
+          final_destination_status.uuid AS finalDestinationStatusUuid,
+          final_destination_status.name AS finalDestinationStatusName,
           applications.created_at AS createdAt,
           applications.last_updated_at AS lastUpdatedAt,
           created_by.full_name AS createdBy,

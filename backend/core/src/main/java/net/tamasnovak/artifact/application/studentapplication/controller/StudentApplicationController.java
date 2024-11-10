@@ -13,8 +13,8 @@ import java.util.UUID;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.artifact.account.account.entity.Account;
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;

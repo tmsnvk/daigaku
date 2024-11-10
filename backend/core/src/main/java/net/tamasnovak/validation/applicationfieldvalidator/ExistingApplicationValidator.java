@@ -9,7 +9,7 @@
 package net.tamasnovak.validation.applicationfieldvalidator;
 
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;

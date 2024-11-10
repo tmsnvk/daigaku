@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.application.application.service.ApplicationService;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.comment.dto.CommentPaginationResponse;
 import net.tamasnovak.artifact.comment.dto.CommentViewResponse;
 import net.tamasnovak.artifact.comment.dto.NewCommentRequest;

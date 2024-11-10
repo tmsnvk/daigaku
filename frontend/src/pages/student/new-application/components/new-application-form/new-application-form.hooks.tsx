@@ -27,7 +27,7 @@ import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Application, MutationResult, ServerValidationErrorResponse } from '@common-types';
+import { Application, DefaultErrorResponse, ErrorDetail, MutationResult } from '@common-types';
 
 /**
  * ===============
@@ -60,7 +60,7 @@ type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | '
  *
  * @since 0.0.1
  */
-export type CreateApplication = MutationResult<Application, AxiosError<Array<ServerValidationErrorResponse>>, CreateApplicationFormFields>;
+export type CreateApplication = MutationResult<Application, AxiosError<DefaultErrorResponse>, CreateApplicationFormFields>;
 
 /**
  * Manages the submission of new application submission via the `react-query` package.
@@ -81,6 +81,8 @@ export const useCreateApplication = (
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationFormFields) => applicationStudentService.postByStudent(formData),
     onSuccess: (response: Application) => {
+      console.log(response);
+
       // After a successful submission, the newly created application is added to `react-query`'s local cache.
       queryClient.setQueryData<Array<Application>>(
         [queryKeys.application.GET_ALL_BY_ROLE],
@@ -96,14 +98,14 @@ export const useCreateApplication = (
       resetCountrySelection();
       reset();
     },
-    onError: (error: AxiosError<Array<ServerValidationErrorResponse>>) => {
+    onError: (error: AxiosError<DefaultErrorResponse>) => {
       if (axios.isAxiosError(error)) {
-        const status: number | undefined = error.response?.status;
-        const errors: Array<ServerValidationErrorResponse> | undefined = error.response?.data;
+        const status: number | undefined = error.response?.data.errorCode;
+        const errors: DefaultErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {
-            errors.forEach((error: ServerValidationErrorResponse) => {
+            errors.errors.forEach((error: ErrorDetail) => {
               if (error.fieldName) {
                 setError(error.fieldName as CreateApplicationFormErrorT, { message: error.errorMessage });
               }

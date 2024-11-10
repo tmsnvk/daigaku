@@ -11,7 +11,7 @@ package net.tamasnovak.artifact.application.application.controller;
 import java.util.UUID;
 
 import net.tamasnovak.artifact.application.application.service.ApplicationService;
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -6,15 +6,15 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.application.shared.dto;
+package net.tamasnovak.artifact.application.common.dto;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import net.tamasnovak.artifact.application.shared.entity.Application;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
+import net.tamasnovak.artifact.application.common.entity.Application;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 
 /**
  * Represents an {@link Application} object. This is the central object that the frontend uses on application-related display and edit
@@ -37,15 +37,15 @@ public record ApplicationData(
 
   Integer programmeLength,
 
-  String applicationStatus,
+  ApplicationStatusView applicationStatus,
 
-  String interviewStatus,
+  ApplicationStatusView interviewStatus,
 
-  String offerStatus,
+  ApplicationStatusView offerStatus,
 
-  String responseStatus,
+  ApplicationStatusView responseStatus,
 
-  String finalDestinationStatus,
+  ApplicationStatusView finalDestinationStatus,
 
   Timestamp createdAt,
 
@@ -70,16 +70,27 @@ public record ApplicationData(
       applicationView.getCourseName(),
       applicationView.getMinorSubject(),
       applicationView.getProgrammeLength(),
-      applicationView.getApplicationStatus(),
-      applicationView.getInterviewStatus(),
-      applicationView.getOfferStatus(),
-      applicationView.getResponseStatus(),
-      applicationView.getFinalDestinationStatus(),
+      toStatusView(applicationView.getApplicationStatusUuid(), applicationView.getApplicationStatusName()),
+      toStatusView(applicationView.getInterviewStatusUuid(), applicationView.getInterviewStatusName()),
+      toStatusView(applicationView.getOfferStatusUuid(), applicationView.getOfferStatusName()),
+      toStatusView(applicationView.getResponseStatusUuid(), applicationView.getResponseStatusName()),
+      toStatusView(applicationView.getFinalDestinationStatusUuid(), applicationView.getFinalDestinationStatusName()),
       Timestamp.from(applicationView.getCreatedAt()),
       Timestamp.from(applicationView.getLastUpdatedAt()),
       applicationView.getCreatedBy(),
       applicationView.getLastModifiedBy(),
       applicationView.getIsRemovable()
     );
+  }
+
+  /**
+   * Creates {@link ApplicationStatusView} instances.
+   *
+   * @param uuid The instance's uuid.
+   * @param name The instance's name.
+   * @return {@link ApplicationStatusView}.
+   */
+  private static ApplicationStatusView toStatusView(UUID uuid, String name) {
+    return new ApplicationStatusView(uuid, name);
   }
 }

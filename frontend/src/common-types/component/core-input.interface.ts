@@ -51,5 +51,5 @@ export interface CoreInput<T extends FieldValues> {
   /**
    * Indicates whether the input is disabled, preventing user interaction.
    */
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }

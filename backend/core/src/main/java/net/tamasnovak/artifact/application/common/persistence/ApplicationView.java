@@ -6,12 +6,12 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.application.shared.persistence;
+package net.tamasnovak.artifact.application.common.persistence;
 
 import java.time.Instant;
 import java.util.UUID;
 
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 
 /**
  * Represents a projection of selected identifiers for an {@link Application}.
@@ -34,15 +34,25 @@ public interface ApplicationView {
 
   Integer getProgrammeLength();
 
-  String getApplicationStatus();
+  UUID getApplicationStatusUuid();
 
-  String getInterviewStatus();
+  String getApplicationStatusName();
 
-  String getOfferStatus();
+  UUID getInterviewStatusUuid();
 
-  String getResponseStatus();
+  String getInterviewStatusName();
 
-  String getFinalDestinationStatus();
+  UUID getOfferStatusUuid();
+
+  String getOfferStatusName();
+
+  UUID getResponseStatusUuid();
+
+  String getResponseStatusName();
+
+  UUID getFinalDestinationStatusUuid();
+
+  String getFinalDestinationStatusName();
 
   Instant getCreatedAt();
 

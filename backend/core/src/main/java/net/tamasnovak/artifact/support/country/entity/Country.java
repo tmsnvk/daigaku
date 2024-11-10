@@ -19,7 +19,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import net.tamasnovak.artifact.address.entity.Address;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.support.shared.entity.BaseSupportEntity;
 import net.tamasnovak.artifact.support.university.entity.University;
 

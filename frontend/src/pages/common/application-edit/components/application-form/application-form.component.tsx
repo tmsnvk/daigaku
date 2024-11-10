@@ -17,14 +17,7 @@
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import {
-  HandleFieldDisableStatus,
-  HandleFormSubmission,
-  UpdateApplicationFormFields,
-  useHandleFieldDisableStatus,
-  useHandleFormSubmission,
-  useUpdateApplication,
-} from './application-form.hooks';
+import { HandleFormSubmission, UpdateApplicationFormFields, useHandleFormSubmission, useUpdateApplication } from './application-form.hooks';
 
 /* component, style imports */
 import { ApplicationMetadata } from '@components/application';
@@ -76,16 +69,6 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
 
   // Custom hook that updates the application.
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
-
-  // Custom hook that checks the application's fields availability.
-  const {
-    fieldsReadOnlyStatus,
-    updateInterviewStatus,
-    updateOfferStatus,
-    updateResponseStatus,
-    updateFinalDestinationStatus,
-    disableFieldsOnFinalDestinationUpdate,
-  }: HandleFieldDisableStatus = useHandleFieldDisableStatus(application, updatedData, selectOptions);
 
   // Custom hook that submits the form.
   const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
@@ -151,8 +134,6 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.form.fields.applicationStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
           options={selectOptions.applicationStatus as Array<ApplicationStatus>}
-          isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
-          onFieldUpdate={updateInterviewStatus}
           error={errors.applicationStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.form.fields.applicationStatus.INFORMATION} />
@@ -163,8 +144,6 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.form.fields.interviewStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
           options={selectOptions.interviewStatus as Array<InterviewStatus>}
-          isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
-          onFieldUpdate={updateOfferStatus}
           error={errors.interviewStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.form.fields.interviewStatus.INFORMATION} />
@@ -175,8 +154,6 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.form.fields.offerStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
           options={selectOptions.offerStatus as Array<OfferStatus>}
-          isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
-          onFieldUpdate={updateResponseStatus}
           error={errors.offerStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.form.fields.offerStatus.INFORMATION} />
@@ -187,8 +164,6 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.form.fields.responseStatus.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
           options={selectOptions.responseStatus as Array<ResponseStatus>}
-          isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
-          onFieldUpdate={updateFinalDestinationStatus}
           error={errors.responseStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.form.fields.responseStatus.INFORMATION} />
@@ -199,8 +174,6 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           selectPrompt={constants.form.fields.finalDestination.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as Array<FinalDestinationStatus>}
-          isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
-          onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
           error={errors.finalDestinationStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.form.fields.finalDestination.INFORMATION} />

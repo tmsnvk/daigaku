@@ -9,7 +9,7 @@
 package net.tamasnovak.artifact.application.studentapplication.service;
 
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import org.springframework.stereotype.Component;
 
 /**

@@ -44,8 +44,9 @@ export const useGetApplications = (): ListQueryResult<Application> => {
   const { getRoleResource }: Partial<AuthContext> = useAuth();
   const accountRole: string = getRoleResource();
 
+  // Do not provide accountRole as queryKey identifier. It is not needed and will break the application's cache mechanism.
   return useQuery({
-    queryKey: [queryKeys.application.GET_ALL_BY_ROLE, accountRole],
+    queryKey: [queryKeys.application.GET_ALL_BY_ROLE],
     queryFn: () => applicationService.getAllByRole(accountRole),
   });
 };

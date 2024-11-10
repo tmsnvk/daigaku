@@ -85,23 +85,23 @@ export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element
       />
       <ApplicationDetail
         name={constants.fields.applicationStatus.NAME}
-        value={application.applicationStatus}
+        value={application.applicationStatus.name}
       />
       <ApplicationDetail
         name={constants.fields.interviewStatus.NAME}
-        value={application.interviewStatus}
+        value={application.interviewStatus.name}
       />
       <ApplicationDetail
         name={constants.fields.offerStatus.NAME}
-        value={application.offerStatus}
+        value={application.offerStatus.name}
       />
       <ApplicationDetail
         name={constants.fields.responseStatus.NAME}
-        value={application.responseStatus}
+        value={application.responseStatus.name}
       />
       <ApplicationDetail
         name={constants.fields.finalDestination.NAME}
-        value={application.finalDestinationStatus}
+        value={application.finalDestinationStatus.name}
       />
     </Section>
   );

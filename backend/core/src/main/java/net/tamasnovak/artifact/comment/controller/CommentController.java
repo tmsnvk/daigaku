@@ -11,7 +11,7 @@ package net.tamasnovak.artifact.comment.controller;
 import java.util.UUID;
 
 import jakarta.validation.Valid;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.comment.dto.CommentPaginationResponse;
 import net.tamasnovak.artifact.comment.dto.NewCommentRequest;
 import net.tamasnovak.artifact.comment.entity.Comment;

@@ -11,8 +11,8 @@ package net.tamasnovak.artifact.application.application.service;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.entity.Application;
 
 /**
  * Service interface for handling database API calls related to the {@link Application} entity.

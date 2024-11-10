@@ -20,10 +20,10 @@ import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.accounttype.student.service.StudentService;
 import net.tamasnovak.artifact.application.application.service.ApplicationService;
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
-import net.tamasnovak.artifact.application.shared.entity.Application;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
+import net.tamasnovak.artifact.application.common.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.entity.Application;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
@@ -252,8 +252,9 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     for (ApplicationData application : applications) {
       final StudentApplicationDto applicationQueueDto = new StudentApplicationDto(application.createdAt(), application.lastUpdatedAt(),
-        application.courseName(), application.university(), application.country(), application.applicationStatus(),
-        application.interviewStatus(), application.offerStatus(), application.responseStatus(), application.finalDestinationStatus());
+        application.courseName(), application.university(), application.country(), application.applicationStatus().name(),
+        application.interviewStatus().name(), application.offerStatus().name(), application.responseStatus().name(),
+        application.finalDestinationStatus().name());
 
       applicationDtos.add(applicationQueueDto);
     }

@@ -10,7 +10,7 @@ package net.tamasnovak.artifact.application.application.persistence;
 
 import java.util.UUID;
 
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 
 /**
  * Interface projection providing a view of selected identifiers for an {@link Application}.

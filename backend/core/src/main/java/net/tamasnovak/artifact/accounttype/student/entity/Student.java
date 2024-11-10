@@ -26,7 +26,7 @@ import net.tamasnovak.artifact.accounttype.common.entity.BaseAccountType;
 import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
 import net.tamasnovak.artifact.accounttype.student.dto.FinalDestinationTileDto;
 import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDto;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.common.utils.StringUtils;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 import net.tamasnovak.enums.status.FinalDestinationStatusType;
