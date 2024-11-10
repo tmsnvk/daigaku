@@ -81,8 +81,6 @@ export const useCreateApplication = (
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationFormFields) => applicationStudentService.postByStudent(formData),
     onSuccess: (response: Application) => {
-      console.log(response);
-
       // After a successful submission, the newly created application is added to `react-query`'s local cache.
       queryClient.setQueryData<Array<Application>>(
         [queryKeys.application.GET_ALL_BY_ROLE],

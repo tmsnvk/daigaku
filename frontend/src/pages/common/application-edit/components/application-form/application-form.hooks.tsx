@@ -261,7 +261,7 @@ export const useUpdateApplication = (
         return [...filteredList, response];
       });
 
-      history.replaceState(response, '', `/applications/view/${response.uuid}`);
+      history.replaceState(response, '', `/applications/edit/${response.uuid}`);
     },
     onError: (error: AxiosError<DefaultErrorResponse>) => {
       if (axios.isAxiosError(error)) {

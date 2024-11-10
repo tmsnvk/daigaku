@@ -181,7 +181,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final Application currentApplication = applicationService.findApplicationByUuid(uuid);
     final Student currentStudent = studentService.findStudentByAccount(account);
     final UUID studentUuidByApplication = currentApplication.fetchStudentAccountUuid();
-
     account.verifyAccountUuidMatch(studentUuidByApplication, GlobalServiceMessages.NO_PERMISSION);
 
     final ApplicationStatus newApplicationStatus = getStatusOnUpdate(requestBody.applicationStatusUuid(),
@@ -194,7 +193,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       currentApplication::returnResponseStatusIfSame, responseStatusService::findByUuid);
     final FinalDestinationStatus newFinalDestinationStatus = getStatusOnUpdate(requestBody.finalDestinationStatusUuid(),
       currentApplication::returnFinalDestinationStatusIfSame, finalDestinationStatusService::findByUuid);
-
     existingApplicationValidator.validateStatusFields(requestBody, currentApplication, currentStudent, newApplicationStatus,
       newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
@@ -203,7 +201,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       FinalDestinationStatusType.NOT_FINAL_DESTINATION.getValue());
     currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus,
       newFinalDestinationStatus, offerDeclinedStatus, notFinalDestinationStatus);
-
     applicationRepository.save(currentApplication);
 
     return applicationService.createApplicationData(currentApplication.getUuid());
@@ -212,6 +209,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private <T extends BaseStatusEntity> T getStatusOnUpdate(
     final String bodyStatusId, final Function<UUID, T> checkIfStatusIsSameFn,
     final Function<UUID, T> getByUuidFn) {
+    if (bodyStatusId.isEmpty()) {
+      return null;
+    }
+
     final T statusField = checkIfStatusIsSameFn.apply(UUID.fromString(bodyStatusId));
 
     if (!(statusField instanceof ApplicationStatus) && areValuesEqual(bodyStatusId, "")) {
