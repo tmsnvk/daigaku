@@ -41,11 +41,11 @@ public final class InstitutionAdmin extends BaseAccountType {
   }
 
   /**
-   * The default institution admin creator method.
+   * The default institution admin instance creator method.
    *
    * @param account The user's account.
    * @param institution The user's institution.
-   * @return {@link InstitutionAdmin}
+   * @return {@link InstitutionAdmin}.
    */
   public static InstitutionAdmin createInstitutionAdmin(final Account account, final Institution institution) {
     return new InstitutionAdmin(account, institution);

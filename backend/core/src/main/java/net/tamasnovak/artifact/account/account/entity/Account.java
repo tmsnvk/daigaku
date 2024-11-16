@@ -60,7 +60,7 @@ public final class Account extends BaseAccount {
   }
 
   /**
-   * The default account creator method.
+   * The default account instance creator method.
    *
    * @param firstName The account's first name.
    * @param lastName The account's last name.

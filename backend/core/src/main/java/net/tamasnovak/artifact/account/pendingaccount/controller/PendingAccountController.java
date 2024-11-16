@@ -37,7 +37,7 @@ public class PendingAccountController {
   }
 
   /**
-   * Registers a new user's {@link PendingAccount}.
+   * Creates a {@link PendingAccount} object in the database.
    * The {@link Valid} annotation validates the {@link PendingAccountRegistrationRequest} object as per its validation criteria.
    *
    * @param requestBody The registration request body.

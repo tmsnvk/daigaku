@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.artifact.account.account.entity.Account;
+import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
@@ -55,7 +56,7 @@ public class StudentApplicationController {
   /**
    * Fetches a list of {@link ApplicationData} objects associated with the authenticated user.
    *
-   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<ApplicationData>> fetchAllApplicationsByAccount() {
@@ -67,11 +68,11 @@ public class StudentApplicationController {
   }
 
   /**
-   * Creates a new {@link Application} object in the database.
-   * The @Valid annotation validates the {@link NewApplicationByStudent} object as per its validation criteria.
+   * Creates an {@link Application} object in the database.
+   * The {@link Valid} annotation validates the {@link NewApplicationByStudent} object as per its validation criteria.
    *
    * @param requestBody The application creation request body.
-   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplicationData> createApplication(@Valid @RequestBody final NewApplicationByStudent requestBody) {
@@ -84,15 +85,15 @@ public class StudentApplicationController {
 
   /**
    * Updates the {@link Application} object in the database that is associated with the provided uuid.
-   * The @Valid annotation validates the {@link UpdateApplicationByStudent} object as per its validation criteria.
+   * The {@link Valid} annotation validates the {@link UpdateApplicationByStudent} object as per its validation criteria.
    *
    * @param uuid The to-be-updated application's uuid.
    * @param requestBody The application update request body.
-   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link ApplicationData} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @PatchMapping(value = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplicationData> updateApplicationByUuid(
-    @PathVariable("uuid") @ValidUuid final String uuid, @Valid @RequestBody final UpdateApplicationByStudent requestBody) {
+    @ValidUuid @PathVariable("uuid") final String uuid, @Valid @RequestBody final UpdateApplicationByStudent requestBody) {
     final Account account = authenticationFacade.getAuthenticatedAccount();
     final ApplicationData response = studentApplicationService.updateApplicationAndFetchByUuid(UUID.fromString(uuid), requestBody, account);
 
@@ -102,13 +103,13 @@ public class StudentApplicationController {
 
   /**
    * Toggles an {@link Application}'s is_removable field.
-   * The @Valid annotation validates the uuid string.
+   * The {@link Valid} annotation validates the uuid string.
    *
    * @param uuid The application's uuid.
-   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
    */
   @PatchMapping(value = "/toggle-is-removable/{uuid}")
-  public ResponseEntity<HttpStatus> toggleIsRemovableByApplicationUuid(@PathVariable("uuid") @ValidUuid final String uuid) {
+  public ResponseEntity<HttpStatus> toggleIsRemovableByApplicationUuid(@ValidUuid @PathVariable("uuid") final String uuid) {
     UUID accountUuid = authenticationFacade.retrieveAuthAccountUuid();
     studentApplicationService.toggleIsRemovableByApplicationUuid(UUID.fromString(uuid), accountUuid);
 
@@ -117,9 +118,9 @@ public class StudentApplicationController {
   }
 
   /**
-   * Fetches the authenticated student account's {@link StudentDashboardStatistics} object.
+   * Fetches the authenticated {@link Student} account's {@link StudentDashboardStatistics} object.
    *
-   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code and the {@link StudentDashboardStatistics} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and a {@link StudentDashboardStatistics} object.
    */
   @GetMapping(value = "/dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<StudentDashboardStatistics> fetchStudentDashboardData() {
@@ -133,7 +134,7 @@ public class StudentApplicationController {
   /**
    * Initiates the authenticated user's request to download their submitted {@link Application} objects in .pdf format.
    *
-   * @return A {@link ResponseEntity} containing the `HttpStatus.OK` status code.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
    */
   @PostMapping(value = "/download-pdf")
   public ResponseEntity<HttpStatus> initiateApplicationPdfDownloadRequest() {

@@ -17,7 +17,6 @@ import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
  *
  * @since 0.0.1
  */
-@SuppressWarnings("checkstyle:MissingJavadocMethod")
 public record ApplicationStatusView(
   UUID uuid,
 

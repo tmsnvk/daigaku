@@ -32,7 +32,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
    * Finds a list of {@link ApplicationView} projections that is associated with the provided account uuid.
    *
    * @param accountUuid The provided account uuid.
-   * @return A list of {@link ApplicationView} projections.
+   * @return A list of {@link ApplicationView}.
    */
   @Query(value =
     """
@@ -92,7 +92,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
    * Finds an {@link ApplicationView} projection by its uuid.
    *
    * @param uuid The provided application uuid.
-   * @return {@link ApplicationView}
+   * @return {@link ApplicationView}.
    */
   @Query(value =
     """
@@ -168,10 +168,10 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
   void toggleIsRemovableByApplicationUuid(@Param("uuid") UUID uuid);
 
   /**
-   * Finds the {@link Student} and {@link Mentor} account uuids associated with the provided {@link Application}.
+   * Finds the {@link Student} and {@link Mentor} account uuids associated with the provided {@link Application}'s uuid.
    *
    * @param uuid The provided application's uuid.
-   * @return {@link ApplicationIdsView}
+   * @return {@link ApplicationIdsView}.
    */
   @Query(value =
     """

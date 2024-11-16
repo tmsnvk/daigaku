@@ -8,8 +8,8 @@
 
 package net.tamasnovak.artifact.application.studentapplication.dto;
 
-import net.tamasnovak.artifact.accounttype.student.dto.FinalDestinationTileDto;
-import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDto;
+import net.tamasnovak.artifact.accounttype.student.dto.FinalDestinationTileDetails;
+import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDetails;
 
 /**
  * Represents the data displayed on a student authenticated user's dashboard page.
@@ -17,9 +17,9 @@ import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDto;
  * @since 0.0.1
  */
 public record StudentDashboardStatistics(
-  FirmChoiceTileDto firmChoiceTileDto,
+  FirmChoiceTileDetails firmChoiceTileDetails,
 
-  FinalDestinationTileDto finalDestinationTileDto,
+  FinalDestinationTileDetails finalDestinationTileDetails,
 
   int applicationsCount,
 

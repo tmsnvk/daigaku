@@ -140,8 +140,14 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
                                                                     .getName();
     final String withdrawnApplicationName = applicationStatusService.findApplicationStatusByName(ApplicationStatusType.WITHDRAWN.getName())
                                                                     .getName();
+    final String firmChoiceStatusName = responseStatusService.findByName(ResponseStatusType.FIRM_CHOICE.getValue()).getName();
+    final String finalDestinationStatusName =
+      finalDestinationStatusService.findByName(FinalDestinationStatusType.FINAL_DESTINATION.getValue()).getName();
+    final String deferredFinalDestinationStatusName =
+      finalDestinationStatusService.findByName(FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue()).getName();
 
-    return new StudentDashboardStatistics(student.createFirmChoiceTileDto(), student.createFinalDestinationTileDto(),
+    return new StudentDashboardStatistics(student.createFirmChoiceTileDetails(firmChoiceStatusName),
+      student.createFinalDestinationTileDetails(finalDestinationStatusName, deferredFinalDestinationStatusName),
       student.fetchApplicationNumber(),
       student.countApplicationsMatchingPredicate(
         element -> StringUtils.validateStringsAreEqual(element.fetchApplicationStatusName(), plannedApplicationName)),

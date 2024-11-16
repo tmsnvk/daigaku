@@ -52,13 +52,13 @@ public final class Address extends BaseSimpleIdEntity {
   }
 
   /**
-   * The default system admin creator method.
+   * The default address instance creator method.
    *
    * @param street The address's street.
    * @param city The address's city.
    * @param country The address's country.
    * @param zipcode The address's zipcode.
-   * @return {@link Address}
+   * @return {@link Address}.
    */
   public static Address createAddress(final String street, final String city, final Country country, final String zipcode) {
     return new Address(street, city, country, zipcode);

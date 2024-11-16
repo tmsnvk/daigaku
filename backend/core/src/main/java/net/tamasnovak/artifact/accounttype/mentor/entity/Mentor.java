@@ -51,10 +51,10 @@ public final class Mentor extends BaseAccountType {
   }
 
   /**
-   * The default mentor creator method.
+   * The default mentor instance creator method.
    *
    * @param account The user's account.
-   * @return {@link Mentor}
+   * @return {@link Mentor}.
    */
   public static Mentor createMentor(final Account account) {
     return new Mentor(account);

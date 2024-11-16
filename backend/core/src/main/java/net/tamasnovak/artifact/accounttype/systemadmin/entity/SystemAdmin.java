@@ -31,10 +31,10 @@ public final class SystemAdmin extends BaseAccountType {
   }
 
   /**
-   * The default system admin creator method.
+   * The default system admin instance creator method.
    *
    * @param account The user's account.
-   * @return {@link SystemAdmin}
+   * @return {@link SystemAdmin}.
    */
   public static SystemAdmin createSystemAdmin(final Account account) {
     return new SystemAdmin(account);

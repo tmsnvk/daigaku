@@ -25,9 +25,11 @@ import jakarta.persistence.Table;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.accounttype.common.entity.BaseAccountType;
 import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
-import net.tamasnovak.artifact.accounttype.student.dto.FinalDestinationTileDto;
-import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDto;
+import net.tamasnovak.artifact.accounttype.student.dto.FinalDestinationTileDetails;
+import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDetails;
 import net.tamasnovak.artifact.application.common.entity.Application;
+import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
+import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 import net.tamasnovak.enums.status.FinalDestinationStatusType;
 import net.tamasnovak.enums.status.ResponseStatusType;
@@ -67,11 +69,11 @@ public final class Student extends BaseAccountType {
   }
 
   /**
-   * The default student creator method.
+   * The default student instance creator method.
    *
    * @param account The user's account.
    * @param mentor The mentor account that is to be connected with the user's student account.
-   * @return {@link Student}
+   * @return {@link Student}.
    */
   public static Student createStudent(final Account account, final Mentor mentor) {
     return new Student(account, mentor);
@@ -80,106 +82,94 @@ public final class Student extends BaseAccountType {
   /**
    * Fetches the {@link Account}'s id connected to the given {@link Student} entity.
    *
-   * @return The {@link Account} id connected with the given {@link Student} entity.
+   * @return {@link Account}.
    */
   public UUID fetchStudentAccountUuid() {
     return this.account.getUuid();
   }
 
   /**
-   * Creates a {@link FirmChoiceTileDto} object.
+   * Creates a {@link FirmChoiceTileDetails} object.
    *
-   * @return {@link FirmChoiceTileDto} || null
+   * @return {@link FirmChoiceTileDetails} or {@code null} if the {@link Student} has no {@link Application} marked as
+   * {@link ResponseStatusType#FIRM_CHOICE}.
    */
-  public FirmChoiceTileDto createFirmChoiceTileDto() {
-    final Optional<Application> firmChoiceApplication = findFirmChoiceApplication();
+  public FirmChoiceTileDetails createFirmChoiceTileDetails(final String firmChoiceStatusName) {
+    final Optional<Application> firmChoiceApplication = findFirmChoiceApplication(firmChoiceStatusName);
 
-    if (firmChoiceApplication == null) {
+    if (firmChoiceApplication.isEmpty()) {
       return null;
     }
 
-    Application application = firmChoiceApplication.get();
+    final Application application = firmChoiceApplication.get();
 
-    return new FirmChoiceTileDto(application.fetchCountryName(), application.fetchUniversityName(), application.getCourseName());
+    return new FirmChoiceTileDetails(application.fetchCountryName(), application.fetchUniversityName(), application.getCourseName());
   }
 
   /**
-   * Retrieves the {@link Application} object that has its Response Status field set to 'Firm Choice'.
-   * Each {@link Student} may only have one {@link Application} set to 'Firm Choice'.
+   * Finds the {@link Application} object that has its {@link ResponseStatus} field set to {@link ResponseStatusType#FIRM_CHOICE}.
+   * Each {@link Student} may only have one {@link Application} set to {@link ResponseStatusType#FIRM_CHOICE}.
    *
-   * @return Optional<Application>
+   * @return {@link Optional#of(Application)}.
    */
-  public Optional<Application> findFirmChoiceApplication() {
+  public Optional<Application> findFirmChoiceApplication(final String firmChoiceStatusName) {
     return applications.stream()
-                       .filter(this::hasFirmChoiceStatus)
+                       .filter(
+                         application -> StringUtils.validateStringsAreEqual(application.fetchResponseStatusName(), firmChoiceStatusName))
                        .findFirst();
   }
 
   /**
-   * Checks if an {@link Application} has its Response Status field set to 'Firm Choice'.
+   * Creates a {@link FinalDestinationTileDetails} object.
    *
-   * @param application The application object.
-   * @return boolean
+   * @return {@link FinalDestinationTileDetails} or {@code null} if the {@link Student} has no {@link Application} marked as
+   * {@link FinalDestinationStatusType#FINAL_DESTINATION} or {@link FinalDestinationStatusType#DEFERRED_FINAL_DESTINATION}.
    */
-  private boolean hasFirmChoiceStatus(final Application application) {
-    return StringUtils.validateStringsAreEqual(application.fetchResponseStatusName(), ResponseStatusType.FIRM_CHOICE.getValue());
-  }
+  public FinalDestinationTileDetails createFinalDestinationTileDetails(
+    final String finalDestinationStatusName,
+    final String deferredFinalDestinationStatusName) {
+    final Optional<Application> finalDestinationApplication = findFinalDestinationApplication(finalDestinationStatusName,
+      deferredFinalDestinationStatusName);
 
-  /**
-   * Creates a {@link FinalDestinationTileDto} object.
-   *
-   * @return {@link FinalDestinationTileDto} || null
-   */
-  public FinalDestinationTileDto createFinalDestinationTileDto() {
-    final Optional<Application> finalDestinationApplication = findFinalDestinationApplication();
-
-    if (finalDestinationApplication == null) {
+    if (finalDestinationApplication.isEmpty()) {
       return null;
     }
 
-    Application application = finalDestinationApplication.get();
+    final Application application = finalDestinationApplication.get();
 
-    return new FinalDestinationTileDto(application.fetchCountryName(), application.fetchUniversityName(), application.getCourseName());
+    return new FinalDestinationTileDetails(application.fetchCountryName(), application.fetchUniversityName(), application.getCourseName());
   }
 
   /**
-   * Retrieves the {@link Application} object that has its Final Destination Status field set either to 'Final Destination' or 'Final
-   * Destination (Deferred Entry)'.
-   * Each {@link Student} may only have one {@link Application} set to 'Final Destination' or 'Final Destination (Deferred Entry)'.
+   * Finds the {@link Application} object that has its {@link FinalDestinationStatus} field set either to
+   * {@link FinalDestinationStatusType#FINAL_DESTINATION} or {@link FinalDestinationStatusType#DEFERRED_FINAL_DESTINATION}.
+   * Each {@link Student} may only have one {@link Application} set either to {@link FinalDestinationStatusType#FINAL_DESTINATION} or
+   * {@link FinalDestinationStatusType#DEFERRED_FINAL_DESTINATION}.
    *
-   * @return Optional<Application>
+   * @return {@link Optional#of(Application)}.
    */
-  public Optional<Application> findFinalDestinationApplication() {
+  public Optional<Application> findFinalDestinationApplication(
+    final String finalDestinationStatusName,
+    final String deferredFinalDestinationStatusName) {
     return applications.stream()
-                       .filter(this::hasFinalDestinationStatus)
+                       .filter(application -> StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
+                         finalDestinationStatusName)
+                         || StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
+                         deferredFinalDestinationStatusName))
                        .findFirst();
   }
 
   /**
-   * Checks if an {@link Application} has its Final Destination Status field set either to 'Final Destination' or 'Final
-   * Destination (Deferred Entry)'.
+   * Fetches the number of {@link Application} objects associated with the given {@link Student} account.
    *
-   * @param application The application object.
-   * @return boolean
-   */
-  private boolean hasFinalDestinationStatus(final Application application) {
-    return StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
-      FinalDestinationStatusType.FINAL_DESTINATION.getValue())
-      || StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
-      FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue());
-  }
-
-  /**
-   * Fetches the count of {@link Application} objects associated with the given {@link Student} account.
-   *
-   * @return The count of {@link Application} objects associated with the given {@link Student} account.
+   * @return The number of {@link Application} objects associated with the given {@link Student} account.
    */
   public int fetchApplicationNumber() {
     return this.applications.size();
   }
 
   /**
-   * Counts the number of distinct values extracted from the list of {@link Application} objects using the provided extractor
+   * Counts of distinct values extracted from the list of {@link Application} objects using the provided extractor
    * function.
    *
    * @param extractor A function that extracts a value from an application object for the purpose of counting distinct values.
@@ -197,7 +187,7 @@ public final class Student extends BaseAccountType {
    * Counts the number of {@link Application} objects that match the specified predicate.
    *
    * @param predicate A condition each application object must satisfy to be counted.
-   * @return The number of {@link Application} objects that match the predicate.
+   * @return The count of {@link Application} objects that match the predicate.
    */
   public int countApplicationsMatchingPredicate(final Predicate<? super Application> predicate) {
     return (int) applications.stream()

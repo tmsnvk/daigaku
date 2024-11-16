@@ -74,10 +74,11 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     Application currentApplication, Student currentStudent, UpdateApplicationByStudent newApplicationData,
     ResponseStatus newResponseStatus) {
     ResponseStatus declined = responseStatusService.findByName(ResponseStatusType.OFFER_DECLINED.getValue());
+    final String firmChoiceStatusName = responseStatusService.findByName(ResponseStatusType.FIRM_CHOICE.getValue()).getName();
 
     if (newResponseStatus != null) {
       ResponseStatus firmChoice = responseStatusService.findByName(ResponseStatusType.FIRM_CHOICE.getValue());
-      Optional<Application> firmChoiceApplication = currentStudent.findFirmChoiceApplication();
+      Optional<Application> firmChoiceApplication = currentStudent.findFirmChoiceApplication(firmChoiceStatusName);
 
       if (firmChoiceApplication.isPresent()
         && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.get().getUuid())
@@ -95,8 +96,13 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
         FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue()).getName();
       FinalDestinationStatus notFinalDestination = finalDestinationStatusService.findByName(
         FinalDestinationStatusType.NOT_FINAL_DESTINATION.getValue());
+      final String finalDestinationStatusName =
+        finalDestinationStatusService.findByName(FinalDestinationStatusType.FINAL_DESTINATION.getValue()).getName();
+      final String deferredFinalDestinationStatusName =
+        finalDestinationStatusService.findByName(FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue()).getName();
 
-      Optional<Application> finalDestinationApplication = currentStudent.findFinalDestinationApplication();
+      Optional<Application> finalDestinationApplication = currentStudent.findFinalDestinationApplication(finalDestinationStatusName,
+        deferredFinalDestinationStatusName);
 
       if (finalDestinationApplication != null
         && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.get().getUuid())

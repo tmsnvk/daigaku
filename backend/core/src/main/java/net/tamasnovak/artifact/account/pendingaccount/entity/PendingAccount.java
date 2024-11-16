@@ -34,7 +34,7 @@ public final class PendingAccount extends BaseAccount {
   }
 
   /**
-   * The default pending account creator method.
+   * The default pending account instance creator method.
    *
    * @param firstName The pending account's first name.
    * @param lastname The pending account's last name.

@@ -131,7 +131,7 @@ public final class Application extends Auditable {
   }
 
   /**
-   * The default application creator method for student authorised users.
+   * The default application instance creator method for student authorised users.
    *
    * @param student The student account.
    * @param country The selected university's country.
@@ -140,7 +140,7 @@ public final class Application extends Auditable {
    * @param minorSubject The chosen courses minor, if there is one.
    * @param programmeLength The length of the programme.
    * @param applicationStatus The default status of the 'Application Status' field.
-   * @return {@link Application}
+   * @return {@link Application}.
    */
   public static Application createApplicationByStudent(
     final Student student,
@@ -169,7 +169,7 @@ public final class Application extends Auditable {
   /**
    * Fetches the application's {@link Country} name.
    *
-   * @return The {@link Country} name.
+   * @return The {@link Country}'s name.
    */
   public String fetchCountryName() {
     return this.country.getName();
@@ -178,7 +178,7 @@ public final class Application extends Auditable {
   /**
    * Fetches the application's {@link University} name.
    *
-   * @return The {@link University} name.
+   * @return The {@link University}'s name.
    */
   public String fetchUniversityName() {
     return this.university.getName();
@@ -194,55 +194,71 @@ public final class Application extends Auditable {
   }
 
   /**
-   * @return
+   * Checks if the {@link InterviewStatus} field is null.
+   *
+   * @return boolean.
    */
   public boolean isInterviewStatusNull() {
     return this.interviewStatus == null;
   }
 
   /**
-   * @return
+   * Checks if the {@link OfferStatus} field is null.
+   *
+   * @return boolean.
    */
   public boolean isOfferStatusNull() {
     return this.offerStatus == null;
   }
 
   /**
-   * @return
+   * Checks if the {@link ResponseStatus} field is null.
+   *
+   * @return boolean.
    */
   public boolean isResponseStatusNull() {
     return this.responseStatus == null;
   }
 
   /**
-   * @return
+   * Checks if the {@link FinalDestinationStatus} field is null.
+   *
+   * @return boolean.
    */
   public boolean isFinalDestinationNull() {
     return this.finalDestinationStatus == null;
   }
 
   /**
-   * @return
+   * Fetches the {@link ApplicationStatus}'s name.
+   *
+   * @return The {@link ApplicationStatus}'s name.
    */
   public String fetchApplicationStatusName() {
     return this.applicationStatus.getName();
   }
 
   /**
-   * @return
+   * Fetches the {@link ResponseStatus}'s name.
+   *
+   * @return The {@link ResponseStatus}'s name.
    */
   public String fetchResponseStatusName() {
     return this.responseStatus.getName();
   }
 
   /**
-   * @return
+   * Fetches the {@link FinalDestinationStatus}'s name.
+   *
+   * @return The {@link FinalDestinationStatus}'s name.
    */
   public String fetchFinalDestinationName() {
     return this.finalDestinationStatus.getName();
   }
 
   /**
+   * TODO
+   *
    * @param statusUuid
    * @return
    */
@@ -255,6 +271,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param statusUuid
    * @return
    */
@@ -267,6 +285,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param statusUuid
    * @return
    */
@@ -279,6 +299,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param statusUuid
    * @return
    */
@@ -291,6 +313,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param statusUuid
    * @return
    */
@@ -303,6 +327,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param applicationStatus
    * @param interviewStatus
    * @param offerStatus
@@ -328,6 +354,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param newResponseStatus
    * @param newFinalDestinationStatus
    * @param currentFinalDestinationStatus
@@ -349,6 +377,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param newStatus
    * @param currentStatus
    * @param <T>
@@ -363,6 +393,8 @@ public final class Application extends Auditable {
   }
 
   /**
+   * TODO
+   *
    * @param uuid
    * @param uuidToCheckAgainst
    * @return

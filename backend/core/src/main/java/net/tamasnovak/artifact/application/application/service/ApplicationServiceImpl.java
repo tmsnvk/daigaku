@@ -8,18 +8,21 @@
 
 package net.tamasnovak.artifact.application.application.service;
 
-import java.util.Objects;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
+import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
+import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.application.persistence.ApplicationIdsView;
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
+import net.tamasnovak.enums.roles.AuthorisationRoles;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
+import net.tamasnovak.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,7 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class managing {@link Application} entity-related API operations, implementing {@link ApplicationService}.
+ * Service class managing {@link Application} entity-related operations, implementing {@link ApplicationService}.
  *
  * @since 0.0.1
  */
@@ -55,7 +58,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   @Transactional(readOnly = true)
   @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #applicationUuid }")
   public ApplicationData createApplicationData(final UUID applicationUuid) {
-    validateUserAccessToViewApplication(applicationUuid);
+    this.validateUserAccessToViewApplication(applicationUuid);
 
     final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(applicationUuid)
                                                                  .orElseThrow(() -> new EntityNotFoundException(
@@ -65,22 +68,22 @@ public class ApplicationServiceImpl implements ApplicationService {
   }
 
   /**
-   * Verifies that the authenticated user has permission to view an application. The method checks the authenticated user's role and
-   * ensures they have the correct association with the specified {@link Application} to access it.
-   * If the user is a student, they must match the application's owner uuid.
-   * If the user is a mentor, they must match the application's assigned mentor uuid.
+   * Verifies that the authenticated user has permission to view the provided {@link Application}. The method checks the authenticated
+   * user's role and ensures they have the correct association with the specified {@link Application} to access it.
+   * If the user is a {@link Student}, they must match the {@link Application}'s owner uuid.
+   * If the user is a {@link Mentor}, they must match the {@link Application}'s assigned mentor uuid.
    *
-   * @param uuid The uuid of the application the user is attempting to access.
+   * @param uuid The application's uuid the user is attempting to access.
    */
   private void validateUserAccessToViewApplication(final UUID uuid) {
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
     final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(uuid);
 
-    if (Objects.equals(authAccount.fetchRoleName(), "ROLE_STUDENT")) {
+    if (StringUtils.validateStringsAreEqual(authAccount.fetchRoleName(), AuthorisationRoles.ROLE_STUDENT.name())) {
       authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), GlobalServiceMessages.NO_PERMISSION);
     }
 
-    if (Objects.equals(authAccount.fetchRoleName(), "ROLE_MENTOR")) {
+    if (StringUtils.validateStringsAreEqual(authAccount.fetchRoleName(), AuthorisationRoles.ROLE_MENTOR.name())) {
       authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), GlobalServiceMessages.NO_PERMISSION);
     }
   }

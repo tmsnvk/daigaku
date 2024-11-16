@@ -11,14 +11,17 @@ package net.tamasnovak.artifact.accounttype.student.dto;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
 
 /**
- * Represents a firm choice object that is part of the {@link StudentDashboardStatistics} object.
+ * Represents a final destination tile object that is part of the {@link StudentDashboardStatistics} object.
  *
+ * @param countryName The country's name.
+ * @param universityName The university's name.
+ * @param courseName The course's name.
  * @since 0.0.1
  */
-public record FirmChoiceTileDto(
-  String country,
+public record FinalDestinationTileDetails(
+  String countryName,
 
-  String university,
+  String universityName,
 
   String courseName
 ) {
