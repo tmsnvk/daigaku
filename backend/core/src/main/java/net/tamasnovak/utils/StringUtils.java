@@ -6,7 +6,7 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.common.utils;
+package net.tamasnovak.utils;
 
 import java.util.Objects;
 

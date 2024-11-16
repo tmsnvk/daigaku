@@ -45,10 +45,10 @@ public class AccountController {
   }
 
   /**
-   * Fetches the authentication context object {@link AuthContextResponse} for the currently logged-in user.
-   * On the frontend, the object is used by the authentication context to verify that the user is still logged in.
+   * Fetches the {@link AuthContextResponse} for the currently authenticated user.
+   * On the frontend, the object is used by the authentication context to verify the user's active session.
    *
-   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link AuthContextResponse} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link AuthContextResponse} object.
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
@@ -61,11 +61,11 @@ public class AccountController {
   }
 
   /**
-   * Authenticates and logs in the user based on the provided credentials.
-   * The `@Valid` annotation validates the {@link LoginRequest} object as per its validation criteria.
+   * Authenticates and logs in the user with the provided authentication credentials.
+   * The {@link Valid} annotation validates the {@link LoginRequest} object as per its validation criteria.
    *
    * @param requestBody The login request body.
-   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and the {@link LoginResponse} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link LoginResponse} object.
    */
   @PostMapping(value = "/log-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<LoginResponse> logInUser(@Valid @RequestBody final LoginRequest requestBody) {

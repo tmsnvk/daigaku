@@ -15,11 +15,11 @@ import org.springframework.context.annotation.Description;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class PendingAccountRegisterRequestTest {
+class PendingAccountRegistrationRequestTest {
   private final String expectedValidEmail = "notexistingemail@test.net";
   private final String validUuidString = UUID.randomUUID().toString();
-  Set<ConstraintViolation<PendingAccountRegisterRequest>> violations = new HashSet<>();
-  PendingAccountRegisterRequest underTest = null;
+  Set<ConstraintViolation<PendingAccountRegistrationRequest>> violations = new HashSet<>();
+  PendingAccountRegistrationRequest underTest = null;
 
   @AfterEach
   void tearDown() {
@@ -33,7 +33,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there are no violations when underTest requestBody contains only valid fields.")
     void shouldAssert_thatViolationsSetIsEmpty_whenRequestBodyIsValid() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -53,7 +53,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's firstName fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsNotBlankValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "",
         "User",
         expectedValidEmail,
@@ -70,7 +70,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's firstName fails @Pattern validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsPatternValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Inv4l-d",
         "User",
         expectedValidEmail,
@@ -87,7 +87,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's lastName fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsNotBlankValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "",
         expectedValidEmail,
@@ -104,7 +104,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's lastName fails @Pattern validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsPatternValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "!s3r",
         expectedValidEmail,
@@ -121,7 +121,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's email fails @Email validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenEmailFailsEmailValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "User",
         "invalidemail.com",
@@ -138,7 +138,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's institutionUuid fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsNotBlankValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -155,7 +155,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's institutionUuid fails @UuidConstraint validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsUuidConstraintValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -172,7 +172,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's accountRoleUuid fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsNotBlankValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -189,7 +189,7 @@ class PendingAccountRegisterRequestTest {
     @Test
     @Description("Assert that there is a violation when underTest requestBody's accountRoleUuid fails @UuidConstraint validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsPatternValidation() {
-      underTest = new PendingAccountRegisterRequest(
+      underTest = new PendingAccountRegistrationRequest(
         "Valid",
         "User",
         expectedValidEmail,
@@ -204,7 +204,7 @@ class PendingAccountRegisterRequestTest {
     }
   }
 
-  private Set<ConstraintViolation<PendingAccountRegisterRequest>> validate(PendingAccountRegisterRequest underTest) {
+  private Set<ConstraintViolation<PendingAccountRegistrationRequest>> validate(PendingAccountRegistrationRequest underTest) {
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     return validator.validate(underTest);

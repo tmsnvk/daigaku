@@ -68,7 +68,7 @@ public final class Account extends BaseAccount {
    * @param hashedPassword The account's hashed password.
    * @param institution The account's institution.
    * @param role The account's role.
-   * @return {@link Account}
+   * @return {@link Account}.
    */
   public static Account createAccount(
     final String firstName, final String lastName, final String email, final String hashedPassword, final Institution institution,
@@ -85,9 +85,9 @@ public final class Account extends BaseAccount {
   }
 
   /**
-   * Creates an {@link AuthContextResponse} object for the logged-in user.
+   * Creates an {@link AuthContextResponse} object for the authenticated user.
    *
-   * @return {@link AuthContextResponse}
+   * @return {@link AuthContextResponse}.
    */
   public AuthContextResponse createAuthContextResponse() {
     return new AuthContextResponse(this.email, this.firstName, this.role.getName());
@@ -96,19 +96,19 @@ public final class Account extends BaseAccount {
   /**
    * Creates a {@link LoginResponse} object after the user's login was successfully authenticated.
    *
-   * @param token token The user's authentication token.
-   * @return {@link LoginResponse}
+   * @param token The user's current authentication token.
+   * @return {@link LoginResponse}.
    */
   public LoginResponse createLoginResponse(final String token) {
     return new LoginResponse(this.email, this.firstName, this.role.getName(), token);
   }
 
   /**
-   * Verifies that the uuid of the authenticated account matches a given uuid.
+   * Verifies that the authenticated {@link Account}'s uuid matches the provided uuid.
    *
    * @param uuidToMatch The uuid to compare against the authenticated account's uuid.
    * @param exceptionMessage The message for the exception if the UUIDs do not match.
-   * @throws IllegalArgumentException If the uuids do not match.
+   * @throws IllegalArgumentException Thrown if the uuids do not match.
    */
   public void verifyAccountUuidMatch(final UUID uuidToMatch, final String exceptionMessage) {
     if (!this.uuid.equals(uuidToMatch)) {
@@ -118,7 +118,7 @@ public final class Account extends BaseAccount {
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, id, uuid);
+    return Objects.hash(id, uuid, email);
   }
 
   @Override
@@ -132,6 +132,6 @@ public final class Account extends BaseAccount {
     }
 
     Account that = (Account) o;
-    return Objects.equals(email, that.email) && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid);
+    return Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid) && Objects.equals(email, that.email);
   }
 }

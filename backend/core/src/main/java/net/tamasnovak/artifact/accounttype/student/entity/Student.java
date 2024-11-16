@@ -10,6 +10,7 @@ package net.tamasnovak.artifact.accounttype.student.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -27,10 +28,10 @@ import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
 import net.tamasnovak.artifact.accounttype.student.dto.FinalDestinationTileDto;
 import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDto;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.common.utils.StringUtils;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 import net.tamasnovak.enums.status.FinalDestinationStatusType;
 import net.tamasnovak.enums.status.ResponseStatusType;
+import net.tamasnovak.utils.StringUtils;
 
 /**
  * Entity class that represents the students database table.
@@ -91,27 +92,27 @@ public final class Student extends BaseAccountType {
    * @return {@link FirmChoiceTileDto} || null
    */
   public FirmChoiceTileDto createFirmChoiceTileDto() {
-    final Application firmChoiceApplication = findFirmChoiceApplication();
+    final Optional<Application> firmChoiceApplication = findFirmChoiceApplication();
 
     if (firmChoiceApplication == null) {
       return null;
     }
 
-    return new FirmChoiceTileDto(firmChoiceApplication.fetchCountryName(), firmChoiceApplication.fetchUniversityName(),
-      firmChoiceApplication.getCourseName());
+    Application application = firmChoiceApplication.get();
+
+    return new FirmChoiceTileDto(application.fetchCountryName(), application.fetchUniversityName(), application.getCourseName());
   }
 
   /**
    * Retrieves the {@link Application} object that has its Response Status field set to 'Firm Choice'.
    * Each {@link Student} may only have one {@link Application} set to 'Firm Choice'.
    *
-   * @return {@link FirmChoiceTileDto} || null
+   * @return Optional<Application>
    */
-  public Application findFirmChoiceApplication() {
+  public Optional<Application> findFirmChoiceApplication() {
     return applications.stream()
                        .filter(this::hasFirmChoiceStatus)
-                       .findFirst()
-                       .orElse(null);
+                       .findFirst();
   }
 
   /**
@@ -121,7 +122,7 @@ public final class Student extends BaseAccountType {
    * @return boolean
    */
   private boolean hasFirmChoiceStatus(final Application application) {
-    return StringUtils.validateStringsAreEqual(application.retrieveResponseStatusName(), ResponseStatusType.FIRM_CHOICE.getValue());
+    return StringUtils.validateStringsAreEqual(application.fetchResponseStatusName(), ResponseStatusType.FIRM_CHOICE.getValue());
   }
 
   /**
@@ -130,14 +131,15 @@ public final class Student extends BaseAccountType {
    * @return {@link FinalDestinationTileDto} || null
    */
   public FinalDestinationTileDto createFinalDestinationTileDto() {
-    final Application finalDestinationApplication = findFinalDestinationApplication();
+    final Optional<Application> finalDestinationApplication = findFinalDestinationApplication();
 
     if (finalDestinationApplication == null) {
       return null;
     }
 
-    return new FinalDestinationTileDto(finalDestinationApplication.fetchCountryName(),
-      finalDestinationApplication.fetchUniversityName(), finalDestinationApplication.getCourseName());
+    Application application = finalDestinationApplication.get();
+
+    return new FinalDestinationTileDto(application.fetchCountryName(), application.fetchUniversityName(), application.getCourseName());
   }
 
   /**
@@ -145,13 +147,12 @@ public final class Student extends BaseAccountType {
    * Destination (Deferred Entry)'.
    * Each {@link Student} may only have one {@link Application} set to 'Final Destination' or 'Final Destination (Deferred Entry)'.
    *
-   * @return {@link FirmChoiceTileDto} || null
+   * @return Optional<Application>
    */
-  public Application findFinalDestinationApplication() {
+  public Optional<Application> findFinalDestinationApplication() {
     return applications.stream()
                        .filter(this::hasFinalDestinationStatus)
-                       .findFirst()
-                       .orElse(null);
+                       .findFirst();
   }
 
   /**
@@ -162,9 +163,9 @@ public final class Student extends BaseAccountType {
    * @return boolean
    */
   private boolean hasFinalDestinationStatus(final Application application) {
-    return StringUtils.validateStringsAreEqual(application.retrieveFinalDestinationName(),
+    return StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
       FinalDestinationStatusType.FINAL_DESTINATION.getValue())
-      || StringUtils.validateStringsAreEqual(application.retrieveFinalDestinationName(),
+      || StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
       FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue());
   }
 

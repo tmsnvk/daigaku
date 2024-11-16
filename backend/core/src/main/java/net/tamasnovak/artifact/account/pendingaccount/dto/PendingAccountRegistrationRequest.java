@@ -19,9 +19,14 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
 /**
  * Represents the registration details for a new {@link PendingAccount} entity.
  *
+ * @param firstName The pending account's first name.
+ * @param lastName The pending account's last name.
+ * @param email The pending account's email.
+ * @param institutionUuid The pending account's institution uuid.
+ * @param accountRoleUuid The pending account's authorisation role uuid.
  * @since 0.0.1
  */
-public record PendingAccountRegisterRequest(
+public record PendingAccountRegistrationRequest(
   @NotBlank(message = "Provide a first name. Use only letters and spaces.")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{2,100}$", message =
     "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")

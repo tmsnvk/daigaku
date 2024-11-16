@@ -17,9 +17,12 @@ import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.Intervie
 import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 
+/**
+ *
+ */
 @FunctionalInterface
 public interface ExistingApplicationValidator {
-  void validateStatusFields(
+  void validateApplication(
     UpdateApplicationByStudent newApplicationData, Application currentApplication, Student currentStudent,
     ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus,
     ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus);

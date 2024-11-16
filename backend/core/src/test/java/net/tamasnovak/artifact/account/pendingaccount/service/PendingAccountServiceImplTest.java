@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.service.AccountService;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegisterRequest;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.role.entity.Role;
@@ -85,7 +85,7 @@ class PendingAccountServiceImplTest {
   @Nested
   @DisplayName("create() unit tests")
   class CreateUnitTests {
-    PendingAccountRegisterRequest invalidRequestBody = new PendingAccountRegisterRequest(
+    PendingAccountRegistrationRequest invalidRequestBody = new PendingAccountRegistrationRequest(
       "Student",
       "Test User",
       notExpectedValidEmail,
@@ -98,7 +98,7 @@ class PendingAccountServiceImplTest {
     @Test
     @Description("Saves a PendingAccount record with Student role and returns void.")
     void shouldSavePendingAccount_andReturnVoid() {
-      PendingAccountRegisterRequest requestBody = new PendingAccountRegisterRequest(
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
         "Student",
         "Test User",
         expectedValidEmail,

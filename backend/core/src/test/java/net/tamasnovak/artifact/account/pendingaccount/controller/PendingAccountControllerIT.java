@@ -3,7 +3,7 @@ package net.tamasnovak.artifact.account.pendingaccount.controller;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegisterRequest;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
 import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.account.pendingaccount.service.PendingAccountService;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +42,7 @@ class PendingAccountControllerIT {
     @Test
     @Description("HttpStatus.CREATED status is correctly asserted if no exceptions were thrown.")
     public void shouldReturnHttpStatusCreated_IfNoExceptionsWereThrown() throws Exception {
-      PendingAccountRegisterRequest requestBody = new PendingAccountRegisterRequest(
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
         "Student",
         "Test User",
         "student@test.net",
@@ -59,7 +59,7 @@ class PendingAccountControllerIT {
     @Test
     @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in requestBody's fields.")
     public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
-      PendingAccountRegisterRequest requestBody = new PendingAccountRegisterRequest(
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
         "1nv4l1d Student",
         "",
         "invalid@email",

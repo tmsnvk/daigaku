@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -25,6 +23,7 @@ import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
 import { ApplicationStatusSelectOption } from '@common-types';
+import { FieldUpdate, useOnFieldUpdate } from './active-select-field.hooks';
 import { SelectOptions } from './active-select-field.interfaces';
 
 /**
@@ -58,6 +57,11 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
    * An array of options available for selection, of type {@link SelectOptions}.
    */
   options: Array<SelectOptions>;
+
+  /**
+   * Callback function invoked when the field's value is updated.
+   */
+  onFieldUpdate?: (eventTargetValue: string) => void;
 }
 
 /**
@@ -75,7 +79,12 @@ export const ActiveSelectField = <T extends FieldValues>({
   previouslySelectedValue,
   selectPrompt,
   options,
+  isDisabled,
+  onFieldUpdate,
 }: ComponentProps<T>): JSX.Element => {
+  // Custom hook that updates the field's value.
+  const { updateField }: FieldUpdate = useOnFieldUpdate(onFieldUpdate);
+
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
@@ -83,9 +92,12 @@ export const ActiveSelectField = <T extends FieldValues>({
         labelText={label}
       />
       <select
-        {...register(id)}
+        {...register(id, {
+          onChange: (event: Event) => updateField(event),
+        })}
         id={id}
         name={id}
+        disabled={isDisabled}
         defaultValue={previouslySelectedValue?.uuid}
       >
         <option

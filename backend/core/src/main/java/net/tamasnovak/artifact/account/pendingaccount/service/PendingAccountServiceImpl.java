@@ -9,7 +9,7 @@
 package net.tamasnovak.artifact.account.pendingaccount.service;
 
 import net.tamasnovak.artifact.account.account.service.AccountService;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegisterRequest;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.role.entity.Role;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class managing {@link PendingAccount} entity-related API operations, implementing {@link PendingAccountService}.
+ * Service class managing {@link PendingAccount} entity-related operations, implementing {@link PendingAccountService}.
  *
  * @since 0.0.1
  */
@@ -41,8 +41,8 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Autowired
   public PendingAccountServiceImpl(
-    AccountService accountService, InstitutionService institutionService, RoleService roleService,
-    QueueSender queueSender, PendingAccountRepository pendingAccountRepository) {
+    AccountService accountService, InstitutionService institutionService, RoleService roleService, QueueSender queueSender,
+    PendingAccountRepository pendingAccountRepository) {
     this.accountService = accountService;
     this.institutionService = institutionService;
     this.roleService = roleService;
@@ -62,8 +62,8 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional
-  public void createPendingAccount(final PendingAccountRegisterRequest requestBody) {
-    // Check if account with provided email already exists.
+  public void createPendingAccount(final PendingAccountRegistrationRequest requestBody) {
+    // Check if an account or pending account with the provided email already exists.
     accountService.validateAccountDoesNotExist(requestBody.email());
     this.validateAccountDoesNotExist(requestBody.email());
 
@@ -76,10 +76,9 @@ public class PendingAccountServiceImpl implements PendingAccountService {
       requestBody.email(), selectedInstitution, selectedRole);
     final PendingAccount savedEntity = pendingAccountRepository.save(pendingAccount);
 
-    // Initiate a message queue via RabbitMQ that the user should receive the pending-registration-welcome-email.
+    // Initiate a pending-registration-welcome-email queue via RabbitMQ.
     final PendingAccountConfirmationQueue queueDto = new PendingAccountConfirmationQueue(savedEntity.getEmail(),
-      savedEntity.getFirstName(), savedEntity.getLastName(), savedEntity.getInstitution().getName(),
-      savedEntity.getRole().fetchNameWithoutPrefix());
+      savedEntity.getFirstName(), savedEntity.getLastName(), savedEntity.fetchInstitutionName(), savedEntity.fetchNoPrefixRoleName());
     queueSender.send(EmailSenderRabbitConfig.EMAIL_SENDING_EXCHANGE_KEY, EmailSenderRabbitConfig.PENDING_ACCOUNT_CONFIRMATION_ROUTING_KEY,
       queueDto);
   }

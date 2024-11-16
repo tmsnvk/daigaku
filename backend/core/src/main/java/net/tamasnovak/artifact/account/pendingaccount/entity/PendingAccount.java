@@ -40,7 +40,7 @@ public final class PendingAccount extends BaseAccount {
    * @param lastname The pending account's last name.
    * @param email The pending account's email.
    * @param institution The pending account's institution.
-   * @param role The pending account's role.
+   * @param role The pending account's authorisation role.
    * @return {@link PendingAccount}
    */
   public static PendingAccount createPendingAccount(
@@ -50,7 +50,7 @@ public final class PendingAccount extends BaseAccount {
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, id, uuid);
+    return Objects.hash(id, uuid, email);
   }
 
   @Override
@@ -64,6 +64,6 @@ public final class PendingAccount extends BaseAccount {
     }
 
     PendingAccount that = (PendingAccount) o;
-    return Objects.equals(email, that.email) && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid);
+    return Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid) && Objects.equals(email, that.email);
   }
 }

@@ -54,7 +54,7 @@ public abstract class BaseAccount extends Auditable {
   protected Institution institution;
 
   @ManyToOne
-  @JoinColumn(name = "role_id")
+  @JoinColumn(name = "role_id", nullable = false)
   @JsonBackReference(value = "role-account_reference")
   protected Role role;
 
@@ -81,30 +81,40 @@ public abstract class BaseAccount extends Auditable {
     return this.email;
   }
 
-  public Institution getInstitution() {
-    return institution;
-  }
-
-  public Role getRole() {
-    return role;
-  }
-
   /**
-   * Fetches the id of the {@link Institution} associated with the authenticated {@link Account} or {@link PendingAccount}.
+   * Fetches the {@link Institution}'s id  associated with the authenticated {@link Account} or {@link PendingAccount}.
    *
-   * @return Institution id.
+   * @return The {@link Institution}'s id.
    */
   public long fetchInstitutionId() {
-    return this.getInstitution().getId();
+    return this.institution.getId();
   }
 
   /**
-   * Fetches the name of the {@link Role} associated with the authenticated {@link Account}.
+   * Fetches the {@link Institution}'s name associated with the authenticated {@link Account} or {@link PendingAccount}.
    *
-   * @return Role name.
+   * @return The {@link Institution}'s name.
+   */
+  public String fetchInstitutionName() {
+    return this.institution.getName();
+  }
+
+  /**
+   * Fetches the {@link Role}'s name associated with the authenticated {@link Account}.
+   *
+   * @return {@link Role} name.
    */
   public String fetchRoleName() {
-    return this.getRole().getName();
+    return this.role.getName();
+  }
+
+  /**
+   * Fetches the {@link Role}'s name associated with the authenticated {@link Account}, excluding its prefix.
+   *
+   * @return {@link Role} name.
+   */
+  public String fetchNoPrefixRoleName() {
+    return this.role.fetchNameWithoutPrefix();
   }
 
   /**
@@ -121,25 +131,15 @@ public abstract class BaseAccount extends Auditable {
   }
 
   /**
-   * Capitalises a word, including each part of a hyphenated word.
+   * Capitalises a name, including each part of a hyphenated word.
    *
-   * @param word The word to be capitalised.
-   * @return The capitalised word.
+   * @param namePart The name to be capitalised.
+   * @return The capitalised name.
    */
-  private static String capitaliseWord(String word) {
-    return Arrays.stream(word.split("-"))
-                 .map(BaseAccount::capitaliseFirstLetter)
+  private static String capitaliseWord(String namePart) {
+    return Arrays.stream(namePart.split("-"))
+                 .map((word) -> Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase())
                  .collect(Collectors.joining("-"));
-  }
-
-  /**
-   * Capitalises the first letter of a word and converts the rest to lowercase.
-   *
-   * @param part The word part to be capitalised.
-   * @return The capitalised word part.
-   */
-  private static String capitaliseFirstLetter(String part) {
-    return Character.toUpperCase(part.charAt(0)) + part.substring(1).toLowerCase();
   }
 
   /**

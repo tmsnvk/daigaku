@@ -34,9 +34,9 @@ import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.common.entity.audit.Auditable;
-import net.tamasnovak.artifact.common.utils.StringUtils;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.university.entity.University;
+import net.tamasnovak.utils.StringUtils;
 
 /**
  * Entity class that represents the applications database table.
@@ -184,58 +184,68 @@ public final class Application extends Auditable {
     return this.university.getName();
   }
 
+  /**
+   * Checks if the {@link Application}'s {@link ApplicationStatus} is null.
+   *
+   * @return boolean.
+   */
   public boolean isApplicationStatusNull() {
     return this.applicationStatus == null;
   }
 
+  /**
+   * @return
+   */
   public boolean isInterviewStatusNull() {
     return this.interviewStatus == null;
   }
 
+  /**
+   * @return
+   */
   public boolean isOfferStatusNull() {
     return this.offerStatus == null;
   }
 
+  /**
+   * @return
+   */
   public boolean isResponseStatusNull() {
     return this.responseStatus == null;
   }
 
+  /**
+   * @return
+   */
   public boolean isFinalDestinationNull() {
     return this.finalDestinationStatus == null;
   }
 
-  public UUID getApplicationStatusUuid() {
-    return this.applicationStatus.getUuid();
-  }
-
-  public UUID getInterviewStatusUuid() {
-    return this.interviewStatus.getUuid();
-  }
-
-  public UUID getOfferStatusUuid() {
-    return this.offerStatus.getUuid();
-  }
-
-  public UUID getResponseStatusUuid() {
-    return this.responseStatus.getUuid();
-  }
-
-  public UUID getFinalDestinationStatusUuid() {
-    return this.finalDestinationStatus.getUuid();
-  }
-
-  public String getApplicationStatusName() {
+  /**
+   * @return
+   */
+  public String fetchApplicationStatusName() {
     return this.applicationStatus.getName();
   }
 
-  public String retrieveResponseStatusName() {
+  /**
+   * @return
+   */
+  public String fetchResponseStatusName() {
     return this.responseStatus.getName();
   }
 
-  public String retrieveFinalDestinationName() {
+  /**
+   * @return
+   */
+  public String fetchFinalDestinationName() {
     return this.finalDestinationStatus.getName();
   }
 
+  /**
+   * @param statusUuid
+   * @return
+   */
   public ApplicationStatus returnApplicationStatusIfSame(final UUID statusUuid) {
     if (!this.isApplicationStatusNull() && areValuesEqual(this.applicationStatus.getUuid(), statusUuid)) {
       return this.applicationStatus;
@@ -244,6 +254,10 @@ public final class Application extends Auditable {
     return null;
   }
 
+  /**
+   * @param statusUuid
+   * @return
+   */
   public InterviewStatus returnInterviewStatusIfSame(final UUID statusUuid) {
     if (!this.isInterviewStatusNull() && areValuesEqual(this.interviewStatus.getUuid(), statusUuid)) {
       return this.interviewStatus;
@@ -252,6 +266,10 @@ public final class Application extends Auditable {
     return null;
   }
 
+  /**
+   * @param statusUuid
+   * @return
+   */
   public OfferStatus returnOfferStatusIfSame(final UUID statusUuid) {
     if (!this.isOfferStatusNull() && areValuesEqual(this.offerStatus.getUuid(), statusUuid)) {
       return this.offerStatus;
@@ -260,6 +278,10 @@ public final class Application extends Auditable {
     return null;
   }
 
+  /**
+   * @param statusUuid
+   * @return
+   */
   public ResponseStatus returnResponseStatusIfSame(final UUID statusUuid) {
     if (!this.isResponseStatusNull() && areValuesEqual(this.responseStatus.getUuid(), statusUuid)) {
       return this.responseStatus;
@@ -268,6 +290,10 @@ public final class Application extends Auditable {
     return null;
   }
 
+  /**
+   * @param statusUuid
+   * @return
+   */
   public FinalDestinationStatus returnFinalDestinationStatusIfSame(final UUID statusUuid) {
     if (!this.isFinalDestinationNull() && areValuesEqual(this.finalDestinationStatus.getUuid(), statusUuid)) {
       return this.finalDestinationStatus;
@@ -276,6 +302,15 @@ public final class Application extends Auditable {
     return null;
   }
 
+  /**
+   * @param applicationStatus
+   * @param interviewStatus
+   * @param offerStatus
+   * @param responseStatus
+   * @param finalDestinationStatus
+   * @param offerDeclined
+   * @param notFinalDestination
+   */
   public void updateStatusFields(
     final ApplicationStatus applicationStatus,
     final InterviewStatus interviewStatus,
@@ -292,6 +327,14 @@ public final class Application extends Auditable {
       offerDeclined, notFinalDestination);
   }
 
+  /**
+   * @param newResponseStatus
+   * @param newFinalDestinationStatus
+   * @param currentFinalDestinationStatus
+   * @param offerDeclined
+   * @param notFinalDestination
+   * @return
+   */
   public FinalDestinationStatus updateFinalDestinationField(
     final ResponseStatus newResponseStatus,
     final FinalDestinationStatus newFinalDestinationStatus,
@@ -305,6 +348,12 @@ public final class Application extends Auditable {
     return updateOnlyIfNotNull(newFinalDestinationStatus, currentFinalDestinationStatus);
   }
 
+  /**
+   * @param newStatus
+   * @param currentStatus
+   * @param <T>
+   * @return
+   */
   private <T> T updateOnlyIfNotNull(T newStatus, T currentStatus) {
     if (newStatus == null) {
       return currentStatus;
@@ -313,6 +362,11 @@ public final class Application extends Auditable {
     return newStatus;
   }
 
+  /**
+   * @param uuid
+   * @param uuidToCheckAgainst
+   * @return
+   */
   private boolean areValuesEqual(final UUID uuid, final UUID uuidToCheckAgainst) {
     return Objects.equals(uuid, uuidToCheckAgainst);
   }

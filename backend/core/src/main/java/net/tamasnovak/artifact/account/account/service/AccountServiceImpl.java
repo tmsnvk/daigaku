@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class managing {@link Account} entity-related API operations, implementing {@link AccountService}.
+ * Service class managing {@link Account} entity-related operations, implementing {@link AccountService}.
  *
  * @since 0.0.1
  */

@@ -12,7 +12,7 @@ import net.tamasnovak.artifact.account.account.entity.Account;
 import org.springframework.stereotype.Component;
 
 /**
- * Stores {@link Account} artifact service layer constants.
+ * Stores {@link Account} entity service layer constants.
  *
  * @since 0.0.1
  */

@@ -10,7 +10,6 @@ package net.tamasnovak.artifact.application.studentapplication.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -53,6 +52,7 @@ import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentAccountDto;
 import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentApplicationDto;
 import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentPdfRequestDataQueueDto;
 import net.tamasnovak.rabbitmq.service.QueueSender;
+import net.tamasnovak.utils.StringUtils;
 import net.tamasnovak.validation.applicationfieldvalidator.ExistingApplicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -143,9 +143,12 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     return new StudentDashboardStatistics(student.createFirmChoiceTileDto(), student.createFinalDestinationTileDto(),
       student.fetchApplicationNumber(),
-      student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), plannedApplicationName)),
-      student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), submittedApplicationName)),
-      student.countApplicationsMatchingPredicate(element -> areValuesEqual(element.getApplicationStatusName(), withdrawnApplicationName)),
+      student.countApplicationsMatchingPredicate(
+        element -> StringUtils.validateStringsAreEqual(element.fetchApplicationStatusName(), plannedApplicationName)),
+      student.countApplicationsMatchingPredicate(
+        element -> StringUtils.validateStringsAreEqual(element.fetchApplicationStatusName(), submittedApplicationName)),
+      student.countApplicationsMatchingPredicate(
+        element -> StringUtils.validateStringsAreEqual(element.fetchApplicationStatusName(), withdrawnApplicationName)),
       student.countDistinctApplicationsByValue(Application::fetchCountryName),
       student.countDistinctApplicationsByValue(Application::fetchUniversityName),
       student.countApplicationsMatchingPredicate(Application::isInterviewStatusNull),
@@ -193,7 +196,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       currentApplication::returnResponseStatusIfSame, responseStatusService::findByUuid);
     final FinalDestinationStatus newFinalDestinationStatus = getStatusOnUpdate(requestBody.finalDestinationStatusUuid(),
       currentApplication::returnFinalDestinationStatusIfSame, finalDestinationStatusService::findByUuid);
-    existingApplicationValidator.validateStatusFields(requestBody, currentApplication, currentStudent, newApplicationStatus,
+    existingApplicationValidator.validateApplication(requestBody, currentApplication, currentStudent, newApplicationStatus,
       newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
     final ResponseStatus offerDeclinedStatus = responseStatusService.findByName(ResponseStatusType.OFFER_DECLINED.getValue());
@@ -215,7 +218,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
 
     final T statusField = checkIfStatusIsSameFn.apply(UUID.fromString(bodyStatusId));
 
-    if (!(statusField instanceof ApplicationStatus) && areValuesEqual(bodyStatusId, "")) {
+    if (!(statusField instanceof ApplicationStatus) && StringUtils.validateStringsAreEqual(bodyStatusId, "")) {
       return null;
     }
 
@@ -224,10 +227,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     }
 
     return getByUuidFn.apply(UUID.fromString(bodyStatusId));
-  }
-
-  private boolean areValuesEqual(final String string, final String stringToCheckAgainst) {
-    return Objects.equals(string, stringToCheckAgainst);
   }
 
   @Override
