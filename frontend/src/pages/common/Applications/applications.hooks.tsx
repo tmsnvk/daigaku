@@ -3,22 +3,19 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
-import { QueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 /* configuration, utilities, constants imports */
-import { queryKeys } from '@configuration';
+import { queryClient, queryKeys } from '@configuration';
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
 /* interface, type, enum imports */
@@ -185,8 +182,6 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
   const [sortedField, setSortedField] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
 
-  const queryClient: QueryClient = new QueryClient();
-
   const sortColumns = (): void => {
     const sortedData: Array<Application> = data.sort((a, b) => {
       if (a[sortedField as keyof Application] === null) {
@@ -202,7 +197,6 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
         (sortOrder === SortOrder.ASC ? 1 : -1)
       );
     });
-
     queryClient.setQueryData([queryKeys.application.GET_ALL_BY_ROLE], [...sortedData]);
   };
 

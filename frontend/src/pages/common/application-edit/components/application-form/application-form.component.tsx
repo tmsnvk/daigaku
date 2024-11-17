@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -41,6 +39,7 @@ import { constants } from './application-form.constants';
 /* interface, type, enum imports */
 import { Application, ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
+import { useEffect } from 'react';
 
 /**
  * ===============
@@ -74,21 +73,25 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     setError,
   } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
 
+  // Custom hook that submits the form.
+  const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
+
   // Custom hook that updates the application.
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
 
   // Custom hook that checks the application's fields availability.
   const {
+    onPageLoadValidation,
     fieldsReadOnlyStatus,
     updateInterviewStatus,
     updateOfferStatus,
     updateResponseStatus,
     updateFinalDestinationStatus,
-    disableFieldsOnFinalDestinationUpdate,
   }: HandleFieldDisableStatus = useHandleFieldDisableStatus(application, updatedData, selectOptions);
 
-  // Custom hook that submits the form.
-  const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
+  useEffect(() => {
+    onPageLoadValidation();
+  }, []);
 
   return (
     <>
@@ -200,7 +203,6 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as Array<FinalDestinationStatus>}
           isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
-          onFieldUpdate={disableFieldsOnFinalDestinationUpdate}
           error={errors.finalDestinationStatusUuid?.message}
         />
         <InputGuideText paragraphs={constants.form.fields.finalDestination.INFORMATION} />

@@ -1,7 +1,9 @@
 package net.tamasnovak.artifact.account.pendingaccount.controller;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistration;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
 import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.account.pendingaccount.service.PendingAccountService;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.util.UUID;
 
 @WebMvcTest(controllers = PendingAccountController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -42,7 +42,7 @@ class PendingAccountControllerIT {
     @Test
     @Description("HttpStatus.CREATED status is correctly asserted if no exceptions were thrown.")
     public void shouldReturnHttpStatusCreated_IfNoExceptionsWereThrown() throws Exception {
-      PendingAccountRegistration requestBody = new PendingAccountRegistration(
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
         "Student",
         "Test User",
         "student@test.net",
@@ -51,15 +51,15 @@ class PendingAccountControllerIT {
       );
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
-        .content(objectMapper.writeValueAsString(requestBody))
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isCreated());
+                                            .content(objectMapper.writeValueAsString(requestBody))
+                                            .contentType(MediaType.APPLICATION_JSON))
+             .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
     @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in requestBody's fields.")
     public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
-      PendingAccountRegistration requestBody = new PendingAccountRegistration(
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
         "1nv4l1d Student",
         "",
         "invalid@email",
@@ -68,9 +68,9 @@ class PendingAccountControllerIT {
       );
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
-        .content(objectMapper.writeValueAsString(requestBody))
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
+                                            .content(objectMapper.writeValueAsString(requestBody))
+                                            .contentType(MediaType.APPLICATION_JSON))
+             .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
   }
 }

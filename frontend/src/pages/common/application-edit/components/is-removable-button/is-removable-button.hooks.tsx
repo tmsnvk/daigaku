@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -67,7 +65,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
-      // Finds the current application by UUID in the local `react-query` cache and toggles its `isRemovable` status.
+      // Finds the current application by uuid in the local `react-query` cache and toggles its `isRemovable` status.
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;

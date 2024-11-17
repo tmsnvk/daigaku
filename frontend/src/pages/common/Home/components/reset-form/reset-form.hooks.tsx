@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -26,7 +24,7 @@ import { mutationKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { MutationResult } from '@common-types';
+import { DefaultErrorResponse, MutationResult } from '@common-types';
 import { ConfirmationModal } from '../../home.interfaces';
 
 /**
@@ -56,7 +54,7 @@ type ResetFormErrorT = 'root';
  *
  * @since 0.0.1
  */
-export type HandleResetForm = MutationResult<void, AxiosError<ResetFormErrorT>, ResetFormFields>;
+export type HandleResetForm = MutationResult<void, AxiosError<DefaultErrorResponse>, ResetFormFields>;
 
 /**
  * Manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
@@ -77,9 +75,9 @@ export const useHandleResetForm = (
     onSuccess: () => {
       showModal();
     },
-    onError: (error: AxiosError<ResetFormErrorT>) => {
+    onError: (error: AxiosError<DefaultErrorResponse>) => {
       if (axios.isAxiosError(error)) {
-        const status: number | undefined = error.response?.status;
+        const status: number | undefined = error.response?.data.errorCode;
 
         if (status) {
           if (status >= 500) {

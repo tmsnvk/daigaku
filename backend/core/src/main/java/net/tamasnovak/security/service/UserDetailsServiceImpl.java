@@ -1,4 +1,14 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.security.service;
+
+import java.util.Collections;
 
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.persistence.AccountRepository;
@@ -10,8 +20,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
+/**
+ * Spring Security {@link UserDetailsService} implementation.
+ *
+ * @since 0.0.1
+ */
 @Service
 public final class UserDetailsServiceImpl implements UserDetailsService {
   private final AccountRepository accountRepository;
@@ -23,10 +36,10 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    final Account account = accountRepository.findByEmail(email)
-      .orElseThrow(() -> new UsernameNotFoundException(email));
-    final SimpleGrantedAuthority role = new SimpleGrantedAuthority(account.getRoleName());
+    final Account account = accountRepository.findAccountByEmail(email)
+                                             .orElseThrow(() -> new UsernameNotFoundException(email));
+    final SimpleGrantedAuthority role = new SimpleGrantedAuthority(account.fetchRoleName());
 
-    return new User(account.getEmail(), account.getPasswordForGrantedAuthority(), Collections.singleton(role));
+    return new User(account.getEmail(), account.getHashedPassword(), Collections.singleton(role));
   }
 }

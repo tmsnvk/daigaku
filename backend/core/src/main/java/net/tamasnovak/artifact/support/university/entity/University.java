@@ -1,4 +1,16 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.support.university.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -13,14 +25,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.artifact.address.entity.Address;
-import net.tamasnovak.artifact.application.shared.entity.Application;
+import net.tamasnovak.artifact.application.common.entity.Application;
+import net.tamasnovak.artifact.support.common.entity.BaseSupportEntity;
 import net.tamasnovak.artifact.support.country.entity.Country;
-import net.tamasnovak.artifact.support.shared.entity.BaseSupportEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+/**
+ * Entity class that represents the universities database table.
+ *
+ * @since 0.0.1
+ */
 @Entity
 @Table(name = "universities")
 public final class University extends BaseSupportEntity {
@@ -43,7 +56,10 @@ public final class University extends BaseSupportEntity {
   @JsonManagedReference(value = "university-application_reference")
   private List<Application> applications;
 
-  protected University() {}
+  protected University() {
+    // Not public as it should not be initialised blank.
+    // Cannot be private or package-private as it is an @Entity class.
+  }
 
   private University(String name, String abbreviation, Address address, Country country) {
     super(name);
@@ -53,10 +69,16 @@ public final class University extends BaseSupportEntity {
     this.country = country;
   }
 
-  public static University createUniversity(final String name,
-                                            final String abbreviation,
-                                            final Address address,
-                                            final Country country) {
+  /**
+   * The default university instance creator method.
+   *
+   * @param name The university's name.
+   * @param abbreviation The university's abbreviation.
+   * @param address The university's address.
+   * @param country The university's country.
+   * @return {@link University}.
+   */
+  public static University createUniversity(final String name, final String abbreviation, final Address address, final Country country) {
     return new University(name, abbreviation, address, country);
   }
 
@@ -67,10 +89,14 @@ public final class University extends BaseSupportEntity {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
-    if (o == null || getClass() != o.getClass())
+    }
+
+    if (o == null || getClass() != o.getClass()) {
       return false;
+    }
+
     University that = (University) o;
     return Objects.equals(name, that.name) && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid);
   }

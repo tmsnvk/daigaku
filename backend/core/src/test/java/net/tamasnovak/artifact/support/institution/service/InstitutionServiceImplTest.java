@@ -1,8 +1,13 @@
 package net.tamasnovak.artifact.support.institution.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
-import net.tamasnovak.artifact.support.institution.dto.InstitutionDropdownOption;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
+import net.tamasnovak.artifact.support.institution.dto.InstitutionSelectOption;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 import net.tamasnovak.artifact.support.institution.persistence.InstitutionRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -13,12 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -32,7 +31,7 @@ class InstitutionServiceImplTest {
   InstitutionRepository institutionRepository;
 
   @Mock
-  GlobalServiceConstants globalServiceConstants;
+  GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   InstitutionServiceImpl underTest;
@@ -46,23 +45,23 @@ class InstitutionServiceImplTest {
     @Test
     @Description("Returns the correct Institution object.")
     void shouldReturnInstitutionRecord() {
-      when(institutionRepository.findByUuid(institutionUuid)).thenReturn(Optional.of(expected));
+      when(institutionRepository.findInstitutionByUuid(institutionUuid)).thenReturn(Optional.of(expected));
 
-      Institution actual = underTest.findByUuid(institutionUuid);
+      Institution actual = underTest.findInstitutionByUuid(institutionUuid);
 
       assertEquals(expected, actual);
 
-      verify(institutionRepository, times(1)).findByUuid(institutionUuid);
+      verify(institutionRepository, times(1)).findInstitutionByUuid(institutionUuid);
     }
 
     @Test
     @Description("Throws EntityNotFoundException if no Institution record is found.")
     void shouldThrowEntityNotFoundException_IfInstitutionIsNotFound() {
-      when(institutionRepository.findByUuid(institutionUuid)).thenReturn(Optional.empty());
+      when(institutionRepository.findInstitutionByUuid(institutionUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.findByUuid(institutionUuid));
+      assertThrows(EntityNotFoundException.class, () -> underTest.findInstitutionByUuid(institutionUuid));
 
-      verify(institutionRepository, times(1)).findByUuid(institutionUuid);
+      verify(institutionRepository, times(1)).findInstitutionByUuid(institutionUuid);
     }
   }
 
@@ -72,14 +71,14 @@ class InstitutionServiceImplTest {
     @Test
     @Description("Returns the correct list of InstitutionOptionDto records.")
     void shouldReturnAllInstitutionOptionDtos() {
-      List<InstitutionDropdownOption> expected = Collections.singletonList(mock(InstitutionDropdownOption.class));
+      List<InstitutionSelectOption> expected = Collections.singletonList(mock(InstitutionSelectOption.class));
 
-      when(institutionRepository.findAllByOrderByNameAsc()).thenReturn(expected);
-      List<InstitutionDropdownOption> actual = underTest.findAllSortedByName();
+      when(institutionRepository.findInstitutionsByOrderByNameAsc()).thenReturn(expected);
+      List<InstitutionSelectOption> actual = underTest.findInstitutionsSortedByName();
 
       assertEquals(expected, actual);
 
-      verify(institutionRepository, times(1)).findAllByOrderByNameAsc();
+      verify(institutionRepository, times(1)).findInstitutionsByOrderByNameAsc();
     }
   }
 }

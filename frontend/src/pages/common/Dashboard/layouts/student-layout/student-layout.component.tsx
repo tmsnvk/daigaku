@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* logic imports */
@@ -95,20 +93,20 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           title={constants.categories.OFFERS}
           value={data.offersCount}
         />
-        {data.firmChoice && (
+        {data.firmChoiceTileDto && (
           <DetailTile
             title={constants.categories.FIRM_CHOICE}
-            country={data.firmChoice.country ?? ''}
-            university={data.firmChoice.university ?? constants.categories.NOT_YET_SELECTED}
-            courseName={data.firmChoice.courseName ?? ''}
+            country={data.firmChoiceTileDto.country ?? ''}
+            university={data.firmChoiceTileDto.university ?? constants.categories.NOT_YET_SELECTED}
+            courseName={data.firmChoiceTileDto.courseName ?? ''}
           />
         )}
-        {data.finalDestination && (
+        {data.finalDestinationTileDto && (
           <DetailTile
             title={constants.categories.FINAL_DESTINATION}
-            country={data.finalDestination.country ?? ''}
-            university={data.finalDestination.university ?? constants.categories.NOT_YET_SELECTED}
-            courseName={data.finalDestination.courseName ?? ''}
+            country={data.finalDestinationTileDto.country ?? ''}
+            university={data.finalDestinationTileDto.university ?? constants.categories.NOT_YET_SELECTED}
+            courseName={data.finalDestinationTileDto.courseName ?? ''}
           />
         )}
       </TileUnit>

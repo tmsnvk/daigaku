@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /**
@@ -35,9 +33,9 @@ export const constants = {
   },
   validation: {
     FIRST_NAME_REQUIRED: 'Providing your first name is required.',
-    FIRST_NAME_PATTERN: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
+    FIRST_NAME_PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
     LAST_NAME_REQUIRED: 'Providing your last name is required.',
-    LAST_NAME_PATTERN: 'Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.',
+    LAST_NAME_PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
     EMAIL_REQUIRED: 'Providing your email address is required.',
     ACCOUNT_ROLE_REQUIRED: 'Selecting an account role is required.',
     INSTITUTION_REQUIRED: 'Selecting an institution is required.',

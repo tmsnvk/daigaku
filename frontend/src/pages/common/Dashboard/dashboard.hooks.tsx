@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -38,12 +36,12 @@ import { SimpleQueryResult } from '@common-types';
  * @since 0.0.1
  */
 export interface DashboardStatistics {
-  firmChoice: {
+  firmChoiceTileDto: {
     country: string;
     university: string;
     courseName: string;
   };
-  finalDestination: {
+  finalDestinationTileDto: {
     country: string;
     university: string;
     courseName: string;

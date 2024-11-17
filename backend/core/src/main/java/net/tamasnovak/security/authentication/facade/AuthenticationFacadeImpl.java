@@ -1,4 +1,14 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.security.authentication.facade;
+
+import java.util.UUID;
 
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.service.AccountService;
@@ -10,8 +20,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
+/**
+ * TODO
+ *
+ * @since 0.0.1
+ */
 @Component
 public class AuthenticationFacadeImpl implements AuthenticationFacade {
   private final AuthenticationManager authenticationManager;
@@ -32,16 +45,18 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
   @Override
   public Account getAuthenticatedAccount() {
-    return accountService.findByEmail(getUserContext().getUsername());
+    return accountService.findAccountByEmail(getUserContext().getUsername());
   }
 
   @Override
   public User getUserContext() {
-    return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return (User) SecurityContextHolder.getContext()
+                                       .getAuthentication()
+                                       .getPrincipal();
   }
 
   @Override
-  public UUID getAuthenticatedAccountUuid() {
+  public UUID retrieveAuthAccountUuid() {
     return getAuthenticatedAccount().getUuid();
   }
 }

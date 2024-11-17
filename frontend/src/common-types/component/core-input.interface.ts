@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -51,5 +49,5 @@ export interface CoreInput<T extends FieldValues> {
   /**
    * Indicates whether the input is disabled, preventing user interaction.
    */
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }

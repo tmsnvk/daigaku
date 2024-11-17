@@ -1,65 +1,90 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.application.application.service;
+
+import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
+import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
+import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.application.persistence.ApplicationIdsView;
-import net.tamasnovak.artifact.application.shared.dto.ApplicationData;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationRepository;
-import net.tamasnovak.artifact.application.shared.persistence.ApplicationView;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.application.common.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.entity.Application;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
+import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
+import net.tamasnovak.enums.roles.AuthorisationRoles;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
+import net.tamasnovak.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-import java.util.UUID;
-
+/**
+ * Service class managing {@link Application} entity-related operations, implementing {@link ApplicationService}.
+ *
+ * @since 0.0.1
+ */
 @Service
 @Qualifier(value = "ApplicationService")
 public class ApplicationServiceImpl implements ApplicationService {
   private final AuthenticationFacade authenticationFacade;
   private final ApplicationRepository applicationRepository;
-  private final GlobalServiceConstants globalServiceConstants;
 
   @Autowired
-  public ApplicationServiceImpl(AuthenticationFacade authenticationFacade, ApplicationRepository applicationRepository, GlobalServiceConstants globalServiceConstants) {
+  public ApplicationServiceImpl(
+    AuthenticationFacade authenticationFacade, ApplicationRepository applicationRepository) {
     this.authenticationFacade = authenticationFacade;
     this.applicationRepository = applicationRepository;
-    this.globalServiceConstants = globalServiceConstants;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public net.tamasnovak.artifact.application.shared.entity.Application findByUuid(final UUID uuid) {
-    return applicationRepository.findByUuid(uuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  public Application findApplicationByUuid(final UUID applicationUuid) {
+    return applicationRepository.findApplicationByUuid(applicationUuid)
+                                .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
-  public ApplicationData fetchApplicationDataByUuid(final UUID uuid) {
-    final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(uuid)
-      .orElseThrow(() -> new EntityNotFoundException(globalServiceConstants.NO_RECORD_FOUND));
+  @Cacheable(value = "SingleApplicationRecordByUuid", key = "{ #applicationUuid }")
+  public ApplicationData createApplicationData(final UUID applicationUuid) {
+    this.validateUserAccessToViewApplication(applicationUuid);
 
-    verifyUserAccessToViewApplication(uuid);
+    final ApplicationView applicationView = applicationRepository.findApplicationViewByUuid(applicationUuid)
+                                                                 .orElseThrow(() -> new EntityNotFoundException(
+                                                                   GlobalServiceMessages.NO_RECORD_FOUND));
 
     return new ApplicationData(applicationView);
   }
 
-  private void verifyUserAccessToViewApplication(final UUID uuid) {
+  /**
+   * Verifies that the authenticated user has permission to view the provided {@link Application}. The method checks the authenticated
+   * user's role and ensures they have the correct association with the specified {@link Application} to access it.
+   * If the user is a {@link Student}, they must match the {@link Application}'s owner uuid.
+   * If the user is a {@link Mentor}, they must match the {@link Application}'s assigned mentor uuid.
+   *
+   * @param uuid The application's uuid the user is attempting to access.
+   */
+  private void validateUserAccessToViewApplication(final UUID uuid) {
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
     final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(uuid);
 
-    if (Objects.equals(authAccount.getRoleName(), "ROLE_STUDENT")) {
-      authAccount.verifyAuthAccountUuidAgainstAnother(application.getStudentOwnerAccountUuid(), globalServiceConstants.NO_PERMISSION);
+    if (StringUtils.validateStringsAreEqual(authAccount.fetchRoleName(), AuthorisationRoles.ROLE_STUDENT.name())) {
+      authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), GlobalServiceMessages.NO_PERMISSION);
     }
 
-    if (Objects.equals(authAccount.getRoleName(), "ROLE_MENTOR")) {
-      authAccount.verifyAuthAccountUuidAgainstAnother(application.getStudentMentorAccountUuid(), globalServiceConstants.NO_PERMISSION);
+    if (StringUtils.validateStringsAreEqual(authAccount.fetchRoleName(), AuthorisationRoles.ROLE_MENTOR.name())) {
+      authAccount.verifyAccountUuidMatch(application.getStudentMentorAccountUuid(), GlobalServiceMessages.NO_PERMISSION);
     }
   }
 }

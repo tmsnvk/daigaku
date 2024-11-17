@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -19,7 +17,7 @@ import { useForm } from 'react-hook-form';
 /* logic imports */
 import { useGetInstitutionOptions } from '@hooks/institution';
 import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
-import { RegistrationFormFields, SubmitRegistrationForm, useSubmitRegistrationForm } from './registration-form.hooks';
+import { HandleRegistrationForm, RegistrationFormFields, useSubmitRegistrationForm } from './registration-form.hooks';
 
 /* component, style imports */
 import { AccountRoleDropdown, GenericInput, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
@@ -79,7 +77,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
   }: UseFormHook<RegistrationFormFields> = useForm<RegistrationFormFields>({ mode: 'onSubmit' });
 
   // Custom hook that submits the form.
-  const { isPending, mutate }: SubmitRegistrationForm = useSubmitRegistrationForm(setError, showModal);
+  const { isPending, mutate }: HandleRegistrationForm = useSubmitRegistrationForm(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {
     return (
@@ -115,7 +113,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
               message: constants.validation.FIRST_NAME_REQUIRED,
             },
             pattern: {
-              value: /^[\p{L}\s]{2,100}$/u,
+              value: /^[\p{L}\s\-]{2,100}$/u,
               message: constants.validation.FIRST_NAME_PATTERN,
             },
           }}
@@ -134,7 +132,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
               message: constants.validation.LAST_NAME_REQUIRED,
             },
             pattern: {
-              value: /^[\p{L}\s]{2,100}$/u,
+              value: /^[\p{L}\s\-]{2,100}$/u,
               message: constants.validation.LAST_NAME_PATTERN,
             },
           }}

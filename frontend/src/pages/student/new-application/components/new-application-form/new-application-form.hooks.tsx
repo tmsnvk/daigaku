@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -27,7 +25,7 @@ import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Application, MutationResult, ServerValidationErrorResponse } from '@common-types';
+import { Application, DefaultErrorResponse, ErrorDetail, MutationResult } from '@common-types';
 
 /**
  * ===============
@@ -60,7 +58,7 @@ type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | '
  *
  * @since 0.0.1
  */
-export type CreateApplication = MutationResult<Application, AxiosError<Array<ServerValidationErrorResponse>>, CreateApplicationFormFields>;
+export type CreateApplication = MutationResult<Application, AxiosError<DefaultErrorResponse>, CreateApplicationFormFields>;
 
 /**
  * Manages the submission of new application submission via the `react-query` package.
@@ -96,14 +94,14 @@ export const useCreateApplication = (
       resetCountrySelection();
       reset();
     },
-    onError: (error: AxiosError<Array<ServerValidationErrorResponse>>) => {
+    onError: (error: AxiosError<DefaultErrorResponse>) => {
       if (axios.isAxiosError(error)) {
-        const status: number | undefined = error.response?.status;
-        const errors: Array<ServerValidationErrorResponse> | undefined = error.response?.data;
+        const status: number | undefined = error.response?.data.errorCode;
+        const errors: DefaultErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {
-            errors.forEach((error: ServerValidationErrorResponse) => {
+            errors.errors.forEach((error: ErrorDetail) => {
               if (error.fieldName) {
                 setError(error.fieldName as CreateApplicationFormErrorT, { message: error.errorMessage });
               }

@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -25,7 +23,7 @@ import { pendingAccountService } from '@services/index';
 import { mutationKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { MutationResult, ServerValidationErrorResponse } from '@common-types';
+import { DefaultErrorResponse, ErrorDetail, MutationResult } from '@common-types';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 import { ConfirmationModal } from '../../home.interfaces';
 
@@ -60,35 +58,35 @@ type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'ins
  *
  * @since 0.0.1
  */
-export type SubmitRegistrationForm = MutationResult<void, AxiosError<Array<ServerValidationErrorResponse>>, RegistrationFormFields>;
+export type HandleRegistrationForm = MutationResult<void, AxiosError<DefaultErrorResponse>, RegistrationFormFields>;
 
 /**
  * Manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
  *
  * @param setError A `react-hook-form` function to set form errors.
  * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
- * @return {SubmitRegistrationForm}
+ * @return {HandleRegistrationForm}
  *
  * @since 0.0.1
  */
 export const useSubmitRegistrationForm = (
   setError: UseFormSetError<RegistrationFormFields>,
   showModal: ConfirmationModal['showModal'],
-): SubmitRegistrationForm => {
+): HandleRegistrationForm => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER],
     mutationFn: (formData: RegistrationFormFields) => pendingAccountService.register(formData),
     onSuccess: () => {
       showModal();
     },
-    onError: (error: AxiosError<Array<ServerValidationErrorResponse>>) => {
+    onError: (error: AxiosError<DefaultErrorResponse>) => {
       if (axios.isAxiosError(error)) {
         const status: number | undefined = error.response?.status;
-        const errors: Array<ServerValidationErrorResponse> | undefined = error.response?.data;
+        const errors: DefaultErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {
-            errors.forEach((error: ServerValidationErrorResponse) => {
+            errors.errors.forEach((error: ErrorDetail) => {
               if (error.fieldName) {
                 setError(error.fieldName as RegistrationFormErrorT, { message: error.errorMessage });
               }

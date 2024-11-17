@@ -1,10 +1,15 @@
 package net.tamasnovak.artifact.support.university.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.shared.constants.GlobalServiceConstants;
+import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
-import net.tamasnovak.artifact.support.university.dto.UniversityDropdownOption;
+import net.tamasnovak.artifact.support.university.dto.UniversitySelectOption;
 import net.tamasnovak.artifact.support.university.entity.University;
 import net.tamasnovak.artifact.support.university.persistence.UniversityRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -15,12 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -37,7 +36,7 @@ class UniversityServiceImplTest {
   UniversityRepository universityRepository;
 
   @Mock
-  GlobalServiceConstants globalServiceConstants;
+  GlobalServiceMessages globalServiceMessages;
 
   @InjectMocks
   UniversityServiceImpl underTest;
@@ -51,23 +50,23 @@ class UniversityServiceImplTest {
     @Test
     @Description("Returns the correct University object.")
     void shouldReturnUniversityRecord() {
-      when(universityRepository.findByUuid(universityUuid)).thenReturn(Optional.of(expected));
+      when(universityRepository.findUniversityByUuid(universityUuid)).thenReturn(Optional.of(expected));
 
-      University actual = underTest.findByUuid(universityUuid);
+      University actual = underTest.findUniversityByUuid(universityUuid);
 
       assertEquals(expected, actual);
 
-      verify(universityRepository, times(1)).findByUuid(universityUuid);
+      verify(universityRepository, times(1)).findUniversityByUuid(universityUuid);
     }
 
     @Test
     @Description("Throws EntityNotFoundException if no University record is found.")
     void shouldThrowEntityNotFoundException_IfUniversityIsNotFound() {
-      when(universityRepository.findByUuid(universityUuid)).thenReturn(Optional.empty());
+      when(universityRepository.findUniversityByUuid(universityUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.findByUuid(universityUuid));
+      assertThrows(EntityNotFoundException.class, () -> underTest.findUniversityByUuid(universityUuid));
 
-      verify(universityRepository, times(1)).findByUuid(universityUuid);
+      verify(universityRepository, times(1)).findUniversityByUuid(universityUuid);
     }
   }
 
@@ -79,16 +78,16 @@ class UniversityServiceImplTest {
     void shouldReturnAllUniversitySelectOptionDtos() {
       Country mockCountry = mock(Country.class);
       when(mockCountry.getUuid()).thenReturn(UUID.randomUUID());
-      List<UniversityDropdownOption> expected = Collections.singletonList(mock(UniversityDropdownOption.class));
+      List<UniversitySelectOption> expected = Collections.singletonList(mock(UniversitySelectOption.class));
 
-      when(countryService.findByUuid(mockCountry.getUuid())).thenReturn(mockCountry);
+      when(countryService.findCountryByUuid(mockCountry.getUuid())).thenReturn(mockCountry);
       when(universityRepository.findByCountryOrderByNameAsc(mockCountry)).thenReturn(expected);
 
-      List<UniversityDropdownOption> actual = underTest.findAllByCountryUuidAndSortedByName(mockCountry.getUuid());
+      List<UniversitySelectOption> actual = underTest.findUniversitiesByCountryUuid(mockCountry.getUuid());
 
       assertEquals(expected, actual);
 
-      verify(countryService, times(1)).findByUuid(mockCountry.getUuid());
+      verify(countryService, times(1)).findCountryByUuid(mockCountry.getUuid());
       verify(universityRepository, times(1)).findByCountryOrderByNameAsc(mockCountry);
     }
   }

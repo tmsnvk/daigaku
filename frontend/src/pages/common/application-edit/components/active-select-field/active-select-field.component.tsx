@@ -3,26 +3,28 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
 import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { FieldUpdate, SelectOptions, useGetPreviouslySelectedValue, useOnFieldUpdate } from './active-select-field.hooks';
 
 /* component, style imports */
 import { CoreInput } from '@common-types';
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
+
+/* interface, type, enum imports */
+import { ApplicationStatusSelectOption } from '@common-types';
+import { FieldUpdate, useOnFieldUpdate } from './active-select-field.hooks';
+import { SelectOptions } from './active-select-field.interfaces';
 
 /**
  * ===============
@@ -44,7 +46,7 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   /**
    * The value previously selected by the user, or null if none.
    */
-  previouslySelectedValue: string | null;
+  previouslySelectedValue: ApplicationStatusSelectOption | null;
 
   /**
    * The prompt text displayed in the select input when no option is selected.
@@ -59,7 +61,7 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   /**
    * Callback function invoked when the field's value is updated.
    */
-  onFieldUpdate: (eventTargetValue: string) => void;
+  onFieldUpdate?: (eventTargetValue: string) => void;
 }
 
 /**
@@ -80,9 +82,6 @@ export const ActiveSelectField = <T extends FieldValues>({
   isDisabled,
   onFieldUpdate,
 }: ComponentProps<T>): JSX.Element => {
-  // Get the previously selected option from the list of available options.
-  const previousOption: SelectOptions | null = useGetPreviouslySelectedValue(options, previouslySelectedValue);
-
   // Custom hook that updates the field's value.
   const { updateField }: FieldUpdate = useOnFieldUpdate(onFieldUpdate);
 
@@ -99,7 +98,7 @@ export const ActiveSelectField = <T extends FieldValues>({
         id={id}
         name={id}
         disabled={isDisabled}
-        defaultValue={previousOption?.uuid}
+        defaultValue={previouslySelectedValue?.uuid}
       >
         <option
           hidden

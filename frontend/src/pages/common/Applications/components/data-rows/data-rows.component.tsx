@@ -3,14 +3,12 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
  * This file contains proprietary code.
  * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -66,11 +64,13 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
         <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'courseName')}>{application.courseName}</Cell>
         <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'university')}>{application.university}</Cell>
         <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'country')}>{application.country}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'applicationStatus')}>{application.applicationStatus ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'interviewStatus')}>{application.interviewStatus ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'offerStatus')}>{application.offerStatus ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'responseStatus')}>{application.responseStatus ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'finalDestinationStatus')}>{application.finalDestinationStatus ?? '-'}</Cell>
+        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'applicationStatus')}>{application.applicationStatus.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'interviewStatus')}>{application.interviewStatus.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'offerStatus')}>{application.offerStatus.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'responseStatus')}>{application.responseStatus.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'finalDestinationStatus')}>
+          {application.finalDestinationStatus.name ?? '-'}
+        </Cell>
         <td>
           <Link
             to={`edit/${application.uuid}`}

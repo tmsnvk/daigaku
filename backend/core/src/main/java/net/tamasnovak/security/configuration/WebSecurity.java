@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.security.configuration;
 
 import net.tamasnovak.security.authentication.AuthenticationEntryPointJwt;
@@ -19,6 +27,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Web security configuration class.
+ *
+ * @since 0.0.1
+ */
 @Configuration
 @EnableMethodSecurity
 public class WebSecurity {
@@ -33,10 +46,20 @@ public class WebSecurity {
     this.jwtUtilities = jwtUtilities;
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   public AuthenticationTokenFilter authenticationJwtTokenFilter() {
     return new AuthenticationTokenFilter(jwtUtilities, userDetailsService);
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   public DaoAuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 
@@ -46,16 +69,31 @@ public class WebSecurity {
     return authenticationProvider;
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
     return authConfig.getAuthenticationManager();
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
@@ -78,10 +116,9 @@ public class WebSecurity {
         .requestMatchers("/api/v1/response-status/**").permitAll()
         .requestMatchers("/api/v1/universities/**").authenticated()
         .requestMatchers("/error/**").permitAll()
-        .anyRequest().authenticated()
-      )
-    .authenticationProvider(authenticationProvider())
-    .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        .anyRequest().authenticated())
+      .authenticationProvider(authenticationProvider())
+      .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
