@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -27,5 +27,5 @@ public interface FinalDestinationStatusRepository extends JpaRepository<FinalDes
 
   Optional<FinalDestinationStatus> findFinalDestinationStatusByName(String finalDestinationStatusName);
 
-  List<StatusDropdownOption> findSelectOptionsByOrderByNameAsc();
+  List<StatusSelectOption> findSelectOptionsByOrderByNameAsc();
 }

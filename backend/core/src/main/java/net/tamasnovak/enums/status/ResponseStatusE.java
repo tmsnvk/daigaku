@@ -1,13 +1,13 @@
 package net.tamasnovak.enums.status;
 
-public enum ResponseStatusType {
+public enum ResponseStatusE {
   FIRM_CHOICE("Firm Choice"),
   INSURANCE_CHOICE("Insurance Choice"),
   OFFER_DECLINED("Offer Declined");
 
   private final String name;
 
-  ResponseStatusType(String name) {
+  ResponseStatusE(String name) {
     this.name = name;
   }
 

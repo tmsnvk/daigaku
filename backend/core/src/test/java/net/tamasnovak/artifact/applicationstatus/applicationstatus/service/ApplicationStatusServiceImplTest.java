@@ -8,7 +8,7 @@ import java.util.UUID;
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.persistence.ApplicationStatusRepository;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -48,7 +48,7 @@ class ApplicationStatusServiceImplTest {
     void shouldReturnApplicationStatusRecord() {
       when(applicationStatusRepository.findApplicationStatusByName(anyString())).thenReturn(Optional.of(expected));
 
-      ApplicationStatus actual = underTest.findApplicationStatusByName(anyString());
+      ApplicationStatus actual = underTest.findStatusByName(anyString());
 
       assertEquals(expected, actual);
 
@@ -60,7 +60,7 @@ class ApplicationStatusServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationStatusIsNotFound() {
       when(applicationStatusRepository.findApplicationStatusByName(anyString())).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.findApplicationStatusByName(anyString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.findStatusByName(anyString()));
 
       verify(applicationStatusRepository, times(1)).findApplicationStatusByName(anyString());
     }
@@ -74,7 +74,7 @@ class ApplicationStatusServiceImplTest {
     void shouldReturnApplicationStatusRecord() {
       when(applicationStatusRepository.findApplicationStatusByUuid(applicationStatusUuid)).thenReturn(Optional.of(expected));
 
-      ApplicationStatus actual = underTest.findApplicationStatusByUuid(applicationStatusUuid);
+      ApplicationStatus actual = underTest.findStatusByUuid(applicationStatusUuid);
 
       assertEquals(expected, actual);
 
@@ -86,7 +86,7 @@ class ApplicationStatusServiceImplTest {
     void shouldThrowEntityNotFoundException_IfApplicationStatusIsNotFound() {
       when(applicationStatusRepository.findApplicationStatusByUuid(applicationStatusUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.findApplicationStatusByUuid(applicationStatusUuid));
+      assertThrows(EntityNotFoundException.class, () -> underTest.findStatusByUuid(applicationStatusUuid));
 
       verify(applicationStatusRepository, times(1)).findApplicationStatusByUuid(applicationStatusUuid);
     }
@@ -98,10 +98,10 @@ class ApplicationStatusServiceImplTest {
     @Test
     @Description("Returns the correct list of StatusSelectOptionView records.")
     void shouldReturnAllStatusSelectOptionViews() {
-      List<StatusDropdownOption> expected = Collections.singletonList(mock(StatusDropdownOption.class));
+      List<StatusSelectOption> expected = Collections.singletonList(mock(StatusSelectOption.class));
 
       when(applicationStatusRepository.findSelectOptionsByOrderByNameAsc()).thenReturn(expected);
-      List<StatusDropdownOption> actual = underTest.findSelectOptionsSortedByName();
+      List<StatusSelectOption> actual = underTest.findSelectOptionsSortedByName();
 
       assertEquals(expected, actual);
 

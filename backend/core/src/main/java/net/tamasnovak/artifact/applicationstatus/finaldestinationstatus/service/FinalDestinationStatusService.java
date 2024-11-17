@@ -11,18 +11,38 @@ package net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
 
 /**
- * Service interface managing {@link FinalDestinationStatus} entity-related API calls towards the database.
+ * Service interface for managing {@link FinalDestinationStatus} entity-related API operations.
  *
  * @since 0.0.1
  */
 public interface FinalDestinationStatusService {
-  FinalDestinationStatus findByUuid(UUID uuid);
+  /**
+   * Finds a {@link FinalDestinationStatus} object by its uuid.
+   *
+   * @param statusUuid The ApplicationStatus's uuid.
+   * @return {@link FinalDestinationStatus}.
+   * @throws EntityNotFoundException Thrown if no status is associated with the provided uuid.
+   */
+  FinalDestinationStatus findStatusByUuid(UUID statusUuid);
 
-  FinalDestinationStatus findByName(String statusName);
+  /**
+   * Finds a {@link FinalDestinationStatus} object by its name.
+   *
+   * @param statusName The FinalDestinationStatus's name.
+   * @return {@link FinalDestinationStatus}.
+   * @throws EntityNotFoundException Thrown if no status is associated with the provided uuid.
+   */
+  FinalDestinationStatus findStatusByName(String statusName);
 
-  List<StatusDropdownOption> findAllSortedByName();
+  /**
+   * Finds a list of {@link FinalDestinationStatus} {@link StatusSelectOption} objects.
+   *
+   * @return A list of {@link StatusSelectOption}.
+   */
+  List<StatusSelectOption> findSelectOptionsSortedByName();
 }

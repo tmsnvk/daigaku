@@ -47,13 +47,14 @@ public class CommentController {
   }
 
   /**
-   * Fetches a {@link CommentPaginationResponse} object containing metadata of comments associated with the given {@link Application}
+   * Fetches a {@link CommentPaginationResponse} object containing the metadata of comments associated with the given {@link Application}
    * as well as the list of {@link Comment} objects of the selected paginated page.
-   * The @ValidUuid annotation validates the uuid string.
+   * The {@link ValidUuid} annotation validates the uuid string.
    *
    * @param applicationUuid The application's uuid associated with the queried comments.
-   * @param page The current page number.
-   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and the {@link CommentPaginationResponse} object.
+   * @param page The requested page number.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link CommentPaginationResponse}
+   * object.
    */
   @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CommentPaginationResponse> fetchPaginationByApplicationUuid(
@@ -65,15 +66,16 @@ public class CommentController {
   }
 
   /**
-   * Creates a new {@link Comment} object associated with the {@link Application} whose uuid is provided.
+   * Creates a {@link Comment} object that will be associated with the {@link Application} whose uuid is provided.
+   * The {@link ValidUuid} annotations validate the uuid string and the {@link NewCommentRequest} object as per its validation criteria.
    *
    * @param uuid The associated application's uuid.
    * @param requestBody The new comment request body.
-   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
    */
   @PostMapping(value = "/{applicationUuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> createCommentByApplicationUuid(
-    @PathVariable("applicationUuid") @ValidUuid final String uuid, @RequestBody @Valid final NewCommentRequest requestBody) {
+    @ValidUuid @PathVariable("applicationUuid") final String uuid, @Valid @RequestBody final NewCommentRequest requestBody) {
     commentService.createCommentByApplicationUuid(UUID.fromString(uuid), requestBody);
 
     return ResponseEntity.status(HttpStatus.CREATED)

@@ -1,12 +1,20 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.applicationstatus.responsestatus.service;
 
 import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.persistence.ResponseStatusRepository;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,38 +22,41 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service class managing {@link ResponseStatus} entity-related operations, implementing {@link ResponseStatusService}.
+ *
+ * @since 0.0.1
+ */
 @Service
 @Qualifier(value = "ResponseStatusService")
 public class ResponseStatusServiceImpl implements ResponseStatusService {
   private final ResponseStatusRepository responseStatusRepository;
-  private final GlobalServiceMessages globalConstants;
 
   @Autowired
-  public ResponseStatusServiceImpl(ResponseStatusRepository responseStatusRepository, GlobalServiceMessages globalConstants) {
+  public ResponseStatusServiceImpl(ResponseStatusRepository responseStatusRepository) {
     this.responseStatusRepository = responseStatusRepository;
-    this.globalConstants = globalConstants;
   }
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "ResponseStatusByUuid", key = "{ #uuid }")
-  public ResponseStatus findByUuid(final UUID uuid) {
-    return responseStatusRepository.findResponseStatusByUuid(uuid)
-                                   .orElseThrow(() -> new EntityNotFoundException(globalConstants.NO_RECORD_FOUND));
+  @Cacheable(value = "ResponseStatusByUuid", key = "{ #statusUuid }")
+  public ResponseStatus findStatusByUuid(final UUID statusUuid) {
+    return responseStatusRepository.findResponseStatusByUuid(statusUuid)
+                                   .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "ResponseStatusByName", key = "{ #statusName }")
-  public ResponseStatus findByName(final String statusName) {
+  public ResponseStatus findStatusByName(final String statusName) {
     return responseStatusRepository.findResponseStatusByName(statusName)
-                                   .orElseThrow(() -> new EntityNotFoundException(globalConstants.NO_RECORD_FOUND));
+                                   .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "ResponseStatusDropdownOption")
-  public List<StatusDropdownOption> findAllSortedByName() {
+  public List<StatusSelectOption> findAllSortedByName() {
     return responseStatusRepository.findSelectOptionsByOrderByNameAsc();
   }
 }

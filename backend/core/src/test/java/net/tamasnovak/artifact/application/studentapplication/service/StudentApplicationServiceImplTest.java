@@ -15,9 +15,9 @@ import net.tamasnovak.artifact.application.application.service.ApplicationServic
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
-import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
-import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
@@ -161,21 +161,21 @@ class StudentApplicationServiceImplTest {
     @Description("Returns a DashboardAggregateDataDto instance.")
     void shouldReturnDashboardAggregateDataDto() {
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationStatusService.findApplicationStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(applicationStatusService.findApplicationStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(applicationStatusService.findApplicationStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(responseStatusService.findByName(anyString())).thenReturn(mock(ResponseStatus.class));
-      when(finalDestinationStatusService.findByName(anyString())).thenReturn(mock(FinalDestinationStatus.class));
+      when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
+      when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
+      when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
+      when(responseStatusService.findStatusByName(anyString())).thenReturn(mock(ResponseStatus.class));
+      when(finalDestinationStatusService.findStatusByName(anyString())).thenReturn(mock(FinalDestinationStatus.class));
 
-      StudentDashboardStatistics expected = new StudentDashboardStatistics(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
-      StudentDashboardStatistics actual = underTest.findStudentDashboardDataByAccount(mockAccount);
+      StudentDashboardDetails expected = new StudentDashboardDetails(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
+      StudentDashboardDetails actual = underTest.findStudentDashboardDataByAccount(mockAccount);
 
       assertEquals(expected, actual);
 
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
-      verify(applicationStatusService, times(3)).findApplicationStatusByName(anyString());
-      verify(responseStatusService, times(1)).findByName(anyString());
-      verify(finalDestinationStatusService, times(2)).findByName(anyString());
+      verify(applicationStatusService, times(3)).findStatusByName(anyString());
+      verify(responseStatusService, times(1)).findStatusByName(anyString());
+      verify(finalDestinationStatusService, times(2)).findStatusByName(anyString());
     }
   }
 
@@ -185,7 +185,7 @@ class StudentApplicationServiceImplTest {
     Country mockCountry = mock(Country.class);
     University mockUniversity = mock(University.class);
     ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
-    NewApplicationByStudent requestBody = mock(NewApplicationByStudent.class);
+    NewApplicationByStudentRequest requestBody = mock(NewApplicationByStudentRequest.class);
 
     @Test
     @Description("Creates an Application record and returns its ApplicationView projection.")
@@ -195,7 +195,7 @@ class StudentApplicationServiceImplTest {
       when(countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
       when(universityService.findUniversityByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationStatusService.findApplicationStatusByName("Planned")).thenReturn(mockApplicationStatus);
+      when(applicationStatusService.findStatusByName("Planned")).thenReturn(mockApplicationStatus);
 
       when(applicationRepository.save(any(net.tamasnovak.artifact.application.common.entity.Application.class))).thenReturn(
         mockApplication);
@@ -209,7 +209,7 @@ class StudentApplicationServiceImplTest {
       verify(countryService, times(1)).findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
       verify(universityService, times(1)).findUniversityByUuid(UUID.fromString(requestBody.universityUuid()));
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
-      verify(applicationStatusService, times(1)).findApplicationStatusByName("Planned");
+      verify(applicationStatusService, times(1)).findStatusByName("Planned");
       verify(applicationService, times(1)).createApplicationData(applicationUuid);
     }
 
@@ -231,7 +231,7 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Updates an Application record and returns ApplicationView projection.")
     void shouldUpdateApplication_AndReturnApplicationViewProjection() {
-      UpdateApplicationByStudent requestBody = mock(UpdateApplicationByStudent.class);
+      UpdateApplicationByStudentRequest requestBody = mock(UpdateApplicationByStudentRequest.class);
       Mentor mockMentor = mock(Mentor.class);
 
       when(applicationService.findApplicationByUuid(applicationUuid)).thenReturn(mockApplication);

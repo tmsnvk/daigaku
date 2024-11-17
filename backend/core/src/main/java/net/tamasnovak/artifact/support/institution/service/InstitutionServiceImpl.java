@@ -13,7 +13,6 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
-import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.institution.dto.InstitutionSelectOption;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 import net.tamasnovak.artifact.support.institution.persistence.InstitutionRepository;
@@ -24,7 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class managing {@link Country} entity-related API operations, implementing {@link InstitutionService}.
+ * Service class managing {@link Institution} entity-related API operations, implementing {@link InstitutionService}.
  *
  * @since 0.0.1
  */

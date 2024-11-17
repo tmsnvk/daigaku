@@ -39,7 +39,7 @@ public class InstitutionController {
   /**
    * Fetches all {@link Institution} objects as select options for frontend forms.
    *
-   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and a list {@link InstitutionSelectOption} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link InstitutionSelectOption} object.
    */
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<InstitutionSelectOption>> fetchInstitutionSelectOptions() {

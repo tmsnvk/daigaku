@@ -1,12 +1,20 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.applicationstatus.interviewstatus.service;
 
 import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
 import net.tamasnovak.artifact.applicationstatus.interviewstatus.persistence.InterviewStatusRepository;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,38 +22,41 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service class managing {@link InterviewStatus} entity-related operations, implementing {@link InterviewStatusService}.
+ *
+ * @since 0.0.1
+ */
 @Service
 @Qualifier(value = "InterviewStatusService")
 public class InterviewStatusServiceImpl implements InterviewStatusService {
   private final InterviewStatusRepository interviewStatusRepository;
-  private final GlobalServiceMessages globalServiceMessages;
 
   @Autowired
-  public InterviewStatusServiceImpl(InterviewStatusRepository interviewStatusRepository, GlobalServiceMessages globalServiceMessages) {
+  public InterviewStatusServiceImpl(InterviewStatusRepository interviewStatusRepository) {
     this.interviewStatusRepository = interviewStatusRepository;
-    this.globalServiceMessages = globalServiceMessages;
   }
 
   @Override
   @Transactional(readOnly = true)
-  @Cacheable(value = "InterviewStatusByUuid", key = "{ #uuid }")
-  public InterviewStatus findByUuid(final UUID uuid) {
-    return interviewStatusRepository.findInterviewStatusByUuid(uuid)
-                                    .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
+  @Cacheable(value = "InterviewStatusByUuid", key = "{ #statusUuid }")
+  public InterviewStatus findStatusByUuid(final UUID statusUuid) {
+    return interviewStatusRepository.findInterviewStatusByUuid(statusUuid)
+                                    .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "InterviewStatusByName", key = "{ #statusName }")
-  public InterviewStatus findByName(final String statusName) {
+  public InterviewStatus findStatusByName(final String statusName) {
     return interviewStatusRepository.findInterviewStatusByName(statusName)
-                                    .orElseThrow(() -> new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
+                                    .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "InterviewStatusDropdownOption")
-  public List<StatusDropdownOption> findAllSortedByName() {
+  public List<StatusSelectOption> findAllSortedByName() {
     return interviewStatusRepository.findSelectOptionsByOrderByNameAsc();
   }
 }

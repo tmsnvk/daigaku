@@ -11,7 +11,7 @@ package net.tamasnovak.utils;
 import java.util.Objects;
 
 /**
- * A utility class provided String-related utility methods.
+ * A utility class providing String-related utility methods.
  *
  * @since 0.0.1
  */

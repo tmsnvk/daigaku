@@ -18,7 +18,7 @@ import net.tamasnovak.artifact.role.dto.RoleSelectOption;
  * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
-public interface RoleOptionViewProjection {
+public interface RoleOptionView {
   UUID getUuid();
 
   String getName();

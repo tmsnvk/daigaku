@@ -13,11 +13,13 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import net.tamasnovak.artifact.role.entity.Role;
-import net.tamasnovak.artifact.role.persistence.RoleOptionViewProjection;
+import net.tamasnovak.artifact.role.persistence.RoleOptionView;
 
 /**
- * Represents a {@link Role} select option object.
+ * Represents a {@link Role} select option object used on the frontend in various forms.
  *
+ * @param uuid The Role's uuid.
+ * @param name The Role's name.
  * @since 0.0.1
  */
 public record RoleSelectOption(
@@ -28,10 +30,10 @@ public record RoleSelectOption(
   @Serial
   private static final long serialVersionUID = 1L;
 
-  public RoleSelectOption(RoleOptionViewProjection roleOptionViewProjection) {
+  public RoleSelectOption(RoleOptionView roleOptionView) {
     this(
-      roleOptionViewProjection.getUuid(),
-      roleOptionViewProjection.getName()
+      roleOptionView.getUuid(),
+      roleOptionView.getName()
     );
   }
 }

@@ -17,6 +17,9 @@ import net.tamasnovak.artifact.support.university.entity.University;
 /**
  * Represents the response object associated with a {@link University} select option.
  *
+ * @param uuid The University's uuid.
+ * @param name The University's name.
+ * @param abbreviation The University's abbreviation.
  * @since 0.0.1
  */
 public record UniversitySelectOption(

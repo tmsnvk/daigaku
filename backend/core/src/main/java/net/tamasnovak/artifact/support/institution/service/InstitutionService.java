@@ -16,7 +16,7 @@ import net.tamasnovak.artifact.support.institution.dto.InstitutionSelectOption;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
 
 /**
- * Service interface for handling database API calls related to the {@link Institution} entity.
+ * Service interface for managing {@link Institution} entity-related API operations.
  *
  * @since 0.0.1
  */
@@ -25,7 +25,7 @@ public interface InstitutionService {
    * Finds a single {@link Institution} object by the provided uuid.
    *
    * @param institutionUuid The institution's uuid.
-   * @return A single {@link Institution} object.
+   * @return {@link Institution}.
    * @throws EntityNotFoundException If no institution exists with the specified uuid.
    */
   Institution findInstitutionByUuid(UUID institutionUuid);
@@ -34,7 +34,7 @@ public interface InstitutionService {
    * Finds a single {@link Institution} object by the provided id.
    *
    * @param id The institution's id.
-   * @return A single {@link Institution} object.
+   * @return {@link Institution}.
    * @throws EntityNotFoundException If no institution exists with the specified uuid.
    */
   Institution findInstitutionById(long id);
@@ -42,7 +42,7 @@ public interface InstitutionService {
   /**
    * Finds a list of {@link Institution} objects and returns them as {@link InstitutionSelectOption}.
    *
-   * @return A list of {@link InstitutionSelectOption} objects.
+   * @return A list of {@link InstitutionSelectOption}.
    */
   List<InstitutionSelectOption> findInstitutionsSortedByName();
 }

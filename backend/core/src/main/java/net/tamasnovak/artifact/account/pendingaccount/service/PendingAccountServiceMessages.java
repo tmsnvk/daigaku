@@ -12,7 +12,7 @@ import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import org.springframework.stereotype.Component;
 
 /**
- * Stores {@link PendingAccount} artifact service layer constants.
+ * Stores {@link PendingAccount} entity service layer constants.
  *
  * @since 0.0.1
  */

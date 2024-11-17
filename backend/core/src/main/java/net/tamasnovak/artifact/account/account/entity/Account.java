@@ -26,6 +26,7 @@ import net.tamasnovak.artifact.address.entity.Address;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.role.entity.Role;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
+import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.AccountBaseDetails;
 
 /**
  * Entity class that represents the accounts database table.
@@ -114,6 +115,10 @@ public final class Account extends BaseAccount {
     if (!this.uuid.equals(uuidToMatch)) {
       throw new IllegalArgumentException(exceptionMessage);
     }
+  }
+
+  public AccountBaseDetails createAccountBaseDetails() {
+    return new AccountBaseDetails(this.fullName, this.fetchInstitutionName(), this.email);
   }
 
   @Override

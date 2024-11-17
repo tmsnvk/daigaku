@@ -37,7 +37,7 @@ public class CountryController {
   /**
    * Fetches all {@link Country} objects as select options for frontend forms.
    *
-   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and a list {@link CountrySelectOption} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link CountrySelectOption} object.
    */
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<CountrySelectOption>> fetchCountrySelectOptions() {

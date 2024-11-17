@@ -46,10 +46,20 @@ public class WebSecurity {
     this.jwtUtilities = jwtUtilities;
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   public AuthenticationTokenFilter authenticationJwtTokenFilter() {
     return new AuthenticationTokenFilter(jwtUtilities, userDetailsService);
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   public DaoAuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 
@@ -59,16 +69,31 @@ public class WebSecurity {
     return authenticationProvider;
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
     return authConfig.getAuthenticationManager();
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http

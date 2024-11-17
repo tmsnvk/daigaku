@@ -8,7 +8,6 @@
 
 package net.tamasnovak.artifact.comment.persistence;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import net.tamasnovak.artifact.account.account.entity.Account;
@@ -30,7 +29,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
    *
    * @param uuid The account's uuid.
    * @param pageable A pageable object that contains the length of each page object.
-   * @return Paginated {@link CommentViewProjection}.
+   * @return A paginated {@link CommentView}.
    */
   @Query(value =
     """
@@ -63,23 +62,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
         applications.uuid = :uuid
       """,
     nativeQuery = true)
-  Page<CommentViewProjection> findAllCommentViewsByApplicationUuid(@Param("uuid") UUID uuid, Pageable pageable);
-
-  @Query(value =
-    """
-        SELECT
-          comments.uuid AS uuid,
-          comments.content AS comment,
-          comments.created_at AS createdAt,
-          comments.last_updated_at AS lastUpdatedAt,
-          accounts.full_name AS createdBy,
-          accounts.full_name AS lastModifiedBy
-        FROM
-          comments
-        JOIN
-          accounts ON comments.account_id = accounts.id
-        WHERE
-          comments.uuid = :uuid
-      """, nativeQuery = true)
-  Optional<CommentViewProjection> findCommentViewByUuid(@Param("uuid") UUID uuid);
+  Page<CommentView> findAllCommentViewsByApplicationUuid(@Param("uuid") UUID uuid, Pageable pageable);
 }

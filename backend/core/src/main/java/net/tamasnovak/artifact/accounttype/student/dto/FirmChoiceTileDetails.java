@@ -8,10 +8,10 @@
 
 package net.tamasnovak.artifact.accounttype.student.dto;
 
-import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
+import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
 
 /**
- * Represents a firm choice tile object that is part of the {@link StudentDashboardStatistics} object.
+ * Represents a firm choice tile object that is part of the {@link StudentDashboardDetails} object.
  *
  * @param countryName The country's name.
  * @param universityName The university's name.

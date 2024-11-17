@@ -9,7 +9,7 @@
 package net.tamasnovak.exceptions.invalidformfieldexception;
 
 /**
- * Custom exception to handle form field-related errors.
+ * Custom exception that handles form field-related errors.
  *
  * @since 0.0.1
  */

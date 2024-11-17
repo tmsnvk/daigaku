@@ -23,7 +23,7 @@ import net.tamasnovak.artifact.accounttype.institutionadmin.entity.InstitutionAd
 import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.address.entity.Address;
-import net.tamasnovak.artifact.support.shared.entity.BaseSupportEntity;
+import net.tamasnovak.artifact.support.common.entity.BaseSupportEntity;
 
 /**
  * Entity class that represents the institutions database table.
@@ -68,7 +68,7 @@ public final class Institution extends BaseSupportEntity {
   }
 
   /**
-   * The default institution creator method.
+   * The default institution instance creator method.
    *
    * @param name The institution's name.
    * @param address The institution's address.

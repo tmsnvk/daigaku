@@ -1,7 +1,7 @@
 package net.tamasnovak.rabbitmq.models.s3PdfQueue.student;
 
-public record StudentAccountDto(
+public record AccountBaseDetails(
 	String fullName,
-	String email,
-	String institutionName
+	String institutionName,
+	String email
 ) {}

@@ -55,17 +55,14 @@ public final class Comment extends Auditable {
   }
 
   /**
-   * The default comment creator method.
+   * The default comment instance creator method.
    *
    * @param application The application the comment is associated with.
    * @param account The account the comment is associated with.
    * @param content The comment content.
-   * @return {@link Comment}
+   * @return {@link Comment}.
    */
-  public static Comment createComment(
-    final Application application,
-    final Account account,
-    final String content) {
+  public static Comment createComment(final Application application, final Account account, final String content) {
     return new Comment(application, account, content);
   }
 }

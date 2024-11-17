@@ -26,8 +26,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import net.tamasnovak.artifact.address.entity.Address;
 import net.tamasnovak.artifact.application.common.entity.Application;
+import net.tamasnovak.artifact.support.common.entity.BaseSupportEntity;
 import net.tamasnovak.artifact.support.country.entity.Country;
-import net.tamasnovak.artifact.support.shared.entity.BaseSupportEntity;
 
 /**
  * Entity class that represents the universities database table.
@@ -70,7 +70,7 @@ public final class University extends BaseSupportEntity {
   }
 
   /**
-   * The default university creator method.
+   * The default university instance creator method.
    *
    * @param name The university's name.
    * @param abbreviation The university's abbreviation.

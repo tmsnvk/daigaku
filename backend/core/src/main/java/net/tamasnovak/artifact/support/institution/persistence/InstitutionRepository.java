@@ -23,7 +23,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
-  Optional<Institution> findInstitutionByUuid(UUID uuid);
+  Optional<Institution> findInstitutionByUuid(UUID institutionUuid);
 
   Optional<Institution> findInstitutionById(long id);
 

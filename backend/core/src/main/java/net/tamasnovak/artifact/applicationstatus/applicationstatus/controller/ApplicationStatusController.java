@@ -11,7 +11,7 @@ package net.tamasnovak.artifact.applicationstatus.applicationstatus.controller;
 import java.util.List;
 
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,13 +36,13 @@ public class ApplicationStatusController {
   }
 
   /**
-   * Fetches all Application Status as {@link StatusDropdownOption} objects to be used on the frontend in various forms.
+   * Fetches all ApplicationStatus as {@link StatusSelectOption} objects to be used on the frontend in various forms.
    *
-   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link StatusDropdownOption} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link StatusSelectOption} object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<StatusDropdownOption>> fetchSelectOptions() {
-    final List<StatusDropdownOption> response = applicationStatusService.findSelectOptionsSortedByName();
+  public ResponseEntity<List<StatusSelectOption>> fetchSelectOptions() {
+    final List<StatusSelectOption> response = applicationStatusService.findSelectOptionsSortedByName();
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

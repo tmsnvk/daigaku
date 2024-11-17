@@ -13,6 +13,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
+import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
+import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.role.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,9 +29,9 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
   Optional<Role> findRoleByUuid(UUID uuid);
 
   /**
-   * Finds the student and mentor roles from the database.
+   * Finds the {@link Student} and {@link Mentor} roles from the database.
    *
-   * @return a list of {@link RoleOptionViewProjection}.
+   * @return A list of {@link RoleOptionView}.
    */
   @Query(value =
     """
@@ -42,5 +44,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
           name = 'ROLE_STUDENT' OR
           name = 'ROLE_MENTOR'
       """, nativeQuery = true)
-  List<RoleOptionViewProjection> findStudentAndMentorRoleOptions();
+  List<RoleOptionView> findStudentAndMentorRoleOptions();
 }

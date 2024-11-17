@@ -20,7 +20,7 @@ import net.tamasnovak.artifact.comment.dto.CommentViewResponse;
 import net.tamasnovak.artifact.comment.dto.NewCommentRequest;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.comment.persistence.CommentRepository;
-import net.tamasnovak.artifact.comment.persistence.CommentViewProjection;
+import net.tamasnovak.artifact.comment.persistence.CommentView;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service class managing {@link Comment} entity-related API operations, implementing {@link CommentService}.
+ * Service class managing {@link Comment} entity-related operations, implementing {@link CommentService}.
  *
  * @since 0.0.1
  */
@@ -56,25 +56,27 @@ public class CommentServiceImpl implements CommentService {
   @Override
   @Transactional(readOnly = true)
   public CommentPaginationResponse findAllCommentsByApplicationUuid(final UUID applicationUuid, final int page) {
-    // Finds all comments for the selected page number.
+    // Finds all Comment instances for the selected page number.
     final Pageable pageable = PageRequest.of(page, NUMBER_OF_COMMENTS_PER_PAGE);
-    final Page<CommentViewProjection> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(applicationUuid, pageable);
+    final Page<CommentView> commentViews = commentRepository.findAllCommentViewsByApplicationUuid(applicationUuid, pageable);
 
-    // Transform the db projection into a list of view objects.
+    // Transforms the db projection into a list of view objects.
     final List<CommentViewResponse> comments = commentViews.stream()
                                                            .map(CommentViewResponse::new)
                                                            .collect(Collectors.toList());
 
-    // Return the response object.
+    // Returns the response object.
     return new CommentPaginationResponse(commentViews.getTotalPages(), commentViews.getNumber(), commentViews.getTotalElements(), comments);
   }
 
   @Override
   @Transactional
   public void createCommentByApplicationUuid(final UUID applicationUuid, final NewCommentRequest requestBody) {
+    // Finds the authenticated user's Account and the associated Application.
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
     final Application relatedApplication = applicationService.findApplicationByUuid(applicationUuid);
 
+    // Creates and saves the new Comment instance.
     final Comment newComment = Comment.createComment(relatedApplication, authAccount, requestBody.comment());
     commentRepository.save(newComment);
   }

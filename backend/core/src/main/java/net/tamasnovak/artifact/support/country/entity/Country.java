@@ -20,7 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import net.tamasnovak.artifact.address.entity.Address;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.support.shared.entity.BaseSupportEntity;
+import net.tamasnovak.artifact.support.common.entity.BaseSupportEntity;
 import net.tamasnovak.artifact.support.university.entity.University;
 
 /**
@@ -56,7 +56,7 @@ public final class Country extends BaseSupportEntity {
   }
 
   /**
-   * The default country creator method.
+   * The default country instance creator method.
    *
    * @param name The name of the country.
    * @return {@link Country}.
@@ -70,7 +70,7 @@ public final class Country extends BaseSupportEntity {
    *
    * @param university The selected university object.
    * @param exceptionMessage The exception message to throw in case of an error.
-   * @throws EntityNotFoundException If the university and country do not match.
+   * @throws EntityNotFoundException If the University and Country do not match.
    */
   public void validateUniversityCountryMatch(final University university, final String exceptionMessage) {
     if (!universities.contains(university)) {

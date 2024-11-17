@@ -1,13 +1,13 @@
 package net.tamasnovak.enums.status;
 
-public enum ApplicationStatusType {
+public enum ApplicationStatusE {
   PLANNED("Planned"),
   SUBMITTED("Submitted"),
   WITHDRAWN("Withdrawn");
 
   private final String name;
 
-  ApplicationStatusType(String name) {
+  ApplicationStatusE(String name) {
     this.name = name;
   }
 

@@ -15,12 +15,12 @@ import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
-import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
 
 /**
- * Service interface for handling database API calls related to the {@link Application} entity and {@link Student} authenticated users.
+ * Service interface for managing {@link Student}-related {@link Application} entity-related API operations.
  *
  * @since 0.0.1
  */
@@ -28,16 +28,16 @@ public interface StudentApplicationService {
   /**
    * Finds a list of {@link ApplicationData} objects for a {@link Student} based on the provided account uuid.
    *
-   * @param accountUuid The uuid of the student's account.
-   * @return A list of {@link ApplicationData} objects.
+   * @param accountUuid The student account's uuid.
+   * @return A list of {@link ApplicationData}.
    */
   List<ApplicationData> findApplicationDataByAccountUuid(UUID accountUuid);
 
   /**
-   * Toggles the is_removable status of a specified application identified by its uuid.
+   * Toggles the is_removable status of the specified application identified by its uuid.
    *
    * @param applicationUuid The application's uuid.
-   * @param accountUuid The authenticated user's account uuid.
+   * @param accountUuid The authenticated student user's account uuid.
    */
   void toggleIsRemovableByApplicationUuid(UUID applicationUuid, UUID accountUuid);
 
@@ -45,28 +45,28 @@ public interface StudentApplicationService {
    * Finds dashboard statistics data for a {@link Student} user.
    *
    * @param account The student's account.
-   * @return A single {@link StudentDashboardStatistics} object.
+   * @return {@link StudentDashboardDetails}.
    */
-  StudentDashboardStatistics findStudentDashboardDataByAccount(Account account);
+  StudentDashboardDetails findStudentDashboardDataByAccount(Account account);
 
   /**
-   * Creates a new application for the authenticated {@link Student} user.
+   * Creates an {@link Application} object for the authenticated {@link Student} user.
    *
    * @param account The authenticated user account.
    * @param requestBody The application creation request body.
-   * @return A single {@link ApplicationData} object.
+   * @return {@link ApplicationData}.
    */
-  ApplicationData createApplication(Account account, NewApplicationByStudent requestBody);
+  ApplicationData createApplication(Account account, NewApplicationByStudentRequest requestBody);
 
   /**
-   * Updates the {@link Application} object in the database that is associated with the provided application uuid.
+   * Updates the {@link Application} object in the database associated with the provided application uuid.
    *
    * @param uuid The to-be-updated application's uuid.
    * @param requestBody The application update request body.
    * @param account The account associated with the to-be-updated application.
-   * @return A single {@link ApplicationData} object.
+   * @return {@link ApplicationData}.
    */
-  ApplicationData updateApplicationAndFetchByUuid(UUID uuid, UpdateApplicationByStudent requestBody, Account account);
+  ApplicationData updateApplicationAndFetchByUuid(UUID uuid, UpdateApplicationByStudentRequest requestBody, Account account);
 
   /**
    * Initiates the user's request to download their submitted {@link Application} objects in .pdf format.

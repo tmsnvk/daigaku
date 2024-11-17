@@ -13,7 +13,7 @@ import net.tamasnovak.artifact.application.common.entity.Application;
 import org.springframework.stereotype.Component;
 
 /**
- * Stores {@link Student}-related {@link Application} artifact service layer constants.
+ * Stores {@link Student}-related {@link Application} entity service layer constants.
  *
  * @since 0.0.1
  */

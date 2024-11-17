@@ -25,6 +25,11 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+/**
+ * TODO
+ *
+ * @since 0.0.1
+ */
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
   private static final Logger logger = LoggerFactory.getLogger(AuthenticationTokenFilter.class);
   private final JwtUtilities jwtUtilities;
@@ -56,6 +61,12 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
+  /**
+   * TODO
+   *
+   * @param request
+   * @return
+   */
   private String parseJwt(HttpServletRequest request) {
     String headerAuth = request.getHeader("Authorization");
 

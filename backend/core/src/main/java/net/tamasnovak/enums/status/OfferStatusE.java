@@ -1,6 +1,6 @@
 package net.tamasnovak.enums.status;
 
-public enum OfferStatusType {
+public enum OfferStatusE {
   CONDITIONAL("Conditional"),
   DEFERRED("Deferred"),
   REJECTED("Rejected"),
@@ -8,7 +8,7 @@ public enum OfferStatusType {
 
   private final String name;
 
-  OfferStatusType(String name) {
+  OfferStatusE(String name) {
     this.name = name;
   }
 

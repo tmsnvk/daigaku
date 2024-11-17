@@ -40,13 +40,13 @@ public class UniversityController {
 
   /**
    * Fetches a list of {@link UniversitySelectOption} objects as select options for frontend forms.
-   * The @ValidUuid annotation validates the uuid string.
+   * The {@link ValidUuid} annotation validates the uuid string.
    *
    * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and a list {@link UniversitySelectOption} object.
    */
   @GetMapping(value = "/options/{countryUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<UniversitySelectOption>> fetchUniversitySelectOptionsByCountryUuid(
-    @PathVariable("countryUuid") @ValidUuid final String countryUuid) {
+    @ValidUuid @PathVariable("countryUuid") final String countryUuid) {
     final List<UniversitySelectOption> response = universityService.findUniversitiesByCountryUuid(UUID.fromString(countryUuid));
 
     return ResponseEntity.status(HttpStatus.OK)

@@ -17,7 +17,7 @@ import net.tamasnovak.artifact.support.university.dto.UniversitySelectOption;
 import net.tamasnovak.artifact.support.university.entity.University;
 
 /**
- * Service interface for handling database API calls related to the {@link University} entity.
+ * Service interface for managing {@link University} entity-related API operations.
  *
  * @since 0.0.1
  */
@@ -26,7 +26,7 @@ public interface UniversityService {
    * Finds a single {@link University} object by the associated uuid.
    *
    * @param universityUuid The university's uuid.
-   * @return A single {@link University} object.
+   * @return {@link University}.
    * @throws EntityNotFoundException If no university exists with the specified uuid.
    */
   University findUniversityByUuid(UUID universityUuid);
@@ -35,7 +35,7 @@ public interface UniversityService {
    * Finds a list of {@link University} objects associated with a {@link Country} object's uuid.
    *
    * @param countryUuid The provided country's uuid.
-   * @return A list of {@link University} objects.
+   * @return A list of {@link University}.
    */
   List<UniversitySelectOption> findUniversitiesByCountryUuid(UUID countryUuid);
 }

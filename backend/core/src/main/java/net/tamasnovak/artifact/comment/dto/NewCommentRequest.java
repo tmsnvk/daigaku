@@ -15,6 +15,7 @@ import net.tamasnovak.artifact.comment.entity.Comment;
 /**
  * Represents a request to create a new {@link Comment}.
  *
+ * @param comment The comment content submitted by the authenticated user.
  * @since 0.0.1
  */
 public record NewCommentRequest(

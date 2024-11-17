@@ -13,14 +13,20 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
 
 /**
- * Represents the details of a new application submitted by a student authenticated user.
+ * Represents the details of a new application submitted by a {@link Student} authenticated user.
  *
+ * @param countryUuid The application's country uuid.
+ * @param universityUuid The application's university uuid.
+ * @param courseName The application's course name.
+ * @param minorSubject The application's minor subject, if any.
+ * @param programmeLength The application's programme length.
  * @since 0.0.1
  */
-public record NewApplicationByStudent(
+public record NewApplicationByStudentRequest(
   @NotBlank(message = "Select a country.")
   @ValidUuid(message = "Select a valid country.")
   String countryUuid,

@@ -6,7 +6,7 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.artifact.support.shared.entity;
+package net.tamasnovak.artifact.support.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

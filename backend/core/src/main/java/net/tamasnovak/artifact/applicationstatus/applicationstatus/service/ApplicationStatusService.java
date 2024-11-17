@@ -11,35 +11,38 @@ package net.tamasnovak.artifact.applicationstatus.applicationstatus.service;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 
 /**
- * Service interface managing {@link ApplicationStatus} entity-related API calls towards the database.
+ * Service interface for managing {@link ApplicationStatus} entity-related API operations.
  *
  * @since 0.0.1
  */
 public interface ApplicationStatusService {
   /**
-   * Finds a single {@link ApplicationStatus} object by its uuid.
+   * Finds a {@link ApplicationStatus} object by its uuid.
    *
-   * @param applicationStatusUuid The Application Status's uuid.
-   * @return {@link ApplicationStatus}
+   * @param statusUuid The ApplicationStatus's uuid.
+   * @return {@link ApplicationStatus}.
+   * @throws EntityNotFoundException Thrown if no status is associated with the provided uuid.
    */
-  ApplicationStatus findApplicationStatusByUuid(UUID applicationStatusUuid);
+  ApplicationStatus findStatusByUuid(UUID statusUuid);
 
   /**
-   * Finds a single {@link ApplicationStatus} object by its name.
+   * Finds a {@link ApplicationStatus} object by its name.
    *
-   * @param applicationStatusName The Application Status's name.
-   * @return {@link ApplicationStatus}
+   * @param statusName The ApplicationStatus's name.
+   * @return {@link ApplicationStatus}.
+   * @throws EntityNotFoundException Thrown if no status is associated with the provided uuid.
    */
-  ApplicationStatus findApplicationStatusByName(String applicationStatusName);
+  ApplicationStatus findStatusByName(String statusName);
 
   /**
-   * Finds a list of {@link ApplicationStatus} {@link StatusDropdownOption} objects.
+   * Finds a list of {@link ApplicationStatus} {@link StatusSelectOption} objects.
    *
-   * @return A list of {@link ApplicationStatus} {@link StatusDropdownOption} objects.
+   * @return A list of {@link StatusSelectOption}.
    */
-  List<StatusDropdownOption> findSelectOptionsSortedByName();
+  List<StatusSelectOption> findSelectOptionsSortedByName();
 }

@@ -31,8 +31,8 @@ import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
-import net.tamasnovak.enums.status.FinalDestinationStatusType;
-import net.tamasnovak.enums.status.ResponseStatusType;
+import net.tamasnovak.enums.status.FinalDestinationStatusE;
+import net.tamasnovak.enums.status.ResponseStatusE;
 import net.tamasnovak.utils.StringUtils;
 
 /**
@@ -92,7 +92,7 @@ public final class Student extends BaseAccountType {
    * Creates a {@link FirmChoiceTileDetails} object.
    *
    * @return {@link FirmChoiceTileDetails} or {@code null} if the {@link Student} has no {@link Application} marked as
-   * {@link ResponseStatusType#FIRM_CHOICE}.
+   * {@link ResponseStatusE#FIRM_CHOICE}.
    */
   public FirmChoiceTileDetails createFirmChoiceTileDetails(final String firmChoiceStatusName) {
     final Optional<Application> firmChoiceApplication = findFirmChoiceApplication(firmChoiceStatusName);
@@ -107,8 +107,8 @@ public final class Student extends BaseAccountType {
   }
 
   /**
-   * Finds the {@link Application} object that has its {@link ResponseStatus} field set to {@link ResponseStatusType#FIRM_CHOICE}.
-   * Each {@link Student} may only have one {@link Application} set to {@link ResponseStatusType#FIRM_CHOICE}.
+   * Finds the {@link Application} object that has its {@link ResponseStatus} field set to {@link ResponseStatusE#FIRM_CHOICE}.
+   * Each {@link Student} may only have one {@link Application} set to {@link ResponseStatusE#FIRM_CHOICE}.
    *
    * @return {@link Optional#of(Application)}.
    */
@@ -123,7 +123,7 @@ public final class Student extends BaseAccountType {
    * Creates a {@link FinalDestinationTileDetails} object.
    *
    * @return {@link FinalDestinationTileDetails} or {@code null} if the {@link Student} has no {@link Application} marked as
-   * {@link FinalDestinationStatusType#FINAL_DESTINATION} or {@link FinalDestinationStatusType#DEFERRED_FINAL_DESTINATION}.
+   * {@link FinalDestinationStatusE#FINAL_DESTINATION} or {@link FinalDestinationStatusE#DEFERRED_FINAL_DESTINATION}.
    */
   public FinalDestinationTileDetails createFinalDestinationTileDetails(
     final String finalDestinationStatusName,
@@ -142,9 +142,9 @@ public final class Student extends BaseAccountType {
 
   /**
    * Finds the {@link Application} object that has its {@link FinalDestinationStatus} field set either to
-   * {@link FinalDestinationStatusType#FINAL_DESTINATION} or {@link FinalDestinationStatusType#DEFERRED_FINAL_DESTINATION}.
-   * Each {@link Student} may only have one {@link Application} set either to {@link FinalDestinationStatusType#FINAL_DESTINATION} or
-   * {@link FinalDestinationStatusType#DEFERRED_FINAL_DESTINATION}.
+   * {@link FinalDestinationStatusE#FINAL_DESTINATION} or {@link FinalDestinationStatusE#DEFERRED_FINAL_DESTINATION}.
+   * Each {@link Student} may only have one {@link Application} set either to {@link FinalDestinationStatusE#FINAL_DESTINATION} or
+   * {@link FinalDestinationStatusE#DEFERRED_FINAL_DESTINATION}.
    *
    * @return {@link Optional#of(Application)}.
    */

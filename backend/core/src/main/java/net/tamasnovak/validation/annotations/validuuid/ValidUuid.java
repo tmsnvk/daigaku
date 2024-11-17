@@ -27,9 +27,24 @@ import jakarta.validation.Payload;
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidUuid {
+  /**
+   * TODO
+   *
+   * @return
+   */
   String message() default "Record with this id was not found.";
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   Class<?>[] groups() default {};
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   Class<? extends Payload>[] payload() default {};
 }

@@ -16,9 +16,9 @@ import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudent;
-import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardStatistics;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
 import net.tamasnovak.artifact.application.studentapplication.service.StudentApplicationService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
@@ -69,13 +69,13 @@ public class StudentApplicationController {
 
   /**
    * Creates an {@link Application} object in the database.
-   * The {@link Valid} annotation validates the {@link NewApplicationByStudent} object as per its validation criteria.
+   * The {@link Valid} annotation validates the {@link NewApplicationByStudentRequest} object as per its validation criteria.
    *
    * @param requestBody The application creation request body.
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationData> createApplication(@Valid @RequestBody final NewApplicationByStudent requestBody) {
+  public ResponseEntity<ApplicationData> createApplication(@Valid @RequestBody final NewApplicationByStudentRequest requestBody) {
     final Account account = authenticationFacade.getAuthenticatedAccount();
     final ApplicationData response = studentApplicationService.createApplication(account, requestBody);
 
@@ -85,7 +85,7 @@ public class StudentApplicationController {
 
   /**
    * Updates the {@link Application} object in the database that is associated with the provided uuid.
-   * The {@link Valid} annotation validates the {@link UpdateApplicationByStudent} object as per its validation criteria.
+   * The {@link Valid} annotation validates the {@link UpdateApplicationByStudentRequest} object as per its validation criteria.
    *
    * @param uuid The to-be-updated application's uuid.
    * @param requestBody The application update request body.
@@ -93,7 +93,7 @@ public class StudentApplicationController {
    */
   @PatchMapping(value = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplicationData> updateApplicationByUuid(
-    @ValidUuid @PathVariable("uuid") final String uuid, @Valid @RequestBody final UpdateApplicationByStudent requestBody) {
+    @ValidUuid @PathVariable("uuid") final String uuid, @Valid @RequestBody final UpdateApplicationByStudentRequest requestBody) {
     final Account account = authenticationFacade.getAuthenticatedAccount();
     final ApplicationData response = studentApplicationService.updateApplicationAndFetchByUuid(UUID.fromString(uuid), requestBody, account);
 
@@ -118,14 +118,14 @@ public class StudentApplicationController {
   }
 
   /**
-   * Fetches the authenticated {@link Student} account's {@link StudentDashboardStatistics} object.
+   * Fetches the authenticated {@link Student} account's {@link StudentDashboardDetails} object.
    *
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and a {@link StudentDashboardStatistics} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and a {@link StudentDashboardDetails} object.
    */
   @GetMapping(value = "/dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<StudentDashboardStatistics> fetchStudentDashboardData() {
+  public ResponseEntity<StudentDashboardDetails> fetchStudentDashboardData() {
     final Account account = authenticationFacade.getAuthenticatedAccount();
-    final StudentDashboardStatistics response = studentApplicationService.findStudentDashboardDataByAccount(account);
+    final StudentDashboardDetails response = studentApplicationService.findStudentDashboardDataByAccount(account);
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

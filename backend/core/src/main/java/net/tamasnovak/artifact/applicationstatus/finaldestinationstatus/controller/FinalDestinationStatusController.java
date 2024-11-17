@@ -10,8 +10,8 @@ package net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.control
 
 import java.util.List;
 
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,13 +36,13 @@ public class FinalDestinationStatusController {
   }
 
   /**
-   * Fetches all Final Destination Status as {@link StatusDropdownOption} objects to be used on the frontend in various forms.
+   * Fetches all Final Destination Status as {@link StatusSelectOption} objects to be used on the frontend in various forms.
    *
-   * @return ResponseEntity Contains `HttpStatus.OK` status code and the {@link StatusDropdownOption} object.
+   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link StatusSelectOption} object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<StatusDropdownOption>> fetchSelectOptions() {
-    final List<StatusDropdownOption> response = finalDestinationStatusService.findAllSortedByName();
+  public ResponseEntity<List<StatusSelectOption>> fetchSelectOptions() {
+    final List<StatusSelectOption> response = finalDestinationStatusService.findSelectOptionsSortedByName();
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

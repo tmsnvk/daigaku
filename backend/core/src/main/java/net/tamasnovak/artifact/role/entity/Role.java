@@ -36,7 +36,9 @@ public final class Role extends BaseExtendedIdEntity {
   private List<Account> accounts;
 
   protected Role() {
-    // No new instance should be created of this entity class.
+    // There is no constructor as the roles table is never meant to be extended.
+    // The values are stored in the database solely to satisfy data normalisation rules and to ease Spring's authentication and
+    // authorisation process.
     // Cannot be private or package-private as it is an @Entity class.
   }
 

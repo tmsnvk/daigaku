@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -27,5 +27,5 @@ public interface ApplicationStatusRepository extends JpaRepository<ApplicationSt
 
   Optional<ApplicationStatus> findApplicationStatusByName(String applicationStatusName);
 
-  List<StatusDropdownOption> findSelectOptionsByOrderByNameAsc();
+  List<StatusSelectOption> findSelectOptionsByOrderByNameAsc();
 }

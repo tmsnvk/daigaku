@@ -39,7 +39,7 @@ public final class JwtUtilities {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtilities.class);
 
   /**
-   * Token generator.
+   * JWT token generator.
    *
    * @param authentication Spring Security authentication interface.
    * @return A token string.
@@ -54,10 +54,20 @@ public final class JwtUtilities {
                .compact();
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   private Key key() {
     return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
   }
 
+  /**
+   * TODO
+   *
+   * @return
+   */
   public String getUserNameFromJwtToken(String token) {
     return Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token).getBody().getSubject();
   }

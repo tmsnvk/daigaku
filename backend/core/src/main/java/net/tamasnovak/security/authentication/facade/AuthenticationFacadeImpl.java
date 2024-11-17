@@ -20,6 +20,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+/**
+ * TODO
+ *
+ * @since 0.0.1
+ */
 @Component
 public class AuthenticationFacadeImpl implements AuthenticationFacade {
   private final AuthenticationManager authenticationManager;

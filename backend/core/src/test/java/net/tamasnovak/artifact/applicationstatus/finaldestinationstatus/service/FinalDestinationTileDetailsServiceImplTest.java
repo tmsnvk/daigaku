@@ -6,9 +6,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
+import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.persistence.FinalDestinationStatusRepository;
-import net.tamasnovak.artifact.applicationstatus.shared.dto.StatusDropdownOption;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -48,7 +48,7 @@ class FinalDestinationTileDetailsServiceImplTest {
     void shouldReturnFinalDestinationStatusRecord() {
       when(finalDestinationStatusRepository.findFinalDestinationStatusByUuid(finalDestinationUuid)).thenReturn(Optional.of(expected));
 
-      FinalDestinationStatus actual = underTest.findByUuid(finalDestinationUuid);
+      FinalDestinationStatus actual = underTest.findStatusByUuid(finalDestinationUuid);
 
       assertEquals(expected, actual);
 
@@ -60,7 +60,7 @@ class FinalDestinationTileDetailsServiceImplTest {
     void shouldThrowEntityNotFoundException_IfFinalDestinationStatusIsNotFound() {
       when(finalDestinationStatusRepository.findFinalDestinationStatusByUuid(finalDestinationUuid)).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.findByUuid(finalDestinationUuid));
+      assertThrows(EntityNotFoundException.class, () -> underTest.findStatusByUuid(finalDestinationUuid));
 
       verify(finalDestinationStatusRepository, times(1)).findFinalDestinationStatusByUuid(finalDestinationUuid);
     }
@@ -74,7 +74,7 @@ class FinalDestinationTileDetailsServiceImplTest {
     void shouldReturnFinalDestinationStatusRecord() {
       when(finalDestinationStatusRepository.findFinalDestinationStatusByName(anyString())).thenReturn(Optional.of(expected));
 
-      FinalDestinationStatus actual = underTest.findByName(anyString());
+      FinalDestinationStatus actual = underTest.findStatusByName(anyString());
 
       assertEquals(expected, actual);
 
@@ -86,7 +86,7 @@ class FinalDestinationTileDetailsServiceImplTest {
     void shouldThrowEntityNotFoundException_IfFinalDestinationStatusIsNotFound() {
       when(finalDestinationStatusRepository.findFinalDestinationStatusByName(anyString())).thenReturn(Optional.empty());
 
-      assertThrows(EntityNotFoundException.class, () -> underTest.findByName(anyString()));
+      assertThrows(EntityNotFoundException.class, () -> underTest.findStatusByName(anyString()));
 
       verify(finalDestinationStatusRepository, times(1)).findFinalDestinationStatusByName(anyString());
     }
@@ -97,10 +97,10 @@ class FinalDestinationTileDetailsServiceImplTest {
       @Test
       @Description("Returns the correct list of StatusSelectOptionView records.")
       void shouldReturnAllStatusSelectOptionViews() {
-        List<StatusDropdownOption> expected = Collections.singletonList(mock(StatusDropdownOption.class));
+        List<StatusSelectOption> expected = Collections.singletonList(mock(StatusSelectOption.class));
         when(finalDestinationStatusRepository.findSelectOptionsByOrderByNameAsc()).thenReturn(expected);
 
-        List<StatusDropdownOption> actual = underTest.findAllSortedByName();
+        List<StatusSelectOption> actual = underTest.findSelectOptionsSortedByName();
 
         assertEquals(expected, actual);
 

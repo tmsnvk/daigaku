@@ -1,13 +1,13 @@
 package net.tamasnovak.enums.status;
 
-public enum InterviewStatusType {
+public enum InterviewStatusE {
   INVITED("Invited"),
   NO_INTERVIEW("No Interview"),
   NOT_INVITED("Not Invited");
 
   private final String name;
 
-  InterviewStatusType(String name) {
+  InterviewStatusE(String name) {
     this.name = name;
   }
 

@@ -14,47 +14,42 @@ import java.util.UUID;
 
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudent;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
 import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.service.InterviewStatusService;
 import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.service.OfferStatusService;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
-import net.tamasnovak.enums.status.FinalDestinationStatusType;
-import net.tamasnovak.enums.status.ResponseStatusType;
+import net.tamasnovak.enums.status.FinalDestinationStatusE;
+import net.tamasnovak.enums.status.ResponseStatusE;
 import net.tamasnovak.exceptions.invalidformfieldexception.InvalidFormFieldException;
 import net.tamasnovak.exceptions.invalidformfieldexception.InvalidFormFieldExceptionMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * TODO
+ *
+ * @since 0.0.1
+ */
 @Component
 public class ExistingApplicationValidatorImpl implements ExistingApplicationValidator {
-  private final ApplicationStatusService applicationStatusService;
-  private final InterviewStatusService interviewStatusService;
-  private final OfferStatusService offerStatusService;
   private final ResponseStatusService responseStatusService;
   private final FinalDestinationStatusService finalDestinationStatusService;
 
   @Autowired
   public ExistingApplicationValidatorImpl(
-    ApplicationStatusService applicationStatusService, InterviewStatusService interviewStatusService,
-    OfferStatusService offerStatusService, ResponseStatusService responseStatusService,
+    ResponseStatusService responseStatusService,
     FinalDestinationStatusService finalDestinationStatusService) {
-    this.applicationStatusService = applicationStatusService;
-    this.interviewStatusService = interviewStatusService;
-    this.offerStatusService = offerStatusService;
     this.responseStatusService = responseStatusService;
     this.finalDestinationStatusService = finalDestinationStatusService;
   }
 
   @Override
   public void validateApplication(
-    UpdateApplicationByStudent newApplicationData, Application currentApplication, Student currentStudent,
+    UpdateApplicationByStudentRequest newApplicationData, Application currentApplication, Student currentStudent,
     ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus,
     ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
     validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
@@ -62,22 +57,37 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     validateFinalDestinationStatus(currentApplication, currentStudent, newFinalDestinationStatus);
   }
 
+  /**
+   * TODO
+   *
+   * @param currentApplication
+   * @param newApplicationStatusUuid
+   * @param newApplicationStatus
+   */
   private void validateApplicationStatus(
-    Application currentApplication, String newApplicationStatusUUid,
+    Application currentApplication, String newApplicationStatusUuid,
     ApplicationStatus newApplicationStatus) {
-    if (newApplicationStatusUUid.isEmpty() && currentApplication.isApplicationStatusNull()) {
+    if (newApplicationStatusUuid.isEmpty() && currentApplication.isApplicationStatusNull()) {
       throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.MISSING_APPLICATION_STATUS);
     }
   }
 
+  /**
+   * TODO
+   *
+   * @param currentApplication
+   * @param currentStudent
+   * @param newApplicationData
+   * @param newResponseStatus
+   */
   private void validateResponseStatus(
-    Application currentApplication, Student currentStudent, UpdateApplicationByStudent newApplicationData,
+    Application currentApplication, Student currentStudent, UpdateApplicationByStudentRequest newApplicationData,
     ResponseStatus newResponseStatus) {
-    ResponseStatus declined = responseStatusService.findByName(ResponseStatusType.OFFER_DECLINED.getValue());
-    final String firmChoiceStatusName = responseStatusService.findByName(ResponseStatusType.FIRM_CHOICE.getValue()).getName();
+    ResponseStatus declined = responseStatusService.findStatusByName(ResponseStatusE.OFFER_DECLINED.getValue());
+    final String firmChoiceStatusName = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue()).getName();
 
     if (newResponseStatus != null) {
-      ResponseStatus firmChoice = responseStatusService.findByName(ResponseStatusType.FIRM_CHOICE.getValue());
+      ResponseStatus firmChoice = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue());
       Optional<Application> firmChoiceApplication = currentStudent.findFirmChoiceApplication(firmChoiceStatusName);
 
       if (firmChoiceApplication.isPresent()
@@ -88,23 +98,31 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     }
   }
 
+  /**
+   * TODO
+   *
+   * @param currentApplication
+   * @param currentStudent
+   * @param newFinalDestinationStatus
+   */
   private void validateFinalDestinationStatus(
     Application currentApplication, Student currentStudent, FinalDestinationStatus newFinalDestinationStatus) {
     if (newFinalDestinationStatus != null) {
-      String finalDestination = finalDestinationStatusService.findByName(FinalDestinationStatusType.FINAL_DESTINATION.getValue()).getName();
-      String deferredFinalDestination = finalDestinationStatusService.findByName(
-        FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue()).getName();
-      FinalDestinationStatus notFinalDestination = finalDestinationStatusService.findByName(
-        FinalDestinationStatusType.NOT_FINAL_DESTINATION.getValue());
+      String finalDestination = finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.FINAL_DESTINATION.getValue())
+                                                             .getName();
+      String deferredFinalDestination = finalDestinationStatusService.findStatusByName(
+        FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
+      FinalDestinationStatus notFinalDestination = finalDestinationStatusService.findStatusByName(
+        FinalDestinationStatusE.NOT_FINAL_DESTINATION.getValue());
       final String finalDestinationStatusName =
-        finalDestinationStatusService.findByName(FinalDestinationStatusType.FINAL_DESTINATION.getValue()).getName();
+        finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.FINAL_DESTINATION.getValue()).getName();
       final String deferredFinalDestinationStatusName =
-        finalDestinationStatusService.findByName(FinalDestinationStatusType.DEFERRED_FINAL_DESTINATION.getValue()).getName();
+        finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
 
       Optional<Application> finalDestinationApplication = currentStudent.findFinalDestinationApplication(finalDestinationStatusName,
         deferredFinalDestinationStatusName);
 
-      if (finalDestinationApplication != null
+      if (finalDestinationApplication.isPresent()
         && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.get().getUuid())
         && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestination.getUuid())) {
         throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.FINAL_DESTINATION_ERROR);
@@ -112,6 +130,13 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     }
   }
 
+  /**
+   * TODO
+   *
+   * @param uuid
+   * @param uuidToCheckAgainst
+   * @return
+   */
   private boolean areValuesEqual(UUID uuid, UUID uuidToCheckAgainst) {
     return Objects.equals(uuid, uuidToCheckAgainst);
   }

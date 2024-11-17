@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public record StudentPdfRequestDataQueueDto(
 	UUID authAccountUuid,
-	StudentAccountDto studentAccount,
+	AccountBaseDetails studentAccount,
 	List<StudentApplicationDto> applications
 ) implements Serializable {
 	@Serial
