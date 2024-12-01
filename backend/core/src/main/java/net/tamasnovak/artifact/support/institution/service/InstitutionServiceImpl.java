@@ -47,13 +47,6 @@ public class InstitutionServiceImpl implements InstitutionService {
 
   @Override
   @Transactional(readOnly = true)
-  public Institution findInstitutionById(final long id) {
-    return institutionRepository.findInstitutionById(id)
-                                .orElseThrow(() -> new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
-  }
-
-  @Override
-  @Transactional(readOnly = true)
   @Cacheable(value = "InstitutionDropdownOptions")
   public List<InstitutionSelectOption> findInstitutionsSortedByName() {
     return institutionRepository.findInstitutionsByOrderByNameAsc();

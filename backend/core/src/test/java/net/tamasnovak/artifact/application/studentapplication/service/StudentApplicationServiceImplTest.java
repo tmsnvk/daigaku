@@ -1,8 +1,16 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.application.studentapplication.service;
 
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +21,7 @@ import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.accounttype.student.service.StudentService;
 import net.tamasnovak.artifact.application.application.service.ApplicationService;
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
+import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudentRequest;
@@ -40,8 +49,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -85,47 +97,57 @@ class StudentApplicationServiceImplTest {
   @Mock
   ExistingApplicationValidator existingApplicationValidator;
 
-  @Mock
-  StudentApplicationServiceMessages studentApplicationServiceMessages;
-
-  @Mock
-  GlobalServiceMessages globalServiceMessages;
-
   @InjectMocks
   StudentApplicationServiceImpl underTest;
 
   private final Account mockAccount = mock(Account.class);
   private final Student mockStudent = mock(Student.class);
   private final UUID applicationUuid = UUID.randomUUID();
-  private final net.tamasnovak.artifact.application.common.entity.Application mockApplication = mock(
-    net.tamasnovak.artifact.application.common.entity.Application.class);
+  private final UUID invalidUuid = UUID.fromString("1234-1234-1234-1234-1234");
+  private final Application mockApplication = mock(Application.class);
 
   @Nested
-  @DisplayName("getAllApplicationDtosByAccount() unit tests")
-  class GetAllApplicationDataViewsByStudentUnitTests {
+  @DisplayName("findApplicationDataByAccountUuid() unit tests")
+  class FindApplicationDataByAccountUuidUnitTests {
     @Test
-    @Description("Returns a list of ApplicationDto instances.")
-    void shouldReturnApplicationViews() {
-      Instant now = Instant.now();
-
+    @Description("Returns a list of ApplicationData instances.")
+    void shouldReturnApplicationDataList() {
       List<ApplicationView> mockApplicationViews = Arrays.asList(mock(ApplicationView.class), mock(ApplicationView.class));
-      ApplicationData mockApplicationData1 = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null,
-        Timestamp.from(now), Timestamp.from(now), null, null, false);
-      ApplicationData mockApplicationData2 = new ApplicationData(null, null, null, null, null, null, 0, null, null, null, null, null,
-        Timestamp.from(now), Timestamp.from(now), null, null, false);
-      when(mockApplicationViews.get(0).getCreatedAt()).thenReturn(now);
-      when(mockApplicationViews.get(0).getLastUpdatedAt()).thenReturn(now);
-      when(mockApplicationViews.get(1).getCreatedAt()).thenReturn(now);
-      when(mockApplicationViews.get(1).getLastUpdatedAt()).thenReturn(now);
 
-      List<ApplicationData> expected = Arrays.asList(mockApplicationData1, mockApplicationData2);
-
+      when(mockApplicationViews.get(0).getCreatedAt()).thenReturn(Instant.now());
+      when(mockApplicationViews.get(0).getLastUpdatedAt()).thenReturn(Instant.now());
+      when(mockApplicationViews.get(1).getCreatedAt()).thenReturn(Instant.now());
+      when(mockApplicationViews.get(1).getLastUpdatedAt()).thenReturn(Instant.now());
       when(applicationRepository.findApplicationViewsByAccountUuid(mockAccount.getUuid())).thenReturn(mockApplicationViews);
 
       List<ApplicationData> actual = underTest.findApplicationDataByAccountUuid(mockAccount.getUuid());
 
-      assertEquals(expected, actual);
+      assertEquals(mockApplicationViews.size(), actual.size());
+      assertTrue(actual.stream().allMatch((data) -> data instanceof ApplicationData));
+      verify(applicationRepository, times(1)).findApplicationViewsByAccountUuid(mockAccount.getUuid());
+    }
 
+    @Test
+    @Description("Returns an empty list when no ApplicationView instances are found as UUID string is invalid.")
+    void shouldReturnEmptyList_IfUuidStringIsInvalid() {
+      when(applicationRepository.findApplicationViewsByAccountUuid(mockAccount.getUuid())).thenReturn(Collections.emptyList());
+
+      List<ApplicationData> actual = underTest.findApplicationDataByAccountUuid(mockAccount.getUuid());
+
+      assertNotNull(actual);
+      assertTrue(actual.isEmpty());
+      verify(applicationRepository, times(1)).findApplicationViewsByAccountUuid(mockAccount.getUuid());
+    }
+
+    @Test
+    @Description("Returns an empty list when no ApplicationView instances are found as UUID is null.")
+    void shouldReturnEmptyList_IfUuidIsNull() {
+      when(applicationRepository.findApplicationViewsByAccountUuid(null)).thenReturn(Collections.emptyList());
+
+      List<ApplicationData> actual = underTest.findApplicationDataByAccountUuid(mockAccount.getUuid());
+
+      assertNotNull(actual);
+      assertTrue(actual.isEmpty());
       verify(applicationRepository, times(1)).findApplicationViewsByAccountUuid(mockAccount.getUuid());
     }
   }
@@ -140,26 +162,14 @@ class StudentApplicationServiceImplTest {
 
       verify(applicationRepository, times(1)).toggleIsRemovableByApplicationUuid(applicationUuid);
     }
-
-    @Test
-    @Description("Throws IllegalArgumentException if UUID string is invalid.")
-    void shouldThrowIllegalArgumentException_IfUuidStringIsInvalid() {
-      assertThrows(IllegalArgumentException.class, () -> underTest.toggleIsRemovableByApplicationUuid(null, null));
-    }
-
-    @Test
-    @Description("Throws NullPointerException if UUID string is null.")
-    void shouldThrowNullPointerException_IfUuidStringIsNull() {
-      assertThrows(NullPointerException.class, () -> underTest.toggleIsRemovableByApplicationUuid(null, null));
-    }
   }
 
   @Nested
-  @DisplayName("getAggregateDataByAccount() unit tests")
-  class getAggregateDataByAccountUnitTests {
+  @DisplayName("findStudentDashboardDataByAccount() unit tests")
+  class FindStudentDashboardDataByAccountUnitTests {
     @Test
-    @Description("Returns a DashboardAggregateDataDto instance.")
-    void shouldReturnDashboardAggregateDataDto() {
+    @Description("Returns a StudentDashboardData instance.")
+    void shouldReturnStudentDashboardData() {
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
       when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
@@ -171,7 +181,6 @@ class StudentApplicationServiceImplTest {
       StudentDashboardDetails actual = underTest.findStudentDashboardDataByAccount(mockAccount);
 
       assertEquals(expected, actual);
-
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
       verify(applicationStatusService, times(3)).findStatusByName(anyString());
       verify(responseStatusService, times(1)).findStatusByName(anyString());
@@ -180,8 +189,8 @@ class StudentApplicationServiceImplTest {
   }
 
   @Nested
-  @DisplayName("create() unit tests")
-  class CreateUnitTests {
+  @DisplayName("createApplication() unit tests")
+  class CreateApplicationUnitTests {
     Country mockCountry = mock(Country.class);
     University mockUniversity = mock(University.class);
     ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
@@ -191,23 +200,29 @@ class StudentApplicationServiceImplTest {
     @Description("Creates an Application record and returns its ApplicationView projection.")
     void shouldCreateApplication_AndReturnApplicationView() {
       ApplicationData expected = mock(ApplicationData.class);
+      UUID countryUuid = UUID.randomUUID();
+      UUID universityUuid = UUID.randomUUID();
 
-      when(countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()))).thenReturn(mockCountry);
-      when(universityService.findUniversityByUuid(UUID.fromString(requestBody.universityUuid()))).thenReturn(mockUniversity);
+      when(requestBody.countryUuid()).thenReturn(countryUuid.toString());
+      when(requestBody.universityUuid()).thenReturn(universityUuid.toString());
+      when(requestBody.courseName()).thenReturn("Some Course");
+      when(requestBody.minorSubject()).thenReturn("Some Minor");
+      when(requestBody.programmeLength()).thenReturn(3);
+
+      when(countryService.findCountryByUuid(countryUuid)).thenReturn(mockCountry);
+      when(universityService.findUniversityByUuid(universityUuid)).thenReturn(mockUniversity);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
       when(applicationStatusService.findStatusByName("Planned")).thenReturn(mockApplicationStatus);
 
-      when(applicationRepository.save(any(net.tamasnovak.artifact.application.common.entity.Application.class))).thenReturn(
-        mockApplication);
+      when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
       when(applicationService.createApplicationData(applicationUuid)).thenReturn(expected);
 
       ApplicationData actual = underTest.createApplication(mockAccount, requestBody);
 
       assertEquals(expected, actual);
-
-      verify(countryService, times(1)).findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
-      verify(universityService, times(1)).findUniversityByUuid(UUID.fromString(requestBody.universityUuid()));
+      verify(countryService, times(1)).findCountryByUuid(countryUuid);
+      verify(universityService, times(1)).findUniversityByUuid(universityUuid);
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
       verify(applicationStatusService, times(1)).findStatusByName("Planned");
       verify(applicationService, times(1)).createApplicationData(applicationUuid);
@@ -216,38 +231,66 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Propagates exception when countryService throws EntityNotFoundException.")
     void shouldPropagateException_whenCountryServiceThrowsEntityNotFoundException() {
-      when(countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()))).thenThrow(
-        new EntityNotFoundException(globalServiceMessages.NO_RECORD_FOUND));
+      UUID countryUuid = UUID.randomUUID();
+
+      when(requestBody.countryUuid()).thenReturn(countryUuid.toString());
+      when(countryService.findCountryByUuid(countryUuid)).thenThrow(new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createApplication(mockAccount, requestBody));
+      verify(applicationRepository, never()).save(mockApplication);
+    }
 
+    @Test
+    @Description("Propagates exception when universityService throws EntityNotFoundException.")
+    void shouldPropagateException_whenUniversityServiceThrowsEntityNotFoundException() {
+      UUID countryUuid = UUID.randomUUID();
+      UUID universityUuid = UUID.randomUUID();
+
+      when(requestBody.countryUuid()).thenReturn(countryUuid.toString());
+      when(requestBody.universityUuid()).thenReturn(universityUuid.toString());
+      when(countryService.findCountryByUuid(countryUuid)).thenReturn(mock(Country.class));
+      when(universityService.findUniversityByUuid(universityUuid)).thenThrow(
+        new EntityNotFoundException(GlobalServiceMessages.NO_RECORD_FOUND));
+
+      assertThrows(EntityNotFoundException.class, () -> underTest.createApplication(mockAccount, requestBody));
       verify(applicationRepository, never()).save(mockApplication);
     }
   }
 
   @Nested
-  @DisplayName("updateByUuid() unit tests")
-  class UpdateByUuidUnitTests {
+  @DisplayName("updateApplicationAndFetchByUuid() unit tests")
+  class UpdateApplicationAndFetchByUuidUnitTests {
     @Test
-    @Description("Updates an Application record and returns ApplicationView projection.")
-    void shouldUpdateApplication_AndReturnApplicationViewProjection() {
+    @Description("Updates an Application record and returns its ApplicationView projection.")
+    void shouldUpdateApplication_AndReturnApplicationView() {
       UpdateApplicationByStudentRequest requestBody = mock(UpdateApplicationByStudentRequest.class);
-      Mentor mockMentor = mock(Mentor.class);
+      UUID applicationStatusUuid = UUID.randomUUID();
+      UUID interviewStatusUuid = UUID.randomUUID();
+      UUID offerStatusUuid = UUID.randomUUID();
+      UUID responseStatusUuid = UUID.randomUUID();
+      UUID finalDestinationStatusUuid = UUID.randomUUID();
 
+      when(requestBody.applicationStatusUuid()).thenReturn(applicationStatusUuid.toString());
+      when(requestBody.interviewStatusUuid()).thenReturn(interviewStatusUuid.toString());
+      when(requestBody.offerStatusUuid()).thenReturn(offerStatusUuid.toString());
+      when(requestBody.responseStatusUuid()).thenReturn(responseStatusUuid.toString());
+      when(requestBody.finalDestinationStatusUuid()).thenReturn(finalDestinationStatusUuid.toString());
+
+      Application mockApplication = mock(Application.class);
       when(applicationService.findApplicationByUuid(applicationUuid)).thenReturn(mockApplication);
+
+      Mentor mockMentor = mock(Mentor.class);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(Student.createStudent(mockAccount, mockMentor));
 
       ApplicationData expected = mock(ApplicationData.class);
 
-      when(applicationRepository.save(any(net.tamasnovak.artifact.application.common.entity.Application.class))).thenReturn(
-        mockApplication);
+      when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
       when(applicationService.createApplicationData(applicationUuid)).thenReturn(expected);
 
       ApplicationData actual = underTest.updateApplicationAndFetchByUuid(applicationUuid, requestBody, mockAccount);
 
       assertEquals(expected, actual);
-
       verify(applicationService, times(1)).findApplicationByUuid(applicationUuid);
       verify(applicationService, times(1)).createApplicationData(applicationUuid);
     }

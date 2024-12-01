@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.applicationstatus.applicationstatus.service;
 
 import java.util.Collections;
@@ -9,7 +17,6 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.persistence.ApplicationStatusRepository;
 import net.tamasnovak.artifact.applicationstatus.common.dto.StatusSelectOption;
-import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,6 +25,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -31,9 +39,6 @@ class ApplicationStatusServiceImplTest {
   @Mock
   ApplicationStatusRepository applicationStatusRepository;
 
-  @Mock
-  GlobalServiceMessages globalServiceMessages;
-
   @InjectMocks
   ApplicationStatusServiceImpl underTest;
 
@@ -41,8 +46,8 @@ class ApplicationStatusServiceImplTest {
   private final ApplicationStatus expected = mock(ApplicationStatus.class);
 
   @Nested
-  @DisplayName("getByName() unit tests")
-  class GetByNameUnitTests {
+  @DisplayName("findStatusByName() unit tests")
+  class FindStatusByNameUnitTests {
     @Test
     @Description("Returns the correct ApplicationStatus record.")
     void shouldReturnApplicationStatusRecord() {
@@ -51,7 +56,6 @@ class ApplicationStatusServiceImplTest {
       ApplicationStatus actual = underTest.findStatusByName(anyString());
 
       assertEquals(expected, actual);
-
       verify(applicationStatusRepository, times(1)).findApplicationStatusByName(anyString());
     }
 
@@ -61,14 +65,13 @@ class ApplicationStatusServiceImplTest {
       when(applicationStatusRepository.findApplicationStatusByName(anyString())).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.findStatusByName(anyString()));
-
       verify(applicationStatusRepository, times(1)).findApplicationStatusByName(anyString());
     }
   }
 
   @Nested
-  @DisplayName("getByUuid() unit tests")
-  class GetByUuidUnitTests {
+  @DisplayName("findStatusByUuid() unit tests")
+  class FindStatusByUuidUnitTests {
     @Test
     @Description("Returns the correct ApplicationStatus record.")
     void shouldReturnApplicationStatusRecord() {
@@ -77,7 +80,6 @@ class ApplicationStatusServiceImplTest {
       ApplicationStatus actual = underTest.findStatusByUuid(applicationStatusUuid);
 
       assertEquals(expected, actual);
-
       verify(applicationStatusRepository, times(1)).findApplicationStatusByUuid(applicationStatusUuid);
     }
 
@@ -87,24 +89,22 @@ class ApplicationStatusServiceImplTest {
       when(applicationStatusRepository.findApplicationStatusByUuid(applicationStatusUuid)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.findStatusByUuid(applicationStatusUuid));
-
       verify(applicationStatusRepository, times(1)).findApplicationStatusByUuid(applicationStatusUuid);
     }
   }
 
   @Nested
-  @DisplayName("getAllSelectOptions() unit tests")
-  class GetAllSelectOptionsUnitTests {
+  @DisplayName("findSelectOptionsSortedByName() unit tests")
+  class FindSelectOptionsSortedByNameUnitTests {
     @Test
-    @Description("Returns the correct list of StatusSelectOptionView records.")
-    void shouldReturnAllStatusSelectOptionViews() {
+    @Description("Returns the correct list of StatusSelectOption records.")
+    void shouldReturnAllStatusSelectOptionList() {
       List<StatusSelectOption> expected = Collections.singletonList(mock(StatusSelectOption.class));
 
       when(applicationStatusRepository.findSelectOptionsByOrderByNameAsc()).thenReturn(expected);
       List<StatusSelectOption> actual = underTest.findSelectOptionsSortedByName();
 
       assertEquals(expected, actual);
-
       verify(applicationStatusRepository, times(1)).findSelectOptionsByOrderByNameAsc();
     }
   }
