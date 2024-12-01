@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.accounttype.student.service;
 
 import java.util.Optional;
@@ -6,7 +14,6 @@ import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.accounttype.student.persistence.StudentRepository;
-import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -27,19 +35,16 @@ class StudentServiceImplTest {
   @Mock
   private StudentRepository studentRepository;
 
-  @Mock
-  private GlobalServiceMessages globalServiceMessages;
-
   @InjectMocks
   private StudentServiceImpl underTest;
 
   @Nested
-  @DisplayName("getByAccount() unit tests")
-  class GetByAccountUnitTests {
+  @DisplayName("findStudentByAccount() unit tests")
+  class FindStudentByAccountUnitTests {
     private final Account mockAccount = mock(Account.class);
 
     @Test
-    @Description("Returns the correct Student record if it is found.")
+    @Description("Returns the correct Student record using the corresponding Account record.")
     void shouldReturnStudentRecord() {
       Student expected = mock(Student.class);
       when(studentRepository.findStudentByAccount(mockAccount)).thenReturn(Optional.of(expected));
@@ -47,7 +52,6 @@ class StudentServiceImplTest {
       Student actual = underTest.findStudentByAccount(mockAccount);
 
       assertEquals(expected, actual);
-
       verify(studentRepository, times(1)).findStudentByAccount(mockAccount);
     }
 
@@ -57,7 +61,6 @@ class StudentServiceImplTest {
       when(studentRepository.findStudentByAccount(mockAccount)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.findStudentByAccount(mockAccount));
-
       verify(studentRepository, times(1)).findStudentByAccount(mockAccount);
     }
   }

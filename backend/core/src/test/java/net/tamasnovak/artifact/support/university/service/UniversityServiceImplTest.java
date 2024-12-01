@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.support.university.service;
 
 import java.util.Collections;
@@ -6,7 +14,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
-import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.university.dto.UniversitySelectOption;
@@ -20,6 +27,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -35,9 +43,6 @@ class UniversityServiceImplTest {
   @Mock
   UniversityRepository universityRepository;
 
-  @Mock
-  GlobalServiceMessages globalServiceMessages;
-
   @InjectMocks
   UniversityServiceImpl underTest;
 
@@ -45,17 +50,16 @@ class UniversityServiceImplTest {
   private final University expected = mock(University.class);
 
   @Nested
-  @DisplayName("getByUuid() unit tests")
-  class GetByUuidUnitTests {
+  @DisplayName("findUniversityByUuid() unit tests")
+  class FindUniversityByUuidUnitTests {
     @Test
-    @Description("Returns the correct University object.")
+    @Description("Returns the correct University record.")
     void shouldReturnUniversityRecord() {
       when(universityRepository.findUniversityByUuid(universityUuid)).thenReturn(Optional.of(expected));
 
       University actual = underTest.findUniversityByUuid(universityUuid);
 
       assertEquals(expected, actual);
-
       verify(universityRepository, times(1)).findUniversityByUuid(universityUuid);
     }
 
@@ -65,17 +69,16 @@ class UniversityServiceImplTest {
       when(universityRepository.findUniversityByUuid(universityUuid)).thenReturn(Optional.empty());
 
       assertThrows(EntityNotFoundException.class, () -> underTest.findUniversityByUuid(universityUuid));
-
       verify(universityRepository, times(1)).findUniversityByUuid(universityUuid);
     }
   }
 
   @Nested
-  @DisplayName("getAllSelectOptionsByCountryUuid() unit tests")
-  class GetAllSelectOptionsByCountryUuidUnitTests {
+  @DisplayName("findUniversitiesByCountryUuid() unit tests")
+  class FindUniversitiesByCountryUuidUnitTests {
     @Test
-    @Description("Returns the correct list of UniversitySelectOptionDto records.")
-    void shouldReturnAllUniversitySelectOptionDtos() {
+    @Description("Returns the correct list of UniversitySelectOption records.")
+    void shouldReturnUniversitySelectOptionListByCountryUuid() {
       Country mockCountry = mock(Country.class);
       when(mockCountry.getUuid()).thenReturn(UUID.randomUUID());
       List<UniversitySelectOption> expected = Collections.singletonList(mock(UniversitySelectOption.class));
@@ -86,7 +89,6 @@ class UniversityServiceImplTest {
       List<UniversitySelectOption> actual = underTest.findUniversitiesByCountryUuid(mockCountry.getUuid());
 
       assertEquals(expected, actual);
-
       verify(countryService, times(1)).findCountryByUuid(mockCountry.getUuid());
       verify(universityRepository, times(1)).findByCountryOrderByNameAsc(mockCountry);
     }

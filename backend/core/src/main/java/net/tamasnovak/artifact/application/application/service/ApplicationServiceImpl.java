@@ -73,11 +73,15 @@ public class ApplicationServiceImpl implements ApplicationService {
    * If the user is a {@link Student}, they must match the {@link Application}'s owner uuid.
    * If the user is a {@link Mentor}, they must match the {@link Application}'s assigned mentor uuid.
    *
-   * @param uuid The application's uuid the user is attempting to access.
+   * @param applicationUuid The application's uuid the user is attempting to access.
    */
-  private void validateUserAccessToViewApplication(final UUID uuid) {
+  private void validateUserAccessToViewApplication(final UUID applicationUuid) {
+    if (applicationUuid == null) {
+      throw new IllegalArgumentException(ApplicationServiceMessages.INVALID_UUID);
+    }
+
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
-    final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(uuid);
+    final ApplicationIdsView application = applicationRepository.findApplicationRelatedIdsByUuid(applicationUuid);
 
     if (StringUtils.validateStringsAreEqual(authAccount.fetchRoleName(), AuthorisationRoles.ROLE_STUDENT.name())) {
       authAccount.verifyAccountUuidMatch(application.getStudentOwnerAccountUuid(), GlobalServiceMessages.NO_PERMISSION);

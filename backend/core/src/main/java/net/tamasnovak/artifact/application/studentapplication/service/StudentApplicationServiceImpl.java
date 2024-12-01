@@ -147,7 +147,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
 
     // Creates the StudentDashboardDetails instance.
-    return new StudentDashboardDetails(student.createFirmChoiceTileDetails(firmChoiceStatus),
+    return new StudentDashboardDetails(
+      student.createFirmChoiceTileDetails(firmChoiceStatus),
       student.createFinalDestinationTileDetails(finalDestinationStatus, deferredFinalDestinationStatusName),
       student.fetchApplicationNumber(),
       student.countApplicationsMatchingPredicate(
@@ -175,8 +176,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final Student student = studentService.findStudentByAccount(account);
 
     // Finds the 'Planned' ApplicationStatus to insert into the new Application instance.
-    final ApplicationStatus plannedApplicationStatus = applicationStatusService.findStatusByName(
-      ApplicationStatusE.PLANNED.getName());
+    final ApplicationStatus plannedApplicationStatus = applicationStatusService.findStatusByName(ApplicationStatusE.PLANNED.getName());
 
     // Creates the Application instance and saves it in the database.
     final Application newApplication = Application.createApplicationByStudent(student, country, university, requestBody.courseName(),

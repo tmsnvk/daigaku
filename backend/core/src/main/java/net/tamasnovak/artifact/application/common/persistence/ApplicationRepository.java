@@ -153,7 +153,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
   /**
    * Toggles an {@link Application}'s is_removable field.
    *
-   * @param uuid The application's uuid.
+   * @param applicationUuid The application's uuid.
    */
   @Modifying
   @Query(value =
@@ -163,9 +163,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
         SET
           is_removable = NOT is_removable
         WHERE
-          uuid = :uuid
+          uuid = :applicationUuid
       """, nativeQuery = true)
-  void toggleIsRemovableByApplicationUuid(@Param("uuid") UUID uuid);
+  void toggleIsRemovableByApplicationUuid(@Param("applicationUuid") UUID applicationUuid);
 
   /**
    * Finds the {@link Student} and {@link Mentor} account uuids associated with the provided {@link Application}'s uuid.

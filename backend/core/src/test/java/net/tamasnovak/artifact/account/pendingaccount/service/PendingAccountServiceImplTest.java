@@ -1,3 +1,11 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.account.pendingaccount.service;
 
 import java.util.UUID;
@@ -22,6 +30,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 import org.springframework.dao.DataIntegrityViolationException;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,9 +57,6 @@ class PendingAccountServiceImplTest {
   @Mock
   private PendingAccountRepository pendingAccountRepository;
 
-  @Mock
-  private PendingAccountServiceMessages constants;
-
   @InjectMocks
   private PendingAccountServiceImpl underTest;
 
@@ -58,82 +64,75 @@ class PendingAccountServiceImplTest {
   private final String notExpectedValidEmail = "existingemail@test.net";
 
   @Nested
-  @DisplayName("verifyAccountNotExistsByEmail() unit tests")
-  class VerifyAccountNotExistsByEmailUnitTests {
+  @DisplayName("validateAccountDoesNotExist() unit tests")
+  class ValidateAccountDoesNotExistUnitTests {
     @Test
     @Description("Returns void when email is not found, i.e. the user can register with the provided email.")
     public void shouldReturnVoid_whenEmailIsNotFound() {
       when(pendingAccountRepository.existsPendingAccountByEmail(expectedValidEmail)).thenReturn(false);
 
       assertDoesNotThrow(() -> underTest.validateAccountDoesNotExist(expectedValidEmail));
-
       verify(pendingAccountRepository, times(1)).existsPendingAccountByEmail(expectedValidEmail);
     }
 
     @Test
-    @Description("Throws DataIntegrityViolationException when email is found, i.e. the user is not allowed to register with the provided " +
-      "email.")
+    @Description("Throws DataIntegrityViolationException when email is found, i.e. the user is cannot to register with the provided email.")
     void shouldThrowDataIntegrityViolationException_whenEmailExists() {
       when(pendingAccountRepository.existsPendingAccountByEmail(notExpectedValidEmail)).thenReturn(true);
 
       assertThrows(DataIntegrityViolationException.class, () -> underTest.validateAccountDoesNotExist(notExpectedValidEmail));
-
       verify(pendingAccountRepository, times(1)).existsPendingAccountByEmail(notExpectedValidEmail);
     }
   }
 
   @Nested
-  @DisplayName("create() unit tests")
-  class CreateUnitTests {
-    PendingAccountRegistrationRequest invalidRequestBody = new PendingAccountRegistrationRequest(
-      "Student",
-      "Test User",
-      notExpectedValidEmail,
-      UUID.randomUUID()
-          .toString(),
-      UUID.randomUUID()
-          .toString()
-    );
+  @DisplayName("createPendingAccount() unit tests")
+  class CreatePendingAccountUnitTests {
+    private final String validFirstName = "Valid First Name";
+    private final String validLastName = "Valid Last Name";
+
+    PendingAccountRegistrationRequest invalidRequestBody = new PendingAccountRegistrationRequest(validFirstName, validLastName,
+      notExpectedValidEmail, UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
     @Test
     @Description("Saves a PendingAccount record with Student role and returns void.")
     void shouldSavePendingAccount_andReturnVoid() {
-      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
-        "Student",
-        "Test User",
-        expectedValidEmail,
-        UUID.randomUUID()
-            .toString(),
-        UUID.randomUUID()
-            .toString()
-      );
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(validFirstName, validLastName,
+        expectedValidEmail, UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
       Institution mockInstitution = mock(Institution.class);
       Role mockRole = mock(Role.class);
+      PendingAccount savedEntity = mock(PendingAccount.class);
+
       when(institutionService.findInstitutionByUuid(UUID.fromString(requestBody.institutionUuid()))).thenReturn(mockInstitution);
-      when(mockRole.getName()).thenReturn("ROLE_STUDENT");
       when(roleService.findRoleByUuid(UUID.fromString(requestBody.accountRoleUuid()))).thenReturn(mockRole);
 
       PendingAccount expected = PendingAccount.createPendingAccount(requestBody.firstName(), requestBody.lastName(), requestBody.email(),
         mockInstitution, mockRole);
+      when(pendingAccountRepository.save(expected)).thenReturn(savedEntity);
+
+      when(savedEntity.getEmail()).thenReturn(expectedValidEmail);
+      when(savedEntity.getFirstName()).thenReturn(validFirstName);
+      when(savedEntity.getLastName()).thenReturn(validLastName);
+      when(savedEntity.fetchInstitutionName()).thenReturn("Test Institution");
+      when(savedEntity.fetchNoPrefixRoleName()).thenReturn("Student");
 
       underTest.createPendingAccount(requestBody);
-
       ArgumentCaptor<PendingAccount> argumentCaptor = ArgumentCaptor.forClass(PendingAccount.class);
       verify(pendingAccountRepository, times(1)).save(argumentCaptor.capture());
       PendingAccount actual = argumentCaptor.getValue();
 
       assertEquals(expected, actual);
+      verify(pendingAccountRepository, times(1)).save(expected);
     }
 
     @Test
     @Description("Throws DataIntegrityViolationException when email is already registered in accounts table.")
     void shouldThrowDataIntegrityViolationException_whenEmailAlreadyExistsInAccountsTable() {
-      doThrow(new DataIntegrityViolationException("Exception message.")).when(accountService)
-                                                                        .validateAccountDoesNotExist(notExpectedValidEmail);
+      doThrow(new DataIntegrityViolationException("Exception message.")).when(accountService).validateAccountDoesNotExist(
+        notExpectedValidEmail);
 
       assertThrows(DataIntegrityViolationException.class, () -> underTest.createPendingAccount(invalidRequestBody));
-
       verify(accountService, times(1)).validateAccountDoesNotExist(notExpectedValidEmail);
     }
 
@@ -144,16 +143,14 @@ class PendingAccountServiceImplTest {
                                                                         .existsPendingAccountByEmail(notExpectedValidEmail);
 
       assertThrows(DataIntegrityViolationException.class, () -> underTest.createPendingAccount(invalidRequestBody));
-
       verify(pendingAccountRepository, times(1)).existsPendingAccountByEmail(notExpectedValidEmail);
     }
 
     @Test
     @Description("Throws EntityNotFoundException when Institution instance is not found.")
     void shouldThrowEntityNotFoundException_whenInstitutionIsNotFound() {
-      when(institutionService.findInstitutionByUuid(UUID.fromString(invalidRequestBody.institutionUuid()))).thenThrow(
-        new EntityNotFoundException(
-          "Exception message."));
+      when(institutionService.findInstitutionByUuid(UUID.fromString(invalidRequestBody.institutionUuid())))
+        .thenThrow(new EntityNotFoundException("Exception message."));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createPendingAccount(invalidRequestBody));
     }
@@ -161,8 +158,8 @@ class PendingAccountServiceImplTest {
     @Test
     @Description("Throws EntityNotFoundException when Role instance is not found.")
     void shouldThrowEntityNotFoundException_whenRoleIsNotFound() {
-      when(roleService.findRoleByUuid(UUID.fromString(invalidRequestBody.accountRoleUuid()))).thenThrow(new EntityNotFoundException(
-        "Exception message."));
+      when(roleService.findRoleByUuid(UUID.fromString(invalidRequestBody.accountRoleUuid())))
+        .thenThrow(new EntityNotFoundException("Exception message."));
 
       assertThrows(EntityNotFoundException.class, () -> underTest.createPendingAccount(invalidRequestBody));
     }

@@ -31,15 +31,6 @@ public interface InstitutionService {
   Institution findInstitutionByUuid(UUID institutionUuid);
 
   /**
-   * Finds a single {@link Institution} object by the provided id.
-   *
-   * @param id The institution's id.
-   * @return {@link Institution}.
-   * @throws EntityNotFoundException If no institution exists with the specified uuid.
-   */
-  Institution findInstitutionById(long id);
-
-  /**
    * Finds a list of {@link Institution} objects and returns them as {@link InstitutionSelectOption}.
    *
    * @return A list of {@link InstitutionSelectOption}.

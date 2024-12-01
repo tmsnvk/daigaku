@@ -1,10 +1,17 @@
+/**
+ * Copyright © [Daigaku].
+ * This file contains proprietary code.
+ * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.account.pendingaccount.controller;
 
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
-import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.account.pendingaccount.service.PendingAccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -31,43 +38,35 @@ class PendingAccountControllerIT {
   @MockBean
   private PendingAccountService pendingAccountService;
 
-  @MockBean
-  private PendingAccountRepository pendingAccountRepository;
-
   private final String validUuidString = UUID.randomUUID().toString();
 
   @Nested
-  @DisplayName("register() method tests")
-  class RegisterMethodIntegrationTests {
+  @DisplayName("registerUser() method tests")
+  class RegisterUserITests {
     @Test
     @Description("HttpStatus.CREATED status is correctly asserted if no exceptions were thrown.")
     public void shouldReturnHttpStatusCreated_IfNoExceptionsWereThrown() throws Exception {
-      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
-        "Student",
-        "Test User",
-        "student@test.net",
-        validUuidString,
-        validUuidString
-      );
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest("Student", "Test User", "student@test.net",
+        validUuidString, validUuidString);
 
-      mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/register")
                                             .content(objectMapper.writeValueAsString(requestBody))
                                             .contentType(MediaType.APPLICATION_JSON))
              .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
-    @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in requestBody's fields.")
+    @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in the requestBody's fields.")
     public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
-      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest(
-        "1nv4l1d Student",
-        "",
-        "invalid@email",
-        "validUuidString",
-        "validUuidString"
-      );
+      /**
+       * It is not possible to test invalid UUID here as it fails with a Jackson JsonMappingException when the test tries to use the
+       * requestBody. However, this would never happen on the running application as the object would come from the frontend.
+       * Invalid UUIDs are tested in {@link PendingAccountServiceImplTest} as unit tests.
+       */
+      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest("1nv4l1d Student", "", "invalid@email",
+        validUuidString, validUuidString);
 
-      mockMvc.perform(MockMvcRequestBuilders.post("/api/pending-accounts/register")
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/register")
                                             .content(objectMapper.writeValueAsString(requestBody))
                                             .contentType(MediaType.APPLICATION_JSON))
              .andExpect(MockMvcResultMatchers.status().isBadRequest());
