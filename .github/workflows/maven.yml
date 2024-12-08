@@ -1,5 +1,4 @@
-name: daigaku backend build-and-test workflow
-
+name: backend build-and-test unit and integration test workflow
 
 on:
   push:
@@ -8,7 +7,6 @@ on:
   pull_request:
     branches:
       - master
-
 
 jobs:
   build-and-test:
@@ -33,26 +31,26 @@ jobs:
           - 6379:6379
 
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: set up jdk 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: "21"
+          distribution: "temurin"
           cache: maven
 
-      - name: Install parent POM
+      - name: install parent pom.xml
         run: |
           mvn install -N
 
-      - name: Build & Test RabbitMQCommonLibSpringApplication
+      - name: build and test RabbitMQModuleApplication
         run: |
           cd common-libs/rabbitmq
           mvn clean install
 
-      - name: Configure DaigakuSpringApplication application.properties variables
+      - name: configure DaigakuCoreApplication application.properties variables
         run: |
           cd core
           cat >./src/main/resources/application.properties <<EOF
@@ -67,8 +65,8 @@ jobs:
           tamasnovak.app.jwtSecret=fakeSecret
           tamasnovak.app.jwtExpirationMs=10000000
           EOF
-        
-      - name: Build & Test DaigakuSpringApplication
+
+      - name: build and test DaigakuCoreApplication
         run: |
           cd core
           mvn clean install
