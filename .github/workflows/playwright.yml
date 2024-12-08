@@ -61,7 +61,7 @@ jobs:
 
       - name: run playwright tests
         run: |
-          cd frontend/tests
+          cd frontend
           npm run test
 
       - name: upload .html test report as artifact
