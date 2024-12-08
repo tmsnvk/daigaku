@@ -55,7 +55,9 @@ jobs:
           npm install
 
       - name: install playwright browsers
-        run: npx playwright install
+        run: |
+          cd frontend
+          npx playwright install
 
       - name: run playwright tests
         run: |
