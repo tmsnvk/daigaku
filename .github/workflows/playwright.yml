@@ -50,8 +50,8 @@ jobs:
           nohup mvn spring-boot:run &
 
       - name: install frontend
-        working-directory: ./frontend
         run: |
+          cd frontend
           npm install
 
       - name: install playwright browsers
