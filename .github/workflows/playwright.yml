@@ -30,8 +30,8 @@ jobs:
 
       - name: configure DaigakuCoreApplication application.properties variables
         run: |
-          cd core
-          cat > ./core/src/main/resources/application.properties <<EOF
+          cd backend/core
+          cat > backend/core/src/main/resources/application.properties <<EOF
           spring.config.import=optional:file:.env[.properties]
           spring.datasource.url=jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
           spring.datasource.username=${{ secrets.POSTGRES_USER }}
@@ -73,6 +73,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: ./frontend/playwright-report
+          path: build/
           retention-days: 1
           overwrite: true
