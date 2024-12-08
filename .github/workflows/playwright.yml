@@ -3,7 +3,7 @@ name: playwright tests
 on:
   push:
     branches:
-      - '*'
+      - master
   pull_request:
     branches:
       - master
@@ -39,14 +39,6 @@ jobs:
         working-directory: ./frontend
         run: |
           npm install
-
-      - name: Check frontend status
-        run: |
-        curl -I http://localhost:5173 || echo "Frontend is not responding!"
-
-      - name: Check backend status
-        run: |
-          curl -I http://localhost:8080 || echo "Backend is not responding!"
 
       - name: install playwright browsers
         run: npx playwright install --with-deps
