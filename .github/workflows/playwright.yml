@@ -31,7 +31,7 @@ jobs:
       - name: configure DaigakuCoreApplication application.properties variables
         run: |
           cd backend/core
-          cat > backend/core/src/main/resources/application.properties <<EOF
+          cat > src/main/resources/application.properties <<EOF
           spring.config.import=optional:file:.env[.properties]
           spring.datasource.url=jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
           spring.datasource.username=${{ secrets.POSTGRES_USER }}
