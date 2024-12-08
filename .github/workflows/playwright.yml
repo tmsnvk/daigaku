@@ -57,13 +57,6 @@ jobs:
       - name: install playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: start frontend dev server
-        run: |
-          cd frontend
-          npm run dev &
-        env:
-          CI: true
-
       - name: run playwright tests
         run: |
           cd frontend/tests
