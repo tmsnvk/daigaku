@@ -1,9 +1,9 @@
-name: playwright tests
+name: playwright-e2e-tests
 
 on:
   push:
     branches:
-      - master
+      - "*"
   pull_request:
     branches:
       - master
