@@ -9,13 +9,9 @@ on:
       - master
 
 jobs:
-  build-then-test:
+  playwright-e2e-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./frontend
 
     steps:
       - uses: actions/checkout@v4
@@ -29,28 +25,28 @@ jobs:
           java-version: "21"
           distribution: "temurin"
 
-      - name: build Core backend module
+      - name: build core backend module
         working-directory: ./backend/core
         run: |
           mvn clean install -pl core -am
 
-      - name: start Core backend module
+      - name: start core backend module
         working-directory: ./backend/core
         run: |
           nohup mvn spring-boot:run &
 
-      - name: Install dependencies
+      - name: install frontend dependencies
         run: npm install
 
-      - name: Install Playwright Browsers
+      - name: install playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Start the development server
+      - name: start frontend dev server
         run: npm run dev &
         env:
           CI: true
 
-      - name: Run Playwright tests
+      - name: run playwright tests
         run: |
           cd tests
           npx playwright test
