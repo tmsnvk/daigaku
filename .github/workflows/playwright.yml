@@ -1,14 +1,12 @@
 name: playwright tests
 
-
 on:
   push:
     branches:
-      # - master
+      - master
   pull_request:
     branches:
-      # - master
-
+      - master
 
 jobs:
   build-then-test:
@@ -25,6 +23,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: build Core backend module
+        working-directory: ./backend/core
+        run: |
+          mvn clean install -pl core -am
+
+      - name: start Core backend module
+        working-directory: ./backend/core
+        run: |
+          nohup mvn spring-boot:run &
 
       - name: Install dependencies
         run: npm install
