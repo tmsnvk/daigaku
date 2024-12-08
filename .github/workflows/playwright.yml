@@ -22,9 +22,9 @@ jobs:
 
       - name: install java
         uses: actions/setup-java@v4
-          with:
-            java-version: "21"
-            distribution: "temurin"
+        with:
+          java-version: "21"
+          distribution: "temurin"
 
       - name: build core backend module
         working-directory: ./backend
