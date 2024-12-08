@@ -58,4 +58,5 @@ jobs:
         with:
           name: playwright-report
           path: tests/frontend/playwright-report
-        retention-days: 1
+          retention-days: 1
+          overwrite: true
