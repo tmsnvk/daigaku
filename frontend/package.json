@@ -12,12 +12,12 @@
   "keywords": ["react", "typescript", "styled-components", "react-query", "react-hooks"],
   "main": "main.tsx",
   "scripts": {
-    "install:dev": "npm install",
-    "install:clean:dev": "npm ci",
-    "start:dev": "vite",
-    "install:test": "npx playwright install --with-deps chromium",
-    "start:test": "npx playwright test",
-    "start:build": "tsc && vite build"
+    "dev:install": "npm install",
+    "dev:install:clean": "npm ci",
+    "dev:start": "vite",
+    "test:install": "npx playwright install --with-deps chromium",
+    "test:start": "npx playwright test",
+    "build:start": "tsc && vite build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

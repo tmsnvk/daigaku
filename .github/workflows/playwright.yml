@@ -52,17 +52,17 @@ jobs:
       - name: install frontend dependencies
         working-directory: ./frontend
         run: |
-          npm run install:clean:dev
+          npm run dev:install:clean
 
       - name: install playwright dependencies and browsers
         working-directory: ./frontend
         run: |
-          npm run install:test
+          npm run test:install
 
       - name: run playwright tests
         working-directory: ./frontend
         run: |
-          npm run start:test
+          npm run test:start
 
       - name: upload .html test report as artifact
         uses: actions/upload-artifact@v4
