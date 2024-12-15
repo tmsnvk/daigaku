@@ -13,6 +13,7 @@
   "main": "main.tsx",
   "scripts": {
     "install:dev": "npm install",
+    "install:clean:dev": "npm ci",
     "start:dev": "vite",
     "install:test": "npx playwright install --with-deps chromium",
     "start:test": "npx playwright test",

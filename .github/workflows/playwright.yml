@@ -52,13 +52,7 @@ jobs:
       - name: install frontend dependencies
         working-directory: ./frontend
         run: |
-          npm run install:dev
-
-      - name: Debug file structure
-        working-directory: ./frontend
-        run: |
-          ls -R src/pages/common
-          ls -R src/components/notification
+          npm run install:clean:dev
 
       - name: install playwright dependencies and browsers
         working-directory: ./frontend
