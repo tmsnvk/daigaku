@@ -29,8 +29,8 @@ jobs:
           mvn clean install -pl core -am -DskipTests
 
       - name: configure DaigakuCoreApplication application.properties variables
+        working-directory: ./backend/core
         run: |
-          cd backend/core
           cat > src/main/resources/application.properties <<EOF
           spring.config.import=optional:file:.env[.properties]
           spring.datasource.url=jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
@@ -55,10 +55,12 @@ jobs:
           npm install
 
       - name: install playwright dependencies and browsers
+        working-directory: ./frontend
         run: |
           npx playwright install --with-deps chromium
 
       - name: run playwright tests
+        working-directory: ./frontend
         run: |
           npm run test
 
