@@ -38,16 +38,16 @@ jobs:
           distribution: "temurin"
           cache: maven
 
-      - name: install parent pom.xml
+      - name: install:parent-pom.xml
         run: |
           mvn install -N
 
-      - name: build and test RabbitMQModuleApplication
+      - name: build-then-test:RabbitMQModuleApplication
         run: |
           cd common-libs/rabbitmq
           mvn clean install
 
-      - name: configure DaigakuCoreApplication application.properties variables
+      - name: configure:DaigakuCoreApplication
         run: |
           cd core
           cat > src/main/resources/application.properties <<EOF
@@ -63,7 +63,7 @@ jobs:
           tamasnovak.app.jwtExpirationMs=10000000
           EOF
 
-      - name: build and test DaigakuCoreApplication
+      - name: build-then-test:DaigakuCoreApplication
         run: |
           cd core
           mvn clean install
@@ -86,7 +86,7 @@ jobs:
         run: |
           npm run dev:install:clean
 
-      - name: install:playwright-dependencies-browsers
+      - name: install:playwright-dependencies
         working-directory: ./frontend
         run: |
           npm run test:install
