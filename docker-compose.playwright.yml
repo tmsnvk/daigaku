@@ -115,8 +115,6 @@ services:
       - db-psql
       - db-redis
       - backend-rabbitmq-mgmt
-      - backend-s3
-      - backend-email
 
   frontend:
     image: daigaku-frontend-image
