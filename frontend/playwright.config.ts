@@ -35,8 +35,8 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'global-setup',
-      testMatch: /.*\.setup\.ts/,
+      name: 'user-setup',
+      testMatch: /auth\.setup\.ts/,
       fullyParallel: true,
     },
     {
@@ -45,7 +45,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         storageState: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH,
       },
-      dependencies: ['global-setup'],
+      dependencies: ['user-setup'],
     },
   ],
 });
