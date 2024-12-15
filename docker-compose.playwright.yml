@@ -128,8 +128,8 @@ services:
       - 80
     networks:
       - daigaku
-    depends_on:
-      - backend-core
+    # depends_on:
+    #   - backend-core
 
 # volumes:
 #   db-psql:
