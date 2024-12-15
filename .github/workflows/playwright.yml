@@ -61,7 +61,7 @@ jobs:
       - name: wait-for-db-to-be-ready
         run: |
           echo "Waiting for PostgreSQL to be ready..."
-          until docker exec $(docker ps -q --filter name=db-psql) pg_isready -U ${{ secrets.POSTGRES_USER }}; do
+          until docker exec $(docker ps -q --filter name=db-psql) db-psql -U ${{ secrets.POSTGRES_USER }}; do
             echo "Waiting for PostgreSQL to be ready..."
             sleep 5
           done
