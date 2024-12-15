@@ -21,7 +21,7 @@ import { accountService } from '@services/index';
 import { localStorageKeyConstants } from '@constants';
 
 /* interface, type, enum imports */
-import { LoginFormResponse } from '@pages/common/homes/components/login-form/login-form.hooks';
+import { LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
 
 /**
  * Defines the authentication status options.

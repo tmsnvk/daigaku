@@ -15,7 +15,7 @@
 import { axiosConfig } from '@configuration';
 
 /* interface, type, enum imports */
-import { RegistrationFormFields } from '@pages/common/homes/components/registration-form/registration-form.hooks';
+import { RegistrationFormFields } from '@pages/common/home/components/registration-form/registration-form.hooks';
 
 /**
  * ===============

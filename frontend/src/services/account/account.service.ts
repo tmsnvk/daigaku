@@ -18,8 +18,8 @@ import { AxiosResponse } from 'axios';
 import { axiosConfig, axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { LoginFormFields, LoginFormResponse } from '@pages/common/homes/components/login-form/login-form.hooks';
-import { ResetFormFields } from '@pages/common/homes/components/reset-form/reset-form.hooks';
+import { LoginFormFields, LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
+import { ResetFormFields } from '@pages/common/home/components/reset-form/reset-form.hooks';
 
 /**
  * ===============
