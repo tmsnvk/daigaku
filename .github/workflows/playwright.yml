@@ -9,10 +9,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./backend
-
     steps:
       - name: checkout code
         uses: actions/checkout@v4
@@ -25,17 +21,18 @@ jobs:
           cache: maven
 
       - name: install parent pom.xml
+        working-directory: ./backend
         run: |
           mvn install -N
 
       - name: build and test RabbitMQModuleApplication
+        working-directory: ./backend/common-libs/rabbitmq
         run: |
-          cd common-libs/rabbitmq
           mvn clean install
 
       - name: build and test DaigakuCoreApplication
+        working-directory: ./backend/core
         run: |
-          cd core
           mvn clean install
 
       - name: Build and start backend and database
