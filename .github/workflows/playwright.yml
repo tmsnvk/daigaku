@@ -49,6 +49,13 @@ jobs:
         run: |
           nohup mvn spring-boot:run &
 
+      - name: Wait for backend to be ready
+        run: |
+          while ! curl --silent --fail http://localhost:8080/api/health; do
+            echo "Waiting for backend to be ready..."
+            sleep 5
+          done
+
       - name: install frontend dependencies
         working-directory: ./frontend
         run: |
