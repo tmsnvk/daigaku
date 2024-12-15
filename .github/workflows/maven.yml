@@ -1,4 +1,4 @@
-name: backend build-and-test unit and integration test workflow
+name: build-and-test backend unit tests workflow
 
 on:
   push:
