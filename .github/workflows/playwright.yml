@@ -62,7 +62,6 @@ jobs:
       - name: run playwright tests
         working-directory: ./frontend
         run: |
-          ls
           npm run start:test
 
       - name: upload .html test report as artifact
