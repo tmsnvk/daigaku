@@ -40,7 +40,7 @@ jobs:
 
       - name: Build and start backend and database
         run: |
-          docker-compose -f docker-compose.playwright.yml up -d --build
+          docker-compose -f docker-compose.workflow.yml up -d --build
 
   playwright-e2e-tests:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
 
       - name: Shutdown Docker Containers
         run: |
-          docker-compose -f docker-compose.playwright.yml down
+          docker-compose -f docker-compose.workflow.yml down
 
       # - name: run:test-report
       #   uses: actions/upload-artifact@v4
