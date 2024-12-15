@@ -48,10 +48,6 @@ jobs:
         working-directory: ./backend/core
         run: |
           nohup mvn spring-boot:run &
-
-      - name: wait-for-backend-to-be-ready
-        run: |
-          # Wait for the backend to be ready (replace with actual URL)
           until curl --silent --fail http://localhost:8080/actuator/health; do
             echo "Waiting for backend to be ready..."
             sleep 5
