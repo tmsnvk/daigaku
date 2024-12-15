@@ -1,58 +1,58 @@
 version: "3.8"
 
-services:
-  db-psql:
-    image: daigaku-psql-image
-    container_name: daigaku-psql-container
-    hostname: db-psql
-    build:
-      context: ./database/psql
-      dockerfile: Dockerfile
-    environment:
-      POSTGRES_DB: daigaku
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_HOST_AUTH_METHOD: trust
-    ports:
-      - 5432:5432
-    expose:
-      - 5432
-    networks:
-      - daigaku
-    restart: always
+# services:
+#   db-psql:
+#     image: daigaku-psql-image
+#     container_name: daigaku-psql-container
+#     hostname: db-psql
+#     build:
+#       context: ./database/psql
+#       dockerfile: Dockerfile
+#     environment:
+#       POSTGRES_DB: daigaku
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: admin
+#       POSTGRES_HOST_AUTH_METHOD: trust
+#     ports:
+#       - 5432:5432
+#     expose:
+#       - 5432
+#     networks:
+#       - daigaku
+#     restart: always
 
-  db-redis:
-    image: daigaku-redis-image
-    container_name: daigaku-redis-container
-    build:
-      context: ./database/redis-cache
-      dockerfile: Dockerfile
-    ports:
-      - 6379:6379
-    expose:
-      - 6379
-    networks:
-      - daigaku
-    restart: unless-stopped
+#   db-redis:
+#     image: daigaku-redis-image
+#     container_name: daigaku-redis-container
+#     build:
+#       context: ./database/redis-cache
+#       dockerfile: Dockerfile
+#     ports:
+#       - 6379:6379
+#     expose:
+#       - 6379
+#     networks:
+#       - daigaku
+#     restart: unless-stopped
 
-  backend-rabbitmq-mgmt:
-    image: daigaku-rabbitmq-mgmt-image
-    container_name: daigaku-rabbitmq-mgmt-container
-    build:
-      context: ./backend/rabbitmq-mgmt
-      dockerfile: Dockerfile
-    hostname: backend-rabbitmq-mgmt
-    ports:
-      - 5672:5672
-      - 15672:15672
-    expose:
-      - 5672
-      - 15672
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
-    networks:
-      - daigaku
+#   backend-rabbitmq-mgmt:
+#     image: daigaku-rabbitmq-mgmt-image
+#     container_name: daigaku-rabbitmq-mgmt-container
+#     build:
+#       context: ./backend/rabbitmq-mgmt
+#       dockerfile: Dockerfile
+#     hostname: backend-rabbitmq-mgmt
+#     ports:
+#       - 5672:5672
+#       - 15672:15672
+#     expose:
+#       - 5672
+#       - 15672
+#     environment:
+#       RABBITMQ_DEFAULT_USER: admin
+#       RABBITMQ_DEFAULT_PASS: admin
+#     networks:
+#       - daigaku
 
   # backend-s3:
   #   image: daigaku-s3-image
@@ -93,28 +93,28 @@ services:
   #   networks:
   #     - daigaku
 
-  backend-core:
-    image: daigaku-core-image
-    container_name: daigaku-core-container
-    build:
-      context: ./backend/core
-      dockerfile: Dockerfile
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db-psql/daigaku
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: admin
-      SPRING_DATA_REDIS_HOST: daigaku-redis-container
-      SPRING_RABBITMQ_HOST: backend-rabbitmq-mgmt
-    ports:
-      - 8080:8080
-    expose:
-      - 8080
-    networks:
-      - daigaku
-    depends_on:
-      - db-psql
-      - db-redis
-      - backend-rabbitmq-mgmt
+  # backend-core:
+  #   image: daigaku-core-image
+  #   container_name: daigaku-core-container
+  #   build:
+  #     context: ./backend/core
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://db-psql/daigaku
+  #     SPRING_DATASOURCE_USERNAME: postgres
+  #     SPRING_DATASOURCE_PASSWORD: admin
+  #     SPRING_DATA_REDIS_HOST: daigaku-redis-container
+  #     SPRING_RABBITMQ_HOST: backend-rabbitmq-mgmt
+  #   ports:
+  #     - 8080:8080
+  #   expose:
+  #     - 8080
+  #   networks:
+  #     - daigaku
+  #   depends_on:
+  #     - db-psql
+  #     - db-redis
+  #     - backend-rabbitmq-mgmt
 
   frontend:
     image: daigaku-frontend-image
@@ -131,13 +131,13 @@ services:
     depends_on:
       - backend-core
 
-volumes:
-  db-psql:
-    driver: local
-  db-redis:
-    driver: local
-  backend-rabbitmq-mgmt:
-    driver: local
+# volumes:
+#   db-psql:
+#     driver: local
+#   db-redis:
+#     driver: local
+#   backend-rabbitmq-mgmt:
+#     driver: local
 
 networks:
   daigaku:
