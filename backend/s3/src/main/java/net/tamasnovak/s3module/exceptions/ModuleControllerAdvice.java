@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.s3module.exceptions;
 
 import org.springframework.http.HttpStatus;

@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.s3module.configuration.rabbitMQ;
 
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.ConverterConfig;

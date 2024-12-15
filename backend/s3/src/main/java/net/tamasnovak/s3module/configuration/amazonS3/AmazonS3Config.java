@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.s3module.configuration.amazonS3;
 
 import org.springframework.beans.factory.annotation.Value;

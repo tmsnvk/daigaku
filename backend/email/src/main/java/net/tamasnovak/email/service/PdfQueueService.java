@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.email.service;
 
 import net.tamasnovak.rabbitmq.models.emailQueue.StudentPdfRequestQueueDto;
