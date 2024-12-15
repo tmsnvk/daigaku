@@ -59,6 +59,12 @@ jobs:
         run: |
           npm run test:install
 
+      - name: set up playwright environment variables
+        run: |
+          echo "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}" >> $GITHUB_ENV
+
       - name: run playwright tests
         working-directory: ./frontend
         run: |
