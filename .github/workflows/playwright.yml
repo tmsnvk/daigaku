@@ -24,7 +24,6 @@ jobs:
           - 6379:6379
 
     steps:
-      - name: checkout:code
       - uses: actions/checkout@v4
 
       - name: install:node-lts
