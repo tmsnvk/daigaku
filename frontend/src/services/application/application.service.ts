@@ -19,7 +19,7 @@ import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
-import { DashboardStatistics } from '@pages/common/dashboard/dashboard.hooks';
+import { DashboardStatistics } from '@pages/common/dashboards/dashboard.hooks';
 
 /**
  * ===============

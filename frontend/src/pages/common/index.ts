@@ -13,9 +13,9 @@
 
 import { ApplicationEdit } from './application-edit';
 import { ApplicationView } from './application-view';
-import { Applications } from './applications';
-import { Dashboard } from './dashboard';
-import { Error } from './error';
-import { Home } from './home';
+import { Applications } from './applicationss';
+import { Dashboard } from './dashboards';
+import { Error } from './errors';
+import { Home } from './homes';
 
 export { ApplicationEdit, Applications, ApplicationView, Dashboard, Error, Home };
