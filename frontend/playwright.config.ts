@@ -35,18 +35,17 @@ export default defineConfig({
     headless: true,
   },
   projects: [
-    // {
-    //   name: 'user-setup',
-    //   testMatch: /auth\.setup\.ts/,
-    //   fullyParallel: true,
-    // },
+    {
+      name: 'user-setup',
+      testMatch: /auth\.setup\.ts/,
+    },
     {
       name: 'chromium ui tests',
       use: {
         ...devices['Desktop Chrome'],
         storageState: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH,
       },
-      // dependencies: ['user-setup'],
+      dependencies: ['user-setup'],
     },
   ],
 });
