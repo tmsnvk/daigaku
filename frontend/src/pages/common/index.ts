@@ -11,11 +11,11 @@
  * @author tmsnvk
  */
 
+import { ApplicationEdit } from '@pages/common/application-edit';
+import { ApplicationView } from '@pages/common/application-view';
 import { Applications } from '@pages/common/applications';
-import { ApplicationEdit } from './application-edit';
-import { ApplicationView } from './application-view';
-import { Dashboard } from './dashboard';
-import { Error } from './error';
-import { Home } from './home';
+import { Dashboard } from '@pages/common/dashboard';
+import { Error } from '@pages/common/error';
+import { Home } from '@pages/common/home';
 
 export { ApplicationEdit, Applications, ApplicationView, Dashboard, Error, Home };
