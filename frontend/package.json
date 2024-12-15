@@ -12,7 +12,7 @@
   "keywords": ["react", "typescript", "styled-components", "react-query", "react-hooks"],
   "main": "main.tsx",
   "scripts": {
-    "install:dev": "install",
+    "install:dev": "npm install",
     "start:dev": "vite",
     "install:test": "npx playwright install --with-deps chromium",
     "start:test": "npx playwright test",

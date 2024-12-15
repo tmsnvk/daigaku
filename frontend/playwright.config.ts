@@ -23,7 +23,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['list'], ['html', { outputFile: '.frontend//playwright-report/index.html' }]],
+  reporter: [['html', { outputFile: '.frontend//playwright-report/index.html' }]],
   webServer: {
     command: 'npm run start:dev',
     reuseExistingServer: !process.env.CI,
