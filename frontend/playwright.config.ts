@@ -3,14 +3,9 @@
  */
 
 /**
- * @fileoverview
- * @author tmsnvk
- *
- *
  * Copyright © [Daigaku].
  *
- * This file contains proprietary code.
- * Unauthorized copying, modification, or distribution of this file, whether in whole or in part is prohibited.
+ * @author tmsnvk
  */
 
 /* external imports */
@@ -25,21 +20,21 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  reporter: [['html', { outputFile: '.frontend//playwright-report/index.html' }]],
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run dev:start',
     reuseExistingServer: !process.env.CI,
-    url: 'http://127.0.0.1:5173/',
+    url: 'http://localhost:5173/',
   },
   use: {
-    baseURL: 'http://127.0.0.1:5173/',
+    baseURL: 'http://localhost:5173/',
     trace: 'on-first-retry',
+    headless: true,
   },
   projects: [
     {
-      name: 'global-setup',
-      testMatch: /.*\.setup\.ts/,
-      fullyParallel: true,
+      name: 'user-setup',
+      testMatch: /auth\.setup\.ts/,
     },
     {
       name: 'chromium ui tests',
@@ -47,7 +42,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         storageState: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH,
       },
-      dependencies: ['global-setup'],
+      dependencies: ['user-setup'],
     },
   ],
 });

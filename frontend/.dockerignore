@@ -5,3 +5,6 @@
 !tsconfig*.json
 !vite.config.ts
 !nginx.conf
+
+!tests
+!playwright.config.ts

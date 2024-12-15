@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.rabbitmq.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

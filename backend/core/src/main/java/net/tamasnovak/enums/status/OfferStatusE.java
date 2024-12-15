@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.enums.status;
 
 public enum OfferStatusE {

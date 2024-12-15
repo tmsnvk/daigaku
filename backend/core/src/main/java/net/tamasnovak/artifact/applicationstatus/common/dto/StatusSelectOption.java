@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.artifact.applicationstatus.common.dto;
 
 import java.io.Serial;

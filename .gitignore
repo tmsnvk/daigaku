@@ -5,7 +5,6 @@ target/
 !**/src/test/**/target/
 env.properties
 
-
 # frontend
 .env
 node_modules
@@ -17,16 +16,9 @@ blob-report/
 playwright/.cache/
 state/
 
-
 # IDEs
 .idea
 .vscode/*
-.theia/*
-
-*.iws
-*.iml
-*.ipr
-
 
 # macOS
 .DS_Store

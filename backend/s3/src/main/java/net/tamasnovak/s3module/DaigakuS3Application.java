@@ -1,3 +1,9 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
 package net.tamasnovak.s3module;
 
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
