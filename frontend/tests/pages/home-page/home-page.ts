@@ -69,6 +69,8 @@ export class HomePage {
   };
 
   fillInLoginForm = async ({ email, password }: LoginFormT) => {
+    console.log(email);
+    console.log(password);
     await this.page.getByLabel('Email').fill(email);
     await this.page.getByLabel('Password').fill(password);
 

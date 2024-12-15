@@ -55,14 +55,14 @@ jobs:
 
       - name: configure:playwright-environment
         run: |
+          echo "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}" >> $GITHUB_ENV
 
       - name: install:playwright-dependencies-browsers
         working-directory: ./frontend
         run: |
           npm run dev:install:clean
-          echo "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}" >> $GITHUB_ENV
-          echo "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}" >> $GITHUB_ENV
-          echo "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}" >> $GITHUB_ENV
           npm run test:install
           npm run test:start
 
