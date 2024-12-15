@@ -60,13 +60,15 @@ jobs:
 
       - name: wait-for-db-to-be-ready
         run: |
-          until nc -zv db-psql 5432; do
+          echo "Waiting for PostgreSQL to be ready..."
+          until docker exec $(docker ps -q --filter name=db-psql) pg_isready -U ${{ secrets.POSTGRES_USER }}; do
             echo "Waiting for PostgreSQL to be ready..."
             sleep 5
           done
           echo "PostgreSQL is up and ready."
 
-          until nc -zv db-redis 6379; do
+          echo "Waiting for Redis to be ready..."
+          until docker exec $(docker ps -q --filter name=db-redis) redis-cli -h db-redis ping; do
             echo "Waiting for Redis to be ready..."
             sleep 5
           done
