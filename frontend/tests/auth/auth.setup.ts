@@ -28,7 +28,8 @@ setup('Create Student role authentication state', async ({ page, context }) => {
     email: process.env.PLAYWRIGHT_STUDENT_EMAIL as string,
     password: process.env.PLAYWRIGHT_STUDENT_PASSWORD as string,
   });
-  console.log(page.url);
+  console.log(page.url.name);
+  console.log(page.url.toString());
   await page.waitForURL('**/dashboard');
 
   await context.storageState({ path: process.env.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH });
