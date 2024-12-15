@@ -62,10 +62,12 @@ jobs:
       - name: run playwright tests
         working-directory: ./frontend
         run: |
+          ls
           npm run start:test
 
       - name: upload .html test report as artifact
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: playwright-report
           path: ./frontend/playwright-report/index.html
