@@ -18,10 +18,11 @@ jobs:
           node-version: lts/*
 
       - name: build:test-containers
-        secrets: |
-          "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}"
-          "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}"
-          "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}"
+        with:
+          secrets: |
+            "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}"
+            "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}"
+            "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}"
         run: |
           docker compose -f docker-compose.playwright.yml build
 
