@@ -11,7 +11,7 @@
  * @author tmsnvk
  */
 
-import { Applications } from '../../../src/pages/common/applications/index';
+import { Applications } from '@pages/common/applications';
 import { ApplicationEdit } from './application-edit';
 import { ApplicationView } from './application-view';
 import { Dashboard } from './dashboard';
