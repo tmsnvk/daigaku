@@ -58,15 +58,24 @@ jobs:
           tamasnovak.app.jwtExpirationMs=10000000
           EOF
 
+      - name: wait-for-db-to-be-ready
+        run: |
+          until nc -zv db-psql 5432; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 5
+          done
+          echo "PostgreSQL is up and ready."
+
+          until nc -zv db-redis 6379; do
+            echo "Waiting for Redis to be ready..."
+            sleep 5
+          done
+          echo "Redis is up and ready."
+
       - name: run:core-backend-module
         working-directory: ./backend/core
         run: |
           nohup mvn spring-boot:run &
-          until curl --silent --fail http://localhost:8080/actuator/health; do
-            echo "Waiting for backend to be ready..."
-            sleep 5
-          done
-          echo "Backend is up and ready."
 
       - name: install:frontend-dependencies
         working-directory: ./frontend
