@@ -25,7 +25,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['list'], ['html', { outputFile: '.frontend//playwright-report/index.html' }]],
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run start:dev',
     reuseExistingServer: !process.env.CI,
     url: 'http://localhost:5173/',
   },
