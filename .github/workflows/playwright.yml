@@ -1,27 +1,14 @@
-name: build-and-test e2e integration tests workflow
+name: e2e-build-and-test
 
 on:
-  push:
-    branches:
-      - "*"
+  workflow_run:
+    workflows: ["backend-build-and-test"]
+    types:
+      - success
 
 jobs:
   playwright-e2e-tests:
     runs-on: ubuntu-latest
-
-    services:
-      db-psql:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        ports:
-          - 5432:5432
-      db-redis:
-        image: redis:latest
-        ports:
-          - 6379:6379
 
     steps:
       - uses: actions/checkout@v4
@@ -31,80 +18,79 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: install:java-lts
-        uses: actions/setup-java@v4
-        with:
-          java-version: "21"
-          distribution: "temurin"
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v4
 
-      - name: build:core-backend-module
-        working-directory: ./backend
+      - name: Build and Start Docker Containers
         run: |
-          mvn clean install -pl core -am -DskipTests
+          docker-compose -f docker-compose.playwright.yml up -d --build
 
-      - name: configure:DaigakuCoreApplication application.properties variables
-        working-directory: ./backend/core
+      - name: Wait for Backend and Frontend to be Ready
         run: |
-          cat > src/main/resources/application.properties <<EOF
-          spring.config.import=optional:file:.env[.properties]
-          spring.datasource.url=jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
-          spring.datasource.username=${{ secrets.POSTGRES_USER }}
-          spring.datasource.password=${{ secrets.POSTGRES_PASSWORD }}
-          spring.cache.type=redis
-          spring.data.redis.host=localhost
-          spring.data.redis.port=6379
-          spring.datasource.driver-class-name=org.postgresql.Driver
-          tamasnovak.app.jwtSecret=fakeSecret
-          tamasnovak.app.jwtExpirationMs=10000000
-          EOF
+          sleep 20 # Give backend and frontend time to be up
 
-      - name: wait-for-db-to-be-ready
-        run: |
-          echo "Waiting for PostgreSQL to be ready..."
-          until docker exec $(docker ps -q --filter name=db-psql) db-psql -U ${{ secrets.POSTGRES_USER }}; do
-            echo "Waiting for PostgreSQL to be ready..."
-            sleep 5
-          done
-          echo "PostgreSQL is up and ready."
+      # - name: install:java-lts
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     java-version: "21"
+      #     distribution: "temurin"
 
-          echo "Waiting for Redis to be ready..."
-          until docker exec $(docker ps -q --filter name=db-redis) redis-cli -h db-redis ping; do
-            echo "Waiting for Redis to be ready..."
-            sleep 5
-          done
-          echo "Redis is up and ready."
+      # - name: build:core-backend-module
+      #   working-directory: ./backend
+      #   run: |
+      #     mvn clean install -pl core -am -DskipTests
 
-      - name: run:core-backend-module
-        working-directory: ./backend/core
-        run: |
-          nohup mvn spring-boot:run &
+      # - name: configure:DaigakuCoreApplication application.properties variables
+      #   working-directory: ./backend/core
+      #   run: |
+      #     cat > src/main/resources/application.properties <<EOF
+      #     spring.config.import=optional:file:.env[.properties]
+      #     spring.datasource.url=jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
+      #     spring.datasource.username=${{ secrets.POSTGRES_USER }}
+      #     spring.datasource.password=${{ secrets.POSTGRES_PASSWORD }}
+      #     spring.cache.type=redis
+      #     spring.data.redis.host=localhost
+      #     spring.data.redis.port=6379
+      #     spring.datasource.driver-class-name=org.postgresql.Driver
+      #     tamasnovak.app.jwtSecret=fakeSecret
+      #     tamasnovak.app.jwtExpirationMs=10000000
+      #     EOF
 
-      - name: install:frontend-dependencies
-        working-directory: ./frontend
-        run: |
-          npm run dev:install:clean
+      # - name: run:core-backend-module
+      #   working-directory: ./backend/core
+      #   run: |
+      #     nohup mvn spring-boot:run &
+
+      # - name: install:frontend-dependencies
+      #   working-directory: ./frontend
+      #   run: |
+      #     npm run dev:install:clean
 
       - name: install:playwright-dependencies-browsers
         working-directory: ./frontend
         run: |
           npm run test:install
 
-      - name: configure:playwright-environment
-        run: |
-          echo "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}" >> $GITHUB_ENV
-          echo "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}" >> $GITHUB_ENV
-          echo "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}" >> $GITHUB_ENV
+      # - name: configure:playwright-environment
+      #   run: |
+      #     echo "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}" >> $GITHUB_ENV
+      #     echo "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}" >> $GITHUB_ENV
+      #     echo "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}" >> $GITHUB_ENV
 
       - name: run:playwright-tests
         working-directory: ./frontend
         run: |
           npm run test:start
 
-      - name: run:test-report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: ./frontend/playwright-report/index.html
-          retention-days: 1
-          overwrite: true
+      - name: Shutdown Docker Containers
+        run: |
+          docker-compose down
+
+      # - name: run:test-report
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: playwright-report
+      #     path: ./frontend/playwright-report/index.html
+      #     retention-days: 1
+      #     overwrite: true
