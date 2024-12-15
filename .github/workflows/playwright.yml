@@ -12,23 +12,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: install node lts
+      - name: install:node-lts
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: install java
+      - name: install:java-lts
         uses: actions/setup-java@v4
         with:
           java-version: "21"
           distribution: "temurin"
 
-      - name: build core backend module
+      - name: build:core-backend-module
         working-directory: ./backend
         run: |
           mvn clean install -pl core -am -DskipTests
 
-      - name: configure DaigakuCoreApplication application.properties variables
+      - name: configure:DaigakuCoreApplication application.properties variables
         working-directory: ./backend/core
         run: |
           cat > src/main/resources/application.properties <<EOF
@@ -44,40 +44,33 @@ jobs:
           tamasnovak.app.jwtExpirationMs=10000000
           EOF
 
-      - name: start core backend module
+      - name: run:core-backend-module
         working-directory: ./backend/core
         run: |
           nohup mvn spring-boot:run &
 
-      - name: Wait for backend to be ready
+      - name: install:frontend-dependencies
+        working-directory: ./frontend
         run: |
-          while ! curl --silent --fail http://localhost:8080/api/health; do
-            echo "Waiting for backend to be ready..."
-            sleep 5
-          done
 
-      - name: install frontend dependencies
+      - name: configure:playwright-environment
+        run: |
+
+      - name: install:playwright-dependencies-browsers
         working-directory: ./frontend
         run: |
           npm run dev:install:clean
-
-      - name: install playwright dependencies and browsers
-        working-directory: ./frontend
-        run: |
-          npm run test:install
-
-      - name: set up playwright environment variables
-        run: |
           echo "PLAYWRIGHT_STUDENT_EMAIL=${{ secrets.PLAYWRIGHT_STUDENT_EMAIL }}" >> $GITHUB_ENV
           echo "PLAYWRIGHT_STUDENT_PASSWORD=${{ secrets.PLAYWRIGHT_STUDENT_PASSWORD }}" >> $GITHUB_ENV
           echo "PLAYWRIGHT_STUDENT_AUTH_STATE_PATH=${{ secrets.PLAYWRIGHT_STUDENT_AUTH_STATE_PATH }}" >> $GITHUB_ENV
-
-      - name: run playwright tests
-        working-directory: ./frontend
-        run: |
+          npm run test:install
           npm run test:start
 
-      - name: upload .html test report as artifact
+      # - name: run:playwright-tests
+      #   working-directory: ./frontend
+      #   run: |
+
+      - name: run:test-report-upload
         uses: actions/upload-artifact@v4
         if: always()
         with:
