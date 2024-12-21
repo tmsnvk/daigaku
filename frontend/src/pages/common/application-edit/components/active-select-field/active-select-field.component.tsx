@@ -9,9 +9,8 @@
  */
 
 /* external imports */
+import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
-
-/* logic imports */
 
 /* component, style imports */
 import { CoreInput } from '@common-types';

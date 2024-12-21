@@ -9,7 +9,7 @@
  */
 
 /* external imports */
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 
 /* component, style imports */
 import { LoginForm, RegistrationForm, ResetForm } from './components/index';

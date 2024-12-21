@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* logic imports */
 import { TodoList, useTodoList } from './student-layout.hooks';
 

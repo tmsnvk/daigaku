@@ -17,7 +17,7 @@
 export interface FormInputValidation {
   /**
    * Specifies whether the input is required to be filled in.
-   * If the requirement is violated, the provided custom error message is displayed.
+   * If the requirement is violated, the provided custom error message is displayed for the user.
    */
   required?: {
     value: boolean;
@@ -26,7 +26,7 @@ export interface FormInputValidation {
 
   /**
    * Specifies whether the input must match a certain pattern.
-   * If the requirement is violated, the provided custom error message is displayed.
+   * If the requirement is violated, the provided custom error message is displayed for the user.
    */
   pattern?: {
     value: RegExp;

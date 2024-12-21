@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* component, style imports */
 import { Paragraph } from './form-instruction.styles';
 

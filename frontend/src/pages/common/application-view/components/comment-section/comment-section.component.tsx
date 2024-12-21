@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* logic imports */
 import { CommentPagination, useCommentPagination, useCommentsByApplicationAndPagination } from './comment-section.hooks';
 

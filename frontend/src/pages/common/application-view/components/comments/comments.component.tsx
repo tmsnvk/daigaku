@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* component, style imports */
 import { Article, ErrorContainer } from './comments.styles';
 

@@ -9,6 +9,7 @@
  */
 
 /* external imports */
+import { JSX } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /* logic imports */

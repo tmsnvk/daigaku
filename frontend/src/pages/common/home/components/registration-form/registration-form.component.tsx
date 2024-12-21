@@ -9,6 +9,7 @@
  */
 
 /* external imports */
+import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */

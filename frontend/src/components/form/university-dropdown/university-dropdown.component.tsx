@@ -9,6 +9,7 @@
  */
 
 /* external imports */
+import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* component, style imports */

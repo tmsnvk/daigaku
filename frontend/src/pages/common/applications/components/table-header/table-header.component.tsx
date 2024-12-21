@@ -12,6 +12,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
 import axios from 'axios';
+import { JSX } from 'react';
 
 /* logic imports */
 import { RequestPdfDownload, useRequestPdfDownload } from './table-header.hooks';

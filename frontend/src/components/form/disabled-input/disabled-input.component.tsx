@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* component, style imports */
 import { BaseInput } from '@components/base-styles';
 import { InputLabel } from '@components/form';

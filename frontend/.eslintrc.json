@@ -23,7 +23,7 @@
     "ecmaFeatures": { "modules": true, "jsx": true },
     "sourceType": "module"
   },
-  "ignorePatterns": ["**/*.config.js", "dist/*"],
+  "ignores": ["node_modules/*"],
   "rules": {
     // * possible problems * //
     "array-callback-return": "error",
@@ -130,10 +130,11 @@
     "max-len": [
       "warn",
       {
-        "code": 180,
-        "ignoreComments": true,
+        "code": 140,
+        "tabWidth": 2,
+        "ignoreComments": false,
         "ignoreUrls": true,
-        "ignoreTemplateLiterals": true,
+        "ignoreTemplateLiterals": false,
         "ignoreRegExpLiterals": true
       }
     ],
