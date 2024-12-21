@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-max-props-per-line */
+
 /**
  * Copyright © [Daigaku].
  *

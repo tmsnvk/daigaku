@@ -2,9 +2,8 @@
   "root": true,
   "env": {
     "browser": true,
-    "es2022": true,
-    "node": true,
-    "jest": true
+    "es2024": true,
+    "node": true
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "plugin:react/jsx-runtime"],
   "settings": {
@@ -12,7 +11,7 @@
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "moduleDirectory": ["node_modules", "src/"]
+        "moduleDirectory": ["src/", "tests/"]
       }
     }
   },
@@ -23,7 +22,7 @@
     "ecmaFeatures": { "modules": true, "jsx": true },
     "sourceType": "module"
   },
-  "ignores": ["node_modules/*"],
+  "ignorePatterns": ["node_modules/*"],
   "rules": {
     // * possible problems * //
     "array-callback-return": "error",
@@ -68,15 +67,12 @@
     "func-names": ["warn", "always"],
     "func-style": ["warn", "declaration", { "allowArrowFunctions": true }],
     "guard-for-in": "warn",
-    //    "multiline-comment-style": [ "warn", "separate-lines" ],
     "no-else-return": "warn",
     "no-eval": "warn",
-    //    "no-implicit-coercion": "warn",
     "no-implied-eval": "warn",
     "no-invalid-this": "warn",
     "no-lonely-if": "warn",
     "no-loop-func": "warn",
-    // "no-magic-numbers": ["warn", { "ignoreArrayIndexes": true, "ignore": [-1, 0, 1, 2] }],
     "no-mixed-operators": "warn",
     "no-nested-ternary": "warn",
     "no-return-assign": "warn",
@@ -123,7 +119,7 @@
     "func-call-spacing": ["warn", "never"],
     "function-call-argument-newline": ["warn", "consistent"],
     "function-paren-newline": ["warn", "consistent"],
-    "indent": ["warn", 2, [{ "MemberExpression": 1 }, { "SwitchCase": 1 }, { "ArrayExpression": 1 }]],
+    "indent": ["warn", 2, { "MemberExpression": 1, "SwitchCase": 1, "ArrayExpression": 1 }],
     "jsx-quotes": ["warn", "prefer-single"],
     "keyword-spacing": "warn",
     "line-comment-position": ["warn", { "position": "above" }],
