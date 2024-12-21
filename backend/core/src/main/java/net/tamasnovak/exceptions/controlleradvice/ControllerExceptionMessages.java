@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.exceptions;
+package net.tamasnovak.exceptions.controlleradvice;
 
 import org.springframework.stereotype.Component;
 
