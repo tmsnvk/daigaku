@@ -22,8 +22,8 @@ import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseS
 import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
 import net.tamasnovak.enums.status.FinalDestinationStatusE;
 import net.tamasnovak.enums.status.ResponseStatusE;
-import net.tamasnovak.exceptions.invalidformfieldexception.InvalidFormFieldException;
-import net.tamasnovak.exceptions.invalidformfieldexception.InvalidFormFieldExceptionMessages;
+import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationException;
+import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationExceptionMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -66,7 +66,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     Application currentApplication, String newApplicationStatusUuid,
     ApplicationStatus newApplicationStatus) {
     if (newApplicationStatusUuid.isEmpty() && currentApplication.isApplicationStatusNull()) {
-      throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.MISSING_APPLICATION_STATUS);
+      throw new FormValidationException(FormValidationExceptionMessages.MISSING_APPLICATION_STATUS);
     }
   }
 
@@ -91,7 +91,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
       if (firmChoiceApplication.isPresent()
         && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.get().getUuid())
         && areValuesEqual(newResponseStatus.getUuid(), firmChoice.getUuid())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.FIRM_CHOICE_ERROR);
+        throw new FormValidationException(FormValidationExceptionMessages.FIRM_CHOICE_ERROR);
       }
     }
   }
@@ -123,7 +123,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
       if (finalDestinationApplication.isPresent()
         && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.get().getUuid())
         && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestination.getUuid())) {
-        throw new InvalidFormFieldException(InvalidFormFieldExceptionMessages.FINAL_DESTINATION_ERROR);
+        throw new FormValidationException(FormValidationExceptionMessages.FINAL_DESTINATION_ERROR);
       }
     }
   }
