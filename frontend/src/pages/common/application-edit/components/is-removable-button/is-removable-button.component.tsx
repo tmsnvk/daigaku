@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* logic imports */
 import { HandleToggleIsRemovable, useToggleIsRemovable } from './is-removable-button.hooks';
 

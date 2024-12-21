@@ -10,6 +10,7 @@
 
 /* external imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { JSX } from 'react';
 import { Location, NavigateFunction, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */

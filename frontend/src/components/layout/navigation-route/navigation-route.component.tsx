@@ -10,6 +10,7 @@
 
 /* external imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
+import { JSX } from 'react';
 
 /* component, style imports */
 import { theme } from '@theme/theme';

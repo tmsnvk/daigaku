@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* logic imports */
 import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-modal';
 

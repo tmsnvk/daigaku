@@ -9,6 +9,7 @@
  */
 
 /* external imports */
+import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
 /* component, style imports */

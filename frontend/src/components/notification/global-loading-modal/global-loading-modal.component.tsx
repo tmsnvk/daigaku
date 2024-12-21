@@ -10,6 +10,7 @@
 
 /* external imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { JSX } from 'react';
 
 /* logic imports */
 import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-modal';

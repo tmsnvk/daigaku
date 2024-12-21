@@ -8,6 +8,9 @@
  * @author tmsnvk
  */
 
+/* external imports */
+import { JSX } from 'react';
+
 /* component, style imports */
 import { constants } from './page-footer.constants';
 import { Footer } from './page-footer.styles';
