@@ -33,14 +33,14 @@ import { SimpleQueryResult } from '@common-types';
  * @since 0.0.1
  */
 export interface DashboardStatistics {
-  firmChoiceTileDto: {
-    country: string;
-    university: string;
+  firmChoiceTileDetails: {
+    countryName: string;
+    universityName: string;
     courseName: string;
   };
-  finalDestinationTileDto: {
-    country: string;
-    university: string;
+  finalDestinationTileDetails: {
+    countryName: string;
+    universityName: string;
     courseName: string;
   };
   applicationsCount: number;

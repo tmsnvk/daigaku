@@ -173,7 +173,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 };
 
 /**
- * The AuthContext object is turned into a custom hook for simplier usage within the application's components.
+ * The AuthContext object is wrapped into a custom hook for simplier usage within the application's components.
  *
  * @since 0.0.1
  */
