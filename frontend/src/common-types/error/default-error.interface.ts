@@ -10,15 +10,16 @@
 
 /**
  * Defines the default error object used throughout the application.
- *
- * @since 0.0.1
  */
-export interface DefaultErrorResponse {
+export interface CoreErrorResponse {
   readonly errorCode: number;
   readonly errors: Array<ErrorDetail>;
   readonly timestamp: string;
 }
 
+/**
+ * Defines a single error detail.
+ */
 export interface ErrorDetail {
   errorMessage: string;
   fieldName: string;

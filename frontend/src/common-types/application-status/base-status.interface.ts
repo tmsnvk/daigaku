@@ -9,9 +9,9 @@
  */
 
 /**
- * Defines a role option object.
+ * Defines the base of an {@link Application} status field.
  */
-export interface RoleOption {
+export interface BaseStatus {
   /**
    * The status's uuid.
    */

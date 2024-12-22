@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* logic imports */
@@ -20,15 +20,7 @@ import { constants } from './global-error-modal.constants.ts';
 import { Dialog } from './global-error-modal.styles.ts';
 
 /**
- * ===============
- * Component {@link GlobalErrorModal}
- * ===============
- */
-
-/**
  * Represents the properties of the {@link GlobalErrorModal} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -52,11 +44,8 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: ComponentProps): JSX.Element => {
-  // Custom hook that manages the rendering of the modal based on visibility state.
   const { dialogRef }: RenderModal = useRenderModal(isVisible);
 
   return (

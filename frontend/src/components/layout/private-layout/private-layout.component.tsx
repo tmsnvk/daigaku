@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX, useEffect } from 'react';
 import { Location, NavigateFunction, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -29,15 +29,7 @@ import { constants } from './private-layout.constants';
 import { NavbarRoute, navigationRoutesByRole, sharedNavigationRoutes } from './private-layout.utilities';
 
 /**
- * ===============
- * Component {@link PrivateLayout}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link PrivateLayout} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -52,8 +44,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => {
   const location: Location = useLocation();

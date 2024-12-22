@@ -21,7 +21,7 @@ import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Comment, DefaultErrorResponse, ErrorDetail, MutationResult } from '@common-types';
+import { Comment, CoreErrorResponse, ErrorDetail, MutationResult } from '@common-types';
 
 /**
  * ===============
@@ -50,7 +50,7 @@ type NewCommentFormErrorT = 'root' | 'comment';
  *
  * @since 0.0.1
  */
-export type SubmitNewComment = MutationResult<Comment, AxiosError<DefaultErrorResponse>, NewCommentFormFields>;
+export type SubmitNewComment = MutationResult<Comment, AxiosError<CoreErrorResponse>, NewCommentFormFields>;
 
 /**
  * Mnages the comment submission process, including REST API request, error handling, and post-success actions.
@@ -68,10 +68,10 @@ export const useSubmitNewComment = (setError: UseFormSetError<NewCommentFormFiel
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid] });
     },
-    onError: (error: AxiosError<DefaultErrorResponse>) => {
+    onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {
         const status: number | undefined = error.response?.data.errorCode;
-        const errors: DefaultErrorResponse | undefined = error.response?.data;
+        const errors: CoreErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {

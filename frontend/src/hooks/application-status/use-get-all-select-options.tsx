@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQueries } from '@tanstack/react-query';
 
 /* logic imports */
@@ -28,8 +28,6 @@ import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus
 
 /**
  * Defines the properties of all {@link Application} status fields.
- *
- * @since 0.0.1
  */
 export interface ApplicationStatusOption {
   /**
@@ -60,8 +58,6 @@ export interface ApplicationStatusOption {
 
 /**
  * Defines the return properties of the {@link useGetAllSelectOptions} custom hook.
- *
- * @since 0.0.1
  */
 export interface ApplicationOptions {
   /**
@@ -84,8 +80,6 @@ export interface ApplicationOptions {
  * Fetches all status objects for the application form.
  *
  * @return {ApplicationOptions}
- *
- * @since 0.0.1
  */
 export const useGetAllSelectOptions = (): ApplicationOptions => {
   return useQueries({

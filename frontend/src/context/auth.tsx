@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { Context, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 /* logic imports */
@@ -22,8 +22,6 @@ import { LoginFormResponse } from '@pages/common/home/components/login-form/logi
 
 /**
  * Defines the authentication status options.
- *
- * @since 0.0.1
  */
 export enum AuthStatus {
   LOADING,
@@ -33,8 +31,6 @@ export enum AuthStatus {
 
 /**
  * Defines the various account types.
- *
- * @since 0.0.1
  */
 export enum AccountRoleValues {
   STUDENT,
@@ -44,21 +40,21 @@ export enum AccountRoleValues {
 }
 
 /**
- * @since 0.0.1
+ * TODO
  */
 interface AccountRole {
   [key: string]: AccountRoleValues;
 }
 
 /**
- * @since 0.0.1
+ * TODO
  */
 interface AuthContextProviderT {
   children: ReactNode;
 }
 
 /**
- * @since 0.0.1
+ * TODO
  */
 export type Account = {
   email: string;
@@ -68,8 +64,6 @@ export type Account = {
 
 /**
  * Defines the properties of the AuthContext object.
- *
- * @since 0.0.1
  */
 export interface AuthContext {
   account: Account;
@@ -90,7 +84,7 @@ const initialAccountState: Account = {
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
 
 /**
- * @since 0.0.1
+ * TODO
  */
 export const AuthProvider = ({ children }: AuthContextProviderT) => {
   const [account, setAccount] = useState<Account>(initialAccountState);
@@ -174,7 +168,5 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 
 /**
  * The AuthContext object is wrapped into a custom hook for simplier usage within the application's components.
- *
- * @since 0.0.1
  */
 export const useAuth = (): AuthContext => useContext(AuthContext);

@@ -8,19 +8,11 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useState } from 'react';
 
 /**
- * ===============
- * Custom Hook {@link useModalToggle}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link useModalToggle} custom hook.
- *
- * @since 0.0.1
  */
 export interface ModalToggle {
   /**
@@ -38,8 +30,6 @@ export interface ModalToggle {
  * Manages the display of modal components that have a single toggle action.
  *
  * @return {ModalControl}
- *
- * @since 0.0.1
  */
 export const useModalToggle = (): ModalToggle => {
   // Tracks the modal's visibility state.

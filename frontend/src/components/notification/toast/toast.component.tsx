@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { Section } from './toast.styles.ts';
 
 /**
- * ===============
- * Component {@link Toast}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link Toast} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -42,8 +34,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element | null}
- *
- * @since 0.0.1
  */
 export const Toast = ({ isVisible, message }: ComponentProps): JSX.Element | null => {
   return isVisible ? <Section>{message}</Section> : null;

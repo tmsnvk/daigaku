@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 
 /* configuration, utilities, constants imports */
@@ -20,8 +20,6 @@ import { AccountRoleValues } from '@context/auth';
 
 /**
  * Defines a navigation route in the application.
- *
- * @since 0.0.1
  */
 export interface NavbarRoute {
   /**
@@ -42,8 +40,6 @@ export interface NavbarRoute {
 
 /**
  * Defines navigation routes based on user roles in the application.
- *
- * @since 0.0.1
  */
 export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [
@@ -65,8 +61,6 @@ export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarR
 
 /**
  * Defines shared navigation routes accessible to all authenticated users.
- *
- * @since 0.0.1
  */
 export const sharedNavigationRoutes: Array<NavbarRoute> = [
   { url: '/account', icon: iconLibraryConfig.faUser, label: constants.routes.shared.myAccount.LABEL },

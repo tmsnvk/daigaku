@@ -10,8 +10,6 @@
 
 /**
  * Defines the possible values of the Application Status field of an {@link Application}.
- *
- * @since 0.0.1
  */
 export enum ApplicationStatusE {
   PLANNED = 'Planned',
@@ -21,8 +19,6 @@ export enum ApplicationStatusE {
 
 /**
  * Defines the possible values of the Interview Status field of an {@link Application}.
- *
- * @since 0.0.1
  */
 export enum InterviewStatusE {
   INVITED = 'Invited',
@@ -32,8 +28,6 @@ export enum InterviewStatusE {
 
 /**
  * Defines the possible values of the Offer Status field of an {@link Application}.
- *
- * @since 0.0.1
  */
 export enum OfferStatusE {
   CONDITIONAL = 'Conditional',
@@ -44,8 +38,6 @@ export enum OfferStatusE {
 
 /**
  * Defines the possible values of the Response Status field of an {@link Application}.
- *
- * @since 0.0.1
  */
 export enum ResponseStatusE {
   FIRM_CHOICE = 'Firm Choice',
@@ -55,8 +47,6 @@ export enum ResponseStatusE {
 
 /**
  * Defines the possible values of the Final Destination Status field of an {@link Application}.
- *
- * @since 0.0.1
  */
 export enum FinalDestinationStatusE {
   FINAL_DESTINATION = 'Final Destination',

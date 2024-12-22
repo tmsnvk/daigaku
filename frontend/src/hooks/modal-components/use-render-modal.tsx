@@ -8,25 +8,17 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { RefObject, useEffect, useRef } from 'react';
 
 /**
- * ===============
- * Custom Hook {@link useRenderModal}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link useRenderModal} custom hook.
- *
- * @since 0.0.1
  */
 export interface RenderModal {
   /**
    * A ref object that is attached to the modal component to control its visibility.
    */
-  dialogRef: RefObject<HTMLDialogElement>;
+  dialogRef: RefObject<HTMLDialogElement | null>;
 }
 
 /**
@@ -34,8 +26,6 @@ export interface RenderModal {
  *
  * @param isVisible A boolean indicating whether the modal should be visible.
  * @return {RenderModal}
- *
- * @since 0.0.1
  */
 export const useRenderModal = (isVisible: boolean): RenderModal => {
   // Create a ref for the modal dialog.

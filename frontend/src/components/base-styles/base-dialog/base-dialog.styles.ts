@@ -8,21 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseLightBorder } from '../base-light-border';
 
-/**
- * ===============
- * Styled Component {@link BaseDialog}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const BaseDialog = styled.dialog`
   ${BaseLightBorder};
 

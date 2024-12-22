@@ -25,7 +25,7 @@ import {
   Application,
   ApplicationStatus,
   ApplicationStatusE,
-  DefaultErrorResponse,
+  CoreErrorResponse,
   ErrorDetail,
   FinalDestinationStatus,
   FinalDestinationStatusE,
@@ -234,7 +234,7 @@ type UpdateApplicationFormErrorT =
  *
  * @since 0.0.1
  */
-export type UpdateApplicationForm = MutationResult<Application, AxiosError<DefaultErrorResponse>, UpdateApplicationFormFields>;
+export type UpdateApplicationForm = MutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationFormFields>;
 
 /**
  * Manages the {@link ApplicationForm} submission process, including REST API request, error handling,
@@ -266,10 +266,10 @@ export const useUpdateApplication = (
 
       history.replaceState(response, '', `/applications/edit/${response.uuid}`);
     },
-    onError: (error: AxiosError<DefaultErrorResponse>) => {
+    onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {
         const status: number | undefined = error.response?.data.errorCode;
-        const errors: DefaultErrorResponse | undefined = error.response?.data;
+        const errors: CoreErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {

@@ -8,6 +8,6 @@
  * @author tmsnvk
  */
 
-import { ApplicationMetadata } from './application-meta-data.component';
+import { ApplicationMetadata } from './application-metadata.component';
 
 export { ApplicationMetadata };

@@ -8,18 +8,13 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-/* interface, type, enum imports */
-import { FormInputValidation } from '@common-types';
-
 /**
- * Defines the core properties of inputs used with `react-hook-form`.
- * This interface is intended to standardize the properties across various input types
+ * Defines the core properties of input fields used with `react-hook-form`.
+ * The interface is intended to standardize the properties across various input types
  * that utilize the `react-hook-form` library for form handling and validation.
- *
- * @since 0.0.1
  */
 export interface CoreInput<T extends FieldValues> {
   /**
@@ -29,9 +24,9 @@ export interface CoreInput<T extends FieldValues> {
   register: UseFormRegister<T>;
 
   /**
-   * Optional validation rules for handling input validation in `react-hook-form`.
+   * Optional validation rules to handle input validation in `react-hook-form`.
    */
-  validationRules?: FormInputValidation;
+  validationRules?: CoreInputValidation;
 
   /**
    * The error message associated with the input, if validation fails.
@@ -47,4 +42,29 @@ export interface CoreInput<T extends FieldValues> {
    * Indicates whether the input is disabled, preventing user interaction.
    */
   isDisabled?: boolean;
+}
+
+/**
+ * Defines validation rules for an input field using `react-hook-form`.
+ * This interface specifies the criteria for input validation,
+ * including required fields and patterns for matching input values, along with custom error messages.
+ */
+interface CoreInputValidation {
+  /**
+   * Specifies whether the input is required to be filled in.
+   * If the requirement is violated, the provided custom error message is displayed for the user.
+   */
+  required?: {
+    value: boolean;
+    message: string;
+  };
+
+  /**
+   * Specifies whether the input must match a certain pattern.
+   * If the requirement is violated, the provided custom error message is displayed for the user.
+   */
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
 }

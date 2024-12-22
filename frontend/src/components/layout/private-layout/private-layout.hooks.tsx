@@ -8,19 +8,11 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useState } from 'react';
 
 /**
- * ===============
- * Custom Hook {@link useSmallScreenNavbarDisplay}
- * ===============
- */
-
-/**
  * Defines the return value properties of the {@link useSmallScreenNavbarDisplay} custom hook.
- *
- * @since 0.0.1
  */
 export interface SmallScreenNavbarDisplay {
   /**
@@ -48,8 +40,6 @@ export interface SmallScreenNavbarDisplay {
  * Toggles the visibility state of the navigation bar on small screens.
  *
  * @return {SmallScreenNavbarDisplay}
- *
- * @since 0.0.1
  */
 export const useSmallScreenNavbarDisplay = (): SmallScreenNavbarDisplay => {
   // State to track whether the navbar is open.

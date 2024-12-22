@@ -20,7 +20,7 @@ import { pendingAccountService } from '@services/index';
 import { mutationKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { DefaultErrorResponse, ErrorDetail, MutationResult } from '@common-types';
+import { CoreErrorResponse, ErrorDetail, MutationResult } from '@common-types';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 import { ConfirmationModal } from '../../home.interfaces';
 
@@ -55,7 +55,7 @@ type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'ins
  *
  * @since 0.0.1
  */
-export type HandleRegistrationForm = MutationResult<void, AxiosError<DefaultErrorResponse>, RegistrationFormFields>;
+export type HandleRegistrationForm = MutationResult<void, AxiosError<CoreErrorResponse>, RegistrationFormFields>;
 
 /**
  * Manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
@@ -76,10 +76,10 @@ export const useSubmitRegistrationForm = (
     onSuccess: () => {
       showModal();
     },
-    onError: (error: AxiosError<DefaultErrorResponse>) => {
+    onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {
         const status: number | undefined = error.response?.status;
-        const errors: DefaultErrorResponse | undefined = error.response?.data;
+        const errors: CoreErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {

@@ -12,18 +12,16 @@
 import { Comment } from './comment.interface';
 
 /**
- * Defines metadata and the list of comments associated with a given {@link Application}.
- *
- * @since 0.0.1
+ * Defines the metadata and the list of comments associated with a given {@link Application}.
  */
 export interface CommentPaginationData {
   /**
-   * The total number of pages available for comments.
+   * The total number of pages.
    */
   readonly totalPages: number;
 
   /**
-   * The current page number of the comments being viewed.
+   * The current page of the comments being viewed.
    */
   readonly currentPage: number;
 

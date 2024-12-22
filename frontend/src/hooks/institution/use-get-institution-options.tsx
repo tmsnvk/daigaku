@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
@@ -24,8 +24,6 @@ import { InstitutionOption, ListQueryResult } from '@common-types';
  * Fetches a list of {@link InstitutionOption} objects.
  *
  * @return {ListQueryResult<InstitutionOption>}
- *
- * @since 0.0.1
  */
 export const useGetInstitutionOptions = (): ListQueryResult<InstitutionOption> => {
   return useQuery({

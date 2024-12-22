@@ -23,7 +23,7 @@ import { mutationKeys } from '@configuration';
 import { localStorageKeyConstants, UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { DefaultErrorResponse, MutationResult } from '@common-types';
+import { CoreErrorResponse, MutationResult } from '@common-types';
 
 /**
  * ===============
@@ -58,7 +58,7 @@ export interface LoginFormResponse {
  *
  * @since 0.0.1
  */
-export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<DefaultErrorResponse>, LoginFormFields>;
+export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<CoreErrorResponse>, LoginFormFields>;
 
 /**
  * Manages the {@link LoginForm} submission process, including REST API request, error handling,
@@ -92,7 +92,7 @@ export const useHandleLoginForm = (setError: UseFormSetError<LoginFormFields>): 
 
       navigate('/dashboard');
     },
-    onError: (error: AxiosError<DefaultErrorResponse>) => {
+    onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {
         const status: number | undefined = error.response?.data.errorCode;
 

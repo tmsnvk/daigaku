@@ -23,6 +23,13 @@
     "sourceType": "module"
   },
   "ignorePatterns": ["node_modules/*"],
+  "overrides": [
+    {
+      "rules": {
+        "@typescript-eslint/no-empty-interface": "off"
+      }
+    }
+  ],
   "rules": {
     // * possible problems * //
     "array-callback-return": "error",

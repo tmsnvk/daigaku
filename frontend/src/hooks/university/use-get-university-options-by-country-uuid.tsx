@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
@@ -27,8 +27,6 @@ import { ListQueryResult, UniversityOption } from '@common-types';
  * @param isCountryFieldSelected Indicates if a country is selected.
  * @param selectedCountryUuid The selected country's uuid.
  * @return {ListQueryResult<UniversityOption>}
- *
- * @since 0.0.1
  */
 export const useGetUniversityOptionsByCountryUuid = (
   isCountryFieldSelected: boolean,

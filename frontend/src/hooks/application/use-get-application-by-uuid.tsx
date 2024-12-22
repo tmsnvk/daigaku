@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
@@ -21,20 +21,12 @@ import { queryKeys } from '@configuration';
 import { Application, SimpleQueryResult } from '@common-types';
 
 /**
- * ===============
- * Custom Hook {@link useGetApplicationByUuid}
- * ===============
- */
-
-/**
  * Fetches an {@link Application} object by uuid.
  * The server-side request is triggered only if the application is not in the `react-router-dom` cache.
  *
  * @param state An {@link Application} object from the local `react-router-dom` cache, if it exists, otherwise null.
  * @param applicationUuid The application's uuid.
  * @return {SimpleQueryResult<Application>}
- *
- * @since 0.0.1
  */
 export const useGetApplicationByUuid = (state: Application | null, applicationUuid: string): SimpleQueryResult<Application> => {
   return useQuery({

@@ -10,10 +10,15 @@
 
 /**
  * Defines an country option object.
- *
- * @since 0.0.1
  */
-export interface CountryOption {
+export interface BaseSupport {
+  /**
+   * The status's uuid.
+   */
   readonly uuid: string;
+
+  /**
+   * The status's name.
+   */
   readonly name: string;
 }

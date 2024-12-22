@@ -22,7 +22,7 @@ import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Application, DefaultErrorResponse, ErrorDetail, MutationResult } from '@common-types';
+import { Application, CoreErrorResponse, ErrorDetail, MutationResult } from '@common-types';
 
 /**
  * ===============
@@ -55,7 +55,7 @@ type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | '
  *
  * @since 0.0.1
  */
-export type CreateApplication = MutationResult<Application, AxiosError<DefaultErrorResponse>, CreateApplicationFormFields>;
+export type CreateApplication = MutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationFormFields>;
 
 /**
  * Manages the submission of new application submission via the `react-query` package.
@@ -91,10 +91,10 @@ export const useCreateApplication = (
       resetCountrySelection();
       reset();
     },
-    onError: (error: AxiosError<DefaultErrorResponse>) => {
+    onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {
         const status: number | undefined = error.response?.data.errorCode;
-        const errors: DefaultErrorResponse | undefined = error.response?.data;
+        const errors: CoreErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {

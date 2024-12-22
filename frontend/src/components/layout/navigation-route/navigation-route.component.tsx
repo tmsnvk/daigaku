@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { JSX } from 'react';
 
@@ -17,15 +17,7 @@ import { theme } from '@theme/theme';
 import { NavbarIcon, RouteLink } from './navigation-route.styles';
 
 /**
- * ===============
- * Component {@link NavigationRoute}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link NavigationRoute} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -44,7 +36,7 @@ interface ComponentProps {
   readonly label: string;
 
   /**
-   * Callback method that handles logging the user out.
+   * A callback method that handles logging the user out.
    */
   readonly onLogOutClick?: () => void;
 }
@@ -54,8 +46,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const NavigationRoute = ({ resource, icon, label, onLogOutClick }: ComponentProps): JSX.Element => {
   return (

@@ -8,35 +8,25 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
 /**
- * ===============
- * Styled Component {@link BaseTextarea}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link BaseTextarea} styled-component, allowing for styling variations based on error and disabled states.
- *
- * @since 0.0.1
+ * Defines the properties of the {@link BaseTextarea} styled-component,
+ * enabling styling variations based on error and disabled states.
  */
 interface BaseTextareaProps {
   /**
-   * Indicates if there is an error state.
+   * Indicates whether the input is in an error state.
    */
   readonly $isError?: boolean;
 
   /**
-   * Indicates if the textarea is disabled.
+   * Indicates whether the input is disabled.
    */
   readonly $isDisabled?: boolean;
 }
 
-/**
- * @since 0.0.1
- */
 export const BaseTextarea = styled.article<BaseTextareaProps>`
   width: 100%;
   height: 27.5rem;

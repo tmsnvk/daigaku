@@ -8,12 +8,10 @@
  * @author tmsnvk
  */
 
+/* interface, type, enum imports */
+import { BaseStatus } from './base-status.interface';
+
 /**
- * Defines an response status option object.
- *
- * @since 0.0.1
+ * Defines a response status option object.
  */
-export interface ResponseStatus {
-  readonly uuid: string;
-  readonly name: string;
-}
+export interface ResponseStatus extends BaseStatus {}

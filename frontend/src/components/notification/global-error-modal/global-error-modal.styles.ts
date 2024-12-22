@@ -8,21 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseDialog } from '@components/base-styles';
 
-/**
- * ===============
- * Styled Component {@link Dialog}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const Dialog = styled(BaseDialog)`
   display: flex;
   flex-direction: column;

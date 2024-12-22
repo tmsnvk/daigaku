@@ -8,9 +8,6 @@
  * @author tmsnvk
  */
 
-/**
- * @since 0.0.1
- */
 export const constants = {
   ui: {
     LOADING_TEXT: 'The application is compiling your data...',

@@ -8,13 +8,12 @@
  * @author tmsnvk
  */
 
+/* interface, type, enum imports */
+import { BaseSupport } from './base-support.interface';
+
 /**
  * Defines an institution option object.
- *
- * @since 0.0.1
  */
-export interface InstitutionOption {
-  readonly uuid: string;
+export interface InstitutionOption extends BaseSupport {
   readonly city: string;
-  readonly name: string;
 }

@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
@@ -26,20 +26,11 @@ import { constants } from './country-dropdown.constants';
 import { CountryOption, DropdownInput } from '@common-types';
 
 /**
- * ===============
- * Component {@link CountryDropdown}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link CountryDropdown} component.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
- * @template U - The type of options available in the dropdown.
- *
- * @since 0.0.1
  */
-interface ComponentProps<T extends FieldValues, U> extends DropdownInput<T, U> {
+interface ComponentProps<T extends FieldValues> extends DropdownInput<T, CountryOption> {
   /**
    * Callback invoked when a country is selected.
    */
@@ -51,8 +42,6 @@ interface ComponentProps<T extends FieldValues, U> extends DropdownInput<T, U> {
  *
  * @param {ComponentProps<T extends FieldValues>} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const CountryDropdown = <T extends FieldValues>({
   register,
@@ -62,8 +51,7 @@ export const CountryDropdown = <T extends FieldValues>({
   isDisabled,
   options,
   onCountrySelection,
-}: ComponentProps<T, CountryOption>): JSX.Element => {
-  // Custom hook that handles the country selection logic.
+}: ComponentProps<T>): JSX.Element => {
   const { handleCountrySelection }: SelectCountry = useSelectCountry(onCountrySelection);
 
   return (

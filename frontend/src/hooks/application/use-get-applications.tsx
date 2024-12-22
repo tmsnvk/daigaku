@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
@@ -22,17 +22,9 @@ import { queryKeys } from '@configuration';
 import { Application, ListQueryResult } from '@common-types';
 
 /**
- * ===============
- * Custom Hook {@link useGetApplications}
- * ===============
- */
-
-/**
  * Fetches a list of {@link Application} objects based on the user's authorisation role.
  *
  * @return {ListQueryResult<Application>}
- *
- * @since 0.0.1
  */
 export const useGetApplications = (): ListQueryResult<Application> => {
   // Authentication context.

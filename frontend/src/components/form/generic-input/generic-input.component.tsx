@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
@@ -20,18 +20,17 @@ import { InputError, InputLabel } from '@components/form';
 import { CommonInput } from '@common-types';
 
 /**
- * ===============
- * Component {@link GenericInput}
- * ===============
+ * Defines the properties of the {@link GenericInput} component.
+ *
+ * @template T - The type of form values extending the `react-hook-form` library.
  */
+interface ComponentProps<T extends FieldValues> extends CommonInput<T> {}
 
 /**
  * Renders a generic input integrated with the `react-hook-form` library for validation and error handling.
  *
- * @param {ComponentProps} props
+ * @param {ComponentProps<T>} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const GenericInput = <T extends FieldValues>({
   register,
@@ -43,7 +42,7 @@ export const GenericInput = <T extends FieldValues>({
   placeholder,
   initialValue,
   isDisabled,
-}: CommonInput<T>): JSX.Element => {
+}: ComponentProps<T>): JSX.Element => {
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel

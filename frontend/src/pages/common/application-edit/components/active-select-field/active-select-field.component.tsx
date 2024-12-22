@@ -13,12 +13,11 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* component, style imports */
-import { CoreInput } from '@common-types';
+import { ApplicationStatus, CoreInput, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
-import { ApplicationStatusSelectOption } from '@common-types';
 import { FieldUpdate, useOnFieldUpdate } from './active-select-field.hooks';
 import { SelectOptions } from './active-select-field.interfaces';
 
@@ -42,7 +41,7 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   /**
    * The value previously selected by the user, or null if none.
    */
-  previouslySelectedValue: ApplicationStatusSelectOption | null;
+  previouslySelectedValue: ApplicationStatus | InterviewStatus | OfferStatus | ResponseStatus | FinalDestinationStatus | null;
 
   /**
    * The prompt text displayed in the select input when no option is selected.

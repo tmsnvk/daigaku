@@ -8,18 +8,9 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled, { keyframes } from 'styled-components';
 
-/**
- * ===============
- * Styled Component {@link Paragraph}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -30,9 +21,6 @@ const fadeIn = keyframes`
   }
 `;
 
-/**
- * @since 0.0.1
- */
 export const Paragraph = styled.p`
   padding: 1rem 0 0 0;
   text-align: center;

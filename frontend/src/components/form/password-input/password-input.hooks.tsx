@@ -8,19 +8,11 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useState } from 'react';
 
 /**
- * ===============
- * Custom Hook {@link useTogglePassword}
- * ===============
- */
-
-/**
- * Defines the properties return by the {@link useTogglePassword} custom hook.
- *
- * @since 0.0.1
+ * Defines the properties returned by the {@link useTogglePassword} custom hook.
  */
 export interface TogglePassword {
   /**
@@ -31,28 +23,26 @@ export interface TogglePassword {
   /**
    * Toggles the visibility of the password text.
    */
-  toggleTextVisibility: () => void;
+  toggleInputVisibility: () => void;
 }
 
 /**
  * Manages password visibility in input fields.
- * Toggles the display of password text between plain text and obfuscated characters.
+ * Toggles the display of password input between plain text and obfuscated characters.
  *
  * @return {TogglePassword}
- *
- * @since 0.0.1
  */
 export const useTogglePassword = (): TogglePassword => {
   // State to determine if the password text is currently revealed.
   const [isTextRevealed, setIsTextRevealed] = useState<boolean>(false);
 
-  // Toggles the current state of password visibility.
-  const toggleTextVisibility = (): void => {
+  // Toggles the state of password visibility.
+  const toggleInputVisibility = (): void => {
     setIsTextRevealed(!isTextRevealed);
   };
 
   return {
     isTextRevealed,
-    toggleTextVisibility,
+    toggleInputVisibility,
   };
 };

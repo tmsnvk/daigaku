@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
@@ -27,18 +27,17 @@ import { iconLibraryConfig } from '@configuration';
 import { CommonInput } from '@common-types';
 
 /**
- * ===============
- * Component {@link PasswordInput}
- * ===============
+ * Defines the properties of the {@link PasswordInput} component.
+ *
+ * @template T - The type of form values extending the `react-hook-form` library.
  */
+interface ComponentProps<T extends FieldValues> extends CommonInput<T> {}
 
 /**
  * Renders a password input field that integrates with the `react-hook-form` library for validation and error handling.
  *
- * @param {ComponentProps} props
+ * @param {ComponentProps<T>} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const PasswordInput = <T extends FieldValues>({
   register,
@@ -49,9 +48,8 @@ export const PasswordInput = <T extends FieldValues>({
   placeholder,
   initialValue,
   isDisabled,
-}: CommonInput<T>): JSX.Element => {
-  // Custom hook that manages password visibility toggle.
-  const { isTextRevealed, toggleTextVisibility }: TogglePassword = useTogglePassword();
+}: ComponentProps<T>): JSX.Element => {
+  const { isTextRevealed, toggleInputVisibility }: TogglePassword = useTogglePassword();
 
   return (
     <BasePasswordInput $isError={error !== undefined}>
@@ -71,7 +69,7 @@ export const PasswordInput = <T extends FieldValues>({
           defaultValue={initialValue ?? ''}
         />
         <FontAwesomeIcon
-          onClick={toggleTextVisibility}
+          onClick={toggleInputVisibility}
           icon={isTextRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
         />
       </div>

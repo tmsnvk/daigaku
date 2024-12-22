@@ -8,44 +8,22 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
-import { Article } from './application-meta-data.styles';
+import { Article } from './application-metadata.styles';
+
+/* configuration, utilities, constants imports */
+import { constants } from './application-metadata.constants';
+
+/* interface, type, enum imports */
+import { BaseMetadata } from '@common-types';
 
 /**
- * ===============
- * Component {@link ApplicationMetadata}
- * ===============
+ * Defines the properties of the {@link ApplicationMetadata} component.
  */
-
-/**
- * Defines the properties for the {@link ApplicationMetadata} component.
- *
- * @since 0.0.1
- */
-interface ComponentProps {
-  /**
-   * The date and time when the application was initially created.
-   */
-  readonly createdAt: Date;
-
-  /**
-   *  The name of the user who created the application.
-   */
-  readonly createdBy: string;
-
-  /**
-   * The date and time when the application was last updated.
-   */
-  readonly lastUpdatedAt: Date;
-
-  /**
-   *  The name of the user who last modified the application.
-   */
-  readonly lastModifiedBy: string;
-}
+interface ComponentProps extends BaseMetadata {}
 
 /**
  * Renders the metadata for a selected application, including the creation and
@@ -53,15 +31,13 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps): JSX.Element => {
   return (
     <Article>
       <dl>
         <div>
-          <dt>Submitted at:</dt>{' '}
+          <dt>{constants.ui.SUBMITTED_AT}</dt>{' '}
           <dd>
             {new Date(createdAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -73,10 +49,10 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
           </dd>
         </div>
         <div>
-          <dt>Submitted by:</dt> <dd>{createdBy}</dd>
+          <dt>{constants.ui.SUBMITTED_BY}</dt> <dd>{createdBy}</dd>
         </div>
         <div>
-          <dt>Last updated at:</dt>{' '}
+          <dt>{constants.ui.LAST_UPDATED_AT}</dt>{' '}
           <dd>
             {new Date(lastUpdatedAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -88,7 +64,7 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
           </dd>
         </div>
         <div>
-          <dt>Last modified by:</dt> <dd>{lastModifiedBy}</dd>
+          <dt>{constants.ui.LAST_MODIFIED_BY}</dt> <dd>{lastModifiedBy}</dd>
         </div>
       </dl>
     </Article>

@@ -16,8 +16,9 @@ import { queryClient, queryKeys } from '@configuration';
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
 
 /* interface, type, enum imports */
-import { Application, ApplicationField } from '@common-types';
+import { Application } from '@common-types';
 import { localStorageKeyConstants } from '@constants';
+import { ApplicationField } from './applications.types';
 
 /**
  * ===============
@@ -194,6 +195,7 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
         (sortOrder === SortOrder.ASC ? 1 : -1)
       );
     });
+
     queryClient.setQueryData([queryKeys.application.GET_ALL_BY_ROLE], [...sortedData]);
   };
 

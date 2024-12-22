@@ -9,14 +9,13 @@
  */
 
 /* interface, type, enum imports */
-import { ApplicationStatusSelectOption } from './application-status-select-option.interface';
+import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
+import { BaseMetadata } from '../metadata/base-metada.interface';
 
 /**
  * Defines the details of a user's {@link Application}, including its status, associated account, and relevant timestamps.
- *
- * @since 0.0.1
  */
-export interface Application {
+export interface Application extends BaseMetadata {
   readonly uuid: string;
   readonly account: string;
   readonly country: string;
@@ -24,14 +23,10 @@ export interface Application {
   readonly courseName: string;
   readonly minorSubject: string;
   readonly programmeLength: number;
-  readonly applicationStatus: ApplicationStatusSelectOption;
-  readonly interviewStatus: ApplicationStatusSelectOption;
-  readonly offerStatus: ApplicationStatusSelectOption;
-  readonly responseStatus: ApplicationStatusSelectOption;
-  readonly finalDestinationStatus: ApplicationStatusSelectOption;
-  readonly createdAt: Date;
-  readonly lastUpdatedAt: Date;
-  readonly createdBy: string;
-  readonly lastModifiedBy: string;
+  readonly applicationStatus: ApplicationStatus;
+  readonly interviewStatus: InterviewStatus;
+  readonly offerStatus: OfferStatus;
+  readonly responseStatus: ResponseStatus;
+  readonly finalDestinationStatus: FinalDestinationStatus;
   isRemovable: boolean;
 }

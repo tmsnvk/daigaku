@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
@@ -24,8 +24,6 @@ import { ListQueryResult, RoleOption } from '@common-types';
  * Fetches a list of {@link RoleOption} objects.
  *
  * @return {ListQueryResult<RoleOption>}
- *
- * @since 0.0.1
  */
 export const useGetStudentAndMentorAccountRoles = (): ListQueryResult<RoleOption> => {
   return useQuery({

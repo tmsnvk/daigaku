@@ -8,12 +8,10 @@
  * @author tmsnvk
  */
 
+/* interface, type, enum imports */
+import { BaseStatus } from './base-status.interface';
+
 /**
  * Defines an offer status option object.
- *
- * @since 0.0.1
  */
-export interface OfferStatus {
-  readonly uuid: string;
-  readonly name: string;
-}
+export interface OfferStatus extends BaseStatus {}

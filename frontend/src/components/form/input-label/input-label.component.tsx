@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { Label } from './input-label.styles';
 
 /**
- * ===============
- * Component {@link InputLabel}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link InputLabel} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -42,8 +34,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const InputLabel = ({ inputId, labelText }: ComponentProps): JSX.Element => {
   return <Label htmlFor={inputId}>{labelText}</Label>;
