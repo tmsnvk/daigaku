@@ -93,20 +93,20 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           title={constants.categories.OFFERS}
           value={data.offersCount}
         />
-        {data.firmChoiceTileDto && (
+        {data.firmChoiceTileDetails && (
           <DetailTile
             title={constants.categories.FIRM_CHOICE}
-            country={data.firmChoiceTileDto.country ?? ''}
-            university={data.firmChoiceTileDto.university ?? constants.categories.NOT_YET_SELECTED}
-            courseName={data.firmChoiceTileDto.courseName ?? ''}
+            country={data.firmChoiceTileDetails.countryName ?? ''}
+            university={data.firmChoiceTileDetails.universityName ?? constants.categories.NOT_YET_SELECTED}
+            courseName={data.firmChoiceTileDetails.courseName ?? ''}
           />
         )}
-        {data.finalDestinationTileDto && (
+        {data.finalDestinationTileDetails && (
           <DetailTile
             title={constants.categories.FINAL_DESTINATION}
-            country={data.finalDestinationTileDto.country ?? ''}
-            university={data.finalDestinationTileDto.university ?? constants.categories.NOT_YET_SELECTED}
-            courseName={data.finalDestinationTileDto.courseName ?? ''}
+            country={data.finalDestinationTileDetails.countryName ?? ''}
+            university={data.finalDestinationTileDetails.universityName ?? constants.categories.NOT_YET_SELECTED}
+            courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}
       </TileUnit>

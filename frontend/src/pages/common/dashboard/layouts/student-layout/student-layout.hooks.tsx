@@ -29,6 +29,13 @@ import { DashboardStatistics } from '../../dashboard.hooks';
  */
 
 /**
+ * Defines a single Todo item.
+ *
+ * @since 0.0.1
+ */
+export type Todo = string;
+
+/**
  * Defines the {@link useTodoList} custom hook's return value properties.
  *
  * @since 0.0.1
@@ -39,13 +46,6 @@ export interface TodoList {
    */
   todos: Array<Todo>;
 }
-
-/**
- * Defines a single Todo item.
- *
- * @since 0.0.1
- */
-export type Todo = string;
 
 /**
  * Evaluates the current todo items based on the provided dashboard statistics.
@@ -62,24 +62,36 @@ export const useTodoList = (data: DashboardStatistics): TodoList => {
   // Evaluates which todo items should be added to the todos array.
   const evaluateTodos = (): void => {
     // No applications made.
-    data.applicationsCount === 0 && todos.push(noApplications);
+    if (data.applicationsCount === 0) {
+      todos.push(noApplications);
+    }
 
     // No applications are in the 'Submitted' status.
-    data.submittedApplicationsCount === 0 && todos.push(noSubmittedApplications);
+    if (data.submittedApplicationsCount === 0) {
+      todos.push(noSubmittedApplications);
+    }
 
     if (data.submittedApplicationsCount > 0) {
       // There is no InterviewStatus set for submitted applications.
-      data.notSetInterviewStatusCount && todos.push(noInterviewStatusSet);
+      if (data.notSetInterviewStatusCount) {
+        todos.push(noInterviewStatusSet);
+      }
 
       // There is no firm choice application selected.
-      !data.firmChoiceTileDto && todos.push(noFirmChoiceSet);
+      if (!data.firmChoiceTileDetails) {
+        todos.push(noFirmChoiceSet);
+      }
 
       // OfferStatus is not updated on any of the 'Submitted' applications.
-      data.offersCount === 0 && todos.push(noOfferStatusSet);
+      if (data.offersCount === 0) {
+        todos.push(noOfferStatusSet);
+      }
     }
 
     // There are offers but no FinalDestinationStatus is set.
-    data.offersCount && !data.finalDestinationTileDto && todos.push(noFinalDestinationSet);
+    if (data.offersCount && !data.finalDestinationTileDetails) {
+      todos.push(noFinalDestinationSet);
+    }
 
     // There are no todo items.
     if (todos.length === 0) {
