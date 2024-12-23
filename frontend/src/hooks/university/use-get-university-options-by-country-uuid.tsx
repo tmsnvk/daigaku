@@ -12,7 +12,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { universityService } from '@services/index.ts';
+import { universityService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';

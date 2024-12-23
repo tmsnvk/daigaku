@@ -9,7 +9,7 @@
  */
 
 /* interface, type, enum imports */
-import { BaseSupport } from './base-support.interface';
+import { BaseSupport } from './base-support.models';
 
 /**
  * Defines a university option object.

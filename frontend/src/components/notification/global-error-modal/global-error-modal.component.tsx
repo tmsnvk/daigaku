@@ -12,12 +12,17 @@
 import { JSX } from 'react';
 
 /* logic imports */
-import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-modal';
+import { useRenderModal } from '@hooks/modal-components/use-render-modal';
 
 /* component, style imports */
 import { SubmitInput } from '@components/form/index.ts';
-import { constants } from './global-error-modal.constants.ts';
 import { Dialog } from './global-error-modal.styles.ts';
+
+/* configuration, utilities, constants imports */
+import { constants } from './global-error-modal.constants.ts';
+
+/* interface, type, enum imports */
+import { RenderModal } from '@common-types';
 
 /**
  * Represents the properties of the {@link GlobalErrorModal} component.

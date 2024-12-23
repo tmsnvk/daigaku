@@ -8,60 +8,25 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
 import { AuthContext, useAuth } from '@context/auth';
-import { applicationService } from '@services/index';
+import { applicationService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { SimpleQueryResult } from '@common-types';
-
-/**
- * ===============
- * Custom Hook {@link useGetDashboardStatistics}
- * ===============
- */
-
-/**
- * Defines the {@link useGetDashboardStatistics} custom hook's return value properties.
- *
- * @since 0.0.1
- */
-export interface DashboardStatistics {
-  firmChoiceTileDetails: {
-    countryName: string;
-    universityName: string;
-    courseName: string;
-  };
-  finalDestinationTileDetails: {
-    countryName: string;
-    universityName: string;
-    courseName: string;
-  };
-  applicationsCount: number;
-  plannedApplicationsCount: number;
-  submittedApplicationsCount: number;
-  withdrawnStatusCount: number;
-  distinctCountriesCount: number;
-  distinctUniversitiesCount: number;
-  notSetInterviewStatusCount: number;
-  offersCount: number;
-}
+import { DashboardStatistics, SimpleQueryResult } from '@common-types';
 
 /**
  * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation.
  *
  * @return {SimpleQueryResult<DashboardStatistics>}
- *
- * @since 0.0.1
  */
 export const useGetDashboardStatistics = (): SimpleQueryResult<DashboardStatistics> => {
-  // Authentication context.
   const { getRoleResource }: Partial<AuthContext> = useAuth();
   const accountRole: string = getRoleResource();
 

@@ -15,7 +15,7 @@ import { Location, NavigateFunction, Outlet, useLocation, useNavigate } from 're
 
 /* logic imports */
 import { AccountRoleValues, AuthContext, AuthStatus, useAuth } from '@context/auth';
-import { SmallScreenNavbarDisplay, useSmallScreenNavbarDisplay } from './private-layout.hooks';
+import { useSmallScreenNavbarDisplay } from './private-layout.hooks';
 
 /* component, style imports */
 import { GlobalLoadingModal } from '@components/notification';
@@ -26,7 +26,10 @@ import { Header, SmallScreenMenuToggle, SmallScreenMenuWrapper } from './private
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { constants } from './private-layout.constants';
-import { NavbarRoute, navigationRoutesByRole, sharedNavigationRoutes } from './private-layout.utilities';
+import { accountRoleNavigationRoutes, sharedNavigationRoutes } from './private-layout.utilities';
+
+/* interface, type, enum imports */
+import { NavbarRoute, SmallScreenNavbarDisplay } from './private-layout.models';
 
 /**
  * Defines the properties of the {@link PrivateLayout} component.
@@ -49,8 +52,6 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
   const location: Location = useLocation();
   const navigate: NavigateFunction = useNavigate();
   const { authStatus, account, logOut }: Partial<AuthContext> = useAuth();
-
-  // Custom hook that manages small screen navbar display state.
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur }: SmallScreenNavbarDisplay = useSmallScreenNavbarDisplay();
 
   // Redirect unauthorised users.
@@ -93,7 +94,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
             onBlur={handleOnBlur}
           >
             <ul>
-              {navigationRoutesByRole[account.role as AccountRoleValues].map((route: NavbarRoute) => {
+              {accountRoleNavigationRoutes[account.role as AccountRoleValues].map((route: NavbarRoute) => {
                 return (
                   <li key={route.url}>
                     <NavigationRoute
@@ -122,7 +123,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
                   resource={'/'}
                   icon={iconLibraryConfig.faRightFromBracket}
                   label={constants.routes.shared.logOut.LABEL}
-                  onLogOutClick={() => logOut()}
+                  onNavigateClick={() => logOut()}
                 />
               </li>
             </ul>

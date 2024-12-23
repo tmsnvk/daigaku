@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,8 @@ import { axiosConfigWithAuth } from '@configuration';
 import { FinalDestinationStatus } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link applicationStatusService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link applicationStatusService} object, responsible for managing final-destination-status-related API requests.
- *
- * @since 0.0.1
+ * Defines the operations of the {@link applicationStatusService} object,
+ * responsible for managing final-destination-status-related API requests.
  */
 interface FinalDestinationStatusService {
   /**
@@ -40,8 +33,6 @@ interface FinalDestinationStatusService {
 
 /**
  * Manages final-destination-status-related REST API operations, implementing {@link FinalDestinationStatusService}.
- *
- * @since 0.0.1
  */
 export const finalDestinationStatusService: FinalDestinationStatusService = {
   getAll: async (): Promise<Array<FinalDestinationStatus>> => {

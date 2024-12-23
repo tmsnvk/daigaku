@@ -8,10 +8,8 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
-/**
- * @since 0.0.1
- */
+// TODO
 export const ErrorContainer = styled.div``;

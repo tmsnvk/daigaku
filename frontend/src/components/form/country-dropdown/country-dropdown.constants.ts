@@ -11,7 +11,7 @@
 export const constants = {
   ui: {
     dropdown: {
-      LABEL_TEXT: 'Country',
+      LABEL: 'Country',
       DEFAULT_OPTION: 'Select the country of your choice.',
     },
   },

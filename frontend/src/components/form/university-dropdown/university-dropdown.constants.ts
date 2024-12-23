@@ -11,8 +11,8 @@
 export const constants = {
   ui: {
     dropdown: {
-      LABEL_TEXT: 'University',
-      DEFAULT_VALUE: 'Select the university of your choice.',
+      LABEL: 'University',
+      DEFAULT_OPTION: 'Select the university of your choice.',
     },
   },
 };

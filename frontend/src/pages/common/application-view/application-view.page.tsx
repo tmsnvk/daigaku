@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -28,17 +28,9 @@ import { constants } from './application-view.constants';
 import { Application, ApplicationLocation, SimpleQueryResult } from '@common-types';
 
 /**
- * ===============
- * Component {@link ApplicationView}
- * ===============
- */
-
-/**
  * Renders the view mode of an {@link Application} object.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ApplicationView = (): JSX.Element => {
   // `react-router-dom` useLocation object.

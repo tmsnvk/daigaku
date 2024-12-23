@@ -25,7 +25,7 @@ interface ComponentProps {
 }
 
 /**
- * Renders a list of instruction paragraphs for a given input.
+ * Renders a list of instruction paragraphs for a given input field.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

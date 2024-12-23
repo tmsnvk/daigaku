@@ -14,7 +14,7 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { TogglePassword, useTogglePassword } from './password-input.hooks';
+import { useTogglePassword } from './password-input.hooks';
 
 /* component, style imports */
 import { BasePasswordInput } from '@components/base-styles';
@@ -25,6 +25,7 @@ import { iconLibraryConfig } from '@configuration';
 
 /* interface, type, enum imports */
 import { CommonInput } from '@common-types';
+import { TogglePassword } from './password-input.models';
 
 /**
  * Defines the properties of the {@link PasswordInput} component.

@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
 import { AuthContext, useAuth } from '@context/auth';
-import { applicationService } from '@services/index';
+import { applicationService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
@@ -27,7 +27,6 @@ import { Application, ListQueryResult } from '@common-types';
  * @return {ListQueryResult<Application>}
  */
 export const useGetApplications = (): ListQueryResult<Application> => {
-  // Authentication context.
   const { getRoleResource }: Partial<AuthContext> = useAuth();
   const accountRole: string = getRoleResource();
 

@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { CountryOption } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link countryService}
- * ===============
- */
-
-/**
  * Defines the operations of the {@link countryService} object, responsible for managing country-related API requests.
- *
- * @since 0.0.1
  */
 interface CountryService {
   /**
@@ -40,8 +32,6 @@ interface CountryService {
 
 /**
  * Manages country-related REST API operations, implementing {@link CountryService}.
- *
- * @since 0.0.1
  */
 export const countryService: CountryService = {
   getAllOptions: async (): Promise<Array<CountryOption>> => {

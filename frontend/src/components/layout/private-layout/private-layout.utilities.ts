@@ -8,40 +8,18 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { IconLookup } from '@fortawesome/fontawesome-svg-core';
-
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { constants } from './private-layout.constants';
 
 /* interface, type, enum imports */
 import { AccountRoleValues } from '@context/auth';
+import { NavbarRoute } from './private-layout.models';
 
 /**
- * Defines a navigation route in the application.
+ * Defines navigation routes based on application's account roles.
  */
-export interface NavbarRoute {
-  /**
-   * The URL associated with the navigation route.
-   */
-  readonly url: string;
-
-  /**
-   * The FontAwesome icon associated with the navigation route.
-   */
-  readonly icon: IconLookup;
-
-  /**
-   * The label displayed for the navigation route.
-   */
-  readonly label: string;
-}
-
-/**
- * Defines navigation routes based on user roles in the application.
- */
-export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
+export const accountRoleNavigationRoutes: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [
     { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, label: constants.routes.student.newApplication.LABEL },
     { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.student.myApplications.LABEL },

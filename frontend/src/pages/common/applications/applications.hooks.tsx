@@ -8,72 +8,22 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useState } from 'react';
 
 /* configuration, utilities, constants imports */
 import { queryClient, queryKeys } from '@configuration';
-import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities/local-storage.utilities';
+import { localStorageKeys } from '@constants';
+import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
-import { localStorageKeyConstants } from '@constants';
-import { ApplicationField } from './applications.types';
-
-/**
- * ===============
- * Custom Hook {@link useColumnVisibility}
- * ===============
- */
-
-/**
- * Defines the properties of what a single column can display.
- *
- * @since 0.0.1
- */
-interface ColumnConfig {
-  applicationStatus: boolean;
-  interviewStatus: boolean;
-  offerStatus: boolean;
-  responseStatus: boolean;
-  finalDestinationStatus: boolean;
-}
-
-/**
- * Defines the core properties of a single column.
- *
- * @since 0.0.1
- */
-export interface Column {
-  readonly id: string;
-  readonly name: string;
-  readonly isCoreColumn: boolean;
-  readonly isVisible: boolean;
-}
-
-/**
- * Defines the return value properties of the {@link useColumnVisibility} custom hook.
- *
- * @since 0.0.1
- */
-export interface ColumnVisibility {
-  /**
-   * The current column configuration.
-   */
-  columns: Array<Column>;
-
-  /**
-   * A function to toggle column visibility.
-   */
-  toggleColumnVisibility: (id: string) => void;
-}
+import { ApplicationField, Column, ColumnConfig, ColumnVisibility, SetOrder } from './applications.models';
 
 /**
  * Manages the visibility of columns in the Applications page's table.
  *
  * @return {ColumnVisibility}
- *
- * @since 0.0.1
  */
 export const useColumnVisibility = (): ColumnVisibility => {
   const defaultColumnConfig: ColumnConfig = {
@@ -84,7 +34,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
     finalDestinationStatus: false,
   };
   const columnConfig: ColumnConfig = getLocalStorageObjectById<ColumnConfig>(
-    localStorageKeyConstants.APPLICATION_TABLE_COLUMNS,
+    localStorageKeys.APPLICATION_TABLE_COLUMNS,
     defaultColumnConfig,
   );
 
@@ -125,7 +75,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
         if (column.id === id) {
           const updatedColumnConfig: ColumnConfig = { ...columnConfig, [column.id]: !column.isVisible };
 
-          setLocalStorageObjectById(localStorageKeyConstants.APPLICATION_TABLE_COLUMNS, updatedColumnConfig);
+          setLocalStorageObjectById(localStorageKeys.APPLICATION_TABLE_COLUMNS, updatedColumnConfig);
 
           return { ...column, isVisible: !column.isVisible };
         }
@@ -142,27 +92,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
 };
 
 /**
- * ===============
- * Custom Hook {@link useSortOrder}
- * ===============
- */
-
-/**
- * Defines the return value properties of the {@link useSortOrder} custom hook.
- *
- * @since 0.0.1
- */
-export interface SetOrder {
-  /**
-   * A function that manages the sorting updates.
-   */
-  handleColumnSort: (columnId: string) => void;
-}
-
-/**
  * Defines the possible sorting options.
- *
- * @since 0.0.1
  */
 enum SortOrder {
   ASC,
@@ -173,8 +103,6 @@ enum SortOrder {
  * Manages the sorting of data rows in the Applications page's table.
  *
  * @return {SetOrder}
- *
- * @since 0.0.1
  */
 export const useSortOrder = (data: Array<Application>): SetOrder => {
   const [sortedField, setSortedField] = useState<string>('courseName');

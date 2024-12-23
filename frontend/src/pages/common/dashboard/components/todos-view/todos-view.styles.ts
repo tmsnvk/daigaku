@@ -8,21 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
-/**
- * ===============
- * Styled Component {@link Section}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const Section = styled.section`
   ${BaseLightBorder};
 

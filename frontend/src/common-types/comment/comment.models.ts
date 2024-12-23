@@ -9,7 +9,7 @@
  */
 
 /* interface, type, enum imports */
-import { BaseMetadata } from '../metadata/base-metada.interface';
+import { BaseMetadata } from '../metadata/base-metada.models';
 
 /**
  * Defines a comment associated with a given {@link Application}.

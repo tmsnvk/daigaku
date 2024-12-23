@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';

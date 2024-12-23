@@ -11,25 +11,8 @@
 /* vendor imports */
 import { useState } from 'react';
 
-/**
- * Defines the properties of the {@link useModalControl} custom hook.
- */
-export interface ModalControl {
-  /**
-   * Indicates whether the modal is currently visible.
-   */
-  isModalVisible: boolean;
-
-  /**
-   * Shows the modal.
-   */
-  showModal: () => void;
-
-  /**
-   * Hides the modal.
-   */
-  closeModal: () => void;
-}
+/* interface, type, enum imports */
+import { ModalControl } from '@common-types';
 
 /**
  * Manages modal visibility, providing methods to show or hide the modal.

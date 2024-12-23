@@ -10,7 +10,7 @@
 
 /* interface, type, enum imports */
 import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
-import { BaseMetadata } from '../metadata/base-metada.interface';
+import { BaseMetadata } from '../metadata/base-metada.models';
 
 /**
  * Defines the details of a user's {@link Application}, including its status, associated account, and relevant timestamps.

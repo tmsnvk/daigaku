@@ -8,14 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
 
 /* logic imports */
 import { AuthContext, AuthStatus, useAuth } from '@context/auth';
 import { useModalControl } from '@hooks/index';
-import { ActiveFormComponent, useActiveFormComponent } from './home.hooks';
+import { useActiveFormComponent } from './home.hooks';
 
 /* component, style imports */
 import { ConfirmationModal } from '@components/notification';
@@ -25,22 +25,16 @@ import { Main } from './home.styles';
 import { confirmationModalFeedback } from './home.constants';
 
 /* interface, type, enum imports */
-import { ModalControl } from '@hooks/modal-components/use-modal-control';
-
-/**
- * ===============
- * Component {@link Home}
- * ===============
- */
+import { ActiveFormComponent, ModalControl } from '@common-types';
 
 /**
  * Renders the root page of the application.
- * If the user is signed in, they are redirected to the `/dashboard` route. Otherwise, it renders one of three possible form components based on the user's selection.
- * A {@link ConfirmationModal} component is displayed when the `isModalVisible` state is true, with a message corresponding to the current `activeFormType`.
+ * If the user is signed in, they are redirected to the `/dashboard` route.
+ * Otherwise, it renders one of three possible form components based on the user's selection.
+ * A {@link ConfirmationModal} component is displayed when the `isModalVisible` state is true,
+ * with a message corresponding to the current `activeFormType`.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const Home = (): JSX.Element => {
   // Authentication context.

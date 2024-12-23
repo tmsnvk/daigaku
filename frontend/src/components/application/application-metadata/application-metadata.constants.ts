@@ -10,9 +10,13 @@
 
 export const constants = {
   ui: {
-    SUBMITTED_AT: 'Submitted at:',
-    SUBMITTED_BY: 'Submitted by:',
-    LAST_UPDATED_AT: 'Last updated at:',
-    LAST_MODIFIED_BY: 'Last modified by:',
+    SUBMISSION: {
+      AT: 'Submitted at:',
+      BY: 'Submitted by:',
+    },
+    LAST_UPDATE: {
+      AT: 'Last updated at:',
+      BY: 'Last modified by:',
+    },
   },
 };

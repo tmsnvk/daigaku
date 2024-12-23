@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { SelectCountry, useSelectCountry } from './country-dropdown.hooks';
+import { useSelectCountry } from './country-dropdown.hooks';
 
 /* component, style imports */
 import { BaseInput } from '@components/base-styles';
@@ -24,6 +24,7 @@ import { constants } from './country-dropdown.constants';
 
 /* interface, type, enum imports */
 import { CountryOption, DropdownInput } from '@common-types';
+import { SelectCountry } from './country-dropdown.models';
 
 /**
  * Defines the properties of the {@link CountryDropdown} component.
@@ -32,7 +33,7 @@ import { CountryOption, DropdownInput } from '@common-types';
  */
 interface ComponentProps<T extends FieldValues> extends DropdownInput<T, CountryOption> {
   /**
-   * Callback invoked when a country is selected.
+   * A callback invoked when a country is selected.
    */
   onCountrySelection: (event: string) => void;
 }
@@ -58,7 +59,7 @@ export const CountryDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.ui.dropdown.LABEL_TEXT}
+        labelText={constants.ui.dropdown.LABEL}
       />
       <select
         {...register(id, validationRules)}

@@ -8,46 +8,22 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useMutation } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 /* logic imports */
-import { applicationStudentService } from '@services/index';
+import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { MutationResult } from '@common-types';
-
-/**
- * ===============
- * Custom Hook {@link useRequestPdfDownload}
- * ===============
- */
-
-/**
- * Defines the possible error types of the {@link useRequestPdfDownload} custom hook.
- *
- * @since 0.0.1
- */
-type SendDownloadRequestErrorT = 'root';
-
-/**
- * Defines the return value properties of the {@link useRequestPdfDownload} custom hook.
- * A `react-query` mutation object.
- *
- * @since 0.0.1
- */
-export type RequestPdfDownload = MutationResult<void, AxiosError<SendDownloadRequestErrorT>, void>;
+import { RequestPdfDownload } from './table-header.models';
 
 /**
  * Manages the user's .pdf download request.
  *
  * @returns {RequestPdfDownload}
- *
- * @since 0.0.1
  */
 export const useRequestPdfDownload = (): RequestPdfDownload => {
   return useMutation({

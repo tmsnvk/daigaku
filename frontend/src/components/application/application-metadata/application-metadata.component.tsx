@@ -37,7 +37,7 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
     <Article>
       <dl>
         <div>
-          <dt>{constants.ui.SUBMITTED_AT}</dt>{' '}
+          <dt>{constants.ui.SUBMISSION.AT}</dt>{' '}
           <dd>
             {new Date(createdAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -49,10 +49,10 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
           </dd>
         </div>
         <div>
-          <dt>{constants.ui.SUBMITTED_BY}</dt> <dd>{createdBy}</dd>
+          <dt>{constants.ui.SUBMISSION.BY}</dt> <dd>{createdBy}</dd>
         </div>
         <div>
-          <dt>{constants.ui.LAST_UPDATED_AT}</dt>{' '}
+          <dt>{constants.ui.LAST_UPDATE.AT}</dt>{' '}
           <dd>
             {new Date(lastUpdatedAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -64,7 +64,7 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
           </dd>
         </div>
         <div>
-          <dt>{constants.ui.LAST_MODIFIED_BY}</dt> <dd>{lastModifiedBy}</dd>
+          <dt>{constants.ui.LAST_UPDATE.BY}</dt> <dd>{lastModifiedBy}</dd>
         </div>
       </dl>
     </Article>

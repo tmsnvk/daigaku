@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
@@ -21,15 +21,7 @@ import { constants } from './comments.constants';
 import { Comment } from '@common-types';
 
 /**
- * ===============
- * Component {@link Comments}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link Comments} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -48,12 +40,10 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => {
   if (isError) {
-    return <ErrorContainer>{constants.ui.error}</ErrorContainer>;
+    return <ErrorContainer>{constants.ui.ERROR}</ErrorContainer>;
   }
 
   return (

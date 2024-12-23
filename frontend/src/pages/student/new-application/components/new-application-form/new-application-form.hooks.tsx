@@ -8,54 +8,27 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { applicationStudentService } from '@services/index';
+import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, ErrorDetail, MutationResult } from '@common-types';
-
-/**
- * ===============
- * Custom Hook {@link useCreateApplication}
- * ===============
- */
-
-/**
- * Defines the properties of a single {@link Application} submission.
- *
- * @since 0.0.1
- */
-export interface CreateApplicationFormFields {
-  readonly countryUuid: string;
-  readonly universityUuid: string;
-  readonly courseName: string;
-  readonly minorSubject: string;
-  readonly programmeLength: number;
-}
+import { Application, CoreErrorResponse, CreateApplicationFormFields, ErrorDetail } from '@common-types';
+import { CountrySelection, CreateApplication } from './new-application-form.models';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
- *
- * @since 0.0.1
  */
 type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | 'courseName' | 'minorSubject' | 'programmeLength';
-
-/**
- * Defines the {@link useCreateApplication} custom hook's return value properties.
- *
- * @since 0.0.1
- */
-export type CreateApplication = MutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationFormFields>;
 
 /**
  * Manages the submission of new application submission via the `react-query` package.
@@ -64,8 +37,6 @@ export type CreateApplication = MutationResult<Application, AxiosError<CoreError
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
  * @return {CreateApplication} A `react-query` mutation object.
- *
- * @since 0.0.1
  */
 export const useCreateApplication = (
   setError: UseFormSetError<CreateApplicationFormFields>,
@@ -115,45 +86,10 @@ export const useCreateApplication = (
 };
 
 /**
- * ===============
- * Custom Hook {@link useCountrySelection}
- * ===============
- */
-
-/**
- * Defines the {@link useCountrySelection} custom hook's return value properties.
- *
- * @since 0.0.1
- */
-export interface CountrySelection {
-  /**
-   * A function to update the selected country using a given UUID.
-   * @param countryUuid The to be selected country's UUID.
-   */
-  selectCountry: (countryUuid: string) => void;
-
-  /**
-   * A function to reset the country selection status.
-   */
-  resetCountrySelection: () => void;
-
-  /**
-   * Indicates if a country is selected.
-   */
-  isCountrySelected: boolean;
-
-  /**
-   * The currently selected country's UUID.
-   */
-  currentCountryUuid: string;
-}
-
-/**
- * Manages the state of country selection. It tracks whether a country has been selected and stores the currently selected country's uuid.
+ * Manages the state of country selection. It tracks whether a country has been selected
+ * and stores the currently selected country's uuid.
  *
  * @return {CountrySelection} The object that manages the country selection state.
- *
- * @since 0.0.1
  */
 export const useCountrySelection = (): CountrySelection => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);

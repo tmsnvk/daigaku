@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { InstitutionOption } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link institutionService}
- * ===============
- */
-
-/**
  * Defines the operations of the {@link institutionService} object, responsible for managing institution-related API requests.
- *
- * @since 0.0.1
  */
 interface InstitutionService {
   /**
@@ -40,8 +32,6 @@ interface InstitutionService {
 
 /**
  * Manages institution-related REST API operations, implementing {@link InstitutionService}.
- *
- * @since 0.0.1
  */
 export const institutionService: InstitutionService = {
   getAllOptions: async (): Promise<Array<InstitutionOption>> => {

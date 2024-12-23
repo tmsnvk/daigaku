@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { test as setup } from '@playwright/test';
 import dotenv from 'dotenv';
 

@@ -41,7 +41,7 @@ export const PublicLayout = (): JSX.Element => {
               <NavigationRoute
                 resource={'/contact'}
                 icon={iconLibraryConfig.faPaperPlane}
-                label={constants.routes.contactUs.LABEL}
+                label={constants.ui.contactUs.LABEL}
               />
             </li>
           </ul>

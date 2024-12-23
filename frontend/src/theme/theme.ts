@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { DefaultTheme } from 'styled-components';
 
 const coralRed = '#F94144';

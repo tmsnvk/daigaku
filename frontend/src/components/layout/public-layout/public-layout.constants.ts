@@ -9,7 +9,7 @@
  */
 
 export const constants = {
-  routes: {
+  ui: {
     contactUs: {
       LABEL: 'Contact us',
     },

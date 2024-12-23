@@ -8,13 +8,13 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplications, useModalToggle } from '@hooks/index';
-import { ColumnVisibility, SetOrder, useColumnVisibility, useSortOrder } from './applications.hooks';
+import { useColumnVisibility, useSortOrder } from './applications.hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
@@ -26,22 +26,14 @@ import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
 import { constants } from './applications.constants';
 
 /* interface, type, enum imports */
-import { Application, ListQueryResult } from '@common-types';
-import { ModalToggle } from '@hooks/modal-components/use-modal-toggle';
-
-/**
- * ===============
- * Component {@link Applications}
- * ===============
- */
+import { Application, ListQueryResult, ModalToggle } from '@common-types';
+import { ColumnVisibility, SetOrder } from './applications.models';
 
 /**
  * Renders, in a table format, the list of {@link Application} objects that the user has authorisation to view.
  * The component displays a table with data rows as well as various buttons and components to interact with the loaded-in data.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const Applications = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();

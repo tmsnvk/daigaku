@@ -9,7 +9,7 @@
  */
 
 /**
- * Defines a base metadata details for various objects across the application.
+ * Defines the base metadata details for various objects across the application.
  */
 export interface BaseMetadata {
   /**

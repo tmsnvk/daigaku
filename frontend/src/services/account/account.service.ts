@@ -8,26 +8,17 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
 import { axiosConfig, axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { LoginFormFields, LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
-import { ResetFormFields } from '@pages/common/home/components/reset-form/reset-form.hooks';
-
-/**
- * ===============
- * Service API Calls {@link accountService}
- * ===============
- */
+import { LoginFormFields, LoginFormResponse, ResetFormFields } from '@common-types';
 
 /**
  * Defines the operations of the {@link accountService} object, responsible for managing account-related API requests.
- *
- * @since 0.0.1
  */
 interface AccountService {
   /**
@@ -61,8 +52,6 @@ interface AccountService {
 
 /**
  * Manages pending-account-related REST API operations, implementing {@link AccountService}.
- *
- * @since 0.0.1
  */
 export const accountService: AccountService = {
   logIn: async (formData: LoginFormFields): Promise<LoginFormResponse> => {

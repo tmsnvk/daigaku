@@ -12,7 +12,7 @@
 import { FieldValues } from 'react-hook-form';
 
 /* interface, type, enum imports */
-import { CoreInput } from './core-input.interface';
+import { CoreInput } from './core-input.models';
 
 /**
  * Defines the properties of general-purpose inputs

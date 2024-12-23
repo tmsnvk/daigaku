@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,7 @@ import { axiosConfig } from '@configuration';
 import { RoleOption } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link roleService}
- * ===============
- */
-
-/**
  * Defines the operations of the {@link roleService} object, responsible for managing role-related API requests.
- *
- * @since 0.0.1
  */
 interface RoleService {
   /**
@@ -40,8 +32,6 @@ interface RoleService {
 
 /**
  * Manages role-related REST API operations, implementing {@link RoleService}.
- *
- * @since 0.0.1
  */
 export const roleService: RoleService = {
   getStudentAndMentorRoles: async (): Promise<Array<RoleOption>> => {

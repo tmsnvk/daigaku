@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { Paragraph } from './form-instruction.styles';
 
 /**
- * ===============
- * Component {@link FormInstruction}
- * ===============
- */
-
-/**
  * Defines the component's properties.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -37,8 +29,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const FormInstruction = ({ instructionText }: ComponentProps): JSX.Element => {
   return <Paragraph>{instructionText}</Paragraph>;

@@ -8,25 +8,17 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { Button } from './form-swap-button.styles';
 
 /* interface, type, enum imports */
-import { FormType } from '../../home.interfaces';
-
-/**
- * ===============
- * Component {@link FormSwapButton}
- * ===============
- */
+import { FormType } from '@common-types';
 
 /**
  * Defines the component's properties.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -53,12 +45,10 @@ interface ComponentProps {
 /**
  * Manages the responsibility of switching between different {@link FormType}.
  * The form selection is triggered when the component is clicked.
- * The component is disabled while there are ongoing REST API requests.
+ * The component is disabled while there is an ongoing REST API request.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const FormSwapButton = ({ formType, buttonLabel, onFormSelect, isDisabled }: ComponentProps): JSX.Element => {
   return (

@@ -18,63 +18,13 @@ import {
   interviewStatusService,
   offerStatusService,
   responseStatusService,
-} from '@services/index';
+} from '@services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
-
-/**
- * Defines the properties of all {@link Application} status fields.
- */
-export interface ApplicationStatusOption {
-  /**
-   * All {@link ApplicationStatus} objects.
-   */
-  applicationStatus: Array<ApplicationStatus> | undefined;
-
-  /**
-   * All {@link InterviewStatus} objects.
-   */
-  interviewStatus: Array<InterviewStatus> | undefined;
-
-  /**
-   * All {@link OfferStatus} objects.
-   */
-  offerStatus: Array<OfferStatus> | undefined;
-
-  /**
-   * All {@link ResponseStatus} objects.
-   */
-  responseStatus: Array<ResponseStatus> | undefined;
-
-  /**
-   * All {@link FinalDestinationStatus} objects.
-   */
-  finalDestinationStatus: Array<FinalDestinationStatus> | undefined;
-}
-
-/**
- * Defines the return properties of the {@link useGetAllSelectOptions} custom hook.
- */
-export interface ApplicationOptions {
-  /**
-   * An object containing all select options for the application statuses.
-   */
-  selectOptions: ApplicationStatusOption;
-
-  /**
-   * Indicates whether the queries are currently loading.
-   */
-  isLoading: boolean;
-
-  /**
-   * Indicates whether an error occurred during the queries.
-   */
-  isError: boolean;
-}
+import { ApplicationOptions } from '@common-types';
 
 /**
  * Fetches all status objects for the application form.

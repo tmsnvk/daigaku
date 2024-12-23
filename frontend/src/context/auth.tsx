@@ -12,13 +12,13 @@
 import { Context, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 /* logic imports */
-import { accountService } from '@services/index';
+import { accountService } from '@services';
 
 /* configuration, utilities, constants imports */
-import { localStorageKeyConstants } from '@constants';
+import { localStorageKeys } from '@constants';
 
 /* interface, type, enum imports */
-import { LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
+import { LoginFormResponse } from '@common-types';
 
 /**
  * Defines the authentication status options.
@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
     // The useEffect that activates whenever the user refreshes their browser.
     // The action locally checks for the user's authentication token, then a token authentication request is sent to the server.
     // If the token is unavailable or the server request fails the user is signed out.
-    const token: string | null = localStorage.getItem(localStorageKeyConstants.AUTH_TOKEN);
+    const token: string | null = localStorage.getItem(localStorageKeys.AUTHENTICATION_TOKEN);
 
     if (!token) {
       setAuthStatus(AuthStatus.SIGNED_OUT);
@@ -145,7 +145,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 
   const logOut = (): void => {
     // Logs the user out.
-    localStorage.removeItem(localStorageKeyConstants.AUTH_TOKEN);
+    localStorage.removeItem(localStorageKeys.AUTHENTICATION_TOKEN);
     setAuthStatus(AuthStatus.SIGNED_OUT);
   };
 

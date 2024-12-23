@@ -8,12 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { NewCommentFormFields, SubmitNewComment, useSubmitNewComment } from './new-comment-form.hooks';
+import { useSubmitNewComment } from './new-comment-form.hooks';
 
 /* component, style imports */
 import { GenericTextarea, InputError, SubmitInput } from '@components/form';
@@ -23,16 +23,11 @@ import { Form } from './new-comment-form.styles';
 /* configuration, utilities, constants imports */
 import { constants } from './new-comment-form.constants';
 
-/**
- * ===============
- * Component {@link NewCommentForm}
- * ===============
- */
+/* interface, type, enum imports */
+import { NewCommentFormFields, SubmitNewComment } from './new-comment-form.models';
 
 /**
  * Defines the properties of the {@link NewCommentForm} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -46,8 +41,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
   // The necessary `react-hook-form` methods and states.

@@ -8,18 +8,9 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
-/**
- * ===============
- * Styled Component {@link Form}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const Form = styled.form`
   display: flex;
   flex-direction: column;

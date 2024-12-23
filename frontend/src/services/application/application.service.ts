@@ -8,26 +8,17 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
-import { DashboardStatistics } from '@pages/common/dashboard/dashboard.hooks';
-
-/**
- * ===============
- * Service API Calls {@link applicationService}
- * ===============
- */
+import { Application, DashboardStatistics } from '@common-types';
 
 /**
  * Defines the operations of the {@link applicationService} object, responsible for managing application-related API requests.
- *
- * @since 0.0.1
  */
 interface ApplicationService {
   /**
@@ -64,8 +55,6 @@ interface ApplicationService {
 
 /**
  * Manages application-related REST API operations, implementing {@link ApplicationService}.
- *
- * @since 0.0.1
  */
 export const applicationService: ApplicationService = {
   getByUuid: async (applicationUuid: string): Promise<Application> => {

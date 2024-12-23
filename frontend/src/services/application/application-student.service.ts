@@ -8,27 +8,18 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
-import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
-import { CreateApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
+import { Application, CreateApplicationFormFields, UpdateApplicationFormFields } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link applicationStudentService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link applicationStudentService} object, responsible for managing student-application-related API requests.
- *
- * @since 0.0.1
+ * Defines the operations of the {@link applicationStudentService} object,
+ * responsible for managing student-application-related API requests.
  */
 interface ApplicationStudentService {
   /**
@@ -71,8 +62,6 @@ interface ApplicationStudentService {
 
 /**
  * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
- *
- * @since 0.0.1
  */
 export const applicationStudentService: ApplicationStudentService = {
   postByStudent: async (formData: CreateApplicationFormFields): Promise<Application> => {

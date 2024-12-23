@@ -9,7 +9,7 @@
  */
 
 /* interface, type, enum imports */
-import { Comment } from './comment.interface';
+import { Comment } from './comment.models';
 
 /**
  * Defines the metadata and the list of comments associated with a given {@link Application}.

@@ -11,30 +11,8 @@
 /* vendor imports */
 import { useState } from 'react';
 
-/**
- * Defines the return value properties of the {@link useSmallScreenNavbarDisplay} custom hook.
- */
-export interface SmallScreenNavbarDisplay {
-  /**
-   * A boolean indicating whether the navbar is currently open.
-   */
-  isNavbarOpen: boolean;
-
-  /**
-   * A function to toggle the navbar's open state.
-   */
-  toggleNavbar: () => void;
-
-  /**
-   * A function to open the navbar when it gains focus.
-   */
-  handleOnFocus: () => void;
-
-  /**
-   * A function to close the navbar when it loses focus.
-   */
-  handleOnBlur: () => void;
-}
+/* interface, type, enum imports */
+import { SmallScreenNavbarDisplay } from './private-layout.models';
 
 /**
  * Toggles the visibility state of the navigation bar on small screens.

@@ -9,16 +9,16 @@
  */
 
 /**
- * Defines the base of an {@link Application} status field.
+ * Defines the base of application support option models.
  */
-export interface BaseStatus {
+export interface BaseSupport {
   /**
-   * The status's uuid.
+   * The option's uuid.
    */
   readonly uuid: string;
 
   /**
-   * The status's name.
+   * The option's name.
    */
   readonly name: string;
 }

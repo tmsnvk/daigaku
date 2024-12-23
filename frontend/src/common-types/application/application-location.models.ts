@@ -9,7 +9,7 @@
  */
 
 /* interface, type, enum imports */
-import { Application } from './application.interface';
+import { Application } from './application.models';
 
 /**
  * Defines a `react-router-dom` location object containing an {@link Application} object and its URL path.

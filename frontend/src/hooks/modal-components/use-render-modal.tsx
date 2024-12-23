@@ -9,17 +9,10 @@
  */
 
 /* vendor imports */
-import { RefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
-/**
- * Defines the properties of the {@link useRenderModal} custom hook.
- */
-export interface RenderModal {
-  /**
-   * A ref object that is attached to the modal component to control its visibility.
-   */
-  dialogRef: RefObject<HTMLDialogElement | null>;
-}
+/* interface, type, enum imports */
+import { RenderModal } from '@common-types';
 
 /**
  * Manages the visibility of various modal components.

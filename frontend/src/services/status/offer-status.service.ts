@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { OfferStatus } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link offerStatusService}
- * ===============
- */
-
-/**
  * Defines the operations of the {@link offerStatusService} object, responsible for managing offer-status-related API requests.
- *
- * @since 0.0.1
  */
 interface OfferStatusService {
   /**
@@ -40,8 +32,6 @@ interface OfferStatusService {
 
 /**
  * Manages offer-status-related REST API operations, implementing {@link OfferStatusService}.
- *
- * @since 0.0.1
  */
 export const offerStatusService: OfferStatusService = {
   getAll: async (): Promise<Array<OfferStatus>> => {

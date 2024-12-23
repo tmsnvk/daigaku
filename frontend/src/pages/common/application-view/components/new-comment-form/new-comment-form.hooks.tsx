@@ -8,49 +8,26 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { commentService } from '@services/index';
+import { commentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Comment, CoreErrorResponse, ErrorDetail, MutationResult } from '@common-types';
-
-/**
- * ===============
- * Custom Hook {@link useSubmitNewComment}
- * ===============
- */
-
-/**
- * Defines the structure of the form fields for submitting a new comment.
- *
- * @since 0.0.1
- */
-export interface NewCommentFormFields {
-  readonly comment: string;
-}
+import { CoreErrorResponse, ErrorDetail } from '@common-types';
+import { NewCommentFormFields, SubmitNewComment } from './new-comment-form.models';
 
 /**
  * Defines the possible error field names in the {@link useSubmitNewComment} custom hook.
- *
- * @since 0.0.1
  */
 type NewCommentFormErrorT = 'root' | 'comment';
-
-/**
- * Defines the return value properties of the {@link useSubmitNewComment} custom hook.
- *
- * @since 0.0.1
- */
-export type SubmitNewComment = MutationResult<Comment, AxiosError<CoreErrorResponse>, NewCommentFormFields>;
 
 /**
  * Mnages the comment submission process, including REST API request, error handling, and post-success actions.
@@ -58,8 +35,6 @@ export type SubmitNewComment = MutationResult<Comment, AxiosError<CoreErrorRespo
  * @param setError A `react-hook-form` function to set form errors.
  * @param applicationUuid The uuid of the application to which the comment belongs to.
  * @return {SubmitNewComment}
- *
- * @since 0.0.1
  */
 export const useSubmitNewComment = (setError: UseFormSetError<NewCommentFormFields>, applicationUuid: string): SubmitNewComment => {
   return useMutation({

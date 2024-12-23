@@ -8,16 +8,18 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
+import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { applicationStudentService } from '@services/index';
+import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
+import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 import { constants } from './application-form.constants';
 
 /* interface, type, enum imports */
@@ -25,56 +27,21 @@ import {
   Application,
   ApplicationStatus,
   ApplicationStatusE,
+  ApplicationStatusSelectOptions,
+  ApplicationStatusUnion,
   CoreErrorResponse,
   ErrorDetail,
   FinalDestinationStatus,
   FinalDestinationStatusE,
   InterviewStatus,
   InterviewStatusE,
-  MutationResult,
   OfferStatus,
   OfferStatusE,
   ResponseStatus,
   ResponseStatusE,
+  UpdateApplicationFormFields,
 } from '@common-types';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
-import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
-import { useState } from 'react';
-
-/**
- * ===============
- * Shared Interfaces, Types, Enums
- * ===============
- */
-
-/**
- * Defines the properties of the form data fields.
- *
- * @since 0.0.1
- */
-export type UpdateApplicationFormFields = {
-  applicationStatusUuid: string | undefined;
-  interviewStatusUuid: string | undefined;
-  offerStatusUuid: string | undefined;
-  responseStatusUuid: string | undefined;
-  finalDestinationStatusUuid: string | undefined;
-};
-
-/**
- * ===============
- * Helper Method {@link filterCacheByUuid}
- * ===============
- */
-
-/**
- * Defines the properties of `react-query` cache objects.
- *
- * @since 0.0.1
- */
-interface CachedData {
-  name: string;
-  uuid: string;
-}
+import { FieldsReadOnlyStatus, HandleFieldDisableStatus, HandleFormSubmission, UpdateApplicationForm } from './application-form.models';
 
 /**
  * The helper method used by {@link useHandleFormSubmission} filters various local `react-query` cache lists
@@ -82,12 +49,9 @@ interface CachedData {
  *
  * @param cache The array of cached data to filter.
  * @param optionName The name of the option to match in the cached data.
- *
  * @returns {string} The uuid of the first cached data entry that matches the provided option name.
- *
- * @since 0.0.1
  */
-const filterCacheByUuid = <T extends CachedData>(cache: Array<T>, optionName: string): string => {
+const filterCacheByUuid = <T extends ApplicationStatusUnion>(cache: Array<T>, optionName: string): string => {
   const filteredOption: T = cache?.filter((option: T) => option.name === optionName)[0];
 
   return filteredOption.uuid;
@@ -98,41 +62,19 @@ const filterCacheByUuid = <T extends CachedData>(cache: Array<T>, optionName: st
  *
  * @template T The `react-query` cache type.
  * @param querykey The cache's query key identifier.
- *
  * @returns {Array<T> | undefined}
  */
-const findQueryCache = <T extends {}>(queryKey: string): Array<T> | undefined => {
+const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefined => {
   return queryClient.getQueryData<Array<T>>([queryKey]);
 };
 
 /**
- * ===============
- * Custom Hook {@link useHandleFormSubmission}
- * ===============
- */
-
-/**
- * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
- *
- * @since 0.0.1
- */
-export interface HandleFormSubmission {
-  submitForm: (
-    formData: UpdateApplicationFormFields,
-    applicationUuid: string,
-    mutate: (formData: UpdateApplicationFormFields) => void,
-    setError: UseFormSetError<UpdateApplicationFormFields>,
-  ) => void;
-}
-
-/**
- * Manages the form submission's first step. It checks if the user already has an {@link Application} set to either {@link ResponseStatusE.FIRM_CHOICE},
- * {@link FinalDestinationStatusE.FINAL_DESTINATION} or {@link FinalDestinationStatusE.DEFERRED_ENTRY}. If yes, an error message stops the submission.
- * If no error was found, the `react-query` mutate() method is called.
+ * Manages the form submission's first step.
+ * It checks if the user already has an {@link Application} set to either {@link ResponseStatusE.FIRM_CHOICE},
+ * {@link FinalDestinationStatusE.FINAL_DESTINATION} or {@link FinalDestinationStatusE.DEFERRED_ENTRY}.
+ * If yes, an error message stops the submission. If no error was found, the `react-query` mutate() method is called.
  *
  * @return {HandleFormSubmission}
- *
- * @since 0.0.1
  */
 export const useHandleFormSubmission = (): HandleFormSubmission => {
   const handleValidation = (formData: UpdateApplicationFormFields, currentApplicationUuid: string): Array<string> => {
@@ -211,15 +153,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
 };
 
 /**
- * ===============
- * Custom Hook {@link useUpdateApplication}
- * ===============
- */
-
-/**
  * Defines the possible error field names in the {@link useUpdateApplication} custom hook.
- *
- * @since 0.0.1
  */
 type UpdateApplicationFormErrorT =
   | 'root'
@@ -230,21 +164,12 @@ type UpdateApplicationFormErrorT =
   | 'finalDestinationStatusUuid';
 
 /**
- * Defines the return value properties of the {@link useUpdateApplication} custom hook.
- *
- * @since 0.0.1
- */
-export type UpdateApplicationForm = MutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationFormFields>;
-
-/**
  * Manages the {@link ApplicationForm} submission process, including REST API request, error handling,
  * and post-success actions, such as setting account context and authentication status.
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid.
  * @return {UpdateApplicationForm}
- *
- * @since 0.0.1
  */
 export const useUpdateApplication = (
   setError: UseFormSetError<UpdateApplicationFormFields>,
@@ -292,15 +217,7 @@ export const useUpdateApplication = (
 };
 
 /**
- * ===============
- * Helper Service {@link pageLoadValidationService}
- * ===============
- */
-
-/**
  * TODO
- *
- * @since 0.0.1
  */
 interface PageLoadValidationService {
   /**
@@ -313,7 +230,7 @@ interface PageLoadValidationService {
   validateInterviewStatus: (
     application: Application,
     updatedData: Application | undefined,
-    selectOptions: ApplicationStatusOption,
+    selectOptions: ApplicationStatusSelectOptions,
   ) => boolean;
 
   /**
@@ -323,7 +240,11 @@ interface PageLoadValidationService {
    * @param selectOptions
    * @returns
    */
-  validateOfferStatus: (application: Application, updatedData: Application | undefined, selectOptions: ApplicationStatusOption) => boolean;
+  validateOfferStatus: (
+    application: Application,
+    updatedData: Application | undefined,
+    selectOptions: ApplicationStatusSelectOptions,
+  ) => boolean;
 
   /**
    *
@@ -335,7 +256,7 @@ interface PageLoadValidationService {
   validateResponseStatus: (
     application: Application,
     updatedData: Application | undefined,
-    selectOptions: ApplicationStatusOption,
+    selectOptions: ApplicationStatusSelectOptions,
   ) => boolean;
 
   /**
@@ -348,7 +269,7 @@ interface PageLoadValidationService {
   validateFinalDestinationStatus: (
     application: Application,
     updatedData: Application | undefined,
-    selectOptions: ApplicationStatusOption,
+    selectOptions: ApplicationStatusSelectOptions,
   ) => boolean;
 }
 
@@ -356,7 +277,7 @@ const pageLoadValidationService: PageLoadValidationService = {
   validateInterviewStatus: (
     application: Application,
     updatedData: Application | undefined,
-    selectOptions: ApplicationStatusOption,
+    selectOptions: ApplicationStatusSelectOptions,
   ): boolean => {
     const submittedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter((element: ApplicationStatus) => {
       return element.name === ApplicationStatusE.SUBMITTED;
@@ -371,7 +292,7 @@ const pageLoadValidationService: PageLoadValidationService = {
   validateOfferStatus: (
     application: Application,
     updatedData: Application | undefined,
-    selectOptions: ApplicationStatusOption,
+    selectOptions: ApplicationStatusSelectOptions,
   ): boolean => {
     if (!application.interviewStatus.uuid) {
       return true;
@@ -390,7 +311,7 @@ const pageLoadValidationService: PageLoadValidationService = {
   validateResponseStatus: (
     application: Application,
     updatedData: Application | undefined,
-    selectOptions: ApplicationStatusOption,
+    selectOptions: ApplicationStatusSelectOptions,
   ): boolean => {
     if (!application.offerStatus.uuid) {
       return true;
@@ -409,7 +330,7 @@ const pageLoadValidationService: PageLoadValidationService = {
   validateFinalDestinationStatus: (
     application: Application,
     updatedData: Application | undefined,
-    selectOptions: ApplicationStatusOption,
+    selectOptions: ApplicationStatusSelectOptions,
   ): boolean => {
     if (!application.offerStatus.uuid) {
       return true;
@@ -436,17 +357,9 @@ const pageLoadValidationService: PageLoadValidationService = {
 };
 
 /**
- * ===============
- * Helper Method {@link isStatusInList}
- * ===============
- */
-
-/**
  * TODO
- *
- * @since 0.0.1
  */
-type ApplicationStatusUnion =
+type ApplicationStatusUnionArray =
   | Array<ApplicationStatus>
   | Array<InterviewStatus>
   | Array<OfferStatus>
@@ -458,88 +371,11 @@ type ApplicationStatusUnion =
  *
  * @param statusList
  * @param statusUuid
- *
  * @returns {boolean}
- *
- * @since 0.0.1
  */
-const isStatusInList = (statusList: ApplicationStatusUnion, statusUuid: string): boolean => {
+const isStatusInList = (statusList: ApplicationStatusUnionArray, statusUuid: string): boolean => {
   return statusList.some((element) => element.uuid === statusUuid);
 };
-
-/**
- * ===============
- * Custom Hook {@link useHandleFieldDisableStatus}
- * ===============
- */
-
-interface FieldsReadOnlyStatus {
-  /**
-   * TODO
-   */
-  isApplicationStatusReadOnly: boolean;
-
-  /**
-   * TODO
-   */
-  isInterviewStatusReadOnly: boolean;
-
-  /**
-   * TODO
-   */
-  isOfferStatusReadOnly: boolean;
-
-  /**
-   * TODO
-   */
-  isResponseStatusReadOnly: boolean;
-
-  /**
-   * TODO
-   */
-  isFinalDestinationStatusReadOnly: boolean;
-}
-
-export interface HandleFieldDisableStatus {
-  /**
-   * TODO
-   * @returns
-   */
-  onPageLoadValidation: () => void;
-
-  /**
-   * TODO
-   */
-  fieldsReadOnlyStatus: FieldsReadOnlyStatus;
-
-  /**
-   * TODO
-   * @param eventTargetValue
-   * @returns
-   */
-  updateInterviewStatus: (eventTargetValue: string) => void;
-
-  /**
-   * TODO
-   * @param eventTargetValue
-   * @returns
-   */
-  updateOfferStatus: (eventTargetValue: string) => void;
-
-  /**
-   * TODO
-   * @param eventTargetValue
-   * @returns
-   */
-  updateResponseStatus: (eventTargetValue: string) => void;
-
-  /**
-   * TODO
-   * @param eventTargetValue
-   * @returns
-   */
-  updateFinalDestinationStatus: (eventTargetValue: string) => void;
-}
 
 /**
  * The custom hook handles the logic connected to the individual field updates, i.e. when and which field should get disabled.
@@ -547,15 +383,12 @@ export interface HandleFieldDisableStatus {
  * @param application The {@link Application} that is going to be updated.
  * @param updatedData The updated data.
  * @param selectOptions Every possible dropdown option.
- *
  * @returns {HandleFieldDisableStatus}
- *
- * @since 0.0.1
  */
 export const useHandleFieldDisableStatus = (
   application: Application,
   updatedData: Application | undefined,
-  selectOptions: ApplicationStatusOption,
+  selectOptions: ApplicationStatusSelectOptions,
 ): HandleFieldDisableStatus => {
   // By default, all fields' isDisable status is turned off as they are updated by the onPageLoadValidation() method.
   const [fieldsReadOnlyStatus, setFieldsReadOnlyStatus] = useState<FieldsReadOnlyStatus>({

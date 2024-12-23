@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { Article } from './application-detail.styles';
 
 /**
- * ===============
- * Component {@link ApplicationDetailsField}
- * ===============
- */
-
-/**
  * Defines the properties of the {@link ApplicationDetail} component.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
@@ -42,8 +34,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ApplicationDetail = ({ name, value }: ComponentProps): JSX.Element => {
   return (

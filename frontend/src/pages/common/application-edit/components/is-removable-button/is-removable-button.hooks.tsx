@@ -8,13 +8,13 @@
  * @author tmsnvk
  */
 
-/* external imports */
-import { UseMutateFunction, useMutation } from '@tanstack/react-query';
+/* vendor imports */
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
 /* logic imports */
-import { applicationStudentService } from '@services/index';
+import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
@@ -22,25 +22,7 @@ import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { Application, MutationResult } from '@common-types';
-
-/**
- * ===============
- * Custom Hook {@link useToggleIsRemovable}
- * ===============
- */
-
-/**
- * Defines the return value properties of the {@link useToggleIsRemovable} custom hook.
- *
- * @since 0.0.1
- */
-export interface HandleToggleIsRemovable {
-  shouldBeRemoved: boolean;
-  errorMessage: string;
-  isPending: boolean;
-  isError: boolean;
-  mutate: UseMutateFunction<void, Error, void, unknown>;
-}
+import { HandleToggleIsRemovable } from './is-removable-button.models';
 
 /**
  * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link Application}.
@@ -48,8 +30,6 @@ export interface HandleToggleIsRemovable {
  * @param applicationUuid The application's uuid for identification purposes.
  * @param isRemovable The application's current is_removable boolean state.
  * @return {SimpleQueryResult<HandleToggleIsRemovable>}
- *
- * @since 0.0.1
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
   // Tracks if the application should be removed.

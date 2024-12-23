@@ -13,13 +13,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
 /* logic imports */
-import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-modal';
+import { useRenderModal } from '@hooks/modal-components/use-render-modal';
 
 /* component, style imports */
 import { Dialog } from './global-loading-modal.styles';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
+
+/* interface, type, enum imports */
+import { RenderModal } from '@common-types';
 
 /**
  * Defines the properties of the {@link GlobalLoadingModal} component.

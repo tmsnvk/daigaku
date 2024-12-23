@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
@@ -16,49 +16,15 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { Account, AuthContext, AuthStatus, useAuth } from '@context/auth';
-import { accountService } from '@services/index';
+import { accountService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
-import { localStorageKeyConstants, UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR, localStorageKeys } from '@constants';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, MutationResult } from '@common-types';
-
-/**
- * ===============
- * Custom Hook {@link useHandleLoginForm}
- * ===============
- */
-
-/**
- * Defines the properties of a single user login form submission.
- *
- * @since 0.0.1
- */
-export interface LoginFormFields {
-  readonly email: string;
-  readonly password: string;
-}
-
-/**
- * Defines the properties of a successful login request.
- *
- * @since 0.0.1
- */
-export interface LoginFormResponse {
-  readonly email: string;
-  readonly firstName: string;
-  readonly jwtToken: string;
-  readonly role: string;
-}
-
-/**
- * Defines the {@link useHandleLoginForm} custom hook's return value properties.
- *
- * @since 0.0.1
- */
-export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<CoreErrorResponse>, LoginFormFields>;
+import { CoreErrorResponse, LoginFormFields, LoginFormResponse } from '@common-types';
+import { HandleLoginForm } from './login-form.models';
 
 /**
  * Manages the {@link LoginForm} submission process, including REST API request, error handling,
@@ -66,21 +32,16 @@ export type HandleLoginForm = MutationResult<LoginFormResponse, AxiosError<CoreE
  *
  * @param setError A `react-hook-form` function to set form errors.
  * @return {HandleLoginForm}
- *
- * @since 0.0.1
  */
 export const useHandleLoginForm = (setError: UseFormSetError<LoginFormFields>): HandleLoginForm => {
-  // `react-router-dom` navigate object.
   const navigate: NavigateFunction = useNavigate();
-
-  // Authentication context.
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
     mutationFn: (formData: LoginFormFields) => accountService.logIn(formData),
     onSuccess: (response: LoginFormResponse) => {
-      localStorage.setItem(localStorageKeyConstants.AUTH_TOKEN, response.jwtToken);
+      localStorage.setItem(localStorageKeys.AUTHENTICATION_TOKEN, response.jwtToken);
 
       const account: Account = {
         ...response,

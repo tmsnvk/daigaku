@@ -33,11 +33,11 @@ const fadeOut = keyframes`
 export const Section = styled.section`
   ${BaseLightBorder};
 
-  width: 30rem;
-  height: 10rem;
   z-index: 100;
   position: fixed;
   overflow: visible;
+  width: 30rem;
+  height: 10rem;
   right: 5rem;
   bottom: 10rem;
   display: flex;

@@ -12,10 +12,10 @@
 import { JSX } from 'react';
 
 /* component, style imports */
-import { constants } from './page-footer.constants';
 import { Footer } from './page-footer.styles';
 
 /* configuration, utilities, constants imports */
+import { constants } from './page-footer.constants';
 import { getCurrentYear } from './page-footer.utilities';
 
 /**

@@ -8,55 +8,26 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 /* logic imports */
-import { commentService } from '@services/index';
+import { commentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
 import { CommentPaginationData, SimpleQueryResult } from '@common-types';
-
-/**
- * ===============
- * Custom Hook {@link useCommentPagination}
- * ===============
- */
-
-/**
- * Defines the return value properties of the {@link useCommentPagination} custom hook.
- *
- * @since 0.0.1
- */
-export interface CommentPagination {
-  /**
-   * The current page number being displayed.
-   */
-  currentPage: number;
-
-  /**
-   * Decrements the `currentPage` value by one when the "Previous" button is clicked, as long as it is above 0.
-   */
-  goToPreviousPage: () => void;
-
-  /**
-   * Increments the `currentPage` value by one when the "Next" button is clicked, as long as the current page is less than the `totalPages` limit.
-   */
-  goToNextPage: (totalPages: number) => void;
-}
+import { CommentPagination } from './comment-section.models';
 
 /**
  * Manages page number tracking for the comment pagination feature.
  *
  * @return {CommentPagination}
- *
- * @since 0.0.1
  */
-export const useCommentPagination = (): CommentPagination => {
+export const useHandleCommentPagination = (): CommentPagination => {
   // Holds the current page number in the pagination flow.
   const [currentPage, setCurrentPage] = useState<number>(0);
 
@@ -82,22 +53,14 @@ export const useCommentPagination = (): CommentPagination => {
 };
 
 /**
- * ===============
- * Custom Hook {@link useCommentsByApplicationAndPagination}
- * ===============
- */
-
-/**
  * Manages fetching comments for a specific {@link Application} based on the selected page number in the pagination list.
  * Utilizes the `react-query` library for data fetching and caching.
  *
  * @param applicationUuid The selected application's uuid.
  * @param currentPage The current page number in the pagination sequence.
  * @return {SimpleQueryResult<CommentPaginationData>}
- *
- * @since 0.0.1
  */
-export const useCommentsByApplicationAndPagination = (
+export const useGetCommentsByApplicationAndPagination = (
   applicationUuid: string,
   currentPage: number,
 ): SimpleQueryResult<CommentPaginationData> => {

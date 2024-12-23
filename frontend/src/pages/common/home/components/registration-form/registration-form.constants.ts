@@ -8,9 +8,6 @@
  * @author tmsnvk
  */
 
-/**
- * @since 0.0.1
- */
 export const constants = {
   ui: {
     messages: {
@@ -19,22 +16,40 @@ export const constants = {
     },
     form: {
       INSTRUCTION: 'Register an account if you are not in our system yet.',
-      FIRST_NAME_LABEL: 'First Name',
-      FIRST_NAME_PLACEHOLDER: 'Enter your first name(s)',
-      LAST_NAME_LABEL: 'Last Name',
-      LAST_NAME_PLACEHOLDER: 'Enter your last name(s)',
-      EMAIL_PLACEHOLDER: 'Enter your email address',
-      EMAIL_LABEL: 'Email',
+      fields: {
+        FIRST_NAME: {
+          LABEL: 'First Name',
+          PLACEHOLDER: 'Enter your first name(s)',
+        },
+        LAST_NAME: {
+          LABEL: 'Last Name',
+          PLACEHOLDER: 'Enter your last name(s)',
+        },
+        EMAIL: {
+          LABEL: 'Email',
+          PLACEHOLDER: 'Enter your email address',
+        },
+      },
       SUBMIT: 'register',
     },
   },
   validation: {
-    FIRST_NAME_REQUIRED: 'Providing your first name is required.',
-    FIRST_NAME_PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
-    LAST_NAME_REQUIRED: 'Providing your last name is required.',
-    LAST_NAME_PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
-    EMAIL_REQUIRED: 'Providing your email address is required.',
-    ACCOUNT_ROLE_REQUIRED: 'Selecting an account role is required.',
-    INSTITUTION_REQUIRED: 'Selecting an institution is required.',
+    FIRST_NAME: {
+      REQUIRED: 'Providing your first name is required.',
+      PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
+    },
+    LAST_NAME: {
+      REQUIRED: 'Providing your last name is required.',
+      PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
+    },
+    EMAIL: {
+      REQUIRED: 'Providing your email address is required.',
+    },
+    ACCOUNT_ROLE: {
+      REQUIRED: 'Selecting an account role is required.',
+    },
+    INSTITUTION: {
+      REQUIRED: 'Selecting an institution is required.',
+    },
   },
 };
