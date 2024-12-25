@@ -26,7 +26,7 @@ import { StudentLayout } from './layouts';
 import { constants } from './dashboard.constants';
 
 /* interface, type, enum imports */
-import { DashboardStatistics, SimpleQueryResult } from '@common-types';
+import { SimpleQueryResult, StudentDashboardStatistics } from '@common-types';
 
 /**
  * Renders the application's dashboard for the logged-in user.
@@ -39,7 +39,7 @@ export const Dashboard = (): JSX.Element | undefined => {
   const { account, logOut }: Partial<AuthContext> = useAuth();
 
   // Custom hook that fetches the user's dashboard statistics.
-  const { data, isLoading, isError, error }: SimpleQueryResult<DashboardStatistics> = useGetDashboardStatistics();
+  const { data, isLoading, isError, error }: SimpleQueryResult<StudentDashboardStatistics> = useGetDashboardStatistics();
 
   useGetApplications();
 

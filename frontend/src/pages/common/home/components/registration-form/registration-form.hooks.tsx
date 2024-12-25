@@ -21,7 +21,8 @@ import { mutationKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { ConfirmationModal, CoreErrorResponse, ErrorDetail, RegistrationFormFields } from '@common-types';
+import { CoreErrorResponse, ErrorDetail, PendingAccountRegisterRequest } from '@common-types';
+import { ConfirmationModal } from '../../home.models';
 import { HandleRegistrationForm } from './registration-form.models';
 
 /**
@@ -37,12 +38,12 @@ type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'ins
  * @return {HandleRegistrationForm}
  */
 export const useSubmitRegistrationForm = (
-  setError: UseFormSetError<RegistrationFormFields>,
+  setError: UseFormSetError<PendingAccountRegisterRequest>,
   showModal: ConfirmationModal['showModal'],
 ): HandleRegistrationForm => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER],
-    mutationFn: (formData: RegistrationFormFields) => pendingAccountService.register(formData),
+    mutationFn: (formData: PendingAccountRegisterRequest) => pendingAccountService.register(formData),
     onSuccess: () => {
       showModal();
     },

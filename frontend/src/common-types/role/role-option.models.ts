@@ -13,12 +13,12 @@
  */
 export interface RoleOption {
   /**
-   * The status's uuid.
+   * The role's uuid.
    */
   readonly uuid: string;
 
   /**
-   * The status's name.
+   * The role's name.
    */
   readonly name: string;
 }

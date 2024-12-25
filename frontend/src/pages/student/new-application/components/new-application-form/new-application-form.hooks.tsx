@@ -22,7 +22,7 @@ import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, CreateApplicationFormFields, ErrorDetail } from '@common-types';
+import { Application, CoreErrorResponse, CreateApplicationByStudent, ErrorDetail } from '@common-types';
 import { CountrySelection, CreateApplication } from './new-application-form.models';
 
 /**
@@ -39,13 +39,13 @@ type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | '
  * @return {CreateApplication} A `react-query` mutation object.
  */
 export const useCreateApplication = (
-  setError: UseFormSetError<CreateApplicationFormFields>,
+  setError: UseFormSetError<CreateApplicationByStudent>,
   resetCountrySelection: () => void,
   reset: () => void,
 ): CreateApplication => {
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
-    mutationFn: (formData: CreateApplicationFormFields) => applicationStudentService.postByStudent(formData),
+    mutationFn: (formData: CreateApplicationByStudent) => applicationStudentService.postByStudent(formData),
     onSuccess: (response: Application) => {
       // After a successful submission, the newly created application is added to `react-query`'s local cache.
       queryClient.setQueryData<Array<Application>>(

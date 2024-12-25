@@ -12,7 +12,7 @@
 import { axiosConfig } from '@configuration';
 
 /* interface, type, enum imports */
-import { RegistrationFormFields } from '@common-types';
+import { PendingAccountRegisterRequest } from '@common-types';
 
 /**
  * Defines the operations of the {@link pendingAccountService} object, responsible for managing pending-account-related API requests.
@@ -26,14 +26,14 @@ interface PendingAccountService {
    * @return {Promise<void>}
    * @throws {AxiosError}
    */
-  register: (formData: RegistrationFormFields) => Promise<void>;
+  register: (formData: PendingAccountRegisterRequest) => Promise<void>;
 }
 
 /**
  * Manages pending-account-related REST API operations, implementing {@link PendingAccountService}.
  */
 export const pendingAccountService: PendingAccountService = {
-  register: async (formData: RegistrationFormFields): Promise<void> => {
+  register: async (formData: PendingAccountRegisterRequest): Promise<void> => {
     await axiosConfig.request<void>({
       method: 'POST',
       url: '/api/v1/pending-accounts/register',

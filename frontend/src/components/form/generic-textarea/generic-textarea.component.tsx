@@ -24,12 +24,12 @@ import { CommonInput } from '@common-types';
  */
 interface ComponentProps<T extends FieldValues> extends CommonInput<T> {
   /**
-   * The default number of rows for the textarea.
+   * The number of rows for the textarea.
    */
   rows: number;
 
   /**
-   * The default number of columns for the textarea.
+   * The number of columns for the textarea.
    */
   cols: number;
 }
@@ -55,7 +55,7 @@ export const GenericTextarea = <T extends FieldValues>({
     <BaseTextarea $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <textarea
         {...register(id, validationRules)}

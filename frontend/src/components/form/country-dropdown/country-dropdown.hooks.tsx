@@ -15,13 +15,12 @@ import { isEmpty } from '@utilities';
 import { SelectCountry } from './country-dropdown.models';
 
 /**
- * Manages the country selection callback method.
+ * Handles the change event for the CountryDropdown component and calls the callback with the selected value.
  *
- * @param onCountrySelection Callback invoked with the selected country's uuid.
+ * @param onCountrySelection A callback method called with the selected country option's uuid string.
  * @return {SelectCountry}
  */
 export const useSelectCountry = (onCountrySelection: (countryUuid: string) => void): SelectCountry => {
-  // Handles the change event for the CountryDropdown component and calls the callback with the selected value.
   const handleCountrySelection = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedValue: string = event.target.value;
 

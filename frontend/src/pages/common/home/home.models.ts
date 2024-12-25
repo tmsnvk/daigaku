@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { FieldErrors, FieldValues, UseFormHandleSubmit, UseFormRegister, UseFormSetError } from 'react-hook-form';
 
 /**
- * Defines the possible form options an unauthorised user can choose from.
+ * Defines the possible form options an unauthorised user can choose from on the application's home page.
  */
 export enum FormType {
   LOGIN,
@@ -22,14 +22,14 @@ export enum FormType {
 }
 
 /**
- * Defines the {@link Home} page-component's form selection method.
+ * Defines a form selection method.
  */
 export interface SelectForm {
   readonly selectForm: (formType: FormType) => void;
 }
 
 /**
- * Defines the ConfirmationModal that is displayed after submitting either the {@link RegistrationForm} or {@link ResetForm} forms.
+ * Defines the properties of a confirmation modal that is displayed after submitting a form.
  */
 export interface ConfirmationModal {
   readonly showModal: () => void;

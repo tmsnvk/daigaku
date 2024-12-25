@@ -9,13 +9,13 @@
  */
 
 /**
- * Defines the properties returned by the {@link useTogglePassword} custom hook.
+ * Defines the properties for managing password visibility in input fields.
  */
 export interface TogglePassword {
   /**
-   * Indicates if the password is currently visible.
+   * Indicates whether the password is currently visible.
    */
-  isTextRevealed: boolean;
+  isPasswordRevealed: boolean;
 
   /**
    * Toggles the visibility of the password text.

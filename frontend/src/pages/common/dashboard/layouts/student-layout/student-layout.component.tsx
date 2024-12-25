@@ -22,16 +22,16 @@ import { TileUnit } from './student-layout.styles';
 import { constants } from './student-layout.constants';
 
 /* interface, type, enum imports */
-import { DashboardStatistics, TodoList } from '@common-types';
+import { StudentDashboardStatistics, TodoList } from '@common-types';
 
 /**
  * Defines the component's properties.
  */
 interface ComponentProps {
   /**
-   * The object containing the {@link DashboardStatistics} data.
+   * The object containing the {@link StudentDashboardStatistics} data.
    */
-  readonly data: DashboardStatistics;
+  readonly data: StudentDashboardStatistics;
 }
 
 /**

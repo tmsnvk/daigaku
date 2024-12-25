@@ -19,14 +19,14 @@ import { applicationService } from '@services';
 import { queryKeys } from '@configuration';
 
 /* interface, type, enum imports */
-import { DashboardStatistics, SimpleQueryResult } from '@common-types';
+import { SimpleQueryResult, StudentDashboardStatistics } from '@common-types';
 
 /**
  * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation.
  *
- * @return {SimpleQueryResult<DashboardStatistics>}
+ * @return {SimpleQueryResult<StudentDashboardStatistics>}
  */
-export const useGetDashboardStatistics = (): SimpleQueryResult<DashboardStatistics> => {
+export const useGetDashboardStatistics = (): SimpleQueryResult<StudentDashboardStatistics> => {
   const { getRoleResource }: Partial<AuthContext> = useAuth();
   const accountRole: string = getRoleResource();
 

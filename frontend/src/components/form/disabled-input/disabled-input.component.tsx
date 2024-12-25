@@ -20,17 +20,17 @@ import { InputLabel } from '@components/form';
  */
 interface ComponentProps {
   /**
-   * Input id.
+   * The input's id.
    */
   readonly id: string;
 
   /**
-   * Input label text.
+   * The input's label.
    */
   readonly label: string;
 
   /**
-   * Input type, e.g. 'text', 'email', 'number', etc.
+   * The input's type, e.g. 'text', 'email', 'number', etc.
    */
   readonly type: string;
 
@@ -51,7 +51,7 @@ export const DisabledInput = ({ id, label, type, value }: ComponentProps): JSX.E
     <BaseInput $isDisabled={true}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <input
         type={type}

@@ -12,41 +12,42 @@
 import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 
 /**
- * Defines the properties of all {@link Application} status fields.
+ * Defines the properties of all Application status fields.
  */
 export interface ApplicationStatusSelectOptions {
   /**
-   * All {@link ApplicationStatus} objects.
+   * All ApplicationStatus as select option objects.
    */
   applicationStatus: Array<ApplicationStatus> | undefined;
 
   /**
-   * All {@link InterviewStatus} objects.
+   * All InterviewStatus as select option objects.
    */
   interviewStatus: Array<InterviewStatus> | undefined;
 
   /**
-   * All {@link OfferStatus} objects.
+   * All OfferStatus as select option objects.
    */
   offerStatus: Array<OfferStatus> | undefined;
 
   /**
-   * All {@link ResponseStatus} objects.
+   * All ResponseStatus as select option objects.
    */
   responseStatus: Array<ResponseStatus> | undefined;
 
   /**
-   * All {@link FinalDestinationStatus} objects.
+   * All FinalDestinationStatus as select option objects.
    */
   finalDestinationStatus: Array<FinalDestinationStatus> | undefined;
 }
 
 /**
- * Defines the return properties of the {@link useGetAllSelectOptions} custom hook.
+ * Defines the options and state for handling application status select fields.
+
  */
 export interface ApplicationOptions {
   /**
-   * An object containing all select options for the application statuses.
+   * An object containing all select options for all application status fields.
    */
   selectOptions: ApplicationStatusSelectOptions;
 

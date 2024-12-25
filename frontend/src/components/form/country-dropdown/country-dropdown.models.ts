@@ -9,7 +9,7 @@
  */
 
 /**
- * Defines the return value properties of the {@link useSelectCountry} custom hook.
+ * Defines properties for handling country option selection behavior in dropdown components.
  */
 export interface SelectCountry {
   /**

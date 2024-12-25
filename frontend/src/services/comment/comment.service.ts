@@ -15,7 +15,7 @@ import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { Comment, CommentPaginationData, NewCommentFormFields } from '@common-types';
+import { Comment, CommentPaginationData, CreateComment } from '@common-types';
 
 /**
  * Defines the operations of the {@link commentService} object, responsible for managing comment-related API requests.
@@ -39,7 +39,7 @@ interface CommentService {
    * @return {Promise<Comment>}
    * @throws {AxiosError}
    */
-  postCommentByApplicationUuid: (formData: NewCommentFormFields, applicationUuid: string) => Promise<Comment>;
+  postCommentByApplicationUuid: (formData: CreateComment, applicationUuid: string) => Promise<Comment>;
 }
 
 /**
@@ -54,7 +54,7 @@ export const commentService: CommentService = {
 
     return response.data;
   },
-  postCommentByApplicationUuid: async (formData: NewCommentFormFields, applicationUuid: string): Promise<Comment> => {
+  postCommentByApplicationUuid: async (formData: CreateComment, applicationUuid: string): Promise<Comment> => {
     const response: AxiosResponse<Comment> = await axiosConfigWithAuth.request<Comment>({
       method: 'POST',
       url: `/api/v1/comments/${applicationUuid}`,

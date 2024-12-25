@@ -9,12 +9,19 @@
  */
 
 /* interface, type, enum imports */
-import { Application } from './application.models';
+import { Application } from '../api/application.models';
 
 /**
- * Defines a `react-router-dom` location object containing an {@link Application} object and its URL path.
+ * Defines a `react-router-dom` location object containing an Application object and its URL path.
  */
 export interface ApplicationLocation {
+  /**
+   * The Application object.
+   */
   readonly state: Application;
+
+  /**
+   * The URL's path.
+   */
   readonly pathname: string;
 }

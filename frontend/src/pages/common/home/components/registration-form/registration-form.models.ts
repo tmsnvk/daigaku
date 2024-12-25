@@ -12,9 +12,9 @@
 import { AxiosError } from 'axios';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, MutationResult, RegistrationFormFields } from '@common-types';
+import { CoreErrorResponse, MutationResult, PendingAccountRegisterRequest } from '@common-types';
 
 /**
  * Defines the {@link useSubmitRegistrationForm} custom hook's return value properties.
  */
-export type HandleRegistrationForm = MutationResult<void, AxiosError<CoreErrorResponse>, RegistrationFormFields>;
+export type HandleRegistrationForm = MutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegisterRequest>;

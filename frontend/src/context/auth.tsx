@@ -18,7 +18,7 @@ import { accountService } from '@services';
 import { localStorageKeys } from '@constants';
 
 /* interface, type, enum imports */
-import { LoginFormResponse } from '@common-types';
+import { LoginResponse } from '@common-types';
 
 /**
  * Defines the authentication status options.
@@ -126,7 +126,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 
     const getMe = async (): Promise<void> => {
       try {
-        const data: LoginFormResponse = await accountService.getMe();
+        const data: LoginResponse = await accountService.getMe();
 
         const loggedInAccount: Account = {
           ...data,

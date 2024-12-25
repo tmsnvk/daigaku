@@ -23,7 +23,7 @@ import { constants } from './university-dropdown.constants';
 import { DropdownInput, UniversityOption } from '@common-types';
 
 /**
- * Defines the properties of the {@link InstitutionDropdown} component.
+ * Defines the properties of the {@link UniversityDropdown} component.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */
@@ -47,7 +47,7 @@ export const UniversityDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.ui.dropdown.LABEL}
+        label={constants.ui.dropdown.LABEL}
       />
       <select
         {...register(id, validationRules)}

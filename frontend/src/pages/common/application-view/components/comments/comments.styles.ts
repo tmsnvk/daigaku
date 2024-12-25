@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
 export const Article = styled.article`

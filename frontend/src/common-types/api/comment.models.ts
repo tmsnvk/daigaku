@@ -9,7 +9,17 @@
  */
 
 /* interface, type, enum imports */
-import { BaseMetadata } from '../metadata/base-metada.models';
+import { BaseMetadata } from '../base/base-metada.models';
+
+/**
+ * Defines the properties of a single new Comment submission.
+ */
+export interface CreateComment {
+  /**
+   * The comment body.
+   */
+  readonly comment: string;
+}
 
 /**
  * Defines a comment associated with a given {@link Application}.

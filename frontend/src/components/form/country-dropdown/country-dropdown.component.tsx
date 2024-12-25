@@ -59,7 +59,7 @@ export const CountryDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.ui.dropdown.LABEL}
+        label={constants.ui.dropdown.LABEL}
       />
       <select
         {...register(id, validationRules)}

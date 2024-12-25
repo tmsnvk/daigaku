@@ -26,7 +26,7 @@ import { formTypeButtonLabel } from '../../home.constants';
 import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
-import { FormType, LoginFormFields, SelectForm, UseFormHook } from '@common-types';
+import { FormType, LoginRequest, SelectForm, UseFormHook } from '@common-types';
 import { HandleLoginForm } from './login-form.models';
 
 /**
@@ -51,7 +51,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
     handleSubmit,
     register,
     setError,
-  }: UseFormHook<LoginFormFields> = useForm<LoginFormFields>({ mode: 'onSubmit' });
+  }: UseFormHook<LoginRequest> = useForm<LoginRequest>({ mode: 'onSubmit' });
   const { isPending, mutate }: HandleLoginForm = useHandleLoginForm(setError);
 
   return (
@@ -60,7 +60,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
       <form
         id={'post-account-login-form'}
         method={'POST'}
-        onSubmit={handleSubmit((formData: LoginFormFields) => mutate(formData))}
+        onSubmit={handleSubmit((formData: LoginRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}

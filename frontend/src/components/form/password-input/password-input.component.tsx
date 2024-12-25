@@ -50,18 +50,18 @@ export const PasswordInput = <T extends FieldValues>({
   initialValue,
   isDisabled,
 }: ComponentProps<T>): JSX.Element => {
-  const { isTextRevealed, toggleInputVisibility }: TogglePassword = useTogglePassword();
+  const { isPasswordRevealed, toggleInputVisibility }: TogglePassword = useTogglePassword();
 
   return (
     <BasePasswordInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <div>
         <input
           {...register(id, validationRules)}
-          type={isTextRevealed ? 'text' : 'password'}
+          type={isPasswordRevealed ? 'text' : 'password'}
           id={id}
           name={id}
           autoComplete={'off'}
@@ -71,7 +71,7 @@ export const PasswordInput = <T extends FieldValues>({
         />
         <FontAwesomeIcon
           onClick={toggleInputVisibility}
-          icon={isTextRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
+          icon={isPasswordRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
         />
       </div>
       {error && <InputError message={error} />}

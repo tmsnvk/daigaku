@@ -75,7 +75,7 @@ export const ActiveSelectField = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <select
         {...register(id, {

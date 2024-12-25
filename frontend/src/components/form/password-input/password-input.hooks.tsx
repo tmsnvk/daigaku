@@ -15,20 +15,19 @@ import { useState } from 'react';
 import { TogglePassword } from './password-input.models';
 
 /**
- * Manages password visibility in input fields.
- * Toggles the display of password input between plain text and obfuscated characters.
+ * Toggles the password visibility in input fields between plain text and obfuscated characters.
  *
  * @return {TogglePassword}
  */
 export const useTogglePassword = (): TogglePassword => {
-  const [isTextRevealed, setIsTextRevealed] = useState<boolean>(false);
+  const [isPasswordRevealed, setIsPasswordRevealed] = useState<boolean>(false);
 
   const toggleInputVisibility = (): void => {
-    setIsTextRevealed(!isTextRevealed);
+    setIsPasswordRevealed(!isPasswordRevealed);
   };
 
   return {
-    isTextRevealed,
+    isPasswordRevealed,
     toggleInputVisibility,
   };
 };

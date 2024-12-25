@@ -24,7 +24,7 @@ import { formatRoleName } from './account-role-dropdown.utilities';
 import { DropdownInput, RoleOption } from '@common-types';
 
 /**
- * Defines the properties of the {@link CountryDropdown} component.
+ * Defines the properties of the {@link AccountRoleDropdown} component.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */
@@ -48,7 +48,7 @@ export const AccountRoleDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.ui.dropdown.LABEL}
+        label={constants.ui.dropdown.LABEL}
       />
       <select
         {...register(id, validationRules)}

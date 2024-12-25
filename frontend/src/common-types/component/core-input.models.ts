@@ -12,8 +12,7 @@
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 /**
- * Defines validation rules for an input field using `react-hook-form`.
- * This interface specifies the criteria for input validation,
+ * Defines criteria for validation rules for an input field using `react-hook-form`,
  * including required fields and patterns for matching input values, along with custom error messages.
  */
 interface CoreInputValidationRules {
@@ -38,7 +37,7 @@ interface CoreInputValidationRules {
 
 /**
  * Defines the core properties of input fields used with `react-hook-form`.
- * The interface is intended to standardize the properties across various input types
+ * The interface intends to standardize basic properties across various input types
  * that utilize the `react-hook-form` library for form handling and validation.
  */
 export interface CoreInput<T extends FieldValues> {

@@ -26,7 +26,7 @@ interface ComponentProps {
   /**
    * The text displayed inside the label.
    */
-  readonly labelText: string;
+  readonly label: string;
 }
 
 /**
@@ -35,6 +35,6 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const InputLabel = ({ inputId, labelText }: ComponentProps): JSX.Element => {
-  return <Label htmlFor={inputId}>{labelText}</Label>;
+export const InputLabel = ({ inputId, label }: ComponentProps): JSX.Element => {
+  return <Label htmlFor={inputId}>{label}</Label>;
 };

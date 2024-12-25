@@ -15,7 +15,7 @@ import { FieldValues } from 'react-hook-form';
 import { CoreInput } from './core-input.models';
 
 /**
- * Defines the properties of general-purpose inputs
+ * Defines the properties of general-purpose input fields
  * that extend the {@link CoreInput} properties and utilize the `react-hook-form` features.
  *
  * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}

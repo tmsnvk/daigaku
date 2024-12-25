@@ -39,7 +39,7 @@ import {
   OfferStatusE,
   ResponseStatus,
   ResponseStatusE,
-  UpdateApplicationFormFields,
+  UpdateApplicationByStudent,
 } from '@common-types';
 import { FieldsReadOnlyStatus, HandleFieldDisableStatus, HandleFormSubmission, UpdateApplicationForm } from './application-form.models';
 
@@ -77,7 +77,7 @@ const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefine
  * @return {HandleFormSubmission}
  */
 export const useHandleFormSubmission = (): HandleFormSubmission => {
-  const handleValidation = (formData: UpdateApplicationFormFields, currentApplicationUuid: string): Array<string> => {
+  const handleValidation = (formData: UpdateApplicationByStudent, currentApplicationUuid: string): Array<string> => {
     const errors: Array<string> = [];
 
     // Find application, response status and final destination status react-query caches.
@@ -121,15 +121,15 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
   };
 
   const submitForm = (
-    formData: UpdateApplicationFormFields,
+    formData: UpdateApplicationByStudent,
     currentApplicationUuid: string,
-    mutate: (formData: UpdateApplicationFormFields) => void,
-    setError: UseFormSetError<UpdateApplicationFormFields>,
+    mutate: (formData: UpdateApplicationByStudent) => void,
+    setError: UseFormSetError<UpdateApplicationByStudent>,
   ): void => {
     const validationErrors: Array<string> = handleValidation(formData, currentApplicationUuid);
 
     if (!validationErrors.length) {
-      const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationFormFields>;
+      const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationByStudent>;
 
       /**
        * Disabled inputs are returned as undefined. These undefined inputs are replaced with an empty string,
@@ -172,12 +172,12 @@ type UpdateApplicationFormErrorT =
  * @return {UpdateApplicationForm}
  */
 export const useUpdateApplication = (
-  setError: UseFormSetError<UpdateApplicationFormFields>,
+  setError: UseFormSetError<UpdateApplicationByStudent>,
   applicationUuid: string,
 ): UpdateApplicationForm => {
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
-    mutationFn: (formData: UpdateApplicationFormFields) => applicationStudentService.patchByUuid(formData, applicationUuid),
+    mutationFn: (formData: UpdateApplicationByStudent) => applicationStudentService.patchByUuid(formData, applicationUuid),
     onSuccess: (response: Application) => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {

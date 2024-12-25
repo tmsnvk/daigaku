@@ -15,7 +15,7 @@ import { JSX, useState } from 'react';
 import { LoginForm, RegistrationForm, ResetForm } from './components';
 
 /* interface, type, enum imports */
-import { ActiveFormComponent, ConfirmationModal, FormType } from '@common-types';
+import { ActiveFormComponent, ConfirmationModal, FormType } from './home.models';
 
 /**
  * A helper method used by {@link useActiveFormComponent}

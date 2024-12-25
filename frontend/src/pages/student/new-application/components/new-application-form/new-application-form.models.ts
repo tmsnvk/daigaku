@@ -12,12 +12,12 @@
 import { AxiosError } from 'axios';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, CreateApplicationFormFields, MutationResult } from '@common-types';
+import { Application, CoreErrorResponse, CreateApplicationByStudent, MutationResult } from '@common-types';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's return value properties.
  */
-export type CreateApplication = MutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationFormFields>;
+export type CreateApplication = MutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent>;
 
 /**
  * Defines the {@link useCountrySelection} custom hook's return value properties.

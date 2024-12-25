@@ -36,7 +36,7 @@ import {
   InterviewStatus,
   OfferStatus,
   ResponseStatus,
-  UpdateApplicationFormFields,
+  UpdateApplicationByStudent,
 } from '@common-types';
 import { HandleFieldDisableStatus, HandleFormSubmission } from './application-form.models';
 
@@ -60,7 +60,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     handleSubmit,
     register,
     setError,
-  } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
+  } = useForm<UpdateApplicationByStudent>({ mode: 'onSubmit' });
 
   // Custom hook that submits the form.
   const { submitForm }: HandleFormSubmission = useHandleFormSubmission();

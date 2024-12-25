@@ -13,24 +13,24 @@ import { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, MutationResult, UpdateApplicationFormFields } from '@common-types';
+import { Application, CoreErrorResponse, MutationResult, UpdateApplicationByStudent } from '@common-types';
 
 /**
  * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
  */
 export interface HandleFormSubmission {
   submitForm: (
-    formData: UpdateApplicationFormFields,
+    formData: UpdateApplicationByStudent,
     applicationUuid: string,
-    mutate: (formData: UpdateApplicationFormFields) => void,
-    setError: UseFormSetError<UpdateApplicationFormFields>,
+    mutate: (formData: UpdateApplicationByStudent) => void,
+    setError: UseFormSetError<UpdateApplicationByStudent>,
   ) => void;
 }
 
 /**
  * Defines the return value properties of the {@link useUpdateApplication} custom hook.
  */
-export type UpdateApplicationForm = MutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationFormFields>;
+export type UpdateApplicationForm = MutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent>;
 
 /**
  * TODO

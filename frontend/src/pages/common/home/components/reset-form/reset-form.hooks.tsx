@@ -21,8 +21,9 @@ import { mutationKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { ConfirmationModal, CoreErrorResponse, ResetFormFields } from '@common-types';
+import { AccountResetRequest, CoreErrorResponse } from '@common-types';
 import { HandleResetForm } from './reset-form.models';
+import { ConfirmationModal } from '../../home.models';
 
 /**
  * Manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
@@ -32,12 +33,12 @@ import { HandleResetForm } from './reset-form.models';
  * @return {HandleResetForm}
  */
 export const useHandleResetForm = (
-  setError: UseFormSetError<ResetFormFields>,
+  setError: UseFormSetError<AccountResetRequest>,
   showModal: ConfirmationModal['showModal'],
 ): HandleResetForm => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_RESET_FORM],
-    mutationFn: (formData: ResetFormFields) => accountService.resetPassword(formData),
+    mutationFn: (formData: AccountResetRequest) => accountService.resetPassword(formData),
     onSuccess: () => {
       showModal();
     },

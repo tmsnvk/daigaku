@@ -14,7 +14,7 @@
 export type Todo = string;
 
 /**
- * Defines the {@link useTodoList} custom hook's return value properties.
+ * Defines the dashboard's todo list for the authenticated user.
  */
 export interface TodoList {
   /**

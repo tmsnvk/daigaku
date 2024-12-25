@@ -47,7 +47,7 @@ export const GenericInput = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <input
         {...register(id, validationRules)}

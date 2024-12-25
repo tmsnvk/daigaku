@@ -23,7 +23,7 @@ import { mutationKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR, localStorageKeys } from '@constants';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, LoginFormFields, LoginFormResponse } from '@common-types';
+import { CoreErrorResponse, LoginRequest, LoginResponse } from '@common-types';
 import { HandleLoginForm } from './login-form.models';
 
 /**
@@ -33,14 +33,14 @@ import { HandleLoginForm } from './login-form.models';
  * @param setError A `react-hook-form` function to set form errors.
  * @return {HandleLoginForm}
  */
-export const useHandleLoginForm = (setError: UseFormSetError<LoginFormFields>): HandleLoginForm => {
+export const useHandleLoginForm = (setError: UseFormSetError<LoginRequest>): HandleLoginForm => {
   const navigate: NavigateFunction = useNavigate();
   const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
-    mutationFn: (formData: LoginFormFields) => accountService.logIn(formData),
-    onSuccess: (response: LoginFormResponse) => {
+    mutationFn: (formData: LoginRequest) => accountService.logIn(formData),
+    onSuccess: (response: LoginResponse) => {
       localStorage.setItem(localStorageKeys.AUTHENTICATION_TOKEN, response.jwtToken);
 
       const account: Account = {

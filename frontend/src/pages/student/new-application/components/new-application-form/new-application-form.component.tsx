@@ -25,7 +25,7 @@ import { Form } from './new-application-form.styles';
 import { constants } from './new-application-form.constants';
 
 /* interface, type, enum imports */
-import { CountryOption, CreateApplicationFormFields, ListQueryResult, UniversityOption } from '@common-types';
+import { CountryOption, CreateApplicationByStudent, ListQueryResult, UniversityOption } from '@common-types';
 import { useGetCountryOptions } from '@hooks/country';
 import { useGetUniversityOptionsByCountryUuid } from '@hooks/university';
 import { CountrySelection, CreateApplication } from './new-application-form.models';
@@ -60,7 +60,7 @@ export const NewApplicationForm = (): JSX.Element => {
     handleSubmit,
     register,
     setError,
-  } = useForm<CreateApplicationFormFields>({ mode: 'onSubmit' });
+  } = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
 
   // Custom hook that submits the form.
   const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication(setError, resetCountrySelection, reset);

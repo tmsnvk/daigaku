@@ -9,9 +9,9 @@
  */
 
 /**
- * Defines the base of an {@link Application} status field.
+ * Defines the base of an Application status field.
  */
-export interface BaseStatus {
+interface BaseStatus {
   /**
    * The status's uuid.
    */

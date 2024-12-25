@@ -34,7 +34,7 @@ import {
   FormType,
   InstitutionOption,
   ListQueryResult,
-  RegistrationFormFields,
+  PendingAccountRegisterRequest,
   RoleOption,
   SelectForm,
   UseFormHook,
@@ -72,7 +72,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
     handleSubmit,
     register,
     setError,
-  }: UseFormHook<RegistrationFormFields> = useForm<RegistrationFormFields>({ mode: 'onSubmit' });
+  }: UseFormHook<PendingAccountRegisterRequest> = useForm<PendingAccountRegisterRequest>({ mode: 'onSubmit' });
 
   // Custom hook that submits the form.
   const { isPending, mutate }: HandleRegistrationForm = useSubmitRegistrationForm(setError, showModal);

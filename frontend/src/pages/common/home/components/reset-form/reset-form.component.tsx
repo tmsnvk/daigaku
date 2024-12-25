@@ -26,7 +26,7 @@ import { FormInstruction } from '../form-instruction';
 import { constants } from './reset-form.constants';
 
 /* interface, type, enum imports */
-import { ConfirmationModal, FormType, ResetFormFields, SelectForm, UseFormHook } from '@common-types';
+import { AccountResetRequest, ConfirmationModal, FormType, SelectForm, UseFormHook } from '@common-types';
 import { HandleResetForm } from './reset-form.models';
 
 /**
@@ -50,7 +50,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
     handleSubmit,
     register,
     setError,
-  }: UseFormHook<ResetFormFields> = useForm<ResetFormFields>({ mode: 'onSubmit' });
+  }: UseFormHook<AccountResetRequest> = useForm<AccountResetRequest>({ mode: 'onSubmit' });
   const { isPending, mutate }: HandleResetForm = useHandleResetForm(setError, showModal);
 
   return (
@@ -59,7 +59,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
       <form
         id={'post-account-reset-form'}
         method={'POST'}
-        onSubmit={handleSubmit((formData: ResetFormFields) => mutate(formData))}
+        onSubmit={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}

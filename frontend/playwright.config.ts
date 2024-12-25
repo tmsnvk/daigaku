@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 

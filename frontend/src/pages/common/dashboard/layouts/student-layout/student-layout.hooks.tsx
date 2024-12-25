@@ -12,7 +12,7 @@
 import { constants } from './student-layout.constants';
 
 /* interface, type, enum imports */
-import { DashboardStatistics, Todo, TodoList } from '@common-types';
+import { StudentDashboardStatistics, Todo, TodoList } from '@common-types';
 
 /**
  * Evaluates the current todo items based on the provided dashboard statistics.
@@ -20,7 +20,7 @@ import { DashboardStatistics, Todo, TodoList } from '@common-types';
  * @param data The dashboard statistics containing application-related aggregate data.
  * @return {TodoList}
  */
-export const useTodoList = (data: DashboardStatistics): TodoList => {
+export const useTodoList = (data: StudentDashboardStatistics): TodoList => {
   // An array of todo items.
   const todos: Array<Todo> = [];
 
