@@ -8,39 +8,30 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* logic imports */
-import { TodoList, useTodoList } from './student-layout.hooks';
+import { useTodoList } from './student-layout.hooks';
 
 /* component, style imports */
 import { DetailTile, StatTile, TodosView } from '../../components';
 import { TileUnit } from './student-layout.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from '../../dashboard.constants';
-import { introduction } from './student-layout.utilities';
+import { constants } from './student-layout.constants';
 
 /* interface, type, enum imports */
-import { DashboardStatistics } from '../../dashboard.hooks';
-
-/**
- * ===============
- * Component {@link StudentLayout}
- * ===============
- */
+import { StudentDashboardStatistics, TodoList } from '@common-types';
 
 /**
  * Defines the component's properties.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
-   * The object containing the {@link DashboardStatistics} data.
+   * The object containing the {@link StudentDashboardStatistics} data.
    */
-  readonly data: DashboardStatistics;
+  readonly data: StudentDashboardStatistics;
 }
 
 /**
@@ -48,8 +39,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
   const { todos }: TodoList = useTodoList(data);
@@ -57,55 +46,55 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
   return (
     <>
       <TodosView
-        introduction={introduction}
+        introduction={constants.todoList.INTRODUCTION}
         todos={todos}
       />
       <TileUnit>
         <StatTile
-          title={constants.categories.APPLICATIONS}
+          title={constants.tile.APPLICATIONS}
           value={data.applicationsCount}
         />
         <StatTile
-          title={constants.categories.PLANNED_APPLICATIONS}
+          title={constants.tile.PLANNED_APPLICATIONS}
           value={data.plannedApplicationsCount}
         />
         <StatTile
-          title={constants.categories.SUBMITTED_APPLICATIONS}
+          title={constants.tile.SUBMITTED_APPLICATIONS}
           value={data.submittedApplicationsCount}
         />
         <StatTile
-          title={constants.categories.WITHDRAWN_APPLICATIONS}
+          title={constants.tile.WITHDRAWN_APPLICATIONS}
           value={data.withdrawnStatusCount}
         />
       </TileUnit>
       <TileUnit>
         <StatTile
-          title={constants.categories.DISTINCT_COUNTRIES}
+          title={constants.tile.DISTINCT_COUNTRIES}
           value={data.distinctCountriesCount}
         />
         <StatTile
-          title={constants.categories.DISTINCT_UNIVERSITIES}
+          title={constants.tile.DISTINCT_UNIVERSITIES}
           value={data.distinctUniversitiesCount}
         />
       </TileUnit>
       <TileUnit>
         <StatTile
-          title={constants.categories.OFFERS}
+          title={constants.tile.OFFERS}
           value={data.offersCount}
         />
         {data.firmChoiceTileDetails && (
           <DetailTile
-            title={constants.categories.FIRM_CHOICE}
+            title={constants.tile.FIRM_CHOICE}
             country={data.firmChoiceTileDetails.countryName ?? ''}
-            university={data.firmChoiceTileDetails.universityName ?? constants.categories.NOT_YET_SELECTED}
+            university={data.firmChoiceTileDetails.universityName ?? constants.tile.NOT_YET_SELECTED}
             courseName={data.firmChoiceTileDetails.courseName ?? ''}
           />
         )}
         {data.finalDestinationTileDetails && (
           <DetailTile
-            title={constants.categories.FINAL_DESTINATION}
+            title={constants.tile.FINAL_DESTINATION}
             country={data.finalDestinationTileDetails.countryName ?? ''}
-            university={data.finalDestinationTileDetails.universityName ?? constants.categories.NOT_YET_SELECTED}
+            university={data.finalDestinationTileDetails.universityName ?? constants.tile.NOT_YET_SELECTED}
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}

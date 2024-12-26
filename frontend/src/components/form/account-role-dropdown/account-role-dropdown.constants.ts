@@ -8,13 +8,10 @@
  * @author tmsnvk
  */
 
-/**
- * @since 0.0.1
- */
 export const constants = {
   ui: {
     dropdown: {
-      LABEL_TEXT: 'Account Type',
+      LABEL: 'Account Type',
       DEFAULT_OPTION: 'Select your account type.',
     },
   },

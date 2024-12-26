@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { axiosConfig } from '@configuration';
 
 /* interface, type, enum imports */
-import { RegistrationFormFields } from '@pages/common/home/components/registration-form/registration-form.hooks';
+import { PendingAccountRegisterRequest } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link pendingAccountService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link pendingAccountService} object, responsible for managing pending-account-related API requests.
- *
- * @since 0.0.1
+ * Defines pending account service-related operations, handling API requests and interactions for pending account management.
  */
 interface PendingAccountService {
   /**
@@ -34,16 +26,14 @@ interface PendingAccountService {
    * @return {Promise<void>}
    * @throws {AxiosError}
    */
-  register: (formData: RegistrationFormFields) => Promise<void>;
+  register: (formData: PendingAccountRegisterRequest) => Promise<void>;
 }
 
 /**
  * Manages pending-account-related REST API operations, implementing {@link PendingAccountService}.
- *
- * @since 0.0.1
  */
 export const pendingAccountService: PendingAccountService = {
-  register: async (formData: RegistrationFormFields): Promise<void> => {
+  register: async (formData: PendingAccountRegisterRequest): Promise<void> => {
     await axiosConfig.request<void>({
       method: 'POST',
       url: '/api/v1/pending-accounts/register',

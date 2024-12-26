@@ -8,29 +8,21 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { Section } from './todos-view.styles';
 
 /* interface, type, enum imports */
-import { Todo } from '../../layouts/student-layout/student-layout.hooks';
-
-/**
- * ===============
- * Component {@link TodosView}
- * ===============
- */
+import { Todo } from '@common-types';
 
 /**
  * Defines the component's properties.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
-   * The component's summary text.
+   * The component's main text.
    */
   readonly introduction: Array<string>;
 
@@ -45,8 +37,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const TodosView = ({ introduction, todos }: ComponentProps): JSX.Element => {
   return (

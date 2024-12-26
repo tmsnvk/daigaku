@@ -8,22 +8,20 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { Context, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 /* logic imports */
-import { accountService } from '@services/index';
+import { accountService } from '@services';
 
 /* configuration, utilities, constants imports */
-import { localStorageKeyConstants } from '@constants';
+import { localStorageKeys } from '@constants';
 
 /* interface, type, enum imports */
-import { LoginFormResponse } from '@pages/common/home/components/login-form/login-form.hooks';
+import { LoginResponse } from '@common-types';
 
 /**
  * Defines the authentication status options.
- *
- * @since 0.0.1
  */
 export enum AuthStatus {
   LOADING,
@@ -33,8 +31,6 @@ export enum AuthStatus {
 
 /**
  * Defines the various account types.
- *
- * @since 0.0.1
  */
 export enum AccountRoleValues {
   STUDENT,
@@ -44,21 +40,21 @@ export enum AccountRoleValues {
 }
 
 /**
- * @since 0.0.1
+ * TODO
  */
 interface AccountRole {
   [key: string]: AccountRoleValues;
 }
 
 /**
- * @since 0.0.1
+ * TODO
  */
 interface AuthContextProviderT {
   children: ReactNode;
 }
 
 /**
- * @since 0.0.1
+ * TODO
  */
 export type Account = {
   email: string;
@@ -68,8 +64,6 @@ export type Account = {
 
 /**
  * Defines the properties of the AuthContext object.
- *
- * @since 0.0.1
  */
 export interface AuthContext {
   account: Account;
@@ -90,7 +84,7 @@ const initialAccountState: Account = {
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
 
 /**
- * @since 0.0.1
+ * TODO
  */
 export const AuthProvider = ({ children }: AuthContextProviderT) => {
   const [account, setAccount] = useState<Account>(initialAccountState);
@@ -122,7 +116,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
     // The useEffect that activates whenever the user refreshes their browser.
     // The action locally checks for the user's authentication token, then a token authentication request is sent to the server.
     // If the token is unavailable or the server request fails the user is signed out.
-    const token: string | null = localStorage.getItem(localStorageKeyConstants.AUTH_TOKEN);
+    const token: string | null = localStorage.getItem(localStorageKeys.AUTHENTICATION_TOKEN);
 
     if (!token) {
       setAuthStatus(AuthStatus.SIGNED_OUT);
@@ -132,7 +126,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 
     const getMe = async (): Promise<void> => {
       try {
-        const data: LoginFormResponse = await accountService.getMe();
+        const data: LoginResponse = await accountService.getMe();
 
         const loggedInAccount: Account = {
           ...data,
@@ -151,7 +145,7 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 
   const logOut = (): void => {
     // Logs the user out.
-    localStorage.removeItem(localStorageKeyConstants.AUTH_TOKEN);
+    localStorage.removeItem(localStorageKeys.AUTHENTICATION_TOKEN);
     setAuthStatus(AuthStatus.SIGNED_OUT);
   };
 
@@ -174,7 +168,5 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
 
 /**
  * The AuthContext object is wrapped into a custom hook for simplier usage within the application's components.
- *
- * @since 0.0.1
  */
 export const useAuth = (): AuthContext => useContext(AuthContext);

@@ -8,12 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /* logic imports */
-import { useGetApplicationByUuid } from '@hooks/application';
+import { useGetApplicationByUuid } from '@hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
@@ -28,24 +28,13 @@ import { constants } from './application-view.constants';
 import { Application, ApplicationLocation, SimpleQueryResult } from '@common-types';
 
 /**
- * ===============
- * Component {@link ApplicationView}
- * ===============
- */
-
-/**
  * Renders the view mode of an {@link Application} object.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ApplicationView = (): JSX.Element => {
-  // `react-router-dom` useLocation object.
   const { state, pathname }: ApplicationLocation = useLocation();
   const applicationUuid: string = pathname.split('/applications/view/')[1];
-
-  // Custom hook that fetches an application by uuid.
   const { data, isLoading, isError }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
   const application: Application = state || data;
 

@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { UniversityOption } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link universityService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link universityService} object, responsible for managing university-related API requests.
- *
- * @since 0.0.1
+ * Defines university-related operations, handling API requests and interactions for university management.
  */
 interface UniversityService {
   /**
@@ -40,8 +32,6 @@ interface UniversityService {
 
 /**
  * Manages university-related REST API operations, implementing {@link UniversityService}.
- *
- * @since 0.0.1
  */
 export const universityService: UniversityService = {
   getAllOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<Array<UniversityOption>> => {

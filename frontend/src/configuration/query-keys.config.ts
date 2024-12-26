@@ -8,9 +8,6 @@
  * @author tmsnvk
  */
 
-/**
- * @since 0.0.1
- */
 export const mutationKeys = {
   account: {
     POST_LOGIN_FORM: 'post-account-login-form',
@@ -28,9 +25,6 @@ export const mutationKeys = {
   },
 };
 
-/**
- * @since 0.0.1
- */
 export const queryKeys = {
   ACCOUNT: {
     GET_ME: 'get-me',

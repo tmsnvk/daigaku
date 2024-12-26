@@ -8,18 +8,9 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
-/**
- * ===============
- * Styled Component {@link Article}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const Article = styled.article`
   margin: 0 0 5rem 0;
 
@@ -64,15 +55,6 @@ export const Article = styled.article`
   }
 `;
 
-/**
- * ===============
- * Styled Component {@link ErrorContainer}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const ErrorContainer = styled.article`
   width: 75%;
   margin: 5rem auto 5rem auto;

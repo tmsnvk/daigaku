@@ -8,26 +8,18 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { DescriptionList } from './stat-tile.styles';
 
 /**
- * ===============
- * Component {@link StatTile}
- * ===============
- */
-
-/**
  * Defines the component's properties.
- *
- * @since 0.0.1
  */
 interface ComponentProps {
   /**
-   * The tile's title
+   * The tile's title.
    */
   readonly title: string;
 
@@ -38,12 +30,10 @@ interface ComponentProps {
 }
 
 /**
- * Renders a statistic tile with a title and corresponding data.
+ * Renders a statistic tile with a title and its corresponding data.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const StatTile = ({ title, value }: ComponentProps): JSX.Element => {
   return (

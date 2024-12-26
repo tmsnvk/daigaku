@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
@@ -23,18 +23,17 @@ import { constants } from './institution-dropdown.constants';
 import { DropdownInput, InstitutionOption } from '@common-types';
 
 /**
- * ===============
- * Component {@link InstitutionDropdown}
- * ===============
+ * Defines the component's properties.
+ *
+ * @template T - The type of form values extending the `react-hook-form` library.
  */
+interface ComponentProps<T extends FieldValues> extends DropdownInput<T, InstitutionOption> {}
 
 /**
  * Renders a dropdown input component to select an {@link InstitutionOption}.
  *
- * @param {DropdownInput<T, InstitutionOption>} props
+ * @param {ComponentProps<T>} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const InstitutionDropdown = <T extends FieldValues>({
   register,
@@ -43,12 +42,12 @@ export const InstitutionDropdown = <T extends FieldValues>({
   id,
   isDisabled,
   options,
-}: DropdownInput<T, InstitutionOption>): JSX.Element => {
+}: ComponentProps<T>): JSX.Element => {
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.ui.dropdown.LABEL_TEXT}
+        label={constants.ui.dropdown.LABEL}
       />
       <select
         {...register(id, validationRules)}

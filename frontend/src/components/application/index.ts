@@ -8,6 +8,6 @@
  * @author tmsnvk
  */
 
-import { ApplicationMetadata } from './application-meta-data';
+import { ApplicationMetadata } from './application-metadata';
 
 export { ApplicationMetadata };

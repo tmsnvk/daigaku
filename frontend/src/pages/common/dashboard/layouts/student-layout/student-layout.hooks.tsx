@@ -9,53 +9,18 @@
  */
 
 /* configuration, utilities, constants imports */
-import {
-  noApplications,
-  noFinalDestinationSet,
-  noFirmChoiceSet,
-  noInterviewStatusSet,
-  noOfferStatusSet,
-  noSubmittedApplications,
-  noTodo,
-} from './student-layout.utilities';
+import { constants } from './student-layout.constants';
 
 /* interface, type, enum imports */
-import { DashboardStatistics } from '../../dashboard.hooks';
-
-/**
- * ===============
- * Custom Hook {@link useTodoList}
- * ===============
- */
-
-/**
- * Defines a single Todo item.
- *
- * @since 0.0.1
- */
-export type Todo = string;
-
-/**
- * Defines the {@link useTodoList} custom hook's return value properties.
- *
- * @since 0.0.1
- */
-export interface TodoList {
-  /**
-   * The list of active todo items.
-   */
-  todos: Array<Todo>;
-}
+import { StudentDashboardStatistics, Todo, TodoList } from '@common-types';
 
 /**
  * Evaluates the current todo items based on the provided dashboard statistics.
  *
  * @param data The dashboard statistics containing application-related aggregate data.
  * @return {TodoList}
- *
- * @since 0.0.1
  */
-export const useTodoList = (data: DashboardStatistics): TodoList => {
+export const useTodoList = (data: StudentDashboardStatistics): TodoList => {
   // An array of todo items.
   const todos: Array<Todo> = [];
 
@@ -63,39 +28,39 @@ export const useTodoList = (data: DashboardStatistics): TodoList => {
   const evaluateTodos = (): void => {
     // No applications made.
     if (data.applicationsCount === 0) {
-      todos.push(noApplications);
+      todos.push(constants.todoList.NO_APPLICATIONS);
     }
 
     // No applications are in the 'Submitted' status.
     if (data.submittedApplicationsCount === 0) {
-      todos.push(noSubmittedApplications);
+      todos.push(constants.todoList.NO_SUBMITTED_APPLICATIONS);
     }
 
     if (data.submittedApplicationsCount > 0) {
       // There is no InterviewStatus set for submitted applications.
       if (data.notSetInterviewStatusCount) {
-        todos.push(noInterviewStatusSet);
+        todos.push(constants.todoList.NO_INTERVIEW_SET);
       }
 
       // There is no firm choice application selected.
       if (!data.firmChoiceTileDetails) {
-        todos.push(noFirmChoiceSet);
+        todos.push(constants.todoList.NO_FIRM_CHOICE_SET);
       }
 
       // OfferStatus is not updated on any of the 'Submitted' applications.
       if (data.offersCount === 0) {
-        todos.push(noOfferStatusSet);
+        todos.push(constants.todoList.NO_OFFER_SET);
       }
     }
 
     // There are offers but no FinalDestinationStatus is set.
     if (data.offersCount && !data.finalDestinationTileDetails) {
-      todos.push(noFinalDestinationSet);
+      todos.push(constants.todoList.NO_FINAL_DESTINATION_SET);
     }
 
     // There are no todo items.
     if (todos.length === 0) {
-      todos.push(noTodo);
+      todos.push(constants.todoList.EMPTY_TODO_LIST);
     }
   };
 

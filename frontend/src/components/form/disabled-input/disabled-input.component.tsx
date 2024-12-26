@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
@@ -16,29 +16,21 @@ import { BaseInput } from '@components/base-styles';
 import { InputLabel } from '@components/form';
 
 /**
- * ===============
- * Component {@link DisabledInput}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link DisabledInput} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
-   * Input id.
+   * The input's id.
    */
   readonly id: string;
 
   /**
-   * Input label text.
+   * The input's label.
    */
   readonly label: string;
 
   /**
-   * Input type, e.g. 'text', 'email', 'number', etc.
+   * The input's type, e.g. 'text', 'email', 'number', etc.
    */
   readonly type: string;
 
@@ -53,15 +45,13 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const DisabledInput = ({ id, label, type, value }: ComponentProps): JSX.Element => {
   return (
     <BaseInput $isDisabled={true}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <input
         type={type}

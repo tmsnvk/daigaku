@@ -8,38 +8,23 @@
  * @author tmsnvk
  */
 
-/**
- * ===============
- * Custom Hook {@link useSelectCountry}
- * ===============
- */
+/* configuration, utilities, constants imports */
+import { isEmpty } from '@utilities';
+
+/* interface, type, enum imports */
+import { SelectCountry } from './country-dropdown.models';
 
 /**
- * Defines the return value properties of the {@link useSelectCountry} custom hook.
+ * Handles the change event for the CountryDropdown component and calls the callback with the selected value.
  *
- * @since 0.0.1
- */
-export interface SelectCountry {
-  /**
-   * Callback invoked when the country dropdown value changes.
-   */
-  handleCountrySelection: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-}
-
-/**
- * Manages the country selection callback method.
- *
- * @param onCountrySelection Callback invoked with the selected country's uuid.
+ * @param onCountrySelection A callback method called with the selected country option's uuid string.
  * @return {SelectCountry}
- *
- * @since 0.0.1
  */
 export const useSelectCountry = (onCountrySelection: (countryUuid: string) => void): SelectCountry => {
-  // Handles the change event for the country dropdown and calls the callback with the selected value.
   const handleCountrySelection = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedValue: string = event.target.value;
 
-    if (selectedValue) {
+    if (!isEmpty(selectedValue)) {
       onCountrySelection(selectedValue);
     }
   };

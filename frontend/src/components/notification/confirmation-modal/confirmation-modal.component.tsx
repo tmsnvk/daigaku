@@ -8,26 +8,21 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* logic imports */
-import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-modal';
+import { useRenderModal } from '@hooks';
 
 /* component, style imports */
 import { SubmitInput } from '@components/form';
 import { Dialog } from './confirmation-modal.styles';
 
-/**
- * ===============
- * Component {@link ConfirmationModal}
- * ===============
- */
+/* interface, type, enum imports */
+import { RenderModal } from '@common-types';
 
 /**
- * Defines the properties of the {@link ConfirmationModal} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -51,11 +46,8 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ConfirmationModal = ({ isVisible, message, onCloseModal }: ComponentProps): JSX.Element => {
-  // Custom hook that manages the rendering of the modal based on visibility state.
   const { dialogRef }: RenderModal = useRenderModal(isVisible);
 
   return (

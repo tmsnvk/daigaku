@@ -8,30 +8,23 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
+/* logic imports */
+import { useOnFieldUpdate } from './active-select-field.hooks';
+
 /* component, style imports */
-import { CoreInput } from '@common-types';
 import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
-import { ApplicationStatusSelectOption } from '@common-types';
-import { FieldUpdate, useOnFieldUpdate } from './active-select-field.hooks';
-import { SelectOptions } from './active-select-field.interfaces';
+import { ApplicationStatusUnion, CoreInput } from '@common-types';
+import { FieldUpdate } from './active-select-field.models';
 
 /**
- * ===============
- * Component {@link ActiveSelectField}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link ActiveSelectField} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   /**
@@ -42,7 +35,7 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   /**
    * The value previously selected by the user, or null if none.
    */
-  previouslySelectedValue: ApplicationStatusSelectOption | null;
+  previouslySelectedValue: ApplicationStatusUnion | null;
 
   /**
    * The prompt text displayed in the select input when no option is selected.
@@ -50,22 +43,20 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   selectPrompt: string;
 
   /**
-   * An array of options available for selection, of type {@link SelectOptions}.
+   * An array of options available for selection.
    */
-  options: Array<SelectOptions>;
+  options: Array<ApplicationStatusUnion>;
 
   /**
-   * Callback function invoked when the field's value is updated.
+   * A callback function invoked when the field's value is updated.
    */
   onFieldUpdate?: (eventTargetValue: string) => void;
 }
 
 /**
- * Renders a `select` input field whose input type is included in the {@link SelectOptions} union type.
+ * Renders a `select` input field whose option type is included in the {@link ApplicationStatusUnion} union type.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ActiveSelectField = <T extends FieldValues>({
   register,
@@ -78,14 +69,13 @@ export const ActiveSelectField = <T extends FieldValues>({
   isDisabled,
   onFieldUpdate,
 }: ComponentProps<T>): JSX.Element => {
-  // Custom hook that updates the field's value.
   const { updateField }: FieldUpdate = useOnFieldUpdate(onFieldUpdate);
 
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <select
         {...register(id, {
@@ -102,7 +92,7 @@ export const ActiveSelectField = <T extends FieldValues>({
         >
           {selectPrompt}
         </option>
-        {options.map((option: SelectOptions) => {
+        {options.map((option: ApplicationStatusUnion) => {
           return (
             <option
               key={option.uuid}

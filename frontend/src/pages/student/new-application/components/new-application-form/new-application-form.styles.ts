@@ -8,21 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { ApplicationFormGrid } from '@components/form';
 
-/**
- * ===============
- * Styled Component {@link Form}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const Form = styled(ApplicationFormGrid)`
   & h1,
   & article:first-of-type,

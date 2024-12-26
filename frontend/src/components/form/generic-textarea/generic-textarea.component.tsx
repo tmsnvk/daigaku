@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
@@ -17,48 +17,28 @@ import { BaseTextarea } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
-import { CoreInput } from '@common-types';
+import { CommonInput } from '@common-types';
 
 /**
- * ===============
- * Component {@link GenericTextarea}
- * ===============
+ * Defines the component's properties.
  */
-
-/**
- * Defines the properties of the {@link GenericTextarea} component.
- *
- * @since 0.0.1
- */
-interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
+interface ComponentProps<T extends FieldValues> extends CommonInput<T> {
   /**
-   * Textarea label.
-   */
-  label: string;
-
-  /**
-   * The default number of rows for the textarea.
+   * The number of rows for the textarea.
    */
   rows: number;
 
   /**
-   * The default number of columns for the textarea.
+   * The number of columns for the textarea.
    */
   cols: number;
-
-  /**
-   * Textarea placeholder text.
-   */
-  placeholder: string;
 }
 
 /**
  * Renders a generic textarea integrated with the `react-hook-form` library for validation and error handling.
  *
- * @param {ComponentProps} props
+ * @param {ComponentProps<T>} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const GenericTextarea = <T extends FieldValues>({
   register,
@@ -75,7 +55,7 @@ export const GenericTextarea = <T extends FieldValues>({
     <BaseTextarea $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <textarea
         {...register(id, validationRules)}

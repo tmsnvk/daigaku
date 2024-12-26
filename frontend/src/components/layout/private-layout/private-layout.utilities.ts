@@ -8,44 +8,18 @@
  * @author tmsnvk
  */
 
-/* external imports */
-import { IconLookup } from '@fortawesome/fontawesome-svg-core';
-
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { constants } from './private-layout.constants';
 
 /* interface, type, enum imports */
 import { AccountRoleValues } from '@context/auth';
+import { NavbarRoute } from './private-layout.models';
 
 /**
- * Defines a navigation route in the application.
- *
- * @since 0.0.1
+ * Defines navigation routes based on the authorisation role.
  */
-export interface NavbarRoute {
-  /**
-   * The URL associated with the navigation route.
-   */
-  readonly url: string;
-
-  /**
-   * The FontAwesome icon associated with the navigation route.
-   */
-  readonly icon: IconLookup;
-
-  /**
-   * The label displayed for the navigation route.
-   */
-  readonly label: string;
-}
-
-/**
- * Defines navigation routes based on user roles in the application.
- *
- * @since 0.0.1
- */
-export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
+export const accountRoleNavigationRoutes: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [
     { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, label: constants.routes.student.newApplication.LABEL },
     { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.student.myApplications.LABEL },
@@ -65,8 +39,6 @@ export const navigationRoutesByRole: { [key in AccountRoleValues]: Array<NavbarR
 
 /**
  * Defines shared navigation routes accessible to all authenticated users.
- *
- * @since 0.0.1
  */
 export const sharedNavigationRoutes: Array<NavbarRoute> = [
   { url: '/account', icon: iconLibraryConfig.faUser, label: constants.routes.shared.myAccount.LABEL },

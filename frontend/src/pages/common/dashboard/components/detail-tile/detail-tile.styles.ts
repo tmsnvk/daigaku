@@ -8,21 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseDarkBorder } from '@components/base-styles';
 
-/**
- * ===============
- * Styled Component {@link Article}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const Article = styled.article`
   ${BaseDarkBorder};
 

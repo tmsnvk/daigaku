@@ -8,76 +8,60 @@
  * @author tmsnvk
  */
 
-/* external imports */
-import { JSX } from 'react';
+/* vendor imports */
+import { JSX, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import {
-  HandleFieldDisableStatus,
-  HandleFormSubmission,
-  UpdateApplicationFormFields,
-  useHandleFieldDisableStatus,
-  useHandleFormSubmission,
-  useUpdateApplication,
-} from './application-form.hooks';
+import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplication } from './application-form.hooks';
 
 /* component, style imports */
 import { ApplicationMetadata } from '@components/application';
 import { DisabledInput, InputError, InputGuideText, SubmitInput } from '@components/form';
 import { LoadingIndicator, PageTitle } from '@components/general';
 import { Toast } from '@components/notification';
-import { ActiveSelectField } from '../active-select-field/index';
-import { IsRemovableButton } from '../is-removable-button/index';
+import { ActiveSelectField } from '../active-select-field';
+import { IsRemovableButton } from '../is-removable-button';
 import { Form } from './application-form.styles';
 
 /* configuration, utilities, constants imports */
 import { constants } from './application-form.constants';
 
 /* interface, type, enum imports */
-import { Application, ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
-import { ApplicationStatusOption } from '@hooks/application-status/use-get-all-select-options';
-import { useEffect } from 'react';
+import {
+  Application,
+  ApplicationStatus,
+  ApplicationStatusSelectOptions,
+  FinalDestinationStatus,
+  InterviewStatus,
+  OfferStatus,
+  ResponseStatus,
+  UpdateApplicationByStudent,
+} from '@common-types';
+import { HandleFieldDisableStatus, HandleFormSubmission } from './application-form.models';
 
 /**
- * ===============
- * Component {@link ApplicationForm}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link ApplicationForm} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   readonly application: Application;
-  readonly selectOptions: ApplicationStatusOption;
+  readonly selectOptions: ApplicationStatusSelectOptions;
 }
 
 /**
  * Renders the form edit page where users are able to amend their application data.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ApplicationForm = ({ application, selectOptions }: ComponentProps): JSX.Element => {
-  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  } = useForm<UpdateApplicationFormFields>({ mode: 'onSubmit' });
-
-  // Custom hook that submits the form.
+  } = useForm<UpdateApplicationByStudent>({ mode: 'onSubmit' });
   const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
-
-  // Custom hook that updates the application.
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
-
-  // Custom hook that checks the application's fields availability.
   const {
     onPageLoadValidation,
     fieldsReadOnlyStatus,

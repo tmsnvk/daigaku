@@ -8,60 +8,50 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { HandleLoginForm, LoginFormFields, useHandleLoginForm } from './login-form.hooks';
+import { useHandleLoginForm } from './login-form.hooks';
 
 /* component, style imports */
 import { GenericInput, InputError, PasswordInput, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
+import { FormInstruction } from '../form-instruction';
 import { FormSwapButton } from '../form-swap-button';
 
 /* configuration, utilities, constants imports */
 import { formTypeButtonLabel } from '../../home.constants';
-import { FormInstruction } from '../form-instruction';
 import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
-import { FormType, SelectForm, UseFormHook } from '../../home.interfaces';
-
-/**
- * ===============
- * Component {@link LoginForm}
- * ===============
- */
+import { LoginRequest } from '@common-types';
+import { FormType, SelectForm, UseFormHook } from '../../home.models';
+import { HandleLoginForm } from './login-form.models';
 
 /**
  * Defines the component's properties.
- * A function to handle {@link FormType} switching.
- *
- * @since 0.0.1
  */
 type ComponentProps = SelectForm;
 
 /**
  * Renders a login form that allows users to submit their email and password for authentication.
- * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
- * Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm} using the {@link FormSwapButton} component.
+ * The component utilizes the `react-hook-form` library for form handling,
+ * including validation, and manages the form submission using the `react-query` library.
+ * Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm}
+ * using the {@link FormSwapButton} component.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
-  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  }: UseFormHook<LoginFormFields> = useForm<LoginFormFields>({ mode: 'onSubmit' });
-
-  // Custom hook that submits the form.
+  }: UseFormHook<LoginRequest> = useForm<LoginRequest>({ mode: 'onSubmit' });
   const { isPending, mutate }: HandleLoginForm = useHandleLoginForm(setError);
 
   return (
@@ -70,7 +60,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
       <form
         id={'post-account-login-form'}
         method={'POST'}
-        onSubmit={handleSubmit((formData: LoginFormFields) => mutate(formData))}
+        onSubmit={handleSubmit((formData: LoginRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}

@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import 'styled-components';
 
 declare module 'styled-components' {

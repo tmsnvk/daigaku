@@ -8,54 +8,27 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { pendingAccountService } from '@services/index';
+import { pendingAccountService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
+import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { DefaultErrorResponse, ErrorDetail, MutationResult } from '@common-types';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
-import { ConfirmationModal } from '../../home.interfaces';
-
-/**
- * ===============
- * Custom Hook {@link useSubmitRegistrationForm}
- * ===============
- */
-
-/**
- * Defines the properties of a single user registration form submission.
- *
- * @since 0.0.1
- */
-export interface RegistrationFormFields {
-  readonly firstName: string;
-  readonly lastName: string;
-  readonly email: string;
-  readonly institutionUuid: string;
-  readonly accountRoleUuid: string;
-}
+import { CoreErrorResponse, ErrorDetail, PendingAccountRegisterRequest } from '@common-types';
+import { ConfirmationModal } from '../../home.models';
+import { HandleRegistrationForm } from './registration-form.models';
 
 /**
  * Defines the {@link useSubmitRegistrationForm} custom hook's error types.
- *
- * @since 0.0.1
  */
 type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
-
-/**
- * Defines the {@link useSubmitRegistrationForm} custom hook's return value properties.
- *
- * @since 0.0.1
- */
-export type HandleRegistrationForm = MutationResult<void, AxiosError<DefaultErrorResponse>, RegistrationFormFields>;
 
 /**
  * Manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
@@ -63,23 +36,21 @@ export type HandleRegistrationForm = MutationResult<void, AxiosError<DefaultErro
  * @param setError A `react-hook-form` function to set form errors.
  * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
  * @return {HandleRegistrationForm}
- *
- * @since 0.0.1
  */
 export const useSubmitRegistrationForm = (
-  setError: UseFormSetError<RegistrationFormFields>,
+  setError: UseFormSetError<PendingAccountRegisterRequest>,
   showModal: ConfirmationModal['showModal'],
 ): HandleRegistrationForm => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER],
-    mutationFn: (formData: RegistrationFormFields) => pendingAccountService.register(formData),
+    mutationFn: (formData: PendingAccountRegisterRequest) => pendingAccountService.register(formData),
     onSuccess: () => {
       showModal();
     },
-    onError: (error: AxiosError<DefaultErrorResponse>) => {
+    onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {
         const status: number | undefined = error.response?.status;
-        const errors: DefaultErrorResponse | undefined = error.response?.data;
+        const errors: CoreErrorResponse | undefined = error.response?.data;
 
         if (status) {
           if (status === 400 && errors) {

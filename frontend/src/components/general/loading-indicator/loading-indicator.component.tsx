@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
@@ -19,19 +19,11 @@ import { Article } from './loading-indicator.styles';
 import { iconLibraryConfig } from '@configuration';
 
 /**
- * ===============
- * Component {@link LoadingIndicator}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link LoadingIndicator} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
-   * The message displayed while loading, providing context to the user.
+   * The message displayed while loading the active page.
    */
   readonly loadingText: string;
 }
@@ -41,8 +33,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const LoadingIndicator = ({ loadingText }: ComponentProps): JSX.Element => {
   return (

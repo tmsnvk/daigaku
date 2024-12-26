@@ -8,15 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import axios, { AxiosInstance } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { localStorageKeyConstants } from '@constants';
+import { localStorageKeys } from '@constants';
 
-/**
- * @since 0.0.1
- */
 export const axiosConfig: AxiosInstance = axios.create({
   timeout: 30000,
   headers: {
@@ -27,9 +24,6 @@ export const axiosConfig: AxiosInstance = axios.create({
   },
 });
 
-/**
- * @since 0.0.1
- */
 export const axiosConfigWithAuth: AxiosInstance = axios.create({
   timeout: 30000,
   withCredentials: true,
@@ -43,12 +37,9 @@ export const axiosConfigWithAuth: AxiosInstance = axios.create({
   },
 });
 
-/**
- * @since 0.0.1
- */
 axiosConfigWithAuth.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem(localStorageKeyConstants.AUTH_TOKEN);
+    const token = localStorage.getItem(localStorageKeys.AUTHENTICATION_TOKEN);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

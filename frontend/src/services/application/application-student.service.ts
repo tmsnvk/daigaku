@@ -8,27 +8,17 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
-import { UpdateApplicationFormFields } from '@pages/common/application-edit/components/application-form/application-form.hooks';
-import { CreateApplicationFormFields } from '@pages/student/new-application/components/new-application-form/new-application-form.hooks';
+import { Application, CreateApplicationByStudent, UpdateApplicationByStudent } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link applicationStudentService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link applicationStudentService} object, responsible for managing student-application-related API requests.
- *
- * @since 0.0.1
+ * Defines student-application service operations, handling API requests and interactions for student-related application management.
  */
 interface ApplicationStudentService {
   /**
@@ -38,7 +28,7 @@ interface ApplicationStudentService {
    * @return {Promise<Application>}
    * @throws {AxiosError}
    */
-  postByStudent: (formData: CreateApplicationFormFields) => Promise<Application>;
+  postByStudent: (formData: CreateApplicationByStudent) => Promise<Application>;
 
   /**
    * Updates an existing application record by uuid.
@@ -48,7 +38,7 @@ interface ApplicationStudentService {
    * @return {Promise<Application>}
    * @throws {AxiosError}
    */
-  patchByUuid: (formData: UpdateApplicationFormFields, applicationUuid: string) => Promise<Application>;
+  patchByUuid: (formData: UpdateApplicationByStudent, applicationUuid: string) => Promise<Application>;
 
   /**
    * Toggles the is_removable status of an application by uuid.
@@ -71,11 +61,9 @@ interface ApplicationStudentService {
 
 /**
  * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
- *
- * @since 0.0.1
  */
 export const applicationStudentService: ApplicationStudentService = {
-  postByStudent: async (formData: CreateApplicationFormFields): Promise<Application> => {
+  postByStudent: async (formData: CreateApplicationByStudent): Promise<Application> => {
     const response: AxiosResponse<Application> = await axiosConfigWithAuth.request<Application>({
       method: 'POST',
       url: '/api/v1/applications/student',
@@ -84,7 +72,7 @@ export const applicationStudentService: ApplicationStudentService = {
 
     return response.data;
   },
-  patchByUuid: async (formData: UpdateApplicationFormFields, applicationUuid: string): Promise<Application> => {
+  patchByUuid: async (formData: UpdateApplicationByStudent, applicationUuid: string): Promise<Application> => {
     const response: AxiosResponse<Application> = await axiosConfigWithAuth.request<Application>({
       method: 'PATCH',
       url: `/api/v1/applications/student/${applicationUuid}`,

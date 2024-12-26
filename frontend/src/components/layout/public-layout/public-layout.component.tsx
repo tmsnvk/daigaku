@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -23,17 +23,9 @@ import { iconLibraryConfig } from '@configuration';
 import { constants } from './public-layout.constants';
 
 /**
- * ===============
- * Component {@link PublicLayout}
- * ===============
- */
-
-/**
  * Renders the navigation routes for unauthorised users.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const PublicLayout = (): JSX.Element => {
   return (
@@ -49,7 +41,7 @@ export const PublicLayout = (): JSX.Element => {
               <NavigationRoute
                 resource={'/contact'}
                 icon={iconLibraryConfig.faPaperPlane}
-                label={constants.routes.contactUs.LABEL}
+                label={constants.ui.contactUs.LABEL}
               />
             </li>
           </ul>

@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { expect, test } from '@playwright/test';
 
 /* test imports */

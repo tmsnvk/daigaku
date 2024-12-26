@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { type Locator, type Page, expect } from '@playwright/test';
 
 type NewApplicationFormT = {

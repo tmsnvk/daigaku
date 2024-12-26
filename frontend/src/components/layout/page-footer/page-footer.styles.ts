@@ -8,18 +8,9 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled from 'styled-components';
 
-/**
- * ===============
- * Styled Component {@link Footer}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const Footer = styled.footer`
   height: 7.5rem;
   position: absolute;

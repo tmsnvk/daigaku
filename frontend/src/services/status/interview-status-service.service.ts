@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { InterviewStatus } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link interviewStatusService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link interviewStatusService} object, responsible for managing interview-status-related API requests.
- *
- * @since 0.0.1
+ * Defines interview status-related operations, handling API requests and interactions for interview status management.
  */
 interface InterviewStatusService {
   /**
@@ -40,8 +32,6 @@ interface InterviewStatusService {
 
 /**
  * Manages interview-status-related REST API operations, implementing {@link InterviewStatusService}.
- *
- * @since 0.0.1
  */
 export const interviewStatusService: InterviewStatusService = {
   getAll: async (): Promise<Array<InterviewStatus>> => {

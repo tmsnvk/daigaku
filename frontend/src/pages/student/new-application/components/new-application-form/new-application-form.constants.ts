@@ -8,9 +8,6 @@
  * @author tmsnvk
  */
 
-/**
- * @since 0.0.1
- */
 export const constants = {
   pageMessage: {
     LOADING: 'The application is fetching the necessary data for the form submission...',
@@ -29,20 +26,22 @@ export const constants = {
       'Make sure to come back in the following months and properly update their statuses.',
       'Once you have submitted an application, you will not be able to change the country, university and course fields.',
       'Submit an application only if you are committed to it.',
-      `If you do not find your selected country or university in the dropdown lists, reach out to an admin via the 'Feedback' form.`,
+      "If you do not find your selected country or university in the dropdown lists, reach out to an admin via the 'Feedback' form.",
     ],
     SUBMIT: 'submit application',
     country: {
       INFORMATION: [
         'The first step of your application process is selecting the country of your choice.',
         'You are not able to select your chosen university until you have selected its home country.',
-        'If you do not see the country of your choice amongst the selectOptions, reach out to our admin team using the form under the Contact Us page.',
+        `If you do not see the country of your choice amongst the selectOptions,
+        reach out to our admin team using the form under the Contact Us page.`,
       ],
     },
     university: {
       INFORMATION: [
         'Once you have selected a country, you will be able to pick any universities of that country from the dropdown selectOptions.',
-        'If you do not see the university of your choice amongst the selectOptions, reach out to our admin team using the form under the Contact Us page.',
+        `If you do not see the university of your choice amongst the selectOptions,
+        reach out to our admin team using the form under the Contact Us page.`,
       ],
     },
     courseName: {
@@ -81,8 +80,8 @@ export const constants = {
       PATTERN: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
     },
     minorSubject: {
-      PATTERN:
-        'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
+      PATTERN: `Providing a minor subject is optional but use only letters,
+        spaces and a minimum of 5 and a maximum of 255 characters if you do so.`,
     },
     programmeLength: {
       REQUIRED: 'Providing the length of your selected course is required.',

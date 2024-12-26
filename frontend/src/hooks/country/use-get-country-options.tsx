@@ -8,11 +8,11 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { countryService } from '@services/index';
+import { countryService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@configuration';
@@ -24,8 +24,6 @@ import { CountryOption, ListQueryResult } from '@common-types';
  * Fetches a list of {@link CountryOption} objects.
  *
  * @return {ListQueryResult<CountryOption>}
- *
- * @since 0.0.1
  */
 export const useGetCountryOptions = (): ListQueryResult<CountryOption> => {
   return useQuery({

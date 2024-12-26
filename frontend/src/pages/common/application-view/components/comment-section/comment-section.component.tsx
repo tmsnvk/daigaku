@@ -8,16 +8,17 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* logic imports */
-import { CommentPagination, useCommentPagination, useCommentsByApplicationAndPagination } from './comment-section.hooks';
+import { useGetCommentsByApplicationAndPagination, useHandleCommentPagination } from './comment-section.hooks';
 
 /* component, style imports */
-import { CommentPaginationButton } from '../comment-pagination-button/index';
-import { Comments } from '../comments/index';
-import { NewCommentForm } from '../new-comment-form/index';
+import { LoadingIndicator } from '@components/general';
+import { CommentPaginationButton } from '../comment-pagination-button';
+import { Comments } from '../comments';
+import { CreateCommentForm } from '../create-comment-form';
 import { Section } from './comment-section.styles';
 
 /* configuration, utilities, constants imports */
@@ -25,18 +26,10 @@ import { constants } from './comment-section.constants';
 
 /* interface, type, enum imports */
 import { CommentPaginationData, SimpleQueryResult } from '@common-types';
-import { LoadingIndicator } from '@components/general';
+import { CommentPagination } from './comment-section.models';
 
 /**
- * ===============
- * Component {@link CommentSection}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link CommentSection} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -50,51 +43,46 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element => {
-  // Custom hook that handles the comment page pagination.
-  const { currentPage, goToPreviousPage, goToNextPage }: CommentPagination = useCommentPagination();
-
-  // Custom hook that fetches comments for the selected application.
-  const { data, isLoading, isError }: SimpleQueryResult<CommentPaginationData> = useCommentsByApplicationAndPagination(
+  const { currentPage, goToPreviousPage, goToNextPage }: CommentPagination = useHandleCommentPagination();
+  const { data, isLoading, isError }: SimpleQueryResult<CommentPaginationData> = useGetCommentsByApplicationAndPagination(
     applicationUuid,
     currentPage,
   );
 
+  if (isLoading) {
+    return <LoadingIndicator loadingText={constants.ui.LOADING} />;
+  }
+
   return (
     <>
-      {isLoading ? (
-        <LoadingIndicator loadingText={constants.ui.LOADING} />
-      ) : (
-        <Section>
-          <Comments
-            comments={data?.comments ?? []}
-            isError={isError}
+      <Section>
+        <Comments
+          comments={data?.comments ?? []}
+          isError={isError}
+        />
+        <div>
+          <CommentPaginationButton
+            onClick={goToPreviousPage}
+            isDisabled={data?.currentPage === 0}
+            value={constants.ui.pagination.PREVIOUS}
           />
-          <div>
-            <CommentPaginationButton
-              onClick={goToPreviousPage}
-              isDisabled={data?.currentPage === 0}
-              value={constants.ui.PREVIOUS}
-            />
-            <span>
-              {constants.ui.PAGE} {currentPage + 1}
-            </span>
-            <CommentPaginationButton
-              onClick={() => {
-                if (data?.totalPages) {
-                  goToNextPage(data.totalPages);
-                }
-              }}
-              isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
-              value={constants.ui.NEXT}
-            />
-          </div>
-          <NewCommentForm applicationUuid={applicationUuid} />
-        </Section>
-      )}
+          <span>
+            {constants.ui.pagination.PAGE} {currentPage + 1}
+          </span>
+          <CommentPaginationButton
+            onClick={() => {
+              if (data?.totalPages) {
+                goToNextPage(data.totalPages);
+              }
+            }}
+            isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
+            value={constants.ui.pagination.NEXT}
+          />
+        </div>
+        <CreateCommentForm applicationUuid={applicationUuid} />
+      </Section>
     </>
   );
 };

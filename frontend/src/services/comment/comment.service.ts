@@ -8,26 +8,17 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@configuration';
 
 /* interface, type, enum imports */
-import { Comment, CommentPaginationData } from '@common-types';
-import { NewCommentFormFields } from '@pages/common/application-view/components/new-comment-form/new-comment-form.hooks';
+import { Comment, CommentPaginationData, CreateComment } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link commentService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link commentService} object, responsible for managing comment-related API requests.
- *
- * @since 0.0.1
+ * Defines comment-related operations, handling API requests and interactions for comment management.
  */
 interface CommentService {
   /**
@@ -48,13 +39,11 @@ interface CommentService {
    * @return {Promise<Comment>}
    * @throws {AxiosError}
    */
-  postCommentByApplicationUuid: (formData: NewCommentFormFields, applicationUuid: string) => Promise<Comment>;
+  postCommentByApplicationUuid: (formData: CreateComment, applicationUuid: string) => Promise<Comment>;
 }
 
 /**
  * Manages comment-related REST API operations, implementing {@link CommentService}.
- *
- * @since 0.0.1
  */
 export const commentService: CommentService = {
   getAllByApplicationUuidAndPagination: async (applicationUuid: string, currentPage: number): Promise<CommentPaginationData> => {
@@ -65,7 +54,7 @@ export const commentService: CommentService = {
 
     return response.data;
   },
-  postCommentByApplicationUuid: async (formData: NewCommentFormFields, applicationUuid: string): Promise<Comment> => {
+  postCommentByApplicationUuid: async (formData: CreateComment, applicationUuid: string): Promise<Comment> => {
     const response: AxiosResponse<Comment> = await axiosConfigWithAuth.request<Comment>({
       method: 'POST',
       url: `/api/v1/comments/${applicationUuid}`,

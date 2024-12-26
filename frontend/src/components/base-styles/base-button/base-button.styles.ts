@@ -8,18 +8,9 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { css } from 'styled-components';
 
-/**
- * ===============
- * Styled Component {@link BaseButton}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const BaseButton = css`
   height: 5rem;
   padding: 0 2.5rem 0 2.5rem;

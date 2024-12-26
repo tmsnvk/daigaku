@@ -8,14 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX, useEffect } from 'react';
 import { Location, NavigateFunction, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { AccountRoleValues, AuthContext, AuthStatus, useAuth } from '@context/auth';
-import { SmallScreenNavbarDisplay, useSmallScreenNavbarDisplay } from './private-layout.hooks';
+import { useSmallScreenNavbarDisplay } from './private-layout.hooks';
 
 /* component, style imports */
 import { GlobalLoadingModal } from '@components/notification';
@@ -26,18 +26,13 @@ import { Header, SmallScreenMenuToggle, SmallScreenMenuWrapper } from './private
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { constants } from './private-layout.constants';
-import { NavbarRoute, navigationRoutesByRole, sharedNavigationRoutes } from './private-layout.utilities';
+import { accountRoleNavigationRoutes, sharedNavigationRoutes } from './private-layout.utilities';
+
+/* interface, type, enum imports */
+import { NavbarRoute, SmallScreenNavbarDisplay } from './private-layout.models';
 
 /**
- * ===============
- * Component {@link PrivateLayout}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link PrivateLayout} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -47,25 +42,20 @@ interface ComponentProps {
 }
 
 /**
- * Renders navigation and content for authorised users.
+ * Renders navigation links for authorised users. Users with different authorisation level might see different navigation links.
  * Unauthorised users are redirected.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => {
   const location: Location = useLocation();
   const navigate: NavigateFunction = useNavigate();
-  const { authStatus, account, logOut }: Partial<AuthContext> = useAuth();
-
-  // Custom hook that manages small screen navbar display state.
+  const { authStatus, account, logOut }: AuthContext = useAuth();
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur }: SmallScreenNavbarDisplay = useSmallScreenNavbarDisplay();
 
-  // Redirect unauthorised users.
   useEffect(() => {
-    if (account.email === '') {
+    if (account.email === '' && account.firstName === '') {
       return;
     }
 
@@ -76,7 +66,6 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
     }
   }, [account]);
 
-  // Show loading modal while authentication status is AuthStatus.LOADING.
   if (authStatus === AuthStatus.LOADING) {
     return (
       <GlobalLoadingModal
@@ -103,7 +92,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
             onBlur={handleOnBlur}
           >
             <ul>
-              {navigationRoutesByRole[account.role as AccountRoleValues].map((route: NavbarRoute) => {
+              {accountRoleNavigationRoutes[account.role as AccountRoleValues].map((route: NavbarRoute) => {
                 return (
                   <li key={route.url}>
                     <NavigationRoute
@@ -132,7 +121,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
                   resource={'/'}
                   icon={iconLibraryConfig.faRightFromBracket}
                   label={constants.routes.shared.logOut.LABEL}
-                  onLogOutClick={() => logOut()}
+                  onNavigateClick={() => logOut()}
                 />
               </li>
             </ul>

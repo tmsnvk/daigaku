@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { PaginationButton } from './comment-pagination-button.styles.ts';
 
 /**
- * ===============
- * Component {@link CommentPaginationButton}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link CommentPaginationButton} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -47,8 +39,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const CommentPaginationButton = ({ onClick, isDisabled, value }: ComponentProps): JSX.Element => {
   return (

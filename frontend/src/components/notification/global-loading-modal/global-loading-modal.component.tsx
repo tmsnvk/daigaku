@@ -8,12 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
 /* logic imports */
-import { RenderModal, useRenderModal } from '@hooks/modal-components/use-render-modal';
+import { useRenderModal } from '@hooks';
 
 /* component, style imports */
 import { Dialog } from './global-loading-modal.styles';
@@ -21,16 +21,11 @@ import { Dialog } from './global-loading-modal.styles';
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 
-/**
- * ===============
- * Component {@link GlobalLoadingModal}
- * ===============
- */
+/* interface, type, enum imports */
+import { RenderModal } from '@common-types';
 
 /**
- * Defines the properties of the {@link GlobalLoadingModal} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -49,11 +44,8 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const GlobalLoadingModal = ({ isVisible, loadingText }: ComponentProps): JSX.Element => {
-  // Custom hook that manages the rendering of the modal based on visibility state.
   const { dialogRef }: RenderModal = useRenderModal(isVisible);
 
   return (

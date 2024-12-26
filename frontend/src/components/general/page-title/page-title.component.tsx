@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { TitleHeading } from './page-title.styles.ts';
 
 /**
- * ===============
- * Component {@link PageTitle}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link PageTitle} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -37,8 +29,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const PageTitle = ({ title }: ComponentProps): JSX.Element => {
   return <TitleHeading>{title}</TitleHeading>;

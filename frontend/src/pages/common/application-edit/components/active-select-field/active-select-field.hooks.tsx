@@ -8,23 +8,8 @@
  * @author tmsnvk
  */
 
-/**
- * ===============
- * Custom Hook {@link useOnFieldUpdate}
- * ===============
- */
-
-/**
- * Defines the structure for the field update function returned by {@link useOnFieldUpdate}.
- *
- * @since 0.0.1
- */
-export interface FieldUpdate {
-  /**
-   * Function to handle field update events by retrieving the target value.
-   */
-  updateField: (event: Event) => void;
-}
+/* interface, type, enum imports */
+import { FieldUpdate } from './active-select-field.models';
 
 /**
  * Manages field update events.
@@ -32,16 +17,12 @@ export interface FieldUpdate {
  *
  * @param onFieldUpdate Callback function to handle the target value from the field update.
  * @return {FieldUpdate}
- *
- * @since 0.0.1
  */
 export const useOnFieldUpdate = (onFieldUpdate: ((eventTargetValue: string) => void) | undefined): FieldUpdate => {
   const updateField = (event: Event) => {
-    // Cast event target to HTMLSelectElement.
     const target = event.target as HTMLSelectElement | null;
 
-    if (onFieldUpdate !== undefined && target) {
-      // Passes the selected value to the callback.
+    if (onFieldUpdate !== undefined && target !== null) {
       onFieldUpdate(target.value);
     }
   };

@@ -8,13 +8,13 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { TogglePassword, useTogglePassword } from './password-input.hooks';
+import { useTogglePassword } from './password-input.hooks';
 
 /* component, style imports */
 import { BasePasswordInput } from '@components/base-styles';
@@ -25,20 +25,20 @@ import { iconLibraryConfig } from '@configuration';
 
 /* interface, type, enum imports */
 import { CommonInput } from '@common-types';
+import { TogglePassword } from './password-input.models';
 
 /**
- * ===============
- * Component {@link PasswordInput}
- * ===============
+ * Defines the component's properties.
+ *
+ * @template T - The type of form values extending the `react-hook-form` library.
  */
+interface ComponentProps<T extends FieldValues> extends CommonInput<T> {}
 
 /**
  * Renders a password input field that integrates with the `react-hook-form` library for validation and error handling.
  *
- * @param {ComponentProps} props
+ * @param {ComponentProps<T>} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const PasswordInput = <T extends FieldValues>({
   register,
@@ -49,20 +49,19 @@ export const PasswordInput = <T extends FieldValues>({
   placeholder,
   initialValue,
   isDisabled,
-}: CommonInput<T>): JSX.Element => {
-  // Custom hook that manages password visibility toggle.
-  const { isTextRevealed, toggleTextVisibility }: TogglePassword = useTogglePassword();
+}: ComponentProps<T>): JSX.Element => {
+  const { isPasswordRevealed, toggleInputVisibility }: TogglePassword = useTogglePassword();
 
   return (
     <BasePasswordInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={label}
+        label={label}
       />
       <div>
         <input
           {...register(id, validationRules)}
-          type={isTextRevealed ? 'text' : 'password'}
+          type={isPasswordRevealed ? 'text' : 'password'}
           id={id}
           name={id}
           autoComplete={'off'}
@@ -71,8 +70,8 @@ export const PasswordInput = <T extends FieldValues>({
           defaultValue={initialValue ?? ''}
         />
         <FontAwesomeIcon
-          onClick={toggleTextVisibility}
-          icon={isTextRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
+          onClick={toggleInputVisibility}
+          icon={isPasswordRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
         />
       </div>
       {error && <InputError message={error} />}

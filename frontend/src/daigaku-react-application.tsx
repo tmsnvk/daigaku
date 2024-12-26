@@ -7,7 +7,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { QueryClientProvider } from '@tanstack/react-query';
 import { JSX } from 'react';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';

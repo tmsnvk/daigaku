@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { Link } from 'react-router-dom';
@@ -18,23 +18,15 @@ import { Cell, TableBodyRow } from './data-rows.styles';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-import { shouldColumnBeVisible } from './data-rows.utilities';
+import { constants } from './data-rows.constants';
+import { isColumnVisible } from './data-rows.utilities';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
-import { Column } from '../../applications.hooks';
-import { constants } from './data-rows.constants';
+import { Column } from '../../applications.models';
 
 /**
- * ===============
- * Component {@link DataRows}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link DataRows} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -52,23 +44,20 @@ interface ComponentProps {
  * Renders a {@link Cell} component for each data element in the applications array.
  *
  * @return {Array<JSX.Element>}
- *
- * @since 0.0.1
  */
 export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.Element> => {
   return applications.map((application: Application) => {
     return (
       <TableBodyRow key={application.uuid}>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'courseName')}>{application.courseName}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'university')}>{application.university}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'country')}>{application.country}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'applicationStatus')}>{application.applicationStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'interviewStatus')}>{application.interviewStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'offerStatus')}>{application.offerStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'responseStatus')}>{application.responseStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={shouldColumnBeVisible(columns, 'finalDestinationStatus')}>
-          {application.finalDestinationStatus.name ?? '-'}
-        </Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'courseName')}>{application.courseName}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'university')}>{application.university}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'country')}>{application.country}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'programmeLength')}>{application.programmeLength}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'applicationStatus')}>{application.applicationStatus.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'interviewStatus')}>{application.interviewStatus?.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'offerStatus')}>{application.offerStatus?.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'responseStatus')}>{application.responseStatus?.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'finalDestinationStatus')}>{application.finalDestinationStatus?.name ?? '-'}</Cell>
         <td>
           <Link
             to={`edit/${application.uuid}`}

@@ -8,29 +8,21 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks/index';
+import { useRenderModal } from '@hooks';
 
 /* component, style imports */
 import { Dialog } from './column-selector-modal.styles';
 
 /* interface, type, enum imports */
-import { RenderModal } from '@hooks/modal-components/use-render-modal';
-import { Column } from '../../applications.hooks';
+import { RenderModal } from '@common-types';
+import { Column } from '../../applications.models';
 
 /**
- * ===============
- * Component {@link ColumnSelectorModal}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link ColumnSelectorModal} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -58,11 +50,8 @@ interface ComponentProps {
  * Renders the column selector modal that lets users to choose which data columns they wish to view on the page.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps): JSX.Element => {
-  // Custom hook that renders the modal.
   const { dialogRef }: RenderModal = useRenderModal(isModalVisible);
 
   return (

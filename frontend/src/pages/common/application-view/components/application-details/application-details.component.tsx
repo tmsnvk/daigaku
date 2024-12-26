@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -25,15 +25,7 @@ import { constants } from './application-details.constants';
 import { Application } from '@common-types';
 
 /**
- * ===============
- * Component {@link ApplicationDetails}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link ApplicationDetails} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -47,8 +39,6 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element => {
   return (
@@ -85,19 +75,19 @@ export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element
       />
       <ApplicationDetail
         name={constants.fields.interviewStatus.NAME}
-        value={application.interviewStatus.name}
+        value={application.interviewStatus?.name ?? '-'}
       />
       <ApplicationDetail
         name={constants.fields.offerStatus.NAME}
-        value={application.offerStatus.name}
+        value={application.offerStatus?.name ?? '-'}
       />
       <ApplicationDetail
         name={constants.fields.responseStatus.NAME}
-        value={application.responseStatus.name}
+        value={application.responseStatus?.name ?? '-'}
       />
       <ApplicationDetail
         name={constants.fields.finalDestination.NAME}
-        value={application.finalDestinationStatus.name}
+        value={application.finalDestinationStatus?.name ?? '-'}
       />
     </Section>
   );

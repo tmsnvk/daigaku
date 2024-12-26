@@ -8,18 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import {
-  CountrySelection,
-  CreateApplication,
-  CreateApplicationFormFields,
-  useCountrySelection,
-  useCreateApplication,
-} from './new-application-form.hooks';
+import { useCountrySelection, useCreateApplication } from './new-application-form.hooks';
 
 /* component, style imports */
 import { CountryDropdown, GenericInput, InputError, InputGuideText, SubmitInput, UniversityDropdown } from '@components/form';
@@ -31,50 +25,36 @@ import { Form } from './new-application-form.styles';
 import { constants } from './new-application-form.constants';
 
 /* interface, type, enum imports */
-import { CountryOption, ListQueryResult, UniversityOption } from '@common-types';
-import { useGetCountryOptions } from '@hooks/country';
-import { useGetUniversityOptionsByCountryUuid } from '@hooks/university';
-
-/**
- * ===============
- * Component {@link NewApplicationForm}
- * ===============
- */
+import { CountryOption, CreateApplicationByStudent, ListQueryResult, UniversityOption } from '@common-types';
+import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks';
+import { CountrySelection, CreateApplication } from './new-application-form.models';
 
 /**
  * Renders the new application submission form for student users.
- * The component utilizes the `react-hook-form` library for form handling, including validation, and manages the form submission using the `react-query` library.
+ * The component utilizes the `react-hook-form` library for form handling, including validation,
+ * and manages the form submission using the `react-query` library.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const NewApplicationForm = (): JSX.Element => {
-  // Custom hook that manages the country selection.
   const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid }: CountrySelection = useCountrySelection();
   const {
     data: countryOptions,
     isLoading: isCountryDataLoading,
     isError: isCountryError,
   }: ListQueryResult<CountryOption> = useGetCountryOptions();
-
-  // Custom hook that fetches UniversityOptions by selected country.
   const {
     data: universityOptions,
     isLoading: isUniversityDataLoading,
     isError: isUniversityError,
   }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
-
-  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     reset,
     handleSubmit,
     register,
     setError,
-  } = useForm<CreateApplicationFormFields>({ mode: 'onSubmit' });
-
-  // Custom hook that submits the form.
+  } = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
   const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication(setError, resetCountrySelection, reset);
 
   if (isCountryDataLoading) {

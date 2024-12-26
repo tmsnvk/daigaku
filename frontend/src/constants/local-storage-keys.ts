@@ -8,10 +8,7 @@
  * @author tmsnvk
  */
 
-/**
- * @since 0.0.1
- */
-export const localStorageKeyConstants = {
+export const localStorageKeys = {
   APPLICATION_TABLE_COLUMNS: 'applications-table-columns',
-  AUTH_TOKEN: 'auth-token',
+  AUTHENTICATION_TOKEN: 'authentication-token',
 };

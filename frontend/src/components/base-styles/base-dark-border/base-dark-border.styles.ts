@@ -8,18 +8,9 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { css } from 'styled-components';
 
-/**
- * ===============
- * Styled Component {@link BaseDarkBorder}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 export const BaseDarkBorder = css`
   background-color: ${({ theme }) => theme.color.secondaryLight};
   border: 0.1rem solid ${({ theme }) => theme.color.secondaryLight};

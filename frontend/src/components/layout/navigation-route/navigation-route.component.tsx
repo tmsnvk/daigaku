@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { JSX } from 'react';
 
@@ -17,15 +17,7 @@ import { theme } from '@theme/theme';
 import { NavbarIcon, RouteLink } from './navigation-route.styles';
 
 /**
- * ===============
- * Component {@link NavigationRoute}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link NavigationRoute} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -34,7 +26,7 @@ interface ComponentProps {
   readonly resource: string;
 
   /**
-   * The FontAwesome icon accompanying the link title.
+   * The FontAwesome icon accompanying the link's label.
    */
   readonly icon: IconLookup;
 
@@ -44,9 +36,9 @@ interface ComponentProps {
   readonly label: string;
 
   /**
-   * Callback method that handles logging the user out.
+   * An optional callback method that handles the navigation route's onClick action.
    */
-  readonly onLogOutClick?: () => void;
+  readonly onNavigateClick?: () => void;
 }
 
 /**
@@ -54,15 +46,13 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
-export const NavigationRoute = ({ resource, icon, label, onLogOutClick }: ComponentProps): JSX.Element => {
+export const NavigationRoute = ({ resource, icon, label, onNavigateClick }: ComponentProps): JSX.Element => {
   return (
     <RouteLink
       to={resource}
       style={({ isActive }) => ({ color: isActive ? theme.color.tertiaryLight : theme.color.primaryDark })}
-      onClick={onLogOutClick}
+      onClick={onNavigateClick}
     >
       {({ isActive }) => (
         <>

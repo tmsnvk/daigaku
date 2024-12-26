@@ -8,12 +8,12 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { SelectCountry, useSelectCountry } from './country-dropdown.hooks';
+import { useSelectCountry } from './country-dropdown.hooks';
 
 /* component, style imports */
 import { BaseInput } from '@components/base-styles';
@@ -24,24 +24,16 @@ import { constants } from './country-dropdown.constants';
 
 /* interface, type, enum imports */
 import { CountryOption, DropdownInput } from '@common-types';
+import { SelectCountry } from './country-dropdown.models';
 
 /**
- * ===============
- * Component {@link CountryDropdown}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link CountryDropdown} component.
+ * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
- * @template U - The type of options available in the dropdown.
- *
- * @since 0.0.1
  */
-interface ComponentProps<T extends FieldValues, U> extends DropdownInput<T, U> {
+interface ComponentProps<T extends FieldValues> extends DropdownInput<T, CountryOption> {
   /**
-   * Callback invoked when a country is selected.
+   * A callback invoked when a country is selected.
    */
   onCountrySelection: (event: string) => void;
 }
@@ -51,8 +43,6 @@ interface ComponentProps<T extends FieldValues, U> extends DropdownInput<T, U> {
  *
  * @param {ComponentProps<T extends FieldValues>} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const CountryDropdown = <T extends FieldValues>({
   register,
@@ -62,15 +52,14 @@ export const CountryDropdown = <T extends FieldValues>({
   isDisabled,
   options,
   onCountrySelection,
-}: ComponentProps<T, CountryOption>): JSX.Element => {
-  // Custom hook that handles the country selection logic.
+}: ComponentProps<T>): JSX.Element => {
   const { handleCountrySelection }: SelectCountry = useSelectCountry(onCountrySelection);
 
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        labelText={constants.ui.dropdown.LABEL_TEXT}
+        label={constants.ui.dropdown.LABEL}
       />
       <select
         {...register(id, validationRules)}

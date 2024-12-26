@@ -8,28 +8,20 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
-import { constants } from './page-footer.constants';
 import { Footer } from './page-footer.styles';
 
 /* configuration, utilities, constants imports */
+import { constants } from './page-footer.constants';
 import { getCurrentYear } from './page-footer.utilities';
 
 /**
- * ===============
- * Component {@link PageFooter}
- * ===============
- */
-
-/**
- * Renders the footer area of each page.
+ * Renders the footer area of a page.
  *
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
 export const PageFooter = (): JSX.Element => {
   return (
@@ -37,7 +29,7 @@ export const PageFooter = (): JSX.Element => {
       <div></div>
       <Footer>
         <p>
-          {constants.ui.START_YEAR} - {getCurrentYear()}
+          {constants.ui.INIT_YEAR} - {getCurrentYear()}
         </p>
         <p>{constants.ui.INFO}</p>
       </Footer>

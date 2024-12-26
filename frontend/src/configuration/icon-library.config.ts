@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { IconLookup, library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
@@ -64,16 +64,11 @@ library.add(
 
 /**
  * Defines the properties of the {@link iconLibraryConfig} configuration object.
- *
- * @since 0.0.1
  */
 interface IconLibraryConfig {
   [key: string]: IconLookup;
 }
 
-/**
- * @since 0.0.1
- */
 export const iconLibraryConfig: IconLibraryConfig = {
   faBars: { prefix: 'fas', iconName: 'bars' },
   faCircleExclamation: { prefix: 'fas', iconName: 'circle-exclamation' },

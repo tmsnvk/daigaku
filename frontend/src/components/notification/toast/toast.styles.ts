@@ -8,30 +8,18 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import styled, { keyframes } from 'styled-components';
 
 /* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
-/**
- * ===============
- * Styled Component {@link Section}
- * ===============
- */
-
-/**
- * @since 0.0.1
- */
 const fadeIn = keyframes`
   100% {
     opacity: 1;
   }
 `;
 
-/**
- * @since 0.0.1
- */
 const fadeOut = keyframes`
   0% {
     opacity: 1;
@@ -42,17 +30,14 @@ const fadeOut = keyframes`
   }
 `;
 
-/**
- * @since 0.0.1
- */
 export const Section = styled.section`
   ${BaseLightBorder};
 
-  width: 30rem;
-  height: 10rem;
   z-index: 100;
   position: fixed;
   overflow: visible;
+  width: 30rem;
+  height: 10rem;
   right: 5rem;
   bottom: 10rem;
   display: flex;

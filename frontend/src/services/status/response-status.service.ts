@@ -8,7 +8,7 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
@@ -18,15 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { ResponseStatus } from '@common-types';
 
 /**
- * ===============
- * Service API Calls {@link responseStatusService}
- * ===============
- */
-
-/**
- * Defines the operations of the {@link responseStatusService} object, responsible for managing response-status-related API requests.
- *
- * @since 0.0.1
+ * Defines response status-related operations, handling API requests and interactions for response status management.
  */
 interface ResponseStatusService {
   /**
@@ -40,8 +32,6 @@ interface ResponseStatusService {
 
 /**
  * Manages response-status-related REST API operations, implementing {@link ResponseStatusService}.
- *
- * @since 0.0.1
  */
 export const responseStatusService: ResponseStatusService = {
   getAll: async (): Promise<Array<ResponseStatus>> => {

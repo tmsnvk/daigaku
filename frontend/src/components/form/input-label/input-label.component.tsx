@@ -8,22 +8,14 @@
  * @author tmsnvk
  */
 
-/* external imports */
+/* vendor imports */
 import { JSX } from 'react';
 
 /* component, style imports */
 import { Label } from './input-label.styles';
 
 /**
- * ===============
- * Component {@link InputLabel}
- * ===============
- */
-
-/**
- * Defines the properties of the {@link InputLabel} component.
- *
- * @since 0.0.1
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -34,7 +26,7 @@ interface ComponentProps {
   /**
    * The text displayed inside the label.
    */
-  readonly labelText: string;
+  readonly label: string;
 }
 
 /**
@@ -42,9 +34,7 @@ interface ComponentProps {
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
- *
- * @since 0.0.1
  */
-export const InputLabel = ({ inputId, labelText }: ComponentProps): JSX.Element => {
-  return <Label htmlFor={inputId}>{labelText}</Label>;
+export const InputLabel = ({ inputId, label }: ComponentProps): JSX.Element => {
+  return <Label htmlFor={inputId}>{label}</Label>;
 };
