@@ -25,8 +25,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * TODO
- *
- * @since 0.0.1
  */
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
   private static final Logger logger = LoggerFactory.getLogger(AuthenticationTokenFilter.class);

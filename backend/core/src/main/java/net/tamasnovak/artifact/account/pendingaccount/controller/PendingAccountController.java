@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class managing REST API requests related to "/api/v1/pending-accounts" endpoint.
- *
- * @since 0.0.1
  */
 @RestController
 @RequestMapping(path = "/api/v1/pending-accounts")
@@ -39,7 +37,7 @@ public class PendingAccountController {
    * The {@link Valid} annotation validates the {@link PendingAccountRegistrationRequest} object as per its validation criteria.
    *
    * @param requestBody The registration request body.
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
    */
   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> registerUser(@Valid @RequestBody final PendingAccountRegistrationRequest requestBody) {

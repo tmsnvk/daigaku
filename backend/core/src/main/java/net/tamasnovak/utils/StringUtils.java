@@ -10,8 +10,6 @@ import java.util.Objects;
 
 /**
  * A utility class providing String-related utility methods.
- *
- * @since 0.0.1
  */
 public final class StringUtils {
   private StringUtils() {

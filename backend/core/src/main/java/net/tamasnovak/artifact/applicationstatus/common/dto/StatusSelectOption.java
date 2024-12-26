@@ -15,7 +15,6 @@ import java.util.UUID;
  *
  * @param uuid The status's uuid.
  * @param name The status's name.
- * @since 0.0.1
  */
 public record StatusSelectOption(
   UUID uuid,

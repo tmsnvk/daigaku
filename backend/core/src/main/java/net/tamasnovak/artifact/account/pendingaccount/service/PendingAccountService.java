@@ -12,8 +12,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * Service interface managing {@link PendingAccount} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface PendingAccountService {
   /**

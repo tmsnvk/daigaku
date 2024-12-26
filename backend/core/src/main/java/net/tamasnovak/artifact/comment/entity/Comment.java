@@ -20,8 +20,6 @@ import net.tamasnovak.artifact.common.entity.audit.Auditable;
 
 /**
  * Entity class that represents the comments database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "comments")

@@ -14,8 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * {@link AuditorAware} implementation.
- *
- * @since 0.0.1
  */
 public final class ApplicationAuditAware implements AuditorAware<String> {
   @Override

@@ -17,7 +17,6 @@ import net.tamasnovak.artifact.support.country.entity.Country;
  *
  * @param uuid The Country's uuid.
  * @param name The Country's name.
- * @since 0.0.1
  */
 public record CountrySelectOption(
   UUID uuid,

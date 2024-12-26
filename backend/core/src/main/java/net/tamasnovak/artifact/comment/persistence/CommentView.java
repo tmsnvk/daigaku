@@ -13,8 +13,6 @@ import net.tamasnovak.artifact.comment.entity.Comment;
 
 /**
  * Interface projection providing a view of selected identifiers for {@link Comment} objects.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface CommentView {

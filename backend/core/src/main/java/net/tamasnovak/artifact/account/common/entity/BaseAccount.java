@@ -25,8 +25,6 @@ import net.tamasnovak.artifact.support.institution.entity.Institution;
 
 /**
  * Abstract entity class that represents an ancestor class for account-related entities.
- *
- * @since 0.0.1
  */
 @MappedSuperclass
 public abstract class BaseAccount extends Auditable {

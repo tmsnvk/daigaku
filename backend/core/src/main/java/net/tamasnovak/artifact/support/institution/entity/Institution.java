@@ -25,8 +25,6 @@ import net.tamasnovak.artifact.support.common.entity.BaseSupportEntity;
 
 /**
  * Entity class that represents the institutions database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "institutions")

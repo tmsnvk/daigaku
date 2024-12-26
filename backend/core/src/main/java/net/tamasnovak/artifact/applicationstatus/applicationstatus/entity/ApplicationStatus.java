@@ -17,8 +17,6 @@ import net.tamasnovak.artifact.applicationstatus.common.entity.BaseStatusEntity;
 
 /**
  * Entity class that represents the application_status database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "application_status")

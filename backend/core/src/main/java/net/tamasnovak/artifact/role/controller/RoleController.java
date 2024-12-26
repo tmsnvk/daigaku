@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class managing REST API requests related to "/api/v1/roles" endpoint.
- *
- * @since 0.0.1
  */
 @RestController
 @RequestMapping(path = "/api/v1/roles")
@@ -38,7 +36,7 @@ public class RoleController {
   /**
    * Fetches {@link Student} and {@link Mentor} dropdown options for the pending account registration form.
    *
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link RoleSelectOption} object.
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link RoleSelectOption} object.
    */
   @GetMapping(value = "/student-and-mentor", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<RoleSelectOption>> fetchPendingAccountRegistrationFormRoleOptions() {

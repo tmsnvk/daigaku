@@ -22,7 +22,6 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param courseName The application's course name.
  * @param minorSubject The application's minor subject, if any.
  * @param programmeLength The application's programme length.
- * @since 0.0.1
  */
 public record NewApplicationByStudentRequest(
   @NotBlank(message = "Select a country.")

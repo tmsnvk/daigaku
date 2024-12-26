@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link Institution} entity-related API operations, implementing {@link InstitutionService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "InstitutionService")

@@ -29,8 +29,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * TODO
- *
- * @since 0.0.1
  */
 @Component
 public class ExistingApplicationValidatorImpl implements ExistingApplicationValidator {

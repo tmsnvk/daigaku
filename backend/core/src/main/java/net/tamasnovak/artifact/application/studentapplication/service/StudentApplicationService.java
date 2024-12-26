@@ -19,8 +19,6 @@ import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicat
 
 /**
  * Service interface for managing {@link Student}-related {@link Application} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface StudentApplicationService {
   /**

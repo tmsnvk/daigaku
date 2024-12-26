@@ -35,8 +35,6 @@ import net.tamasnovak.utils.StringUtils;
 
 /**
  * Entity class that represents the students database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "students")

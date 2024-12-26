@@ -25,8 +25,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * JWT token-related utility class.
- *
- * @since 0.0.1
  */
 @Component
 public final class JwtUtilities {

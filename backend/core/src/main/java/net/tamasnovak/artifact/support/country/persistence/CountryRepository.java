@@ -16,8 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * JPA repository for {@link Country} entities.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface CountryRepository extends JpaRepository<Country, Long> {

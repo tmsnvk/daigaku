@@ -15,8 +15,6 @@ import net.tamasnovak.artifact.support.institution.entity.Institution;
 
 /**
  * Service interface for managing {@link Institution} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface InstitutionService {
   /**

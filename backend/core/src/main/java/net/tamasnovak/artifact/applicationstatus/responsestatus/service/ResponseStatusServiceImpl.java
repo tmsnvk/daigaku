@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link ResponseStatus} entity-related operations, implementing {@link ResponseStatusService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "ResponseStatusService")

@@ -25,8 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link PendingAccount} entity-related operations, implementing {@link PendingAccountService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "PendingAccountService")

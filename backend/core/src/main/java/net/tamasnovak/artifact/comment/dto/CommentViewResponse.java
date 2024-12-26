@@ -20,7 +20,6 @@ import net.tamasnovak.artifact.comment.persistence.CommentView;
  * @param lastUpdatedAt The timestamp when the comment was last updated.
  * @param createdBy The account name that created the comment.
  * @param lastModifiedBy The account name that last updated the comment.
- * @since 0.0.1
  */
 public record CommentViewResponse(
   UUID uuid,

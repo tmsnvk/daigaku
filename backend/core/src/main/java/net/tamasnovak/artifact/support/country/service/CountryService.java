@@ -15,8 +15,6 @@ import net.tamasnovak.artifact.support.country.entity.Country;
 
 /**
  * Service interface for managing {@link Country} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface CountryService {
   /**

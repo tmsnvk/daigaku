@@ -14,8 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * JPA repository for {@link Account} entities.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface AccountRepository extends JpaRepository<Account, Long> {

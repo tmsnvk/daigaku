@@ -35,7 +35,6 @@ import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
  * @param createdBy The account's name that created the application.
  * @param lastModifiedBy The account's name that last updated the application.
  * @param isRemovable A boolean value marking whether the application is marked for removal.
- * @since 0.0.1
  */
 public record ApplicationData(
   UUID uuid,

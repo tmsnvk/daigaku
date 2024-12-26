@@ -14,7 +14,6 @@ import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboa
  * @param countryName The country's name.
  * @param universityName The university's name.
  * @param courseName The course's name.
- * @since 0.0.1
  */
 public record FinalDestinationTileDetails(
   String countryName,

@@ -23,7 +23,6 @@ import net.tamasnovak.artifact.accounttype.student.entity.Student;
  * @param distinctUniversitiesCount The number of distinct universities the student has applied to.
  * @param notSetInterviewStatusCount The number of applications where the InterviewStatus is not yet set.
  * @param offersCount The number of applications where the OfferStatus is set with a positive outcome.
- * @since 0.0.1
  */
 public record StudentDashboardDetails(
   FirmChoiceTileDetails firmChoiceTileDetails,

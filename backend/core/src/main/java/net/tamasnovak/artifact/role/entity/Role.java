@@ -19,8 +19,6 @@ import org.hibernate.annotations.Immutable;
 
 /**
  * Entity class that represents the roles database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Immutable

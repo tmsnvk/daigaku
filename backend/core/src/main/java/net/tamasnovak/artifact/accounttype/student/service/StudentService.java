@@ -12,8 +12,6 @@ import net.tamasnovak.artifact.accounttype.student.entity.Student;
 
 /**
  * Service interface managing {@link Student} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface StudentService {
   /**

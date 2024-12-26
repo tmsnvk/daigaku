@@ -18,8 +18,6 @@ import org.springframework.data.repository.query.Param;
 
 /**
  * JPA repository for {@link Comment} entities.
- *
- * @since 0.0.1
  */
 public interface CommentRepository extends JpaRepository<Comment, Long> {
   /**

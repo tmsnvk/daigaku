@@ -15,8 +15,6 @@ import net.tamasnovak.artifact.comment.entity.Comment;
 
 /**
  * Service interface for managing {@link Comment} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface CommentService {
   /**

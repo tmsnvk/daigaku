@@ -62,8 +62,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Service class managing {@link Student}-related {@link Application} entity-related operations, implementing
  * {@link StudentApplicationService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "StudentApplicationService")

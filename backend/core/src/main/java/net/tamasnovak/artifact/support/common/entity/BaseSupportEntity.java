@@ -13,8 +13,6 @@ import net.tamasnovak.artifact.common.entity.audit.Auditable;
 
 /**
  * Abstract entity class that represents an ancestor class for support-related entities.
- *
- * @since 0.0.1
  */
 @MappedSuperclass
 public abstract class BaseSupportEntity extends Auditable {

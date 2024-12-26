@@ -28,8 +28,6 @@ import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.AccountBaseDetails;
 
 /**
  * Entity class that represents the accounts database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "accounts")
@@ -115,6 +113,11 @@ public final class Account extends BaseAccount {
     }
   }
 
+  /**
+   * Creates a {@link AccountBaseDetails} object.
+   *
+   * @return {@link AccountBaseDetails}.
+   */
   public AccountBaseDetails createAccountBaseDetails() {
     return new AccountBaseDetails(this.fullName, this.fetchInstitutionName(), this.email);
   }

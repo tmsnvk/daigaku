@@ -16,7 +16,6 @@ import jakarta.validation.constraints.NotBlank;
  *
  * @param email The user's email.
  * @param password The user's password.
- * @since 0.0.1
  */
 public record LoginRequest(
   @Email(message = "Provide a valid email address.")

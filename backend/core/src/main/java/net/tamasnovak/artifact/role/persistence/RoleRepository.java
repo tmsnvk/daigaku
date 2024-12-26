@@ -19,8 +19,6 @@ import org.springframework.data.jpa.repository.Query;
 
 /**
  * JPA repository for {@link PendingAccount} entities.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface RoleRepository extends JpaRepository<Role, Long> {

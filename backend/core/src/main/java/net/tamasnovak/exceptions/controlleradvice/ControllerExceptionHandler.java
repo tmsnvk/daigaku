@@ -30,8 +30,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 /**
  * The Core module's ControllerAdvice class collecting the various exceptions thrown by the module's methods.
- *
- * @since 0.0.1
  */
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -183,7 +181,7 @@ public class ControllerExceptionHandler {
    * @return A {@link ResponseEntity} containing an error status code and a {@link InputExceptionResponse} instance.
    */
   @ExceptionHandler(value = { FormValidationException.class })
-  public ResponseEntity<InputExceptionResponse> onEntityNotFoundException(FormValidationException exception) {
+  public ResponseEntity<InputExceptionResponse> onFormValidationException(FormValidationException exception) {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       exception.getMessage())));
     final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);

@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class managing REST API requests related to "/api/v1/countries" endpoint.
- *
- * @since 0.0.1
  */
 @RestController
 @RequestMapping(path = "/api/v1/countries")
@@ -35,7 +33,7 @@ public class CountryController {
   /**
    * Fetches all {@link Country} objects as select options for frontend forms.
    *
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link CountrySelectOption} object.
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link CountrySelectOption} object.
    */
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<CountrySelectOption>> fetchCountrySelectOptions() {

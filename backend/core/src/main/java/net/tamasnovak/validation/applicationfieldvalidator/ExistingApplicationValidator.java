@@ -17,8 +17,6 @@ import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseS
 
 /**
  * TODO
- *
- * @since 0.0.1
  */
 @FunctionalInterface
 public interface ExistingApplicationValidator {

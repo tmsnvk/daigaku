@@ -19,8 +19,6 @@ import org.hibernate.annotations.UuidGenerator;
 
 /**
  * Abstract base class for all entities that utilise an extended identification mechanism.
- *
- * @since 0.0.1
  */
 @MappedSuperclass
 public abstract class BaseExtendedIdEntity implements Serializable {

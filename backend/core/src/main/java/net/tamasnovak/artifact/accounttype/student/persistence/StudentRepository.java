@@ -14,8 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * JPA repository for {@link Student} entities.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface StudentRepository extends JpaRepository<Student, Long> {
