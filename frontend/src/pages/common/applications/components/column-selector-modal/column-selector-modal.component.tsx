@@ -12,7 +12,7 @@
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks/index';
+import { useRenderModal } from '@hooks';
 
 /* component, style imports */
 import { Dialog } from './column-selector-modal.styles';
@@ -22,7 +22,7 @@ import { RenderModal } from '@common-types';
 import { Column } from '../../applications.models';
 
 /**
- * Defines the properties of the {@link ColumnSelectorModal} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

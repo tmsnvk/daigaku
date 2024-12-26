@@ -18,8 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { FinalDestinationStatus } from '@common-types';
 
 /**
- * Defines the operations of the {@link applicationStatusService} object,
- * responsible for managing final-destination-status-related API requests.
+ * Defines final destination status-related operations, handling API requests and interactions for final destination status management.
  */
 interface FinalDestinationStatusService {
   /**

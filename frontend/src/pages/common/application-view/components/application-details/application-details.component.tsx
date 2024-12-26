@@ -25,7 +25,7 @@ import { constants } from './application-details.constants';
 import { Application } from '@common-types';
 
 /**
- * Defines the properties of the {@link ApplicationDetails} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -75,19 +75,19 @@ export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element
       />
       <ApplicationDetail
         name={constants.fields.interviewStatus.NAME}
-        value={application.interviewStatus.name}
+        value={application.interviewStatus?.name ?? '-'}
       />
       <ApplicationDetail
         name={constants.fields.offerStatus.NAME}
-        value={application.offerStatus.name}
+        value={application.offerStatus?.name ?? '-'}
       />
       <ApplicationDetail
         name={constants.fields.responseStatus.NAME}
-        value={application.responseStatus.name}
+        value={application.responseStatus?.name ?? '-'}
       />
       <ApplicationDetail
         name={constants.fields.finalDestination.NAME}
-        value={application.finalDestinationStatus.name}
+        value={application.finalDestinationStatus?.name ?? '-'}
       />
     </Section>
   );

@@ -13,21 +13,22 @@ import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useSubmitNewComment } from './new-comment-form.hooks';
+import { useSubmitComment } from './create-comment-form.hooks';
 
 /* component, style imports */
 import { GenericTextarea, InputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { Form } from './new-comment-form.styles';
+import { Form } from './create-comment-form.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './new-comment-form.constants';
+import { constants } from './create-comment-form.constants';
 
 /* interface, type, enum imports */
-import { NewCommentFormFields, SubmitNewComment } from './new-comment-form.models';
+import { CreateComment } from '@common-types';
+import { SubmitComment } from './create-comment-form.models';
 
 /**
- * Defines the properties of the {@link NewCommentForm} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -42,17 +43,14 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const NewCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
-  // The necessary `react-hook-form` methods and states.
+export const CreateCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  } = useForm<NewCommentFormFields>({ mode: 'onSubmit' });
-
-  // Custom hook that submits a new comment.
-  const { isPending, mutate }: SubmitNewComment = useSubmitNewComment(setError, applicationUuid);
+  } = useForm<CreateComment>({ mode: 'onSubmit' });
+  const { isPending, mutate }: SubmitComment = useSubmitComment(setError, applicationUuid);
 
   return (
     <Form

@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { Comment, CommentPaginationData, CreateComment } from '@common-types';
 
 /**
- * Defines the operations of the {@link commentService} object, responsible for managing comment-related API requests.
+ * Defines comment-related operations, handling API requests and interactions for comment management.
  */
 interface CommentService {
   /**

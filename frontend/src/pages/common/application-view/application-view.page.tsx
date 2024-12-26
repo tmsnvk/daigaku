@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /* logic imports */
-import { useGetApplicationByUuid } from '@hooks/application';
+import { useGetApplicationByUuid } from '@hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
@@ -33,11 +33,8 @@ import { Application, ApplicationLocation, SimpleQueryResult } from '@common-typ
  * @return {JSX.Element}
  */
 export const ApplicationView = (): JSX.Element => {
-  // `react-router-dom` useLocation object.
   const { state, pathname }: ApplicationLocation = useLocation();
   const applicationUuid: string = pathname.split('/applications/view/')[1];
-
-  // Custom hook that fetches an application by uuid.
   const { data, isLoading, isError }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
   const application: Application = state || data;
 

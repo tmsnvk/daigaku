@@ -12,10 +12,10 @@
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks/modal-components/use-render-modal';
+import { useRenderModal } from '@hooks';
 
 /* component, style imports */
-import { SubmitInput } from '@components/form/index.ts';
+import { SubmitInput } from '@components/form';
 import { Dialog } from './global-error-modal.styles.ts';
 
 /* configuration, utilities, constants imports */
@@ -25,7 +25,7 @@ import { constants } from './global-error-modal.constants.ts';
 import { RenderModal } from '@common-types';
 
 /**
- * Represents the properties of the {@link GlobalErrorModal} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

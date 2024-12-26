@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { Article } from './application-detail.styles';
 
 /**
- * Defines the properties of the {@link ApplicationDetail} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

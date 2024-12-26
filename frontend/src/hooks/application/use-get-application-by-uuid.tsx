@@ -24,8 +24,8 @@ import { Application, SimpleQueryResult } from '@common-types';
  * Fetches an {@link Application} object by uuid.
  * The server-side request is triggered only if the application is not in the `react-router-dom` cache.
  *
- * @param state An {@link Application} object from the local `react-router-dom` cache, if it exists, otherwise null.
- * @param applicationUuid The application's uuid.
+ * @param state An Application object from the local `react-router-dom` cache, if it exists, otherwise null.
+ * @param applicationUuid The Application's uuid string.
  * @return {SimpleQueryResult<Application>}
  */
 export const useGetApplicationByUuid = (state: Application | null, applicationUuid: string): SimpleQueryResult<Application> => {

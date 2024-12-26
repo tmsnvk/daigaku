@@ -35,7 +35,7 @@ import { HandleLoginForm } from './login-form.models';
  */
 export const useHandleLoginForm = (setError: UseFormSetError<LoginRequest>): HandleLoginForm => {
   const navigate: NavigateFunction = useNavigate();
-  const { setAccount, setAuthStatus, getAccountRole }: Partial<AuthContext> = useAuth();
+  const { setAccount, setAuthStatus, getAccountRole }: AuthContext = useAuth();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],

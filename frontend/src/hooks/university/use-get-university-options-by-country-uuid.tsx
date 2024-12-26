@@ -22,10 +22,10 @@ import { ListQueryResult, UniversityOption } from '@common-types';
 
 /**
  * Fetches a list of {@link UniversityOption} objects.
- * The request to the server is initiated only when a country has been chosen in the form.
+ * The request to the server is initiated only when a country is chosen in the given form.
  *
  * @param isCountryFieldSelected Indicates if a country is selected.
- * @param selectedCountryUuid The selected country's uuid.
+ * @param selectedCountryUuid The selected country's uuid string.
  * @return {ListQueryResult<UniversityOption>}
  */
 export const useGetUniversityOptionsByCountryUuid = (

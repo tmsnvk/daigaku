@@ -32,7 +32,7 @@ import { accountRoleNavigationRoutes, sharedNavigationRoutes } from './private-l
 import { NavbarRoute, SmallScreenNavbarDisplay } from './private-layout.models';
 
 /**
- * Defines the properties of the {@link PrivateLayout} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -42,7 +42,7 @@ interface ComponentProps {
 }
 
 /**
- * Renders navigation and content for authorised users.
+ * Renders navigation links for authorised users. Users with different authorisation level might see different navigation links.
  * Unauthorised users are redirected.
  *
  * @param {ComponentProps} props
@@ -51,12 +51,11 @@ interface ComponentProps {
 export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => {
   const location: Location = useLocation();
   const navigate: NavigateFunction = useNavigate();
-  const { authStatus, account, logOut }: Partial<AuthContext> = useAuth();
+  const { authStatus, account, logOut }: AuthContext = useAuth();
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur }: SmallScreenNavbarDisplay = useSmallScreenNavbarDisplay();
 
-  // Redirect unauthorised users.
   useEffect(() => {
-    if (account.email === '') {
+    if (account.email === '' && account.firstName === '') {
       return;
     }
 
@@ -67,7 +66,6 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
     }
   }, [account]);
 
-  // Show loading modal while authentication status is AuthStatus.LOADING.
   if (authStatus === AuthStatus.LOADING) {
     return (
       <GlobalLoadingModal

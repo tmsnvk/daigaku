@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { Application, StudentDashboardStatistics } from '@common-types';
 
 /**
- * Defines the operations of the {@link applicationService} object, responsible for managing application-related API requests.
+ * Defines generic-application operations, handling API requests and interactions for application management.
  */
 interface ApplicationService {
   /**

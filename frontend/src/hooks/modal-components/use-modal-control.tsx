@@ -20,15 +20,12 @@ import { ModalControl } from '@common-types';
  * @return {ModalControl}
  */
 export const useModalControl = (): ModalControl => {
-  // Tracks the modal's visibility state.
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  // Sets the modal as visible.
   const showModal = (): void => {
     setIsModalVisible(true);
   };
 
-  // Sets the modal as hidden.
   const closeModal = (): void => {
     setIsModalVisible(false);
   };

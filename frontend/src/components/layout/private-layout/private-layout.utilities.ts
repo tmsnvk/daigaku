@@ -17,7 +17,7 @@ import { AccountRoleValues } from '@context/auth';
 import { NavbarRoute } from './private-layout.models';
 
 /**
- * Defines navigation routes based on application's account roles.
+ * Defines navigation routes based on the authorisation role.
  */
 export const accountRoleNavigationRoutes: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [

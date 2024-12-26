@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useGetApplications, useModalToggle } from '@hooks/index';
+import { useGetApplications, useModalToggle } from '@hooks';
 import { useColumnVisibility, useSortOrder } from './applications.hooks';
 
 /* component, style imports */

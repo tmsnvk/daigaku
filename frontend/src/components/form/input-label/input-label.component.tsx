@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { Label } from './input-label.styles';
 
 /**
- * Defines the properties of the {@link InputLabel} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

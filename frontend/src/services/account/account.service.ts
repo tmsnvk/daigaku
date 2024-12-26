@@ -18,7 +18,7 @@ import { axiosConfig, axiosConfigWithAuth } from '@configuration';
 import { AccountResetRequest, LoginRequest, LoginResponse } from '@common-types';
 
 /**
- * Defines the operations of the {@link accountService} object, responsible for managing account-related API requests.
+ * Defines account service-related operations, handling API requests and interactions for account management.
  */
 interface AccountService {
   /**

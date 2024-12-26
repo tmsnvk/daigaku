@@ -12,7 +12,7 @@
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 
 /**
- * Defines the return value properties of the {@link useSmallScreenNavbarDisplay} custom hook.
+ * Defines the state and behavior for managing a small screen navbar display.
  */
 export interface SmallScreenNavbarDisplay {
   /**
@@ -37,7 +37,7 @@ export interface SmallScreenNavbarDisplay {
 }
 
 /**
- * Defines a navigation route in the application.
+ * Defines a navigation route.
  */
 export interface NavbarRoute {
   /**

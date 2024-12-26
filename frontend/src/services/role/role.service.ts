@@ -18,7 +18,7 @@ import { axiosConfig } from '@configuration';
 import { RoleOption } from '@common-types';
 
 /**
- * Defines the operations of the {@link roleService} object, responsible for managing role-related API requests.
+ * Defines role-related operations, handling API requests and interactions for role management.
  */
 interface RoleService {
   /**

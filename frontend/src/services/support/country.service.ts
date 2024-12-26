@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { CountryOption } from '@common-types';
 
 /**
- * Defines the operations of the {@link countryService} object, responsible for managing country-related API requests.
+ * Defines country-related operations, handling API requests and interactions for country management.
  */
 interface CountryService {
   /**

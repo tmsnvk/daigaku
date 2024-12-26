@@ -41,7 +41,7 @@ import {
 import { HandleFieldDisableStatus, HandleFormSubmission } from './application-form.models';
 
 /**
- * Defines the properties of the {@link ApplicationForm} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   readonly application: Application;
@@ -54,21 +54,14 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const ApplicationForm = ({ application, selectOptions }: ComponentProps): JSX.Element => {
-  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   } = useForm<UpdateApplicationByStudent>({ mode: 'onSubmit' });
-
-  // Custom hook that submits the form.
   const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
-
-  // Custom hook that updates the application.
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
-
-  // Custom hook that checks the application's fields availability.
   const {
     onPageLoadValidation,
     fieldsReadOnlyStatus,

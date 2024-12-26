@@ -24,7 +24,7 @@ import { constants } from './is-removable-button.constants';
 import { HandleToggleIsRemovable } from './is-removable-button.models';
 
 /**
- * Defines the properties of the {@link IsRemovableButton} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   readonly isRemovable: boolean;

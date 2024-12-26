@@ -18,8 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { Application, CreateApplicationByStudent, UpdateApplicationByStudent } from '@common-types';
 
 /**
- * Defines the operations of the {@link applicationStudentService} object,
- * responsible for managing student-application-related API requests.
+ * Defines student-application service operations, handling API requests and interactions for student-related application management.
  */
 interface ApplicationStudentService {
   /**

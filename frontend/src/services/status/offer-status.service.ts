@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { OfferStatus } from '@common-types';
 
 /**
- * Defines the operations of the {@link offerStatusService} object, responsible for managing offer-status-related API requests.
+ * Defines offer status-related operations, handling API requests and interactions for offer status management.
  */
 interface OfferStatusService {
   /**

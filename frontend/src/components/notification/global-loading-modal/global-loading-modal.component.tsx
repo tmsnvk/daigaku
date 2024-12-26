@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks/modal-components/use-render-modal';
+import { useRenderModal } from '@hooks';
 
 /* component, style imports */
 import { Dialog } from './global-loading-modal.styles';
@@ -25,7 +25,7 @@ import { iconLibraryConfig } from '@configuration';
 import { RenderModal } from '@common-types';
 
 /**
- * Defines the properties of the {@link GlobalLoadingModal} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { ApplicationStatus } from '@common-types';
 
 /**
- * Defines the operations of the {@link applicationStatusService} object, responsible for managing application-status-related API requests.
+ * Defines application status-related operations, handling API requests and interactions for application status management.
  */
 interface ApplicationStatusService {
   /**

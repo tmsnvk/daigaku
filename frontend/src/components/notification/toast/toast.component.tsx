@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { Section } from './toast.styles.ts';
 
 /**
- * Defines the properties of the {@link Toast} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

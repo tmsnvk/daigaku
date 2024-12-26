@@ -20,7 +20,7 @@ import { InputError, InputLabel } from '@components/form';
 import { CommonInput } from '@common-types';
 
 /**
- * Defines the properties of the {@link GenericTextarea} component.
+ * Defines the component's properties.
  */
 interface ComponentProps<T extends FieldValues> extends CommonInput<T> {
   /**

@@ -21,11 +21,11 @@ import { mutationKeys, queryClient, queryKeys } from '@configuration';
 import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, ErrorDetail } from '@common-types';
-import { NewCommentFormFields, SubmitNewComment } from './new-comment-form.models';
+import { CoreErrorResponse, CreateComment, ErrorDetail } from '@common-types';
+import { SubmitComment } from './create-comment-form.models';
 
 /**
- * Defines the possible error field names in the {@link useSubmitNewComment} custom hook.
+ * Defines the possible error field names in the {@link useSubmitComment} custom hook.
  */
 type NewCommentFormErrorT = 'root' | 'comment';
 
@@ -34,12 +34,12 @@ type NewCommentFormErrorT = 'root' | 'comment';
  *
  * @param setError A `react-hook-form` function to set form errors.
  * @param applicationUuid The uuid of the application to which the comment belongs to.
- * @return {SubmitNewComment}
+ * @return {SubmitComment}
  */
-export const useSubmitNewComment = (setError: UseFormSetError<NewCommentFormFields>, applicationUuid: string): SubmitNewComment => {
+export const useSubmitComment = (setError: UseFormSetError<CreateComment>, applicationUuid: string): SubmitComment => {
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
-    mutationFn: (formData: NewCommentFormFields) => commentService.postCommentByApplicationUuid(formData, applicationUuid),
+    mutationFn: (formData: CreateComment) => commentService.postCommentByApplicationUuid(formData, applicationUuid),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid] });
     },

@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { UniversityOption } from '@common-types';
 
 /**
- * Defines the operations of the {@link universityService} object, responsible for managing university-related API requests.
+ * Defines university-related operations, handling API requests and interactions for university management.
  */
 interface UniversityService {
   /**

@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { Button } from './form-swap-button.styles';
 
 /* interface, type, enum imports */
-import { FormType } from '@common-types';
+import { FormType } from '../../home.models';
 
 /**
  * Defines the component's properties.

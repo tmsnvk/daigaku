@@ -9,7 +9,7 @@
  */
 
 /**
- * Defines the return value properties of the {@link useCommentPagination} custom hook.
+ * Defines properties for managing paginated content.
  */
 export interface CommentPagination {
   /**

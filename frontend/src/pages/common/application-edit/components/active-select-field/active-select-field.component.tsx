@@ -24,7 +24,7 @@ import { ApplicationStatusUnion, CoreInput } from '@common-types';
 import { FieldUpdate } from './active-select-field.models';
 
 /**
- * Defines the properties of the {@link ActiveSelectField} component.
+ * Defines the component's properties.
  */
 interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   /**
@@ -54,7 +54,7 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
 }
 
 /**
- * Renders a `select` input field whose input type is included in the {@link ApplicationStatusUnion} union type.
+ * Renders a `select` input field whose option type is included in the {@link ApplicationStatusUnion} union type.
  *
  * @return {JSX.Element}
  */

@@ -15,22 +15,19 @@ import { useEffect, useRef } from 'react';
 import { RenderModal } from '@common-types';
 
 /**
- * Manages the visibility of various modal components.
+ * Manages the rendering of various modal components.
  *
- * @param isVisible A boolean indicating whether the modal should be visible.
+ * @param isVisible A boolean indicating whether the modal should be rendered on the user's screen.
  * @return {RenderModal}
  */
 export const useRenderModal = (isVisible: boolean): RenderModal => {
-  // Create a ref for the modal dialog.
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    // Close the modal if it is open and visibility is set to false.
     if (dialogRef.current?.open && !isVisible) {
       dialogRef.current?.close();
     }
 
-    // Show the modal if it is closed and visibility is set to true.
     if (!dialogRef.current?.open && isVisible) {
       dialogRef.current?.showModal();
     }

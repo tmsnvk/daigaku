@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { Article } from './input-guide-text.styles';
 
 /**
- * Defines the properties of the {@link InputGuideText} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

@@ -18,7 +18,7 @@ import { useGetCommentsByApplicationAndPagination, useHandleCommentPagination } 
 import { LoadingIndicator } from '@components/general';
 import { CommentPaginationButton } from '../comment-pagination-button';
 import { Comments } from '../comments';
-import { NewCommentForm } from '../new-comment-form';
+import { CreateCommentForm } from '../create-comment-form';
 import { Section } from './comment-section.styles';
 
 /* configuration, utilities, constants imports */
@@ -29,7 +29,7 @@ import { CommentPaginationData, SimpleQueryResult } from '@common-types';
 import { CommentPagination } from './comment-section.models';
 
 /**
- * Defines the properties of the {@link CommentSection} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -45,10 +45,7 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element => {
-  // Custom hook that handles the comment page pagination.
   const { currentPage, goToPreviousPage, goToNextPage }: CommentPagination = useHandleCommentPagination();
-
-  // Custom hook that fetches comments for the selected application.
   const { data, isLoading, isError }: SimpleQueryResult<CommentPaginationData> = useGetCommentsByApplicationAndPagination(
     applicationUuid,
     currentPage,
@@ -84,7 +81,7 @@ export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element
             value={constants.ui.pagination.NEXT}
           />
         </div>
-        <NewCommentForm applicationUuid={applicationUuid} />
+        <CreateCommentForm applicationUuid={applicationUuid} />
       </Section>
     </>
   );

@@ -42,6 +42,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
     { id: 'courseName', name: ApplicationField.COURSE, isCoreColumn: true, isVisible: true },
     { id: 'university', name: ApplicationField.UNIVERSITY, isCoreColumn: true, isVisible: true },
     { id: 'country', name: ApplicationField.COUNTRY, isCoreColumn: true, isVisible: true },
+    { id: 'programmeLength', name: ApplicationField.PROGRAMME_LENGTH, isCoreColumn: true, isVisible: true },
     {
       id: 'applicationStatus',
       name: ApplicationField.APPLICATION_STATUS,

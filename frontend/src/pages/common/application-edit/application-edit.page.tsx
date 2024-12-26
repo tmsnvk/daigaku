@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /* logic imports */
-import { useGetAllSelectOptions, useGetApplicationByUuid } from '@hooks/index';
+import { useGetAllSelectOptions, useGetApplicationByUuid } from '@hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
@@ -37,14 +37,9 @@ import { Application, ApplicationLocation, ApplicationOptions, SimpleQueryResult
  * @return {JSX.Element}
  */
 export const ApplicationEdit = (): JSX.Element => {
-  // `react-router-dom` location object.
   const { state, pathname }: ApplicationLocation = useLocation();
   const applicationUuid: string = pathname.split('/applications/edit/')[1];
-
-  // Custom hook that fetches all ApplicationOptions.
   const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError }: ApplicationOptions = useGetAllSelectOptions();
-
-  // Custom hook that fetches the selected application by its uuid.
   const {
     data,
     isLoading: isApplicationLoading,

@@ -24,7 +24,7 @@ import { formatRoleName } from './account-role-dropdown.utilities';
 import { DropdownInput, RoleOption } from '@common-types';
 
 /**
- * Defines the properties of the {@link AccountRoleDropdown} component.
+ * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */

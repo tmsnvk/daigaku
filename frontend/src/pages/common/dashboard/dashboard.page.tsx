@@ -14,7 +14,7 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
-import { useGetApplications } from '@hooks/application';
+import { useGetApplications } from '@hooks';
 import { useGetDashboardStatistics } from './dashboard.hooks';
 
 /* component, style imports */
@@ -36,9 +36,7 @@ import { SimpleQueryResult, StudentDashboardStatistics } from '@common-types';
  */
 export const Dashboard = (): JSX.Element | undefined => {
   const navigate: NavigateFunction = useNavigate();
-  const { account, logOut }: Partial<AuthContext> = useAuth();
-
-  // Custom hook that fetches the user's dashboard statistics.
+  const { account, logOut }: AuthContext = useAuth();
   const { data, isLoading, isError, error }: SimpleQueryResult<StudentDashboardStatistics> = useGetDashboardStatistics();
 
   useGetApplications();
@@ -65,14 +63,6 @@ export const Dashboard = (): JSX.Element | undefined => {
     );
   }
 
-  return (
-    data && (
-      <Main>
-        {account.role === AccountRoleValues.STUDENT && <StudentLayout data={data} />}
-        {/*{account.accountRole === AccountRoleE.MENTOR && <PLACEHOLDER data={data} />}*/}
-        {/*{account.accountRole === AccountRoleE.INSTITUTION_ADMIN && <PLACEHOLDER data={data} />}*/}
-        {/*{account.accountRole === AccountRoleE.SYSTEM_ADMIN && <PLACEHOLDER data={data} />}*/}
-      </Main>
-    )
-  );
+  // Add layouts for other authentication level users.
+  return data && <Main>{account.role === AccountRoleValues.STUDENT && <StudentLayout data={data} />}</Main>;
 };

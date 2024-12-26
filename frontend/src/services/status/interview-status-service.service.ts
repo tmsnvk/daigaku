@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { InterviewStatus } from '@common-types';
 
 /**
- * Defines the operations of the {@link interviewStatusService} object, responsible for managing interview-status-related API requests.
+ * Defines interview status-related operations, handling API requests and interactions for interview status management.
  */
 interface InterviewStatusService {
   /**

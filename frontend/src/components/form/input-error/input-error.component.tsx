@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { Paragraph } from './input-error.styles';
 
 /**
- * Defines the properties of the {@link InputError} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

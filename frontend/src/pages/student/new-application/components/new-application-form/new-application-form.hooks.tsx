@@ -47,7 +47,6 @@ export const useCreateApplication = (
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationByStudent) => applicationStudentService.postByStudent(formData),
     onSuccess: (response: Application) => {
-      // After a successful submission, the newly created application is added to `react-query`'s local cache.
       queryClient.setQueryData<Array<Application>>(
         [queryKeys.application.GET_ALL_BY_ROLE],
         (applications: Array<Application> | undefined) => {
@@ -95,13 +94,11 @@ export const useCountrySelection = (): CountrySelection => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
   const [currentCountryUuid, setCurrentCountryUuid] = useState<string>('');
 
-  // Sets the selected country and marks it as selected.
   const selectCountry = (countryUuid: string): void => {
     setIsCountrySelected(true);
     setCurrentCountryUuid(countryUuid);
   };
 
-  // Resets the selection state.
   const resetCountrySelection = (): void => {
     setIsCountrySelected(false);
   };

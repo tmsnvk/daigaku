@@ -26,8 +26,7 @@ import { constants } from './new-application-form.constants';
 
 /* interface, type, enum imports */
 import { CountryOption, CreateApplicationByStudent, ListQueryResult, UniversityOption } from '@common-types';
-import { useGetCountryOptions } from '@hooks/country';
-import { useGetUniversityOptionsByCountryUuid } from '@hooks/university';
+import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks';
 import { CountrySelection, CreateApplication } from './new-application-form.models';
 
 /**
@@ -38,22 +37,17 @@ import { CountrySelection, CreateApplication } from './new-application-form.mode
  * @return {JSX.Element}
  */
 export const NewApplicationForm = (): JSX.Element => {
-  // Custom hook that manages the country selection.
   const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid }: CountrySelection = useCountrySelection();
   const {
     data: countryOptions,
     isLoading: isCountryDataLoading,
     isError: isCountryError,
   }: ListQueryResult<CountryOption> = useGetCountryOptions();
-
-  // Custom hook that fetches UniversityOptions by selected country.
   const {
     data: universityOptions,
     isLoading: isUniversityDataLoading,
     isError: isUniversityError,
   }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
-
-  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     reset,
@@ -61,8 +55,6 @@ export const NewApplicationForm = (): JSX.Element => {
     register,
     setError,
   } = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
-
-  // Custom hook that submits the form.
   const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication(setError, resetCountrySelection, reset);
 
   if (isCountryDataLoading) {

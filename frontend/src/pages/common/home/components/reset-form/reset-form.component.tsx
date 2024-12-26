@@ -26,7 +26,8 @@ import { FormInstruction } from '../form-instruction';
 import { constants } from './reset-form.constants';
 
 /* interface, type, enum imports */
-import { AccountResetRequest, ConfirmationModal, FormType, SelectForm, UseFormHook } from '@common-types';
+import { AccountResetRequest } from '@common-types';
+import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.models';
 import { HandleResetForm } from './reset-form.models';
 
 /**

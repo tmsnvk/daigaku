@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { PaginationButton } from './comment-pagination-button.styles.ts';
 
 /**
- * Defines the properties of the {@link CommentPaginationButton} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

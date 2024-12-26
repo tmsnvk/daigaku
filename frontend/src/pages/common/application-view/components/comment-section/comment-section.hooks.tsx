@@ -28,17 +28,14 @@ import { CommentPagination } from './comment-section.models';
  * @return {CommentPagination}
  */
 export const useHandleCommentPagination = (): CommentPagination => {
-  // Holds the current page number in the pagination flow.
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  // Decreases the page number by 1, staying within bounds.
   const goToPreviousPage = (): void => {
     if (currentPage >= 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  // Increases the page number by 1, limited by the total number of pages.
   const goToNextPage = (totalPages: number): void => {
     if (totalPages > 0 && currentPage + 1 < totalPages) {
       setCurrentPage(currentPage + 1);

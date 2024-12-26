@@ -21,7 +21,7 @@ import { constants } from './application-metadata.constants';
 import { BaseMetadata } from '@common-types';
 
 /**
- * Defines the properties of the {@link ApplicationMetadata} component.
+ * Defines the component's properties.
  */
 interface ComponentProps extends BaseMetadata {}
 

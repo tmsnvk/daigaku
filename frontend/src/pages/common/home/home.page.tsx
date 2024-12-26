@@ -14,7 +14,7 @@ import { Navigate } from 'react-router-dom';
 
 /* logic imports */
 import { AuthContext, AuthStatus, useAuth } from '@context/auth';
-import { useModalControl } from '@hooks/index';
+import { useModalControl } from '@hooks';
 import { useActiveFormComponent } from './home.hooks';
 
 /* component, style imports */
@@ -25,7 +25,8 @@ import { Main } from './home.styles';
 import { confirmationModalFeedback } from './home.constants';
 
 /* interface, type, enum imports */
-import { ActiveFormComponent, ModalControl } from '@common-types';
+import { ModalControl } from '@common-types';
+import { ActiveFormComponent } from './home.models';
 
 /**
  * Renders the root page of the application.
@@ -37,13 +38,8 @@ import { ActiveFormComponent, ModalControl } from '@common-types';
  * @return {JSX.Element}
  */
 export const Home = (): JSX.Element => {
-  // Authentication context.
-  const { authStatus }: Partial<AuthContext> = useAuth();
-
-  // Custom hook that handles the post-submit modal visibility.
+  const { authStatus }: AuthContext = useAuth();
   const { isModalVisible, showModal, closeModal }: ModalControl = useModalControl();
-
-  // Custom hook that manages which form should be displayed.
   const { activeFormType, activeFormComponent }: ActiveFormComponent = useActiveFormComponent(showModal);
 
   if (authStatus === AuthStatus.SIGNED_IN) {

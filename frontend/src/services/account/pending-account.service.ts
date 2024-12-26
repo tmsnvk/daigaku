@@ -15,7 +15,7 @@ import { axiosConfig } from '@configuration';
 import { PendingAccountRegisterRequest } from '@common-types';
 
 /**
- * Defines the operations of the {@link pendingAccountService} object, responsible for managing pending-account-related API requests.
+ * Defines pending account service-related operations, handling API requests and interactions for pending account management.
  */
 interface PendingAccountService {
   /**

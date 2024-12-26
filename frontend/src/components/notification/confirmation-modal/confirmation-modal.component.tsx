@@ -12,7 +12,7 @@
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks/modal-components/use-render-modal';
+import { useRenderModal } from '@hooks';
 
 /* component, style imports */
 import { SubmitInput } from '@components/form';
@@ -22,7 +22,7 @@ import { Dialog } from './confirmation-modal.styles';
 import { RenderModal } from '@common-types';
 
 /**
- * Defines the properties of the {@link ConfirmationModal} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

@@ -16,7 +16,7 @@ import { BaseInput } from '@components/base-styles';
 import { InputLabel } from '@components/form';
 
 /**
- * Defines the properties of the {@link DisabledInput} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

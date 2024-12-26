@@ -32,7 +32,7 @@ import { Column } from '../../applications.models';
 import { RequestPdfDownload } from './table-header.models';
 
 /**
- * Defines the properties of the {@link TableHeader} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -67,6 +67,7 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
 
   if (isError) {
     let errorMessage = '';
+
     if (axios.isAxiosError(error)) {
       errorMessage = UNEXPECTED_SERVER_ERROR;
     } else {

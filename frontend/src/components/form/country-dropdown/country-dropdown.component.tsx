@@ -27,7 +27,7 @@ import { CountryOption, DropdownInput } from '@common-types';
 import { SelectCountry } from './country-dropdown.models';
 
 /**
- * Defines the properties of the {@link CountryDropdown} component.
+ * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */

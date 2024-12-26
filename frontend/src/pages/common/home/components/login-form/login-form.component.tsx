@@ -26,12 +26,12 @@ import { formTypeButtonLabel } from '../../home.constants';
 import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
-import { FormType, LoginRequest, SelectForm, UseFormHook } from '@common-types';
+import { LoginRequest } from '@common-types';
+import { FormType, SelectForm, UseFormHook } from '../../home.models';
 import { HandleLoginForm } from './login-form.models';
 
 /**
  * Defines the component's properties.
- * A function to handle {@link FormType} switching.
  */
 type ComponentProps = SelectForm;
 

@@ -19,7 +19,7 @@ import { Article } from './loading-indicator.styles';
 import { iconLibraryConfig } from '@configuration';
 
 /**
- * Defines the properties of the {@link LoadingIndicator} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

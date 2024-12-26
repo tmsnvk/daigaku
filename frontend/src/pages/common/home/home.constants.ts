@@ -9,7 +9,7 @@
  */
 
 /* interface, type, enum imports */
-import { FormType } from '@common-types';
+import { FormType } from './home.models';
 
 export const confirmationModalFeedback: Record<FormType, string> = {
   [FormType.LOGIN]: '',

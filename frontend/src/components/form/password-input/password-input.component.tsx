@@ -28,7 +28,7 @@ import { CommonInput } from '@common-types';
 import { TogglePassword } from './password-input.models';
 
 /**
- * Defines the properties of the {@link PasswordInput} component.
+ * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */

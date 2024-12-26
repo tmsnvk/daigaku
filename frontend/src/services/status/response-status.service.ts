@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { ResponseStatus } from '@common-types';
 
 /**
- * Defines the operations of the {@link responseStatusService} object, responsible for managing response-status-related API requests.
+ * Defines response status-related operations, handling API requests and interactions for response status management.
  */
 interface ResponseStatusService {
   /**

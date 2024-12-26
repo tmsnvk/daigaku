@@ -23,7 +23,7 @@ import { constants } from './institution-dropdown.constants';
 import { DropdownInput, InstitutionOption } from '@common-types';
 
 /**
- * Defines the properties of the {@link InstitutionDropdown} component.
+ * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */

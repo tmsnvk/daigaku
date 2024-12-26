@@ -18,7 +18,7 @@ import { axiosConfigWithAuth } from '@configuration';
 import { InstitutionOption } from '@common-types';
 
 /**
- * Defines the operations of the {@link institutionService} object, responsible for managing institution-related API requests.
+ * Defines institution-related operations, handling API requests and interactions for institution management.
  */
 interface InstitutionService {
   /**

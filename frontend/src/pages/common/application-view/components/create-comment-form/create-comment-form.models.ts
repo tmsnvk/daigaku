@@ -17,4 +17,4 @@ import { Comment, CoreErrorResponse, CreateComment, MutationResult } from '@comm
 /**
  * Defines the return value properties of the {@link useSubmitNewComment} custom hook.
  */
-export type SubmitNewComment = MutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment>;
+export type SubmitComment = MutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment>;

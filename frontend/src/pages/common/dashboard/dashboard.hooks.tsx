@@ -22,12 +22,12 @@ import { queryKeys } from '@configuration';
 import { SimpleQueryResult, StudentDashboardStatistics } from '@common-types';
 
 /**
- * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation.
+ * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation level.
  *
  * @return {SimpleQueryResult<StudentDashboardStatistics>}
  */
 export const useGetDashboardStatistics = (): SimpleQueryResult<StudentDashboardStatistics> => {
-  const { getRoleResource }: Partial<AuthContext> = useAuth();
+  const { getRoleResource }: AuthContext = useAuth();
   const accountRole: string = getRoleResource();
 
   return useQuery({

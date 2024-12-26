@@ -19,7 +19,7 @@ import { constants } from './page-footer.constants';
 import { getCurrentYear } from './page-footer.utilities';
 
 /**
- * Renders the footer area of each page.
+ * Renders the footer area of a page.
  *
  * @return {JSX.Element}
  */

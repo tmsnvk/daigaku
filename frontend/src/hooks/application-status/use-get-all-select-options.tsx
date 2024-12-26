@@ -27,7 +27,7 @@ import { queryKeys } from '@configuration';
 import { ApplicationOptions } from '@common-types';
 
 /**
- * Fetches all status objects for the application form.
+ * Fetches all status objects for various application forms.
  *
  * @return {ApplicationOptions}
  */

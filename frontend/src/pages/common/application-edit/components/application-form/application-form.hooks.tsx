@@ -72,7 +72,7 @@ const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefine
  * Manages the form submission's first step.
  * It checks if the user already has an {@link Application} set to either {@link ResponseStatusE.FIRM_CHOICE},
  * {@link FinalDestinationStatusE.FINAL_DESTINATION} or {@link FinalDestinationStatusE.DEFERRED_ENTRY}.
- * If yes, an error message stops the submission. If no error was found, the `react-query` mutate() method is called.
+ * If yes, an error message stops the submission. If no error was found, the submitForm() method calls the `react-query` mutate() method.
  *
  * @return {HandleFormSubmission}
  */
@@ -93,7 +93,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
       return errors;
     }
 
-    // Find the three specific status uuids.
+    // Find the three specific status uuid strings.
     const firmChoiceUuid: string = filterCacheByUuid(responseStatusCache, ResponseStatusE.FIRM_CHOICE);
     const finalDestinationUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatusE.FINAL_DESTINATION);
     const finalDestinationDeferredUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatusE.DEFERRED_ENTRY);
@@ -102,14 +102,14 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
     // If yes, error messages are thrown to the ui and the submission is stopped before hitting the API call.
     applicationsCache.forEach((application: Application) => {
       if (application.uuid !== currentApplicationUuid) {
-        if (application.responseStatus.name === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
+        if (application.responseStatus?.name === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
           errors.push(constants.notifications.errors.FIRM_CHOICE_SELECTION);
         }
 
         if (
-          (application.finalDestinationStatus.name === FinalDestinationStatusE.FINAL_DESTINATION &&
+          (application.finalDestinationStatus?.name === FinalDestinationStatusE.FINAL_DESTINATION &&
             formData.finalDestinationStatusUuid === finalDestinationUuid) ||
-          (application.finalDestinationStatus.name === FinalDestinationStatusE.DEFERRED_ENTRY &&
+          (application.finalDestinationStatus?.name === FinalDestinationStatusE.DEFERRED_ENTRY &&
             formData.finalDestinationStatusUuid === finalDestinationDeferredUuid)
         ) {
           errors.push(constants.notifications.errors.FINAL_DESTINATION_SELECTION);
@@ -131,10 +131,8 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
     if (!validationErrors.length) {
       const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationByStudent>;
 
-      /**
-       * Disabled inputs are returned as undefined. These undefined inputs are replaced with an empty string,
-       *so the backend uuid validation would not fail.
-       */
+      // Disabled inputs are returned as undefined.
+      // These undefined inputs are replaced with an empty string, so the backend uuid validation would not fail.
       for (const key in fieldKeys) {
         if (formData[fieldKeys[key]] === undefined) {
           formData[fieldKeys[key]] = '';
@@ -168,7 +166,7 @@ type UpdateApplicationFormErrorT =
  * and post-success actions, such as setting account context and authentication status.
  *
  * @param setError `react-hook-form`'s error setting method.
- * @param applicationUuid The application's uuid.
+ * @param applicationUuid The application's uuid string.
  * @return {UpdateApplicationForm}
  */
 export const useUpdateApplication = (
@@ -221,6 +219,7 @@ export const useUpdateApplication = (
  */
 interface PageLoadValidationService {
   /**
+   * TODO
    *
    * @param application
    * @param updatedData
@@ -234,6 +233,7 @@ interface PageLoadValidationService {
   ) => boolean;
 
   /**
+   * TODO
    *
    * @param application
    * @param updatedData
@@ -247,6 +247,7 @@ interface PageLoadValidationService {
   ) => boolean;
 
   /**
+   * TODO
    *
    * @param application
    * @param updatedData
@@ -260,6 +261,7 @@ interface PageLoadValidationService {
   ) => boolean;
 
   /**
+   * TODO
    *
    * @param application
    * @param updatedData
@@ -294,7 +296,7 @@ const pageLoadValidationService: PageLoadValidationService = {
     updatedData: Application | undefined,
     selectOptions: ApplicationStatusSelectOptions,
   ): boolean => {
-    if (!application.interviewStatus.uuid) {
+    if (!application.interviewStatus?.uuid) {
       return true;
     }
 
@@ -303,7 +305,7 @@ const pageLoadValidationService: PageLoadValidationService = {
     })[0];
 
     if (notInvitedStatus) {
-      return application.interviewStatus.name === notInvitedStatus.name || updatedData?.interviewStatus.name === notInvitedStatus.name;
+      return application.interviewStatus.name === notInvitedStatus.name || updatedData?.interviewStatus?.name === notInvitedStatus.name;
     }
 
     return false;
@@ -313,7 +315,7 @@ const pageLoadValidationService: PageLoadValidationService = {
     updatedData: Application | undefined,
     selectOptions: ApplicationStatusSelectOptions,
   ): boolean => {
-    if (!application.offerStatus.uuid) {
+    if (!application.offerStatus?.uuid) {
       return true;
     }
 
@@ -322,7 +324,7 @@ const pageLoadValidationService: PageLoadValidationService = {
     })[0];
 
     if (rejectedStatus) {
-      return application.offerStatus.name === rejectedStatus.name || updatedData?.offerStatus.name === rejectedStatus.name;
+      return application.offerStatus.name === rejectedStatus.name || updatedData?.offerStatus?.name === rejectedStatus.name;
     }
 
     return false;
@@ -332,7 +334,7 @@ const pageLoadValidationService: PageLoadValidationService = {
     updatedData: Application | undefined,
     selectOptions: ApplicationStatusSelectOptions,
   ): boolean => {
-    if (!application.offerStatus.uuid) {
+    if (!application.offerStatus?.uuid) {
       return true;
     }
 
@@ -341,7 +343,7 @@ const pageLoadValidationService: PageLoadValidationService = {
     })[0];
 
     if (rejectedStatus) {
-      return application.offerStatus.name === rejectedStatus.name || updatedData?.offerStatus.name === rejectedStatus.name;
+      return application.offerStatus.name === rejectedStatus.name || updatedData?.offerStatus?.name === rejectedStatus.name;
     }
 
     const offerDeclinedStatus: ResponseStatus | undefined = selectOptions.responseStatus?.filter((element: ApplicationStatus) => {
@@ -349,7 +351,9 @@ const pageLoadValidationService: PageLoadValidationService = {
     })[0];
 
     if (offerDeclinedStatus) {
-      return application.responseStatus.name === offerDeclinedStatus.name || updatedData?.responseStatus.name === offerDeclinedStatus.name;
+      return (
+        application.responseStatus?.name === offerDeclinedStatus.name || updatedData?.responseStatus?.name === offerDeclinedStatus.name
+      );
     }
 
     return false;

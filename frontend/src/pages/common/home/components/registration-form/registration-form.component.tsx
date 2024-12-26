@@ -13,8 +13,7 @@ import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useGetInstitutionOptions } from '@hooks/institution';
-import { useGetStudentAndMentorAccountRoles } from '@hooks/role';
+import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@hooks';
 import { useSubmitRegistrationForm } from './registration-form.hooks';
 
 /* component, style imports */
@@ -29,16 +28,9 @@ import { formTypeButtonLabel } from '../../home.constants';
 import { constants } from './registration-form.constants';
 
 /* interface, type, enum imports */
-import {
-  ConfirmationModal,
-  FormType,
-  InstitutionOption,
-  ListQueryResult,
-  PendingAccountRegisterRequest,
-  RoleOption,
-  SelectForm,
-  UseFormHook,
-} from '@common-types';
+import { InstitutionOption, ListQueryResult, PendingAccountRegisterRequest, RoleOption } from '@common-types';
+import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.models';
+
 import { HandleRegistrationForm } from './registration-form.models';
 
 /**
@@ -56,25 +48,18 @@ type ComponentProps = SelectForm & ConfirmationModal;
  * @return {JSX.Element}
  */
 export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
-  // Custom hook that fetches all InstitutionOptions.
   const {
     data: institutions,
     isLoading: isInstitutionLoading,
     isError: isInstitutionError,
   }: ListQueryResult<InstitutionOption> = useGetInstitutionOptions();
-
-  // Custom hook that fetches the student and mentor authentication roles.
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError }: ListQueryResult<RoleOption> = useGetStudentAndMentorAccountRoles();
-
-  // `react-hook-form` handling hook.
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
   }: UseFormHook<PendingAccountRegisterRequest> = useForm<PendingAccountRegisterRequest>({ mode: 'onSubmit' });
-
-  // Custom hook that submits the form.
   const { isPending, mutate }: HandleRegistrationForm = useSubmitRegistrationForm(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {

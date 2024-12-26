@@ -11,5 +11,5 @@
 /* vendor imports */
 import styled from 'styled-components';
 
-// TODO
+// Add further styling.
 export const ErrorContainer = styled.div``;

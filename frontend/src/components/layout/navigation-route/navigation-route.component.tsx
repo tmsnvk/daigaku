@@ -17,7 +17,7 @@ import { theme } from '@theme/theme';
 import { NavbarIcon, RouteLink } from './navigation-route.styles';
 
 /**
- * Defines the properties of the {@link NavigationRoute} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -26,7 +26,7 @@ interface ComponentProps {
   readonly resource: string;
 
   /**
-   * The FontAwesome icon accompanying the link title.
+   * The FontAwesome icon accompanying the link's label.
    */
   readonly icon: IconLookup;
 
@@ -36,7 +36,7 @@ interface ComponentProps {
   readonly label: string;
 
   /**
-   * A callback method that handles the navigation route's onClick action.
+   * An optional callback method that handles the navigation route's onClick action.
    */
   readonly onNavigateClick?: () => void;
 }

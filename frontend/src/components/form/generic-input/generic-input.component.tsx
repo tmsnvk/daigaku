@@ -20,7 +20,7 @@ import { InputError, InputLabel } from '@components/form';
 import { CommonInput } from '@common-types';
 
 /**
- * Defines the properties of the {@link GenericInput} component.
+ * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */

@@ -21,7 +21,7 @@ import { constants } from './comments.constants';
 import { Comment } from '@common-types';
 
 /**
- * Defines the properties of the {@link Comments} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

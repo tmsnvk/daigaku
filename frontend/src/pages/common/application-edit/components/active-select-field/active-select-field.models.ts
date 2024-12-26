@@ -9,7 +9,7 @@
  */
 
 /**
- * Defines the structure for the field update function returned by {@link useOnFieldUpdate}.
+ * Defines the structure of an object responsible for handling field update events.
  */
 export interface FieldUpdate {
   /**

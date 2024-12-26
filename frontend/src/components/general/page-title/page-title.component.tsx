@@ -15,7 +15,7 @@ import { JSX } from 'react';
 import { TitleHeading } from './page-title.styles.ts';
 
 /**
- * Defines the properties of the {@link PageTitle} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**

@@ -29,7 +29,7 @@
       "@components/*": ["components/*"],
       "@constants": ["constants/index.ts"],
       "@context/*": ["context/*"],
-      "@hooks/*": ["hooks/*"],
+      "@hooks": ["hooks/index.ts"],
       "@pages/*": ["pages/*"],
       "@services": ["services/index.ts"],
       "@theme/*": ["theme/*"],

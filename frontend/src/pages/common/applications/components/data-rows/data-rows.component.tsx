@@ -26,7 +26,7 @@ import { Application } from '@common-types';
 import { Column } from '../../applications.models';
 
 /**
- * Defines the properties of the {@link DataRows} component.
+ * Defines the component's properties.
  */
 interface ComponentProps {
   /**
@@ -52,11 +52,12 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
         <Cell $shouldDisplay={isColumnVisible(columns, 'courseName')}>{application.courseName}</Cell>
         <Cell $shouldDisplay={isColumnVisible(columns, 'university')}>{application.university}</Cell>
         <Cell $shouldDisplay={isColumnVisible(columns, 'country')}>{application.country}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'programmeLength')}>{application.programmeLength}</Cell>
         <Cell $shouldDisplay={isColumnVisible(columns, 'applicationStatus')}>{application.applicationStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'interviewStatus')}>{application.interviewStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'offerStatus')}>{application.offerStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'responseStatus')}>{application.responseStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'finalDestinationStatus')}>{application.finalDestinationStatus.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'interviewStatus')}>{application.interviewStatus?.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'offerStatus')}>{application.offerStatus?.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'responseStatus')}>{application.responseStatus?.name ?? '-'}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'finalDestinationStatus')}>{application.finalDestinationStatus?.name ?? '-'}</Cell>
         <td>
           <Link
             to={`edit/${application.uuid}`}

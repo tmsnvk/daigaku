@@ -15,6 +15,7 @@ export enum ApplicationField {
   COURSE = 'Course',
   UNIVERSITY = 'University',
   COUNTRY = 'Country',
+  PROGRAMME_LENGTH = 'Programme Length',
   APPLICATION_STATUS = 'Application Status',
   INTERVIEW_STATUS = 'Interview Status',
   OFFER_STATUS = 'Offer Status',

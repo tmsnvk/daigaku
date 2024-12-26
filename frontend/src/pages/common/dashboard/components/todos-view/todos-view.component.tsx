@@ -22,7 +22,7 @@ import { Todo } from '@common-types';
  */
 interface ComponentProps {
   /**
-   * The component's summary text.
+   * The component's main text.
    */
   readonly introduction: Array<string>;
 
