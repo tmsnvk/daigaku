@@ -16,8 +16,6 @@ import net.tamasnovak.artifact.support.university.entity.University;
 
 /**
  * Service interface for managing {@link University} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface UniversityService {
   /**

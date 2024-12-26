@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * Stores {@link FormValidationException} message constants.
- *
- * @since 0.0.1
  */
 @Component
 public class FormValidationExceptionMessages {

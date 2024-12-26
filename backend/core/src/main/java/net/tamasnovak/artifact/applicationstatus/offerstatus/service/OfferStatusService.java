@@ -15,8 +15,6 @@ import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
 
 /**
  * Service interface for managing {@link OfferStatus} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface OfferStatusService {
   /**

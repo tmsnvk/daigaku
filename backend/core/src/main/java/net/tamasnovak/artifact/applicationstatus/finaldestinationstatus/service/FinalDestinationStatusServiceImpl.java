@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link FinalDestinationStatus} entity-related operations, implementing {@link FinalDestinationStatusService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "FinalDestinationStatusService")

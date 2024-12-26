@@ -13,8 +13,6 @@ import net.tamasnovak.artifact.application.common.entity.Application;
 
 /**
  * Interface projection providing a view of selected identifiers for {@link Application} objects.
- *
- * @since 0.0.1
  */
 public interface ApplicationIdsView {
   /**

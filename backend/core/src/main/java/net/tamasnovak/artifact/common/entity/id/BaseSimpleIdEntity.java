@@ -17,8 +17,6 @@ import jakarta.persistence.MappedSuperclass;
 
 /**
  * Abstract base class for all entities that utilise a simple identification mechanism.
- *
- * @since 0.0.1
  */
 @MappedSuperclass
 public abstract class BaseSimpleIdEntity implements Serializable {

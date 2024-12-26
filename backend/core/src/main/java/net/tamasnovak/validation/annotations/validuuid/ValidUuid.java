@@ -17,8 +17,6 @@ import jakarta.validation.Payload;
 
 /**
  * Custom Spring annotation validating string uuids.
- *
- * @since 0.0.1
  */
 @Documented
 @Constraint(validatedBy = ValidUuidValidator.class)

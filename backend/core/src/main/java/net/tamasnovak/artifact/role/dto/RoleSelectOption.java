@@ -18,7 +18,6 @@ import net.tamasnovak.artifact.role.persistence.RoleOptionView;
  *
  * @param uuid The Role's uuid.
  * @param name The Role's name.
- * @since 0.0.1
  */
 public record RoleSelectOption(
   UUID uuid,

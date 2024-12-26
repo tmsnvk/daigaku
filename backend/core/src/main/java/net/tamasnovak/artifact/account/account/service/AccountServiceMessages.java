@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * Stores {@link Account} entity service layer constants.
- *
- * @since 0.0.1
  */
 @Component
 public final class AccountServiceMessages {

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * Stores controller advice-related exception messages.
- *
- * @since 0.0.1
  */
 @Component
 public final class ControllerExceptionMessages {

@@ -35,8 +35,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class managing REST API requests related to "/api/v1/applications/student" endpoint.
- *
- * @since 0.0.1
  */
 @RestController
 @RequestMapping(path = "/api/v1/applications/student")

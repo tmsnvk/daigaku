@@ -18,7 +18,6 @@ import net.tamasnovak.artifact.support.university.entity.University;
  * @param uuid The University's uuid.
  * @param name The University's name.
  * @param abbreviation The University's abbreviation.
- * @since 0.0.1
  */
 public record UniversitySelectOption(
   UUID uuid,

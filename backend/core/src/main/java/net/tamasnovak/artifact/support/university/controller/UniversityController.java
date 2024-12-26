@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class managing REST API requests related to "/api/v1/universities" endpoint.
- *
- * @since 0.0.1
  */
 @RestController
 @RequestMapping(path = "/api/v1/universities")
@@ -40,7 +38,7 @@ public class UniversityController {
    * Fetches a list of {@link UniversitySelectOption} objects as select options for frontend forms.
    * The {@link ValidUuid} annotation validates the uuid string.
    *
-   * @return A {@link ResponseEntity} containing `HttpStatus.OK` status code and a list {@link UniversitySelectOption} object.
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link UniversitySelectOption} object.
    */
   @GetMapping(value = "/options/{countryUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<UniversitySelectOption>> fetchUniversitySelectOptionsByCountryUuid(

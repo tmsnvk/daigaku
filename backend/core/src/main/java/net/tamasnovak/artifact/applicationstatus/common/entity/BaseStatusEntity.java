@@ -13,8 +13,6 @@ import net.tamasnovak.artifact.common.entity.id.BaseExtendedIdEntity;
 
 /**
  * Abstract entity class that represents an ancestor class for status-type entities.
- *
- * @since 0.0.1
  */
 @MappedSuperclass
 public abstract class BaseStatusEntity extends BaseExtendedIdEntity {

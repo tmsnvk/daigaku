@@ -24,8 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link Role} entity-related operations, implementing {@link RoleService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "RoleService")

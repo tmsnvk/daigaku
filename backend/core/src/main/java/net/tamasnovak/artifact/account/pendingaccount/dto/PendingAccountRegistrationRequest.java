@@ -22,7 +22,6 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param email The pending account's email.
  * @param institutionUuid The pending account's institution uuid.
  * @param accountRoleUuid The pending account's authorisation role uuid.
- * @since 0.0.1
  */
 public record PendingAccountRegistrationRequest(
   @NotBlank(message = "Provide a first name. Use only letters and spaces.")

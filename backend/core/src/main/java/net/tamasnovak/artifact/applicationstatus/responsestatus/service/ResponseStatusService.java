@@ -15,8 +15,6 @@ import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseS
 
 /**
  * Service interface for managing {@link ResponseStatus} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface ResponseStatusService {
   /**

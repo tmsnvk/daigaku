@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link OfferStatus} entity-related operations, implementing {@link OfferStatusService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "OfferStatusService")

@@ -15,7 +15,6 @@ import java.util.List;
  * @param errorCode The response's error code.
  * @param timestamp The response's timestamp.
  * @param errors The list of error messages.
- * @since 0.0.1
  */
 public record InputExceptionResponse(
   int errorCode,

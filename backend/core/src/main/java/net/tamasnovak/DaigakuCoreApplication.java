@@ -12,9 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 /**
- * The Core module's main class.
- *
- * @since 0.0.1
+ * The Core module's entrypoint.
  */
 @SpringBootApplication
 @EnableCaching

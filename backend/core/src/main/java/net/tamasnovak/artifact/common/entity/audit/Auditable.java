@@ -22,8 +22,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * Abstract base class for all entities that track timestamps and information on creation and updates.
- *
- * @since 0.0.1
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

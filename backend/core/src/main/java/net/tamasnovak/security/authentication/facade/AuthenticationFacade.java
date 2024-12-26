@@ -14,8 +14,6 @@ import org.springframework.security.core.userdetails.User;
 
 /**
  * TODO
- *
- * @since 0.0.1
  */
 public interface AuthenticationFacade {
   /**

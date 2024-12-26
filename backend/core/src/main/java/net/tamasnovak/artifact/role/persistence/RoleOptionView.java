@@ -12,8 +12,6 @@ import net.tamasnovak.artifact.role.dto.RoleSelectOption;
 
 /**
  * Represents the projection of a {@link RoleSelectOption} object.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface RoleOptionView {

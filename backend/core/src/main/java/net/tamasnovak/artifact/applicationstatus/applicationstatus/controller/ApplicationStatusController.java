@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class managing REST API requests related to "/api/v1/application-status" endpoint.
- *
- * @since 0.0.1
  */
 @RestController
 @RequestMapping(path = "/api/v1/application-status")
@@ -36,7 +34,7 @@ public class ApplicationStatusController {
   /**
    * Fetches all ApplicationStatus as {@link StatusSelectOption} objects to be used on the frontend in various forms.
    *
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link StatusSelectOption} object.
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link StatusSelectOption} object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<StatusSelectOption>> fetchSelectOptions() {

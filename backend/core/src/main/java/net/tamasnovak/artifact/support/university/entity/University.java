@@ -29,8 +29,6 @@ import net.tamasnovak.artifact.support.country.entity.Country;
 
 /**
  * Entity class that represents the universities database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "universities")

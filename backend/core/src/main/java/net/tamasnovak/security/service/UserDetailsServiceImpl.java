@@ -20,8 +20,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * Spring Security {@link UserDetailsService} implementation.
- *
- * @since 0.0.1
  */
 @Service
 public final class UserDetailsServiceImpl implements UserDetailsService {

@@ -16,8 +16,6 @@ import net.tamasnovak.artifact.support.institution.entity.Institution;
 
 /**
  * Entity class that represents the pending_accounts database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "pending_accounts")

@@ -18,8 +18,6 @@ import org.springframework.data.redis.serializer.RedisSerializationContext.Seria
 
 /**
  * Redis cache configuration class.
- *
- * @since 0.0.1
  */
 @Configuration
 @EnableCaching

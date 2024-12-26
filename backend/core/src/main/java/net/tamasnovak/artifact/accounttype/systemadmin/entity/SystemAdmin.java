@@ -13,8 +13,6 @@ import net.tamasnovak.artifact.accounttype.common.entity.BaseAccountType;
 
 /**
  * Entity class that represents the system_admins database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "system_admins")

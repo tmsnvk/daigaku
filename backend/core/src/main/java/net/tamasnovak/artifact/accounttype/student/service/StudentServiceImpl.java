@@ -18,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link Student} entity-related operations, implementing {@link StudentService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "StudentService")

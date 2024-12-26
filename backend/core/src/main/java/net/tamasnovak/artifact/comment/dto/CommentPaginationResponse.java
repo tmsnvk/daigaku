@@ -15,7 +15,6 @@ import java.util.List;
  * @param currentPage The current page number that was requested by the authenticated user.
  * @param totalComments The total number of comments.
  * @param comments The list of comments that are associated with the selected page number.
- * @since 0.0.1
  */
 public record CommentPaginationResponse(
   int totalPages,

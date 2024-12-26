@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Import;
 
 /**
  * Rabbit messaging queue configuration class.
- *
- * @since 0.0.1
  */
 @Configuration
 @Import({ ConverterConfig.class, QueueSenderImpl.class })

@@ -21,8 +21,6 @@ import org.springframework.data.repository.query.Param;
 
 /**
  * JPA repository for {@link Application} entities.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface ApplicationRepository extends JpaRepository<Application, Long> {

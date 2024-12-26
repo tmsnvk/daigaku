@@ -13,8 +13,6 @@ import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * The custom {@link ValidUuid} annotation's validator implementation.
- *
- * @since 0.0.1
  */
 public class ValidUuidValidator implements ConstraintValidator<ValidUuid, String> {
   @Override

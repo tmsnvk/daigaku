@@ -23,8 +23,6 @@ import net.tamasnovak.artifact.support.institution.entity.Institution;
 
 /**
  * Entity class that represents the mentors database table.
- *
- * @since 0.0.1
  */
 @Entity
 @Table(name = "mentors")

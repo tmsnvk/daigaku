@@ -15,8 +15,6 @@ import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.F
 
 /**
  * Service interface for managing {@link FinalDestinationStatus} entity-related API operations.
- *
- * @since 0.0.1
  */
 public interface FinalDestinationStatusService {
   /**

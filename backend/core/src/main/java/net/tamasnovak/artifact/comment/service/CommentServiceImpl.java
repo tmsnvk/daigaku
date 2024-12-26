@@ -30,8 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service class managing {@link Comment} entity-related operations, implementing {@link CommentService}.
- *
- * @since 0.0.1
  */
 @Service
 @Qualifier(value = "CommentService")

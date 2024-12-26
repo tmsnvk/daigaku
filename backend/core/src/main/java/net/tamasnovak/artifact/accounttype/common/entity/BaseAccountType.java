@@ -14,8 +14,6 @@ import net.tamasnovak.artifact.common.entity.id.BaseSimpleIdEntity;
 
 /**
  * Abstract entity class that represents an ancestor class for account-type entities.
- *
- * @since 0.0.1
  */
 @MappedSuperclass
 public abstract class BaseAccountType extends BaseSimpleIdEntity {

@@ -16,8 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * JPA repository for {@link InterviewStatus} entities.
- *
- * @since 0.0.1
  */
 @SuppressWarnings("checkstyle:MissingJavadocMethod")
 public interface InterviewStatusRepository extends JpaRepository<InterviewStatus, Long> {

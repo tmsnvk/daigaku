@@ -30,8 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class managing REST API requests related to "/api/v1/comments" endpoint.
- *
- * @since 0.0.1
  */
 @RestController
 @RequestMapping(path = "/api/v1/comments")
@@ -51,7 +49,7 @@ public class CommentController {
    *
    * @param applicationUuid The application's uuid associated with the queried comments.
    * @param page The requested page number.
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link CommentPaginationResponse}
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link CommentPaginationResponse}
    * object.
    */
   @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,7 +67,7 @@ public class CommentController {
    *
    * @param uuid The associated application's uuid.
    * @param requestBody The new comment request body.
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
    */
   @PostMapping(value = "/{applicationUuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> createCommentByApplicationUuid(

@@ -13,8 +13,6 @@ import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * TODO
- *
- * @since 0.0.1
  */
 public class OptionalValidUuidValidator implements ConstraintValidator<OptionalValidUuid, String> {
   @Override
