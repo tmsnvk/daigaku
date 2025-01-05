@@ -14,7 +14,7 @@ import { JSX, useEffect } from 'react';
 import { Location, NavigateFunction, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoleValues, AuthContext, AuthStatus, useAuth } from '@context/auth';
+import { AccountRoleValues, AuthContext, AuthStatus, useAuthContext } from '@context/auth';
 import { useSmallScreenNavbarDisplay } from './private-layout.hooks';
 
 /* component, style imports */
@@ -51,7 +51,7 @@ interface ComponentProps {
 export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => {
   const location: Location = useLocation();
   const navigate: NavigateFunction = useNavigate();
-  const { authStatus, account, logOut }: AuthContext = useAuth();
+  const { authStatus, account, logOut }: AuthContext = useAuthContext();
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur }: SmallScreenNavbarDisplay = useSmallScreenNavbarDisplay();
 
   useEffect(() => {

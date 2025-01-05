@@ -28,39 +28,43 @@ import { formTypeButtonLabel } from '../../home.constants';
 import { constants } from './registration-form.constants';
 
 /* interface, type, enum imports */
-import { InstitutionOption, ListQueryResult, PendingAccountRegisterRequest, RoleOption } from '@common-types';
-import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.models';
-
-import { HandleRegistrationForm } from './registration-form.models';
+import { PendingAccountRegisterRequest } from '@common-types';
+import { FormType } from '../../home.models';
 
 /**
  * Defines the component's properties.
  */
-type ComponentProps = SelectForm & ConfirmationModal;
+interface ComponentProps {
+  /**
+   * A function to select the current form type.
+   * @param formType The type of the form to be selected.
+   */
+  selectForm: (formType: FormType) => void;
+
+  /**
+   * A function to show a modal.
+   */
+  showModal: () => void;
+}
 
 /**
- * Renders a registration form that allows users to submit a form to get a pending account.
- * The component utilizes the `react-hook-form` library for form handling,
- * including validation, and manages the form submission using the `react-query` library.
- * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link ResetForm} using the {@link FormSwapButton} component.
+ * Renders a registration form component that allows users to submit a form to register a pending account.
+ * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
+ * Additionally, users can switch to other forms on the page using the {@link FormSwapButton} component.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
 export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
-  const {
-    data: institutions,
-    isLoading: isInstitutionLoading,
-    isError: isInstitutionError,
-  }: ListQueryResult<InstitutionOption> = useGetInstitutionOptions();
-  const { data: roles, isLoading: isRoleLoading, isError: isRoleError }: ListQueryResult<RoleOption> = useGetStudentAndMentorAccountRoles();
+  const { data: institutions, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
+  const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  }: UseFormHook<PendingAccountRegisterRequest> = useForm<PendingAccountRegisterRequest>({ mode: 'onSubmit' });
-  const { isPending, mutate }: HandleRegistrationForm = useSubmitRegistrationForm(setError, showModal);
+  } = useForm<PendingAccountRegisterRequest>({ mode: 'onSubmit' });
+  const { isPending, mutate } = useSubmitRegistrationForm(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {
     return (

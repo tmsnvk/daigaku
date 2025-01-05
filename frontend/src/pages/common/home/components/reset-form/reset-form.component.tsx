@@ -27,20 +27,28 @@ import { constants } from './reset-form.constants';
 
 /* interface, type, enum imports */
 import { AccountResetRequest } from '@common-types';
-import { ConfirmationModal, FormType, SelectForm, UseFormHook } from '../../home.models';
-import { HandleResetForm } from './reset-form.models';
+import { FormType } from '../../home.models';
 
 /**
  * Defines the component's properties.
  */
-type ComponentProps = SelectForm & ConfirmationModal;
+interface ComponentProps {
+  /**
+   * A function to select the current form type.
+   * @param formType The type of the form to be selected.
+   */
+  selectForm: (formType: FormType) => void;
+
+  /**
+   * A function to show a modal.
+   */
+  showModal: () => void;
+}
 
 /**
- * Renders a password reset form that allows users to reset their account.
- * The component utilizes the `react-hook-form` library for form handling,
- * including validation, and manages the form submission using the `react-query` library.
- * Additionally, users can switch to other forms, such as {@link LoginForm} or {@link RegistrationForm}
- * using the {@link FormSwapButton} component.
+ * Renders a password reset form component that allows users to reset their account access.
+ * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
+ * Additionally, users can switch to other forms on the page using the {@link FormSwapButton} component.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -51,8 +59,8 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
     handleSubmit,
     register,
     setError,
-  }: UseFormHook<AccountResetRequest> = useForm<AccountResetRequest>({ mode: 'onSubmit' });
-  const { isPending, mutate }: HandleResetForm = useHandleResetForm(setError, showModal);
+  } = useForm<AccountResetRequest>({ mode: 'onSubmit' });
+  const { isPending, mutate } = useHandleResetForm(setError, showModal);
 
   return (
     <section>

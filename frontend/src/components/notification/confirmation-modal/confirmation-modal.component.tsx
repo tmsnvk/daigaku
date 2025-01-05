@@ -33,7 +33,7 @@ interface ComponentProps {
   /**
    * The message to be displayed in the modal.
    */
-  readonly message: string;
+  readonly message?: string;
 
   /**
    * Callback function invoked to close the modal.

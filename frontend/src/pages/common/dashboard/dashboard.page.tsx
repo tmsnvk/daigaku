@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoleValues, AuthContext, useAuth } from '@context/auth';
+import { AccountRoleValues, AuthContext, useAuthContext } from '@context/auth';
 import { useGetApplications } from '@hooks';
 import { useGetDashboardStatistics } from './dashboard.hooks';
 
@@ -36,7 +36,7 @@ import { SimpleQueryResult, StudentDashboardStatistics } from '@common-types';
  */
 export const Dashboard = (): JSX.Element | undefined => {
   const navigate: NavigateFunction = useNavigate();
-  const { account, logOut }: AuthContext = useAuth();
+  const { account, logOut }: AuthContext = useAuthContext();
   const { data, isLoading, isError, error }: SimpleQueryResult<StudentDashboardStatistics> = useGetDashboardStatistics();
 
   useGetApplications();

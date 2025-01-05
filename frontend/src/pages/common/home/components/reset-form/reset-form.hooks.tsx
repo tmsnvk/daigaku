@@ -9,7 +9,7 @@
  */
 
 /* vendor imports */
-import { useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -22,20 +22,18 @@ import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
 
 /* interface, type, enum imports */
 import { AccountResetRequest, CoreErrorResponse } from '@common-types';
-import { HandleResetForm } from './reset-form.models';
-import { ConfirmationModal } from '../../home.models';
 
 /**
- * Manages the {@link ResetForm} submission process, including REST API request, error handling, and post-success actions.
+ * Manages the component's form submission.
  *
  * @param setError A `react-hook-form` function to set form errors.
- * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
- * @return {HandleResetForm}
+ * @param showModal A function to display an onSuccess confirmation modal component.
+ * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetRequest>}
  */
 export const useHandleResetForm = (
   setError: UseFormSetError<AccountResetRequest>,
-  showModal: ConfirmationModal['showModal'],
-): HandleResetForm => {
+  showModal: () => void,
+): UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetRequest> => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_RESET_FORM],
     mutationFn: (formData: AccountResetRequest) => accountService.resetPassword(formData),

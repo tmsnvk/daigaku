@@ -60,6 +60,7 @@ export type Account = {
   email: string;
   firstName: string;
   role: AccountRoleValues | typeof AccountRoleValues;
+  jwtToken: string;
 };
 
 /**
@@ -79,6 +80,7 @@ const initialAccountState: Account = {
   email: '',
   firstName: '',
   role: AccountRoleValues,
+  jwtToken: '',
 };
 
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
@@ -144,29 +146,18 @@ export const AuthProvider = ({ children }: AuthContextProviderT) => {
   }, []);
 
   const logOut = (): void => {
-    // Logs the user out.
     localStorage.removeItem(localStorageKeys.AUTHENTICATION_TOKEN);
     setAuthStatus(AuthStatus.SIGNED_OUT);
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        account,
-        setAccount,
-        authStatus,
-        setAuthStatus,
-        getAccountRole,
-        getRoleResource,
-        logOut,
-      }}
-    >
+    <AuthContext value={{ account, setAccount, authStatus, setAuthStatus, getAccountRole, getRoleResource, logOut }}>
       {children}
-    </AuthContext.Provider>
+    </AuthContext>
   );
 };
 
 /**
- * The AuthContext object is wrapped into a custom hook for simplier usage within the application's components.
+ * The AuthContext object is wrapped into a custom hook for simplier usage.
  */
-export const useAuth = (): AuthContext => useContext(AuthContext);
+export const useAuthContext = (): AuthContext => useContext(AuthContext);

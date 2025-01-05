@@ -23,6 +23,7 @@ export const constants = {
     },
   },
   validation: {
+    //rewrite this as in reset/register
     REQUIRED_EMAIL: 'Providing your email address is required.',
     REQUIRED_PASSWORD: 'Providing your password is required.',
   },

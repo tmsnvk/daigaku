@@ -55,7 +55,7 @@ export interface CoreInput<T extends FieldValues> {
   /**
    * The error message associated with the input, if validation fails.
    */
-  error: string | undefined;
+  error?: string;
 
   /**
    * The input element's id.
