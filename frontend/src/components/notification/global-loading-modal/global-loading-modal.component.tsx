@@ -21,9 +21,6 @@ import { Dialog } from './global-loading-modal.styles';
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 
-/* interface, type, enum imports */
-import { RenderModal } from '@common-types';
-
 /**
  * Defines the component's properties.
  */
@@ -46,7 +43,7 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const GlobalLoadingModal = ({ isVisible, loadingText }: ComponentProps): JSX.Element => {
-  const { dialogRef }: RenderModal = useRenderModal(isVisible);
+  const { dialogRef } = useRenderModal(isVisible);
 
   return (
     <Dialog ref={dialogRef}>

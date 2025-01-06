@@ -39,9 +39,9 @@ interface ComponentProps {
   readonly errorText?: string;
 
   /**
-   * Callback function invoked to close the modal.
+   * A callback method invoked to close the modal.
    */
-  readonly onCloseModal: () => void;
+  onCloseModal: () => void;
 }
 
 /**

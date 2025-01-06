@@ -7,6 +7,7 @@
  *
  * @author tmsnvk
  */
+
 export const constants = {
   ui: {
     pagination: {

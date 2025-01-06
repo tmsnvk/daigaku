@@ -30,22 +30,22 @@ interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
   /**
    * The label text to be displayed above the select input.
    */
-  label: string;
+  readonly label: string;
 
   /**
    * The value previously selected by the user, or null if none.
    */
-  previouslySelectedValue: ApplicationStatusUnion | null;
+  readonly previouslySelectedValue: ApplicationStatusUnion | null;
 
   /**
    * The prompt text displayed in the select input when no option is selected.
    */
-  selectPrompt: string;
+  readonly selectPrompt: string;
 
   /**
    * An array of options available for selection.
    */
-  options: Array<ApplicationStatusUnion>;
+  readonly options: Array<ApplicationStatusUnion>;
 
   /**
    * A callback function invoked when the field's value is updated.

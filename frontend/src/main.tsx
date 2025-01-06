@@ -10,12 +10,12 @@
 
 /* vendor imports */
 import React from 'react';
-import { Root, createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 
 /* component, style imports */
 import { DaigakuReactApplication } from './daigaku-react-application.tsx';
 
-const root: Root = createRoot(document.getElementById('root') as HTMLElement);
+const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>

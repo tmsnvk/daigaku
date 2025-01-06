@@ -70,7 +70,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.REQUIRED_EMAIL,
+              message: constants.validation.EMAIL.REQUIRED,
             },
           }}
           type={'email'}
@@ -85,7 +85,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.REQUIRED_PASSWORD,
+              message: constants.validation.PASSWORD.REQUIRED,
             },
           }}
           id={'password'}

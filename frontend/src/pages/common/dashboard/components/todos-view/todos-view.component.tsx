@@ -27,13 +27,13 @@ interface ComponentProps {
   readonly introduction: Array<string>;
 
   /**
-   * The todo list array.
+   * The todo list.
    */
   readonly todos: Array<string>;
 }
 
 /**
- * Renders an introduction text as well as the user's active todo list.
+ * Renders an introduction text as well as the user's current todo list.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

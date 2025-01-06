@@ -15,11 +15,10 @@ export interface CommentPagination {
   /**
    * The current page number being displayed.
    */
-  currentPage: number;
+  readonly currentPage: number;
 
   /**
-   * Decrements the `currentPage` value by one when the "Previous" button is clicked,
-   * as long as it is above 0.
+   * Decrements the `currentPage` value by one when the "Previous" button is clicked, as long as it is above 0.
    */
   goToPreviousPage: () => void;
 

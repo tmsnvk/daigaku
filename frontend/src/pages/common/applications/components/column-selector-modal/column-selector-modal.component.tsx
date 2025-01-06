@@ -18,7 +18,6 @@ import { useRenderModal } from '@hooks';
 import { Dialog } from './column-selector-modal.styles';
 
 /* interface, type, enum imports */
-import { RenderModal } from '@common-types';
 import { Column } from '../../applications.models';
 
 /**
@@ -31,9 +30,9 @@ interface ComponentProps {
   readonly columns: Array<Column>;
 
   /**
-   * A function that toggles the visibility of a column when a checkbox is clicked.
+   * A method that toggles the visibility of a column when a checkbox is clicked.
    */
-  readonly onToggleColumnVisibility: (id: string) => void;
+  onToggleColumnVisibility: (id: string) => void;
 
   /**
    * A boolean indicating whether the modal should be visible.
@@ -41,9 +40,9 @@ interface ComponentProps {
   readonly isModalVisible: boolean;
 
   /**
-   * A function that handles closing the modal.
+   * A method that handles closing the modal.
    */
-  readonly onToggle: () => void;
+  onToggle: () => void;
 }
 
 /**
@@ -52,7 +51,7 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModalVisible, onToggle }: ComponentProps): JSX.Element => {
-  const { dialogRef }: RenderModal = useRenderModal(isModalVisible);
+  const { dialogRef } = useRenderModal(isModalVisible);
 
   return (
     <Dialog ref={dialogRef}>

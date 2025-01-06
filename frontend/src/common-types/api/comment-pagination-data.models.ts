@@ -12,7 +12,7 @@
 import { Comment } from './comment.models';
 
 /**
- * Defines the metadata and the list of comments associated with a given {@link Application}.
+ * Defines the metadata and the list of comments associated with a given Application record.
  */
 export interface CommentPaginationData {
   /**
@@ -26,12 +26,12 @@ export interface CommentPaginationData {
   readonly currentPage: number;
 
   /**
-   * The total number of comments associated with the given {@link Application} object.
+   * The total number of comments associated with the given Application record.
    */
   readonly totalComments: number;
 
   /**
-   * A list of comments associated with the given {@link Application} object.
+   * A list of comments associated with the given Application record.
    */
   readonly comments: Array<Comment>;
 }

@@ -24,54 +24,53 @@ import { TableHeadRow } from './table-header.styles';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 import { constants } from './table-header.constants';
 
 /* interface, type, enum imports */
 import { Column } from '../../applications.models';
-import { RequestPdfDownload } from './table-header.models';
 
 /**
  * Defines the component's properties.
  */
 interface ComponentProps {
   /**
-   * TODO
+   * The list of columns that should be displayed by the component.
    */
   readonly columns: Array<Column>;
 
   /**
-   * TODO
+   * A method that A-Z sort the rows by the selected column id.
    */
-  readonly onColumnSort: (id: string) => void;
+  onColumnSort: (id: string) => void;
 
   /**
-   * TODO
+   * A method that toggles the column selector modal.
    */
-  readonly onToggleModal: () => void;
+  onToggleModal: () => void;
 
   /**
-   * TODO
+   * A method that initiates a `GET` REST API operation to refetch the user's Application records.
    */
-  readonly onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
+  onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 }
 
 /**
- * Renders the table header row on the {@link Applications} page. A number of buttons are rendered in the component as well, such as
+ * Renders the table header row on the Applications table page. A number of buttons are rendered in the component as well, such as
  * row ordering, .pdf report downloading, data refresh or modal pop-up buttons.
  *
  * @return {JSX.Element}
  */
 export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }: ComponentProps): JSX.Element => {
-  const { mutate, isSuccess, isPending, isError, error }: RequestPdfDownload = useRequestPdfDownload();
+  const { mutate, isSuccess, isPending, isError, error } = useRequestPdfDownload();
 
   if (isError) {
     let errorMessage = '';
 
     if (axios.isAxiosError(error)) {
-      errorMessage = UNEXPECTED_SERVER_ERROR;
+      errorMessage = errorConstants.UNEXPECTED_SERVER_ERROR;
     } else {
-      errorMessage = UNEXPECTED_GLOBAL_ERROR;
+      errorMessage = errorConstants.UNEXPECTED_GLOBAL_ERROR;
     }
 
     return (

@@ -9,7 +9,7 @@
  */
 
 /* vendor imports */
-import { useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
@@ -18,24 +18,24 @@ import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 
 /* interface, type, enum imports */
-import { Application, MutationResult } from '@common-types';
+import { Application } from '@common-types';
 import { HandleToggleIsRemovable } from './is-removable-button.models';
 
 /**
  * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link Application}.
  *
- * @param applicationUuid The application's uuid for identification purposes.
- * @param isRemovable The application's current is_removable boolean state.
+ * @param applicationUuid The Application record's uuid for identification purposes.
+ * @param isRemovable The Application record's current is_removable boolean state.
  * @return {SimpleQueryResult<HandleToggleIsRemovable>}
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
   const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const mutation: MutationResult<void, AxiosError<Error>, void> = useMutation({
+  const mutation: UseMutationResult<void, AxiosError<Error>, void> = useMutation({
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
@@ -58,7 +58,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
       history.replaceState('', `/applications/view/${applicationUuid}`);
     },
     onError: () => {
-      setErrorMessage(UNEXPECTED_GLOBAL_ERROR);
+      setErrorMessage(errorConstants.UNEXPECTED_GLOBAL_ERROR);
     },
   });
 

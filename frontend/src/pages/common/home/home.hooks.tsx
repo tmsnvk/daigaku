@@ -15,7 +15,7 @@ import { JSX, useState } from 'react';
 import { LoginForm, RegistrationForm, ResetForm } from './components';
 
 /* interface, type, enum imports */
-import { FormType } from './home.models';
+import { ActiveFormComponent, FormType } from './home.models';
 
 /**
  * A helper method used by {@link useActiveFormComponent}
@@ -48,21 +48,6 @@ const getFormComponent = (activeFormType: FormType, selectFormType: (formType: F
       return <LoginForm selectForm={selectFormType} />;
   }
 };
-
-/**
- * Defines the structure for managing the state and rendering of an active component.
- */
-interface ActiveFormComponent {
-  /**
-   * The currently selected {@link FormType}.
-   */
-  activeFormType: FormType;
-
-  /**
-   * The rendered element of the currently active component.
-   */
-  activeFormComponent: JSX.Element;
-}
 
 /**
  * Manages the currently active {@link FormType} form component's state. These are:

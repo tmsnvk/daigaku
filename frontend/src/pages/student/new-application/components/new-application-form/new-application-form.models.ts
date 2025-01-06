@@ -8,39 +8,29 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosError } from 'axios';
-
-/* interface, type, enum imports */
-import { Application, CoreErrorResponse, CreateApplicationByStudent, MutationResult } from '@common-types';
-
 /**
- * Defines the {@link useCreateApplication} custom hook's return value properties.
- */
-export type CreateApplication = MutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent>;
-
-/**
- * Defines the {@link useCountrySelection} custom hook's return value properties.
+ * Defines the return value properties for managing country selection functionality.
  */
 export interface CountrySelection {
   /**
-   * A function to update the selected country using a given UUID.
-   * @param countryUuid The to be selected country's UUID.
+   * A method to update the selected country using a given uuid string.
+   *
+   * @param countryUuid The to-be-selected country's uuid string.
    */
   selectCountry: (countryUuid: string) => void;
 
   /**
-   * A function to reset the country selection status.
+   * A method to reset the country selection status.
    */
   resetCountrySelection: () => void;
 
   /**
    * Indicates if a country is selected.
    */
-  isCountrySelected: boolean;
+  readonly isCountrySelected: boolean;
 
   /**
    * The currently selected country's UUID.
    */
-  currentCountryUuid: string;
+  readonly currentCountryUuid: string;
 }

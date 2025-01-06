@@ -8,5 +8,7 @@
  * @author tmsnvk
  */
 
-export const UNEXPECTED_SERVER_ERROR: string = 'An unexpected server error happened.';
-export const UNEXPECTED_GLOBAL_ERROR: string = 'An unexpected error happened.';
+export const errorConstants = {
+  UNEXPECTED_SERVER_ERROR: 'An unexpected server error happened.',
+  UNEXPECTED_GLOBAL_ERROR: 'An unexpected error happened.',
+};

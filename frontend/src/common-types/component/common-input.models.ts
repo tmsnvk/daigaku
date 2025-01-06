@@ -26,7 +26,7 @@ export interface CommonInput<T extends FieldValues> extends CoreInput<T> {
   /**
    * The label to be displayed alongside the input field.
    */
-  label: string;
+  readonly label: string;
 
   /**
    * Optional input type, specifying the type of input.

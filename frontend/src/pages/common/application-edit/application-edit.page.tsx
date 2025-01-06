@@ -21,14 +21,11 @@ import { Main } from './application-edit.styles';
 import { ApplicationForm } from './components/application-form';
 
 /* configuration, utilities, constants imports */
-import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 import { constants } from './application-edit.constants';
 
-/* interface, type, enum imports */
-import { Application, ApplicationLocation, ApplicationOptions, SimpleQueryResult } from '@common-types';
-
 /**
- * Renders the edit mode of a single {@link Application}.
+ * Renders the edit mode of a single Application record.
  * The user is not allowed to change the basic elements of the application,
  * i.e. Country, University Course Name, Minor Subject and Programme Length fields.
  * The rest of the fields may be updated based on conditional validation rules.
@@ -37,15 +34,11 @@ import { Application, ApplicationLocation, ApplicationOptions, SimpleQueryResult
  * @return {JSX.Element}
  */
 export const ApplicationEdit = (): JSX.Element => {
-  const { state, pathname }: ApplicationLocation = useLocation();
-  const applicationUuid: string = pathname.split('/applications/edit/')[1];
-  const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError }: ApplicationOptions = useGetAllSelectOptions();
-  const {
-    data,
-    isLoading: isApplicationLoading,
-    isError: isApplicationError,
-  }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
-  const application: Application = state || data;
+  const { state, pathname } = useLocation();
+  const applicationUuid = pathname.split('/applications/edit/')[1];
+  const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError } = useGetAllSelectOptions();
+  const { data, isLoading: isApplicationLoading, isError: isApplicationError } = useGetApplicationByUuid(state, applicationUuid);
+  const application = state || data;
 
   if (isOptionsLoading || isApplicationLoading) {
     return (
@@ -60,7 +53,7 @@ export const ApplicationEdit = (): JSX.Element => {
     return (
       <GlobalErrorModal
         isVisible={isOptionsError || isApplicationError}
-        errorText={UNEXPECTED_GLOBAL_ERROR}
+        errorText={errorConstants.UNEXPECTED_GLOBAL_ERROR}
         onCloseModal={() => console.log('FIX ME')}
       />
     );

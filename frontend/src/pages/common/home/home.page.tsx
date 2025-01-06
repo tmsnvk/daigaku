@@ -24,8 +24,6 @@ import { Main } from './home.styles';
 /* configuration, utilities, constants imports */
 import { confirmationModalFeedback } from './home.constants';
 
-/* interface, type, enum imports */
-
 /**
  * Renders the root page of the application.
  * If the user is authenticated, they are redirected to the `/dashboard` route.

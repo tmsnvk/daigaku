@@ -27,12 +27,12 @@ import { DropdownInput, UniversityOption } from '@common-types';
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */
-interface ComponentProps<T extends FieldValues> extends DropdownInput<T, UniversityOption> {}
+interface ComponentProps<T extends FieldValues, UniversityOption> extends DropdownInput<T, UniversityOption> {}
 
 /**
  * Renders a dropdown input component to select an {@link UniversityOption}.
  *
- * @param {ComponentProps<T>} props
+ * @param {ComponentProps<T, UniversityOption>} props
  * @return {JSX.Element}
  */
 export const UniversityDropdown = <T extends FieldValues>({
@@ -42,7 +42,7 @@ export const UniversityDropdown = <T extends FieldValues>({
   id,
   isDisabled,
   options,
-}: ComponentProps<T>): JSX.Element => {
+}: ComponentProps<T, UniversityOption>): JSX.Element => {
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel

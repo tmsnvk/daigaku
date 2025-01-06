@@ -13,7 +13,7 @@
  *
  * @param id The key used to retrieve the item from localStorage.
  * @param defaultValue The default value to return if the item is not found.
- * @return {T}
+ * @return {T} data The object retrieved from storage.
  */
 export const getLocalStorageObjectById = <T>(id: string, defaultValue: T): T => {
   const item: string | null = localStorage.getItem(id);

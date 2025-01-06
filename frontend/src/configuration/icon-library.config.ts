@@ -62,14 +62,7 @@ library.add(
   faXmark,
 );
 
-/**
- * Defines the properties of the {@link iconLibraryConfig} configuration object.
- */
-interface IconLibraryConfig {
-  [key: string]: IconLookup;
-}
-
-export const iconLibraryConfig: IconLibraryConfig = {
+export const iconLibraryConfig: { [key: string]: IconLookup } = {
   faBars: { prefix: 'fas', iconName: 'bars' },
   faCircleExclamation: { prefix: 'fas', iconName: 'circle-exclamation' },
   faCircleNotch: { prefix: 'fas', iconName: 'circle-notch' },

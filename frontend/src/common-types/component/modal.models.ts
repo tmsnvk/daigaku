@@ -22,7 +22,7 @@ interface BaseModal {
 }
 
 /**
- * Defines the properties of the {@link useModalControl} custom hook.
+ * Defines the control properties for a modal.
  */
 export interface ModalControl extends BaseModal {
   /**
@@ -37,7 +37,7 @@ export interface ModalControl extends BaseModal {
 }
 
 /**
- * Defines the properties of the {@link useModalToggle} custom hook.
+ * Defines the toggle properties for a modal.
  */
 export interface ModalToggle extends BaseModal {
   /**
@@ -47,7 +47,7 @@ export interface ModalToggle extends BaseModal {
 }
 
 /**
- * Defines the properties of the {@link useRenderModal} custom hook.
+ * Defines the rendering properties for a modal.
  */
 export interface RenderModal {
   /**

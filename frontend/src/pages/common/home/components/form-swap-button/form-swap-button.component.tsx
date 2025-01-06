@@ -32,9 +32,9 @@ interface ComponentProps {
   readonly buttonLabel: string;
 
   /**
-   * A callback function that is triggered when the button is clicked.
+   * A callback method that is triggered when the button is clicked.
    */
-  readonly onFormSelect: (formType: FormType) => void;
+  onFormSelect: (formType: FormType) => void;
 
   /**
    * A boolean indicating whether the button should be disabled or not.
@@ -43,9 +43,9 @@ interface ComponentProps {
 }
 
 /**
- * Manages the responsibility of switching between different {@link FormType}.
+ * Manages the responsibility of switching between different {@link FormType} components.
  * The form selection is triggered when the component is clicked.
- * The component is disabled while there is an ongoing REST API request.
+ * The component's button is disabled while there is a pending REST API request.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

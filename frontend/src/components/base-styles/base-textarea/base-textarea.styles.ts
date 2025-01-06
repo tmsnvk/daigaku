@@ -12,8 +12,7 @@
 import styled from 'styled-components';
 
 /**
- * Defines the properties of the {@link BaseTextarea} styled-component,
- * enabling styling variations based on error and disabled states.
+ * Defines the properties of the {@link BaseTextarea} styled-component, enabling styling variations based on error and disabled states.
  */
 interface BaseTextarea {
   /**

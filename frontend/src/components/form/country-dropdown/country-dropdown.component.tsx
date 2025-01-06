@@ -24,14 +24,13 @@ import { constants } from './country-dropdown.constants';
 
 /* interface, type, enum imports */
 import { CountryOption, DropdownInput } from '@common-types';
-import { SelectCountry } from './country-dropdown.models';
 
 /**
  * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */
-interface ComponentProps<T extends FieldValues> extends DropdownInput<T, CountryOption> {
+interface ComponentProps<T extends FieldValues, CountryOption> extends DropdownInput<T, CountryOption> {
   /**
    * A callback invoked when a country is selected.
    */
@@ -41,7 +40,7 @@ interface ComponentProps<T extends FieldValues> extends DropdownInput<T, Country
 /**
  * Renders a dropdown component to select a {@link CountryOption} value.
  *
- * @param {ComponentProps<T extends FieldValues>} props
+ * @param {ComponentProps<T extends FieldValues, CountryOption>} props
  * @return {JSX.Element}
  */
 export const CountryDropdown = <T extends FieldValues>({
@@ -52,8 +51,8 @@ export const CountryDropdown = <T extends FieldValues>({
   isDisabled,
   options,
   onCountrySelection,
-}: ComponentProps<T>): JSX.Element => {
-  const { handleCountrySelection }: SelectCountry = useSelectCountry(onCountrySelection);
+}: ComponentProps<T, CountryOption>): JSX.Element => {
+  const { handleCountrySelection } = useSelectCountry(onCountrySelection);
 
   return (
     <BaseInput $isError={error !== undefined}>

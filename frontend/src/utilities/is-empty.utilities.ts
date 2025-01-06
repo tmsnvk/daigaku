@@ -9,10 +9,10 @@
  */
 
 /**
- * Provides a simple and reliable way to check for "emptiness" regardless of the data type.
+ * Provides a simple and reliable way to check for 'emptiness' regardless of the data type.
  *
  * @param value The value to be checked.
- * @returns {boolean} Boolean true/false value.
+ * @returns {boolean} A boolean value.
  */
 export const isEmpty = (value: unknown): boolean => {
   if (value === null) {

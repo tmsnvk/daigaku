@@ -10,7 +10,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplications, useModalToggle } from '@hooks';
@@ -22,25 +22,24 @@ import { Main } from './applications.styles';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
-import { UNEXPECTED_GLOBAL_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 import { constants } from './applications.constants';
 
 /* interface, type, enum imports */
-import { Application, ListQueryResult, ModalToggle } from '@common-types';
-import { ColumnVisibility, SetOrder } from './applications.models';
+import { Application } from '@common-types';
 
 /**
- * Renders, in a table format, the list of {@link Application} objects that the user has authorisation to view.
+ * Renders, in a table format, the list of Application records that the user has authorisation to view.
  * The component displays a table with data rows as well as various buttons and components to interact with the loaded-in data.
  *
  * @return {JSX.Element}
  */
 export const Applications = (): JSX.Element => {
-  const navigate: NavigateFunction = useNavigate();
-  const { data, isLoading, refetch, isRefetching, isError }: ListQueryResult<Application> = useGetApplications();
-  const { columns, toggleColumnVisibility }: ColumnVisibility = useColumnVisibility();
-  const { handleColumnSort }: SetOrder = useSortOrder(data as Array<Application>);
-  const { isModalVisible, toggleModal }: ModalToggle = useModalToggle();
+  const navigate = useNavigate();
+  const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
+  const { columns, toggleColumnVisibility } = useColumnVisibility();
+  const { handleColumnSort } = useSortOrder(data as Array<Application>);
+  const { isModalVisible, toggleModal } = useModalToggle();
 
   if (isLoading || isRefetching) {
     return (
@@ -55,7 +54,7 @@ export const Applications = (): JSX.Element => {
     return (
       <GlobalErrorModal
         isVisible={isError}
-        errorText={UNEXPECTED_GLOBAL_ERROR}
+        errorText={errorConstants.UNEXPECTED_GLOBAL_ERROR}
         onCloseModal={() => {
           navigate('/');
         }}
