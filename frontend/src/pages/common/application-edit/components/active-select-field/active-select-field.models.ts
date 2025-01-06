@@ -13,7 +13,7 @@
  */
 export interface FieldUpdate {
   /**
-   * Function to handle field update events by retrieving the target value.
+   * A callback method to handle field update events by retrieving the target value.
    */
   updateField: (event: Event) => void;
 }

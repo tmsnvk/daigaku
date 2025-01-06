@@ -22,8 +22,8 @@ export interface CreateComment {
 }
 
 /**
- * Defines a comment associated with a given {@link Application}.
- * Represents an individual comment that can be created on the {@link Application}
+ * Defines a comment associated with a given Application record.
+ * Represents an individual comment that can be created on an Application record
  * and includes metadata about the comment's lifecycle and author.
  */
 export interface Comment extends BaseMetadata {

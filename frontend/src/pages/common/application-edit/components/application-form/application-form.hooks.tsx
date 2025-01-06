@@ -9,7 +9,7 @@
  */
 
 /* vendor imports */
-import { useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
@@ -19,7 +19,7 @@ import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 import { constants } from './application-form.constants';
 
 /* interface, type, enum imports */
@@ -41,7 +41,7 @@ import {
   ResponseStatusE,
   UpdateApplicationByStudent,
 } from '@common-types';
-import { FieldsReadOnlyStatus, HandleFieldDisableStatus, HandleFormSubmission, UpdateApplicationForm } from './application-form.models';
+import { FieldsReadOnlyStatus, HandleFieldDisableStatus, HandleFormSubmission, PageLoadValidationService } from './application-form.models';
 
 /**
  * The helper method used by {@link useHandleFormSubmission} filters various local `react-query` cache lists
@@ -80,7 +80,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
   const handleValidation = (formData: UpdateApplicationByStudent, currentApplicationUuid: string): Array<string> => {
     const errors: Array<string> = [];
 
-    // Find application, response status and final destination status react-query caches.
+    // Find application, response, and final destination status react-query caches.
     const applicationsCache: Array<Application> | undefined = findQueryCache<Application>(queryKeys.application.GET_ALL_BY_ROLE);
     const responseStatusCache: Array<ResponseStatus> | undefined = findQueryCache<ResponseStatus>(
       queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS,
@@ -99,7 +99,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
     const finalDestinationDeferredUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatusE.DEFERRED_ENTRY);
 
     // Check each application (except for the current) if they have any of the three status set.
-    // If yes, error messages are thrown to the ui and the submission is stopped before hitting the API call.
+    // If yes, error messages are thrown to the UI and the submission is stopped before hitting the API call.
     applicationsCache.forEach((application: Application) => {
       if (application.uuid !== currentApplicationUuid) {
         if (application.responseStatus?.name === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
@@ -167,12 +167,12 @@ type UpdateApplicationFormErrorT =
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid string.
- * @return {UpdateApplicationForm}
+ * @return {UseMutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent>}
  */
 export const useUpdateApplication = (
   setError: UseFormSetError<UpdateApplicationByStudent>,
   applicationUuid: string,
-): UpdateApplicationForm => {
+): UseMutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent> => {
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
     mutationFn: (formData: UpdateApplicationByStudent) => applicationStudentService.patchByUuid(formData, applicationUuid),
@@ -204,76 +204,15 @@ export const useUpdateApplication = (
               });
             }
           } else if (status >= 500) {
-            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
           }
         }
       } else {
-        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });
 };
-
-/**
- * TODO
- */
-interface PageLoadValidationService {
-  /**
-   * TODO
-   *
-   * @param application
-   * @param updatedData
-   * @param selectOptions
-   * @returns
-   */
-  validateInterviewStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
-  ) => boolean;
-
-  /**
-   * TODO
-   *
-   * @param application
-   * @param updatedData
-   * @param selectOptions
-   * @returns
-   */
-  validateOfferStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
-  ) => boolean;
-
-  /**
-   * TODO
-   *
-   * @param application
-   * @param updatedData
-   * @param selectOptions
-   * @returns
-   */
-  validateResponseStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
-  ) => boolean;
-
-  /**
-   * TODO
-   *
-   * @param application
-   * @param updatedData
-   * @param selectOptions
-   * @returns
-   */
-  validateFinalDestinationStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
-  ) => boolean;
-}
 
 const pageLoadValidationService: PageLoadValidationService = {
   validateInterviewStatus: (

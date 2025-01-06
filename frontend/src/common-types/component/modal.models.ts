@@ -18,11 +18,11 @@ interface BaseModal {
   /**
    * Indicates whether the modal is currently visible.
    */
-  isModalVisible: boolean;
+  readonly isModalVisible: boolean;
 }
 
 /**
- * Defines the properties of the {@link useModalControl} custom hook.
+ * Defines the control properties for a modal.
  */
 export interface ModalControl extends BaseModal {
   /**
@@ -37,7 +37,7 @@ export interface ModalControl extends BaseModal {
 }
 
 /**
- * Defines the properties of the {@link useModalToggle} custom hook.
+ * Defines the toggle properties for a modal.
  */
 export interface ModalToggle extends BaseModal {
   /**
@@ -47,11 +47,11 @@ export interface ModalToggle extends BaseModal {
 }
 
 /**
- * Defines the properties of the {@link useRenderModal} custom hook.
+ * Defines the rendering properties for a modal.
  */
 export interface RenderModal {
   /**
    * A ref object that is attached to the modal component to control its visibility.
    */
-  dialogRef: RefObject<HTMLDialogElement | null>;
+  readonly dialogRef: RefObject<HTMLDialogElement | null>;
 }

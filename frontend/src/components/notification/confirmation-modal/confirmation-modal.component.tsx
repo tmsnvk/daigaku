@@ -18,9 +18,6 @@ import { useRenderModal } from '@hooks';
 import { SubmitInput } from '@components/form';
 import { Dialog } from './confirmation-modal.styles';
 
-/* interface, type, enum imports */
-import { RenderModal } from '@common-types';
-
 /**
  * Defines the component's properties.
  */
@@ -33,12 +30,12 @@ interface ComponentProps {
   /**
    * The message to be displayed in the modal.
    */
-  readonly message: string;
+  readonly message?: string;
 
   /**
    * Callback function invoked to close the modal.
    */
-  readonly onCloseModal: () => void;
+  onCloseModal: () => void;
 }
 
 /**
@@ -48,7 +45,7 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const ConfirmationModal = ({ isVisible, message, onCloseModal }: ComponentProps): JSX.Element => {
-  const { dialogRef }: RenderModal = useRenderModal(isVisible);
+  const { dialogRef } = useRenderModal(isVisible);
 
   return (
     <Dialog ref={dialogRef}>

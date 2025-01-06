@@ -20,5 +20,5 @@ export interface TodoList {
   /**
    * The list of active todo items.
    */
-  todos: Array<Todo>;
+  readonly todos: Array<Todo>;
 }

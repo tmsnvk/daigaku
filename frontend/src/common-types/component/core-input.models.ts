@@ -20,7 +20,7 @@ interface CoreInputValidationRules {
    * Specifies whether the input is required to be filled in.
    * If the requirement is violated, the provided custom error message is displayed for the user.
    */
-  required?: {
+  readonly required?: {
     value: boolean;
     message: string;
   };
@@ -29,7 +29,7 @@ interface CoreInputValidationRules {
    * Specifies whether the input must match a certain pattern.
    * If the requirement is violated, the provided custom error message is displayed for the user.
    */
-  pattern?: {
+  readonly pattern?: {
     value: RegExp;
     message: string;
   };
@@ -50,20 +50,20 @@ export interface CoreInput<T extends FieldValues> {
   /**
    * Optional validation rules to handle input validation in `react-hook-form`.
    */
-  validationRules?: CoreInputValidationRules;
+  readonly validationRules?: CoreInputValidationRules;
 
   /**
    * The error message associated with the input, if validation fails.
    */
-  error: string | undefined;
+  readonly error?: string;
 
   /**
    * The input element's id.
    */
-  id: Path<T>;
+  readonly id: Path<T>;
 
   /**
    * Indicates whether the input is disabled, preventing user interaction.
    */
-  isDisabled?: boolean;
+  readonly isDisabled?: boolean;
 }

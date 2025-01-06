@@ -29,13 +29,13 @@ import { Application } from '@common-types';
  */
 interface ComponentProps {
   /**
-   * The selected {@link Application} object.
+   * The selected Application record.
    */
-  application: Application;
+  readonly application: Application;
 }
 
 /**
- * Renders the details of a single application.
+ * Renders the details of an Application record.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

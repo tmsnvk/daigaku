@@ -28,12 +28,12 @@ import { DropdownInput, RoleOption } from '@common-types';
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */
-interface ComponentProps<T extends FieldValues> extends DropdownInput<T, RoleOption> {}
+interface ComponentProps<T extends FieldValues, RoleOption> extends DropdownInput<T, RoleOption> {}
 
 /**
  * Renders a dropdown component to select a {@link RoleOption}.
  *
- * @param {ComponentProps<T extends FieldValues>} props
+ * @param {ComponentProps<T extends FieldValues, RoleOption>} props
  * @return {JSX.Element}
  */
 export const AccountRoleDropdown = <T extends FieldValues>({
@@ -43,7 +43,7 @@ export const AccountRoleDropdown = <T extends FieldValues>({
   id,
   isDisabled,
   options,
-}: ComponentProps<T>): JSX.Element => {
+}: ComponentProps<T, RoleOption>): JSX.Element => {
   return (
     <BaseInput $isError={error !== undefined}>
       <InputLabel

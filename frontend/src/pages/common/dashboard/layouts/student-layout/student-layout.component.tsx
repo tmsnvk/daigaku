@@ -22,7 +22,7 @@ import { TileUnit } from './student-layout.styles';
 import { constants } from './student-layout.constants';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics, TodoList } from '@common-types';
+import { StudentDashboardStatistics } from '@common-types';
 
 /**
  * Defines the component's properties.
@@ -41,7 +41,7 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
-  const { todos }: TodoList = useTodoList(data);
+  const { todos } = useTodoList(data);
 
   return (
     <>

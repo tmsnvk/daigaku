@@ -26,21 +26,21 @@ export interface CommonInput<T extends FieldValues> extends CoreInput<T> {
   /**
    * The label to be displayed alongside the input field.
    */
-  label: string;
+  readonly label: string;
 
   /**
    * Optional input type, specifying the type of input.
    * Valid types include 'text', 'email', 'number', 'password', etc.
    */
-  type?: string;
+  readonly type?: string;
 
   /**
    * Optional placeholder text to guide the user on what to enter in the input field.
    */
-  placeholder?: string;
+  readonly placeholder?: string;
 
   /**
    * Optional initial value for the input field.
    */
-  initialValue?: string | number;
+  readonly initialValue?: string | number;
 }

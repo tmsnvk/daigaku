@@ -21,16 +21,16 @@ interface ComponentProps {
   /**
    * The name of the application detail to be displayed.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * The value associated with the application detail.
    */
-  value: string | number;
+  readonly value: string | number;
 }
 
 /**
- * Renders an application detail on the {@link ApplicationDetails} form.
+ * Renders an application detail on the view page of an Application record.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

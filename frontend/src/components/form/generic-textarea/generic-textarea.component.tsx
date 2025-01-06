@@ -24,14 +24,14 @@ import { CommonInput } from '@common-types';
  */
 interface ComponentProps<T extends FieldValues> extends CommonInput<T> {
   /**
-   * The number of rows for the textarea.
+   * The textarea's row size.
    */
-  rows: number;
+  readonly rows: number;
 
   /**
-   * The number of columns for the textarea.
+   * The textarea's column size.
    */
-  cols: number;
+  readonly cols: number;
 }
 
 /**

@@ -9,7 +9,7 @@
  */
 
 /**
- * Defines the fields of an {@link Application} object.
+ * Defines the fields of an Application record.
  */
 export enum ApplicationField {
   COURSE = 'Course',
@@ -27,44 +27,67 @@ export enum ApplicationField {
  * Defines the properties of what a single column can display.
  */
 export interface ColumnConfig {
-  applicationStatus: boolean;
-  interviewStatus: boolean;
-  offerStatus: boolean;
-  responseStatus: boolean;
-  finalDestinationStatus: boolean;
+  readonly applicationStatus: boolean;
+  readonly interviewStatus: boolean;
+  readonly offerStatus: boolean;
+  readonly responseStatus: boolean;
+  readonly finalDestinationStatus: boolean;
 }
 
 /**
  * Defines the core properties of a single column.
  */
 export interface Column {
+  /**
+   * The column's id.
+   */
   readonly id: string;
+
+  /**
+   * The column's name.
+   */
   readonly name: string;
+
+  /**
+   * The flag indicating whether a column is considered to be core.
+   */
   readonly isCoreColumn: boolean;
+
+  /**
+   * The column's visibility flag.
+   */
   readonly isVisible: boolean;
 }
 
 /**
- * Defines the return value properties of the {@link useColumnVisibility} custom hook.
+ * Defines the properties for managing column visibility on the Applications table page.
  */
 export interface ColumnVisibility {
   /**
    * The current column configuration.
    */
-  columns: Array<Column>;
+  readonly columns: Array<Column>;
 
   /**
-   * A function to toggle column visibility.
+   * A method that toggles column visibility.
    */
   toggleColumnVisibility: (id: string) => void;
 }
 
 /**
- * Defines the return value properties of the {@link useSortOrder} custom hook.
+ * Defines the properties for sorting columns on the Applications table page.
  */
 export interface SetOrder {
   /**
-   * A function that manages the sorting updates.
+   * A method that manages the sorting updates.
    */
   handleColumnSort: (columnId: string) => void;
+}
+
+/**
+ * Defines the possible sorting options.
+ */
+export enum SortOrder {
+  ASC,
+  DESC,
 }

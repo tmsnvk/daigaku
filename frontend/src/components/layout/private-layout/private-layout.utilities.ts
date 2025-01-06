@@ -21,19 +21,51 @@ import { NavbarRoute } from './private-layout.models';
  */
 export const accountRoleNavigationRoutes: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
   [AccountRoleValues.STUDENT]: [
-    { url: '/new-application', icon: iconLibraryConfig.faFileCirclePlus, label: constants.routes.student.newApplication.LABEL },
-    { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.student.myApplications.LABEL },
+    {
+      url: '/new-application',
+      icon: iconLibraryConfig.faFileCirclePlus,
+      label: constants.routes.student.newApplication.LABEL,
+    },
+    {
+      url: '/applications',
+      icon: iconLibraryConfig.faScroll,
+      label: constants.routes.student.myApplications.LABEL,
+    },
   ],
   [AccountRoleValues.MENTOR]: [
-    { url: '/my-students', icon: iconLibraryConfig.faUserGroup, label: constants.routes.mentor.myStudents.LABEL },
-    { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.mentor.myStudentApplications.LABEL },
+    {
+      url: '/my-students',
+      icon: iconLibraryConfig.faUserGroup,
+      label: constants.routes.mentor.myStudents.LABEL,
+    },
+    {
+      url: '/applications',
+      icon: iconLibraryConfig.faScroll,
+      label: constants.routes.mentor.myStudentApplications.LABEL,
+    },
   ],
   [AccountRoleValues.INSTITUTION_ADMIN]: [],
   [AccountRoleValues.SYSTEM_ADMIN]: [
-    { url: '/all-students', icon: iconLibraryConfig.faUserGroup, label: constants.routes.systemAdmin.allStudents.LABEL },
-    { url: '/all-mentors', icon: iconLibraryConfig.faUserGroup, label: constants.routes.systemAdmin.allMentors.LABEL },
-    { url: '/applications', icon: iconLibraryConfig.faScroll, label: constants.routes.systemAdmin.allApplications.LABEL },
-    { url: '/system', icon: iconLibraryConfig.faGears, label: constants.routes.systemAdmin.system.LABEL },
+    {
+      url: '/all-students',
+      icon: iconLibraryConfig.faUserGroup,
+      label: constants.routes.systemAdmin.allStudents.LABEL,
+    },
+    {
+      url: '/all-mentors',
+      icon: iconLibraryConfig.faUserGroup,
+      label: constants.routes.systemAdmin.allMentors.LABEL,
+    },
+    {
+      url: '/applications',
+      icon: iconLibraryConfig.faScroll,
+      label: constants.routes.systemAdmin.allApplications.LABEL,
+    },
+    {
+      url: '/system',
+      icon: iconLibraryConfig.faGears,
+      label: constants.routes.systemAdmin.system.LABEL,
+    },
   ],
 };
 

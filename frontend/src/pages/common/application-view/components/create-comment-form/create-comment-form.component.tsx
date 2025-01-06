@@ -25,14 +25,13 @@ import { constants } from './create-comment-form.constants';
 
 /* interface, type, enum imports */
 import { CreateComment } from '@common-types';
-import { SubmitComment } from './create-comment-form.models';
 
 /**
  * Defines the component's properties.
  */
 interface ComponentProps {
   /**
-   * The application's UUID is used in the REST API request when the user submits a new comment.
+   * The Application record's uuid string used in the REST API request when the user submits a new comment.
    */
   readonly applicationUuid: string;
 }
@@ -50,7 +49,7 @@ export const CreateCommentForm = ({ applicationUuid }: ComponentProps): JSX.Elem
     register,
     setError,
   } = useForm<CreateComment>({ mode: 'onSubmit' });
-  const { isPending, mutate }: SubmitComment = useSubmitComment(setError, applicationUuid);
+  const { isPending, mutate } = useSubmitComment(setError, applicationUuid);
 
   return (
     <Form

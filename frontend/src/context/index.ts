@@ -8,6 +8,6 @@
  * @author tmsnvk
  */
 
-import { AuthProvider, useAuth } from './auth';
+import { AuthProvider, useAuthContext } from './auth';
 
-export { AuthProvider, useAuth };
+export { AuthProvider, useAuthContext as useAuth };

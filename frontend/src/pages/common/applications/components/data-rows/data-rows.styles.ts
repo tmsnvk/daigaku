@@ -30,7 +30,7 @@ export const TableBodyRow = styled.tr`
 `;
 
 /**
- * The interface represents the properties of the {@link Cell} styled-component.
+ * Defines the properties of the {@link Cell} styled-component.
  */
 interface RowType {
   readonly $shouldDisplay: boolean;

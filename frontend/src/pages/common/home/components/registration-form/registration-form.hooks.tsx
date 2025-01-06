@@ -9,7 +9,7 @@
  */
 
 /* vendor imports */
-import { useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -18,12 +18,10 @@ import { pendingAccountService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 
 /* interface, type, enum imports */
 import { CoreErrorResponse, ErrorDetail, PendingAccountRegisterRequest } from '@common-types';
-import { ConfirmationModal } from '../../home.models';
-import { HandleRegistrationForm } from './registration-form.models';
 
 /**
  * Defines the {@link useSubmitRegistrationForm} custom hook's error types.
@@ -31,16 +29,16 @@ import { HandleRegistrationForm } from './registration-form.models';
 type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
 /**
- * Manages the {@link RegistrationForm} submission process, including REST API request, error handling, and post-success actions.
+ * Manages the component's form submission.
  *
  * @param setError A `react-hook-form` function to set form errors.
- * @param showModal A function to show the {@link ConfirmationModal}, used in the component.
- * @return {HandleRegistrationForm}
+ * @param showModal A function to display an onSuccess confirmation modal component.
+ * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegisterRequest>}
  */
 export const useSubmitRegistrationForm = (
   setError: UseFormSetError<PendingAccountRegisterRequest>,
-  showModal: ConfirmationModal['showModal'],
-): HandleRegistrationForm => {
+  showModal: () => void,
+): UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegisterRequest> => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER],
     mutationFn: (formData: PendingAccountRegisterRequest) => pendingAccountService.register(formData),
@@ -60,11 +58,11 @@ export const useSubmitRegistrationForm = (
               }
             });
           } else if (status >= 500) {
-            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
           }
         }
       } else {
-        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });

@@ -15,7 +15,7 @@ export interface TogglePassword {
   /**
    * Indicates whether the password is currently visible.
    */
-  isPasswordRevealed: boolean;
+  readonly isPasswordRevealed: boolean;
 
   /**
    * Toggles the visibility of the password text.

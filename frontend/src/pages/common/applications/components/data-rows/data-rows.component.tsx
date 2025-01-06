@@ -35,13 +35,13 @@ interface ComponentProps {
   readonly columns: Array<Column>;
 
   /**
-   * An array of {@link Application} objects to be displayed in the table rows.
+   * An array of Application records to be displayed in the table rows.
    */
   readonly applications: Array<Application>;
 }
 
 /**
- * Renders a {@link Cell} component for each data element in the applications array.
+ * Renders a {@link Cell} component for each data element in the Applications record array.
  *
  * @return {Array<JSX.Element>}
  */

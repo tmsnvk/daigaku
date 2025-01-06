@@ -12,12 +12,12 @@
 import { UseMutateFunction } from '@tanstack/react-query';
 
 /**
- * Defines the return value properties of the {@link useToggleIsRemovable} custom hook.
+ * Defines the return value properties for handling the toggling of a removable state.
  */
 export interface HandleToggleIsRemovable {
-  shouldBeRemoved: boolean;
-  errorMessage: string;
-  isPending: boolean;
-  isError: boolean;
+  readonly shouldBeRemoved: boolean;
+  readonly errorMessage: string;
+  readonly isPending: boolean;
+  readonly isError: boolean;
   mutate: UseMutateFunction<void, Error, void, unknown>;
 }

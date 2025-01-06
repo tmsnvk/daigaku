@@ -9,7 +9,7 @@
  */
 
 /* vendor imports */
-import { useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
@@ -19,11 +19,11 @@ import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 
 /* interface, type, enum imports */
 import { Application, CoreErrorResponse, CreateApplicationByStudent, ErrorDetail } from '@common-types';
-import { CountrySelection, CreateApplication } from './new-application-form.models';
+import { CountrySelection } from './new-application-form.models';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -36,13 +36,13 @@ type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | '
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {CreateApplication} A `react-query` mutation object.
+ * @return {UseMutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent>} A `react-query` mutation object.
  */
 export const useCreateApplication = (
   setError: UseFormSetError<CreateApplicationByStudent>,
   resetCountrySelection: () => void,
   reset: () => void,
-): CreateApplication => {
+): UseMutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent> => {
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationByStudent) => applicationStudentService.postByStudent(formData),
@@ -74,11 +74,11 @@ export const useCreateApplication = (
               }
             });
           } else if (status >= 500) {
-            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
           }
         }
       } else {
-        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });

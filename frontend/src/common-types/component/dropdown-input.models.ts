@@ -26,5 +26,5 @@ export interface DropdownInput<T extends FieldValues, U> extends CoreInput<T> {
   /**
    * An array of options available for selection in the dropdown.
    */
-  options: Array<U>;
+  readonly options: Array<U>;
 }

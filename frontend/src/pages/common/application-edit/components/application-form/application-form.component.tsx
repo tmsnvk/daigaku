@@ -38,13 +38,19 @@ import {
   ResponseStatus,
   UpdateApplicationByStudent,
 } from '@common-types';
-import { HandleFieldDisableStatus, HandleFormSubmission } from './application-form.models';
 
 /**
  * Defines the component's properties.
  */
 interface ComponentProps {
+  /**
+   * The Application record.
+   */
   readonly application: Application;
+
+  /**
+   * All available status select options.
+   */
   readonly selectOptions: ApplicationStatusSelectOptions;
 }
 
@@ -60,7 +66,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     register,
     setError,
   } = useForm<UpdateApplicationByStudent>({ mode: 'onSubmit' });
-  const { submitForm }: HandleFormSubmission = useHandleFormSubmission();
+  const { submitForm } = useHandleFormSubmission();
   const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
   const {
     onPageLoadValidation,
@@ -69,7 +75,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     updateOfferStatus,
     updateResponseStatus,
     updateFinalDestinationStatus,
-  }: HandleFieldDisableStatus = useHandleFieldDisableStatus(application, updatedData, selectOptions);
+  } = useHandleFieldDisableStatus(application, updatedData, selectOptions);
 
   useEffect(() => {
     onPageLoadValidation();

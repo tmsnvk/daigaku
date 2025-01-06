@@ -23,7 +23,11 @@ export const constants = {
     },
   },
   validation: {
-    REQUIRED_EMAIL: 'Providing your email address is required.',
-    REQUIRED_PASSWORD: 'Providing your password is required.',
+    EMAIL: {
+      REQUIRED: 'Providing your email address is required.',
+    },
+    PASSWORD: {
+      REQUIRED: 'Providing your password is required.',
+    },
   },
 };

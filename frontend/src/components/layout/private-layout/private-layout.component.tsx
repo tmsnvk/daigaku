@@ -11,10 +11,10 @@
 /* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX, useEffect } from 'react';
-import { Location, NavigateFunction, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoleValues, AuthContext, AuthStatus, useAuth } from '@context/auth';
+import { AccountRoleValues, AuthStatus, useAuthContext } from '@context/auth';
 import { useSmallScreenNavbarDisplay } from './private-layout.hooks';
 
 /* component, style imports */
@@ -29,7 +29,7 @@ import { constants } from './private-layout.constants';
 import { accountRoleNavigationRoutes, sharedNavigationRoutes } from './private-layout.utilities';
 
 /* interface, type, enum imports */
-import { NavbarRoute, SmallScreenNavbarDisplay } from './private-layout.models';
+import { NavbarRoute } from './private-layout.models';
 
 /**
  * Defines the component's properties.
@@ -43,16 +43,16 @@ interface ComponentProps {
 
 /**
  * Renders navigation links for authorised users. Users with different authorisation level might see different navigation links.
- * Unauthorised users are redirected.
+ * Unauthorised users are redirected to the root page.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
 export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => {
-  const location: Location = useLocation();
-  const navigate: NavigateFunction = useNavigate();
-  const { authStatus, account, logOut }: AuthContext = useAuth();
-  const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur }: SmallScreenNavbarDisplay = useSmallScreenNavbarDisplay();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { authStatus, account, logOut } = useAuthContext();
+  const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur } = useSmallScreenNavbarDisplay();
 
   useEffect(() => {
     if (account.email === '' && account.firstName === '') {

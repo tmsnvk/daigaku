@@ -12,7 +12,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { AuthContext, useAuth } from '@context/auth';
+import { useAuthContext } from '@context/auth';
 import { applicationService } from '@services';
 
 /* configuration, utilities, constants imports */
@@ -22,13 +22,13 @@ import { queryKeys } from '@configuration';
 import { Application, ListQueryResult } from '@common-types';
 
 /**
- * Fetches a list of {@link Application} objects based on the user's authorisation role.
+ * Fetches a list of Application records based on the user's authorisation role.
  *
  * @return {ListQueryResult<Application>}
  */
 export const useGetApplications = (): ListQueryResult<Application> => {
-  const { getRoleResource }: AuthContext = useAuth();
-  const accountRole: string = getRoleResource();
+  const { getRoleResource } = useAuthContext();
+  const accountRole = getRoleResource();
 
   // Do not provide accountRole as queryKey identifier. It is not needed and will break the frontend application's cache mechanism.
   return useQuery({

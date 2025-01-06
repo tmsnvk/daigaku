@@ -27,20 +27,24 @@ import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
 import { LoginRequest } from '@common-types';
-import { FormType, SelectForm, UseFormHook } from '../../home.models';
-import { HandleLoginForm } from './login-form.models';
+import { FormType } from '../../home.models';
 
 /**
  * Defines the component's properties.
  */
-type ComponentProps = SelectForm;
+interface ComponentProps {
+  /**
+   * A function to select the current form type.
+   *
+   * @param formType The type of the form to be selected.
+   */
+  selectForm: (formType: FormType) => void;
+}
 
 /**
- * Renders a login form that allows users to submit their email and password for authentication.
- * The component utilizes the `react-hook-form` library for form handling,
- * including validation, and manages the form submission using the `react-query` library.
- * Additionally, users can switch to other forms, such as {@link ResetForm} or {@link RegistrationForm}
- * using the {@link FormSwapButton} component.
+ * Renders a login form component that allows users to submit their email and password for authentication.
+ * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
+ * Additionally, users can switch to other forms on the page using the {@link FormSwapButton} component.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -51,8 +55,8 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
     handleSubmit,
     register,
     setError,
-  }: UseFormHook<LoginRequest> = useForm<LoginRequest>({ mode: 'onSubmit' });
-  const { isPending, mutate }: HandleLoginForm = useHandleLoginForm(setError);
+  } = useForm<LoginRequest>({ mode: 'onSubmit' });
+  const { isPending, mutate } = useHandleLoginForm(setError);
 
   return (
     <section>
@@ -67,7 +71,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.REQUIRED_EMAIL,
+              message: constants.validation.EMAIL.REQUIRED,
             },
           }}
           type={'email'}
@@ -82,7 +86,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.REQUIRED_PASSWORD,
+              message: constants.validation.PASSWORD.REQUIRED,
             },
           }}
           id={'password'}

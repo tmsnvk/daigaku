@@ -13,7 +13,7 @@
  */
 export interface SelectCountry {
   /**
-   * A callback invoked when the country dropdown value changes.
+   * A callback method invoked when the country dropdown value changes.
    */
   handleCountrySelection: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }

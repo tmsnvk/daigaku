@@ -43,7 +43,6 @@ export interface ApplicationStatusSelectOptions {
 
 /**
  * Defines the options and state for handling application status select fields.
-
  */
 export interface ApplicationOptions {
   /**

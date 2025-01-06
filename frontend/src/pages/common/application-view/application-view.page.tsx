@@ -24,19 +24,16 @@ import { CommentSection } from './components/comment-section';
 /* configuration, utilities, constants imports */
 import { constants } from './application-view.constants';
 
-/* interface, type, enum imports */
-import { Application, ApplicationLocation, SimpleQueryResult } from '@common-types';
-
 /**
- * Renders the view mode of an {@link Application} object.
+ * Renders the view mode of the selected Application record.
  *
  * @return {JSX.Element}
  */
 export const ApplicationView = (): JSX.Element => {
-  const { state, pathname }: ApplicationLocation = useLocation();
-  const applicationUuid: string = pathname.split('/applications/view/')[1];
-  const { data, isLoading, isError }: SimpleQueryResult<Application> = useGetApplicationByUuid(state, applicationUuid);
-  const application: Application = state || data;
+  const { state, pathname } = useLocation();
+  const applicationUuid = pathname.split('/applications/view/')[1];
+  const { data, isLoading, isError } = useGetApplicationByUuid(state, applicationUuid);
+  const application = state || data;
 
   if (isLoading) {
     return (

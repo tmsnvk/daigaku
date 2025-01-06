@@ -9,11 +9,10 @@
  */
 
 /* vendor imports */
-import { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, MutationResult, UpdateApplicationByStudent } from '@common-types';
+import { Application, ApplicationStatusSelectOptions, UpdateApplicationByStudent } from '@common-types';
 
 /**
  * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
@@ -26,11 +25,6 @@ export interface HandleFormSubmission {
     setError: UseFormSetError<UpdateApplicationByStudent>,
   ) => void;
 }
-
-/**
- * Defines the return value properties of the {@link useUpdateApplication} custom hook.
- */
-export type UpdateApplicationForm = MutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent>;
 
 /**
  * TODO
@@ -104,4 +98,65 @@ export interface HandleFieldDisableStatus {
    * @returns
    */
   updateFinalDestinationStatus: (eventTargetValue: string) => void;
+}
+
+/**
+ * TODO
+ */
+export interface PageLoadValidationService {
+  /**
+   * TODO
+   *
+   * @param application
+   * @param updatedData
+   * @param selectOptions
+   * @returns
+   */
+  validateInterviewStatus: (
+    application: Application,
+    updatedData: Application | undefined,
+    selectOptions: ApplicationStatusSelectOptions,
+  ) => boolean;
+
+  /**
+   * TODO
+   *
+   * @param application
+   * @param updatedData
+   * @param selectOptions
+   * @returns
+   */
+  validateOfferStatus: (
+    application: Application,
+    updatedData: Application | undefined,
+    selectOptions: ApplicationStatusSelectOptions,
+  ) => boolean;
+
+  /**
+   * TODO
+   *
+   * @param application
+   * @param updatedData
+   * @param selectOptions
+   * @returns
+   */
+  validateResponseStatus: (
+    application: Application,
+    updatedData: Application | undefined,
+    selectOptions: ApplicationStatusSelectOptions,
+  ) => boolean;
+
+  /**
+   * TODO
+   *
+   * @param application
+   * @param updatedData
+   * @param selectOptions
+   * @returns
+   */
+  validateFinalDestinationStatus: (
+    application: Application,
+    updatedData: Application | undefined,
+    selectOptions: ApplicationStatusSelectOptions,
+  ) => boolean;
 }

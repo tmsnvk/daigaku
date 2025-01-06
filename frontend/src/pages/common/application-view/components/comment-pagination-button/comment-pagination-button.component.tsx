@@ -21,7 +21,7 @@ interface ComponentProps {
   /**
    * The onClick event handler for pagination action.
    */
-  readonly onClick: () => void;
+  onClick: () => void;
 
   /**
    * Controls the button's disabled status. If the user is on the first or last page, pagination is disabled.
@@ -35,7 +35,7 @@ interface ComponentProps {
 }
 
 /**
- * Renders a single button HTML element for paginating the comments under a selected {@link ApplicationView} page.
+ * Renders a single button HTML element for paginating comments on an Application record's view page.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}

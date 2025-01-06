@@ -13,6 +13,7 @@ import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
+import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks';
 import { useCountrySelection, useCreateApplication } from './new-application-form.hooks';
 
 /* component, style imports */
@@ -25,9 +26,7 @@ import { Form } from './new-application-form.styles';
 import { constants } from './new-application-form.constants';
 
 /* interface, type, enum imports */
-import { CountryOption, CreateApplicationByStudent, ListQueryResult, UniversityOption } from '@common-types';
-import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks';
-import { CountrySelection, CreateApplication } from './new-application-form.models';
+import { CreateApplicationByStudent } from '@common-types';
 
 /**
  * Renders the new application submission form for student users.
@@ -37,17 +36,13 @@ import { CountrySelection, CreateApplication } from './new-application-form.mode
  * @return {JSX.Element}
  */
 export const NewApplicationForm = (): JSX.Element => {
-  const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid }: CountrySelection = useCountrySelection();
-  const {
-    data: countryOptions,
-    isLoading: isCountryDataLoading,
-    isError: isCountryError,
-  }: ListQueryResult<CountryOption> = useGetCountryOptions();
+  const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid } = useCountrySelection();
+  const { data: countryOptions, isLoading: isCountryDataLoading, isError: isCountryError } = useGetCountryOptions();
   const {
     data: universityOptions,
     isLoading: isUniversityDataLoading,
     isError: isUniversityError,
-  }: ListQueryResult<UniversityOption> = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
+  } = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
   const {
     formState: { errors },
     reset,
@@ -55,7 +50,7 @@ export const NewApplicationForm = (): JSX.Element => {
     register,
     setError,
   } = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
-  const { isPending, isSuccess, mutate }: CreateApplication = useCreateApplication(setError, resetCountrySelection, reset);
+  const { isPending, isSuccess, mutate } = useCreateApplication(setError, resetCountrySelection, reset);
 
   if (isCountryDataLoading) {
     return (

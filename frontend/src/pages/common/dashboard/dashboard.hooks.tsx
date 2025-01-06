@@ -12,7 +12,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { AuthContext, useAuth } from '@context/auth';
+import { useAuthContext } from '@context/auth';
 import { applicationService } from '@services';
 
 /* configuration, utilities, constants imports */
@@ -27,8 +27,8 @@ import { SimpleQueryResult, StudentDashboardStatistics } from '@common-types';
  * @return {SimpleQueryResult<StudentDashboardStatistics>}
  */
 export const useGetDashboardStatistics = (): SimpleQueryResult<StudentDashboardStatistics> => {
-  const { getRoleResource }: AuthContext = useAuth();
-  const accountRole: string = getRoleResource();
+  const { getRoleResource } = useAuthContext();
+  const accountRole = getRoleResource();
 
   return useQuery({
     queryKey: [queryKeys.aggregate.GET_DASHBOARD_STATISTICS],

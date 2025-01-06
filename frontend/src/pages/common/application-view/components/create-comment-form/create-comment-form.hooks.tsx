@@ -9,7 +9,7 @@
  */
 
 /* vendor imports */
-import { useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -18,11 +18,10 @@ import { commentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, CreateComment, ErrorDetail } from '@common-types';
-import { SubmitComment } from './create-comment-form.models';
+import { Comment, CoreErrorResponse, CreateComment, ErrorDetail } from '@common-types';
 
 /**
  * Defines the possible error field names in the {@link useSubmitComment} custom hook.
@@ -33,10 +32,13 @@ type NewCommentFormErrorT = 'root' | 'comment';
  * Mnages the comment submission process, including REST API request, error handling, and post-success actions.
  *
  * @param setError A `react-hook-form` function to set form errors.
- * @param applicationUuid The uuid of the application to which the comment belongs to.
- * @return {SubmitComment}
+ * @param applicationUuid The Application record's uuid string to which the comment belongs to.
+ * @return {UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment>}
  */
-export const useSubmitComment = (setError: UseFormSetError<CreateComment>, applicationUuid: string): SubmitComment => {
+export const useSubmitComment = (
+  setError: UseFormSetError<CreateComment>,
+  applicationUuid: string,
+): UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment> => {
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
     mutationFn: (formData: CreateComment) => commentService.postCommentByApplicationUuid(formData, applicationUuid),
@@ -56,11 +58,11 @@ export const useSubmitComment = (setError: UseFormSetError<CreateComment>, appli
               }
             });
           } else if (status >= 500) {
-            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
           }
         }
       } else {
-        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });
