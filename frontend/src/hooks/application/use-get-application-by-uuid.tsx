@@ -21,11 +21,11 @@ import { queryKeys } from '@configuration';
 import { Application, SimpleQueryResult } from '@common-types';
 
 /**
- * Fetches an {@link Application} object by uuid.
- * The server-side request is triggered only if the application is not in the `react-router-dom` cache.
+ * Fetches an Application record by its uuid string.
+ * The server-side request is triggered only if the Application record is not in the `react-router-dom` cache.
  *
- * @param state An Application object from the local `react-router-dom` cache, if it exists, otherwise null.
- * @param applicationUuid The Application's uuid string.
+ * @param state An Application record from the local `react-router-dom` cache, if it exists, otherwise null.
+ * @param applicationUuid The Application record's uuid string.
  * @return {SimpleQueryResult<Application>}
  */
 export const useGetApplicationByUuid = (state: Application | null, applicationUuid: string): SimpleQueryResult<Application> => {

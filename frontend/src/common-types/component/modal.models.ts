@@ -18,7 +18,7 @@ interface BaseModal {
   /**
    * Indicates whether the modal is currently visible.
    */
-  isModalVisible: boolean;
+  readonly isModalVisible: boolean;
 }
 
 /**
@@ -53,5 +53,5 @@ export interface RenderModal {
   /**
    * A ref object that is attached to the modal component to control its visibility.
    */
-  dialogRef: RefObject<HTMLDialogElement | null>;
+  readonly dialogRef: RefObject<HTMLDialogElement | null>;
 }

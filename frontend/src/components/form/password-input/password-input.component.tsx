@@ -25,7 +25,6 @@ import { iconLibraryConfig } from '@configuration';
 
 /* interface, type, enum imports */
 import { CommonInput } from '@common-types';
-import { TogglePassword } from './password-input.models';
 
 /**
  * Defines the component's properties.
@@ -50,7 +49,7 @@ export const PasswordInput = <T extends FieldValues>({
   initialValue,
   isDisabled,
 }: ComponentProps<T>): JSX.Element => {
-  const { isPasswordRevealed, toggleInputVisibility }: TogglePassword = useTogglePassword();
+  const { isPasswordRevealed, toggleInputVisibility } = useTogglePassword();
 
   return (
     <BasePasswordInput $isError={error !== undefined}>

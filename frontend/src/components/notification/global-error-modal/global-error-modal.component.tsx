@@ -21,9 +21,6 @@ import { Dialog } from './global-error-modal.styles.ts';
 /* configuration, utilities, constants imports */
 import { constants } from './global-error-modal.constants.ts';
 
-/* interface, type, enum imports */
-import { RenderModal } from '@common-types';
-
 /**
  * Defines the component's properties.
  */
@@ -51,7 +48,7 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: ComponentProps): JSX.Element => {
-  const { dialogRef }: RenderModal = useRenderModal(isVisible);
+  const { dialogRef } = useRenderModal(isVisible);
 
   return (
     <Dialog ref={dialogRef}>

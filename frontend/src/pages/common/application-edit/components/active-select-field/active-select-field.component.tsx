@@ -21,7 +21,6 @@ import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
 import { ApplicationStatusUnion, CoreInput } from '@common-types';
-import { FieldUpdate } from './active-select-field.models';
 
 /**
  * Defines the component's properties.
@@ -69,7 +68,7 @@ export const ActiveSelectField = <T extends FieldValues>({
   isDisabled,
   onFieldUpdate,
 }: ComponentProps<T>): JSX.Element => {
-  const { updateField }: FieldUpdate = useOnFieldUpdate(onFieldUpdate);
+  const { updateField } = useOnFieldUpdate(onFieldUpdate);
 
   return (
     <BaseInput $isError={error !== undefined}>

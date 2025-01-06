@@ -31,7 +31,7 @@ interface ComponentProps {
   /**
    * The selected Application record.
    */
-  application: Application;
+  readonly application: Application;
 }
 
 /**

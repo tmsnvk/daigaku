@@ -38,7 +38,7 @@ interface ComponentProps {
   /**
    * An optional callback method that handles the navigation route's onClick action.
    */
-  readonly onNavigateClick?: () => void;
+  onNavigateClick?: () => void;
 }
 
 /**

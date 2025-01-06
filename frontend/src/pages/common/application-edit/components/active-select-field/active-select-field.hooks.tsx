@@ -12,8 +12,7 @@
 import { FieldUpdate } from './active-select-field.models';
 
 /**
- * Manages field update events.
- * Captures the value from the event target and passes it to the provided `onFieldUpdate` callback.
+ * Manages field update events. Captures the value from the event target and passes it to the provided `onFieldUpdate` callback.
  *
  * @param onFieldUpdate A callback method to handle the target value from the field update.
  * @return {FieldUpdate}

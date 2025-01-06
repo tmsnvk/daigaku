@@ -35,6 +35,7 @@ import { FormType } from '../../home.models';
 interface ComponentProps {
   /**
    * A function to select the current form type.
+   *
    * @param formType The type of the form to be selected.
    */
   selectForm: (formType: FormType) => void;

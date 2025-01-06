@@ -27,10 +27,10 @@ export interface ActiveFormComponent {
   /**
    * The currently selected {@link FormType}.
    */
-  activeFormType: FormType;
+  readonly activeFormType: FormType;
 
   /**
    * The rendered element of the currently active component.
    */
-  activeFormComponent: JSX.Element;
+  readonly activeFormComponent: JSX.Element;
 }

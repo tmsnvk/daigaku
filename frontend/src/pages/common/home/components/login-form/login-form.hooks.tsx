@@ -20,7 +20,7 @@ import { accountService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR, localStorageKeys } from '@constants';
+import { errorConstants, localStorageKeys } from '@constants';
 import { setLocalStorageObjectById } from '@utilities';
 
 /* interface, type, enum imports */
@@ -62,11 +62,11 @@ export const useHandleLoginForm = (
           if (status === 401) {
             setError('root', { message: error.response?.data.errors[0].errorMessage });
           } else if (status >= 500) {
-            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
           }
         }
       } else {
-        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });

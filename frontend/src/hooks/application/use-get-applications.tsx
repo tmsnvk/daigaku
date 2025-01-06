@@ -22,7 +22,7 @@ import { queryKeys } from '@configuration';
 import { Application, ListQueryResult } from '@common-types';
 
 /**
- * Fetches a list of {@link Application} objects based on the user's authorisation role.
+ * Fetches a list of Application records based on the user's authorisation role.
  *
  * @return {ListQueryResult<Application>}
  */

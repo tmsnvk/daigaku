@@ -18,7 +18,7 @@ import { pendingAccountService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@configuration';
-import { UNEXPECTED_GLOBAL_ERROR, UNEXPECTED_SERVER_ERROR } from '@constants';
+import { errorConstants } from '@constants';
 
 /* interface, type, enum imports */
 import { CoreErrorResponse, ErrorDetail, PendingAccountRegisterRequest } from '@common-types';
@@ -58,11 +58,11 @@ export const useSubmitRegistrationForm = (
               }
             });
           } else if (status >= 500) {
-            setError('root', { message: UNEXPECTED_SERVER_ERROR });
+            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
           }
         }
       } else {
-        setError('root', { message: UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
       }
     },
   });

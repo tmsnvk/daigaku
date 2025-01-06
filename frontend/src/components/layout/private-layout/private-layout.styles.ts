@@ -44,7 +44,7 @@ interface SmallScreenMenuWrapper {
   /**
    * A boolean indicating whether the navbar is currently open.
    */
-  $isNavbarOpen: boolean;
+  readonly $isNavbarOpen: boolean;
 }
 
 export const SmallScreenMenuWrapper = styled.div<SmallScreenMenuWrapper>`

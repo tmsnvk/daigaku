@@ -146,7 +146,7 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
   };
 
   const handleColumnSort = (columnId: string): void => {
-    const order = sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
+    const order: SortOrder = sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
 
     setSortedField(columnId);
     setSortOrder(order);

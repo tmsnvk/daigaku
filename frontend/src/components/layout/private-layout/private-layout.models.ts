@@ -18,7 +18,7 @@ export interface SmallScreenNavbarDisplay {
   /**
    * A boolean indicating whether the navbar is currently open.
    */
-  isNavbarOpen: boolean;
+  readonly isNavbarOpen: boolean;
 
   /**
    * A function to toggle the navbar's open state.
