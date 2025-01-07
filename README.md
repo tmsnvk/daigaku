@@ -2,11 +2,11 @@
 
 ### Table of Contents
 
-- I. Project description
+- I. Project Description
 - II. Techstack
-- III. Running the application
-- IV. Roadmap
-- V. Sneak peak
+- III. Running the Application
+- IV. Development Roadmap
+- V. Sneak Peak
 
 ### I. Project Description
 
@@ -67,34 +67,33 @@ Tools
     + RabbitMQ Management UI                    - management and monitoring tool.
 ```
 
-### III. Running the application
+### III. Running the Application
 
 - Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 - Clone the repository.
 - In a terminal panel, stand in the project root:
-  - run `bash setup-variables.sh` to generate environment variables. Follow the directions in the script.
-  - run `bash setup-containers.sh` to build the project and set up the containarised Docker environment.
+  - run `bash setup-environment.sh` to generate a blank .env file. Follow the directions in the script.
+  - run `bash setup-containers.sh` to build the project and set up a containarised Docker environment for each module.
   - run `http://localhost/` in a browser window.
 - On the application's login page you may log in with the following credentials:
   - account with student role:
     - email - `student@test.net`;
     - password - `1`.
 
-### IV. Roadmap
+### IV. Development Roadmap
 
 student user features:
 
 - [x] submit a new application.
 - [x] view aggregate application data in a table format.
-- [x] edit invidivual applications.
+- [x] edit individual applications.
 - [x] request application deletion.
-- [ ] friend request feature to be able to see each others' applications.
 - [ ] set applications to private state to hide them from friends.
 - [x] download application data in .pdf format.
 
 mentor user features:
 
-- [ ] submit application instead of a student.
+- [ ] submit application instead of an assigned student.
 - [ ] view/edit assigned students' applications.
 - [ ] download assigned students' applications data in .pdf format.
 
@@ -103,7 +102,7 @@ institution-admin user features:
 - [ ] view/edit/delete all mentors within their institution.
 - [ ] view/edit/delete all students within their institution.
 - [ ] accept/refuse incoming institution student/mentor join requests.
-- [ ] delete applications requests.
+- [ ] delete application requests.
 - [ ] promote/demote mentors to institution-admin role.
 - [ ] download institution-wide application data in .pdf format.
 
@@ -120,22 +119,22 @@ application-wide features:
 - [x] login/registration functionality.
 - [x] comment section under individual applications.
 - [ ] editable profile page.
+- [ ] friend request/remove feature.
 - [ ] user in-app messaging system.
 - [ ] various system-related forms to expand functionality (feedback, university request, etc.).
 
 testing:
 
-- [on-going] ui tests.
 - [on-going] unit tests.
-- [on-going] integration tests.
+- [on-going] end-to-end tests.
 
 devops features:
 
-- [x] containerisation.
+- [x] docker containerisation.
 - [x] github CI/CD.
 - [ ] deployment.
 
-### V. Sneak peak
+### V. Sneak Peak
 
 ![login_page](./repo-assets/login_page.png)
 

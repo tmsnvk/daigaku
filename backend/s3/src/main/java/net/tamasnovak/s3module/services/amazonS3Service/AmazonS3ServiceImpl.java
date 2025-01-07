@@ -45,7 +45,6 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
       .build();
 
     s3Client.putObject(putObjectRequest, RequestBody.fromFile(file));
-    s3Client.close();
   }
 
   @Override
@@ -69,8 +68,6 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
         deleteObject(pdfFile.key());
       }
     }
-
-    s3Client.close();
   }
 
   private void deleteObject(final String objectKey) {
