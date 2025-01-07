@@ -2,99 +2,98 @@
 
 ### Table of Contents
 
-- I. Project description
+- I. Project Description
 - II. Techstack
-- III. Running the application
-- IV. Roadmap
-- V. Sneak peak
+- III. Running the Application
+- IV. Development Roadmap
+- V. Sneak Peak
 
 ### I. Project Description
 
 - The application follows the university application process of high school students and handles complex student-mentor-admin relationships.
-- Upon registering, users with `student` access are able to join an institution (i.e. their school) and have a `mentor` user assigned to them.
-- Users with `mentor` permission are able to access all applications submitted by their allocated students and perform various aggregate operations.
-- Users with `institution admin` permission receive admin rights for their institution (e.g. accept incoming student registration requests or access detailed aggregate reports), while `system admins` have application-wide rights and data overview.
+- Upon registering, users with `student` access are able to join an `institution` (i.e. their current school) and have a `mentor` user assigned to them.
+- Users with `mentor` permission are able to access all Application records submitted by their allocated students and perform various aggregate operations.
+- Users with `institution admin` permission receive admin rights for their `institution` (e.g. accept incoming student/mentor registration requests, access detailed aggregate reports, etc.), while `system admins` have application-wide rights and data overview.
 - A currently work-in-progress learning-project application with new features being continuously developed and added.
 
 ### II. Techstack
 
 ```
 Frontend
-    + ReactJS (Vite template)               - javascript library and build tool.
-    + Typescript                            - javascript extension.
-    + React Router                          - client-side routing solution.
-    + React Query                           - data fetching and server state manager solution.
-    + React Hook Form                       - form managing library.
-    + Styled Components                     - css-in-javascript styling solution.
-    + Fontawesome                           - icon library.
-    + Axios                                 - http client.
-    + ESLint                                - static code analysis tool.
-    + Prettier                              - code formatter tool.
+    + ReactJS (Vite template) with Typescript   - javascript library and build tool.
+    + React Router                              - client-side routing solution.
+    + React Query                               - data fetching and server state manager solution.
+    + React Hook Form                           - form managing library.
+    + Styled Components                         - css-in-javascript styling solution.
+    + Fontawesome                               - icon library.
+    + Axios                                     - http client.
+    + ESLint                                    - static code analysis tool.
+    + Prettier                                  - code formatter tool.
 ```
 
 ```
 Backend
-    + Java Spring Boot                      - java framework.
-    + Spring Data JPA / Hibernate ORM       - persistence application layer.
-    + Spring Security                       - authentication and access-control layer.
-    + JWT                                   - authentication token solution.
-    + Jakarta Validation                    - annotation-based validation library.
-    + Spring Mail                           - email sending library.
-    + RabbitMQ                              - message broker solution.
+    + Spring Boot                               - java framework.
+    + Spring Security                           - authentication and access-control layer.
+    + Spring Data JPA / Hibernate ORM           - persistence application layer.
+    + JWT                                       - authentication token solution.
+    + Jakarta Validation                        - annotation-based validation library.
+    + Spring Mail                               - email sending library.
+    + RabbitMQ                                  - message broker solution.
 ```
 
 ```
 Testing
-    + Playwright                            - frontend ui testing library.
-    + JUnit, Mockito                        - backend testing libraries.
+    + Playwright                                - end-to-end testing library.
+    + JUnit, Mockito                            - backend testing libraries.
+    + Github Actions                            - automated test running tool.
 ```
 
 ```
 Database
-    + PostgreSQL                            - relational database management system.
-    + Redis                                 - cache storage solution.
-    + AWS S3                                - file storage solution.
+    + PostgreSQL                                - relational database management system.
+    + Redis                                     - cache storage solution.
+    + AWS S3                                    - file storage solution.
 ```
 
 ```
 DevOps
-    + Docker                                - containerisation solution.
+    + Docker                                    - containerisation solution.
 ```
 
 ```
 Tools
-    + Postman                               - api testing tool.
-    + RabbitMQ Management UI                - management and monitoring tool.
+    + Postman                                   - api testing tool.
+    + RabbitMQ Management UI                    - management and monitoring tool.
 ```
 
-### III. Running the application
+### III. Running the Application
 
 - Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 - Clone the repository.
 - In a terminal panel, stand in the project root:
-  - run `bash setup-variables.sh` to generate environment variables. Follow the directions in the script.
-  - run `bash setup-containers.sh` to build the project and set up the containarised Docker environment.
+  - run `bash setup-environment.sh` to generate a blank .env file. Follow the directions in the script.
+  - run `bash setup-containers.sh` to build the project and set up a containarised Docker environment for each module.
   - run `http://localhost/` in a browser window.
 - On the application's login page you may log in with the following credentials:
   - account with student role:
     - email - `student@test.net`;
     - password - `1`.
 
-### IV. Roadmap
+### IV. Development Roadmap
 
 student user features:
 
 - [x] submit a new application.
 - [x] view aggregate application data in a table format.
-- [x] edit invidivual applications.
+- [x] edit individual applications.
 - [x] request application deletion.
-- [ ] friend request feature to be able to see each others' applications.
 - [ ] set applications to private state to hide them from friends.
 - [x] download application data in .pdf format.
 
 mentor user features:
 
-- [ ] submit application instead of a student.
+- [ ] submit application instead of an assigned student.
 - [ ] view/edit assigned students' applications.
 - [ ] download assigned students' applications data in .pdf format.
 
@@ -103,7 +102,7 @@ institution-admin user features:
 - [ ] view/edit/delete all mentors within their institution.
 - [ ] view/edit/delete all students within their institution.
 - [ ] accept/refuse incoming institution student/mentor join requests.
-- [ ] delete applications requests.
+- [ ] delete application requests.
 - [ ] promote/demote mentors to institution-admin role.
 - [ ] download institution-wide application data in .pdf format.
 
@@ -120,22 +119,22 @@ application-wide features:
 - [x] login/registration functionality.
 - [x] comment section under individual applications.
 - [ ] editable profile page.
+- [ ] friend request/remove feature.
 - [ ] user in-app messaging system.
 - [ ] various system-related forms to expand functionality (feedback, university request, etc.).
 
 testing:
 
-- [on-going] ui tests.
 - [on-going] unit tests.
-- [on-going] integration tests.
+- [on-going] end-to-end tests.
 
 devops features:
 
-- [x] containerisation.
+- [x] docker containerisation.
 - [x] github CI/CD.
 - [ ] deployment.
 
-### V. Sneak peak
+### V. Sneak Peak
 
 ![login_page](./repo-assets/login_page.png)
 

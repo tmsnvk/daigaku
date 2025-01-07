@@ -8,8 +8,6 @@ RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM eclipse-temurin:21-jdk-alpine AS prod-stage
 
-COPY ./env.properties .
-
 COPY --from=build-stage dependencies/ ./
 COPY --from=build-stage snapshot-dependencies/ ./
 COPY --from=build-stage spring-boot-loader/ ./

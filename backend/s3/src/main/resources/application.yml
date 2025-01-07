@@ -1,0 +1,19 @@
+# spring application properties
+spring:
+  application:
+    name: s3
+  rabbitmq:
+    host: ${RABBITMQ_DOCKER_HOST}
+    port: 5672
+    username: ${RABBITMQ_DEFAULT_USER}
+    password: ${RABBITMQ_DEFAULT_PASS}
+
+server:
+  port: 8081
+
+aws:
+  accessKeyId: ${AWS_ACCESS_KEY_ID}
+  secretKey: ${AWS_SECRET_ACCESS_KEY}
+  region: ${AWS_DEFAULT_REGION}
+  bucket: ${AWS_PDF_BUCKET}
+  endpointUrl: ${AWS_ENDPOINT_URL}

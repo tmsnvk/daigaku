@@ -1,0 +1,32 @@
+# spring application properties
+spring:
+  application:
+    name: core
+  rabbitmq:
+    host: ${RABBITMQ_DOCKER_HOST}
+    port: 5672
+    username: ${RABBITMQ_DEFAULT_USER}
+    password: ${RABBITMQ_DEFAULT_PASS}
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_DOCKER_HOST}/${POSTGRES_DATABASE}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+  cache:
+    type: redis
+  data:
+    redis:
+      host: ${REDIS_DOCKER_HOST}
+
+daigaku:
+  app:
+    jwtSecret: ${JWT_SECRET}
+    jwtExpirationMs: ${JWT_EXPIRATION}

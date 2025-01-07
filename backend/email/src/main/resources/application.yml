@@ -1,0 +1,24 @@
+# spring application properties
+spring:
+  application:
+    name: email
+  rabbitmq:
+    host: ${RABBITMQ_DOCKER_HOST}
+    port: 5672
+    username: ${RABBITMQ_DEFAULT_USER}
+    password: ${RABBITMQ_DEFAULT_PASS}
+
+  mail:
+    host: ${JAVAMAIL_HOST}
+    port: ${JAVAMAIL_PORT}
+    username: ${JAVAMAIL_USER}
+    password: ${JAVAMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+
+server:
+  port: 8082
