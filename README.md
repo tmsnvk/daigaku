@@ -35,18 +35,18 @@ Frontend
 Backend
     + Spring Boot                               - java framework.
     + Spring Security                           - authentication and access-control layer.
-    + Spring Data JPA / Hibernate ORM           - persistence application layer.
     + JWT                                       - authentication token solution.
+    + Spring Data JPA / Hibernate ORM           - persistence application layer.
     + Jakarta Validation                        - annotation-based validation library.
     + Spring Mail                               - email sending library.
     + RabbitMQ                                  - message broker solution.
+    + CheckStyle                                - static code analysis tool.
 ```
 
 ```
 Testing
     + Playwright                                - end-to-end testing library.
     + JUnit, Mockito                            - backend testing libraries.
-    + Github Actions                            - automated test running tool.
 ```
 
 ```
@@ -59,6 +59,7 @@ Database
 ```
 DevOps
     + Docker                                    - containerisation solution.
+    + Github Actions                            - automated test running tool.
 ```
 
 ```
@@ -72,8 +73,8 @@ Tools
 - Have [Docker](https://docs.docker.com/get-docker/) installed on your local machine.
 - Clone the repository.
 - In a terminal panel, stand in the project root:
-  - run `bash setup-environment.sh` to generate a blank .env file. Follow the directions in the script.
-  - run `bash setup-containers.sh` to build the project and set up a containarised Docker environment for each module.
+  - run `bash build-environment.sh` to generate a blank .env file. Follow the directions in the script.
+  - run `bash build-containers.sh` to build the project and set up a containarised Docker environment for each module.
   - run `http://localhost/` in a browser window.
 - On the application's login page you may log in with the following credentials:
   - account with student role:
