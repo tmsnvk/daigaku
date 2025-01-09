@@ -40,6 +40,7 @@ Backend
     + Jakarta Validation                        - annotation-based validation library.
     + Spring Mail                               - email sending library.
     + RabbitMQ                                  - message broker solution.
+    + CheckStyle                                - static code analysis tool.
 ```
 
 ```
