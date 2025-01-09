@@ -1,3 +1,5 @@
+name: daigaku
+
 services:
   db-psql:
     image: postgres:17.2-alpine
@@ -33,11 +35,12 @@ services:
       - daigaku
 
   backend-rabbitmq-mgmt:
-    image: rabbitmq:4.0.5-alpine
+    image: rabbitmq:4.0.5-management-alpine
     container_name: backend-rabbitmq-mgmt-container
     hostname: ${RABBITMQ_DOCKER_HOST}
     volumes:
       - backend-rabbitmq-mgmt-data:/data
+      - ./backend/rabbitmq-mgmt/definitions.json:/etc/rabbitmq/definitions.json
       - ./backend/rabbitmq-mgmt/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
     ports:
       - 5672:5672
