@@ -11,23 +11,27 @@
 /* vendor imports */
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
+// import { fileURLToPath } from 'url';
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: '.env' });
-
+dotenv.config({ path: '../.env-test', override: true });
+// dotenv.config({ path: path.resolve(__dirname, '..', '.env-test'), override: true });
+// console.log(process.env.BASE_URL);
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['html', { outputFile: '.frontend//playwright-report/index.html' }]],
+  reporter: [['html', { outputFile: './frontend/playwright-report/index.html' }]],
   webServer: {
     command: 'npm run dev:start',
     reuseExistingServer: !process.env.CI,
-    url: 'http://localhost:5173/',
+    url: process.env.BASE_URL || 'http://localhost:5173/',
   },
   use: {
-    baseURL: 'http://localhost:5173/',
+    baseURL: process.env.BASE_URL || 'http://localhost:5173/',
     trace: 'on-first-retry',
     headless: true,
   },

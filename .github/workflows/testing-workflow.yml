@@ -15,7 +15,7 @@ jobs:
 
     services:
       db-psql:
-        image: postgres:latest
+        image: postgres:17.2-alpine
         env:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
@@ -23,7 +23,7 @@ jobs:
         ports:
           - 5432:5432
       db-redis:
-        image: redis:latest
+        image: redis:7.4.2-alpine
         ports:
           - 6379:6379
 
@@ -50,17 +50,17 @@ jobs:
       - name: configure:DaigakuCoreApplication
         run: |
           cd core
-          cat > src/main/resources/application.properties <<EOF
-          spring.config.import=optional:file:.env[.properties]
-          spring.datasource.url=jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
-          spring.datasource.username=${{ secrets.POSTGRES_USER }}
-          spring.datasource.password=${{ secrets.POSTGRES_PASSWORD }}
-          spring.cache.type=redis
-          spring.data.redis.host=localhost
-          spring.data.redis.port=6379
-          spring.datasource.driver-class-name=org.postgresql.Driver
-          daigaku.app.jwtSecret=fakeSecret
-          daigaku.app.jwtExpirationMs=10000000
+          cat > src/main/resources/application.yml <<EOF
+          spring:
+            datasource:
+              url: jdbc:postgresql://db-psql:5432/${POSTGRES_DB}
+              username: ${POSTGRES_USER}
+              password: ${POSTGRES_PASSWORD}
+              driver-class-name: org.postgresql.Driver
+            data:
+              redis:
+                host: db-redis
+                port: 6379
           EOF
 
       - name: build-then-test:DaigakuCoreApplication
