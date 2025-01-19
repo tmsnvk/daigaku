@@ -14,7 +14,7 @@ import { JSX, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoleValues, AuthStatus, useAuthContext } from '@context/auth';
+import { AccountRoles, AuthStatus, useAuthContext } from '@context/auth';
 import { useSmallScreenNavbarDisplay } from './private-layout.hooks';
 
 /* component, style imports */
@@ -38,7 +38,7 @@ interface ComponentProps {
   /**
    * The list of roles permitted to view this layout.
    */
-  readonly allowedRoles: Array<AccountRoleValues>;
+  readonly allowedRoles: Array<AccountRoles>;
 }
 
 /**
@@ -59,7 +59,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
       return;
     }
 
-    if (!allowedRoles.includes(account.role as AccountRoleValues)) {
+    if (!allowedRoles.includes(account.role as AccountRoles)) {
       const redirectPath = account ? '/unauthorised' : '/';
 
       navigate(redirectPath, { state: { from: location }, replace: true });
@@ -92,7 +92,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
             onBlur={handleOnBlur}
           >
             <ul>
-              {accountRoleNavigationRoutes[account.role as AccountRoleValues].map((route: NavbarRoute) => {
+              {accountRoleNavigationRoutes[account.role as AccountRoles].map((route: NavbarRoute) => {
                 return (
                   <li key={route.url}>
                     <NavigationRoute

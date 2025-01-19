@@ -9,6 +9,6 @@
  */
 
 import { isEmpty } from './is-empty.utilities';
-import { getLocalStorageObjectById, setLocalStorageObjectById } from './local-storage.utilities';
+import { getLocalStorageObjectById, removeLocalStorageObjectById, setLocalStorageObjectById } from './local-storage.utilities';
 
-export { getLocalStorageObjectById, isEmpty, setLocalStorageObjectById };
+export { getLocalStorageObjectById, isEmpty, removeLocalStorageObjectById as removedLocalStorageObjectById, setLocalStorageObjectById };

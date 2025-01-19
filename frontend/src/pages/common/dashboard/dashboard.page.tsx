@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoleValues, useAuthContext } from '@context/auth';
+import { AccountRoles, useAuthContext } from '@context/auth';
 import { useGetApplications } from '@hooks';
 import { useGetDashboardStatistics } from './dashboard.hooks';
 
@@ -61,5 +61,5 @@ export const Dashboard = (): JSX.Element | undefined => {
   }
 
   // Add layouts for other authentication level users.
-  return data && <Main>{account.role === AccountRoleValues.STUDENT && <StudentLayout data={data} />}</Main>;
+  return data && <Main>{account.role === AccountRoles.STUDENT && <StudentLayout data={data} />}</Main>;
 };

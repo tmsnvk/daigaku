@@ -30,3 +30,12 @@ export const getLocalStorageObjectById = <T>(id: string, defaultValue: T): T => 
 export const setLocalStorageObjectById = <T>(id: string, data: T): void => {
   localStorage.setItem(id, JSON.stringify(data));
 };
+
+/**
+ * Removes an object in localStorage by its item id.
+ *
+ * @param id The key to store the item under in localStorage.
+ */
+export const removeLocalStorageObjectById = (id: string): void => {
+  localStorage.removeItem(id);
+};

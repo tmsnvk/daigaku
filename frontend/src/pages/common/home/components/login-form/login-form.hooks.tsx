@@ -15,7 +15,7 @@ import { UseFormSetError } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { Account, AuthStatus, useAuthContext } from '@context/auth';
+import { useAuthContext } from '@context/auth';
 import { accountService } from '@services';
 
 /* configuration, utilities, constants imports */
@@ -36,21 +36,14 @@ export const useHandleLoginForm = (
   setError: UseFormSetError<LoginRequest>,
 ): UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginRequest> => {
   const navigate = useNavigate();
-  const { setAccount, setAuthStatus, getAccountRole } = useAuthContext();
+  const { updateAccountContextDetails } = useAuthContext();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
     mutationFn: (formData: LoginRequest) => accountService.logIn(formData),
     onSuccess: (response: LoginResponse) => {
       setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, response.jwtToken);
-
-      const account: Account = {
-        ...response,
-        role: getAccountRole(response.role),
-      };
-
-      setAccount(account);
-      setAuthStatus(AuthStatus.SIGNED_IN);
+      updateAccountContextDetails(response);
 
       navigate('/dashboard');
     },
