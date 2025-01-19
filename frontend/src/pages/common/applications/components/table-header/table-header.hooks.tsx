@@ -28,9 +28,14 @@ type SendDownloadRequestErrorT = 'root';
  *
  * @returns {UseMutationResult<void, AxiosError<SendDownloadRequestErrorT>, void>}
  */
-export const useRequestPdfDownload = (): UseMutationResult<void, AxiosError<SendDownloadRequestErrorT>, void> => {
+export const useRequestPdfDownload = (
+  onDownloadPdfRequest: () => void,
+): UseMutationResult<void, AxiosError<SendDownloadRequestErrorT>, void> => {
   return useMutation({
     mutationKey: [mutationKeys.application.POST_REQUEST_PDF_DOWNLOAD],
     mutationFn: () => applicationStudentService.requestPdfDownload(),
+    onSuccess: () => {
+      onDownloadPdfRequest();
+    },
   });
 };

@@ -158,3 +158,26 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
     handleColumnSort,
   };
 };
+
+/**
+ * Manages a toast component popping up after the download .pdf request button was clicked.
+ *
+ * @return {}
+ */
+export const useDisplayDownloadToast = () => {
+  const [shouldToastVisible, setShouldToastVisible] = useState<boolean>(false);
+
+  const displayDownloadToast = (): void => {
+    setShouldToastVisible(true);
+  };
+
+  const handleAnimationEnd = (): void => {
+    setShouldToastVisible(false);
+  };
+
+  return {
+    shouldToastVisible,
+    displayDownloadToast,
+    handleAnimationEnd,
+  };
+};

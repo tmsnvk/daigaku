@@ -24,6 +24,10 @@ public final class StringUtils {
    * @return boolean
    */
   public static boolean validateStringsAreEqual(final String string, final String stringToCheckAgainst) {
+    if (stringToCheckAgainst == null) {
+      return false;
+    }
+
     return Objects.equals(string, stringToCheckAgainst);
   }
 }
