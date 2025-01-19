@@ -191,6 +191,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   })
   public ApplicationData updateApplicationAndFetchByUuid(
     final UUID uuid, final UpdateApplicationByStudentRequest requestBody, final Account account) {
+
     // Finds the to-be-updated Application and related Student instances in the database.
     final Application currentApplication = applicationService.findApplicationByUuid(uuid);
     final Student currentStudent = studentService.findStudentByAccount(account);
