@@ -3,7 +3,7 @@ spring:
   application:
     name: core
   rabbitmq:
-    host: ${RABBITMQ_DOCKER_HOST}
+    host: ${RABBITMQ_LOCAL_HOST}
     port: 5672
     username: ${RABBITMQ_DEFAULT_USER}
     password: ${RABBITMQ_DEFAULT_PASS}

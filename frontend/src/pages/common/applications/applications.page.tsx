@@ -14,10 +14,10 @@ import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplications, useModalToggle } from '@hooks';
-import { useColumnVisibility, useSortOrder } from './applications.hooks';
+import { useColumnVisibility, useDisplayDownloadToast, useSortOrder } from './applications.hooks';
 
 /* component, style imports */
-import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
 import { Main } from './applications.styles';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
@@ -39,7 +39,8 @@ export const Applications = (): JSX.Element => {
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
   const { columns, toggleColumnVisibility } = useColumnVisibility();
   const { handleColumnSort } = useSortOrder(data as Array<Application>);
-  const { isModalVisible, toggleModal } = useModalToggle();
+  const { isModalVisible: isToggleModalVisible, toggleModal } = useModalToggle();
+  const { shouldToastVisible, displayDownloadToast, handleAnimationEnd } = useDisplayDownloadToast();
 
   if (isLoading || isRefetching) {
     return (
@@ -73,6 +74,8 @@ export const Applications = (): JSX.Element => {
             onColumnSort={handleColumnSort}
             onToggleModal={toggleModal}
             onRefetch={refetch}
+            shouldToastVisible={shouldToastVisible}
+            onDownloadPdfRequest={displayDownloadToast}
           />
         </thead>
         <tbody>
@@ -84,14 +87,19 @@ export const Applications = (): JSX.Element => {
           )}
         </tbody>
       </table>
-      {isModalVisible && (
+      {isToggleModalVisible && (
         <ColumnSelectorModal
           columns={columns}
           onToggleColumnVisibility={toggleColumnVisibility}
-          isModalVisible={isModalVisible}
+          isModalVisible={isToggleModalVisible}
           onToggle={toggleModal}
         />
       )}
+      <Toast
+        isVisible={shouldToastVisible}
+        message={constants.ui.download.TOAST}
+        onAnimationEnd={handleAnimationEnd}
+      />
     </Main>
   );
 };

@@ -143,7 +143,6 @@
         "ignoreRegExpLiterals": true
       }
     ],
-    "multiline-ternary": ["warn", "never"],
     "no-mixed-spaces-and-tabs": "warn",
     "no-multi-spaces": "warn",
     "no-multiple-empty-lines": "warn",

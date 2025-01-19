@@ -14,12 +14,6 @@ import styled, { keyframes } from 'styled-components';
 /* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
-const fadeIn = keyframes`
-  100% {
-    opacity: 1;
-  }
-`;
-
 const fadeOut = keyframes`
   0% {
     opacity: 1;
@@ -46,5 +40,5 @@ export const Section = styled.section`
   padding: 0 1.5rem 0 1.5rem;
   font-size: ${({ theme }) => theme.fontSize.medium};
   background-color: ${({ theme }) => theme.color.tertiaryLight};
-  animation: ${fadeIn} 0.1s ease-in forwards, ${fadeOut} 5s 0.5s ease-out forwards;
+  animation: ${fadeOut} 2.5s 0.5s ease-out forwards;
 `;

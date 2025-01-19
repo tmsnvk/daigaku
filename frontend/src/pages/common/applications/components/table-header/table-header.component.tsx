@@ -19,7 +19,7 @@ import { useRequestPdfDownload } from './table-header.hooks';
 
 /* component, style imports */
 import { LoadingIndicator } from '@components/general';
-import { GlobalErrorModal, Toast } from '@components/notification';
+import { GlobalErrorModal } from '@components/notification';
 import { TableHeadRow } from './table-header.styles';
 
 /* configuration, utilities, constants imports */
@@ -53,6 +53,16 @@ interface ComponentProps {
    * A method that initiates a `GET` REST API operation to refetch the user's Application records.
    */
   onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
+
+  /**
+   * A boolean value controlling the pop-up toast's visibility.
+   */
+  readonly shouldToastVisible: boolean;
+
+  /**
+   * A callback method that manages popping up the download .pdf request toast.
+   */
+  onDownloadPdfRequest: () => void;
 }
 
 /**
@@ -61,8 +71,15 @@ interface ComponentProps {
  *
  * @return {JSX.Element}
  */
-export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }: ComponentProps): JSX.Element => {
-  const { mutate, isSuccess, isPending, isError, error } = useRequestPdfDownload();
+export const TableHeader = ({
+  columns,
+  onColumnSort,
+  onToggleModal,
+  onRefetch,
+  shouldToastVisible,
+  onDownloadPdfRequest,
+}: ComponentProps): JSX.Element => {
+  const { mutate, isPending, isError, error } = useRequestPdfDownload(onDownloadPdfRequest);
 
   if (isError) {
     let errorMessage = '';
@@ -115,7 +132,7 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
             Display
             <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
           </button>
-          {isPending ? (
+          {isPending || shouldToastVisible ? (
             <LoadingIndicator loadingText={constants.ui.download.REQUEST} />
           ) : (
             <button
@@ -128,10 +145,6 @@ export const TableHeader = ({ columns, onColumnSort, onToggleModal, onRefetch }:
           )}
         </th>
       </TableHeadRow>
-      <Toast
-        isVisible={isSuccess}
-        message={constants.ui.download.TOAST}
-      />
     </>
   );
 };
