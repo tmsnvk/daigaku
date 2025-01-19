@@ -31,7 +31,7 @@ interface ComponentProps {
   /**
    * A callback method that handles the animation end of the component.
    */
-  onAnimationEnd: () => void;
+  onAnimationEnd?: () => void;
 }
 
 /**

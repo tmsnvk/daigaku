@@ -11,13 +11,9 @@
 /* vendor imports */
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
-// import { fileURLToPath } from 'url';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: '../.env-test', override: true });
-// dotenv.config({ path: path.resolve(__dirname, '..', '.env-test'), override: true });
-// console.log(process.env.BASE_URL);
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
