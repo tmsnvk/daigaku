@@ -9,17 +9,19 @@
  */
 
 /* vendor imports */
+import { useQuery } from '@tanstack/react-query';
 import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 /* logic imports */
 import { accountService } from '@services';
 
 /* configuration, utilities, constants imports */
+import { queryKeys } from '@configuration';
 import { localStorageKeys } from '@constants';
-import { getLocalStorageObjectById, removedLocalStorageObjectById } from '@utilities';
+import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@utilities';
 
 /* interface, type, enum imports */
-import { LoginResponse } from '@common-types';
+import { LoginResponse, SimpleQueryResult } from '@common-types';
 
 /**
  * Defines the authentication status options.
@@ -43,11 +45,11 @@ export enum AccountRoles {
 /**
  * Defines the properties of the data associated with the logged-in user.
  */
-export interface Account {
+interface Account {
   email: string;
   firstName: string;
-  role: AccountRoles | null;
   jwtToken: string;
+  role: AccountRoles | null;
 }
 
 /**
@@ -61,36 +63,19 @@ interface AuthContext {
   logOut: () => void;
 }
 
-/**
- * Decodes a base64-encoded JWT token and returns the payload.
- *
- * @param token The JWT token string.
- * @returns The decoded payload object.
- */
-const decodeJwt = (token: string) => {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace('-', '+').replace('_', '/');
-  const decodedString = atob(base64);
-
-  return JSON.parse(decodedString);
+const useGetMe = (authToken: string | null): SimpleQueryResult<LoginResponse> => {
+  return useQuery({
+    queryKey: [queryKeys.ACCOUNT.GET_ME],
+    queryFn: () => accountService.getMe(),
+    enabled: authToken !== null,
+  });
 };
 
-/**
- * Checks if the JWT token has expired.
- *
- * @param token The JWT token string.
- * @returns true if the token is expired, false otherwise.
- */
-const isTokenExpired = (token: string): boolean => {
-  try {
-    const decoded = decodeJwt(token);
-    const expirationTime: number = decoded.exp * 1000;
-    const currentTime: number = Date.now();
-
-    return currentTime >= expirationTime;
-  } catch (error) {
-    return true;
-  }
+const initialState: Account = {
+  email: '',
+  firstName: '',
+  role: null,
+  jwtToken: '',
 };
 
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
@@ -99,8 +84,13 @@ const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthC
  * Defines the application's authentication-related context object.
  */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [account, setAccount] = useState<Account>({ email: '', firstName: '', role: null, jwtToken: '' });
+  const [account, setAccount] = useState<Account>(initialState);
   const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.LOADING);
+
+  const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
+  const { data, isLoading, isError } = useGetMe(authToken);
+
+  console.log('account', account);
 
   const getAccountRole = (role: string): AccountRoles => {
     const roles: { [key: string]: AccountRoles } = {
@@ -124,7 +114,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return roleUrl[account.role as AccountRoles];
   };
 
-  const updateAccountContextDetails = (details: LoginResponse) => {
+  const updateAccountContextDetails = (details: LoginResponse): void => {
     const loggedInAccountDetails: Account = {
       ...details,
       role: getAccountRole(details.role),
@@ -135,37 +125,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logOut = (): void => {
-    removedLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
-    setAccount({ email: '', firstName: '', role: null, jwtToken: '' });
+    removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
     setAuthStatus(AuthStatus.SIGNED_OUT);
+    setAccount(initialState);
   };
 
   useEffect(() => {
-    // The useEffect that activates whenever the user refreshes their browser.
-    // The action locally checks for the user's authentication token, then a token authentication request is sent to the server.
-    // If the token is unavailable or the server request fails the user is signed out.
-    const token: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
-
-    if (!token || isTokenExpired(token)) {
-      setAuthStatus(AuthStatus.SIGNED_OUT);
-
+    if (authStatus === AuthStatus.SIGNED_OUT) {
       return;
     }
 
-    const getMe = async (): Promise<void> => {
-      try {
-        const data: LoginResponse = await accountService.getMe();
+    if (isError || !authToken || isAuthTokenExpired(authToken)) {
+      setAuthStatus(AuthStatus.SIGNED_OUT);
+    }
 
-        updateAccountContextDetails(data);
-      } catch (error) {
-        setAuthStatus(AuthStatus.SIGNED_OUT);
-      }
-    };
+    if (isLoading) {
+      setAuthStatus(AuthStatus.LOADING);
+    }
 
-    getMe();
-  }, []);
+    if (data) {
+      updateAccountContextDetails(data);
+    }
+  }, [isError, isLoading, data]);
 
-  const authContextValues = useMemo(
+  const authContextValues: AuthContext = useMemo(
     () => ({
       account,
       authStatus,

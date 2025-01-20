@@ -55,7 +55,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur } = useSmallScreenNavbarDisplay();
 
   useEffect(() => {
-    if (account.email === '' && account.firstName === '') {
+    if (account.role === null) {
       return;
     }
 
