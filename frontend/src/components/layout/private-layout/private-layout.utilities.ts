@@ -13,14 +13,14 @@ import { iconLibraryConfig } from '@configuration';
 import { constants } from './private-layout.constants';
 
 /* interface, type, enum imports */
-import { AccountRoleValues } from '@context/auth';
+import { AccountRoles } from '@context/auth';
 import { NavbarRoute } from './private-layout.models';
 
 /**
  * Defines navigation routes based on the authorisation role.
  */
-export const accountRoleNavigationRoutes: { [key in AccountRoleValues]: Array<NavbarRoute> } = {
-  [AccountRoleValues.STUDENT]: [
+export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavbarRoute> } = {
+  [AccountRoles.STUDENT]: [
     {
       url: '/new-application',
       icon: iconLibraryConfig.faFileCirclePlus,
@@ -32,7 +32,7 @@ export const accountRoleNavigationRoutes: { [key in AccountRoleValues]: Array<Na
       label: constants.routes.student.myApplications.LABEL,
     },
   ],
-  [AccountRoleValues.MENTOR]: [
+  [AccountRoles.MENTOR]: [
     {
       url: '/my-students',
       icon: iconLibraryConfig.faUserGroup,
@@ -44,8 +44,8 @@ export const accountRoleNavigationRoutes: { [key in AccountRoleValues]: Array<Na
       label: constants.routes.mentor.myStudentApplications.LABEL,
     },
   ],
-  [AccountRoleValues.INSTITUTION_ADMIN]: [],
-  [AccountRoleValues.SYSTEM_ADMIN]: [
+  [AccountRoles.INSTITUTION_ADMIN]: [],
+  [AccountRoles.SYSTEM_ADMIN]: [
     {
       url: '/all-students',
       icon: iconLibraryConfig.faUserGroup,

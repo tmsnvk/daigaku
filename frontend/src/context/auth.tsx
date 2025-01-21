@@ -9,16 +9,19 @@
  */
 
 /* vendor imports */
-import { Context, ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Context, ReactNode, createContext, startTransition, useContext, useEffect, useMemo, useState } from 'react';
 
 /* logic imports */
 import { accountService } from '@services';
 
 /* configuration, utilities, constants imports */
+import { queryKeys } from '@configuration';
 import { localStorageKeys } from '@constants';
+import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@utilities';
 
 /* interface, type, enum imports */
-import { LoginResponse } from '@common-types';
+import { LoginResponse, SimpleQueryResult } from '@common-types';
 
 /**
  * Defines the authentication status options.
@@ -32,7 +35,7 @@ export enum AuthStatus {
 /**
  * Defines the various account types.
  */
-export enum AccountRoleValues {
+export enum AccountRoles {
   STUDENT,
   MENTOR,
   INSTITUTION_ADMIN,
@@ -40,124 +43,127 @@ export enum AccountRoleValues {
 }
 
 /**
- * TODO
+ * Defines the properties of the data associated with the logged-in user.
  */
-interface AccountRole {
-  [key: string]: AccountRoleValues;
-}
-
-/**
- * TODO
- */
-interface AuthContextProviderT {
-  children: ReactNode;
-}
-
-/**
- * TODO
- */
-export type Account = {
+interface Account {
   email: string;
   firstName: string;
-  role: AccountRoleValues | typeof AccountRoleValues;
   jwtToken: string;
-};
+  role: AccountRoles | null;
+}
 
 /**
- * Defines the properties of the AuthContext object.
+ * Defines the properties of the AuthContext context object.
  */
-export interface AuthContext {
+interface AuthContext {
   account: Account;
-  setAccount: (value: Account) => void;
   authStatus: AuthStatus;
-  setAuthStatus: (value: AuthStatus) => void;
-  getAccountRole: (role: string) => AccountRoleValues;
+  updateAccountContextDetails: (details: LoginResponse) => void;
   getRoleResource: () => string;
   logOut: () => void;
 }
 
-const initialAccountState: Account = {
+const useGetMe = (authToken: string | null): SimpleQueryResult<LoginResponse> => {
+  return useQuery({
+    queryKey: [queryKeys.ACCOUNT.GET_ME],
+    queryFn: () => accountService.getMe(),
+    enabled: authToken !== null,
+  });
+};
+
+const initialState: Account = {
   email: '',
   firstName: '',
-  role: AccountRoleValues,
+  role: null,
   jwtToken: '',
 };
 
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
 
 /**
- * TODO
+ * Defines the application's authentication-related context object.
  */
-export const AuthProvider = ({ children }: AuthContextProviderT) => {
-  const [account, setAccount] = useState<Account>(initialAccountState);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [account, setAccount] = useState<Account>(initialState);
   const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.LOADING);
 
-  const getAccountRole = (role: string): AccountRoleValues => {
-    const roles: AccountRole = {
-      ROLE_STUDENT: AccountRoleValues.STUDENT,
-      ROLE_MENTOR: AccountRoleValues.MENTOR,
-      ROLE_INSTITUTION_ADMIN: AccountRoleValues.INSTITUTION_ADMIN,
-      ROLE_SYSTEM_ADMIN: AccountRoleValues.SYSTEM_ADMIN,
+  const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
+  const { data, isLoading, isError } = useGetMe(authToken);
+
+  const getAccountRole = (role: string): AccountRoles => {
+    const roles: { [key: string]: AccountRoles } = {
+      ROLE_STUDENT: AccountRoles.STUDENT,
+      ROLE_MENTOR: AccountRoles.MENTOR,
+      ROLE_INSTITUTION_ADMIN: AccountRoles.INSTITUTION_ADMIN,
+      ROLE_SYSTEM_ADMIN: AccountRoles.SYSTEM_ADMIN,
     };
 
     return roles[role];
   };
 
   const getRoleResource = (): string => {
-    const roleUrl: { [key in AccountRoleValues]: string } = {
-      [AccountRoleValues.STUDENT]: 'student',
-      [AccountRoleValues.MENTOR]: 'mentor',
-      [AccountRoleValues.INSTITUTION_ADMIN]: 'institution-admin',
-      [AccountRoleValues.SYSTEM_ADMIN]: 'system-admin',
+    const roleUrl: { [key in AccountRoles]: string } = {
+      [AccountRoles.STUDENT]: 'student',
+      [AccountRoles.MENTOR]: 'mentor',
+      [AccountRoles.INSTITUTION_ADMIN]: 'institution-admin',
+      [AccountRoles.SYSTEM_ADMIN]: 'system-admin',
     };
 
-    return roleUrl[account.role as AccountRoleValues];
+    return roleUrl[account.role as AccountRoles];
+  };
+
+  const updateAccountContextDetails = (details: LoginResponse): void => {
+    const loggedInAccountDetails: Account = {
+      ...details,
+      role: getAccountRole(details.role),
+    };
+
+    setAccount(loggedInAccountDetails);
+    setAuthStatus(AuthStatus.SIGNED_IN);
+  };
+
+  const logOut = (): void => {
+    removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
+
+    startTransition(() => {
+      setAuthStatus(AuthStatus.SIGNED_OUT);
+      setAccount(initialState);
+    });
   };
 
   useEffect(() => {
-    // The useEffect that activates whenever the user refreshes their browser.
-    // The action locally checks for the user's authentication token, then a token authentication request is sent to the server.
-    // If the token is unavailable or the server request fails the user is signed out.
-    const token: string | null = localStorage.getItem(localStorageKeys.AUTHENTICATION_TOKEN);
-
-    if (!token) {
-      setAuthStatus(AuthStatus.SIGNED_OUT);
-
+    if (authStatus === AuthStatus.SIGNED_OUT) {
       return;
     }
 
-    const getMe = async (): Promise<void> => {
-      try {
-        const data: LoginResponse = await accountService.getMe();
+    if (isError || !authToken || isAuthTokenExpired(authToken)) {
+      setAuthStatus(AuthStatus.SIGNED_OUT);
+    }
 
-        const loggedInAccount: Account = {
-          ...data,
-          role: getAccountRole(data.role),
-        };
+    if (isLoading) {
+      setAuthStatus(AuthStatus.LOADING);
+    }
 
-        setAccount(loggedInAccount);
-        setAuthStatus(AuthStatus.SIGNED_IN);
-      } catch (error) {
-        setAuthStatus(AuthStatus.SIGNED_OUT);
-      }
-    };
+    if (data) {
+      updateAccountContextDetails(data);
+    }
+  }, [isError, isLoading, authToken, authStatus, data]);
 
-    getMe();
-  }, []);
-
-  const logOut = (): void => {
-    localStorage.removeItem(localStorageKeys.AUTHENTICATION_TOKEN);
-    setAuthStatus(AuthStatus.SIGNED_OUT);
-  };
-
-  return (
-    <AuthContext value={{ account, setAccount, authStatus, setAuthStatus, getAccountRole, getRoleResource, logOut }}>
-      {children}
-    </AuthContext>
+  const authContextValues: AuthContext = useMemo(
+    () => ({
+      account,
+      authStatus,
+      updateAccountContextDetails,
+      getRoleResource,
+      logOut,
+    }),
+    [account, authStatus],
   );
+
+  return <AuthContext value={authContextValues}>{children}</AuthContext>;
 };
 
 /**
- * The AuthContext object is wrapped into a custom hook for simplier usage.
+ * The AuthContext object is wrapped into a simple custom hook for simplier usage.
  */
 export const useAuthContext = (): AuthContext => useContext(AuthContext);
