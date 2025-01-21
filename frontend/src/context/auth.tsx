@@ -10,7 +10,7 @@
 
 /* vendor imports */
 import { useQuery } from '@tanstack/react-query';
-import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { Context, ReactNode, createContext, startTransition, useContext, useEffect, useMemo, useState } from 'react';
 
 /* logic imports */
 import { accountService } from '@services';
@@ -90,8 +90,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
   const { data, isLoading, isError } = useGetMe(authToken);
 
-  console.log('account', account);
-
   const getAccountRole = (role: string): AccountRoles => {
     const roles: { [key: string]: AccountRoles } = {
       ROLE_STUDENT: AccountRoles.STUDENT,
@@ -126,8 +124,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logOut = (): void => {
     removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
-    setAuthStatus(AuthStatus.SIGNED_OUT);
-    setAccount(initialState);
+
+    startTransition(() => {
+      setAuthStatus(AuthStatus.SIGNED_OUT);
+      setAccount(initialState);
+    });
   };
 
   useEffect(() => {
@@ -146,7 +147,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (data) {
       updateAccountContextDetails(data);
     }
-  }, [isError, isLoading, data]);
+  }, [isError, isLoading, authToken, authStatus, data]);
 
   const authContextValues: AuthContext = useMemo(
     () => ({
