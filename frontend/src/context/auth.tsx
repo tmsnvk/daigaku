@@ -36,10 +36,10 @@ export enum AuthStatus {
  * Defines the various account types.
  */
 export enum AccountRoles {
-  STUDENT,
-  MENTOR,
-  INSTITUTION_ADMIN,
-  SYSTEM_ADMIN,
+  ROLE_STUDENT = 'ROLE_STUDENT',
+  ROLE_MENTOR = 'ROLE_MENTOR',
+  ROLE_INSTITUTION_ADMIN = 'ROLE_INSTITUTION_ADMIN',
+  ROLE_SYSTEM_ADMIN = 'ROLE_SYSTEM_ADMIN',
 }
 
 /**
@@ -63,6 +63,12 @@ interface AuthContext {
   logOut: () => void;
 }
 
+/**
+ * Manages the fetching of basic details of the logged in user. The fetch operation is enabled only if a JWT autorisation token exists.
+ *
+ * @param authToken The authorisation JWT token if it exists.
+ * @returns {SimpleQueryResult<LoginResponse>}
+ */
 const useGetMe = (authToken: string | null): SimpleQueryResult<LoginResponse> => {
   return useQuery({
     queryKey: [queryKeys.ACCOUNT.GET_ME],
@@ -78,6 +84,13 @@ const initialState: Account = {
   jwtToken: '',
 };
 
+const roleResources: Record<AccountRoles, string> = {
+  [AccountRoles.ROLE_STUDENT]: 'student',
+  [AccountRoles.ROLE_MENTOR]: 'mentor',
+  [AccountRoles.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
+  [AccountRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
+};
+
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
 
 /**
@@ -90,35 +103,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
   const { data, isLoading, isError } = useGetMe(authToken);
 
-  const getAccountRole = (role: string): AccountRoles => {
-    const roles: { [key: string]: AccountRoles } = {
-      ROLE_STUDENT: AccountRoles.STUDENT,
-      ROLE_MENTOR: AccountRoles.MENTOR,
-      ROLE_INSTITUTION_ADMIN: AccountRoles.INSTITUTION_ADMIN,
-      ROLE_SYSTEM_ADMIN: AccountRoles.SYSTEM_ADMIN,
-    };
-
-    return roles[role];
-  };
-
   const getRoleResource = (): string => {
-    const roleUrl: { [key in AccountRoles]: string } = {
-      [AccountRoles.STUDENT]: 'student',
-      [AccountRoles.MENTOR]: 'mentor',
-      [AccountRoles.INSTITUTION_ADMIN]: 'institution-admin',
-      [AccountRoles.SYSTEM_ADMIN]: 'system-admin',
-    };
-
-    return roleUrl[account.role as AccountRoles];
+    return roleResources[account.role as AccountRoles];
   };
 
-  const updateAccountContextDetails = (details: LoginResponse): void => {
-    const loggedInAccountDetails: Account = {
-      ...details,
-      role: getAccountRole(details.role),
-    };
-
-    setAccount(loggedInAccountDetails);
+  const updateAccountContextDetails = (details: LoginResponse) => {
+    setAccount(details);
     setAuthStatus(AuthStatus.SIGNED_IN);
   };
 
