@@ -61,5 +61,5 @@ export const Dashboard = (): JSX.Element | undefined => {
   }
 
   // Add layouts for other authentication level users.
-  return data && <Main>{account.role === AccountRoles.STUDENT && <StudentLayout data={data} />}</Main>;
+  return data && <Main>{account.role === AccountRoles.ROLE_STUDENT && <StudentLayout data={data} />}</Main>;
 };

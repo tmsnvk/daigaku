@@ -2,6 +2,8 @@
  * @prettier
  */
 
+import { AccountRoles } from '@context/auth';
+
 /**
  * Copyright © [Daigaku].
  *
@@ -45,7 +47,7 @@ export interface LoginResponse {
   /**
    * The authenticated user's authorisation level.
    */
-  readonly role: string;
+  readonly role: AccountRoles;
 }
 
 /**

@@ -20,7 +20,7 @@ import { NavbarRoute } from './private-layout.models';
  * Defines navigation routes based on the authorisation role.
  */
 export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavbarRoute> } = {
-  [AccountRoles.STUDENT]: [
+  [AccountRoles.ROLE_STUDENT]: [
     {
       url: '/new-application',
       icon: iconLibraryConfig.faFileCirclePlus,
@@ -32,7 +32,7 @@ export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavbarR
       label: constants.routes.student.myApplications.LABEL,
     },
   ],
-  [AccountRoles.MENTOR]: [
+  [AccountRoles.ROLE_MENTOR]: [
     {
       url: '/my-students',
       icon: iconLibraryConfig.faUserGroup,
@@ -44,8 +44,8 @@ export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavbarR
       label: constants.routes.mentor.myStudentApplications.LABEL,
     },
   ],
-  [AccountRoles.INSTITUTION_ADMIN]: [],
-  [AccountRoles.SYSTEM_ADMIN]: [
+  [AccountRoles.ROLE_INSTITUTION_ADMIN]: [],
+  [AccountRoles.ROLE_SYSTEM_ADMIN]: [
     {
       url: '/all-students',
       icon: iconLibraryConfig.faUserGroup,
