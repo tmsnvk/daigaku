@@ -40,6 +40,11 @@ interface ComponentProps {
   readonly columns: Array<Column>;
 
   /**
+   * A boolean value that is true if the user has no Applications yet.
+   */
+  readonly isDataEmpty: boolean;
+
+  /**
    * A method that A-Z sort the rows by the selected column id.
    */
   onColumnSort: (id: string) => void;
@@ -73,6 +78,7 @@ interface ComponentProps {
  */
 export const TableHeader = ({
   columns,
+  isDataEmpty,
   onColumnSort,
   onToggleModal,
   onRefetch,
@@ -109,6 +115,7 @@ export const TableHeader = ({
                 <button
                   type={'button'}
                   onClick={() => onColumnSort(column.id)}
+                  disabled={isDataEmpty}
                 >
                   {column.name}
                   <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
@@ -121,6 +128,7 @@ export const TableHeader = ({
           <button
             type={'button'}
             onClick={() => onRefetch({ cancelRefetch: false })}
+            disabled={isDataEmpty}
           >
             Refresh
             <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
@@ -128,6 +136,7 @@ export const TableHeader = ({
           <button
             type={'button'}
             onClick={onToggleModal}
+            disabled={isDataEmpty}
           >
             Display
             <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
@@ -138,6 +147,7 @@ export const TableHeader = ({
             <button
               type={'button'}
               onClick={() => mutate()}
+              disabled={isDataEmpty}
             >
               Download
               <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />

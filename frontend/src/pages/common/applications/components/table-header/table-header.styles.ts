@@ -19,6 +19,11 @@ export const TableHeadRow = styled.tr`
       display: table-row;
       content: '';
     }
+
+    & button:disabled {
+      color: ${({ theme }) => theme.color.disabled};
+      cursor: not-allowed;
+    }
   }
 
   & th:last-of-type {
