@@ -27,6 +27,7 @@ import { constants } from './applications.constants';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
+import { isEmpty } from '@utilities';
 
 /**
  * Renders, in a table format, the list of Application records that the user has authorisation to view.
@@ -71,6 +72,7 @@ export const Applications = (): JSX.Element => {
         <thead>
           <TableHeader
             columns={columns}
+            isDataEmpty={isEmpty(data)}
             onColumnSort={handleColumnSort}
             onToggleModal={toggleModal}
             onRefetch={refetch}

@@ -19,6 +19,7 @@ declare module 'styled-components' {
       secondaryDark: string;
       secondaryLight: string;
       tertiaryLight: string;
+      disabled: string;
       error: string;
     };
     fontFamily: {

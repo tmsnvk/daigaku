@@ -13,6 +13,7 @@ import { DefaultTheme } from 'styled-components';
 
 const coralRed = '#F94144';
 const white = '#F0F0F0';
+const lightGrey = '#AAAAAA';
 const columbiaBlue = '#C9D7DD';
 const jacarta = '#31304D';
 const darkGunMetal = '#161A30';
@@ -25,6 +26,7 @@ export const theme: DefaultTheme = {
     secondaryDark: jacarta,
     secondaryLight: columbiaBlue,
     tertiaryLight: indianYellow,
+    disabled: lightGrey,
     error: coralRed,
   },
   fontFamily: {
