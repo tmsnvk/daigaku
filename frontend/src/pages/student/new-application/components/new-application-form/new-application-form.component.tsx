@@ -37,10 +37,10 @@ import { CreateApplicationByStudent } from '@common-types';
  */
 export const NewApplicationForm = (): JSX.Element => {
   const { selectCountry, resetCountrySelection, isCountrySelected, currentCountryUuid } = useCountrySelection();
-  const { data: countryOptions, isLoading: isCountryDataLoading, isError: isCountryError } = useGetCountryOptions();
+  const { data: countryOptions, isLoading: isCountryLoading, isError: isCountryError } = useGetCountryOptions();
   const {
     data: universityOptions,
-    isLoading: isUniversityDataLoading,
+    isLoading: isUniversityLoading,
     isError: isUniversityError,
   } = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
   const {
@@ -52,10 +52,10 @@ export const NewApplicationForm = (): JSX.Element => {
   } = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
   const { isPending, isSuccess, mutate } = useCreateApplication(setError, resetCountrySelection, reset);
 
-  if (isCountryDataLoading) {
+  if (isCountryLoading) {
     return (
       <GlobalLoadingModal
-        isVisible={isCountryDataLoading}
+        isVisible={isCountryLoading}
         loadingText={constants.pageMessage.LOADING}
       />
     );
@@ -94,7 +94,7 @@ export const NewApplicationForm = (): JSX.Element => {
           onCountrySelection={selectCountry}
         />
         <InputGuideText paragraphs={constants.form.country.INFORMATION} />
-        {isUniversityDataLoading ? (
+        {isUniversityLoading ? (
           <LoadingIndicator loadingText={constants.ui.UNIVERSITY_LOADING} />
         ) : (
           <UniversityDropdown

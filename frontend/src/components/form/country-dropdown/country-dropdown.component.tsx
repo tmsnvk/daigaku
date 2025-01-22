@@ -62,10 +62,10 @@ export const CountryDropdown = <T extends FieldValues>({
       />
       <select
         {...register(id, validationRules)}
-        onChange={handleCountrySelection}
         id={id}
         name={id}
         disabled={isDisabled}
+        onBlur={handleCountrySelection}
       >
         <option
           hidden
