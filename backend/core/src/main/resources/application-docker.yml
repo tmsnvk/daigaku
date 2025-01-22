@@ -25,6 +25,7 @@ spring:
   data:
     redis:
       host: ${REDIS_DOCKER_HOST}
+      port: 6379
 
 daigaku:
   app:
