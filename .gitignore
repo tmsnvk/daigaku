@@ -8,6 +8,7 @@ env.properties
 
 # frontend
 .env
+.env-test
 node_modules
 dist
 
