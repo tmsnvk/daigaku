@@ -1,14 +1,11 @@
 /**
- * @prettier
- */
-
-import { AccountRoles } from '@context/auth';
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
  */
+
+/* logic imports */
+import { AccountRoles } from '@context/auth';
 
 /**
  * Defines the properties of a user login form submission.
