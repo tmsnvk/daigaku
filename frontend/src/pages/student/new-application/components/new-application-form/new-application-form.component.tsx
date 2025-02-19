@@ -19,7 +19,7 @@ import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notific
 import { Form } from './new-application-form.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './new-application-form.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { CreateApplicationByStudent } from '@common-types';
@@ -52,7 +52,7 @@ export const NewApplicationForm = (): JSX.Element => {
     return (
       <GlobalLoadingModal
         isVisible={isCountryLoading}
-        loadingText={constants.pageMessage.LOADING}
+        loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.PAGE_LOADING}
       />
     );
   }
@@ -73,14 +73,14 @@ export const NewApplicationForm = (): JSX.Element => {
         method={'POST'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <PageTitle title={constants.form.TITLE} />
-        <InputGuideText paragraphs={constants.form.country.INFORMATION} />
+        <PageTitle title={l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE} />
+        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
         <CountryDropdown
           register={register}
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.country.REQUIRED,
+              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.VALIDATION.REQUIRED,
             },
           }}
           error={errors.countryUuid?.message}
@@ -89,16 +89,16 @@ export const NewApplicationForm = (): JSX.Element => {
           options={countryOptions ?? []}
           onCountrySelection={selectCountry}
         />
-        <InputGuideText paragraphs={constants.form.country.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
         {isUniversityLoading ? (
-          <LoadingIndicator loadingText={constants.ui.UNIVERSITY_LOADING} />
+          <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.UNIVERSITY_LOADING} />
         ) : (
           <UniversityDropdown
             register={register}
             validationRules={{
               required: {
                 value: true,
-                message: constants.validation.university.REQUIRED,
+                message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.VALIDATION.REQUIRED,
               },
             }}
             error={errors.universityUuid?.message}
@@ -107,70 +107,70 @@ export const NewApplicationForm = (): JSX.Element => {
             options={universityOptions ?? []}
           />
         )}
-        <InputGuideText paragraphs={constants.form.university.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.INFORMATION} />
         <GenericInput
           register={register}
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.courseName.REQUIRED,
+              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.REQUIRED,
             },
             pattern: {
               value: /^[\p{L}\s]{5,255}$/u,
-              message: constants.validation.courseName.PATTERN,
+              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.PATTERN,
             },
           }}
           error={errors.courseName?.message}
           id={'courseName'}
-          label={constants.form.courseName.LABEL}
+          label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.LABEL}
           type={'text'}
-          placeholder={constants.form.courseName.PLACEHOLDER}
+          placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputGuideText paragraphs={constants.form.courseName.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.INFORMATION} />
         <GenericInput
           register={register}
           validationRules={{
             pattern: {
               value: /^[\p{L}\s]{5,255}$/u,
-              message: constants.validation.minorSubject.PATTERN,
+              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.VALIDATION.PATTERN,
             },
           }}
           error={errors.minorSubject?.message}
           id={'minorSubject'}
-          label={constants.form.minorSubject.LABEL}
+          label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.LABEL}
           type={'text'}
-          placeholder={constants.form.minorSubject.PLACEHOLDER}
+          placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputGuideText paragraphs={constants.form.minorSubject.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.INFORMATION} />
         <GenericInput
           register={register}
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.programmeLength.REQUIRED,
+              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.REQUIRED,
             },
             pattern: {
               value: /^\b[2-5]\b$/,
-              message: constants.validation.programmeLength.PATTERN,
+              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.PATTERN,
             },
           }}
           error={errors.programmeLength?.message}
           id={'programmeLength'}
-          label={constants.form.programmeLength.LABEL}
+          label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.LABEL}
           type={'number'}
           initialValue={3}
           isDisabled={isPending}
         />
-        <InputGuideText paragraphs={constants.form.programmeLength.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.ui.LOADING} />
+            <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
-              value={constants.form.SUBMIT}
+              value={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
               disabled={isPending}
             />
           )}
@@ -179,7 +179,7 @@ export const NewApplicationForm = (): JSX.Element => {
       </Form>
       <Toast
         isVisible={isSuccess}
-        message={constants.ui.SUCCESS_TOAST}
+        message={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.SUCCESS_TOAST}
       />
     </>
   );

@@ -20,8 +20,7 @@ import { TableHeadRow } from './table-header.styles';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-import { errorConstants } from '@constants';
-import { constants } from './table-header.constants';
+import { errorConstants, localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { Column } from '../../applications.models';
@@ -138,7 +137,7 @@ export const TableHeader = ({
             <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
           </button>
           {isPending || shouldToastVisible ? (
-            <LoadingIndicator loadingText={constants.ui.download.REQUEST} />
+            <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.REQUEST} />
           ) : (
             <button
               type={'button'}

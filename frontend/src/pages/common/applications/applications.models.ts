@@ -5,7 +5,7 @@
  */
 
 /**
- * Defines the fields of an Application record.
+ * Defines the fields of an application record.
  */
 export enum ApplicationField {
   COURSE = 'Course',

@@ -16,7 +16,7 @@ import { PageFooter } from '../page-footer';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-import { constants } from './public-layout.constants';
+import { localization as l } from '@constants';
 
 /**
  * Renders the navigation routes for unauthorised users.
@@ -37,7 +37,7 @@ export const PublicLayout = (): JSX.Element => {
               <NavigationRoute
                 resource={'/contact'}
                 icon={iconLibraryConfig.faPaperPlane}
-                label={constants.ui.contactUs.LABEL}
+                label={l.LAYOUT.PUBLIC_LAYOUT.ROUTES.CONTACT_US.LABEL}
               />
             </li>
           </ul>

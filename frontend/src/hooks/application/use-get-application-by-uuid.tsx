@@ -17,10 +17,10 @@ import { queryKeys } from '@configuration';
 import { Application, SimpleQueryResult } from '@common-types';
 
 /**
- * Fetches an Application record by its uuid string.
- * The server-side request is triggered only if the Application record is not in the `react-router-dom` cache.
+ * Fetches an application record by its uuid string.
+ * The server-side request is triggered only if the application record is not in the `react-router-dom` cache.
  *
- * @param state An Application record from the local `react-router-dom` cache, if it exists, otherwise null.
+ * @param state An application record from the local `react-router-dom` cache, if it exists, otherwise null.
  * @param applicationUuid The Application record's uuid string.
  * @return {SimpleQueryResult<Application>}
  */

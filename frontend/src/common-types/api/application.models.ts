@@ -17,68 +17,68 @@ export interface Application extends BaseMetadata {
   readonly uuid: string;
 
   /**
-   * The uuid string of the account associated with the Application.
+   * The uuid string of the account associated with the application.
    */
-  readonly account: string;
+  readonly accountUuid: string;
 
   /**
-   * The uuid string of the country associated with the Application.
+   * The uuid string of the country associated with the application.
    */
-  readonly country: string;
+  readonly countryUuid: string;
 
   /**
-   * The uuid string of the university associated with the Application.
+   * The uuid string of the university associated with the application.
    */
-  readonly university: string;
+  readonly universityUuid: string;
 
   /**
-   * The course associated with the Application.
+   * The course associated with the application.
    */
   readonly courseName: string;
 
   /**
-   * The minor subject associated with the Application.
+   * The minor subject associated with the application.
    */
   readonly minorSubject: string;
 
   /**
-   * The programme length associated with the Application.
+   * The programme length associated with the application.
    */
   readonly programmeLength: number;
 
   /**
-   * The Application's current ApplicationStatus.
+   * The application's current ApplicationStatus.
    */
   readonly applicationStatus: ApplicationStatus;
 
   /**
-   * The Application's current InterviewStatus.
+   * The application's current InterviewStatus.
    */
   readonly interviewStatus: InterviewStatus | null;
 
   /**
-   * The Application's current OfferStatus.
+   * The application's current OfferStatus.
    */
   readonly offerStatus: OfferStatus | null;
 
   /**
-   * The Application's current ResponseStatus.
+   * The application's current ResponseStatus.
    */
   readonly responseStatus: ResponseStatus | null;
 
   /**
-   * The Application's current FinalDestinationStatus.
+   * The application's current FinalDestinationStatus.
    */
   readonly finalDestinationStatus: FinalDestinationStatus | null;
 
   /**
-   * The boolean indicates whether the owner marked it obsolete and ready for deletion.
+   * The boolean indicating whether the owner marked it obsolete and ready for deletion.
    */
   isRemovable: boolean;
 }
 
 /**
- * Defines the properties of a single new Application submission for Student authenticated users.
+ * Defines the properties of a single new application submission for Student authenticated users.
  */
 export interface CreateApplicationByStudent {
   /**

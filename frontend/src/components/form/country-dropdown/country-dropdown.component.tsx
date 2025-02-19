@@ -16,7 +16,7 @@ import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* configuration, utilities, constants imports */
-import { constants } from './country-dropdown.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { CountryOption, DropdownInput } from '@common-types';
@@ -54,7 +54,7 @@ export const CountryDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        label={constants.ui.dropdown.LABEL}
+        label={l.COMPONENTS.FORM.COUNTRY_DROPDOWN.LABEL}
       />
       <select
         {...register(id, validationRules)}
@@ -67,7 +67,7 @@ export const CountryDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          {constants.ui.dropdown.DEFAULT_OPTION}
+          {l.COMPONENTS.FORM.COUNTRY_DROPDOWN.DEFAULT_OPTION}
         </option>
         {options.map((countryOption: CountryOption) => (
           <option

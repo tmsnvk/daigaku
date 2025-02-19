@@ -14,7 +14,7 @@ import { Cell, TableBodyRow } from './data-rows.styles';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-import { constants } from './data-rows.constants';
+import { localization as l } from '@constants';
 import { isColumnVisible } from './data-rows.utilities';
 
 /* interface, type, enum imports */
@@ -31,7 +31,7 @@ interface ComponentProps {
   readonly columns: Array<Column>;
 
   /**
-   * An array of Application records to be displayed in the table rows.
+   * An array of application records to be displayed in the table rows.
    */
   readonly applications: Array<Application>;
 }
@@ -46,8 +46,8 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
     return (
       <TableBodyRow key={application.uuid}>
         <Cell $shouldDisplay={isColumnVisible(columns, 'courseName')}>{application.courseName}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'university')}>{application.university}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'country')}>{application.country}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'university')}>{application.universityUuid}</Cell>
+        <Cell $shouldDisplay={isColumnVisible(columns, 'country')}>{application.countryUuid}</Cell>
         <Cell $shouldDisplay={isColumnVisible(columns, 'programmeLength')}>{application.programmeLength}</Cell>
         <Cell $shouldDisplay={isColumnVisible(columns, 'applicationStatus')}>{application.applicationStatus.name ?? '-'}</Cell>
         <Cell $shouldDisplay={isColumnVisible(columns, 'interviewStatus')}>{application.interviewStatus?.name ?? '-'}</Cell>
@@ -59,14 +59,14 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
             to={`edit/${application.uuid}`}
             state={application}
           >
-            {constants.ui.EDIT}
+            {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.EDIT}
             <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
           </Link>
           <Link
             to={`view/${application.uuid}`}
             state={application}
           >
-            {constants.ui.VIEW}
+            {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.VIEW}
             <FontAwesomeIcon icon={iconLibraryConfig.faMagnifyingGlass} />
           </Link>
         </td>

@@ -13,7 +13,7 @@ import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* configuration, utilities, constants imports */
-import { constants } from './university-dropdown.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { DropdownInput, UniversityOption } from '@common-types';
@@ -43,7 +43,7 @@ export const UniversityDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        label={constants.ui.dropdown.LABEL}
+        label={l.COMPONENTS.FORM.UNIVERSITY_DROPDOWN.LABEL}
       />
       <select
         {...register(id, validationRules)}
@@ -55,7 +55,7 @@ export const UniversityDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          {constants.ui.dropdown.DEFAULT_OPTION}
+          {l.COMPONENTS.FORM.UNIVERSITY_DROPDOWN.DEFAULT_OPTION}
         </option>
         {options.map((universityOption: UniversityOption) => (
           <option

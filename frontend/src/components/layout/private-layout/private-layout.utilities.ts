@@ -6,7 +6,7 @@
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-import { constants } from './private-layout.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { AccountRoles } from '@context/auth';
@@ -20,24 +20,24 @@ export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavbarR
     {
       url: '/new-application',
       icon: iconLibraryConfig.faFileCirclePlus,
-      label: constants.routes.student.newApplication.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.STUDENT.NEW_APPLICATION.LABEL,
     },
     {
       url: '/applications',
       icon: iconLibraryConfig.faScroll,
-      label: constants.routes.student.myApplications.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.STUDENT.MY_APPLICATIONS.LABEL,
     },
   ],
   [AccountRoles.ROLE_MENTOR]: [
     {
       url: '/my-students',
       icon: iconLibraryConfig.faUserGroup,
-      label: constants.routes.mentor.myStudents.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.MENTOR.MY_STUDENTS.LABEL,
     },
     {
       url: '/applications',
       icon: iconLibraryConfig.faScroll,
-      label: constants.routes.mentor.myStudentApplications.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.MENTOR.MY_STUDENT_APPLICATIONS.LABEL,
     },
   ],
   [AccountRoles.ROLE_INSTITUTION_ADMIN]: [],
@@ -45,22 +45,22 @@ export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavbarR
     {
       url: '/all-students',
       icon: iconLibraryConfig.faUserGroup,
-      label: constants.routes.systemAdmin.allStudents.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.ALL_STUDENTS.LABEL,
     },
     {
       url: '/all-mentors',
       icon: iconLibraryConfig.faUserGroup,
-      label: constants.routes.systemAdmin.allMentors.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.ALL_MENTORS.LABEL,
     },
     {
       url: '/applications',
       icon: iconLibraryConfig.faScroll,
-      label: constants.routes.systemAdmin.allApplications.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.ALL_APPLICATIONS.LABEL,
     },
     {
       url: '/system',
       icon: iconLibraryConfig.faGears,
-      label: constants.routes.systemAdmin.system.LABEL,
+      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.SYSTEM.LABEL,
     },
   ],
 };
@@ -69,7 +69,7 @@ export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavbarR
  * Defines shared navigation routes accessible to all authenticated users.
  */
 export const sharedNavigationRoutes: Array<NavbarRoute> = [
-  { url: '/account', icon: iconLibraryConfig.faUser, label: constants.routes.shared.myAccount.LABEL },
-  { url: '/messages', icon: iconLibraryConfig.faEnvelope, label: constants.routes.shared.messages.LABEL },
-  { url: '/feedback', icon: iconLibraryConfig.faGears, label: constants.routes.shared.feedback.LABEL },
+  { url: '/account', icon: iconLibraryConfig.faUser, label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.MY_ACCOUNT.LABEL },
+  { url: '/messages', icon: iconLibraryConfig.faEnvelope, label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.MESSAGES.LABEL },
+  { url: '/feedback', icon: iconLibraryConfig.faGears, label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.FEEDBACK.LABEL },
 ];

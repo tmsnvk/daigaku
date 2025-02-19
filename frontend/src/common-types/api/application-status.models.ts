@@ -5,11 +5,11 @@
  */
 
 /**
- * Defines the base of an Application status field.
+ * Defines the base of an application status field.
  */
 interface BaseStatus {
   /**
-   * The status's uuid.
+   * The status's uuid string.
    */
   readonly uuid: string;
 

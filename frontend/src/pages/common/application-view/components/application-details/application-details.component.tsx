@@ -15,7 +15,7 @@ import { ApplicationDetail } from '../application-detail';
 import { Section } from './application-details.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './application-details.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
@@ -25,13 +25,13 @@ import { Application } from '@common-types';
  */
 interface ComponentProps {
   /**
-   * The selected Application record.
+   * The selected application record.
    */
   readonly application: Application;
 }
 
 /**
- * Renders the details of an Application record.
+ * Renders the details of an application record.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -39,7 +39,7 @@ interface ComponentProps {
 export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element => {
   return (
     <Section as={'section'}>
-      <PageTitle title={constants.ui.TITLE} />
+      <PageTitle title={l.PAGES.COMMON.APPLICATION_VIEW.TITLE} />
       <ApplicationMetadata
         createdAt={application.createdAt}
         createdBy={application.createdBy}
@@ -47,42 +47,42 @@ export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element
         lastModifiedBy={application.lastModifiedBy}
       />
       <article>
-        <Link to={`/applications/edit/${application.uuid}`}>{constants.ui.EDIT_BUTTON}</Link>
+        <Link to={`/applications/edit/${application.uuid}`}>{l.PAGES.COMMON.APPLICATION_VIEW.EDIT_BUTTON}</Link>
       </article>
       <ApplicationDetail
-        name={constants.fields.country.NAME}
-        value={application.country}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.COUNTRY.NAME}
+        value={application.countryUuid}
       />
       <ApplicationDetail
-        name={constants.fields.courseName.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.COURSE_NAME.NAME}
         value={application.courseName}
       />
       <ApplicationDetail
-        name={constants.fields.minorSubject.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.MINOR_SUBJECT.NAME}
         value={application.minorSubject ?? '-'}
       />
       <ApplicationDetail
-        name={constants.fields.programmeLength.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.PROGRAMME_LENGTH.NAME}
         value={application.programmeLength}
       />
       <ApplicationDetail
-        name={constants.fields.applicationStatus.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.APPLICATION_STATUS.NAME}
         value={application.applicationStatus.name}
       />
       <ApplicationDetail
-        name={constants.fields.interviewStatus.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.INTERVIEW_STATUS.NAME}
         value={application.interviewStatus?.name ?? '-'}
       />
       <ApplicationDetail
-        name={constants.fields.offerStatus.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.OFFER_STATUS.NAME}
         value={application.offerStatus?.name ?? '-'}
       />
       <ApplicationDetail
-        name={constants.fields.responseStatus.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.RESPONSE_STATUS.NAME}
         value={application.responseStatus?.name ?? '-'}
       />
       <ApplicationDetail
-        name={constants.fields.finalDestination.NAME}
+        name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.FINAL_DESTINATION_STATUS.NAME}
         value={application.finalDestinationStatus?.name ?? '-'}
       />
     </Section>

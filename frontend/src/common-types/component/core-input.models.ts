@@ -8,30 +8,6 @@
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 /**
- * Defines criteria for validation rules for an input field using `react-hook-form`,
- * including required fields and patterns for matching input values, along with custom error messages.
- */
-interface CoreInputValidationRules {
-  /**
-   * Specifies whether the input is required to be filled in.
-   * If the requirement is violated, the provided custom error message is displayed for the user.
-   */
-  readonly required?: {
-    value: boolean;
-    message: string;
-  };
-
-  /**
-   * Specifies whether the input must match a certain pattern.
-   * If the requirement is violated, the provided custom error message is displayed for the user.
-   */
-  readonly pattern?: {
-    value: RegExp;
-    message: string;
-  };
-}
-
-/**
  * Defines the core properties of input fields used with `react-hook-form`.
  * The interface intends to standardize basic properties across various input types
  * that utilize the `react-hook-form` library for form handling and validation.
@@ -46,7 +22,25 @@ export interface CoreInput<T extends FieldValues> {
   /**
    * Optional validation rules to handle input validation in `react-hook-form`.
    */
-  readonly validationRules?: CoreInputValidationRules;
+  readonly validationRules?: {
+    /**
+     * Specifies whether the input is required to be filled in.
+     * If the requirement is violated, the provided custom error message is displayed for the user.
+     */
+    readonly required?: {
+      value: boolean;
+      message: string;
+    };
+
+    /**
+     * Specifies whether the input must match a certain pattern.
+     * If the requirement is violated, the provided custom error message is displayed for the user.
+     */
+    readonly pattern?: {
+      value: RegExp;
+      message: string;
+    };
+  };
 
   /**
    * The error message associated with the input, if validation fails.

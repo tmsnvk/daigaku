@@ -11,7 +11,7 @@ import { JSX } from 'react';
 import { Article, ErrorContainer } from './comments.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './comments.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { Comment } from '@common-types';
@@ -39,7 +39,7 @@ interface ComponentProps {
  */
 export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => {
   if (isError) {
-    return <ErrorContainer>{constants.ui.ERROR}</ErrorContainer>;
+    return <ErrorContainer>{l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.ERROR}</ErrorContainer>;
   }
 
   return (

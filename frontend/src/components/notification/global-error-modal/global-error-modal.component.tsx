@@ -15,7 +15,7 @@ import { SubmitInput } from '@components/form';
 import { Dialog } from './global-error-modal.styles.ts';
 
 /* configuration, utilities, constants imports */
-import { constants } from './global-error-modal.constants.ts';
+import { localization as l } from '@constants';
 
 /**
  * Defines the component's properties.
@@ -48,12 +48,12 @@ export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: Compone
 
   return (
     <Dialog ref={dialogRef}>
-      <p>{constants.ui.errors.MESSAGE[0]}</p>
+      <p>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[0]}</p>
       {errorText && <p>{errorText}</p>}
-      <p>{constants.ui.errors.MESSAGE[1]}</p>
+      <p>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[1]}</p>
       <SubmitInput
         type={'button'}
-        value={constants.ui.button.ACCEPTANCE}
+        value={l.COMPONENTS.NOTIFICATION.MODAL.ERROR.ACCEPTANCE}
         autoFocus={true}
         onClick={onCloseModal}
       />

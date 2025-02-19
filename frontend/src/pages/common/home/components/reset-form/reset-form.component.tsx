@@ -17,9 +17,9 @@ import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button';
 
 /* configuration, utilities, constants imports */
+import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../../home.constants';
 import { FormInstruction } from '../form-instruction';
-import { constants } from './reset-form.constants';
 
 /* interface, type, enum imports */
 import { AccountResetRequest } from '@common-types';
@@ -61,7 +61,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
 
   return (
     <section>
-      <FormInstruction instructionText={constants.ui.form.INSTRUCTION} />
+      <FormInstruction instructionText={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.INSTRUCTION} />
       <form
         id={'post-account-reset-form'}
         method={'POST'}
@@ -72,25 +72,25 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.email.REQUIRED,
+              message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED,
             },
           }}
           type={'email'}
           id={'email'}
-          label={constants.ui.form.fields.EMAIL.LABEL}
-          placeholder={constants.ui.form.fields.EMAIL.PLACEHOLDER}
+          label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
+          placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
           isDisabled={isPending}
           error={errors.email?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.ui.messages.LOADING} />
+            <LoadingIndicator loadingText={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               id={'reset'}
               name={'reset'}
-              value={constants.ui.form.SUBMIT}
+              value={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
               disabled={isPending}
             />
           )}

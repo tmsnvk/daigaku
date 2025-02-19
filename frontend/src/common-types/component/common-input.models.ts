@@ -26,7 +26,6 @@ export interface CommonInput<T extends FieldValues> extends CoreInput<T> {
 
   /**
    * Optional input type, specifying the type of input.
-   * Valid types include 'text', 'email', 'number', 'password', etc.
    */
   readonly type?: string;
 
