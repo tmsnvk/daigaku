@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -19,8 +15,7 @@ import { applicationStudentService } from '@services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { errorConstants } from '@constants';
-import { constants } from './application-form.constants';
+import { errorConstants, localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import {
@@ -103,7 +98,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
     applicationsCache.forEach((application: Application) => {
       if (application.uuid !== currentApplicationUuid) {
         if (application.responseStatus?.name === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
-          errors.push(constants.notifications.errors.FIRM_CHOICE_SELECTION);
+          errors.push(l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.ERRORS.FIRM_CHOICE_SELECTION);
         }
 
         if (
@@ -112,7 +107,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
           (application.finalDestinationStatus?.name === FinalDestinationStatusE.DEFERRED_ENTRY &&
             formData.finalDestinationStatusUuid === finalDestinationDeferredUuid)
         ) {
-          errors.push(constants.notifications.errors.FINAL_DESTINATION_SELECTION);
+          errors.push(l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.ERRORS.FINAL_DESTINATION_SELECTION);
         }
       }
     });

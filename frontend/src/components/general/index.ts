@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk

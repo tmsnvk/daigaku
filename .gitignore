@@ -1,13 +1,6 @@
-# java and maven
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-env.properties
-*.iml
-
 # frontend
 .env
+.env-test
 node_modules
 dist
 
@@ -16,6 +9,14 @@ playwright-report/
 blob-report/
 playwright/.cache/
 state/
+
+# backend
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+env.properties
+*.iml
 
 # IDEs
 .idea

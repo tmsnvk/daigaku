@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -15,7 +11,7 @@ import { JSX } from 'react';
 import { Article } from './application-metadata.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './application-metadata.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { BaseMetadata } from '@common-types';
@@ -27,7 +23,7 @@ interface ComponentProps extends BaseMetadata {}
 
 /**
  * Renders the metadata for a selected application, including the creation and
- * last update timestamps, as well as the respective users responsible for these actions.
+ * last-updated timestamps, as well as the respective users responsible for these actions.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -37,7 +33,7 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
     <Article>
       <dl>
         <div>
-          <dt>{constants.ui.SUBMISSION.AT}</dt>{' '}
+          <dt>{l.APPLICATION.METADATA.SUBMISSION.AT}</dt>{' '}
           <dd>
             {new Date(createdAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -49,10 +45,10 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
           </dd>
         </div>
         <div>
-          <dt>{constants.ui.SUBMISSION.BY}</dt> <dd>{createdBy}</dd>
+          <dt>{l.APPLICATION.METADATA.SUBMISSION.BY}</dt> <dd>{createdBy}</dd>
         </div>
         <div>
-          <dt>{constants.ui.LAST_UPDATE.AT}</dt>{' '}
+          <dt>{l.APPLICATION.METADATA.LAST_UPDATE.AT}</dt>{' '}
           <dd>
             {new Date(lastUpdatedAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -64,7 +60,7 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
           </dd>
         </div>
         <div>
-          <dt>{constants.ui.LAST_UPDATE.BY}</dt> <dd>{lastModifiedBy}</dd>
+          <dt>{l.APPLICATION.METADATA.LAST_UPDATE.BY}</dt> <dd>{lastModifiedBy}</dd>
         </div>
       </dl>
     </Article>

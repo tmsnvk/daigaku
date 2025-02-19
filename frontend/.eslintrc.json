@@ -7,22 +7,15 @@
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "plugin:react/jsx-runtime"],
   "settings": {
-    "react": { "version": "detect" },
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "moduleDirectory": ["src/", "tests/"]
-      }
-    }
+    "react": { "version": "detect" }
   },
   "plugins": ["react", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
-    "ecmaFeatures": { "modules": true, "jsx": true },
     "sourceType": "module"
   },
-  "ignorePatterns": ["node_modules/*"],
+  "ignorePatterns": ["node_modules/*", "build/*", "dist/*"],
   "overrides": [
     {
       "files": ["**/*.ts", "**/*.tsx"],
@@ -33,11 +26,9 @@
     }
   ],
   "rules": {
-    // * possible problems * //
     "array-callback-return": "error",
     "constructor-super": "error",
     "for-direction": "error",
-    "getter-return": ["error", { "allowImplicit": true }],
     "no-cond-assign": ["error", "always"],
     "no-const-assign": "error",
     "no-constant-binary-expression": "error",
@@ -63,7 +54,6 @@
     "no-unused-private-class-members": "error",
     "no-use-before-define": "error",
     "use-isnan": "error",
-    // * suggestions * //
     "accessor-pairs": ["warn", { "getWithoutSet": true, "setWithoutGet": true, "enforceForClassMembers": false }],
     "camelcase": "warn",
     "curly": ["warn", "multi-line", "consistent"],
@@ -72,10 +62,7 @@
     "default-param-last": "warn",
     "dot-notation": "warn",
     "eqeqeq": "warn",
-    "func-name-matching": "warn",
-    "func-names": ["warn", "always"],
     "func-style": ["warn", "declaration", { "allowArrowFunctions": true }],
-    "guard-for-in": "warn",
     "no-else-return": "warn",
     "no-eval": "warn",
     "no-implied-eval": "warn",
@@ -91,7 +78,6 @@
     "no-unused-expressions": ["warn", { "allowShortCircuit": true, "allowTernary": true }],
     "no-useless-return": "warn",
     "no-var": "warn",
-    "no-void": "error",
     "no-warning-comments": "warn",
     "prefer-const": "warn",
     "prefer-exponentiation-operator": "warn",
@@ -110,9 +96,7 @@
         "allowSeparatedGroups": true
       }
     ],
-    "strict": ["error", "global"],
     "yoda": "warn",
-    // layout and formatting * //
     "array-bracket-newline": ["warn", "consistent"],
     "array-bracket-spacing": ["warn", "never"],
     "array-element-newline": ["warn", "consistent"],
@@ -128,7 +112,7 @@
     "func-call-spacing": ["warn", "never"],
     "function-call-argument-newline": ["warn", "consistent"],
     "function-paren-newline": ["warn", "consistent"],
-    "indent": ["warn", 2, { "MemberExpression": 1, "SwitchCase": 1, "ArrayExpression": 1 }],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
     "jsx-quotes": ["warn", "prefer-single"],
     "keyword-spacing": "warn",
     "line-comment-position": ["warn", { "position": "above" }],
@@ -154,8 +138,7 @@
       "warn",
       { "blankLine": "always", "prev": "*", "next": "return" },
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
-      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] },
-      { "blankLine": "always", "prev": ["case", "default"], "next": "*" }
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
     ],
     "quotes": ["warn", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "semi": "warn",
@@ -166,7 +149,6 @@
     "space-unary-ops": "warn",
     "switch-colon-spacing": "warn",
     "template-curly-spacing": "warn",
-    // react-related //
     "react/prop-types": "off",
     "react/jsx-max-props-per-line": [2, { "maximum": 1, "when": "always" }],
     "react/jsx-first-prop-new-line": [2, "multiline"],

@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -21,7 +17,7 @@ import { LoadingIndicator } from '@components/general';
 import { Form } from './create-comment-form.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './create-comment-form.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { CreateComment } from '@common-types';
@@ -31,7 +27,7 @@ import { CreateComment } from '@common-types';
  */
 interface ComponentProps {
   /**
-   * The Application record's uuid string used in the REST API request when the user submits a new comment.
+   * The application record's uuid string used in the REST API request when the user submits a new comment.
    */
   readonly applicationUuid: string;
 }
@@ -43,6 +39,9 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const CreateCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
+  const DEFAULT_ROW_SIZE = 10;
+  const DEFAULT_COL_SIZE = 10;
+
   const {
     formState: { errors },
     handleSubmit,
@@ -62,28 +61,28 @@ export const CreateCommentForm = ({ applicationUuid }: ComponentProps): JSX.Elem
         validationRules={{
           required: {
             value: true,
-            message: constants.validation.REQUIRED_COMMENT,
+            message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.REQUIRED_COMMENT,
           },
           pattern: {
             value: /^(.|\s){15,1000}$/,
-            message: constants.validation.PATTERN_COMMENT,
+            message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.PATTERN_COMMENT,
           },
         }}
         id={'comment'}
-        label={constants.form.commentConent.LABEL}
-        rows={constants.ui.ROW_SIZE}
-        cols={constants.ui.COLUMN_SIZE}
-        placeholder={constants.form.commentConent.PLACEHOLDER}
+        label={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.LABEL}
+        rows={DEFAULT_ROW_SIZE}
+        cols={DEFAULT_COL_SIZE}
+        placeholder={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.PLACEHOLDER}
         isDisabled={isPending}
         error={errors.comment?.message}
       />
       <article>
         {isPending ? (
-          <LoadingIndicator loadingText={constants.ui.SUBMIT_LOADING} />
+          <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_LOADING} />
         ) : (
           <SubmitInput
             type={'submit'}
-            value={constants.ui.SUBMIT_INPUT}
+            value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_INPUT}
             disabled={isPending}
           />
         )}

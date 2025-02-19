@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -17,6 +13,9 @@ import { useRenderModal } from '@hooks';
 /* component, style imports */
 import { SubmitInput } from '@components/form';
 import { Dialog } from './confirmation-modal.styles';
+
+/* configuration, utilities, constants imports */
+import { localization as l } from '@constants';
 
 /**
  * Defines the component's properties.
@@ -52,7 +51,7 @@ export const ConfirmationModal = ({ isVisible, message, onCloseModal }: Componen
       <p>{message}</p>
       <SubmitInput
         type={'button'}
-        value={'ok'}
+        value={l.COMPONENTS.NOTIFICATION.MODAL.CONFIRMATION.ACCEPTANCE}
         autoFocus={true}
         onClick={onCloseModal}
       />

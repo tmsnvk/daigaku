@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -50,10 +46,10 @@ export const useHandleCommentPagination = (): CommentPagination => {
 };
 
 /**
- * Manages fetching comments for a specific Application record based on the selected page number in the pagination list.
+ * Manages fetching comments for a specific application record based on the selected page number in the pagination list.
  * Utilizes the `react-query` library for data fetching and caching.
  *
- * @param applicationUuid The selected Application record's uuid string.
+ * @param applicationUuid The selected application record's uuid string.
  * @param currentPage The current page number in the pagination sequence.
  * @return {SimpleQueryResult<CommentPaginationData>}
  */

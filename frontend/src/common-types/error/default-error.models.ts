@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -28,7 +24,7 @@ export interface ErrorDetail {
  */
 export interface CoreErrorResponse {
   /**
-   * The HTTP Status error code.
+   * The HTTP status error code.
    */
   readonly errorCode: number;
 

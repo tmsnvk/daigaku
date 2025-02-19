@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -19,7 +15,7 @@ import { DetailTile, StatTile, TodosView } from '../../components';
 import { TileUnit } from './student-layout.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './student-layout.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { StudentDashboardStatistics } from '@common-types';
@@ -46,55 +42,55 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
   return (
     <>
       <TodosView
-        introduction={constants.todoList.INTRODUCTION}
+        introduction={l.PAGES.COMMON.DASHBOARD.TODO_LIST.INTRODUCTION}
         todos={todos}
       />
       <TileUnit>
         <StatTile
-          title={constants.tile.APPLICATIONS}
+          title={l.PAGES.COMMON.DASHBOARD.TILE.APPLICATIONS}
           value={data.applicationsCount}
         />
         <StatTile
-          title={constants.tile.PLANNED_APPLICATIONS}
+          title={l.PAGES.COMMON.DASHBOARD.TILE.PLANNED_APPLICATIONS}
           value={data.plannedApplicationsCount}
         />
         <StatTile
-          title={constants.tile.SUBMITTED_APPLICATIONS}
+          title={l.PAGES.COMMON.DASHBOARD.TILE.SUBMITTED_APPLICATIONS}
           value={data.submittedApplicationsCount}
         />
         <StatTile
-          title={constants.tile.WITHDRAWN_APPLICATIONS}
+          title={l.PAGES.COMMON.DASHBOARD.TILE.WITHDRAWN_APPLICATIONS}
           value={data.withdrawnStatusCount}
         />
       </TileUnit>
       <TileUnit>
         <StatTile
-          title={constants.tile.DISTINCT_COUNTRIES}
+          title={l.PAGES.COMMON.DASHBOARD.TILE.DISTINCT_COUNTRIES}
           value={data.distinctCountriesCount}
         />
         <StatTile
-          title={constants.tile.DISTINCT_UNIVERSITIES}
+          title={l.PAGES.COMMON.DASHBOARD.TILE.DISTINCT_UNIVERSITIES}
           value={data.distinctUniversitiesCount}
         />
       </TileUnit>
       <TileUnit>
         <StatTile
-          title={constants.tile.OFFERS}
+          title={l.PAGES.COMMON.DASHBOARD.TILE.OFFERS}
           value={data.offersCount}
         />
         {data.firmChoiceTileDetails && (
           <DetailTile
-            title={constants.tile.FIRM_CHOICE}
+            title={l.PAGES.COMMON.DASHBOARD.TILE.FIRM_CHOICE}
             country={data.firmChoiceTileDetails.countryName ?? ''}
-            university={data.firmChoiceTileDetails.universityName ?? constants.tile.NOT_YET_SELECTED}
+            university={data.firmChoiceTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED}
             courseName={data.firmChoiceTileDetails.courseName ?? ''}
           />
         )}
         {data.finalDestinationTileDetails && (
           <DetailTile
-            title={constants.tile.FINAL_DESTINATION}
+            title={l.PAGES.COMMON.DASHBOARD.TILE.FINAL_DESTINATION}
             country={data.finalDestinationTileDetails.countryName ?? ''}
-            university={data.finalDestinationTileDetails.universityName ?? constants.tile.NOT_YET_SELECTED}
+            university={data.finalDestinationTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED}
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}

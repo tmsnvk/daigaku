@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -15,7 +11,7 @@ import { JSX } from 'react';
 import { Footer } from './page-footer.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './page-footer.constants';
+import { localization as l } from '@constants';
 import { getCurrentYear } from './page-footer.utilities';
 
 /**
@@ -29,9 +25,9 @@ export const PageFooter = (): JSX.Element => {
       <div></div>
       <Footer>
         <p>
-          {constants.ui.INIT_YEAR} - {getCurrentYear()}
+          {l.LAYOUT.FOOTER.INIT_YEAR} - {getCurrentYear()}
         </p>
-        <p>{constants.ui.INFO}</p>
+        <p>{l.LAYOUT.FOOTER.CONTENT}</p>
       </Footer>
     </>
   );

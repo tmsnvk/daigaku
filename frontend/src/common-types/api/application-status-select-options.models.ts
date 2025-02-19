@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -12,7 +8,7 @@
 import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 
 /**
- * Defines the properties of all Application status fields.
+ * Defines the properties of all application status fields.
  */
 export interface ApplicationStatusSelectOptions {
   /**

@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -25,7 +21,7 @@ import { IsRemovableButton } from '../is-removable-button';
 import { Form } from './application-form.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './application-form.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import {
@@ -44,7 +40,7 @@ import {
  */
 interface ComponentProps {
   /**
-   * The Application record.
+   * The application record.
    */
   readonly application: Application;
 
@@ -88,7 +84,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
         method={'PATCH'}
         onSubmit={handleSubmit((formData) => submitForm(formData, application.uuid, mutate, setError))}
       >
-        <PageTitle title={constants.form.TITLE} />
+        <PageTitle title={l.PAGES.COMMON.APPLICATION_EDIT.FORM.TITLE} />
         <ApplicationMetadata
           createdAt={updatedData?.createdAt ?? application.createdAt}
           createdBy={updatedData?.createdBy ?? application.createdBy}
@@ -99,108 +95,108 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           isRemovable={updatedData?.isRemovable ?? application.isRemovable}
           applicationUuid={application.uuid}
         />
-        <InputGuideText paragraphs={constants.form.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.INFORMATION} />
         <DisabledInput
           id={'country'}
           type={'text'}
-          label={constants.form.fields.country.NAME}
-          value={application.country}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.NAME}
+          value={application.countryUuid}
         />
-        <InputGuideText paragraphs={constants.form.fields.country.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.INFORMATION} />
         <DisabledInput
           id={'university'}
           type={'text'}
-          label={constants.form.fields.university.NAME}
-          value={application.university}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.NAME}
+          value={application.universityUuid}
         />
-        <InputGuideText paragraphs={constants.form.fields.university.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.INFORMATION} />
         <DisabledInput
           id={'courseName'}
           type={'text'}
-          label={constants.form.fields.courseName.NAME}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.NAME}
           value={application.courseName}
         />
-        <InputGuideText paragraphs={constants.form.fields.courseName.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.INFORMATION} />
         <DisabledInput
           id={'minorSubject'}
           type={'text'}
-          label={constants.form.fields.minorSubject.NAME}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.NAME}
           value={application.minorSubject ?? '-'}
         />
-        <InputGuideText paragraphs={constants.form.fields.minorSubject.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.INFORMATION} />
         <DisabledInput
           id={'programmeLength'}
           type={'number'}
-          label={constants.form.fields.programmeLength.NAME}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.NAME}
           value={application.programmeLength}
         />
-        <InputGuideText paragraphs={constants.form.fields.programmeLength.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'applicationStatusUuid'}
-          label={constants.form.fields.applicationStatus.NAME}
-          selectPrompt={constants.form.fields.applicationStatus.SELECT_PROMPT}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.NAME}
+          selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
           options={selectOptions.applicationStatus as Array<ApplicationStatus>}
           isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
           onFieldUpdate={updateInterviewStatus}
           error={errors.applicationStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.form.fields.applicationStatus.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'interviewStatusUuid'}
-          label={constants.form.fields.interviewStatus.NAME}
-          selectPrompt={constants.form.fields.interviewStatus.SELECT_PROMPT}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.NAME}
+          selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
           options={selectOptions.interviewStatus as Array<InterviewStatus>}
           isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
           onFieldUpdate={updateOfferStatus}
           error={errors.interviewStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.form.fields.interviewStatus.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'offerStatusUuid'}
-          label={constants.form.fields.offerStatus.NAME}
-          selectPrompt={constants.form.fields.offerStatus.SELECT_PROMPT}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.NAME}
+          selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
           options={selectOptions.offerStatus as Array<OfferStatus>}
           isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
           onFieldUpdate={updateResponseStatus}
           error={errors.offerStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.form.fields.offerStatus.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'responseStatusUuid'}
-          label={constants.form.fields.responseStatus.NAME}
-          selectPrompt={constants.form.fields.responseStatus.SELECT_PROMPT}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.NAME}
+          selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
           options={selectOptions.responseStatus as Array<ResponseStatus>}
           isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
           onFieldUpdate={updateFinalDestinationStatus}
           error={errors.responseStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.form.fields.responseStatus.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'finalDestinationStatusUuid'}
-          label={constants.form.fields.finalDestination.NAME}
-          selectPrompt={constants.form.fields.finalDestination.SELECT_PROMPT}
+          label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.NAME}
+          selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.SELECT_PROMPT}
           previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
           options={selectOptions.finalDestinationStatus as Array<FinalDestinationStatus>}
           isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
           error={errors.finalDestinationStatusUuid?.message}
         />
-        <InputGuideText paragraphs={constants.form.fields.finalDestination.INFORMATION} />
+        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.INFORMATION} />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.notifications.LOADING} />
+            <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.APPLICATION_LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
-              value={constants.notifications.SUBMIT}
+              value={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.APPLICATION_SUBMIT}
               disabled={isPending}
             />
           )}
@@ -209,7 +205,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
       </Form>
       <Toast
         isVisible={isSuccess}
-        message={constants.form.SUBMISSION}
+        message={l.PAGES.COMMON.APPLICATION_EDIT.FORM.SUBMISSION}
       />
     </>
   );

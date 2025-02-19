@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -24,7 +20,7 @@ import { CoreInput } from './core-input.models';
  */
 export interface DropdownInput<T extends FieldValues, U> extends CoreInput<T> {
   /**
-   * An array of options available for selection in the dropdown.
+   * An array of options available for selection in the dropdown field.
    */
   readonly options: Array<U>;
 }

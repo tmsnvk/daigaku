@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -19,26 +15,25 @@ import { InputError } from '@components/form';
 import { Article } from './is-removable-button.styles';
 
 /* configuration, utilities, constants imports */
-import { errorConstants } from '@constants';
-import { constants } from './is-removable-button.constants';
+import { errorConstants, localization as l } from '@constants';
 
 /**
  * Defines the component's properties.
  */
 interface ComponentProps {
   /**
-   * The Application record's boolean deletion request flag.
+   * The application record's boolean deletion request flag.
    */
   readonly isRemovable: boolean;
 
   /**
-   * The Application record's uuid string.
+   * The application record's uuid string.
    */
   readonly applicationUuid: string;
 }
 
 /**
- * Renders and sets the state of the delete request button on each Application's edit page.
+ * Renders and sets the state of the delete request button on each application's edit page.
  *
  * @return {JSX.Element}
  */
@@ -52,7 +47,9 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentPro
         onClick={() => mutate()}
         disabled={isPending}
       >
-        {shouldBeRemoved ? constants.ui.button.REVERT_REQUEST : constants.ui.button.DELETION_REQUEST}
+        {shouldBeRemoved
+          ? l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.REVERT_REQUEST
+          : l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.DELETION_REQUEST}
       </button>
       {isError && <InputError message={errorConstants.UNEXPECTED_GLOBAL_ERROR} />}
     </Article>

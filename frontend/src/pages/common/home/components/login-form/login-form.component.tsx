@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -22,8 +18,8 @@ import { FormInstruction } from '../form-instruction';
 import { FormSwapButton } from '../form-swap-button';
 
 /* configuration, utilities, constants imports */
+import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../../home.constants';
-import { constants } from './login-form.constants';
 
 /* interface, type, enum imports */
 import { LoginRequest } from '@common-types';
@@ -60,7 +56,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
 
   return (
     <section>
-      <FormInstruction instructionText={constants.ui.form.INSTRUCTION} />
+      <FormInstruction instructionText={l.PAGES.COMMON.HOME.LOGIN.FORM.INSTRUCTION} />
       <form
         id={'post-account-login-form'}
         method={'POST'}
@@ -71,13 +67,13 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.EMAIL.REQUIRED,
+              message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED,
             },
           }}
           type={'email'}
           id={'email'}
-          label={constants.ui.form.EMAIL_LABEL}
-          placeholder={constants.ui.form.EMAIL_PLACEHOLDER}
+          label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
+          placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
           isDisabled={isPending}
           error={errors.email?.message}
         />
@@ -86,24 +82,24 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.PASSWORD.REQUIRED,
+              message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED,
             },
           }}
           id={'password'}
-          label={constants.ui.form.PASSWORD_LABEL}
-          placeholder={constants.ui.form.PASSWORD_PLACEHOLDER}
+          label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
+          placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED}
           isDisabled={isPending}
           error={errors.password?.message}
         />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.ui.messages.LOADING} />
+            <LoadingIndicator loadingText={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               id={'login'}
               name={'login'}
-              value={constants.ui.form.SUBMIT}
+              value={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
               disabled={isPending}
             />
           )}

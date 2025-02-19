@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -51,7 +47,7 @@ export interface ModalToggle extends BaseModal {
  */
 export interface RenderModal {
   /**
-   * A ref object that is attached to the modal component to control its visibility.
+   * A ref object attached to the modal component to control its visibility.
    */
   readonly dialogRef: RefObject<HTMLDialogElement | null>;
 }

@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -23,10 +19,10 @@ import { Main } from './dashboard.styles';
 import { StudentLayout } from './layouts';
 
 /* configuration, utilities, constants imports */
-import { constants } from './dashboard.constants';
+import { localization as l } from '@constants';
 
 /**
- * Renders the Application records' dashboard for the logged-in user.
+ * Renders the application records' dashboard for the logged-in user.
  * The page displays various aggregate data components based on the user's authorization level.
  *
  * @return {JSX.Element | undefined}
@@ -42,7 +38,7 @@ export const Dashboard = (): JSX.Element | undefined => {
     return (
       <GlobalLoadingModal
         isVisible={isLoading}
-        loadingText={constants.ui.LOADING}
+        loadingText={l.PAGES.COMMON.DASHBOARD.PAGE_LOADING}
       />
     );
   }

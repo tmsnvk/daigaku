@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -24,8 +20,8 @@ import { FormInstruction } from '../form-instruction';
 import { FormSwapButton } from '../form-swap-button';
 
 /* configuration, utilities, constants imports */
+import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../../home.constants';
-import { constants } from './registration-form.constants';
 
 /* interface, type, enum imports */
 import { PendingAccountRegisterRequest } from '@common-types';
@@ -71,7 +67,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
     return (
       <GlobalLoadingModal
         isVisible={isInstitutionLoading || isRoleLoading}
-        loadingText={constants.ui.messages.PAGE_LOADING}
+        loadingText={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.PAGE_LOADING}
       />
     );
   }
@@ -87,7 +83,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
 
   return (
     <section>
-      <FormInstruction instructionText={constants.ui.form.INSTRUCTION} />
+      <FormInstruction instructionText={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTRUCTION} />
       <form
         id={'post-pending-account-registration-form'}
         method={'POST'}
@@ -98,17 +94,17 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.FIRST_NAME.REQUIRED,
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED,
             },
             pattern: {
               value: /^[\p{L}\s-]{2,100}$/u,
-              message: constants.validation.FIRST_NAME.PATTERN,
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
             },
           }}
           type={'text'}
           id={'firstName'}
-          label={constants.ui.form.fields.FIRST_NAME.LABEL}
-          placeholder={constants.ui.form.fields.FIRST_NAME.PLACEHOLDER}
+          label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.LABEL}
+          placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.PLACEHOLDER}
           isDisabled={isPending}
           error={errors.firstName?.message}
         />
@@ -117,17 +113,17 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.LAST_NAME.REQUIRED,
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED,
             },
             pattern: {
               value: /^[\p{L}\s-]{2,100}$/u,
-              message: constants.validation.LAST_NAME.PATTERN,
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
             },
           }}
           type={'text'}
           id={'lastName'}
-          label={constants.ui.form.fields.LAST_NAME.LABEL}
-          placeholder={constants.ui.form.fields.LAST_NAME.PLACEHOLDER}
+          label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.LABEL}
+          placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.PLACEHOLDER}
           isDisabled={isPending}
           error={errors.lastName?.message}
         />
@@ -136,13 +132,13 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.EMAIL.REQUIRED,
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED,
             },
           }}
           type={'email'}
           id={'email'}
-          label={constants.ui.form.fields.EMAIL.LABEL}
-          placeholder={constants.ui.form.fields.EMAIL.PLACEHOLDER}
+          label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.LABEL}
+          placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.PLACEHOLDER}
           isDisabled={isPending}
           error={errors.email?.message}
         />
@@ -151,7 +147,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.INSTITUTION.REQUIRED,
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED,
             },
           }}
           id={'institutionUuid'}
@@ -164,7 +160,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           validationRules={{
             required: {
               value: true,
-              message: constants.validation.ACCOUNT_ROLE.REQUIRED,
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED,
             },
           }}
           id={'accountRoleUuid'}
@@ -174,13 +170,13 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
         />
         <article>
           {isPending ? (
-            <LoadingIndicator loadingText={constants.ui.messages.FORM_LOADING} />
+            <LoadingIndicator loadingText={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING} />
           ) : (
             <SubmitInput
               type={'submit'}
               id={'register'}
               name={'register'}
-              value={constants.ui.form.SUBMIT}
+              value={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
               disabled={isPending}
             />
           )}

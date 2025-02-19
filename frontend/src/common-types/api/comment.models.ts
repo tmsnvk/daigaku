@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -22,8 +18,8 @@ export interface CreateComment {
 }
 
 /**
- * Defines a comment associated with a given Application record.
- * Represents an individual comment that can be created on an Application record
+ * Defines a comment associated with a given application record.
+ * Represents an individual comment that can be created on an application record
  * and includes metadata about the comment's lifecycle and author.
  */
 export interface Comment extends BaseMetadata {

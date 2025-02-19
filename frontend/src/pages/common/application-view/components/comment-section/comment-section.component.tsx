@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -22,7 +18,7 @@ import { CreateCommentForm } from '../create-comment-form';
 import { Section } from './comment-section.styles';
 
 /* configuration, utilities, constants imports */
-import { constants } from './comment-section.constants';
+import { localization as l } from '@constants';
 
 /**
  * Defines the component's properties.
@@ -45,7 +41,7 @@ export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element
   const { data, isLoading, isError } = useGetCommentsByApplicationAndPagination(applicationUuid, currentPage);
 
   if (isLoading) {
-    return <LoadingIndicator loadingText={constants.ui.LOADING} />;
+    return <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.LOADING} />;
   }
 
   return (
@@ -59,10 +55,10 @@ export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element
           <CommentPaginationButton
             onClick={goToPreviousPage}
             isDisabled={data?.currentPage === 0}
-            value={constants.ui.pagination.PREVIOUS}
+            value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PREVIOUS}
           />
           <span>
-            {constants.ui.pagination.PAGE} {currentPage + 1}
+            {l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PAGE} {currentPage + 1}
           </span>
           <CommentPaginationButton
             onClick={() => {
@@ -71,7 +67,7 @@ export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element
               }
             }}
             isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
-            value={constants.ui.pagination.NEXT}
+            value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.NEXT}
           />
         </div>
         <CreateCommentForm applicationUuid={applicationUuid} />

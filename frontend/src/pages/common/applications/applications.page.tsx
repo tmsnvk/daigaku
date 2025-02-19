@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -22,15 +18,14 @@ import { Main } from './applications.styles';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
-import { errorConstants } from '@constants';
-import { constants } from './applications.constants';
+import { errorConstants, localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
 import { isEmpty } from '@utilities';
 
 /**
- * Renders, in a table format, the list of Application records that the user has authorisation to view.
+ * Renders, in a table format, the list of application records that the user has authorisation to view.
  * The component displays a table with data rows as well as various buttons and components to interact with the loaded-in data.
  *
  * @return {JSX.Element}
@@ -47,7 +42,7 @@ export const Applications = (): JSX.Element => {
     return (
       <GlobalLoadingModal
         isVisible={isLoading || isRefetching}
-        loadingText={constants.ui.LOADING}
+        loadingText={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.LOADING}
       />
     );
   }
@@ -99,7 +94,7 @@ export const Applications = (): JSX.Element => {
       )}
       <Toast
         isVisible={shouldToastVisible}
-        message={constants.ui.download.TOAST}
+        message={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.TOAST}
         onAnimationEnd={handleAnimationEnd}
       />
     </Main>

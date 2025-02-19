@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -21,11 +17,10 @@ import { Main } from './application-edit.styles';
 import { ApplicationForm } from './components/application-form';
 
 /* configuration, utilities, constants imports */
-import { errorConstants } from '@constants';
-import { constants } from './application-edit.constants';
+import { errorConstants, localization as l } from '@constants';
 
 /**
- * Renders the edit mode of a single Application record.
+ * Renders the edit mode of a single application record.
  * The user is not allowed to change the basic elements of the application,
  * i.e. Country, University Course Name, Minor Subject and Programme Length fields.
  * The rest of the fields may be updated based on conditional validation rules.
@@ -44,7 +39,7 @@ export const ApplicationEdit = (): JSX.Element => {
     return (
       <GlobalLoadingModal
         isVisible={isApplicationLoading}
-        loadingText={constants.ui.LOADING}
+        loadingText={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.PAGE_LOADING}
       />
     );
   }

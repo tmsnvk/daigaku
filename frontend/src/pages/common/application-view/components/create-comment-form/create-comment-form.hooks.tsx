@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -32,7 +28,7 @@ type NewCommentFormErrorT = 'root' | 'comment';
  * Mnages the comment submission process, including REST API request, error handling, and post-success actions.
  *
  * @param setError A `react-hook-form` function to set form errors.
- * @param applicationUuid The Application record's uuid string to which the comment belongs to.
+ * @param applicationUuid The application record's uuid string to which the comment belongs to.
  * @return {UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment>}
  */
 export const useSubmitComment = (

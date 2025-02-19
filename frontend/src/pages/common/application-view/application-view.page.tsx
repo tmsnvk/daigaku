@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -22,10 +18,10 @@ import { ApplicationDetails } from './components/application-details';
 import { CommentSection } from './components/comment-section';
 
 /* configuration, utilities, constants imports */
-import { constants } from './application-view.constants';
+import { localization as l } from '@constants';
 
 /**
- * Renders the view mode of the selected Application record.
+ * Renders the view mode of the selected application record.
  *
  * @return {JSX.Element}
  */
@@ -39,7 +35,7 @@ export const ApplicationView = (): JSX.Element => {
     return (
       <GlobalLoadingModal
         isVisible={isLoading}
-        loadingText={constants.ui.LOADING}
+        loadingText={l.PAGES.COMMON.APPLICATION_VIEW.PAGE_LOADING}
       />
     );
   }

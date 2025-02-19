@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -25,7 +21,7 @@ import { Header, SmallScreenMenuToggle, SmallScreenMenuWrapper } from './private
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
-import { constants } from './private-layout.constants';
+import { localization as l } from '@constants';
 import { accountRoleNavigationRoutes, sharedNavigationRoutes } from './private-layout.utilities';
 
 /* interface, type, enum imports */
@@ -70,7 +66,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
     return (
       <GlobalLoadingModal
         isVisible={true}
-        loadingText={constants.ui.LOADING_TEXT}
+        loadingText={l.LAYOUT.PRIVATE_LAYOUT.NOTIFICATIONS.LOADING_TEXT}
       />
     );
   }
@@ -83,7 +79,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
             <NavigationRoute
               resource={'/dashboard'}
               icon={iconLibraryConfig.faGraduationCap}
-              label={constants.routes.shared.dashboard.LABEL}
+              label={l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.DASHBOARD.LABEL}
             />
           </div>
           <SmallScreenMenuWrapper
@@ -120,7 +116,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
                 <NavigationRoute
                   resource={'/'}
                   icon={iconLibraryConfig.faRightFromBracket}
-                  label={constants.routes.shared.logOut.LABEL}
+                  label={l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.LOG_OUT.LABEL}
                   onNavigateClick={() => logOut()}
                 />
               </li>

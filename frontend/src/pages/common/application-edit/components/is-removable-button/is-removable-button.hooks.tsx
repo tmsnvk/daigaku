@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -27,8 +23,8 @@ import { HandleToggleIsRemovable } from './is-removable-button.models';
 /**
  * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link Application}.
  *
- * @param applicationUuid The Application record's uuid for identification purposes.
- * @param isRemovable The Application record's current is_removable boolean state.
+ * @param applicationUuid The application record's uuid for identification purposes.
+ * @param isRemovable The application record's current is_removable boolean state.
  * @return {SimpleQueryResult<HandleToggleIsRemovable>}
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {

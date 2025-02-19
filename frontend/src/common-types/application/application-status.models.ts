@@ -1,15 +1,11 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
  */
 
 /**
- * Defines the possible values of the Application Status field on an Application record.
+ * Defines the possible values of the ApplicationStatus field on an application record.
  */
 export enum ApplicationStatusE {
   PLANNED = 'Planned',
@@ -18,7 +14,7 @@ export enum ApplicationStatusE {
 }
 
 /**
- * Defines the possible values of the Interview Status field on an Application record.
+ * Defines the possible values of the InterviewStatus field on an application record.
  */
 export enum InterviewStatusE {
   INVITED = 'Invited',
@@ -27,7 +23,7 @@ export enum InterviewStatusE {
 }
 
 /**
- * Defines the possible values of the Offer Status field on an Application record.
+ * Defines the possible values of the OfferStatus field on an application record.
  */
 export enum OfferStatusE {
   CONDITIONAL = 'Conditional',
@@ -37,7 +33,7 @@ export enum OfferStatusE {
 }
 
 /**
- * Defines the possible values of the Response Status field on an Application record.
+ * Defines the possible values of the ResponseStatus field on an application record.
  */
 export enum ResponseStatusE {
   FIRM_CHOICE = 'Firm Choice',
@@ -46,7 +42,7 @@ export enum ResponseStatusE {
 }
 
 /**
- * Defines the possible values of the Final Destination Status field on an Application record.
+ * Defines the possible values of the FinalDestination Status field on an application record.
  */
 export enum FinalDestinationStatusE {
   FINAL_DESTINATION = 'Final Destination',

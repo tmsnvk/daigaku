@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -17,7 +13,7 @@ import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* configuration, utilities, constants imports */
-import { constants } from './account-role-dropdown.constants';
+import { localization as l } from '@constants';
 import { formatRoleName } from './account-role-dropdown.utilities';
 
 /* interface, type, enum imports */
@@ -48,7 +44,7 @@ export const AccountRoleDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        label={constants.ui.dropdown.LABEL}
+        label={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
       />
       <select
         {...register(id, validationRules)}
@@ -60,7 +56,7 @@ export const AccountRoleDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          {constants.ui.dropdown.DEFAULT_OPTION}
+          {l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
         </option>
         {options.map((role: RoleOption) => {
           return (

@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -12,26 +8,26 @@
 import { Comment } from './comment.models';
 
 /**
- * Defines the metadata and the list of comments associated with a given Application record.
+ * Defines the metadata and the list of comments associated with a given application record.
  */
 export interface CommentPaginationData {
   /**
-   * The total number of pages.
+   * The total number of comment pages associated with the given application record.
    */
   readonly totalPages: number;
 
   /**
-   * The current page of the comments being viewed.
+   * The current page number of the comments being viewed.
    */
   readonly currentPage: number;
 
   /**
-   * The total number of comments associated with the given Application record.
+   * The total number of comments associated with the given application record.
    */
   readonly totalComments: number;
 
   /**
-   * A list of comments associated with the given Application record.
+   * A list of comments associated with the given application record.
    */
   readonly comments: Array<Comment>;
 }

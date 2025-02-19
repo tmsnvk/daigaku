@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -17,7 +13,7 @@ import { BaseInput } from '@components/base-styles';
 import { InputError, InputLabel } from '@components/form';
 
 /* configuration, utilities, constants imports */
-import { constants } from './institution-dropdown.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { DropdownInput, InstitutionOption } from '@common-types';
@@ -47,7 +43,7 @@ export const InstitutionDropdown = <T extends FieldValues>({
     <BaseInput $isError={error !== undefined}>
       <InputLabel
         inputId={id}
-        label={constants.ui.dropdown.LABEL}
+        label={l.COMPONENTS.FORM.INSTITUITON_DROPDOWN.LABEL}
       />
       <select
         {...register(id, validationRules)}
@@ -59,7 +55,7 @@ export const InstitutionDropdown = <T extends FieldValues>({
           hidden
           value={''}
         >
-          {constants.ui.dropdown.DEFAULT_OPTION}
+          {l.COMPONENTS.FORM.INSTITUITON_DROPDOWN.DEFAULT_OPTION}
         </option>
         {options.map((institution: InstitutionOption) => (
           <option

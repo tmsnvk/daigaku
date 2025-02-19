@@ -1,15 +1,11 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
  */
 
 /* configuration, utilities, constants imports */
-import { constants } from './student-layout.constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { StudentDashboardStatistics, Todo, TodoList } from '@common-types';
@@ -28,39 +24,39 @@ export const useTodoList = (data: StudentDashboardStatistics): TodoList => {
   const evaluateTodos = (): void => {
     // No applications made.
     if (data.applicationsCount === 0) {
-      todos.push(constants.todoList.NO_APPLICATIONS);
+      todos.push(l.PAGES.COMMON.DASHBOARD.TODO_LIST.NO_APPLICATIONS);
     }
 
     // No applications are in the 'Submitted' status.
     if (data.submittedApplicationsCount === 0) {
-      todos.push(constants.todoList.NO_SUBMITTED_APPLICATIONS);
+      todos.push(l.PAGES.COMMON.DASHBOARD.TODO_LIST.NO_SUBMITTED_APPLICATIONS);
     }
 
     if (data.submittedApplicationsCount > 0) {
       // There is no InterviewStatus set for submitted applications.
       if (data.notSetInterviewStatusCount) {
-        todos.push(constants.todoList.NO_INTERVIEW_SET);
+        todos.push(l.PAGES.COMMON.DASHBOARD.TODO_LIST.NO_INTERVIEW_SET);
       }
 
       // There is no firm choice application selected.
       if (!data.firmChoiceTileDetails) {
-        todos.push(constants.todoList.NO_FIRM_CHOICE_SET);
+        todos.push(l.PAGES.COMMON.DASHBOARD.TODO_LIST.NO_FIRM_CHOICE_SET);
       }
 
       // OfferStatus is not updated on any of the 'Submitted' applications.
       if (data.offersCount === 0) {
-        todos.push(constants.todoList.NO_OFFER_SET);
+        todos.push(l.PAGES.COMMON.DASHBOARD.TODO_LIST.NO_OFFER_SET);
       }
     }
 
     // There are offers but no FinalDestinationStatus is set.
     if (data.offersCount && !data.finalDestinationTileDetails) {
-      todos.push(constants.todoList.NO_FINAL_DESTINATION_SET);
+      todos.push(l.PAGES.COMMON.DASHBOARD.TODO_LIST.NO_FINAL_DESTINATION_SET);
     }
 
     // There are no todo items.
     if (todos.length === 0) {
-      todos.push(constants.todoList.EMPTY_TODO_LIST);
+      todos.push(l.PAGES.COMMON.DASHBOARD.TODO_LIST.EMPTY_TODO_LIST);
     }
   };
 

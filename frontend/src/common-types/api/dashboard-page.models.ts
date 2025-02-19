@@ -1,8 +1,4 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
@@ -31,42 +27,42 @@ export interface StudentDashboardStatistics {
   };
 
   /**
-   * The count of Applications submitted by the user.
+   * The count of applications submitted by the user.
    */
   readonly applicationsCount: number;
 
   /**
-   * The count of 'Planned' status Applications submitted by the user.
+   * The count of 'Planned' status applications submitted by the user.
    */
   readonly plannedApplicationsCount: number;
 
   /**
-   * The count of 'Submitted' status Applications submitted by the user.
+   * The count of 'Submitted' status applications submitted by the user.
    */
   readonly submittedApplicationsCount: number;
 
   /**
-   * The count of 'Withdrawn' status Applications submitted by the user.
+   * The count of 'Withdrawn' status applications submitted by the user.
    */
   readonly withdrawnStatusCount: number;
 
   /**
-   * The count of distinct countries the user has submitted an Application to.
+   * The count of distinct countries the user has submitted an application to.
    */
   readonly distinctCountriesCount: number;
 
   /**
-   * The count of distinct universities the user has submitted an Application to.
+   * The count of distinct universities the user has submitted an application to.
    */
   readonly distinctUniversitiesCount: number;
 
   /**
-   * The count of Applications where the user has not set the 'InterviewStatus' field yet.
+   * The count of applications where the user has not set the 'InterviewStatus' field yet.
    */
   readonly notSetInterviewStatusCount: number;
 
   /**
-   * The count of Applications where the user has set the 'OfferStatus' field to a positive outcome.
+   * The count of applications where the user has set the 'OfferStatus' field to a positive outcome.
    */
   readonly offersCount: number;
 }

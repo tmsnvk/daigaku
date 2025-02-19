@@ -1,23 +1,22 @@
 /**
- * @prettier
- */
-
-/**
  * Copyright © [Daigaku].
  *
  * @author tmsnvk
  */
 
+/* configuration, utilities, constants imports */
+import { localization as l } from '@constants';
+
 /* interface, type, enum imports */
 import { FormType } from './home.models';
 
 export const confirmationModalFeedback: Partial<Record<FormType, string>> = {
-  [FormType.REGISTER]: 'Thank you for registering your account. You will soon receive an email with further details.',
-  [FormType.RESET]: 'Your password has been reset. You will soon receive an email with further instructions.',
+  [FormType.REGISTER]: l.PAGES.COMMON.HOME.NOTIFICATIONS.REGISTRATION,
+  [FormType.RESET]: l.PAGES.COMMON.HOME.NOTIFICATIONS.RESET,
 };
 
 export const formTypeButtonLabel: Record<FormType, string> = {
-  [FormType.LOGIN]: 'Log in',
-  [FormType.REGISTER]: 'Create account',
-  [FormType.RESET]: 'Forgot password?',
+  [FormType.LOGIN]: l.PAGES.COMMON.HOME.BUTTONS.LOGIN,
+  [FormType.REGISTER]: l.PAGES.COMMON.HOME.BUTTONS.REGISTRATION,
+  [FormType.RESET]: l.PAGES.COMMON.HOME.BUTTONS.RESET,
 };
