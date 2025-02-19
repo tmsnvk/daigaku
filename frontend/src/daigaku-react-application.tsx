@@ -26,7 +26,6 @@ import { theme } from '@theme/theme';
 /* configuration, utilities, constants imports */
 import { queryClient } from '@configuration';
 
-// prettier-ignore
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<Error />}>
     <Route path={'/'} element={<PublicLayout />}>
