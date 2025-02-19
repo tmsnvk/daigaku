@@ -40,7 +40,7 @@ export const isAuthTokenExpired = (token: string): boolean => {
     const currentTime: number = Date.now();
 
     return currentTime >= expirationTime;
-  } catch (error) {
+  } catch {
     return true;
   }
 };

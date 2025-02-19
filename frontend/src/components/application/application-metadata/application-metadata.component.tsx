@@ -11,7 +11,7 @@ import { JSX } from 'react';
 import { Article } from './application-metadata.styles';
 
 /* configuration, utilities, constants imports */
-import { localization as l} from '@constants';
+import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { BaseMetadata } from '@common-types';
