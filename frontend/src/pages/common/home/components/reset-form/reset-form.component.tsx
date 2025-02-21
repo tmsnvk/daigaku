@@ -19,7 +19,7 @@ import { FormSwapButton } from '../form-swap-button';
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../../home.constants';
-import { FormInstruction } from '../form-instruction';
+import { FormHeader } from '../form-header';
 
 /* interface, type, enum imports */
 import { AccountResetRequest } from '@common-types';
@@ -30,14 +30,14 @@ import { FormType } from '../../home.models';
  */
 interface ComponentProps {
   /**
-   * A function to select the current form type.
+   * A methods that selects the current form type.
    *
    * @param formType The type of the form to be selected.
    */
   selectForm: (formType: FormType) => void;
 
   /**
-   * A function to show a modal.
+   * A method that displays a modal.
    */
   showModal: () => void;
 }
@@ -45,7 +45,7 @@ interface ComponentProps {
 /**
  * Renders a password reset form component that allows users to reset their account access.
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
- * Additionally, users can switch to other forms on the page using the {@link FormSwapButton} component.
+ * Additionally, users can switch to other forms.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -60,11 +60,11 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
   const { isPending, mutate } = useHandleResetForm(setError, showModal);
 
   return (
-    <section>
-      <FormInstruction instructionText={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.INSTRUCTION} />
+    <section className={'base-light-border home-page-form-section'}>
+      <FormHeader headerContent={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.INSTRUCTION} />
       <form
         id={'post-account-reset-form'}
-        method={'POST'}
+        className={'home-page-form'}
         onSubmit={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
       >
         <GenericInput
@@ -97,7 +97,7 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
           {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
-      <article>
+      <article className={'home-page-form-swap-button-article'}>
         <FormSwapButton
           formType={FormType.LOGIN}
           buttonLabel={formTypeButtonLabel[FormType.LOGIN]}

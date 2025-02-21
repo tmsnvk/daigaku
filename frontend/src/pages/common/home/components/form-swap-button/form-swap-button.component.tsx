@@ -8,7 +8,6 @@
 import { JSX } from 'react';
 
 /* component, style imports */
-import { Button } from './form-swap-button.styles';
 
 /* interface, type, enum imports */
 import { FormType } from '../../home.models';
@@ -48,14 +47,18 @@ interface ComponentProps {
  */
 export const FormSwapButton = ({ formType, buttonLabel, onFormSelect, isDisabled }: ComponentProps): JSX.Element => {
   return (
-    <Button
-      type={'button'}
+    <button
       id={buttonLabel}
       name={buttonLabel}
+      className={`h-[5rem] px-[1.5rem] text-xl font-extrabold color-jacarta bg-columbia-blue rounded-(--small-border-radius) cursor-pointer
+        focus:outline-[0.25rem] focus:outline-solid focus:outline-(--color-jacarta)
+        hover:outline-[0.25rem] hover:outline-solid hover:outline-(--color-jacarta)
+        disabled:cursor-not-allowed`}
+      type={'button'}
       onClick={() => onFormSelect(formType)}
       disabled={isDisabled}
     >
       {buttonLabel}
-    </Button>
+    </button>
   );
 };

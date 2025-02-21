@@ -14,7 +14,7 @@ import { useHandleLoginForm } from './login-form.hooks';
 /* component, style imports */
 import { GenericInput, InputError, PasswordInput, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { FormInstruction } from '../form-instruction';
+import { FormHeader } from '../form-header';
 import { FormSwapButton } from '../form-swap-button';
 
 /* configuration, utilities, constants imports */
@@ -40,7 +40,7 @@ interface ComponentProps {
 /**
  * Renders a login form component that allows users to submit their email and password for authentication.
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
- * Additionally, users can switch to other forms on the page using the {@link FormSwapButton} component.
+ * Additionally, users can switch to other forms.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -55,11 +55,11 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
   const { isPending, mutate } = useHandleLoginForm(setError);
 
   return (
-    <section>
-      <FormInstruction instructionText={l.PAGES.COMMON.HOME.LOGIN.FORM.INSTRUCTION} />
+    <section className={'base-light-border home-page-form-section'}>
+      <FormHeader headerContent={l.PAGES.COMMON.HOME.LOGIN.FORM.INSTRUCTION} />
       <form
         id={'post-account-login-form'}
-        method={'POST'}
+        className={'home-page-form'}
         onSubmit={handleSubmit((formData: LoginRequest) => mutate(formData))}
       >
         <GenericInput
@@ -106,7 +106,7 @@ export const LoginForm = ({ selectForm }: ComponentProps): JSX.Element => {
           {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
-      <article>
+      <article className={'home-page-form-swap-button-article'}>
         <FormSwapButton
           formType={FormType.RESET}
           buttonLabel={formTypeButtonLabel[FormType.RESET]}

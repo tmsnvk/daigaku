@@ -5,29 +5,29 @@
  */
 
 /* vendor imports */
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 /* component, style imports */
 import { BaseLightBorder } from '@components/base-styles';
 
-const fadeInFromBottom = keyframes`
-  0% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
+// const fadeInFromBottom = keyframes`
+//   0% {
+//     transform: translateY(100%);
+//     opacity: 0;
+//   }
 
-  100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-`;
+//   100% {
+//     transform: translateY(0%);
+//     opacity: 1;
+//   }
+// `;
 
 export const Main = styled.main`
   container-type: inline-size;
   container-name: main;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 
   & section {
     ${BaseLightBorder};
@@ -39,7 +39,7 @@ export const Main = styled.main`
     justify-content: space-between;
     padding: 5rem 2.5rem 5rem 2.5rem;
     text-align: center;
-    animation: ${fadeInFromBottom} ease 1s;
+    /* animation: ${fadeInFromBottom} ease 1s; */
 
     & > article {
       display: flex;

@@ -1,0 +1,100 @@
+@import 'tailwindcss';
+@import './base-styles.css';
+@import './components.css';
+
+@layer base {
+  * {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 62.5%;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    width: 100vw;
+    min-height: 100vh;
+    font-family: var(--primary-font);
+    background-color: var(--color-white-smoke);
+
+    & > div {
+      position: relative;
+      min-height: 100vh;
+
+      & > div {
+        height: 7.5rem;
+      }
+    }
+  }
+
+  a,
+  a:hover,
+  a:visited,
+  a:active {
+    text-decoration: none;
+  }
+
+  ul,
+  ol,
+  li {
+    list-style-type: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+}
+
+@theme {
+  --color-coral-red: #f94144;
+  --color-white-smoke: #f0f0f0;
+  --color-light-gray: #aaaaaa;
+  --color-columbia-blue: #c9d7dd;
+  --color-jacarta: #31304d;
+  --color-dark-gun-metal: #161a30;
+  --color-indian-yellow: #eea14f;
+
+  --primary-font: 'Raleway', 'sans-serif';
+  --secondary-font: 'Roboto', 'sans-serif';
+
+  --default-border-radius: 1.5rem;
+  --small-border-radius: 0.75rem;
+
+  --animate-fade-in-from-bottom: fade-in-from-bottom ease 1s;
+
+  @keyframes fade-in-from-bottom {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+}

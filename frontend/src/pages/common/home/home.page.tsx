@@ -15,7 +15,6 @@ import { useActiveFormComponent } from './home.hooks';
 
 /* component, style imports */
 import { ConfirmationModal } from '@components/notification';
-import { Main } from './home.styles';
 
 /* configuration, utilities, constants imports */
 import { confirmationModalFeedback } from './home.constants';
@@ -39,7 +38,8 @@ export const Home = (): JSX.Element => {
   }
 
   return (
-    <Main>
+    <main className={'@container/main flex flex-col items-center'}>
+      {/* <Main> */}
       {activeFormComponent}
       {isModalVisible && (
         <ConfirmationModal
@@ -48,6 +48,6 @@ export const Home = (): JSX.Element => {
           onCloseModal={closeModal}
         />
       )}
-    </Main>
+    </main>
   );
 };

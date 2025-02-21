@@ -26,7 +26,7 @@ export interface ActiveFormComponent {
   readonly activeFormType: FormType;
 
   /**
-   * The rendered element of the currently active component.
+   * The currently rendered component.
    */
   readonly activeFormComponent: JSX.Element;
 }

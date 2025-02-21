@@ -16,7 +16,7 @@ import { useSubmitRegistrationForm } from './registration-form.hooks';
 import { AccountRoleDropdown, GenericInput, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { FormInstruction } from '../form-instruction';
+import { FormHeader } from '../form-header';
 import { FormSwapButton } from '../form-swap-button';
 
 /* configuration, utilities, constants imports */
@@ -32,14 +32,14 @@ import { FormType } from '../../home.models';
  */
 interface ComponentProps {
   /**
-   * A function to select the current form type.
+   * A method that selects the current form type.
    *
    * @param formType The type of the form to be selected.
    */
   selectForm: (formType: FormType) => void;
 
   /**
-   * A function to show a modal.
+   * A method that displays a modal.
    */
   showModal: () => void;
 }
@@ -47,7 +47,7 @@ interface ComponentProps {
 /**
  * Renders a registration form component that allows users to submit a form to register a pending account.
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
- * Additionally, users can switch to other forms on the page using the {@link FormSwapButton} component.
+ * Additionally, users can switch to other forms.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -82,11 +82,11 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
   }
 
   return (
-    <section>
-      <FormInstruction instructionText={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTRUCTION} />
+    <section className={'base-light-border home-page-form-section'}>
+      <FormHeader headerContent={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTRUCTION} />
       <form
         id={'post-pending-account-registration-form'}
-        method={'POST'}
+        className={'home-page-form'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <GenericInput
@@ -183,7 +183,7 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
-      <article>
+      <article className={'home-page-form-swap-button-article'}>
         <FormSwapButton
           formType={FormType.RESET}
           buttonLabel={formTypeButtonLabel[FormType.RESET]}

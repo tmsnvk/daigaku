@@ -17,9 +17,9 @@ import { ActiveFormComponent, FormType } from './home.models';
  * A helper method used by {@link useActiveFormComponent}
  * that retrieves the appropriate form component based on the provided {@link FormType}.
  *
- * @param activeFormType The current {@link FormType} to determine which component to render.
- * @param selectFormType A function to change the displayed form.
- * @param showModal A function to trigger the modal display.
+ * @param activeFormType The current {@link FormType} that determines which component should be rendered.
+ * @param selectFormType A method that changes the displayed form.
+ * @param showModal A method that triggers the modal display.
  * @return {JSX.Element} The form component corresponding to the selected {@link FormType}.
  */
 const getFormComponent = (activeFormType: FormType, selectFormType: (formType: FormType) => void, showModal: () => void): JSX.Element => {

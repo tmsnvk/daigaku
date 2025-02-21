@@ -22,8 +22,8 @@ import { AccountResetRequest, CoreErrorResponse } from '@common-types';
 /**
  * Manages the component's form submission.
  *
- * @param setError A `react-hook-form` function to set form errors.
- * @param showModal A function to display an onSuccess confirmation modal component.
+ * @param setError A `react-hook-form` method that sets form errors.
+ * @param showModal A method that displays a confirmation modal component.
  * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetRequest>}
  */
 export const useHandleResetForm = (
