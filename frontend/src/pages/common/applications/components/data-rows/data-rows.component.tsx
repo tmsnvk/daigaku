@@ -56,6 +56,9 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
         <Cell $shouldDisplay={isColumnVisible(columns, 'finalDestinationStatus')}>{application.finalDestinationStatus?.name ?? '-'}</Cell>
         <td>
           <Link
+            className={
+              'flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
+            }
             to={`edit/${application.uuid}`}
             state={application}
           >
@@ -63,6 +66,9 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
             <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
           </Link>
           <Link
+            className={
+              'flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
+            }
             to={`view/${application.uuid}`}
             state={application}
           >

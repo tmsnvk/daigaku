@@ -7,7 +7,7 @@
 /* vendor imports */
 import { JSX, useState } from 'react';
 
-/* component, style imports */
+/* component imports */
 import { LoginForm, RegistrationForm, ResetForm } from './components';
 
 /* interface, type, enum imports */
@@ -18,8 +18,8 @@ import { ActiveFormComponent, FormType } from './home.models';
  * that retrieves the appropriate form component based on the provided {@link FormType}.
  *
  * @param activeFormType The current {@link FormType} that determines which component should be rendered.
- * @param selectFormType A method that changes the displayed form.
- * @param showModal A method that triggers the modal display.
+ * @param selectFormType The method to change the displayed form component.
+ * @param showModal The method to trigger the displayed modal component.
  * @return {JSX.Element} The form component corresponding to the selected {@link FormType}.
  */
 const getFormComponent = (activeFormType: FormType, selectFormType: (formType: FormType) => void, showModal: () => void): JSX.Element => {
@@ -51,7 +51,7 @@ const getFormComponent = (activeFormType: FormType, selectFormType: (formType: F
  * - {@link LoginForm}
  * - {@link ResetForm}
  *
- * @param showModal A function to show a confirmation modal, used in form components.
+ * @param showModal The method to show a confirmation modal component.
  * @return {ActiveFormComponent}
  */
 export const useActiveFormComponent = (showModal: () => void): ActiveFormComponent => {
@@ -60,6 +60,7 @@ export const useActiveFormComponent = (showModal: () => void): ActiveFormCompone
   const selectFormType = (formType: FormType): void => {
     setActiveFormType(formType);
   };
+
   const activeFormComponent: JSX.Element = getFormComponent(activeFormType, selectFormType, showModal);
 
   return {

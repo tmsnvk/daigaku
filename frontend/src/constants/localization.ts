@@ -253,7 +253,7 @@ export const localization = {
         PAGE_LOADING: 'The application is compiling your data...',
         TILE: {
           APPLICATIONS: 'Applications',
-          PLANNED_APPLICATIONS: 'Planned Applicatoins',
+          PLANNED_APPLICATIONS: 'Planned Applications',
           SUBMITTED_APPLICATIONS: 'Submitted Applications',
           WITHDRAWN_APPLICATIONS: 'Withdrawn Applications',
           DISTINCT_COUNTRIES: 'Distinct Countries',

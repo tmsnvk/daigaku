@@ -13,9 +13,8 @@ import { AccountRoles, useAuthContext } from '@context/auth';
 import { useGetApplications } from '@hooks';
 import { useGetDashboardStatistics } from './dashboard.hooks';
 
-/* component, style imports */
+/* component imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { Main } from './dashboard.styles';
 import { StudentLayout } from './layouts';
 
 /* configuration, utilities, constants imports */
@@ -57,5 +56,11 @@ export const Dashboard = (): JSX.Element | undefined => {
   }
 
   // Add layouts for other authentication level users.
-  return data && <Main>{account.role === AccountRoles.ROLE_STUDENT && <StudentLayout data={data} />}</Main>;
+  return (
+    data && (
+      <main className={'flex flex-row flex-wrap gap-y-[5rem] m-[5%]'}>
+        {account.role === AccountRoles.ROLE_STUDENT && <StudentLayout data={data} />}
+      </main>
+    )
+  );
 };

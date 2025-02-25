@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-import { Article } from './detail-tile.styles';
-
 /**
  * Defines the component's properties.
  */
@@ -43,11 +40,11 @@ interface ComponentProps {
  */
 export const DetailTile = ({ title, country, university, courseName }: ComponentProps): JSX.Element => {
   return (
-    <Article>
-      <p>{country}</p>
-      <p>{university}</p>
-      <p>{courseName}</p>
-      <p>{title}</p>
-    </Article>
+    <article className={'base-dark-border w-[25rem] h-[25rem] px-[1rem] pb-[2.5rem] flex flex-col justify-center text-center'}>
+      <p className={'font-extrabold text-2xl py-[1rem]'}>{country}</p>
+      <p className={'font-extrabold text-2xl py-[1rem]'}>{university}</p>
+      <p className={'font-extrabold text-2xl py-[1rem]'}>{courseName}</p>
+      <p className={'pt-[5rem] text-4xl'}>{title}</p>
+    </article>
   );
 };

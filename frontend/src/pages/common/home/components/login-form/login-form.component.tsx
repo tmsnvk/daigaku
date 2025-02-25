@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 /* logic imports */
 import { useHandleLoginForm } from './login-form.hooks';
 
-/* component, style imports */
+/* component imports */
 import { GenericInput, InputError, PasswordInput, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { FormHeader } from '../form-header';
@@ -30,7 +30,7 @@ import { FormType } from '../../home.models';
  */
 interface ComponentProps {
   /**
-   * A function to select the current form type.
+   * The method to select the current form type.
    *
    * @param formType The type of the form to be selected.
    */

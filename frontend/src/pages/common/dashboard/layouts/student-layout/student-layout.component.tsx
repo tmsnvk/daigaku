@@ -10,9 +10,8 @@ import { JSX } from 'react';
 /* logic imports */
 import { useTodoList } from './student-layout.hooks';
 
-/* component, style imports */
+/* component imports */
 import { DetailTile, StatTile, TodosView } from '../../components';
-import { TileUnit } from './student-layout.styles';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -31,7 +30,7 @@ interface ComponentProps {
 }
 
 /**
- * Renders the application's dashboard for users with student level authorisation.
+ * Renders the application's dashboard for users with Student authorisation.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -45,7 +44,7 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
         introduction={l.PAGES.COMMON.DASHBOARD.TODO_LIST.INTRODUCTION}
         todos={todos}
       />
-      <TileUnit>
+      <section className={'w-full flex flex-row flex-wrap flex-[1 100vw] gap-[5rem] justify-center lg:justify-start'}>
         <StatTile
           title={l.PAGES.COMMON.DASHBOARD.TILE.APPLICATIONS}
           value={data.applicationsCount}
@@ -62,8 +61,8 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           title={l.PAGES.COMMON.DASHBOARD.TILE.WITHDRAWN_APPLICATIONS}
           value={data.withdrawnStatusCount}
         />
-      </TileUnit>
-      <TileUnit>
+      </section>
+      <section className={'w-full flex flex-row flex-wrap flex-[1 100vw] gap-[5rem] justify-center lg:justify-start'}>
         <StatTile
           title={l.PAGES.COMMON.DASHBOARD.TILE.DISTINCT_COUNTRIES}
           value={data.distinctCountriesCount}
@@ -72,8 +71,8 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
           title={l.PAGES.COMMON.DASHBOARD.TILE.DISTINCT_UNIVERSITIES}
           value={data.distinctUniversitiesCount}
         />
-      </TileUnit>
-      <TileUnit>
+      </section>
+      <section className={'w-full flex flex-row flex-wrap flex-[1 100vw] gap-[5rem] justify-center lg:justify-start'}>
         <StatTile
           title={l.PAGES.COMMON.DASHBOARD.TILE.OFFERS}
           value={data.offersCount}
@@ -94,7 +93,7 @@ export const StudentLayout = ({ data }: ComponentProps): JSX.Element => {
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}
-      </TileUnit>
+      </section>
     </>
   );
 };

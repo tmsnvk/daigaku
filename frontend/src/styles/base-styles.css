@@ -5,4 +5,11 @@
     border-radius: var(--default-border-radius);
     box-shadow: 0.5rem 0.5rem 1rem var(--color-dark-gun-metal);
   }
+
+  .base-dark-border {
+    background-color: var(--color-columbia-blue);
+    border: 0.1rem solid var(--color-columbia-blue);
+    border-radius: var(--default-border-radius);
+    box-shadow: 0.5rem 0.5rem 1rem var(--color-dark-gun-metal);
+  }
 }

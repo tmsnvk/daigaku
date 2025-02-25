@@ -7,8 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-
 /* interface, type, enum imports */
 import { FormType } from '../../home.models';
 
@@ -27,12 +25,12 @@ interface ComponentProps {
   readonly buttonLabel: string;
 
   /**
-   * A callback method that is triggered when the button is clicked.
+   * The method that is triggered when the button is clicked.
    */
   onFormSelect: (formType: FormType) => void;
 
   /**
-   * A boolean indicating whether the button should be disabled or not.
+   * The boolean indicating whether the button should be disabled or not.
    */
   readonly isDisabled: boolean;
 }

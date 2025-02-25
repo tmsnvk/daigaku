@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-import { DescriptionList } from './stat-tile.styles';
-
 /**
  * Defines the component's properties.
  */
@@ -33,9 +30,9 @@ interface ComponentProps {
  */
 export const StatTile = ({ title, value }: ComponentProps): JSX.Element => {
   return (
-    <DescriptionList>
-      <dt>{value}</dt>
-      <dd>{title}</dd>
-    </DescriptionList>
+    <dl className={'base-dark-border w-[25rem] h-[25rem] px-[1rem] pb-[2.5rem] flex flex-col justify-center text-center'}>
+      <dt className={'text-[12rem]'}>{value}</dt>
+      <dd className={'text-3xl'}>{title}</dd>
+    </dl>
   );
 };

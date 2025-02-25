@@ -14,7 +14,6 @@ import { useColumnVisibility, useDisplayDownloadToast, useSortOrder } from './ap
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
-import { Main } from './applications.styles';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
@@ -25,7 +24,7 @@ import { Application } from '@common-types';
 import { isEmpty } from '@utilities';
 
 /**
- * Renders, in a table format, the list of application records that the user has authorisation to view.
+ * Renders, in table format, the list of application records that the user has authorisation to view.
  * The component displays a table with data rows as well as various buttons and components to interact with the loaded-in data.
  *
  * @return {JSX.Element}
@@ -62,8 +61,8 @@ export const Applications = (): JSX.Element => {
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <Main>
-      <table>
+    <main className={'base-dark-border flex flex-col w-[95%] mx-auto my-[5%] text-xl'}>
+      <table className={'table-fixed'}>
         <thead>
           <TableHeader
             columns={columns}
@@ -97,6 +96,6 @@ export const Applications = (): JSX.Element => {
         message={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.TOAST}
         onAnimationEnd={handleAnimationEnd}
       />
-    </Main>
+    </main>
   );
 };

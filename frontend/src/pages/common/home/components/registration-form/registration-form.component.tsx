@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@hooks';
 import { useSubmitRegistrationForm } from './registration-form.hooks';
 
-/* component, style imports */
+/* component imports */
 import { AccountRoleDropdown, GenericInput, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
@@ -32,14 +32,14 @@ import { FormType } from '../../home.models';
  */
 interface ComponentProps {
   /**
-   * A method that selects the current form type.
+   * The method to select the current form type.
    *
    * @param formType The type of the form to be selected.
    */
   selectForm: (formType: FormType) => void;
 
   /**
-   * A method that displays a modal.
+   * The method to display a modal component.
    */
   showModal: () => void;
 }

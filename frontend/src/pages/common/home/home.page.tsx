@@ -13,7 +13,7 @@ import { AuthStatus, useAuthContext } from '@context/auth';
 import { useModalControl } from '@hooks';
 import { useActiveFormComponent } from './home.hooks';
 
-/* component, style imports */
+/* component imports */
 import { ConfirmationModal } from '@components/notification';
 
 /* configuration, utilities, constants imports */
@@ -39,7 +39,6 @@ export const Home = (): JSX.Element => {
 
   return (
     <main className={'@container/main flex flex-col items-center'}>
-      {/* <Main> */}
       {activeFormComponent}
       {isModalVisible && (
         <ConfirmationModal

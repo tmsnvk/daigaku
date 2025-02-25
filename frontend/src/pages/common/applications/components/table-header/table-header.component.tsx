@@ -13,10 +13,9 @@ import { JSX } from 'react';
 /* logic imports */
 import { useRequestPdfDownload } from './table-header.hooks';
 
-/* component, style imports */
+/* component imports */
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal } from '@components/notification';
-import { TableHeadRow } from './table-header.styles';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
@@ -35,38 +34,38 @@ interface ComponentProps {
   readonly columns: Array<Column>;
 
   /**
-   * A boolean value that is true if the user has no Applications yet.
+   * The boolean value that is true if the user has no Applications yet.
    */
   readonly isDataEmpty: boolean;
 
   /**
-   * A method that A-Z sort the rows by the selected column id.
+   * The method to A-Z sort the rows by the selected column id.
    */
   onColumnSort: (id: string) => void;
 
   /**
-   * A method that toggles the column selector modal.
+   * The method to toggle the column selector modal.
    */
   onToggleModal: () => void;
 
   /**
-   * A method that initiates a `GET` REST API operation to refetch the user's Application records.
+   * The method to initiate a `GET` REST API operation to refetch the user's application records.
    */
   onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
 
   /**
-   * A boolean value controlling the pop-up toast's visibility.
+   * The boolean value controlling the pop-up toast component's visibility.
    */
   readonly shouldToastVisible: boolean;
 
   /**
-   * A callback method that manages popping up the download .pdf request toast.
+   * The method to manage popping up the download .pdf request toast component.
    */
   onDownloadPdfRequest: () => void;
 }
 
 /**
- * Renders the table header row on the Applications table page. A number of buttons are rendered in the component as well, such as
+ * Renders the table header row on the /applications table page. A number of buttons are rendered in the component as well, such as
  * row ordering, .pdf report downloading, data refresh or modal pop-up buttons.
  *
  * @return {JSX.Element}
@@ -102,12 +101,18 @@ export const TableHeader = ({
 
   return (
     <>
-      <TableHeadRow>
+      <tr>
         {columns.map((column: Column) => {
           return (
             column.isVisible && (
-              <th key={column.id}>
+              <th
+                key={column.id}
+                className={'w-[10%] px-[1rem] py-[2.5rem] text-center'}
+              >
                 <button
+                  className={
+                    'flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+                  }
                   type={'button'}
                   onClick={() => onColumnSort(column.id)}
                   disabled={isDataEmpty}
@@ -119,37 +124,55 @@ export const TableHeader = ({
             )
           );
         })}
-        <th>
+        <th className={'w-[10%] px-[1rem] py-[2.5rem] text-center'}>
           <button
+            className={
+              'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+            }
             type={'button'}
             onClick={() => onRefetch({ cancelRefetch: false })}
             disabled={isDataEmpty}
           >
             Refresh
-            <FontAwesomeIcon icon={iconLibraryConfig.faRotateRight} />
+            <FontAwesomeIcon
+              icon={iconLibraryConfig.faRotateRight}
+              className={'inline-block ml-[1rem]'}
+            />
           </button>
           <button
+            className={
+              'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+            }
             type={'button'}
             onClick={onToggleModal}
             disabled={isDataEmpty}
           >
             Display
-            <FontAwesomeIcon icon={iconLibraryConfig.faTable} />
+            <FontAwesomeIcon
+              icon={iconLibraryConfig.faTable}
+              className={'inline-block ml-[1rem]'}
+            />
           </button>
           {isPending || shouldToastVisible ? (
             <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.REQUEST} />
           ) : (
             <button
+              className={
+                'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+              }
               type={'button'}
               onClick={() => mutate()}
               disabled={isDataEmpty}
             >
               Download
-              <FontAwesomeIcon icon={iconLibraryConfig.faFileArrowDown} />
+              <FontAwesomeIcon
+                icon={iconLibraryConfig.faFileArrowDown}
+                className={'inline-block ml-[1rem]'}
+              />
             </button>
           )}
         </th>
-      </TableHeadRow>
+      </tr>
     </>
   );
 };

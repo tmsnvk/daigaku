@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 /* logic imports */
 import { useHandleResetForm } from './reset-form.hooks';
 
-/* component, style imports */
+/* component imports */
 import { GenericInput, InputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { FormSwapButton } from '../form-swap-button';
@@ -30,14 +30,14 @@ import { FormType } from '../../home.models';
  */
 interface ComponentProps {
   /**
-   * A methods that selects the current form type.
+   * The method to select the current form type.
    *
    * @param formType The type of the form to be selected.
    */
   selectForm: (formType: FormType) => void;
 
   /**
-   * A method that displays a modal.
+   * The method to display a modal component.
    */
   showModal: () => void;
 }

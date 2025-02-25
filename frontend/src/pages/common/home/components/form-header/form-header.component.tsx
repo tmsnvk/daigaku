@@ -7,14 +7,12 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-
 /**
  * Defines the component's properties.
  */
 interface ComponentProps {
   /**
-   * The header text to be displayed.
+   * The displayed form header text.
    */
   readonly headerContent: string;
 }
@@ -26,5 +24,5 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const FormHeader = ({ headerContent }: ComponentProps): JSX.Element => {
-  return <p className={'mb-[2.5rem] text-xl'}>{headerContent}</p>;
+  return <p className={'mb-[2.5rem] text-2xl'}>{headerContent}</p>;
 };
