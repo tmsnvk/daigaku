@@ -10,12 +10,11 @@ import { JSX } from 'react';
 /* logic imports */
 import { useGetCommentsByApplicationAndPagination, useHandleCommentPagination } from './comment-section.hooks';
 
-/* component, style imports */
+/* component imports */
 import { LoadingIndicator } from '@components/general';
 import { CommentPaginationButton } from '../comment-pagination-button';
 import { Comments } from '../comments';
 import { CreateCommentForm } from '../create-comment-form';
-import { Section } from './comment-section.styles';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -25,13 +24,13 @@ import { localization as l } from '@constants';
  */
 interface ComponentProps {
   /**
-   * The application's uuid string is used in the REST API request when the user submits a new comment.
+   * The application's uuid string to which the comment section belongs to.
    */
   readonly applicationUuid: string;
 }
 
 /**
- * Renders the comment section on an Application record's view page.
+ * Renders the comment section on an application record's view page.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -46,18 +45,18 @@ export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element
 
   return (
     <>
-      <Section>
+      <section className={'w-[95%] mx-auto my-[5rem] sm:w-[65%] lg:w-[95%]'}>
         <Comments
           comments={data?.comments ?? []}
           isError={isError}
         />
-        <div>
+        <div className={'w-[90%] flex flex-row items-center justify-around mx-auto mb-[5rem]'}>
           <CommentPaginationButton
             onClick={goToPreviousPage}
             isDisabled={data?.currentPage === 0}
             value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PREVIOUS}
           />
-          <span>
+          <span className={'text-xl'}>
             {l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PAGE} {currentPage + 1}
           </span>
           <CommentPaginationButton
@@ -71,7 +70,7 @@ export const CommentSection = ({ applicationUuid }: ComponentProps): JSX.Element
           />
         </div>
         <CreateCommentForm applicationUuid={applicationUuid} />
-      </Section>
+      </section>
     </>
   );
 };

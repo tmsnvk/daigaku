@@ -9,9 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
-/* component, style imports */
-import { Cell, TableBodyRow } from './data-rows.styles';
-
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { localization as l } from '@constants';
@@ -37,46 +34,57 @@ interface ComponentProps {
 }
 
 /**
- * Renders a {@link Cell} component for each data element in the Applications record array.
+ * Renders a <td> element for each data element in the Applications record array.
  *
  * @return {Array<JSX.Element>}
  */
 export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.Element> => {
   return applications.map((application: Application) => {
     return (
-      <TableBodyRow key={application.uuid}>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'courseName')}>{application.courseName}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'university')}>{application.universityUuid}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'country')}>{application.countryUuid}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'programmeLength')}>{application.programmeLength}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'applicationStatus')}>{application.applicationStatus.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'interviewStatus')}>{application.interviewStatus?.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'offerStatus')}>{application.offerStatus?.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'responseStatus')}>{application.responseStatus?.name ?? '-'}</Cell>
-        <Cell $shouldDisplay={isColumnVisible(columns, 'finalDestinationStatus')}>{application.finalDestinationStatus?.name ?? '-'}</Cell>
+      <tr
+        key={application.uuid}
+        className={'h-[10rem] odd:bg-(--color-white-smoke)'}
+      >
+        <td className={`display: ${isColumnVisible(columns, 'courseName') ? '' : 'hidden'}`}>{application.courseName}</td>
+        <td className={`${isColumnVisible(columns, 'university') ? '' : 'hidden'}`}>{application.university}</td>
+        <td className={`${isColumnVisible(columns, 'country') ? '' : 'hidden'}`}>{application.country}</td>
+        <td className={`${isColumnVisible(columns, 'programmeLength') ? '' : 'hidden'}`}>{application.programmeLength}</td>
+        <td className={`${isColumnVisible(columns, 'applicationStatus') ? '' : 'hidden'}`}>{application.applicationStatus.name ?? '-'}</td>
+        <td className={`${isColumnVisible(columns, 'interviewStatus') ? '' : 'hidden'}`}>{application.interviewStatus?.name ?? '-'}</td>
+        <td className={`${isColumnVisible(columns, 'offerStatus') ? '' : 'hidden'}`}>{application.offerStatus?.name ?? '-'}</td>
+        <td className={`${isColumnVisible(columns, 'responseStatus') ? '' : 'hidden'}`}>{application.responseStatus?.name ?? '-'}</td>
+        <td className={`${isColumnVisible(columns, 'finalDestinationStatus') ? '' : 'hidden'}`}>
+          {application.finalDestinationStatus?.name ?? '-'}
+        </td>
         <td>
           <Link
             className={
-              'flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
+              'flex flex-row justify-center items-center mx-auto py-[1rem] bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
             }
             to={`edit/${application.uuid}`}
             state={application}
           >
             {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.EDIT}
-            <FontAwesomeIcon icon={iconLibraryConfig.faWrench} />
+            <FontAwesomeIcon
+              icon={iconLibraryConfig.faWrench}
+              className={'ml-[1rem]'}
+            />
           </Link>
           <Link
             className={
-              'flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
+              'flex flex-row justify-center items-center mx-auto py-[1rem] bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
             }
             to={`view/${application.uuid}`}
             state={application}
           >
             {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.VIEW}
-            <FontAwesomeIcon icon={iconLibraryConfig.faMagnifyingGlass} />
+            <FontAwesomeIcon
+              icon={iconLibraryConfig.faMagnifyingGlass}
+              className={'ml-[1rem]'}
+            />
           </Link>
         </td>
-      </TableBodyRow>
+      </tr>
     );
   });
 };

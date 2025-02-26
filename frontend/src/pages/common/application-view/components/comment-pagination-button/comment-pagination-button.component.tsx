@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-import { PaginationButton } from './comment-pagination-button.styles.ts';
-
 /**
  * Defines the component's properties.
  */
@@ -20,7 +17,7 @@ interface ComponentProps {
   onClick: () => void;
 
   /**
-   * Controls the button's disabled status. If the user is on the first or last page, pagination is disabled.
+   * Controls the button's disabled status. If the user is on the first or last page, the pagination functionality is disabled.
    */
   readonly isDisabled: boolean;
 
@@ -31,18 +28,22 @@ interface ComponentProps {
 }
 
 /**
- * Renders a single button HTML element for paginating comments on an Application record's view page.
+ * Renders a single button HTML element for paginating comments on an application record's view page.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
 export const CommentPaginationButton = ({ onClick, isDisabled, value }: ComponentProps): JSX.Element => {
   return (
-    <PaginationButton
+    <button
+      type={'button'}
+      className={
+        'base-button text-(--color-white-smoke) bg-(--color-dark-gun-metal) hover:not-disabled:bg-(--color-jacarta) hover:not-disabled:shadow-(--dark-box-shadow) disabled:text-(--color-dark-gun-metal) disabled:bg-(--color-indian-yellow) focus:outline-[0.15rem] focus:outline-solid focus:outline-(--color-jacarta)'
+      }
       onClick={onClick}
       disabled={isDisabled}
     >
       {value}
-    </PaginationButton>
+    </button>
   );
 };

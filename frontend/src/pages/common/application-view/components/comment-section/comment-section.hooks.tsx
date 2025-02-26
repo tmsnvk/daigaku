@@ -19,7 +19,7 @@ import { CommentPaginationData, SimpleQueryResult } from '@common-types';
 import { CommentPagination } from './comment-section.models';
 
 /**
- * Manages page number tracking for the comment pagination feature.
+ * Manages the page number tracking for the comment pagination feature.
  *
  * @return {CommentPagination}
  */

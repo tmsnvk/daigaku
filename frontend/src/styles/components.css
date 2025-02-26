@@ -24,4 +24,16 @@
     justify-content: space-between;
     margin: 10rem 0 0 0;
   }
+
+  .form-title-head {
+    @apply text-5xl;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 66%;
+      margin: 2.5rem auto 2.5rem auto;
+      border-bottom: 0.5rem solid var(--color-dark-gun-metal);
+    }
+  }
 }

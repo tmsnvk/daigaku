@@ -22,14 +22,14 @@ export interface Application extends BaseMetadata {
   readonly accountUuid: string;
 
   /**
-   * The uuid string of the country associated with the application.
+   * The country associated with the application.
    */
-  readonly countryUuid: string;
+  readonly country: string;
 
   /**
-   * The uuid string of the university associated with the application.
+   * The university associated with the application.
    */
-  readonly universityUuid: string;
+  readonly university: string;
 
   /**
    * The course associated with the application.

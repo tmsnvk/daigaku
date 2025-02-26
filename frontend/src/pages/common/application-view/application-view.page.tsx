@@ -11,9 +11,8 @@ import { useLocation } from 'react-router-dom';
 /* logic imports */
 import { useGetApplicationByUuid } from '@hooks';
 
-/* component, style imports */
+/* component imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { Main } from './application-view.styles';
 import { ApplicationDetails } from './components/application-details';
 import { CommentSection } from './components/comment-section';
 
@@ -21,7 +20,7 @@ import { CommentSection } from './components/comment-section';
 import { localization as l } from '@constants';
 
 /**
- * Renders the view mode of the selected application record.
+ * Renders the view mode page of the selected application record.
  *
  * @return {JSX.Element}
  */
@@ -50,9 +49,9 @@ export const ApplicationView = (): JSX.Element => {
   }
 
   return (
-    <Main>
+    <main className={'grid grid-cols-[1fr] gap-x-[2.5rem] lg:grid-cols-[1fr_0.5fr]'}>
       <ApplicationDetails application={application} />
       <CommentSection applicationUuid={applicationUuid} />
-    </Main>
+    </main>
   );
 };

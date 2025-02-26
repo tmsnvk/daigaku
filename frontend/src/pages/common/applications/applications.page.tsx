@@ -62,7 +62,7 @@ export const Applications = (): JSX.Element => {
   // add mentor and student selector dropdowns for admins
   return (
     <main className={'base-dark-border flex flex-col w-[95%] mx-auto my-[5%] text-xl'}>
-      <table className={'table-fixed'}>
+      <table className={'table-fixed text-center'}>
         <thead>
           <TableHeader
             columns={columns}

@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-import { Article } from './application-metadata.styles';
-
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
 
@@ -19,7 +16,12 @@ import { BaseMetadata } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps extends BaseMetadata {}
+interface ComponentProps extends BaseMetadata {
+  /**
+   *
+   */
+  readonly gridPosition: string;
+}
 
 /**
  * Renders the metadata for a selected application, including the creation and
@@ -28,13 +30,13 @@ interface ComponentProps extends BaseMetadata {}
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps): JSX.Element => {
+export const ApplicationMetadata = ({ gridPosition, createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps): JSX.Element => {
   return (
-    <Article>
+    <article className={`grid ${gridPosition} mr-auto text-2xl`}>
       <dl>
         <div>
-          <dt>{l.APPLICATION.METADATA.SUBMISSION.AT}</dt>{' '}
-          <dd>
+          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.SUBMISSION.AT}</dt>{' '}
+          <dd className={'inline-block'}>
             {new Date(createdAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',
@@ -44,12 +46,13 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
             })}
           </dd>
         </div>
-        <div>
-          <dt>{l.APPLICATION.METADATA.SUBMISSION.BY}</dt> <dd>{createdBy}</dd>
+        <div className={'my-[0.5rem]'}>
+          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.SUBMISSION.BY}</dt>{' '}
+          <dd className={'inline-block'}>{createdBy}</dd>
         </div>
-        <div>
-          <dt>{l.APPLICATION.METADATA.LAST_UPDATE.AT}</dt>{' '}
-          <dd>
+        <div className={'my-[0.5rem]'}>
+          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.LAST_UPDATE.AT}</dt>{' '}
+          <dd className={'inline-block'}>
             {new Date(lastUpdatedAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',
@@ -60,9 +63,10 @@ export const ApplicationMetadata = ({ createdAt, createdBy, lastUpdatedAt, lastM
           </dd>
         </div>
         <div>
-          <dt>{l.APPLICATION.METADATA.LAST_UPDATE.BY}</dt> <dd>{lastModifiedBy}</dd>
+          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.LAST_UPDATE.BY}</dt>{' '}
+          <dd className={'inline-block'}>{lastModifiedBy}</dd>
         </div>
       </dl>
-    </Article>
+    </article>
   );
 };

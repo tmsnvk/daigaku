@@ -100,14 +100,14 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           id={'country'}
           type={'text'}
           label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.NAME}
-          value={application.countryUuid}
+          value={application.country}
         />
         <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.INFORMATION} />
         <DisabledInput
           id={'university'}
           type={'text'}
           label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.NAME}
-          value={application.universityUuid}
+          value={application.university}
         />
         <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.INFORMATION} />
         <DisabledInput

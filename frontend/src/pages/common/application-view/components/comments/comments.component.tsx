@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-import { Article, ErrorContainer } from './comments.styles';
-
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
 
@@ -26,7 +23,7 @@ interface ComponentProps {
   readonly comments: Array<Comment>;
 
   /**
-   * A boolean value indicating if an error occurred while fetching the comments.
+   * The boolean value indicating if an error occurred while fetching the comments.
    */
   readonly isError: boolean;
 }
@@ -39,18 +36,29 @@ interface ComponentProps {
  */
 export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => {
   if (isError) {
-    return <ErrorContainer>{l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.ERROR}</ErrorContainer>;
+    return (
+      <article className={'w-[75%] mx-auto my-[5rem] text-center text-2xl text-(--color-coral-red) font-extrabold'}>
+        {l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.ERROR}
+      </article>
+    );
   }
 
   return (
-    <Article>
+    <article className={'mb-[5rem]'}>
       {comments.map((comment: Comment) => (
-        <article key={comment.uuid}>
-          <div>
-            <p>{comment.createdBy}</p>
-            <p>{comment.comment}</p>
+        <article
+          key={comment.uuid}
+          className={'w-[75%] mx-auto my-[5rem] text-xl'}
+        >
+          <div
+            className={
+              'px-[1.5rem] py-[2rem] bg-(--color-columbia-blue) border-[0.2rem] border-solid border-(--color-dark-gun-metal) rounded-(--default-border-radius)'
+            }
+          >
+            <p className={'font-extrabold'}>{comment.createdBy}</p>
+            <p className={'my-[2rem] whitespace-pre-wrap break-all'}>{comment.comment}</p>
           </div>
-          <p>
+          <p className={'pt-[1.5rem] pl-[2.5rem] font-extrabold'}>
             {new Date(comment.createdAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',
@@ -61,6 +69,6 @@ export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => 
           </p>
         </article>
       ))}
-    </Article>
+    </article>
   );
 };

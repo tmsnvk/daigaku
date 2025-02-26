@@ -11,10 +11,9 @@ import { useForm } from 'react-hook-form';
 /* logic imports */
 import { useSubmitComment } from './create-comment-form.hooks';
 
-/* component, style imports */
+/* component imports */
 import { GenericTextarea, InputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { Form } from './create-comment-form.styles';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -27,13 +26,13 @@ import { CreateComment } from '@common-types';
  */
 interface ComponentProps {
   /**
-   * The application record's uuid string used in the REST API request when the user submits a new comment.
+   * The application record's uuid string used in the server request when the user submits a new comment.
    */
   readonly applicationUuid: string;
 }
 
 /**
- * Renders the comments on the selected pagination page.
+ * Renders the comment submission form.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -51,9 +50,9 @@ export const CreateCommentForm = ({ applicationUuid }: ComponentProps): JSX.Elem
   const { isPending, mutate } = useSubmitComment(setError, applicationUuid);
 
   return (
-    <Form
+    <form
       id={'post-comment-form'}
-      method={'POST'}
+      className={'flex flex-col items-center'}
       onSubmit={handleSubmit((formData) => mutate(formData))}
     >
       <GenericTextarea
@@ -88,6 +87,6 @@ export const CreateCommentForm = ({ applicationUuid }: ComponentProps): JSX.Elem
         )}
       </article>
       <article>{errors.root && <InputError message={errors.root.message} />}</article>
-    </Form>
+    </form>
   );
 };

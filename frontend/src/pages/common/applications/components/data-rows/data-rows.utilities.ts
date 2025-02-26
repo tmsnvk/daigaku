@@ -11,7 +11,7 @@ import { Column } from '../../applications.models';
  * Determines whether a column with a specific `columnId` is found in the array of columns to be displayed
  * and returns its `isVisible` value.
  *
- * @param columns An array of column objects.
+ * @param columns The array of column objects.
  * @param columnId The column's id to search for.
  * @return {boolean}
  */

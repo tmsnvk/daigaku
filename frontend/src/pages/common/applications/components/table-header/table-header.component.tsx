@@ -118,7 +118,10 @@ export const TableHeader = ({
                   disabled={isDataEmpty}
                 >
                   {column.name}
-                  <FontAwesomeIcon icon={iconLibraryConfig.faSort} />
+                  <FontAwesomeIcon
+                    icon={iconLibraryConfig.faSort}
+                    className={'inline-block ml-[1rem]'}
+                  />
                 </button>
               </th>
             )

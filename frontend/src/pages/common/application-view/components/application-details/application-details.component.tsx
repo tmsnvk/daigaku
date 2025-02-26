@@ -8,11 +8,9 @@
 import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
-/* component, style imports */
+/* component imports */
 import { ApplicationMetadata } from '@components/application';
-import { PageTitle } from '@components/general';
 import { ApplicationDetail } from '../application-detail';
-import { Section } from './application-details.styles';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -38,20 +36,26 @@ interface ComponentProps {
  */
 export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element => {
   return (
-    <Section as={'section'}>
-      <PageTitle title={l.PAGES.COMMON.APPLICATION_VIEW.TITLE} />
+    <section className={'base-light-border application-grid h-fit w-[85%]'}>
+      <h1 className={'form-title-head col-start-1 col-end-3'}>{l.PAGES.COMMON.APPLICATION_VIEW.TITLE}</h1>
       <ApplicationMetadata
+        gridPosition={'col-start-1 col-end-2'}
         createdAt={application.createdAt}
         createdBy={application.createdBy}
         lastUpdatedAt={application.lastUpdatedAt}
         lastModifiedBy={application.lastModifiedBy}
       />
-      <article>
-        <Link to={`/applications/edit/${application.uuid}`}>{l.PAGES.COMMON.APPLICATION_VIEW.EDIT_BUTTON}</Link>
+      <article className={'col-start-2 col-end-3'}>
+        <Link
+          className={'base-button'}
+          to={`/applications/edit/${application.uuid}`}
+        >
+          {l.PAGES.COMMON.APPLICATION_VIEW.EDIT_BUTTON}
+        </Link>
       </article>
       <ApplicationDetail
         name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.COUNTRY.NAME}
-        value={application.countryUuid}
+        value={application.country}
       />
       <ApplicationDetail
         name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.COURSE_NAME.NAME}
@@ -85,6 +89,6 @@ export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element
         name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.FINAL_DESTINATION_STATUS.NAME}
         value={application.finalDestinationStatus?.name ?? '-'}
       />
-    </Section>
+    </section>
   );
 };

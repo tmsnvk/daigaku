@@ -12,4 +12,30 @@
     border-radius: var(--default-border-radius);
     box-shadow: 0.5rem 0.5rem 1rem var(--color-dark-gun-metal);
   }
+
+  .base-button {
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 2.5rem 0 2.5rem;
+    color: var(--color-white-smoke);
+    background-color: var(--color-dark-gun-metal);
+    @apply text-2xl;
+    text-align: center;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    border: 0.3rem solid var(--color-dark-gun-metal);
+    border-radius: var(--default-border-radius);
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:hover {
+      background-color: var(--color-jacarta);
+      box-shadow: 0 0 0.5rem var(--color-jacarta);
+    }
+  }
 }

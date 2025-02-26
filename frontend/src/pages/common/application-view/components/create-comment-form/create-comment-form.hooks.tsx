@@ -25,9 +25,9 @@ import { Comment, CoreErrorResponse, CreateComment, ErrorDetail } from '@common-
 type NewCommentFormErrorT = 'root' | 'comment';
 
 /**
- * Mnages the comment submission process, including REST API request, error handling, and post-success actions.
+ * Manages the comment submission process, including the server request, error handling, and post-success actions.
  *
- * @param setError A `react-hook-form` function to set form errors.
+ * @param setError The `react-hook-form` method to set form errors.
  * @param applicationUuid The application record's uuid string to which the comment belongs to.
  * @return {UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment>}
  */

@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-import { Article } from './application-detail.styles';
-
 /**
  * Defines the component's properties.
  */
@@ -33,9 +30,9 @@ interface ComponentProps {
  */
 export const ApplicationDetail = ({ name, value }: ComponentProps): JSX.Element => {
   return (
-    <Article>
-      <h2>{name}</h2>
-      <p>{value}</p>
-    </Article>
+    <article className={'col-start-1 col-end-3 flex flex-col items-center'}>
+      <h2 className={'text-5xl'}>{name}</h2>
+      <p className={'text-3xl'}>{value}</p>
+    </article>
   );
 };

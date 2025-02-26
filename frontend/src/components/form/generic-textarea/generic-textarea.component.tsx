@@ -8,8 +8,7 @@
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-/* component, style imports */
-import { BaseTextarea } from '@components/base-styles';
+/* component imports */
 import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
@@ -31,7 +30,7 @@ interface ComponentProps<T extends FieldValues> extends CommonInput<T> {
 }
 
 /**
- * Renders a generic textarea integrated with the `react-hook-form` library for validation and error handling.
+ * Renders a textarea element integrated with the `react-hook-form` library for validation and error handling.
  *
  * @param {ComponentProps<T>} props
  * @return {JSX.Element}
@@ -48,7 +47,7 @@ export const GenericTextarea = <T extends FieldValues>({
   isDisabled,
 }: ComponentProps<T>): JSX.Element => {
   return (
-    <BaseTextarea $isError={error !== undefined}>
+    <article className={'w-[100%] flex flex-col items-center mb-[5rem]'}>
       <InputLabel
         inputId={id}
         label={label}
@@ -57,6 +56,11 @@ export const GenericTextarea = <T extends FieldValues>({
         {...register(id, validationRules)}
         id={id}
         name={id}
+        className={`w-[90%] md:w-[75%] px-[1.5rem] py-[2rem] text-base ${
+          isDisabled ? 'text-(--color-indian-yellow)' : 'text(--color-columbia-blue)'
+        } bg-(--color-columbia-blue) rounded-(--default-border-radius) border-[0.2rem] border-solid ${
+          error ? 'border-(--color-coral-red)' : 'border-(--color-dark-gun-metal)'
+        } placeholder:text-(--color-jacarta) hover:border-(--color-indian-yellow) focus:border-(--color-indian-yellow) focus:outline-[0.15rem] focus:outline-solid focus:outline-(--color-indian-yellow) focus:placeholder:text-transparent disabled:cursor-not-allowed`}
         rows={rows}
         cols={cols}
         autoComplete={'off'}
@@ -64,6 +68,6 @@ export const GenericTextarea = <T extends FieldValues>({
         disabled={isDisabled}
       />
       {error && <InputError message={error} />}
-    </BaseTextarea>
+    </article>
   );
 };
