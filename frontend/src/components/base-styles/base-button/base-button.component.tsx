@@ -1,0 +1,80 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
+/* vendor imports */
+import { type VariantProps, cva } from 'class-variance-authority';
+import { JSX, MouseEventHandler } from 'react';
+
+/* configuration, utilities, constants imports */
+import { joinTw } from '@utilities';
+
+const buttonVariants = cva(
+  'h-20 px-6 text-2xl font-bold rounded-xl focus:outline-1 focus:outline-solid hover:outline-1 hover:outline-solid',
+  {
+    variants: {
+      intent: {
+        light: 'color-jacarta bg-columbia-blue focus:outline-(--color-jacarta) hover:outline-(--color-jacarta)',
+        dark: '',
+        disabled: '',
+      },
+      disabled: {
+        false: 'cursor-pointer',
+        true: 'cursor-not-allowed',
+      },
+    },
+  },
+);
+
+/**
+ * Defines the component's properties.
+ */
+interface ComponentProps extends Omit<VariantProps<typeof buttonVariants>, 'intent'> {
+  /**
+   * The button's label.
+   */
+  readonly label: string;
+
+  /**
+   * The button's base style option.
+   */
+  readonly intent: 'light' | 'dark' | 'disabled';
+
+  /**
+   * The button's additional style options.
+   */
+  readonly className?: string;
+
+  /**
+   * The boolean indicating whether the button is disabled or not.
+   */
+  readonly disabled?: boolean;
+
+  /**
+   * The button's onClick handler.
+   */
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}
+
+/**
+ * Renders the default button component used throughout the application.
+ *
+ * @param {ComponentProps} props
+ * @return {JSX.Element}
+ */
+export const BaseButton = ({ label, intent, className, disabled, onClick }: ComponentProps): JSX.Element => {
+  return (
+    <button
+      id={label}
+      name={label}
+      className={joinTw(buttonVariants({ intent, disabled, className }))}
+      type={'button'}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {label}
+    </button>
+  );
+};

@@ -297,7 +297,7 @@ export const localization = {
             PAGE_LOADING: 'You are being logged in.',
           },
           FORM: {
-            INSTRUCTION: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',
+            HEADER: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',
             EMAIL: {
               PLACEHOLDER: 'Enter your email address',
               LABEL: 'Email',
@@ -321,7 +321,7 @@ export const localization = {
             FORM_LOADING: 'Your registration is being submitted.',
           },
           FORM: {
-            INSTRUCTION: 'Register an account if you are not in our system yet.',
+            HEADER: 'Register an account if you are not in our system yet.',
             FIRST_NAME: {
               LABEL: 'First Name',
               PLACEHOLDER: 'Enter your first name(s)',
@@ -363,7 +363,7 @@ export const localization = {
             FORM_LOADING: 'Your registration is being handled.',
           },
           FORM: {
-            INSTRUCTION:
+            HEADER:
               'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.',
             EMAIL: {
               LABEL: 'Email',

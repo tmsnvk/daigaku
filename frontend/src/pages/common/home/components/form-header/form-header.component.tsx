@@ -24,5 +24,5 @@ interface ComponentProps {
  * @return {JSX.Element}
  */
 export const FormHeader = ({ headerContent }: ComponentProps): JSX.Element => {
-  return <p className={'mb-[2.5rem] text-2xl'}>{headerContent}</p>;
+  return <p className={'mb-15 text-2xl'}>{headerContent}</p>;
 };

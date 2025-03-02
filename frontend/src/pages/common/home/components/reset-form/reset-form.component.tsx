@@ -14,7 +14,7 @@ import { useHandleResetForm } from './reset-form.hooks';
 /* component imports */
 import { GenericInput, InputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { FormSwapButton } from '../form-swap-button';
+import { FormSwapButtons } from '../form-swap-buttons';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -34,7 +34,7 @@ interface ComponentProps {
    *
    * @param formType The type of the form to be selected.
    */
-  selectForm: (formType: FormType) => void;
+  onFormSelect: (formType: FormType) => void;
 
   /**
    * The method to display a modal component.
@@ -50,7 +50,7 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
+export const ResetForm = ({ onFormSelect, showModal }: ComponentProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
@@ -60,11 +60,11 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
   const { isPending, mutate } = useHandleResetForm(setError, showModal);
 
   return (
-    <section className={'base-light-border home-page-form-section'}>
-      <FormHeader headerContent={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.INSTRUCTION} />
+    <>
+      <FormHeader headerContent={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER} />
       <form
         id={'post-account-reset-form'}
-        className={'home-page-form'}
+        className={'flex flex-col items-center'}
         onSubmit={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
       >
         <GenericInput
@@ -97,20 +97,14 @@ export const ResetForm = ({ selectForm, showModal }: ComponentProps): JSX.Elemen
           {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
-      <article className={'home-page-form-swap-button-article'}>
-        <FormSwapButton
-          formType={FormType.LOGIN}
-          buttonLabel={formTypeButtonLabel[FormType.LOGIN]}
-          onFormSelect={selectForm}
-          isDisabled={isPending}
-        />
-        <FormSwapButton
-          formType={FormType.REGISTER}
-          buttonLabel={formTypeButtonLabel[FormType.REGISTER]}
-          onFormSelect={selectForm}
-          isDisabled={isPending}
-        />
-      </article>
-    </section>
+      <FormSwapButtons
+        leftButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
+        leftButtonFormType={FormType.LOGIN}
+        rightButtonLabel={formTypeButtonLabel[FormType.REGISTER]}
+        rightButtonFormType={FormType.REGISTER}
+        onFormSelect={onFormSelect}
+        isDisabled={isPending}
+      />
+    </>
   );
 };

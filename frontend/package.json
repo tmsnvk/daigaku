@@ -32,12 +32,15 @@
     "@tailwindcss/vite": "^4.0.7",
     "@tanstack/react-query": "^5.8.4",
     "axios": "^1.6.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.49.3",
     "react-router-dom": "^7.1.0",
     "styled-components": "^6.1.12",
+    "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.7"
   },
   "devDependencies": {

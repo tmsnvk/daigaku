@@ -17,7 +17,7 @@ import { AccountRoleDropdown, GenericInput, InputError, InstitutionDropdown, Sub
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormHeader } from '../form-header';
-import { FormSwapButton } from '../form-swap-button';
+import { FormSwapButtons } from '../form-swap-buttons';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -36,7 +36,7 @@ interface ComponentProps {
    *
    * @param formType The type of the form to be selected.
    */
-  selectForm: (formType: FormType) => void;
+  onFormSelect: (formType: FormType) => void;
 
   /**
    * The method to display a modal component.
@@ -52,7 +52,7 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX.Element => {
+export const RegistrationForm = ({ onFormSelect, showModal }: ComponentProps): JSX.Element => {
   const { data: institutions, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
   const {
@@ -76,17 +76,17 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
     return (
       <GlobalErrorModal
         isVisible={isInstitutionError || isRoleError}
-        onCloseModal={() => selectForm(FormType.LOGIN)}
+        onCloseModal={() => onFormSelect(FormType.LOGIN)}
       />
     );
   }
 
   return (
-    <section className={'base-light-border home-page-form-section'}>
-      <FormHeader headerContent={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTRUCTION} />
+    <>
+      <FormHeader headerContent={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER} />
       <form
         id={'post-pending-account-registration-form'}
-        className={'home-page-form'}
+        className={'flex flex-col items-center'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <GenericInput
@@ -183,20 +183,14 @@ export const RegistrationForm = ({ selectForm, showModal }: ComponentProps): JSX
           {errors.root && <InputError message={errors.root.message} />}
         </article>
       </form>
-      <article className={'home-page-form-swap-button-article'}>
-        <FormSwapButton
-          formType={FormType.RESET}
-          buttonLabel={formTypeButtonLabel[FormType.RESET]}
-          onFormSelect={selectForm}
-          isDisabled={isPending}
-        />
-        <FormSwapButton
-          formType={FormType.LOGIN}
-          buttonLabel={formTypeButtonLabel[FormType.LOGIN]}
-          onFormSelect={selectForm}
-          isDisabled={isPending}
-        />
-      </article>
-    </section>
+      <FormSwapButtons
+        leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
+        leftButtonFormType={FormType.RESET}
+        rightButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
+        rightButtonFormType={FormType.LOGIN}
+        onFormSelect={onFormSelect}
+        isDisabled={isPending}
+      />
+    </>
   );
 };

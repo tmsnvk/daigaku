@@ -25,7 +25,7 @@ import { CoreErrorResponse, LoginRequest, LoginResponse } from '@common-types';
 /**
  * Manages the component's form submission.
  *
- * @param setError A `react-hook-form` function to set form errors.
+ * @param setError The `react-hook-form` method to set form errors.
  * @return {UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginRequest>}
  */
 export const useHandleLoginForm = (
@@ -44,15 +44,13 @@ export const useHandleLoginForm = (
       navigate('/dashboard');
     },
     onError: (error: AxiosError<CoreErrorResponse>) => {
-      if (axios.isAxiosError(error)) {
-        const status: number | undefined = error.response?.data.errorCode;
+      if (axios.isAxiosError(error) && error.response && error.response.data) {
+        const status: number = error.response.data.errorCode;
 
-        if (status) {
-          if (status === 401) {
-            setError('root', { message: error.response?.data.errors[0].errorMessage });
-          } else if (status >= 500) {
-            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
-          }
+        if (status === 401) {
+          setError('root', { message: error.response.data.errors[0].errorMessage });
+        } else if (status >= 500) {
+          setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
         }
       } else {
         setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
