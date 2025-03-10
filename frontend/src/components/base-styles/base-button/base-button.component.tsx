@@ -12,11 +12,12 @@ import { JSX, MouseEventHandler } from 'react';
 import { joinTw } from '@utilities';
 
 const buttonVariants = cva(
-  'h-20 px-6 text-2xl font-bold rounded-xl focus:outline-1 focus:outline-solid hover:outline-1 hover:outline-solid',
+  'h-20 px-6 text-2xl font-bold rounded-xl focus:outline-2 focus:outline-solid hover:outline-2 hover:outline-solid',
   {
     variants: {
       intent: {
-        light: 'color-jacarta bg-columbia-blue focus:outline-(--color-jacarta) hover:outline-(--color-jacarta)',
+        light:
+          'bg-(--primary) shadow-(--right-bottom-shadow) focus:outline-width-2 focus:outline-(--primary-foreground) hover:outline-2 hover:outline-(--primary-foreground)',
         dark: '',
         disabled: '',
       },

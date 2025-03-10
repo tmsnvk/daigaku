@@ -111,7 +111,7 @@ export const TableHeader = ({
               >
                 <button
                   className={
-                    'flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+                    'flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--accent) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
                   }
                   type={'button'}
                   onClick={() => onColumnSort(column.id)}
@@ -130,7 +130,7 @@ export const TableHeader = ({
         <th className={'w-[10%] px-[1rem] py-[2.5rem] text-center'}>
           <button
             className={
-              'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+              'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--accent) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
             }
             type={'button'}
             onClick={() => onRefetch({ cancelRefetch: false })}
@@ -144,7 +144,7 @@ export const TableHeader = ({
           </button>
           <button
             className={
-              'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+              'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--accent) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
             }
             type={'button'}
             onClick={onToggleModal}
@@ -161,7 +161,7 @@ export const TableHeader = ({
           ) : (
             <button
               className={
-                'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
+                'h-[4rem] flex flex-row items-center mx-auto bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--accent) disabled:text-(--color-light-gray) disabled:cursor-not-allowed'
               }
               type={'button'}
               onClick={() => mutate()}

@@ -28,7 +28,7 @@ import { CoreErrorResponse, LoginRequest, LoginResponse } from '@common-types';
  * @param setError The `react-hook-form` method to set form errors.
  * @return {UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginRequest>}
  */
-export const useHandleLoginForm = (
+export const useLoginFormMutation = (
   setError: UseFormSetError<LoginRequest>,
 ): UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginRequest> => {
   const navigate = useNavigate();

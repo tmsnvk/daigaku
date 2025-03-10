@@ -8,7 +8,7 @@
 import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
-import { FormType } from './home.models';
+import { FormType } from '../models/form-type';
 
 export const confirmationModalFeedback: Partial<Record<FormType, string>> = {
   [FormType.REGISTER]: l.PAGES.COMMON.HOME.NOTIFICATIONS.REGISTRATION,

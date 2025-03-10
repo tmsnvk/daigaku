@@ -10,22 +10,22 @@ import { useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@hooks';
-import { useSubmitRegistrationForm } from './registration-form.hooks';
+import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
 import { AccountRoleDropdown, GenericInput, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { FormHeader } from '../form-header';
-import { FormSwapButtons } from '../form-swap-buttons';
+import { FormHeader } from './form-header';
+import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
-import { formTypeButtonLabel } from '../../home.constants';
+import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
 import { PendingAccountRegisterRequest } from '@common-types';
-import { FormType } from '../../home.models';
+import { FormType } from '../models';
 
 /**
  * Defines the component's properties.
@@ -61,7 +61,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: ComponentProps): J
     register,
     setError,
   } = useForm<PendingAccountRegisterRequest>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useSubmitRegistrationForm(setError, showModal);
+  const { isPending, mutate } = useRegistrationFormMutation(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {
     return (
@@ -188,8 +188,8 @@ export const RegistrationForm = ({ onFormSelect, showModal }: ComponentProps): J
         leftButtonFormType={FormType.RESET}
         rightButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
         rightButtonFormType={FormType.LOGIN}
-        onFormSelect={onFormSelect}
         isDisabled={isPending}
+        onFormSelect={onFormSelect}
       />
     </>
   );

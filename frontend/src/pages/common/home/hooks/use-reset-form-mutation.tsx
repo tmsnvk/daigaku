@@ -26,7 +26,7 @@ import { AccountResetRequest, CoreErrorResponse } from '@common-types';
  * @param showModal A method that displays a confirmation modal component.
  * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetRequest>}
  */
-export const useHandleResetForm = (
+export const useResetFormMutation = (
   setError: UseFormSetError<AccountResetRequest>,
   showModal: () => void,
 ): UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetRequest> => {

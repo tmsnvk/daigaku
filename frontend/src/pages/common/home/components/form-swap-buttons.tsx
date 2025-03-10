@@ -9,7 +9,7 @@ import { JSX } from 'react';
 
 /* component imports */
 import { BaseButton } from '@components/base-styles';
-import { FormType } from '../../home.models';
+import { FormType } from '../models';
 
 /**
  * Defines the component's properties.
@@ -36,16 +36,16 @@ interface ComponentProps {
   readonly rightButtonFormType: FormType;
 
   /**
+   * The boolean to govern when the buttons should be disabled.
+   */
+  readonly isDisabled: boolean;
+
+  /**
    * The method to swap to when one of the button's is clicked.
    *
    * @param formType The type of the form to be selected.
    */
   onFormSelect: (formType: FormType) => void;
-
-  /**
-   * The boolean to govern when the buttons should be disabled.
-   */
-  readonly isDisabled: boolean;
 }
 
 /**
@@ -59,8 +59,8 @@ export const FormSwapButtons = ({
   leftButtonFormType,
   rightButtonLabel,
   rightButtonFormType,
-  onFormSelect,
   isDisabled,
+  onFormSelect,
 }: ComponentProps): JSX.Element => {
   return (
     <article className={'flex justify-between mt-40'}>

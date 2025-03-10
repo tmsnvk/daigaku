@@ -33,7 +33,7 @@ interface ComponentProps {
  */
 export const TodosView = ({ introduction, todos }: ComponentProps): JSX.Element => {
   return (
-    <section className={'base-light-border w-[95%] lg:w-[65%] mb-[5rem] mx-auto px-[3.5rem] py-[1rem] text-xl bg-(--color-indian-yellow)'}>
+    <section className={'base-light-border w-[95%] lg:w-[65%] mb-[5rem] mx-auto px-[3.5rem] py-[1rem] text-xl bg-(--accent)'}>
       <ul>
         {introduction.map((paragraph: string, index: number) => (
           <li

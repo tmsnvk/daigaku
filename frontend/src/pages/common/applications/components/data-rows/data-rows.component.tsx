@@ -59,7 +59,7 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
         <td>
           <Link
             className={
-              'flex flex-row justify-center items-center mx-auto py-[1rem] bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
+              'flex flex-row justify-center items-center mx-auto py-[1rem] bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--accent)'
             }
             to={`edit/${application.uuid}`}
             state={application}
@@ -72,7 +72,7 @@ export const DataRows = ({ columns, applications }: ComponentProps): Array<JSX.E
           </Link>
           <Link
             className={
-              'flex flex-row justify-center items-center mx-auto py-[1rem] bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--color-indian-yellow)'
+              'flex flex-row justify-center items-center mx-auto py-[1rem] bg-transparent text-(--color-dark-gun-metal) text-xl cursor-pointer hover:text-(--accent)'
             }
             to={`view/${application.uuid}`}
             state={application}

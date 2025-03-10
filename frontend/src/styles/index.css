@@ -26,7 +26,8 @@
     width: 100vw;
     min-height: 100vh;
     font-family: var(--primary-font);
-    background-color: var(--color-white-smoke);
+    color: var(--foreground);
+    background-color: var(--background);
 
     & > div {
       position: relative;
@@ -70,27 +71,48 @@
   }
 }
 
+/* --destructive: #f94144;
+--color-white-smoke: #f0f0f0;
+--color-light-gray: #aaaaaa; DON'T USE THIS
+--color-columbia-blue: #c9d7dd;
+--color-jacarta: #31304d; DON'T USE THIS
+--color-dark-gun-metal: #161a30;
+--color-indian-yellow: #eea14f */
+
 @theme {
-  --color-coral-red: #f94144;
+  --foreground: #161a30;
+  --background: #f0f0f0;
+
+  --primary: #c9d7dd;
+  --primary-foreground: #161a30;
+
+  --secondary: #161a30;
+  --secondary-foreground: #f0f0f0;
+
+  --accent: #eea14f;
+  --accent-foreground: #161a30;
+
+  --destructive: #f94144;
+  --destructive-foreground: #f0f0f0;
+
   --color-white-smoke: #f0f0f0;
   --color-light-gray: #aaaaaa;
   --color-columbia-blue: #c9d7dd;
   --color-jacarta: #31304d;
   --color-dark-gun-metal: #161a30;
-  --color-indian-yellow: #eea14f;
 
   --primary-font: 'Raleway', 'sans-serif';
   --secondary-font: 'Roboto', 'sans-serif';
 
   --default-border-radius: 1.5rem;
 
-  --dark-box-shadow: 0 0 0.5rem var(--color-jacarta);
+  --right-bottom-shadow: 0.2rem 0.2rem 0 0.15rem var(--foreground);
 
-  --animate-fade-in-from-bottom: fade-in-from-bottom ease 1s;
+  --animate-fade-in-from-left: fade-in-from-left ease 0.75s;
 
-  @keyframes fade-in-from-bottom {
+  @keyframes fade-in-from-left {
     0% {
-      transform: translateY(100%);
+      transform: translateX(-100%);
       opacity: 0;
     }
 

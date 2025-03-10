@@ -9,21 +9,21 @@ import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useHandleLoginForm } from './login-form.hooks';
+import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
 import { GenericInput, InputError, PasswordInput, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { FormHeader } from '../form-header';
-import { FormSwapButtons } from '../form-swap-buttons';
+import { FormHeader } from './form-header';
+import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
-import { formTypeButtonLabel } from '../../home.constants';
+import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
 import { LoginRequest } from '@common-types';
-import { FormType } from '../../home.models';
+import { FormType } from '../models';
 
 /**
  * Defines the component's properties.
@@ -52,7 +52,7 @@ export const LoginForm = ({ onFormSelect }: ComponentProps): JSX.Element => {
     register,
     setError,
   } = useForm<LoginRequest>({ mode: 'onSubmit' });
-  const { isPending, mutate } = useHandleLoginForm(setError);
+  const { isPending, mutate } = useLoginFormMutation(setError);
 
   return (
     <>
@@ -111,8 +111,8 @@ export const LoginForm = ({ onFormSelect }: ComponentProps): JSX.Element => {
         leftButtonFormType={FormType.RESET}
         rightButtonLabel={formTypeButtonLabel[FormType.REGISTER]}
         rightButtonFormType={FormType.REGISTER}
-        onFormSelect={onFormSelect}
         isDisabled={isPending}
+        onFormSelect={onFormSelect}
       />
     </>
   );

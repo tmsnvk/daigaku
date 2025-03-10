@@ -57,10 +57,10 @@ export const GenericTextarea = <T extends FieldValues>({
         id={id}
         name={id}
         className={`w-[90%] md:w-[75%] px-[1.5rem] py-[2rem] text-base ${
-          isDisabled ? 'text-(--color-indian-yellow)' : 'text(--color-columbia-blue)'
+          isDisabled ? 'text-(--accent)' : 'text(--color-columbia-blue)'
         } bg-(--color-columbia-blue) rounded-(--default-border-radius) border-[0.2rem] border-solid ${
           error ? 'border-(--color-coral-red)' : 'border-(--color-dark-gun-metal)'
-        } placeholder:text-(--color-jacarta) hover:border-(--color-indian-yellow) focus:border-(--color-indian-yellow) focus:outline-[0.15rem] focus:outline-solid focus:outline-(--color-indian-yellow) focus:placeholder:text-transparent disabled:cursor-not-allowed`}
+        } placeholder:text-(--color-jacarta) hover:border-(--accent) focus:border-(--accent) focus:outline-[0.15rem] focus:outline-solid focus:outline-(--accent) focus:placeholder:text-transparent disabled:cursor-not-allowed`}
         rows={rows}
         cols={cols}
         autoComplete={'off'}

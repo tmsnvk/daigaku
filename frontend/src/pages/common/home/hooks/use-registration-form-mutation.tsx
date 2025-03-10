@@ -20,7 +20,7 @@ import { errorConstants } from '@constants';
 import { CoreErrorResponse, ErrorDetail, PendingAccountRegisterRequest } from '@common-types';
 
 /**
- * Defines the {@link useSubmitRegistrationForm} custom hook's error types.
+ * Defines the {@link useRegistrationFormMutation} custom hook's error types.
  */
 type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
@@ -31,7 +31,7 @@ type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'ins
  * @param showModal A method that displays a confirmation modal component.
  * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegisterRequest>}
  */
-export const useSubmitRegistrationForm = (
+export const useRegistrationFormMutation = (
   setError: UseFormSetError<PendingAccountRegisterRequest>,
   showModal: () => void,
 ): UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegisterRequest> => {

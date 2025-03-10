@@ -57,7 +57,6 @@
     "accessor-pairs": ["warn", { "getWithoutSet": true, "setWithoutGet": true, "enforceForClassMembers": false }],
     "camelcase": "warn",
     "curly": ["warn", "multi-line", "consistent"],
-    "default-case": "warn",
     "default-case-last": "warn",
     "default-param-last": "warn",
     "dot-notation": "warn",

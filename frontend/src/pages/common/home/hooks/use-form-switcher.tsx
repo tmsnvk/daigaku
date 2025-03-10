@@ -8,40 +8,46 @@
 import { JSX, useMemo, useState } from 'react';
 
 /* component imports */
-import { LoginForm, RegistrationForm, ResetForm } from './components';
+import { LoginForm, RegistrationForm, ResetForm } from '../components';
+
+/* configuration, utilities, constants imports */
+import { joinTw } from '@utilities';
 
 /* interface, type, enum imports */
-import { FormType } from './home.models';
+import { FormType } from '../models';
 
 /**
- * Defines the return values for the {@link useActiveFormComponent} hook.
+ * Defines the return values for the {@link useFormSwitcher} hook.
  */
-interface ActiveFormComponent {
+interface FormSwitcher {
   /**
    * The currently selected {@link FormType}.
    */
-  readonly activeFormType: FormType;
+  readonly selectedFormType: FormType;
 
   /**
    * The currently rendered component.
    */
-  readonly activeFormComponent: JSX.Element;
+  readonly selectedFormComponent: JSX.Element;
 }
 
 /**
- * A helper method used by {@link useActiveFormComponent} to retrieve the appropriate form component based on the provided {@link FormType}.
+ * A helper method used by {@link useFormSwitcher} to retrieve the appropriate form component based on the provided {@link FormType}.
  *
- * @param activeFormType The current {@link FormType} that determines which component is rendered.
+ * @param selectedFormType The current {@link FormType} that determines which component is rendered.
  * @param selectFormTypeHandler The method to change the rendered form component.
  * @param showModal The method to trigger a modal component attached to the currently active form component.
  * @return {JSX.Element} The form component corresponding to the selected {@link FormType}.
  */
-const getActiveFormComponent = (
-  activeFormType: FormType,
+const getSelectedFormComponent = (
+  selectedFormType: FormType,
   selectFormTypeHandler: (formType: FormType) => void,
   showModal: () => void,
 ): JSX.Element => {
-  switch (activeFormType) {
+  switch (selectedFormType) {
+    case FormType.LOGIN:
+      return <LoginForm onFormSelect={selectFormTypeHandler} />;
+
     case FormType.REGISTER:
       return (
         <RegistrationForm
@@ -57,9 +63,6 @@ const getActiveFormComponent = (
           showModal={showModal}
         />
       );
-
-    default:
-      return <LoginForm onFormSelect={selectFormTypeHandler} />;
   }
 };
 
@@ -71,31 +74,33 @@ const getActiveFormComponent = (
  * - {@link ResetForm}
  *
  * @param showModal The method to trigger a modal component attached to the currently active form component.
- * @return {ActiveFormComponent}
+ * @return {FormSwitcher}
  */
-export const useActiveFormComponent = (showModal: () => void): ActiveFormComponent => {
+export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
   const DEFAULT_FORM_TYPE = FormType.LOGIN;
-  const [activeFormType, setActiveFormType] = useState<FormType>(DEFAULT_FORM_TYPE);
+  const [selectedFormType, setSelectedFormType] = useState<FormType>(DEFAULT_FORM_TYPE);
 
   const selectFormTypeHandler = (formType: FormType): void => {
-    setActiveFormType(formType);
+    setSelectedFormType(formType);
   };
 
-  const activeFormComponent: JSX.Element = useMemo(() => {
+  const selectedFormComponent: JSX.Element = useMemo(() => {
     return (
       <section
-        key={activeFormType}
-        className={
-          'base-light-border w-[85%] flex flex-col justify-between my-[5%] px-10 py-20 text-center animate-(--animate-fade-in-from-bottom) sm:w-200'
-        }
+        key={selectedFormType}
+        className={joinTw(
+          'base-light-border',
+          'w-[85%] flex flex-col justify-between my-[5%] px-10 py-20 text-center animate-(--animate-fade-in-from-left)',
+          'sm:w-200',
+        )}
       >
-        {getActiveFormComponent(activeFormType, selectFormTypeHandler, showModal)}
+        {getSelectedFormComponent(selectedFormType, selectFormTypeHandler, showModal)}
       </section>
     );
-  }, [activeFormType]);
+  }, [selectedFormType]);
 
   return {
-    activeFormType,
-    activeFormComponent,
+    selectedFormType,
+    selectedFormComponent,
   };
 };

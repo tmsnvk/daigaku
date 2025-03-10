@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { Home } from './home-page';
-
-export { Home };
+export * from './form-type';

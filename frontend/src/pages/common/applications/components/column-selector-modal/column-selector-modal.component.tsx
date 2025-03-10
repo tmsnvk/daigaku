@@ -78,7 +78,7 @@ export const ColumnSelectorModal = ({ columns, onToggleColumnVisibility, isModal
         id={'modal-toggle'}
         name={'modal-toggle'}
         className={
-          'mt-[5rem] mx-auto px-[2.5rem] py-[1rem] bg-transparent font-extrabold border-[0.2rem] border-solid border-(--color-indian-yellow) rounded-(--default-border-radius) cursor-pointer hover:text-(--color-indian-yellow)'
+          'mt-[5rem] mx-auto px-[2.5rem] py-[1rem] bg-transparent font-extrabold border-[0.2rem] border-solid border-(--accent) rounded-(--default-border-radius) cursor-pointer hover:text-(--accent)'
         }
         onClick={onToggle}
       >
