@@ -69,7 +69,6 @@
     "no-lonely-if": "warn",
     "no-loop-func": "warn",
     "no-mixed-operators": "warn",
-    "no-nested-ternary": "warn",
     "no-return-assign": "warn",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "warn",

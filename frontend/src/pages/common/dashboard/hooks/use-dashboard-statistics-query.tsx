@@ -22,7 +22,7 @@ import { SimpleQueryResult, StudentDashboardStatistics } from '@common-types';
  *
  * @return {SimpleQueryResult<StudentDashboardStatistics>}
  */
-export const useGetDashboardStatistics = (): SimpleQueryResult<StudentDashboardStatistics> => {
+export const useDashboardStatisticsQuery = (): SimpleQueryResult<StudentDashboardStatistics> => {
   const { getRoleResource } = useAuthContext();
   const accountRole = getRoleResource();
 

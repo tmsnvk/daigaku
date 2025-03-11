@@ -11,25 +11,28 @@ import { useNavigate } from 'react-router-dom';
 /* logic imports */
 import { AccountRoles, useAuthContext } from '@context/auth';
 import { useGetApplications } from '@hooks';
-import { useGetDashboardStatistics } from './dashboard.hooks';
+import { useDashboardStatisticsQuery } from './hooks';
 
 /* component imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { StudentLayout } from './layouts';
+import { LayoutStudent } from './components';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
 
+/* interface, type, enum imports */
+import { StudentDashboardStatistics } from '@common-types';
+
 /**
- * Renders the application records' dashboard for the logged-in user.
+ * Renders the application records' dashboard for authenticated users.
  * The page displays various aggregate data components based on the user's authorization level.
  *
- * @return {JSX.Element | undefined}
+ * @return {JSX.Element}
  */
-export const Dashboard = (): JSX.Element | undefined => {
+export const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
   const { account, logOut } = useAuthContext();
-  const { data, isLoading, isError, error } = useGetDashboardStatistics();
+  const { data, isLoading, isError, error } = useDashboardStatisticsQuery();
 
   useGetApplications();
 
@@ -57,10 +60,8 @@ export const Dashboard = (): JSX.Element | undefined => {
 
   // Add layouts for other authentication level users.
   return (
-    data && (
-      <main className={'flex flex-row flex-wrap gap-y-[5rem] m-[5%]'}>
-        {account.role === AccountRoles.ROLE_STUDENT && <StudentLayout data={data} />}
-      </main>
-    )
+    <main className={'flex flex-row flex-wrap gap-y-[5rem] m-[5%]'}>
+      {account.role === AccountRoles.ROLE_STUDENT && <LayoutStudent data={data as StudentDashboardStatistics} />}
+    </main>
   );
 };

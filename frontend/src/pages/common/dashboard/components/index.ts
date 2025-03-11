@@ -4,8 +4,10 @@
  * @author tmsnvk
  */
 
-import { DetailTile } from './detail-tile';
-import { StatTile } from './stat-tile';
-import { TodosView } from './todos-view';
+import { LayoutSectionWrapper } from './layout-section-wrapper';
+import { LayoutStudent } from './layout-student';
+import { TileDetail } from './tile-detail';
+import { TileStatistic } from './tile-statistic';
+import { TodoList } from './todo-list';
 
-export { DetailTile, StatTile, TodosView };
+export { LayoutSectionWrapper, LayoutStudent, TileDetail, TileStatistic, TodoList };

@@ -7,6 +7,8 @@
 /* vendor imports */
 import { JSX } from 'react';
 
+/* configuration, utilities, constants imports */
+
 /* interface, type, enum imports */
 import { Todo } from '@common-types';
 
@@ -22,7 +24,7 @@ interface ComponentProps {
   /**
    * The todo list.
    */
-  readonly todos: Array<string>;
+  readonly todos: Array<Todo>;
 }
 
 /**
@@ -31,7 +33,7 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const TodosView = ({ introduction, todos }: ComponentProps): JSX.Element => {
+export const TodoList = ({ introduction, todos }: ComponentProps): JSX.Element => {
   return (
     <section className={'base-light-border w-[95%] lg:w-[65%] mb-[5rem] mx-auto px-[3.5rem] py-[1rem] text-xl bg-(--accent)'}>
       <ul>

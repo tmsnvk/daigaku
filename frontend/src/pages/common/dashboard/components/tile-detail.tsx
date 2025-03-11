@@ -38,7 +38,7 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const DetailTile = ({ title, country, university, courseName }: ComponentProps): JSX.Element => {
+export const TileDetail = ({ title, country, university, courseName }: ComponentProps): JSX.Element => {
   return (
     <article className={'base-dark-border w-[25rem] h-[25rem] px-[1rem] pb-[2.5rem] flex flex-col justify-center text-center'}>
       <p className={'font-extrabold text-2xl py-[1rem]'}>{country}</p>
