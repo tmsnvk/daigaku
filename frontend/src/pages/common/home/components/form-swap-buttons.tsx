@@ -9,12 +9,14 @@ import { JSX } from 'react';
 
 /* component imports */
 import { BaseButton } from '@components/base-styles';
+
+/* interface, type, enum imports */
 import { FormType } from '../models';
 
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface FormSwapButtonsProps {
   /**
    * The left button's label string;
    */
@@ -49,9 +51,9 @@ interface ComponentProps {
 }
 
 /**
- * The home page's form bottom section, containing two form switching buttons.
+ * Renders the home page's form bottom section, containing two form switching buttons.
  *
- * @param {ComponentProps} props
+ * @param {FormSwapButtonsProps} props
  * @return {JSX.Element}
  */
 export const FormSwapButtons = ({
@@ -61,7 +63,7 @@ export const FormSwapButtons = ({
   rightButtonFormType,
   isDisabled,
   onFormSelect,
-}: ComponentProps): JSX.Element => {
+}: FormSwapButtonsProps): JSX.Element => {
   return (
     <article className={'flex justify-between mt-40'}>
       <BaseButton

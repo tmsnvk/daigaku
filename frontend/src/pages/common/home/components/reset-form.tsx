@@ -12,10 +12,11 @@ import { useForm } from 'react-hook-form';
 import { useResetFormMutation } from '../hooks';
 
 /* component imports */
-import { GenericInput, InputError, SubmitInput } from '@components/form';
-import { LoadingIndicator } from '@components/general';
+import { GenericInput } from '@components/form';
+import { FormAction } from './form-action';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
+import { FormWrapper } from './form-wrapper';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -28,7 +29,7 @@ import { FormType } from '../models';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface ResetFormProps {
   /**
    * The method to select the current form type.
    *
@@ -47,10 +48,10 @@ interface ComponentProps {
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {ComponentProps} props
+ * @param {ResetFormProps} props
  * @return {JSX.Element}
  */
-export const ResetForm = ({ onFormSelect, showModal }: ComponentProps): JSX.Element => {
+export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
@@ -62,10 +63,9 @@ export const ResetForm = ({ onFormSelect, showModal }: ComponentProps): JSX.Elem
   return (
     <>
       <FormHeader headerContent={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER} />
-      <form
-        id={'post-account-reset-form'}
-        className={'flex flex-col items-center'}
-        onSubmit={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
+      <FormWrapper
+        formId={'post-account-reset-form'}
+        submissionHandler={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}
@@ -82,21 +82,14 @@ export const ResetForm = ({ onFormSelect, showModal }: ComponentProps): JSX.Elem
           isDisabled={isPending}
           error={errors.email?.message}
         />
-        <article>
-          {isPending ? (
-            <LoadingIndicator loadingText={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING} />
-          ) : (
-            <SubmitInput
-              type={'submit'}
-              id={'reset'}
-              name={'reset'}
-              value={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
-              disabled={isPending}
-            />
-          )}
-          {errors.root && <InputError message={errors.root.message} />}
-        </article>
-      </form>
+        <FormAction
+          isSubmissionPending={isPending}
+          submissionMessage={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING}
+          submissionId={'reset'}
+          submissionValue={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
+          errorMessage={errors.root?.message}
+        />
+      </FormWrapper>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
         leftButtonFormType={FormType.LOGIN}

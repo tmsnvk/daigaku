@@ -10,7 +10,7 @@ import { JSX } from 'react';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface TileDetailProps {
   /**
    * The tile's title.
    */
@@ -35,16 +35,16 @@ interface ComponentProps {
 /**
  * Renders a detail tile with a title and corresponding data.
  *
- * @param {ComponentProps} props
+ * @param {TileDetailProps} props
  * @return {JSX.Element}
  */
-export const TileDetail = ({ title, country, university, courseName }: ComponentProps): JSX.Element => {
+export const TileDetail = ({ title, country, university, courseName }: TileDetailProps): JSX.Element => {
   return (
-    <article className={'base-dark-border w-[25rem] h-[25rem] px-[1rem] pb-[2.5rem] flex flex-col justify-center text-center'}>
-      <p className={'font-extrabold text-2xl py-[1rem]'}>{country}</p>
-      <p className={'font-extrabold text-2xl py-[1rem]'}>{university}</p>
-      <p className={'font-extrabold text-2xl py-[1rem]'}>{courseName}</p>
-      <p className={'pt-[5rem] text-4xl'}>{title}</p>
+    <article className={'base-dark-border size-[22rem] px-5 pb-2 flex flex-col justify-center text-center'}>
+      <p className={'font-extrabold text-2xl py-2'}>{country}</p>
+      <p className={'font-extrabold text-2xl py-2'}>{university}</p>
+      <p className={'font-extrabold text-2xl py-2'}>{courseName}</p>
+      <p className={'pt-15 text-3xl'}>{title}</p>
     </article>
   );
 };

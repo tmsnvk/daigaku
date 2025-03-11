@@ -22,7 +22,7 @@ import { StudentDashboardStatistics } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface LayoutStudentProps {
   /**
    * The object containing the {@link StudentDashboardStatistics} data.
    */
@@ -32,10 +32,10 @@ interface ComponentProps {
 /**
  * Renders the application's dashboard for users with Student authorisation.
  *
- * @param {ComponentProps} props
+ * @param {LayoutStudentProps} props
  * @return {JSX.Element}
  */
-export const LayoutStudent = ({ data }: ComponentProps): JSX.Element => {
+export const LayoutStudent = ({ data }: LayoutStudentProps): JSX.Element => {
   const { todos } = useTodoList(data);
 
   return (

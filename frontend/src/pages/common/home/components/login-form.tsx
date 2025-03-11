@@ -12,10 +12,11 @@ import { useForm } from 'react-hook-form';
 import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
-import { GenericInput, InputError, PasswordInput, SubmitInput } from '@components/form';
-import { LoadingIndicator } from '@components/general';
+import { GenericInput, PasswordInput } from '@components/form';
+import { FormAction } from './form-action';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
+import { FormWrapper } from './form-wrapper';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -28,7 +29,7 @@ import { FormType } from '../models';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface LoginFormProps {
   /**
    * The method to select the current form type.
    *
@@ -42,10 +43,10 @@ interface ComponentProps {
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {ComponentProps} props
+ * @param {LoginFormProps} props
  * @return {JSX.Element}
  */
-export const LoginForm = ({ onFormSelect }: ComponentProps): JSX.Element => {
+export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
@@ -57,10 +58,9 @@ export const LoginForm = ({ onFormSelect }: ComponentProps): JSX.Element => {
   return (
     <>
       <FormHeader headerContent={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER} />
-      <form
-        id={'post-account-login-form'}
-        className={'flex flex-col items-center'}
-        onSubmit={handleSubmit((formData: LoginRequest) => mutate(formData))}
+      <FormWrapper
+        formId={'post-account-login-form'}
+        submissionHandler={handleSubmit((formData: LoginRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}
@@ -91,21 +91,14 @@ export const LoginForm = ({ onFormSelect }: ComponentProps): JSX.Element => {
           isDisabled={isPending}
           error={errors.password?.message}
         />
-        <article>
-          {isPending ? (
-            <LoadingIndicator loadingText={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING} />
-          ) : (
-            <SubmitInput
-              type={'submit'}
-              id={'login'}
-              name={'login'}
-              value={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
-              disabled={isPending}
-            />
-          )}
-          {errors.root && <InputError message={errors.root.message} />}
-        </article>
-      </form>
+        <FormAction
+          isSubmissionPending={isPending}
+          submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
+          submissionId={'login'}
+          submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
+          errorMessage={errors.root?.message}
+        />
+      </FormWrapper>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
         leftButtonFormType={FormType.RESET}

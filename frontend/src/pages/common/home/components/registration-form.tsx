@@ -13,24 +13,25 @@ import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@h
 import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
-import { AccountRoleDropdown, GenericInput, InputError, InstitutionDropdown, SubmitInput } from '@components/form';
-import { LoadingIndicator } from '@components/general';
+import { AccountRoleDropdown, GenericInput, InstitutionDropdown } from '@components/form';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { FormAction } from './form-action';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
+import { FormWrapper } from './form-wrapper';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { PendingAccountRegisterRequest } from '@common-types';
+import { PendingAccountRegistrationRequest } from '@common-types';
 import { FormType } from '../models';
 
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface RegistrationFormProps {
   /**
    * The method to select the current form type.
    *
@@ -49,10 +50,10 @@ interface ComponentProps {
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {ComponentProps} props
+ * @param {RegistrationFormProps} props
  * @return {JSX.Element}
  */
-export const RegistrationForm = ({ onFormSelect, showModal }: ComponentProps): JSX.Element => {
+export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormProps): JSX.Element => {
   const { data: institutions, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
   const {
@@ -60,7 +61,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: ComponentProps): J
     handleSubmit,
     register,
     setError,
-  } = useForm<PendingAccountRegisterRequest>({ mode: 'onSubmit' });
+  } = useForm<PendingAccountRegistrationRequest>({ mode: 'onSubmit' });
   const { isPending, mutate } = useRegistrationFormMutation(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {
@@ -84,10 +85,9 @@ export const RegistrationForm = ({ onFormSelect, showModal }: ComponentProps): J
   return (
     <>
       <FormHeader headerContent={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER} />
-      <form
-        id={'post-pending-account-registration-form'}
-        className={'flex flex-col items-center'}
-        onSubmit={handleSubmit((formData) => mutate(formData))}
+      <FormWrapper
+        formId={'post-pending-account-registration-form'}
+        submissionHandler={handleSubmit((formData: PendingAccountRegistrationRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}
@@ -168,21 +168,14 @@ export const RegistrationForm = ({ onFormSelect, showModal }: ComponentProps): J
           isDisabled={isPending}
           error={errors.accountRoleUuid?.message}
         />
-        <article>
-          {isPending ? (
-            <LoadingIndicator loadingText={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING} />
-          ) : (
-            <SubmitInput
-              type={'submit'}
-              id={'register'}
-              name={'register'}
-              value={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
-              disabled={isPending}
-            />
-          )}
-          {errors.root && <InputError message={errors.root.message} />}
-        </article>
-      </form>
+        <FormAction
+          isSubmissionPending={isPending}
+          submissionMessage={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING}
+          submissionId={'register'}
+          submissionValue={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
+          errorMessage={errors.root?.message}
+        />
+      </FormWrapper>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
         leftButtonFormType={FormType.RESET}

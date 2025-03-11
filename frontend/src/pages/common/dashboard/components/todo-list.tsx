@@ -15,7 +15,7 @@ import { Todo } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface TodoListProps {
   /**
    * The component's main text.
    */
@@ -28,29 +28,29 @@ interface ComponentProps {
 }
 
 /**
- * Renders an introduction text as well as the user's current todo list.
+ * Renders introduction text paragraphs as well as the user's current todo list.
  *
- * @param {ComponentProps} props
+ * @param {TodoListProps} props
  * @return {JSX.Element}
  */
-export const TodoList = ({ introduction, todos }: ComponentProps): JSX.Element => {
+export const TodoList = ({ introduction, todos }: TodoListProps): JSX.Element => {
   return (
-    <section className={'base-light-border w-[95%] lg:w-[65%] mb-[5rem] mx-auto px-[3.5rem] py-[1rem] text-xl bg-(--accent)'}>
+    <section className={'base-light-border w-[95%] lg:w-[65%] mb-20 mx-auto px-12 py-4 text-xl bg-(--accent)'}>
       <ul>
         {introduction.map((paragraph: string, index: number) => (
           <li
             key={index}
-            className={index === 0 ? 'mt-[2rem] mb-[1.5rem]' : index === introduction.length - 1 ? 'mb-[2rem]' : 'mb-[1.5rem]'}
+            className={index === 0 ? 'mt-8 mb-4' : index === introduction.length - 1 ? 'mt-8' : 'mb-4'}
           >
             {paragraph}
           </li>
         ))}
       </ul>
-      <ol className={'ml-[2.5rem]'}>
+      <ol className={'ml-20'}>
         {todos.map((todo: Todo, index: number) => (
           <li
             key={index}
-            className={`list-[square] ${index === 0 ? 'mt-[2rem] mb-[1.5rem]' : index === todos.length - 1 ? 'mb-[2rem]' : 'mb-[1.5rem]'}`}
+            className={`list-[square] ${index === 0 ? 'mt-8 mb-4' : index === todos.length - 1 ? 'mb-8' : 'mb-4'}`}
           >
             {todo}
           </li>
