@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { UseMutateFunction, UseMutationResult, useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
@@ -18,7 +18,17 @@ import { errorConstants } from '@constants';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
-import { HandleToggleIsRemovable } from './is-removable-button.models';
+
+/**
+ * Defines the return value properties for handling the toggling of a removable state.
+ */
+interface HandleToggleIsRemovable {
+  readonly shouldBeRemoved: boolean;
+  readonly errorMessage: string;
+  readonly isPending: boolean;
+  readonly isError: boolean;
+  mutate: UseMutateFunction<void, Error, void, unknown>;
+}
 
 /**
  * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link Application}.

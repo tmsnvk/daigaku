@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component, style imports */
-import { TitleHeading } from './page-title.styles.ts';
+import { joinTw } from '@utilities';
 
 /**
  * Defines the component's properties.
@@ -26,6 +26,6 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const PageTitle = ({ title }: ComponentProps): JSX.Element => {
-  return <TitleHeading>{title}</TitleHeading>;
+export const PageTitle = ({ title, className }: ComponentProps): JSX.Element => {
+  return <h1 className={joinTw('form-title-head', className)}>{title}</h1>;
 };

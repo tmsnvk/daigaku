@@ -94,10 +94,9 @@
 
   --color-accent: #eea14f; /* orange */
   --right-bottom-accent-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-accent);
-  --color-accent-foreground: #31304d;
 
-  --destructive: #f94144; /* red */
-  --destructive-foreground: #f0f0f0;
+  --color-destructive: #f94144; /* red */
+  --right-bottom-destructive-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-secondary);
 
   --primary-font: 'Raleway', 'sans-serif';
   --secondary-font: 'Roboto', 'sans-serif';

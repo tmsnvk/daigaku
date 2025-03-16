@@ -4,13 +4,20 @@
  * @author tmsnvk
  */
 
-/* interface, type, enum imports */
-import { FieldUpdate } from './active-select-field.models';
+/**
+ * Defines the structure of an object responsible for handling field update events.
+ */
+export interface FieldUpdate {
+  /**
+   * The callback method handling field update events by retrieving the target value.
+   */
+  updateField: (event: Event) => void;
+}
 
 /**
  * Manages field update events. Captures the value from the event target and passes it to the provided `onFieldUpdate` callback.
  *
- * @param onFieldUpdate A callback method to handle the target value from the field update.
+ * @param onFieldUpdate The callback method handling the target value from the field update.
  * @return {FieldUpdate}
  */
 export const useOnFieldUpdate = (onFieldUpdate: ((eventTargetValue: string) => void) | undefined): FieldUpdate => {

@@ -12,8 +12,8 @@ import { useCommentPagination, useGetCommentsByApplicationAndPagination } from '
 
 /* component imports */
 import { LoadingIndicator } from '@components/general';
-import { Comments } from './comments';
 import { CommentPaginationButton } from './comment-pagination-button';
+import { Comments } from './comments';
 import { CreateCommentForm } from './create-comment-form';
 
 /* configuration, utilities, constants imports */

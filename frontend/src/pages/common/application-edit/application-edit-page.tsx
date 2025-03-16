@@ -13,8 +13,7 @@ import { useGetAllSelectOptions, useGetApplicationByUuid } from '@hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { Main } from './application-edit.styles';
-import { ApplicationForm } from './components/application-form';
+import { ApplicationForm } from './components';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@constants';
@@ -22,9 +21,9 @@ import { errorConstants, localization as l } from '@constants';
 /**
  * Renders the edit mode of a single application record.
  * The user is not allowed to change the basic elements of the application,
- * i.e. Country, University Course Name, Minor Subject and Programme Length fields.
+ * i.e. the Country, University Course Name, Minor Subject and Programme Length fields.
  * The rest of the fields may be updated based on conditional validation rules.
- * The user is guided by either not being able to select certain fields or by various error messages.
+ * The user is guided by either not being able to select certain fields or various error messages.
  *
  * @return {JSX.Element}
  */
@@ -55,11 +54,11 @@ export const ApplicationEdit = (): JSX.Element => {
   }
 
   return (
-    <Main>
+    <main className={'grid grid-cols-[0.75fr] gap-x-20 justify-around'}>
       <ApplicationForm
         application={application}
         selectOptions={selectOptions}
       />
-    </Main>
+    </main>
   );
 };

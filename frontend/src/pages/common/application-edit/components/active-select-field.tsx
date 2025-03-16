@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* logic imports */
-import { useOnFieldUpdate } from './active-select-field.hooks';
+import { useOnFieldUpdate } from '../hooks';
 
 /* component, style imports */
 import { BaseInput } from '@components/base-styles';
@@ -21,7 +21,7 @@ import { ApplicationStatusUnion, CoreInput } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps<T extends FieldValues> extends CoreInput<T> {
+interface ActiveSelectFieldProps<T extends FieldValues> extends CoreInput<T> {
   /**
    * The label text to be displayed above the select input.
    */
@@ -63,7 +63,7 @@ export const ActiveSelectField = <T extends FieldValues>({
   options,
   isDisabled,
   onFieldUpdate,
-}: ComponentProps<T>): JSX.Element => {
+}: ActiveSelectFieldProps<T>): JSX.Element => {
   const { updateField } = useOnFieldUpdate(onFieldUpdate);
 
   return (

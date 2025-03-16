@@ -9,16 +9,15 @@ import { JSX, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplication } from './application-form.hooks';
+import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplicationFormMutation } from '../hooks';
 
 /* component, style imports */
 import { ApplicationMetadata } from '@components/application';
 import { DisabledInput, InputError, InputGuideText, SubmitInput } from '@components/form';
-import { LoadingIndicator, PageTitle } from '@components/general';
+import { LoadingIndicator } from '@components/general';
 import { Toast } from '@components/notification';
-import { ActiveSelectField } from '../active-select-field';
-import { IsRemovableButton } from '../is-removable-button';
-import { Form } from './application-form.styles';
+import { ActiveSelectField } from './active-select-field';
+import { IsRemovableButton } from './is-removable-button';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -38,7 +37,7 @@ import {
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface ApplicationFormProps {
   /**
    * The application record.
    */
@@ -55,7 +54,7 @@ interface ComponentProps {
  *
  * @return {JSX.Element}
  */
-export const ApplicationForm = ({ application, selectOptions }: ComponentProps): JSX.Element => {
+export const ApplicationForm = ({ application, selectOptions }: ApplicationFormProps): JSX.Element => {
   const {
     formState: { errors },
     handleSubmit,
@@ -63,7 +62,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
     setError,
   } = useForm<UpdateApplicationByStudent>({ mode: 'onSubmit' });
   const { submitForm } = useHandleFormSubmission();
-  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplication(setError, application.uuid);
+  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplicationFormMutation(setError, application.uuid);
   const {
     onPageLoadValidation,
     fieldsReadOnlyStatus,
@@ -79,13 +78,14 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
 
   return (
     <>
-      <Form
+      <form
         id={'update-application-form'}
-        method={'PATCH'}
+        className={'base-application-grid base-tertiary-border lg:w-[85%]'}
         onSubmit={handleSubmit((formData) => submitForm(formData, application.uuid, mutate, setError))}
       >
-        <PageTitle title={l.PAGES.COMMON.APPLICATION_EDIT.FORM.TITLE} />
+        <h1 className={'form-title-head col-start-1 col-end-3 text-center'}>{l.PAGES.COMMON.APPLICATION_EDIT.FORM.TITLE}</h1>
         <ApplicationMetadata
+          className={'col-start-1 col-end-2 row-start-2 row-end-3 h-40'}
           createdAt={updatedData?.createdAt ?? application.createdAt}
           createdBy={updatedData?.createdBy ?? application.createdBy}
           lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : application.lastUpdatedAt}
@@ -95,7 +95,10 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           isRemovable={updatedData?.isRemovable ?? application.isRemovable}
           applicationUuid={application.uuid}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.INFORMATION} />
+        <InputGuideText
+          paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.INFORMATION}
+          className={'col-start-1 col-end-3 mt-20'}
+        />
         <DisabledInput
           id={'country'}
           type={'text'}
@@ -190,7 +193,7 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
           error={errors.finalDestinationStatusUuid?.message}
         />
         <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.INFORMATION} />
-        <article>
+        <article className={'col-start-1 col-end-3'}>
           {isPending ? (
             <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.APPLICATION_LOADING} />
           ) : (
@@ -201,8 +204,8 @@ export const ApplicationForm = ({ application, selectOptions }: ComponentProps):
             />
           )}
         </article>
-        <article>{errors.root && <InputError message={errors.root.message} />}</article>
-      </Form>
+        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <InputError message={errors.root.message} />}</article>
+      </form>
       <Toast
         isVisible={isSuccess}
         message={l.PAGES.COMMON.APPLICATION_EDIT.FORM.SUBMISSION}

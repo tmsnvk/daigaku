@@ -8,11 +8,11 @@
 import { JSX } from 'react';
 
 /* logic imports */
-import { useToggleIsRemovable } from './is-removable-button.hooks';
+import { useToggleIsRemovable } from '../hooks';
 
 /* component, style imports */
+import { BaseButton } from '@components/base-styles';
 import { InputError } from '@components/form';
-import { Article } from './is-removable-button.styles';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@constants';
@@ -20,7 +20,7 @@ import { errorConstants, localization as l } from '@constants';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface IsRemovableButtonProps {
   /**
    * The application record's boolean deletion request flag.
    */
@@ -37,21 +37,22 @@ interface ComponentProps {
  *
  * @return {JSX.Element}
  */
-export const IsRemovableButton = ({ isRemovable, applicationUuid }: ComponentProps): JSX.Element => {
+export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableButtonProps): JSX.Element => {
   const { mutate, isPending, isError, shouldBeRemoved } = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (
-    <Article $isRemovable={shouldBeRemoved}>
-      <button
-        type={'button'}
-        onClick={() => mutate()}
+    <article className={'col-start-2 col-end-3 row-start-2 row-end-3 h-40 items-center flex flex-col'}>
+      <BaseButton
+        label={
+          shouldBeRemoved
+            ? l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.REVERT_REQUEST
+            : l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.DELETION_REQUEST
+        }
+        intent={shouldBeRemoved ? 'destructive' : 'dark'}
+        onClickHandler={() => mutate()}
         disabled={isPending}
-      >
-        {shouldBeRemoved
-          ? l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.REVERT_REQUEST
-          : l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.DELETION_REQUEST}
-      </button>
+      />
       {isError && <InputError message={errorConstants.UNEXPECTED_GLOBAL_ERROR} />}
-    </Article>
+    </article>
   );
 };

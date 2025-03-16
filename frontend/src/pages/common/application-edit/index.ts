@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { ApplicationEdit } from './application-edit.page';
+import { ApplicationEdit } from './application-edit-page';
 
 export { ApplicationEdit };

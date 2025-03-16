@@ -16,9 +16,11 @@ const buttonVariants = cva(
   {
     variants: {
       intent: {
-        light: 'bg-primary shadow-(--right-bottom-secondary-shadow) focus:outline-secondary hover:outline-secondary',
+        light: 'bg-primary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
         dark: 'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow) focus:outline-accent hover:outline-accent',
         accent: 'bg-accent text-secondary focus:outline-tertiary shadow-(--right-bottom-secondary-shadow)',
+        destructive:
+          'bg-destructive text-tertiary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
         disabled: '',
       },
       disabled: {

@@ -9,6 +9,7 @@ import { JSX } from 'react';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
+import { joinTw } from '@utilities';
 
 /* interface, type, enum imports */
 import { BaseMetadata } from '@common-types';
@@ -16,23 +17,29 @@ import { BaseMetadata } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps extends BaseMetadata {
+interface ApplicationMetadataProps extends BaseMetadata {
   /**
-   *
+   * Additional styling options.
    */
-  readonly gridPosition: string;
+  readonly className: string;
 }
 
 /**
  * Renders the metadata for a selected application, including the creation and
  * last-updated timestamps, as well as the respective users responsible for these actions.
  *
- * @param {ComponentProps} props
+ * @param {ApplicationMetadataProps} props
  * @return {JSX.Element}
  */
-export const ApplicationMetadata = ({ gridPosition, createdAt, createdBy, lastUpdatedAt, lastModifiedBy }: ComponentProps): JSX.Element => {
+export const ApplicationMetadata = ({
+  className,
+  createdAt,
+  createdBy,
+  lastUpdatedAt,
+  lastModifiedBy,
+}: ApplicationMetadataProps): JSX.Element => {
   return (
-    <article className={`grid ${gridPosition} mr-auto text-2xl`}>
+    <article className={joinTw('mr-auto text-2xl', className)}>
       <dl>
         <div>
           <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.SUBMISSION.AT}</dt>{' '}
@@ -46,11 +53,11 @@ export const ApplicationMetadata = ({ gridPosition, createdAt, createdBy, lastUp
             })}
           </dd>
         </div>
-        <div className={'my-[0.5rem]'}>
+        <div className={'my-2'}>
           <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.SUBMISSION.BY}</dt>{' '}
           <dd className={'inline-block'}>{createdBy}</dd>
         </div>
-        <div className={'my-[0.5rem]'}>
+        <div className={'my-2'}>
           <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.LAST_UPDATE.AT}</dt>{' '}
           <dd className={'inline-block'}>
             {new Date(lastUpdatedAt).toLocaleString('en-GB', {

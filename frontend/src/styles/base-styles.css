@@ -45,4 +45,34 @@
       box-shadow: 0 0 0.5rem var(--color-jacarta);
     }
   }
+
+  .base-application-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 2.5rem;
+    row-gap: 5rem;
+    width: 95%;
+    margin: 10rem auto 10rem auto;
+    padding: 5rem 5rem 5rem 5rem;
+    justify-items: center;
+    align-items: center;
+
+    & article {
+      min-width: 100%;
+    }
+
+    & article:nth-last-of-type(2),
+    & article:last-of-type {
+      min-width: fit-content;
+    }
+
+    @media (min-width: 1024px) {
+      width: 75%;
+    }
+
+    @media (min-width: 1280px) {
+      width: 55%;
+    }
+  }
 }
