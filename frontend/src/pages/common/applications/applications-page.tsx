@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplications, useModalToggle } from '@hooks';
-import { useColumnVisibility, useDisplayDownloadToast, useSortOrder } from './applications.hooks';
+import { useColumnVisibility, useDisplayDownloadToast, useSortOrder } from './hooks';
 
 /* component, style imports */
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
@@ -18,14 +18,14 @@ import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@constants';
+import { isEmpty } from '@utilities';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
-import { isEmpty } from '@utilities';
 
 /**
  * Renders, in table format, the list of application records that the user has authorisation to view.
- * The component displays a table with data rows as well as various buttons and components to interact with the loaded-in data.
+ * The component displays various buttons and components to interact with the loaded-in data as well.
  *
  * @return {JSX.Element}
  */
@@ -34,8 +34,8 @@ export const Applications = (): JSX.Element => {
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
   const { columns, toggleColumnVisibility } = useColumnVisibility();
   const { handleColumnSort } = useSortOrder(data as Array<Application>);
-  const { isModalVisible: isToggleModalVisible, toggleModal } = useModalToggle();
-  const { shouldToastVisible, displayDownloadToast, handleAnimationEnd } = useDisplayDownloadToast();
+  const { isModalVisible, toggleModal } = useModalToggle();
+  const { isToastVisible, displayDownloadToast, handleAnimationEnd } = useDisplayDownloadToast();
 
   if (isLoading || isRefetching) {
     return (
@@ -70,7 +70,7 @@ export const Applications = (): JSX.Element => {
             onColumnSort={handleColumnSort}
             onToggleModal={toggleModal}
             onRefetch={refetch}
-            shouldToastVisible={shouldToastVisible}
+            isToastVisible={isToastVisible}
             onDownloadPdfRequest={displayDownloadToast}
           />
         </thead>
@@ -83,16 +83,16 @@ export const Applications = (): JSX.Element => {
           )}
         </tbody>
       </table>
-      {isToggleModalVisible && (
+      {isModalVisible && (
         <ColumnSelectorModal
           columns={columns}
           onToggleColumnVisibility={toggleColumnVisibility}
-          isModalVisible={isToggleModalVisible}
+          isModalVisible={isModalVisible}
           onToggle={toggleModal}
         />
       )}
       <Toast
-        isVisible={shouldToastVisible}
+        isVisible={isToastVisible}
         message={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.TOAST}
         onAnimationEnd={handleAnimationEnd}
       />

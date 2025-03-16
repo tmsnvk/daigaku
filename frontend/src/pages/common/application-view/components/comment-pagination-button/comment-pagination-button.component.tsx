@@ -38,7 +38,7 @@ export const CommentPaginationButton = ({ onClick, isDisabled, value }: Componen
     <button
       type={'button'}
       className={
-        'base-button text-(--color-white-smoke) bg-(--color-dark-gun-metal) hover:not-disabled:bg-(--color-jacarta) hover:not-disabled:shadow-(--dark-box-shadow) disabled:text-(--color-dark-gun-metal) disabled:bg-(--accent) focus:outline-[0.15rem] focus:outline-solid focus:outline-(--color-jacarta)'
+        'base-button text-(--color-white-smoke) bg-(--color-dark-gun-metal) hover:not-disabled:bg-(--color-jacarta) hover:not-disabled:shadow-(--dark-box-shadow) disabled:text-(--color-dark-gun-metal) disabled:bg-accent focus:outline-[0.15rem] focus:outline-solid focus:outline-(--color-jacarta)'
       }
       onClick={onClick}
       disabled={isDisabled}

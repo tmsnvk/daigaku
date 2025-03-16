@@ -60,7 +60,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       <FormHeader headerContent={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER} />
       <FormWrapper
         formId={'post-account-login-form'}
-        submissionHandler={handleSubmit((formData: LoginRequest) => mutate(formData))}
+        onFormSubmitHandler={handleSubmit((formData: LoginRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}

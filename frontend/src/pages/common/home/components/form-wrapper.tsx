@@ -19,7 +19,7 @@ interface FormWrapperProps {
   /**
    * The form submission handler.
    */
-  submissionHandler: () => void;
+  onFormSubmitHandler: () => void;
 
   /**
    * The passed down React child component(s).
@@ -33,12 +33,12 @@ interface FormWrapperProps {
  * @param {FormWrapperProps}
  * @returns {JSX.Element}
  */
-export const FormWrapper = ({ formId, submissionHandler, children }: FormWrapperProps): JSX.Element => {
+export const FormWrapper = ({ formId, onFormSubmitHandler, children }: FormWrapperProps): JSX.Element => {
   return (
     <form
       id={formId}
       className={'flex flex-col items-center'}
-      onSubmit={submissionHandler}
+      onSubmit={onFormSubmitHandler}
     >
       {children}
     </form>

@@ -11,7 +11,10 @@ import { JSX } from 'react';
 import { useTodoList } from '../hooks/use-todo-list';
 
 /* component imports */
-import { LayoutSectionWrapper, TileDetail, TileStatistic, TodoList } from '.';
+import { LayoutSectionWrapper } from './layout-section-wrapper';
+import { TileDetail } from './tile-detail';
+import { TileStatistic } from './tile-statistic';
+import { TodoList } from './todo-list';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';

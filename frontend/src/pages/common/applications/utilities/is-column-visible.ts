@@ -5,7 +5,7 @@
  */
 
 /* interface, type, enum imports */
-import { Column } from '../../applications.models';
+import { Column } from '../models';
 
 /**
  * Determines whether a column with a specific `columnId` is found in the array of columns to be displayed
@@ -16,7 +16,7 @@ import { Column } from '../../applications.models';
  * @return {boolean}
  */
 export const isColumnVisible = (columns: Array<Column>, columnId: string): boolean => {
-  const column: Column | undefined = columns.find((column: Column) => column.id === columnId);
+  const column = columns.find((column: Column) => column.id === columnId) as Column;
 
-  return column ? column.isVisible : false;
+  return column.isVisible;
 };

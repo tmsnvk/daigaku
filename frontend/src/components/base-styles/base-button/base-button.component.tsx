@@ -17,7 +17,7 @@ const buttonVariants = cva(
     variants: {
       intent: {
         light:
-          'bg-(--primary) shadow-(--right-bottom-shadow) focus:outline-width-2 focus:outline-(--primary-foreground) hover:outline-2 hover:outline-(--primary-foreground)',
+          'bg-primary shadow-(--right-bottom-shadow) focus:outline-width-2 focus:outline-primary-foreground hover:outline-2 hover:outline-primary-foreground',
         dark: '',
         disabled: '',
       },
@@ -32,16 +32,11 @@ const buttonVariants = cva(
 /**
  * Defines the component's properties.
  */
-interface ComponentProps extends Omit<VariantProps<typeof buttonVariants>, 'intent'> {
+interface ComponentProps extends VariantProps<typeof buttonVariants> {
   /**
    * The button's label.
    */
   readonly label: string;
-
-  /**
-   * The button's base style option.
-   */
-  readonly intent: 'light' | 'dark' | 'disabled';
 
   /**
    * The button's additional style options.
@@ -56,7 +51,7 @@ interface ComponentProps extends Omit<VariantProps<typeof buttonVariants>, 'inte
   /**
    * The button's onClick handler.
    */
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClickHandler: MouseEventHandler<HTMLButtonElement>;
 }
 
 /**
@@ -65,14 +60,14 @@ interface ComponentProps extends Omit<VariantProps<typeof buttonVariants>, 'inte
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const BaseButton = ({ label, intent, className, disabled, onClick }: ComponentProps): JSX.Element => {
+export const BaseButton = ({ label, intent, className, disabled, onClickHandler }: ComponentProps): JSX.Element => {
   return (
     <button
       id={label}
       name={label}
       className={joinTw(buttonVariants({ intent, disabled, className }))}
       type={'button'}
-      onClick={onClick}
+      onClick={onClickHandler}
       disabled={disabled}
     >
       {label}

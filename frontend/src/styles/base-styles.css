@@ -1,16 +1,16 @@
 @layer components {
   .base-light-border {
-    background-color: var(--background);
-    border: 0.1rem solid var(--primary);
+    background-color: var(--color-primary);
+    border: var(--default-dark-border);
     border-radius: var(--default-border-radius);
-    box-shadow: 0.2rem 0.2rem 0 0.15rem var(--primary-foreground);
+    box-shadow: var(--right-bottom-shadow);
   }
 
   .base-dark-border {
-    background-color: var(--color-columbia-blue);
-    border: 0.1rem solid var(--color-columbia-blue);
+    background-color: var(--color-primary);
+    border: var(--default-dark-border);
     border-radius: var(--default-border-radius);
-    box-shadow: 0.5rem 0.5rem 1rem var(--color-dark-gun-metal);
+    box-shadow: var(--right-bottom-shadow);
   }
 
   .base-button {

@@ -238,6 +238,11 @@ export const localization = {
       },
       APPLICATIONS: {
         TABLE_HEADER: {
+          BUTTONS: {
+            REFRESH: 'Refresh',
+            DISPLAY: 'Display',
+            DOWNLOAD: 'Download',
+          },
           LOADING: 'The application is compiling your data...',
           DOWNLOAD: {
             REQUEST: 'Handling your request...',

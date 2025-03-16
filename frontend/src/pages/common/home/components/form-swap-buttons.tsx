@@ -70,13 +70,13 @@ export const FormSwapButtons = ({
         label={leftButtonLabel}
         intent={'light'}
         disabled={isDisabled}
-        onClick={() => onFormSelect(leftButtonFormType)}
+        onClickHandler={() => onFormSelect(leftButtonFormType)}
       />
       <BaseButton
         label={rightButtonLabel}
         intent={'light'}
         disabled={isDisabled}
-        onClick={() => onFormSelect(rightButtonFormType)}
+        onClickHandler={() => onFormSelect(rightButtonFormType)}
       />
     </article>
   );

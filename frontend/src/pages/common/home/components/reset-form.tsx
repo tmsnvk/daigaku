@@ -65,7 +65,7 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
       <FormHeader headerContent={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER} />
       <FormWrapper
         formId={'post-account-reset-form'}
-        submissionHandler={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
+        onFormSubmitHandler={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}

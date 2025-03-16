@@ -87,7 +87,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
       <FormHeader headerContent={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER} />
       <FormWrapper
         formId={'post-pending-account-registration-form'}
-        submissionHandler={handleSubmit((formData: PendingAccountRegistrationRequest) => mutate(formData))}
+        onFormSubmitHandler={handleSubmit((formData: PendingAccountRegistrationRequest) => mutate(formData))}
       >
         <GenericInput
           register={register}
