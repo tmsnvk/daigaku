@@ -12,18 +12,18 @@ import { JSX, MouseEventHandler } from 'react';
 import { joinTw } from '@utilities';
 
 const buttonVariants = cva(
-  'h-20 px-6 text-2xl font-bold rounded-xl focus:outline-2 focus:outline-solid hover:outline-2 hover:outline-solid',
+  'h-20 px-6 text-2xl font-bold rounded-xl focus:outline-2 focus:outline-solid hover:outline-2 hover:outline-solid tracking-widest',
   {
     variants: {
       intent: {
-        light:
-          'bg-primary shadow-(--right-bottom-shadow) focus:outline-width-2 focus:outline-primary-foreground hover:outline-2 hover:outline-primary-foreground',
-        dark: '',
+        light: 'bg-primary shadow-(--right-bottom-secondary-shadow) focus:outline-secondary hover:outline-secondary',
+        dark: 'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow) focus:outline-accent hover:outline-accent',
+        accent: 'bg-accent text-secondary focus:outline-tertiary shadow-(--right-bottom-secondary-shadow)',
         disabled: '',
       },
       disabled: {
         false: 'cursor-pointer',
-        true: 'cursor-not-allowed',
+        true: 'cursor-not-allowed disabled:outline-0',
       },
     },
   },

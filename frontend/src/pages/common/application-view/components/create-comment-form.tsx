@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useSubmitComment } from './create-comment-form.hooks';
+import { useSubmitComment } from '../hooks';
 
 /* component imports */
 import { GenericTextarea, InputError, SubmitInput } from '@components/form';
@@ -24,7 +24,7 @@ import { CreateComment } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface CreateCommentFormProps {
   /**
    * The application record's uuid string used in the server request when the user submits a new comment.
    */
@@ -34,10 +34,10 @@ interface ComponentProps {
 /**
  * Renders the comment submission form.
  *
- * @param {ComponentProps} props
+ * @param {CreateCommentFormProps} props
  * @return {JSX.Element}
  */
-export const CreateCommentForm = ({ applicationUuid }: ComponentProps): JSX.Element => {
+export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): JSX.Element => {
   const DEFAULT_ROW_SIZE = 10;
   const DEFAULT_COL_SIZE = 10;
 

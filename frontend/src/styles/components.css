@@ -7,7 +7,7 @@
       display: block;
       width: 66%;
       margin: 2.5rem auto 2.5rem auto;
-      border-bottom: 0.5rem solid var(--color-dark-gun-metal);
+      border-bottom: 0.5rem solid var(--color-secondary);
     }
   }
 }

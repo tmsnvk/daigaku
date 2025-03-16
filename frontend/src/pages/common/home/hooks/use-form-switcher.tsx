@@ -89,7 +89,7 @@ export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
       <section
         key={selectedFormType}
         className={joinTw(
-          'base-light-border',
+          'base-tertiary-border',
           'w-[85%] flex flex-col justify-between my-[5%] px-10 py-20 text-center animate-(--animate-fade-in-from-left)',
           'sm:w-200',
         )}

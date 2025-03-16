@@ -6,11 +6,11 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { Link } from 'react-router-dom';
 
 /* component imports */
 import { ApplicationMetadata } from '@components/application';
-import { ApplicationDetail } from '../application-detail';
+import { BaseLink } from '@components/base-styles';
+import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -21,7 +21,7 @@ import { Application } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface ApplicationDetailsProps {
   /**
    * The selected application record.
    */
@@ -31,13 +31,18 @@ interface ComponentProps {
 /**
  * Renders the details of an application record.
  *
- * @param {ComponentProps} props
+ * @param {ApplicationDetailsProps} props
  * @return {JSX.Element}
  */
-export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element => {
+export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JSX.Element => {
   return (
-    <section className={'base-light-border application-grid h-fit w-[85%]'}>
-      <h1 className={'form-title-head col-start-1 col-end-3'}>{l.PAGES.COMMON.APPLICATION_VIEW.TITLE}</h1>
+    <section className={'base-primary-border application-grid h-fit w-[85%] md:w-[75%]'}>
+      <h1 className={'form-title-head col-start-1 col-end-3 text-center'}>
+        {application.university}
+        <br />
+        <br />
+        {application.courseName}
+      </h1>
       <ApplicationMetadata
         gridPosition={'col-start-1 col-end-2'}
         createdAt={application.createdAt}
@@ -46,12 +51,12 @@ export const ApplicationDetails = ({ application }: ComponentProps): JSX.Element
         lastModifiedBy={application.lastModifiedBy}
       />
       <article className={'col-start-2 col-end-3'}>
-        <Link
-          className={'base-button'}
-          to={`/applications/edit/${application.uuid}`}
-        >
-          {l.PAGES.COMMON.APPLICATION_VIEW.EDIT_BUTTON}
-        </Link>
+        <BaseLink
+          target={`/applications/edit/${application.uuid}`}
+          label={l.PAGES.COMMON.APPLICATION_VIEW.EDIT_BUTTON}
+          intent={'dark'}
+          size={'normal'}
+        />
       </article>
       <ApplicationDetail
         name={l.PAGES.COMMON.APPLICATION_VIEW.FIELDS.COUNTRY.NAME}

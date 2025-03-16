@@ -178,7 +178,6 @@ export const localization = {
       APPLICATION_VIEW: {
         PAGE_LOADING: 'The application is compiling your data...',
         EDIT_BUTTON: 'Edit',
-        TITLE: 'View Application',
         FIELDS: {
           COUNTRY: {
             NAME: 'Country',

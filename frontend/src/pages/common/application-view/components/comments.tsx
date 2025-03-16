@@ -16,7 +16,7 @@ import { Comment } from '@common-types';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface CommentsProps {
   /**
    * The list of comments to be displayed.
    */
@@ -31,34 +31,30 @@ interface ComponentProps {
 /**
  * Renders the comments on the selected pagination page.
  *
- * @param {ComponentProps} props
+ * @param {CommentsProps} props
  * @return {JSX.Element}
  */
-export const Comments = ({ comments, isError }: ComponentProps): JSX.Element => {
+export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
   if (isError) {
     return (
-      <article className={'w-[75%] mx-auto my-[5rem] text-center text-2xl text-(--color-coral-red) font-extrabold'}>
+      <article className={'w-[75%] mx-auto my-10 text-center text-2xl text-destructive font-extrabold'}>
         {l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.ERROR}
       </article>
     );
   }
 
   return (
-    <article className={'mb-[5rem]'}>
+    <article>
       {comments.map((comment: Comment) => (
         <article
           key={comment.uuid}
-          className={'w-[75%] mx-auto my-[5rem] text-xl'}
+          className={'w-[75%] mx-auto my-20 text-xl'}
         >
-          <div
-            className={
-              'px-[1.5rem] py-[2rem] bg-(--color-columbia-blue) border-[0.2rem] border-solid border-(--color-dark-gun-metal) rounded-(--default-border-radius)'
-            }
-          >
+          <div className={'p-8 bg-tertiary border-2 border-solid border-secondary rounded-(--default-border-radius)'}>
             <p className={'font-extrabold'}>{comment.createdBy}</p>
-            <p className={'my-[2rem] whitespace-pre-wrap break-all'}>{comment.comment}</p>
+            <p className={'my-4 whitespace-pre-wrap break-all'}>{comment.comment}</p>
           </div>
-          <p className={'pt-[1.5rem] pl-[2.5rem] font-extrabold'}>
+          <p className={'pt-6 pl-10 font-extrabold'}>
             {new Date(comment.createdAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',

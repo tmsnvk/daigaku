@@ -7,10 +7,13 @@
 /* vendor imports */
 import { JSX } from 'react';
 
+/* component imports */
+import { BaseButton } from '@components/base-styles';
+
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface CommentPaginationButtonProps {
   /**
    * The onClick event handler for pagination action.
    */
@@ -30,20 +33,16 @@ interface ComponentProps {
 /**
  * Renders a single button HTML element for paginating comments on an application record's view page.
  *
- * @param {ComponentProps} props
+ * @param {CommentPaginationButtonProps} props
  * @return {JSX.Element}
  */
-export const CommentPaginationButton = ({ onClick, isDisabled, value }: ComponentProps): JSX.Element => {
+export const CommentPaginationButton = ({ onClick, isDisabled, value }: CommentPaginationButtonProps): JSX.Element => {
   return (
-    <button
-      type={'button'}
-      className={
-        'base-button text-(--color-white-smoke) bg-(--color-dark-gun-metal) hover:not-disabled:bg-(--color-jacarta) hover:not-disabled:shadow-(--dark-box-shadow) disabled:text-(--color-dark-gun-metal) disabled:bg-accent focus:outline-[0.15rem] focus:outline-solid focus:outline-(--color-jacarta)'
-      }
-      onClick={onClick}
+    <BaseButton
+      onClickHandler={onClick}
+      intent={isDisabled ? 'accent' : 'dark'}
+      label={value}
       disabled={isDisabled}
-    >
-      {value}
-    </button>
+    />
   );
 };

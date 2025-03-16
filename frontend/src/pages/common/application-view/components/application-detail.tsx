@@ -10,7 +10,7 @@ import { JSX } from 'react';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface ApplicationDetailProps {
   /**
    * The name of the application detail to be displayed.
    */
@@ -23,16 +23,16 @@ interface ComponentProps {
 }
 
 /**
- * Renders an application detail on the view page of an Application record.
+ * Renders an application detail on the view page of an application record.
  *
- * @param {ComponentProps} props
+ * @param {ApplicationDetailProps} props
  * @return {JSX.Element}
  */
-export const ApplicationDetail = ({ name, value }: ComponentProps): JSX.Element => {
+export const ApplicationDetail = ({ name, value }: ApplicationDetailProps): JSX.Element => {
   return (
     <article className={'col-start-1 col-end-3 flex flex-col items-center'}>
-      <h2 className={'text-5xl'}>{name}</h2>
-      <p className={'text-3xl'}>{value}</p>
+      <h2 className={'text-5xl font-bold'}>{name}</h2>
+      <p className={'text-3xl mt-4'}>{value}</p>
     </article>
   );
 };

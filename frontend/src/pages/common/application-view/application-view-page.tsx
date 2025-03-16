@@ -13,8 +13,7 @@ import { useGetApplicationByUuid } from '@hooks';
 
 /* component imports */
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { ApplicationDetails } from './components/application-details';
-import { CommentSection } from './components/comment-section';
+import { ApplicationDetails, CommentSection } from './components';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -49,7 +48,7 @@ export const ApplicationView = (): JSX.Element => {
   }
 
   return (
-    <main className={'grid grid-cols-[1fr] gap-x-[2.5rem] lg:grid-cols-[1fr_0.5fr]'}>
+    <main className={'grid grid-cols-[1fr] gap-x-10 lg:grid-cols-[1fr_0.5fr]'}>
       <ApplicationDetails application={application} />
       <CommentSection applicationUuid={applicationUuid} />
     </main>

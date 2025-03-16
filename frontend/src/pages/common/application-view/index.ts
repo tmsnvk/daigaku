@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { ApplicationView } from './application-view.page';
+import { ApplicationView } from './application-view-page';
 
 export { ApplicationView };

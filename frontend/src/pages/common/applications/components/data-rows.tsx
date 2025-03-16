@@ -66,7 +66,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
           <Link
             className={joinTw(
-              'flex flex-row justify-center items-center mx-auto py-4 bg-transparent text-secondary text-xl cursor-pointer',
+              'flex flex-row justify-center items-center mx-auto py-4 bg-transparent text-secondary text-xl cursor-pointer font-bold tracking-wider',
               'hover:text-accent',
             )}
             to={`edit/${application.uuid}`}
@@ -80,7 +80,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
           </Link>
           <Link
             className={joinTw(
-              'flex flex-row justify-center items-center mx-auto py-4 bg-transparent text-secondary text-xl cursor-pointer',
+              'flex flex-row justify-center items-center mx-auto py-4 bg-transparent text-secondary text-xl cursor-pointer font-bold tracking-wider',
               'hover:text-accent',
             )}
             to={`view/${application.uuid}`}

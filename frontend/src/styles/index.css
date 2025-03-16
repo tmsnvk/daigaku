@@ -75,20 +75,26 @@
 --color-white-smoke: #f0f0f0;
 --color-light-gray: #aaaaaa; DON'T USE THIS
 --color-columbia-blue: #c9d7dd;
---color-jacarta: #31304d; DON'T USE THIS
---color-dark-gun-metal: #161a30;
+--color-jacarta: #31304d;
+--color-dark-gun-metal: #161a30;DON'T USE THIS
 --color-indian-yellow: #eea14f */
 
 @theme {
-  --foreground: #161a30;
+  --foreground: #31304d;
   --background: #f0f0f0;
 
   --color-primary: #c9d7dd; /* blue */
-  --color-secondary: #161a30; /* black */
+  --right-bottom-primary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-primary);
+
+  --color-secondary: #31304d; /* black */
+  --right-bottom-secondary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-secondary);
+
   --color-tertiary: #f0f0f0; /* gray */
+  --right-bottom-tertiary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-tertiary);
 
   --color-accent: #eea14f; /* orange */
-  --color-accent-foreground: #161a30;
+  --right-bottom-accent-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-accent);
+  --color-accent-foreground: #31304d;
 
   --destructive: #f94144; /* red */
   --destructive-foreground: #f0f0f0;
@@ -98,8 +104,6 @@
 
   --default-dark-border: 0.1rem solid var(--color-primary);
   --default-border-radius: 1.5rem;
-
-  --right-bottom-shadow: 0.2rem 0.2rem 0 0.15rem var(--foreground);
 
   --animate-fade-in-from-left: fade-in-from-left ease 0.75s;
 
