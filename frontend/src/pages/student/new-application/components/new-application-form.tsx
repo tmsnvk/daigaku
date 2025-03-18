@@ -10,13 +10,12 @@ import { useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks';
-import { useCountrySelection, useCreateApplication } from './new-application-form.hooks';
+import { useCountrySelection, useCreateApplication } from '../hooks';
 
 /* component, style imports */
 import { CountryDropdown, GenericInput, InputError, InputGuideText, SubmitInput, UniversityDropdown } from '@components/form';
-import { LoadingIndicator, PageTitle } from '@components/general';
+import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
-import { Form } from './new-application-form.styles';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -68,13 +67,16 @@ export const NewApplicationForm = (): JSX.Element => {
 
   return (
     <>
-      <Form
+      <form
         id={'new-application-form'}
-        method={'POST'}
+        className={'base-application-grid base-tertiary-border'}
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
-        <PageTitle title={l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE} />
-        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
+        <h1 className={'form-title-head col-start-1 col-end-3 text-center'}>{l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}</h1>
+        <InputGuideText
+          className={'col-start-1 col-end-3'}
+          paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION}
+        />
         <CountryDropdown
           register={register}
           validationRules={{
@@ -164,7 +166,7 @@ export const NewApplicationForm = (): JSX.Element => {
           isDisabled={isPending}
         />
         <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
-        <article>
+        <article className={'col-start-1 col-end-3'}>
           {isPending ? (
             <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING} />
           ) : (
@@ -175,8 +177,8 @@ export const NewApplicationForm = (): JSX.Element => {
             />
           )}
         </article>
-        <article>{errors.root && <InputError message={errors.root.message} />}</article>
-      </Form>
+        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <InputError message={errors.root.message} />}</article>
+      </form>
       <Toast
         isVisible={isSuccess}
         message={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.SUCCESS_TOAST}

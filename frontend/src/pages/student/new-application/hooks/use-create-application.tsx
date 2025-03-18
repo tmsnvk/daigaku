@@ -7,7 +7,6 @@
 /* vendor imports */
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import { useState } from 'react';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
@@ -19,7 +18,6 @@ import { errorConstants } from '@constants';
 
 /* interface, type, enum imports */
 import { Application, CoreErrorResponse, CreateApplicationByStudent, ErrorDetail } from '@common-types';
-import { CountrySelection } from './new-application-form.models';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -78,31 +76,4 @@ export const useCreateApplication = (
       }
     },
   });
-};
-
-/**
- * Manages the state of country selection. It tracks whether a country has been selected
- * and stores the currently selected country's uuid.
- *
- * @return {CountrySelection} The object that manages the country selection state.
- */
-export const useCountrySelection = (): CountrySelection => {
-  const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
-  const [currentCountryUuid, setCurrentCountryUuid] = useState<string>('');
-
-  const selectCountry = (countryUuid: string): void => {
-    setIsCountrySelected(true);
-    setCurrentCountryUuid(countryUuid);
-  };
-
-  const resetCountrySelection = (): void => {
-    setIsCountrySelected(false);
-  };
-
-  return {
-    isCountrySelected,
-    currentCountryUuid,
-    selectCountry,
-    resetCountrySelection,
-  };
 };
