@@ -13,7 +13,7 @@ import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplicat
 
 /* component, style imports */
 import { ApplicationMetadata } from '@components/application';
-import { DisabledInput, InputError, InputGuideText, SubmitInput } from '@components/form';
+import { CoreInputError, DisabledInput, InputGuideText, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { Toast } from '@components/notification';
 import { ActiveSelectField } from './active-select-field';
@@ -204,7 +204,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
             />
           )}
         </article>
-        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <InputError message={errors.root.message} />}</article>
+        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <CoreInputError message={errors.root.message} />}</article>
       </form>
       <Toast
         isVisible={isSuccess}

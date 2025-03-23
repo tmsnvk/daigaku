@@ -11,8 +11,8 @@ import { JSX } from 'react';
 import { useToggleIsRemovable } from '../hooks';
 
 /* component, style imports */
-import { BaseButton } from '@components/base-styles';
-import { InputError } from '@components/form';
+import { BaseButton } from '@components/base-components';
+import { CoreInputError } from '@components/form';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@constants';
@@ -49,10 +49,10 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
             : l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.DELETION_REQUEST
         }
         intent={shouldBeRemoved ? 'destructive' : 'dark'}
-        onClickHandler={() => mutate()}
-        disabled={isPending}
+        onClick={() => mutate()}
+        isDisabled={isPending}
       />
-      {isError && <InputError message={errorConstants.UNEXPECTED_GLOBAL_ERROR} />}
+      {isError && <CoreInputError message={errorConstants.UNEXPECTED_GLOBAL_ERROR} />}
     </article>
   );
 };

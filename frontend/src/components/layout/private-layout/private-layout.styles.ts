@@ -8,7 +8,7 @@
 import styled from 'styled-components';
 
 /* component, style imports */
-import { BaseNavbar } from '@components/base-styles';
+import { BaseNavbar } from '@components/base-components';
 
 export const Header = styled(BaseNavbar)`
   & nav {

@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { PasswordInput } from './password-input.component';
+import { PasswordInputGroup } from '../password-input-group';
 
-export { PasswordInput };
+export { PasswordInputGroup as PasswordInput };

@@ -6,13 +6,13 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
-import { GenericInput, PasswordInput } from '@components/form';
+import { CommonInputGroup, PasswordInputGroup } from '@components/form';
 import { FormAction } from './form-action';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
@@ -23,7 +23,7 @@ import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { LoginRequest } from '@common-types';
+import { InputStyleIntent, LoginRequest } from '@common-types';
 import { FormType } from '../models';
 
 /**
@@ -39,66 +39,68 @@ interface LoginFormProps {
 }
 
 /**
- * Renders a login form component that allows users to submit their email and password for authentication.
- * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
+ * Renders a login form component allowing users to submit their email and password for authentication.
+ * The component is integrated with the `react-hook-form` and `react-query` libraries for managing submission.
  * Additionally, users can switch to other forms.
  *
  * @param {LoginFormProps} props
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
+  const methods = useForm<LoginRequest>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
-    register,
     setError,
-  } = useForm<LoginRequest>({ mode: 'onSubmit' });
+  } = methods;
   const { isPending, mutate } = useLoginFormMutation(setError);
 
   return (
     <>
       <FormHeader headerContent={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER} />
-      <FormWrapper
-        formId={'post-account-login-form'}
-        onFormSubmitHandler={handleSubmit((formData: LoginRequest) => mutate(formData))}
-      >
-        <GenericInput
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED,
-            },
-          }}
-          type={'email'}
-          id={'email'}
-          label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
-          placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
-          isDisabled={isPending}
-          error={errors.email?.message}
-        />
-        <PasswordInput
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED,
-            },
-          }}
-          id={'password'}
-          label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
-          placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED}
-          isDisabled={isPending}
-          error={errors.password?.message}
-        />
-        <FormAction
-          isSubmissionPending={isPending}
-          submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
-          submissionId={'login'}
-          submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
-          errorMessage={errors.root?.message}
-        />
-      </FormWrapper>
+      <FormProvider {...methods}>
+        <FormWrapper
+          formId={'post-account-login-form'}
+          onFormSubmitHandler={handleSubmit((formData: LoginRequest) => mutate(formData))}
+        >
+          <CommonInputGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED,
+              },
+            }}
+            id={'email'}
+            type={'email'}
+            label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
+            placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
+            isDisabled={isPending}
+            error={errors.email?.message}
+            intent={InputStyleIntent.LIGHT}
+          />
+          <PasswordInputGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED,
+              },
+            }}
+            id={'password'}
+            label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
+            placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.PLACEHOLDER}
+            isDisabled={isPending}
+            error={errors.password?.message}
+            intent={InputStyleIntent.LIGHT}
+          />
+          <FormAction
+            isSubmissionPending={isPending}
+            submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
+            submissionId={'login'}
+            submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
+            errorMessage={errors.root?.message}
+          />
+        </FormWrapper>
+      </FormProvider>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
         leftButtonFormType={FormType.RESET}

@@ -8,7 +8,7 @@
 import styled from 'styled-components';
 
 /* component, style imports */
-import { BaseDialog } from '@components/base-styles';
+import { BaseDialog } from '@components/base-components';
 
 export const Dialog = styled(BaseDialog)`
   text-align: center;

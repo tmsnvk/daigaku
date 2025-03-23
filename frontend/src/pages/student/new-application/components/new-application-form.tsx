@@ -13,7 +13,7 @@ import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hoo
 import { useCountrySelection, useCreateApplication } from '../hooks';
 
 /* component, style imports */
-import { CountryDropdown, GenericInput, InputError, InputGuideText, SubmitInput, UniversityDropdown } from '@components/form';
+import { CoreInputError, CountryDropdown, InputGuideText, SubmitInput, UniversityDropdown } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
 
@@ -22,6 +22,7 @@ import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { CreateApplicationByStudent } from '@common-types';
+import { CommonInputGroup } from '@components/form/common-input-group';
 
 /**
  * Renders the new application submission form for student users.
@@ -110,7 +111,7 @@ export const NewApplicationForm = (): JSX.Element => {
           />
         )}
         <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.INFORMATION} />
-        <GenericInput
+        <CommonInputGroup
           register={register}
           validationRules={{
             required: {
@@ -130,7 +131,7 @@ export const NewApplicationForm = (): JSX.Element => {
           isDisabled={isPending}
         />
         <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.INFORMATION} />
-        <GenericInput
+        <CommonInputGroup
           register={register}
           validationRules={{
             pattern: {
@@ -146,7 +147,7 @@ export const NewApplicationForm = (): JSX.Element => {
           isDisabled={isPending}
         />
         <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.INFORMATION} />
-        <GenericInput
+        <CommonInputGroup
           register={register}
           validationRules={{
             required: {
@@ -177,7 +178,7 @@ export const NewApplicationForm = (): JSX.Element => {
             />
           )}
         </article>
-        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <InputError message={errors.root.message} />}</article>
+        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <CoreInputError message={errors.root.message} />}</article>
       </form>
       <Toast
         isVisible={isSuccess}

@@ -9,15 +9,15 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* component imports */
-import { InputError, InputLabel } from '@components/form';
+import { CoreInputError, CoreInputLabel } from '@components/form';
 
 /* interface, type, enum imports */
-import { CommonInput } from '@common-types';
+import { CommonInputElement } from '@common-types';
 
 /**
  * Defines the component's properties.
  */
-interface ComponentProps<T extends FieldValues> extends CommonInput<T> {
+interface ComponentProps<T extends FieldValues> extends CommonInputElement<T> {
   /**
    * The textarea's row size.
    */
@@ -48,9 +48,9 @@ export const GenericTextarea = <T extends FieldValues>({
 }: ComponentProps<T>): JSX.Element => {
   return (
     <article className={'w-[100%] flex flex-col items-center mb-[5rem]'}>
-      <InputLabel
+      <CoreInputLabel
         inputId={id}
-        label={label}
+        content={label}
       />
       <textarea
         {...register(id, validationRules)}
@@ -67,7 +67,7 @@ export const GenericTextarea = <T extends FieldValues>({
         placeholder={placeholder}
         disabled={isDisabled}
       />
-      {error && <InputError message={error} />}
+      {error && <CoreInputError message={error} />}
     </article>
   );
 };

@@ -5,19 +5,18 @@
  */
 
 /* vendor imports */
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues, Path } from 'react-hook-form';
 
 /**
  * Defines the core properties of input fields used with `react-hook-form`.
- * The interface intends to standardize basic properties across various input types
+ * The interface standardizes basic properties across various input types
  * that utilize the `react-hook-form` library for form handling and validation.
  */
-export interface CoreInput<T extends FieldValues> {
+export interface InputValidation<T extends FieldValues> {
   /**
-   * The `react-hook-form` register method used for input registration and handling.
-   * This method connects the input to the form state and validation.
+   * The input element's id.
    */
-  register: UseFormRegister<T>;
+  readonly id: Path<T>;
 
   /**
    * Optional validation rules to handle input validation in `react-hook-form`.
@@ -48,12 +47,7 @@ export interface CoreInput<T extends FieldValues> {
   readonly error?: string;
 
   /**
-   * The input element's id.
-   */
-  readonly id: Path<T>;
-
-  /**
    * Indicates whether the input is disabled, preventing user interaction.
    */
-  readonly isDisabled?: boolean;
+  readonly isDisabled: boolean;
 }

@@ -80,22 +80,28 @@
 --color-indian-yellow: #eea14f */
 
 @theme {
-  --foreground: #31304d;
-  --background: #f0f0f0;
+  --foreground: hsla(242deg, 23%, 25%, 1);
+  --background: hsla(0deg, 0%, 94%, 1);
 
-  --color-primary: #c9d7dd; /* blue */
+  /* blue */
+  --color-primary: hsla(198deg, 23%, 83%, 1);
   --right-bottom-primary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-primary);
 
-  --color-secondary: #31304d; /* black */
+  /* dark blue (almost black) */
+  --color-secondary: hsla(242deg, 23%, 25%, 1);
+  --color-secondary-muted: hsla(242deg, 23%, 25%, 0.5);
   --right-bottom-secondary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-secondary);
 
-  --color-tertiary: #f0f0f0; /* gray */
+  /* light gray */
+  --color-tertiary: hsla(0deg, 0%, 94%, 1);
   --right-bottom-tertiary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-tertiary);
 
-  --color-accent: #eea14f; /* orange */
+  /* orange */
+  --color-accent: hsla(31deg, 82%, 62%, 1);
   --right-bottom-accent-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-accent);
 
-  --color-destructive: #f94144; /* red */
+  /* red */
+  --color-destructive: hsla(359deg, 93%, 62%, 1);
   --right-bottom-destructive-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-secondary);
 
   --primary-font: 'Raleway', 'sans-serif';
@@ -114,6 +120,18 @@
 
     100% {
       transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+
+  --animate-simple-fade-in: simple-fade-in ease-in 0.25s;
+
+  @keyframes simple-fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
       opacity: 1;
     }
   }

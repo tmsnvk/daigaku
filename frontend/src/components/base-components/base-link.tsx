@@ -7,10 +7,10 @@
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX } from 'react';
+import { Link } from 'react-router-dom';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@utilities';
-import { Link } from 'react-router-dom';
 
 const linkVariants = cva(
   joinTw(

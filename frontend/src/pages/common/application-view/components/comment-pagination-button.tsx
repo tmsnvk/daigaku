@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { BaseButton } from '@components/base-styles';
+import { BaseButton } from '@components/base-components';
 
 /**
  * Defines the component's properties.
@@ -39,10 +39,10 @@ interface CommentPaginationButtonProps {
 export const CommentPaginationButton = ({ onClick, isDisabled, value }: CommentPaginationButtonProps): JSX.Element => {
   return (
     <BaseButton
-      onClickHandler={onClick}
+      onClick={onClick}
       intent={isDisabled ? 'accent' : 'dark'}
       label={value}
-      disabled={isDisabled}
+      isDisabled={isDisabled}
     />
   );
 };

@@ -9,7 +9,7 @@ import { JSX } from 'react';
 
 /* component imports */
 import { ApplicationMetadata } from '@components/application';
-import { BaseLink } from '@components/base-styles';
+import { BaseLink } from '@components/base-components';
 import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */

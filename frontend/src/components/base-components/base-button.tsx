@@ -34,11 +34,16 @@ const buttonVariants = cva(
 /**
  * Defines the component's properties.
  */
-interface ComponentProps extends VariantProps<typeof buttonVariants> {
+interface BaseButtonProps extends VariantProps<typeof buttonVariants> {
   /**
    * The button's label.
    */
   readonly label: string;
+
+  /**
+   * The boolean indicating whether the button is disabled or not.
+   */
+  readonly isDisabled?: boolean;
 
   /**
    * The button's additional style options.
@@ -46,31 +51,26 @@ interface ComponentProps extends VariantProps<typeof buttonVariants> {
   readonly className?: string;
 
   /**
-   * The boolean indicating whether the button is disabled or not.
-   */
-  readonly disabled?: boolean;
-
-  /**
    * The button's onClick handler.
    */
-  onClickHandler: MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 /**
  * Renders the default button component used throughout the application.
  *
- * @param {ComponentProps} props
+ * @param {BaseButtonProps} props
  * @return {JSX.Element}
  */
-export const BaseButton = ({ label, intent, className, disabled, onClickHandler }: ComponentProps): JSX.Element => {
+export const BaseButton = ({ intent, label, isDisabled, className, onClick }: BaseButtonProps): JSX.Element => {
   return (
     <button
       id={label}
       name={label}
-      className={joinTw(buttonVariants({ intent, disabled, className }))}
+      className={joinTw(buttonVariants({ intent, disabled: isDisabled, className }))}
       type={'button'}
-      onClick={onClickHandler}
-      disabled={disabled}
+      onClick={onClick}
+      disabled={isDisabled}
     >
       {label}
     </button>

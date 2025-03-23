@@ -8,7 +8,7 @@
 import styled, { keyframes } from 'styled-components';
 
 /* component, style imports */
-import { BaseLightBorder } from '@components/base-styles';
+// import { BaseLightBorder } from '@components/base-components';
 
 const fadeOut = keyframes`
   0% {
@@ -21,7 +21,7 @@ const fadeOut = keyframes`
 `;
 
 export const Section = styled.section`
-  ${BaseLightBorder};
+  /* ${BaseLightBorder}; */
 
   z-index: 100;
   position: fixed;

@@ -8,8 +8,7 @@
 import { JSX } from 'react';
 
 /* component, style imports */
-import { BaseInput } from '@components/base-styles';
-import { InputLabel } from '@components/form';
+// import { BaseInput } from '@components/base-components';
 
 /**
  * Defines the component's properties.
@@ -44,19 +43,20 @@ interface ComponentProps {
  */
 export const DisabledInput = ({ id, label, type, value }: ComponentProps): JSX.Element => {
   return (
-    <BaseInput $isDisabled={true}>
-      <InputLabel
-        inputId={id}
-        label={label}
-      />
-      <input
-        type={type}
-        id={id}
-        name={id}
-        disabled
-        readOnly
-        defaultValue={value}
-      />
-    </BaseInput>
+    <></>
+    // <BaseInput $isDisabled={true}>
+    //   <InputLabel
+    //     inputId={id}
+    //     label={label}
+    //   />
+    //   <input
+    //     type={type}
+    //     id={id}
+    //     name={id}
+    //     disabled
+    //     readOnly
+    //     defaultValue={value}
+    //   />
+    // </BaseInput>
   );
 };

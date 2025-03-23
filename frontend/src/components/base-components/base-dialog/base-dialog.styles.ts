@@ -8,10 +8,10 @@
 import styled from 'styled-components';
 
 /* component, style imports */
-import { BaseLightBorder } from '../base-light-border';
+// import { BaseLightBorder } from '../base-light-border';
 
 export const BaseDialog = styled.dialog`
-  ${BaseLightBorder};
+  /* ${BaseLightBorder}; */
 
   width: 40%;
   margin: 35rem auto 0 auto;

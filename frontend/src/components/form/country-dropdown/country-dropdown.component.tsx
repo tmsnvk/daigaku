@@ -12,14 +12,14 @@ import { FieldValues } from 'react-hook-form';
 import { useSelectCountry } from './country-dropdown.hooks';
 
 /* component, style imports */
-import { BaseInput } from '@components/base-styles';
-import { InputError, InputLabel } from '@components/form';
+import { CoreInputError, CoreInputLabel } from '@components/form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { CountryOption, DropdownInput } from '@common-types';
+import { CoreInputGroupWrapper } from '@components/form/core-input-group-wrapper';
 
 /**
  * Defines the component's properties.
@@ -51,10 +51,10 @@ export const CountryDropdown = <T extends FieldValues>({
   const { handleCountrySelection } = useSelectCountry(onCountrySelection);
 
   return (
-    <BaseInput $isError={error !== undefined}>
-      <InputLabel
+    <CoreInputGroupWrapper>
+      <CoreInputLabel
         inputId={id}
-        label={l.COMPONENTS.FORM.COUNTRY_DROPDOWN.LABEL}
+        content={l.COMPONENTS.FORM.COUNTRY_DROPDOWN.LABEL}
       />
       <select
         {...register(id, validationRules)}
@@ -78,7 +78,7 @@ export const CountryDropdown = <T extends FieldValues>({
           </option>
         ))}
       </select>
-      {error && <InputError message={error} />}
-    </BaseInput>
+      {error && <CoreInputError message={error} />}
+    </CoreInputGroupWrapper>
   );
 };

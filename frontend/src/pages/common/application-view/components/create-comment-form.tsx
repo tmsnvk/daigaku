@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useSubmitComment } from '../hooks';
 
 /* component imports */
-import { GenericTextarea, InputError, SubmitInput } from '@components/form';
+import { CoreInputError, GenericTextarea, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 
 /* configuration, utilities, constants imports */
@@ -86,7 +86,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           />
         )}
       </article>
-      <article>{errors.root && <InputError message={errors.root.message} />}</article>
+      <article>{errors.root && <CoreInputError message={errors.root.message} />}</article>
     </form>
   );
 };

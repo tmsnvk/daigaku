@@ -9,8 +9,8 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* component, style imports */
-import { BaseInput } from '@components/base-styles';
-import { InputError, InputLabel } from '@components/form';
+// import { BaseInput } from '@components/base-components';
+import { CoreInputError, CoreInputLabel } from '@components/form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -18,6 +18,7 @@ import { formatRoleName } from './account-role-dropdown.utilities';
 
 /* interface, type, enum imports */
 import { DropdownInput, RoleOption } from '@common-types';
+import { CoreInputGroupWrapper } from '@components/form/core-input-group-wrapper';
 
 /**
  * Defines the component's properties.
@@ -41,10 +42,10 @@ export const AccountRoleDropdown = <T extends FieldValues>({
   options,
 }: ComponentProps<T, RoleOption>): JSX.Element => {
   return (
-    <BaseInput $isError={error !== undefined}>
-      <InputLabel
+    <CoreInputGroupWrapper>
+      <CoreInputLabel
         inputId={id}
-        label={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
+        content={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
       />
       <select
         {...register(id, validationRules)}
@@ -69,7 +70,7 @@ export const AccountRoleDropdown = <T extends FieldValues>({
           );
         })}
       </select>
-      {error && <InputError message={error} />}
-    </BaseInput>
+      {error && <CoreInputError message={error} />}
+    </CoreInputGroupWrapper>
   );
 };

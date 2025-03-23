@@ -12,19 +12,19 @@ import { JSX, ReactNode } from 'react';
  */
 interface FormWrapperProps {
   /**
-   * The form's id.
+   * The form element's id.
    */
   readonly formId: string;
 
   /**
-   * The form submission handler.
+   * The form element's submission handler.
    */
   onFormSubmitHandler: () => void;
 
   /**
    * The passed down React child component(s).
    */
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 /**
@@ -37,8 +37,8 @@ export const FormWrapper = ({ formId, onFormSubmitHandler, children }: FormWrapp
   return (
     <form
       id={formId}
-      className={'flex flex-col items-center'}
       onSubmit={onFormSubmitHandler}
+      className={'flex flex-col justify-evenly'}
     >
       {children}
     </form>

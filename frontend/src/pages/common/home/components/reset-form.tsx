@@ -12,7 +12,6 @@ import { useForm } from 'react-hook-form';
 import { useResetFormMutation } from '../hooks';
 
 /* component imports */
-import { GenericInput } from '@components/form';
 import { FormAction } from './form-action';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
@@ -24,6 +23,7 @@ import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
 import { AccountResetRequest } from '@common-types';
+import { CommonInputGroup } from '@components/form/common-input-group';
 import { FormType } from '../models';
 
 /**
@@ -67,7 +67,7 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
         formId={'post-account-reset-form'}
         onFormSubmitHandler={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
       >
-        <GenericInput
+        <CommonInputGroup
           register={register}
           validationRules={{
             required: {

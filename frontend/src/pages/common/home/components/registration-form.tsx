@@ -13,7 +13,7 @@ import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@h
 import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
-import { AccountRoleDropdown, GenericInput, InstitutionDropdown } from '@components/form';
+import { AccountRoleDropdown, InstitutionDropdown } from '@components/form';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
 import { FormAction } from './form-action';
 import { FormHeader } from './form-header';
@@ -26,6 +26,7 @@ import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
 import { PendingAccountRegistrationRequest } from '@common-types';
+import { CommonInputGroup } from '@components/form/common-input-group';
 import { FormType } from '../models';
 
 /**
@@ -89,7 +90,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
         formId={'post-pending-account-registration-form'}
         onFormSubmitHandler={handleSubmit((formData: PendingAccountRegistrationRequest) => mutate(formData))}
       >
-        <GenericInput
+        <CommonInputGroup
           register={register}
           validationRules={{
             required: {
@@ -108,7 +109,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
           isDisabled={isPending}
           error={errors.firstName?.message}
         />
-        <GenericInput
+        <CommonInputGroup
           register={register}
           validationRules={{
             required: {
@@ -127,7 +128,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
           isDisabled={isPending}
           error={errors.lastName?.message}
         />
-        <GenericInput
+        <CommonInputGroup
           register={register}
           validationRules={{
             required: {

@@ -5,31 +5,35 @@
  */
 
 import { AccountRoleDropdown } from './account-role-dropdown';
-import { ApplicationFormGrid } from './application-form-grid-container';
+import { CommonInputGroup } from './common-input-group';
+import { CoreInputElement } from './core-input-element';
+import { CoreInputError } from './core-input-error';
+import { CoreInputGroupWrapper } from './core-input-group-wrapper';
+import { CoreInputLabel } from './core-input-label';
 import { CountryDropdown } from './country-dropdown';
 import { DisabledInput } from './disabled-input';
-import { GenericInput } from './generic-input';
 import { GenericTextarea } from './generic-textarea';
-import { InputError } from './input-error';
 import { InputGuideText } from './input-guide-text';
-import { InputLabel } from './input-label';
 import { InstitutionDropdown } from './institution-dropdown';
 import { PasswordInput } from './password-input';
+import { PasswordInputGroup } from './password-input-group';
 import { SubmitInput } from './submit-input';
 import { UniversityDropdown } from './university-dropdown';
 
 export {
   AccountRoleDropdown,
-  ApplicationFormGrid,
+  CommonInputGroup,
+  CoreInputElement,
+  CoreInputError,
+  CoreInputGroupWrapper,
+  CoreInputLabel,
   CountryDropdown,
   DisabledInput,
-  GenericInput,
   GenericTextarea,
-  InputError,
   InputGuideText,
-  InputLabel,
   InstitutionDropdown,
   PasswordInput,
+  PasswordInputGroup,
   SubmitInput,
   UniversityDropdown,
 };

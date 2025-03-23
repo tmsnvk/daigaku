@@ -12,16 +12,14 @@ import { FieldValues } from 'react-hook-form';
 import { useOnFieldUpdate } from '../hooks';
 
 /* component, style imports */
-import { BaseInput } from '@components/base-styles';
-import { InputError, InputLabel } from '@components/form';
 
 /* interface, type, enum imports */
-import { ApplicationStatusUnion, CoreInput } from '@common-types';
+import { ApplicationStatusUnion, InputValidation } from '@common-types';
 
 /**
  * Defines the component's properties.
  */
-interface ActiveSelectFieldProps<T extends FieldValues> extends CoreInput<T> {
+interface ActiveSelectFieldProps<T extends FieldValues> extends InputValidation<T> {
   /**
    * The label text to be displayed above the select input.
    */
@@ -67,38 +65,39 @@ export const ActiveSelectField = <T extends FieldValues>({
   const { updateField } = useOnFieldUpdate(onFieldUpdate);
 
   return (
-    <BaseInput $isError={error !== undefined}>
-      <InputLabel
-        inputId={id}
-        label={label}
-      />
-      <select
-        {...register(id, {
-          onChange: (event: Event) => updateField(event),
-        })}
-        id={id}
-        name={id}
-        disabled={isDisabled}
-        defaultValue={previouslySelectedValue?.uuid}
-      >
-        <option
-          hidden
-          value={''}
-        >
-          {selectPrompt}
-        </option>
-        {options.map((option: ApplicationStatusUnion) => {
-          return (
-            <option
-              key={option.uuid}
-              value={option.uuid}
-            >
-              {option.name}
-            </option>
-          );
-        })}
-      </select>
-      {error && <InputError message={error} />}
-    </BaseInput>
+    <></>
+    // <BaseInput $isError={error !== undefined}>
+    //   <InputLabel
+    //     inputId={id}
+    //     label={label}
+    //   />
+    //   <select
+    //     {...register(id, {
+    //       onChange: (event: Event) => updateField(event),
+    //     })}
+    //     id={id}
+    //     name={id}
+    //     disabled={isDisabled}
+    //     defaultValue={previouslySelectedValue?.uuid}
+    //   >
+    //     <option
+    //       hidden
+    //       value={''}
+    //     >
+    //       {selectPrompt}
+    //     </option>
+    //     {options.map((option: ApplicationStatusUnion) => {
+    //       return (
+    //         <option
+    //           key={option.uuid}
+    //           value={option.uuid}
+    //         >
+    //           {option.name}
+    //         </option>
+    //       );
+    //     })}
+    //   </select>
+    //   {error && <InputError message={error} />}
+    // </BaseInput>
   );
 };

@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { InputError, SubmitInput } from '@components/form';
+import { CoreInputError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 
 /**
@@ -68,7 +68,7 @@ export const FormAction = ({
           disabled={isSubmissionPending}
         />
       )}
-      <InputError message={errorMessage} />
+      <CoreInputError message={errorMessage} />
     </article>
   );
 };

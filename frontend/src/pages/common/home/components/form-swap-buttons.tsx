@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { BaseButton } from '@components/base-styles';
+import { BaseButton } from '@components/base-components';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';
@@ -69,14 +69,14 @@ export const FormSwapButtons = ({
       <BaseButton
         label={leftButtonLabel}
         intent={'light'}
-        disabled={isDisabled}
-        onClickHandler={() => onFormSelect(leftButtonFormType)}
+        isDisabled={isDisabled}
+        onClick={() => onFormSelect(leftButtonFormType)}
       />
       <BaseButton
         label={rightButtonLabel}
         intent={'light'}
-        disabled={isDisabled}
-        onClickHandler={() => onFormSelect(rightButtonFormType)}
+        isDisabled={isDisabled}
+        onClick={() => onFormSelect(rightButtonFormType)}
       />
     </article>
   );

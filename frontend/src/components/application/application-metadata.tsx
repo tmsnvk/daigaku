@@ -19,14 +19,13 @@ import { BaseMetadata } from '@common-types';
  */
 interface ApplicationMetadataProps extends BaseMetadata {
   /**
-   * Additional styling options.
+   * Additional optional styling options.
    */
-  readonly className: string;
+  readonly className?: string;
 }
 
 /**
- * Renders the metadata for a selected application, including the creation and
- * last-updated timestamps, as well as the respective users responsible for these actions.
+ * Renders the metadata for a selected application record.
  *
  * @param {ApplicationMetadataProps} props
  * @return {JSX.Element}
@@ -39,7 +38,7 @@ export const ApplicationMetadata = ({
   lastModifiedBy,
 }: ApplicationMetadataProps): JSX.Element => {
   return (
-    <article className={joinTw('mr-auto text-2xl', className)}>
+    <article className={joinTw('text-2xl', className)}>
       <dl>
         <div>
           <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.SUBMISSION.AT}</dt>{' '}
