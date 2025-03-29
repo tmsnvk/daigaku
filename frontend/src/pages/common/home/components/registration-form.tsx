@@ -6,16 +6,15 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@hooks';
 import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
-import { AccountRoleDropdown, InstitutionDropdown } from '@components/form';
+import { AccountRoleSelectGroup, CommonInputGroup, CoreFormAction, InstitutionSelectGroup } from '@components/form';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { FormAction } from './form-action';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
 import { FormWrapper } from './form-wrapper';
@@ -25,8 +24,7 @@ import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { PendingAccountRegistrationRequest } from '@common-types';
-import { CommonInputGroup } from '@components/form/common-input-group';
+import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, PendingAccountRegistrationRequest } from '@common-types';
 import { FormType } from '../models';
 
 /**
@@ -57,12 +55,12 @@ interface RegistrationFormProps {
 export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormProps): JSX.Element => {
   const { data: institutions, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
+  const methods = useForm<PendingAccountRegistrationRequest>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
-    register,
     setError,
-  } = useForm<PendingAccountRegistrationRequest>({ mode: 'onSubmit' });
+  } = methods;
   const { isPending, mutate } = useRegistrationFormMutation(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {
@@ -86,97 +84,100 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
   return (
     <>
       <FormHeader headerContent={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER} />
-      <FormWrapper
-        formId={'post-pending-account-registration-form'}
-        onFormSubmitHandler={handleSubmit((formData: PendingAccountRegistrationRequest) => mutate(formData))}
-      >
-        <CommonInputGroup
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED,
-            },
-            pattern: {
-              value: /^[\p{L}\s-]{2,100}$/u,
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
-            },
-          }}
-          type={'text'}
-          id={'firstName'}
-          label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.LABEL}
-          placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.PLACEHOLDER}
-          isDisabled={isPending}
-          error={errors.firstName?.message}
-        />
-        <CommonInputGroup
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED,
-            },
-            pattern: {
-              value: /^[\p{L}\s-]{2,100}$/u,
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
-            },
-          }}
-          type={'text'}
-          id={'lastName'}
-          label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.LABEL}
-          placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.PLACEHOLDER}
-          isDisabled={isPending}
-          error={errors.lastName?.message}
-        />
-        <CommonInputGroup
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED,
-            },
-          }}
-          type={'email'}
-          id={'email'}
-          label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.LABEL}
-          placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.PLACEHOLDER}
-          isDisabled={isPending}
-          error={errors.email?.message}
-        />
-        <InstitutionDropdown
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED,
-            },
-          }}
-          id={'institutionUuid'}
-          options={institutions ?? []}
-          isDisabled={isPending}
-          error={errors.institutionUuid?.message}
-        />
-        <AccountRoleDropdown
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED,
-            },
-          }}
-          id={'accountRoleUuid'}
-          options={roles ?? []}
-          isDisabled={isPending}
-          error={errors.accountRoleUuid?.message}
-        />
-        <FormAction
-          isSubmissionPending={isPending}
-          submissionMessage={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING}
-          submissionId={'register'}
-          submissionValue={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
-          errorMessage={errors.root?.message}
-        />
-      </FormWrapper>
+      <FormProvider {...methods}>
+        <FormWrapper
+          formId={'post-pending-account-registration-form'}
+          onFormSubmitHandler={handleSubmit((formData: PendingAccountRegistrationRequest) => mutate(formData))}
+        >
+          <CommonInputGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED,
+              },
+              pattern: {
+                value: /^[\p{L}\s-]{2,100}$/u,
+                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
+              },
+            }}
+            type={'text'}
+            id={'firstName'}
+            label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.LABEL}
+            placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.PLACEHOLDER}
+            isDisabled={isPending}
+            error={errors.firstName?.message}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <CommonInputGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED,
+              },
+              pattern: {
+                value: /^[\p{L}\s-]{2,100}$/u,
+                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
+              },
+            }}
+            type={'text'}
+            id={'lastName'}
+            label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.LABEL}
+            placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.PLACEHOLDER}
+            isDisabled={isPending}
+            error={errors.lastName?.message}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <CommonInputGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED,
+              },
+            }}
+            type={'email'}
+            id={'email'}
+            label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.LABEL}
+            placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.PLACEHOLDER}
+            isDisabled={isPending}
+            error={errors.email?.message}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <InstitutionSelectGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED,
+              },
+            }}
+            id={'institutionUuid'}
+            options={institutions ?? []}
+            isDisabled={isPending}
+            error={errors.institutionUuid?.message}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <AccountRoleSelectGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED,
+              },
+            }}
+            id={'accountRoleUuid'}
+            options={roles ?? []}
+            isDisabled={isPending}
+            error={errors.accountRoleUuid?.message}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <CoreFormAction
+            isSubmissionPending={isPending}
+            submissionMessage={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING}
+            submitId={'register'}
+            submissionValue={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
+            errorMessage={errors.root?.message}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
+          />
+        </FormWrapper>
+      </FormProvider>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
         leftButtonFormType={FormType.RESET}

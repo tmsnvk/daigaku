@@ -28,7 +28,7 @@ interface FormWrapperProps {
 }
 
 /**
- * Renders a <form> element component, wrapping around the form's other components.
+ * Renders a form element component, wrapping around the form's other components.
  *
  * @param {FormWrapperProps}
  * @returns {JSX.Element}

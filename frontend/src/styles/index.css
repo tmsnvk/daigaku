@@ -107,8 +107,8 @@
   --primary-font: 'Raleway', 'sans-serif';
   --secondary-font: 'Roboto', 'sans-serif';
 
-  --default-dark-border: 0.1rem solid var(--color-primary);
-  --default-border-radius: 1.5rem;
+  --default-blue-border: 0.1rem solid var(--color-primary);
+  --default-border-radius: 1rem;
 
   --animate-fade-in-from-left: fade-in-from-left ease 0.75s;
 

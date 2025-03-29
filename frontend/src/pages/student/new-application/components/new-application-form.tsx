@@ -13,7 +13,8 @@ import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hoo
 import { useCountrySelection, useCreateApplication } from '../hooks';
 
 /* component, style imports */
-import { CoreInputError, CountryDropdown, InputGuideText, SubmitInput, UniversityDropdown } from '@components/form';
+import { CoreFormElementError, CoreFormElementInstruction, SubmitInput } from '@components/form';
+import { CountrySelectGroup } from '@components/form/element-group/country-select-group';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
 
@@ -22,7 +23,8 @@ import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { CreateApplicationByStudent } from '@common-types';
-import { CommonInputGroup } from '@components/form/common-input-group';
+import { CommonInputGroup } from '@components/form/element-group/common-input-group';
+import { UniversitySelectGroup } from '@components/form/element-group/university-select-group';
 
 /**
  * Renders the new application submission form for student users.
@@ -74,11 +76,11 @@ export const NewApplicationForm = (): JSX.Element => {
         onSubmit={handleSubmit((formData) => mutate(formData))}
       >
         <h1 className={'form-title-head col-start-1 col-end-3 text-center'}>{l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}</h1>
-        <InputGuideText
+        <CoreFormElementInstruction
           className={'col-start-1 col-end-3'}
           paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION}
         />
-        <CountryDropdown
+        <CountrySelectGroup
           register={register}
           validationRules={{
             required: {
@@ -90,13 +92,13 @@ export const NewApplicationForm = (): JSX.Element => {
           id={'countryUuid'}
           isDisabled={isPending}
           options={countryOptions ?? []}
-          onCountrySelection={selectCountry}
+          onCountrySelect={selectCountry}
         />
-        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
         {isUniversityLoading ? (
           <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.UNIVERSITY_LOADING} />
         ) : (
-          <UniversityDropdown
+          <UniversitySelectGroup
             register={register}
             validationRules={{
               required: {
@@ -110,7 +112,7 @@ export const NewApplicationForm = (): JSX.Element => {
             options={universityOptions ?? []}
           />
         )}
-        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.INFORMATION} />
         <CommonInputGroup
           register={register}
           validationRules={{
@@ -130,7 +132,7 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.INFORMATION} />
         <CommonInputGroup
           register={register}
           validationRules={{
@@ -146,7 +148,7 @@ export const NewApplicationForm = (): JSX.Element => {
           placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.PLACEHOLDER}
           isDisabled={isPending}
         />
-        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.INFORMATION} />
         <CommonInputGroup
           register={register}
           validationRules={{
@@ -166,7 +168,7 @@ export const NewApplicationForm = (): JSX.Element => {
           initialValue={3}
           isDisabled={isPending}
         />
-        <InputGuideText paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
         <article className={'col-start-1 col-end-3'}>
           {isPending ? (
             <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING} />
@@ -178,7 +180,7 @@ export const NewApplicationForm = (): JSX.Element => {
             />
           )}
         </article>
-        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <CoreInputError message={errors.root.message} />}</article>
+        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <CoreFormElementError message={errors.root.message} />}</article>
       </form>
       <Toast
         isVisible={isSuccess}

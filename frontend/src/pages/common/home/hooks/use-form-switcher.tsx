@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX, useMemo, useState } from 'react';
+import { match } from 'ts-pattern';
 
 /* component imports */
 import { LoginForm, RegistrationForm, ResetForm } from '../components';
@@ -43,27 +44,22 @@ const getSelectedFormComponent = (
   selectedFormType: FormType,
   selectFormTypeHandler: (formType: FormType) => void,
   showModal: () => void,
-): JSX.Element => {
-  switch (selectedFormType) {
-    case FormType.LOGIN:
-      return <LoginForm onFormSelect={selectFormTypeHandler} />;
-
-    case FormType.REGISTER:
-      return (
-        <RegistrationForm
-          onFormSelect={selectFormTypeHandler}
-          showModal={showModal}
-        />
-      );
-
-    case FormType.RESET:
-      return (
-        <ResetForm
-          onFormSelect={selectFormTypeHandler}
-          showModal={showModal}
-        />
-      );
-  }
+): JSX.Element | null => {
+  return match([selectedFormType])
+    .with([FormType.LOGIN], () => <LoginForm onFormSelect={selectFormTypeHandler} />)
+    .with([FormType.REGISTER], () => (
+      <RegistrationForm
+        onFormSelect={selectFormTypeHandler}
+        showModal={showModal}
+      />
+    ))
+    .with([FormType.RESET], () => (
+      <ResetForm
+        onFormSelect={selectFormTypeHandler}
+        showModal={showModal}
+      />
+    ))
+    .otherwise(() => null);
 };
 
 /**
@@ -77,8 +73,8 @@ const getSelectedFormComponent = (
  * @return {FormSwitcher}
  */
 export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
-  const DEFAULT_FORM_TYPE = FormType.LOGIN;
-  const [selectedFormType, setSelectedFormType] = useState<FormType>(DEFAULT_FORM_TYPE);
+  const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
+  const [selectedFormType, setSelectedFormType] = useState<FormType>(DEFAULT_LOADED_FORM_TYPE);
 
   const selectFormTypeHandler = (formType: FormType): void => {
     setSelectedFormType(formType);
@@ -89,9 +85,7 @@ export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
       <section
         key={selectedFormType}
         className={joinTw(
-          'base-tertiary-border',
-          'w-[85%] flex flex-col justify-between my-[5%] px-10 py-20 text-center animate-(--animate-fade-in-from-left)',
-          'sm:w-200',
+          'base-tertiary-border w-[85%] flex flex-col justify-between my-[5%] px-10 py-20 text-center animate-(--animate-fade-in-from-left) sm:w-200',
         )}
       >
         {getSelectedFormComponent(selectedFormType, selectFormTypeHandler, showModal)}

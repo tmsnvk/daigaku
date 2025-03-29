@@ -4,9 +4,9 @@
  * @author tmsnvk
  */
 
-import { BaseButton } from './base-button';
 import { BaseDialog } from './base-dialog';
-import { BaseLink } from './base-link';
 import { BaseNavbar } from './base-navbar';
+import { CoreButton } from './core-button';
+import { CoreLink } from './core-link';
 
-export { BaseButton, BaseDialog, BaseLink, BaseNavbar };
+export { BaseDialog, BaseNavbar, CoreButton, CoreLink };

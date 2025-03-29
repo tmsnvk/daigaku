@@ -12,8 +12,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
-import { CommonInputGroup, PasswordInputGroup } from '@components/form';
-import { FormAction } from './form-action';
+import { CommonInputGroup, CoreFormAction, PasswordInputGroup } from '@components/form';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
 import { FormWrapper } from './form-wrapper';
@@ -23,7 +22,7 @@ import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { InputStyleIntent, LoginRequest } from '@common-types';
+import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginRequest } from '@common-types';
 import { FormType } from '../models';
 
 /**
@@ -76,7 +75,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
             isDisabled={isPending}
             error={errors.email?.message}
-            intent={InputStyleIntent.LIGHT}
+            intent={CoreInputElementStyleIntent.LIGHT}
           />
           <PasswordInputGroup
             validationRules={{
@@ -90,14 +89,15 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.PLACEHOLDER}
             isDisabled={isPending}
             error={errors.password?.message}
-            intent={InputStyleIntent.LIGHT}
+            intent={CoreInputElementStyleIntent.LIGHT}
           />
-          <FormAction
+          <CoreFormAction
             isSubmissionPending={isPending}
             submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
-            submissionId={'login'}
+            submitId={'login'}
             submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
             errorMessage={errors.root?.message}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </FormWrapper>
       </FormProvider>

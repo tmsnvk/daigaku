@@ -9,7 +9,7 @@ import { JSX } from 'react';
 
 /* component imports */
 import { ApplicationMetadata } from '@components/application';
-import { BaseLink } from '@components/base-components';
+import { CoreLink } from '@components/base-components';
 import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */
@@ -51,7 +51,7 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
         lastModifiedBy={application.lastModifiedBy}
       />
       <article className={'col-start-2 col-end-3'}>
-        <BaseLink
+        <CoreLink
           target={`/applications/edit/${application.uuid}`}
           label={l.PAGES.COMMON.APPLICATION_VIEW.EDIT_BUTTON}
           intent={'dark'}

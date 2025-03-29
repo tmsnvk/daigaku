@@ -11,10 +11,10 @@ import { JSX } from 'react';
 import { useToggleIsRemovable } from '../hooks';
 
 /* component, style imports */
-import { BaseButton } from '@components/base-components';
-import { CoreInputError } from '@components/form';
+import { CoreButton } from '@components/base-components';
 
 /* configuration, utilities, constants imports */
+import { CoreFormElementError } from '@components/form';
 import { errorConstants, localization as l } from '@constants';
 
 /**
@@ -42,7 +42,7 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
 
   return (
     <article className={'col-start-2 col-end-3 row-start-2 row-end-3 h-40 items-center flex flex-col'}>
-      <BaseButton
+      <CoreButton
         label={
           shouldBeRemoved
             ? l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.REVERT_REQUEST
@@ -52,7 +52,7 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
         onClick={() => mutate()}
         isDisabled={isPending}
       />
-      {isError && <CoreInputError message={errorConstants.UNEXPECTED_GLOBAL_ERROR} />}
+      {isError && <CoreFormElementError message={errorConstants.UNEXPECTED_GLOBAL_ERROR} />}
     </article>
   );
 };

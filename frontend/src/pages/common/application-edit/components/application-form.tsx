@@ -13,7 +13,7 @@ import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplicat
 
 /* component, style imports */
 import { ApplicationMetadata } from '@components/application';
-import { CoreInputError, DisabledInput, InputGuideText, SubmitInput } from '@components/form';
+import { CoreFormElementError, CoreFormElementInstruction, DisabledInputGroup, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { Toast } from '@components/notification';
 import { ActiveSelectField } from './active-select-field';
@@ -95,45 +95,45 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
           isRemovable={updatedData?.isRemovable ?? application.isRemovable}
           applicationUuid={application.uuid}
         />
-        <InputGuideText
+        <CoreFormElementInstruction
           paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.INFORMATION}
           className={'col-start-1 col-end-3 mt-20'}
         />
-        <DisabledInput
+        <DisabledInputGroup
           id={'country'}
           type={'text'}
           label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.NAME}
           value={application.country}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.INFORMATION} />
-        <DisabledInput
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.INFORMATION} />
+        <DisabledInputGroup
           id={'university'}
           type={'text'}
           label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.NAME}
           value={application.university}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.INFORMATION} />
-        <DisabledInput
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.INFORMATION} />
+        <DisabledInputGroup
           id={'courseName'}
           type={'text'}
           label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.NAME}
           value={application.courseName}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.INFORMATION} />
-        <DisabledInput
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.INFORMATION} />
+        <DisabledInputGroup
           id={'minorSubject'}
           type={'text'}
           label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.NAME}
           value={application.minorSubject ?? '-'}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.INFORMATION} />
-        <DisabledInput
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.INFORMATION} />
+        <DisabledInputGroup
           id={'programmeLength'}
           type={'number'}
           label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.NAME}
           value={application.programmeLength}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'applicationStatusUuid'}
@@ -145,7 +145,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
           onFieldUpdate={updateInterviewStatus}
           error={errors.applicationStatusUuid?.message}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'interviewStatusUuid'}
@@ -157,7 +157,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
           onFieldUpdate={updateOfferStatus}
           error={errors.interviewStatusUuid?.message}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'offerStatusUuid'}
@@ -169,7 +169,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
           onFieldUpdate={updateResponseStatus}
           error={errors.offerStatusUuid?.message}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'responseStatusUuid'}
@@ -181,7 +181,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
           onFieldUpdate={updateFinalDestinationStatus}
           error={errors.responseStatusUuid?.message}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.INFORMATION} />
         <ActiveSelectField
           register={register}
           id={'finalDestinationStatusUuid'}
@@ -192,7 +192,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
           isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
           error={errors.finalDestinationStatusUuid?.message}
         />
-        <InputGuideText paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.INFORMATION} />
+        <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.INFORMATION} />
         <article className={'col-start-1 col-end-3'}>
           {isPending ? (
             <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.APPLICATION_LOADING} />
@@ -204,7 +204,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
             />
           )}
         </article>
-        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <CoreInputError message={errors.root.message} />}</article>
+        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <CoreFormElementError message={errors.root.message} />}</article>
       </form>
       <Toast
         isVisible={isSuccess}

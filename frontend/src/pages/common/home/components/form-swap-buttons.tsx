@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { BaseButton } from '@components/base-components';
+import { CoreButton } from '@components/base-components';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';
@@ -66,13 +66,13 @@ export const FormSwapButtons = ({
 }: FormSwapButtonsProps): JSX.Element => {
   return (
     <article className={'flex justify-between mt-40'}>
-      <BaseButton
+      <CoreButton
         label={leftButtonLabel}
         intent={'light'}
         isDisabled={isDisabled}
         onClick={() => onFormSelect(leftButtonFormType)}
       />
-      <BaseButton
+      <CoreButton
         label={rightButtonLabel}
         intent={'light'}
         isDisabled={isDisabled}

@@ -41,7 +41,8 @@
     "react-router-dom": "^7.1.0",
     "styled-components": "^6.1.12",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.0.7"
+    "tailwindcss": "^4.0.7",
+    "ts-pattern": "^5.7.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.0",

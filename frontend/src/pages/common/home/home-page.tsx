@@ -20,7 +20,7 @@ import { ConfirmationModal } from '@components/notification';
 import { confirmationModalFeedback } from './constants';
 
 /**
- * Renders the root page of the application.
+ * Renders the application's root page.
  * If the user is authenticated, they are redirected to the `/dashboard` route.
  * Otherwise, the component renders one of three possible form components based on the user's selection.
  * A {@link ConfirmationModal} component is displayed when {@link isModalVisible} is true,

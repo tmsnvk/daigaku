@@ -6,13 +6,13 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useResetFormMutation } from '../hooks';
 
 /* component imports */
-import { FormAction } from './form-action';
+import { CommonInputGroup, CoreFormAction } from '@components/form';
 import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
 import { FormWrapper } from './form-wrapper';
@@ -22,8 +22,7 @@ import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { AccountResetRequest } from '@common-types';
-import { CommonInputGroup } from '@components/form/common-input-group';
+import { AccountResetRequest, CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent } from '@common-types';
 import { FormType } from '../models';
 
 /**
@@ -52,44 +51,47 @@ interface ResetFormProps {
  * @return {JSX.Element}
  */
 export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Element => {
+  const methods = useForm<AccountResetRequest>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
-    register,
     setError,
-  } = useForm<AccountResetRequest>({ mode: 'onSubmit' });
+  } = methods;
   const { isPending, mutate } = useResetFormMutation(setError, showModal);
 
   return (
     <>
       <FormHeader headerContent={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER} />
-      <FormWrapper
-        formId={'post-account-reset-form'}
-        onFormSubmitHandler={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
-      >
-        <CommonInputGroup
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED,
-            },
-          }}
-          type={'email'}
-          id={'email'}
-          label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
-          placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
-          isDisabled={isPending}
-          error={errors.email?.message}
-        />
-        <FormAction
-          isSubmissionPending={isPending}
-          submissionMessage={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING}
-          submissionId={'reset'}
-          submissionValue={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
-          errorMessage={errors.root?.message}
-        />
-      </FormWrapper>
+      <FormProvider {...methods}>
+        <FormWrapper
+          formId={'post-account-reset-form'}
+          onFormSubmitHandler={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
+        >
+          <CommonInputGroup
+            validationRules={{
+              required: {
+                value: true,
+                message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED,
+              },
+            }}
+            type={'email'}
+            id={'email'}
+            label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
+            placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
+            isDisabled={isPending}
+            error={errors.email?.message}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <CoreFormAction
+            isSubmissionPending={isPending}
+            submissionMessage={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING}
+            submitId={'reset'}
+            submissionValue={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
+            errorMessage={errors.root?.message}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
+          />
+        </FormWrapper>
+      </FormProvider>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
         leftButtonFormType={FormType.LOGIN}

@@ -4,36 +4,36 @@
  * @author tmsnvk
  */
 
-import { AccountRoleDropdown } from './account-role-dropdown';
-import { CommonInputGroup } from './common-input-group';
-import { CoreInputElement } from './core-input-element';
-import { CoreInputError } from './core-input-error';
-import { CoreInputGroupWrapper } from './core-input-group-wrapper';
-import { CoreInputLabel } from './core-input-label';
-import { CountryDropdown } from './country-dropdown';
-import { DisabledInput } from './disabled-input';
-import { GenericTextarea } from './generic-textarea';
-import { InputGuideText } from './input-guide-text';
-import { InstitutionDropdown } from './institution-dropdown';
-import { PasswordInput } from './password-input';
-import { PasswordInputGroup } from './password-input-group';
+import { CoreSubmitInputElement } from './core-element/core-submit-input-element';
+import { CoreFormAction } from './core-form-element/core-form-action';
+import { CoreFormElementError } from './core-form-element/core-form-element-error';
+import { CoreFormElementGroupWrapper } from './core-form-element/core-form-element-group-wrapper';
+import { CoreFormElementInstruction } from './core-form-element/core-form-element-instruction';
+import { CoreFormElementLabel } from './core-form-element/core-form-element-label';
+import { AccountRoleSelectGroup } from './element-group/account-role-select-group';
+import { CommonInputGroup } from './element-group/common-input-group';
+import { CommonTextareaGroup } from './element-group/common-textarea-group';
+import { CountrySelectGroup } from './element-group/country-select-group';
+import { DisabledInputGroup } from './element-group/disabled-input-group';
+import { InstitutionSelectGroup } from './element-group/institution-select-group';
+import { PasswordInputGroup } from './element-group/password-input-group';
+import { UniversitySelectGroup } from './element-group/university-select-group';
 import { SubmitInput } from './submit-input';
-import { UniversityDropdown } from './university-dropdown';
 
 export {
-  AccountRoleDropdown,
+  AccountRoleSelectGroup,
   CommonInputGroup,
-  CoreInputElement,
-  CoreInputError,
-  CoreInputGroupWrapper,
-  CoreInputLabel,
-  CountryDropdown,
-  DisabledInput,
-  GenericTextarea,
-  InputGuideText,
-  InstitutionDropdown,
-  PasswordInput,
+  CommonTextareaGroup,
+  CoreFormAction,
+  CoreFormElementError,
+  CoreFormElementGroupWrapper,
+  CoreFormElementInstruction,
+  CoreFormElementLabel,
+  CoreSubmitInputElement,
+  CountrySelectGroup,
+  DisabledInputGroup,
+  InstitutionSelectGroup,
   PasswordInputGroup,
   SubmitInput,
-  UniversityDropdown,
+  UniversitySelectGroup,
 };

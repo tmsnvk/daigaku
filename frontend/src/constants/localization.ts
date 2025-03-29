@@ -290,7 +290,7 @@ export const localization = {
         BUTTONS: {
           LOGIN: 'Log in',
           REGISTRATION: 'Create account',
-          RESET: 'Forgot password?',
+          RESET: 'Forgotten password?',
         },
         NOTIFICATIONS: {
           REGISTRATION: 'Thank you for registering your account. You will soon receive an email with further details.',
@@ -316,7 +316,7 @@ export const localization = {
                 REQUIRED: 'Providing your password is required.',
               },
             },
-            SUBMIT: 'sign in',
+            SUBMIT: 'Sign in',
           },
         },
         PENDING_ACCOUNT_REGISTRATION: {
@@ -359,7 +359,7 @@ export const localization = {
                 REQUIRED: 'Selecting an institution is required.',
               },
             },
-            SUBMIT: 'register',
+            SUBMIT: 'Register',
           },
         },
         PASSWORD_RESET: {
@@ -377,7 +377,7 @@ export const localization = {
               },
             },
           },
-          SUBMIT: 'reset',
+          SUBMIT: 'Reset',
         },
       },
     },
@@ -473,7 +473,7 @@ export const localization = {
         LABEL: 'Country',
         DEFAULT_OPTION: 'Select the country of your choice.',
       },
-      INSTITUITON_DROPDOWN: {
+      INSTITUTION_DROPDOWN: {
         LABEL: 'Institution',
         DEFAULT_OPTION: 'Select the institution you currently attend.',
       },

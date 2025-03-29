@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useSubmitComment } from '../hooks';
 
 /* component imports */
-import { CoreInputError, GenericTextarea, SubmitInput } from '@components/form';
+import { CommonTextareaGroup, CoreFormElementError, SubmitInput } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 
 /* configuration, utilities, constants imports */
@@ -55,7 +55,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
       className={'flex flex-col items-center'}
       onSubmit={handleSubmit((formData) => mutate(formData))}
     >
-      <GenericTextarea
+      <CommonTextareaGroup
         register={register}
         validationRules={{
           required: {
@@ -86,7 +86,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           />
         )}
       </article>
-      <article>{errors.root && <CoreInputError message={errors.root.message} />}</article>
+      <article>{errors.root && <CoreFormElementError message={errors.root.message} />}</article>
     </form>
   );
 };

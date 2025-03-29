@@ -14,12 +14,12 @@ import { useOnFieldUpdate } from '../hooks';
 /* component, style imports */
 
 /* interface, type, enum imports */
-import { ApplicationStatusUnion, InputValidation } from '@common-types';
+import { ApplicationStatusUnion, CoreFormElementValidation } from '@common-types';
 
 /**
  * Defines the component's properties.
  */
-interface ActiveSelectFieldProps<T extends FieldValues> extends InputValidation<T> {
+interface ActiveSelectFieldProps<T extends FieldValues> extends CoreFormElementValidation<T> {
   /**
    * The label text to be displayed above the select input.
    */
