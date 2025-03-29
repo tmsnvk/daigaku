@@ -11,8 +11,8 @@ import { Outlet } from 'react-router-dom';
 
 /* component, style imports */
 import { BaseNavbar } from '@components/base-components';
+import { Footer } from '../footer';
 import { NavigationRoute } from '../navigation-route';
-import { PageFooter } from '../page-footer';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
@@ -44,7 +44,7 @@ export const PublicLayout = (): JSX.Element => {
         </nav>
       </BaseNavbar>
       <Outlet />
-      <PageFooter />
+      <Footer />
     </>
   );
 };
