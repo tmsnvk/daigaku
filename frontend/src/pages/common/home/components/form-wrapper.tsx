@@ -19,7 +19,7 @@ interface FormWrapperProps {
   /**
    * The form element's submission handler.
    */
-  onFormSubmitHandler: () => void;
+  onFormSubmit: () => void;
 
   /**
    * The passed down React child component(s).
@@ -33,11 +33,11 @@ interface FormWrapperProps {
  * @param {FormWrapperProps}
  * @returns {JSX.Element}
  */
-export const FormWrapper = ({ formId, onFormSubmitHandler, children }: FormWrapperProps): JSX.Element => {
+export const FormWrapper = ({ formId, onFormSubmit, children }: FormWrapperProps): JSX.Element => {
   return (
     <form
       id={formId}
-      onSubmit={onFormSubmitHandler}
+      onSubmit={onFormSubmit}
       className={'flex flex-col justify-evenly'}
     >
       {children}

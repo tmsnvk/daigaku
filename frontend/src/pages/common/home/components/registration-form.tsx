@@ -87,7 +87,9 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
       <FormProvider {...methods}>
         <FormWrapper
           formId={'post-pending-account-registration-form'}
-          onFormSubmitHandler={handleSubmit((formData: PendingAccountRegistrationRequest) => mutate(formData))}
+          onFormSubmit={handleSubmit((formData: PendingAccountRegistrationRequest) => {
+            mutate(formData);
+          })}
         >
           <CommonInputGroup
             validationRules={{

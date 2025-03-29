@@ -23,7 +23,7 @@ import { setLocalStorageObjectById } from '@utilities';
 import { CoreErrorResponse, LoginRequest, LoginResponse } from '@common-types';
 
 /**
- * Manages the component's form submission.
+ * Manages the login form submission.
  *
  * @param setError The `react-hook-form` method to set form errors.
  * @return {UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginRequest>}

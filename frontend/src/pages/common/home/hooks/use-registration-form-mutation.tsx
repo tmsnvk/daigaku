@@ -25,7 +25,7 @@ import { CoreErrorResponse, ErrorDetail, PendingAccountRegistrationRequest } fro
 type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
 /**
- * Manages the component's form submission.
+ * Manages the pending account registration form submission.
  *
  * @param setError A `react-hook-form` method that sets form errors.
  * @param showModal A method that displays a confirmation modal component.

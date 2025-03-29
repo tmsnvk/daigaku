@@ -65,7 +65,9 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
       <FormProvider {...methods}>
         <FormWrapper
           formId={'post-account-reset-form'}
-          onFormSubmitHandler={handleSubmit((formData: AccountResetRequest) => mutate(formData))}
+          onFormSubmit={handleSubmit((formData: AccountResetRequest) => {
+            mutate(formData);
+          })}
         >
           <CommonInputGroup
             validationRules={{

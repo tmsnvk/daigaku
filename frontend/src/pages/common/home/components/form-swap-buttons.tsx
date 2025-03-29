@@ -51,7 +51,7 @@ interface FormSwapButtonsProps {
 }
 
 /**
- * Renders the home page's form bottom section, containing two form switching buttons.
+ * Renders the home page's form bottom section, containing two form switching button elements.
  *
  * @param {FormSwapButtonsProps} props
  * @return {JSX.Element}

@@ -20,7 +20,7 @@ import { errorConstants } from '@constants';
 import { AccountResetRequest, CoreErrorResponse } from '@common-types';
 
 /**
- * Manages the component's form submission.
+ * Manages the password reset form submission.
  *
  * @param setError A `react-hook-form` method that sets form errors.
  * @param showModal A method that displays a confirmation modal component.

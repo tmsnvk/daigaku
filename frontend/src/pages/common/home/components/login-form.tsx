@@ -60,7 +60,9 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       <FormProvider {...methods}>
         <FormWrapper
           formId={'post-account-login-form'}
-          onFormSubmitHandler={handleSubmit((formData: LoginRequest) => mutate(formData))}
+          onFormSubmit={handleSubmit((formData: LoginRequest) => {
+            mutate(formData);
+          })}
         >
           <CommonInputGroup
             validationRules={{
