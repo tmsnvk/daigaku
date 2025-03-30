@@ -12,7 +12,7 @@ import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-f
 /* configuration, utilities, constants imports */
 import { joinTw } from '@utilities';
 
-const coreSelectElementVariants = cva(joinTw('w-[95%] sm:w-[65%] h-[5rem] px-4 text-xl border-2 rounded-xl', 'focus:outline-1'), {
+const coreSelectElementVariants = cva(joinTw('w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 rounded-xl', 'focus:outline-1'), {
   variants: {
     intent: {
       light: 'bg-primary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',

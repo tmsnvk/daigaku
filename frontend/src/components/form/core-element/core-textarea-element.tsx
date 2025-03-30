@@ -13,11 +13,7 @@ import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-f
 import { joinTw } from '@utilities';
 
 const coreTextareaElementVariants = cva(
-  joinTw(
-    'w-[90%] md:w-[75%] px-[1.5rem] py-[2rem] text-xl hover:outline-2 border-2 rounded-xl',
-    'focus:outline-1',
-    'placeholder:text-secondary',
-  ),
+  joinTw('w-[90%] md:w-[75%] px-6 py-8 text-xl hover:outline-2 border-2 rounded-xl', 'focus:outline-1', 'placeholder:text-secondary'),
   {
     variants: {
       intent: {

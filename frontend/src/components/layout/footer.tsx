@@ -20,7 +20,7 @@ export const Footer = (): JSX.Element => {
   return (
     <>
       <div></div>
-      <footer className='text-xl h-28 absolute w-full bottom-0 flex flex-col justify-center items-center bg-primary border-t-2 border-secondary'>
+      <footer className='bg-primary border-secondary absolute bottom-0 flex h-28 w-full flex-col items-center justify-center border-t-2 text-xl'>
         <p>
           {l.LAYOUT.FOOTER.INIT_YEAR} - {getCurrentYear()}
         </p>

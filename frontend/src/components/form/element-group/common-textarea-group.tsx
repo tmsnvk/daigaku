@@ -48,7 +48,7 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   isDisabled,
 }: CommonTextareaGroupProps<T>): JSX.Element => {
   return (
-    <article className={'w-[100%] flex flex-col items-center mb-[5rem]'}>
+    <article className={'mb-20 flex w-[100%] flex-col items-center'}>
       <CoreFormElementLabel
         inputId={id}
         content={label}

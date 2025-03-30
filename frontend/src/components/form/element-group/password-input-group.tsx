@@ -65,7 +65,7 @@ export const PasswordInputGroup = <T extends FieldValues>({
         <FontAwesomeIcon
           onClick={() => setIsPasswordRevealed(!isPasswordRevealed)}
           icon={isPasswordRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
-          className={'w-8 cursor-pointer ml-4'}
+          className={'ml-4 w-8 cursor-pointer'}
         />
       </div>
       {error && <CoreFormElementError message={error} />}

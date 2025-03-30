@@ -30,9 +30,9 @@ interface TileStatisticProps {
  */
 export const TileStatistic = ({ title, value }: TileStatisticProps): JSX.Element => {
   return (
-    <dl className={'base-dark-border size-[22rem] px-5 pb-2 flex flex-col justify-center text-center'}>
+    <dl className={'base-dark-border size-88 flex flex-col justify-center px-5 pb-2 text-center'}>
       <dt className={'text-9xl'}>{value}</dt>
-      <dd className={'text-3xl pt-15'}>{title}</dd>
+      <dd className={'pt-15 text-3xl'}>{title}</dd>
     </dl>
   );
 };

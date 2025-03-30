@@ -15,5 +15,5 @@ interface CoreFormElementGroupWrapperProps {
 }
 
 export const CoreFormElementGroupWrapper = ({ children }: CoreFormElementGroupWrapperProps) => {
-  return <article className={'h-50 w-full flex flex-col items-center'}>{children}</article>;
+  return <article className={'h-50 flex w-full flex-col items-center'}>{children}</article>;
 };

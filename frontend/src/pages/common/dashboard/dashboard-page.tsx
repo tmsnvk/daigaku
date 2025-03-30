@@ -60,7 +60,7 @@ export const Dashboard = (): JSX.Element => {
 
   // Add layouts for other authentication level users.
   return (
-    <main className={'flex flex-row flex-wrap gap-y-[5rem] m-[5%]'}>
+    <main className={'m-[5%] flex flex-row flex-wrap gap-y-20'}>
       {account.role === AccountRoles.ROLE_STUDENT && <LayoutStudent data={data as StudentDashboardStatistics} />}
     </main>
   );

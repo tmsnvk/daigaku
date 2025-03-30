@@ -65,7 +65,7 @@ export const FormSwapButtons = ({
   onFormSelect,
 }: FormSwapButtonsProps): JSX.Element => {
   return (
-    <article className={'flex justify-between mt-40'}>
+    <article className={'mt-40 flex justify-between'}>
       <CoreButton
         label={leftButtonLabel}
         intent={'light'}
