@@ -38,7 +38,7 @@ export const Home = (): JSX.Element => {
   }
 
   return (
-    <main className={'@container/main flex flex-col items-center'}>
+    <main className={'mx-auto flex flex-col items-center'}>
       {selectedFormComponent}
       {isModalVisible && (
         <ConfirmationModal

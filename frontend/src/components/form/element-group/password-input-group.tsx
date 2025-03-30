@@ -60,12 +60,12 @@ export const PasswordInputGroup = <T extends FieldValues>({
           isDisabled={isDisabled}
           isError={error !== undefined}
           intent={intent}
-          className={'w-[85%] md:w-[55%]'}
+          className={'w-[85%] md:w-[60%]'}
         />
         <FontAwesomeIcon
           onClick={() => setIsPasswordRevealed(!isPasswordRevealed)}
           icon={isPasswordRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
-          className={'ml-4 w-8 cursor-pointer'}
+          className={'w-8 cursor-pointer pl-4'}
         />
       </div>
       {error && <CoreFormElementError message={error} />}

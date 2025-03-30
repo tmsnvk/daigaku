@@ -84,7 +84,7 @@ export const localization = {
     },
     FOOTER: {
       INIT_YEAR: 2024,
-      CONTENT: '© built with reactjs, spring boot, rabbitmq, redis, psql and ❤️',
+      CONTENT: '© built with vite/tanstack reactjs, spring boot, rabbitmq, redis, psql and ❤️',
     },
   },
   PAGES: {

@@ -17,7 +17,7 @@ import { NewApplicationForm } from './components';
  */
 export const NewApplication = (): JSX.Element => {
   return (
-    <main>
+    <main className={'mx-auto flex flex-col items-center'}>
       <NewApplicationForm />
     </main>
   );

@@ -78,14 +78,14 @@ export const NewApplicationForm = (): JSX.Element => {
 
   return (
     <>
-      <section>
+      <section className={'base-tertiary-border my-[5%] w-[90%] sm:w-full'}>
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'post-application-form'}
             onFormSubmit={handleSubmit((formData: CreateApplicationByStudent) => {
               mutate(formData);
             })}
-            className={'base-application-grid base-tertiary-border'}
+            className={'base-application-grid'}
           >
             <CoreFormHeader
               title={l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}

@@ -9,10 +9,7 @@ import { JSX, useMemo, useState } from 'react';
 import { match } from 'ts-pattern';
 
 /* component imports */
-import { LoginForm, RegistrationForm, ResetForm } from '../components';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { FormSectionWrapper, LoginForm, RegistrationForm, ResetForm } from '../components';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';
@@ -82,14 +79,9 @@ export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
 
   const selectedFormComponent: JSX.Element = useMemo(() => {
     return (
-      <section
-        key={selectedFormType}
-        className={joinTw(
-          'base-tertiary-border animate-fade-in-from-left sm:w-200 my-[5%] flex w-[85%] flex-col justify-between px-10 py-20 text-center',
-        )}
-      >
+      <FormSectionWrapper key={selectedFormType}>
         {getSelectedFormComponent(selectedFormType, selectFormTypeHandler, showModal)}
-      </section>
+      </FormSectionWrapper>
     );
   }, [selectedFormType]);
 
