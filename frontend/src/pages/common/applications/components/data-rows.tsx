@@ -46,7 +46,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
     return (
       <tr
         key={application.uuid}
-        className={'h-40 odd:bg-tertiary'}
+        className={'odd:bg-tertiary h-40'}
       >
         <td className={joinTw(isColumnVisible(columns, 'courseName') ? '' : 'hidden', isLastRow && 'rounded-bl-(--default-border-radius)')}>
           {application.courseName}
@@ -66,7 +66,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
           <Link
             className={joinTw(
-              'flex flex-row justify-center items-center mx-auto py-4 bg-transparent text-secondary text-xl cursor-pointer font-bold tracking-wider',
+              'text-secondary mx-auto flex cursor-pointer flex-row items-center justify-center bg-transparent py-4 text-xl font-bold tracking-wider',
               'hover:text-accent',
             )}
             to={`edit/${application.uuid}`}
@@ -80,7 +80,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
           </Link>
           <Link
             className={joinTw(
-              'flex flex-row justify-center items-center mx-auto py-4 bg-transparent text-secondary text-xl cursor-pointer font-bold tracking-wider',
+              'text-secondary mx-auto flex cursor-pointer flex-row items-center justify-center bg-transparent py-4 text-xl font-bold tracking-wider',
               'hover:text-accent',
             )}
             to={`view/${application.uuid}`}

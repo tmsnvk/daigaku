@@ -61,7 +61,7 @@ export const Applications = (): JSX.Element => {
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <main className={'base-dark-border flex flex-col w-[95%] mx-auto my-[5%] text-xl'}>
+    <main className={'base-dark-border mx-auto my-[5%] flex w-[95%] flex-col text-xl'}>
       <table className={'table-fixed text-center'}>
         <thead>
           <TableHeader
@@ -87,7 +87,7 @@ export const Applications = (): JSX.Element => {
         <ColumnSelectorModal
           columns={columns}
           onToggleColumnVisibility={toggleColumnVisibility}
-          isModalVisible={isModalVisible}
+          isVisible={isModalVisible}
           onToggle={toggleModal}
         />
       )}

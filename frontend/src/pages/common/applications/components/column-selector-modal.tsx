@@ -10,10 +10,10 @@ import { JSX } from 'react';
 /* logic imports */
 import { useRenderModal } from '@hooks';
 
-/* component, style imports */
+/* configuration, utilities, constants imports */
+import { joinTw } from '@utilities';
 
 /* interface, type, enum imports */
-import { joinTw } from '@utilities';
 import { Column } from '../models';
 
 /**
@@ -28,7 +28,7 @@ interface ColumnSelectorModalProps {
   /**
    * The boolean indicating whether the modal should be visible.
    */
-  readonly isModalVisible: boolean;
+  readonly isVisible: boolean;
 
   /**
    * The method to toggle the visibility of a column when a checkbox is clicked.
@@ -42,35 +42,30 @@ interface ColumnSelectorModalProps {
 }
 
 /**
- * Renders the column selector modal component that lets users to choose which data columns they wish to view on the page.
+ * Renders the column selector modal component that lets users to choose which data columns they wish to see on the page.
  *
  * @return {JSX.Element}
  */
-export const ColumnSelectorModal = ({
-  columns,
-  isModalVisible,
-  onToggleColumnVisibility,
-  onToggle,
-}: ColumnSelectorModalProps): JSX.Element => {
-  const { dialogRef } = useRenderModal(isModalVisible);
+export const ColumnSelectorModal = ({ columns, isVisible, onToggleColumnVisibility, onToggle }: ColumnSelectorModalProps): JSX.Element => {
+  const { dialogRef } = useRenderModal(isVisible);
 
   return (
     <dialog
       ref={dialogRef}
-      className={'base-dark-border flex flex-col items-start px-20 py-10 mt-[10%] mx-auto'}
+      className={'base-dark-border mx-auto mt-[10%] flex flex-col items-start px-20 py-10'}
     >
       {columns.map((column: Column) => {
         return (
           <article
             key={column.id}
-            className={'flex flex-row mt-6'}
+            className={'mt-6 flex flex-row'}
             onClick={() => !column.isCoreColumn && onToggleColumnVisibility(column.id)}
           >
             <input
               type={'checkbox'}
               id={column.id}
               name={column.id}
-              className={'mr-4 focus:outline-none hover:outline-none'}
+              className={'mr-4 hover:outline-none focus:outline-none'}
               checked={column.isVisible}
               disabled={column.isCoreColumn}
               readOnly
@@ -84,7 +79,7 @@ export const ColumnSelectorModal = ({
         id={'modal-toggle'}
         name={'modal-toggle'}
         className={joinTw(
-          'mt-10 mx-auto px-10 py-4 bg-transparent font-extrabold border-2 border-solid border-accent rounded-(--default-border-radius) cursor-pointer',
+          'border-accent rounded-(--default-border-radius) mx-auto mt-10 cursor-pointer border-2 border-solid bg-transparent px-10 py-4 font-extrabold',
           'hover:text-accent',
         )}
         onClick={onToggle}

@@ -111,7 +111,7 @@ export const TableHeader = ({
             >
               <button
                 className={joinTw(
-                  'h-10 flex flex-row items-center mx-auto bg-transparent text-secondary text-xl cursor-pointer',
+                  'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent text-xl',
                   'hover:text-accent',
                   'disabled:text-tertiary disabled:cursor-not-allowed',
                 )}
@@ -132,7 +132,7 @@ export const TableHeader = ({
       <th className={'w-[10%] px-1 py-6 text-center'}>
         <button
           className={joinTw(
-            'h-10 flex flex-row items-center mx-auto bg-transparent text-secondary text-xl cursor-pointer py-6',
+            'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent py-6 text-xl',
             'hover:text-accent',
             'disabled:text-tertiary disabled:cursor-not-allowed',
           )}
@@ -148,7 +148,7 @@ export const TableHeader = ({
         </button>
         <button
           className={joinTw(
-            'h-10 flex flex-row items-center mx-auto bg-transparent text-secondary text-xl cursor-pointer py-6',
+            'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent py-6 text-xl',
             'hover:text-accent',
             'disabled:text-tertiary disabled:cursor-not-allowed',
           )}
@@ -167,7 +167,7 @@ export const TableHeader = ({
         ) : (
           <button
             className={joinTw(
-              'h-10 flex flex-row items-center mx-auto bg-transparent text-secondary text-xl cursor-pointer py-6',
+              'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent py-6 text-xl',
               'hover:text-accent',
               'disabled:text-tertiary disabled:cursor-not-allowed',
             )}
