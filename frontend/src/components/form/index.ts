@@ -10,6 +10,8 @@ import { CoreFormElementError } from './core-form-element/core-form-element-erro
 import { CoreFormElementGroupWrapper } from './core-form-element/core-form-element-group-wrapper';
 import { CoreFormElementInstruction } from './core-form-element/core-form-element-instruction';
 import { CoreFormElementLabel } from './core-form-element/core-form-element-label';
+import { CoreFormHeader } from './core-form/core-form-header';
+import { CoreFormWrapper } from './core-form/core-form-wrapper';
 import { AccountRoleSelectGroup } from './element-group/account-role-select-group';
 import { CommonInputGroup } from './element-group/common-input-group';
 import { CommonTextareaGroup } from './element-group/common-textarea-group';
@@ -29,6 +31,8 @@ export {
   CoreFormElementGroupWrapper,
   CoreFormElementInstruction,
   CoreFormElementLabel,
+  CoreFormHeader,
+  CoreFormWrapper,
   CoreSubmitInputElement,
   CountrySelectGroup,
   DisabledInputGroup,

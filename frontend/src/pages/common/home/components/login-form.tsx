@@ -12,10 +12,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
-import { CommonInputGroup, CoreFormAction, PasswordInputGroup } from '@components/form';
-import { FormHeader } from './form-header';
+import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper, PasswordInputGroup } from '@components/form';
 import { FormSwapButtons } from './form-swap-buttons';
-import { FormWrapper } from './form-wrapper';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -56,9 +54,12 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
 
   return (
     <>
-      <FormHeader headerContent={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER} />
+      <CoreFormHeader
+        title={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER}
+        intent={'small'}
+      />
       <FormProvider {...methods}>
-        <FormWrapper
+        <CoreFormWrapper
           formId={'post-account-login-form'}
           onFormSubmit={handleSubmit((formData: LoginRequest) => {
             mutate(formData);
@@ -99,9 +100,9 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             submitId={'login'}
             submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
             errorMessage={errors.root?.message}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
           />
-        </FormWrapper>
+        </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.RESET]}

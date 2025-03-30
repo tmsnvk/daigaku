@@ -13,11 +13,16 @@ import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@h
 import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
-import { AccountRoleSelectGroup, CommonInputGroup, CoreFormAction, InstitutionSelectGroup } from '@components/form';
+import {
+  AccountRoleSelectGroup,
+  CommonInputGroup,
+  CoreFormAction,
+  CoreFormHeader,
+  CoreFormWrapper,
+  InstitutionSelectGroup,
+} from '@components/form';
 import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
-import { FormHeader } from './form-header';
 import { FormSwapButtons } from './form-swap-buttons';
-import { FormWrapper } from './form-wrapper';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -83,9 +88,12 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
 
   return (
     <>
-      <FormHeader headerContent={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER} />
+      <CoreFormHeader
+        title={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER}
+        intent={'small'}
+      />
       <FormProvider {...methods}>
-        <FormWrapper
+        <CoreFormWrapper
           formId={'post-pending-account-registration-form'}
           onFormSubmit={handleSubmit((formData: PendingAccountRegistrationRequest) => {
             mutate(formData);
@@ -176,9 +184,9 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             submitId={'register'}
             submissionValue={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
             errorMessage={errors.root?.message}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
           />
-        </FormWrapper>
+        </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.RESET]}

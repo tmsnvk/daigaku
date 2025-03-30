@@ -390,7 +390,7 @@ export const localization = {
           SUCCESS_TOAST: 'Your submission was successful. Wishing you the best of luck with your application!',
         },
         FORM: {
-          TITLE: 'New Application Form',
+          TITLE: 'Submit New Application',
           INFORMATION: [
             'Fill in all mandatory fields before submitting the application.',
             'Upon visiting the Applications page, you will find more fields to fill in for each of your submitted applications.',

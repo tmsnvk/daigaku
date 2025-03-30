@@ -1,7 +1,5 @@
 @layer components {
-  .form-title-head {
-    @apply text-5xl;
-
+  .core-form-header-after {
     &::after {
       content: '';
       display: block;

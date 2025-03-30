@@ -9,7 +9,7 @@ import { FieldValues } from 'react-hook-form';
 
 /* interface, type, enum imports */
 import { CoreFormElementValidation } from './core-form-element-validation';
-import { CoreInputElementStyleIntent } from './form-element-style-intents';
+import { CoreInputElementStyleIntent, CoreSelectElementStyleIntent, CoreTextareaElementStyleIntent } from './form-element-style-intents';
 
 /**
  * Defines the properties of core form elements
@@ -27,7 +27,7 @@ interface CoreFormElementGroup<T extends FieldValues> extends CoreFormElementVal
   /**
    * The input element's style intent.
    */
-  readonly intent: CoreInputElementStyleIntent;
+  readonly intent: CoreInputElementStyleIntent | CoreSelectElementStyleIntent | CoreTextareaElementStyleIntent;
 }
 
 /**
@@ -44,9 +44,10 @@ interface CoreInputElementGroup<T extends FieldValues> extends CoreFormElementGr
   readonly label: string;
 
   /**
-   * The placeholder text to guide the user on what to enter in the <input> element.
+   * Placeholder text to guide the user on what to enter in the input element.
+   * Optional, since certain input elements might have pre-filled data.
    */
-  readonly placeholder: string;
+  readonly placeholder?: string;
 }
 
 /**
@@ -94,4 +95,9 @@ export interface CoreSelectElementGroup<T extends FieldValues, U> extends CoreFo
  * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  */
-export interface TextareaElementGroup<T extends FieldValues> extends CoreInputElementGroup<T> {}
+export interface TextareaElementGroup<T extends FieldValues> extends CoreFormElementGroup<T> {
+  /**
+   * Placeholder text to guide the user on what to enter in the input element.
+   */
+  readonly placeholder: string;
+}

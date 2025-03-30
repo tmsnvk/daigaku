@@ -6,15 +6,23 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks';
 import { useCountrySelection, useCreateApplication } from '../hooks';
 
 /* component, style imports */
-import { CoreFormElementError, CoreFormElementInstruction, SubmitInput } from '@components/form';
-import { CountrySelectGroup } from '@components/form/element-group/country-select-group';
+import {
+  CommonInputGroup,
+  CoreFormElementError,
+  CoreFormElementInstruction,
+  CoreFormHeader,
+  CoreFormWrapper,
+  CountrySelectGroup,
+  SubmitInput,
+  UniversitySelectGroup,
+} from '@components/form';
 import { LoadingIndicator } from '@components/general';
 import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
 
@@ -22,9 +30,7 @@ import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notific
 import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
-import { CreateApplicationByStudent } from '@common-types';
-import { CommonInputGroup } from '@components/form/element-group/common-input-group';
-import { UniversitySelectGroup } from '@components/form/element-group/university-select-group';
+import { CoreInputElementStyleIntent, CoreSelectElementStyleIntent, CreateApplicationByStudent } from '@common-types';
 
 /**
  * Renders the new application submission form for student users.
@@ -41,13 +47,15 @@ export const NewApplicationForm = (): JSX.Element => {
     isLoading: isUniversityLoading,
     isError: isUniversityError,
   } = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
+
+  const methods = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     reset,
     handleSubmit,
-    register,
     setError,
-  } = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
+  } = methods;
+
   const { isPending, isSuccess, mutate } = useCreateApplication(setError, resetCountrySelection, reset);
 
   if (isCountryLoading) {
@@ -70,118 +78,130 @@ export const NewApplicationForm = (): JSX.Element => {
 
   return (
     <>
-      <form
-        id={'new-application-form'}
-        className={'base-application-grid base-tertiary-border'}
-        onSubmit={handleSubmit((formData) => mutate(formData))}
-      >
-        <h1 className={'form-title-head col-start-1 col-end-3 text-center'}>{l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}</h1>
-        <CoreFormElementInstruction
-          className={'col-start-1 col-end-3'}
-          paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION}
-        />
-        <CountrySelectGroup
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.VALIDATION.REQUIRED,
-            },
-          }}
-          error={errors.countryUuid?.message}
-          id={'countryUuid'}
-          isDisabled={isPending}
-          options={countryOptions ?? []}
-          onCountrySelect={selectCountry}
-        />
-        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
-        {isUniversityLoading ? (
-          <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.UNIVERSITY_LOADING} />
-        ) : (
-          <UniversitySelectGroup
-            register={register}
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.VALIDATION.REQUIRED,
-              },
-            }}
-            error={errors.universityUuid?.message}
-            id={'universityUuid'}
-            isDisabled={isPending || !isCountrySelected}
-            options={universityOptions ?? []}
-          />
-        )}
-        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.INFORMATION} />
-        <CommonInputGroup
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.REQUIRED,
-            },
-            pattern: {
-              value: /^[\p{L}\s]{5,255}$/u,
-              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.PATTERN,
-            },
-          }}
-          error={errors.courseName?.message}
-          id={'courseName'}
-          label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.LABEL}
-          type={'text'}
-          placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.PLACEHOLDER}
-          isDisabled={isPending}
-        />
-        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.INFORMATION} />
-        <CommonInputGroup
-          register={register}
-          validationRules={{
-            pattern: {
-              value: /^[\p{L}\s]{5,255}$/u,
-              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.VALIDATION.PATTERN,
-            },
-          }}
-          error={errors.minorSubject?.message}
-          id={'minorSubject'}
-          label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.LABEL}
-          type={'text'}
-          placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.PLACEHOLDER}
-          isDisabled={isPending}
-        />
-        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.INFORMATION} />
-        <CommonInputGroup
-          register={register}
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.REQUIRED,
-            },
-            pattern: {
-              value: /^\b[2-5]\b$/,
-              message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.PATTERN,
-            },
-          }}
-          error={errors.programmeLength?.message}
-          id={'programmeLength'}
-          label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.LABEL}
-          type={'number'}
-          initialValue={3}
-          isDisabled={isPending}
-        />
-        <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
-        <article className={'col-start-1 col-end-3'}>
-          {isPending ? (
-            <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING} />
-          ) : (
-            <SubmitInput
-              type={'submit'}
-              value={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
-              disabled={isPending}
+      <section>
+        <FormProvider {...methods}>
+          <CoreFormWrapper
+            formId={'post-application-form'}
+            onFormSubmit={handleSubmit((formData: CreateApplicationByStudent) => {
+              mutate(formData);
+            })}
+            className={'base-application-grid base-tertiary-border'}
+          >
+            <CoreFormHeader
+              title={l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}
+              intent={'largeWithUnderline'}
+              className={'col-start-1 col-end-3'}
             />
-          )}
-        </article>
-        <article className={'col-start-1 col-end-3 h-10'}>{errors.root && <CoreFormElementError message={errors.root.message} />}</article>
-      </form>
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION}
+              className={'col-start-1 col-end-3'}
+            />
+            <CountrySelectGroup
+              id={'countryUuid'}
+              validationRules={{
+                required: {
+                  value: true,
+                  message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.VALIDATION.REQUIRED,
+                },
+              }}
+              error={errors.countryUuid?.message}
+              isDisabled={isPending}
+              options={countryOptions ?? []}
+              onCountrySelect={selectCountry}
+              intent={CoreSelectElementStyleIntent.LIGHT}
+            />
+            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
+            {isUniversityLoading ? (
+              <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.UNIVERSITY_LOADING} />
+            ) : (
+              <UniversitySelectGroup
+                id={'universityUuid'}
+                validationRules={{
+                  required: {
+                    value: true,
+                    message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.VALIDATION.REQUIRED,
+                  },
+                }}
+                error={errors.universityUuid?.message}
+                isDisabled={isPending || !isCountrySelected}
+                options={universityOptions ?? []}
+                intent={CoreSelectElementStyleIntent.LIGHT}
+              />
+            )}
+            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.INFORMATION} />
+            <CommonInputGroup
+              id={'courseName'}
+              validationRules={{
+                required: {
+                  value: true,
+                  message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.REQUIRED,
+                },
+                pattern: {
+                  value: /^[\p{L}\s]{5,255}$/u,
+                  message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.PATTERN,
+                },
+              }}
+              error={errors.courseName?.message}
+              label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.LABEL}
+              type={'text'}
+              placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.PLACEHOLDER}
+              isDisabled={isPending}
+              intent={CoreInputElementStyleIntent.LIGHT}
+            />
+            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.INFORMATION} />
+            <CommonInputGroup
+              id={'minorSubject'}
+              validationRules={{
+                pattern: {
+                  value: /^[\p{L}\s]{5,255}$/u,
+                  message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.VALIDATION.PATTERN,
+                },
+              }}
+              error={errors.minorSubject?.message}
+              label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.LABEL}
+              type={'text'}
+              placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.PLACEHOLDER}
+              isDisabled={isPending}
+              intent={CoreInputElementStyleIntent.LIGHT}
+            />
+            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.INFORMATION} />
+            <CommonInputGroup
+              id={'programmeLength'}
+              validationRules={{
+                required: {
+                  value: true,
+                  message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.REQUIRED,
+                },
+                pattern: {
+                  value: /^\b[2-5]\b$/,
+                  message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.PATTERN,
+                },
+              }}
+              error={errors.programmeLength?.message}
+              label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.LABEL}
+              type={'number'}
+              initialValue={3}
+              isDisabled={isPending}
+              intent={CoreInputElementStyleIntent.LIGHT}
+            />
+            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
+            <article className={'col-start-1 col-end-3'}>
+              {isPending ? (
+                <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING} />
+              ) : (
+                <SubmitInput
+                  type={'submit'}
+                  value={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
+                  disabled={isPending}
+                />
+              )}
+            </article>
+            <article className={'col-start-1 col-end-3 h-10'}>
+              {errors.root && <CoreFormElementError message={errors.root.message} />}
+            </article>
+          </CoreFormWrapper>
+        </FormProvider>
+      </section>
       <Toast
         isVisible={isSuccess}
         message={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.SUCCESS_TOAST}

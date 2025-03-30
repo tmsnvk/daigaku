@@ -46,7 +46,7 @@ interface CoreFormActionProps {
   /**
    * The input element's style intent.
    */
-  readonly intent: CoreSubmitInputElementStyleIntent;
+  readonly submitButtonStyleIntent: CoreSubmitInputElementStyleIntent;
 }
 
 /**
@@ -62,7 +62,7 @@ export const CoreFormAction = ({
   submitId,
   submissionValue,
   errorMessage,
-  intent,
+  submitButtonStyleIntent,
 }: CoreFormActionProps): JSX.Element => {
   return (
     <article>
@@ -73,7 +73,7 @@ export const CoreFormAction = ({
           id={submitId}
           value={submissionValue}
           isDisabled={isSubmissionPending}
-          intent={intent}
+          intent={submitButtonStyleIntent}
         />
       )}
       <CoreFormElementError message={errorMessage} />

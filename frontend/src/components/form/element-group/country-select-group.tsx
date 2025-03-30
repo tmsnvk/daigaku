@@ -17,7 +17,7 @@ import { localization as l } from '@constants';
 import { isEmpty } from '@utilities';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSelectElementGroup, CountryOption } from '@common-types';
+import { CoreSelectElementGroup, CountryOption } from '@common-types';
 
 /**
  * Defines the component's properties.
@@ -30,6 +30,11 @@ interface CountrySelectGroupProps<T extends FieldValues, CountryOption> extends 
    * The method invoked when a country is selected.
    */
   onCountrySelect: (event: string) => void;
+
+  /**
+   * Additional style options.
+   */
+  readonly className?: string;
 }
 
 /**
@@ -45,6 +50,8 @@ export const CountrySelectGroup = <T extends FieldValues>({
   isDisabled,
   options,
   onCountrySelect,
+  intent,
+  className,
 }: CountrySelectGroupProps<T, CountryOption>): JSX.Element => {
   const handleCountrySelection = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedValue = event.target.value;
@@ -55,7 +62,7 @@ export const CountrySelectGroup = <T extends FieldValues>({
   };
 
   return (
-    <CoreFormElementGroupWrapper>
+    <CoreFormElementGroupWrapper className={className}>
       <CoreFormElementLabel
         inputId={id}
         content={l.COMPONENTS.FORM.COUNTRY_DROPDOWN.LABEL}
@@ -75,7 +82,7 @@ export const CountrySelectGroup = <T extends FieldValues>({
         isDisabled={isDisabled}
         isError={error !== undefined}
         onBlur={handleCountrySelection}
-        intent={CoreInputElementStyleIntent.LIGHT}
+        intent={intent}
       />
       {error && <CoreFormElementError message={error} />}
     </CoreFormElementGroupWrapper>

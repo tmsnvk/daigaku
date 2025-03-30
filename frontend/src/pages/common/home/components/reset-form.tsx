@@ -12,10 +12,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useResetFormMutation } from '../hooks';
 
 /* component imports */
-import { CommonInputGroup, CoreFormAction } from '@components/form';
-import { FormHeader } from './form-header';
+import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@components/form';
 import { FormSwapButtons } from './form-swap-buttons';
-import { FormWrapper } from './form-wrapper';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -61,9 +59,12 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
 
   return (
     <>
-      <FormHeader headerContent={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER} />
+      <CoreFormHeader
+        title={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER}
+        intent={'small'}
+      />
       <FormProvider {...methods}>
-        <FormWrapper
+        <CoreFormWrapper
           formId={'post-account-reset-form'}
           onFormSubmit={handleSubmit((formData: AccountResetRequest) => {
             mutate(formData);
@@ -90,9 +91,9 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
             submitId={'reset'}
             submissionValue={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
             errorMessage={errors.root?.message}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
           />
-        </FormWrapper>
+        </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
         leftButtonLabel={formTypeButtonLabel[FormType.LOGIN]}

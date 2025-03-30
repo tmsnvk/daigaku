@@ -10,7 +10,7 @@ import { JSX, ReactNode } from 'react';
 /**
  * Defines the component's properties.
  */
-interface FormWrapperProps {
+interface CoreFormWrapperProps {
   /**
    * The form element's id.
    */
@@ -25,20 +25,25 @@ interface FormWrapperProps {
    * The passed down React child component(s).
    */
   readonly children: ReactNode;
+
+  /**
+   * Optional style settings.
+   */
+  readonly className?: string;
 }
 
 /**
  * Renders a form element component, wrapping around the form's other components.
  *
- * @param {FormWrapperProps}
+ * @param {CoreFormWrapperProps}
  * @returns {JSX.Element}
  */
-export const FormWrapper = ({ formId, onFormSubmit, children }: FormWrapperProps): JSX.Element => {
+export const CoreFormWrapper = ({ formId, onFormSubmit, className, children }: CoreFormWrapperProps): JSX.Element => {
   return (
     <form
       id={formId}
       onSubmit={onFormSubmit}
-      className={'flex flex-col justify-evenly'}
+      className={className}
     >
       {children}
     </form>

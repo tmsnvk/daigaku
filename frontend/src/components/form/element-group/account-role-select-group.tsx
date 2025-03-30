@@ -17,7 +17,7 @@ import { localization as l } from '@constants';
 import { removeRolePrefix } from '@utilities';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSelectElementGroup, RoleOption } from '@common-types';
+import { CoreSelectElementGroup, RoleOption } from '@common-types';
 
 /**
  * Defines the component's properties.
@@ -39,6 +39,7 @@ export const AccountRoleSelectGroup = <T extends FieldValues>({
   id,
   isDisabled,
   options,
+  intent,
 }: AccountRoleSelectGroupProps<T, RoleOption>): JSX.Element => {
   return (
     <CoreFormElementGroupWrapper>
@@ -60,7 +61,7 @@ export const AccountRoleSelectGroup = <T extends FieldValues>({
         defaultOption={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
         isDisabled={isDisabled}
         isError={error !== undefined}
-        intent={CoreInputElementStyleIntent.LIGHT}
+        intent={intent}
       />
       {error && <CoreFormElementError message={error} />}
     </CoreFormElementGroupWrapper>

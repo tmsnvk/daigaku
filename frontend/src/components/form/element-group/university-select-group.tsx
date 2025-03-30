@@ -16,7 +16,7 @@ import { CoreSelectElement } from '../core-element/core-select-element';
 import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSelectElementGroup, UniversityOption } from '@common-types';
+import { CoreSelectElementGroup, UniversityOption } from '@common-types';
 
 /**
  * Defines the component's properties.
@@ -38,6 +38,7 @@ export const UniversitySelectGroup = <T extends FieldValues>({
   id,
   isDisabled,
   options,
+  intent,
 }: UniversitySelectGroupProps<T, UniversityOption>): JSX.Element => {
   return (
     <CoreFormElementGroupWrapper>
@@ -59,7 +60,7 @@ export const UniversitySelectGroup = <T extends FieldValues>({
         defaultOption={l.COMPONENTS.FORM.UNIVERSITY_DROPDOWN.DEFAULT_OPTION}
         isDisabled={isDisabled}
         isError={error !== undefined}
-        intent={CoreInputElementStyleIntent.LIGHT}
+        intent={intent}
       />
       {error && <CoreFormElementError message={error} />}
     </CoreFormElementGroupWrapper>

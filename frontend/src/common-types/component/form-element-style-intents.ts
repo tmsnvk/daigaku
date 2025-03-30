@@ -19,13 +19,6 @@ export enum CoreSelectElementStyleIntent {
 }
 
 /**
- * Enum values matching the intent style options of disabled input form elements.
- */
-export enum CoreDisabledInputElementStyleIntent {
-  DEFAULT = 'default',
-}
-
-/**
  * Enum values matching the intent style options of submit input form elements.
  */
 export enum CoreSubmitInputElementStyleIntent {
