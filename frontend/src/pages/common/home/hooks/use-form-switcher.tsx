@@ -77,7 +77,7 @@ export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
     setSelectedFormType(formType);
   };
 
-  const selectedFormComponent: JSX.Element = useMemo(() => {
+  const selectedFormComponent = useMemo((): JSX.Element => {
     return (
       <FormSectionWrapper key={selectedFormType}>
         {getSelectedFormComponent(selectedFormType, selectFormTypeHandler, showModal)}

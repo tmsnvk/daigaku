@@ -26,7 +26,7 @@ interface DisabledInputGroupProps {
   readonly label: string;
 
   /**
-   * The input's type, e.g. 'text', 'email', 'number', etc.
+   * The input's type.
    */
   readonly type: string;
 

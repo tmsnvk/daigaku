@@ -11,19 +11,19 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { JSX } from 'react';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 
 /* logic imports */
 import { AccountRoles, AuthProvider } from '@context/auth';
 
 /* component, style imports */
 import { PrivateLayout, PublicLayout } from '@components/layout';
-import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@pages/common/index';
+import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@pages/common';
 import { NewApplication } from '@pages/student/new-application/index';
 
 /* configuration, utilities, constants imports */
 import { queryClient } from '@configuration';
 import { theme } from '@theme/theme';
-import { ThemeProvider } from 'styled-components';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<Error />}>

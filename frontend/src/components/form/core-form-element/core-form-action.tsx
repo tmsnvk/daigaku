@@ -8,11 +8,11 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CoreSubmitInputElementStyleIntent } from '@common-types';
 import { CoreFormElementError, CoreSubmitInputElement } from '@components/form';
 import { LoadingIndicator } from '@components/general';
 
 /* interface, type, enum imports */
+import { CoreSubmitInputElementStyleIntent } from '@common-types';
 
 /**
  * Defines the component's properties.

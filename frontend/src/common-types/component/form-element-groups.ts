@@ -97,6 +97,11 @@ export interface CoreSelectElementGroup<T extends FieldValues, U> extends CoreFo
  */
 export interface TextareaElementGroup<T extends FieldValues> extends CoreFormElementGroup<T> {
   /**
+   * The displayed label alongside the input element.
+   */
+  readonly label: string;
+
+  /**
    * Placeholder text to guide the user on what to enter in the input element.
    */
   readonly placeholder: string;

@@ -20,9 +20,9 @@ interface CoreFormElementGroupWrapperProps {
   readonly className?: string;
 
   /**
-   *
+   * The array of wrapped components.
    */
-  children: Array<ReactNode>;
+  readonly children: Array<ReactNode>;
 }
 
 export const CoreFormElementGroupWrapper = ({ className, children }: CoreFormElementGroupWrapperProps) => {
