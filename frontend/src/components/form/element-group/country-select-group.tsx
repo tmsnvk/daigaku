@@ -81,7 +81,7 @@ export const CountrySelectGroup = <T extends FieldValues>({
         defaultOption={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
         isDisabled={isDisabled}
         isError={error !== undefined}
-        onBlur={handleCountrySelection}
+        onCountrySelect={handleCountrySelection}
         intent={intent}
       />
       {error && <CoreFormElementError message={error} />}

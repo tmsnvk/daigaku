@@ -399,13 +399,12 @@ export const localization = {
             'Submit an application only if you are committed to it.',
             "If you do not find your selected country or university in the dropdown lists, reach out to an admin via the 'Feedback' form.",
           ],
-          SUBMIT: 'submit application',
+          SUBMIT: 'Submit application',
           COUNTRY: {
             INFORMATION: [
               'The first step of your application process is selecting the country of your choice.',
               'You are not able to select your chosen university until you have selected its home country.',
-              `If you do not see the country of your choice amongst the selectOptions,
-              reach out to our admin team using the form under the Contact Us page.`,
+              'If you do not see the country of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
             ],
             VALIDATION: {
               REQUIRED: 'Selecting a country is required.',
@@ -413,9 +412,8 @@ export const localization = {
           },
           UNIVERSITY: {
             INFORMATION: [
-              'Once you have selected a country, you will be able to pick any universities of that country from the dropdown selectOptions.',
-              `If you do not see the university of your choice amongst the selectOptions,
-              reach out to our admin team using the form under the Contact Us page.`,
+              'Once you have selected a country, you will be able to pick any universities of that country from the dropdown options.',
+              'If you do not see the university of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
             ],
             VALIDATION: {
               REQUIRED: 'Selecting a university is required.',

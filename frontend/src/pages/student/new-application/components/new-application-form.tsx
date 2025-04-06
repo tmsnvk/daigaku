@@ -15,12 +15,12 @@ import { useCountrySelection, useCreateApplication } from '../hooks';
 /* component, style imports */
 import {
   CommonInputGroup,
+  CoreFormAction,
   CoreFormElementError,
   CoreFormElementInstruction,
   CoreFormHeader,
   CoreFormWrapper,
   CountrySelectGroup,
-  SubmitInput,
   UniversitySelectGroup,
 } from '@components/form';
 import { LoadingIndicator } from '@components/general';
@@ -30,7 +30,12 @@ import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notific
 import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSelectElementStyleIntent, CreateApplicationByStudent } from '@common-types';
+import {
+  CoreInputElementStyleIntent,
+  CoreSelectElementStyleIntent,
+  CoreSubmitInputElementStyleIntent,
+  CreateApplicationByStudent,
+} from '@common-types';
 
 /**
  * Renders the new application submission form for student users.
@@ -78,7 +83,7 @@ export const NewApplicationForm = (): JSX.Element => {
 
   return (
     <>
-      <section className={'base-tertiary-border my-[5%] w-[90%] sm:w-full'}>
+      <section className={'base-tertiary-border w-9/10 md:w-8/10 my-[5%] 2xl:max-w-[100rem]'}>
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'post-application-form'}
@@ -185,17 +190,15 @@ export const NewApplicationForm = (): JSX.Element => {
               intent={CoreInputElementStyleIntent.LIGHT}
             />
             <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
-            <article className={'col-start-1 col-end-3'}>
-              {isPending ? (
-                <LoadingIndicator loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING} />
-              ) : (
-                <SubmitInput
-                  type={'submit'}
-                  value={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
-                  disabled={isPending}
-                />
-              )}
-            </article>
+            <CoreFormAction
+              isSubmissionPending={isPending}
+              submissionMessage={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING}
+              submitId={'post-application-form'}
+              submissionValue={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
+              errorMessage={errors.root?.message}
+              submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+              className={'col-start-1 col-end-3'}
+            />
             <article className={'col-start-1 col-end-3 h-10'}>
               {errors.root && <CoreFormElementError message={errors.root.message} />}
             </article>

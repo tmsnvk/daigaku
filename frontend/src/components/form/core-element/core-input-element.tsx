@@ -15,7 +15,7 @@ import { joinTw } from '@utilities';
 const coreInputElementVariants = cva(
   joinTw(
     'w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 rounded-xl',
-    "[&[type='number']]:w-40 [&[type='number']]:p-0 [&[type='number']]:text-center",
+    "[&[type='number']]:w-20 [&[type='number']]:p-0 [&[type='number']]:text-center",
     'focus:outline-1',
     'placeholder:text-secondary',
   ),

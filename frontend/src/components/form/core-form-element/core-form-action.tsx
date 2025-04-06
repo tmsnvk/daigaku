@@ -47,6 +47,11 @@ interface CoreFormActionProps {
    * The input element's style intent.
    */
   readonly submitButtonStyleIntent: CoreSubmitInputElementStyleIntent;
+
+  /**
+   * Additional style options.
+   */
+  readonly className?: string;
 }
 
 /**
@@ -63,9 +68,10 @@ export const CoreFormAction = ({
   submissionValue,
   errorMessage,
   submitButtonStyleIntent,
+  className,
 }: CoreFormActionProps): JSX.Element => {
   return (
-    <article>
+    <article className={className}>
       {isSubmissionPending ? (
         <LoadingIndicator loadingText={submissionMessage} />
       ) : (

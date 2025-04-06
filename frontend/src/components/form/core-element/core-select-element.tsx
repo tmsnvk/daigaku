@@ -64,6 +64,11 @@ interface CoreSelectElementProps<T extends FieldValues>
   readonly isDisabled: boolean;
 
   /**
+   * The method invoked when a country is selected.
+   */
+  onCountrySelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+
+  /**
    * Indicates whether there is an error involving the select element.
    */
   readonly isError: boolean;
@@ -88,6 +93,7 @@ export const CoreSelectElement = <T extends FieldValues>({
   isError,
   options,
   defaultOption,
+  onCountrySelect,
   intent,
   className,
 }: CoreSelectElementProps<T>): JSX.Element => {
@@ -100,6 +106,7 @@ export const CoreSelectElement = <T extends FieldValues>({
       name={id}
       defaultValue={initialValue ?? ''}
       disabled={isDisabled}
+      onChange={onCountrySelect}
       className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError, className }))}
     >
       <option
