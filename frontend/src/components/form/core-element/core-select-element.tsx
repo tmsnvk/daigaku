@@ -19,7 +19,7 @@ const coreSelectElementVariants = cva(joinTw('w-[95%] sm:w-[65%] h-20 px-4 text-
     },
     isDisabled: {
       false: 'cursor-pointer',
-      true: 'cursor-not-allowed',
+      true: 'cursor-not-allowed text-secondary-muted',
     },
     isError: {
       true: 'border-destructive focus:outline-destructive',
@@ -64,9 +64,9 @@ interface CoreSelectElementProps<T extends FieldValues>
   readonly isDisabled: boolean;
 
   /**
-   * The method invoked when a country is selected.
+   * The method invoked after the onChange handler is fired.
    */
-  onCountrySelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeHandler?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 
   /**
    * Indicates whether there is an error involving the select element.
@@ -93,7 +93,7 @@ export const CoreSelectElement = <T extends FieldValues>({
   isError,
   options,
   defaultOption,
-  onCountrySelect,
+  onChangeHandler,
   intent,
   className,
 }: CoreSelectElementProps<T>): JSX.Element => {
@@ -104,16 +104,15 @@ export const CoreSelectElement = <T extends FieldValues>({
       {...register(id, validationRules)}
       id={id}
       name={id}
-      defaultValue={initialValue ?? ''}
       disabled={isDisabled}
-      onChange={onCountrySelect}
+      onChange={onChangeHandler}
       className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError, className }))}
     >
       <option
         hidden
         value={''}
       >
-        {defaultOption}
+        {initialValue ?? defaultOption}
       </option>
       {options}
     </select>

@@ -8,8 +8,11 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CoreFormElementError, CoreSubmitInputElement } from '@components/form';
 import { LoadingIndicator } from '@components/general';
+import { CoreFormElementError, CoreSubmitInputElement } from '..';
+
+/* configuration, utilities, constants imports */
+import { joinTw } from '@utilities';
 
 /* interface, type, enum imports */
 import { CoreSubmitInputElementStyleIntent } from '@common-types';
@@ -71,7 +74,7 @@ export const CoreFormAction = ({
   className,
 }: CoreFormActionProps): JSX.Element => {
   return (
-    <article className={className}>
+    <article className={joinTw(className, 'h-30 flex flex-col items-center')}>
       {isSubmissionPending ? (
         <LoadingIndicator loadingText={submissionMessage} />
       ) : (

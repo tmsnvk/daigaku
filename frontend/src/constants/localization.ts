@@ -101,7 +101,7 @@ export const localization = {
           },
         },
         FORM: {
-          TITLE: 'Update Application Form',
+          TITLE: 'Update Application',
           INFORMATION: [
             'Review your application and update its fields once you have received decisions / information from the university.',
             "You are not able to edit the course name, university and country fields as your application is considered final. If you have submitted this application by mistake with incorrect data, mark it for deletion and your mentor will review it. If you have changed your mind about the application, set its Application Status to 'Withdrawn'. This rule is in place for statistical reasons.",
@@ -164,8 +164,7 @@ export const localization = {
               SELECT_PROMPT: 'Update your final decision regarding this application.',
               INFORMATION: [
                 'Update this final status once you have every necessary information.',
-                `You may only have one Final Destination that is you accepted the university's offer.
-                  The rest of your applications should be set to 'Not Final Destination'.`,
+                "You may only have one Final Destination that is you accepted the university's offer. The rest of your applications should be set to 'Not Final Destination'.",
               ],
             },
           },

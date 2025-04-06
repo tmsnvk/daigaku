@@ -54,7 +54,7 @@ export const ApplicationEdit = (): JSX.Element => {
   }
 
   return (
-    <main className={'grid grid-cols-[0.75fr] gap-x-20 justify-around'}>
+    <main className={'mx-auto flex flex-col items-center'}>
       <ApplicationForm
         application={application}
         selectOptions={selectOptions}

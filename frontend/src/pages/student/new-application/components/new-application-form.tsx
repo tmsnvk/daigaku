@@ -16,7 +16,6 @@ import { useCountrySelection, useCreateApplication } from '../hooks';
 import {
   CommonInputGroup,
   CoreFormAction,
-  CoreFormElementError,
   CoreFormElementInstruction,
   CoreFormHeader,
   CoreFormWrapper,
@@ -199,9 +198,6 @@ export const NewApplicationForm = (): JSX.Element => {
               submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
               className={'col-start-1 col-end-3'}
             />
-            <article className={'col-start-1 col-end-3 h-10'}>
-              {errors.root && <CoreFormElementError message={errors.root.message} />}
-            </article>
           </CoreFormWrapper>
         </FormProvider>
       </section>

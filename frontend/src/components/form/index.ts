@@ -13,6 +13,7 @@ import { CoreFormElementLabel } from './core-form-element/core-form-element-labe
 import { CoreFormHeader } from './core-form/core-form-header';
 import { CoreFormWrapper } from './core-form/core-form-wrapper';
 import { AccountRoleSelectGroup } from './element-group/account-role-select-group';
+import { ApplicationStatusSelectGroup } from './element-group/application-status-select-group';
 import { CommonInputGroup } from './element-group/common-input-group';
 import { CommonTextareaGroup } from './element-group/common-textarea-group';
 import { CountrySelectGroup } from './element-group/country-select-group';
@@ -24,6 +25,7 @@ import { SubmitInput } from './submit-input';
 
 export {
   AccountRoleSelectGroup,
+  ApplicationStatusSelectGroup,
   CommonInputGroup,
   CommonTextareaGroup,
   CoreFormAction,

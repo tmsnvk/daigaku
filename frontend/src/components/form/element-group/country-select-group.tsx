@@ -53,7 +53,7 @@ export const CountrySelectGroup = <T extends FieldValues>({
   intent,
   className,
 }: CountrySelectGroupProps<T, CountryOption>): JSX.Element => {
-  const handleCountrySelection = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleOnCountrySelect = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedValue = event.target.value;
 
     if (!isEmpty(selectedValue)) {
@@ -81,7 +81,7 @@ export const CountrySelectGroup = <T extends FieldValues>({
         defaultOption={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
         isDisabled={isDisabled}
         isError={error !== undefined}
-        onCountrySelect={handleCountrySelection}
+        onChangeHandler={handleOnCountrySelect}
         intent={intent}
       />
       {error && <CoreFormElementError message={error} />}

@@ -29,7 +29,12 @@ import { localization as l } from '@constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, PendingAccountRegistrationRequest } from '@common-types';
+import {
+  CoreInputElementStyleIntent,
+  CoreSelectElementStyleIntent,
+  CoreSubmitInputElementStyleIntent,
+  PendingAccountRegistrationRequest,
+} from '@common-types';
 import { FormType } from '../models';
 
 /**
@@ -163,7 +168,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             options={institutions ?? []}
             isDisabled={isPending}
             error={errors.institutionUuid?.message}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <AccountRoleSelectGroup
             validationRules={{
@@ -176,7 +181,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             options={roles ?? []}
             isDisabled={isPending}
             error={errors.accountRoleUuid?.message}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormAction
             isSubmissionPending={isPending}

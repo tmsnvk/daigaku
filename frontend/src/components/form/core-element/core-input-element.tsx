@@ -25,7 +25,7 @@ const coreInputElementVariants = cva(
         light: 'bg-primary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
       },
       isDisabled: {
-        true: 'cursor-not-allowed',
+        true: 'cursor-not-allowed placeholder:text-secondary-muted',
       },
       isError: {
         true: 'border-destructive focus:outline-destructive',
