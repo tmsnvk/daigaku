@@ -7,10 +7,7 @@
 /* vendor imports */
 import styled from 'styled-components';
 
-/* component, style imports */
-import { BaseDialog } from '@components/base-components';
-
-export const Dialog = styled(BaseDialog)`
+export const Dialog = styled.dialog`
   display: flex;
   flex-direction: column;
   width: 45%;

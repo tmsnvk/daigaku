@@ -34,7 +34,7 @@ interface TodoListProps {
  */
 export const TodoList = ({ introduction, todos }: TodoListProps): JSX.Element => {
   return (
-    <section className={'base-primary-border bg-accent mx-auto mb-20 w-[95%] px-12 py-4 text-xl lg:w-[65%]'}>
+    <section className={'core-primary-border bg-accent mx-auto mb-20 w-[95%] px-12 py-4 text-xl lg:w-[65%]'}>
       <ul>
         {introduction.map((paragraph: string, index: number) => (
           <li

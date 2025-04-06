@@ -11,8 +11,8 @@ import { JSX } from 'react';
 import { useToggleIsRemovable } from '../hooks';
 
 /* component, style imports */
-import { CoreButton } from '@components/base-components';
 import { CoreFormElementError } from '@components/form';
+import { CoreButton } from '@components/index';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@constants';

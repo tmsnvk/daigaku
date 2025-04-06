@@ -6,20 +6,19 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
 import { useSubmitComment } from '../hooks';
 
 /* component imports */
-import { CommonTextareaGroup, CoreFormElementError, SubmitInput } from '@components/form';
-import { LoadingIndicator } from '@components/general';
+import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@components/form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
-import { CreateComment } from '@common-types';
+import { CoreSubmitInputElementStyleIntent, CoreTextareaElementStyleIntent, CreateComment } from '@common-types';
 
 /**
  * Defines the component's properties.
@@ -41,52 +40,52 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
   const DEFAULT_ROW_SIZE = 10;
   const DEFAULT_COL_SIZE = 10;
 
+  const methods = useForm<CreateComment>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
-    register,
     setError,
-  } = useForm<CreateComment>({ mode: 'onSubmit' });
+  } = methods;
+
   const { isPending, mutate } = useSubmitComment(setError, applicationUuid);
 
   return (
-    <form
-      id={'post-comment-form'}
-      className={'flex flex-col items-center'}
-      onSubmit={handleSubmit((formData) => mutate(formData))}
-    >
-      <CommonTextareaGroup
-        register={register}
-        validationRules={{
-          required: {
-            value: true,
-            message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.REQUIRED_COMMENT,
-          },
-          pattern: {
-            value: /^(.|\s){15,1000}$/,
-            message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.PATTERN_COMMENT,
-          },
-        }}
-        id={'comment'}
-        label={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.LABEL}
-        rows={DEFAULT_ROW_SIZE}
-        cols={DEFAULT_COL_SIZE}
-        placeholder={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.PLACEHOLDER}
-        isDisabled={isPending}
-        error={errors.comment?.message}
-      />
-      <article>
-        {isPending ? (
-          <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_LOADING} />
-        ) : (
-          <SubmitInput
-            type={'submit'}
-            value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_INPUT}
-            disabled={isPending}
-          />
-        )}
-      </article>
-      <article>{errors.root && <CoreFormElementError message={errors.root.message} />}</article>
-    </form>
+    <FormProvider {...methods}>
+      <CoreFormWrapper
+        formId={'post-comment-form'}
+        onFormSubmit={handleSubmit((formData: CreateComment) => {
+          mutate(formData);
+        })}
+      >
+        <CommonTextareaGroup
+          validationRules={{
+            required: {
+              value: true,
+              message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.REQUIRED_COMMENT,
+            },
+            pattern: {
+              value: /^(.|\s){15,1000}$/,
+              message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.PATTERN_COMMENT,
+            },
+          }}
+          id={'comment'}
+          label={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.LABEL}
+          rows={DEFAULT_ROW_SIZE}
+          cols={DEFAULT_COL_SIZE}
+          placeholder={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.PLACEHOLDER}
+          isDisabled={isPending}
+          error={errors.comment?.message}
+          intent={CoreTextareaElementStyleIntent.LIGHT}
+        />
+        <CoreFormAction
+          isSubmissionPending={isPending}
+          submissionMessage={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_LOADING}
+          submitId={'post-comment-form'}
+          submissionValue={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_INPUT}
+          errorMessage={errors.root?.message}
+          submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+        />
+      </CoreFormWrapper>
+    </FormProvider>
   );
 };

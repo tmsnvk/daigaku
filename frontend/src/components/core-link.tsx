@@ -14,7 +14,7 @@ import { joinTw } from '@utilities';
 
 const coreLinkVariants = cva(
   joinTw(
-    'block flex justify-center items-center h-20 px-10 text-2xl font-bold rounded-xl uppercase tracking-widest',
+    'block flex justify-center items-center h-20 px-10 text-2xl font-bold rounded-xl tracking-widest',
     'focus:outline-2',
     'hover:outline-2  hover:cursor-pointer',
   ),
@@ -22,7 +22,7 @@ const coreLinkVariants = cva(
     variants: {
       intent: {
         light: '',
-        dark: 'bg-secondary text-tertiary focus:outline-secondary hover:outline-tertiary',
+        dark: 'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow) hover:outline-accent focus:outline-accent',
       },
       size: {
         normal: 'w-36',

@@ -6,7 +6,7 @@
 
 import { ConfirmationModal } from './confirmation-modal';
 import { GlobalErrorModal } from './global-error-modal';
-import { GlobalLoadingModal } from './global-loading-modal';
+import { LoadingModal } from './loading-modal';
 import { Toast } from './toast';
 
-export { ConfirmationModal, GlobalErrorModal, GlobalLoadingModal, Toast };
+export { ConfirmationModal, GlobalErrorModal, LoadingModal, Toast };

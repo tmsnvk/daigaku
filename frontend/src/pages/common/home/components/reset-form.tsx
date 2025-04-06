@@ -49,12 +49,15 @@ interface ResetFormProps {
  * @return {JSX.Element}
  */
 export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Element => {
+  // react-hook-form initialisation
   const methods = useForm<AccountResetRequest>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
     setError,
   } = methods;
+
+  // react-query mutation
   const { isPending, mutate } = useResetFormMutation(setError, showModal);
 
   return (

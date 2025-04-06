@@ -10,7 +10,7 @@ import { JSX } from 'react';
 import { Outlet } from 'react-router-dom';
 
 /* component, style imports */
-import { BaseNavbar } from '@components/base-components';
+import { BaseNavbar } from '../../core-components/base-navbar';
 import { Footer } from '../footer';
 import { NavigationRoute } from '../navigation-route';
 

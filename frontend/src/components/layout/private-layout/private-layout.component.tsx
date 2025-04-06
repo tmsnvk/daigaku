@@ -14,7 +14,7 @@ import { AccountRoles, AuthStatus, useAuthContext } from '@context/auth';
 import { useSmallScreenNavbarDisplay } from './private-layout.hooks';
 
 /* component, style imports */
-import { GlobalLoadingModal } from '@components/notification';
+import { LoadingModal } from '@components/notification';
 import { Footer } from '../footer';
 import { NavigationRoute } from '../navigation-route';
 import { Header, SmallScreenMenuToggle, SmallScreenMenuWrapper } from './private-layout.styles';
@@ -64,9 +64,9 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
 
   if (authStatus === AuthStatus.LOADING) {
     return (
-      <GlobalLoadingModal
+      <LoadingModal
         isVisible={true}
-        loadingText={l.LAYOUT.PRIVATE_LAYOUT.NOTIFICATIONS.LOADING_TEXT}
+        status={l.LAYOUT.PRIVATE_LAYOUT.NOTIFICATIONS.LOADING_TEXT}
       />
     );
   }

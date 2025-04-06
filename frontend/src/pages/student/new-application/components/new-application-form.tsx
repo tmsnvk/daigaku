@@ -23,7 +23,7 @@ import {
   UniversitySelectGroup,
 } from '@components/form';
 import { LoadingIndicator } from '@components/general';
-import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
+import { GlobalErrorModal, LoadingModal, Toast } from '@components/notification';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -64,9 +64,9 @@ export const NewApplicationForm = (): JSX.Element => {
 
   if (isCountryLoading) {
     return (
-      <GlobalLoadingModal
+      <LoadingModal
         isVisible={isCountryLoading}
-        loadingText={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.PAGE_LOADING}
+        status={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.PAGE_LOADING}
       />
     );
   }
@@ -82,14 +82,14 @@ export const NewApplicationForm = (): JSX.Element => {
 
   return (
     <>
-      <section className={'base-tertiary-border w-9/10 md:w-8/10 my-[5%] 2xl:max-w-[100rem]'}>
+      <section className={'core-tertiary-border w-9/10 md:w-8/10 my-[5%] 2xl:max-w-[100rem]'}>
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'post-application-form'}
             onFormSubmit={handleSubmit((formData: CreateApplicationByStudent) => {
               mutate(formData);
             })}
-            className={'base-application-grid'}
+            className={'core-application-grid'}
           >
             <CoreFormHeader
               title={l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}

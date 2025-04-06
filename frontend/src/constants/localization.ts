@@ -220,7 +220,7 @@ export const localization = {
             "There was an unexpected error and it is currently not possible to display the application's comments. Refresh your browser and if the error persists try again at a later time.",
           CREATE_COMMENT: {
             SUBMIT_LOADING: 'Your comment is being submitted.',
-            SUBMIT_INPUT: 'Add Comment',
+            SUBMIT_INPUT: 'Add comment',
             FORM: {
               CONTENT: {
                 LABEL: 'Write your comment',
@@ -320,7 +320,7 @@ export const localization = {
         },
         PENDING_ACCOUNT_REGISTRATION: {
           MESSAGES: {
-            PAGE_LOADING: 'The application is fetching the necessary data for the form submission...',
+            PAGE_LOADING: 'The required data is being fetched...',
             FORM_LOADING: 'Your registration is being submitted.',
           },
           FORM: {

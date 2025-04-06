@@ -9,7 +9,7 @@ import { JSX, useMemo, useState } from 'react';
 import { match } from 'ts-pattern';
 
 /* component imports */
-import { FormSectionWrapper, LoginForm, RegistrationForm, ResetForm } from '../components';
+import { LoginForm, RegistrationForm, ResetForm } from '../components';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';
@@ -26,7 +26,7 @@ interface FormSwitcher {
   /**
    * The currently rendered component.
    */
-  readonly selectedFormComponent: JSX.Element;
+  readonly selectedFormComponent: JSX.Element | null;
 }
 
 /**
@@ -70,19 +70,15 @@ const getSelectedFormComponent = (
  * @return {FormSwitcher}
  */
 export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
-  const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
+  const DEFAULT_LOADED_FORM_TYPE = FormType.REGISTER;
   const [selectedFormType, setSelectedFormType] = useState<FormType>(DEFAULT_LOADED_FORM_TYPE);
 
   const selectFormTypeHandler = (formType: FormType): void => {
     setSelectedFormType(formType);
   };
 
-  const selectedFormComponent = useMemo((): JSX.Element => {
-    return (
-      <FormSectionWrapper key={selectedFormType}>
-        {getSelectedFormComponent(selectedFormType, selectFormTypeHandler, showModal)}
-      </FormSectionWrapper>
-    );
+  const selectedFormComponent = useMemo((): JSX.Element | null => {
+    return getSelectedFormComponent(selectedFormType, selectFormTypeHandler, showModal);
   }, [selectedFormType]);
 
   return {

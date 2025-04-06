@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { useGetApplicationByUuid } from '@hooks';
 
 /* component imports */
-import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { GlobalErrorModal, LoadingModal } from '@components/notification';
 import { ApplicationDetails, CommentSection } from './components';
 
 /* configuration, utilities, constants imports */
@@ -31,9 +31,9 @@ export const ApplicationView = (): JSX.Element => {
 
   if (isLoading) {
     return (
-      <GlobalLoadingModal
+      <LoadingModal
         isVisible={isLoading}
-        loadingText={l.PAGES.COMMON.APPLICATION_VIEW.PAGE_LOADING}
+        status={l.PAGES.COMMON.APPLICATION_VIEW.PAGE_LOADING}
       />
     );
   }

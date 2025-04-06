@@ -40,7 +40,7 @@ interface TileDetailProps {
  */
 export const TileDetail = ({ title, country, university, courseName }: TileDetailProps): JSX.Element => {
   return (
-    <article className={'base-dark-border size-88 flex flex-col justify-center px-5 pb-2 text-center'}>
+    <article className={'core-secondary-border size-88 flex flex-col justify-center px-5 pb-2 text-center'}>
       <p className={'py-2 text-2xl font-extrabold'}>{country}</p>
       <p className={'py-2 text-2xl font-extrabold'}>{university}</p>
       <p className={'py-2 text-2xl font-extrabold'}>{courseName}</p>

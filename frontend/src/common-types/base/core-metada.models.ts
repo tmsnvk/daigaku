@@ -5,9 +5,9 @@
  */
 
 /**
- * Defines the base metadata details for various objects across the application.
+ * Defines the core metadata properties for various objects across the application.
  */
-export interface BaseMetadata {
+export interface CoreMetadata {
   /**
    * The date and time when the object was created.
    */

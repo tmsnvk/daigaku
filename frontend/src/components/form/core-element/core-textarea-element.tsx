@@ -13,11 +13,11 @@ import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-f
 import { joinTw } from '@utilities';
 
 const coreTextareaElementVariants = cva(
-  joinTw('w-[90%] md:w-[75%] px-6 py-8 text-xl border-2 rounded-xl', 'hover:outline-2', 'focus:outline-1'),
+  joinTw('w-[90%] md:w-[75%] px-6 py-8 text-xl border-2 rounded-xl', 'hover:outline-1', 'focus:outline-1', 'placeholder:text-secondary'),
   {
     variants: {
       intent: {
-        light: 'bg-primary text-primary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
+        light: 'bg-primary text-secondary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
       },
       isDisabled: {
         true: 'cursor-not-allowed placeholder:text-secondary-muted',

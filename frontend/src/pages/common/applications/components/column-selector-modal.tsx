@@ -52,7 +52,7 @@ export const ColumnSelectorModal = ({ columns, isVisible, onToggleColumnVisibili
   return (
     <dialog
       ref={dialogRef}
-      className={'base-dark-border mx-auto mt-[10%] flex flex-col items-start px-20 py-10'}
+      className={'core-secondary-border mx-auto mt-[10%] flex flex-col items-start px-20 py-10'}
     >
       {columns.map((column: Column) => {
         return (

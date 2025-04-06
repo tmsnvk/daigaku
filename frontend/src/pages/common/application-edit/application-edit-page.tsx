@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { useGetAllSelectOptions, useGetApplicationByUuid } from '@hooks';
 
 /* component, style imports */
-import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { GlobalErrorModal, LoadingModal } from '@components/notification';
 import { ApplicationForm } from './components';
 
 /* configuration, utilities, constants imports */
@@ -36,9 +36,9 @@ export const ApplicationEdit = (): JSX.Element => {
 
   if (isOptionsLoading || isApplicationLoading) {
     return (
-      <GlobalLoadingModal
+      <LoadingModal
         isVisible={isApplicationLoading}
-        loadingText={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.PAGE_LOADING}
+        status={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.PAGE_LOADING}
       />
     );
   }

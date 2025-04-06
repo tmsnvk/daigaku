@@ -13,7 +13,7 @@ import { useGetApplications, useModalToggle } from '@hooks';
 import { useColumnVisibility, useDisplayDownloadToast, useSortOrder } from './hooks';
 
 /* component, style imports */
-import { GlobalErrorModal, GlobalLoadingModal, Toast } from '@components/notification';
+import { GlobalErrorModal, LoadingModal, Toast } from '@components/notification';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
@@ -39,9 +39,9 @@ export const Applications = (): JSX.Element => {
 
   if (isLoading || isRefetching) {
     return (
-      <GlobalLoadingModal
+      <LoadingModal
         isVisible={isLoading || isRefetching}
-        loadingText={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.LOADING}
+        status={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.LOADING}
       />
     );
   }
@@ -61,7 +61,7 @@ export const Applications = (): JSX.Element => {
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <main className={'base-dark-border mx-auto my-[5%] flex w-[95%] flex-col text-xl'}>
+    <main className={'core-secondary-border mx-auto my-[5%] flex w-[95%] flex-col text-xl'}>
       <table className={'table-fixed text-center'}>
         <thead>
           <TableHeader

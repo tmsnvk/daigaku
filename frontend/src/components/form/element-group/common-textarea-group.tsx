@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 /* component imports */
-import { CoreFormElementError, CoreFormElementLabel } from '..';
+import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreTextareaElement } from '../core-element/core-textarea-element';
 
 /* interface, type, enum imports */
@@ -48,7 +48,7 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   isDisabled,
 }: CommonTextareaGroupProps<T>): JSX.Element => {
   return (
-    <article className={'mb-20 flex w-[100%] flex-col items-center'}>
+    <CoreFormElementGroupWrapper className={'h-120'}>
       <CoreFormElementLabel
         inputId={id}
         content={label}
@@ -64,6 +64,6 @@ export const CommonTextareaGroup = <T extends FieldValues>({
         intent={intent}
       />
       {error && <CoreFormElementError message={error} />}
-    </article>
+    </CoreFormElementGroupWrapper>
   );
 };

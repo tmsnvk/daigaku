@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CoreButton } from '@components/base-components';
+import { CoreButton } from '@components/index';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';

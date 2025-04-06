@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { VariantProps, cva } from 'class-variance-authority';
-import { JSX } from 'react';
+import { JSX, ReactElement } from 'react';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@utilities';
@@ -15,6 +15,7 @@ const coreFormHeaderVariants = cva(joinTw('text-center'), {
   variants: {
     intent: {
       small: 'mb-20 text-2xl',
+      large: 'text-5xl font-bold',
       largeWithUnderline: 'text-5xl core-form-header-after',
     },
   },
@@ -27,7 +28,7 @@ interface CoreFormHeaderProps extends VariantProps<typeof coreFormHeaderVariants
   /**
    * The form element's title.
    */
-  readonly title: string;
+  readonly title: string | ReactElement;
 
   /**
    * Optional style settings.

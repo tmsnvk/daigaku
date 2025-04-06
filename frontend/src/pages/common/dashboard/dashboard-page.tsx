@@ -14,7 +14,7 @@ import { useGetApplications } from '@hooks';
 import { useDashboardStatisticsQuery } from './hooks';
 
 /* component imports */
-import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { GlobalErrorModal, LoadingModal } from '@components/notification';
 import { LayoutStudent } from './components';
 
 /* configuration, utilities, constants imports */
@@ -38,9 +38,9 @@ export const Dashboard = (): JSX.Element => {
 
   if (isLoading) {
     return (
-      <GlobalLoadingModal
+      <LoadingModal
         isVisible={isLoading}
-        loadingText={l.PAGES.COMMON.DASHBOARD.PAGE_LOADING}
+        status={l.PAGES.COMMON.DASHBOARD.PAGE_LOADING}
       />
     );
   }

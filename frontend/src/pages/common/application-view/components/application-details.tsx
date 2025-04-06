@@ -9,7 +9,7 @@ import { JSX } from 'react';
 
 /* component imports */
 import { ApplicationMetadata } from '@components/application';
-import { CoreLink } from '@components/base-components';
+import { CoreLink } from '@components/index';
 import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */
@@ -17,6 +17,7 @@ import { localization as l } from '@constants';
 
 /* interface, type, enum imports */
 import { Application } from '@common-types';
+import { CoreFormHeader } from '@components/form';
 
 /**
  * Defines the component's properties.
@@ -36,19 +37,25 @@ interface ApplicationDetailsProps {
  */
 export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JSX.Element => {
   return (
-    <section className={'base-primary-border application-grid h-fit w-[85%] md:w-[75%]'}>
-      <h1 className={'form-title-head col-start-1 col-end-3 text-center'}>
-        {application.university}
-        <br />
-        <br />
-        {application.courseName}
-      </h1>
+    <section className={'core-primary-border application-grid w-9/10 2xl:w-6/10 h-fit'}>
+      <CoreFormHeader
+        title={
+          <>
+            {application.university}
+            <br />
+            <br />
+            {application.courseName}
+          </>
+        }
+        intent={'large'}
+        className={'col-start-1 col-end-3 text-center'}
+      />
       <ApplicationMetadata
-        gridPosition={'col-start-1 col-end-2'}
         createdAt={application.createdAt}
         createdBy={application.createdBy}
         lastUpdatedAt={application.lastUpdatedAt}
         lastModifiedBy={application.lastModifiedBy}
+        className={'col-start-1 col-end-2'}
       />
       <article className={'col-start-2 col-end-3'}>
         <CoreLink

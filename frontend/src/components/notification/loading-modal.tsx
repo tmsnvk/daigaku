@@ -12,7 +12,7 @@ import { JSX } from 'react';
 import { useRenderModal } from '@hooks';
 
 /* component, style imports */
-import { Dialog } from './global-loading-modal.styles';
+import { CoreDialog } from '..';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
@@ -20,36 +20,39 @@ import { iconLibraryConfig } from '@configuration';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface LoadingModalProps {
   /**
-   * Indicates whether the modal should be visible.
+   * Indicates whether the component should be visible.
    */
   readonly isVisible: boolean;
 
   /**
-   * The loading text to be displayed in the modal.
+   * The status text to be displayed.
    */
-  readonly loadingText: string;
+  readonly status: string;
 }
 
 /**
- * Renders a modal to indicate loading status, providing feedback to the user.
+ * Renders a loading status modal, providing feedback to the user.
  *
- * @param {ComponentProps} props
+ * @param {LoadingModalProps} props
  * @return {JSX.Element}
  */
-export const GlobalLoadingModal = ({ isVisible, loadingText }: ComponentProps): JSX.Element => {
+export const LoadingModal = ({ isVisible, status }: LoadingModalProps): JSX.Element => {
   const { dialogRef } = useRenderModal(isVisible);
 
   return (
-    <Dialog ref={dialogRef}>
+    <CoreDialog
+      ref={dialogRef}
+      intent={'light'}
+    >
       <p>
-        {loadingText}
+        {status}{' '}
         <FontAwesomeIcon
           icon={iconLibraryConfig.faSpinner}
           spin
         />
       </p>
-    </Dialog>
+    </CoreDialog>
   );
 };

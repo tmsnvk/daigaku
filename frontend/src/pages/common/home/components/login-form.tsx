@@ -44,12 +44,15 @@ interface LoginFormProps {
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
+  // react-hook-form initialisation
   const methods = useForm<LoginRequest>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
     setError,
   } = methods;
+
+  // react-query mutation
   const { isPending, mutate } = useLoginFormMutation(setError);
 
   return (

@@ -12,30 +12,30 @@ import { localization as l } from '@constants';
 import { joinTw } from '@utilities';
 
 /* interface, type, enum imports */
-import { BaseMetadata } from '@common-types';
+import { CoreMetadata } from '@common-types';
 
 /**
  * Defines the component's properties.
  */
-interface ApplicationMetadataProps extends BaseMetadata {
+interface ApplicationMetadataProps extends CoreMetadata {
   /**
-   * Additional optional styling options.
+   * Optional styling settings.
    */
   readonly className?: string;
 }
 
 /**
- * Renders the metadata for a selected application record.
+ * Renders the metadata details for the selected application record.
  *
  * @param {ApplicationMetadataProps} props
  * @return {JSX.Element}
  */
 export const ApplicationMetadata = ({
-  className,
   createdAt,
   createdBy,
   lastUpdatedAt,
   lastModifiedBy,
+  className,
 }: ApplicationMetadataProps): JSX.Element => {
   return (
     <article className={joinTw('text-2xl', className)}>

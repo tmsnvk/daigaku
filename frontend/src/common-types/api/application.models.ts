@@ -5,12 +5,12 @@
  */
 
 /* interface, type, enum imports */
-import { ApplicationStatus, BaseMetadata, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
+import { ApplicationStatus, CoreMetadata, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@common-types';
 
 /**
  * Defines the details of an application, including its status, associated account, and relevant metadata.
  */
-export interface Application extends BaseMetadata {
+export interface Application extends CoreMetadata {
   /**
    * The application's uuid string.
    */

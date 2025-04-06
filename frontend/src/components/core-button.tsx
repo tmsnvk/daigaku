@@ -19,11 +19,10 @@ const coreButtonVariants = cva(joinTw('h-20 px-6 text-2xl font-bold rounded-xl t
       accent: 'bg-accent text-secondary focus:outline-tertiary shadow-(--right-bottom-secondary-shadow)',
       submit: '',
       destructive: 'bg-destructive text-tertiary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
-      disabled: '',
     },
     isDisabled: {
       false: 'cursor-pointer',
-      true: 'cursor-not-allowed',
+      true: 'cursor-not-allowed hover:outline-transparent',
     },
   },
 });

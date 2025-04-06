@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CoreButton } from '@components/base-components';
+import { CoreButton } from '@components/index';
 
 /**
  * Defines the component's properties.

@@ -12,7 +12,7 @@ export * from './api/comment.models';
 export * from './api/dashboard-page.models';
 export * from './api/home-page.models';
 export * from './application/application-status.models';
-export * from './base/base-metada.models';
+export * from './base/core-metada.models';
 export * from './component/core-form-element-validation';
 export * from './component/form-element-groups';
 export * from './component/form-element-style-intents';

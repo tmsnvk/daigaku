@@ -21,7 +21,7 @@ import {
   CoreFormWrapper,
   InstitutionSelectGroup,
 } from '@components/form';
-import { GlobalErrorModal, GlobalLoadingModal } from '@components/notification';
+import { GlobalErrorModal, LoadingModal } from '@components/notification';
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
@@ -56,28 +56,33 @@ interface RegistrationFormProps {
 
 /**
  * Renders a registration form component that allows users to submit a form to register a pending account.
- * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
+ * The component utilises the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
  * @param {RegistrationFormProps} props
  * @return {JSX.Element}
  */
 export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormProps): JSX.Element => {
+  // react-query data fetches
   const { data: institutions, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
+
+  // react-hook-form initialisation
   const methods = useForm<PendingAccountRegistrationRequest>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
     setError,
   } = methods;
+
+  // react-query mutation
   const { isPending, mutate } = useRegistrationFormMutation(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {
     return (
-      <GlobalLoadingModal
+      <LoadingModal
         isVisible={isInstitutionLoading || isRoleLoading}
-        loadingText={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.PAGE_LOADING}
+        status={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.PAGE_LOADING}
       />
     );
   }

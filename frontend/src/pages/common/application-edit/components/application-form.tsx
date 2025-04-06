@@ -86,14 +86,14 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
 
   return (
     <>
-      <section className={'base-tertiary-border w-9/10 md:w-8/10 my-[5%] 2xl:max-w-[100rem]'}>
+      <section className={'core-tertiary-border w-9/10 md:w-8/10 my-[5%] 2xl:max-w-[100rem]'}>
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'update-application-form'}
             onFormSubmit={handleSubmit((formData: UpdateApplicationByStudent) => {
               submitForm(formData, application.uuid, mutate, setError);
             })}
-            className={'base-application-grid'}
+            className={'core-application-grid'}
           >
             <CoreFormHeader
               title={l.PAGES.COMMON.APPLICATION_EDIT.FORM.TITLE}

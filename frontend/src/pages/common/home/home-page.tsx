@@ -15,6 +15,7 @@ import { useFormSwitcher } from './hooks';
 
 /* component imports */
 import { ConfirmationModal } from '@components/notification';
+import { FormSectionWrapper } from './components';
 
 /* configuration, utilities, constants imports */
 import { confirmationModalFeedback } from './constants';
@@ -29,8 +30,13 @@ import { confirmationModalFeedback } from './constants';
  * @return {JSX.Element}
  */
 export const Home = (): JSX.Element => {
+  // authentication context
   const { authStatus } = useAuthContext();
+
+  // modal visibility
   const { isModalVisible, showModal, closeModal } = useModalControl();
+
+  // component render
   const { selectedFormType, selectedFormComponent } = useFormSwitcher(showModal);
 
   if (authStatus === AuthStatus.SIGNED_IN) {
@@ -39,7 +45,7 @@ export const Home = (): JSX.Element => {
 
   return (
     <main className={'mx-auto flex flex-col items-center'}>
-      {selectedFormComponent}
+      <FormSectionWrapper key={selectedFormType}>{selectedFormComponent}</FormSectionWrapper>
       {isModalVisible && (
         <ConfirmationModal
           isVisible={isModalVisible}
