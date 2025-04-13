@@ -38,8 +38,8 @@ interface ComponentProps {
 }
 
 /**
- * Renders navigation links for authorised users. Users with different authorisation level might see different navigation links.
- * Unauthorised users are redirected to the root page.
+ * Renders navigation links for authorised users. Users with different authorisation level might see different
+ * navigation links. Unauthorised users are redirected to the root page.
  *
  * @param {ComponentProps} props
  * @return {JSX.Element}
@@ -77,7 +77,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
         <nav>
           <div>
             <NavigationRoute
-              resource={'/dashboard'}
+              targetUrlString={'/dashboard'}
               icon={iconLibraryConfig.faGraduationCap}
               label={l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.DASHBOARD.LABEL}
             />
@@ -92,7 +92,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
                 return (
                   <li key={route.url}>
                     <NavigationRoute
-                      resource={route.url}
+                      targetUrlString={route.url}
                       icon={route.icon}
                       label={route.label}
                     />
@@ -105,7 +105,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
                 return (
                   <li key={route.url}>
                     <NavigationRoute
-                      resource={route.url}
+                      targetUrlString={route.url}
                       icon={route.icon}
                       label={route.label}
                     />
@@ -114,7 +114,7 @@ export const PrivateLayout = ({ allowedRoles }: ComponentProps): JSX.Element => 
               })}
               <li>
                 <NavigationRoute
-                  resource={'/'}
+                  targetUrlString={'/'}
                   icon={iconLibraryConfig.faRightFromBracket}
                   label={l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.LOG_OUT.LABEL}
                   onNavigateClick={() => logOut()}

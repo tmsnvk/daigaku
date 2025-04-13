@@ -9,7 +9,7 @@ import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 /**
  * Defines a navigation route object's properties.
  */
-export interface NavigationRoute {
+export interface NavigationRouteItem {
   /**
    * The route's target url.
    */

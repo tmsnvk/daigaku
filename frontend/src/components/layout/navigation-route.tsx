@@ -10,7 +10,7 @@ import { JSX } from 'react';
 import { NavLink } from 'react-router-dom';
 
 /* component, style imports */
-import { CoreIcon } from '../../core-icon';
+import { CoreIcon } from '../core-icon.tsx';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@utilities';
@@ -50,17 +50,16 @@ export const NavigationRoute = ({ targetUrlString, icon, label, onNavigateClick 
   return (
     <NavLink
       to={targetUrlString}
-      style={({ isActive }) => ({ color: isActive ? 'text-accent' : 'text-secondary' })}
       onClick={onNavigateClick}
-      className={'e text-3xl font-semibold'}
+      className={({ isActive }) => joinTw('text-3xl font-semibold', isActive ? 'text-accent' : 'text-secondary')}
     >
       {({ isActive }) => (
-        <div>
+        <div className={'flex items-center'}>
           <CoreIcon
             icon={icon}
-            className={joinTw(isActive ? 'text-accent' : 'text-secondary')}
+            className={joinTw(isActive ? 'text-accent' : 'text-secondary', 'mr-2')}
           />
-          {label}
+          <span>{label}</span>
         </div>
       )}
     </NavLink>

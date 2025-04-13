@@ -24,3 +24,4 @@ export * from './role/role-option.models';
 export * from './support/country-option.models';
 export * from './support/institution-option.models';
 export * from './support/university-option.models';
+export * from './layout/navigation-route-item.ts';

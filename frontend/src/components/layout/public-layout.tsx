@@ -7,18 +7,20 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { Outlet } from 'react-router-dom';
-import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 
 /* component, style imports */
-import { Footer } from '../footer';
-import { NavigationRoute } from '../navigation-route';
-import { NavigationBarWrapper } from '../navigation-bar-wrapper.tsx';
+import { Footer } from './footer.tsx';
+import { NavigationRoute } from './navigation-route.tsx';
+import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 import { localization as l } from '@constants';
 
-const navigationRoutes: { targetUrlString: string; icon: IconLookup; label: string }[] = [
+/* interface, type, enum imports */
+import { NavigationRouteItem } from '@common-types';
+
+const navigationRoutes: NavigationRouteItem[] = [
   {
     targetUrlString: '/',
     icon: iconLibraryConfig.faGraduationCap,
