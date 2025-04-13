@@ -7,19 +7,22 @@
 /* vendor imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { JSX } from 'react';
+import { NavLink } from 'react-router-dom';
 
 /* component, style imports */
-import { theme } from '@theme/theme';
-import { NavbarIcon, RouteLink } from './navigation-route.styles';
+import { CoreIcon } from '../../core-icon';
+
+/* configuration, utilities, constants imports */
+import { joinTw } from '@utilities';
 
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface NavigationRouteProps {
   /**
-   * The URL resource for the navigation link.
+   * The URL targetUrlString for the navigation link.
    */
-  readonly resource: string;
+  readonly targetUrlString: string;
 
   /**
    * The FontAwesome icon accompanying the link's label.
@@ -43,22 +46,23 @@ interface ComponentProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const NavigationRoute = ({ resource, icon, label, onNavigateClick }: ComponentProps): JSX.Element => {
+export const NavigationRoute = ({ targetUrlString, icon, label, onNavigateClick }: NavigationRouteProps): JSX.Element => {
   return (
-    <RouteLink
-      to={resource}
-      style={({ isActive }) => ({ color: isActive ? theme.color.tertiaryLight : theme.color.primaryDark })}
+    <NavLink
+      to={targetUrlString}
+      style={({ isActive }) => ({ color: isActive ? 'text-accent' : 'text-secondary' })}
       onClick={onNavigateClick}
+      className={'e text-3xl font-semibold'}
     >
       {({ isActive }) => (
-        <>
-          <NavbarIcon
+        <div>
+          <CoreIcon
             icon={icon}
-            $isActive={isActive}
+            className={joinTw(isActive ? 'text-accent' : 'text-secondary')}
           />
           {label}
-        </>
+        </div>
       )}
-    </RouteLink>
+    </NavLink>
   );
 };
