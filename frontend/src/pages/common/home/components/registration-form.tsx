@@ -9,8 +9,8 @@ import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@hooks';
 import { useRegistrationFormMutation } from '../hooks';
+import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
 
 /* component imports */
 import {
@@ -20,12 +20,12 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
   InstitutionSelectGroup,
-} from '@components/form';
-import { GlobalErrorModal, LoadingModal } from '@components/notification';
+} from '@daigaku/components/form';
+import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
@@ -34,7 +34,7 @@ import {
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
   PendingAccountRegistrationRequest,
-} from '@common-types';
+} from '@daigaku/common-types';
 import { FormType } from '../models';
 
 /**

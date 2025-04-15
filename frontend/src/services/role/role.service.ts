@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfig } from '@configuration';
+import { axiosConfig } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { RoleOption } from '@common-types';
+import { RoleOption } from '@daigaku/common-types';
 
 /**
  * Defines role-related operations, handling API requests and interactions for role management.

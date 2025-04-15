@@ -8,15 +8,15 @@
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-/* component, style imports */
+/* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreSelectElement } from '../core-element/core-select-element';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { CoreSelectElementGroup, UniversityOption } from '@common-types';
+import { CoreSelectElementGroup, UniversityOption } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -27,7 +27,8 @@ import { CoreSelectElementGroup, UniversityOption } from '@common-types';
 interface UniversitySelectGroupProps<T extends FieldValues, UniversityOption> extends CoreSelectElementGroup<T, UniversityOption> {}
 
 /**
- * Renders a select element group instance integrated with the `react-hook-form` library to select a {@link UniversityOption}.
+ * Renders a select element group instance integrated with the `react-hook-form` library to select a
+ * {@link UniversityOption}.
  *
  * @param {UniversitySelectGroupProps<T, UniversityOption>} props
  * @return {JSX.Element}

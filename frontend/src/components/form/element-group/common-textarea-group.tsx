@@ -13,7 +13,7 @@ import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel
 import { CoreTextareaElement } from '../core-element/core-textarea-element';
 
 /* interface, type, enum imports */
-import { TextareaElementGroup } from '@common-types';
+import { TextareaElementGroup } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

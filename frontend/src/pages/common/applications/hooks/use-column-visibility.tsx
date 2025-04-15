@@ -8,8 +8,8 @@
 import { useState } from 'react';
 
 /* configuration, utilities, constants imports */
-import { localStorageKeys } from '@constants';
-import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities';
+import { localStorageKeys } from '@daigaku/constants';
+import { getLocalStorageObjectById, setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { Column } from '../models';

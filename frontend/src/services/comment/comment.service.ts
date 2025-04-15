@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Comment, CommentPaginationData, CreateComment } from '@common-types';
+import { Comment, CommentPaginationData, CreateComment } from '@daigaku/common-types';
 
 /**
  * Defines comment-related operations, handling API requests and interactions for comment management.

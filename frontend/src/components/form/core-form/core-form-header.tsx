@@ -9,7 +9,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { JSX, ReactElement } from 'react';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 const coreFormHeaderVariants = cva(joinTw('text-center'), {
   variants: {

@@ -8,13 +8,13 @@
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { commentService } from '@services';
+import { commentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { queryKeys } from '@configuration';
+import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { CommentPaginationData, SimpleQueryResult } from '@common-types';
+import { CommentPaginationData, SimpleQueryResult } from '@daigaku/common-types';
 
 /**
  * Manages fetching comments for a specific application record based on the selected page number in the pagination list.

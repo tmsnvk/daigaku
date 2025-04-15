@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application, StudentDashboardStatistics } from '@common-types';
+import { Application, StudentDashboardStatistics } from '@daigaku/common-types';
 
 /**
  * Defines generic-application operations, handling API requests and interactions for application management.

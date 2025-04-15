@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { ResponseStatus } from '@common-types';
+import { ResponseStatus } from '@daigaku/common-types';
 
 /**
  * Defines response status-related operations, handling API requests and interactions for response status management.

@@ -8,8 +8,8 @@
 import { JSX } from 'react';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
-import { getCurrentYear } from '@utilities';
+import { localization as l } from '@daigaku/constants';
+import { getCurrentYear } from '@daigaku/utilities';
 
 /**
  * Renders the application's footer area.

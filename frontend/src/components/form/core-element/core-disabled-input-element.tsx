@@ -10,7 +10,7 @@ import { InputHTMLAttributes, JSX } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 const coreInputElementVariants = cva(
   joinTw(

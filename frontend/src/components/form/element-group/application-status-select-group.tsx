@@ -8,12 +8,12 @@
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-/* component, style imports */
+/* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreSelectElement } from '../core-element/core-select-element';
 
 /* interface, type, enum imports */
-import { ApplicationStatusUnion, CoreSelectElementGroup } from '@common-types';
+import { ApplicationStatusUnion, CoreSelectElementGroup } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

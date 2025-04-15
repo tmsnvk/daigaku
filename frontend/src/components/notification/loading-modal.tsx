@@ -9,13 +9,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks';
+import { useRenderModal } from '@daigaku/hooks';
 
-/* component, style imports */
-import { CoreDialog } from '..';
+/* component imports */
+import { CoreDialog } from '../core';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
+import { iconLibraryConfig } from '@daigaku/configuration';
 
 /**
  * Defines the component's properties.

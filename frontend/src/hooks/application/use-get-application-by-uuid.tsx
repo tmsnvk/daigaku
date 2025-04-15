@@ -8,13 +8,13 @@
 import { useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { applicationService } from '@services';
+import { applicationService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { queryKeys } from '@configuration';
+import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application, SimpleQueryResult } from '@common-types';
+import { Application, SimpleQueryResult } from '@daigaku/common-types';
 
 /**
  * Fetches an application record by its uuid string.

@@ -11,13 +11,13 @@ import { JSX } from 'react';
 import { useCommentPagination, useGetCommentsByApplicationAndPagination } from '../hooks';
 
 /* component imports */
-import { LoadingIndicator } from '@components/general';
+import { LoadingIndicator } from '@daigaku/components/general';
 import { CommentPaginationButton } from './comment-pagination-button';
 import { Comments } from './comments';
 import { CreateCommentForm } from './create-comment-form';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /**
  * Defines the component's properties.
@@ -44,12 +44,12 @@ export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.El
   }
 
   return (
-    <section className={'w-[95%] mx-auto my-20 sm:w-[65%] lg:w-[95%]'}>
+    <section className={'mx-auto my-20 w-[95%] sm:w-[65%] lg:w-[95%]'}>
       <Comments
         comments={data?.comments ?? []}
         isError={isError}
       />
-      <div className={'w-[90%] flex flex-row items-center justify-around mx-auto mb-20'}>
+      <div className={'mx-auto mb-20 flex w-[90%] flex-row items-center justify-around'}>
         <CommentPaginationButton
           onClick={goToPreviousPage}
           isDisabled={data?.currentPage === 0}

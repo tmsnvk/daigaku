@@ -17,10 +17,10 @@ import { TileStatistic } from './tile-statistic';
 import { TodoList } from './todo-list';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics } from '@common-types';
+import { StudentDashboardStatistics } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

@@ -5,7 +5,7 @@
  */
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';

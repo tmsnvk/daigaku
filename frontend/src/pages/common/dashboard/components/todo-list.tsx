@@ -7,9 +7,11 @@
 /* vendor imports */
 import { JSX } from 'react';
 
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* interface, type, enum imports */
-import { Todo } from '@common-types';
-import { joinTw } from '@utilities';
+import { Todo } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

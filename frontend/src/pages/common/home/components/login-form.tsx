@@ -12,15 +12,15 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
-import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper, PasswordInputGroup } from '@components/form';
+import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper, PasswordInputGroup } from '@daigaku/components/form';
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginRequest } from '@common-types';
+import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginRequest } from '@daigaku/common-types';
 import { FormType } from '../models';
 
 /**

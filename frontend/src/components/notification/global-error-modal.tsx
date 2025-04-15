@@ -8,13 +8,13 @@
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks';
+import { useRenderModal } from '@daigaku/hooks';
 
-/* component, style imports */
+/* component imports */
 import { CoreModalClosingInputElement } from '../form';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /**
  * Defines the component's properties.

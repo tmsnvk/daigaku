@@ -8,8 +8,8 @@
 import { UseFormSetError } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
-import { queryClient, queryKeys } from '@configuration';
-import { localization as l } from '@constants';
+import { queryClient, queryKeys } from '@daigaku/configuration';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -20,7 +20,7 @@ import {
   ResponseStatus,
   ResponseStatusE,
   UpdateApplicationByStudent,
-} from '@common-types';
+} from '@daigaku/common-types';
 
 /**
  * The helper method used by {@link useHandleFormSubmission} filters various local `react-query` cache lists
@@ -48,7 +48,8 @@ const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefine
 };
 
 /**
- * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
+ * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom
+ * hooks.
  */
 export interface HandleFormSubmission {
   submitForm: (
@@ -63,7 +64,8 @@ export interface HandleFormSubmission {
  * Manages the form submission's first step.
  * It checks if the user already has an {@link Application} set to either {@link ResponseStatusE.FIRM_CHOICE},
  * {@link FinalDestinationStatusE.FINAL_DESTINATION} or {@link FinalDestinationStatusE.DEFERRED_ENTRY}.
- * If yes, an error message stops the submission. If no error was found, the submitForm() method calls the `react-query` mutate() method.
+ * If yes, an error message stops the submission. If no error was found, the submitForm() method calls the
+ * `react-query` mutate() method.
  *
  * @return {HandleFormSubmission}
  */

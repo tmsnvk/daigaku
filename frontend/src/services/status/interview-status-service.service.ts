@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { InterviewStatus } from '@common-types';
+import { InterviewStatus } from '@daigaku/common-types';
 
 /**
  * Defines interview status-related operations, handling API requests and interactions for interview status management.

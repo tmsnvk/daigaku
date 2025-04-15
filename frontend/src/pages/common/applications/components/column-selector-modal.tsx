@@ -8,10 +8,10 @@
 import { JSX } from 'react';
 
 /* logic imports */
-import { useRenderModal } from '@hooks';
+import { useRenderModal } from '@daigaku/hooks';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { Column } from '../models';
@@ -42,7 +42,8 @@ interface ColumnSelectorModalProps {
 }
 
 /**
- * Renders the column selector modal component that lets users to choose which data columns they wish to see on the page.
+ * Renders the column selector modal component that lets users to choose which data columns they wish to see on the
+ * page.
  *
  * @return {JSX.Element}
  */

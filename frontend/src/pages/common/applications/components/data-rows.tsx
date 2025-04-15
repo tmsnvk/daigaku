@@ -10,13 +10,13 @@ import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
-import { localization as l } from '@constants';
-import { joinTw } from '@utilities';
+import { iconLibraryConfig } from '@daigaku/configuration';
+import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
+import { Application } from '@daigaku/common-types';
 import { Column } from '../models';
 
 /**

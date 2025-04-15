@@ -9,16 +9,19 @@ import { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
 
 /* logic imports */
-import { AuthStatus, useAuthContext } from '@context/auth';
-import { useModalControl } from '@hooks';
+import { useAuthContext } from '@daigaku/context';
+import { useModalControl } from '@daigaku/hooks';
 import { useFormSwitcher } from './hooks';
 
 /* component imports */
-import { ConfirmationModal } from '@components/notification';
+import { ConfirmationModal } from '@daigaku/components/notification';
 import { FormSectionWrapper } from './components';
 
 /* configuration, utilities, constants imports */
 import { confirmationModalFeedback } from './constants';
+
+/* interface, type, enum imports */
+import { AuthStatus } from '@daigaku/common-types';
 
 /**
  * Renders the application's root page.

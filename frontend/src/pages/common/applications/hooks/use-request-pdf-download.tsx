@@ -9,10 +9,10 @@ import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 /* logic imports */
-import { applicationStudentService } from '@services';
+import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@configuration';
+import { mutationKeys } from '@daigaku/configuration';
 
 /**
  * Defines the possible error types of the {@link useRequestPdfDownload} custom hook.

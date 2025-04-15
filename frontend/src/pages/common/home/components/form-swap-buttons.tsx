@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CoreButton } from '@components/index';
+import { CoreButton } from '@daigaku/components/core';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';

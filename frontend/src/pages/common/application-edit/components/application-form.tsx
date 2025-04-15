@@ -11,8 +11,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 /* logic imports */
 import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplicationFormMutation } from '../hooks';
 
-/* component, style imports */
-import { ApplicationMetadata } from '@components/application';
+/* component imports */
+import { ApplicationMetadata } from '@daigaku/components/general';
 import {
   ApplicationStatusSelectGroup,
   CoreFormAction,
@@ -20,12 +20,12 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
   DisabledInputGroup,
-} from '@components/form';
-import { Toast } from '@components/notification';
+} from '@daigaku/components/form';
+import { Toast } from '@daigaku/components/notification';
 import { IsRemovableButton } from './is-removable-button';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -39,7 +39,7 @@ import {
   OfferStatus,
   ResponseStatus,
   UpdateApplicationByStudent,
-} from '@common-types';
+} from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

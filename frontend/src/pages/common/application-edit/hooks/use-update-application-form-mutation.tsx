@@ -10,14 +10,14 @@ import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { applicationStudentService } from '@services';
+import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { errorConstants } from '@constants';
+import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, ErrorDetail, UpdateApplicationByStudent } from '@common-types';
+import { Application, CoreErrorResponse, ErrorDetail, UpdateApplicationByStudent } from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.

@@ -20,7 +20,7 @@ import {
   OfferStatusE,
   ResponseStatus,
   ResponseStatusE,
-} from '@common-types';
+} from '@daigaku/common-types';
 
 /**
  * TODO
@@ -264,7 +264,8 @@ interface HandleFieldDisableStatus {
 }
 
 /**
- * The custom hook handles the logic connected to the individual field updates, i.e. when and which field should get disabled.
+ * The custom hook handles the logic connected to the individual field updates, i.e. when and which field should get
+ * disabled.
  *
  * @param application The {@link Application} that is going to be updated.
  * @param updatedData The updated data.

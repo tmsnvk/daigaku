@@ -11,16 +11,16 @@ import { UseFormSetError } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useAuthContext } from '@context/auth';
-import { accountService } from '@services';
+import { useAuthContext } from '@daigaku/context';
+import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@configuration';
-import { errorConstants, localStorageKeys } from '@constants';
-import { setLocalStorageObjectById } from '@utilities';
+import { mutationKeys } from '@daigaku/configuration';
+import { errorConstants, localStorageKeys } from '@daigaku/constants';
+import { setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, LoginRequest, LoginResponse } from '@common-types';
+import { CoreErrorResponse, LoginRequest, LoginResponse } from '@daigaku/common-types';
 
 /**
  * Manages the login form submission.

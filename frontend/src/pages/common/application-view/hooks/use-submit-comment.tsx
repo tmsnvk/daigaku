@@ -10,14 +10,14 @@ import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { commentService } from '@services';
+import { commentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { errorConstants } from '@constants';
+import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Comment, CoreErrorResponse, CreateComment, ErrorDetail } from '@common-types';
+import { Comment, CoreErrorResponse, CreateComment, ErrorDetail } from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useSubmitComment} custom hook.

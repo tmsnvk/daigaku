@@ -9,23 +9,23 @@ import { JSX, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoles, AuthStatus, useAuthContext } from '@context/auth.tsx';
-import { useMobileView, useSmallScreenNavbarDisplay } from '@hooks';
+import { useAuthContext } from '@daigaku/context';
+import { useMobileView, useSmallScreenNavbarDisplay } from '@daigaku/hooks';
 
-/* component, style imports */
+/* component imports */
 import { LoadingModal } from '../notification';
 import { Footer } from './footer.tsx';
 import { NavigationRoute } from './navigation-route.tsx';
 import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
+import { CoreIcon } from '../core/core-icon.tsx';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
-import { localization as l } from '@constants';
-import { joinTw } from '@utilities';
+import { iconLibraryConfig } from '@daigaku/configuration';
+import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { NavigationRouteItem } from '@common-types';
-import { CoreIcon } from '../core-icon.tsx';
+import { AccountRoles, AuthStatus, NavigationRouteItem } from '@daigaku/common-types';
 
 /**
  * Defines shared navigation routes accessible to all authenticated users.

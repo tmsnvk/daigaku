@@ -10,7 +10,7 @@ import { InputHTMLAttributes, JSX } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 const coreSubmitInputElementVariants = cva(
   joinTw('h-20 px-6 text-2xl font-bold rounded-xl tracking-widest hover:outline-2 focus:outline-1'),

@@ -10,7 +10,7 @@ import { JSX, ReactNode, SelectHTMLAttributes } from 'react';
 import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 const coreSelectElementVariants = cva(joinTw('w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 rounded-xl', 'focus:outline-1'), {
   variants: {
@@ -34,7 +34,8 @@ interface CoreSelectElementProps<T extends FieldValues>
   extends VariantProps<typeof coreSelectElementVariants>,
     SelectHTMLAttributes<HTMLSelectElement> {
   /**
-   * Optional validation rules to handle the select element's validation using the `react-hook-form` library for validation management.
+   * Optional validation rules to handle the select element's validation using the `react-hook-form` library for
+   * validation management.
    */
   readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
 

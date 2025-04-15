@@ -8,13 +8,14 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application, CreateApplicationByStudent, UpdateApplicationByStudent } from '@common-types';
+import { Application, CreateApplicationByStudent, UpdateApplicationByStudent } from '@daigaku/common-types';
 
 /**
- * Defines student-application service operations, handling API requests and interactions for student-related application management.
+ * Defines student-application service operations, handling API requests and interactions for student-related
+ * application management.
  */
 interface ApplicationStudentService {
   /**

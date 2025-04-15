@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { CountryOption } from '@common-types';
+import { CountryOption } from '@daigaku/common-types';
 
 /**
  * Defines country-related operations, handling API requests and interactions for country management.

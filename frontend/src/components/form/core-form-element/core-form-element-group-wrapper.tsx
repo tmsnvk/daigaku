@@ -8,7 +8,7 @@
 import { ReactNode } from 'react';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

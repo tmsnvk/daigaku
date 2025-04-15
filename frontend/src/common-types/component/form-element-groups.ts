@@ -8,8 +8,8 @@
 import { FieldValues } from 'react-hook-form';
 
 /* interface, type, enum imports */
-import { CoreFormElementValidation } from './core-form-element-validation';
-import { CoreInputElementStyleIntent, CoreSelectElementStyleIntent, CoreTextareaElementStyleIntent } from './form-element-style-intents';
+import { CoreFormElementValidation } from './core-form-element-validation.ts';
+import { CoreInputElementStyleIntent, CoreSelectElementStyleIntent, CoreTextareaElementStyleIntent } from './form-element-style-intents.ts';
 
 /**
  * Defines the properties of core form elements

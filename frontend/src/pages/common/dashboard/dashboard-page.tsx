@@ -9,19 +9,19 @@ import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoles, useAuthContext } from '@context/auth';
-import { useGetApplications } from '@hooks';
+import { useAuthContext } from '@daigaku/context';
+import { useGetApplications } from '@daigaku/hooks';
 import { useDashboardStatisticsQuery } from './hooks';
 
 /* component imports */
-import { GlobalErrorModal, LoadingModal } from '@components/notification';
+import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 import { LayoutStudent } from './components';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics } from '@common-types';
+import { AccountRoles, StudentDashboardStatistics } from '@daigaku/common-types';
 
 /**
  * Renders the application records' dashboard for authenticated users.

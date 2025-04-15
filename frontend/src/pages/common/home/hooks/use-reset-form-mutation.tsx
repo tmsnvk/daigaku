@@ -10,14 +10,14 @@ import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { accountService } from '@services';
+import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@configuration';
-import { errorConstants } from '@constants';
+import { mutationKeys } from '@daigaku/configuration';
+import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { AccountResetRequest, CoreErrorResponse } from '@common-types';
+import { AccountResetRequest, CoreErrorResponse } from '@daigaku/common-types';
 
 /**
  * Manages the password reset form submission.

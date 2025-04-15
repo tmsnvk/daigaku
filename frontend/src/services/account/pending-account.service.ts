@@ -5,13 +5,14 @@
  */
 
 /* configuration, utilities, constants imports */
-import { axiosConfig } from '@configuration';
+import { axiosConfig } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { PendingAccountRegistrationRequest } from '@common-types';
+import { PendingAccountRegistrationRequest } from '@daigaku/common-types';
 
 /**
- * Defines pending account service-related operations, handling API requests and interactions for pending account management.
+ * Defines pending account service-related operations, handling API requests and interactions for pending account
+ * management.
  */
 interface PendingAccountService {
   /**

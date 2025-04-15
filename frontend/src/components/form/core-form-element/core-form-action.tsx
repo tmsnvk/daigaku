@@ -8,14 +8,14 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { LoadingIndicator } from '@components/general';
+import { LoadingIndicator } from '@daigaku/components/general';
 import { CoreFormElementError, CoreSubmitInputElement } from '..';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { CoreSubmitInputElementStyleIntent } from '@common-types';
+import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -58,8 +58,8 @@ interface CoreFormActionProps {
 }
 
 /**
- * Manages the form submission action. If the form submission is currently pending, a loading spinner with a message is shown,
- * otherwise the form's submit button is displayed. In case of an error, it is displayed.
+ * Manages the form submission action. If the form submission is currently pending, a loading spinner with a message is
+ * shown, otherwise the form's submit button is displayed. In case of an error, it is displayed.
  *
  * @param {CoreFormActionProps}
  * @returns {JSX.Element}

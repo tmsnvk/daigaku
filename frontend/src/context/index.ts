@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { AuthProvider, useAuthContext } from './auth';
+import { AuthProvider, useAuthContext } from './authentication.tsx';
 
-export { AuthProvider, useAuthContext as useAuth };
+export { AuthProvider, useAuthContext };

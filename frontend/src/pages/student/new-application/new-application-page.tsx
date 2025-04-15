@@ -7,7 +7,7 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
+/* component imports */
 import { NewApplicationForm } from './components';
 
 /**
