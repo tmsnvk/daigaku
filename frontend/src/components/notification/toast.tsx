@@ -6,14 +6,14 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { joinTw } from '@utilities';
 
 /* component, style imports */
-import { Section } from './toast.styles.ts';
 
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface ToastProps {
   /**
    * Indicates whether the component should be visible.
    */
@@ -33,9 +33,21 @@ interface ComponentProps {
 /**
  * Renders a pop-up toast dialog as a feedback to the user.
  *
- * @param {ComponentProps} props
+ * @param {ToastProps} props
  * @return {JSX.Element | null}
  */
-export const Toast = ({ isVisible, message, onAnimationEnd }: ComponentProps): JSX.Element | null => {
-  return isVisible ? <Section onAnimationEnd={onAnimationEnd}>{message}</Section> : null;
+export const Toast = ({ isVisible, message, onAnimationEnd }: ToastProps): JSX.Element | null => {
+  return isVisible ? (
+    <section
+      onAnimationEnd={onAnimationEnd}
+      className={joinTw(
+        'core-primary-border bg-accent z-100 fixed h-40 w-80 overflow-visible',
+        'flex items-center justify-center',
+        'bottom-40 px-6 text-2xl',
+        'animate-simple-fade-out',
+      )}
+    >
+      {message}
+    </section>
+  ) : null;
 };

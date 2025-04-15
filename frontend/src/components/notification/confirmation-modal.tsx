@@ -11,8 +11,7 @@ import { JSX } from 'react';
 import { useRenderModal } from '@hooks';
 
 /* component, style imports */
-import { SubmitInput } from '@components/form';
-import { Dialog } from './confirmation-modal.styles';
+import { CoreModalClosingInputElement } from '../form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -20,7 +19,7 @@ import { localization as l } from '@constants';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface ConfirmationModalProps {
   /**
    * Indicates whether the modal should be visible.
    */
@@ -40,21 +39,22 @@ interface ComponentProps {
 /**
  * Renders a modal dialog for user confirmation with a message.
  *
- * @param {ComponentProps} props
+ * @param {ConfirmationModalProps} props
  * @return {JSX.Element}
  */
-export const ConfirmationModal = ({ isVisible, message, onCloseModal }: ComponentProps): JSX.Element => {
+export const ConfirmationModal = ({ isVisible, message, onCloseModal }: ConfirmationModalProps): JSX.Element => {
   const { dialogRef } = useRenderModal(isVisible);
 
   return (
-    <Dialog ref={dialogRef}>
-      <p>{message}</p>
-      <SubmitInput
-        type={'button'}
+    <dialog
+      ref={dialogRef}
+      className={'text-center'}
+    >
+      <p className={'pb-10 text-xl'}>{message}</p>
+      <CoreModalClosingInputElement
         value={l.COMPONENTS.NOTIFICATION.MODAL.CONFIRMATION.ACCEPTANCE}
-        autoFocus={true}
         onClick={onCloseModal}
       />
-    </Dialog>
+    </dialog>
   );
 };

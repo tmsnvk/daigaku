@@ -112,6 +112,7 @@
 
   --animate-fade-in-from-left: fade-in-from-left ease 0.75s;
   --animate-simple-fade-in: simple-fade-in ease-in 0.25s;
+  --animate-simple-fade-out: simple-fade-out ease-out 0.5s;
 
   @keyframes fade-in-from-left {
     0% {
@@ -132,6 +133,16 @@
 
     100% {
       opacity: 1;
+    }
+  }
+
+  @keyframes simple-fade-out {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
     }
   }
 }

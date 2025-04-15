@@ -21,9 +21,10 @@ import { DisabledInputGroup } from './element-group/disabled-input-group';
 import { InstitutionSelectGroup } from './element-group/institution-select-group';
 import { PasswordInputGroup } from './element-group/password-input-group';
 import { UniversitySelectGroup } from './element-group/university-select-group';
-import { SubmitInput } from './submit-input';
+import { CoreModalClosingInputElement } from './core-element/core-modal-closing-input-element.tsx';
 
 export {
+  CoreModalClosingInputElement,
   AccountRoleSelectGroup,
   ApplicationStatusSelectGroup,
   CommonInputGroup,
@@ -40,6 +41,5 @@ export {
   DisabledInputGroup,
   InstitutionSelectGroup,
   PasswordInputGroup,
-  SubmitInput,
   UniversitySelectGroup,
 };

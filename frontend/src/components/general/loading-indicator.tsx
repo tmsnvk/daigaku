@@ -5,19 +5,18 @@
  */
 
 /* vendor imports */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
 /* component, style imports */
-import { Article } from './loading-indicator.styles';
+import { CoreIcon } from '../index.ts';
 
-/* configuration imports */
+/* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface LoadingIndicatorProps {
   /**
    * The message displayed while loading the active page.
    */
@@ -27,17 +26,18 @@ interface ComponentProps {
 /**
  * Renders a loading indicator component that displays a loading message and a spinner icon.
  *
- * @param {ComponentProps} props
+ * @param {LoadingIndicatorProps} props
  * @return {JSX.Element}
  */
-export const LoadingIndicator = ({ loadingText }: ComponentProps): JSX.Element => {
+export const LoadingIndicator = ({ loadingText }: LoadingIndicatorProps): JSX.Element => {
   return (
-    <Article>
+    <article className={'text-secondary flex items-center justify-center text-2xl'}>
       <p>{loadingText}</p>
-      <FontAwesomeIcon
+      <CoreIcon
         icon={iconLibraryConfig.faSpinner}
         spin
+        className={'ml-4'}
       />
-    </Article>
+    </article>
   );
 };

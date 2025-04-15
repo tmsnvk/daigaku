@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
 /* configuration, utilities, constants imports */
@@ -15,7 +15,7 @@ import { joinTw } from '@utilities';
 /**
  * Defines the component's properties.
  */
-interface CoreIconProps {
+interface CoreIconProps extends Omit<FontAwesomeIconProps, 'icon'> {
   /**
    * The icon component to be displayed.
    */
@@ -28,17 +28,18 @@ interface CoreIconProps {
 }
 
 /**
- * Renders the core icon component used throughout the application.
+ * Renders the core icon component displaying FontAwesome icons used throughout the application.
  *
  * @param {CoreIconProps}
  * @return {JSX.Element}
  */
-export const CoreIcon = ({ icon, className }: CoreIconProps): JSX.Element => {
+export const CoreIcon = ({ icon, className, ...rest }: CoreIconProps): JSX.Element => {
   return (
     <div className={'text-3xl'}>
       <FontAwesomeIcon
         icon={icon}
         className={joinTw(className)}
+        {...rest}
       />
     </div>
   );

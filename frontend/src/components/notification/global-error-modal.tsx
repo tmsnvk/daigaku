@@ -11,8 +11,7 @@ import { JSX } from 'react';
 import { useRenderModal } from '@hooks';
 
 /* component, style imports */
-import { SubmitInput } from '@components/form';
-import { Dialog } from './global-error-modal.styles.ts';
+import { CoreModalClosingInputElement } from '../form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@constants';
@@ -20,7 +19,7 @@ import { localization as l } from '@constants';
 /**
  * Defines the component's properties.
  */
-interface ComponentProps {
+interface GlobalErrorModalProps {
   /**
    * Indicates whether the modal should be visible.
    */
@@ -40,23 +39,24 @@ interface ComponentProps {
 /**
  * Renders a modal when an unexpected error occurs in the application.
  *
- * @param {ComponentProps} props
+ * @param {GlobalErrorModalProps} props
  * @return {JSX.Element}
  */
-export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: ComponentProps): JSX.Element => {
+export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: GlobalErrorModalProps): JSX.Element => {
   const { dialogRef } = useRenderModal(isVisible);
 
   return (
-    <Dialog ref={dialogRef}>
-      <p>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[0]}</p>
+    <dialog
+      ref={dialogRef}
+      className={'w-5/10 bg-primary flex flex-col'}
+    >
+      <p className={'mx-6 my-10'}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[0]}</p>
       {errorText && <p>{errorText}</p>}
-      <p>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[1]}</p>
-      <SubmitInput
-        type={'button'}
+      <p className={'mx-6 my-10'}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[1]}</p>
+      <CoreModalClosingInputElement
         value={l.COMPONENTS.NOTIFICATION.MODAL.ERROR.ACCEPTANCE}
-        autoFocus={true}
         onClick={onCloseModal}
       />
-    </Dialog>
+    </dialog>
   );
 };
