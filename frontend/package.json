@@ -12,7 +12,7 @@
   "keywords": [
     "react",
     "typescript",
-    "styled-components",
+    "tailwind",
     "react-query",
     "react-hooks"
   ],
@@ -40,19 +40,16 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.49.3",
     "react-router-dom": "^7.1.0",
-    "styled-components": "^6.1.12",
     "tailwind-merge": "^3.0.2",
     "ts-pattern": "^5.7.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.0",
-    "@styled/typescript-styled-plugin": "^1.0.1",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/parser": "^8.18.1",
     "@vitejs/plugin-react": "^4.3.4",
-    "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react": "^7.32.2",
