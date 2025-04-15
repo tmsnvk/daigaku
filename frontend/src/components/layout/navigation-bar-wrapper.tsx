@@ -23,7 +23,7 @@ interface NavigationBarWrapperProps {
 export const NavigationBarWrapper = ({ children }: NavigationBarWrapperProps): JSX.Element => {
   return (
     <header className={'bg-primary border-secondary sticky top-0 z-50 border-b-2'}>
-      <nav className={'flex h-40 items-center justify-around'}>{children}</nav>
+      <nav className={'w-9/10 mx-auto flex h-40 items-center justify-between lg:justify-around'}>{children}</nav>
     </header>
   );
 };

@@ -30,7 +30,8 @@ interface FormSwitcher {
 }
 
 /**
- * A helper method used by {@link useFormSwitcher} to retrieve the appropriate form component based on the provided {@link FormType}.
+ * A helper method used by {@link useFormSwitcher} to retrieve the appropriate form component based on the provided
+ * {@link FormType}.
  *
  * @param selectedFormType The current {@link FormType} that determines which component is rendered.
  * @param selectFormTypeHandler The method to change the rendered form component.
@@ -70,7 +71,7 @@ const getSelectedFormComponent = (
  * @return {FormSwitcher}
  */
 export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
-  const DEFAULT_LOADED_FORM_TYPE = FormType.REGISTER;
+  const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
   const [selectedFormType, setSelectedFormType] = useState<FormType>(DEFAULT_LOADED_FORM_TYPE);
 
   const selectFormTypeHandler = (formType: FormType): void => {
