@@ -50,7 +50,7 @@ export interface LoginResponse {
 /**
  * Defines the properties of a user registration form submission.
  */
-export interface PendingAccountRegisterRequest {
+export interface PendingAccountRegistrationRequest {
   /**
    * The first name used during the registration event.
    */

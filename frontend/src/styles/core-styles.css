@@ -1,0 +1,56 @@
+@layer components {
+  .core-primary-border {
+    background-color: var(--color-primary);
+    border: var(--default-blue-border);
+    border-radius: var(--default-border-radius);
+    box-shadow: var(--right-bottom-secondary-shadow);
+  }
+
+  .core-secondary-border {
+    background-color: var(--color-primary);
+    border: var(--default-blue-border);
+    border-radius: var(--default-border-radius);
+    box-shadow: var(--right-bottom-secondary-shadow);
+  }
+
+  .core-tertiary-border {
+    background-color: var(--color-tertiary);
+    border-radius: var(--default-border-radius);
+    box-shadow: var(--right-bottom-secondary-shadow);
+  }
+
+  .core-application-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 2.5rem;
+    row-gap: 5rem;
+    width: 95%;
+    margin: 2rem auto 2rem auto;
+    padding: 0 5rem 0 5rem;
+    justify-items: center;
+
+    & article:nth-last-of-type(2),
+    & article:last-of-type {
+      min-width: fit-content;
+    }
+  }
+
+  .core-loading-dialog-window {
+    &[open] {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+
+    &[open]::backdrop {
+      backdrop-filter: blur(0.5rem);
+    }
+
+    @starting-style {
+      &[open] {
+        opacity: 0;
+        transform: scaleY(0);
+      }
+    }
+  }
+}

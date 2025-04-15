@@ -3,7 +3,7 @@
 ### Table of Contents
 
 - I. Project Description
-- II. Techstack
+- II. Tech stack
 - III. Running the Application
 - IV. Development Roadmap
 - V. Sneak Peak
@@ -16,7 +16,7 @@
 - Users with `institution admin` permission receive admin rights for their `institution` (e.g. accept incoming student/mentor registration requests, access detailed aggregate reports, etc.), while `system admins` have application-wide rights and data overview.
 - A currently work-in-progress learning-project application with new features being continuously developed and added.
 
-### II. Techstack
+### II. Tech stack
 
 ```
 Frontend
@@ -24,7 +24,7 @@ Frontend
     + React Router                              - client-side routing solution.
     + React Query                               - data fetching and server state manager solution.
     + React Hook Form                           - form managing library.
-    + Styled Components                         - css-in-javascript styling solution.
+    + Tailwind                                  - css styling solution.
     + Fontawesome                               - icon library.
     + Axios                                     - http client.
     + ESLint                                    - static code analysis tool.

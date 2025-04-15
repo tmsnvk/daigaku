@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { Applications } from './applications.page';
+import { Applications } from './applications-page';
 
 export { Applications };

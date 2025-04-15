@@ -5,7 +5,7 @@
  */
 
 /* interface, type, enum imports */
-import { BaseMetadata } from '../base/base-metada.models';
+import { CoreMetadata } from '../base/core-metada.models';
 
 /**
  * Defines the properties of a single new Comment submission.
@@ -22,7 +22,7 @@ export interface CreateComment {
  * Represents an individual comment that can be created on an application record
  * and includes metadata about the comment's lifecycle and author.
  */
-export interface Comment extends BaseMetadata {
+export interface Comment extends CoreMetadata {
   /**
    * The comment's uuid.
    */

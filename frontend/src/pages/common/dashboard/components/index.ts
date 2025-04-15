@@ -4,8 +4,6 @@
  * @author tmsnvk
  */
 
-import { DetailTile } from './detail-tile';
-import { StatTile } from './stat-tile';
-import { TodosView } from './todos-view';
+import { LayoutStudent } from './layout-student';
 
-export { DetailTile, StatTile, TodosView };
+export { LayoutStudent };

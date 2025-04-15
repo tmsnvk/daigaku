@@ -12,7 +12,7 @@
   "keywords": [
     "react",
     "typescript",
-    "styled-components",
+    "tailwind",
     "react-query",
     "react-hooks"
   ],
@@ -29,31 +29,39 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@tailwindcss/vite": "^4.0.7",
     "@tanstack/react-query": "^5.8.4",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.49.3",
     "react-router-dom": "^7.1.0",
-    "styled-components": "^6.1.12"
+    "tailwind-merge": "^3.0.2",
+    "ts-pattern": "^5.7.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.0",
-    "@styled/typescript-styled-plugin": "^1.0.1",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/parser": "^8.18.1",
-    "@vitejs/plugin-react": "^4.2.1",
-    "babel-plugin-styled-components": "^2.1.4",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
+    "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.0.7",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1",
-    "vite": "^6.0.5",
+    "vite": "^6.1.0",
+    "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }

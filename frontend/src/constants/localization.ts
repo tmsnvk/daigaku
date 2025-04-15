@@ -84,7 +84,7 @@ export const localization = {
     },
     FOOTER: {
       INIT_YEAR: 2024,
-      CONTENT: '© built with reactjs, spring boot, rabbitmq, redis, psql and ❤️',
+      CONTENT: '© built with vite/tanstack reactjs, spring boot, rabbitmq, redis, psql and ❤️',
     },
   },
   PAGES: {
@@ -101,7 +101,7 @@ export const localization = {
           },
         },
         FORM: {
-          TITLE: 'Update Application Form',
+          TITLE: 'Update Application',
           INFORMATION: [
             'Review your application and update its fields once you have received decisions / information from the university.',
             "You are not able to edit the course name, university and country fields as your application is considered final. If you have submitted this application by mistake with incorrect data, mark it for deletion and your mentor will review it. If you have changed your mind about the application, set its Application Status to 'Withdrawn'. This rule is in place for statistical reasons.",
@@ -164,8 +164,7 @@ export const localization = {
               SELECT_PROMPT: 'Update your final decision regarding this application.',
               INFORMATION: [
                 'Update this final status once you have every necessary information.',
-                `You may only have one Final Destination that is you accepted the university's offer.
-                  The rest of your applications should be set to 'Not Final Destination'.`,
+                "You may only have one Final Destination that is you accepted the university's offer. The rest of your applications should be set to 'Not Final Destination'.",
               ],
             },
           },
@@ -178,7 +177,6 @@ export const localization = {
       APPLICATION_VIEW: {
         PAGE_LOADING: 'The application is compiling your data...',
         EDIT_BUTTON: 'Edit',
-        TITLE: 'View Application',
         FIELDS: {
           COUNTRY: {
             NAME: 'Country',
@@ -222,7 +220,7 @@ export const localization = {
             "There was an unexpected error and it is currently not possible to display the application's comments. Refresh your browser and if the error persists try again at a later time.",
           CREATE_COMMENT: {
             SUBMIT_LOADING: 'Your comment is being submitted.',
-            SUBMIT_INPUT: 'Add Comment',
+            SUBMIT_INPUT: 'Add comment',
             FORM: {
               CONTENT: {
                 LABEL: 'Write your comment',
@@ -238,6 +236,11 @@ export const localization = {
       },
       APPLICATIONS: {
         TABLE_HEADER: {
+          BUTTONS: {
+            REFRESH: 'Refresh',
+            DISPLAY: 'Display',
+            DOWNLOAD: 'Download',
+          },
           LOADING: 'The application is compiling your data...',
           DOWNLOAD: {
             REQUEST: 'Handling your request...',
@@ -253,7 +256,7 @@ export const localization = {
         PAGE_LOADING: 'The application is compiling your data...',
         TILE: {
           APPLICATIONS: 'Applications',
-          PLANNED_APPLICATIONS: 'Planned Applicatoins',
+          PLANNED_APPLICATIONS: 'Planned Applications',
           SUBMITTED_APPLICATIONS: 'Submitted Applications',
           WITHDRAWN_APPLICATIONS: 'Withdrawn Applications',
           DISTINCT_COUNTRIES: 'Distinct Countries',
@@ -286,7 +289,7 @@ export const localization = {
         BUTTONS: {
           LOGIN: 'Log in',
           REGISTRATION: 'Create account',
-          RESET: 'Forgot password?',
+          RESET: 'Forgotten password?',
         },
         NOTIFICATIONS: {
           REGISTRATION: 'Thank you for registering your account. You will soon receive an email with further details.',
@@ -297,7 +300,7 @@ export const localization = {
             PAGE_LOADING: 'You are being logged in.',
           },
           FORM: {
-            INSTRUCTION: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',
+            HEADER: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',
             EMAIL: {
               PLACEHOLDER: 'Enter your email address',
               LABEL: 'Email',
@@ -312,16 +315,16 @@ export const localization = {
                 REQUIRED: 'Providing your password is required.',
               },
             },
-            SUBMIT: 'sign in',
+            SUBMIT: 'Sign in',
           },
         },
         PENDING_ACCOUNT_REGISTRATION: {
           MESSAGES: {
-            PAGE_LOADING: 'The application is fetching the necessary data for the form submission...',
+            PAGE_LOADING: 'The required data is being fetched...',
             FORM_LOADING: 'Your registration is being submitted.',
           },
           FORM: {
-            INSTRUCTION: 'Register an account if you are not in our system yet.',
+            HEADER: 'Register an account if you are not in our system yet.',
             FIRST_NAME: {
               LABEL: 'First Name',
               PLACEHOLDER: 'Enter your first name(s)',
@@ -355,7 +358,7 @@ export const localization = {
                 REQUIRED: 'Selecting an institution is required.',
               },
             },
-            SUBMIT: 'register',
+            SUBMIT: 'Register',
           },
         },
         PASSWORD_RESET: {
@@ -363,7 +366,7 @@ export const localization = {
             FORM_LOADING: 'Your registration is being handled.',
           },
           FORM: {
-            INSTRUCTION:
+            HEADER:
               'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.',
             EMAIL: {
               LABEL: 'Email',
@@ -373,7 +376,7 @@ export const localization = {
               },
             },
           },
-          SUBMIT: 'reset',
+          SUBMIT: 'Reset',
         },
       },
     },
@@ -386,7 +389,7 @@ export const localization = {
           SUCCESS_TOAST: 'Your submission was successful. Wishing you the best of luck with your application!',
         },
         FORM: {
-          TITLE: 'New Application Form',
+          TITLE: 'Submit New Application',
           INFORMATION: [
             'Fill in all mandatory fields before submitting the application.',
             'Upon visiting the Applications page, you will find more fields to fill in for each of your submitted applications.',
@@ -395,13 +398,12 @@ export const localization = {
             'Submit an application only if you are committed to it.',
             "If you do not find your selected country or university in the dropdown lists, reach out to an admin via the 'Feedback' form.",
           ],
-          SUBMIT: 'submit application',
+          SUBMIT: 'Submit application',
           COUNTRY: {
             INFORMATION: [
               'The first step of your application process is selecting the country of your choice.',
               'You are not able to select your chosen university until you have selected its home country.',
-              `If you do not see the country of your choice amongst the selectOptions,
-              reach out to our admin team using the form under the Contact Us page.`,
+              'If you do not see the country of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
             ],
             VALIDATION: {
               REQUIRED: 'Selecting a country is required.',
@@ -409,9 +411,8 @@ export const localization = {
           },
           UNIVERSITY: {
             INFORMATION: [
-              'Once you have selected a country, you will be able to pick any universities of that country from the dropdown selectOptions.',
-              `If you do not see the university of your choice amongst the selectOptions,
-              reach out to our admin team using the form under the Contact Us page.`,
+              'Once you have selected a country, you will be able to pick any universities of that country from the dropdown options.',
+              'If you do not see the university of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
             ],
             VALIDATION: {
               REQUIRED: 'Selecting a university is required.',
@@ -469,7 +470,7 @@ export const localization = {
         LABEL: 'Country',
         DEFAULT_OPTION: 'Select the country of your choice.',
       },
-      INSTITUITON_DROPDOWN: {
+      INSTITUTION_DROPDOWN: {
         LABEL: 'Institution',
         DEFAULT_OPTION: 'Select the institution you currently attend.',
       },

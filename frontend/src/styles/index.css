@@ -1,0 +1,148 @@
+@import 'tailwindcss';
+@import './core-styles.css';
+@import './components.css';
+@import './layouts.css';
+
+@layer base {
+  * {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 62.5%;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    width: 100vw;
+    min-height: 100vh;
+    font-family: var(--primary-font);
+    color: var(--foreground);
+    background-color: var(--background);
+
+    & > div {
+      position: relative;
+      min-height: 100vh;
+
+      & > div {
+        height: 7.5rem;
+      }
+    }
+  }
+
+  a,
+  a:hover,
+  a:visited,
+  a:active {
+    text-decoration: none;
+  }
+
+  ul,
+  ol,
+  li {
+    list-style-type: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+}
+
+/* --destructive: #f94144;
+--color-white-smoke: #f0f0f0;
+--color-light-gray: #aaaaaa; DON'T USE THIS
+--color-columbia-blue: #c9d7dd;
+--color-jacarta: #31304d;
+--color-dark-gun-metal: #161a30;DON'T USE THIS
+--color-indian-yellow: #eea14f */
+
+@theme {
+  --foreground: hsla(242deg, 23%, 25%, 1);
+  --background: hsla(0deg, 0%, 94%, 1);
+
+  /* blue */
+  --color-primary: hsla(198deg, 23%, 83%, 1);
+  --right-bottom-primary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-primary);
+
+  /* dark blue (almost black) */
+  --color-secondary: hsla(242deg, 23%, 25%, 1);
+  --color-secondary-muted: hsla(242deg, 23%, 25%, 0.5);
+  --right-bottom-secondary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-secondary);
+
+  /* light gray */
+  --color-tertiary: hsla(0deg, 0%, 94%, 1);
+  --right-bottom-tertiary-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-tertiary);
+
+  /* orange */
+  --color-accent: hsla(31deg, 82%, 62%, 1);
+  --right-bottom-accent-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-accent);
+
+  /* red */
+  --color-destructive: hsla(359deg, 93%, 62%, 1);
+  --right-bottom-destructive-shadow: 0.2rem 0.2rem 0 0.15rem var(--color-secondary);
+
+  --primary-font: 'Raleway', 'sans-serif';
+  --secondary-font: 'Roboto', 'sans-serif';
+
+  --default-blue-border: 0.1rem solid var(--color-primary);
+  --default-border-radius: 1rem;
+
+  --animate-fade-in-from-left: fade-in-from-left ease 0.75s;
+  --animate-simple-fade-in: simple-fade-in ease-in 0.25s;
+  --animate-simple-fade-out: simple-fade-out ease-out 0.5s;
+
+  @keyframes fade-in-from-left {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+
+  @keyframes simple-fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes simple-fade-out {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+}

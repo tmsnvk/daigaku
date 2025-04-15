@@ -9,9 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { useRouteError } from 'react-router-dom';
 
-/* component, style imports */
-import { ErrorContainer } from './error.styles';
-
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@configuration';
 
@@ -24,13 +21,13 @@ export const Error = (): JSX.Element => {
   const error = useRouteError() as Error;
 
   return (
-    <ErrorContainer>
+    <section>
       <h1>Oops!</h1>
       <p>
         <FontAwesomeIcon icon={iconLibraryConfig.faCircleExclamation} />
         Sorry, an unexpected error has occurred.
       </p>
       <p>{error.message}</p>
-    </ErrorContainer>
+    </section>
   );
 };
