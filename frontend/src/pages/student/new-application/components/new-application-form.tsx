@@ -9,10 +9,10 @@ import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@hooks';
+import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { useCountrySelection, useCreateApplication } from '../hooks';
 
-/* component, style imports */
+/* component imports */
 import {
   CommonInputGroup,
   CoreFormAction,
@@ -21,12 +21,12 @@ import {
   CoreFormWrapper,
   CountrySelectGroup,
   UniversitySelectGroup,
-} from '@components/form';
-import { LoadingIndicator } from '@components/general';
-import { GlobalErrorModal, LoadingModal, Toast } from '@components/notification';
+} from '@daigaku/components/form';
+import { LoadingIndicator } from '@daigaku/components/general';
+import { GlobalErrorModal, LoadingModal, Toast } from '@daigaku/components/notification';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -34,7 +34,7 @@ import {
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
   CreateApplicationByStudent,
-} from '@common-types';
+} from '@daigaku/common-types';
 
 /**
  * Renders the new application submission form for student users.
@@ -188,7 +188,9 @@ export const NewApplicationForm = (): JSX.Element => {
               isDisabled={isPending}
               intent={CoreInputElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION}
+            />
             <CoreFormAction
               isSubmissionPending={isPending}
               submissionMessage={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING}

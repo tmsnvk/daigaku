@@ -10,14 +10,14 @@ import { AxiosError } from 'axios';
 import { useState } from 'react';
 
 /* logic imports */
-import { applicationStudentService } from '@services';
+import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { errorConstants } from '@constants';
+import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
+import { Application } from '@daigaku/common-types';
 
 /**
  * Defines the return value properties for handling the toggling of a removable state.

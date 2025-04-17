@@ -10,7 +10,7 @@ import { InputHTMLAttributes, JSX } from 'react';
 import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 const coreInputElementVariants = cva(
   joinTw(
@@ -41,7 +41,8 @@ interface CoreInputElementProps<T extends FieldValues>
   extends VariantProps<typeof coreInputElementVariants>,
     InputHTMLAttributes<HTMLInputElement> {
   /**
-   * Optional validation rules to handle the input element's validation using the `react-hook-form` library for validation management.
+   * Optional validation rules to handle the input element's validation using the `react-hook-form` library for
+   * validation management.
    */
   readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
 

@@ -9,15 +9,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-/* component, style imports */
+/* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreInputElement } from '../core-element/core-input-element';
+import { CoreInputElement } from '../core-element/core-input-element.tsx';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
+import { iconLibraryConfig } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { PasswordInputElementGroup } from '@common-types';
+import { PasswordInputElementGroup } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -29,7 +29,7 @@ interface PasswordInputGroupProps<T extends FieldValues> extends PasswordInputEl
 /**
  * Renders a password input element group instance integrated with the `react-hook-form` library.
  *
- * @param {PasswordInputGroupProps<T>} props
+ * @param {PasswordInputGroupProps<T extends FieldValues>} props
  * @return {JSX.Element}
  */
 export const PasswordInputGroup = <T extends FieldValues>({

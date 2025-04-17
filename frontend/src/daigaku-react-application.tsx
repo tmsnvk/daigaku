@@ -13,15 +13,18 @@ import { JSX } from 'react';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoles, AuthProvider } from '@context/auth';
+import { AuthProvider } from '@daigaku/context';
 
-/* component, style imports */
-import { PrivateLayout, PublicLayout } from '@components/layout';
-import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@pages/common';
-import { NewApplication } from '@pages/student';
+/* component imports */
+import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';
+import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@daigaku/pages/common';
+import { NewApplication } from '@daigaku/pages/student';
 
 /* configuration, utilities, constants imports */
-import { queryClient } from '@configuration';
+import { queryClient } from '@daigaku/configuration';
+
+/* interface, type, enum imports */
+import { UserRoles } from '@daigaku/common-types';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<Error />}>
@@ -30,7 +33,10 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={'contact'} element={<div>PLACEHOLDER</div>} />
     </Route>
     <Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoles.ROLE_STUDENT, AccountRoles.ROLE_MENTOR, AccountRoles.ROLE_INSTITUTION_ADMIN, AccountRoles.ROLE_SYSTEM_ADMIN]} />}>
+      <Route
+        element={
+          <PrivateLayout allowedRoles={[UserRoles.ROLE_STUDENT, UserRoles.ROLE_MENTOR, UserRoles.ROLE_INSTITUTION_ADMIN, UserRoles.ROLE_SYSTEM_ADMIN]} />}
+      >
         <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/applications'}>
           <Route index element={<Applications />} />
@@ -40,21 +46,24 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path={'/account'} element={<div>ACCOUNT PLACEHOLDER</div>} />
         <Route path={'/messages'} element={<div>MESSAGES PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoles.ROLE_MENTOR, AccountRoles.ROLE_STUDENT, AccountRoles.ROLE_INSTITUTION_ADMIN]} />}>
+      <Route
+        element={
+          <PrivateLayout allowedRoles={[UserRoles.ROLE_MENTOR, UserRoles.ROLE_STUDENT, UserRoles.ROLE_INSTITUTION_ADMIN]} />}
+      >
         <Route path={'/feedback'} element={<div>FEEDBACK FORM PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoles.ROLE_STUDENT]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_STUDENT]} />}>
         <Route path={'/new-application'} element={<NewApplication />} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoles.ROLE_MENTOR]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_MENTOR]} />}>
         <Route path={'/my-students'} element={<div>MY STUDENTS PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoles.ROLE_INSTITUTION_ADMIN]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_INSTITUTION_ADMIN]} />}>
         <Route path={'/institution-students'} element={<div>INSTITUTION STUDENTS PLACEHOLDER</div>} />
         <Route path={'/institution-mentors'} element={<div>INSTITUTION MENTORS PLACEHOLDER</div>} />
         <Route path={'/my-institution'} element={<div>MY INSTITUTION PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[AccountRoles.ROLE_SYSTEM_ADMIN]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_SYSTEM_ADMIN]} />}>
         <Route path={'/all-students'} element={<div>ALL STUDENTS PLACEHOLDER</div>} />
         <Route path={'/all-mentors'} element={<div>ALL MENTORS PLACEHOLDER</div>} />
         <Route path={'/system'} element={<div>SYSTEM PLACEHOLDER</div>} />

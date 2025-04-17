@@ -10,7 +10,7 @@ import { JSX } from 'react';
 import { useRouteError } from 'react-router-dom';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
+import { iconLibraryConfig } from '@daigaku/configuration';
 
 /**
  * Renders the application's error page.

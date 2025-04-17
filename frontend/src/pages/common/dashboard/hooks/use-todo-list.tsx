@@ -5,10 +5,10 @@
  */
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics, Todo, TodoList } from '@common-types';
+import { StudentDashboardStatistics, Todo, TodoList } from '@daigaku/common-types';
 
 /**
  * Evaluates the current todo items based on the provided dashboard statistics.

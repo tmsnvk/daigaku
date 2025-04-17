@@ -7,11 +7,11 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* component, style imports */
-import { CoreIcon } from '../index.ts';
+/* component imports */
+import { CoreIcon } from '../core';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
+import { iconLibraryConfig } from '@daigaku/configuration';
 
 /**
  * Defines the component's properties.

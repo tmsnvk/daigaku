@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { OfferStatus } from '@common-types';
+import { OfferStatus } from '@daigaku/common-types';
 
 /**
  * Defines offer status-related operations, handling API requests and interactions for offer status management.

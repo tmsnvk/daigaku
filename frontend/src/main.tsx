@@ -8,7 +8,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-/* component, style imports */
+/* component imports */
 import { DaigakuReactApplication } from './daigaku-react-application.tsx';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);

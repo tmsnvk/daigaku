@@ -10,14 +10,20 @@ import { JSX, TextareaHTMLAttributes } from 'react';
 import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 const coreTextareaElementVariants = cva(
-  joinTw('w-[90%] md:w-[75%] px-6 py-8 text-xl border-2 rounded-xl', 'hover:outline-1', 'focus:outline-1', 'placeholder:text-secondary'),
+  joinTw(
+    'w-[90%] md:w-[75%] px-6 py-8 text-xl border-2 rounded-xl',
+    'hover:outline-1',
+    'focus:outline-1',
+    'placeholder:text-secondary',
+  ),
   {
     variants: {
       intent: {
-        light: 'bg-primary text-secondary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
+        light:
+          'bg-primary text-secondary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
       },
       isDisabled: {
         true: 'cursor-not-allowed placeholder:text-secondary-muted',
@@ -36,7 +42,8 @@ interface CoreTextareaElementProps<T extends FieldValues>
   extends VariantProps<typeof coreTextareaElementVariants>,
     TextareaHTMLAttributes<HTMLTextAreaElement> {
   /**
-   * Optional validation rules to handle the input element's validation using the `react-hook-form` library for validation management.
+   * Optional validation rules to handle the input element's validation using the `react-hook-form` library for
+   * validation management.
    */
   readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
 

@@ -10,14 +10,14 @@ import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { pendingAccountService } from '@services';
+import { pendingAccountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@configuration';
-import { errorConstants } from '@constants';
+import { mutationKeys } from '@daigaku/configuration';
+import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, ErrorDetail, PendingAccountRegistrationRequest } from '@common-types';
+import { CoreErrorResponse, ErrorDetail, PendingAccountRegistrationRequest } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useRegistrationFormMutation} custom hook's error types.

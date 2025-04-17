@@ -9,14 +9,14 @@ import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /* logic imports */
-import { useGetAllSelectOptions, useGetApplicationByUuid } from '@hooks';
+import { useGetAllSelectOptions, useGetApplicationByUuid } from '@daigaku/hooks';
 
-/* component, style imports */
-import { GlobalErrorModal, LoadingModal } from '@components/notification';
+/* component imports */
+import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 import { ApplicationForm } from './components';
 
 /* configuration, utilities, constants imports */
-import { errorConstants, localization as l } from '@constants';
+import { errorConstants, localization as l } from '@daigaku/constants';
 
 /**
  * Renders the edit mode of a single application record.
@@ -31,7 +31,11 @@ export const ApplicationEdit = (): JSX.Element => {
   const { state, pathname } = useLocation();
   const applicationUuid = pathname.split('/applications/edit/')[1];
   const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError } = useGetAllSelectOptions();
-  const { data, isLoading: isApplicationLoading, isError: isApplicationError } = useGetApplicationByUuid(state, applicationUuid);
+  const {
+    data,
+    isLoading: isApplicationLoading,
+    isError: isApplicationError,
+  } = useGetApplicationByUuid(state, applicationUuid);
   const application = state || data;
 
   if (isOptionsLoading || isApplicationLoading) {

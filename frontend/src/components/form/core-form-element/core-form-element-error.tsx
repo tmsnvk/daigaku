@@ -24,5 +24,9 @@ interface CoreFormElementErrorProps {
  * @return {JSX.Element}
  */
 export const CoreFormElementError = ({ message }: CoreFormElementErrorProps): JSX.Element => {
-  return <p className='text-destructive animate-simple-fade-in mt-6 text-center text-lg font-bold tracking-wide'>{message}</p>;
+  return (
+    <p className='text-destructive animate-simple-fade-in mt-6 text-center text-lg font-bold tracking-wide'>
+      {message}
+    </p>
+  );
 };

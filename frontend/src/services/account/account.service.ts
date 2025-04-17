@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfig, axiosConfigWithAuth } from '@configuration';
+import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { AccountResetRequest, LoginRequest, LoginResponse } from '@common-types';
+import { AccountResetRequest, LoginRequest, LoginResponse } from '@daigaku/common-types';
 
 /**
  * Defines account service-related operations, handling API requests and interactions for account management.

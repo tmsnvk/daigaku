@@ -8,17 +8,17 @@
 import { JSX } from 'react';
 import { Outlet } from 'react-router-dom';
 
-/* component, style imports */
+/* component imports */
 import { Footer } from './footer.tsx';
 import { NavigationRoute } from './navigation-route.tsx';
 import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
-import { localization as l } from '@constants';
+import { iconLibraryConfig } from '@daigaku/configuration';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { NavigationRouteItem } from '@common-types';
+import { NavigationRouteItem } from '@daigaku/common-types';
 
 const navigationRoutes: NavigationRouteItem[] = [
   {

@@ -8,24 +8,25 @@
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-/* component, style imports */
+/* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreSelectElement } from '../core-element/core-select-element';
+import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
-import { isEmpty } from '@utilities';
+import { localization as l } from '@daigaku/constants';
+import { isEmpty } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { CoreSelectElementGroup, CountryOption } from '@common-types';
+import { CoreSelectElementGroup, CountryOption } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
- * @template CountryOption - The type representing representing a country option.
+ * @template CountryOption - The type representing a country option.
  */
-interface CountrySelectGroupProps<T extends FieldValues, CountryOption> extends CoreSelectElementGroup<T, CountryOption> {
+interface CountrySelectGroupProps<T extends FieldValues, CountryOption>
+  extends CoreSelectElementGroup<T, CountryOption> {
   /**
    * The method invoked when a country is selected.
    */
@@ -38,7 +39,8 @@ interface CountrySelectGroupProps<T extends FieldValues, CountryOption> extends 
 }
 
 /**
- * Renders a select element group instance integrated with the `react-hook-form` library to select a {@link CountryOption}.
+ * Renders a select element group instance integrated with the `react-hook-form` library to select a
+ * {@link CountryOption}.
  *
  * @param {CountrySelectGroupProps<T extends FieldValues, CountryOption>} props
  * @return {JSX.Element}

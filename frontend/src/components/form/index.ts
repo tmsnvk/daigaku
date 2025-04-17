@@ -5,6 +5,7 @@
  */
 
 import { CoreSubmitInputElement } from './core-element/core-submit-input-element';
+import { CoreModalClosingInputElement } from './core-element/core-modal-closing-input-element.tsx';
 import { CoreFormAction } from './core-form-element/core-form-action';
 import { CoreFormElementError } from './core-form-element/core-form-element-error';
 import { CoreFormElementGroupWrapper } from './core-form-element/core-form-element-group-wrapper';
@@ -16,15 +17,13 @@ import { AccountRoleSelectGroup } from './element-group/account-role-select-grou
 import { ApplicationStatusSelectGroup } from './element-group/application-status-select-group';
 import { CommonInputGroup } from './element-group/common-input-group';
 import { CommonTextareaGroup } from './element-group/common-textarea-group';
-import { CountrySelectGroup } from './element-group/country-select-group';
 import { DisabledInputGroup } from './element-group/disabled-input-group';
+import { CountrySelectGroup } from './element-group/country-select-group';
 import { InstitutionSelectGroup } from './element-group/institution-select-group';
 import { PasswordInputGroup } from './element-group/password-input-group';
 import { UniversitySelectGroup } from './element-group/university-select-group';
-import { CoreModalClosingInputElement } from './core-element/core-modal-closing-input-element.tsx';
 
 export {
-  CoreModalClosingInputElement,
   AccountRoleSelectGroup,
   ApplicationStatusSelectGroup,
   CommonInputGroup,
@@ -36,6 +35,7 @@ export {
   CoreFormElementLabel,
   CoreFormHeader,
   CoreFormWrapper,
+  CoreModalClosingInputElement,
   CoreSubmitInputElement,
   CountrySelectGroup,
   DisabledInputGroup,

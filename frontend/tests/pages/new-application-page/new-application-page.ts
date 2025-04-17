@@ -32,7 +32,13 @@ export class NewApplicationPage {
     await expect(this.formElement).toBeVisible();
   };
 
-  fillInNewApplicationForm = async ({ country, university, courseName, minorSubject, programmeLength }: NewApplicationFormT) => {
+  fillInNewApplicationForm = async ({
+    country,
+    university,
+    courseName,
+    minorSubject,
+    programmeLength,
+  }: NewApplicationFormT) => {
     await this.page.selectOption('#countryUuid', { index: country });
     await this.page.selectOption('#universityUuid', { index: university });
     await this.page.getByLabel('Course name').fill(courseName);

@@ -12,15 +12,21 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
-import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper, PasswordInputGroup } from '@components/form';
+import {
+  CommonInputGroup,
+  CoreFormAction,
+  CoreFormHeader,
+  CoreFormWrapper,
+  PasswordInputGroup,
+} from '@daigaku/components/form';
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginRequest } from '@common-types';
+import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginRequest } from '@daigaku/common-types';
 import { FormType } from '../models';
 
 /**
@@ -108,10 +114,16 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
-        leftButtonFormType={FormType.RESET}
-        rightButtonLabel={formTypeButtonLabel[FormType.REGISTER]}
-        rightButtonFormType={FormType.REGISTER}
+        buttonConfig={{
+          leftButton: {
+            label: formTypeButtonLabel[FormType.RESET],
+            formType: FormType.RESET,
+          },
+          rightButton: {
+            label: formTypeButtonLabel[FormType.REGISTER],
+            formType: FormType.REGISTER,
+          },
+        }}
         isDisabled={isPending}
         onFormSelect={onFormSelect}
       />

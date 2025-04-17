@@ -6,9 +6,9 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { joinTw } from '@utilities';
 
-/* component, style imports */
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

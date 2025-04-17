@@ -1,6 +1,17 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
+/* vendor imports */
 import { useWindowSize } from '@uidotdev/usehooks';
 
-export const useMobileView = () => {
+/**
+ *
+ * @return {0 | null | boolean}
+ */
+export const useMobileView = (): 0 | boolean | null => {
   const MOBILE_VIEW_END = 1028;
 
   const { width } = useWindowSize();

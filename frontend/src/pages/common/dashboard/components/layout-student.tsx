@@ -17,10 +17,10 @@ import { TileStatistic } from './tile-statistic';
 import { TodoList } from './todo-list';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics } from '@common-types';
+import { StudentDashboardStatistics } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -92,7 +92,9 @@ export const LayoutStudent = ({ data }: LayoutStudentProps): JSX.Element => {
           <TileDetail
             title={l.PAGES.COMMON.DASHBOARD.TILE.FINAL_DESTINATION}
             country={data.finalDestinationTileDetails.countryName ?? ''}
-            university={data.finalDestinationTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED}
+            university={
+              data.finalDestinationTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED
+            }
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}

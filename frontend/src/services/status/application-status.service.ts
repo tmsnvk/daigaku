@@ -8,13 +8,14 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { ApplicationStatus } from '@common-types';
+import { ApplicationStatus } from '@daigaku/common-types';
 
 /**
- * Defines application status-related operations, handling API requests and interactions for application status management.
+ * Defines application status-related operations, handling API requests and interactions for application status
+ * management.
  */
 interface ApplicationStatusService {
   /**

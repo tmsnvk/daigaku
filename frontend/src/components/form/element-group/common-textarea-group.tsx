@@ -10,10 +10,10 @@ import { FieldValues } from 'react-hook-form';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreTextareaElement } from '../core-element/core-textarea-element';
+import { CoreTextareaElement } from '../core-element/core-textarea-element.tsx';
 
 /* interface, type, enum imports */
-import { TextareaElementGroup } from '@common-types';
+import { TextareaElementGroup } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -33,7 +33,7 @@ interface CommonTextareaGroupProps<T extends FieldValues> extends TextareaElemen
 /**
  * Renders a generic textarea element group instance integrated with the `react-hook-form` library.
  *
- * @param {CommonTextareaGroupProps<T>} props
+ * @param {CommonTextareaGroupProps<T extends FieldValues>} props
  * @return {JSX.Element}
  */
 export const CommonTextareaGroup = <T extends FieldValues>({

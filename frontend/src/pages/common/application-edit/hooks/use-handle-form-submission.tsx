@@ -8,8 +8,8 @@
 import { UseFormSetError } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
-import { queryClient, queryKeys } from '@configuration';
-import { localization as l } from '@constants';
+import { queryClient, queryKeys } from '@daigaku/configuration';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -20,7 +20,7 @@ import {
   ResponseStatus,
   ResponseStatusE,
   UpdateApplicationByStudent,
-} from '@common-types';
+} from '@daigaku/common-types';
 
 /**
  * The helper method used by {@link useHandleFormSubmission} filters various local `react-query` cache lists
@@ -48,7 +48,8 @@ const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefine
 };
 
 /**
- * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom hooks.
+ * Defines the return value properties of the {@link useHandleFormSubmission}, {@link useUpdateApplication} custom
+ * hooks.
  */
 export interface HandleFormSubmission {
   submitForm: (
@@ -63,7 +64,8 @@ export interface HandleFormSubmission {
  * Manages the form submission's first step.
  * It checks if the user already has an {@link Application} set to either {@link ResponseStatusE.FIRM_CHOICE},
  * {@link FinalDestinationStatusE.FINAL_DESTINATION} or {@link FinalDestinationStatusE.DEFERRED_ENTRY}.
- * If yes, an error message stops the submission. If no error was found, the submitForm() method calls the `react-query` mutate() method.
+ * If yes, an error message stops the submission. If no error was found, the submitForm() method calls the
+ * `react-query` mutate() method.
  *
  * @return {HandleFormSubmission}
  */
@@ -72,7 +74,9 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
     const errors: Array<string> = [];
 
     // Find application, response, and final destination status react-query caches.
-    const applicationsCache: Array<Application> | undefined = findQueryCache<Application>(queryKeys.application.GET_ALL_BY_ROLE);
+    const applicationsCache: Array<Application> | undefined = findQueryCache<Application>(
+      queryKeys.application.GET_ALL_BY_ROLE,
+    );
     const responseStatusCache: Array<ResponseStatus> | undefined = findQueryCache<ResponseStatus>(
       queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS,
     );
@@ -86,14 +90,23 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
 
     // Find the three specific status uuid strings.
     const firmChoiceUuid: string = filterCacheByUuid(responseStatusCache, ResponseStatusE.FIRM_CHOICE);
-    const finalDestinationUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatusE.FINAL_DESTINATION);
-    const finalDestinationDeferredUuid: string = filterCacheByUuid(finalDestinationStatusCache, FinalDestinationStatusE.DEFERRED_ENTRY);
+    const finalDestinationUuid: string = filterCacheByUuid(
+      finalDestinationStatusCache,
+      FinalDestinationStatusE.FINAL_DESTINATION,
+    );
+    const finalDestinationDeferredUuid: string = filterCacheByUuid(
+      finalDestinationStatusCache,
+      FinalDestinationStatusE.DEFERRED_ENTRY,
+    );
 
     // Check each application (except for the current) if they have any of the three status set.
     // If yes, error messages are thrown to the UI and the submission is stopped before hitting the API call.
     applicationsCache.forEach((application: Application) => {
       if (application.uuid !== currentApplicationUuid) {
-        if (application.responseStatus?.name === ResponseStatusE.FIRM_CHOICE && formData.responseStatusUuid === firmChoiceUuid) {
+        if (
+          application.responseStatus?.name === ResponseStatusE.FIRM_CHOICE &&
+          formData.responseStatusUuid === firmChoiceUuid
+        ) {
           errors.push(l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.ERRORS.FIRM_CHOICE_SELECTION);
         }
 

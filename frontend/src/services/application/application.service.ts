@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application, StudentDashboardStatistics } from '@common-types';
+import { Application, StudentDashboardStatistics } from '@daigaku/common-types';
 
 /**
  * Defines generic-application operations, handling API requests and interactions for application management.
@@ -32,8 +32,6 @@ interface ApplicationService {
    * @param accountRole The user's authorisation role.
    * @return {Promise<Array<Application>>}
    * @throws {AxiosError}
-   *
-   * @since 0.0.1
    */
   getAllByRole: (roleResource: string) => Promise<Array<Application>>;
 
@@ -43,8 +41,6 @@ interface ApplicationService {
    * @param accountRole The user's authorisation role.
    * @return {Promise<StudentDashboardStatistics>}
    * @throws {AxiosError}
-   *
-   * @since 0.0.1
    */
   getDashboardStatistics: (roleResource: string) => Promise<StudentDashboardStatistics>;
 }
@@ -70,10 +66,11 @@ export const applicationService: ApplicationService = {
     return response.data;
   },
   getDashboardStatistics: async (accountRole: string): Promise<StudentDashboardStatistics> => {
-    const response: AxiosResponse<StudentDashboardStatistics> = await axiosConfigWithAuth.request<StudentDashboardStatistics>({
-      method: 'GET',
-      url: `/api/v1/applications/${accountRole}/dashboard`,
-    });
+    const response: AxiosResponse<StudentDashboardStatistics> =
+      await axiosConfigWithAuth.request<StudentDashboardStatistics>({
+        method: 'GET',
+        url: `/api/v1/applications/${accountRole}/dashboard`,
+      });
 
     return response.data;
   },

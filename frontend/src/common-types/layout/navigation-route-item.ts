@@ -4,6 +4,7 @@
  * @author tmsnvk
  */
 
+/* vendor imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 
 /**

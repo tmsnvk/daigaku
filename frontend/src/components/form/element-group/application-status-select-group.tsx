@@ -8,12 +8,12 @@
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-/* component, style imports */
+/* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreSelectElement } from '../core-element/core-select-element';
+import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
 /* interface, type, enum imports */
-import { ApplicationStatusUnion, CoreSelectElementGroup } from '@common-types';
+import { ApplicationStatusUnion, CoreSelectElementGroup } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -49,6 +49,7 @@ interface ApplicationStatusSelectGroupProps<T extends FieldValues, ApplicationSt
 /**
  * Renders a `select` input field whose option type is included in the {@link ApplicationStatusUnion} union type.
  *
+ * @param {ApplicationStatusSelectGroupProps<T extends FieldValues, ApplicationStatusUnion>} props
  * @return {JSX.Element}
  */
 export const ApplicationStatusSelectGroup = <T extends FieldValues>({

@@ -11,8 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 /* logic imports */
 import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplicationFormMutation } from '../hooks';
 
-/* component, style imports */
-import { ApplicationMetadata } from '@components/application';
+/* component imports */
 import {
   ApplicationStatusSelectGroup,
   CoreFormAction,
@@ -20,12 +19,13 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
   DisabledInputGroup,
-} from '@components/form';
-import { Toast } from '@components/notification';
+} from '@daigaku/components/form';
+import { ApplicationMetadata } from '@daigaku/components/general';
+import { Toast } from '@daigaku/components/notification';
 import { IsRemovableButton } from './is-removable-button';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -39,7 +39,7 @@ import {
   OfferStatus,
   ResponseStatus,
   UpdateApplicationByStudent,
-} from '@common-types';
+} from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -70,7 +70,12 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
   } = methods;
 
   const { submitForm } = useHandleFormSubmission();
-  const { data: updatedData, isPending, isSuccess, mutate } = useUpdateApplicationFormMutation(setError, application.uuid);
+  const {
+    data: updatedData,
+    isPending,
+    isSuccess,
+    mutate,
+  } = useUpdateApplicationFormMutation(setError, application.uuid);
   const {
     onPageLoadValidation,
     fieldsReadOnlyStatus,
@@ -128,28 +133,36 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.NAME}
               value={application.university}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.INFORMATION}
+            />
             <DisabledInputGroup
               id={'courseName'}
               type={'text'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.NAME}
               value={application.courseName}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.INFORMATION}
+            />
             <DisabledInputGroup
               id={'minorSubject'}
               type={'text'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.NAME}
               value={application.minorSubject ?? '-'}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.INFORMATION}
+            />
             <DisabledInputGroup
               id={'programmeLength'}
               type={'number'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.NAME}
               value={application.programmeLength}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.INFORMATION}
+            />
             <ApplicationStatusSelectGroup
               id={'applicationStatusUuid'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.NAME}
@@ -161,7 +174,9 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               error={errors.applicationStatusUuid?.message}
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.INFORMATION}
+            />
             <ApplicationStatusSelectGroup
               id={'interviewStatusUuid'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.NAME}
@@ -173,7 +188,9 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               error={errors.interviewStatusUuid?.message}
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.INFORMATION}
+            />
             <ApplicationStatusSelectGroup
               id={'offerStatusUuid'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.NAME}
@@ -185,7 +202,9 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               error={errors.offerStatusUuid?.message}
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.INFORMATION}
+            />
             <ApplicationStatusSelectGroup
               id={'responseStatusUuid'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.NAME}
@@ -197,7 +216,9 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               error={errors.responseStatusUuid?.message}
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.INFORMATION}
+            />
             <ApplicationStatusSelectGroup
               id={'finalDestinationStatusUuid'}
               label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.NAME}
@@ -208,7 +229,9 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               error={errors.finalDestinationStatusUuid?.message}
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.INFORMATION}
+            />
             <CoreFormAction
               isSubmissionPending={isPending}
               submissionMessage={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING}

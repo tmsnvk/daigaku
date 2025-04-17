@@ -10,14 +10,14 @@ import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { applicationStudentService } from '@services';
+import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { errorConstants } from '@constants';
+import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, ErrorDetail, UpdateApplicationByStudent } from '@common-types';
+import { Application, CoreErrorResponse, ErrorDetail, UpdateApplicationByStudent } from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.
@@ -44,14 +44,17 @@ export const useUpdateApplicationFormMutation = (
 ): UseMutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent> => {
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
-    mutationFn: (formData: UpdateApplicationByStudent) => applicationStudentService.patchByUuid(formData, applicationUuid),
+    mutationFn: (formData: UpdateApplicationByStudent) =>
+      applicationStudentService.patchByUuid(formData, applicationUuid),
     onSuccess: (response: Application) => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }
 
-        const filteredList: Array<Application> = applications.filter((application: Application) => application.uuid !== response.uuid);
+        const filteredList: Array<Application> = applications.filter(
+          (application: Application) => application.uuid !== response.uuid,
+        );
 
         return [...filteredList, response];
       });

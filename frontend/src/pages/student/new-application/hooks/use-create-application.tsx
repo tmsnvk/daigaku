@@ -10,19 +10,25 @@ import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { applicationStudentService } from '@services';
+import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@configuration';
-import { errorConstants } from '@constants';
+import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, CreateApplicationByStudent, ErrorDetail } from '@common-types';
+import { Application, CoreErrorResponse, CreateApplicationByStudent, ErrorDetail } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
  */
-type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | 'courseName' | 'minorSubject' | 'programmeLength';
+type CreateApplicationFormErrorT =
+  | 'root'
+  | 'countryUuid'
+  | 'universityUuid'
+  | 'courseName'
+  | 'minorSubject'
+  | 'programmeLength';
 
 /**
  * Manages the submission of new application submission via the `react-query` package.
@@ -30,7 +36,8 @@ type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | '
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {UseMutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent>} A `react-query` mutation object.
+ * @return {UseMutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent>} A `react-query`
+ *   mutation object.
  */
 export const useCreateApplication = (
   setError: UseFormSetError<CreateApplicationByStudent>,

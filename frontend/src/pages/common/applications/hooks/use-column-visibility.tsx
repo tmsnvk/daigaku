@@ -8,8 +8,8 @@
 import { useState } from 'react';
 
 /* configuration, utilities, constants imports */
-import { localStorageKeys } from '@constants';
-import { getLocalStorageObjectById, setLocalStorageObjectById } from '@utilities';
+import { localStorageKeys } from '@daigaku/constants';
+import { getLocalStorageObjectById, setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { Column } from '../models';
@@ -72,7 +72,10 @@ export const useColumnVisibility = (): ColumnVisibility => {
     responseStatus: false,
     finalDestinationStatus: false,
   };
-  const rowConfig: RowConfig = getLocalStorageObjectById<RowConfig>(localStorageKeys.APPLICATION_TABLE_COLUMNS, defaultRowConfig);
+  const rowConfig: RowConfig = getLocalStorageObjectById<RowConfig>(
+    localStorageKeys.APPLICATION_TABLE_COLUMNS,
+    defaultRowConfig,
+  );
 
   const [columns, setColumns] = useState<Array<Column>>([
     {
@@ -149,8 +152,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
         }
 
         return column;
-      }),
-    );
+      }));
   };
 
   return {

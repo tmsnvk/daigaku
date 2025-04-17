@@ -8,10 +8,10 @@
 import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@configuration';
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { InstitutionOption } from '@common-types';
+import { InstitutionOption } from '@daigaku/common-types';
 
 /**
  * Defines institution-related operations, handling API requests and interactions for institution management.

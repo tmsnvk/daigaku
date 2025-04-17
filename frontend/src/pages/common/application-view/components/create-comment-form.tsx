@@ -12,13 +12,17 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useSubmitComment } from '../hooks';
 
 /* component imports */
-import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@components/form';
+import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { CoreSubmitInputElementStyleIntent, CoreTextareaElementStyleIntent, CreateComment } from '@common-types';
+import {
+  CoreSubmitInputElementStyleIntent,
+  CoreTextareaElementStyleIntent,
+  CreateComment,
+} from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@hooks';
+import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
 import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
@@ -20,12 +20,12 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
   InstitutionSelectGroup,
-} from '@components/form';
-import { GlobalErrorModal, LoadingModal } from '@components/notification';
+} from '@daigaku/components/form';
+import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
@@ -34,7 +34,7 @@ import {
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
   PendingAccountRegistrationRequest,
-} from '@common-types';
+} from '@daigaku/common-types';
 import { FormType } from '../models';
 
 /**
@@ -64,7 +64,11 @@ interface RegistrationFormProps {
  */
 export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormProps): JSX.Element => {
   // react-query data fetches
-  const { data: institutions, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
+  const {
+    data: institutions,
+    isLoading: isInstitutionLoading,
+    isError: isInstitutionError,
+  } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
 
   // react-hook-form initialisation
@@ -199,10 +203,16 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
-        leftButtonFormType={FormType.RESET}
-        rightButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
-        rightButtonFormType={FormType.LOGIN}
+        buttonConfig={{
+          leftButton: {
+            label: formTypeButtonLabel[FormType.RESET],
+            formType: FormType.RESET,
+          },
+          rightButton: {
+            label: formTypeButtonLabel[FormType.LOGIN],
+            formType: FormType.LOGIN,
+          },
+        }}
         isDisabled={isPending}
         onFormSelect={onFormSelect}
       />

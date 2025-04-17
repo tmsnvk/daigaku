@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CoreButton } from '@components/index';
+import { CoreButton } from '@daigaku/components/core';
 
 /**
  * Defines the component's properties.
@@ -20,7 +20,8 @@ interface CommentPaginationButtonProps {
   onClick: () => void;
 
   /**
-   * Controls the button's disabled status. If the user is on the first or last page, the pagination functionality is disabled.
+   * Controls the button's disabled status. If the user is on the first or last page, the pagination functionality is
+   * disabled.
    */
   readonly isDisabled: boolean;
 

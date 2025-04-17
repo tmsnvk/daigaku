@@ -8,16 +8,16 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { ApplicationMetadata } from '@components/application';
-import { CoreLink } from '@components/index';
+import { ApplicationMetadata } from '@daigaku/components/general';
+import { CoreLink } from '@daigaku/components/core';
+import { CoreFormHeader } from '@daigaku/components/form';
 import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
-import { CoreFormHeader } from '@components/form';
+import { Application } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

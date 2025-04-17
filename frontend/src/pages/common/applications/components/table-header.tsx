@@ -14,13 +14,13 @@ import { JSX } from 'react';
 import { useRequestPdfDownload } from '../hooks';
 
 /* component imports */
-import { LoadingIndicator } from '@components/general';
-import { GlobalErrorModal } from '@components/notification';
+import { LoadingIndicator } from '@daigaku/components/general';
+import { GlobalErrorModal } from '@daigaku/components/notification';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
-import { errorConstants, localization as l } from '@constants';
-import { joinTw } from '@utilities';
+import { iconLibraryConfig } from '@daigaku/configuration';
+import { errorConstants, localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { Column } from '../models';
@@ -66,8 +66,8 @@ interface TableHeaderProps {
 }
 
 /**
- * Renders the table header row on the /applications url. A number of buttons are rendered in the component as well, such as
- * row ordering, .pdf report downloading, data refresh or modal pop-up buttons.
+ * Renders the table header row on the /applications url. A number of buttons are rendered in the component as well,
+ * such as row ordering, .pdf report downloading, data refresh or modal pop-up buttons.
  *
  * @return {JSX.Element}
  */

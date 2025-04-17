@@ -9,11 +9,11 @@ import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { JSX } from 'react';
 import { NavLink } from 'react-router-dom';
 
-/* component, style imports */
-import { CoreIcon } from '../core-icon.tsx';
+/* component imports */
+import { CoreIcon } from '../core/core-icon.tsx';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.
@@ -43,10 +43,15 @@ interface NavigationRouteProps {
 /**
  * Renders a navigation route component that enables navigating in-between the application's pages.
  *
- * @param {ComponentProps} props
+ * @param {NavigationRouteProps} props
  * @return {JSX.Element}
  */
-export const NavigationRoute = ({ targetUrlString, icon, label, onNavigateClick }: NavigationRouteProps): JSX.Element => {
+export const NavigationRoute = ({
+  targetUrlString,
+  icon,
+  label,
+  onNavigateClick,
+}: NavigationRouteProps): JSX.Element => {
   return (
     <NavLink
       to={targetUrlString}

@@ -9,14 +9,14 @@ import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /* logic imports */
-import { useGetApplicationByUuid } from '@hooks';
+import { useGetApplicationByUuid } from '@daigaku/hooks';
 
 /* component imports */
-import { GlobalErrorModal, LoadingModal } from '@components/notification';
+import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 import { ApplicationDetails, CommentSection } from './components';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
+import { localization as l } from '@daigaku/constants';
 
 /**
  * Renders the view mode page of the selected application record.

@@ -9,23 +9,23 @@ import { JSX, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { AccountRoles, AuthStatus, useAuthContext } from '@context/auth.tsx';
-import { useMobileView, useSmallScreenNavbarDisplay } from '@hooks';
+import { useAuthContext } from '@daigaku/context';
+import { useMobileView, useSmallScreenNavbarDisplay } from '@daigaku/hooks';
 
-/* component, style imports */
+/* component imports */
+import { CoreIcon } from '../core/core-icon.tsx';
 import { LoadingModal } from '../notification';
 import { Footer } from './footer.tsx';
-import { NavigationRoute } from './navigation-route.tsx';
 import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
+import { NavigationRoute } from './navigation-route.tsx';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@configuration';
-import { localization as l } from '@constants';
-import { joinTw } from '@utilities';
+import { iconLibraryConfig } from '@daigaku/configuration';
+import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { NavigationRouteItem } from '@common-types';
-import { CoreIcon } from '../core-icon.tsx';
+import { NavigationRouteItem, UserLoginState, UserRoles } from '@daigaku/common-types';
 
 /**
  * Defines shared navigation routes accessible to all authenticated users.
@@ -51,8 +51,8 @@ export const sharedNavigationRoutes: Array<NavigationRouteItem> = [
 /**
  * Defines navigation routes based on the authorisation role.
  */
-export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<NavigationRouteItem> } = {
-  [AccountRoles.ROLE_STUDENT]: [
+export const accountRoleNavigationRoutes: { [key in UserRoles]: Array<NavigationRouteItem> } = {
+  [UserRoles.ROLE_STUDENT]: [
     {
       targetUrlString: '/new-application',
       icon: iconLibraryConfig.faFileCirclePlus,
@@ -64,7 +64,7 @@ export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<Navigat
       label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.STUDENT.MY_APPLICATIONS.LABEL,
     },
   ],
-  [AccountRoles.ROLE_MENTOR]: [
+  [UserRoles.ROLE_MENTOR]: [
     {
       targetUrlString: '/my-students',
       icon: iconLibraryConfig.faUserGroup,
@@ -76,8 +76,8 @@ export const accountRoleNavigationRoutes: { [key in AccountRoles]: Array<Navigat
       label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.MENTOR.MY_STUDENT_APPLICATIONS.LABEL,
     },
   ],
-  [AccountRoles.ROLE_INSTITUTION_ADMIN]: [],
-  [AccountRoles.ROLE_SYSTEM_ADMIN]: [
+  [UserRoles.ROLE_INSTITUTION_ADMIN]: [],
+  [UserRoles.ROLE_SYSTEM_ADMIN]: [
     {
       targetUrlString: '/all-students',
       icon: iconLibraryConfig.faUserGroup,
@@ -108,7 +108,7 @@ interface PrivateLayoutProps {
   /**
    * The list of roles permitted to view this layout.
    */
-  readonly allowedRoles: Array<AccountRoles>;
+  readonly allowedRoles: Array<UserRoles>;
 }
 
 /**
@@ -130,14 +130,14 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
       return;
     }
 
-    if (!allowedRoles.includes(account.role as AccountRoles)) {
+    if (!allowedRoles.includes(account.role as UserRoles)) {
       const redirectPath = account ? '/unauthorised' : '/';
 
       navigate(redirectPath, { state: { from: location }, replace: true });
     }
   }, [account]);
 
-  if (authStatus === AuthStatus.LOADING) {
+  if (authStatus === UserLoginState.LOADING) {
     return (
       <LoadingModal
         isVisible={true}
@@ -149,7 +149,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
   const routes = (
     <div>
       <ul className={'lg:flex lg:items-center lg:gap-x-8'}>
-        {accountRoleNavigationRoutes[account.role as AccountRoles].map((route: NavigationRouteItem) => (
+        {accountRoleNavigationRoutes[account.role as UserRoles].map((route: NavigationRouteItem) => (
           <li
             key={route.targetUrlString}
             className={'my-4'}

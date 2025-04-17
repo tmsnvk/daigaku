@@ -8,7 +8,7 @@
 import { JSX, ReactNode } from 'react';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@utilities';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.
@@ -26,7 +26,9 @@ interface FormSectionWrapperProps {
 export const FormSectionWrapper = ({ children }: FormSectionWrapperProps): JSX.Element => {
   return (
     <section
-      className={joinTw('core-tertiary-border animate-fade-in-from-left sm:w-200 my-[5%] flex w-[90%] flex-col px-10 py-20 text-center')}
+      className={joinTw(
+        'core-tertiary-border animate-fade-in-from-left sm:w-200 my-[5%] flex w-[90%] flex-col px-10 py-20 text-center',
+      )}
     >
       {children}
     </section>

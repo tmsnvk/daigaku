@@ -8,16 +8,16 @@
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-/* component, style imports */
+/* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreSelectElement } from '../core-element/core-select-element';
+import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@constants';
-import { removeRolePrefix } from '@utilities';
+import { localization as l } from '@daigaku/constants';
+import { removeRolePrefix } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { CoreSelectElementGroup, RoleOption } from '@common-types';
+import { CoreSelectElementGroup, RoleOption } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -25,7 +25,8 @@ import { CoreSelectElementGroup, RoleOption } from '@common-types';
  * @template T - The type of form values extending the `react-hook-form` library.
  * @template RoleOption - The type representing representing an accountRole option.
  */
-interface AccountRoleSelectGroupProps<T extends FieldValues, RoleOption> extends CoreSelectElementGroup<T, RoleOption> {}
+interface AccountRoleSelectGroupProps<T extends FieldValues, RoleOption>
+  extends CoreSelectElementGroup<T, RoleOption> {}
 
 /**
  * Renders a select element group instance integrated with the `react-hook-form` library to select a {@link RoleOption}.

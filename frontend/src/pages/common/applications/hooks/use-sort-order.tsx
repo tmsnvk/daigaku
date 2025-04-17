@@ -8,10 +8,10 @@
 import { useState } from 'react';
 
 /* configuration, utilities, constants imports */
-import { queryClient, queryKeys } from '@configuration';
+import { queryClient, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
+import { Application } from '@daigaku/common-types';
 
 /**
  * Defines the properties for sorting columns on the /applications page.

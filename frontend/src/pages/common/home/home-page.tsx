@@ -9,16 +9,19 @@ import { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
 
 /* logic imports */
-import { AuthStatus, useAuthContext } from '@context/auth';
-import { useModalControl } from '@hooks';
+import { useAuthContext } from '@daigaku/context';
+import { useModalControl } from '@daigaku/hooks';
 import { useFormSwitcher } from './hooks';
 
 /* component imports */
-import { ConfirmationModal } from '@components/notification';
+import { ConfirmationModal } from '@daigaku/components/notification';
 import { FormSectionWrapper } from './components';
 
 /* configuration, utilities, constants imports */
 import { confirmationModalFeedback } from './constants';
+
+/* interface, type, enum imports */
+import { UserLoginState } from '@daigaku/common-types';
 
 /**
  * Renders the application's root page.
@@ -30,16 +33,11 @@ import { confirmationModalFeedback } from './constants';
  * @return {JSX.Element}
  */
 export const Home = (): JSX.Element => {
-  // authentication context
   const { authStatus } = useAuthContext();
-
-  // modal visibility
   const { isModalVisible, showModal, closeModal } = useModalControl();
-
-  // component render
   const { selectedFormType, selectedFormComponent } = useFormSwitcher(showModal);
 
-  if (authStatus === AuthStatus.SIGNED_IN) {
+  if (authStatus === UserLoginState.SIGNED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 

@@ -9,19 +9,19 @@ import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useGetApplications, useModalToggle } from '@hooks';
+import { useGetApplications, useModalToggle } from '@daigaku/hooks';
 import { useColumnVisibility, useDisplayDownloadToast, useSortOrder } from './hooks';
 
-/* component, style imports */
-import { GlobalErrorModal, LoadingModal, Toast } from '@components/notification';
+/* component imports */
+import { GlobalErrorModal, LoadingModal, Toast } from '@daigaku/components/notification';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
-import { errorConstants, localization as l } from '@constants';
-import { isEmpty } from '@utilities';
+import { errorConstants, localization as l } from '@daigaku/constants';
+import { isEmpty } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { Application } from '@common-types';
+import { Application } from '@daigaku/common-types';
 
 /**
  * Renders, in table format, the list of application records that the user has authorisation to view.
