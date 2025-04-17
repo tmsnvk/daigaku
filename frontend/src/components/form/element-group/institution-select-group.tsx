@@ -10,7 +10,7 @@ import { FieldValues } from 'react-hook-form';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreSelectElement } from '../core-element/core-select-element';
+import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
@@ -24,13 +24,14 @@ import { CoreSelectElementGroup, InstitutionOption } from '@daigaku/common-types
  * @template T - The type of form values extending the `react-hook-form` library.
  * @template InstitutionOption - The type representing representing an institution option.
  */
-interface InstitutionSelectGroupProps<T extends FieldValues, InstitutionOption> extends CoreSelectElementGroup<T, InstitutionOption> {}
+interface InstitutionSelectGroupProps<T extends FieldValues, InstitutionOption>
+  extends CoreSelectElementGroup<T, InstitutionOption> {}
 
 /**
  * Renders a select element group instance integrated with the `react-hook-form` library to select a
  * {@link InstitutionOption}.
  *
- * @param {InstitutionSelectGroupProps<T, InstitutionOption>} props
+ * @param {InstitutionSelectGroupProps<T extends FieldValues, InstitutionOption>} props
  * @return {JSX.Element}
  */
 export const InstitutionSelectGroup = <T extends FieldValues>({

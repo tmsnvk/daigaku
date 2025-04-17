@@ -21,7 +21,7 @@ import { FormSectionWrapper } from './components';
 import { confirmationModalFeedback } from './constants';
 
 /* interface, type, enum imports */
-import { AuthStatus } from '@daigaku/common-types';
+import { UserLoginState } from '@daigaku/common-types';
 
 /**
  * Renders the application's root page.
@@ -33,16 +33,11 @@ import { AuthStatus } from '@daigaku/common-types';
  * @return {JSX.Element}
  */
 export const Home = (): JSX.Element => {
-  // authentication context
   const { authStatus } = useAuthContext();
-
-  // modal visibility
   const { isModalVisible, showModal, closeModal } = useModalControl();
-
-  // component render
   const { selectedFormType, selectedFormComponent } = useFormSwitcher(showModal);
 
-  if (authStatus === AuthStatus.SIGNED_IN) {
+  if (authStatus === UserLoginState.SIGNED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 

@@ -21,7 +21,7 @@ import { LayoutStudent } from './components';
 import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { AccountRoles, StudentDashboardStatistics } from '@daigaku/common-types';
+import { StudentDashboardStatistics, UserRoles } from '@daigaku/common-types';
 
 /**
  * Renders the application records' dashboard for authenticated users.
@@ -61,7 +61,7 @@ export const Dashboard = (): JSX.Element => {
   // Add layouts for other authentication level users.
   return (
     <main className={'m-[5%] flex flex-row flex-wrap gap-y-20'}>
-      {account.role === AccountRoles.ROLE_STUDENT && <LayoutStudent data={data as StudentDashboardStatistics} />}
+      {account.role === UserRoles.ROLE_STUDENT && <LayoutStudent data={data as StudentDashboardStatistics} />}
     </main>
   );
 };

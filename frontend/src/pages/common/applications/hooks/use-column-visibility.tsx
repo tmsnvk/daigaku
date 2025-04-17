@@ -72,7 +72,10 @@ export const useColumnVisibility = (): ColumnVisibility => {
     responseStatus: false,
     finalDestinationStatus: false,
   };
-  const rowConfig: RowConfig = getLocalStorageObjectById<RowConfig>(localStorageKeys.APPLICATION_TABLE_COLUMNS, defaultRowConfig);
+  const rowConfig: RowConfig = getLocalStorageObjectById<RowConfig>(
+    localStorageKeys.APPLICATION_TABLE_COLUMNS,
+    defaultRowConfig,
+  );
 
   const [columns, setColumns] = useState<Array<Column>>([
     {
@@ -149,8 +152,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
         }
 
         return column;
-      }),
-    );
+      }));
   };
 
   return {

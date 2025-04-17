@@ -188,7 +188,9 @@ export const NewApplicationForm = (): JSX.Element => {
               isDisabled={isPending}
               intent={CoreInputElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION} />
+            <CoreFormElementInstruction
+              paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION}
+            />
             <CoreFormAction
               isSubmissionPending={isPending}
               submissionMessage={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING}

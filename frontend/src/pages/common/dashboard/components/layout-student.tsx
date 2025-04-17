@@ -92,7 +92,9 @@ export const LayoutStudent = ({ data }: LayoutStudentProps): JSX.Element => {
           <TileDetail
             title={l.PAGES.COMMON.DASHBOARD.TILE.FINAL_DESTINATION}
             country={data.finalDestinationTileDetails.countryName ?? ''}
-            university={data.finalDestinationTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED}
+            university={
+              data.finalDestinationTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED
+            }
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}

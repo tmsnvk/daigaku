@@ -12,20 +12,23 @@ import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-f
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreSelectElementVariants = cva(joinTw('w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 rounded-xl', 'focus:outline-1'), {
-  variants: {
-    intent: {
-      light: 'bg-primary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
-    },
-    isDisabled: {
-      false: 'cursor-pointer',
-      true: 'cursor-not-allowed text-secondary-muted',
-    },
-    isError: {
-      true: 'border-destructive focus:outline-destructive',
+const coreSelectElementVariants = cva(
+  joinTw('w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 rounded-xl', 'focus:outline-1'),
+  {
+    variants: {
+      intent: {
+        light: 'bg-primary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
+      },
+      isDisabled: {
+        false: 'cursor-pointer',
+        true: 'cursor-not-allowed text-secondary-muted',
+      },
+      isError: {
+        true: 'border-destructive focus:outline-destructive',
+      },
     },
   },
-});
+);
 
 /**
  * Defines the component's properties.

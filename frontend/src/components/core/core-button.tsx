@@ -11,21 +11,25 @@ import { ButtonHTMLAttributes, JSX, MouseEventHandler } from 'react';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreButtonVariants = cva(joinTw('h-20 px-6 text-2xl font-bold rounded-xl tracking-widest', 'focus:outline-2', 'hover:outline-2'), {
-  variants: {
-    intent: {
-      light: 'bg-primary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
-      dark: 'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow) focus:outline-accent hover:outline-accent',
-      accent: 'bg-accent text-secondary focus:outline-tertiary shadow-(--right-bottom-secondary-shadow)',
-      submit: '',
-      destructive: 'bg-destructive text-tertiary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
-    },
-    isDisabled: {
-      false: 'cursor-pointer',
-      true: 'cursor-not-allowed hover:outline-transparent',
+const coreButtonVariants = cva(
+  joinTw('h-20 px-6 text-2xl font-bold rounded-xl tracking-widest', 'focus:outline-2', 'hover:outline-2'),
+  {
+    variants: {
+      intent: {
+        light: 'bg-primary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
+        dark: 'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow) focus:outline-accent hover:outline-accent',
+        accent: 'bg-accent text-secondary focus:outline-tertiary shadow-(--right-bottom-secondary-shadow)',
+        submit: '',
+        destructive:
+          'bg-destructive text-tertiary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
+      },
+      isDisabled: {
+        false: 'cursor-pointer',
+        true: 'cursor-not-allowed hover:outline-transparent',
+      },
     },
   },
-});
+);
 
 /**
  * Defines the component's properties.

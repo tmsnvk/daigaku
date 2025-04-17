@@ -70,10 +70,11 @@ export const applicationService: ApplicationService = {
     return response.data;
   },
   getDashboardStatistics: async (accountRole: string): Promise<StudentDashboardStatistics> => {
-    const response: AxiosResponse<StudentDashboardStatistics> = await axiosConfigWithAuth.request<StudentDashboardStatistics>({
-      method: 'GET',
-      url: `/api/v1/applications/${accountRole}/dashboard`,
-    });
+    const response: AxiosResponse<StudentDashboardStatistics> =
+      await axiosConfigWithAuth.request<StudentDashboardStatistics>({
+        method: 'GET',
+        url: `/api/v1/applications/${accountRole}/dashboard`,
+      });
 
     return response.data;
   },

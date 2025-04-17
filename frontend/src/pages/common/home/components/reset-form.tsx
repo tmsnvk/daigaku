@@ -20,7 +20,11 @@ import { localization as l } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { AccountResetRequest, CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
+import {
+  AccountResetRequest,
+  CoreInputElementStyleIntent,
+  CoreSubmitInputElementStyleIntent,
+} from '@daigaku/common-types';
 import { FormType } from '../models';
 
 /**

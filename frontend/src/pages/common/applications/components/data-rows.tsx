@@ -48,18 +48,31 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         key={application.uuid}
         className={'odd:bg-tertiary h-40'}
       >
-        <td className={joinTw(isColumnVisible(columns, 'courseName') ? '' : 'hidden', isLastRow && 'rounded-bl-(--default-border-radius)')}>
+        <td
+          className={joinTw(
+            isColumnVisible(columns, 'courseName') ? '' : 'hidden',
+            isLastRow && 'rounded-bl-(--default-border-radius)',
+          )}
+        >
           {application.courseName}
         </td>
         <td className={joinTw(isColumnVisible(columns, 'university') ? '' : 'hidden')}>{application.university}</td>
         <td className={joinTw(isColumnVisible(columns, 'country') ? '' : 'hidden')}>{application.country}</td>
-        <td className={joinTw(isColumnVisible(columns, 'programmeLength') ? '' : 'hidden')}>{application.programmeLength}</td>
+        <td className={joinTw(isColumnVisible(columns, 'programmeLength') ? '' : 'hidden')}>
+          {application.programmeLength}
+        </td>
         <td className={joinTw(isColumnVisible(columns, 'applicationStatus') ? '' : 'hidden')}>
           {application.applicationStatus.name ?? '-'}
         </td>
-        <td className={joinTw(isColumnVisible(columns, 'interviewStatus') ? '' : 'hidden')}>{application.interviewStatus?.name ?? '-'}</td>
-        <td className={joinTw(isColumnVisible(columns, 'offerStatus') ? '' : 'hidden')}>{application.offerStatus?.name ?? '-'}</td>
-        <td className={joinTw(isColumnVisible(columns, 'responseStatus') ? '' : 'hidden')}>{application.responseStatus?.name ?? '-'}</td>
+        <td className={joinTw(isColumnVisible(columns, 'interviewStatus') ? '' : 'hidden')}>
+          {application.interviewStatus?.name ?? '-'}
+        </td>
+        <td className={joinTw(isColumnVisible(columns, 'offerStatus') ? '' : 'hidden')}>
+          {application.offerStatus?.name ?? '-'}
+        </td>
+        <td className={joinTw(isColumnVisible(columns, 'responseStatus') ? '' : 'hidden')}>
+          {application.responseStatus?.name ?? '-'}
+        </td>
         <td className={joinTw(isColumnVisible(columns, 'finalDestinationStatus') ? '' : 'hidden')}>
           {application.finalDestinationStatus?.name ?? '-'}
         </td>

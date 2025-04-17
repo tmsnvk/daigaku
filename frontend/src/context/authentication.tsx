@@ -17,7 +17,7 @@ import { localStorageKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { AccountRoles, AuthStatus, LoginResponse, SimpleQueryResult } from '@daigaku/common-types';
+import { LoginResponse, SimpleQueryResult, UserLoginState, UserRoles } from '@daigaku/common-types';
 
 /**
  * Defines the properties of the data associated with the logged-in user.
@@ -26,7 +26,7 @@ interface Account {
   email: string;
   firstName: string;
   jwtToken: string;
-  role: AccountRoles | null;
+  role: UserRoles | null;
 }
 
 /**
@@ -34,7 +34,7 @@ interface Account {
  */
 interface AuthContext {
   account: Account;
-  authStatus: AuthStatus;
+  authStatus: UserLoginState;
   updateAccountContextDetails: (details: LoginResponse) => void;
   getRoleResource: () => string;
   logOut: () => void;
@@ -62,11 +62,11 @@ const initialState: Account = {
   jwtToken: '',
 };
 
-const roleResources: Record<AccountRoles, string> = {
-  [AccountRoles.ROLE_STUDENT]: 'student',
-  [AccountRoles.ROLE_MENTOR]: 'mentor',
-  [AccountRoles.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
-  [AccountRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
+const roleResources: Record<UserRoles, string> = {
+  [UserRoles.ROLE_STUDENT]: 'student',
+  [UserRoles.ROLE_MENTOR]: 'mentor',
+  [UserRoles.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
+  [UserRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
 };
 
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
@@ -76,40 +76,40 @@ const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthC
  */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [account, setAccount] = useState<Account>(initialState);
-  const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.LOADING);
+  const [authStatus, setAuthStatus] = useState<UserLoginState>(UserLoginState.LOADING);
 
   const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
   const { data, isLoading, isError } = useGetMe(authToken);
 
   const getRoleResource = (): string => {
-    return roleResources[account.role as AccountRoles];
+    return roleResources[account.role as UserRoles];
   };
 
   const updateAccountContextDetails = (details: LoginResponse) => {
     setAccount(details);
-    setAuthStatus(AuthStatus.SIGNED_IN);
+    setAuthStatus(UserLoginState.SIGNED_IN);
   };
 
   const logOut = (): void => {
     removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
     startTransition(() => {
-      setAuthStatus(AuthStatus.SIGNED_OUT);
+      setAuthStatus(UserLoginState.SIGNED_OUT);
       setAccount(initialState);
     });
   };
 
   useEffect(() => {
-    if (authStatus === AuthStatus.SIGNED_OUT) {
+    if (authStatus === UserLoginState.SIGNED_OUT) {
       return;
     }
 
     if (isError || !authToken || isAuthTokenExpired(authToken)) {
-      setAuthStatus(AuthStatus.SIGNED_OUT);
+      setAuthStatus(UserLoginState.SIGNED_OUT);
     }
 
     if (isLoading) {
-      setAuthStatus(AuthStatus.LOADING);
+      setAuthStatus(UserLoginState.LOADING);
     }
 
     if (data) {

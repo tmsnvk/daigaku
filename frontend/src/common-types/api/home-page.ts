@@ -5,7 +5,7 @@
  */
 
 /* interface, type, enum imports */
-import { AccountRoles } from '../authentication/account-roles.ts';
+import { UserRoles } from '../authentication/user-roles.ts';
 
 /**
  * Defines the properties of a user login form submission.
@@ -44,7 +44,7 @@ export interface LoginResponse {
   /**
    * The authenticated user's authorisation level.
    */
-  readonly role: AccountRoles;
+  readonly role: UserRoles;
 }
 
 /**

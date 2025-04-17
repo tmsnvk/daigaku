@@ -10,8 +10,8 @@ import { JSX } from 'react';
 /* component imports */
 import { ApplicationMetadata } from '@daigaku/components/general';
 import { CoreLink } from '@daigaku/components/core';
-import { ApplicationDetail } from './application-detail';
 import { CoreFormHeader } from '@daigaku/components/form';
+import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';

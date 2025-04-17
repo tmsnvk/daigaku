@@ -11,7 +11,7 @@ import { FieldValues } from 'react-hook-form';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreInputElement } from '../core-element/core-input-element';
+import { CoreInputElement } from '../core-element/core-input-element.tsx';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
@@ -29,7 +29,7 @@ interface PasswordInputGroupProps<T extends FieldValues> extends PasswordInputEl
 /**
  * Renders a password input element group instance integrated with the `react-hook-form` library.
  *
- * @param {PasswordInputGroupProps<T>} props
+ * @param {PasswordInputGroupProps<T extends FieldValues>} props
  * @return {JSX.Element}
  */
 export const PasswordInputGroup = <T extends FieldValues>({

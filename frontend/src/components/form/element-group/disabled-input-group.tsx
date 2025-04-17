@@ -9,7 +9,7 @@ import { JSX } from 'react';
 
 /* component imports */
 import { CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreDisabledInputElement } from '../core-element/core-disabled-input-element';
+import { CoreDisabledInputElement } from '../core-element/core-disabled-input-element.tsx';
 
 /**
  * Defines the component's properties.

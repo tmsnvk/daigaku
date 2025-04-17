@@ -10,7 +10,7 @@ import { FieldValues } from 'react-hook-form';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreSelectElement } from '../core-element/core-select-element';
+import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
@@ -23,9 +23,10 @@ import { CoreSelectElementGroup, CountryOption } from '@daigaku/common-types';
  * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
- * @template CountryOption - The type representing representing a country option.
+ * @template CountryOption - The type representing a country option.
  */
-interface CountrySelectGroupProps<T extends FieldValues, CountryOption> extends CoreSelectElementGroup<T, CountryOption> {
+interface CountrySelectGroupProps<T extends FieldValues, CountryOption>
+  extends CoreSelectElementGroup<T, CountryOption> {
   /**
    * The method invoked when a country is selected.
    */

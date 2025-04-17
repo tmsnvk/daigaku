@@ -9,8 +9,8 @@ import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 /* logic imports */
-import { useRegistrationFormMutation } from '../hooks';
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
+import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
 import {
@@ -64,7 +64,11 @@ interface RegistrationFormProps {
  */
 export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormProps): JSX.Element => {
   // react-query data fetches
-  const { data: institutions, isLoading: isInstitutionLoading, isError: isInstitutionError } = useGetInstitutionOptions();
+  const {
+    data: institutions,
+    isLoading: isInstitutionLoading,
+    isError: isInstitutionError,
+  } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
 
   // react-hook-form initialisation

@@ -22,7 +22,13 @@ import { Application, CoreErrorResponse, CreateApplicationByStudent, ErrorDetail
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
  */
-type CreateApplicationFormErrorT = 'root' | 'countryUuid' | 'universityUuid' | 'courseName' | 'minorSubject' | 'programmeLength';
+type CreateApplicationFormErrorT =
+  | 'root'
+  | 'countryUuid'
+  | 'universityUuid'
+  | 'courseName'
+  | 'minorSubject'
+  | 'programmeLength';
 
 /**
  * Manages the submission of new application submission via the `react-query` package.

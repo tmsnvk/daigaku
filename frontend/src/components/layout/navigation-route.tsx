@@ -46,7 +46,12 @@ interface NavigationRouteProps {
  * @param {ComponentProps} props
  * @return {JSX.Element}
  */
-export const NavigationRoute = ({ targetUrlString, icon, label, onNavigateClick }: NavigationRouteProps): JSX.Element => {
+export const NavigationRoute = ({
+  targetUrlString,
+  icon,
+  label,
+  onNavigateClick,
+}: NavigationRouteProps): JSX.Element => {
   return (
     <NavLink
       to={targetUrlString}

@@ -31,7 +31,11 @@ export const ApplicationEdit = (): JSX.Element => {
   const { state, pathname } = useLocation();
   const applicationUuid = pathname.split('/applications/edit/')[1];
   const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError } = useGetAllSelectOptions();
-  const { data, isLoading: isApplicationLoading, isError: isApplicationError } = useGetApplicationByUuid(state, applicationUuid);
+  const {
+    data,
+    isLoading: isApplicationLoading,
+    isError: isApplicationError,
+  } = useGetApplicationByUuid(state, applicationUuid);
   const application = state || data;
 
   if (isOptionsLoading || isApplicationLoading) {

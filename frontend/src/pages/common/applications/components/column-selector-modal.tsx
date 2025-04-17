@@ -47,7 +47,12 @@ interface ColumnSelectorModalProps {
  *
  * @return {JSX.Element}
  */
-export const ColumnSelectorModal = ({ columns, isVisible, onToggleColumnVisibility, onToggle }: ColumnSelectorModalProps): JSX.Element => {
+export const ColumnSelectorModal = ({
+  columns,
+  isVisible,
+  onToggleColumnVisibility,
+  onToggle,
+}: ColumnSelectorModalProps): JSX.Element => {
   const { dialogRef } = useRenderModal(isVisible);
 
   return (

@@ -44,14 +44,17 @@ export const useUpdateApplicationFormMutation = (
 ): UseMutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent> => {
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
-    mutationFn: (formData: UpdateApplicationByStudent) => applicationStudentService.patchByUuid(formData, applicationUuid),
+    mutationFn: (formData: UpdateApplicationByStudent) =>
+      applicationStudentService.patchByUuid(formData, applicationUuid),
     onSuccess: (response: Application) => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }
 
-        const filteredList: Array<Application> = applications.filter((application: Application) => application.uuid !== response.uuid);
+        const filteredList: Array<Application> = applications.filter(
+          (application: Application) => application.uuid !== response.uuid,
+        );
 
         return [...filteredList, response];
       });

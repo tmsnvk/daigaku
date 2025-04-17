@@ -39,7 +39,9 @@ export const useSubmitComment = (
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
     mutationFn: (formData: CreateComment) => commentService.postCommentByApplicationUuid(formData, applicationUuid),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid] });
+      queryClient.invalidateQueries({
+        queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid],
+      });
     },
     onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {

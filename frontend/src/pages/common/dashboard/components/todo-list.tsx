@@ -51,7 +51,10 @@ export const TodoList = ({ introduction, todos }: TodoListProps): JSX.Element =>
         {todos.map((todo: Todo, index: number) => (
           <li
             key={index}
-            className={joinTw('list-[square]', index === 0 ? 'mb-4 mt-8' : index === todos.length - 1 ? 'mb-8' : 'mb-4')}
+            className={joinTw(
+              'list-[square]',
+              index === 0 ? 'mb-4 mt-8' : index === todos.length - 1 ? 'mb-8' : 'mb-4',
+            )}
           >
             {todo}
           </li>

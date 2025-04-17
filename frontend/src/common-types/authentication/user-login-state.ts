@@ -5,9 +5,9 @@
  */
 
 /**
- * Defines the authentication status options.
+ * Defines the user's login states.
  */
-export enum AuthStatus {
+export enum UserLoginState {
   LOADING,
   SIGNED_IN,
   SIGNED_OUT,

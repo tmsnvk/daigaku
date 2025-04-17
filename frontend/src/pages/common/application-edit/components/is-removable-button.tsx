@@ -44,9 +44,9 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
     <article className={'col-start-2 col-end-3 row-start-2 row-end-3 flex h-40 flex-col items-center'}>
       <CoreButton
         label={
-          shouldBeRemoved
-            ? l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.REVERT_REQUEST
-            : l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.DELETION_REQUEST
+          shouldBeRemoved ?
+            l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.REVERT_REQUEST :
+            l.PAGES.COMMON.APPLICATION_EDIT.REMOVABLE_BUTTON.DELETION_REQUEST
         }
         intent={shouldBeRemoved ? 'destructive' : 'dark'}
         onClick={() => mutate()}

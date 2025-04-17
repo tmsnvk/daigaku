@@ -10,7 +10,7 @@ import { FieldValues } from 'react-hook-form';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreInputElement } from '../core-element/core-input-element';
+import { CoreInputElement } from '../core-element/core-input-element.tsx';
 
 /* interface, type, enum imports */
 import { CommonInputElementGroup } from '@daigaku/common-types';
@@ -25,7 +25,7 @@ interface CommonInputGroupProps<T extends FieldValues> extends CommonInputElemen
 /**
  * Renders a generic input element group instance integrated with the `react-hook-form` library.
  *
- * @param {CommonInputGroupProps<T>} props
+ * @param {CommonInputGroupProps<T extends FieldValues>} props
  * @return {JSX.Element}
  */
 export const CommonInputGroup = <T extends FieldValues>({

@@ -18,7 +18,11 @@ import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/c
 import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { CoreSubmitInputElementStyleIntent, CoreTextareaElementStyleIntent, CreateComment } from '@daigaku/common-types';
+import {
+  CoreSubmitInputElementStyleIntent,
+  CoreTextareaElementStyleIntent,
+  CreateComment,
+} from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.

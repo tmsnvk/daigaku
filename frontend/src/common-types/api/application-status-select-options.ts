@@ -5,7 +5,13 @@
  */
 
 /* interface, type, enum imports */
-import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from './application-status.ts';
+import {
+  ApplicationStatus,
+  FinalDestinationStatus,
+  InterviewStatus,
+  OfferStatus,
+  ResponseStatus,
+} from './application-status.ts';
 
 /**
  * Defines the properties of all application status fields.

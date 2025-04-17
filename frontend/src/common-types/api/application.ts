@@ -5,8 +5,14 @@
  */
 
 /* interface, type, enum imports */
-import { ApplicationStatus, FinalDestinationStatus, InterviewStatus, OfferStatus, ResponseStatus } from './application-status.ts';
 import { CoreMetadata } from '../base/core-metada.ts';
+import {
+  ApplicationStatus,
+  FinalDestinationStatus,
+  InterviewStatus,
+  OfferStatus,
+  ResponseStatus,
+} from './application-status.ts';
 
 /**
  * Defines the details of an application, including its status, associated account, and relevant metadata.

@@ -227,7 +227,7 @@
     "max-len": [
       "warn",
       {
-        "code": 140,
+        "code": 240,
         "tabWidth": 2,
         "ignoreComments": false,
         "ignoreUrls": true,

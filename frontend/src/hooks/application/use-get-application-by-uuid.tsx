@@ -24,7 +24,10 @@ import { Application, SimpleQueryResult } from '@daigaku/common-types';
  * @param applicationUuid The Application record's uuid string.
  * @return {SimpleQueryResult<Application>}
  */
-export const useGetApplicationByUuid = (state: Application | null, applicationUuid: string): SimpleQueryResult<Application> => {
+export const useGetApplicationByUuid = (
+  state: Application | null,
+  applicationUuid: string,
+): SimpleQueryResult<Application> => {
   return useQuery({
     queryKey: [queryKeys.application.GET_BY_UUID, applicationUuid],
     queryFn: () => applicationService.getByUuid(applicationUuid),

@@ -7,6 +7,10 @@
 /* vendor imports */
 import { useWindowSize } from '@uidotdev/usehooks';
 
+/**
+ *
+ * @return {0 | null | boolean}
+ */
 export const useMobileView = () => {
   const MOBILE_VIEW_END = 1028;
 

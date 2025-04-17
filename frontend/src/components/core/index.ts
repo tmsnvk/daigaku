@@ -6,7 +6,7 @@
 
 import { CoreButton } from './core-button.tsx';
 import { CoreDialog } from './core-dialog.tsx';
-import { CoreLink } from './core-link.tsx';
 import { CoreIcon } from './core-icon.tsx';
+import { CoreLink } from './core-link.tsx';
 
-export { CoreButton, CoreDialog, CoreLink, CoreIcon };
+export { CoreButton, CoreDialog, CoreIcon, CoreLink };

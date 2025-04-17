@@ -12,7 +12,13 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useLoginFormMutation } from '../hooks';
 
 /* component imports */
-import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper, PasswordInputGroup } from '@daigaku/components/form';
+import {
+  CommonInputGroup,
+  CoreFormAction,
+  CoreFormHeader,
+  CoreFormWrapper,
+  PasswordInputGroup,
+} from '@daigaku/components/form';
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
