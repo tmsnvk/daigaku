@@ -114,10 +114,16 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
-        leftButtonFormType={FormType.RESET}
-        rightButtonLabel={formTypeButtonLabel[FormType.REGISTER]}
-        rightButtonFormType={FormType.REGISTER}
+        buttonConfig={{
+          leftButton: {
+            label: formTypeButtonLabel[FormType.RESET],
+            formType: FormType.RESET,
+          },
+          rightButton: {
+            label: formTypeButtonLabel[FormType.REGISTER],
+            formType: FormType.REGISTER,
+          },
+        }}
         isDisabled={isPending}
         onFormSelect={onFormSelect}
       />

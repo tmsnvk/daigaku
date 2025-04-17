@@ -203,10 +203,16 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        leftButtonLabel={formTypeButtonLabel[FormType.RESET]}
-        leftButtonFormType={FormType.RESET}
-        rightButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
-        rightButtonFormType={FormType.LOGIN}
+        buttonConfig={{
+          leftButton: {
+            label: formTypeButtonLabel[FormType.RESET],
+            formType: FormType.RESET,
+          },
+          rightButton: {
+            label: formTypeButtonLabel[FormType.LOGIN],
+            formType: FormType.LOGIN,
+          },
+        }}
         isDisabled={isPending}
         onFormSelect={onFormSelect}
       />

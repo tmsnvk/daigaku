@@ -11,7 +11,7 @@ import { useWindowSize } from '@uidotdev/usehooks';
  *
  * @return {0 | null | boolean}
  */
-export const useMobileView = () => {
+export const useMobileView = (): 0 | boolean | null => {
   const MOBILE_VIEW_END = 1028;
 
   const { width } = useWindowSize();

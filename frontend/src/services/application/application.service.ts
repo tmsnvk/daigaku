@@ -32,8 +32,6 @@ interface ApplicationService {
    * @param accountRole The user's authorisation role.
    * @return {Promise<Array<Application>>}
    * @throws {AxiosError}
-   *
-   * @since 0.0.1
    */
   getAllByRole: (roleResource: string) => Promise<Array<Application>>;
 
@@ -43,8 +41,6 @@ interface ApplicationService {
    * @param accountRole The user's authorisation role.
    * @return {Promise<StudentDashboardStatistics>}
    * @throws {AxiosError}
-   *
-   * @since 0.0.1
    */
   getDashboardStatistics: (roleResource: string) => Promise<StudentDashboardStatistics>;
 }

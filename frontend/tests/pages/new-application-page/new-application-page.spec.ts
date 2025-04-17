@@ -19,7 +19,13 @@ test.describe('New Application form tests', () => {
       await newApplicationPage.goToNewApplicationPage();
       await newApplicationPage.verifyFormElement();
 
-      await newApplicationPage.fillInNewApplicationForm({ country, university, courseName, minorSubject, programmeLength });
+      await newApplicationPage.fillInNewApplicationForm({
+        country,
+        university,
+        courseName,
+        minorSubject,
+        programmeLength,
+      });
     });
   });
 });

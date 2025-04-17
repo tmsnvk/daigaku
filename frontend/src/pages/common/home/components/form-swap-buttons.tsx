@@ -18,25 +18,18 @@ import { FormType } from '../models';
  */
 interface FormSwapButtonsProps {
   /**
-   * The left button's label string;
+   * Configuration data regarding the component's buttons.
    */
-  readonly leftButtonLabel: string;
-
-  /**
-   * The left button's form type to switch to.
-   */
-  readonly leftButtonFormType: FormType;
-
-  /**
-   * The right button's label string;
-   */
-  readonly rightButtonLabel: string;
-
-  /**
-   * The right button's form type to switch to.
-   */
-  readonly rightButtonFormType: FormType;
-
+  readonly buttonConfig: {
+    leftButton: {
+      label: string;
+      formType: FormType;
+    };
+    rightButton: {
+      label: string;
+      formType: FormType;
+    };
+  };
   /**
    * The boolean to govern when the buttons should be disabled.
    */
@@ -56,27 +49,20 @@ interface FormSwapButtonsProps {
  * @param {FormSwapButtonsProps} props
  * @return {JSX.Element}
  */
-export const FormSwapButtons = ({
-  leftButtonLabel,
-  leftButtonFormType,
-  rightButtonLabel,
-  rightButtonFormType,
-  isDisabled,
-  onFormSelect,
-}: FormSwapButtonsProps): JSX.Element => {
+export const FormSwapButtons = ({ buttonConfig, isDisabled, onFormSelect }: FormSwapButtonsProps): JSX.Element => {
   return (
     <article className={'mt-40 flex justify-between'}>
       <CoreButton
-        label={leftButtonLabel}
+        label={buttonConfig.leftButton.label}
         intent={'light'}
         isDisabled={isDisabled}
-        onClick={() => onFormSelect(leftButtonFormType)}
+        onClick={() => onFormSelect(buttonConfig.leftButton.formType)}
       />
       <CoreButton
-        label={rightButtonLabel}
+        label={buttonConfig.rightButton.label}
         intent={'light'}
         isDisabled={isDisabled}
-        onClick={() => onFormSelect(rightButtonFormType)}
+        onClick={() => onFormSelect(buttonConfig.rightButton.formType)}
       />
     </article>
   );

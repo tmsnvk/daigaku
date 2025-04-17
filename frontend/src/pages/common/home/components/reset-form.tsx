@@ -103,10 +103,16 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        leftButtonLabel={formTypeButtonLabel[FormType.LOGIN]}
-        leftButtonFormType={FormType.LOGIN}
-        rightButtonLabel={formTypeButtonLabel[FormType.REGISTER]}
-        rightButtonFormType={FormType.REGISTER}
+        buttonConfig={{
+          leftButton: {
+            label: formTypeButtonLabel[FormType.LOGIN],
+            formType: FormType.LOGIN,
+          },
+          rightButton: {
+            label: formTypeButtonLabel[FormType.REGISTER],
+            formType: FormType.REGISTER,
+          },
+        }}
         isDisabled={isPending}
         onFormSelect={onFormSelect}
       />

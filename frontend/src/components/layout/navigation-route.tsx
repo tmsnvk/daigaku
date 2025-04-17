@@ -43,7 +43,7 @@ interface NavigationRouteProps {
 /**
  * Renders a navigation route component that enables navigating in-between the application's pages.
  *
- * @param {ComponentProps} props
+ * @param {NavigationRouteProps} props
  * @return {JSX.Element}
  */
 export const NavigationRoute = ({
