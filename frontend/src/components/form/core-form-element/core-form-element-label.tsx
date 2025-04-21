@@ -22,7 +22,7 @@ interface CoreFormElementLabelProps {
   /**
    * The displayed label string.
    */
-  readonly content: string;
+  readonly label: string;
 }
 
 /**
@@ -31,13 +31,13 @@ interface CoreFormElementLabelProps {
  * @param {CoreFormElementLabelProps} props
  * @return {JSX.Element}
  */
-export const CoreFormElementLabel = ({ inputId, content }: CoreFormElementLabelProps): JSX.Element => {
+export const CoreFormElementLabel = ({ inputId, label }: CoreFormElementLabelProps): JSX.Element => {
   return (
     <label
       htmlFor={inputId}
       className={joinTw('text-2xl')}
     >
-      {content}
+      {label}
     </label>
   );
 };

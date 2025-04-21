@@ -47,7 +47,7 @@ export const DisabledInputGroup = ({ id, label, type, value }: DisabledInputGrou
     <CoreFormElementGroupWrapper>
       <CoreFormElementLabel
         inputId={id}
-        content={label}
+        label={label}
       />
       <CoreDisabledInputElement
         type={type}

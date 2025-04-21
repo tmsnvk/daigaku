@@ -8,7 +8,7 @@
 import { useState } from 'react';
 
 /**
- * Defines properties for managing paginated content.
+ * Defines properties for managing paginated label.
  */
 interface CommentPagination {
   /**

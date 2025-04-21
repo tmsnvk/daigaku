@@ -46,7 +46,7 @@ export const InstitutionSelectGroup = <T extends FieldValues>({
     <CoreFormElementGroupWrapper>
       <CoreFormElementLabel
         inputId={id}
-        content={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.LABEL}
+        label={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.LABEL}
       />
       <CoreSelectElement
         validationRules={validationRules}

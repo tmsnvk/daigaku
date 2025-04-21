@@ -54,7 +54,7 @@ export const CommonTextareaGroup = <T extends FieldValues>({
     <CoreFormElementGroupWrapper className={joinTw('h-120')}>
       <CoreFormElementLabel
         inputId={id}
-        content={label}
+        label={label}
       />
       <CoreTextareaElement
         validationRules={validationRules}

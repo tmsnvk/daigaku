@@ -15,7 +15,6 @@ export * from './api/role.ts';
 export * from './api/university.ts';
 export * from './application/application-status.ts';
 export * from './authentication/user-login-state.ts';
-export * from './component/core-form-element-validation.ts';
 export * from './component/form-element-groups.ts';
 export * from './component/form-element-style-intents.ts';
 export * from './component/todo.ts';

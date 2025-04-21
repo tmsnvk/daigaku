@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { FieldValues } from 'react-hook-form';
+import { FieldValues, Path } from 'react-hook-form';
 
 /* interface, type, enum imports */
 import {
@@ -13,7 +13,6 @@ import {
   CoreSelectElementStyleIntent,
   CoreTextareaElementStyleIntent,
 } from './form-element-style-intents.ts';
-import { CoreFormElementValidation } from './core-form-element-validation.ts';
 
 /**
  * Defines the properties of core form elements
@@ -22,7 +21,22 @@ import { CoreFormElementValidation } from './core-form-element-validation.ts';
  * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  */
-interface CoreFormElementGroup<T extends FieldValues> extends CoreFormElementValidation<T> {
+interface CoreFormElementGroup<T extends FieldValues> {
+  /**
+   * The input element's id.
+   */
+  readonly id: Path<T>;
+
+  /**
+   * The error message associated with the input, if validation fails.
+   */
+  readonly error?: string;
+
+  /**
+   * Indicates whether the input is disabled, preventing user interaction.
+   */
+  readonly isDisabled: boolean;
+
   /**
    * The initial value for the input element.
    */
@@ -48,7 +62,7 @@ interface CoreInputElementGroup<T extends FieldValues> extends CoreFormElementGr
   readonly label: string;
 
   /**
-   * Placeholder text to guide the user on what to enter in the input element.
+   * Placeholder text to guide the user on what to type in the input element.
    * Optional, since certain input elements might have pre-filled data.
    */
   readonly placeholder?: string;
@@ -106,7 +120,7 @@ export interface TextareaElementGroup<T extends FieldValues> extends CoreFormEle
   readonly label: string;
 
   /**
-   * Placeholder text to guide the user on what to enter in the input element.
+   * Placeholder text to guide the user on what to type in the input element.
    */
   readonly placeholder: string;
 }

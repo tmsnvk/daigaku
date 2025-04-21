@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { FieldValues } from 'react-hook-form';
+import { FieldValues, useFormContext } from 'react-hook-form';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
@@ -29,24 +29,26 @@ interface CommonInputGroupProps<T extends FieldValues> extends CommonInputElemen
  * @return {JSX.Element}
  */
 export const CommonInputGroup = <T extends FieldValues>({
-  validationRules,
   id,
   type,
   label,
   initialValue,
   placeholder,
   isDisabled,
-  error,
   intent,
 }: CommonInputGroupProps<T>): JSX.Element => {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const error = errors[id]?.message;
+
   return (
     <CoreFormElementGroupWrapper>
       <CoreFormElementLabel
         inputId={id}
-        content={label}
+        label={label}
       />
       <CoreInputElement
-        validationRules={validationRules}
         id={id}
         type={type}
         placeholder={placeholder}
@@ -55,7 +57,7 @@ export const CommonInputGroup = <T extends FieldValues>({
         isError={error !== undefined}
         intent={intent}
       />
-      {error && <CoreFormElementError message={error} />}
+      {error && <CoreFormElementError message={error as string} />}
     </CoreFormElementGroupWrapper>
   );
 };

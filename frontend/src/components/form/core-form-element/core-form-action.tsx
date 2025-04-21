@@ -16,6 +16,7 @@ import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
+import { useFormContext } from 'react-hook-form';
 
 /**
  * Defines the component's properties.
@@ -42,11 +43,6 @@ interface CoreFormActionProps {
   readonly submissionValue: string;
 
   /**
-   * The `formState.errors.root.message` field from the `react-hook-form` plugin.
-   */
-  readonly errorMessage: string | undefined;
-
-  /**
    * The input element's style intent.
    */
   readonly submitButtonStyleIntent: CoreSubmitInputElementStyleIntent;
@@ -69,10 +65,14 @@ export const CoreFormAction = ({
   submissionMessage,
   submitId,
   submissionValue,
-  errorMessage,
   submitButtonStyleIntent,
   className,
 }: CoreFormActionProps): JSX.Element => {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const error = errors.root?.message;
+
   return (
     <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>
       {isSubmissionPending ? (
@@ -85,7 +85,7 @@ export const CoreFormAction = ({
           intent={submitButtonStyleIntent}
         />
       )}
-      <CoreFormElementError message={errorMessage} />
+      <CoreFormElementError message={error} />
     </article>
   );
 };

@@ -5,8 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks';
@@ -29,6 +31,16 @@ import { formTypeButtonLabel } from '../constants';
 import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../models';
 
+const loginFormSchema = z
+  .object({
+    email: z.string().email({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED }),
+    password: z.string().min(1, { message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
+  })
+  .strict()
+  .required();
+
+type FormData = z.infer<typeof loginFormSchema>;
+
 /**
  * Defines the component's properties.
  */
@@ -50,13 +62,8 @@ interface LoginFormProps {
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
-  const methods = useForm<LoginPayload>({ mode: 'onSubmit' });
-  const {
-    formState: { errors },
-    handleSubmit,
-    setError,
-  } = methods;
-
+  const methods = useForm<FormData>({ mode: 'onSubmit', resolver: zodResolver(loginFormSchema) });
+  const { handleSubmit, setError } = methods;
   const { isPending, mutate } = useLoginFormMutation(setError);
 
   return (
@@ -68,37 +75,23 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-account-login-form'}
-          onFormSubmit={handleSubmit((formData: LoginPayload) => {
-            mutate(formData);
+          onFormSubmit={handleSubmit((formData: FormData) => {
+            mutate(formData as LoginPayload);
           })}
         >
           <CommonInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED,
-              },
-            }}
             id={'email'}
             type={'email'}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
             isDisabled={isPending}
-            error={errors.email?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <PasswordInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED,
-              },
-            }}
             id={'password'}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.PLACEHOLDER}
             isDisabled={isPending}
-            error={errors.password?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
@@ -106,7 +99,6 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
             submitId={'login'}
             submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
-            errorMessage={errors.root?.message}
             submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>

@@ -7,7 +7,7 @@
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes, JSX } from 'react';
-import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
+import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -44,12 +44,6 @@ const coreInputElementVariants = cva(
 interface CoreInputElementProps<T extends FieldValues>
   extends VariantProps<typeof coreInputElementVariants>,
     InputHTMLAttributes<HTMLInputElement> {
-  /**
-   * Optional validation rules to handle the input element's validation using the `react-hook-form` library for
-   * validation management.
-   */
-  readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
-
   /**
    * The input element's id.
    */
@@ -93,7 +87,6 @@ interface CoreInputElementProps<T extends FieldValues>
  * @return {JSX.Element}
  */
 export const CoreInputElement = <T extends FieldValues>({
-  validationRules,
   id,
   type,
   placeholder,
@@ -107,7 +100,7 @@ export const CoreInputElement = <T extends FieldValues>({
 
   return (
     <input
-      {...register(id, validationRules)}
+      {...register(id)}
       id={id}
       name={id}
       type={type}

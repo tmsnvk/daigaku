@@ -46,7 +46,7 @@ export const AccountRoleSelectGroup = <T extends FieldValues>({
     <CoreFormElementGroupWrapper>
       <CoreFormElementLabel
         inputId={id}
-        content={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
+        label={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
       />
       <CoreSelectElement
         validationRules={validationRules}

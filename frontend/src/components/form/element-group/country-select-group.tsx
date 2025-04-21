@@ -67,7 +67,7 @@ export const CountrySelectGroup = <T extends FieldValues>({
     <CoreFormElementGroupWrapper className={className}>
       <CoreFormElementLabel
         inputId={id}
-        content={l.COMPONENTS.FORM.COUNTRY_DROPDOWN.LABEL}
+        label={l.COMPONENTS.FORM.COUNTRY_DROPDOWN.LABEL}
       />
       <CoreSelectElement
         validationRules={validationRules}

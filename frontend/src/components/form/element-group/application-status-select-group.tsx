@@ -76,7 +76,7 @@ export const ApplicationStatusSelectGroup = <T extends FieldValues>({
     <CoreFormElementGroupWrapper>
       <CoreFormElementLabel
         inputId={id}
-        content={label}
+        label={label}
       />
       <CoreSelectElement
         validationRules={validationRules}
