@@ -33,7 +33,7 @@ import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
-  PendingAccountRegistrationRequest,
+  PendingAccountRegistrationPayload,
 } from '@daigaku/common-types';
 import { FormType } from '../models';
 
@@ -70,7 +70,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
   } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
 
-  const methods = useForm<PendingAccountRegistrationRequest>({ mode: 'onSubmit' });
+  const methods = useForm<PendingAccountRegistrationPayload>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
@@ -106,7 +106,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-pending-account-registration-form'}
-          onFormSubmit={handleSubmit((formData: PendingAccountRegistrationRequest) => {
+          onFormSubmit={handleSubmit((formData: PendingAccountRegistrationPayload) => {
             mutate(formData);
           })}
         >

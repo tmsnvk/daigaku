@@ -5,22 +5,20 @@
  */
 
 /* interface, type, enum imports */
-import { CoreMetadata } from '../base/core-metada.ts';
+import { CoreMetadata } from '../core/core-metada.ts';
 
 /**
- * Defines the properties of a single new Comment submission.
+ * Defines the structure of a new comment to be submitted.
  */
-export interface CreateComment {
+export interface CreateCommentPayload {
   /**
-   * The comment body.
+   * The text content of the comment.
    */
   readonly comment: string;
 }
 
 /**
- * Defines a comment associated with a given application record.
- * Represents an individual comment that can be created on an application record
- * and includes metadata about the comment's lifecycle and author.
+ * Defines the properties of a comment associated with a given application-record.
  */
 export interface Comment extends CoreMetadata {
   /**
@@ -32,4 +30,29 @@ export interface Comment extends CoreMetadata {
    * The text content of the comment.
    */
   readonly comment: string;
+}
+
+/**
+ * Defines the metadata and the list of comments associated with a given application-record.
+ */
+export interface CommentPaginationDataResponse {
+  /**
+   * The total number of comment pages.
+   */
+  readonly totalPages: number;
+
+  /**
+   * The current page number of the comments being viewed.
+   */
+  readonly currentPage: number;
+
+  /**
+   * The total number of comments.
+   */
+  readonly totalComments: number;
+
+  /**
+   * A list of comments associated.
+   */
+  readonly comments: Array<Comment>;
 }

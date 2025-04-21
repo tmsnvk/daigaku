@@ -17,7 +17,12 @@ import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
 import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, CreateApplicationByStudent, ErrorDetail } from '@daigaku/common-types';
+import {
+  ApplicationRecord,
+  CoreErrorResponse,
+  CreateApplicationRecordByStudentPayload,
+  ErrorDetail,
+} from '@daigaku/common-types';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -36,21 +41,23 @@ type CreateApplicationFormErrorT =
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {UseMutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent>} A `react-query`
- *   mutation object.
+ * @return {UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>,
+ *   CreateApplicationRecordByStudentPayload>} A
+ *   `react-query` mutation object.
  */
 export const useCreateApplication = (
-  setError: UseFormSetError<CreateApplicationByStudent>,
+  setError: UseFormSetError<CreateApplicationRecordByStudentPayload>,
   resetCountrySelection: () => void,
   reset: () => void,
-): UseMutationResult<Application, AxiosError<CoreErrorResponse>, CreateApplicationByStudent> => {
+): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, CreateApplicationRecordByStudentPayload> => {
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
-    mutationFn: (formData: CreateApplicationByStudent) => applicationStudentService.postByStudent(formData),
-    onSuccess: (response: Application) => {
-      queryClient.setQueryData<Array<Application>>(
+    mutationFn: (formData: CreateApplicationRecordByStudentPayload) =>
+      applicationStudentService.postByStudent(formData),
+    onSuccess: (response: ApplicationRecord) => {
+      queryClient.setQueryData<Array<ApplicationRecord>>(
         [queryKeys.application.GET_ALL_BY_ROLE],
-        (applications: Array<Application> | undefined) => {
+        (applications: Array<ApplicationRecord> | undefined) => {
           if (!applications) {
             return;
           }

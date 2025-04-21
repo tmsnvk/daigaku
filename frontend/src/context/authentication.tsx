@@ -17,7 +17,7 @@ import { localStorageKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { LoginResponse, SimpleQueryResult, UserLoginState, UserRoles } from '@daigaku/common-types';
+import { LoginResponse, SimpleQueryResult, UserLoginState, UserRole } from '@daigaku/common-types';
 
 /**
  * Defines the properties of the data associated with the logged-in user.
@@ -26,7 +26,7 @@ interface Account {
   email: string;
   firstName: string;
   jwtToken: string;
-  role: UserRoles | null;
+  role: UserRole | null;
 }
 
 /**
@@ -42,7 +42,7 @@ interface AuthContext {
 
 /**
  * Manages the fetching of basic details of the logged in user. The fetch operation is enabled only if a JWT
- * autorisation token exists.
+ * authorisation token exists.
  *
  * @param authToken The authorisation JWT token if it exists.
  * @returns {SimpleQueryResult<LoginResponse>}
@@ -62,11 +62,11 @@ const initialState: Account = {
   jwtToken: '',
 };
 
-const roleResources: Record<UserRoles, string> = {
-  [UserRoles.ROLE_STUDENT]: 'student',
-  [UserRoles.ROLE_MENTOR]: 'mentor',
-  [UserRoles.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
-  [UserRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
+const roleResources: Record<UserRole, string> = {
+  [UserRole.ROLE_STUDENT]: 'student',
+  [UserRole.ROLE_MENTOR]: 'mentor',
+  [UserRole.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
+  [UserRole.ROLE_SYSTEM_ADMIN]: 'system-admin',
 };
 
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { data, isLoading, isError } = useGetMe(authToken);
 
   const getRoleResource = (): string => {
-    return roleResources[account.role as UserRoles];
+    return roleResources[account.role as UserRole];
   };
 
   const updateAccountContextDetails = (details: LoginResponse) => {

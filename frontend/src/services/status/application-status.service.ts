@@ -32,7 +32,9 @@ interface ApplicationStatusService {
  */
 export const applicationStatusService: ApplicationStatusService = {
   getAll: async (): Promise<Array<ApplicationStatus>> => {
-    const response: AxiosResponse<Array<ApplicationStatus>> = await axiosConfigWithAuth.request<Array<ApplicationStatus>>({
+    const response: AxiosResponse<Array<ApplicationStatus>> = await axiosConfigWithAuth.request<
+      Array<ApplicationStatus>
+    >({
       method: 'GET',
       url: '/api/v1/application-status',
     });

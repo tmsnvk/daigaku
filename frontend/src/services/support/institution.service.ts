@@ -31,7 +31,9 @@ interface InstitutionService {
  */
 export const institutionService: InstitutionService = {
   getAllOptions: async (): Promise<Array<InstitutionOption>> => {
-    const response: AxiosResponse<Array<InstitutionOption>> = await axiosConfigWithAuth.request<Array<InstitutionOption>>({
+    const response: AxiosResponse<Array<InstitutionOption>> = await axiosConfigWithAuth.request<
+      Array<InstitutionOption>
+    >({
       method: 'GET',
       url: '/api/v1/institutions/options',
     });

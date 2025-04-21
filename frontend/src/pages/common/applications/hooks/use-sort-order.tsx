@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { queryClient, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application } from '@daigaku/common-types';
+import { ApplicationRecord } from '@daigaku/common-types';
 
 /**
  * Defines the properties for sorting columns on the /applications page.
@@ -36,22 +36,22 @@ enum SortOrder {
  *
  * @return {SetOrder}
  */
-export const useSortOrder = (data: Array<Application>): SetOrder => {
+export const useSortOrder = (data: Array<ApplicationRecord>): SetOrder => {
   const [sortedBy, setSortedBy] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
 
   const sortColumns = (): void => {
-    const sortedData: Array<Application> = data.sort((a, b) => {
-      if (a[sortedBy as keyof Application] === null) {
+    const sortedData: Array<ApplicationRecord> = data.sort((a, b) => {
+      if (a[sortedBy as keyof ApplicationRecord] === null) {
         return 1;
       }
 
-      if (b[sortedBy as keyof Application] === null) {
+      if (b[sortedBy as keyof ApplicationRecord] === null) {
         return -1;
       }
 
       return (
-        String(a[sortedBy as keyof Application]).localeCompare(String(b[sortedBy as keyof Application])) *
+        String(a[sortedBy as keyof ApplicationRecord]).localeCompare(String(b[sortedBy as keyof ApplicationRecord])) *
         (sortOrder === SortOrder.ASC ? 1 : -1)
       );
     });

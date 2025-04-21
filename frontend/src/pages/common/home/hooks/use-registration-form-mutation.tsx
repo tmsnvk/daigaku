@@ -17,7 +17,7 @@ import { mutationKeys } from '@daigaku/configuration';
 import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { CoreErrorResponse, ErrorDetail, PendingAccountRegistrationRequest } from '@daigaku/common-types';
+import { CoreErrorResponse, ErrorDetail, PendingAccountRegistrationPayload } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useRegistrationFormMutation} custom hook's error types.
@@ -29,15 +29,15 @@ type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'ins
  *
  * @param setError A `react-hook-form` method that sets form errors.
  * @param showModal A method that displays a confirmation modal component.
- * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationRequest>}
+ * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationPayload>}
  */
 export const useRegistrationFormMutation = (
-  setError: UseFormSetError<PendingAccountRegistrationRequest>,
+  setError: UseFormSetError<PendingAccountRegistrationPayload>,
   showModal: () => void,
-): UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationRequest> => {
+): UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationPayload> => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER],
-    mutationFn: (formData: PendingAccountRegistrationRequest) => pendingAccountService.register(formData),
+    mutationFn: (formData: PendingAccountRegistrationPayload) => pendingAccountService.register(formData),
     onSuccess: () => {
       showModal();
     },

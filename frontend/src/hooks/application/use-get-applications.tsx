@@ -15,14 +15,14 @@ import { applicationService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application, ListQueryResult } from '@daigaku/common-types';
+import { ApplicationRecord, ListQueryResult } from '@daigaku/common-types';
 
 /**
  * Fetches a list of application records based on the user's authorisation role.
  *
- * @return {ListQueryResult<Application>}
+ * @return {ListQueryResult<ApplicationRecord>}
  */
-export const useGetApplications = (): ListQueryResult<Application> => {
+export const useGetApplications = (): ListQueryResult<ApplicationRecord> => {
   const { getRoleResource } = useAuthContext();
   const accountRole = getRoleResource();
 

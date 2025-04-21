@@ -22,7 +22,7 @@ import { CoreSelectElementGroup, InstitutionOption } from '@daigaku/common-types
  * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
- * @template InstitutionOption - The type representing representing an institution option.
+ * @template InstitutionOption - The type representing an institution option.
  */
 interface InstitutionSelectGroupProps<T extends FieldValues, InstitutionOption>
   extends CoreSelectElementGroup<T, InstitutionOption> {}

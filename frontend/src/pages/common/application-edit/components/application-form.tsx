@@ -30,16 +30,16 @@ import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import {
-  Application,
+  ApplicationRecord,
+  ApplicationRecordStatusOptions,
   ApplicationStatus,
-  ApplicationStatusSelectOptions,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
   FinalDestinationStatus,
   InterviewStatus,
   OfferStatus,
   ResponseStatus,
-  UpdateApplicationByStudent,
+  UpdateApplicationRecordByStudentPayload,
 } from '@daigaku/common-types';
 
 /**
@@ -49,12 +49,12 @@ interface ApplicationFormProps {
   /**
    * The application record.
    */
-  readonly application: Application;
+  readonly application: ApplicationRecord;
 
   /**
    * All available status select options.
    */
-  readonly selectOptions: ApplicationStatusSelectOptions;
+  readonly selectOptions: ApplicationRecordStatusOptions;
 }
 
 /**
@@ -63,7 +63,7 @@ interface ApplicationFormProps {
  * @return {JSX.Element}
  */
 export const ApplicationForm = ({ application, selectOptions }: ApplicationFormProps): JSX.Element => {
-  const methods = useForm<UpdateApplicationByStudent>({ mode: 'onSubmit' });
+  const methods = useForm<UpdateApplicationRecordByStudentPayload>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
@@ -96,7 +96,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'update-application-form'}
-            onFormSubmit={handleSubmit((formData: UpdateApplicationByStudent) => {
+            onFormSubmit={handleSubmit((formData: UpdateApplicationRecordByStudentPayload) => {
               submitForm(formData, application.uuid, mutate, setError);
             })}
             className={joinTw('core-application-grid')}

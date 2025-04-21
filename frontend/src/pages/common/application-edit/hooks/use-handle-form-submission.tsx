@@ -13,13 +13,13 @@ import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
-  Application,
-  ApplicationStatusUnion,
+  ApplicationRecord,
+  ApplicationRecordStatusUnion,
   FinalDestinationStatus,
   FinalDestinationStatusE,
   ResponseStatus,
   ResponseStatusE,
-  UpdateApplicationByStudent,
+  UpdateApplicationRecordByStudentPayload,
 } from '@daigaku/common-types';
 
 /**
@@ -30,7 +30,7 @@ import {
  * @param optionName The name of the option to match in the cached data.
  * @returns {string} The uuid of the first cached data entry that matches the provided option name.
  */
-const filterCacheByUuid = <T extends ApplicationStatusUnion>(cache: Array<T>, optionName: string): string => {
+const filterCacheByUuid = <T extends ApplicationRecordStatusUnion>(cache: Array<T>, optionName: string): string => {
   const filteredOption: T = cache?.filter((option: T) => option.name === optionName)[0];
 
   return filteredOption.uuid;
@@ -53,16 +53,16 @@ const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefine
  */
 export interface HandleFormSubmission {
   submitForm: (
-    formData: UpdateApplicationByStudent,
+    formData: UpdateApplicationRecordByStudentPayload,
     applicationUuid: string,
-    mutate: (formData: UpdateApplicationByStudent) => void,
-    setError: UseFormSetError<UpdateApplicationByStudent>,
+    mutate: (formData: UpdateApplicationRecordByStudentPayload) => void,
+    setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
   ) => void;
 }
 
 /**
  * Manages the form submission's first step.
- * It checks if the user already has an {@link Application} set to either {@link ResponseStatusE.FIRM_CHOICE},
+ * It checks if the user already has an {@link ApplicationRecord} set to either {@link ResponseStatusE.FIRM_CHOICE},
  * {@link FinalDestinationStatusE.FINAL_DESTINATION} or {@link FinalDestinationStatusE.DEFERRED_ENTRY}.
  * If yes, an error message stops the submission. If no error was found, the submitForm() method calls the
  * `react-query` mutate() method.
@@ -70,11 +70,14 @@ export interface HandleFormSubmission {
  * @return {HandleFormSubmission}
  */
 export const useHandleFormSubmission = (): HandleFormSubmission => {
-  const handleValidation = (formData: UpdateApplicationByStudent, currentApplicationUuid: string): Array<string> => {
+  const handleValidation = (
+    formData: UpdateApplicationRecordByStudentPayload,
+    currentApplicationUuid: string,
+  ): Array<string> => {
     const errors: Array<string> = [];
 
     // Find application, response, and final destination status react-query caches.
-    const applicationsCache: Array<Application> | undefined = findQueryCache<Application>(
+    const applicationsCache: Array<ApplicationRecord> | undefined = findQueryCache<ApplicationRecord>(
       queryKeys.application.GET_ALL_BY_ROLE,
     );
     const responseStatusCache: Array<ResponseStatus> | undefined = findQueryCache<ResponseStatus>(
@@ -101,7 +104,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
 
     // Check each application (except for the current) if they have any of the three status set.
     // If yes, error messages are thrown to the UI and the submission is stopped before hitting the API call.
-    applicationsCache.forEach((application: Application) => {
+    applicationsCache.forEach((application: ApplicationRecord) => {
       if (application.uuid !== currentApplicationUuid) {
         if (
           application.responseStatus?.name === ResponseStatusE.FIRM_CHOICE &&
@@ -125,15 +128,15 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
   };
 
   const submitForm = (
-    formData: UpdateApplicationByStudent,
+    formData: UpdateApplicationRecordByStudentPayload,
     currentApplicationUuid: string,
-    mutate: (formData: UpdateApplicationByStudent) => void,
-    setError: UseFormSetError<UpdateApplicationByStudent>,
+    mutate: (formData: UpdateApplicationRecordByStudentPayload) => void,
+    setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
   ): void => {
     const validationErrors: Array<string> = handleValidation(formData, currentApplicationUuid);
 
     if (!validationErrors.length) {
-      const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationByStudent>;
+      const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationRecordByStudentPayload>;
 
       // Disabled inputs are returned as undefined.
       // These undefined inputs are replaced with an empty string, so the backend uuid validation would not fail.

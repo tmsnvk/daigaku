@@ -11,7 +11,11 @@ import { AxiosResponse } from 'axios';
 import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application, CreateApplicationByStudent, UpdateApplicationByStudent } from '@daigaku/common-types';
+import {
+  ApplicationRecord,
+  CreateApplicationRecordByStudentPayload,
+  UpdateApplicationRecordByStudentPayload,
+} from '@daigaku/common-types';
 
 /**
  * Defines student-application service operations, handling API requests and interactions for student-related
@@ -22,20 +26,23 @@ interface ApplicationStudentService {
    * Sends a POST request to save application data in the database.
    *
    * @param formData The application form data object to be saved.
-   * @return {Promise<Application>}
+   * @return {Promise<ApplicationRecord>}
    * @throws {AxiosError}
    */
-  postByStudent: (formData: CreateApplicationByStudent) => Promise<Application>;
+  postByStudent: (formData: CreateApplicationRecordByStudentPayload) => Promise<ApplicationRecord>;
 
   /**
    * Updates an existing application record by uuid.
    *
    * @param formData The application update form data object.
    * @param applicationUuid The unique identifier of the application to be updated.
-   * @return {Promise<Application>}
+   * @return {Promise<ApplicationRecord>}
    * @throws {AxiosError}
    */
-  patchByUuid: (formData: UpdateApplicationByStudent, applicationUuid: string) => Promise<Application>;
+  patchByUuid: (
+    formData: UpdateApplicationRecordByStudentPayload,
+    applicationUuid: string,
+  ) => Promise<ApplicationRecord>;
 
   /**
    * Toggles the is_removable status of an application by uuid.
@@ -60,8 +67,8 @@ interface ApplicationStudentService {
  * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
  */
 export const applicationStudentService: ApplicationStudentService = {
-  postByStudent: async (formData: CreateApplicationByStudent): Promise<Application> => {
-    const response: AxiosResponse<Application> = await axiosConfigWithAuth.request<Application>({
+  postByStudent: async (formData: CreateApplicationRecordByStudentPayload): Promise<ApplicationRecord> => {
+    const response: AxiosResponse<ApplicationRecord> = await axiosConfigWithAuth.request<ApplicationRecord>({
       method: 'POST',
       url: '/api/v1/applications/student',
       data: formData,
@@ -69,8 +76,11 @@ export const applicationStudentService: ApplicationStudentService = {
 
     return response.data;
   },
-  patchByUuid: async (formData: UpdateApplicationByStudent, applicationUuid: string): Promise<Application> => {
-    const response: AxiosResponse<Application> = await axiosConfigWithAuth.request<Application>({
+  patchByUuid: async (
+    formData: UpdateApplicationRecordByStudentPayload,
+    applicationUuid: string,
+  ): Promise<ApplicationRecord> => {
+    const response: AxiosResponse<ApplicationRecord> = await axiosConfigWithAuth.request<ApplicationRecord>({
       method: 'PATCH',
       url: `/api/v1/applications/student/${applicationUuid}`,
       data: formData,

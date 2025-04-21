@@ -32,7 +32,9 @@ interface FinalDestinationStatusService {
  */
 export const finalDestinationStatusService: FinalDestinationStatusService = {
   getAll: async (): Promise<Array<FinalDestinationStatus>> => {
-    const response: AxiosResponse<Array<FinalDestinationStatus>> = await axiosConfigWithAuth.request<Array<FinalDestinationStatus>>({
+    const response: AxiosResponse<Array<FinalDestinationStatus>> = await axiosConfigWithAuth.request<
+      Array<FinalDestinationStatus>
+    >({
       method: 'GET',
       url: '/api/v1/final-destination-status',
     });

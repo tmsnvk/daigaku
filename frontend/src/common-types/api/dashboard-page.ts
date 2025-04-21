@@ -5,9 +5,9 @@
  */
 
 /**
- * Defines the dashboard statistics object for Student authenticated users.
+ * Defines the structure of the dashboard statistics for Student authenticated users.
  */
-export interface StudentDashboardStatistics {
+export interface StudentDashboardStatisticsResponse {
   /**
    * Details of the application that is set to Firm Choice.
    */
@@ -27,42 +27,42 @@ export interface StudentDashboardStatistics {
   };
 
   /**
-   * The count of applications submitted by the user.
+   * The count of submitted applications.
    */
   readonly applicationsCount: number;
 
   /**
-   * The count of 'Planned' status applications submitted by the user.
+   * The count of 'Planned' status submitted application-records.
    */
   readonly plannedApplicationsCount: number;
 
   /**
-   * The count of 'Submitted' status applications submitted by the user.
+   * The count of 'Submitted' status submitted application-records.
    */
   readonly submittedApplicationsCount: number;
 
   /**
-   * The count of 'Withdrawn' status applications submitted by the user.
+   * The count of 'Withdrawn' status submitted application-records.
    */
   readonly withdrawnStatusCount: number;
 
   /**
-   * The count of distinct countries the user has submitted an application to.
+   * The count of distinct countries the user has submitted an application-record to.
    */
   readonly distinctCountriesCount: number;
 
   /**
-   * The count of distinct universities the user has submitted an application to.
+   * The count of distinct universities the user has submitted an application-record to.
    */
   readonly distinctUniversitiesCount: number;
 
   /**
-   * The count of applications where the user has not set the 'InterviewStatus' field yet.
+   * The count of application-records where the user has not set the 'InterviewStatus' field yet.
    */
   readonly notSetInterviewStatusCount: number;
 
   /**
-   * The count of applications where the user has set the 'OfferStatus' field to a positive outcome.
+   * The count of application-records where the user has set the 'OfferStatus' field to a positive outcome.
    */
   readonly offersCount: number;
 }

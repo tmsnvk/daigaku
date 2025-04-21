@@ -5,7 +5,7 @@
  */
 
 /**
- * Defines the user's login states.
+ * Defines user login states.
  */
 export enum UserLoginState {
   LOADING,

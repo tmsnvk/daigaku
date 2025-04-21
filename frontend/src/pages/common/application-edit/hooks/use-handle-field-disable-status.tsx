@@ -9,10 +9,10 @@ import { useState } from 'react';
 
 /* interface, type, enum imports */
 import {
-  Application,
+  ApplicationRecord,
+  ApplicationRecordStatusOptions,
   ApplicationStatus,
   ApplicationStatusE,
-  ApplicationStatusSelectOptions,
   FinalDestinationStatus,
   InterviewStatus,
   InterviewStatusE,
@@ -35,9 +35,9 @@ interface PageLoadValidationService {
    * @returns
    */
   validateInterviewStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ) => boolean;
 
   /**
@@ -49,9 +49,9 @@ interface PageLoadValidationService {
    * @returns
    */
   validateOfferStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ) => boolean;
 
   /**
@@ -63,9 +63,9 @@ interface PageLoadValidationService {
    * @returns
    */
   validateResponseStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ) => boolean;
 
   /**
@@ -77,17 +77,17 @@ interface PageLoadValidationService {
    * @returns
    */
   validateFinalDestinationStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ) => boolean;
 }
 
 const pageLoadValidationService: PageLoadValidationService = {
   validateInterviewStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ): boolean => {
     const submittedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
       (element: ApplicationStatus) => {
@@ -105,9 +105,9 @@ const pageLoadValidationService: PageLoadValidationService = {
     return false;
   },
   validateOfferStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ): boolean => {
     if (!application.interviewStatus?.uuid) {
       return true;
@@ -129,9 +129,9 @@ const pageLoadValidationService: PageLoadValidationService = {
     return false;
   },
   validateResponseStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ): boolean => {
     if (!application.offerStatus?.uuid) {
       return true;
@@ -150,9 +150,9 @@ const pageLoadValidationService: PageLoadValidationService = {
     return false;
   },
   validateFinalDestinationStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationStatusSelectOptions,
+    application: ApplicationRecord,
+    updatedData: ApplicationRecord | undefined,
+    selectOptions: ApplicationRecordStatusOptions,
   ): boolean => {
     if (!application.offerStatus?.uuid) {
       return true;
@@ -284,15 +284,15 @@ interface HandleFieldDisableStatus {
  * The custom hook handles the logic connected to the individual field updates, i.e. when and which field should get
  * disabled.
  *
- * @param application The {@link Application} that is going to be updated.
+ * @param application The {@link ApplicationRecord} that is going to be updated.
  * @param updatedData The updated data.
  * @param selectOptions Every possible dropdown option.
  * @returns {HandleFieldDisableStatus}
  */
 export const useHandleFieldDisableStatus = (
-  application: Application,
-  updatedData: Application | undefined,
-  selectOptions: ApplicationStatusSelectOptions,
+  application: ApplicationRecord,
+  updatedData: ApplicationRecord | undefined,
+  selectOptions: ApplicationRecordStatusOptions,
 ): HandleFieldDisableStatus => {
   // By default, all fields' isDisable status is turned off as they are updated by the onPageLoadValidation() method.
   const [fieldsReadOnlyStatus, setFieldsReadOnlyStatus] = useState<FieldsReadOnlyStatus>({

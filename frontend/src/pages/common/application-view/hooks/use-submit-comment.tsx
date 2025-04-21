@@ -17,7 +17,7 @@ import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
 import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Comment, CoreErrorResponse, CreateComment, ErrorDetail } from '@daigaku/common-types';
+import { Comment, CoreErrorResponse, CreateCommentPayload, ErrorDetail } from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useSubmitComment} custom hook.
@@ -29,15 +29,16 @@ type NewCommentFormErrorT = 'root' | 'comment';
  *
  * @param setError The `react-hook-form` method to set form errors.
  * @param applicationUuid The application record's uuid string to which the comment belongs to.
- * @return {UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment>}
+ * @return {UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateCommentPayload>}
  */
 export const useSubmitComment = (
-  setError: UseFormSetError<CreateComment>,
+  setError: UseFormSetError<CreateCommentPayload>,
   applicationUuid: string,
-): UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateComment> => {
+): UseMutationResult<Comment, AxiosError<CoreErrorResponse>, CreateCommentPayload> => {
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
-    mutationFn: (formData: CreateComment) => commentService.postCommentByApplicationUuid(formData, applicationUuid),
+    mutationFn: (formData: CreateCommentPayload) =>
+      commentService.postCommentByApplicationUuid(formData, applicationUuid),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid],

@@ -21,7 +21,7 @@ import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
 import {
-  AccountResetRequest,
+  AccountResetPayload,
   CoreInputElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
 } from '@daigaku/common-types';
@@ -53,7 +53,7 @@ interface ResetFormProps {
  * @return {JSX.Element}
  */
 export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Element => {
-  const methods = useForm<AccountResetRequest>({ mode: 'onSubmit' });
+  const methods = useForm<AccountResetPayload>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
@@ -71,7 +71,7 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-account-reset-form'}
-          onFormSubmit={handleSubmit((formData: AccountResetRequest) => {
+          onFormSubmit={handleSubmit((formData: AccountResetPayload) => {
             mutate(formData);
           })}
         >

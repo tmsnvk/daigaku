@@ -12,7 +12,7 @@ import { IconLookup } from '@fortawesome/fontawesome-svg-core';
  */
 export interface NavigationRouteItem {
   /**
-   * The route's target url.
+   * The route's target url string.
    */
   targetUrlString: string;
 

@@ -22,7 +22,7 @@ import { joinTw } from '@daigaku/utilities';
 /**
  * Renders the edit mode of a single application record.
  * The user is not allowed to change the basic elements of the application,
- * i.e. the Country, University Course Name, Minor Subject and Programme Length fields.
+ * i.e. the CountryOption, UniversityOption Course Name, Minor Subject and Programme Length fields.
  * The rest of the fields may be updated based on conditional validation rules.
  * The user is guided by either not being able to select certain fields or various error messages.
  *

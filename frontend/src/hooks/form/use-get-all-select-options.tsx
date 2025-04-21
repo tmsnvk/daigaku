@@ -20,14 +20,14 @@ import {
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { ApplicationOptions } from '@daigaku/common-types';
+import { ApplicationRecordStatusOptionsResponse } from '@daigaku/common-types';
 
 /**
  * Fetches all status records for various application forms.
  *
- * @return {ApplicationOptions}
+ * @return {ApplicationRecordStatusOptionsResponse}
  */
-export const useGetAllSelectOptions = (): ApplicationOptions => {
+export const useGetAllSelectOptions = (): ApplicationRecordStatusOptionsResponse => {
   return useQueries({
     queries: [
       {

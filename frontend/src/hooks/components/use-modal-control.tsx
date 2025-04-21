@@ -8,7 +8,22 @@
 import { useState } from 'react';
 
 /* interface, type, enum imports */
-import { ModalControl } from '@daigaku/common-types';
+import { CoreModal } from '@daigaku/common-types';
+
+/**
+ * Defines the properties for a control modal.
+ */
+interface ModalControl extends CoreModal {
+  /**
+   * Shows the modal.
+   */
+  showModal: () => void;
+
+  /**
+   * Hides the modal.
+   */
+  closeModal: () => void;
+}
 
 /**
  * Manages modal visibility, providing methods to show or hide the modal.

@@ -34,7 +34,7 @@ import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
-  CreateApplicationByStudent,
+  CreateApplicationRecordByStudentPayload,
 } from '@daigaku/common-types';
 
 /**
@@ -53,7 +53,7 @@ export const NewApplicationForm = (): JSX.Element => {
     isError: isUniversityError,
   } = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
 
-  const methods = useForm<CreateApplicationByStudent>({ mode: 'onSubmit' });
+  const methods = useForm<CreateApplicationRecordByStudentPayload>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     reset,
@@ -87,7 +87,7 @@ export const NewApplicationForm = (): JSX.Element => {
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'post-application-form'}
-            onFormSubmit={handleSubmit((formData: CreateApplicationByStudent) => {
+            onFormSubmit={handleSubmit((formData: CreateApplicationRecordByStudentPayload) => {
               mutate(formData);
             })}
             className={joinTw('core-application-grid')}

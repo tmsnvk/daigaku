@@ -8,7 +8,7 @@
 import { axiosConfig } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { PendingAccountRegistrationRequest } from '@daigaku/common-types';
+import { PendingAccountRegistrationPayload } from '@daigaku/common-types';
 
 /**
  * Defines pending account service-related operations, handling API requests and interactions for pending account
@@ -23,14 +23,14 @@ interface PendingAccountService {
    * @return {Promise<void>}
    * @throws {AxiosError}
    */
-  register: (formData: PendingAccountRegistrationRequest) => Promise<void>;
+  register: (formData: PendingAccountRegistrationPayload) => Promise<void>;
 }
 
 /**
  * Manages pending-account-related REST API operations, implementing {@link PendingAccountService}.
  */
 export const pendingAccountService: PendingAccountService = {
-  register: async (formData: PendingAccountRegistrationRequest): Promise<void> => {
+  register: async (formData: PendingAccountRegistrationPayload): Promise<void> => {
     await axiosConfig.request<void>({
       method: 'POST',
       url: '/api/v1/pending-accounts/register',
