@@ -8,7 +8,7 @@
 import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics, Todo, TodoList } from '@daigaku/common-types';
+import { StudentDashboardStatisticsResponse, Todo, TodoList } from '@daigaku/common-types';
 
 /**
  * Evaluates the current todo items based on the provided dashboard statistics.
@@ -16,7 +16,7 @@ import { StudentDashboardStatistics, Todo, TodoList } from '@daigaku/common-type
  * @param data The dashboard statistics containing application-related aggregate data.
  * @return {TodoList}
  */
-export const useTodoList = (data: StudentDashboardStatistics): TodoList => {
+export const useTodoList = (data: StudentDashboardStatisticsResponse): TodoList => {
   // An array of todo items.
   const todos: Array<Todo> = [];
 

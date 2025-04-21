@@ -17,7 +17,12 @@ import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
 import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application, CoreErrorResponse, ErrorDetail, UpdateApplicationByStudent } from '@daigaku/common-types';
+import {
+  ApplicationRecord,
+  CoreErrorResponse,
+  ErrorDetail,
+  UpdateApplicationRecordByStudentPayload,
+} from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.
@@ -36,24 +41,25 @@ type UpdateApplicationFormErrorT =
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid string.
- * @return {UseMutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent>}
+ * @return {UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>,
+ *   UpdateApplicationRecordByStudentPayload>}
  */
 export const useUpdateApplicationFormMutation = (
-  setError: UseFormSetError<UpdateApplicationByStudent>,
+  setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
   applicationUuid: string,
-): UseMutationResult<Application, AxiosError<CoreErrorResponse>, UpdateApplicationByStudent> => {
+): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, UpdateApplicationRecordByStudentPayload> => {
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
-    mutationFn: (formData: UpdateApplicationByStudent) =>
+    mutationFn: (formData: UpdateApplicationRecordByStudentPayload) =>
       applicationStudentService.patchByUuid(formData, applicationUuid),
-    onSuccess: (response: Application) => {
-      queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
+    onSuccess: (response: ApplicationRecord) => {
+      queryClient.setQueryData<Array<ApplicationRecord>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }
 
-        const filteredList: Array<Application> = applications.filter(
-          (application: Application) => application.uuid !== response.uuid,
+        const filteredList: Array<ApplicationRecord> = applications.filter(
+          (application: ApplicationRecord) => application.uuid !== response.uuid,
         );
 
         return [...filteredList, response];

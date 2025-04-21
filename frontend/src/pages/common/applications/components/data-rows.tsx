@@ -18,7 +18,7 @@ import { joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities';
 
 /* interface, type, enum imports */
-import { Application } from '@daigaku/common-types';
+import { ApplicationRecord } from '@daigaku/common-types';
 import { Column } from '../models';
 
 /**
@@ -33,7 +33,7 @@ interface DataRowsProps {
   /**
    * An array of application records to be displayed in the table rows.
    */
-  readonly applications: Array<Application>;
+  readonly applications: Array<ApplicationRecord>;
 }
 
 /**
@@ -42,7 +42,7 @@ interface DataRowsProps {
  * @return {Array<JSX.Element>}
  */
 export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.Element> => {
-  return applications.map((application: Application, index: number) => {
+  return applications.map((application: ApplicationRecord, index: number) => {
     const isLastRow: boolean = index === applications.length - 1;
 
     return (

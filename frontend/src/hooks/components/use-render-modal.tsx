@@ -5,10 +5,17 @@
  */
 
 /* vendor imports */
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 
-/* interface, type, enum imports */
-import { RenderModal } from '@daigaku/common-types';
+/**
+ * Defines the properties for rendering a modal.
+ */
+export interface RenderModal {
+  /**
+   * A ref object attached to the modal component to control its visibility.
+   */
+  readonly dialogRef: RefObject<HTMLDialogElement | null>;
+}
 
 /**
  * Manages the rendering of various modal components.

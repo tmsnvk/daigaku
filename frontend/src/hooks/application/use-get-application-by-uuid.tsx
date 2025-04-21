@@ -14,7 +14,7 @@ import { applicationService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { Application, SimpleQueryResult } from '@daigaku/common-types';
+import { ApplicationRecord, SimpleQueryResult } from '@daigaku/common-types';
 
 /**
  * Fetches an application record by its uuid string.
@@ -22,12 +22,12 @@ import { Application, SimpleQueryResult } from '@daigaku/common-types';
  *
  * @param state An application record from the local `react-router-dom` cache, if it exists, otherwise null.
  * @param applicationUuid The Application record's uuid string.
- * @return {SimpleQueryResult<Application>}
+ * @return {SimpleQueryResult<ApplicationRecord>}
  */
 export const useGetApplicationByUuid = (
-  state: Application | null,
+  state: ApplicationRecord | null,
   applicationUuid: string,
-): SimpleQueryResult<Application> => {
+): SimpleQueryResult<ApplicationRecord> => {
   return useQuery({
     queryKey: [queryKeys.application.GET_BY_UUID, applicationUuid],
     queryFn: () => applicationService.getByUuid(applicationUuid),

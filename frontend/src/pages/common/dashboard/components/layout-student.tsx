@@ -20,16 +20,16 @@ import { TodoList } from './todo-list';
 import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics } from '@daigaku/common-types';
+import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
  */
 interface LayoutStudentProps {
   /**
-   * The object containing the {@link StudentDashboardStatistics} data.
+   * The object containing the {@link StudentDashboardStatisticsResponse} data.
    */
-  readonly data: StudentDashboardStatistics;
+  readonly data: StudentDashboardStatisticsResponse;
 }
 
 /**

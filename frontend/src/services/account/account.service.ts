@@ -11,7 +11,7 @@ import { AxiosResponse } from 'axios';
 import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { AccountResetRequest, LoginRequest, LoginResponse } from '@daigaku/common-types';
+import { AccountResetPayload, LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**
  * Defines account service-related operations, handling API requests and interactions for account management.
@@ -25,7 +25,7 @@ interface AccountService {
    * @return {Promise<LoginResponse>}
    * @throws {AxiosError}
    */
-  logIn: (formData: LoginRequest) => Promise<LoginResponse>;
+  logIn: (formData: LoginPayload) => Promise<LoginResponse>;
 
   /**
    * Initiates a password reset by sending a POST request with user information.
@@ -35,7 +35,7 @@ interface AccountService {
    * @return {Promise<void>}
    * @throws {AxiosError}
    */
-  resetPassword: (formData: AccountResetRequest) => Promise<void>;
+  resetPassword: (formData: AccountResetPayload) => Promise<void>;
 
   /**
    * Sends a GET request to fetch user details tied to the active session, used by the auth context.
@@ -50,7 +50,7 @@ interface AccountService {
  * Manages pending-account-related REST API operations, implementing {@link AccountService}.
  */
 export const accountService: AccountService = {
-  logIn: async (formData: LoginRequest): Promise<LoginResponse> => {
+  logIn: async (formData: LoginPayload): Promise<LoginResponse> => {
     const response: AxiosResponse<LoginResponse> = await axiosConfig.request<LoginResponse>({
       method: 'POST',
       url: '/api/v1/accounts/log-in',
@@ -59,7 +59,7 @@ export const accountService: AccountService = {
 
     return response.data;
   },
-  resetPassword: async (formData: AccountResetRequest): Promise<void> => {
+  resetPassword: async (formData: AccountResetPayload): Promise<void> => {
     await axiosConfig.request<void>({
       method: 'POST',
       url: '/api/v1/accounts/reset-password',

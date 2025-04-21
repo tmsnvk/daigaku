@@ -22,7 +22,7 @@ import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatistics, UserRoles } from '@daigaku/common-types';
+import { StudentDashboardStatisticsResponse, UserRole } from '@daigaku/common-types';
 
 /**
  * Renders the application records' dashboard for authenticated users.
@@ -62,7 +62,7 @@ export const Dashboard = (): JSX.Element => {
   // Add layouts for other authentication level users.
   return (
     <main className={joinTw('flex flex-row flex-wrap gap-y-20', 'm-[5%]')}>
-      {account.role === UserRoles.ROLE_STUDENT && <LayoutStudent data={data as StudentDashboardStatistics} />}
+      {account.role === UserRole.ROLE_STUDENT && <LayoutStudent data={data as StudentDashboardStatisticsResponse} />}
     </main>
   );
 };

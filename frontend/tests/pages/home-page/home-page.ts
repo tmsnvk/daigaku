@@ -55,7 +55,7 @@ export class HomePage {
     await this.page.getByLabel('First Name').fill(firstName);
     await this.page.getByLabel('Last Name').fill(lastName);
     await this.page.getByLabel('Email').fill(email);
-    await this.page.getByLabel('Institution').selectOption({ index: institute });
+    await this.page.getByLabel('InstitutionOption').selectOption({ index: institute });
     await this.page.getByLabel('Account Type').selectOption({ index: role });
 
     await this.submitForm();

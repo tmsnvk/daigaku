@@ -8,7 +8,17 @@
 import { useState } from 'react';
 
 /* interface, type, enum imports */
-import { ModalToggle } from '@daigaku/common-types';
+import { CoreModal } from '@daigaku/common-types';
+
+/**
+ * Defines the properties for a toggle modal.
+ */
+interface ModalToggle extends CoreModal {
+  /**
+   * Toggles the modal's visibility.
+   */
+  toggleModal: () => void;
+}
 
 /**
  * Manages the display of modal components that have a single toggle action.

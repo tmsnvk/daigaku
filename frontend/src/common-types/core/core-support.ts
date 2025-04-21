@@ -7,7 +7,7 @@
 /**
  * Defines the base of application support option models.
  */
-export interface BaseSupport {
+export interface CoreSupport {
   /**
    * The option's uuid.
    */

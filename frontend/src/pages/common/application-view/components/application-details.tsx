@@ -8,9 +8,9 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { ApplicationMetadata } from '@daigaku/components/general';
 import { CoreLink } from '@daigaku/components/core';
 import { CoreFormHeader } from '@daigaku/components/form';
+import { ApplicationMetadata } from '@daigaku/components/general';
 import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */
@@ -18,7 +18,7 @@ import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { Application } from '@daigaku/common-types';
+import { ApplicationRecord } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -27,7 +27,7 @@ interface ApplicationDetailsProps {
   /**
    * The selected application record.
    */
-  readonly application: Application;
+  readonly application: ApplicationRecord;
 }
 
 /**

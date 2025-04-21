@@ -26,7 +26,7 @@ import { localization as l } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
-import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginRequest } from '@daigaku/common-types';
+import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../models';
 
 /**
@@ -50,7 +50,7 @@ interface LoginFormProps {
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
-  const methods = useForm<LoginRequest>({ mode: 'onSubmit' });
+  const methods = useForm<LoginPayload>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
@@ -68,7 +68,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-account-login-form'}
-          onFormSubmit={handleSubmit((formData: LoginRequest) => {
+          onFormSubmit={handleSubmit((formData: LoginPayload) => {
             mutate(formData);
           })}
         >

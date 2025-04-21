@@ -24,7 +24,7 @@ import { NewApplication } from '@daigaku/pages/student';
 import { queryClient } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { UserRoles } from '@daigaku/common-types';
+import { UserRole } from '@daigaku/common-types';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route errorElement={<Error />}>
@@ -35,7 +35,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route>
       <Route
         element={
-          <PrivateLayout allowedRoles={[UserRoles.ROLE_STUDENT, UserRoles.ROLE_MENTOR, UserRoles.ROLE_INSTITUTION_ADMIN, UserRoles.ROLE_SYSTEM_ADMIN]} />}
+          <PrivateLayout allowedRoles={[UserRole.ROLE_STUDENT, UserRole.ROLE_MENTOR, UserRole.ROLE_INSTITUTION_ADMIN, UserRole.ROLE_SYSTEM_ADMIN]} />}
       >
         <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/applications'}>
@@ -48,22 +48,22 @@ const router = createBrowserRouter(createRoutesFromElements(
       </Route>
       <Route
         element={
-          <PrivateLayout allowedRoles={[UserRoles.ROLE_MENTOR, UserRoles.ROLE_STUDENT, UserRoles.ROLE_INSTITUTION_ADMIN]} />}
+          <PrivateLayout allowedRoles={[UserRole.ROLE_MENTOR, UserRole.ROLE_STUDENT, UserRole.ROLE_INSTITUTION_ADMIN]} />}
       >
         <Route path={'/feedback'} element={<div>FEEDBACK FORM PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_STUDENT]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRole.ROLE_STUDENT]} />}>
         <Route path={'/new-application'} element={<NewApplication />} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_MENTOR]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRole.ROLE_MENTOR]} />}>
         <Route path={'/my-students'} element={<div>MY STUDENTS PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_INSTITUTION_ADMIN]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRole.ROLE_INSTITUTION_ADMIN]} />}>
         <Route path={'/institution-students'} element={<div>INSTITUTION STUDENTS PLACEHOLDER</div>} />
         <Route path={'/institution-mentors'} element={<div>INSTITUTION MENTORS PLACEHOLDER</div>} />
         <Route path={'/my-institution'} element={<div>MY INSTITUTION PLACEHOLDER</div>} />
       </Route>
-      <Route element={<PrivateLayout allowedRoles={[UserRoles.ROLE_SYSTEM_ADMIN]} />}>
+      <Route element={<PrivateLayout allowedRoles={[UserRole.ROLE_SYSTEM_ADMIN]} />}>
         <Route path={'/all-students'} element={<div>ALL STUDENTS PLACEHOLDER</div>} />
         <Route path={'/all-mentors'} element={<div>ALL MENTORS PLACEHOLDER</div>} />
         <Route path={'/system'} element={<div>SYSTEM PLACEHOLDER</div>} />

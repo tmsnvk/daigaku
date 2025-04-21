@@ -5,16 +5,16 @@
  */
 
 /**
- * Defines a single Todo item.
+ * Defines a single to-do item.
  */
 export type Todo = string;
 
 /**
- * Defines the dashboard's todo list for the authenticated user.
+ * Defines the dashboard's to-do list for the authenticated user.
  */
 export interface TodoList {
   /**
-   * The list of active todo items.
+   * The list of active to-do items.
    */
   readonly todos: Array<Todo>;
 }

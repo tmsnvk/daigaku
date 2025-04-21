@@ -17,22 +17,22 @@ import { mutationKeys } from '@daigaku/configuration';
 import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { AccountResetRequest, CoreErrorResponse } from '@daigaku/common-types';
+import { AccountResetPayload, CoreErrorResponse } from '@daigaku/common-types';
 
 /**
  * Manages the password reset form submission.
  *
  * @param setError A `react-hook-form` method that sets form errors.
  * @param showModal A method that displays a confirmation modal component.
- * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetRequest>}
+ * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetPayload>}
  */
 export const useResetFormMutation = (
-  setError: UseFormSetError<AccountResetRequest>,
+  setError: UseFormSetError<AccountResetPayload>,
   showModal: () => void,
-): UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetRequest> => {
+): UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetPayload> => {
   return useMutation({
     mutationKey: [mutationKeys.account.POST_RESET_FORM],
-    mutationFn: (formData: AccountResetRequest) => accountService.resetPassword(formData),
+    mutationFn: (formData: AccountResetPayload) => accountService.resetPassword(formData),
     onSuccess: () => {
       showModal();
     },

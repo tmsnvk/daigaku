@@ -21,7 +21,7 @@ import { errorConstants, localization as l } from '@daigaku/constants';
 import { isEmpty, joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { Application } from '@daigaku/common-types';
+import { ApplicationRecord } from '@daigaku/common-types';
 
 /**
  * Renders, in table format, the list of application records that the user has authorisation to view.
@@ -33,7 +33,7 @@ export const Applications = (): JSX.Element => {
   const navigate = useNavigate();
   const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
   const { columns, toggleColumnVisibility } = useColumnVisibility();
-  const { handleColumnSort } = useSortOrder(data as Array<Application>);
+  const { handleColumnSort } = useSortOrder(data as Array<ApplicationRecord>);
   const { isModalVisible, toggleModal } = useModalToggle();
   const { isToastVisible, displayDownloadToast, handleAnimationEnd } = useDisplayDownloadToast();
 

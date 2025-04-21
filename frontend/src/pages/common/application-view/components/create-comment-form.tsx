@@ -21,7 +21,7 @@ import { localization as l } from '@daigaku/constants';
 import {
   CoreSubmitInputElementStyleIntent,
   CoreTextareaElementStyleIntent,
-  CreateComment,
+  CreateCommentPayload,
 } from '@daigaku/common-types';
 
 /**
@@ -44,7 +44,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
   const DEFAULT_ROW_SIZE = 10;
   const DEFAULT_COL_SIZE = 10;
 
-  const methods = useForm<CreateComment>({ mode: 'onSubmit' });
+  const methods = useForm<CreateCommentPayload>({ mode: 'onSubmit' });
   const {
     formState: { errors },
     handleSubmit,
@@ -57,7 +57,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
     <FormProvider {...methods}>
       <CoreFormWrapper
         formId={'post-comment-form'}
-        onFormSubmit={handleSubmit((formData: CreateComment) => {
+        onFormSubmit={handleSubmit((formData: CreateCommentPayload) => {
           mutate(formData);
         })}
       >

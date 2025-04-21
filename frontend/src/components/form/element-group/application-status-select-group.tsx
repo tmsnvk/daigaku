@@ -13,7 +13,7 @@ import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel
 import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
 /* interface, type, enum imports */
-import { ApplicationStatusUnion, CoreSelectElementGroup } from '@daigaku/common-types';
+import { ApplicationRecordStatusUnion, CoreSelectElementGroup } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -47,9 +47,9 @@ interface ApplicationStatusSelectGroupProps<T extends FieldValues, ApplicationSt
 }
 
 /**
- * Renders a `select` input field whose option type is included in the {@link ApplicationStatusUnion} union type.
+ * Renders a `select` input field whose option type is included in the {@link ApplicationRecordStatusUnion} union type.
  *
- * @param {ApplicationStatusSelectGroupProps<T extends FieldValues, ApplicationStatusUnion>} props
+ * @param {ApplicationStatusSelectGroupProps<T extends FieldValues, ApplicationRecordStatusUnion>} props
  * @return {JSX.Element}
  */
 export const ApplicationStatusSelectGroup = <T extends FieldValues>({
@@ -63,7 +63,7 @@ export const ApplicationStatusSelectGroup = <T extends FieldValues>({
   options,
   intent,
   onFieldUpdate,
-}: ApplicationStatusSelectGroupProps<T, ApplicationStatusUnion>): JSX.Element => {
+}: ApplicationStatusSelectGroupProps<T, ApplicationRecordStatusUnion>): JSX.Element => {
   const updateField = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>): void => {
     const target = event.target as HTMLSelectElement | null;
 
@@ -81,7 +81,7 @@ export const ApplicationStatusSelectGroup = <T extends FieldValues>({
       <CoreSelectElement
         validationRules={validationRules}
         id={id}
-        options={options.map((status: ApplicationStatusUnion) => (
+        options={options.map((status: ApplicationRecordStatusUnion) => (
           <option
             key={status.uuid}
             value={status.uuid}

@@ -15,14 +15,14 @@ import { applicationService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum imports */
-import { SimpleQueryResult, StudentDashboardStatistics } from '@daigaku/common-types';
+import { SimpleQueryResult, StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 
 /**
  * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation level.
  *
- * @return {SimpleQueryResult<StudentDashboardStatistics>}
+ * @return {SimpleQueryResult<StudentDashboardStatisticsResponse>}
  */
-export const useDashboardStatisticsQuery = (): SimpleQueryResult<StudentDashboardStatistics> => {
+export const useDashboardStatisticsQuery = (): SimpleQueryResult<StudentDashboardStatisticsResponse> => {
   const { getRoleResource } = useAuthContext();
   const accountRole = getRoleResource();
 

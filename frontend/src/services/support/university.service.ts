@@ -31,10 +31,12 @@ interface UniversityService {
  */
 export const universityService: UniversityService = {
   getAllOptionsByCountryUuid: async (selectedCountryUuid: string): Promise<Array<UniversityOption>> => {
-    const response: AxiosResponse<Array<UniversityOption>> = await axiosConfigWithAuth.request<Array<UniversityOption>>({
-      method: 'GET',
-      url: `api/v1/universities/options/${selectedCountryUuid}`,
-    });
+    const response: AxiosResponse<Array<UniversityOption>> = await axiosConfigWithAuth.request<Array<UniversityOption>>(
+      {
+        method: 'GET',
+        url: `api/v1/universities/options/${selectedCountryUuid}`,
+      },
+    );
 
     return response.data;
   },

@@ -5,12 +5,12 @@
  */
 
 /* interface, type, enum imports */
-import { UserRoles } from '../authentication/user-roles.ts';
+import { UserRole } from './role.ts';
 
 /**
- * Defines the properties of a user login form submission.
+ * Defines the structure of a user login form submission.
  */
-export interface LoginRequest {
+export interface LoginPayload {
   /**
    * The email address used during the login event.
    */
@@ -23,7 +23,7 @@ export interface LoginRequest {
 }
 
 /**
- * Defines the properties of the response object after a successful login request.
+ * Defines the structure of the successful login response.
  */
 export interface LoginResponse {
   /**
@@ -44,13 +44,13 @@ export interface LoginResponse {
   /**
    * The authenticated user's authorisation level.
    */
-  readonly role: UserRoles;
+  readonly role: UserRole;
 }
 
 /**
- * Defines the properties of a user registration form submission.
+ * Defines the structure of a user registration form submission.
  */
-export interface PendingAccountRegistrationRequest {
+export interface PendingAccountRegistrationPayload {
   /**
    * The first name used during the registration event.
    */
@@ -78,9 +78,9 @@ export interface PendingAccountRegistrationRequest {
 }
 
 /**
- * Defines the properties of a user reset form submission.
+ * Defines the structure of a user reset form submission.
  */
-export interface AccountResetRequest {
+export interface AccountResetPayload {
   /**
    * The email of the to-be-reset account.
    */

@@ -17,7 +17,7 @@ import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
 import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
-import { Application } from '@daigaku/common-types';
+import { ApplicationRecord } from '@daigaku/common-types';
 
 /**
  * Defines the return value properties for handling the toggling of a removable state.
@@ -31,7 +31,7 @@ interface HandleToggleIsRemovable {
 }
 
 /**
- * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link Application}.
+ * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link ApplicationRecord}.
  *
  * @param applicationUuid The application record's uuid for identification purposes.
  * @param isRemovable The application record's current is_removable boolean state.
@@ -45,12 +45,12 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {
-      queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
+      queryClient.setQueryData<Array<ApplicationRecord>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }
 
-        const currentApplication: Application = applications.filter((application: Application) => {
+        const currentApplication: ApplicationRecord = applications.filter((application: ApplicationRecord) => {
           return application.uuid === applicationUuid;
         })[0];
 
