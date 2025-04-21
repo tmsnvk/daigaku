@@ -14,7 +14,11 @@ import { joinTw } from '@daigaku/utilities';
 
 const coreInputElementVariants = cva(
   joinTw(
-    'w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 border-secondary rounded-xl cursor-not-allowed bg-accent',
+    'w-[95%] sm:w-[65%] h-20',
+    'px-4',
+    'bg-accent border-2 border-secondary',
+    'text-xl',
+    'rounded-xl cursor-not-allowed',
     "[&[type='number']]:w-20 [&[type='number']]:p-0 [&[type='number']]:text-center",
     'focus:outline-1 focus:outline-solid focus:placeholder:text-secondary-muted focus:outline-secondary',
     'placeholder:text-secondary-muted',

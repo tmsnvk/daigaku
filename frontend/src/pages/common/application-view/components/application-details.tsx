@@ -15,6 +15,7 @@ import { ApplicationDetail } from './application-detail';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { Application } from '@daigaku/common-types';
@@ -37,7 +38,7 @@ interface ApplicationDetailsProps {
  */
 export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JSX.Element => {
   return (
-    <section className={'core-primary-border application-grid w-9/10 2xl:w-6/10 h-fit'}>
+    <section className={joinTw('core-primary-border application-grid', 'w-9/10 2xl:w-6/10 h-fit')}>
       <CoreFormHeader
         title={
           <>
@@ -48,16 +49,22 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
           </>
         }
         intent={'large'}
-        className={'col-start-1 col-end-3 text-center'}
+        className={joinTw('col-start-1 col-end-3 text-center')}
       />
       <ApplicationMetadata
-        createdAt={application.createdAt}
-        createdBy={application.createdBy}
-        lastUpdatedAt={application.lastUpdatedAt}
-        lastModifiedBy={application.lastModifiedBy}
-        className={'col-start-1 col-end-2'}
+        metadata={{
+          created: {
+            createdAt: application.createdAt,
+            createdBy: application.createdBy,
+          },
+          lastUpdated: {
+            lastUpdatedAt: application.lastUpdatedAt,
+            lastModifiedBy: application.lastModifiedBy,
+          },
+        }}
+        className={joinTw('col-start-1 col-end-2')}
       />
-      <article className={'col-start-2 col-end-3'}>
+      <article className={joinTw('col-start-2 col-end-3')}>
         <CoreLink
           target={`/applications/edit/${application.uuid}`}
           label={l.PAGES.COMMON.APPLICATION_VIEW.EDIT_BUTTON}

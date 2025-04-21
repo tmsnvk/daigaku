@@ -58,20 +58,20 @@ export const ColumnSelectorModal = ({
   return (
     <dialog
       ref={dialogRef}
-      className={'core-secondary-border mx-auto mt-[10%] flex flex-col items-start px-20 py-10'}
+      className={joinTw('core-secondary-border', 'flex flex-col items-start', 'mx-auto mt-[10%] px-20 py-10')}
     >
       {columns.map((column: Column) => {
         return (
           <article
             key={column.id}
-            className={'mt-6 flex flex-row'}
+            className={joinTw('flex flex-row', 'mt-6')}
             onClick={() => !column.isCoreColumn && onToggleColumnVisibility(column.id)}
           >
             <input
               type={'checkbox'}
               id={column.id}
               name={column.id}
-              className={'mr-4 hover:outline-none focus:outline-none'}
+              className={joinTw('mr-4', 'hover:outline-none', 'focus:outline-none')}
               checked={column.isVisible}
               disabled={column.isCoreColumn}
               readOnly
@@ -85,7 +85,10 @@ export const ColumnSelectorModal = ({
         id={'modal-toggle'}
         name={'modal-toggle'}
         className={joinTw(
-          'border-accent rounded-(--default-border-radius) mx-auto mt-10 cursor-pointer border-2 border-solid bg-transparent px-10 py-4 font-extrabold',
+          'mx-auto mt-10 px-10 py-4',
+          'border-accent border-2 bg-transparent',
+          'rounded-(--default-border-radius) cursor-pointer',
+          'font-extrabold',
           'hover:text-accent',
         )}
         onClick={onToggle}

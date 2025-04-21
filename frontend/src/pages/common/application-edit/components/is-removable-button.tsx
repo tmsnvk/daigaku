@@ -16,6 +16,7 @@ import { CoreButton } from '@daigaku/components/core';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.
@@ -41,7 +42,7 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
   const { mutate, isPending, isError, shouldBeRemoved } = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (
-    <article className={'col-start-2 col-end-3 row-start-2 row-end-3 flex h-40 flex-col items-center'}>
+    <article className={joinTw('col-start-2 col-end-3 row-start-2 row-end-3 flex flex-col items-center', 'h-40')}>
       <CoreButton
         label={
           shouldBeRemoved ?

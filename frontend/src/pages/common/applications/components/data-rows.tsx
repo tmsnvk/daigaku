@@ -7,7 +7,9 @@
 /* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
-import { Link } from 'react-router-dom';
+
+/* component imports */
+import { CoreLink } from '@daigaku/components/core';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
@@ -46,7 +48,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
     return (
       <tr
         key={application.uuid}
-        className={'odd:bg-tertiary h-40'}
+        className={joinTw('h-40', 'odd:bg-tertiary')}
       >
         <td
           className={joinTw(
@@ -77,34 +79,34 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
           {application.finalDestinationStatus?.name ?? '-'}
         </td>
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
-          <Link
-            className={joinTw(
-              'text-secondary mx-auto flex cursor-pointer flex-row items-center justify-center bg-transparent py-4 text-xl font-bold tracking-wider',
-              'hover:text-accent',
-            )}
-            to={`edit/${application.uuid}`}
+          <CoreLink
+            target={`edit/${application.uuid}`}
             state={application}
-          >
-            {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.EDIT}
-            <FontAwesomeIcon
-              icon={iconLibraryConfig.faWrench}
-              className={'ml-5'}
-            />
-          </Link>
-          <Link
-            className={joinTw(
-              'text-secondary mx-auto flex cursor-pointer flex-row items-center justify-center bg-transparent py-4 text-xl font-bold tracking-wider',
-              'hover:text-accent',
-            )}
-            to={`view/${application.uuid}`}
+            label={
+              <>
+                {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.EDIT}
+                <FontAwesomeIcon
+                  icon={iconLibraryConfig.faWrench}
+                  className={joinTw('ml-5')}
+                />
+              </>
+            }
+            intent={'table'}
+          />
+          <CoreLink
+            target={`view/${application.uuid}`}
             state={application}
-          >
-            {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.VIEW}
-            <FontAwesomeIcon
-              icon={iconLibraryConfig.faMagnifyingGlass}
-              className={'ml-5'}
-            />
-          </Link>
+            label={
+              <>
+                {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.VIEW}
+                <FontAwesomeIcon
+                  icon={iconLibraryConfig.faMagnifyingGlass}
+                  className={joinTw('ml-5')}
+                />
+              </>
+            }
+            intent={'table'}
+          />
         </td>
       </tr>
     );

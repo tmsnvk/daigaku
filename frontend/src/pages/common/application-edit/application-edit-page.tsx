@@ -17,6 +17,7 @@ import { ApplicationForm } from './components';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Renders the edit mode of a single application record.
@@ -58,7 +59,7 @@ export const ApplicationEdit = (): JSX.Element => {
   }
 
   return (
-    <main className={'mx-auto flex flex-col items-center'}>
+    <main className={joinTw('flex flex-col items-center', 'mx-auto')}>
       <ApplicationForm
         application={application}
         selectOptions={selectOptions}

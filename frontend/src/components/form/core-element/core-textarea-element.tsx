@@ -14,7 +14,11 @@ import { joinTw } from '@daigaku/utilities';
 
 const coreTextareaElementVariants = cva(
   joinTw(
-    'w-[90%] md:w-[75%] px-6 py-8 text-xl border-2 rounded-xl',
+    'w-[90%] md:w-[75%]',
+    'px-6 py-8',
+    'border-2',
+    'text-xl',
+    'rounded-xl',
     'hover:outline-1',
     'focus:outline-1',
     'placeholder:text-secondary',
@@ -22,14 +26,17 @@ const coreTextareaElementVariants = cva(
   {
     variants: {
       intent: {
-        light:
-          'bg-primary text-secondary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
+        light: joinTw(
+          'bg-primary border-secondary',
+          'text-secondary',
+          'focus:placeholder:text-secondary-muted focus:outline-secondary',
+        ),
       },
       isDisabled: {
-        true: 'cursor-not-allowed placeholder:text-secondary-muted',
+        true: joinTw('cursor-not-allowed', 'placeholder:text-secondary-muted'),
       },
       isError: {
-        true: 'border-destructive focus:outline-destructive',
+        true: joinTw('border-destructive', 'focus:outline-destructive'),
       },
     },
   },

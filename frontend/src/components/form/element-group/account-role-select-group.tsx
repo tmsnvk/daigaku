@@ -23,7 +23,7 @@ import { CoreSelectElementGroup, RoleOption } from '@daigaku/common-types';
  * Defines the component's properties.
  *
  * @template T - The type of form values extending the `react-hook-form` library.
- * @template RoleOption - The type representing representing an accountRole option.
+ * @template RoleOption - The type representing an accountRole option.
  */
 interface AccountRoleSelectGroupProps<T extends FieldValues, RoleOption>
   extends CoreSelectElementGroup<T, RoleOption> {}

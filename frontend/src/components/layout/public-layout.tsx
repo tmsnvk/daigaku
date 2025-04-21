@@ -16,6 +16,7 @@ import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { NavigationRouteItem } from '@daigaku/common-types';
@@ -42,11 +43,11 @@ export const PublicLayout = (): JSX.Element => {
   return (
     <>
       <NavigationBarWrapper>
-        <ul className={'flex w-[90%] justify-between'}>
+        <ul className={joinTw('flex justify-between', 'w-[90%]')}>
           {navigationRoutes.map((route) => (
             <li
               key={route.targetUrlString}
-              className={'my-4 md:mx-4'}
+              className={joinTw('my-4 md:mx-4')}
             >
               <NavigationRoute
                 targetUrlString={route.targetUrlString}

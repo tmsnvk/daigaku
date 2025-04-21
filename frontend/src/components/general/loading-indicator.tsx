@@ -12,6 +12,7 @@ import { CoreIcon } from '../core';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.
@@ -31,12 +32,12 @@ interface LoadingIndicatorProps {
  */
 export const LoadingIndicator = ({ loadingText }: LoadingIndicatorProps): JSX.Element => {
   return (
-    <article className={'text-secondary flex items-center justify-center text-2xl'}>
+    <article className={joinTw('flex items-center justify-center', 'text-secondary text-2xl')}>
       <p>{loadingText}</p>
       <CoreIcon
         icon={iconLibraryConfig.faSpinner}
         spin
-        className={'ml-4'}
+        className={joinTw('ml-4')}
       />
     </article>
   );

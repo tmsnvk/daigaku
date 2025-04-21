@@ -74,7 +74,7 @@ export const CoreFormAction = ({
   className,
 }: CoreFormActionProps): JSX.Element => {
   return (
-    <article className={joinTw(className, 'h-30 flex flex-col items-center')}>
+    <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>
       {isSubmissionPending ? (
         <LoadingIndicator loadingText={submissionMessage} />
       ) : (

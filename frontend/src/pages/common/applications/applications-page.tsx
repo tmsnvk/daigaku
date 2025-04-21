@@ -18,7 +18,7 @@ import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
 import { errorConstants, localization as l } from '@daigaku/constants';
-import { isEmpty } from '@daigaku/utilities';
+import { isEmpty, joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { Application } from '@daigaku/common-types';
@@ -61,8 +61,8 @@ export const Applications = (): JSX.Element => {
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <main className={'core-secondary-border mx-auto my-[5%] flex w-[95%] flex-col text-xl'}>
-      <table className={'table-fixed text-center'}>
+    <main className={joinTw('core-secondary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%] text-xl')}>
+      <table className={joinTw('table-fixed text-center')}>
         <thead>
           <TableHeader
             columns={columns}

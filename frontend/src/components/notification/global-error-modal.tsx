@@ -15,6 +15,7 @@ import { CoreModalClosingInputElement } from '../form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.
@@ -48,11 +49,11 @@ export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: GlobalE
   return (
     <dialog
       ref={dialogRef}
-      className={'w-5/10 bg-primary flex flex-col'}
+      className={joinTw('flex flex-col', 'w-5/10', 'bg-primary')}
     >
-      <p className={'mx-6 my-10'}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[0]}</p>
+      <p className={joinTw('mx-6 my-10')}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[0]}</p>
       {errorText && <p>{errorText}</p>}
-      <p className={'mx-6 my-10'}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[1]}</p>
+      <p className={joinTw('mx-6 my-10')}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[1]}</p>
       <CoreModalClosingInputElement
         value={l.COMPONENTS.NOTIFICATION.MODAL.ERROR.ACCEPTANCE}
         onClick={onCloseModal}

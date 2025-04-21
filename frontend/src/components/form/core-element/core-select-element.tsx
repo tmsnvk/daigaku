@@ -13,18 +13,18 @@ import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-f
 import { joinTw } from '@daigaku/utilities';
 
 const coreSelectElementVariants = cva(
-  joinTw('w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 rounded-xl', 'focus:outline-1'),
+  joinTw('w-[95%] sm:w-[65%] h-20', 'px-4', 'border-2', 'text-xl', 'rounded-xl', 'focus:outline-1'),
   {
     variants: {
       intent: {
-        light: 'bg-primary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
+        light: joinTw('bg-primary border-secondary', 'focus:placeholder:text-secondary-muted focus:outline-secondary'),
       },
       isDisabled: {
-        false: 'cursor-pointer',
-        true: 'cursor-not-allowed text-secondary-muted',
+        false: joinTw('cursor-pointer'),
+        true: joinTw('text-secondary-muted', 'cursor-not-allowed'),
       },
       isError: {
-        true: 'border-destructive focus:outline-destructive',
+        true: joinTw('border-destructive', 'focus:outline-destructive'),
       },
     },
   },

@@ -14,7 +14,11 @@ import { joinTw } from '@daigaku/utilities';
 
 const coreInputElementVariants = cva(
   joinTw(
-    'w-[95%] sm:w-[65%] h-20 px-4 text-xl border-2 rounded-xl',
+    'w-[95%] sm:w-[65%] h-20',
+    'px-4',
+    'border-2',
+    'text-xl',
+    'rounded-xl',
     "[&[type='number']]:w-20 [&[type='number']]:p-0 [&[type='number']]:text-center",
     'focus:outline-1',
     'placeholder:text-secondary',
@@ -22,13 +26,13 @@ const coreInputElementVariants = cva(
   {
     variants: {
       intent: {
-        light: 'bg-primary border-secondary focus:placeholder:text-secondary-muted focus:outline-secondary',
+        light: joinTw('bg-primary border-secondary', 'focus:placeholder:text-secondary-muted focus:outline-secondary'),
       },
       isDisabled: {
-        true: 'cursor-not-allowed placeholder:text-secondary-muted',
+        true: joinTw('cursor-not-allowed', 'placeholder:text-secondary-muted'),
       },
       isError: {
-        true: 'border-destructive focus:outline-destructive',
+        true: joinTw('border-destructive', 'focus:outline-destructive'),
       },
     },
   },

@@ -7,6 +7,9 @@
 /* vendor imports */
 import { JSX, ReactNode } from 'react';
 
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
+
 /**
  * Defines the component's properties.
  */
@@ -22,7 +25,9 @@ interface LayoutSectionWrapperProps {
  */
 export const LayoutSectionWrapper = ({ children }: LayoutSectionWrapperProps): JSX.Element => {
   return (
-    <section className={'flex-[1 100vw] flex w-full flex-row flex-wrap justify-center gap-10 lg:justify-start'}>
+    <section
+      className={joinTw('flex-[1 100vw] flex flex-row flex-wrap justify-center gap-10 lg:justify-start', 'w-full')}
+    >
       {children}
     </section>
   );

@@ -148,11 +148,11 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
 
   const routes = (
     <div>
-      <ul className={'lg:flex lg:items-center lg:gap-x-8'}>
+      <ul className={joinTw('lg:flex lg:items-center lg:gap-x-8')}>
         {accountRoleNavigationRoutes[account.role as UserRoles].map((route: NavigationRouteItem) => (
           <li
             key={route.targetUrlString}
-            className={'my-4'}
+            className={joinTw('my-4')}
           >
             <NavigationRoute
               targetUrlString={route.targetUrlString}
@@ -162,11 +162,11 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
           </li>
         ))}
       </ul>
-      <ul className={'justify-end lg:flex lg:items-center lg:gap-x-8'}>
+      <ul className={joinTw('justify-end lg:flex lg:items-center lg:gap-x-8')}>
         {sharedNavigationRoutes.map((route: NavigationRouteItem) => (
           <li
             key={route.targetUrlString}
-            className={'my-4'}
+            className={joinTw('my-4')}
           >
             <NavigationRoute
               targetUrlString={route.targetUrlString}
@@ -190,7 +190,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
   return (
     <>
       <NavigationBarWrapper>
-        <div className={'w-1/3 flex-none'}>
+        <div className={joinTw('flex-none', 'w-1/3')}>
           <NavigationRoute
             targetUrlString={'/dashboard'}
             icon={iconLibraryConfig.faGraduationCap}
@@ -203,13 +203,17 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
             onBlur={handleOnBlur}
             className={joinTw(
               isNavbarOpen ? 'right-0' : '-right-full',
-              'z-100 w-5/10 h-10/10 bg-primary fixed top-0 pl-20 pt-40 transition-all duration-500 ease-in-out',
+              'z-100 fixed top-0',
+              'w-5/10 h-10/10',
+              'pl-20 pt-40',
+              'bg-primary',
+              'transition-all duration-500 ease-in-out',
             )}
           >
             {routes}
             <div
               onClick={() => toggleNavbar()}
-              className={'top-15 absolute right-10 lg:hidden'}
+              className={joinTw('top-15 absolute right-10 lg:hidden')}
             >
               <CoreIcon icon={iconLibraryConfig.faXMark} />
             </div>
@@ -219,7 +223,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
         )}
         <div
           onClick={() => toggleNavbar()}
-          className={'top-15 absolute right-10 lg:hidden'}
+          className={joinTw('top-15 absolute right-10 lg:hidden')}
         >
           <CoreIcon icon={iconLibraryConfig.faBars} />
         </div>

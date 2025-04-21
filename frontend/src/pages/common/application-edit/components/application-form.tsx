@@ -26,6 +26,7 @@ import { IsRemovableButton } from './is-removable-button';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import {
@@ -91,26 +92,32 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
 
   return (
     <>
-      <section className={'core-tertiary-border w-9/10 md:w-8/10 my-[5%] 2xl:max-w-[100rem]'}>
+      <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'update-application-form'}
             onFormSubmit={handleSubmit((formData: UpdateApplicationByStudent) => {
               submitForm(formData, application.uuid, mutate, setError);
             })}
-            className={'core-application-grid'}
+            className={joinTw('core-application-grid')}
           >
             <CoreFormHeader
               title={l.PAGES.COMMON.APPLICATION_EDIT.FORM.TITLE}
               intent={'largeWithUnderline'}
-              className={'col-start-1 col-end-3'}
+              className={joinTw('col-start-1 col-end-3')}
             />
             <ApplicationMetadata
-              className={'col-start-1 col-end-2 row-start-2 row-end-3 h-40'}
-              createdAt={updatedData?.createdAt ?? application.createdAt}
-              createdBy={updatedData?.createdBy ?? application.createdBy}
-              lastUpdatedAt={updatedData ? updatedData.lastUpdatedAt : application.lastUpdatedAt}
-              lastModifiedBy={updatedData?.lastModifiedBy ?? application.lastModifiedBy}
+              className={joinTw('col-start-1 col-end-2 row-start-2 row-end-3', 'h-40')}
+              metadata={{
+                created: {
+                  createdAt: updatedData?.createdAt ?? application.createdAt,
+                  createdBy: updatedData?.createdBy ?? application.createdBy,
+                },
+                lastUpdated: {
+                  lastUpdatedAt: updatedData ? updatedData.lastUpdatedAt : application.lastUpdatedAt,
+                  lastModifiedBy: updatedData?.lastModifiedBy ?? application.lastModifiedBy,
+                },
+              }}
             />
             <IsRemovableButton
               isRemovable={updatedData?.isRemovable ?? application.isRemovable}
@@ -118,7 +125,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
             />
             <CoreFormElementInstruction
               paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.INFORMATION}
-              className={'col-start-1 col-end-3 mt-20'}
+              className={joinTw('col-start-1 col-end-3', 'mt-20')}
             />
             <DisabledInputGroup
               id={'country'}
@@ -239,7 +246,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               submissionValue={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
               errorMessage={errors.root?.message}
               submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
-              className={'col-start-1 col-end-3'}
+              className={joinTw('col-start-1 col-end-3')}
             />
           </CoreFormWrapper>
         </FormProvider>

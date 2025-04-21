@@ -12,6 +12,9 @@ import { FieldValues } from 'react-hook-form';
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreTextareaElement } from '../core-element/core-textarea-element.tsx';
 
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* interface, type, enum imports */
 import { TextareaElementGroup } from '@daigaku/common-types';
 
@@ -48,7 +51,7 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   isDisabled,
 }: CommonTextareaGroupProps<T>): JSX.Element => {
   return (
-    <CoreFormElementGroupWrapper className={'h-120'}>
+    <CoreFormElementGroupWrapper className={joinTw('h-120')}>
       <CoreFormElementLabel
         inputId={id}
         content={label}

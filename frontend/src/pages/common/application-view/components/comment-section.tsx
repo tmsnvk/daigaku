@@ -18,6 +18,7 @@ import { CreateCommentForm } from './create-comment-form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.
@@ -44,18 +45,18 @@ export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.El
   }
 
   return (
-    <section className={'mx-auto my-20 w-[95%] sm:w-[65%] lg:w-[95%]'}>
+    <section className={joinTw('w-[95%] sm:w-[65%] lg:w-[95%]', 'mx-auto my-20')}>
       <Comments
         comments={data?.comments ?? []}
         isError={isError}
       />
-      <div className={'mx-auto mb-20 flex w-[90%] flex-row items-center justify-around'}>
+      <div className={joinTw('flex flex-row items-center justify-around', 'w-[90%]', 'mx-auto mb-20')}>
         <CommentPaginationButton
           onClick={goToPreviousPage}
           isDisabled={data?.currentPage === 0}
           value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PREVIOUS}
         />
-        <span className={'text-xl'}>
+        <span className={joinTw('text-xl')}>
           {l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PAGE} {currentPage + 1}
         </span>
         <CommentPaginationButton

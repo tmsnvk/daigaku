@@ -36,7 +36,15 @@ interface TodoListProps {
  */
 export const TodoList = ({ introduction, todos }: TodoListProps): JSX.Element => {
   return (
-    <section className={'core-primary-border bg-accent mx-auto mb-20 w-[95%] px-12 py-4 text-xl lg:w-[65%]'}>
+    <section
+      className={joinTw(
+        'core-primary-border',
+        'w-[95%] lg:w-[65%]',
+        'mx-auto mb-20 px-12 py-4',
+        'bg-accent',
+        'text-xl',
+      )}
+    >
       <ul>
         {introduction.map((paragraph: string, index: number) => (
           <li
@@ -47,7 +55,7 @@ export const TodoList = ({ introduction, todos }: TodoListProps): JSX.Element =>
           </li>
         ))}
       </ul>
-      <ol className={'ml-20'}>
+      <ol className={joinTw('ml-20')}>
         {todos.map((todo: Todo, index: number) => (
           <li
             key={index}

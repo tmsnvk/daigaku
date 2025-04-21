@@ -6,23 +6,34 @@
 
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
-import { JSX } from 'react';
+import { JSX, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
 const coreLinkVariants = cva(
-  joinTw(
-    'block flex justify-center items-center h-20 px-10 text-2xl font-bold rounded-xl tracking-widest',
-    'focus:outline-2',
-    'hover:outline-2  hover:cursor-pointer',
-  ),
+  joinTw('block flex justify-center items-center', 'font-bold tracking-wider', 'rounded-xl', 'hover:cursor-pointer'),
   {
     variants: {
       intent: {
         light: '',
-        dark: 'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow) hover:outline-accent focus:outline-accent',
+        table: joinTw(
+          'h-10',
+          'mx-auto py-4',
+          'bg-transparent',
+          'text-secondary text-xl font-bold tracking-wider',
+          'cursor-pointer',
+          'hover:text-accent',
+        ),
+        dark: joinTw(
+          'h-20 px-10',
+          'bg-secondary',
+          'text-tertiary text-2xl',
+          'shadow-(--right-bottom-accent-shadow)',
+          'hover:outline-accent hover:outline-2',
+          'focus:outline-accent focus:outline-2',
+        ),
       },
       size: {
         normal: 'w-36',
@@ -41,9 +52,14 @@ interface CoreLinkProps extends VariantProps<typeof coreLinkVariants> {
   readonly target: string;
 
   /**
+   *
+   */
+  readonly state?: unknown;
+
+  /**
    * The button's label.
    */
-  readonly label: string;
+  readonly label: string | ReactNode;
 
   /**
    * The button's additional style options.
@@ -57,10 +73,11 @@ interface CoreLinkProps extends VariantProps<typeof coreLinkVariants> {
  * @param {CoreLinkProps} props
  * @return {JSX.Element}
  */
-export const CoreLink = ({ target, label, intent, size, className }: CoreLinkProps): JSX.Element => {
+export const CoreLink = ({ target, state, label, intent, size, className }: CoreLinkProps): JSX.Element => {
   return (
     <Link
       to={target}
+      state={state}
       className={joinTw(coreLinkVariants({ intent, size, className }))}
     >
       {label}

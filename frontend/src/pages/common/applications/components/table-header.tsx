@@ -14,6 +14,7 @@ import { JSX } from 'react';
 import { useRequestPdfDownload } from '../hooks';
 
 /* component imports */
+import { CoreButton } from '@daigaku/components/core';
 import { LoadingIndicator } from '@daigaku/components/general';
 import { GlobalErrorModal } from '@daigaku/components/notification';
 
@@ -83,7 +84,7 @@ export const TableHeader = ({
   const { mutate, isPending, isError, error } = useRequestPdfDownload(onDownloadPdfRequest);
 
   if (isError) {
-    let errorMessage = '';
+    let errorMessage;
 
     if (axios.isAxiosError(error)) {
       errorMessage = errorConstants.UNEXPECTED_SERVER_ERROR;
@@ -107,80 +108,76 @@ export const TableHeader = ({
           column.isVisible && (
             <th
               key={column.id}
-              className={'w-[10%] px-4 py-6 text-center'}
+              className={joinTw('text-center', 'w-[10%]', 'px-4 py-6')}
             >
-              <button
-                className={joinTw(
-                  'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent text-xl',
-                  'hover:text-accent',
-                  'disabled:text-tertiary disabled:cursor-not-allowed',
-                )}
-                type={'button'}
+              <CoreButton
+                label={column.name}
+                content={
+                  <>
+                    {column.name}
+                    <FontAwesomeIcon
+                      icon={iconLibraryConfig.faSort}
+                      className={joinTw('ml-2')}
+                    />
+                  </>
+                }
+                intent={'table'}
                 onClick={() => onColumnSort(column.id)}
                 disabled={isDataEmpty}
-              >
-                {column.name}
-                <FontAwesomeIcon
-                  icon={iconLibraryConfig.faSort}
-                  className={'ml-2'}
-                />
-              </button>
+              />
             </th>
           )
         );
       })}
-      <th className={'w-[10%] px-1 py-6 text-center'}>
-        <button
-          className={joinTw(
-            'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent py-6 text-xl',
-            'hover:text-accent',
-            'disabled:text-tertiary disabled:cursor-not-allowed',
-          )}
-          type={'button'}
+      <th className={joinTw('text-center', 'w-[10%]', 'px-1 py-6')}>
+        <CoreButton
+          label={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.REFRESH}
+          content={
+            <>
+              {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.REFRESH}
+              <FontAwesomeIcon
+                icon={iconLibraryConfig.faRotateRight}
+                className={joinTw('ml-2')}
+              />
+            </>
+          }
+          intent={'table'}
           onClick={() => onRefetch({ cancelRefetch: false })}
           disabled={isDataEmpty}
-        >
-          {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.REFRESH}
-          <FontAwesomeIcon
-            icon={iconLibraryConfig.faRotateRight}
-            className={'ml-2'}
-          />
-        </button>
-        <button
-          className={joinTw(
-            'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent py-6 text-xl',
-            'hover:text-accent',
-            'disabled:text-tertiary disabled:cursor-not-allowed',
-          )}
-          type={'button'}
+        />
+        <CoreButton
+          label={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DISPLAY}
+          content={
+            <>
+              {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DISPLAY}
+              <FontAwesomeIcon
+                icon={iconLibraryConfig.faTable}
+                className={joinTw('ml-2')}
+              />
+            </>
+          }
+          intent={'table'}
           onClick={onToggleModal}
           disabled={isDataEmpty}
-        >
-          {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DISPLAY}
-          <FontAwesomeIcon
-            icon={iconLibraryConfig.faTable}
-            className={'ml-2'}
-          />
-        </button>
+        />
         {isPending || isToastVisible ? (
           <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.REQUEST} />
         ) : (
-          <button
-            className={joinTw(
-              'text-secondary mx-auto flex h-10 cursor-pointer flex-row items-center bg-transparent py-6 text-xl',
-              'hover:text-accent',
-              'disabled:text-tertiary disabled:cursor-not-allowed',
-            )}
-            type={'button'}
+          <CoreButton
+            label={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DOWNLOAD}
+            content={
+              <>
+                {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DOWNLOAD}
+                <FontAwesomeIcon
+                  icon={iconLibraryConfig.faFileArrowDown}
+                  className={joinTw('ml-2')}
+                />
+              </>
+            }
+            intent={'table'}
             onClick={() => mutate()}
             disabled={isDataEmpty}
-          >
-            {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DOWNLOAD}
-            <FontAwesomeIcon
-              icon={iconLibraryConfig.faFileArrowDown}
-              className={'ml-2'}
-            />
-          </button>
+          />
         )}
       </th>
     </tr>

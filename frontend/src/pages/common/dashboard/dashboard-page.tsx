@@ -19,6 +19,7 @@ import { LayoutStudent } from './components';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { StudentDashboardStatistics, UserRoles } from '@daigaku/common-types';
@@ -60,7 +61,7 @@ export const Dashboard = (): JSX.Element => {
 
   // Add layouts for other authentication level users.
   return (
-    <main className={'m-[5%] flex flex-row flex-wrap gap-y-20'}>
+    <main className={joinTw('flex flex-row flex-wrap gap-y-20', 'm-[5%]')}>
       {account.role === UserRoles.ROLE_STUDENT && <LayoutStudent data={data as StudentDashboardStatistics} />}
     </main>
   );

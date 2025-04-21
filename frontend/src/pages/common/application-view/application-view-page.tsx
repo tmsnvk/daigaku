@@ -17,6 +17,7 @@ import { ApplicationDetails, CommentSection } from './components';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Renders the view mode page of the selected application record.
@@ -48,7 +49,7 @@ export const ApplicationView = (): JSX.Element => {
   }
 
   return (
-    <main className={'grid grid-cols-[1fr] gap-x-10 lg:grid-cols-[1fr_0.5fr]'}>
+    <main className={joinTw('grid grid-cols-[1fr] gap-x-10 lg:grid-cols-[1fr_0.5fr]')}>
       <ApplicationDetails application={application} />
       <CommentSection applicationUuid={applicationUuid} />
     </main>

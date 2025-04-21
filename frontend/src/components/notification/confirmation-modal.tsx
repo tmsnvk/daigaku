@@ -15,6 +15,7 @@ import { CoreModalClosingInputElement } from '../form';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.
@@ -48,9 +49,9 @@ export const ConfirmationModal = ({ isVisible, message, onCloseModal }: Confirma
   return (
     <dialog
       ref={dialogRef}
-      className={'text-center'}
+      className={joinTw('text-center')}
     >
-      <p className={'pb-10 text-xl'}>{message}</p>
+      <p className={joinTw('pb-10', 'text-xl')}>{message}</p>
       <CoreModalClosingInputElement
         value={l.COMPONENTS.NOTIFICATION.MODAL.CONFIRMATION.ACCEPTANCE}
         onClick={onCloseModal}

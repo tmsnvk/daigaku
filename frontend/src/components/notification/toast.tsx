@@ -41,9 +41,12 @@ export const Toast = ({ isVisible, message, onAnimationEnd }: ToastProps): JSX.E
     <section
       onAnimationEnd={onAnimationEnd}
       className={joinTw(
-        'core-primary-border bg-accent z-100 fixed h-40 w-80 overflow-visible',
-        'flex items-center justify-center',
-        'bottom-40 px-6 text-2xl',
+        'core-primary-border',
+        'z-100 fixed bottom-40 flex items-center justify-center overflow-visible',
+        'h-40 w-80',
+        'px-6',
+        'bg-accent',
+        'text-2xl',
         'animate-simple-fade-out',
       )}
     >

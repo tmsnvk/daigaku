@@ -6,39 +6,82 @@
 
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
-import { ButtonHTMLAttributes, JSX, MouseEventHandler } from 'react';
+import { ButtonHTMLAttributes, JSX, MouseEventHandler, ReactNode } from 'react';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreButtonVariants = cva(
-  joinTw('h-20 px-6 text-2xl font-bold rounded-xl tracking-widest', 'focus:outline-2', 'hover:outline-2'),
-  {
-    variants: {
-      intent: {
-        light: 'bg-primary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
-        dark: 'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow) focus:outline-accent hover:outline-accent',
-        accent: 'bg-accent text-secondary focus:outline-tertiary shadow-(--right-bottom-secondary-shadow)',
-        submit: '',
-        destructive:
-          'bg-destructive text-tertiary shadow-(--right-bottom-secondary-shadow) hover:outline-secondary focus:outline-secondary',
-      },
-      isDisabled: {
-        false: 'cursor-pointer',
-        true: 'cursor-not-allowed hover:outline-transparent',
-      },
+const coreButtonVariants = cva(joinTw('font-bold tracking-widest'), {
+  variants: {
+    intent: {
+      light: joinTw(
+        'h-20',
+        'px-6',
+        'bg-primary',
+        'text-2xl',
+        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'hover:outline-secondary hover:outline-2',
+        'focus:outline-secondary focus:outline-2',
+      ),
+      dark: joinTw(
+        'h-20',
+        'px-6',
+        'bg-secondary',
+        'text-tertiary text-2xl',
+        'shadow-(--right-bottom-accent-shadow) rounded-xl',
+        'hover:outline-accent hover:outline-2',
+        'focus:outline-accent focus:outline-2',
+      ),
+      accent: joinTw(
+        'h-20',
+        'px-6',
+        'bg-accent',
+        'text-secondary text-2xl',
+        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'focus:outline-tertiary focus:outline-2',
+      ),
+      submit: '',
+      table: joinTw(
+        'flex flex-row items-center justify-center',
+        'h-10',
+        'mx-auto py-4',
+        'bg-transparent',
+        'text-secondary text-xl',
+        'cursor-pointer',
+        'hover:text-accent',
+      ),
+      destructive: joinTw(
+        'h-20',
+        'px-6',
+        'bg-destructive',
+        'text-tertiary text-2xl',
+        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'hover:outline-secondary hover:outline-2',
+        'focus:outline-secondary focus:outline-2',
+      ),
+    },
+    isDisabled: {
+      false: joinTw('cursor-pointer'),
+      true: joinTw('text-tertiary', 'cursor-not-allowed', 'hover:outline-transparent'),
     },
   },
-);
+});
 
 /**
  * Defines the component's properties.
  */
-interface CoreButtonProps extends VariantProps<typeof coreButtonVariants>, ButtonHTMLAttributes<HTMLButtonElement> {
+interface CoreButtonProps
+  extends VariantProps<typeof coreButtonVariants>,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'content'> {
   /**
    * The button's label.
    */
   readonly label: string;
+
+  /**
+   * Optional property, used when a button's label is not a string but a more complex node.
+   */
+  readonly content?: ReactNode;
 
   /**
    * The boolean indicating whether the button is disabled or not.
@@ -62,7 +105,14 @@ interface CoreButtonProps extends VariantProps<typeof coreButtonVariants>, Butto
  * @param {CoreButtonProps} props
  * @return {JSX.Element}
  */
-export const CoreButton = ({ intent, label, isDisabled, className, onClick }: CoreButtonProps): JSX.Element => {
+export const CoreButton = ({
+  intent,
+  content,
+  label,
+  isDisabled,
+  className,
+  onClick,
+}: CoreButtonProps): JSX.Element => {
   return (
     <button
       id={label}
@@ -72,7 +122,7 @@ export const CoreButton = ({ intent, label, isDisabled, className, onClick }: Co
       onClick={onClick}
       disabled={isDisabled}
     >
-      {label}
+      {content ?? label}
     </button>
   );
 };

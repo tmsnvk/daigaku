@@ -7,6 +7,9 @@
 /* vendor imports */
 import { JSX, ReactNode } from 'react';
 
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
+
 /**
  * Defines the component's properties.
  */
@@ -22,8 +25,10 @@ interface NavigationBarWrapperProps {
  */
 export const NavigationBarWrapper = ({ children }: NavigationBarWrapperProps): JSX.Element => {
   return (
-    <header className={'bg-primary border-secondary sticky top-0 z-50 border-b-2'}>
-      <nav className={'w-9/10 mx-auto flex h-40 items-center justify-between lg:justify-around'}>{children}</nav>
+    <header className={joinTw('sticky top-0 z-50', 'bg-primary border-secondary border-b-2')}>
+      <nav className={joinTw('flex items-center justify-between lg:justify-around', 'w-9/10 h-40', 'mx-auto')}>
+        {children}
+      </nav>
     </header>
   );
 };

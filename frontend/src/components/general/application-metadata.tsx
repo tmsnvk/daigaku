@@ -11,13 +11,24 @@ import { JSX } from 'react';
 import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
-import { CoreMetadata } from '@daigaku/common-types';
-
 /**
  * Defines the component's properties.
  */
-interface ApplicationMetadataProps extends CoreMetadata {
+interface ApplicationMetadataProps {
+  /**
+   *
+   */
+  readonly metadata: {
+    created: {
+      createdAt: Date;
+      createdBy: string;
+    };
+    lastUpdated: {
+      lastUpdatedAt: Date;
+      lastModifiedBy: string;
+    };
+  };
+
   /**
    * Optional styling settings.
    */
@@ -30,20 +41,14 @@ interface ApplicationMetadataProps extends CoreMetadata {
  * @param {ApplicationMetadataProps} props
  * @return {JSX.Element}
  */
-export const ApplicationMetadata = ({
-  createdAt,
-  createdBy,
-  lastUpdatedAt,
-  lastModifiedBy,
-  className,
-}: ApplicationMetadataProps): JSX.Element => {
+export const ApplicationMetadata = ({ metadata, className }: ApplicationMetadataProps): JSX.Element => {
   return (
     <article className={joinTw('text-2xl', className)}>
       <dl>
         <div>
-          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.SUBMISSION.AT}</dt>{' '}
-          <dd className={'inline-block'}>
-            {new Date(createdAt).toLocaleString('en-GB', {
+          <dt className={joinTw('inline-block', 'font-extrabold')}>{l.APPLICATION.METADATA.SUBMISSION.AT}</dt>{' '}
+          <dd className={joinTw('inline-block')}>
+            {new Date(metadata.created.createdAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',
               day: 'numeric',
@@ -52,14 +57,14 @@ export const ApplicationMetadata = ({
             })}
           </dd>
         </div>
-        <div className={'my-2'}>
-          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.SUBMISSION.BY}</dt>{' '}
-          <dd className={'inline-block'}>{createdBy}</dd>
+        <div className={joinTw('my-2')}>
+          <dt className={joinTw('inline-block', 'font-extrabold')}>{l.APPLICATION.METADATA.SUBMISSION.BY}</dt>{' '}
+          <dd className={joinTw('inline-block')}>{metadata.created.createdBy}</dd>
         </div>
-        <div className={'my-2'}>
-          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.LAST_UPDATE.AT}</dt>{' '}
-          <dd className={'inline-block'}>
-            {new Date(lastUpdatedAt).toLocaleString('en-GB', {
+        <div className={joinTw('my-2')}>
+          <dt className={joinTw('inline-block', 'font-extrabold')}>{l.APPLICATION.METADATA.LAST_UPDATE.AT}</dt>{' '}
+          <dd className={joinTw('inline-block')}>
+            {new Date(metadata.lastUpdated.lastUpdatedAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',
               day: 'numeric',
@@ -69,8 +74,8 @@ export const ApplicationMetadata = ({
           </dd>
         </div>
         <div>
-          <dt className={'inline-block font-extrabold'}>{l.APPLICATION.METADATA.LAST_UPDATE.BY}</dt>{' '}
-          <dd className={'inline-block'}>{lastModifiedBy}</dd>
+          <dt className={joinTw('inline-block', 'font-extrabold')}>{l.APPLICATION.METADATA.LAST_UPDATE.BY}</dt>{' '}
+          <dd className={joinTw('inline-block')}>{metadata.lastUpdated.lastModifiedBy}</dd>
         </div>
       </dl>
     </article>

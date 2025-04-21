@@ -10,6 +10,9 @@ import { JSX } from 'react';
 /* component imports */
 import { CoreButton } from '@daigaku/components/core';
 
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* interface, type, enum imports */
 import { FormType } from '../models';
 
@@ -51,7 +54,7 @@ interface FormSwapButtonsProps {
  */
 export const FormSwapButtons = ({ buttonConfig, isDisabled, onFormSelect }: FormSwapButtonsProps): JSX.Element => {
   return (
-    <article className={'mt-40 flex justify-between'}>
+    <article className={joinTw('flex justify-between', 'mt-40')}>
       <CoreButton
         label={buttonConfig.leftButton.label}
         intent={'light'}

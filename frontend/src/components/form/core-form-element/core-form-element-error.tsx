@@ -7,6 +7,9 @@
 /* vendor imports */
 import { JSX } from 'react';
 
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
+
 /**
  * Defines the component's properties.
  */
@@ -25,7 +28,14 @@ interface CoreFormElementErrorProps {
  */
 export const CoreFormElementError = ({ message }: CoreFormElementErrorProps): JSX.Element => {
   return (
-    <p className='text-destructive animate-simple-fade-in mt-6 text-center text-lg font-bold tracking-wide'>
+    <p
+      className={joinTw(
+        'text-center',
+        'mt-6',
+        'text-destructive text-lg font-bold tracking-wide',
+        'animate-simple-fade-in',
+      )}
+    >
       {message}
     </p>
   );

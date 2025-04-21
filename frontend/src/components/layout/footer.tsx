@@ -22,9 +22,10 @@ export const Footer = (): JSX.Element => {
       <div></div>
       <footer
         className={joinTw(
-          'flex flex-col items-center justify-center',
-          'absolute bottom-0 h-28 w-full',
-          'bg-primary border-secondary border-t-2 text-xl',
+          'absolute bottom-0 flex flex-col items-center justify-center',
+          'h-28 w-full',
+          'bg-primary border-secondary border-t-2',
+          'text-xl',
         )}
       >
         <p>

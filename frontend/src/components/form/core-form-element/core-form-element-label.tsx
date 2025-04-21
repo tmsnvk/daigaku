@@ -7,6 +7,9 @@
 /* vendor imports */
 import { JSX } from 'react';
 
+/* configuration, utilities, constants imports */
+import { joinTw } from '@daigaku/utilities';
+
 /**
  * Defines the component's properties.
  */
@@ -32,7 +35,7 @@ export const CoreFormElementLabel = ({ inputId, content }: CoreFormElementLabelP
   return (
     <label
       htmlFor={inputId}
-      className={'text-2xl'}
+      className={joinTw('text-2xl')}
     >
       {content}
     </label>

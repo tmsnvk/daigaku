@@ -27,6 +27,7 @@ import { GlobalErrorModal, LoadingModal, Toast } from '@daigaku/components/notif
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import {
@@ -82,23 +83,23 @@ export const NewApplicationForm = (): JSX.Element => {
 
   return (
     <>
-      <section className={'core-tertiary-border w-9/10 md:w-8/10 my-[5%] 2xl:max-w-[100rem]'}>
+      <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
         <FormProvider {...methods}>
           <CoreFormWrapper
             formId={'post-application-form'}
             onFormSubmit={handleSubmit((formData: CreateApplicationByStudent) => {
               mutate(formData);
             })}
-            className={'core-application-grid'}
+            className={joinTw('core-application-grid')}
           >
             <CoreFormHeader
               title={l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}
               intent={'largeWithUnderline'}
-              className={'col-start-1 col-end-3'}
+              className={joinTw('col-start-1 col-end-3')}
             />
             <CoreFormElementInstruction
               paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION}
-              className={'col-start-1 col-end-3'}
+              className={joinTw('col-start-1 col-end-3')}
             />
             <CountrySelectGroup
               id={'countryUuid'}
@@ -198,7 +199,7 @@ export const NewApplicationForm = (): JSX.Element => {
               submissionValue={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
               errorMessage={errors.root?.message}
               submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
-              className={'col-start-1 col-end-3'}
+              className={joinTw('col-start-1 col-end-3')}
             />
           </CoreFormWrapper>
         </FormProvider>

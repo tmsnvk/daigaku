@@ -63,7 +63,6 @@ interface RegistrationFormProps {
  * @return {JSX.Element}
  */
 export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormProps): JSX.Element => {
-  // react-query data fetches
   const {
     data: institutions,
     isLoading: isInstitutionLoading,
@@ -71,7 +70,6 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
   } = useGetInstitutionOptions();
   const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
 
-  // react-hook-form initialisation
   const methods = useForm<PendingAccountRegistrationRequest>({ mode: 'onSubmit' });
   const {
     formState: { errors },
@@ -79,7 +77,6 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
     setError,
   } = methods;
 
-  // react-query mutation
   const { isPending, mutate } = useRegistrationFormMutation(setError, showModal);
 
   if (isInstitutionLoading || isRoleLoading) {

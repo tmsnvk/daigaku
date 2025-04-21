@@ -19,6 +19,7 @@ import { FormSectionWrapper } from './components';
 
 /* configuration, utilities, constants imports */
 import { confirmationModalFeedback } from './constants';
+import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { UserLoginState } from '@daigaku/common-types';
@@ -42,7 +43,7 @@ export const Home = (): JSX.Element => {
   }
 
   return (
-    <main className={'mx-auto flex flex-col items-center'}>
+    <main className={joinTw('flex flex-col items-center', 'mx-auto')}>
       <FormSectionWrapper key={selectedFormType}>{selectedFormComponent}</FormSectionWrapper>
       {isModalVisible && (
         <ConfirmationModal
