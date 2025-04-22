@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 /* component imports */
 import { LoadingIndicator } from '@daigaku/components/general';
@@ -16,7 +17,6 @@ import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
-import { useFormContext } from 'react-hook-form';
 
 /**
  * Defines the component's properties.
@@ -61,17 +61,15 @@ interface CoreFormActionProps {
  * @returns {JSX.Element}
  */
 export const CoreFormAction = ({
+  submitId,
   isSubmissionPending,
   submissionMessage,
-  submitId,
   submissionValue,
   submitButtonStyleIntent,
   className,
 }: CoreFormActionProps): JSX.Element => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const error = errors.root?.message;
+  const { formState } = useFormContext();
+  const error = formState.errors.root?.message;
 
   return (
     <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>

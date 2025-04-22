@@ -31,7 +31,12 @@ import { formTypeButtonLabel } from '../constants';
 import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../models';
 
-const loginFormSchema = z
+const formDefaultValues = {
+  email: '',
+  password: '',
+};
+
+const formSchema = z
   .object({
     email: z.string().email({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED }),
     password: z.string().min(1, { message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
@@ -39,7 +44,7 @@ const loginFormSchema = z
   .strict()
   .required();
 
-type FormData = z.infer<typeof loginFormSchema>;
+type FormInputValues = z.infer<typeof formSchema>;
 
 /**
  * Defines the component's properties.
@@ -62,7 +67,11 @@ interface LoginFormProps {
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
-  const methods = useForm<FormData>({ mode: 'onSubmit', resolver: zodResolver(loginFormSchema) });
+  const methods = useForm<FormInputValues>({
+    mode: 'onSubmit',
+    defaultValues: formDefaultValues,
+    resolver: zodResolver(formSchema),
+  });
   const { handleSubmit, setError } = methods;
   const { isPending, mutate } = useLoginFormMutation(setError);
 
@@ -75,7 +84,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-account-login-form'}
-          onFormSubmit={handleSubmit((formData: FormData) => {
+          onFormSubmit={handleSubmit((formData: FormInputValues) => {
             mutate(formData as LoginPayload);
           })}
         >
@@ -95,9 +104,9 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
+            submitId={'login'}
             isSubmissionPending={isPending}
             submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
-            submitId={'login'}
             submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
             submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
           />

@@ -37,10 +37,8 @@ export const CommonInputGroup = <T extends FieldValues>({
   isDisabled,
   intent,
 }: CommonInputGroupProps<T>): JSX.Element => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const error = errors[id]?.message;
+  const { formState } = useFormContext();
+  const error = formState.errors[id]?.message;
 
   return (
     <CoreFormElementGroupWrapper>

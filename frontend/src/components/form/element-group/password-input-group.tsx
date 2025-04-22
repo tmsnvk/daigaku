@@ -41,11 +41,8 @@ export const PasswordInputGroup = <T extends FieldValues>({
   isDisabled,
   intent,
 }: PasswordInputGroupProps<T>): JSX.Element => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const error = errors[id]?.message;
-
+  const { formState } = useFormContext();
+  const error = formState.errors[id]?.message;
   const [isPasswordRevealed, setIsPasswordRevealed] = useState<boolean>(false);
 
   return (

@@ -5,8 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 /* logic imports */
 import { useResetFormMutation } from '../hooks';
@@ -26,6 +28,19 @@ import {
   CoreSubmitInputElementStyleIntent,
 } from '@daigaku/common-types';
 import { FormType } from '../models';
+
+const formDefaultValues = {
+  email: '',
+};
+
+const formSchema = z
+  .object({
+    email: z.string({ message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED }),
+  })
+  .strict()
+  .required();
+
+type FormInputValues = z.infer<typeof formSchema>;
 
 /**
  * Defines the component's properties.
@@ -53,13 +68,12 @@ interface ResetFormProps {
  * @return {JSX.Element}
  */
 export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Element => {
-  const methods = useForm<AccountResetPayload>({ mode: 'onSubmit' });
-  const {
-    formState: { errors },
-    handleSubmit,
-    setError,
-  } = methods;
-
+  const methods = useForm<FormInputValues>({
+    mode: 'onSubmit',
+    defaultValues: formDefaultValues,
+    resolver: zodResolver(formSchema),
+  });
+  const { handleSubmit, setError } = methods;
   const { isPending, mutate } = useResetFormMutation(setError, showModal);
 
   return (
@@ -71,31 +85,23 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-account-reset-form'}
-          onFormSubmit={handleSubmit((formData: AccountResetPayload) => {
-            mutate(formData);
+          onFormSubmit={handleSubmit((formData: FormInputValues) => {
+            mutate(formData as AccountResetPayload);
           })}
         >
           <CommonInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED,
-              },
-            }}
-            type={'email'}
             id={'email'}
+            type={'email'}
             label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
             isDisabled={isPending}
-            error={errors.email?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
+            submitId={'reset'}
             isSubmissionPending={isPending}
             submissionMessage={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING}
-            submitId={'reset'}
             submissionValue={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
-            errorMessage={errors.root?.message}
             submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>
