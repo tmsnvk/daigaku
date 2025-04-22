@@ -5,8 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
@@ -14,18 +16,17 @@ import { useRegistrationFormMutation } from '../hooks';
 
 /* component imports */
 import {
-  AccountRoleSelectGroup,
   CommonInputGroup,
   CoreFormAction,
   CoreFormHeader,
   CoreFormWrapper,
-  InstitutionSelectGroup,
+  SupportSelectGroup,
 } from '@daigaku/components/form';
-import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
 import { localization as l } from '@daigaku/constants';
+import { removeRolePrefix } from '@daigaku/utilities';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
@@ -33,9 +34,48 @@ import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
+  InstitutionOption,
   PendingAccountRegistrationPayload,
+  RoleOption,
 } from '@daigaku/common-types';
 import { FormType } from '../models';
+
+const formDefaultValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  institutionUuid: '',
+  accountRoleUuid: '',
+};
+
+const formSchema = z
+  .object({
+    firstName: z
+      .string()
+      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED })
+      .regex(/^[\p{L}\s-]{1,255}$/u, {
+        message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
+      }),
+    lastName: z
+      .string()
+      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED })
+      .regex(/^[\p{L}\s-]{1,255}$/u, {
+        message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
+      }),
+    email: z
+      .string()
+      .email({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED }),
+    institutionUuid: z
+      .string()
+      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED }),
+    accountRoleUuid: z
+      .string()
+      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED }),
+  })
+  .strict()
+  .required();
+
+export type FormInputValues = z.infer<typeof formSchema>;
 
 /**
  * Defines the component's properties.
@@ -67,35 +107,23 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
     data: institutions,
     isLoading: isInstitutionLoading,
     isError: isInstitutionError,
+    refetch: institutionRefetch,
   } = useGetInstitutionOptions();
-  const { data: roles, isLoading: isRoleLoading, isError: isRoleError } = useGetStudentAndMentorAccountRoles();
-
-  const methods = useForm<PendingAccountRegistrationPayload>({ mode: 'onSubmit' });
   const {
-    formState: { errors },
-    handleSubmit,
-    setError,
-  } = methods;
+    data: roles,
+    isLoading: isRoleLoading,
+    isError: isRoleError,
+    refetch: roleRefetch,
+  } = useGetStudentAndMentorAccountRoles();
+
+  const methods = useForm<FormInputValues>({
+    mode: 'onSubmit',
+    defaultValues: formDefaultValues,
+    resolver: zodResolver(formSchema),
+  });
+  const { handleSubmit, setError } = methods;
 
   const { isPending, mutate } = useRegistrationFormMutation(setError, showModal);
-
-  if (isInstitutionLoading || isRoleLoading) {
-    return (
-      <LoadingModal
-        isVisible={isInstitutionLoading || isRoleLoading}
-        status={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.PAGE_LOADING}
-      />
-    );
-  }
-
-  if (isInstitutionError || isRoleError) {
-    return (
-      <GlobalErrorModal
-        isVisible={isInstitutionError || isRoleError}
-        onCloseModal={() => onFormSelect(FormType.LOGIN)}
-      />
-    );
-  }
 
   return (
     <>
@@ -106,100 +134,91 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-pending-account-registration-form'}
-          onFormSubmit={handleSubmit((formData: PendingAccountRegistrationPayload) => {
-            mutate(formData);
+          onFormSubmit={handleSubmit((formData: FormInputValues) => {
+            mutate(formData as PendingAccountRegistrationPayload);
           })}
         >
           <CommonInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED,
-              },
-              pattern: {
-                value: /^[\p{L}\s-]{2,100}$/u,
-                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
-              },
-            }}
-            type={'text'}
             id={'firstName'}
+            type={'text'}
+            isDisabled={isPending}
             label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.PLACEHOLDER}
-            isDisabled={isPending}
-            error={errors.firstName?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CommonInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED,
-              },
-              pattern: {
-                value: /^[\p{L}\s-]{2,100}$/u,
-                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
-              },
-            }}
-            type={'text'}
             id={'lastName'}
+            type={'text'}
+            isDisabled={isPending}
             label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.PLACEHOLDER}
-            isDisabled={isPending}
-            error={errors.lastName?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CommonInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED,
-              },
-            }}
-            type={'email'}
             id={'email'}
+            type={'email'}
+            isDisabled={isPending}
             label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.PLACEHOLDER}
-            isDisabled={isPending}
-            error={errors.email?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
-          <InstitutionSelectGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED,
-              },
-            }}
+          <SupportSelectGroup
             id={'institutionUuid'}
-            options={institutions ?? []}
+            isLoading={isInstitutionLoading}
+            isError={isInstitutionError}
             isDisabled={isPending}
-            error={errors.institutionUuid?.message}
+            onRetry={institutionRefetch}
+            label={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.LABEL}
+            options={
+              institutions ?
+                institutions.map((institution: InstitutionOption) => (
+                  <option
+                    key={institution.uuid}
+                    value={institution.uuid}
+                  >
+                    {institution.name}
+                  </option>
+                )) :
+                []
+            }
+            defaultOption={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.DEFAULT_OPTION}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
-          <AccountRoleSelectGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED,
-              },
-            }}
+          <SupportSelectGroup
             id={'accountRoleUuid'}
-            options={roles ?? []}
+            isLoading={isRoleLoading}
+            isError={isRoleError}
             isDisabled={isPending}
-            error={errors.accountRoleUuid?.message}
+            onRetry={roleRefetch}
+            label={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
+            options={
+              roles ?
+                roles.map((role: RoleOption) => (
+                  <option
+                    key={role.uuid}
+                    value={role.uuid}
+                  >
+                    {removeRolePrefix(role.name)}
+                  </option>
+                )) :
+                []
+            }
+            defaultOption={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            isSubmissionPending={isPending}
-            submissionMessage={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING}
             submitId={'register'}
+            isSubmissionPending={isPending}
+            isDisabled={isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError}
+            submissionMessage={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING}
             submissionValue={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
-            errorMessage={errors.root?.message}
             submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
+        isDisabled={isPending}
+        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
             label: formTypeButtonLabel[FormType.RESET],
@@ -210,8 +229,6 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             formType: FormType.LOGIN,
           },
         }}
-        isDisabled={isPending}
-        onFormSelect={onFormSelect}
       />
     </>
   );

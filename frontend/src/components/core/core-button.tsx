@@ -11,7 +11,7 @@ import { ButtonHTMLAttributes, JSX, MouseEventHandler, ReactNode } from 'react';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreButtonVariants = cva(joinTw('font-bold tracking-widest'), {
+const coreButtonVariants = cva(joinTw('font-bold tracking-widest cursor-pointer'), {
   variants: {
     intent: {
       light: joinTw(
@@ -59,9 +59,17 @@ const coreButtonVariants = cva(joinTw('font-bold tracking-widest'), {
         'hover:outline-secondary hover:outline-2',
         'focus:outline-secondary focus:outline-2',
       ),
+      destructiveSlim: joinTw(
+        'h-14',
+        'px-4',
+        'bg-destructive',
+        'text-tertiary text-xl',
+        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'hover:outline-secondary hover:outline-2',
+        'focus:outline-secondary focus:outline-2',
+      ),
     },
     isDisabled: {
-      false: joinTw('cursor-pointer'),
       true: joinTw('text-tertiary', 'cursor-not-allowed', 'hover:outline-transparent'),
     },
   },
@@ -109,7 +117,7 @@ export const CoreButton = ({
   intent,
   content,
   label,
-  isDisabled,
+  isDisabled = false,
   className,
   onClick,
 }: CoreButtonProps): JSX.Element => {
@@ -117,7 +125,7 @@ export const CoreButton = ({
     <button
       id={label}
       name={label}
-      className={joinTw(coreButtonVariants({ intent, isDisabled, className }))}
+      className={joinTw(coreButtonVariants({ intent, isDisabled }), className)}
       type={'button'}
       onClick={onClick}
       disabled={isDisabled}

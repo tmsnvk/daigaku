@@ -28,6 +28,11 @@ interface CoreFormActionProps {
   readonly isSubmissionPending: boolean;
 
   /**
+   * The boolean indicating whether the form is disabled.
+   */
+  readonly isDisabled?: boolean;
+
+  /**
    * The form submission's loading message.
    */
   readonly submissionMessage: string;
@@ -63,6 +68,7 @@ interface CoreFormActionProps {
 export const CoreFormAction = ({
   submitId,
   isSubmissionPending,
+  isDisabled,
   submissionMessage,
   submissionValue,
   submitButtonStyleIntent,
@@ -79,7 +85,7 @@ export const CoreFormAction = ({
         <CoreSubmitInputElement
           id={submitId}
           value={submissionValue}
-          isDisabled={isSubmissionPending}
+          isDisabled={(isSubmissionPending || isDisabled) ?? false}
           intent={submitButtonStyleIntent}
         />
       )}

@@ -13,6 +13,7 @@ import {
   CoreSelectElementStyleIntent,
   CoreTextareaElementStyleIntent,
 } from './form-element-style-intents.ts';
+import { ReactNode } from 'react';
 
 /**
  * Defines the properties of core form elements
@@ -26,11 +27,6 @@ interface CoreFormElementGroup<T extends FieldValues> {
    * The input element's id.
    */
   readonly id: Path<T>;
-
-  /**
-   * The error message associated with the input, if validation fails.
-   */
-  readonly error?: string;
 
   /**
    * Indicates whether the input is disabled, preventing user interaction.
@@ -99,11 +95,36 @@ export interface PasswordInputElementGroup<T extends FieldValues> extends CoreIn
  * from the `react-hook-form` library.
  * @template U - The type of options available in the select element.
  */
-export interface CoreSelectElementGroup<T extends FieldValues, U> extends CoreFormElementGroup<T> {
+export interface CoreSelectElementGroup<T extends FieldValues> extends CoreFormElementGroup<T> {
   /**
    * An array of options available for selection in the select element.
    */
-  readonly options: Array<U>;
+  readonly options: ReactNode;
+
+  /**
+   *
+   */
+  readonly isLoading: boolean;
+
+  /**
+   *
+   */
+  readonly isError: boolean;
+
+  /**
+   *
+   */
+  onRetry: () => void;
+
+  /**
+   *
+   */
+  readonly label: string;
+
+  /**
+   *
+   */
+  readonly defaultOption: string;
 }
 
 /**

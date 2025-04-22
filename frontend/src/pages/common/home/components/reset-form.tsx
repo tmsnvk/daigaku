@@ -35,7 +35,7 @@ const formDefaultValues = {
 
 const formSchema = z
   .object({
-    email: z.string({ message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED }),
+    email: z.string().email({ message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED }),
   })
   .strict()
   .required();
@@ -74,6 +74,7 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
     resolver: zodResolver(formSchema),
   });
   const { handleSubmit, setError } = methods;
+
   const { isPending, mutate } = useResetFormMutation(setError, showModal);
 
   return (
@@ -92,9 +93,9 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
           <CommonInputGroup
             id={'email'}
             type={'email'}
+            isDisabled={isPending}
             label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
-            isDisabled={isPending}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
@@ -107,6 +108,8 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
+        isDisabled={isPending}
+        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
             label: formTypeButtonLabel[FormType.LOGIN],
@@ -117,8 +120,6 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
             formType: FormType.REGISTER,
           },
         }}
-        isDisabled={isPending}
-        onFormSelect={onFormSelect}
       />
     </>
   );

@@ -6,8 +6,8 @@
 
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
-import { JSX, ReactNode, SelectHTMLAttributes } from 'react';
-import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
+import { ChangeEvent, JSX, ReactNode, SelectHTMLAttributes } from 'react';
+import { FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -37,12 +37,6 @@ interface CoreSelectElementProps<T extends FieldValues>
   extends VariantProps<typeof coreSelectElementVariants>,
     SelectHTMLAttributes<HTMLSelectElement> {
   /**
-   * Optional validation rules to handle the select element's validation using the `react-hook-form` library for
-   * validation management.
-   */
-  readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
-
-  /**
    * The select element's id.
    */
   readonly id: Path<T>;
@@ -55,7 +49,7 @@ interface CoreSelectElementProps<T extends FieldValues>
   /**
    * The array of option values.
    */
-  readonly options: Array<ReactNode>;
+  readonly options: ReactNode;
 
   /**
    * The select element's default option. The value is non-selectable and acts as a placeholder value.
@@ -70,7 +64,7 @@ interface CoreSelectElementProps<T extends FieldValues>
   /**
    * The method invoked after the onChange handler is fired.
    */
-  onChangeHandler?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeHandler?: (event: ChangeEvent<HTMLSelectElement>) => void;
 
   /**
    * Indicates whether there is an error involving the select element.
@@ -90,7 +84,6 @@ interface CoreSelectElementProps<T extends FieldValues>
  * @return {JSX.Element}
  */
 export const CoreSelectElement = <T extends FieldValues>({
-  validationRules,
   id,
   initialValue,
   isDisabled,
@@ -101,15 +94,19 @@ export const CoreSelectElement = <T extends FieldValues>({
   intent,
   className,
 }: CoreSelectElementProps<T>): JSX.Element => {
-  const { register } = useFormContext();
+  const { register, setValue, trigger } = useFormContext<T>();
 
   return (
     <select
-      {...register(id, validationRules)}
+      {...register(id)}
       id={id}
       name={id}
       disabled={isDisabled}
-      onChange={onChangeHandler}
+      onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+        onChangeHandler?.(event);
+        setValue(id, event.target.value as PathValue<T, Path<T>>, { shouldDirty: true });
+        void trigger(id);
+      }}
       className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError, className }))}
     >
       <option

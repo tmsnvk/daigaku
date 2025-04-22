@@ -39,7 +39,7 @@ const formDefaultValues = {
 const formSchema = z
   .object({
     email: z.string().email({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED }),
-    password: z.string().min(1, { message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
+    password: z.string().nonempty({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
   })
   .strict()
   .required();
@@ -73,6 +73,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
     resolver: zodResolver(formSchema),
   });
   const { handleSubmit, setError } = methods;
+
   const { isPending, mutate } = useLoginFormMutation(setError);
 
   return (
@@ -91,16 +92,16 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
           <CommonInputGroup
             id={'email'}
             type={'email'}
+            isDisabled={isPending}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
-            isDisabled={isPending}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <PasswordInputGroup
             id={'password'}
+            isDisabled={isPending}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.PLACEHOLDER}
-            isDisabled={isPending}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
@@ -113,6 +114,8 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
+        isDisabled={isPending}
+        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
             label: formTypeButtonLabel[FormType.RESET],
@@ -123,8 +126,6 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             formType: FormType.REGISTER,
           },
         }}
-        isDisabled={isPending}
-        onFormSelect={onFormSelect}
       />
     </>
   );

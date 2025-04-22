@@ -480,6 +480,8 @@ export const localization = {
       },
     },
     NOTIFICATION: {
+      ERROR_FETCH:
+        'Fetching the necessary data was unsuccessful. Click on the  button to try again or come back later.',
       MODAL: {
         CONFIRMATION: {
           ACCEPTANCE: 'ok',
