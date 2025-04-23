@@ -21,6 +21,18 @@ import { FormType } from '../models';
  */
 interface FormSwapButtonsProps {
   /**
+   * The boolean to govern when the buttons should be disabled.
+   */
+  readonly isDisabled: boolean;
+
+  /**
+   * The method to switch to a different form when one of the buttons is clicked.
+   *
+   * @param formType The type of the form to be selected.
+   */
+  onFormSelect: (formType: FormType) => void;
+
+  /**
    * Configuration data regarding the component's buttons.
    */
   readonly buttonConfig: {
@@ -33,17 +45,6 @@ interface FormSwapButtonsProps {
       formType: FormType;
     };
   };
-  /**
-   * The boolean to govern when the buttons should be disabled.
-   */
-  readonly isDisabled: boolean;
-
-  /**
-   * The method to swap to when one of the button's is clicked.
-   *
-   * @param formType The type of the form to be selected.
-   */
-  onFormSelect: (formType: FormType) => void;
 }
 
 /**
@@ -52,20 +53,24 @@ interface FormSwapButtonsProps {
  * @param {FormSwapButtonsProps} props
  * @return {JSX.Element}
  */
-export const FormSwapButtons = ({ buttonConfig, isDisabled, onFormSelect }: FormSwapButtonsProps): JSX.Element => {
+export const FormSwapButtons = ({ isDisabled, onFormSelect, buttonConfig }: FormSwapButtonsProps): JSX.Element => {
   return (
     <article className={joinTw('flex justify-between', 'mt-40')}>
       <CoreButton
+        isDisabled={isDisabled}
+        onClick={() => {
+          onFormSelect(buttonConfig.leftButton.formType);
+        }}
         label={buttonConfig.leftButton.label}
         intent={'light'}
-        isDisabled={isDisabled}
-        onClick={() => onFormSelect(buttonConfig.leftButton.formType)}
       />
       <CoreButton
+        isDisabled={isDisabled}
+        onClick={() => {
+          onFormSelect(buttonConfig.rightButton.formType);
+        }}
         label={buttonConfig.rightButton.label}
         intent={'light'}
-        isDisabled={isDisabled}
-        onClick={() => onFormSelect(buttonConfig.rightButton.formType)}
       />
     </article>
   );

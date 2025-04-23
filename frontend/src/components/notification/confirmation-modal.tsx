@@ -27,14 +27,14 @@ interface ConfirmationModalProps {
   readonly isVisible: boolean;
 
   /**
-   * The message to be displayed in the modal.
-   */
-  readonly message?: string;
-
-  /**
    * Callback function invoked to close the modal.
    */
   onCloseModal: () => void;
+
+  /**
+   * The message to be displayed in the modal.
+   */
+  readonly message?: string;
 }
 
 /**
@@ -43,7 +43,7 @@ interface ConfirmationModalProps {
  * @param {ConfirmationModalProps} props
  * @return {JSX.Element}
  */
-export const ConfirmationModal = ({ isVisible, message, onCloseModal }: ConfirmationModalProps): JSX.Element => {
+export const ConfirmationModal = ({ isVisible, onCloseModal, message }: ConfirmationModalProps): JSX.Element => {
   const { dialogRef } = useRenderModal(isVisible);
 
   return (
@@ -53,8 +53,8 @@ export const ConfirmationModal = ({ isVisible, message, onCloseModal }: Confirma
     >
       <p className={joinTw('pb-10', 'text-xl')}>{message}</p>
       <CoreModalClosingInputElement
-        value={l.COMPONENTS.NOTIFICATION.MODAL.CONFIRMATION.ACCEPTANCE}
         onClick={onCloseModal}
+        value={l.COMPONENTS.NOTIFICATION.MODAL.CONFIRMATION.ACCEPTANCE}
       />
     </dialog>
   );

@@ -42,24 +42,14 @@ interface CoreSelectElementProps<T extends FieldValues>
   readonly id: Path<T>;
 
   /**
-   * The select element's initial value.
-   */
-  readonly initialValue?: string | number;
-
-  /**
-   * The array of option values.
-   */
-  readonly options: ReactNode;
-
-  /**
-   * The select element's default option. The value is non-selectable and acts as a placeholder value.
-   */
-  readonly defaultOption: string;
-
-  /**
    * Indicates whether the select element is disabled.
    */
   readonly isDisabled: boolean;
+
+  /**
+   * Indicates whether there is an error involving the element.
+   */
+  readonly isError: boolean;
 
   /**
    * The method invoked after the onChange handler is fired.
@@ -67,9 +57,14 @@ interface CoreSelectElementProps<T extends FieldValues>
   onChangeHandler?: (event: ChangeEvent<HTMLSelectElement>) => void;
 
   /**
-   * Indicates whether there is an error involving the select element.
+   * The array of option values.
    */
-  readonly isError: boolean;
+  readonly options: ReactNode;
+
+  /**
+   * The select element's initial value.
+   */
+  readonly initialValue: string | number;
 
   /**
    * Additional optional styling options.
@@ -85,16 +80,15 @@ interface CoreSelectElementProps<T extends FieldValues>
  */
 export const CoreSelectElement = <T extends FieldValues>({
   id,
-  initialValue,
   isDisabled,
   isError,
-  options,
-  defaultOption,
   onChangeHandler,
+  options,
+  initialValue,
   intent,
   className,
 }: CoreSelectElementProps<T>): JSX.Element => {
-  const { register, setValue, trigger } = useFormContext<T>();
+  const { register, setValue } = useFormContext<T>();
 
   return (
     <select
@@ -104,8 +98,8 @@ export const CoreSelectElement = <T extends FieldValues>({
       disabled={isDisabled}
       onChange={(event: ChangeEvent<HTMLSelectElement>) => {
         onChangeHandler?.(event);
-        setValue(id, event.target.value as PathValue<T, Path<T>>, { shouldDirty: true });
-        void trigger(id);
+
+        setValue(id, event.target.value as PathValue<T, Path<T>>, { shouldValidate: true, shouldDirty: true });
       }}
       className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError, className }))}
     >
@@ -113,7 +107,7 @@ export const CoreSelectElement = <T extends FieldValues>({
         hidden
         value={''}
       >
-        {initialValue ?? defaultOption}
+        {initialValue}
       </option>
       {options}
     </select>

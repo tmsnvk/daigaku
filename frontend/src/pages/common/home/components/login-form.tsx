@@ -107,9 +107,11 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
           <CoreFormAction
             submitId={'login'}
             isSubmissionPending={isPending}
-            submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
-            submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
-            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+            submissionConfig={{
+              message: l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING,
+              value: l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT,
+            }}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>
       </FormProvider>

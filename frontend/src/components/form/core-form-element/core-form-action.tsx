@@ -23,6 +23,11 @@ import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
  */
 interface CoreFormActionProps {
   /**
+   * The form submit element's id.
+   */
+  readonly submitId: string;
+
+  /**
    * The boolean indicating whether the form submission is pending.
    */
   readonly isSubmissionPending: boolean;
@@ -33,24 +38,17 @@ interface CoreFormActionProps {
   readonly isDisabled?: boolean;
 
   /**
-   * The form submission's loading message.
+   *
    */
-  readonly submissionMessage: string;
-
-  /**
-   * The form submit element's id.
-   */
-  readonly submitId: string;
-
-  /**
-   * The form submit button's value.
-   */
-  readonly submissionValue: string;
+  readonly submissionConfig: {
+    message: string;
+    value: string;
+  };
 
   /**
    * The input element's style intent.
    */
-  readonly submitButtonStyleIntent: CoreSubmitInputElementStyleIntent;
+  readonly intent: CoreSubmitInputElementStyleIntent;
 
   /**
    * Additional style options.
@@ -69,9 +67,8 @@ export const CoreFormAction = ({
   submitId,
   isSubmissionPending,
   isDisabled,
-  submissionMessage,
-  submissionValue,
-  submitButtonStyleIntent,
+  submissionConfig,
+  intent,
   className,
 }: CoreFormActionProps): JSX.Element => {
   const { formState } = useFormContext();
@@ -80,13 +77,13 @@ export const CoreFormAction = ({
   return (
     <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>
       {isSubmissionPending ? (
-        <LoadingIndicator loadingText={submissionMessage} />
+        <LoadingIndicator loadingText={submissionConfig.message} />
       ) : (
         <CoreSubmitInputElement
           id={submitId}
-          value={submissionValue}
+          value={submissionConfig.value}
           isDisabled={(isSubmissionPending || isDisabled) ?? false}
-          intent={submitButtonStyleIntent}
+          intent={intent}
         />
       )}
       <CoreFormElementError message={error} />

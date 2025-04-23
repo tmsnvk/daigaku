@@ -31,10 +31,10 @@ interface CommonInputGroupProps<T extends FieldValues> extends CommonInputElemen
 export const CommonInputGroup = <T extends FieldValues>({
   id,
   type,
+  isDisabled,
   label,
   initialValue,
   placeholder,
-  isDisabled,
   intent,
 }: CommonInputGroupProps<T>): JSX.Element => {
   const { formState } = useFormContext();
@@ -49,10 +49,10 @@ export const CommonInputGroup = <T extends FieldValues>({
       <CoreInputElement
         id={id}
         type={type}
-        placeholder={placeholder}
-        initialValue={initialValue}
         isDisabled={isDisabled}
         isError={error !== undefined}
+        placeholder={placeholder}
+        initialValue={initialValue}
         intent={intent}
       />
       {error && <CoreFormElementError message={error as string} />}

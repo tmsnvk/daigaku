@@ -35,14 +35,15 @@ interface PasswordInputGroupProps<T extends FieldValues> extends PasswordInputEl
  */
 export const PasswordInputGroup = <T extends FieldValues>({
   id,
+  isDisabled,
   label,
   placeholder,
   initialValue,
-  isDisabled,
   intent,
 }: PasswordInputGroupProps<T>): JSX.Element => {
   const { formState } = useFormContext();
   const error = formState.errors[id]?.message;
+
   const [isPasswordRevealed, setIsPasswordRevealed] = useState<boolean>(false);
 
   return (
@@ -55,15 +56,17 @@ export const PasswordInputGroup = <T extends FieldValues>({
         <CoreInputElement
           id={id}
           type={isPasswordRevealed ? 'text' : 'password'}
-          placeholder={placeholder}
-          initialValue={initialValue}
           isDisabled={isDisabled}
           isError={error !== undefined}
+          placeholder={placeholder}
+          initialValue={initialValue}
           intent={intent}
           className={joinTw('w-[85%] md:w-[60%]')}
         />
         <FontAwesomeIcon
-          onClick={() => setIsPasswordRevealed(!isPasswordRevealed)}
+          onClick={() => {
+            setIsPasswordRevealed(!isPasswordRevealed);
+          }}
           icon={isPasswordRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
           className={joinTw('w-8', 'pl-4', 'cursor-pointer')}
         />

@@ -25,15 +25,15 @@ import { CoreSelectElementGroup } from '@daigaku/common-types';
  *
  * @template T - The type of form values extending the `react-hook-form` library.
  */
-interface SupportSelectGroupProps<T extends FieldValues> extends CoreSelectElementGroup<T> {}
+interface CommonSelectGroupProps<T extends FieldValues> extends CoreSelectElementGroup<T> {}
 
 /**
- * Renders a support select element group instance integrated with the `react-hook-form` library.
+ * Renders a generic select element group instance integrated with the `react-hook-form` library.
  *
- * @param {SupportSelectGroupProps<T extends FieldValues>} props
+ * @param {CommonSelectGrouppProps<T extends FieldValues>} props
  * @return {JSX.Element}
  */
-export const SupportSelectGroup = <T extends FieldValues>({
+export const CommonSelectGroup = <T extends FieldValues>({
   id,
   isLoading,
   isError,
@@ -41,9 +41,9 @@ export const SupportSelectGroup = <T extends FieldValues>({
   onRetry,
   label,
   options,
-  defaultOption,
+  initialValue,
   intent,
-}: SupportSelectGroupProps<T>): JSX.Element => {
+}: CommonSelectGroupProps<T>): JSX.Element => {
   const { formState } = useFormContext();
   const error = formState.errors[id]?.message;
 
@@ -60,10 +60,10 @@ export const SupportSelectGroup = <T extends FieldValues>({
         />
         <CoreSelectElement
           id={id}
-          options={options}
-          defaultOption={defaultOption}
           isDisabled={isDisabled}
           isError={error !== undefined}
+          options={options}
+          initialValue={initialValue}
           intent={intent}
         />
         {error && <CoreFormElementError message={error as string} />}

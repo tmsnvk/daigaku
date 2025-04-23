@@ -35,6 +35,7 @@ import { UserLoginState } from '@daigaku/common-types';
  */
 export const Home = (): JSX.Element => {
   const { authStatus } = useAuthContext();
+
   const { isModalVisible, showModal, closeModal } = useModalControl();
   const { selectedFormType, selectedFormComponent } = useFormSwitcher(showModal);
 
@@ -48,8 +49,8 @@ export const Home = (): JSX.Element => {
       {isModalVisible && (
         <ConfirmationModal
           isVisible={isModalVisible}
-          message={confirmationModalFeedback[selectedFormType]}
           onCloseModal={closeModal}
+          message={confirmationModalFeedback[selectedFormType]}
         />
       )}
     </main>

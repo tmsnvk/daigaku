@@ -17,10 +17,10 @@ import { useRegistrationFormMutation } from '../hooks';
 /* component imports */
 import {
   CommonInputGroup,
+  CommonSelectGroup,
   CoreFormAction,
   CoreFormHeader,
   CoreFormWrapper,
-  SupportSelectGroup,
 } from '@daigaku/components/form';
 import { FormSwapButtons } from './form-swap-buttons';
 
@@ -75,7 +75,7 @@ const formSchema = z
   .strict()
   .required();
 
-export type FormInputValues = z.infer<typeof formSchema>;
+type FormInputValues = z.infer<typeof formSchema>;
 
 /**
  * Defines the component's properties.
@@ -162,7 +162,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.PLACEHOLDER}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
-          <SupportSelectGroup
+          <CommonSelectGroup
             id={'institutionUuid'}
             isLoading={isInstitutionLoading}
             isError={isInstitutionError}
@@ -170,21 +170,19 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             onRetry={institutionRefetch}
             label={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.LABEL}
             options={
-              institutions ?
-                institutions.map((institution: InstitutionOption) => (
-                  <option
-                    key={institution.uuid}
-                    value={institution.uuid}
-                  >
-                    {institution.name}
-                  </option>
-                )) :
-                []
+              institutions?.map((institution: InstitutionOption) => (
+                <option
+                  key={institution.uuid}
+                  value={institution.uuid}
+                >
+                  {institution.name}
+                </option>
+              )) ?? []
             }
-            defaultOption={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.DEFAULT_OPTION}
+            initialValue={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.DEFAULT_OPTION}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
-          <SupportSelectGroup
+          <CommonSelectGroup
             id={'accountRoleUuid'}
             isLoading={isRoleLoading}
             isError={isRoleError}
@@ -192,27 +190,27 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             onRetry={roleRefetch}
             label={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
             options={
-              roles ?
-                roles.map((role: RoleOption) => (
-                  <option
-                    key={role.uuid}
-                    value={role.uuid}
-                  >
-                    {removeRolePrefix(role.name)}
-                  </option>
-                )) :
-                []
+              roles?.map((role: RoleOption) => (
+                <option
+                  key={role.uuid}
+                  value={role.uuid}
+                >
+                  {removeRolePrefix(role.name)}
+                </option>
+              )) ?? []
             }
-            defaultOption={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
+            initialValue={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormAction
             submitId={'register'}
             isSubmissionPending={isPending}
             isDisabled={isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError}
-            submissionMessage={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING}
-            submissionValue={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT}
-            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+            submissionConfig={{
+              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING,
+              value: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT,
+            }}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>
       </FormProvider>

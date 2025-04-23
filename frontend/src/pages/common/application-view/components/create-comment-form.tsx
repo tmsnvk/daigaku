@@ -87,7 +87,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           submitId={'post-comment-form'}
           submissionValue={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_INPUT}
           errorMessage={errors.root?.message}
-          submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+          intent={CoreSubmitInputElementStyleIntent.DARK}
         />
       </CoreFormWrapper>
     </FormProvider>

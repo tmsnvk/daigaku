@@ -101,9 +101,11 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
           <CoreFormAction
             submitId={'reset'}
             isSubmissionPending={isPending}
-            submissionMessage={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING}
-            submissionValue={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
-            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+            submissionConfig={{
+              message: l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING,
+              value: l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT,
+            }}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>
       </FormProvider>

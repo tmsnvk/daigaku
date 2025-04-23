@@ -245,7 +245,7 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
               submitId={'update-application-form'}
               submissionValue={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
               errorMessage={errors.root?.message}
-              submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+              intent={CoreSubmitInputElementStyleIntent.DARK}
               className={joinTw('col-start-1 col-end-3')}
             />
           </CoreFormWrapper>

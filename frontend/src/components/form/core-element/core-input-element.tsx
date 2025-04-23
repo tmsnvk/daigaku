@@ -55,16 +55,6 @@ interface CoreInputElementProps<T extends FieldValues>
   readonly type: string;
 
   /**
-   * The input element's placeholder value.
-   */
-  readonly placeholder?: string;
-
-  /**
-   * The input element's initial value.
-   */
-  readonly initialValue?: string | number;
-
-  /**
    * Indicates whether the input element is disabled.
    */
   readonly isDisabled: boolean;
@@ -73,6 +63,16 @@ interface CoreInputElementProps<T extends FieldValues>
    * Indicates whether there is an error involving the input element.
    */
   readonly isError: boolean;
+
+  /**
+   * The input element's placeholder value.
+   */
+  readonly placeholder?: string;
+
+  /**
+   * The input element's initial value.
+   */
+  readonly initialValue?: string | number;
 
   /**
    * Additional optional styling options.
@@ -89,10 +89,10 @@ interface CoreInputElementProps<T extends FieldValues>
 export const CoreInputElement = <T extends FieldValues>({
   id,
   type,
-  placeholder,
-  initialValue,
   isDisabled,
   isError,
+  placeholder,
+  initialValue,
   intent,
   className,
 }: CoreInputElementProps<T>): JSX.Element => {

@@ -124,7 +124,7 @@ export interface CoreSelectElementGroup<T extends FieldValues> extends CoreFormE
   /**
    *
    */
-  readonly defaultOption: string;
+  readonly initialValue: string;
 }
 
 /**

@@ -21,11 +21,12 @@ import { CountrySelectGroup } from './element-group/country-select-group';
 import { PasswordInputGroup } from './element-group/password-input-group';
 import { UniversitySelectGroup } from './element-group/university-select-group';
 import { CoreFormElementFetchStateWrapper } from './core-form-element/core-form-element-fetch-state-wrapper.tsx';
-import { SupportSelectGroup } from './element-group/suppport-select-group.tsx';
+import { CommonSelectGroup } from './element-group/common-select-group.tsx';
 
 export {
   ApplicationStatusSelectGroup,
   CommonInputGroup,
+  CommonSelectGroup,
   CommonTextareaGroup,
   CoreFormAction,
   CoreFormElementError,
@@ -40,6 +41,5 @@ export {
   CountrySelectGroup,
   DisabledInputGroup,
   PasswordInputGroup,
-  SupportSelectGroup,
   UniversitySelectGroup,
 };
