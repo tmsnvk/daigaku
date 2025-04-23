@@ -13,7 +13,7 @@ import {
   CoreSelectElementStyleIntent,
   CoreTextareaElementStyleIntent,
 } from './form-element-style-intents.ts';
-import { ReactNode } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 /**
  * Defines the properties of core form elements
@@ -125,6 +125,11 @@ export interface CoreSelectElementGroup<T extends FieldValues> extends CoreFormE
    *
    */
   readonly initialValue: string;
+
+  /**
+   *
+   */
+  onChangeHandler?: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 /**

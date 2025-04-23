@@ -9,7 +9,7 @@ import { JSX, useMemo, useState } from 'react';
 import { match } from 'ts-pattern';
 
 /* component imports */
-import { LoginForm, RegistrationForm, ResetForm } from '../components';
+import { LoginForm, RegisterPendingAccountForm, ResetAccountPasswordForm } from '../components';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';
@@ -45,14 +45,14 @@ const getSelectedFormComponent = (
 ): JSX.Element | null => {
   return match([selectedFormType])
     .with([FormType.LOGIN], () => <LoginForm onFormSelect={selectFormTypeHandler} />)
-    .with([FormType.REGISTER], () => (
-      <RegistrationForm
+    .with([FormType.REGISTER_PENDING_ACCOUNT], () => (
+      <RegisterPendingAccountForm
         onFormSelect={selectFormTypeHandler}
         showModal={showModal}
       />
     ))
-    .with([FormType.RESET], () => (
-      <ResetForm
+    .with([FormType.RESET_ACCOUNT_PASSWORD], () => (
+      <ResetAccountPasswordForm
         onFormSelect={selectFormTypeHandler}
         showModal={showModal}
       />
@@ -63,9 +63,9 @@ const getSelectedFormComponent = (
 /**
  * Selects and renders a form component based on the active {@link FormType}.
  * The form component options are:
- * - {@link RegistrationForm}
+ * - {@link RegisterPendingAccountForm}
  * - {@link LoginForm}
- * - {@link ResetForm}
+ * - {@link ResetAccountPasswordForm}
  *
  * @param showModal The method to trigger a modal component attached to the currently active form component.
  * @return {FormSwitcher}

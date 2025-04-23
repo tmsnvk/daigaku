@@ -40,7 +40,7 @@ interface CoreFormActionProps {
   /**
    *
    */
-  readonly submissionConfig: {
+  readonly formActionConfig: {
     message: string;
     value: string;
   };
@@ -67,7 +67,7 @@ export const CoreFormAction = ({
   submitId,
   isSubmissionPending,
   isDisabled,
-  submissionConfig,
+  formActionConfig,
   intent,
   className,
 }: CoreFormActionProps): JSX.Element => {
@@ -77,11 +77,11 @@ export const CoreFormAction = ({
   return (
     <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>
       {isSubmissionPending ? (
-        <LoadingIndicator loadingText={submissionConfig.message} />
+        <LoadingIndicator loadingText={formActionConfig.message} />
       ) : (
         <CoreSubmitInputElement
           id={submitId}
-          value={submissionConfig.value}
+          value={formActionConfig.value}
           isDisabled={(isSubmissionPending || isDisabled) ?? false}
           intent={intent}
         />

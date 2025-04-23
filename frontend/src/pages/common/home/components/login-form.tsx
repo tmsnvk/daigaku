@@ -31,20 +31,19 @@ import { formTypeButtonLabel } from '../constants';
 import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../models';
 
-const formDefaultValues = {
+const formValidationSchema = z.object({
+  email: z.string().email({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED }),
+  password: z.string().trim().nonempty({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
+});
+
+type FormInputValues = z.infer<typeof formValidationSchema>;
+
+const initialFormValues: FormInputValues = {
   email: '',
   password: '',
 };
 
-const formSchema = z
-  .object({
-    email: z.string().email({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED }),
-    password: z.string().nonempty({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
-  })
-  .strict()
-  .required();
-
-type FormInputValues = z.infer<typeof formSchema>;
+const FORM_ID = 'post-account-login-form';
 
 /**
  * Defines the component's properties.
@@ -69,12 +68,12 @@ interface LoginFormProps {
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   const methods = useForm<FormInputValues>({
     mode: 'onSubmit',
-    defaultValues: formDefaultValues,
-    resolver: zodResolver(formSchema),
+    defaultValues: initialFormValues,
+    resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = methods;
 
-  const { isPending, mutate } = useLoginFormMutation(setError);
+  const { mutate: logIn, isPending: isSubmitting } = useLoginFormMutation(setError);
 
   return (
     <>
@@ -84,30 +83,30 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       />
       <FormProvider {...methods}>
         <CoreFormWrapper
-          formId={'post-account-login-form'}
+          formId={FORM_ID}
           onFormSubmit={handleSubmit((formData: FormInputValues) => {
-            mutate(formData as LoginPayload);
+            logIn(formData as LoginPayload);
           })}
         >
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <PasswordInputGroup
             id={'password'}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.PLACEHOLDER}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            submitId={'login'}
-            isSubmissionPending={isPending}
-            submissionConfig={{
+            submitId={FORM_ID}
+            isSubmissionPending={isSubmitting}
+            formActionConfig={{
               message: l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING,
               value: l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT,
             }}
@@ -116,16 +115,16 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        isDisabled={isPending}
+        isDisabled={isSubmitting}
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.RESET],
-            formType: FormType.RESET,
+            label: formTypeButtonLabel[FormType.RESET_ACCOUNT_PASSWORD],
+            formType: FormType.RESET_ACCOUNT_PASSWORD,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER],
-            formType: FormType.REGISTER,
+            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
+            formType: FormType.REGISTER_PENDING_ACCOUNT,
           },
         }}
       />

@@ -29,23 +29,22 @@ import {
 } from '@daigaku/common-types';
 import { FormType } from '../models';
 
-const formDefaultValues = {
+const formValidationSchema = z.object({
+  email: z.string().email({ message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED }),
+});
+
+type FormInputValues = z.infer<typeof formValidationSchema>;
+
+const initialFormValues: FormInputValues = {
   email: '',
 };
 
-const formSchema = z
-  .object({
-    email: z.string().email({ message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED }),
-  })
-  .strict()
-  .required();
-
-type FormInputValues = z.infer<typeof formSchema>;
+const FORM_ID = 'post-account-reset-form';
 
 /**
  * Defines the component's properties.
  */
-interface ResetFormProps {
+interface ResetAccountPasswordFormProps {
   /**
    * The method to select the current form type.
    *
@@ -64,18 +63,18 @@ interface ResetFormProps {
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {ResetFormProps} props
+ * @param {ResetAccountPasswordFormProps} props
  * @return {JSX.Element}
  */
-export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Element => {
+export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccountPasswordFormProps): JSX.Element => {
   const methods = useForm<FormInputValues>({
     mode: 'onSubmit',
-    defaultValues: formDefaultValues,
-    resolver: zodResolver(formSchema),
+    defaultValues: initialFormValues,
+    resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = methods;
 
-  const { isPending, mutate } = useResetFormMutation(setError, showModal);
+  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetFormMutation(setError, showModal);
 
   return (
     <>
@@ -85,23 +84,23 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
       />
       <FormProvider {...methods}>
         <CoreFormWrapper
-          formId={'post-account-reset-form'}
+          formId={FORM_ID}
           onFormSubmit={handleSubmit((formData: FormInputValues) => {
-            mutate(formData as AccountResetPayload);
+            resetAccountPassword(formData as AccountResetPayload);
           })}
         >
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            submitId={'reset'}
-            isSubmissionPending={isPending}
-            submissionConfig={{
+            submitId={FORM_ID}
+            isSubmissionPending={isSubmitting}
+            formActionConfig={{
               message: l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING,
               value: l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT,
             }}
@@ -110,7 +109,7 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        isDisabled={isPending}
+        isDisabled={isSubmitting}
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
@@ -118,8 +117,8 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
             formType: FormType.LOGIN,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER],
-            formType: FormType.REGISTER,
+            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
+            formType: FormType.REGISTER_PENDING_ACCOUNT,
           },
         }}
       />

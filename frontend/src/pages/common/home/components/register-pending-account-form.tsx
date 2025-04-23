@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { zodResolver } from '@hookform/resolvers/zod';
-import { JSX } from 'react';
+import { JSX, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -40,7 +40,33 @@ import {
 } from '@daigaku/common-types';
 import { FormType } from '../models';
 
-const formDefaultValues = {
+const formValidationSchema = z.object({
+  firstName: z
+    .string()
+    .trim()
+    .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED })
+    .regex(/^[\p{L}\s-]{1,255}$/u, {
+      message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
+    }),
+  lastName: z
+    .string()
+    .trim()
+    .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED })
+    .regex(/^[\p{L}\s-]{1,255}$/u, {
+      message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
+    }),
+  email: z.string().email({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED }),
+  institutionUuid: z
+    .string()
+    .uuid({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED }),
+  accountRoleUuid: z
+    .string()
+    .uuid({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED }),
+});
+
+type FormInputValues = z.infer<typeof formValidationSchema>;
+
+const initialFormValues: FormInputValues = {
   firstName: '',
   lastName: '',
   email: '',
@@ -48,39 +74,10 @@ const formDefaultValues = {
   accountRoleUuid: '',
 };
 
-const formSchema = z
-  .object({
-    firstName: z
-      .string()
-      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED })
-      .regex(/^[\p{L}\s-]{1,255}$/u, {
-        message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
-      }),
-    lastName: z
-      .string()
-      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED })
-      .regex(/^[\p{L}\s-]{1,255}$/u, {
-        message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
-      }),
-    email: z
-      .string()
-      .email({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED }),
-    institutionUuid: z
-      .string()
-      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED }),
-    accountRoleUuid: z
-      .string()
-      .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED }),
-  })
-  .strict()
-  .required();
-
-type FormInputValues = z.infer<typeof formSchema>;
-
 /**
  * Defines the component's properties.
  */
-interface RegistrationFormProps {
+interface RegisterPendingAccountFormProps {
   /**
    * The method to select the current form type.
    *
@@ -94,15 +91,20 @@ interface RegistrationFormProps {
   showModal: () => void;
 }
 
+const FORM_ID = 'post-pending-account-registration-form';
+
 /**
  * Renders a registration form component that allows users to submit a form to register a pending account.
  * The component utilises the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {RegistrationFormProps} props
+ * @param {RegisterPendingAccountFormProps} props
  * @return {JSX.Element}
  */
-export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormProps): JSX.Element => {
+export const RegisterPendingAccountForm = ({
+  onFormSelect,
+  showModal,
+}: RegisterPendingAccountFormProps): JSX.Element => {
   const {
     data: institutions,
     isLoading: isInstitutionLoading,
@@ -115,15 +117,42 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
     isError: isRoleError,
     refetch: roleRefetch,
   } = useGetStudentAndMentorAccountRoles();
+  const isSubmitDisabled = isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError;
 
   const methods = useForm<FormInputValues>({
     mode: 'onSubmit',
-    defaultValues: formDefaultValues,
-    resolver: zodResolver(formSchema),
+    defaultValues: initialFormValues,
+    resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = methods;
 
-  const { isPending, mutate } = useRegistrationFormMutation(setError, showModal);
+  const { mutate: registerPendingAccount, isPending: isSubmitting } = useRegistrationFormMutation(setError, showModal);
+
+  const institutionOptions = useMemo(() => {
+    return (
+      institutions?.map((institution: InstitutionOption) => (
+        <option
+          key={institution.uuid}
+          value={institution.uuid}
+        >
+          {institution.name}
+        </option>
+      )) ?? []
+    );
+  }, [institutions]);
+
+  const roleOptions = useMemo(() => {
+    return (
+      roles?.map((role: RoleOption) => (
+        <option
+          key={role.uuid}
+          value={role.uuid}
+        >
+          {removeRolePrefix(role.name)}
+        </option>
+      )) ?? []
+    );
+  }, [roles]);
 
   return (
     <>
@@ -133,15 +162,15 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
       />
       <FormProvider {...methods}>
         <CoreFormWrapper
-          formId={'post-pending-account-registration-form'}
+          formId={FORM_ID}
           onFormSubmit={handleSubmit((formData: FormInputValues) => {
-            mutate(formData as PendingAccountRegistrationPayload);
+            registerPendingAccount(formData as PendingAccountRegistrationPayload);
           })}
         >
           <CommonInputGroup
             id={'firstName'}
             type={'text'}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.PLACEHOLDER}
             intent={CoreInputElementStyleIntent.LIGHT}
@@ -149,7 +178,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
           <CommonInputGroup
             id={'lastName'}
             type={'text'}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.PLACEHOLDER}
             intent={CoreInputElementStyleIntent.LIGHT}
@@ -157,7 +186,7 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.PLACEHOLDER}
             intent={CoreInputElementStyleIntent.LIGHT}
@@ -166,19 +195,10 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             id={'institutionUuid'}
             isLoading={isInstitutionLoading}
             isError={isInstitutionError}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             onRetry={institutionRefetch}
             label={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.LABEL}
-            options={
-              institutions?.map((institution: InstitutionOption) => (
-                <option
-                  key={institution.uuid}
-                  value={institution.uuid}
-                >
-                  {institution.name}
-                </option>
-              )) ?? []
-            }
+            options={institutionOptions}
             initialValue={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.DEFAULT_OPTION}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
@@ -186,27 +206,18 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
             id={'accountRoleUuid'}
             isLoading={isRoleLoading}
             isError={isRoleError}
-            isDisabled={isPending}
+            isDisabled={isSubmitting}
             onRetry={roleRefetch}
             label={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
-            options={
-              roles?.map((role: RoleOption) => (
-                <option
-                  key={role.uuid}
-                  value={role.uuid}
-                >
-                  {removeRolePrefix(role.name)}
-                </option>
-              )) ?? []
-            }
+            options={roleOptions}
             initialValue={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            submitId={'register'}
-            isSubmissionPending={isPending}
-            isDisabled={isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError}
-            submissionConfig={{
+            submitId={FORM_ID}
+            isSubmissionPending={isSubmitting}
+            isDisabled={isSubmitDisabled}
+            formActionConfig={{
               message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING,
               value: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT,
             }}
@@ -215,12 +226,12 @@ export const RegistrationForm = ({ onFormSelect, showModal }: RegistrationFormPr
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        isDisabled={isPending}
+        isDisabled={isSubmitting}
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.RESET],
-            formType: FormType.RESET,
+            label: formTypeButtonLabel[FormType.RESET_ACCOUNT_PASSWORD],
+            formType: FormType.RESET_ACCOUNT_PASSWORD,
           },
           rightButton: {
             label: formTypeButtonLabel[FormType.LOGIN],

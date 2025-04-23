@@ -17,9 +17,7 @@ import { ApplicationStatusSelectGroup } from './element-group/application-status
 import { CommonInputGroup } from './element-group/common-input-group';
 import { CommonTextareaGroup } from './element-group/common-textarea-group';
 import { DisabledInputGroup } from './element-group/disabled-input-group';
-import { CountrySelectGroup } from './element-group/country-select-group';
 import { PasswordInputGroup } from './element-group/password-input-group';
-import { UniversitySelectGroup } from './element-group/university-select-group';
 import { CoreFormElementFetchStateWrapper } from './core-form-element/core-form-element-fetch-state-wrapper.tsx';
 import { CommonSelectGroup } from './element-group/common-select-group.tsx';
 
@@ -38,8 +36,6 @@ export {
   CoreFormWrapper,
   CoreModalClosingInputElement,
   CoreSubmitInputElement,
-  CountrySelectGroup,
   DisabledInputGroup,
   PasswordInputGroup,
-  UniversitySelectGroup,
 };

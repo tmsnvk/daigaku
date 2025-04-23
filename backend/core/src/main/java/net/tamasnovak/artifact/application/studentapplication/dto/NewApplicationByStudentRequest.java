@@ -33,11 +33,11 @@ public record NewApplicationByStudentRequest(
   String universityUuid,
 
   @NotBlank(message = "Provide the name of your course. Use only letters and spaces.")
-  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message =
+  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{1,255}$", message =
     "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   String courseName,
 
-  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message =
+  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{1,255}|)$", message =
     "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   String minorSubject,
 

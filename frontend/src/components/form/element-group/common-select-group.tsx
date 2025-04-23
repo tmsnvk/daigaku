@@ -39,6 +39,7 @@ export const CommonSelectGroup = <T extends FieldValues>({
   isError,
   isDisabled,
   onRetry,
+  onChangeHandler,
   label,
   options,
   initialValue,
@@ -62,6 +63,7 @@ export const CommonSelectGroup = <T extends FieldValues>({
           id={id}
           isDisabled={isDisabled}
           isError={error !== undefined}
+          onChangeHandler={onChangeHandler}
           options={options}
           initialValue={initialValue}
           intent={intent}
