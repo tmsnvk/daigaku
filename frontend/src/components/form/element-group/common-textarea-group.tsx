@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { FieldValues } from 'react-hook-form';
+import { FieldValues, useFormContext } from 'react-hook-form';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
@@ -40,8 +40,6 @@ interface CommonTextareaGroupProps<T extends FieldValues> extends TextareaElemen
  * @return {JSX.Element}
  */
 export const CommonTextareaGroup = <T extends FieldValues>({
-  validationRules,
-  error,
   id,
   label,
   rows,
@@ -50,6 +48,9 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   intent,
   isDisabled,
 }: CommonTextareaGroupProps<T>): JSX.Element => {
+  const { formState } = useFormContext();
+  const error = formState.errors[id]?.message;
+
   return (
     <CoreFormElementGroupWrapper className={joinTw('h-120')}>
       <CoreFormElementLabel
@@ -57,16 +58,15 @@ export const CommonTextareaGroup = <T extends FieldValues>({
         label={label}
       />
       <CoreTextareaElement
-        validationRules={validationRules}
         id={id}
-        placeholder={placeholder}
-        rows={rows}
-        cols={cols}
         isDisabled={isDisabled}
         isError={error !== undefined}
+        rows={rows}
+        cols={cols}
+        placeholder={placeholder}
         intent={intent}
       />
-      {error && <CoreFormElementError message={error} />}
+      {error && <CoreFormElementError message={error as string} />}
     </CoreFormElementGroupWrapper>
   );
 };

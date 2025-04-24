@@ -7,7 +7,7 @@
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX, TextareaHTMLAttributes } from 'react';
-import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
+import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -49,20 +49,9 @@ interface CoreTextareaElementProps<T extends FieldValues>
   extends VariantProps<typeof coreTextareaElementVariants>,
     TextareaHTMLAttributes<HTMLTextAreaElement> {
   /**
-   * Optional validation rules to handle the input element's validation using the `react-hook-form` library for
-   * validation management.
-   */
-  readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
-
-  /**
    * The input element's id.
    */
   readonly id: Path<T>;
-
-  /**
-   * The input element's placeholder value.
-   */
-  readonly placeholder?: string;
 
   /**
    * The textarea's row size.
@@ -73,6 +62,11 @@ interface CoreTextareaElementProps<T extends FieldValues>
    * The textarea's column size.
    */
   readonly cols: number;
+
+  /**
+   * The input element's placeholder value.
+   */
+  readonly placeholder?: string;
 
   /**
    * Indicates whether the input element is disabled.
@@ -97,11 +91,10 @@ interface CoreTextareaElementProps<T extends FieldValues>
  * @return {JSX.Element}
  */
 export const CoreTextareaElement = <T extends FieldValues>({
-  validationRules,
   id,
-  placeholder,
   rows,
   cols,
+  placeholder,
   isDisabled,
   isError,
   intent,
@@ -111,7 +104,7 @@ export const CoreTextareaElement = <T extends FieldValues>({
 
   return (
     <textarea
-      {...register(id, validationRules)}
+      {...register(id)}
       id={id}
       name={id}
       rows={rows}
