@@ -91,8 +91,6 @@ interface RegisterPendingAccountFormProps {
   showModal: () => void;
 }
 
-const FORM_ID = 'post-pending-account-registration-form';
-
 /**
  * Renders a registration form component that allows users to submit a form to register a pending account.
  * The component utilises the `react-hook-form` and `react-query` libraries for managing the form submission.
@@ -162,7 +160,7 @@ export const RegisterPendingAccountForm = ({
       />
       <FormProvider {...methods}>
         <CoreFormWrapper
-          formId={FORM_ID}
+          formId={'post-pending-account-registration-form'}
           onFormSubmit={handleSubmit((formData: FormInputValues) => {
             registerPendingAccount(formData as PendingAccountRegistrationPayload);
           })}
@@ -214,7 +212,6 @@ export const RegisterPendingAccountForm = ({
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            submitId={FORM_ID}
             isSubmissionPending={isSubmitting}
             isDisabled={isSubmitDisabled}
             formActionConfig={{

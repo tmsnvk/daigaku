@@ -5,15 +5,18 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 /* logic imports */
+import { useGetAllSelectOptions } from '@daigaku/hooks';
 import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplicationFormMutation } from '../hooks';
 
 /* component imports */
 import {
-  ApplicationStatusSelectGroup,
+  CommonSelectGroup,
   CoreFormAction,
   CoreFormElementInstruction,
   CoreFormHeader,
@@ -31,52 +34,67 @@ import { joinTw } from '@daigaku/utilities';
 /* interface, type, enum imports */
 import {
   ApplicationRecord,
-  ApplicationRecordStatusOptions,
   ApplicationStatus,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
-  FinalDestinationStatus,
   InterviewStatus,
   OfferStatus,
   ResponseStatus,
   UpdateApplicationRecordByStudentPayload,
 } from '@daigaku/common-types';
 
+const formValidationSchema = z.object({
+  applicationStatusUuid: z.string().uuid(),
+  interviewStatusUuid: z.union([z.string().uuid(), z.literal('')]),
+  offerStatusUuid: z.union([z.string().uuid(), z.literal('')]),
+  responseStatusUuid: z.union([z.string().uuid(), z.literal('')]),
+  finalDestinationStatusUuid: z.union([z.string().uuid(), z.literal('')]),
+});
+
+type FormInputValues = z.infer<typeof formValidationSchema>;
+
+const initialFormValues: FormInputValues = {
+  applicationStatusUuid: '',
+  interviewStatusUuid: '',
+  offerStatusUuid: '',
+  responseStatusUuid: '',
+  finalDestinationStatusUuid: '',
+};
+
 /**
  * Defines the component's properties.
  */
-interface ApplicationFormProps {
+interface UpdateApplicationRecordFormProps {
   /**
    * The application record.
    */
   readonly application: ApplicationRecord;
-
-  /**
-   * All available status select options.
-   */
-  readonly selectOptions: ApplicationRecordStatusOptions;
 }
 
 /**
  * Renders the form edit page where users are able to amend their application data.
  *
+ * @params {UpdateApplicationRecordFormProps}
  * @return {JSX.Element}
  */
-export const ApplicationForm = ({ application, selectOptions }: ApplicationFormProps): JSX.Element => {
-  const methods = useForm<UpdateApplicationRecordByStudentPayload>({ mode: 'onSubmit' });
-  const {
-    formState: { errors },
-    handleSubmit,
-    setError,
-  } = methods;
+export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRecordFormProps): JSX.Element => {
+  const { selectOptions, refetch, isLoading: isOptionsLoading, isError: isOptionsError } = useGetAllSelectOptions();
+
+  const methods = useForm<FormInputValues>({
+    mode: 'onSubmit',
+    defaultValues: initialFormValues,
+    resolver: zodResolver(formValidationSchema),
+  });
+  const { handleSubmit, setError } = methods;
 
   const { submitForm } = useHandleFormSubmission();
   const {
     data: updatedData,
     isPending,
     isSuccess,
-    mutate,
+    mutate: updateApplicationRecord,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
+
   const {
     onPageLoadValidation,
     fieldsReadOnlyStatus,
@@ -95,9 +113,14 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
       <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
         <FormProvider {...methods}>
           <CoreFormWrapper
-            formId={'update-application-form'}
-            onFormSubmit={handleSubmit((formData: UpdateApplicationRecordByStudentPayload) => {
-              submitForm(formData, application.uuid, mutate, setError);
+            formId={'update-application-record-form'}
+            onFormSubmit={handleSubmit((formData: FormInputValues) => {
+              submitForm(
+                formData as UpdateApplicationRecordByStudentPayload,
+                application.uuid,
+                updateApplicationRecord,
+                setError,
+              );
             })}
             className={joinTw('core-application-grid')}
           >
@@ -170,70 +193,130 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
             <CoreFormElementInstruction
               paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.INFORMATION}
             />
-            <ApplicationStatusSelectGroup
+            <CommonSelectGroup
               id={'applicationStatusUuid'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.NAME}
-              selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.SELECT_PROMPT}
-              previouslySelectedValue={updatedData?.applicationStatus ?? application.applicationStatus}
-              options={selectOptions.applicationStatus as Array<ApplicationStatus>}
+              isLoading={isOptionsLoading}
+              isError={isOptionsError}
               isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
-              onFieldUpdate={updateInterviewStatus}
-              error={errors.applicationStatusUuid?.message}
+              onRetry={refetch.applicationStatus}
+              onChangeHandler={updateInterviewStatus}
+              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.NAME}
+              options={selectOptions.applicationStatus?.map((status: ApplicationStatus) => (
+                <option
+                  key={status.uuid}
+                  value={status.uuid}
+                >
+                  {status.name}
+                </option>
+              ))}
+              initialValue={
+                updatedData?.applicationStatus.name ??
+                application.applicationStatus.name ??
+                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.SELECT_PROMPT
+              }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
             <CoreFormElementInstruction
               paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.INFORMATION}
             />
-            <ApplicationStatusSelectGroup
+            <CommonSelectGroup
               id={'interviewStatusUuid'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.NAME}
-              selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.SELECT_PROMPT}
-              previouslySelectedValue={updatedData?.interviewStatus ?? application.interviewStatus}
-              options={selectOptions.interviewStatus as Array<InterviewStatus>}
+              isLoading={isOptionsLoading}
+              isError={isOptionsError}
               isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
-              onFieldUpdate={updateOfferStatus}
-              error={errors.interviewStatusUuid?.message}
+              onRetry={refetch.interviewStatus}
+              onChangeHandler={updateOfferStatus}
+              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.NAME}
+              options={selectOptions.interviewStatus?.map((status: InterviewStatus) => (
+                <option
+                  key={status.uuid}
+                  value={status.uuid}
+                >
+                  {status.name}
+                </option>
+              ))}
+              initialValue={
+                updatedData?.interviewStatus?.name ??
+                application.interviewStatus?.name ??
+                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.SELECT_PROMPT
+              }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
             <CoreFormElementInstruction
               paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.INFORMATION}
             />
-            <ApplicationStatusSelectGroup
+            <CommonSelectGroup
               id={'offerStatusUuid'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.NAME}
-              selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.SELECT_PROMPT}
-              previouslySelectedValue={updatedData?.offerStatus ?? application.offerStatus}
-              options={selectOptions.offerStatus as Array<OfferStatus>}
+              isLoading={isOptionsLoading}
+              isError={isOptionsError}
               isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
-              onFieldUpdate={updateResponseStatus}
-              error={errors.offerStatusUuid?.message}
+              onRetry={refetch.offerStatus}
+              onChangeHandler={updateResponseStatus}
+              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.NAME}
+              options={selectOptions.offerStatus?.map((status: OfferStatus) => (
+                <option
+                  key={status.uuid}
+                  value={status.uuid}
+                >
+                  {status.name}
+                </option>
+              ))}
+              initialValue={
+                updatedData?.offerStatus?.name ??
+                application.offerStatus?.name ??
+                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.SELECT_PROMPT
+              }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
             <CoreFormElementInstruction
               paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.INFORMATION}
             />
-            <ApplicationStatusSelectGroup
+            <CommonSelectGroup
               id={'responseStatusUuid'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.NAME}
-              selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.SELECT_PROMPT}
-              previouslySelectedValue={updatedData?.responseStatus ?? application.responseStatus}
-              options={selectOptions.responseStatus as Array<ResponseStatus>}
+              isLoading={isOptionsLoading}
+              isError={isOptionsError}
               isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
-              onFieldUpdate={updateFinalDestinationStatus}
-              error={errors.responseStatusUuid?.message}
+              onRetry={refetch.interviewStatus}
+              onChangeHandler={updateFinalDestinationStatus}
+              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.NAME}
+              options={selectOptions.responseStatus?.map((status: ResponseStatus) => (
+                <option
+                  key={status.uuid}
+                  value={status.uuid}
+                >
+                  {status.name}
+                </option>
+              ))}
+              initialValue={
+                updatedData?.responseStatus?.name ??
+                application.responseStatus?.name ??
+                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.SELECT_PROMPT
+              }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
             <CoreFormElementInstruction
               paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.INFORMATION}
             />
-            <ApplicationStatusSelectGroup
+            <CommonSelectGroup
               id={'finalDestinationStatusUuid'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.NAME}
-              selectPrompt={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.SELECT_PROMPT}
-              previouslySelectedValue={updatedData?.finalDestinationStatus ?? application.finalDestinationStatus}
-              options={selectOptions.finalDestinationStatus as Array<FinalDestinationStatus>}
+              isLoading={isOptionsLoading}
+              isError={isOptionsError}
+              onRetry={refetch.finalDestinationStatus}
               isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
-              error={errors.finalDestinationStatusUuid?.message}
+              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.NAME}
+              options={selectOptions.finalDestinationStatus?.map((status: ResponseStatus) => (
+                <option
+                  key={status.uuid}
+                  value={status.uuid}
+                >
+                  {status.name}
+                </option>
+              ))}
+              initialValue={
+                updatedData?.finalDestinationStatus?.name ??
+                application.finalDestinationStatus?.name ??
+                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.SELECT_PROMPT
+              }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
             <CoreFormElementInstruction
@@ -241,10 +324,10 @@ export const ApplicationForm = ({ application, selectOptions }: ApplicationFormP
             />
             <CoreFormAction
               isSubmissionPending={isPending}
-              submissionMessage={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING}
-              submitId={'update-application-form'}
-              submissionValue={l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT}
-              errorMessage={errors.root?.message}
+              formActionConfig={{
+                message: l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING,
+                value: l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT,
+              }}
               intent={CoreSubmitInputElementStyleIntent.DARK}
               className={joinTw('col-start-1 col-end-3')}
             />

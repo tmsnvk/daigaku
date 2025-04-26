@@ -39,8 +39,6 @@ const initialFormValues: FormInputValues = {
   email: '',
 };
 
-const FORM_ID = 'post-account-reset-form';
-
 /**
  * Defines the component's properties.
  */
@@ -84,7 +82,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccou
       />
       <FormProvider {...methods}>
         <CoreFormWrapper
-          formId={FORM_ID}
+          formId={'post-account-reset-form'}
           onFormSubmit={handleSubmit((formData: FormInputValues) => {
             resetAccountPassword(formData as AccountResetPayload);
           })}
@@ -98,7 +96,6 @@ export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccou
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            submitId={FORM_ID}
             isSubmissionPending={isSubmitting}
             formActionConfig={{
               message: l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING,

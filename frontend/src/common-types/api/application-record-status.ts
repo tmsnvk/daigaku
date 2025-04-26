@@ -102,4 +102,15 @@ export interface ApplicationRecordStatusOptionsResponse {
    * Indicates whether an error occurred during the queries.
    */
   isError: boolean;
+
+  /**
+   *
+   */
+  refetch: {
+    applicationStatus: () => void;
+    interviewStatus: () => void;
+    offerStatus: () => void;
+    responseStatus: () => void;
+    finalDestinationStatus: () => void;
+  };
 }

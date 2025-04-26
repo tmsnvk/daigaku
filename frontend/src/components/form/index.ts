@@ -13,7 +13,6 @@ import { CoreFormElementInstruction } from './core-form-element/core-form-elemen
 import { CoreFormElementLabel } from './core-form-element/core-form-element-label';
 import { CoreFormHeader } from './core-form/core-form-header';
 import { CoreFormWrapper } from './core-form/core-form-wrapper';
-import { ApplicationStatusSelectGroup } from './element-group/application-status-select-group';
 import { CommonInputGroup } from './element-group/common-input-group';
 import { CommonTextareaGroup } from './element-group/common-textarea-group';
 import { DisabledInputGroup } from './element-group/disabled-input-group';
@@ -22,7 +21,6 @@ import { CoreFormElementFetchStateWrapper } from './core-form-element/core-form-
 import { CommonSelectGroup } from './element-group/common-select-group.tsx';
 
 export {
-  ApplicationStatusSelectGroup,
   CommonInputGroup,
   CommonSelectGroup,
   CommonTextareaGroup,

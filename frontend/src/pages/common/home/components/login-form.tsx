@@ -43,8 +43,6 @@ const initialFormValues: FormInputValues = {
   password: '',
 };
 
-const FORM_ID = 'post-account-login-form';
-
 /**
  * Defines the component's properties.
  */
@@ -83,7 +81,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       />
       <FormProvider {...methods}>
         <CoreFormWrapper
-          formId={FORM_ID}
+          formId={'post-account-login-form'}
           onFormSubmit={handleSubmit((formData: FormInputValues) => {
             logIn(formData as LoginPayload);
           })}
@@ -104,7 +102,6 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            submitId={FORM_ID}
             isSubmissionPending={isSubmitting}
             formActionConfig={{
               message: l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING,

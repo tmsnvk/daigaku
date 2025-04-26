@@ -53,7 +53,6 @@ interface CreateCommentFormProps {
 
 const DEFAULT_ROW_SIZE = 10;
 const DEFAULT_COL_SIZE = 10;
-const FORM_ID = 'post-comment-form';
 
 /**
  * Renders the comment submission form.
@@ -74,7 +73,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
   return (
     <FormProvider {...methods}>
       <CoreFormWrapper
-        formId={FORM_ID}
+        formId={'post-comment-form'}
         onFormSubmit={handleSubmit((formData: FormInputValues) => {
           createComment(formData as CreateCommentPayload);
         })}
@@ -89,7 +88,6 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           intent={CoreTextareaElementStyleIntent.LIGHT}
         />
         <CoreFormAction
-          submitId={FORM_ID}
           isSubmissionPending={isSubmitting}
           formActionConfig={{
             message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_LOADING,

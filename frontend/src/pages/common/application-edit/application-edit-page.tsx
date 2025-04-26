@@ -9,15 +9,15 @@ import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /* logic imports */
-import { useGetAllSelectOptions, useGetApplicationByUuid } from '@daigaku/hooks';
+import { useGetApplicationByUuid } from '@daigaku/hooks';
 
 /* component imports */
+import { UpdateApplicationRecordForm } from './components';
 import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
-import { ApplicationForm } from './components';
 
 /* configuration, utilities, constants imports */
-import { errorConstants, localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
+import { errorConstants, localization as l } from '@daigaku/constants';
 
 /**
  * Renders the edit mode of a single application record.
@@ -31,7 +31,6 @@ import { joinTw } from '@daigaku/utilities';
 export const ApplicationEdit = (): JSX.Element => {
   const { state, pathname } = useLocation();
   const applicationUuid = pathname.split('/applications/edit/')[1];
-  const { selectOptions, isLoading: isOptionsLoading, isError: isOptionsError } = useGetAllSelectOptions();
   const {
     data,
     isLoading: isApplicationLoading,
@@ -39,7 +38,7 @@ export const ApplicationEdit = (): JSX.Element => {
   } = useGetApplicationByUuid(state, applicationUuid);
   const application = state || data;
 
-  if (isOptionsLoading || isApplicationLoading) {
+  if (isApplicationLoading) {
     return (
       <LoadingModal
         isVisible={isApplicationLoading}
@@ -48,10 +47,10 @@ export const ApplicationEdit = (): JSX.Element => {
     );
   }
 
-  if (isOptionsError || isApplicationError) {
+  if (isApplicationError) {
     return (
       <GlobalErrorModal
-        isVisible={isOptionsError || isApplicationError}
+        isVisible={isApplicationError}
         errorText={errorConstants.UNEXPECTED_GLOBAL_ERROR}
         onCloseModal={() => console.log('FIX ME')}
       />
@@ -60,10 +59,7 @@ export const ApplicationEdit = (): JSX.Element => {
 
   return (
     <main className={joinTw('flex flex-col items-center', 'mx-auto')}>
-      <ApplicationForm
-        application={application}
-        selectOptions={selectOptions}
-      />
+      <UpdateApplicationRecordForm application={application} />
     </main>
   );
 };

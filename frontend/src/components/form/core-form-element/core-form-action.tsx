@@ -23,11 +23,6 @@ import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
  */
 interface CoreFormActionProps {
   /**
-   * The form submit element's id.
-   */
-  readonly submitId: string;
-
-  /**
    * The boolean indicating whether the form submission is pending.
    */
   readonly isSubmissionPending: boolean;
@@ -64,7 +59,6 @@ interface CoreFormActionProps {
  * @returns {JSX.Element}
  */
 export const CoreFormAction = ({
-  submitId,
   isSubmissionPending,
   isDisabled,
   formActionConfig,
@@ -80,7 +74,7 @@ export const CoreFormAction = ({
         <LoadingIndicator loadingText={formActionConfig.message} />
       ) : (
         <CoreSubmitInputElement
-          id={submitId}
+          id={'submit'}
           value={formActionConfig.value}
           isDisabled={(isSubmissionPending || isDisabled) ?? false}
           intent={intent}

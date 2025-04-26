@@ -69,8 +69,6 @@ const initialFormValues: FormInputValues = {
   programmeLength: 3,
 };
 
-const FORM_ID = 'post-application-record-by-student-form';
-
 /**
  * Renders the new application submission form for student users.
  * The component utilizes the `react-hook-form` library for form handling, including validation,
@@ -140,7 +138,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
         <FormProvider {...methods}>
           <CoreFormWrapper
-            formId={FORM_ID}
+            formId={'post-application-record-by-student-form'}
             onFormSubmit={handleSubmit((formData: FormInputValues) => {
               createApplicationRecord(formData as CreateApplicationRecordByStudentPayload);
             })}
@@ -209,7 +207,6 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
               paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION}
             />
             <CoreFormAction
-              submitId={FORM_ID}
               isSubmissionPending={isSubmitting}
               isDisabled={isSubmitDisabled}
               formActionConfig={{
