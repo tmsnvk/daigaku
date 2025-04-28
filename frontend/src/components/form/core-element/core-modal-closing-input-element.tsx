@@ -32,9 +32,9 @@ export const CoreModalClosingInputElement = ({ value, onClick }: CoreModalClosin
   return (
     <input
       type={'button'}
+      onClick={onClick}
       value={value}
       autoFocus={true}
-      onClick={onClick}
-    ></input>
+    />
   );
 };

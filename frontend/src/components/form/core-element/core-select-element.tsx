@@ -6,8 +6,8 @@
 
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
-import { JSX, ReactNode, SelectHTMLAttributes } from 'react';
-import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
+import { ChangeEvent, JSX, ReactNode, SelectHTMLAttributes } from 'react';
+import { FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -37,30 +37,9 @@ interface CoreSelectElementProps<T extends FieldValues>
   extends VariantProps<typeof coreSelectElementVariants>,
     SelectHTMLAttributes<HTMLSelectElement> {
   /**
-   * Optional validation rules to handle the select element's validation using the `react-hook-form` library for
-   * validation management.
-   */
-  readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
-
-  /**
    * The select element's id.
    */
   readonly id: Path<T>;
-
-  /**
-   * The select element's initial value.
-   */
-  readonly initialValue?: string | number;
-
-  /**
-   * The array of option values.
-   */
-  readonly options: Array<ReactNode>;
-
-  /**
-   * The select element's default option. The value is non-selectable and acts as a placeholder value.
-   */
-  readonly defaultOption: string;
 
   /**
    * Indicates whether the select element is disabled.
@@ -68,14 +47,24 @@ interface CoreSelectElementProps<T extends FieldValues>
   readonly isDisabled: boolean;
 
   /**
-   * The method invoked after the onChange handler is fired.
-   */
-  onChangeHandler?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-
-  /**
-   * Indicates whether there is an error involving the select element.
+   * Indicates whether there is an error involving the element.
    */
   readonly isError: boolean;
+
+  /**
+   * The method invoked after the onChange handler is fired.
+   */
+  onChangeHandler?: (event: ChangeEvent<HTMLSelectElement>) => void;
+
+  /**
+   * The array of option values.
+   */
+  readonly options: ReactNode;
+
+  /**
+   * The select element's initial value.
+   */
+  readonly initialValue: string | number;
 
   /**
    * Additional optional styling options.
@@ -90,33 +79,35 @@ interface CoreSelectElementProps<T extends FieldValues>
  * @return {JSX.Element}
  */
 export const CoreSelectElement = <T extends FieldValues>({
-  validationRules,
   id,
-  initialValue,
   isDisabled,
   isError,
-  options,
-  defaultOption,
   onChangeHandler,
+  options,
+  initialValue,
   intent,
   className,
 }: CoreSelectElementProps<T>): JSX.Element => {
-  const { register } = useFormContext();
+  const { register, setValue } = useFormContext<T>();
 
   return (
     <select
-      {...register(id, validationRules)}
+      {...register(id)}
       id={id}
       name={id}
       disabled={isDisabled}
-      onChange={onChangeHandler}
+      onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+        onChangeHandler?.(event);
+
+        setValue(id, event.target.value as PathValue<T, Path<T>>, { shouldValidate: true, shouldDirty: true });
+      }}
       className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError, className }))}
     >
       <option
         hidden
         value={''}
       >
-        {initialValue ?? defaultOption}
+        {initialValue}
       </option>
       {options}
     </select>

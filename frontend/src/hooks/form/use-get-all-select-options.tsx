@@ -62,6 +62,13 @@ export const useGetAllSelectOptions = (): ApplicationRecordStatusOptionsResponse
         },
         isLoading: result.some((option) => option.isLoading),
         isError: result.some((option) => option.isError),
+        refetch: {
+          applicationStatus: result[0].refetch,
+          interviewStatus: result[1].refetch,
+          offerStatus: result[2].refetch,
+          responseStatus: result[3].refetch,
+          finalDestinationStatus: result[4].refetch,
+        },
       };
     },
   });

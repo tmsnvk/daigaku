@@ -5,8 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 /* logic imports */
 import { useResetFormMutation } from '../hooks';
@@ -27,10 +29,20 @@ import {
 } from '@daigaku/common-types';
 import { FormType } from '../models';
 
+const formValidationSchema = z.object({
+  email: z.string().email({ message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED }),
+});
+
+type FormInputValues = z.infer<typeof formValidationSchema>;
+
+const initialFormValues: FormInputValues = {
+  email: '',
+};
+
 /**
  * Defines the component's properties.
  */
-interface ResetFormProps {
+interface ResetAccountPasswordFormProps {
   /**
    * The method to select the current form type.
    *
@@ -49,18 +61,22 @@ interface ResetFormProps {
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {ResetFormProps} props
+ * @param {ResetAccountPasswordFormProps} props
  * @return {JSX.Element}
  */
-export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Element => {
-  const methods = useForm<AccountResetPayload>({ mode: 'onSubmit' });
-  const {
-    formState: { errors },
-    handleSubmit,
-    setError,
-  } = methods;
+export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccountPasswordFormProps): JSX.Element => {
+  const formMethods = useForm<FormInputValues>({
+    mode: 'onSubmit',
+    defaultValues: initialFormValues,
+    resolver: zodResolver(formValidationSchema),
+  });
+  const { handleSubmit, setError } = formMethods;
 
-  const { isPending, mutate } = useResetFormMutation(setError, showModal);
+  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetFormMutation(setError, showModal);
+
+  const submitResetAccountPasswordForm = (formData: FormInputValues) => {
+    resetAccountPassword(formData as AccountResetPayload);
+  };
 
   return (
     <>
@@ -68,51 +84,42 @@ export const ResetForm = ({ onFormSelect, showModal }: ResetFormProps): JSX.Elem
         title={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER}
         intent={'small'}
       />
-      <FormProvider {...methods}>
+      <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-reset-form'}
-          onFormSubmit={handleSubmit((formData: AccountResetPayload) => {
-            mutate(formData);
-          })}
+          onFormSubmit={handleSubmit(submitResetAccountPasswordForm)}
         >
           <CommonInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED,
-              },
-            }}
-            type={'email'}
             id={'email'}
+            type={'email'}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
-            isDisabled={isPending}
-            error={errors.email?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            isSubmissionPending={isPending}
-            submissionMessage={l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING}
-            submitId={'reset'}
-            submissionValue={l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT}
-            errorMessage={errors.root?.message}
-            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+            isSubmissionPending={isSubmitting}
+            formActionConfig={{
+              message: l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING,
+              value: l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT,
+            }}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
+        isDisabled={isSubmitting}
+        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
             label: formTypeButtonLabel[FormType.LOGIN],
             formType: FormType.LOGIN,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER],
-            formType: FormType.REGISTER,
+            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
+            formType: FormType.REGISTER_PENDING_ACCOUNT,
           },
         }}
-        isDisabled={isPending}
-        onFormSelect={onFormSelect}
       />
     </>
   );

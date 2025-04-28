@@ -5,36 +5,19 @@
  */
 
 /* vendor imports */
-import { type VariantProps, cva } from 'class-variance-authority';
-import { InputHTMLAttributes, JSX } from 'react';
-import { FieldValues, Path } from 'react-hook-form';
+import { JSX } from 'react';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreInputElementVariants = cva(
-  joinTw(
-    'w-[95%] sm:w-[65%] h-20',
-    'px-4',
-    'bg-accent border-2 border-secondary',
-    'text-xl',
-    'rounded-xl cursor-not-allowed',
-    "[&[type='number']]:w-20 [&[type='number']]:p-0 [&[type='number']]:text-center",
-    'focus:outline-1 focus:outline-solid focus:placeholder:text-secondary-muted focus:outline-secondary',
-    'placeholder:text-secondary-muted',
-  ),
-);
-
 /**
  * Defines the component's properties.
  */
-interface CoreDisabledInputElementProps<T extends FieldValues>
-  extends VariantProps<typeof coreInputElementVariants>,
-    InputHTMLAttributes<HTMLInputElement> {
+interface CoreDisabledInputElementProps {
   /**
    * The input element's id.
    */
-  readonly id: Path<T>;
+  readonly id: string;
 
   /**
    * The input element's type.
@@ -42,9 +25,9 @@ interface CoreDisabledInputElementProps<T extends FieldValues>
   readonly type: string;
 
   /**
-   * The input element's initial value.
+   * The input element's readonly default value.
    */
-  readonly initialValue: string | number;
+  readonly defaultValue: string | number;
 
   /**
    * Additional optional styling options.
@@ -58,21 +41,25 @@ interface CoreDisabledInputElementProps<T extends FieldValues>
  * @param {CoreDisabledInputElementProps} props
  * @return {JSX.Element}
  */
-export const CoreDisabledInputElement = <T extends FieldValues>({
-  id,
-  type,
-  initialValue,
-  className,
-}: CoreDisabledInputElementProps<T>): JSX.Element => {
+export const CoreDisabledInputElement = ({ id, type, defaultValue }: CoreDisabledInputElementProps): JSX.Element => {
   return (
     <input
-      type={type}
       id={id}
       name={id}
+      type={type}
       disabled
       readOnly
-      defaultValue={initialValue}
-      className={joinTw(coreInputElementVariants({ className }))}
+      defaultValue={defaultValue}
+      className={joinTw(
+        'h-20 w-[95%] sm:w-[65%]',
+        'px-4',
+        'bg-accent border-secondary border-2',
+        'text-xl',
+        'cursor-not-allowed rounded-xl',
+        "[&[type='number']]:w-20 [&[type='number']]:p-0 [&[type='number']]:text-center",
+        'focus:outline-solid focus:placeholder:text-secondary-muted focus:outline-secondary focus:outline-1',
+        'placeholder:text-secondary-muted',
+      )}
     />
   );
 };

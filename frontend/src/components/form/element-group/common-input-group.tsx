@@ -6,11 +6,12 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { FieldValues } from 'react-hook-form';
-
-/* component imports */
+import { FieldValues } from 'react-hook-form'; /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreInputElement } from '../core-element/core-input-element.tsx';
+
+/* logic imports */
+import { useFieldValidationError } from '@daigaku/hooks';
 
 /* interface, type, enum imports */
 import { CommonInputElementGroup } from '@daigaku/common-types';
@@ -29,33 +30,32 @@ interface CommonInputGroupProps<T extends FieldValues> extends CommonInputElemen
  * @return {JSX.Element}
  */
 export const CommonInputGroup = <T extends FieldValues>({
-  validationRules,
   id,
   type,
+  isDisabled,
   label,
   initialValue,
   placeholder,
-  isDisabled,
-  error,
   intent,
 }: CommonInputGroupProps<T>): JSX.Element => {
+  const { error } = useFieldValidationError<T>(id);
+
   return (
     <CoreFormElementGroupWrapper>
       <CoreFormElementLabel
         inputId={id}
-        content={label}
+        label={label}
       />
       <CoreInputElement
-        validationRules={validationRules}
         id={id}
         type={type}
+        isDisabled={isDisabled}
+        isError={!!error}
         placeholder={placeholder}
         initialValue={initialValue}
-        isDisabled={isDisabled}
-        isError={error !== undefined}
         intent={intent}
       />
-      {error && <CoreFormElementError message={error} />}
+      {error && <CoreFormElementError message={error.message} />}
     </CoreFormElementGroupWrapper>
   );
 };

@@ -55,7 +55,7 @@ export interface HandleFormSubmission {
   submitForm: (
     formData: UpdateApplicationRecordByStudentPayload,
     applicationUuid: string,
-    mutate: (formData: UpdateApplicationRecordByStudentPayload) => void,
+    updateApplicationRecord: (formData: UpdateApplicationRecordByStudentPayload) => void,
     setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
   ) => void;
 }
@@ -130,7 +130,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
   const submitForm = (
     formData: UpdateApplicationRecordByStudentPayload,
     currentApplicationUuid: string,
-    mutate: (formData: UpdateApplicationRecordByStudentPayload) => void,
+    updateApplicationRecord: (formData: UpdateApplicationRecordByStudentPayload) => void,
     setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
   ): void => {
     const validationErrors: Array<string> = handleValidation(formData, currentApplicationUuid);
@@ -146,7 +146,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
         }
       }
 
-      mutate(formData);
+      updateApplicationRecord(formData);
     } else {
       setError('root', { message: validationErrors.join(' ') });
     }

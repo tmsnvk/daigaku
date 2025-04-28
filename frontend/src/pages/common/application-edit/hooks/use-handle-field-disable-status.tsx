@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 /* interface, type, enum imports */
 import {
@@ -256,28 +256,28 @@ interface HandleFieldDisableStatus {
    * @param eventTargetValue
    * @returns
    */
-  updateInterviewStatus: (eventTargetValue: string) => void;
+  updateInterviewStatus: (event: ChangeEvent<HTMLSelectElement>) => void;
 
   /**
    * TODO
    * @param eventTargetValue
    * @returns
    */
-  updateOfferStatus: (eventTargetValue: string) => void;
+  updateOfferStatus: (event: ChangeEvent<HTMLSelectElement>) => void;
 
   /**
    * TODO
    * @param eventTargetValue
    * @returns
    */
-  updateResponseStatus: (eventTargetValue: string) => void;
+  updateResponseStatus: (event: ChangeEvent<HTMLSelectElement>) => void;
 
   /**
    * TODO
    * @param eventTargetValue
    * @returns
    */
-  updateFinalDestinationStatus: (eventTargetValue: string) => void;
+  updateFinalDestinationStatus: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 /**
@@ -369,7 +369,9 @@ export const useHandleFieldDisableStatus = (
   };
 
   // The method runs when the ApplicationStatus field is updated.
-  const updateInterviewStatus = (eventTargetValue: string): void => {
+  const updateInterviewStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
+    const eventTargetValue = event.target.value;
+
     const plannedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
       (element: ApplicationStatus) => {
         return element.name === ApplicationStatusE.PLANNED;
@@ -414,7 +416,9 @@ export const useHandleFieldDisableStatus = (
   };
 
   // The method runs when the InterviewStatus field is updated.
-  const updateOfferStatus = (eventTargetValue: string): void => {
+  const updateOfferStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
+    const eventTargetValue = event.target.value;
+
     const invitedStatuses: Array<OfferStatus> | undefined = selectOptions.interviewStatus?.filter(
       (element: InterviewStatus) => {
         return element.name !== InterviewStatusE.NOT_INVITED;
@@ -441,7 +445,9 @@ export const useHandleFieldDisableStatus = (
   };
 
   // The method runs when the OfferStatus field is updated.
-  const updateResponseStatus = (eventTargetValue: string): void => {
+  const updateResponseStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
+    const eventTargetValue = event.target.value;
+
     const positiveResponseStatuses: Array<ResponseStatus> | undefined = selectOptions.offerStatus?.filter(
       (element: OfferStatus) => {
         return element.name !== OfferStatusE.REJECTED;
@@ -468,7 +474,9 @@ export const useHandleFieldDisableStatus = (
   };
 
   // The method runs when the ResponseStatus field is updated.
-  const updateFinalDestinationStatus = (eventTargetValue: string): void => {
+  const updateFinalDestinationStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
+    const eventTargetValue = event.target.value;
+
     const offerDeclinedStatus: ResponseStatus | undefined = selectOptions.responseStatus?.filter(
       (element: ResponseStatus) => {
         return element.name === ResponseStatusE.OFFER_DECLINED;

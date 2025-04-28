@@ -12,7 +12,7 @@ import { CoreMetadata } from '../core/core-metada.ts';
  */
 export interface CreateCommentPayload {
   /**
-   * The text content of the comment.
+   * The text label of the comment.
    */
   readonly comment: string;
 }
@@ -27,7 +27,7 @@ export interface Comment extends CoreMetadata {
   readonly uuid: string;
 
   /**
-   * The text content of the comment.
+   * The text label of the comment.
    */
   readonly comment: string;
 }

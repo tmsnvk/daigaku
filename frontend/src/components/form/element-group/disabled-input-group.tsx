@@ -31,9 +31,9 @@ interface DisabledInputGroupProps {
   readonly type: string;
 
   /**
-   * The input's readonly value.
+   * The input's readonly default value.
    */
-  readonly value: string | number;
+  readonly defaultValue: string | number;
 }
 
 /**
@@ -42,18 +42,17 @@ interface DisabledInputGroupProps {
  * @param {DisabledInputGroupProps} props
  * @return {JSX.Element}
  */
-export const DisabledInputGroup = ({ id, label, type, value }: DisabledInputGroupProps): JSX.Element => {
+export const DisabledInputGroup = ({ id, label, type, defaultValue }: DisabledInputGroupProps): JSX.Element => {
   return (
     <CoreFormElementGroupWrapper>
       <CoreFormElementLabel
         inputId={id}
-        content={label}
+        label={label}
       />
       <CoreDisabledInputElement
         type={type}
         id={id}
-        name={id}
-        initialValue={value}
+        defaultValue={defaultValue}
       />
     </CoreFormElementGroupWrapper>
   );

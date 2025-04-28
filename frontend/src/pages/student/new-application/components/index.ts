@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { NewApplicationForm } from './new-application-form';
+import { CreateApplicationRecordForm } from './create-application-record-form.tsx';
 
-export { NewApplicationForm };
+export { CreateApplicationRecordForm };

@@ -5,7 +5,10 @@
  */
 
 /* vendor imports */
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+
+/* configuration, utilities, constants imports */
+import { isEmpty } from '@daigaku/utilities';
 
 /**
  * Defines the return value properties for managing country selection functionality.
@@ -26,7 +29,7 @@ export interface CountrySelection {
    *
    * @param countryUuid The to-be-selected country's uuid string.
    */
-  selectCountry: (countryUuid: string) => void;
+  handleCountrySelection: (event: ChangeEvent<HTMLSelectElement>) => void;
 
   /**
    * A method to reset the country selection status.
@@ -44,9 +47,11 @@ export const useCountrySelection = (): CountrySelection => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
   const [currentCountryUuid, setCurrentCountryUuid] = useState<string>('');
 
-  const selectCountry = (countryUuid: string): void => {
-    setIsCountrySelected(true);
-    setCurrentCountryUuid(countryUuid);
+  const handleCountrySelection = (event: ChangeEvent<HTMLSelectElement>): void => {
+    if (!isEmpty(event.target.value)) {
+      setIsCountrySelected(true);
+      setCurrentCountryUuid(event.target.value);
+    }
   };
 
   const resetCountrySelection = (): void => {
@@ -56,7 +61,7 @@ export const useCountrySelection = (): CountrySelection => {
   return {
     isCountrySelected,
     currentCountryUuid,
-    selectCountry,
+    handleCountrySelection,
     resetCountrySelection,
   };
 };

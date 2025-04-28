@@ -8,20 +8,20 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { NewApplicationForm } from './components';
+import { CreateApplicationRecordForm } from './components';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
 /**
- * Renders the {@link NewApplicationForm} form submission page for `student` authorisation users.
+ * Renders the {@link CreateApplicationRecordForm} form submission page for `student` authorisation users.
  *
  * @return {JSX.Element}
  */
 export const NewApplication = (): JSX.Element => {
   return (
     <main className={joinTw('flex flex-col items-center', 'mx-auto')}>
-      <NewApplicationForm />
+      <CreateApplicationRecordForm />
     </main>
   );
 };

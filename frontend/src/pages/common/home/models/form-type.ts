@@ -9,6 +9,6 @@
  */
 export enum FormType {
   LOGIN,
-  REGISTER,
-  RESET,
+  REGISTER_PENDING_ACCOUNT,
+  RESET_ACCOUNT_PASSWORD,
 }

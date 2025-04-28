@@ -7,7 +7,7 @@
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes, JSX } from 'react';
-import { FieldValues, Path, RegisterOptions, useFormContext } from 'react-hook-form';
+import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -45,12 +45,6 @@ interface CoreInputElementProps<T extends FieldValues>
   extends VariantProps<typeof coreInputElementVariants>,
     InputHTMLAttributes<HTMLInputElement> {
   /**
-   * Optional validation rules to handle the input element's validation using the `react-hook-form` library for
-   * validation management.
-   */
-  readonly validationRules: RegisterOptions<FieldValues, Path<T>> | undefined;
-
-  /**
    * The input element's id.
    */
   readonly id: Path<T>;
@@ -61,16 +55,6 @@ interface CoreInputElementProps<T extends FieldValues>
   readonly type: string;
 
   /**
-   * The input element's placeholder value.
-   */
-  readonly placeholder?: string;
-
-  /**
-   * The input element's initial value.
-   */
-  readonly initialValue?: string | number;
-
-  /**
    * Indicates whether the input element is disabled.
    */
   readonly isDisabled: boolean;
@@ -79,6 +63,16 @@ interface CoreInputElementProps<T extends FieldValues>
    * Indicates whether there is an error involving the input element.
    */
   readonly isError: boolean;
+
+  /**
+   * The input element's placeholder value.
+   */
+  readonly placeholder?: string;
+
+  /**
+   * The input element's initial value.
+   */
+  readonly initialValue?: string | number;
 
   /**
    * Additional optional styling options.
@@ -93,21 +87,20 @@ interface CoreInputElementProps<T extends FieldValues>
  * @return {JSX.Element}
  */
 export const CoreInputElement = <T extends FieldValues>({
-  validationRules,
   id,
   type,
-  placeholder,
-  initialValue,
   isDisabled,
   isError,
+  placeholder,
+  initialValue,
   intent,
   className,
 }: CoreInputElementProps<T>): JSX.Element => {
-  const { register } = useFormContext();
+  const { register } = useFormContext<T>();
 
   return (
     <input
-      {...register(id, validationRules)}
+      {...register(id)}
       id={id}
       name={id}
       type={type}

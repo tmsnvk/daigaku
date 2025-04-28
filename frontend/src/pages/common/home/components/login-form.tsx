@@ -5,8 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks';
@@ -29,6 +31,18 @@ import { formTypeButtonLabel } from '../constants';
 import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../models';
 
+const formValidationSchema = z.object({
+  email: z.string().email({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED }),
+  password: z.string().trim().nonempty({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
+});
+
+type FormInputValues = z.infer<typeof formValidationSchema>;
+
+const initialFormValues: FormInputValues = {
+  email: '',
+  password: '',
+};
+
 /**
  * Defines the component's properties.
  */
@@ -50,14 +64,18 @@ interface LoginFormProps {
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
-  const methods = useForm<LoginPayload>({ mode: 'onSubmit' });
-  const {
-    formState: { errors },
-    handleSubmit,
-    setError,
-  } = methods;
+  const formMethods = useForm<FormInputValues>({
+    mode: 'onSubmit',
+    defaultValues: initialFormValues,
+    resolver: zodResolver(formValidationSchema),
+  });
+  const { handleSubmit, setError } = formMethods;
 
-  const { isPending, mutate } = useLoginFormMutation(setError);
+  const { mutate: logIn, isPending: isSubmitting } = useLoginFormMutation(setError);
+
+  const submitLoginForm = (formData: FormInputValues): void => {
+    logIn(formData as LoginPayload);
+  };
 
   return (
     <>
@@ -65,65 +83,49 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         title={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER}
         intent={'small'}
       />
-      <FormProvider {...methods}>
+      <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-login-form'}
-          onFormSubmit={handleSubmit((formData: LoginPayload) => {
-            mutate(formData);
-          })}
+          onFormSubmit={handleSubmit(submitLoginForm)}
         >
           <CommonInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED,
-              },
-            }}
             id={'email'}
             type={'email'}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
-            isDisabled={isPending}
-            error={errors.email?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <PasswordInputGroup
-            validationRules={{
-              required: {
-                value: true,
-                message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED,
-              },
-            }}
             id={'password'}
+            isDisabled={isSubmitting}
             label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
             placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.PLACEHOLDER}
-            isDisabled={isPending}
-            error={errors.password?.message}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
-            isSubmissionPending={isPending}
-            submissionMessage={l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING}
-            submitId={'login'}
-            submissionValue={l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT}
-            errorMessage={errors.root?.message}
-            submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+            isSubmissionPending={isSubmitting}
+            formActionConfig={{
+              message: l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING,
+              value: l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT,
+            }}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
           />
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
+        isDisabled={isSubmitting}
+        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.RESET],
-            formType: FormType.RESET,
+            label: formTypeButtonLabel[FormType.RESET_ACCOUNT_PASSWORD],
+            formType: FormType.RESET_ACCOUNT_PASSWORD,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER],
-            formType: FormType.REGISTER,
+            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
+            formType: FormType.REGISTER_PENDING_ACCOUNT,
           },
         }}
-        isDisabled={isPending}
-        onFormSelect={onFormSelect}
       />
     </>
   );

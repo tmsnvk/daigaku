@@ -8,6 +8,9 @@
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 
+/* logic imports */
+import { useFieldValidationError } from '@daigaku/hooks';
+
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreTextareaElement } from '../core-element/core-textarea-element.tsx';
@@ -40,8 +43,6 @@ interface CommonTextareaGroupProps<T extends FieldValues> extends TextareaElemen
  * @return {JSX.Element}
  */
 export const CommonTextareaGroup = <T extends FieldValues>({
-  validationRules,
-  error,
   id,
   label,
   rows,
@@ -50,23 +51,24 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   intent,
   isDisabled,
 }: CommonTextareaGroupProps<T>): JSX.Element => {
+  const { error } = useFieldValidationError<T>(id);
+
   return (
     <CoreFormElementGroupWrapper className={joinTw('h-120')}>
       <CoreFormElementLabel
         inputId={id}
-        content={label}
+        label={label}
       />
       <CoreTextareaElement
-        validationRules={validationRules}
         id={id}
-        placeholder={placeholder}
+        isDisabled={isDisabled}
+        isError={!!error}
         rows={rows}
         cols={cols}
-        isDisabled={isDisabled}
-        isError={error !== undefined}
+        placeholder={placeholder}
         intent={intent}
       />
-      {error && <CoreFormElementError message={error} />}
+      {error && <CoreFormElementError message={error.message} />}
     </CoreFormElementGroupWrapper>
   );
 };

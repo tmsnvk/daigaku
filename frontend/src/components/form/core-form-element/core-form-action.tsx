@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 /* component imports */
 import { LoadingIndicator } from '@daigaku/components/general';
@@ -27,29 +28,22 @@ interface CoreFormActionProps {
   readonly isSubmissionPending: boolean;
 
   /**
-   * The form submission's loading message.
+   * The boolean indicating whether the form is disabled. The key is used in forms containing a preliminary data fetch.
    */
-  readonly submissionMessage: string;
+  readonly isDisabled?: boolean;
 
   /**
-   * The form submit element's id.
+   *
    */
-  readonly submitId: string;
-
-  /**
-   * The form submit button's value.
-   */
-  readonly submissionValue: string;
-
-  /**
-   * The `formState.errors.root.message` field from the `react-hook-form` plugin.
-   */
-  readonly errorMessage: string | undefined;
+  readonly formActionConfig: {
+    message: string;
+    value: string;
+  };
 
   /**
    * The input element's style intent.
    */
-  readonly submitButtonStyleIntent: CoreSubmitInputElementStyleIntent;
+  readonly intent: CoreSubmitInputElementStyleIntent;
 
   /**
    * Additional style options.
@@ -66,26 +60,26 @@ interface CoreFormActionProps {
  */
 export const CoreFormAction = ({
   isSubmissionPending,
-  submissionMessage,
-  submitId,
-  submissionValue,
-  errorMessage,
-  submitButtonStyleIntent,
+  isDisabled,
+  formActionConfig,
+  intent,
   className,
 }: CoreFormActionProps): JSX.Element => {
+  const { formState } = useFormContext();
+
   return (
     <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>
       {isSubmissionPending ? (
-        <LoadingIndicator loadingText={submissionMessage} />
+        <LoadingIndicator loadingText={formActionConfig.message} />
       ) : (
         <CoreSubmitInputElement
-          id={submitId}
-          value={submissionValue}
-          isDisabled={isSubmissionPending}
-          intent={submitButtonStyleIntent}
+          id={'submit'}
+          value={formActionConfig.value}
+          isDisabled={(isSubmissionPending || isDisabled) ?? false}
+          intent={intent}
         />
       )}
-      <CoreFormElementError message={errorMessage} />
+      <CoreFormElementError message={formState.errors.root?.message} />
     </article>
   );
 };

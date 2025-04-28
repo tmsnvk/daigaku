@@ -31,7 +31,7 @@ export const CoreFormElementError = ({ message }: CoreFormElementErrorProps): JS
     <p
       className={joinTw(
         'text-center',
-        'mt-6',
+        'mt-2',
         'text-destructive text-lg font-bold tracking-wide',
         'animate-simple-fade-in',
       )}

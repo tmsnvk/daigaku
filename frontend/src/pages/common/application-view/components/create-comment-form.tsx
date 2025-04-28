@@ -5,8 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 /* logic imports */
 import { useSubmitComment } from '../hooks';
@@ -24,6 +26,21 @@ import {
   CreateCommentPayload,
 } from '@daigaku/common-types';
 
+const formValidationSchema = z.object({
+  comment: z
+    .string()
+    .nonempty({ message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.REQUIRED_COMMENT })
+    .regex(/^(.|\s){15,1000}$/, {
+      message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.PATTERN_COMMENT,
+    }),
+});
+
+type FormInputValues = z.infer<typeof formValidationSchema>;
+
+const initialFormValues: FormInputValues = {
+  comment: '',
+};
+
 /**
  * Defines the component's properties.
  */
@@ -34,6 +51,9 @@ interface CreateCommentFormProps {
   readonly applicationUuid: string;
 }
 
+const DEFAULT_ROW_SIZE = 10;
+const DEFAULT_COL_SIZE = 10;
+
 /**
  * Renders the comment submission form.
  *
@@ -41,53 +61,41 @@ interface CreateCommentFormProps {
  * @return {JSX.Element}
  */
 export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): JSX.Element => {
-  const DEFAULT_ROW_SIZE = 10;
-  const DEFAULT_COL_SIZE = 10;
+  const formMethods = useForm<FormInputValues>({
+    mode: 'onSubmit',
+    defaultValues: initialFormValues,
+    resolver: zodResolver(formValidationSchema),
+  });
+  const { handleSubmit, setError } = formMethods;
 
-  const methods = useForm<CreateCommentPayload>({ mode: 'onSubmit' });
-  const {
-    formState: { errors },
-    handleSubmit,
-    setError,
-  } = methods;
+  const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);
 
-  const { isPending, mutate } = useSubmitComment(setError, applicationUuid);
+  const submitCreateCommentForm = (formData: FormInputValues): void => {
+    createComment(formData as CreateCommentPayload);
+  };
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...formMethods}>
       <CoreFormWrapper
         formId={'post-comment-form'}
-        onFormSubmit={handleSubmit((formData: CreateCommentPayload) => {
-          mutate(formData);
-        })}
+        onFormSubmit={handleSubmit(submitCreateCommentForm)}
       >
         <CommonTextareaGroup
-          validationRules={{
-            required: {
-              value: true,
-              message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.REQUIRED_COMMENT,
-            },
-            pattern: {
-              value: /^(.|\s){15,1000}$/,
-              message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.PATTERN_COMMENT,
-            },
-          }}
           id={'comment'}
-          label={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.LABEL}
+          isDisabled={isSubmitting}
           rows={DEFAULT_ROW_SIZE}
           cols={DEFAULT_COL_SIZE}
+          label={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.LABEL}
           placeholder={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.PLACEHOLDER}
-          isDisabled={isPending}
-          error={errors.comment?.message}
           intent={CoreTextareaElementStyleIntent.LIGHT}
         />
         <CoreFormAction
-          isSubmissionPending={isPending}
-          submissionMessage={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_LOADING}
-          submitId={'post-comment-form'}
-          submissionValue={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_INPUT}
-          errorMessage={errors.root?.message}
-          submitButtonStyleIntent={CoreSubmitInputElementStyleIntent.DARK}
+          isSubmissionPending={isSubmitting}
+          formActionConfig={{
+            message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_LOADING,
+            value: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_INPUT,
+          }}
+          intent={CoreSubmitInputElementStyleIntent.DARK}
         />
       </CoreFormWrapper>
     </FormProvider>
