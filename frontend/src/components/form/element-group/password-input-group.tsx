@@ -7,7 +7,10 @@
 /* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX, useState } from 'react';
-import { FieldValues, useFormContext } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
+
+/* logic imports */
+import { useFieldValidationError } from '@daigaku/hooks';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
@@ -41,8 +44,7 @@ export const PasswordInputGroup = <T extends FieldValues>({
   initialValue,
   intent,
 }: PasswordInputGroupProps<T>): JSX.Element => {
-  const { formState } = useFormContext();
-  const error = formState.errors[id]?.message;
+  const { error } = useFieldValidationError<T>(id);
 
   const [isPasswordRevealed, setIsPasswordRevealed] = useState<boolean>(false);
 
@@ -57,7 +59,7 @@ export const PasswordInputGroup = <T extends FieldValues>({
           id={id}
           type={isPasswordRevealed ? 'text' : 'password'}
           isDisabled={isDisabled}
-          isError={error !== undefined}
+          isError={!!error}
           placeholder={placeholder}
           initialValue={initialValue}
           intent={intent}
@@ -71,7 +73,7 @@ export const PasswordInputGroup = <T extends FieldValues>({
           className={joinTw('w-8', 'pl-4', 'cursor-pointer')}
         />
       </div>
-      {error && <CoreFormElementError message={error as string} />}
+      {error && <CoreFormElementError message={error.message} />}
     </CoreFormElementGroupWrapper>
   );
 };

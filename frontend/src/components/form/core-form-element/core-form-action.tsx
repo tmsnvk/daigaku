@@ -28,7 +28,7 @@ interface CoreFormActionProps {
   readonly isSubmissionPending: boolean;
 
   /**
-   * The boolean indicating whether the form is disabled.
+   * The boolean indicating whether the form is disabled. The key is used in forms containing a preliminary data fetch.
    */
   readonly isDisabled?: boolean;
 
@@ -66,7 +66,6 @@ export const CoreFormAction = ({
   className,
 }: CoreFormActionProps): JSX.Element => {
   const { formState } = useFormContext();
-  const error = formState.errors.root?.message;
 
   return (
     <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>
@@ -80,7 +79,7 @@ export const CoreFormAction = ({
           intent={intent}
         />
       )}
-      <CoreFormElementError message={error} />
+      <CoreFormElementError message={formState.errors.root?.message} />
     </article>
   );
 };

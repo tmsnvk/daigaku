@@ -64,14 +64,18 @@ interface LoginFormProps {
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
-  const methods = useForm<FormInputValues>({
+  const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: initialFormValues,
     resolver: zodResolver(formValidationSchema),
   });
-  const { handleSubmit, setError } = methods;
+  const { handleSubmit, setError } = formMethods;
 
   const { mutate: logIn, isPending: isSubmitting } = useLoginFormMutation(setError);
+
+  const submitLoginForm = (formData: FormInputValues): void => {
+    logIn(formData as LoginPayload);
+  };
 
   return (
     <>
@@ -79,12 +83,10 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         title={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER}
         intent={'small'}
       />
-      <FormProvider {...methods}>
+      <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-login-form'}
-          onFormSubmit={handleSubmit((formData: FormInputValues) => {
-            logIn(formData as LoginPayload);
-          })}
+          onFormSubmit={handleSubmit(submitLoginForm)}
         >
           <CommonInputGroup
             id={'email'}

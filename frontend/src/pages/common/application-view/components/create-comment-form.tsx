@@ -61,22 +61,24 @@ const DEFAULT_COL_SIZE = 10;
  * @return {JSX.Element}
  */
 export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): JSX.Element => {
-  const methods = useForm<FormInputValues>({
+  const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: initialFormValues,
     resolver: zodResolver(formValidationSchema),
   });
-  const { handleSubmit, setError } = methods;
+  const { handleSubmit, setError } = formMethods;
 
   const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);
 
+  const submitCreateCommentForm = (formData: FormInputValues): void => {
+    createComment(formData as CreateCommentPayload);
+  };
+
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...formMethods}>
       <CoreFormWrapper
         formId={'post-comment-form'}
-        onFormSubmit={handleSubmit((formData: FormInputValues) => {
-          createComment(formData as CreateCommentPayload);
-        })}
+        onFormSubmit={handleSubmit(submitCreateCommentForm)}
       >
         <CommonTextareaGroup
           id={'comment'}

@@ -66,7 +66,7 @@ interface CoreTextareaElementProps<T extends FieldValues>
   /**
    * The input element's placeholder value.
    */
-  readonly placeholder?: string;
+  readonly placeholder: string;
 
   /**
    * Indicates whether the input element is disabled.

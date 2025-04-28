@@ -6,7 +6,10 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { FieldValues, useFormContext } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
+
+/* logic imports */
+import { useFieldValidationError } from '@daigaku/hooks';
 
 /* component imports */
 import {
@@ -30,7 +33,7 @@ interface CommonSelectGroupProps<T extends FieldValues> extends CoreSelectElemen
 /**
  * Renders a generic select element group instance integrated with the `react-hook-form` library.
  *
- * @param {CommonSelectGrouppProps<T extends FieldValues>} props
+ * @param {CommonSelectGroupProps<T extends FieldValues>} props
  * @return {JSX.Element}
  */
 export const CommonSelectGroup = <T extends FieldValues>({
@@ -45,8 +48,7 @@ export const CommonSelectGroup = <T extends FieldValues>({
   initialValue,
   intent,
 }: CommonSelectGroupProps<T>): JSX.Element => {
-  const { formState } = useFormContext();
-  const error = formState.errors[id]?.message;
+  const { error } = useFieldValidationError<T>(id);
 
   return (
     <CoreFormElementFetchStateWrapper
@@ -62,13 +64,13 @@ export const CommonSelectGroup = <T extends FieldValues>({
         <CoreSelectElement
           id={id}
           isDisabled={isDisabled}
-          isError={error !== undefined}
+          isError={!!error}
           onChangeHandler={onChangeHandler}
           options={options}
           initialValue={initialValue}
           intent={intent}
         />
-        {error && <CoreFormElementError message={error as string} />}
+        {error && <CoreFormElementError message={error.message} />}
       </CoreFormElementGroupWrapper>
     </CoreFormElementFetchStateWrapper>
   );

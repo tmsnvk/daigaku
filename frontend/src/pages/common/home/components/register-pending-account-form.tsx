@@ -117,17 +117,21 @@ export const RegisterPendingAccountForm = ({
   } = useGetStudentAndMentorAccountRoles();
   const isSubmitDisabled = isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError;
 
-  const methods = useForm<FormInputValues>({
+  const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: initialFormValues,
     resolver: zodResolver(formValidationSchema),
   });
-  const { handleSubmit, setError } = methods;
+  const { handleSubmit, setError } = formMethods;
 
   const { mutate: registerPendingAccount, isPending: isSubmitting } = useRegistrationFormMutation(setError, showModal);
 
-  const institutionOptions = useMemo(() => {
-    return (
+  const submitRegisterPendingAccountForm = (formData: FormInputValues): void => {
+    registerPendingAccount(formData as PendingAccountRegistrationPayload);
+  };
+
+  const institutionOptions = useMemo(
+    () =>
       institutions?.map((institution: InstitutionOption) => (
         <option
           key={institution.uuid}
@@ -135,12 +139,12 @@ export const RegisterPendingAccountForm = ({
         >
           {institution.name}
         </option>
-      )) ?? []
-    );
-  }, [institutions]);
+      )) || [],
+    [institutions],
+  );
 
-  const roleOptions = useMemo(() => {
-    return (
+  const roleOptions = useMemo(
+    () =>
       roles?.map((role: RoleOption) => (
         <option
           key={role.uuid}
@@ -148,9 +152,9 @@ export const RegisterPendingAccountForm = ({
         >
           {removeRolePrefix(role.name)}
         </option>
-      )) ?? []
-    );
-  }, [roles]);
+      )) || [],
+    [roles],
+  );
 
   return (
     <>
@@ -158,12 +162,10 @@ export const RegisterPendingAccountForm = ({
         title={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER}
         intent={'small'}
       />
-      <FormProvider {...methods}>
+      <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-pending-account-registration-form'}
-          onFormSubmit={handleSubmit((formData: FormInputValues) => {
-            registerPendingAccount(formData as PendingAccountRegistrationPayload);
-          })}
+          onFormSubmit={handleSubmit(submitRegisterPendingAccountForm)}
         >
           <CommonInputGroup
             id={'firstName'}

@@ -16,8 +16,10 @@ import { useGetInstitutionOptions } from './form/use-get-institution-options.tsx
 import { useGetStudentAndMentorAccountRoles } from './form/use-get-student-and-mentor-account-roles.tsx';
 import { useGetUniversityOptionsByCountryUuid } from './form/use-get-university-options-by-country-uuid.tsx';
 import { useMobileView } from './utility/use-mobile-view.ts';
+import { useFieldValidationError } from './form/use-field-validation-error.tsx';
 
 export {
+  useFieldValidationError,
   useGetAllSelectOptions,
   useGetApplicationByUuid,
   useGetApplications,

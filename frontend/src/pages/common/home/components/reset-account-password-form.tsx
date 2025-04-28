@@ -65,14 +65,18 @@ interface ResetAccountPasswordFormProps {
  * @return {JSX.Element}
  */
 export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccountPasswordFormProps): JSX.Element => {
-  const methods = useForm<FormInputValues>({
+  const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: initialFormValues,
     resolver: zodResolver(formValidationSchema),
   });
-  const { handleSubmit, setError } = methods;
+  const { handleSubmit, setError } = formMethods;
 
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetFormMutation(setError, showModal);
+
+  const submitResetAccountPasswordForm = (formData: FormInputValues) => {
+    resetAccountPassword(formData as AccountResetPayload);
+  };
 
   return (
     <>
@@ -80,12 +84,10 @@ export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccou
         title={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER}
         intent={'small'}
       />
-      <FormProvider {...methods}>
+      <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-reset-form'}
-          onFormSubmit={handleSubmit((formData: FormInputValues) => {
-            resetAccountPassword(formData as AccountResetPayload);
-          })}
+          onFormSubmit={handleSubmit(submitResetAccountPasswordForm)}
         >
           <CommonInputGroup
             id={'email'}

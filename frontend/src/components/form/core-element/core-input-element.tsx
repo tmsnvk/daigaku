@@ -96,7 +96,7 @@ export const CoreInputElement = <T extends FieldValues>({
   intent,
   className,
 }: CoreInputElementProps<T>): JSX.Element => {
-  const { register } = useFormContext();
+  const { register } = useFormContext<T>();
 
   return (
     <input

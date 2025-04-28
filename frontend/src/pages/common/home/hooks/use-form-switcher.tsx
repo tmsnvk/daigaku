@@ -29,31 +29,33 @@ interface FormSwitcher {
   readonly selectedFormComponent: JSX.Element | null;
 }
 
+const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
+
 /**
  * A helper method used by {@link useFormSwitcher} to retrieve the appropriate form component based on the provided
  * {@link FormType}.
  *
  * @param selectedFormType The current {@link FormType} that determines which component is rendered.
- * @param selectFormTypeHandler The method to change the rendered form component.
+ * @param selectFormType The method to change the rendered form component.
  * @param showModal The method to trigger a modal component attached to the currently active form component.
  * @return {JSX.Element} The form component corresponding to the selected {@link FormType}.
  */
 const getSelectedFormComponent = (
   selectedFormType: FormType,
-  selectFormTypeHandler: (formType: FormType) => void,
+  selectFormType: (formType: FormType) => void,
   showModal: () => void,
 ): JSX.Element | null => {
-  return match([selectedFormType])
-    .with([FormType.LOGIN], () => <LoginForm onFormSelect={selectFormTypeHandler} />)
-    .with([FormType.REGISTER_PENDING_ACCOUNT], () => (
+  return match(selectedFormType)
+    .with(FormType.LOGIN, () => <LoginForm onFormSelect={selectFormType} />)
+    .with(FormType.REGISTER_PENDING_ACCOUNT, () => (
       <RegisterPendingAccountForm
-        onFormSelect={selectFormTypeHandler}
+        onFormSelect={selectFormType}
         showModal={showModal}
       />
     ))
-    .with([FormType.RESET_ACCOUNT_PASSWORD], () => (
+    .with(FormType.RESET_ACCOUNT_PASSWORD, () => (
       <ResetAccountPasswordForm
-        onFormSelect={selectFormTypeHandler}
+        onFormSelect={selectFormType}
         showModal={showModal}
       />
     ))
@@ -71,15 +73,14 @@ const getSelectedFormComponent = (
  * @return {FormSwitcher}
  */
 export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
-  const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
   const [selectedFormType, setSelectedFormType] = useState<FormType>(DEFAULT_LOADED_FORM_TYPE);
 
-  const selectFormTypeHandler = (formType: FormType): void => {
+  const selectFormType = (formType: FormType): void => {
     setSelectedFormType(formType);
   };
 
   const selectedFormComponent = useMemo((): JSX.Element | null => {
-    return getSelectedFormComponent(selectedFormType, selectFormTypeHandler, showModal);
+    return getSelectedFormComponent(selectedFormType, selectFormType, showModal);
   }, [selectedFormType]);
 
   return {
