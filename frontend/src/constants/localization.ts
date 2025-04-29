@@ -4,8 +4,6 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-
 export const TranslationKey = {
   // layout - shared
   CONTACT_US: 'contactUs',
@@ -31,8 +29,32 @@ export const TranslationKey = {
   ALL_APPLICATIONS: 'allApplications',
   SYSTEM: 'system',
 
+  // layout - footer
+  INIT_YEAR: 'initYear',
+  FOOTER_CONTENT: 'footerContent',
+
   // loading texts
   DATA_COMPILATION: 'dataCompilation',
+
+  // acceptance
+  ACCEPTANCE_OK: 'acceptanceOk',
+
+  // errors
+  TRY_AGAIN: 'tryAgain',
+  QUERY_FETCH_ERROR: 'queryFetchError',
+  UNEXPECTED_ERROR: 'unexpectedError',
+  UNEXPECTED_SERVER_ERROR: 'unexpectedServerError',
+  UNEXPECTED_GLOBAL_ERROR: 'unexpectedGlobalError',
+
+  // application records
+  SUBMITTED_BY: 'submittedBy',
+  SUBMITTED_AT: 'submittedAt',
+  LAST_MODIFIED_BY: 'lastModifiedBy',
+  LAST_UPDATED_AT: 'lastUpdatedAt',
+
+  // components - buttons
+  REQUEST_DELETION: 'requestDeletion',
+  REQUEST_REVERSION: 'requestReversion',
 } as const;
 
 type TranslationKey = (typeof TranslationKey)[keyof typeof TranslationKey];
@@ -68,25 +90,50 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       allApplications: 'All Applications',
       system: 'System',
 
+      // layout - footer
+      initYear: '2024',
+      footerContent: '© built with vite/tanstack reactjs, spring boot, rabbitmq, redis, psql and ❤️',
+
       // loading texts
       dataCompilation: 'The application is compiling your data...',
+
+      // acceptance
+      acceptanceOk: 'Ok',
+
+      // errors
+      tryAgain: 'Try Again',
+      queryFetchError:
+        'Fetching the necessary data was unsuccessful. Click on the  button to try again or come back later.',
+      unexpectedError: 'The application has encountered an unexpected error. Refresh your browser and try again.',
+      unexpectedServerError: 'An unexpected server error happened.',
+      unexpectedGlobalError: 'An unexpected error happened.',
+
+      // application records
+      submittedBy: 'Submitted by:',
+      submittedAt: 'Submitted at:',
+      lastModifiedBy: 'Last modified by:',
+      lastUpdatedAt: 'Last updated at:',
+
+      // components - buttons
+      requestDeletion: 'Request deletion',
+      requestReversion: 'Revert request',
     },
   },
 ];
 
 export const localization = {
-  APPLICATION: {
-    METADATA: {
-      SUBMISSION: {
-        AT: 'Submitted at:',
-        BY: 'Submitted by:',
-      },
-      LAST_UPDATE: {
-        AT: 'Last updated at:',
-        BY: 'Last modified by:',
-      },
-    },
-  },
+  // APPLICATION: {
+  //   METADATA: {
+  //     SUBMISSION: {
+  //       AT: 'Submitted at:',
+  //       BY: 'Submitted by:',
+  //     },
+  //     LAST_UPDATE: {
+  //       AT: 'Last updated at:',
+  //       BY: 'Last modified by:',
+  //     },
+  //   },
+  // },
   LAYOUT: {
     // PUBLIC_LAYOUT: {
     //   ROUTES: {
@@ -152,10 +199,10 @@ export const localization = {
         // },
       },
     },
-    FOOTER: {
-      INIT_YEAR: 2024,
-      CONTENT: '© built with vite/tanstack reactjs, spring boot, rabbitmq, redis, psql and ❤️',
-    },
+    // FOOTER: {
+    //   INIT_YEAR: 2024,
+    //   CONTENT: '© built with vite/tanstack reactjs, spring boot, rabbitmq, redis, psql and ❤️',
+    // },
   },
   PAGES: {
     COMMON: {
@@ -239,10 +286,10 @@ export const localization = {
             },
           },
         },
-        REMOVABLE_BUTTON: {
-          DELETION_REQUEST: 'Request deletion',
-          REVERT_REQUEST: 'Revert request',
-        },
+        // REMOVABLE_BUTTON: {
+        //   DELETION_REQUEST: 'Request deletion',
+        //   REVERT_REQUEST: 'Revert request',
+        // },
       },
       APPLICATION_VIEW: {
         PAGE_LOADING: 'The application is compiling your data...',
@@ -549,18 +596,18 @@ export const localization = {
         DEFAULT_OPTION: 'Select the university of your choice.',
       },
     },
-    NOTIFICATION: {
-      ERROR_FETCH:
-        'Fetching the necessary data was unsuccessful. Click on the  button to try again or come back later.',
-      MODAL: {
-        CONFIRMATION: {
-          ACCEPTANCE: 'ok',
-        },
-        ERROR: {
-          MESSAGE: ['The application has encountered an unexpected error.', 'Refresh your browser and try again.'],
-          ACCEPTANCE: 'ok',
-        },
-      },
-    },
+    // NOTIFICATION: {
+    //   // ERROR_FETCH:
+    //   //   'Fetching the necessary data was unsuccessful. Click on the  button to try again or come back later.',
+    //   MODAL: {
+    //     // CONFIRMATION: {
+    //     //   ACCEPTANCE: 'ok',
+    //     // },
+    //     ERROR: {
+    //       MESSAGE: ['The application has encountered an unexpected error.', 'Refresh your browser and try again.'],
+    //       ACCEPTANCE: 'ok',
+    //     },
+    //   },
+    // },
   },
 };

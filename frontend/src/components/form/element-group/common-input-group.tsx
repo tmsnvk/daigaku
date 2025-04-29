@@ -6,7 +6,9 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { FieldValues } from 'react-hook-form'; /* component imports */
+import { FieldValues } from 'react-hook-form';
+
+/* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreInputElement } from '../core-element/core-input-element.tsx';
 

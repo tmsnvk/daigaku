@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useRenderModal } from '@daigaku/hooks';
@@ -14,7 +15,6 @@ import { useRenderModal } from '@daigaku/hooks';
 import { CoreModalClosingInputElement } from '../form';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /**
@@ -44,6 +44,8 @@ interface ConfirmationModalProps {
  * @return {JSX.Element}
  */
 export const ConfirmationModal = ({ isVisible, onCloseModal, message }: ConfirmationModalProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const { dialogRef } = useRenderModal(isVisible);
 
   return (
@@ -54,7 +56,7 @@ export const ConfirmationModal = ({ isVisible, onCloseModal, message }: Confirma
       <p className={joinTw('pb-10', 'text-xl')}>{message}</p>
       <CoreModalClosingInputElement
         onClick={onCloseModal}
-        value={l.COMPONENTS.NOTIFICATION.MODAL.CONFIRMATION.ACCEPTANCE}
+        value={t('acceptanceOk')}
       />
     </dialog>
   );

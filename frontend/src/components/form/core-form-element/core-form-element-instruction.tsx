@@ -41,12 +41,12 @@ export const CoreFormElementInstruction = ({ paragraphs, className }: CoreFormEl
         className,
       )}
     >
-      {paragraphs.map((paragraph: string, index: number) => (
+      {paragraphs.map((p: string, idx: number) => (
         <p
-          key={index}
+          key={idx}
           className={joinTw('mb-1', 'text-xl', 'last-of-type:mb-0')}
         >
-          {paragraph}
+          {p}
         </p>
       ))}
     </article>

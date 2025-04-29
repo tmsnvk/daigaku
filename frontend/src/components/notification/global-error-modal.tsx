@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useRenderModal } from '@daigaku/hooks';
@@ -14,7 +15,6 @@ import { useRenderModal } from '@daigaku/hooks';
 import { CoreModalClosingInputElement } from '../form';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /**
@@ -44,6 +44,8 @@ interface GlobalErrorModalProps {
  * @return {JSX.Element}
  */
 export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: GlobalErrorModalProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const { dialogRef } = useRenderModal(isVisible);
 
   return (
@@ -51,11 +53,10 @@ export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: GlobalE
       ref={dialogRef}
       className={joinTw('flex flex-col', 'w-5/10', 'bg-primary')}
     >
-      <p className={joinTw('mx-6 my-10')}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[0]}</p>
+      <p className={joinTw('mx-6 my-10')}>{t('unexpectedError')}</p>
       {errorText && <p>{errorText}</p>}
-      <p className={joinTw('mx-6 my-10')}>{l.COMPONENTS.NOTIFICATION.MODAL.ERROR.MESSAGE[1]}</p>
       <CoreModalClosingInputElement
-        value={l.COMPONENTS.NOTIFICATION.MODAL.ERROR.ACCEPTANCE}
+        value={t('acceptanceOk')}
         onClick={onCloseModal}
       />
     </dialog>

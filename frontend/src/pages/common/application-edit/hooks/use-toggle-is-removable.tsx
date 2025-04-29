@@ -25,7 +25,7 @@ import { ApplicationRecord } from '@daigaku/common-types';
 interface HandleToggleIsRemovable {
   readonly shouldBeRemoved: boolean;
   readonly errorMessage: string;
-  readonly isPending: boolean;
+  readonly isSubmitting: boolean;
   readonly isError: boolean;
   mutate: UseMutateFunction<void, Error, void, unknown>;
 }
@@ -71,7 +71,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
   return {
     shouldBeRemoved,
     errorMessage,
-    isPending: mutation.isPending,
+    isSubmitting: mutation.isPending,
     isError: mutation.isError,
     mutate: mutation.mutate,
   };
