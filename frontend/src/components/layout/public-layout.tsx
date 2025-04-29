@@ -7,32 +7,19 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 /* component imports */
 import { Footer } from './footer.tsx';
-import { NavigationRoute } from './navigation-route.tsx';
 import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
+import { NavigationRoute } from './navigation-route.tsx';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { NavigationRouteItem } from '@daigaku/common-types';
-
-const navigationRoutes: NavigationRouteItem[] = [
-  {
-    targetUrlString: '/',
-    icon: iconLibraryConfig.faGraduationCap,
-    label: 'Daigaku',
-  },
-  {
-    targetUrlString: '/contact',
-    icon: iconLibraryConfig.faPaperPlane,
-    label: l.LAYOUT.PUBLIC_LAYOUT.ROUTES.CONTACT_US.LABEL,
-  },
-];
 
 /**
  * Renders navigation routes for unauthorised users.
@@ -40,19 +27,34 @@ const navigationRoutes: NavigationRouteItem[] = [
  * @return {JSX.Element}
  */
 export const PublicLayout = (): JSX.Element => {
+  const { t } = useTranslation();
+
+  const navigationRoutes: NavigationRouteItem[] = [
+    {
+      targetUrlString: '/',
+      icon: iconLibraryConfig.faGraduationCap,
+      label: 'Daigaku',
+    },
+    {
+      targetUrlString: '/contact',
+      icon: iconLibraryConfig.faPaperPlane,
+      label: t('contactUs'),
+    },
+  ];
+
   return (
     <>
       <NavigationBarWrapper>
         <ul className={joinTw('flex justify-between', 'w-[90%]')}>
-          {navigationRoutes.map((route) => (
+          {navigationRoutes.map((r: NavigationRouteItem) => (
             <li
-              key={route.targetUrlString}
+              key={r.targetUrlString}
               className={joinTw('my-4 md:mx-4')}
             >
               <NavigationRoute
-                targetUrlString={route.targetUrlString}
-                icon={route.icon}
-                label={route.label}
+                targetUrlString={r.targetUrlString}
+                icon={r.icon}
+                label={r.label}
               />
             </li>
           ))}

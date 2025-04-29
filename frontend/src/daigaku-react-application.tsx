@@ -14,6 +14,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 
 /* logic imports */
 import { AuthProvider } from '@daigaku/context';
+import { TranslationProvider } from '@daigaku/providers';
 
 /* component imports */
 import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';
@@ -80,7 +81,9 @@ export const DaigakuReactApplication = (): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <TranslationProvider>
+          <RouterProvider router={router} />
+        </TranslationProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

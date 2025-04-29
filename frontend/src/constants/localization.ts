@@ -4,6 +4,83 @@
  * @author tmsnvk
  */
 
+/* vendor imports */
+import i18n from 'i18next';
+
+export const TranslationKey = {
+  // layout - shared
+  CONTACT_US: 'contactUs',
+  DASHBOARD: 'dashboard',
+  LOG_OUT: 'logOut',
+  MY_ACCOUNT: 'myAccount',
+  MESSAGES: 'messages',
+  FEEDBACK: 'feedback',
+
+  // layout - student
+  NEW_APPLICATION: 'newApplication',
+  MY_APPLICATION: 'myApplications',
+
+  // layout - mentor
+  MY_STUDENTS: 'myStudents',
+  MY_STUDENT_APPLICATIONS: 'myStudentsApplications',
+
+  // layout - institution admin
+
+  // layout - system admin
+  ALL_STUDENTS: 'allStudents',
+  ALL_MENTORS: 'allMentors',
+  ALL_APPLICATIONS: 'allApplications',
+  SYSTEM: 'system',
+
+  // loading texts
+  DATA_COMPILATION: 'dataCompilation',
+} as const;
+
+export type TranslationKey = (typeof TranslationKey)[keyof typeof TranslationKey];
+export type TranslationValue = { [key in TranslationKey]: string };
+export type TranslationJson = { [language: string]: { translation: TranslationValue } };
+export type I18nResources = { [language: string]: TranslationValue };
+
+const languages = i18n.languages;
+
+export type TranslationLocale = (typeof languages)[number];
+export type TranslationEntry = Record<TranslationLocale, string>;
+
+export const translations: { name: string; code: string; value: TranslationValue }[] = [
+  {
+    name: 'English',
+    code: 'en',
+    value: {
+      // layout - shared
+      contactUs: 'Contact Us',
+      dashboard: 'Dashboard',
+      logOut: 'Log Out',
+      myAccount: 'My Account',
+      messages: 'Messages',
+      feedback: 'Feedback',
+
+      // layout - student
+      newApplication: 'New Application',
+      myApplications: 'My Applications',
+
+      // layout - mentor
+      myStudents: 'My Students',
+      myStudentsApplications: "My Students' Applications",
+
+      // layout - institution admin
+
+      // layout - system admin
+      allStudents: 'All Students',
+      allMentors: 'All Mentors',
+      allApplications: 'All Applications',
+      system: 'System',
+
+      // loading texts
+      dataCompilation: 'The application is compiling your data...',
+    },
+  },
+];
+
 export const localization = {
   APPLICATION: {
     METADATA: {
@@ -18,68 +95,68 @@ export const localization = {
     },
   },
   LAYOUT: {
-    PUBLIC_LAYOUT: {
-      ROUTES: {
-        CONTACT_US: {
-          LABEL: 'Contact us',
-        },
-      },
-    },
+    // PUBLIC_LAYOUT: {
+    //   ROUTES: {
+    //     CONTACT_US: {
+    //       LABEL: 'Contact us',
+    //     },
+    //   },
+    // },
     PRIVATE_LAYOUT: {
-      NOTIFICATIONS: {
-        LOADING_TEXT: 'The application is compiling your data...',
-      },
+      // NOTIFICATIONS: {
+      //   LOADING_TEXT: 'The application is compiling your data...',
+      // },
       ROUTES: {
-        SHARED: {
-          DASHBOARD: {
-            LABEL: 'Dashboard',
-          },
-          LOG_OUT: {
-            LABEL: 'Log Out',
-          },
-          MY_ACCOUNT: {
-            LABEL: 'My Account',
-          },
-          MESSAGES: {
-            LABEL: 'Messages',
-          },
-          FEEDBACK: {
-            LABEL: 'Feedback',
-          },
-        },
-        STUDENT: {
-          NEW_APPLICATION: {
-            LABEL: 'New Application',
-          },
-          MY_APPLICATIONS: {
-            LABEL: 'My Applications',
-          },
-        },
-        MENTOR: {
-          MY_STUDENTS: {
-            LABEL: 'My Students',
-          },
-          MY_STUDENT_APPLICATIONS: {
-            LABEL: 'My Student Applications',
-          },
-        },
-        INSTITUTION_ADMIN: {
-          // Placeholder for future constants.
-        },
-        SYSTEM_ADMIN: {
-          ALL_STUDENTS: {
-            LABEL: 'All Students',
-          },
-          ALL_MENTORS: {
-            LABEL: 'All Mentors',
-          },
-          ALL_APPLICATIONS: {
-            LABEL: 'All Applications',
-          },
-          SYSTEM: {
-            LABEL: 'System',
-          },
-        },
+        // SHARED: {
+        //   DASHBOARD: {
+        //     LABEL: 'Dashboard',
+        //   },
+        //   LOG_OUT: {
+        //     LABEL: 'Log Out',
+        //   },
+        //   MY_ACCOUNT: {
+        //     LABEL: 'My Account',
+        //   },
+        //   MESSAGES: {
+        //     LABEL: 'Messages',
+        //   },
+        //   FEEDBACK: {
+        //     LABEL: 'Feedback',
+        //   },
+        // },
+        // STUDENT: {
+        //   NEW_APPLICATION: {
+        //     LABEL: 'New Application',
+        //   },
+        //   MY_APPLICATIONS: {
+        //     LABEL: 'My Applications',
+        //   },
+        // },
+        // MENTOR: {
+        //   MY_STUDENTS: {
+        //     LABEL: 'My Students',
+        //   },
+        //   MY_STUDENT_APPLICATIONS: {
+        //     LABEL: 'My Student Applications',
+        //   },
+        // },
+        // INSTITUTION_ADMIN: {
+        //   // Placeholder for future constants.
+        // },
+        // SYSTEM_ADMIN: {
+        //   ALL_STUDENTS: {
+        //     LABEL: 'All Students',
+        //   },
+        //   ALL_MENTORS: {
+        //     LABEL: 'All Mentors',
+        //   },
+        //   ALL_APPLICATIONS: {
+        //     LABEL: 'All Applications',
+        //   },
+        //   SYSTEM: {
+        //     LABEL: 'System',
+        //   },
+        // },
       },
     },
     FOOTER: {
