@@ -5,7 +5,6 @@
  */
 
 /* vendor imports */
-import i18n from 'i18next';
 
 export const TranslationKey = {
   // layout - shared
@@ -36,17 +35,11 @@ export const TranslationKey = {
   DATA_COMPILATION: 'dataCompilation',
 } as const;
 
-export type TranslationKey = (typeof TranslationKey)[keyof typeof TranslationKey];
-export type TranslationValue = { [key in TranslationKey]: string };
-export type TranslationJson = { [language: string]: { translation: TranslationValue } };
-export type I18nResources = { [language: string]: TranslationValue };
+type TranslationKey = (typeof TranslationKey)[keyof typeof TranslationKey];
+type TranslationValue = { [key in TranslationKey]: string };
+type TranslationLocale = 'en';
 
-const languages = i18n.languages;
-
-export type TranslationLocale = (typeof languages)[number];
-export type TranslationEntry = Record<TranslationLocale, string>;
-
-export const translations: { name: string; code: string; value: TranslationValue }[] = [
+export const translations: { name: string; code: TranslationLocale; value: TranslationValue }[] = [
   {
     name: 'English',
     code: 'en',
