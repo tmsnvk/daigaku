@@ -7,6 +7,7 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useGetApplications, useModalToggle } from '@daigaku/hooks';
@@ -17,7 +18,6 @@ import { GlobalErrorModal, LoadingModal, Toast } from '@daigaku/components/notif
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
-import { errorConstants, localization as l } from '@daigaku/constants';
 import { isEmpty, joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
@@ -30,10 +30,15 @@ import { ApplicationRecord } from '@daigaku/common-types';
  * @return {JSX.Element}
  */
 export const Applications = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
-  const { data, isLoading, refetch, isRefetching, isError } = useGetApplications();
+
   const { columns, toggleColumnVisibility } = useColumnVisibility();
-  const { handleColumnSort } = useSortOrder(data as Array<ApplicationRecord>);
+
+  const { data: applications, isLoading, refetch, isRefetching, isError } = useGetApplications();
+  const { handleColumnSort } = useSortOrder(applications as Array<ApplicationRecord>);
+
   const { isModalVisible, toggleModal } = useModalToggle();
   const { isToastVisible, displayDownloadToast, handleAnimationEnd } = useDisplayDownloadToast();
 
@@ -41,7 +46,7 @@ export const Applications = (): JSX.Element => {
     return (
       <LoadingModal
         isVisible={isLoading || isRefetching}
-        status={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.LOADING}
+        status={t('dataCompilation')}
       />
     );
   }
@@ -50,7 +55,7 @@ export const Applications = (): JSX.Element => {
     return (
       <GlobalErrorModal
         isVisible={isError}
-        errorText={errorConstants.UNEXPECTED_GLOBAL_ERROR}
+        errorText={t('unexpectedGlobalError')}
         onCloseModal={() => {
           navigate('/');
         }}
@@ -66,7 +71,7 @@ export const Applications = (): JSX.Element => {
         <thead>
           <TableHeader
             columns={columns}
-            isDataEmpty={isEmpty(data)}
+            isDataEmpty={isEmpty(applications)}
             onColumnSort={handleColumnSort}
             onToggleModal={toggleModal}
             onRefetch={refetch}
@@ -75,10 +80,10 @@ export const Applications = (): JSX.Element => {
           />
         </thead>
         <tbody>
-          {data && (
+          {applications && (
             <DataRows
               columns={columns}
-              applications={data}
+              applications={applications}
             />
           )}
         </tbody>
@@ -93,7 +98,7 @@ export const Applications = (): JSX.Element => {
       )}
       <Toast
         isVisible={isToastVisible}
-        message={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.TOAST}
+        message={t('applicationPdfDownloadToast')}
         onAnimationEnd={handleAnimationEnd}
       />
     </main>

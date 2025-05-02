@@ -8,13 +8,13 @@
 import { UseMutateFunction, UseMutationResult, useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
-import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import { ApplicationRecord } from '@daigaku/common-types';
@@ -25,7 +25,7 @@ import { ApplicationRecord } from '@daigaku/common-types';
 interface HandleToggleIsRemovable {
   readonly shouldBeRemoved: boolean;
   readonly errorMessage: string;
-  readonly isPending: boolean;
+  readonly isSubmitting: boolean;
   readonly isError: boolean;
   mutate: UseMutateFunction<void, Error, void, unknown>;
 }
@@ -38,6 +38,8 @@ interface HandleToggleIsRemovable {
  * @return {SimpleQueryResult<HandleToggleIsRemovable>}
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
+  const { t } = useTranslation();
+
   const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -64,14 +66,14 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
       history.replaceState('', `/applications/view/${applicationUuid}`);
     },
     onError: () => {
-      setErrorMessage(errorConstants.UNEXPECTED_GLOBAL_ERROR);
+      setErrorMessage(t('unexpectedGlobalError'));
     },
   });
 
   return {
     shouldBeRemoved,
     errorMessage,
-    isPending: mutation.isPending,
+    isSubmitting: mutation.isPending,
     isError: mutation.isError,
     mutate: mutation.mutate,
   };

@@ -4,493 +4,415 @@
  * @author tmsnvk
  */
 
-export const localization = {
-  APPLICATION: {
-    METADATA: {
-      SUBMISSION: {
-        AT: 'Submitted at:',
-        BY: 'Submitted by:',
-      },
-      LAST_UPDATE: {
-        AT: 'Last updated at:',
-        BY: 'Last modified by:',
-      },
-    },
-  },
-  LAYOUT: {
-    PUBLIC_LAYOUT: {
-      ROUTES: {
-        CONTACT_US: {
-          LABEL: 'Contact us',
-        },
-      },
-    },
-    PRIVATE_LAYOUT: {
-      NOTIFICATIONS: {
-        LOADING_TEXT: 'The application is compiling your data...',
-      },
-      ROUTES: {
-        SHARED: {
-          DASHBOARD: {
-            LABEL: 'Dashboard',
-          },
-          LOG_OUT: {
-            LABEL: 'Log Out',
-          },
-          MY_ACCOUNT: {
-            LABEL: 'My Account',
-          },
-          MESSAGES: {
-            LABEL: 'Messages',
-          },
-          FEEDBACK: {
-            LABEL: 'Feedback',
-          },
-        },
-        STUDENT: {
-          NEW_APPLICATION: {
-            LABEL: 'New Application',
-          },
-          MY_APPLICATIONS: {
-            LABEL: 'My Applications',
-          },
-        },
-        MENTOR: {
-          MY_STUDENTS: {
-            LABEL: 'My Students',
-          },
-          MY_STUDENT_APPLICATIONS: {
-            LABEL: 'My Student Applications',
-          },
-        },
-        INSTITUTION_ADMIN: {
-          // Placeholder for future constants.
-        },
-        SYSTEM_ADMIN: {
-          ALL_STUDENTS: {
-            LABEL: 'All Students',
-          },
-          ALL_MENTORS: {
-            LABEL: 'All Mentors',
-          },
-          ALL_APPLICATIONS: {
-            LABEL: 'All Applications',
-          },
-          SYSTEM: {
-            LABEL: 'System',
-          },
-        },
-      },
-    },
-    FOOTER: {
-      INIT_YEAR: 2024,
-      CONTENT: '© built with vite/tanstack reactjs, spring boot, rabbitmq, redis, psql and ❤️',
-    },
-  },
-  PAGES: {
-    COMMON: {
-      APPLICATION_EDIT: {
-        NOTIFICATIONS: {
-          PAGE_LOADING: 'The application is compiling your data...',
-          APPLICATION_LOADING: 'Your application is being updated.',
-          APPLICATION_SUBMIT: 'update application',
-          ERRORS: {
-            FIRM_CHOICE_SELECTION: "Only one of your applications may be set to 'Firm  Choice' status.",
-            FINAL_DESTINATION_SELECTION:
-              "Only one of your applications may be set to 'Final Destination' or 'Final Destination (Deferred Entry)' status.",
-          },
-        },
-        FORM: {
-          TITLE: 'Update Application',
-          INFORMATION: [
-            'Review your application and update its fields once you have received decisions / information from the university.',
-            "You are not able to edit the course name, university and country fields as your application is considered final. If you have submitted this application by mistake with incorrect data, mark it for deletion and your mentor will review it. If you have changed your mind about the application, set its Application Status to 'Withdrawn'. This rule is in place for statistical reasons.",
-            "Let your mentor know if you have any questions with the application. If you have any issues with the site or form, reach out to our team using the 'Feedback' form.",
-          ],
-          SUBMISSION: 'Your application was successfully updated.',
-          FIELDS: {
-            COUNTRY: {
-              NAME: 'Country',
-              INFORMATION: ['The country of your choice.'],
-            },
-            UNIVERSITY: {
-              NAME: 'University',
-              INFORMATION: ['The university of your choice.'],
-            },
-            COURSE_NAME: {
-              NAME: 'Course Name',
-              INFORMATION: ['The course of your choice.'],
-            },
-            MINOR_SUBJECT: {
-              NAME: 'Minor Subject',
-              INFORMATION: ['The minor subject of your choice (if any).'],
-            },
-            PROGRAMME_LENGTH: {
-              NAME: 'Programme Length',
-              INFORMATION: ['The length (years) of your chosen course.'],
-            },
-            APPLICATION_STATUS: {
-              NAME: 'Application Status',
-              SELECT_PROMPT: "Update the application's current status.",
-              INFORMATION: [
-                `Update the application status to:
-                  (1) 'Submitted' once you have submitted it via the university's submission portal.
-                  (2) 'Withdrawn' if you have decided not to move forward with the application.`,
-              ],
-            },
-            INTERVIEW_STATUS: {
-              NAME: 'Interview Status',
-              SELECT_PROMPT: "Update the application's interview status.",
-              INFORMATION: [
-                'If this application process does not include an interview step, update the status accordingly.',
-                'If an interview is part of the application process, update the field whether you are invited.',
-              ],
-            },
-            OFFER_STATUS: {
-              NAME: 'Offer Status',
-              SELECT_PROMPT: "Update the university's decision.",
-              INFORMATION: ["Update the university's response once you have received the final decision."],
-            },
-            RESPONSE_STATUS: {
-              NAME: 'Response Status',
-              SELECT_PROMPT: 'Update your response status.',
-              INFORMATION: [
-                'Update the field according to your preferred ranking.',
-                'You may only have one Firm Choice as your number one target.',
-              ],
-            },
-            FINAL_DESTINATION_STATUS: {
-              NAME: 'Final Destination Status',
-              SELECT_PROMPT: 'Update your final decision regarding this application.',
-              INFORMATION: [
-                'Update this final status once you have every necessary information.',
-                "You may only have one Final Destination that is you accepted the university's offer. The rest of your applications should be set to 'Not Final Destination'.",
-              ],
-            },
-          },
-        },
-        REMOVABLE_BUTTON: {
-          DELETION_REQUEST: 'Request deletion',
-          REVERT_REQUEST: 'Revert request',
-        },
-      },
-      APPLICATION_VIEW: {
-        PAGE_LOADING: 'The application is compiling your data...',
-        EDIT_BUTTON: 'Edit',
-        FIELDS: {
-          COUNTRY: {
-            NAME: 'Country',
-          },
-          UNIVERSITY: {
-            NAME: 'University',
-          },
-          COURSE_NAME: {
-            NAME: 'Course Name',
-          },
-          MINOR_SUBJECT: {
-            NAME: 'Minor Subject',
-          },
-          PROGRAMME_LENGTH: {
-            NAME: 'Programme Length',
-          },
-          APPLICATION_STATUS: {
-            NAME: 'Application Status',
-          },
-          INTERVIEW_STATUS: {
-            NAME: 'Interview Status',
-          },
-          OFFER_STATUS: {
-            NAME: 'Offer Status',
-          },
-          RESPONSE_STATUS: {
-            NAME: 'Response Status',
-          },
-          FINAL_DESTINATION_STATUS: {
-            NAME: 'Final Destination Status',
-          },
-        },
-        COMMENTS: {
-          PAGINATION: {
-            PREVIOUS: 'Previous',
-            NEXT: 'Next',
-            PAGE: 'Page',
-          },
-          LOADING: 'Fetching comments...',
-          ERROR:
-            "There was an unexpected error and it is currently not possible to display the application's comments. Refresh your browser and if the error persists try again at a later time.",
-          CREATE_COMMENT: {
-            SUBMIT_LOADING: 'Your comment is being submitted.',
-            SUBMIT_INPUT: 'Add comment',
-            FORM: {
-              CONTENT: {
-                LABEL: 'Write your comment',
-                PLACEHOLDER: 'Write a comment...',
-              },
-            },
-            VALIDATION: {
-              REQUIRED_COMMENT: 'Add your comment.',
-              PATTERN_COMMENT: 'Provide a minimum of 15 and a maximum of 1000 characters.',
-            },
-          },
-        },
-      },
-      APPLICATIONS: {
-        TABLE_HEADER: {
-          BUTTONS: {
-            REFRESH: 'Refresh',
-            DISPLAY: 'Display',
-            DOWNLOAD: 'Download',
-          },
-          LOADING: 'The application is compiling your data...',
-          DOWNLOAD: {
-            REQUEST: 'Handling your request...',
-            TOAST: 'Your request has been received. You will receive an email soon with the details.',
-          },
-        },
-        ROW_BUTTONS: {
-          EDIT: 'Edit',
-          VIEW: 'View',
-        },
-      },
-      DASHBOARD: {
-        PAGE_LOADING: 'The application is compiling your data...',
-        TILE: {
-          APPLICATIONS: 'Applications',
-          PLANNED_APPLICATIONS: 'Planned Applications',
-          SUBMITTED_APPLICATIONS: 'Submitted Applications',
-          WITHDRAWN_APPLICATIONS: 'Withdrawn Applications',
-          DISTINCT_COUNTRIES: 'Distinct Countries',
-          DISTINCT_UNIVERSITIES: 'Distinct Universities',
-          OFFERS: 'Offers',
-          FIRM_CHOICE: 'Firm Choice',
-          FINAL_DESTINATION: 'Final Destination',
-          NOT_YET_SELECTED: 'Not yet selected',
-        },
-        TODO_LIST: {
-          INTRODUCTION: [
-            'Review your to-do list below. Keep in mind that nothing is urgent on this list!',
-            'Certain items might only be fulfilled towards the end of your application period or school year.',
-            'What is important is that you update your applications when you made any progress. You are the one responsible for minding your deadlines.',
-            'Let your mentor know if you have any blocking issues, concerns or questions!',
-            'Your current to-do items:',
-          ],
-          NO_APPLICATIONS:
-            'You have not yet submitted any applications. If you have any blocking issues, get in touch with your mentor or school administrator.',
-          NO_SUBMITTED_APPLICATIONS:
-            "You currently have only 'Planned' applications. Make sure to submit your applications once your deadlines are closing in.",
-          NO_INTERVIEW_SET: 'You have not yet updated the interview status of any of your applications.',
-          NO_FIRM_CHOICE_SET: 'You have not yet indicated your firm choice.',
-          NO_OFFER_SET: 'You have not yet indicated whether you have received any offers.',
-          NO_FINAL_DESTINATION_SET: 'You have not yet indicated your final destination.',
-          EMPTY_TODO_LIST: 'You have no items on your to-do list.',
-        },
-      },
-      HOME: {
-        BUTTONS: {
-          LOGIN: 'Log in',
-          REGISTRATION: 'Create account',
-          RESET: 'Forgotten password?',
-        },
-        NOTIFICATIONS: {
-          REGISTRATION: 'Thank you for registering your account. You will soon receive an email with further details.',
-          RESET: 'Your password has been reset. You will soon receive an email with further instructions.',
-        },
-        LOGIN: {
-          MESSAGES: {
-            PAGE_LOADING: 'You are being logged in.',
-          },
-          FORM: {
-            HEADER: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',
-            EMAIL: {
-              PLACEHOLDER: 'Enter your email address',
-              LABEL: 'Email',
-              VALIDATION: {
-                REQUIRED: 'Providing your email address is required.',
-              },
-            },
-            PASSWORD: {
-              PLACEHOLDER: 'Enter your password',
-              LABEL: 'Password',
-              VALIDATION: {
-                REQUIRED: 'Providing your password is required.',
-              },
-            },
-            SUBMIT: 'Sign in',
-          },
-        },
-        PENDING_ACCOUNT_REGISTRATION: {
-          MESSAGES: {
-            PAGE_LOADING: 'The required data is being fetched...',
-            FORM_LOADING: 'Your registration is being submitted.',
-          },
-          FORM: {
-            HEADER: 'Register an account if you are not in our system yet.',
-            FIRST_NAME: {
-              LABEL: 'First Name',
-              PLACEHOLDER: 'Enter your first name(s)',
-              VALIDATION: {
-                REQUIRED: 'Providing your first name is required.',
-                PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
-              },
-            },
-            LAST_NAME: {
-              LABEL: 'Last Name',
-              PLACEHOLDER: 'Enter your last name(s)',
-              VALIDATION: {
-                REQUIRED: 'Providing your last name is required.',
-                PATTERN: 'Use only letters, spaces or hyphens. Provide a minimum of 2 and a maximum of 100 characters.',
-              },
-            },
-            EMAIL: {
-              LABEL: 'Email',
-              PLACEHOLDER: 'Enter your email address',
-              VALIDATION: {
-                REQUIRED: 'Providing your email address is required.',
-              },
-            },
-            ACCOUNT_ROLE: {
-              VALIDATION: {
-                REQUIRED: 'Selecting an account role is required.',
-              },
-            },
-            INSTITUTION: {
-              VALIDATION: {
-                REQUIRED: 'Selecting an institution is required.',
-              },
-            },
-            SUBMIT: 'Register',
-          },
-        },
-        PASSWORD_RESET: {
-          MESSAGES: {
-            FORM_LOADING: 'Your registration is being handled.',
-          },
-          FORM: {
-            HEADER:
-              'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.',
-            EMAIL: {
-              LABEL: 'Email',
-              PLACEHOLDER: 'Enter your email address',
-              VALIDATION: {
-                REQUIRED: 'Providing your email address is required.',
-              },
-            },
-          },
-          SUBMIT: 'Reset',
-        },
-      },
-    },
-    STUDENT: {
-      NEW_APPLICATION: {
-        MESSAGES: {
-          PAGE_LOADING: 'The application is fetching the necessary data for the form submission...',
-          FORM_SUBMIT_LOADING: 'Your application is being submitted.',
-          UNIVERSITY_LOADING: 'Fetching university list...',
-          SUCCESS_TOAST: 'Your submission was successful. Wishing you the best of luck with your application!',
-        },
-        FORM: {
-          TITLE: 'Submit New Application',
-          INFORMATION: [
-            'Fill in all mandatory fields before submitting the application.',
-            'Upon visiting the Applications page, you will find more fields to fill in for each of your submitted applications.',
-            'Make sure to come back in the following months and properly update their statuses.',
-            'Once you have submitted an application, you will not be able to change the country, university and course fields.',
-            'Submit an application only if you are committed to it.',
-            "If you do not find your selected country or university in the dropdown lists, reach out to an admin via the 'Feedback' form.",
-          ],
-          SUBMIT: 'Submit application',
-          COUNTRY: {
-            INFORMATION: [
-              'The first step of your application process is selecting the country of your choice.',
-              'You are not able to select your chosen university until you have selected its home country.',
-              'If you do not see the country of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
-            ],
-            VALIDATION: {
-              REQUIRED: 'Selecting a country is required.',
-            },
-          },
-          UNIVERSITY: {
-            INFORMATION: [
-              'Once you have selected a country, you will be able to pick any universities of that country from the dropdown options.',
-              'If you do not see the university of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
-            ],
-            VALIDATION: {
-              REQUIRED: 'Selecting a university is required.',
-            },
-          },
-          COURSE_NAME: {
-            LABEL: 'Course name',
-            PLACEHOLDER: 'Provide the course of your choice.',
-            INFORMATION: [
-              'Enter the full name of the course you plan to apply to.',
-              'For example, Cognitive Science or Economics and Business Administration.',
-            ],
-            VALIDATION: {
-              REQUIRED: 'Providing the name of your selected course is required.',
-              PATTERN: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
-            },
-          },
-          MINOR_SUBJECT: {
-            LABEL: 'Minor Subject',
-            PLACEHOLDER: 'Provide your minor course.',
-            INFORMATION: [
-              'Enter the full name of the minor course that accompanies your major course.',
-              'Leave the input box empty if you have no minor course.',
-            ],
-            VALIDATION: {
-              PATTERN:
-                'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
-            },
-          },
-          PROGRAMME_LENGTH: {
-            LABEL: 'Programme Length',
-            INFORMATION: [
-              'Enter the length of your selected course (years).',
-              'By default, the value is set to 3 years, update it only if it is different for you.',
-            ],
-            VALIDATION: {
-              REQUIRED: 'Providing the length of your selected course is required.',
-              PATTERN: 'You may enter numeric values only between 2 and 5.',
-            },
-          },
-        },
-      },
-    },
-    MENTOR: {},
-    INSTITUTION_ADMIN: {},
-    SYSTEM_ADMIN: {},
-  },
-  COMPONENTS: {
-    FORM: {
-      ACCOUNT_ROLE_DROPDOWN: {
-        LABEL: 'Account Type',
-        DEFAULT_OPTION: 'Select your account type.',
-      },
-      COUNTRY_DROPDOWN: {
-        LABEL: 'Country',
-        DEFAULT_OPTION: 'Select the country of your choice.',
-      },
-      INSTITUTION_DROPDOWN: {
-        LABEL: 'Institution',
-        DEFAULT_OPTION: 'Select the institution you currently attend.',
-      },
-      UNIVERSITY_DROPDOWN: {
-        LABEL: 'University',
-        DEFAULT_OPTION: 'Select the university of your choice.',
-      },
-    },
-    NOTIFICATION: {
-      ERROR_FETCH:
+export const TranslationKey = {
+  // layout - shared
+  CONTACT_US: 'contactUs',
+  DASHBOARD: 'dashboard',
+  LOG_OUT: 'logOut',
+  MY_ACCOUNT: 'myAccount',
+  MESSAGES: 'messages',
+  FEEDBACK: 'feedback',
+
+  // layout - student
+  NEW_APPLICATION: 'newApplication',
+  MY_APPLICATION: 'myApplications',
+
+  // layout - mentor
+  MY_STUDENTS: 'myStudents',
+  MY_STUDENT_APPLICATIONS: 'myStudentsApplications',
+
+  // layout - institution admin
+
+  // layout - system admin
+  ALL_STUDENTS: 'allStudents',
+  ALL_MENTORS: 'allMentors',
+  ALL_APPLICATIONS: 'allApplications',
+  SYSTEM: 'system',
+
+  // layout - footer
+  INIT_YEAR: 'initYear',
+  FOOTER_CONTENT: 'footerContent',
+
+  // loading texts
+  DATA_COMPILATION: 'dataCompilation',
+  DATA_FETCHING: 'dataFetching',
+  UNIVERSITY_DATA_FETCHING: 'universityDataFetching',
+  APPLICATION_UPDATED: 'applicationUpdated',
+  GENERIC_FORM_SUBMISSION: 'genericFormSubmission',
+  LOGIN_FORM_SUBMISSION: 'loginFormSubmission',
+  PENDING_ACCOUNT_REGISTRATION_FORM_SUBMISSION: 'pendingAccountRegistrationFormSubmission',
+  RESET_PASSWORD_FORM_SUBMISSION: 'resetPasswordFormSubmission',
+  CREATE_APPLICATION_RECORD_FORM_SUBMISSION: 'createApplicationRecordFormSubmission',
+  HANDLING_REQUEST: 'handlingRequest',
+
+  // notifications
+  PENDING_ACCOUNT_REGISTRATION_MODAL: 'pendingAccountRegistrationModal',
+  RESET_PASSWORD_MODAL: 'resetPasswordModal',
+  APPLICATIONS_PDF_DOWNLOAD_TOAST: 'applicationPdfDownloadToast',
+  CREATE_APPLICATION_RECORD_FORM_SUBMISSION_TOAST: 'createApplicationRecordFormSubmissionToast',
+
+  // acceptance
+  ACCEPTANCE_OK: 'acceptanceOk',
+
+  // errors
+  TRY_AGAIN: 'tryAgain',
+  QUERY_FETCH_ERROR: 'queryFetchError',
+  UNEXPECTED_ERROR: 'unexpectedError',
+  UNEXPECTED_SERVER_ERROR: 'unexpectedServerError',
+  UNEXPECTED_GLOBAL_ERROR: 'unexpectedGlobalError',
+
+  // application records
+  SUBMITTED_BY: 'submittedBy',
+  SUBMITTED_AT: 'submittedAt',
+  LAST_MODIFIED_BY: 'lastModifiedBy',
+  LAST_UPDATED_AT: 'lastUpdatedAt',
+
+  // components - buttons
+  REQUEST_DELETION: 'requestDeletion',
+  REQUEST_REVERSION: 'requestReversion',
+  VIEW: 'view',
+  EDIT: 'edit',
+  PAGINATION_PREVIOUS: 'previousPage',
+  PAGINATION_NEXT: 'nextPage',
+  PAGE: 'page',
+  REFRESH: 'refresh',
+  DISPLAY: 'display',
+  DOWNLOAD: 'download',
+  LOGIN: 'login',
+  PENDING_ACCOUNT_REGISTRATION: 'pendingAccountRegistration',
+  RESET_PASSWORD: 'resetPassword',
+  LOGIN_FORM_FORM_SUBMIT: 'loginFormSubmit',
+  PENDING_ACCOUNT_REGISTRATION_FORM_SUBMIT: 'pendingAccountRegistrationFormSubmit',
+  RESET_PASSWORD_FORM_SUBMIT: 'resetPasswordFormSubmit',
+  CREATE_COMMENT_FORM_SUBMIT: 'createCommentFormSubmit',
+  CREATE_APPLICATION_RECORD_FORM_SUBMIT: 'createApplicationRecordFormSubmit',
+  UPDATE_APPLICATION_RECORD_FORM_SUBMIT: 'updateApplicationRecordFormSubmit',
+
+  // components - forms
+  EMAIL_LABEL: 'emailLabel',
+  EMAIL_PLACEHOLDER: 'emailPlaceholder',
+  PASSWORD_LABEL: 'passwordLabel',
+  PASSWORD_PLACEHOLDER: 'passwordPlaceholder',
+  FIRST_NAME_LABEL: 'firstNameLabel',
+  FIRST_NAME_PLACEHOLDER: 'firstNamePlaceholder',
+  LAST_NAME_LABEL: 'lastNameLabel',
+  LAST_NAME_PLACEHOLDER: 'lastNamePlaceholder',
+  ACCOUNT_ROLE_LABEL: 'accountRoleLabel',
+  ACCOUNT_ROLE_PLACEHOLDER: 'accountRolePlaceholder',
+  INSTITUTION_LABEL: 'institutionLabel',
+  INSTITUTION_PLACEHOLDER: 'institutionPlaceholder',
+  COUNTRY_LABEL: 'countryLabel',
+  COUNTRY_LABEL_PLACEHOLDER: 'countryPlaceholder',
+  UNIVERSITY_LABEL: 'universityLabel',
+  UNIVERSITY_PLACEHOLDER: 'universityPlaceholder',
+  COURSE_NAME_LABEL: 'courseNameLabel',
+  COURSE_NAME_PLACEHOLDER: 'courseNamePlaceholder',
+  MINOR_SUBJECT_LABEL: 'minorSubjectLabel',
+  MINOR_SUBJECT_PLACEHOLDER: 'minorSubjectPlaceholder',
+  PROGRAMME_LENGTH_LABEL: 'programmeLengthLabel',
+  APPLICATION_STATUS_LABEL: 'applicationStatusLabel',
+  APPLICATION_STATUS_PLACEHOLDER: 'applicationStatusPlaceholder',
+  INTERVIEW_STATUS_LABEL: 'interviewStatusLabel',
+  INTERVIEW_STATUS_PLACEHOLDER: 'interviewStatusPlaceholder',
+  OFFER_STATUS_LABEL: 'offerStatusLabel',
+  OFFER_STATUS_PLACEHOLDER: 'offerStatusPlaceholder',
+  RESPONSE_STATUS_LABEL: 'responseStatusLabel',
+  RESPONSE_STATUS_PLACEHOLDER: 'responseStatusPlaceholder',
+  FINAL_DESTINATION_STATUS_LABEL: 'finalDestinationStatusLabel',
+  FINAL_DESTINATION_STATUS_PLACEHOLDER: 'finalDestinationStatusPlaceholder',
+  COMMENT_LABEL: 'commentLabel',
+  COMMENT_PLACEHOLDER: 'commentPlaceholder',
+
+  // components - form validation
+  FIRST_NAME_REQUIRED: 'firstNameRequired',
+  LAST_NAME_REQUIRED: 'lastNameRequired',
+  NAME_PATTERN: 'namePattern',
+  EMAIL_REQUIRED: 'emailRequired',
+  PASSWORD_REQUIRED: 'passwordRequired',
+  ACCOUNT_ROLE_REQUIRED: 'accountRoleRequired',
+  INSTITUTION_REQUIRED: 'institutionRequired',
+  COUNTRY_REQUIRED: 'countryRequired',
+  UNIVERSITY_REQUIRED: 'universityRequired',
+  COURSE_NAME_REQUIRED: 'courseNameRequired',
+  COURSE_NAME_PATTERN: 'courseNamePattern',
+  MINOR_SUBJECT_PATTERN: 'minorSubjectPattern',
+  PROGRAMME_LENGTH_REQUIRED: 'programmeLengthRequired',
+  PROGRAMME_LENGTH_PATTERN: 'programmeLengthPattern',
+  COMMENT_REQUIRED: 'commentRequired',
+  COMMENT_PATTERN: 'commentPattern',
+
+  // pages - unauthorized root
+  LOGIN_FORM_HEADER: 'loginFormHeader',
+  PENDING_ACCOUNT_REGISTER_FORM_HEADER: 'pendingAccountRegisterFormHeader',
+  RESET_PASSWORD_FORM_HEADER: 'resetPasswordFormHeader',
+
+  // pages - dashboard
+  TODO_LIST_INSTRUCTIONS: 'todoListInstructions',
+  CURRENT_TODO_ITEMS: 'currentTodoItems',
+  NO_APPLICATION_RECORDS_TODO: 'noApplicationRecordsTodo',
+  NO_SUBMITTED_APPLICATION_RECORDS_TODO: 'noSubmittedApplicationRecordsTodo',
+  NO_INTERVIEW_SET_TODO: 'noInterviewSetTodo',
+  NO_FIRM_CHOICE_SET_TODO: 'noFirmChoiceSetTodo',
+  NO_OFFER_SET_TODO: 'noOfferSetTodo',
+  NO_FINAL_DESTINATION_SET_TODO: 'noFinalDestinationSetTodo',
+  EMPTY_TODO_LIST: 'emptyTodoList',
+  APPLICATION_RECORDS_TILE: 'applicationRecordsTile',
+  PLANNED_APPLICATION_RECORDS_TILE: 'plannedApplicationRecordsTile',
+  SUBMITTED_APPLICATION_RECORDS_TILE: 'submittedApplicationRecordsTile',
+  WITHDRAWN_APPLICATIONS_RECORDS_TILE: 'withdrawnApplicationRecordsTile',
+  DISTINCT_COUNTRIES_TILE: 'distinctCountriesTile',
+  DISTINCT_UNIVERSITIES_TILE: 'distinctUniversitiesTile',
+  OFFERS_TILE: 'offersTile',
+  FIRM_CHOICE_TILE: 'firmChoiceTile',
+  FINAL_DESTINATION_TILE: 'finalDestinationTile',
+  NOT_YET_SELECTED_TILE: 'notYetSelectedTile',
+
+  // pages - create application record
+  NEW_APPLICATION_RECORD_FORM_TITLE: 'newApplicationRecordFormTitle',
+  NEW_APPLICATION_RECORD_FORM_INFORMATION: 'newApplicationRecordFormInformation',
+  COUNTRY_NEW_FIELD_INFORMATION: 'countryNewFieldInformation',
+  UNIVERSITY_NEW_FIELD_INFORMATION: 'universityNewFieldInformation',
+  COURSE_NAME_NEW_FIELD_INFORMATION: 'courseNameNewFieldInformation',
+  MINOR_SUBJECT_NEW_FIELD_INFORMATION: 'minorSubjectNewFieldInformation',
+  PROGRAMME_LENGTH_NEW_FIELD_INFORMATION: 'programmeLengthNewFieldInformation',
+
+  // pages - update application record
+  UPDATE_APPLICATION_RECORD_FORM_TITLE: 'updateApplicationRecordFormTitle',
+  UPDATE_APPLICATION_RECORD_FORM_INFORMATION: 'updateApplicationRecordFormInformation',
+  COUNTRY_UPDATE_FIELD_INFORMATION: 'countryUpdateFieldInformation',
+  UNIVERSITY_UPDATE_FIELD_INFORMATION: 'universityUpdateFieldInformation',
+  COURSE_NAME_UPDATE_FIELD_INFORMATION: 'courseNameUpdateFieldInformation',
+  MINOR_SUBJECT_UPDATE_FIELD_INFORMATION: 'minorSubjectUpdateFieldInformation',
+  PROGRAMME_LENGTH_UPDATE_FIELD_INFORMATION: 'programmeLengthUpdateFieldInformation',
+  APPLICATION_STATUS_UPDATE_FIELD_INFORMATION: 'applicationStatusUpdateFieldInformation',
+  INTERVIEW_STATUS_UPDATE_FIELD_INFORMATION: 'interviewStatusUpdateFieldInformation',
+  OFFER_STATUS_UPDATE_FIELD_INFORMATION: 'offerStatusUpdateFieldInformation',
+  RESPONSE_STATUS_UPDATE_FIELD_INFORMATION: 'responseStatusUpdateFieldInformation',
+  FINAL_DESTINATION_STATUS_UPDATE_FIELD_INFORMATION: 'finalDestinationStatusUpdateFieldInformation',
+
+} as const;
+
+type TranslationKey = (typeof TranslationKey)[keyof typeof TranslationKey];
+type TranslationValue = { [key in TranslationKey]: string };
+type TranslationLocale = 'en';
+
+export const translations: { name: string; code: TranslationLocale; value: TranslationValue }[] = [
+  {
+    name: 'English',
+    code: 'en',
+    value: {
+      // layout - shared
+      contactUs: 'Contact Us',
+      dashboard: 'Dashboard',
+      logOut: 'Log Out',
+      myAccount: 'My Account',
+      messages: 'Messages',
+      feedback: 'Feedback',
+
+      // layout - student
+      newApplication: 'New Application',
+      myApplications: 'My Applications',
+
+      // layout - mentor
+      myStudents: 'My Students',
+      myStudentsApplications: 'My Students\' Applications',
+
+      // layout - institution admin
+
+      // layout - system admin
+      allStudents: 'All Students',
+      allMentors: 'All Mentors',
+      allApplications: 'All Applications',
+      system: 'System',
+
+      // layout - footer
+      initYear: '2024',
+      footerContent: '© built with vite/tanstack react typescript, spring boot, rabbitmq, redis, psql and ❤️',
+
+      // loading texts
+      dataCompilation: 'The application is compiling your data...',
+      dataFetching: 'The required data is being fetched...',
+      universityDataFetching: 'Fetching university list...',
+      applicationUpdated: 'Your application was successfully updated.',
+      genericFormSubmission: 'Your data is being submitted.',
+      loginFormSubmission: 'You are being logged in.',
+      pendingAccountRegistrationFormSubmission: 'Your registration is being submitted.',
+      resetPasswordFormSubmission: 'Your reset request is being handled.',
+      createApplicationRecordFormSubmission: 'Your application is being submitted.',
+      handlingRequest: 'Handling your request...',
+
+      // notifications
+      pendingAccountRegistrationModal:
+        'Thank you for registering your account. You will soon receive an email with further details.',
+      resetPasswordModal: 'Your password has been reset. You will soon receive an email with further instructions.',
+      applicationPdfDownloadToast: 'Your request has been received. You will receive an email soon with the details.',
+      createApplicationRecordFormSubmissionToast: 'Your submission was successful. Wishing you the best of luck with your application!',
+
+      // acceptance
+      acceptanceOk: 'Ok',
+
+      // errors
+      tryAgain: 'Try Again',
+      queryFetchError:
         'Fetching the necessary data was unsuccessful. Click on the  button to try again or come back later.',
-      MODAL: {
-        CONFIRMATION: {
-          ACCEPTANCE: 'ok',
-        },
-        ERROR: {
-          MESSAGE: ['The application has encountered an unexpected error.', 'Refresh your browser and try again.'],
-          ACCEPTANCE: 'ok',
-        },
-      },
+      unexpectedError: 'The application has encountered an unexpected error. Refresh your browser and try again.',
+      unexpectedServerError: 'An unexpected server error happened.',
+      unexpectedGlobalError: 'An unexpected error happened.',
+
+      // application records
+      submittedBy: 'Submitted by:',
+      submittedAt: 'Submitted at:',
+      lastModifiedBy: 'Last modified by:',
+      lastUpdatedAt: 'Last updated at:',
+
+      // components - buttons
+      requestDeletion: 'Request deletion',
+      requestReversion: 'Revert request',
+      view: 'View',
+      edit: 'Edit',
+      previousPage: 'Previous',
+      nextPage: 'Next',
+      page: 'Page',
+      refresh: 'Refresh',
+      display: 'Display',
+      download: 'Download',
+      login: 'Log in',
+      pendingAccountRegistration: 'Create account',
+      resetPassword: 'Forgotten password?',
+      loginFormSubmit: 'Sign in',
+      pendingAccountRegistrationFormSubmit: 'Register',
+      resetPasswordFormSubmit: 'Reset',
+      createCommentFormSubmit: 'Add comment',
+      createApplicationRecordFormSubmit: 'Submit application',
+      updateApplicationRecordFormSubmit: 'Update application',
+
+      // components - forms
+      emailLabel: 'Email',
+      emailPlaceholder: 'Enter your email address',
+      passwordLabel: 'Password',
+      passwordPlaceholder: 'Enter your password',
+      firstNameLabel: 'First Name',
+      firstNamePlaceholder: 'Enter your first name(s)',
+      lastNameLabel: 'Last Name',
+      lastNamePlaceholder: 'Enter your last name(s)',
+      accountRoleLabel: 'Account Type',
+      accountRolePlaceholder: 'Select your account type.',
+      institutionLabel: 'Institution',
+      institutionPlaceholder: 'Select the institution you currently attend.',
+      countryLabel: 'Country',
+      countryPlaceholder: 'Select the country of your choice.',
+      universityLabel: 'University',
+      universityPlaceholder: 'Select the university of your choice.',
+      courseNameLabel: 'Course Name',
+      courseNamePlaceholder: 'Provide the course of your choice.',
+      minorSubjectLabel: 'Minor Subject',
+      minorSubjectPlaceholder: 'Provide your minor course.',
+      programmeLengthLabel: 'Programme Length',
+      applicationStatusLabel: 'Application Status',
+      applicationStatusPlaceholder: 'Update the application\'s current status.',
+      interviewStatusLabel: 'Interview Status',
+      interviewStatusPlaceholder: 'Update the application\'s interview status.',
+      offerStatusLabel: 'Offer Status',
+      offerStatusPlaceholder: 'Update the university\'s decision.',
+      responseStatusLabel: 'Response Status',
+      responseStatusPlaceholder: 'Update your response status.',
+      finalDestinationStatusLabel: 'Final Destination Status',
+      finalDestinationStatusPlaceholder: 'Update your final decision regarding this application.',
+      commentLabel: 'Comment',
+      commentPlaceholder: 'Write your comment here...',
+
+      // components - form validation
+      firstNameRequired: 'Providing your first name is required.',
+      lastNameRequired: 'Providing your last name is required.',
+      namePattern: 'Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 100 characters.',
+      emailRequired: 'Providing your email address is required.',
+      passwordRequired: 'Providing your password is required.',
+      accountRoleRequired: 'Selecting an account role is required.',
+      institutionRequired: 'Selecting an institution is required.',
+      countryRequired: 'Selecting a country is required.',
+      universityRequired: 'Selecting a university is required.',
+      courseNameRequired: 'Providing the name of your selected course is required.',
+      courseNamePattern: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
+      minorSubjectPattern: 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
+      programmeLengthRequired: 'Providing the length of your selected course is required.',
+      programmeLengthPattern: 'You may enter numeric values only between 2 and 5.',
+      commentRequired: 'Add your comment.',
+      commentPattern: 'Provide a minimum of 15 and a maximum of 1000 characters.',
+
+      // pages - unauthorized root
+      loginFormHeader: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',
+      pendingAccountRegisterFormHeader: 'Register an account if you are not in our system yet.',
+      resetPasswordFormHeader:
+        'Request a password reset if you have forgotten your password. Do not request a reset if your account is not yet activated.',
+
+      // pages - dashboard
+      todoListInstructions:
+        'Review your to-do list below. Keep in mind that nothing is urgent on this list! Certain items might only be fulfilled towards the end of your application period or school year. What is important is that you update your applications when you made any progress. You are the one responsible for minding your deadlines. Let your mentor know if you have any blocking issues, concerns or questions!',
+      currentTodoItems: 'Your current to-do items:',
+      noApplicationRecordsTodo:
+        'You have not yet submitted any applications. If you have any blocking issues, get in touch with your mentor or school administrator.',
+      noSubmittedApplicationRecordsTodo:
+        'You currently have only \'Planned\' applications. Make sure to submit your applications once your deadlines are closing in.',
+      noInterviewSetTodo: 'You have not yet updated the interview status of any of your applications.',
+      noFirmChoiceSetTodo: 'You have not yet indicated your firm choice.',
+      noOfferSetTodo: 'You have not yet indicated whether you have received any offers.',
+      noFinalDestinationSetTodo: 'You have not yet indicated your final destination.',
+      emptyTodoList: 'You have no items on your to-do list.',
+      applicationRecordsTile: 'Applications',
+      plannedApplicationRecordsTile: 'Planned Applications',
+      submittedApplicationRecordsTile: 'Submitted Applications',
+      withdrawnApplicationRecordsTile: 'Withdrawn Applications',
+      distinctCountriesTile: 'Distinct Countries',
+      distinctUniversitiesTile: 'Distinct Universities',
+      offersTile: 'Offers',
+      firmChoiceTile: 'Firm Choice',
+      finalDestinationTile: 'Final Destination',
+      notYetSelectedTile: 'Not yet selected',
+
+      // pages - create application record
+      newApplicationRecordFormTitle: 'Submit New Application',
+      newApplicationRecordFormInformation: 'Fill in all mandatory fields before submitting the application. Upon visiting the Applications page, you will find more fields to fill in for each of your submitted applications. Make sure to come back in the following months and properly update their statuses. Once you have submitted an application, you will not be able to change the country, university and course fields. Submit an application only if you are committed to it. If you do not find your selected country or university in the dropdown lists, reach out to an admin via the \'Feedback\' form.',
+      countryNewFieldInformation: 'The first step of your application process is selecting the country of your choice. You are not able to select your chosen university until you have selected its home country. If you do not see the country of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
+      universityNewFieldInformation: 'Once you have selected a country, you will be able to pick any universities of that country from the dropdown options. If you do not see the university of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
+      courseNameNewFieldInformation: 'Enter the full name of the course you plan to apply to.',
+      minorSubjectNewFieldInformation: 'Enter the full name of the minor course that accompanies your major course. Leave the input box empty if you have no minor course.',
+      programmeLengthNewFieldInformation: 'Enter the length of your selected course (years). By default, the value is set to 3 years, update it only if it is different for your selected course.',
+
+      // pages - update application record
+      updateApplicationRecordFormTitle: 'Update Application',
+      updateApplicationRecordFormInformation: 'Review your application and update its fields once you have received decisions from the university. You are not able to edit the course name, university and country fields as your application is considered final. If you have submitted this application by mistake with incorrect data, mark it for deletion and your mentor will review it. If you have changed your mind about the application, set its Application Status to \'Withdrawn\'. Let your mentor know if you have any questions with the application. If you have any issues with the site or form, reach out to our team using the \'Feedback\' form.',
+      countryUpdateFieldInformation: 'The country of your choice.',
+      universityUpdateFieldInformation: 'The university of your choice.',
+      courseNameUpdateFieldInformation: 'The course of your choice.',
+      minorSubjectUpdateFieldInformation: 'The minor subject of your choice (if any).',
+      programmeLengthUpdateFieldInformation: 'The length (years) of your chosen course.',
+      applicationStatusUpdateFieldInformation: 'Update the application status to either: (1) \'Submitted\' once you have submitted it via the university\'s submission portal; (2) \'Withdrawn\' if you have decided not to move forward with the application.',
+      interviewStatusUpdateFieldInformation: 'Update the status to reflect the current standing in the interview process.',
+      offerStatusUpdateFieldInformation: 'Update the university\'s response once you have received the final decision.',
+      responseStatusUpdateFieldInformation: 'Update the field according to your preferred ranking. You may only have one Firm Choice as your number one target.',
+      finalDestinationStatusUpdateFieldInformation: 'Update this final status once you have all the necessary information. There can only be one Final Destination, which is when you accept the university\'s offer. All other applications should be marked as \'Not Final Destination\'.',
     },
   },
-};
+];
+
+// export const localization = {
+//   PAGES: {
+//     COMMON: {
+//       APPLICATION_EDIT: {
+//         NOTIFICATIONS: {
+//           PAGE_LOADING: 'The application is compiling your data...',
+//           APPLICATION_LOADING: 'Your application is being updated.',
+//           APPLICATION_SUBMIT: 'update application',
+//
+//         },
+//       },
+//       STUDENT: {
+//         NEW_APPLICATION: {
+//           MESSAGES: {
+//             PAGE_LOADING: 'The application is fetching the necessary data for the form submission...',
+//             UNIVERSITY_LOADING: ,
+//           },
+//
+//     },
+//   },
+// };

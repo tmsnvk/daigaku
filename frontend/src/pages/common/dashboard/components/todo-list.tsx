@@ -20,12 +20,17 @@ interface TodoListProps {
   /**
    * The component's main text.
    */
-  readonly introduction: Array<string>;
+  readonly introduction: string;
+
+  /**
+   *
+   */
+  readonly currentTodoItemsTitle: string;
 
   /**
    * The todo list.
    */
-  readonly todos: Array<Todo>;
+  readonly currentTodoItems: Array<Todo>;
 }
 
 /**
@@ -34,7 +39,7 @@ interface TodoListProps {
  * @param {TodoListProps} props
  * @return {JSX.Element}
  */
-export const TodoList = ({ introduction, todos }: TodoListProps): JSX.Element => {
+export const TodoList = ({ introduction, currentTodoItemsTitle, currentTodoItems }: TodoListProps): JSX.Element => {
   return (
     <section
       className={joinTw(
@@ -45,26 +50,18 @@ export const TodoList = ({ introduction, todos }: TodoListProps): JSX.Element =>
         'text-xl',
       )}
     >
-      <ul>
-        {introduction.map((paragraph: string, index: number) => (
-          <li
-            key={index}
-            className={index === 0 ? 'mb-4 mt-8' : index === introduction.length - 1 ? 'mt-8' : 'mb-4'}
-          >
-            {paragraph}
-          </li>
-        ))}
-      </ul>
+      <p className={'mb-4 mt-8'}>{introduction}</p>
+      <p className={'mb-4'}>{currentTodoItemsTitle}</p>
       <ol className={joinTw('ml-20')}>
-        {todos.map((todo: Todo, index: number) => (
+        {currentTodoItems.map((item: Todo, index: number) => (
           <li
             key={index}
             className={joinTw(
               'list-[square]',
-              index === 0 ? 'mb-4 mt-8' : index === todos.length - 1 ? 'mb-8' : 'mb-4',
+              index === 0 ? 'mb-4 mt-8' : index === currentTodoItems.length - 1 ? 'mb-8' : 'mb-4',
             )}
           >
-            {todo}
+            {item}
           </li>
         ))}
       </ol>

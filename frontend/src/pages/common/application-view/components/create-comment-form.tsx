@@ -8,6 +8,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 /* logic imports */
@@ -17,7 +18,7 @@ import { useSubmitComment } from '../hooks';
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
+import { TranslationKey } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -29,9 +30,9 @@ import {
 const formValidationSchema = z.object({
   comment: z
     .string()
-    .nonempty({ message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.REQUIRED_COMMENT })
+    .nonempty({ message: TranslationKey.COMMENT_REQUIRED })
     .regex(/^(.|\s){15,1000}$/, {
-      message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.VALIDATION.PATTERN_COMMENT,
+      message: TranslationKey.COMMENT_REQUIRED,
     }),
 });
 
@@ -61,15 +62,15 @@ const DEFAULT_COL_SIZE = 10;
  * @return {JSX.Element}
  */
 export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: initialFormValues,
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-
   const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);
-
   const submitCreateCommentForm = (formData: FormInputValues): void => {
     createComment(formData as CreateCommentPayload);
   };
@@ -85,15 +86,15 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           isDisabled={isSubmitting}
           rows={DEFAULT_ROW_SIZE}
           cols={DEFAULT_COL_SIZE}
-          label={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.LABEL}
-          placeholder={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.FORM.CONTENT.PLACEHOLDER}
+          label={t('commentLabel')}
+          placeholder={t('commentPlaceholder')}
           intent={CoreTextareaElementStyleIntent.LIGHT}
         />
         <CoreFormAction
           isSubmissionPending={isSubmitting}
           formActionConfig={{
-            message: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_LOADING,
-            value: l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.CREATE_COMMENT.SUBMIT_INPUT,
+            message: t('genericFormSubmission'),
+            value: t('createCommentFormSubmit'),
           }}
           intent={CoreSubmitInputElementStyleIntent.DARK}
         />

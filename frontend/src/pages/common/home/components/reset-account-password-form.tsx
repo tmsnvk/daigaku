@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useResetFormMutation } from '../hooks';
@@ -18,7 +19,7 @@ import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } fro
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
+import { TranslationKey } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
@@ -30,7 +31,7 @@ import {
 import { FormType } from '../models';
 
 const formValidationSchema = z.object({
-  email: z.string().email({ message: l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.VALIDATION.REQUIRED }),
+  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
 });
 
 type FormInputValues = z.infer<typeof formValidationSchema>;
@@ -65,23 +66,23 @@ interface ResetAccountPasswordFormProps {
  * @return {JSX.Element}
  */
 export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccountPasswordFormProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: initialFormValues,
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetFormMutation(setError, showModal);
-
-  const submitResetAccountPasswordForm = (formData: FormInputValues) => {
+  const submitResetAccountPasswordForm = (formData: FormInputValues): void => {
     resetAccountPassword(formData as AccountResetPayload);
   };
 
   return (
     <>
       <CoreFormHeader
-        title={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.HEADER}
+        title={t('resetPasswordFormHeader')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
@@ -93,15 +94,15 @@ export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccou
             id={'email'}
             type={'email'}
             isDisabled={isSubmitting}
-            label={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.LABEL}
-            placeholder={l.PAGES.COMMON.HOME.PASSWORD_RESET.FORM.EMAIL.PLACEHOLDER}
+            label={t('emailLabel')}
+            placeholder={t('emailPlaceholder')}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: l.PAGES.COMMON.HOME.PASSWORD_RESET.MESSAGES.FORM_LOADING,
-              value: l.PAGES.COMMON.HOME.PASSWORD_RESET.SUBMIT,
+              message: t('resetPasswordFormSubmission'),
+              value: t('resetPasswordFormSubmit'),
             }}
             intent={CoreSubmitInputElementStyleIntent.DARK}
           />

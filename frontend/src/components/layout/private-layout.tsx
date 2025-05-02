@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
@@ -21,85 +22,10 @@ import { NavigationRoute } from './navigation-route.tsx';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { NavigationRouteItem, UserLoginState, UserRole } from '@daigaku/common-types';
-
-/**
- * Defines shared navigation routes accessible to all authenticated users.
- */
-export const sharedNavigationRoutes: Array<NavigationRouteItem> = [
-  {
-    targetUrlString: '/account',
-    icon: iconLibraryConfig.faUser,
-    label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.MY_ACCOUNT.LABEL,
-  },
-  {
-    targetUrlString: '/messages',
-    icon: iconLibraryConfig.faEnvelope,
-    label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.MESSAGES.LABEL,
-  },
-  {
-    targetUrlString: '/feedback',
-    icon: iconLibraryConfig.faGears,
-    label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.FEEDBACK.LABEL,
-  },
-];
-
-/**
- * Defines navigation routes based on the authorisation role.
- */
-export const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
-  [UserRole.ROLE_STUDENT]: [
-    {
-      targetUrlString: '/new-application',
-      icon: iconLibraryConfig.faFileCirclePlus,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.STUDENT.NEW_APPLICATION.LABEL,
-    },
-    {
-      targetUrlString: '/applications',
-      icon: iconLibraryConfig.faScroll,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.STUDENT.MY_APPLICATIONS.LABEL,
-    },
-  ],
-  [UserRole.ROLE_MENTOR]: [
-    {
-      targetUrlString: '/my-students',
-      icon: iconLibraryConfig.faUserGroup,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.MENTOR.MY_STUDENTS.LABEL,
-    },
-    {
-      targetUrlString: '/applications',
-      icon: iconLibraryConfig.faScroll,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.MENTOR.MY_STUDENT_APPLICATIONS.LABEL,
-    },
-  ],
-  [UserRole.ROLE_INSTITUTION_ADMIN]: [],
-  [UserRole.ROLE_SYSTEM_ADMIN]: [
-    {
-      targetUrlString: '/all-students',
-      icon: iconLibraryConfig.faUserGroup,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.ALL_STUDENTS.LABEL,
-    },
-    {
-      targetUrlString: '/all-mentors',
-      icon: iconLibraryConfig.faUserGroup,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.ALL_MENTORS.LABEL,
-    },
-    {
-      targetUrlString: '/applications',
-      icon: iconLibraryConfig.faScroll,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.ALL_APPLICATIONS.LABEL,
-    },
-    {
-      targetUrlString: '/system',
-      icon: iconLibraryConfig.faGears,
-      label: l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SYSTEM_ADMIN.SYSTEM.LABEL,
-    },
-  ],
-};
 
 /**
  * Defines the component's properties.
@@ -112,6 +38,10 @@ interface PrivateLayoutProps {
 }
 
 /**
+ * Defines shared navigation routes accessible to all authenticated users.
+ */
+
+/**
  * Renders navigation links for authorised users. Users with different authorisation level might see different
  * navigation links. Unauthorised users are redirected to the root page.
  *
@@ -121,7 +51,10 @@ interface PrivateLayoutProps {
 export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const { authStatus, account, logOut } = useAuthContext();
+
   const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur } = useSmallScreenNavbarDisplay();
   const isMobileView = useMobileView();
 
@@ -141,37 +74,105 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
     return (
       <LoadingModal
         isVisible={true}
-        status={l.LAYOUT.PRIVATE_LAYOUT.NOTIFICATIONS.LOADING_TEXT}
+        status={t('dataCompilation')}
       />
     );
   }
 
+  const sharedNavigationRoutes: Array<NavigationRouteItem> = [
+    {
+      targetUrlString: '/account',
+      icon: iconLibraryConfig.faUser,
+      label: t('myAccount'),
+    },
+    {
+      targetUrlString: '/messages',
+      icon: iconLibraryConfig.faEnvelope,
+      label: t('messages'),
+    },
+    {
+      targetUrlString: '/feedback',
+      icon: iconLibraryConfig.faGears,
+      label: t('feedback'),
+    },
+  ];
+
+  const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
+    [UserRole.ROLE_STUDENT]: [
+      {
+        targetUrlString: '/new-application',
+        icon: iconLibraryConfig.faFileCirclePlus,
+        label: t('newApplication'),
+      },
+      {
+        targetUrlString: '/applications',
+        icon: iconLibraryConfig.faScroll,
+        label: t('myApplications'),
+      },
+    ],
+    [UserRole.ROLE_MENTOR]: [
+      {
+        targetUrlString: '/my-students',
+        icon: iconLibraryConfig.faUserGroup,
+        label: t('myStudents'),
+      },
+      {
+        targetUrlString: '/applications',
+        icon: iconLibraryConfig.faScroll,
+        label: t('myStudentsApplications'),
+      },
+    ],
+    [UserRole.ROLE_INSTITUTION_ADMIN]: [],
+    [UserRole.ROLE_SYSTEM_ADMIN]: [
+      {
+        targetUrlString: '/all-students',
+        icon: iconLibraryConfig.faUserGroup,
+        label: t('allStudents'),
+      },
+      {
+        targetUrlString: '/all-mentors',
+        icon: iconLibraryConfig.faUserGroup,
+        label: t('allMentors'),
+      },
+      {
+        targetUrlString: '/applications',
+        icon: iconLibraryConfig.faScroll,
+        label: t('allApplications'),
+      },
+      {
+        targetUrlString: '/system',
+        icon: iconLibraryConfig.faGears,
+        label: t('system'),
+      },
+    ],
+  };
+
   const routes = (
     <div>
       <ul className={joinTw('lg:flex lg:items-center lg:gap-x-8')}>
-        {accountRoleNavigationRoutes[account.role as UserRole].map((route: NavigationRouteItem) => (
+        {accountRoleNavigationRoutes[account.role as UserRole].map((r: NavigationRouteItem) => (
           <li
-            key={route.targetUrlString}
+            key={r.targetUrlString}
             className={joinTw('my-4')}
           >
             <NavigationRoute
-              targetUrlString={route.targetUrlString}
-              icon={route.icon}
-              label={route.label}
+              targetUrlString={r.targetUrlString}
+              icon={r.icon}
+              label={r.label}
             />
           </li>
         ))}
       </ul>
       <ul className={joinTw('justify-end lg:flex lg:items-center lg:gap-x-8')}>
-        {sharedNavigationRoutes.map((route: NavigationRouteItem) => (
+        {sharedNavigationRoutes.map((r: NavigationRouteItem) => (
           <li
-            key={route.targetUrlString}
+            key={r.targetUrlString}
             className={joinTw('my-4')}
           >
             <NavigationRoute
-              targetUrlString={route.targetUrlString}
-              icon={route.icon}
-              label={route.label}
+              targetUrlString={r.targetUrlString}
+              icon={r.icon}
+              label={r.label}
             />
           </li>
         ))}
@@ -179,7 +180,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
           <NavigationRoute
             targetUrlString={'/'}
             icon={iconLibraryConfig.faRightFromBracket}
-            label={l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.LOG_OUT.LABEL}
+            label={t('logOut')}
             onNavigateClick={() => logOut()}
           />
         </li>
@@ -194,7 +195,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
           <NavigationRoute
             targetUrlString={'/dashboard'}
             icon={iconLibraryConfig.faGraduationCap}
-            label={l.LAYOUT.PRIVATE_LAYOUT.ROUTES.SHARED.DASHBOARD.LABEL}
+            label={t('dashboard')}
           />
         </div>
         {isMobileView ? (

@@ -17,7 +17,7 @@ interface CoreFormElementInstructionProps {
   /**
    * An array of strings representing the instruction paragraphs to be displayed.
    */
-  readonly paragraphs: Array<string>;
+  readonly paragraph: string;
 
   /**
    * Optional style settings.
@@ -26,12 +26,12 @@ interface CoreFormElementInstructionProps {
 }
 
 /**
- * Renders a list of instruction paragraphs for a given input form element.
+ * Renders an instruction paragraph for a given input form element.
  *
  * @param {CoreFormElementInstructionProps} props
  * @return {JSX.Element}
  */
-export const CoreFormElementInstruction = ({ paragraphs, className }: CoreFormElementInstructionProps): JSX.Element => {
+export const CoreFormElementInstruction = ({ paragraph, className }: CoreFormElementInstructionProps): JSX.Element => {
   return (
     <article
       className={joinTw(
@@ -41,14 +41,7 @@ export const CoreFormElementInstruction = ({ paragraphs, className }: CoreFormEl
         className,
       )}
     >
-      {paragraphs.map((paragraph: string, index: number) => (
-        <p
-          key={index}
-          className={joinTw('mb-1', 'text-xl', 'last-of-type:mb-0')}
-        >
-          {paragraph}
-        </p>
-      ))}
+      <p className={joinTw('mb-1', 'text-xl', 'last-of-type:mb-0')}>{paragraph}</p>
     </article>
   );
 };

@@ -8,6 +8,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 /* logic imports */
@@ -24,9 +25,9 @@ import {
   CoreFormWrapper,
 } from '@daigaku/components/form';
 import { Toast } from '@daigaku/components/notification';
+import { TranslationKey } from '@daigaku/constants';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
@@ -40,23 +41,20 @@ import {
 } from '@daigaku/common-types';
 
 const formValidationSchema = z.object({
-  countryUuid: z.string().uuid({ message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.VALIDATION.REQUIRED }),
-  universityUuid: z.string().uuid({ message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.VALIDATION.REQUIRED }),
+  countryUuid: z.string().uuid({ message: TranslationKey.COUNTRY_REQUIRED }),
+  universityUuid: z.string().uuid({ message: TranslationKey.UNIVERSITY_REQUIRED }),
   courseName: z
     .string()
     .trim()
-    .nonempty({ message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.REQUIRED })
+    .nonempty({ message: TranslationKey.COURSE_NAME_REQUIRED })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.PATTERN,
+      message: TranslationKey.COURSE_NAME_REQUIRED,
     }),
-  minorSubject: z
-    .string()
-    .trim()
-    .max(255, { message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.VALIDATION.PATTERN }),
+  minorSubject: z.string().trim().max(255, { message: TranslationKey.MINOR_SUBJECT_PATTERN }),
   programmeLength: z
-    .number({ required_error: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.REQUIRED })
-    .min(1, { message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.PATTERN })
-    .max(5, { message: l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.VALIDATION.PATTERN }),
+    .number({ required_error: TranslationKey.PROGRAMME_LENGTH_REQUIRED })
+    .min(1, { message: TranslationKey.PROGRAMME_LENGTH_PATTERN })
+    .max(5, { message: TranslationKey.PROGRAMME_LENGTH_PATTERN }),
 });
 
 type FormInputValues = z.infer<typeof formValidationSchema>;
@@ -77,6 +75,8 @@ const initialFormValues: FormInputValues = {
  * @return {JSX.Element}
  */
 export const CreateApplicationRecordForm = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const { handleCountrySelection, resetCountrySelection, isCountrySelected, currentCountryUuid } =
     useCountrySelection();
 
@@ -100,7 +100,6 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError, reset } = methods;
-
   const {
     mutate: createApplicationRecord,
     isPending: isSubmitting,
@@ -145,12 +144,12 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             className={joinTw('core-application-grid')}
           >
             <CoreFormHeader
-              title={l.PAGES.STUDENT.NEW_APPLICATION.FORM.TITLE}
+              title={t('newApplicationRecordFormTitle')}
               intent={'largeWithUnderline'}
               className={joinTw('col-start-1 col-end-3')}
             />
             <CoreFormElementInstruction
-              paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.INFORMATION}
+              paragraph={t('newApplicationRecordFormInformation')}
               className={joinTw('col-start-1 col-end-3')}
             />
             <CommonSelectGroup
@@ -161,57 +160,59 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
               onRetry={onCountryRetry}
               onChangeHandler={handleCountrySelection}
               options={countryOptions}
-              label={l.COMPONENTS.FORM.COUNTRY_DROPDOWN.LABEL}
-              initialValue={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
+              label={t('countryLabel')}
+              initialValue={t('countryPlaceholder')}
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COUNTRY.INFORMATION} />
-            <CommonSelectGroup
-              id={'universityUuid'}
-              isLoading={isUniversityLoading}
-              isError={isUniversityError}
-              isDisabled={isSubmitting || !isCountrySelected}
-              onRetry={onUniversityRetry}
-              options={universityOptions}
-              label={l.COMPONENTS.FORM.UNIVERSITY_DROPDOWN.LABEL}
-              initialValue={l.COMPONENTS.FORM.UNIVERSITY_DROPDOWN.DEFAULT_OPTION}
-              intent={CoreSelectElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.UNIVERSITY.INFORMATION} />
+            <CoreFormElementInstruction paragraph={t('countryNewFieldInformation')} />
+            {isUniversityLoading ? (
+              <p>{t('universityDataFetching')}</p>
+            ) : (
+              <CommonSelectGroup
+                id={'universityUuid'}
+                isLoading={isUniversityLoading}
+                isError={isUniversityError}
+                isDisabled={isSubmitting || !isCountrySelected}
+                onRetry={onUniversityRetry}
+                options={universityOptions}
+                label={t('universityLabel')}
+                initialValue={t('universityPlaceholder')}
+                intent={CoreSelectElementStyleIntent.LIGHT}
+              />
+            )}
+            <CoreFormElementInstruction paragraph={t('universityNewFieldInformation')} />
             <CommonInputGroup
               id={'courseName'}
               type={'text'}
               isDisabled={isSubmitting}
-              label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.LABEL}
-              placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.PLACEHOLDER}
+              label={t('courseNameLabel')}
+              placeholder={t('courseNamePlaceholder')}
               intent={CoreInputElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.COURSE_NAME.INFORMATION} />
+            <CoreFormElementInstruction paragraph={t('courseNameNewFieldInformation')} />
             <CommonInputGroup
               id={'minorSubject'}
               type={'text'}
               isDisabled={isSubmitting}
-              label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.LABEL}
-              placeholder={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.PLACEHOLDER}
+              label={t('minorSubjectLabel')}
+              placeholder={t('minorSubjectPlaceholder')}
               intent={CoreInputElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.MINOR_SUBJECT.INFORMATION} />
+            <CoreFormElementInstruction paragraph={t('minorSubjectNewFieldInformation')} />
             <CommonInputGroup
               id={'programmeLength'}
-              label={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.LABEL}
+              label={t('programmeLengthLabel')}
               type={'number'}
               isDisabled={isSubmitting}
               intent={CoreInputElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.STUDENT.NEW_APPLICATION.FORM.PROGRAMME_LENGTH.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('programmeLengthNewFieldInformation')} />
             <CoreFormAction
               isSubmissionPending={isSubmitting}
               isDisabled={isSubmitDisabled}
               formActionConfig={{
-                message: l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING,
-                value: l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT,
+                message: t('createApplicationRecordFormSubmission'),
+                value: t('createApplicationRecordFormSubmit'),
               }}
               intent={CoreSubmitInputElementStyleIntent.DARK}
               className={joinTw('col-start-1 col-end-3')}
@@ -221,7 +222,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       </section>
       <Toast
         isVisible={isSubmissionSuccessful}
-        message={l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.SUCCESS_TOAST}
+        message={t('createApplicationRecordFormSubmissionToast')}
       />
     </>
   );

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
 import axios from 'axios';
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useRequestPdfDownload } from '../hooks';
@@ -20,7 +21,6 @@ import { GlobalErrorModal } from '@daigaku/components/notification';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
-import { errorConstants, localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
@@ -81,15 +81,17 @@ export const TableHeader = ({
   isToastVisible,
   onDownloadPdfRequest,
 }: TableHeaderProps): JSX.Element => {
-  const { mutate, isPending, isError, error } = useRequestPdfDownload(onDownloadPdfRequest);
+  const { t } = useTranslation();
+
+  const { mutate: submitPdfDownloadRequest, isPending, isError, error } = useRequestPdfDownload(onDownloadPdfRequest);
 
   if (isError) {
     let errorMessage;
 
     if (axios.isAxiosError(error)) {
-      errorMessage = errorConstants.UNEXPECTED_SERVER_ERROR;
+      errorMessage = t('unexpectedServerError');
     } else {
-      errorMessage = errorConstants.UNEXPECTED_GLOBAL_ERROR;
+      errorMessage = t('unexpectedGlobalError');
     }
 
     return (
@@ -131,10 +133,10 @@ export const TableHeader = ({
       })}
       <th className={joinTw('text-center', 'w-[10%]', 'px-1 py-6')}>
         <CoreButton
-          label={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.REFRESH}
+          label={t('refresh')}
           content={
             <>
-              {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.REFRESH}
+              {t('refresh')}
               <FontAwesomeIcon
                 icon={iconLibraryConfig.faRotateRight}
                 className={joinTw('ml-2')}
@@ -146,10 +148,10 @@ export const TableHeader = ({
           disabled={isDataEmpty}
         />
         <CoreButton
-          label={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DISPLAY}
+          label={t('display')}
           content={
             <>
-              {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DISPLAY}
+              {t('display')}
               <FontAwesomeIcon
                 icon={iconLibraryConfig.faTable}
                 className={joinTw('ml-2')}
@@ -161,13 +163,13 @@ export const TableHeader = ({
           disabled={isDataEmpty}
         />
         {isPending || isToastVisible ? (
-          <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.DOWNLOAD.REQUEST} />
+          <LoadingIndicator loadingText={t('handlingRequest')} />
         ) : (
           <CoreButton
-            label={l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DOWNLOAD}
+            label={t('download')}
             content={
               <>
-                {l.PAGES.COMMON.APPLICATIONS.TABLE_HEADER.BUTTONS.DOWNLOAD}
+                {t('download')}
                 <FontAwesomeIcon
                   icon={iconLibraryConfig.faFileArrowDown}
                   className={joinTw('ml-2')}
@@ -175,7 +177,9 @@ export const TableHeader = ({
               </>
             }
             intent={'table'}
-            onClick={() => mutate()}
+            onClick={() => {
+              submitPdfDownloadRequest();
+            }}
             disabled={isDataEmpty}
           />
         )}

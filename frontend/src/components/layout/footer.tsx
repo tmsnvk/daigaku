@@ -6,9 +6,9 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 import { getCurrentYear, joinTw } from '@daigaku/utilities';
 
 /**
@@ -17,6 +17,8 @@ import { getCurrentYear, joinTw } from '@daigaku/utilities';
  * @return {JSX.Element}
  */
 export const Footer = (): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div></div>
@@ -29,9 +31,9 @@ export const Footer = (): JSX.Element => {
         )}
       >
         <p>
-          {l.LAYOUT.FOOTER.INIT_YEAR} - {getCurrentYear()}
+          {t('initYear')} - {getCurrentYear()}
         </p>
-        <p>{l.LAYOUT.FOOTER.CONTENT}</p>
+        <p>{t('footerContent')}</p>
       </footer>
     </>
   );
