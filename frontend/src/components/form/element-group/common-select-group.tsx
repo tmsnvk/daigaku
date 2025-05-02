@@ -7,6 +7,7 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useFieldValidationError } from '@daigaku/hooks';
@@ -48,6 +49,8 @@ export const CommonSelectGroup = <T extends FieldValues>({
   initialValue,
   intent,
 }: CommonSelectGroupProps<T>): JSX.Element => {
+  const { t } = useTranslation();
+
   const { error } = useFieldValidationError<T>(id);
 
   return (
@@ -70,7 +73,7 @@ export const CommonSelectGroup = <T extends FieldValues>({
           initialValue={initialValue}
           intent={intent}
         />
-        {error && <CoreFormElementError message={error.message} />}
+        {error && error?.message && <CoreFormElementError message={t(error.message)} />}
       </CoreFormElementGroupWrapper>
     </CoreFormElementFetchStateWrapper>
   );

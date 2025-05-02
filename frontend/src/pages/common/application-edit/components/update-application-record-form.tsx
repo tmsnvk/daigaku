@@ -8,6 +8,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useEffect, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 /* logic imports */
@@ -28,7 +29,6 @@ import { Toast } from '@daigaku/components/notification';
 import { IsRemovableButton } from './is-removable-button';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
@@ -75,6 +75,8 @@ interface UpdateApplicationRecordFormProps {
  * @return {JSX.Element}
  */
 export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRecordFormProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const { selectOptions, refetch, isLoading: isOptionsLoading, isError: isOptionsError } = useGetAllSelectOptions();
 
   const formMethods = useForm<FormInputValues>({
@@ -83,7 +85,6 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-
   const { submitForm } = useHandleFormSubmission();
   const {
     data: updatedData,
@@ -91,6 +92,14 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
     isSuccess,
     mutate: updateApplicationRecord,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
+  const submitUpdateApplicationRecordForm = (formData: FormInputValues) => {
+    submitForm(
+      formData as UpdateApplicationRecordByStudentPayload,
+      application.uuid,
+      updateApplicationRecord,
+      setError,
+    );
+  };
 
   const {
     onPageLoadValidation,
@@ -105,18 +114,18 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
     onPageLoadValidation();
   }, []);
 
-  const useOptions = (status?: Array<ApplicationRecordStatusUnion>) => {
+  const useOptions = (statuses?: Array<ApplicationRecordStatusUnion>) => {
     return useMemo(
       () =>
-        status?.map((s: ApplicationRecordStatusUnion) => (
+        statuses?.map((status: ApplicationRecordStatusUnion) => (
           <option
-            key={s.uuid}
-            value={s.uuid}
+            key={status.uuid}
+            value={status.uuid}
           >
-            {s.name}
+            {status.name}
           </option>
         )) || [],
-      [status],
+      [statuses],
     );
   };
 
@@ -125,15 +134,6 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
   const offerOptions = useOptions(selectOptions.offerStatus);
   const responseOptions = useOptions(selectOptions.responseStatus);
   const finalDestinationOptions = useOptions(selectOptions.finalDestinationStatus);
-
-  const submitUpdateApplicationRecordForm = (formData: FormInputValues) => {
-    submitForm(
-      formData as UpdateApplicationRecordByStudentPayload,
-      application.uuid,
-      updateApplicationRecord,
-      setError,
-    );
-  };
 
   return (
     <>
@@ -145,7 +145,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
             className={joinTw('core-application-grid')}
           >
             <CoreFormHeader
-              title={l.PAGES.COMMON.APPLICATION_EDIT.FORM.TITLE}
+              title={t('updateApplicationRecordFormTitle')}
               intent={'largeWithUnderline'}
               className={joinTw('col-start-1 col-end-3')}
             />
@@ -167,52 +167,44 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
               applicationUuid={application.uuid}
             />
             <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.INFORMATION}
+              paragraph={t('updateApplicationRecordFormInformation')}
               className={joinTw('col-start-1 col-end-3', 'mt-20')}
             />
             <DisabledInputGroup
               id={'country'}
               type={'text'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.NAME}
+              label={t('countryLabel')}
               defaultValue={application.country}
             />
-            <CoreFormElementInstruction paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COUNTRY.INFORMATION} />
+            <CoreFormElementInstruction paragraph={t('countryUpdateFieldInformation')} />
             <DisabledInputGroup
               id={'university'}
               type={'text'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.NAME}
+              label={t('universityLabel')}
               defaultValue={application.university}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.UNIVERSITY.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('universityUpdateFieldInformation')} />
             <DisabledInputGroup
               id={'courseName'}
               type={'text'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.NAME}
+              label={t('courseNameLabel')}
               defaultValue={application.courseName}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.COURSE_NAME.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('courseNameUpdateFieldInformation')} />
             <DisabledInputGroup
               id={'minorSubject'}
               type={'text'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.NAME}
+              label={t('minorSubjectLabel')}
               defaultValue={application.minorSubject ?? '-'}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.MINOR_SUBJECT.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('minorSubjectUpdateFieldInformation')} />
             <DisabledInputGroup
               id={'programmeLength'}
               type={'number'}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.NAME}
+              label={t('programmeLengthLabel')}
               defaultValue={application.programmeLength}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.PROGRAMME_LENGTH.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('programmeLengthUpdateFieldInformation')} />
             <CommonSelectGroup
               id={'applicationStatusUuid'}
               isLoading={isOptionsLoading}
@@ -220,18 +212,16 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
               isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
               onRetry={refetch.applicationStatus}
               onChangeHandler={updateInterviewStatus}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.NAME}
+              label={t('applicationStatusLabel')}
               options={applicationOptions}
               initialValue={
                 updatedData?.applicationStatus.name ??
                 application.applicationStatus.name ??
-                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.SELECT_PROMPT
+                t('applicationStatusPlaceholder')
               }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.APPLICATION_STATUS.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('applicationStatusUpdateFieldInformation')} />
             <CommonSelectGroup
               id={'interviewStatusUuid'}
               isLoading={isOptionsLoading}
@@ -239,18 +229,16 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
               isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
               onRetry={refetch.interviewStatus}
               onChangeHandler={updateOfferStatus}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.NAME}
+              label={t('interviewStatusLabel')}
               options={interviewOptions}
               initialValue={
                 updatedData?.interviewStatus?.name ??
                 application.interviewStatus?.name ??
-                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.SELECT_PROMPT
+                t('interviewStatusPlaceholder')
               }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.INTERVIEW_STATUS.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('interviewStatusUpdateFieldInformation')} />
             <CommonSelectGroup
               id={'offerStatusUuid'}
               isLoading={isOptionsLoading}
@@ -258,18 +246,14 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
               isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
               onRetry={refetch.offerStatus}
               onChangeHandler={updateResponseStatus}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.NAME}
+              label={t('offerStatusLabel')}
               options={offerOptions}
               initialValue={
-                updatedData?.offerStatus?.name ??
-                application.offerStatus?.name ??
-                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.SELECT_PROMPT
+                updatedData?.offerStatus?.name ?? application.offerStatus?.name ?? t('offerStatusPlaceholder')
               }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.OFFER_STATUS.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('offerStatusUpdateFieldInformation')} />
             <CommonSelectGroup
               id={'responseStatusUuid'}
               isLoading={isOptionsLoading}
@@ -277,41 +261,35 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
               isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
               onRetry={refetch.responseStatus}
               onChangeHandler={updateFinalDestinationStatus}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.NAME}
+              label={t('responseStatusLabel')}
               options={responseOptions}
               initialValue={
-                updatedData?.responseStatus?.name ??
-                application.responseStatus?.name ??
-                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.SELECT_PROMPT
+                updatedData?.responseStatus?.name ?? application.responseStatus?.name ?? t('responseStatusPlaceholder')
               }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.RESPONSE_STATUS.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('responseStatusUpdateFieldInformation')} />
             <CommonSelectGroup
               id={'finalDestinationStatusUuid'}
               isLoading={isOptionsLoading}
               isError={isOptionsError}
               onRetry={refetch.finalDestinationStatus}
               isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
-              label={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.NAME}
+              label={t('finalDestinationStatusLabel')}
               options={finalDestinationOptions}
               initialValue={
                 updatedData?.finalDestinationStatus?.name ??
                 application.finalDestinationStatus?.name ??
-                l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.SELECT_PROMPT
+                t('finalDestinationStatusPlaceholder')
               }
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction
-              paragraphs={l.PAGES.COMMON.APPLICATION_EDIT.FORM.FIELDS.FINAL_DESTINATION_STATUS.INFORMATION}
-            />
+            <CoreFormElementInstruction paragraph={t('finalDestinationStatusUpdateFieldInformation')} />
             <CoreFormAction
               isSubmissionPending={isPending}
               formActionConfig={{
-                message: l.PAGES.STUDENT.NEW_APPLICATION.MESSAGES.FORM_SUBMIT_LOADING,
-                value: l.PAGES.STUDENT.NEW_APPLICATION.FORM.SUBMIT,
+                message: t('genericFormSubmission'),
+                value: t('updateApplicationRecordFormSubmit'),
               }}
               intent={CoreSubmitInputElementStyleIntent.DARK}
               className={joinTw('col-start-1 col-end-3')}
@@ -321,7 +299,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
       </section>
       <Toast
         isVisible={isSuccess}
-        message={l.PAGES.COMMON.APPLICATION_EDIT.FORM.SUBMISSION}
+        message={t('applicationUpdated')}
       />
     </>
   );

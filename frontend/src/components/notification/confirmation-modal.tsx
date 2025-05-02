@@ -53,7 +53,7 @@ export const ConfirmationModal = ({ isVisible, onCloseModal, message }: Confirma
       ref={dialogRef}
       className={joinTw('text-center')}
     >
-      <p className={joinTw('pb-10', 'text-xl')}>{message}</p>
+      <p className={joinTw('pb-10', 'text-xl')}>{message && t(message)}</p>
       <CoreModalClosingInputElement
         onClick={onCloseModal}
         value={t('acceptanceOk')}

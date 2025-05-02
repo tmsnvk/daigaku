@@ -7,6 +7,7 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useGetApplicationByUuid } from '@daigaku/hooks';
@@ -17,7 +18,6 @@ import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
-import { errorConstants, localization as l } from '@daigaku/constants';
 
 /**
  * Renders the edit mode of a single application record.
@@ -29,8 +29,11 @@ import { errorConstants, localization as l } from '@daigaku/constants';
  * @return {JSX.Element}
  */
 export const ApplicationEdit = (): JSX.Element => {
+  const { t } = useTranslation();
   const { state, pathname } = useLocation();
+
   const applicationUuid = pathname.split('/applications/edit/')[1];
+
   const {
     data,
     isLoading: isApplicationLoading,
@@ -42,7 +45,7 @@ export const ApplicationEdit = (): JSX.Element => {
     return (
       <LoadingModal
         isVisible={isApplicationLoading}
-        status={l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.PAGE_LOADING}
+        status={t('dataCompilation')}
       />
     );
   }
@@ -51,7 +54,7 @@ export const ApplicationEdit = (): JSX.Element => {
     return (
       <GlobalErrorModal
         isVisible={isApplicationError}
-        errorText={errorConstants.UNEXPECTED_GLOBAL_ERROR}
+        errorText={t('unexpectedGlobalError')}
         onCloseModal={() => console.log('FIX ME')}
       />
     );

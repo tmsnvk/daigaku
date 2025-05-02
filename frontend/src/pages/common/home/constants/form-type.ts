@@ -5,18 +5,18 @@
  */
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
+import { TranslationKey } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import { FormType } from '../models';
 
 export const confirmationModalFeedback: Partial<Record<FormType, string>> = {
-  [FormType.REGISTER_PENDING_ACCOUNT]: l.PAGES.COMMON.HOME.NOTIFICATIONS.REGISTRATION,
-  [FormType.RESET_ACCOUNT_PASSWORD]: l.PAGES.COMMON.HOME.NOTIFICATIONS.RESET,
+  [FormType.REGISTER_PENDING_ACCOUNT]: TranslationKey.PENDING_ACCOUNT_REGISTRATION_MODAL,
+  [FormType.RESET_ACCOUNT_PASSWORD]: TranslationKey.RESET_PASSWORD_MODAL,
 };
 
 export const formTypeButtonLabel: Record<FormType, string> = {
-  [FormType.LOGIN]: l.PAGES.COMMON.HOME.BUTTONS.LOGIN,
-  [FormType.REGISTER_PENDING_ACCOUNT]: l.PAGES.COMMON.HOME.BUTTONS.REGISTRATION,
-  [FormType.RESET_ACCOUNT_PASSWORD]: l.PAGES.COMMON.HOME.BUTTONS.RESET,
+  [FormType.LOGIN]: TranslationKey.LOGIN,
+  [FormType.REGISTER_PENDING_ACCOUNT]: TranslationKey.PENDING_ACCOUNT_REGISTRATION,
+  [FormType.RESET_ACCOUNT_PASSWORD]: TranslationKey.RESET_PASSWORD,
 };

@@ -8,6 +8,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 /* logic imports */
@@ -24,7 +25,7 @@ import {
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
+import { TranslationKey } from '@daigaku/constants';
 import { formTypeButtonLabel } from '../constants';
 
 /* interface, type, enum imports */
@@ -32,8 +33,8 @@ import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPa
 import { FormType } from '../models';
 
 const formValidationSchema = z.object({
-  email: z.string().email({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.VALIDATION.REQUIRED }),
-  password: z.string().trim().nonempty({ message: l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.VALIDATION.REQUIRED }),
+  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
+  password: z.string().trim().nonempty({ message: TranslationKey.PASSWORD_REQUIRED }),
 });
 
 type FormInputValues = z.infer<typeof formValidationSchema>;
@@ -64,15 +65,15 @@ interface LoginFormProps {
  * @return {JSX.Element}
  */
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: initialFormValues,
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-
   const { mutate: logIn, isPending: isSubmitting } = useLoginFormMutation(setError);
-
   const submitLoginForm = (formData: FormInputValues): void => {
     logIn(formData as LoginPayload);
   };
@@ -80,7 +81,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   return (
     <>
       <CoreFormHeader
-        title={l.PAGES.COMMON.HOME.LOGIN.FORM.HEADER}
+        title={t('loginFormHeader')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
@@ -92,22 +93,22 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             id={'email'}
             type={'email'}
             isDisabled={isSubmitting}
-            label={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.LABEL}
-            placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.EMAIL.PLACEHOLDER}
+            label={t('emailLabel')}
+            placeholder={t('emailPlaceholder')}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <PasswordInputGroup
             id={'password'}
             isDisabled={isSubmitting}
-            label={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.LABEL}
-            placeholder={l.PAGES.COMMON.HOME.LOGIN.FORM.PASSWORD.PLACEHOLDER}
+            label={t('passwordLabel')}
+            placeholder={t('passwordPlaceholder')}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: l.PAGES.COMMON.HOME.LOGIN.MESSAGES.PAGE_LOADING,
-              value: l.PAGES.COMMON.HOME.LOGIN.FORM.SUBMIT,
+              message: t('loginFormSubmission'),
+              value: t('loginFormSubmit'),
             }}
             intent={CoreSubmitInputElementStyleIntent.DARK}
           />

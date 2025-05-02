@@ -8,6 +8,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 /* logic imports */
@@ -25,7 +26,7 @@ import {
 import { FormSwapButtons } from './form-swap-buttons';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
+import { TranslationKey } from '@daigaku/constants';
 import { removeRolePrefix } from '@daigaku/utilities';
 import { formTypeButtonLabel } from '../constants';
 
@@ -44,24 +45,20 @@ const formValidationSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.REQUIRED })
+    .nonempty({ message: TranslationKey.FIRST_NAME_REQUIRED })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.VALIDATION.PATTERN,
+      message: TranslationKey.NAME_PATTERN,
     }),
   lastName: z
     .string()
     .trim()
-    .nonempty({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.REQUIRED })
+    .nonempty({ message: TranslationKey.LAST_NAME_REQUIRED })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.VALIDATION.PATTERN,
+      message: TranslationKey.NAME_PATTERN,
     }),
-  email: z.string().email({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.VALIDATION.REQUIRED }),
-  institutionUuid: z
-    .string()
-    .uuid({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.INSTITUTION.VALIDATION.REQUIRED }),
-  accountRoleUuid: z
-    .string()
-    .uuid({ message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.ACCOUNT_ROLE.VALIDATION.REQUIRED }),
+  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
+  institutionUuid: z.string().uuid({ message: TranslationKey.INSTITUTION_REQUIRED }),
+  accountRoleUuid: z.string().uuid({ message: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
 });
 
 type FormInputValues = z.infer<typeof formValidationSchema>;
@@ -103,6 +100,8 @@ export const RegisterPendingAccountForm = ({
   onFormSelect,
   showModal,
 }: RegisterPendingAccountFormProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const {
     data: institutions,
     isLoading: isInstitutionLoading,
@@ -123,9 +122,7 @@ export const RegisterPendingAccountForm = ({
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-
   const { mutate: registerPendingAccount, isPending: isSubmitting } = useRegistrationFormMutation(setError, showModal);
-
   const submitRegisterPendingAccountForm = (formData: FormInputValues): void => {
     registerPendingAccount(formData as PendingAccountRegistrationPayload);
   };
@@ -159,7 +156,7 @@ export const RegisterPendingAccountForm = ({
   return (
     <>
       <CoreFormHeader
-        title={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.HEADER}
+        title={t('pendingAccountRegisterFormHeader')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
@@ -171,24 +168,24 @@ export const RegisterPendingAccountForm = ({
             id={'firstName'}
             type={'text'}
             isDisabled={isSubmitting}
-            label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.LABEL}
-            placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.FIRST_NAME.PLACEHOLDER}
+            label={t('firstNameLabel')}
+            placeholder={t('firstNamePlaceholder')}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CommonInputGroup
             id={'lastName'}
             type={'text'}
             isDisabled={isSubmitting}
-            label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.LABEL}
-            placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.LAST_NAME.PLACEHOLDER}
+            label={t('lastNameLabel')}
+            placeholder={t('lastNamePlaceholder')}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CommonInputGroup
             id={'email'}
             type={'email'}
             isDisabled={isSubmitting}
-            label={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.LABEL}
-            placeholder={l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.EMAIL.PLACEHOLDER}
+            label={t('emailLabel')}
+            placeholder={t('emailPlaceholder')}
             intent={CoreInputElementStyleIntent.LIGHT}
           />
           <CommonSelectGroup
@@ -197,9 +194,9 @@ export const RegisterPendingAccountForm = ({
             isError={isInstitutionError}
             isDisabled={isSubmitting}
             onRetry={institutionRefetch}
-            label={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.LABEL}
+            label={t('institutionLabel')}
             options={institutionOptions}
-            initialValue={l.COMPONENTS.FORM.INSTITUTION_DROPDOWN.DEFAULT_OPTION}
+            initialValue={t('institutionPlaceholder')}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CommonSelectGroup
@@ -208,17 +205,17 @@ export const RegisterPendingAccountForm = ({
             isError={isRoleError}
             isDisabled={isSubmitting}
             onRetry={roleRefetch}
-            label={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.LABEL}
+            label={t('accountRoleLabel')}
             options={roleOptions}
-            initialValue={l.COMPONENTS.FORM.ACCOUNT_ROLE_DROPDOWN.DEFAULT_OPTION}
+            initialValue={t('accountRolePlaceholder')}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             isDisabled={isSubmitDisabled}
             formActionConfig={{
-              message: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.MESSAGES.FORM_LOADING,
-              value: l.PAGES.COMMON.HOME.PENDING_ACCOUNT_REGISTRATION.FORM.SUBMIT,
+              message: t('pendingAccountRegistrationFormSubmission'),
+              value: t('pendingAccountRegistrationFormSubmit'),
             }}
             intent={CoreSubmitInputElementStyleIntent.DARK}
           />

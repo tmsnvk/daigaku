@@ -7,13 +7,13 @@
 /* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* component imports */
 import { CoreLink } from '@daigaku/components/core';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities';
 
@@ -42,6 +42,8 @@ interface DataRowsProps {
  * @return {Array<JSX.Element>}
  */
 export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.Element> => {
+  const { t } = useTranslation();
+
   return applications.map((application: ApplicationRecord, index: number) => {
     const isLastRow: boolean = index === applications.length - 1;
 
@@ -84,7 +86,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
             state={application}
             label={
               <>
-                {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.EDIT}
+                {t('edit')}
                 <FontAwesomeIcon
                   icon={iconLibraryConfig.faWrench}
                   className={joinTw('ml-5')}
@@ -98,7 +100,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
             state={application}
             label={
               <>
-                {l.PAGES.COMMON.APPLICATIONS.ROW_BUTTONS.VIEW}
+                {t('view')}
                 <FontAwesomeIcon
                   icon={iconLibraryConfig.faMagnifyingGlass}
                   className={joinTw('ml-5')}

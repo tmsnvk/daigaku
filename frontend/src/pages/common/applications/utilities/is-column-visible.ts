@@ -16,7 +16,9 @@ import { Column } from '../models';
  * @return {boolean}
  */
 export const isColumnVisible = (columns: Array<Column>, columnId: string): boolean => {
-  const column = columns.find((column: Column) => column.id === columnId) as Column;
+  const column = columns.find((column: Column) => {
+    return column.id === columnId;
+  }) as Column;
 
   return column.isVisible;
 };

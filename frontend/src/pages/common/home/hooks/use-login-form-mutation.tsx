@@ -8,6 +8,7 @@
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
@@ -16,7 +17,7 @@ import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@daigaku/configuration';
-import { errorConstants, localStorageKeys } from '@daigaku/constants';
+import { localStorageKeys } from '@daigaku/constants';
 import { setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
@@ -31,7 +32,10 @@ import { CoreErrorResponse, LoginPayload, LoginResponse } from '@daigaku/common-
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginPayload> => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
+
   const { updateAccountContextDetails } = useAuthContext();
 
   return useMutation({
@@ -50,10 +54,10 @@ export const useLoginFormMutation = (
         if (status === 401) {
           setError('root', { message: error.response.data.errors[0].errorMessage });
         } else if (status >= 500) {
-          setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
+          setError('root', { message: t('unexpectedServerError') });
         }
       } else {
-        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: t('unexpectedServerError') });
       }
     },
   });

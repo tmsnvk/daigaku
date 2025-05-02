@@ -8,13 +8,13 @@
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
-import { errorConstants } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -50,6 +50,8 @@ export const useCreateApplication = (
   resetCountrySelection: () => void,
   reset: () => void,
 ): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, CreateApplicationRecordByStudentPayload> => {
+  const { t } = useTranslation();
+
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationRecordByStudentPayload) =>
@@ -82,11 +84,11 @@ export const useCreateApplication = (
               }
             });
           } else if (status >= 500) {
-            setError('root', { message: errorConstants.UNEXPECTED_SERVER_ERROR });
+            setError('root', { message: t('unexpectedServerError') });
           }
         }
       } else {
-        setError('root', { message: errorConstants.UNEXPECTED_GLOBAL_ERROR });
+        setError('root', { message: t('unexpectedServerError') });
       }
     },
   });

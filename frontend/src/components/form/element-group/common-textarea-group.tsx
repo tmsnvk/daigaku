@@ -7,6 +7,7 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useFieldValidationError } from '@daigaku/hooks';
@@ -51,6 +52,8 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   intent,
   isDisabled,
 }: CommonTextareaGroupProps<T>): JSX.Element => {
+  const { t } = useTranslation();
+
   const { error } = useFieldValidationError<T>(id);
 
   return (
@@ -68,7 +71,7 @@ export const CommonTextareaGroup = <T extends FieldValues>({
         placeholder={placeholder}
         intent={intent}
       />
-      {error && <CoreFormElementError message={error.message} />}
+      {error && error?.message && <CoreFormElementError message={t(error.message)} />}
     </CoreFormElementGroupWrapper>
   );
 };

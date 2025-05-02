@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* component imports */
 import { CoreButton } from '@daigaku/components/core';
@@ -54,6 +55,8 @@ interface FormSwapButtonsProps {
  * @return {JSX.Element}
  */
 export const FormSwapButtons = ({ isDisabled, onFormSelect, buttonConfig }: FormSwapButtonsProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <article className={joinTw('flex justify-between', 'mt-40')}>
       <CoreButton
@@ -61,7 +64,7 @@ export const FormSwapButtons = ({ isDisabled, onFormSelect, buttonConfig }: Form
         onClick={() => {
           onFormSelect(buttonConfig.leftButton.formType);
         }}
-        label={buttonConfig.leftButton.label}
+        label={t(buttonConfig.leftButton.label)}
         intent={'light'}
       />
       <CoreButton
@@ -69,7 +72,7 @@ export const FormSwapButtons = ({ isDisabled, onFormSelect, buttonConfig }: Form
         onClick={() => {
           onFormSelect(buttonConfig.rightButton.formType);
         }}
-        label={buttonConfig.rightButton.label}
+        label={t(buttonConfig.rightButton.label)}
         intent={'light'}
       />
     </article>

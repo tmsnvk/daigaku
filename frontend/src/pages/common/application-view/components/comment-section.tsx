@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useCommentPagination, useGetCommentsByApplicationAndPagination } from '../hooks';
@@ -17,7 +18,6 @@ import { Comments } from './comments';
 import { CreateCommentForm } from './create-comment-form';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /**
@@ -37,11 +37,13 @@ interface CommentSectionProps {
  * @return {JSX.Element}
  */
 export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const { currentPage, goToPreviousPage, goToNextPage } = useCommentPagination();
   const { data, isLoading, isError } = useGetCommentsByApplicationAndPagination(applicationUuid, currentPage);
 
   if (isLoading) {
-    return <LoadingIndicator loadingText={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.LOADING} />;
+    return <LoadingIndicator loadingText={t('dataCompilation')} />;
   }
 
   return (
@@ -54,10 +56,10 @@ export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.El
         <CommentPaginationButton
           onClick={goToPreviousPage}
           isDisabled={data?.currentPage === 0}
-          value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PREVIOUS}
+          value={t('previousPage')}
         />
         <span className={joinTw('text-xl')}>
-          {l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.PAGE} {currentPage + 1}
+          {t('page')} {currentPage + 1}
         </span>
         <CommentPaginationButton
           onClick={() => {
@@ -66,7 +68,7 @@ export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.El
             }
           }}
           isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
-          value={l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.PAGINATION.NEXT}
+          value={t('nextPage')}
         />
       </div>
       <CreateCommentForm applicationUuid={applicationUuid} />

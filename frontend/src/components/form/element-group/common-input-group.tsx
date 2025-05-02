@@ -7,6 +7,7 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
@@ -40,6 +41,8 @@ export const CommonInputGroup = <T extends FieldValues>({
   placeholder,
   intent,
 }: CommonInputGroupProps<T>): JSX.Element => {
+  const { t } = useTranslation();
+
   const { error } = useFieldValidationError<T>(id);
 
   return (
@@ -57,7 +60,7 @@ export const CommonInputGroup = <T extends FieldValues>({
         initialValue={initialValue}
         intent={intent}
       />
-      {error && <CoreFormElementError message={error.message} />}
+      {error && error?.message && <CoreFormElementError message={t(error.message)} />}
     </CoreFormElementGroupWrapper>
   );
 };

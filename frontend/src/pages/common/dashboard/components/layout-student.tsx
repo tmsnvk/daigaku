@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useTodoList } from '../hooks/use-todo-list';
@@ -15,9 +16,6 @@ import { LayoutSectionWrapper } from './layout-section-wrapper';
 import { TileDetail } from './tile-detail';
 import { TileStatistic } from './tile-statistic';
 import { TodoList } from './todo-list';
-
-/* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
@@ -39,62 +37,63 @@ interface LayoutStudentProps {
  * @return {JSX.Element}
  */
 export const LayoutStudent = ({ data }: LayoutStudentProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const { todos } = useTodoList(data);
 
   return (
     <>
       <TodoList
-        introduction={l.PAGES.COMMON.DASHBOARD.TODO_LIST.INTRODUCTION}
-        todos={todos}
+        introduction={t('todoListInstructions')}
+        currentTodoItemsTitle={t('currentTodoItems')}
+        currentTodoItems={todos}
       />
       <LayoutSectionWrapper>
         <TileStatistic
-          title={l.PAGES.COMMON.DASHBOARD.TILE.APPLICATIONS}
+          title={t('applicationRecordsTile')}
           value={data.applicationsCount}
         />
         <TileStatistic
-          title={l.PAGES.COMMON.DASHBOARD.TILE.PLANNED_APPLICATIONS}
+          title={t('plannedApplicationRecordsTile')}
           value={data.plannedApplicationsCount}
         />
         <TileStatistic
-          title={l.PAGES.COMMON.DASHBOARD.TILE.SUBMITTED_APPLICATIONS}
+          title={t('submittedApplicationRecordsTile')}
           value={data.submittedApplicationsCount}
         />
         <TileStatistic
-          title={l.PAGES.COMMON.DASHBOARD.TILE.WITHDRAWN_APPLICATIONS}
+          title={t('withdrawnApplicationRecordsTile')}
           value={data.withdrawnStatusCount}
         />
       </LayoutSectionWrapper>
       <LayoutSectionWrapper>
         <TileStatistic
-          title={l.PAGES.COMMON.DASHBOARD.TILE.DISTINCT_COUNTRIES}
+          title={t('distinctCountriesTile')}
           value={data.distinctCountriesCount}
         />
         <TileStatistic
-          title={l.PAGES.COMMON.DASHBOARD.TILE.DISTINCT_UNIVERSITIES}
+          title={t('distinctUniversitiesTile')}
           value={data.distinctUniversitiesCount}
         />
       </LayoutSectionWrapper>
       <LayoutSectionWrapper>
         <TileStatistic
-          title={l.PAGES.COMMON.DASHBOARD.TILE.OFFERS}
+          title={t('offersTile')}
           value={data.offersCount}
         />
         {data.firmChoiceTileDetails && (
           <TileDetail
-            title={l.PAGES.COMMON.DASHBOARD.TILE.FIRM_CHOICE}
+            title={t('firmChoiceTile')}
             country={data.firmChoiceTileDetails.countryName ?? ''}
-            university={data.firmChoiceTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED}
+            university={data.firmChoiceTileDetails.universityName ?? t('notYetSelectedTile')}
             courseName={data.firmChoiceTileDetails.courseName ?? ''}
           />
         )}
         {data.finalDestinationTileDetails && (
           <TileDetail
-            title={l.PAGES.COMMON.DASHBOARD.TILE.FINAL_DESTINATION}
+            title={t('finalDestinationTile')}
             country={data.finalDestinationTileDetails.countryName ?? ''}
-            university={
-              data.finalDestinationTileDetails.universityName ?? l.PAGES.COMMON.DASHBOARD.TILE.NOT_YET_SELECTED
-            }
+            university={data.finalDestinationTileDetails.universityName ?? t('notYetSelectedTile')}
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}

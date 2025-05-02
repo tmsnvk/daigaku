@@ -8,6 +8,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useFieldValidationError } from '@daigaku/hooks';
@@ -44,6 +45,8 @@ export const PasswordInputGroup = <T extends FieldValues>({
   initialValue,
   intent,
 }: PasswordInputGroupProps<T>): JSX.Element => {
+  const { t } = useTranslation();
+
   const { error } = useFieldValidationError<T>(id);
 
   const [isPasswordRevealed, setIsPasswordRevealed] = useState<boolean>(false);
@@ -73,7 +76,7 @@ export const PasswordInputGroup = <T extends FieldValues>({
           className={joinTw('w-8', 'pl-4', 'cursor-pointer')}
         />
       </div>
-      {error && <CoreFormElementError message={error.message} />}
+      {error && error?.message && <CoreFormElementError message={t(error.message)} />}
     </CoreFormElementGroupWrapper>
   );
 };

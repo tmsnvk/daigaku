@@ -6,9 +6,9 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* configuration, utilities, constants imports */
-import { localization as l } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
@@ -36,12 +36,14 @@ interface CommentsProps {
  * @return {JSX.Element}
  */
 export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
+  const { t } = useTranslation();
+
   if (isError) {
     return (
       <article
         className={joinTw('text-center', 'w-[75%]', 'mx-auto my-10', 'text-destructive text-2xl font-extrabold')}
       >
-        {l.PAGES.COMMON.APPLICATION_VIEW.COMMENTS.ERROR}
+        {t('unexpectedError')}
       </article>
     );
   }

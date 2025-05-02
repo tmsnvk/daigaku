@@ -9,7 +9,6 @@ import { UseFormSetError } from 'react-hook-form';
 
 /* configuration, utilities, constants imports */
 import { queryClient, queryKeys } from '@daigaku/configuration';
-import { localization as l } from '@daigaku/constants';
 
 /* interface, type, enum imports */
 import {
@@ -110,7 +109,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
           application.responseStatus?.name === ResponseStatusE.FIRM_CHOICE &&
           formData.responseStatusUuid === firmChoiceUuid
         ) {
-          errors.push(l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.ERRORS.FIRM_CHOICE_SELECTION);
+          // errors.push(l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.ERRORS.FIRM_CHOICE_SELECTION);
         }
 
         if (
@@ -119,7 +118,7 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
           (application.finalDestinationStatus?.name === FinalDestinationStatusE.DEFERRED_ENTRY &&
             formData.finalDestinationStatusUuid === finalDestinationDeferredUuid)
         ) {
-          errors.push(l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.ERRORS.FINAL_DESTINATION_SELECTION);
+          // errors.push(l.PAGES.COMMON.APPLICATION_EDIT.NOTIFICATIONS.ERRORS.FINAL_DESTINATION_SELECTION);
         }
       }
     });
