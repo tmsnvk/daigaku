@@ -13,7 +13,7 @@ import { JSX } from 'react';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 
 /* logic imports */
-import { AuthProvider } from '@daigaku/context';
+import { AuthProvider, ToastProvider } from '@daigaku/context';
 import { TranslationProvider } from '@daigaku/providers';
 
 /* component imports */
@@ -82,7 +82,9 @@ export const DaigakuReactApplication = (): JSX.Element => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TranslationProvider>
-          <RouterProvider router={router} />
+          <ToastProvider>
+            <RouterProvider router={router} />
+          </ToastProvider>
         </TranslationProvider>
       </AuthProvider>
     </QueryClientProvider>

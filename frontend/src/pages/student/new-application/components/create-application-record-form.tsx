@@ -24,10 +24,9 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
 } from '@daigaku/components/form';
-import { Toast } from '@daigaku/components/notification';
-import { TranslationKey } from '@daigaku/constants';
 
 /* configuration, utilities, constants imports */
+import { TranslationKey } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
@@ -100,11 +99,11 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError, reset } = methods;
-  const {
-    mutate: createApplicationRecord,
-    isPending: isSubmitting,
-    isSuccess: isSubmissionSuccessful,
-  } = useCreateApplication(setError, resetCountrySelection, reset);
+  const { mutate: createApplicationRecord, isPending: isSubmitting } = useCreateApplication(
+    setError,
+    resetCountrySelection,
+    reset,
+  );
 
   const countryOptions = useMemo(() => {
     return (
@@ -133,97 +132,91 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
   }, [universities]);
 
   return (
-    <>
-      <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
-        <FormProvider {...methods}>
-          <CoreFormWrapper
-            formId={'post-application-record-by-student-form'}
-            onFormSubmit={handleSubmit((formData: FormInputValues) => {
-              createApplicationRecord(formData as CreateApplicationRecordByStudentPayload);
-            })}
-            className={joinTw('core-application-grid')}
-          >
-            <CoreFormHeader
-              title={t('newApplicationRecordFormTitle')}
-              intent={'largeWithUnderline'}
-              className={joinTw('col-start-1 col-end-3')}
-            />
-            <CoreFormElementInstruction
-              paragraph={t('newApplicationRecordFormInformation')}
-              className={joinTw('col-start-1 col-end-3')}
-            />
+    <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
+      <FormProvider {...methods}>
+        <CoreFormWrapper
+          formId={'post-application-record-by-student-form'}
+          onFormSubmit={handleSubmit((formData: FormInputValues) => {
+            createApplicationRecord(formData as CreateApplicationRecordByStudentPayload);
+          })}
+          className={joinTw('core-application-grid')}
+        >
+          <CoreFormHeader
+            title={t('newApplicationRecordFormTitle')}
+            intent={'largeWithUnderline'}
+            className={joinTw('col-start-1 col-end-3')}
+          />
+          <CoreFormElementInstruction
+            paragraph={t('newApplicationRecordFormInformation')}
+            className={joinTw('col-start-1 col-end-3')}
+          />
+          <CommonSelectGroup
+            id={'countryUuid'}
+            isLoading={isCountryLoading}
+            isError={isCountryError}
+            isDisabled={isSubmitting}
+            onRetry={onCountryRetry}
+            onChangeHandler={handleCountrySelection}
+            options={countryOptions}
+            label={t('countryLabel')}
+            initialValue={t('countryPlaceholder')}
+            intent={CoreSelectElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('countryNewFieldInformation')} />
+          {isUniversityLoading ? (
+            <p>{t('universityDataFetching')}</p>
+          ) : (
             <CommonSelectGroup
-              id={'countryUuid'}
-              isLoading={isCountryLoading}
-              isError={isCountryError}
-              isDisabled={isSubmitting}
-              onRetry={onCountryRetry}
-              onChangeHandler={handleCountrySelection}
-              options={countryOptions}
-              label={t('countryLabel')}
-              initialValue={t('countryPlaceholder')}
+              id={'universityUuid'}
+              isLoading={isUniversityLoading}
+              isError={isUniversityError}
+              isDisabled={isSubmitting || !isCountrySelected}
+              onRetry={onUniversityRetry}
+              options={universityOptions}
+              label={t('universityLabel')}
+              initialValue={t('universityPlaceholder')}
               intent={CoreSelectElementStyleIntent.LIGHT}
             />
-            <CoreFormElementInstruction paragraph={t('countryNewFieldInformation')} />
-            {isUniversityLoading ? (
-              <p>{t('universityDataFetching')}</p>
-            ) : (
-              <CommonSelectGroup
-                id={'universityUuid'}
-                isLoading={isUniversityLoading}
-                isError={isUniversityError}
-                isDisabled={isSubmitting || !isCountrySelected}
-                onRetry={onUniversityRetry}
-                options={universityOptions}
-                label={t('universityLabel')}
-                initialValue={t('universityPlaceholder')}
-                intent={CoreSelectElementStyleIntent.LIGHT}
-              />
-            )}
-            <CoreFormElementInstruction paragraph={t('universityNewFieldInformation')} />
-            <CommonInputGroup
-              id={'courseName'}
-              type={'text'}
-              isDisabled={isSubmitting}
-              label={t('courseNameLabel')}
-              placeholder={t('courseNamePlaceholder')}
-              intent={CoreInputElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('courseNameNewFieldInformation')} />
-            <CommonInputGroup
-              id={'minorSubject'}
-              type={'text'}
-              isDisabled={isSubmitting}
-              label={t('minorSubjectLabel')}
-              placeholder={t('minorSubjectPlaceholder')}
-              intent={CoreInputElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('minorSubjectNewFieldInformation')} />
-            <CommonInputGroup
-              id={'programmeLength'}
-              label={t('programmeLengthLabel')}
-              type={'number'}
-              isDisabled={isSubmitting}
-              intent={CoreInputElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('programmeLengthNewFieldInformation')} />
-            <CoreFormAction
-              isSubmissionPending={isSubmitting}
-              isDisabled={isSubmitDisabled}
-              formActionConfig={{
-                message: t('createApplicationRecordFormSubmission'),
-                value: t('createApplicationRecordFormSubmit'),
-              }}
-              intent={CoreSubmitInputElementStyleIntent.DARK}
-              className={joinTw('col-start-1 col-end-3')}
-            />
-          </CoreFormWrapper>
-        </FormProvider>
-      </section>
-      <Toast
-        isVisible={isSubmissionSuccessful}
-        message={t('createApplicationRecordFormSubmissionToast')}
-      />
-    </>
+          )}
+          <CoreFormElementInstruction paragraph={t('universityNewFieldInformation')} />
+          <CommonInputGroup
+            id={'courseName'}
+            type={'text'}
+            isDisabled={isSubmitting}
+            label={t('courseNameLabel')}
+            placeholder={t('courseNamePlaceholder')}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('courseNameNewFieldInformation')} />
+          <CommonInputGroup
+            id={'minorSubject'}
+            type={'text'}
+            isDisabled={isSubmitting}
+            label={t('minorSubjectLabel')}
+            placeholder={t('minorSubjectPlaceholder')}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('minorSubjectNewFieldInformation')} />
+          <CommonInputGroup
+            id={'programmeLength'}
+            label={t('programmeLengthLabel')}
+            type={'number'}
+            isDisabled={isSubmitting}
+            intent={CoreInputElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('programmeLengthNewFieldInformation')} />
+          <CoreFormAction
+            isSubmissionPending={isSubmitting}
+            isDisabled={isSubmitDisabled}
+            formActionConfig={{
+              message: t('createApplicationRecordFormSubmission'),
+              value: t('createApplicationRecordFormSubmit'),
+            }}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
+            className={joinTw('col-start-1 col-end-3')}
+          />
+        </CoreFormWrapper>
+      </FormProvider>
+    </section>
   );
 };

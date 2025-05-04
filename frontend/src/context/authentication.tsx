@@ -132,6 +132,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 
 /**
- * The AuthContext object is wrapped into a simple custom hook for simplier usage.
+ * The AuthContext object is wrapped into a simple custom hook for simpler usage.
  */
 export const useAuthContext = (): AuthContext => useContext(AuthContext);
