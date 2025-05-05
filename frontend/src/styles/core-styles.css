@@ -1,14 +1,12 @@
 @layer components {
   .core-primary-border {
     background-color: var(--color-primary);
-    border: var(--default-blue-border);
     border-radius: var(--default-border-radius);
     box-shadow: var(--right-bottom-secondary-shadow);
   }
 
   .core-secondary-border {
-    background-color: var(--color-primary);
-    border: var(--default-blue-border);
+    background-color: var(--color-secondary);
     border-radius: var(--default-border-radius);
     box-shadow: var(--right-bottom-secondary-shadow);
   }

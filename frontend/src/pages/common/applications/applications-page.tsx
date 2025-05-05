@@ -66,7 +66,7 @@ export const Applications = (): JSX.Element => {
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <main className={joinTw('core-secondary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%] text-xl')}>
+    <main className={joinTw('core-primary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%] text-xl')}>
       <table className={joinTw('table-fixed text-center')}>
         <thead>
           <TableHeader

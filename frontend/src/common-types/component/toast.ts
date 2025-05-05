@@ -4,10 +4,16 @@
  * @author tmsnvk
  */
 
+/* vendor imports */
+import { VariantProps } from 'class-variance-authority';
+
+/* component imports */
+import { toastVariants } from '@daigaku/components/notification';
+
 /**
  *
  */
-export type ToastIntent = 'success' | 'destructive';
+export type ToastIntent = VariantProps<typeof toastVariants>['intent'];
 
 /**
  *

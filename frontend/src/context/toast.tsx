@@ -5,7 +5,8 @@
  */
 
 /* vendor imports */
-import { Context, JSX, ReactNode, createContext, useContext, useMemo, useState } from 'react';
+import { Context, JSX, ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
+import { match } from 'ts-pattern';
 
 /* component imports */
 import { Toast } from '@daigaku/components/notification';
@@ -14,84 +15,124 @@ import { Toast } from '@daigaku/components/notification';
 import { generateId, joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { CreateToast, ToastIntent } from '@daigaku/common-types';
+import { CreateToast } from '@daigaku/common-types';
 
-const initialState: Array<CreateToast> = [];
+const ToastActionTypes = {
+  CREATE_TOAST: 'CREATE_TOAST',
+  REMOVE_TOAST: 'REMOVE_TOAST',
+} as const;
 
-/**
- *
- */
-interface ToastProps {
-  /**
-   *
-   */
-  readonly title: string;
-
-  /**
-   *
-   */
-  readonly description: string;
-
-  /**
-   *
-   */
-  readonly intent: ToastIntent;
+interface CreateToastAction {
+  type: typeof ToastActionTypes.CREATE_TOAST;
+  payload: {
+    toast: CreateToast;
+  };
 }
+
+interface RemoveToastAction {
+  type: typeof ToastActionTypes.REMOVE_TOAST;
+  payload: {
+    id: string;
+  };
+}
+
+type ToastAction = CreateToastAction | RemoveToastAction;
+
+const toastReducer = (state: Array<CreateToast>, action: ToastAction): Array<CreateToast> => {
+  return match<ToastAction, Array<CreateToast>>(action)
+    .with({ type: ToastActionTypes.CREATE_TOAST }, ({ payload }) => {
+      return [...state, payload.toast];
+    })
+    .with({ type: ToastActionTypes.REMOVE_TOAST }, ({ payload }) => {
+      return state.filter((toast: CreateToast) => {
+        return toast.id !== payload.id;
+      });
+    })
+    .exhaustive();
+};
 
 /**
  * Defines the properties of the ToastContext context object.
  */
-interface ToastContext {
+interface ToastContextValue {
   /**
-   *
+   * The list of toast elements currently in the context.
    */
   toasts: Array<CreateToast>;
 
   /**
-   *
+   * The toast creating method.
    */
-  createToast: (options: ToastProps) => void;
+  createToast: (options: Omit<CreateToast, 'id'>) => void;
+
+  /**
+   * The toast removing method.
+   */
+  removeToast: (id: string) => void;
 }
 
-const ToastContext: Context<ToastContext> = createContext<ToastContext>({} as ToastContext);
+interface ToastProviderProps {
+  /**
+   * Children elements to render within the provider.
+   */
+  children: ReactNode;
 
-const AUTO_REMOVE_DELAY = 500000;
+  /**
+   * Auto-removal delay in ms, defaults to 3000ms.
+   */
+  autoRemoveDelay?: number;
+}
+
+const ToastContext: Context<ToastContextValue> = createContext<ToastContextValue>({} as ToastContextValue);
+const initialState: Array<CreateToast> = [];
 
 /**
- *
- * @param children
- * @return
+ * Defines the application's toast-related context object.
  */
-export const ToastProvider = ({ children }: { children: ReactNode }): JSX.Element => {
-  const [toasts, setToasts] = useState<Array<CreateToast>>(initialState);
+export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProviderProps): JSX.Element => {
+  const [toasts, dispatch] = useReducer(toastReducer, initialState);
 
-  const removeToast = (id: string) => {
-    setToasts((prevState) =>
-      prevState.filter((toast) => {
-        return toast.id !== id;
-      }));
-  };
+  const toastContextValues = useMemo(() => {
+    const scheduleToastRemoval = (id: string): void => {
+      setTimeout(() => {
+        dispatch({
+          type: ToastActionTypes.REMOVE_TOAST,
+          payload: { id },
+        });
+      }, autoRemoveDelay);
+    };
 
-  const createToast = (options: ToastProps): void => {
-    const id = generateId();
-    const newToast: CreateToast = { id, ...options };
+    const createToast = (options: Omit<CreateToast, 'id'>): void => {
+      const id = generateId();
+      const newToast = { ...options, id };
 
-    setToasts((prevState) => {
-      return [...prevState, newToast];
-    });
+      dispatch({
+        type: ToastActionTypes.CREATE_TOAST,
+        payload: { toast: newToast },
+      });
 
-    setTimeout(() => {
-      removeToast(newToast.id);
-    }, AUTO_REMOVE_DELAY);
-  };
+      scheduleToastRemoval(id);
+    };
 
-  const toastContextValues: ToastContext = useMemo(
-    () => ({
+    const removeToast = (id: string): void => {
+      const doesToastExist = toasts.some((toast: CreateToast): boolean => {
+        return toast.id === id;
+      });
+
+      if (doesToastExist) {
+        dispatch({
+          type: ToastActionTypes.REMOVE_TOAST,
+          payload: { id },
+        });
+      }
+    };
+
+    return {
       toasts,
       createToast,
-    }),
-    [toasts],
-  );
+      removeToast,
+    };
+  }, [toasts, autoRemoveDelay]);
 
   return (
     <ToastContext value={toastContextValues}>
@@ -103,7 +144,8 @@ export const ToastProvider = ({ children }: { children: ReactNode }): JSX.Elemen
             <Toast
               key={toast.id}
               {...toast}
-              removeDelay={AUTO_REMOVE_DELAY}
+              onClose={() => toastContextValues.removeToast(toast.id)}
+              removeDelay={autoRemoveDelay}
             />
           );
         })}
@@ -113,6 +155,6 @@ export const ToastProvider = ({ children }: { children: ReactNode }): JSX.Elemen
 };
 
 /**
- * The ToastContext object is wrapped into a simple custom hook for simpler usage.
+ * The ToastContext object is wrapped in a simple custom hook for simpler usage.
  */
-export const useToastContext = (): ToastContext => useContext(ToastContext);
+export const useToastContext = (): ToastContextValue => useContext(ToastContext);

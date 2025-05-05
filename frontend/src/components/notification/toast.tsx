@@ -8,23 +8,24 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX, useEffect, useState } from 'react';
 
+/* component imports */
+import { CoreIcon } from '@daigaku/components/core';
+
 /* configuration, utilities, constants imports */
+import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
 import { CreateToast } from '@daigaku/common-types';
 
-const toastVariants = cva(
-  joinTw('core-primary-border animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'),
-  {
-    variants: {
-      intent: {
-        success: joinTw('bg-accent', 'text-secondary'),
-        destructive: joinTw(''),
-      },
+export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
+  variants: {
+    intent: {
+      success: joinTw('core-primary-border', 'bg-accent', 'text-secondary'),
+      destructive: joinTw('bg-destructive', 'text-tertiary'),
     },
   },
-);
+});
 
 /**
  * Defines the component's properties.
@@ -33,7 +34,12 @@ interface ToastProps extends Omit<CreateToast, 'intent'>, VariantProps<typeof to
   /**
    *
    */
-  removeDelay: number;
+  onClose: () => void;
+
+  /**
+   *
+   */
+  readonly removeDelay: number;
 }
 
 /**
@@ -42,21 +48,20 @@ interface ToastProps extends Omit<CreateToast, 'intent'>, VariantProps<typeof to
  * @param {ToastProps} props
  * @return {JSX.Element | null}
  */
-export const Toast = ({ title, description, removeDelay, intent }: ToastProps): JSX.Element | null => {
-  const [progressBar, setProgressBar] = useState(0);
+export const Toast = ({ title, description, onClose, removeDelay, intent }: ToastProps): JSX.Element | null => {
+  const [progressBar, setProgressBar] = useState<number>(0);
 
   useEffect(() => {
+    const intervalDuration = 10;
+    const progressIncrement = 100 / (removeDelay / intervalDuration);
+
     const timer = setInterval(() => {
-      setProgressBar((prevState) => {
-        if (prevState < 100) {
-          return prevState + 100 / (removeDelay / 10);
-        }
+      setProgressBar((prevState: number) => {
+        const newProgress = prevState + progressIncrement;
 
-        clearInterval(timer);
-
-        return 100;
+        return Math.min(newProgress, 100);
       });
-    }, 10);
+    }, intervalDuration);
 
     return () => {
       clearInterval(timer);
@@ -65,7 +70,14 @@ export const Toast = ({ title, description, removeDelay, intent }: ToastProps): 
 
   return (
     <section className={joinTw(toastVariants({ intent }))}>
-      <h3 className={joinTw('mb-4', 'text-3xl font-semibold uppercase')}>{title}</h3>
+      <div className={joinTw('flex items-center justify-between', 'mb-4')}>
+        <h3 className={joinTw('text-2xl font-bold uppercase')}>{title}</h3>
+        <CoreIcon
+          icon={iconLibraryConfig.faXMark}
+          onClick={onClose}
+          className={joinTw('cursor-pointer')}
+        />
+      </div>
       <p className={joinTw('text-xl')}>{description}</p>
       <div className={joinTw('relative', 'mt-4')}>
         <div

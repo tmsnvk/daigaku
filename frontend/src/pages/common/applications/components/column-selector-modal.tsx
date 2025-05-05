@@ -58,7 +58,7 @@ export const ColumnSelectorModal = ({
   return (
     <dialog
       ref={dialogRef}
-      className={joinTw('core-secondary-border', 'flex flex-col items-start', 'mx-auto mt-[10%] px-20 py-10')}
+      className={joinTw('core-primary-border', 'flex flex-col items-start', 'mx-auto mt-[10%] px-20 py-10')}
     >
       {columns.map((column: Column) => {
         return (
