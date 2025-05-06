@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
-import { JSX, useEffect, useState } from 'react';
+import { JSX, useEffect, useRef, useState } from 'react';
 
 /* component imports */
 import { CoreIcon } from '@daigaku/components/core';
@@ -30,46 +30,62 @@ export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col
 /**
  * Defines the component's properties.
  */
-interface ToastProps extends Omit<CreateToast, 'intent'>, VariantProps<typeof toastVariants> {
+interface ToastProps extends CreateToast, VariantProps<typeof toastVariants> {
   /**
-   *
+   * The toast closing method.
    */
   onClose: () => void;
 
   /**
-   *
+   * The automatic toast removal delay in ms.
    */
-  readonly removeDelay: number;
+  readonly autoRemoveDelay: number;
 }
 
 /**
- * Renders a pop-up toast dialog as a feedback to the user.
+ * Renders a pop-up toast dialog with some information as a feedback to the user.
  *
  * @param {ToastProps} props
  * @return {JSX.Element | null}
  */
-export const Toast = ({ title, description, onClose, removeDelay, intent }: ToastProps): JSX.Element | null => {
+export const Toast = ({
+  title,
+  description,
+  onClose,
+  autoRemoveDelay,
+  variantIntent,
+}: ToastProps): JSX.Element | null => {
   const [progressBar, setProgressBar] = useState<number>(0);
+  const startTimeRef = useRef<number | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const intervalDuration = 10;
-    const progressIncrement = 100 / (removeDelay / intervalDuration);
+    const updateProgressBar = (timestamp: number): void => {
+      if (startTimeRef.current === null) {
+        startTimeRef.current = timestamp;
+      }
 
-    const timer = setInterval(() => {
-      setProgressBar((prevState: number) => {
-        const newProgress = prevState + progressIncrement;
+      const elapsed = timestamp - startTimeRef.current;
+      const percent = Math.min((elapsed / autoRemoveDelay) * 100, 100);
 
-        return Math.min(newProgress, 100);
-      });
-    }, intervalDuration);
+      setProgressBar(percent);
+
+      if (percent < 100) {
+        animationFrameRef.current = requestAnimationFrame(updateProgressBar);
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(updateProgressBar);
 
     return () => {
-      clearInterval(timer);
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
-  }, [removeDelay]);
+  }, [autoRemoveDelay]);
 
   return (
-    <section className={joinTw(toastVariants({ intent }))}>
+    <article className={joinTw(toastVariants({ intent: variantIntent }))}>
       <div className={joinTw('flex items-center justify-between', 'mb-4')}>
         <h3 className={joinTw('text-2xl font-bold uppercase')}>{title}</h3>
         <CoreIcon
@@ -84,10 +100,9 @@ export const Toast = ({ title, description, onClose, removeDelay, intent }: Toas
           className={joinTw('absolute left-0 top-0', 'h-2', 'bg-secondary')}
           style={{
             width: `${progressBar}%`,
-            transition: 'width 0.01s linear',
           }}
         ></div>
       </div>
-    </section>
+    </article>
   );
 };

@@ -77,7 +77,7 @@ export const useCreateApplication = (
       createToast({
         title: t('successToastTitle'),
         description: t('createApplicationRecordFormSubmissionToastDescription'),
-        intent: 'success',
+        variantIntent: 'success',
       });
     },
     onError: (error: AxiosError<CoreErrorResponse>) => {
