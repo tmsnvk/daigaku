@@ -44,7 +44,7 @@ interface TileDetailProps {
 export const TileDetail = ({ title, country, university, courseName }: TileDetailProps): JSX.Element => {
   return (
     <article
-      className={joinTw('core-secondary-border', 'flex flex-col justify-center text-center', 'size-88', 'px-5 pb-2')}
+      className={joinTw('core-primary-border', 'flex flex-col justify-center text-center', 'size-88', 'px-5 pb-2')}
     >
       <p className={joinTw('py-2', 'text-2xl font-extrabold')}>{country}</p>
       <p className={joinTw('py-2', 'text-2xl font-extrabold')}>{university}</p>

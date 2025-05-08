@@ -6,15 +6,15 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplications, useModalToggle } from '@daigaku/hooks';
-import { useColumnVisibility, useDisplayDownloadToast, useSortOrder } from './hooks';
+import { useColumnVisibility, useSortOrder } from './hooks';
 
 /* component imports */
-import { GlobalErrorModal, LoadingModal, Toast } from '@daigaku/components/notification';
+import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
@@ -40,7 +40,6 @@ export const Applications = (): JSX.Element => {
   const { handleColumnSort } = useSortOrder(applications as Array<ApplicationRecord>);
 
   const { isModalVisible, toggleModal } = useModalToggle();
-  const { isToastVisible, displayDownloadToast, handleAnimationEnd } = useDisplayDownloadToast();
 
   if (isLoading || isRefetching) {
     return (
@@ -66,7 +65,7 @@ export const Applications = (): JSX.Element => {
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <main className={joinTw('core-secondary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%] text-xl')}>
+    <main className={joinTw('core-primary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%] text-xl')}>
       <table className={joinTw('table-fixed text-center')}>
         <thead>
           <TableHeader
@@ -75,8 +74,6 @@ export const Applications = (): JSX.Element => {
             onColumnSort={handleColumnSort}
             onToggleModal={toggleModal}
             onRefetch={refetch}
-            isToastVisible={isToastVisible}
-            onDownloadPdfRequest={displayDownloadToast}
           />
         </thead>
         <tbody>
@@ -96,11 +93,6 @@ export const Applications = (): JSX.Element => {
           onToggle={toggleModal}
         />
       )}
-      <Toast
-        isVisible={isToastVisible}
-        message={t('applicationPdfDownloadToast')}
-        onAnimationEnd={handleAnimationEnd}
-      />
     </main>
   );
 };

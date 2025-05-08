@@ -23,6 +23,7 @@ import {
   CreateApplicationRecordByStudentPayload,
   ErrorDetail,
 } from '@daigaku/common-types';
+import { useToastContext } from '@daigaku/context';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -52,6 +53,8 @@ export const useCreateApplication = (
 ): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, CreateApplicationRecordByStudentPayload> => {
   const { t } = useTranslation();
 
+  const { createToast } = useToastContext();
+
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationRecordByStudentPayload) =>
@@ -70,6 +73,12 @@ export const useCreateApplication = (
 
       resetCountrySelection();
       reset();
+
+      createToast({
+        title: t('genericSuccessToastTitle'),
+        description: t('createApplicationRecordFormSubmissionToastDescription'),
+        variantIntent: 'success',
+      });
     },
     onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {

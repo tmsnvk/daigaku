@@ -17,6 +17,7 @@ export * from './application/application-status.ts';
 export * from './authentication/user-login-state.ts';
 export * from './component/form-element-groups.ts';
 export * from './component/form-element-style-intents.ts';
+export * from './component/toast.ts';
 export * from './component/todo.ts';
 export * from './core/core-metada.ts';
 export * from './core/core-modal.ts';

@@ -37,28 +37,16 @@ const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
  *
  * @param selectedFormType The current {@link FormType} that determines which component is rendered.
  * @param selectFormType The method to change the rendered form component.
- * @param showModal The method to trigger a modal component attached to the currently active form component.
  * @return {JSX.Element} The form component corresponding to the selected {@link FormType}.
  */
 const getSelectedFormComponent = (
   selectedFormType: FormType,
   selectFormType: (formType: FormType) => void,
-  showModal: () => void,
 ): JSX.Element | null => {
   return match(selectedFormType)
     .with(FormType.LOGIN, () => <LoginForm onFormSelect={selectFormType} />)
-    .with(FormType.REGISTER_PENDING_ACCOUNT, () => (
-      <RegisterPendingAccountForm
-        onFormSelect={selectFormType}
-        showModal={showModal}
-      />
-    ))
-    .with(FormType.RESET_ACCOUNT_PASSWORD, () => (
-      <ResetAccountPasswordForm
-        onFormSelect={selectFormType}
-        showModal={showModal}
-      />
-    ))
+    .with(FormType.REGISTER_PENDING_ACCOUNT, () => <RegisterPendingAccountForm onFormSelect={selectFormType} />)
+    .with(FormType.RESET_ACCOUNT_PASSWORD, () => <ResetAccountPasswordForm onFormSelect={selectFormType} />)
     .otherwise(() => null);
 };
 
@@ -69,10 +57,9 @@ const getSelectedFormComponent = (
  * - {@link LoginForm}
  * - {@link ResetAccountPasswordForm}
  *
- * @param showModal The method to trigger a modal component attached to the currently active form component.
  * @return {FormSwitcher}
  */
-export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
+export const useFormSwitcher = (): FormSwitcher => {
   const [selectedFormType, setSelectedFormType] = useState<FormType>(DEFAULT_LOADED_FORM_TYPE);
 
   const selectFormType = (formType: FormType): void => {
@@ -80,7 +67,7 @@ export const useFormSwitcher = (showModal: () => void): FormSwitcher => {
   };
 
   const selectedFormComponent = useMemo((): JSX.Element | null => {
-    return getSelectedFormComponent(selectedFormType, selectFormType, showModal);
+    return getSelectedFormComponent(selectedFormType, selectFormType);
   }, [selectedFormType]);
 
   return {

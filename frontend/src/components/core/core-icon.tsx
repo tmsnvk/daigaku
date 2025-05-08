@@ -5,7 +5,6 @@
  */
 
 /* vendor imports */
-import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
@@ -15,12 +14,7 @@ import { joinTw } from '@daigaku/utilities';
 /**
  * Defines the component's properties.
  */
-interface CoreIconProps extends Omit<FontAwesomeIconProps, 'icon'> {
-  /**
-   * The icon component to be displayed.
-   */
-  readonly icon: IconLookup;
-
+interface CoreIconProps extends FontAwesomeIconProps {
   /**
    * Optional style settings.
    */

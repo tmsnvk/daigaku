@@ -4,6 +4,7 @@
  * @author tmsnvk
  */
 
+import { generateId } from './generate-id.ts';
 import { getCurrentYear } from './get-current-year';
 import { isEmpty } from './is-empty.ts';
 import { joinTw } from './join-tw';
@@ -12,6 +13,7 @@ import { removeRolePrefix } from './remove-role-prefix';
 import { isAuthTokenExpired } from './token.ts';
 
 export {
+  generateId,
   getCurrentYear,
   getLocalStorageObjectById,
   isAuthTokenExpired,

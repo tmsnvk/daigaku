@@ -5,52 +5,104 @@
  */
 
 /* vendor imports */
-import { JSX } from 'react';
+import { type VariantProps, cva } from 'class-variance-authority';
+import { JSX, useEffect, useRef, useState } from 'react';
+
+/* component imports */
+import { CoreIcon } from '@daigaku/components/core';
 
 /* configuration, utilities, constants imports */
+import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
+
+/* interface, type, enum imports */
+import { CreateToast } from '@daigaku/common-types';
+
+export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
+  variants: {
+    intent: {
+      success: joinTw('core-primary-border', 'bg-accent', 'text-secondary'),
+      destructive: joinTw('core-primary-border', 'bg-destructive', 'text-tertiary'),
+    },
+  },
+});
 
 /**
  * Defines the component's properties.
  */
-interface ToastProps {
+interface ToastProps extends CreateToast, VariantProps<typeof toastVariants> {
   /**
-   * Indicates whether the component should be visible.
+   * The toast closing method.
    */
-  readonly isVisible: boolean;
+  onClose: () => void;
 
   /**
-   * The specific error message to be displayed.
+   * The automatic toast removal delay in ms.
    */
-  readonly message: string;
-
-  /**
-   * A callback method that handles the animation end of the component.
-   */
-  onAnimationEnd?: () => void;
+  readonly autoRemoveDelay: number;
 }
 
 /**
- * Renders a pop-up toast dialog as a feedback to the user.
+ * Renders a pop-up toast dialog with some information as a feedback to the user.
  *
  * @param {ToastProps} props
  * @return {JSX.Element | null}
  */
-export const Toast = ({ isVisible, message, onAnimationEnd }: ToastProps): JSX.Element | null => {
-  return isVisible ? (
-    <section
-      onAnimationEnd={onAnimationEnd}
-      className={joinTw(
-        'core-primary-border',
-        'z-100 fixed bottom-40 flex items-center justify-center overflow-visible',
-        'h-40 w-80',
-        'px-6',
-        'bg-accent',
-        'text-2xl',
-        'animate-simple-fade-out',
-      )}
-    >
-      {message}
-    </section>
-  ) : null;
+export const Toast = ({
+  title,
+  description,
+  onClose,
+  autoRemoveDelay,
+  variantIntent,
+}: ToastProps): JSX.Element | null => {
+  const [progressBar, setProgressBar] = useState<number>(0);
+  const startTimeRef = useRef<number | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const updateProgressBar = (timestamp: number): void => {
+      if (startTimeRef.current === null) {
+        startTimeRef.current = timestamp;
+      }
+
+      const elapsed = timestamp - startTimeRef.current;
+      const percent = Math.min((elapsed / autoRemoveDelay) * 100, 100);
+
+      setProgressBar(percent);
+
+      if (percent < 100) {
+        animationFrameRef.current = requestAnimationFrame(updateProgressBar);
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(updateProgressBar);
+
+    return () => {
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [autoRemoveDelay]);
+
+  return (
+    <article className={joinTw(toastVariants({ intent: variantIntent }))}>
+      <div className={joinTw('flex items-center justify-between', 'mb-4')}>
+        <h3 className={joinTw('text-2xl font-bold uppercase')}>{title}</h3>
+        <CoreIcon
+          icon={iconLibraryConfig.faXMark}
+          onClick={onClose}
+          className={joinTw('cursor-pointer')}
+        />
+      </div>
+      <p className={joinTw('text-xl')}>{description}</p>
+      <div className={joinTw('relative', 'mt-4')}>
+        <div
+          className={joinTw('absolute left-0 top-0', 'h-2', 'bg-secondary')}
+          style={{
+            width: `${progressBar}%`,
+          }}
+        ></div>
+      </div>
+    </article>
+  );
 };

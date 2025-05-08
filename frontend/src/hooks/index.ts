@@ -6,7 +6,6 @@
 
 import { useGetApplicationByUuid } from './application/use-get-application-by-uuid.tsx';
 import { useGetApplications } from './application/use-get-applications.tsx';
-import { useModalControl } from './components/use-modal-control.tsx';
 import { useModalToggle } from './components/use-modal-toggle.tsx';
 import { useRenderModal } from './components/use-render-modal.tsx';
 import { useSmallScreenNavbarDisplay } from './components/use-small-screen-navbar-display.tsx';
@@ -28,7 +27,6 @@ export {
   useGetStudentAndMentorAccountRoles,
   useGetUniversityOptionsByCountryUuid,
   useMobileView,
-  useModalControl,
   useModalToggle,
   useRenderModal,
   useSmallScreenNavbarDisplay,

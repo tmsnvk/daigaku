@@ -5,5 +5,6 @@
  */
 
 import { AuthProvider, useAuthContext } from './authentication.tsx';
+import { ToastProvider, useToastContext } from './toast.tsx';
 
-export { AuthProvider, useAuthContext };
+export { AuthProvider, ToastProvider, useAuthContext, useToastContext };

@@ -81,11 +81,6 @@ interface RegisterPendingAccountFormProps {
    * @param formType The type of the form to be selected.
    */
   onFormSelect: (formType: FormType) => void;
-
-  /**
-   * The method to display a modal component.
-   */
-  showModal: () => void;
 }
 
 /**
@@ -96,10 +91,7 @@ interface RegisterPendingAccountFormProps {
  * @param {RegisterPendingAccountFormProps} props
  * @return {JSX.Element}
  */
-export const RegisterPendingAccountForm = ({
-  onFormSelect,
-  showModal,
-}: RegisterPendingAccountFormProps): JSX.Element => {
+export const RegisterPendingAccountForm = ({ onFormSelect }: RegisterPendingAccountFormProps): JSX.Element => {
   const { t } = useTranslation();
 
   const {
@@ -122,7 +114,7 @@ export const RegisterPendingAccountForm = ({
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-  const { mutate: registerPendingAccount, isPending: isSubmitting } = useRegistrationFormMutation(setError, showModal);
+  const { mutate: registerPendingAccount, isPending: isSubmitting } = useRegistrationFormMutation(setError);
   const submitRegisterPendingAccountForm = (formData: FormInputValues): void => {
     registerPendingAccount(formData as PendingAccountRegistrationPayload);
   };

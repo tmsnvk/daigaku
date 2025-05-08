@@ -25,7 +25,6 @@ import {
   DisabledInputGroup,
 } from '@daigaku/components/form';
 import { ApplicationMetadata } from '@daigaku/components/general';
-import { Toast } from '@daigaku/components/notification';
 import { IsRemovableButton } from './is-removable-button';
 
 /* configuration, utilities, constants imports */
@@ -89,7 +88,6 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
   const {
     data: updatedData,
     isPending,
-    isSuccess,
     mutate: updateApplicationRecord,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
   const submitUpdateApplicationRecordForm = (formData: FormInputValues) => {
@@ -136,171 +134,163 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
   const finalDestinationOptions = useOptions(selectOptions.finalDestinationStatus);
 
   return (
-    <>
-      <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
-        <FormProvider {...formMethods}>
-          <CoreFormWrapper
-            formId={'update-application-record-form'}
-            onFormSubmit={handleSubmit(submitUpdateApplicationRecordForm)}
-            className={joinTw('core-application-grid')}
-          >
-            <CoreFormHeader
-              title={t('updateApplicationRecordFormTitle')}
-              intent={'largeWithUnderline'}
-              className={joinTw('col-start-1 col-end-3')}
-            />
-            <ApplicationMetadata
-              className={joinTw('col-start-1 col-end-2 row-start-2 row-end-3', 'h-40')}
-              metadata={{
-                created: {
-                  createdAt: updatedData?.createdAt ?? application.createdAt,
-                  createdBy: updatedData?.createdBy ?? application.createdBy,
-                },
-                lastUpdated: {
-                  lastUpdatedAt: updatedData ? updatedData.lastUpdatedAt : application.lastUpdatedAt,
-                  lastModifiedBy: updatedData?.lastModifiedBy ?? application.lastModifiedBy,
-                },
-              }}
-            />
-            <IsRemovableButton
-              isRemovable={updatedData?.isRemovable ?? application.isRemovable}
-              applicationUuid={application.uuid}
-            />
-            <CoreFormElementInstruction
-              paragraph={t('updateApplicationRecordFormInformation')}
-              className={joinTw('col-start-1 col-end-3', 'mt-20')}
-            />
-            <DisabledInputGroup
-              id={'country'}
-              type={'text'}
-              label={t('countryLabel')}
-              defaultValue={application.country}
-            />
-            <CoreFormElementInstruction paragraph={t('countryUpdateFieldInformation')} />
-            <DisabledInputGroup
-              id={'university'}
-              type={'text'}
-              label={t('universityLabel')}
-              defaultValue={application.university}
-            />
-            <CoreFormElementInstruction paragraph={t('universityUpdateFieldInformation')} />
-            <DisabledInputGroup
-              id={'courseName'}
-              type={'text'}
-              label={t('courseNameLabel')}
-              defaultValue={application.courseName}
-            />
-            <CoreFormElementInstruction paragraph={t('courseNameUpdateFieldInformation')} />
-            <DisabledInputGroup
-              id={'minorSubject'}
-              type={'text'}
-              label={t('minorSubjectLabel')}
-              defaultValue={application.minorSubject ?? '-'}
-            />
-            <CoreFormElementInstruction paragraph={t('minorSubjectUpdateFieldInformation')} />
-            <DisabledInputGroup
-              id={'programmeLength'}
-              type={'number'}
-              label={t('programmeLengthLabel')}
-              defaultValue={application.programmeLength}
-            />
-            <CoreFormElementInstruction paragraph={t('programmeLengthUpdateFieldInformation')} />
-            <CommonSelectGroup
-              id={'applicationStatusUuid'}
-              isLoading={isOptionsLoading}
-              isError={isOptionsError}
-              isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
-              onRetry={refetch.applicationStatus}
-              onChangeHandler={updateInterviewStatus}
-              label={t('applicationStatusLabel')}
-              options={applicationOptions}
-              initialValue={
-                updatedData?.applicationStatus.name ??
-                application.applicationStatus.name ??
-                t('applicationStatusPlaceholder')
-              }
-              intent={CoreSelectElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('applicationStatusUpdateFieldInformation')} />
-            <CommonSelectGroup
-              id={'interviewStatusUuid'}
-              isLoading={isOptionsLoading}
-              isError={isOptionsError}
-              isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
-              onRetry={refetch.interviewStatus}
-              onChangeHandler={updateOfferStatus}
-              label={t('interviewStatusLabel')}
-              options={interviewOptions}
-              initialValue={
-                updatedData?.interviewStatus?.name ??
-                application.interviewStatus?.name ??
-                t('interviewStatusPlaceholder')
-              }
-              intent={CoreSelectElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('interviewStatusUpdateFieldInformation')} />
-            <CommonSelectGroup
-              id={'offerStatusUuid'}
-              isLoading={isOptionsLoading}
-              isError={isOptionsError}
-              isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
-              onRetry={refetch.offerStatus}
-              onChangeHandler={updateResponseStatus}
-              label={t('offerStatusLabel')}
-              options={offerOptions}
-              initialValue={
-                updatedData?.offerStatus?.name ?? application.offerStatus?.name ?? t('offerStatusPlaceholder')
-              }
-              intent={CoreSelectElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('offerStatusUpdateFieldInformation')} />
-            <CommonSelectGroup
-              id={'responseStatusUuid'}
-              isLoading={isOptionsLoading}
-              isError={isOptionsError}
-              isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
-              onRetry={refetch.responseStatus}
-              onChangeHandler={updateFinalDestinationStatus}
-              label={t('responseStatusLabel')}
-              options={responseOptions}
-              initialValue={
-                updatedData?.responseStatus?.name ?? application.responseStatus?.name ?? t('responseStatusPlaceholder')
-              }
-              intent={CoreSelectElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('responseStatusUpdateFieldInformation')} />
-            <CommonSelectGroup
-              id={'finalDestinationStatusUuid'}
-              isLoading={isOptionsLoading}
-              isError={isOptionsError}
-              onRetry={refetch.finalDestinationStatus}
-              isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
-              label={t('finalDestinationStatusLabel')}
-              options={finalDestinationOptions}
-              initialValue={
-                updatedData?.finalDestinationStatus?.name ??
-                application.finalDestinationStatus?.name ??
-                t('finalDestinationStatusPlaceholder')
-              }
-              intent={CoreSelectElementStyleIntent.LIGHT}
-            />
-            <CoreFormElementInstruction paragraph={t('finalDestinationStatusUpdateFieldInformation')} />
-            <CoreFormAction
-              isSubmissionPending={isPending}
-              formActionConfig={{
-                message: t('genericFormSubmission'),
-                value: t('updateApplicationRecordFormSubmit'),
-              }}
-              intent={CoreSubmitInputElementStyleIntent.DARK}
-              className={joinTw('col-start-1 col-end-3')}
-            />
-          </CoreFormWrapper>
-        </FormProvider>
-      </section>
-      <Toast
-        isVisible={isSuccess}
-        message={t('applicationUpdated')}
-      />
-    </>
+    <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
+      <FormProvider {...formMethods}>
+        <CoreFormWrapper
+          formId={'update-application-record-form'}
+          onFormSubmit={handleSubmit(submitUpdateApplicationRecordForm)}
+          className={joinTw('core-application-grid')}
+        >
+          <CoreFormHeader
+            title={t('updateApplicationRecordFormTitle')}
+            intent={'largeWithUnderline'}
+            className={joinTw('col-start-1 col-end-3')}
+          />
+          <ApplicationMetadata
+            className={joinTw('col-start-1 col-end-2 row-start-2 row-end-3', 'h-40')}
+            metadata={{
+              created: {
+                createdAt: updatedData?.createdAt ?? application.createdAt,
+                createdBy: updatedData?.createdBy ?? application.createdBy,
+              },
+              lastUpdated: {
+                lastUpdatedAt: updatedData ? updatedData.lastUpdatedAt : application.lastUpdatedAt,
+                lastModifiedBy: updatedData?.lastModifiedBy ?? application.lastModifiedBy,
+              },
+            }}
+          />
+          <IsRemovableButton
+            isRemovable={updatedData?.isRemovable ?? application.isRemovable}
+            applicationUuid={application.uuid}
+          />
+          <CoreFormElementInstruction
+            paragraph={t('updateApplicationRecordFormInformation')}
+            className={joinTw('col-start-1 col-end-3', 'mt-20')}
+          />
+          <DisabledInputGroup
+            id={'country'}
+            type={'text'}
+            label={t('countryLabel')}
+            defaultValue={application.country}
+          />
+          <CoreFormElementInstruction paragraph={t('countryUpdateFieldInformation')} />
+          <DisabledInputGroup
+            id={'university'}
+            type={'text'}
+            label={t('universityLabel')}
+            defaultValue={application.university}
+          />
+          <CoreFormElementInstruction paragraph={t('universityUpdateFieldInformation')} />
+          <DisabledInputGroup
+            id={'courseName'}
+            type={'text'}
+            label={t('courseNameLabel')}
+            defaultValue={application.courseName}
+          />
+          <CoreFormElementInstruction paragraph={t('courseNameUpdateFieldInformation')} />
+          <DisabledInputGroup
+            id={'minorSubject'}
+            type={'text'}
+            label={t('minorSubjectLabel')}
+            defaultValue={application.minorSubject ?? '-'}
+          />
+          <CoreFormElementInstruction paragraph={t('minorSubjectUpdateFieldInformation')} />
+          <DisabledInputGroup
+            id={'programmeLength'}
+            type={'number'}
+            label={t('programmeLengthLabel')}
+            defaultValue={application.programmeLength}
+          />
+          <CoreFormElementInstruction paragraph={t('programmeLengthUpdateFieldInformation')} />
+          <CommonSelectGroup
+            id={'applicationStatusUuid'}
+            isLoading={isOptionsLoading}
+            isError={isOptionsError}
+            isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
+            onRetry={refetch.applicationStatus}
+            onChangeHandler={updateInterviewStatus}
+            label={t('applicationStatusLabel')}
+            options={applicationOptions}
+            initialValue={
+              updatedData?.applicationStatus.name ??
+              application.applicationStatus.name ??
+              t('applicationStatusPlaceholder')
+            }
+            intent={CoreSelectElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('applicationStatusUpdateFieldInformation')} />
+          <CommonSelectGroup
+            id={'interviewStatusUuid'}
+            isLoading={isOptionsLoading}
+            isError={isOptionsError}
+            isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
+            onRetry={refetch.interviewStatus}
+            onChangeHandler={updateOfferStatus}
+            label={t('interviewStatusLabel')}
+            options={interviewOptions}
+            initialValue={
+              updatedData?.interviewStatus?.name ?? application.interviewStatus?.name ?? t('interviewStatusPlaceholder')
+            }
+            intent={CoreSelectElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('interviewStatusUpdateFieldInformation')} />
+          <CommonSelectGroup
+            id={'offerStatusUuid'}
+            isLoading={isOptionsLoading}
+            isError={isOptionsError}
+            isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
+            onRetry={refetch.offerStatus}
+            onChangeHandler={updateResponseStatus}
+            label={t('offerStatusLabel')}
+            options={offerOptions}
+            initialValue={
+              updatedData?.offerStatus?.name ?? application.offerStatus?.name ?? t('offerStatusPlaceholder')
+            }
+            intent={CoreSelectElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('offerStatusUpdateFieldInformation')} />
+          <CommonSelectGroup
+            id={'responseStatusUuid'}
+            isLoading={isOptionsLoading}
+            isError={isOptionsError}
+            isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
+            onRetry={refetch.responseStatus}
+            onChangeHandler={updateFinalDestinationStatus}
+            label={t('responseStatusLabel')}
+            options={responseOptions}
+            initialValue={
+              updatedData?.responseStatus?.name ?? application.responseStatus?.name ?? t('responseStatusPlaceholder')
+            }
+            intent={CoreSelectElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('responseStatusUpdateFieldInformation')} />
+          <CommonSelectGroup
+            id={'finalDestinationStatusUuid'}
+            isLoading={isOptionsLoading}
+            isError={isOptionsError}
+            onRetry={refetch.finalDestinationStatus}
+            isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
+            label={t('finalDestinationStatusLabel')}
+            options={finalDestinationOptions}
+            initialValue={
+              updatedData?.finalDestinationStatus?.name ??
+              application.finalDestinationStatus?.name ??
+              t('finalDestinationStatusPlaceholder')
+            }
+            intent={CoreSelectElementStyleIntent.LIGHT}
+          />
+          <CoreFormElementInstruction paragraph={t('finalDestinationStatusUpdateFieldInformation')} />
+          <CoreFormAction
+            isSubmissionPending={isPending}
+            formActionConfig={{
+              message: t('genericFormSubmission'),
+              value: t('updateApplicationRecordFormSubmit'),
+            }}
+            intent={CoreSubmitInputElementStyleIntent.DARK}
+            className={joinTw('col-start-1 col-end-3')}
+          />
+        </CoreFormWrapper>
+      </FormProvider>
+    </section>
   );
 };

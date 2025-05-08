@@ -8,8 +8,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 
 /* logic imports */
 import { useResetFormMutation } from '../hooks';
@@ -50,11 +50,6 @@ interface ResetAccountPasswordFormProps {
    * @param formType The type of the form to be selected.
    */
   onFormSelect: (formType: FormType) => void;
-
-  /**
-   * The method to display a modal component.
-   */
-  showModal: () => void;
 }
 
 /**
@@ -65,7 +60,7 @@ interface ResetAccountPasswordFormProps {
  * @param {ResetAccountPasswordFormProps} props
  * @return {JSX.Element}
  */
-export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccountPasswordFormProps): JSX.Element => {
+export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
   const formMethods = useForm<FormInputValues>({
@@ -74,7 +69,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect, showModal }: ResetAccou
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetFormMutation(setError, showModal);
+  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetFormMutation(setError);
   const submitResetAccountPasswordForm = (formData: FormInputValues): void => {
     resetAccountPassword(formData as AccountResetPayload);
   };

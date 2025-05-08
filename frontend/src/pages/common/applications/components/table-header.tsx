@@ -54,16 +54,6 @@ interface TableHeaderProps {
    * The method initiating a `GET` REST API operation to refetch the user's application records.
    */
   onRefetch: (options: { cancelRefetch: boolean }) => Promise<UseQueryResult>;
-
-  /**
-   * The boolean value controlling the pop-up toast component's visibility.
-   */
-  readonly isToastVisible: boolean;
-
-  /**
-   * The method managing popping up the download .pdf request toast component.
-   */
-  onDownloadPdfRequest: () => void;
 }
 
 /**
@@ -78,12 +68,10 @@ export const TableHeader = ({
   onColumnSort,
   onToggleModal,
   onRefetch,
-  isToastVisible,
-  onDownloadPdfRequest,
 }: TableHeaderProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const { mutate: submitPdfDownloadRequest, isPending, isError, error } = useRequestPdfDownload(onDownloadPdfRequest);
+  const { mutate: submitPdfDownloadRequest, isPending, isError, error } = useRequestPdfDownload();
 
   if (isError) {
     let errorMessage;
@@ -162,7 +150,7 @@ export const TableHeader = ({
           onClick={onToggleModal}
           disabled={isDataEmpty}
         />
-        {isPending || isToastVisible ? (
+        {isPending ? (
           <LoadingIndicator loadingText={t('handlingRequest')} />
         ) : (
           <CoreButton
