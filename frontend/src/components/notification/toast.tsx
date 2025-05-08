@@ -22,7 +22,7 @@ export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col
   variants: {
     intent: {
       success: joinTw('core-primary-border', 'bg-accent', 'text-secondary'),
-      destructive: joinTw('bg-destructive', 'text-tertiary'),
+      destructive: joinTw('core-primary-border', 'bg-destructive', 'text-tertiary'),
     },
   },
 });

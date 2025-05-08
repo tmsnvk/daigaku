@@ -23,6 +23,7 @@ import {
   ErrorDetail,
   UpdateApplicationRecordByStudentPayload,
 } from '@daigaku/common-types';
+import { useToastContext } from '@daigaku/context';
 
 /**
  * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.
@@ -50,6 +51,8 @@ export const useUpdateApplicationFormMutation = (
 ): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, UpdateApplicationRecordByStudentPayload> => {
   const { t } = useTranslation();
 
+  const { createToast } = useToastContext();
+
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
     mutationFn: (formData: UpdateApplicationRecordByStudentPayload) =>
@@ -68,6 +71,12 @@ export const useUpdateApplicationFormMutation = (
       });
 
       history.replaceState(response, '', `/applications/edit/${response.uuid}`);
+
+      createToast({
+        title: t('genericSuccessToastTitle'),
+        description: t('applicationUpdated'),
+        variantIntent: 'success',
+      });
     },
     onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {

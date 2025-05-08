@@ -46,10 +46,10 @@ export const TranslationKey = {
   HANDLING_REQUEST: 'handlingRequest',
 
   // notifications
-  PENDING_ACCOUNT_REGISTRATION_MODAL: 'pendingAccountRegistrationModal',
-  RESET_PASSWORD_MODAL: 'resetPasswordModal',
+  GENERIC_SUCCESS_TOAST_TITLE: 'genericSuccessToastTitle',
+  PENDING_ACCOUNT_REGISTRATION_FORM_SUBMISSION_TOAST_DESCRIPTION: 'pendingAccountRegistrationFormSubmissionToastDescription',
+  RESET_PASSWORD_FORM_SUBMISSION_TOAST_DESCRIPTION: 'resetPasswordRegistrationFormSubmissionToastDescription',
   APPLICATIONS_PDF_DOWNLOAD_TOAST: 'applicationPdfDownloadToast',
-  SUCCESS_TOAST_TITLE: 'successToastTitle',
   CREATE_APPLICATION_RECORD_FORM_SUBMISSION_TOAST_DESCRIPTION: 'createApplicationRecordFormSubmissionToastDescription',
 
   // acceptance
@@ -243,11 +243,10 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       handlingRequest: 'Handling your request...',
 
       // notifications
-      pendingAccountRegistrationModal:
-        'Thank you for registering your account. You will soon receive an email with further details.',
-      resetPasswordModal: 'Your password has been reset. You will soon receive an email with further instructions.',
+      genericSuccessToastTitle: 'Success',
+      pendingAccountRegistrationFormSubmissionToastDescription: 'Thank you for registering your account. You will soon receive an email with further details.',
+      resetPasswordRegistrationFormSubmissionToastDescription: 'Your password has been reset. You will soon receive an email with further instructions.',
       applicationPdfDownloadToast: 'Your request has been received. You will receive an email soon with the details.',
-      successToastTitle: 'Success',
       createApplicationRecordFormSubmissionToastDescription: 'Your submission was successful. Wishing you the best of luck with your application!',
 
       // acceptance

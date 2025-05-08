@@ -17,10 +17,10 @@ import { generateId, joinTw } from '@daigaku/utilities';
 /* interface, type, enum imports */
 import { CreateToast } from '@daigaku/common-types';
 
-const ToastActionTypes = {
-  CREATE_TOAST: 'CREATE_TOAST',
-  REMOVE_TOAST: 'REMOVE_TOAST',
-} as const;
+enum ToastActionTypes {
+  CREATE = 'CREATE_TOAST',
+  REMOVE = 'REMOVE_TOAST',
+}
 
 /**
  * Defines the toast creating action type.
@@ -29,7 +29,7 @@ interface CreateToastAction {
   /**
    * The action type.
    */
-  type: typeof ToastActionTypes.CREATE_TOAST;
+  type: ToastActionTypes.CREATE;
 
   /**
    * The payload for toast creation.
@@ -46,7 +46,7 @@ interface RemoveToastAction {
   /**
    * The action type.
    */
-  type: typeof ToastActionTypes.REMOVE_TOAST;
+  type: ToastActionTypes.REMOVE;
 
   /**
    * The payload for toast removal.
@@ -74,11 +74,6 @@ interface ToastContextValue {
    * The toast creating method.
    */
   createToast: (options: Omit<CreateToast, 'id'>) => void;
-
-  /**
-   * The toast removing method.
-   */
-  removeToast: (id: string) => void;
 }
 
 /**
@@ -98,10 +93,10 @@ interface ToastProviderProps {
 
 const toastReducer = (state: Array<CreateToast>, action: ToastAction): Array<CreateToast> => {
   return match<ToastAction, Array<CreateToast>>(action)
-    .with({ type: ToastActionTypes.CREATE_TOAST }, ({ payload }) => {
-      return [...state, payload.toast];
+    .with({ type: ToastActionTypes.CREATE }, ({ payload }) => {
+      return [payload.toast, ...state];
     })
-    .with({ type: ToastActionTypes.REMOVE_TOAST }, ({ payload }) => {
+    .with({ type: ToastActionTypes.REMOVE }, ({ payload }) => {
       return state.filter((toast: CreateToast) => {
         return toast.id !== payload.id;
       });
@@ -109,29 +104,26 @@ const toastReducer = (state: Array<CreateToast>, action: ToastAction): Array<Cre
     .exhaustive();
 };
 
-const ToastContext: Context<ToastContextValue> = createContext<ToastContextValue>({} as ToastContextValue);
-const initialState: Array<CreateToast> = [];
+const ToastContext: Context<ToastContextValue> = createContext<ToastContextValue>({
+  toasts: [],
+  createToast: () => {},
+});
+const initialReducerState: Array<CreateToast> = [];
 
 /**
  * Defines the application's toast-related context object.
  */
 export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProviderProps): JSX.Element => {
-  const [toasts, dispatch] = useReducer(toastReducer, initialState);
+  const [toasts, dispatch] = useReducer(toastReducer, initialReducerState);
 
   const createToast = (options: Omit<CreateToast, 'id'>): void => {
     const id = generateId();
     const newToast = { ...options, id };
 
-    dispatch({
-      type: ToastActionTypes.CREATE_TOAST,
-      payload: { toast: newToast },
-    });
+    dispatch({ type: ToastActionTypes.CREATE, payload: { toast: newToast } });
 
     setTimeout(() => {
-      dispatch({
-        type: ToastActionTypes.REMOVE_TOAST,
-        payload: { id },
-      });
+      dispatch({ type: ToastActionTypes.REMOVE, payload: { id } });
     }, autoRemoveDelay);
   };
 
@@ -141,10 +133,7 @@ export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProvide
     });
 
     if (doesToastExist) {
-      dispatch({
-        type: ToastActionTypes.REMOVE_TOAST,
-        payload: { id },
-      });
+      dispatch({ type: ToastActionTypes.REMOVE, payload: { id } });
     }
   };
 
@@ -152,7 +141,6 @@ export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProvide
     () => ({
       toasts,
       createToast,
-      removeToast,
     }),
     [toasts, createToast, removeToast],
   );
@@ -161,13 +149,13 @@ export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProvide
     <ToastContext value={toastContextValues}>
       {children}
 
-      <section className={joinTw('z-100 fixed bottom-10 right-20 flex flex-col-reverse gap-4')}>
+      <section className={joinTw('z-100 fixed bottom-10 right-20 flex flex-col gap-4')}>
         {toasts.map((toast: CreateToast) => {
           return (
             <Toast
               key={toast.id}
               {...toast}
-              onClose={() => toastContextValues.removeToast(toast.id)}
+              onClose={() => removeToast(toast.id)}
               autoRemoveDelay={autoRemoveDelay}
             />
           );

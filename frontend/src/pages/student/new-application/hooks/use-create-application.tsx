@@ -75,7 +75,7 @@ export const useCreateApplication = (
       reset();
 
       createToast({
-        title: t('successToastTitle'),
+        title: t('genericSuccessToastTitle'),
         description: t('createApplicationRecordFormSubmissionToastDescription'),
         variantIntent: 'success',
       });

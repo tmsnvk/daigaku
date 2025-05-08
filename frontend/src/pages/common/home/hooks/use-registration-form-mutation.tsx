@@ -11,6 +11,7 @@ import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
+import { useToastContext } from '@daigaku/context';
 import { pendingAccountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
@@ -28,20 +29,24 @@ type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'ins
  * Manages the pending account registration form submission.
  *
  * @param setError A `react-hook-form` method that sets form errors.
- * @param showModal A method that displays a confirmation modal component.
  * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationPayload>}
  */
 export const useRegistrationFormMutation = (
   setError: UseFormSetError<PendingAccountRegistrationPayload>,
-  showModal: () => void,
 ): UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationPayload> => {
   const { t } = useTranslation();
+
+  const { createToast } = useToastContext();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER],
     mutationFn: (formData: PendingAccountRegistrationPayload) => pendingAccountService.register(formData),
     onSuccess: () => {
-      showModal();
+      createToast({
+        title: t('genericSuccessToastTitle'),
+        description: t('pendingAccountRegistrationFormSubmissionToastDescription'),
+        variantIntent: 'success',
+      });
     },
     onError: (error: AxiosError<CoreErrorResponse>) => {
       if (axios.isAxiosError(error)) {
