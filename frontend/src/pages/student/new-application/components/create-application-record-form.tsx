@@ -153,7 +153,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
           <CommonSelectGroup
             id={'countryUuid'}
             isLoading={isCountryLoading}
-            isError={isCountryError}
+            isFetchError={isCountryError}
             isDisabled={isSubmitting}
             onRetry={onCountryRetry}
             onChangeHandler={handleCountrySelection}
@@ -169,7 +169,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             <CommonSelectGroup
               id={'universityUuid'}
               isLoading={isUniversityLoading}
-              isError={isUniversityError}
+              isFetchError={isUniversityError}
               isDisabled={isSubmitting || !isCountrySelected}
               onRetry={onUniversityRetry}
               options={universityOptions}

@@ -5,6 +5,9 @@
  */
 
 /* vendor imports */
+import { joinTw } from '@daigaku/utilities';
+
+/* configuration, utilities, constants imports */
 import { JSX, ReactNode } from 'react';
 
 /**
@@ -43,7 +46,7 @@ export const CoreFormWrapper = ({ formId, onFormSubmit, className, children }: C
     <form
       id={formId}
       onSubmit={onFormSubmit}
-      className={className}
+      className={joinTw('flex flex-col items-center', className)}
     >
       {children}
     </form>

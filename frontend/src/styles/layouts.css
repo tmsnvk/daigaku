@@ -1,4 +1,21 @@
-@layer components {
+@layer utilities {
+  .core-application-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 2.5rem;
+    row-gap: 5rem;
+    width: 95%;
+    margin: 2rem auto 2rem auto;
+    padding: 0 5rem 0 5rem;
+    justify-items: center;
+
+    & article:nth-last-of-type(2),
+    & article:last-of-type {
+      min-width: fit-content;
+    }
+  }
+
   .application-grid {
     width: 95%;
     display: grid;
@@ -12,6 +29,5 @@
     align-items: center;
 
     @apply lg:w-[75%];
-    @apply xl:w-[55%];
   }
 }

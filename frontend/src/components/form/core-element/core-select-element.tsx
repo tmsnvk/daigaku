@@ -13,7 +13,7 @@ import { FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 import { joinTw } from '@daigaku/utilities';
 
 const coreSelectElementVariants = cva(
-  joinTw('w-[95%] sm:w-[65%] h-20', 'px-4', 'border-2', 'text-xl', 'rounded-xl', 'focus:outline-1'),
+  joinTw('w-full h-20', 'px-4 pt-4', 'border-2', 'text-xl', 'rounded-xl', 'focus:outline-1'),
   {
     variants: {
       intent: {
