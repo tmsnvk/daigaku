@@ -25,7 +25,7 @@ interface NavigationBarWrapperProps {
  */
 export const NavigationBarWrapper = ({ children }: NavigationBarWrapperProps): JSX.Element => {
   return (
-    <header className={joinTw('sticky top-0 z-50', 'bg-primary border-secondary border-b-2')}>
+    <header className={joinTw('z-100 sticky top-0', 'bg-primary border-secondary border-b-2')}>
       <nav className={joinTw('flex items-center justify-between lg:justify-around', 'w-9/10 h-40', 'mx-auto')}>
         {children}
       </nav>

@@ -50,6 +50,7 @@ export const CommonInputGroup = <T extends FieldValues>({
       <CoreFormElementLabel
         inputId={id}
         label={label}
+        isError={!!error}
       />
       <CoreInputElement
         id={id}

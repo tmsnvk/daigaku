@@ -23,6 +23,11 @@ interface CoreFormElementLabelProps {
    * The displayed label string.
    */
   readonly label: string;
+
+  /**
+   * Indicates whether there is an error involving the input element.
+   */
+  readonly isError?: boolean;
 }
 
 /**
@@ -31,11 +36,17 @@ interface CoreFormElementLabelProps {
  * @param {CoreFormElementLabelProps} props
  * @return {JSX.Element}
  */
-export const CoreFormElementLabel = ({ inputId, label }: CoreFormElementLabelProps): JSX.Element => {
+export const CoreFormElementLabel = ({ inputId, label, isError }: CoreFormElementLabelProps): JSX.Element => {
   return (
     <label
       htmlFor={inputId}
-      className={joinTw('text-2xl')}
+      className={joinTw(
+        'z-1 absolute top-[-0.75rem]',
+        'ml-6 px-4',
+        'text-lg font-semibold tracking-widest',
+        'rounded-(--default-border-radius)',
+        isError ? 'bg-destructive text-tertiary' : 'bg-secondary text-primary',
+      )}
     >
       {label}
     </label>

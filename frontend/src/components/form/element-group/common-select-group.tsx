@@ -40,7 +40,7 @@ interface CommonSelectGroupProps<T extends FieldValues> extends CoreSelectElemen
 export const CommonSelectGroup = <T extends FieldValues>({
   id,
   isLoading,
-  isError,
+  isFetchError,
   isDisabled,
   onRetry,
   onChangeHandler,
@@ -56,13 +56,14 @@ export const CommonSelectGroup = <T extends FieldValues>({
   return (
     <CoreFormElementFetchStateWrapper
       isLoading={isLoading}
-      isError={isError}
+      isError={isFetchError}
       onRetry={onRetry}
     >
       <CoreFormElementGroupWrapper>
         <CoreFormElementLabel
           inputId={id}
           label={label}
+          isError={!!error}
         />
         <CoreSelectElement
           id={id}

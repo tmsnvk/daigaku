@@ -109,7 +109,7 @@ export interface CoreSelectElementGroup<T extends FieldValues> extends CoreFormE
   /**
    *
    */
-  readonly isError: boolean;
+  readonly isFetchError: boolean;
 
   /**
    *

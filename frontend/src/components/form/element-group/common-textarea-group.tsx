@@ -61,6 +61,7 @@ export const CommonTextareaGroup = <T extends FieldValues>({
       <CoreFormElementLabel
         inputId={id}
         label={label}
+        isError={!!error}
       />
       <CoreTextareaElement
         id={id}

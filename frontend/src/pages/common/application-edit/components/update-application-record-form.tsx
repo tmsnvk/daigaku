@@ -205,7 +205,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
           <CommonSelectGroup
             id={'applicationStatusUuid'}
             isLoading={isOptionsLoading}
-            isError={isOptionsError}
+            isFetchError={isOptionsError}
             isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
             onRetry={refetch.applicationStatus}
             onChangeHandler={updateInterviewStatus}
@@ -222,7 +222,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
           <CommonSelectGroup
             id={'interviewStatusUuid'}
             isLoading={isOptionsLoading}
-            isError={isOptionsError}
+            isFetchError={isOptionsError}
             isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
             onRetry={refetch.interviewStatus}
             onChangeHandler={updateOfferStatus}
@@ -237,7 +237,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
           <CommonSelectGroup
             id={'offerStatusUuid'}
             isLoading={isOptionsLoading}
-            isError={isOptionsError}
+            isFetchError={isOptionsError}
             isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
             onRetry={refetch.offerStatus}
             onChangeHandler={updateResponseStatus}
@@ -252,7 +252,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
           <CommonSelectGroup
             id={'responseStatusUuid'}
             isLoading={isOptionsLoading}
-            isError={isOptionsError}
+            isFetchError={isOptionsError}
             isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
             onRetry={refetch.responseStatus}
             onChangeHandler={updateFinalDestinationStatus}
@@ -267,7 +267,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
           <CommonSelectGroup
             id={'finalDestinationStatusUuid'}
             isLoading={isOptionsLoading}
-            isError={isOptionsError}
+            isFetchError={isOptionsError}
             onRetry={refetch.finalDestinationStatus}
             isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
             label={t('finalDestinationStatusLabel')}

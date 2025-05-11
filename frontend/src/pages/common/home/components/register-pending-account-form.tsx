@@ -183,7 +183,7 @@ export const RegisterPendingAccountForm = ({ onFormSelect }: RegisterPendingAcco
           <CommonSelectGroup
             id={'institutionUuid'}
             isLoading={isInstitutionLoading}
-            isError={isInstitutionError}
+            isFetchError={isInstitutionError}
             isDisabled={isSubmitting}
             onRetry={institutionRefetch}
             label={t('institutionLabel')}
@@ -194,7 +194,7 @@ export const RegisterPendingAccountForm = ({ onFormSelect }: RegisterPendingAcco
           <CommonSelectGroup
             id={'accountRoleUuid'}
             isLoading={isRoleLoading}
-            isError={isRoleError}
+            isFetchError={isRoleError}
             isDisabled={isSubmitting}
             onRetry={roleRefetch}
             label={t('accountRoleLabel')}

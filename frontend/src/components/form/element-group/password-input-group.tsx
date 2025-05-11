@@ -56,8 +56,9 @@ export const PasswordInputGroup = <T extends FieldValues>({
       <CoreFormElementLabel
         inputId={id}
         label={label}
+        isError={!!error}
       />
-      <div className={joinTw('w-full', 'text-2xl')}>
+      <div className={joinTw('flex w-full items-center', 'text-2xl')}>
         <CoreInputElement
           id={id}
           type={isPasswordRevealed ? 'text' : 'password'}
@@ -66,7 +67,7 @@ export const PasswordInputGroup = <T extends FieldValues>({
           placeholder={placeholder}
           initialValue={initialValue}
           intent={intent}
-          className={joinTw('w-[85%] md:w-[60%]')}
+          className={'flex-1'}
         />
         <FontAwesomeIcon
           onClick={() => {
