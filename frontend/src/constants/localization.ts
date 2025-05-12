@@ -231,7 +231,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       footerContent: '© built with vite/tanstack react typescript, spring boot, rabbitmq, redis, psql and ❤️',
 
       // loading texts
-      dataCompilation: 'The application is compiling your data...',
+      dataCompilation: 'The application is loading...',
       dataFetching: 'The required data is being fetched...',
       universityDataFetching: 'Fetching university list...',
       applicationUpdated: 'Your application was successfully updated.',

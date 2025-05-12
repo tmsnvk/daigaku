@@ -8,11 +8,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 
-/* logic imports */
-import { useRenderModal } from '@daigaku/hooks';
-
 /* component imports */
-import { CoreDialog } from '../core';
+import { CoreLoadingDialog } from '../core';
 
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
@@ -25,11 +22,6 @@ interface LoadingModalProps {
    * Indicates whether the component should be visible.
    */
   readonly isVisible: boolean;
-
-  /**
-   * The status text to be displayed.
-   */
-  readonly status: string;
 }
 
 /**
@@ -38,21 +30,19 @@ interface LoadingModalProps {
  * @param {LoadingModalProps} props
  * @return {JSX.Element}
  */
-export const LoadingModal = ({ isVisible, status }: LoadingModalProps): JSX.Element => {
-  const { dialogRef } = useRenderModal(isVisible);
-
+export const LoadingModal = ({ isVisible }: LoadingModalProps): JSX.Element => {
   return (
-    <CoreDialog
-      ref={dialogRef}
+    <CoreLoadingDialog
+      isVisible={isVisible}
       intent={'light'}
     >
-      <p>
-        {status}{' '}
+      <div className={'flex flex-col'}>
+        {/*<p>{t('dataCompilation')}</p>*/}
         <FontAwesomeIcon
           icon={iconLibraryConfig.faSpinner}
           spin
         />
-      </p>
-    </CoreDialog>
+      </div>
+    </CoreLoadingDialog>
   );
 };
