@@ -6,15 +6,16 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplicationByUuid } from '@daigaku/hooks';
 
 /* component imports */
+import { CoreLoadingNotification } from '@daigaku/components/core';
+import { GlobalErrorModal } from '@daigaku/components/notification';
 import { UpdateApplicationRecordForm } from './components';
-import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -42,12 +43,7 @@ export const ApplicationEdit = (): JSX.Element => {
   const application = state || data;
 
   if (isApplicationLoading) {
-    return (
-      <LoadingModal
-        isVisible={isApplicationLoading}
-        status={t('dataCompilation')}
-      />
-    );
+    return <CoreLoadingNotification intent={'light'} />;
   }
 
   if (isApplicationError) {

@@ -7,7 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
@@ -15,18 +14,15 @@ import { useGetApplications } from '@daigaku/hooks';
 import { useDashboardStatisticsQuery } from './hooks';
 
 /* component imports */
-import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
+import { CoreLoadingNotification } from '@daigaku/components/core';
+import { GlobalErrorModal } from '@daigaku/components/notification';
 import { LayoutStudent } from './components';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { StudentDashboardStatisticsResponse, UserRole } from '@daigaku/common-types';
-
-/* configuration, utilities, constants imports */
-
-/* interface, type, enum imports */
+import { UserRole } from '@daigaku/common-types';
 
 /**
  * Renders the application records' dashboard for authenticated users.
@@ -35,8 +31,6 @@ import { StudentDashboardStatisticsResponse, UserRole } from '@daigaku/common-ty
  * @return {JSX.Element}
  */
 export const Dashboard = (): JSX.Element => {
-  const { t } = useTranslation();
-
   const navigate = useNavigate();
 
   const { account, logOut } = useAuthContext();
@@ -46,12 +40,7 @@ export const Dashboard = (): JSX.Element => {
   useGetApplications();
 
   if (isLoading) {
-    return (
-      <LoadingModal
-        isVisible={isLoading}
-        status={t('dataCompilation')}
-      />
-    );
+    return <CoreLoadingNotification intent={'light'} />;
   }
 
   if (isError) {
@@ -70,9 +59,7 @@ export const Dashboard = (): JSX.Element => {
   // Add layouts for other authentication level users.
   return (
     <main className={joinTw('flex flex-row flex-wrap gap-y-20', 'm-[5%]')}>
-      {account.role === UserRole.ROLE_STUDENT && (
-        <LayoutStudent data={dashboardStatistics as StudentDashboardStatisticsResponse} />
-      )}
+      {account.role === UserRole.ROLE_STUDENT && dashboardStatistics && <LayoutStudent data={dashboardStatistics} />}
     </main>
   );
 };

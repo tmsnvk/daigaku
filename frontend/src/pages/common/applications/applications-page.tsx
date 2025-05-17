@@ -14,7 +14,8 @@ import { useGetApplications, useModalToggle } from '@daigaku/hooks';
 import { useColumnVisibility, useSortOrder } from './hooks';
 
 /* component imports */
-import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
+import { CoreLoadingNotification } from '@daigaku/components/core';
+import { GlobalErrorModal } from '@daigaku/components/notification';
 import { ColumnSelectorModal, DataRows, TableHeader } from './components';
 
 /* configuration, utilities, constants imports */
@@ -42,12 +43,7 @@ export const Applications = (): JSX.Element => {
   const { isModalVisible, toggleModal } = useModalToggle();
 
   if (isLoading || isRefetching) {
-    return (
-      <LoadingModal
-        isVisible={isLoading || isRefetching}
-        status={t('dataCompilation')}
-      />
-    );
+    return <CoreLoadingNotification intent={'light'} />;
   }
 
   if (isError) {

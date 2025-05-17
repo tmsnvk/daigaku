@@ -7,13 +7,13 @@
 /* vendor imports */
 import { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useGetApplicationByUuid } from '@daigaku/hooks';
 
 /* component imports */
-import { GlobalErrorModal, LoadingModal } from '@daigaku/components/notification';
+import { CoreLoadingNotification } from '@daigaku/components/core';
+import { GlobalErrorModal } from '@daigaku/components/notification';
 import { ApplicationDetails, CommentSection } from './components';
 
 /* configuration, utilities, constants imports */
@@ -25,20 +25,13 @@ import { joinTw } from '@daigaku/utilities';
  * @return {JSX.Element}
  */
 export const ApplicationView = (): JSX.Element => {
-  const { t } = useTranslation();
-
   const { state, pathname } = useLocation();
   const applicationUuid = pathname.split('/applications/view/')[1];
   const { data, isLoading, isError } = useGetApplicationByUuid(state, applicationUuid);
   const application = state || data;
 
   if (isLoading) {
-    return (
-      <LoadingModal
-        isVisible={isLoading}
-        status={t('dataCompilation')}
-      />
-    );
+    return <CoreLoadingNotification intent={'light'} />;
   }
 
   if (isError) {
