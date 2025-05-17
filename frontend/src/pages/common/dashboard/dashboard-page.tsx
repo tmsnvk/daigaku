@@ -11,12 +11,12 @@ import { useNavigate } from 'react-router-dom';
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
 import { useGetApplications } from '@daigaku/hooks';
-import { useDashboardStatisticsQuery } from './hooks';
+import { useDashboardStatisticsQuery } from './common/hooks/use-dashboard-statistics-query.tsx';
 
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
-import { LayoutStudent } from './components';
+import { LayoutStudent } from './layout-student';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -59,7 +59,7 @@ export const Dashboard = (): JSX.Element => {
   // Add layouts for other authentication level users.
   return (
     <main className={joinTw('flex flex-row flex-wrap gap-y-20', 'm-[5%]')}>
-      {account.role === UserRole.ROLE_STUDENT && dashboardStatistics && <LayoutStudent data={dashboardStatistics} />}
+      {dashboardStatistics && account.role === UserRole.ROLE_STUDENT && <LayoutStudent data={dashboardStatistics} />}
     </main>
   );
 };

@@ -9,13 +9,13 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useTodoList } from '../hooks/use-todo-list';
+import { useTodoList } from '../../common/hooks/use-todo-list.tsx';
 
 /* component imports */
-import { LayoutSectionWrapper } from './layout-section-wrapper';
-import { TileDetail } from './tile-detail';
-import { TileStatistic } from './tile-statistic';
-import { TodoList } from './todo-list';
+import { LayoutSectionWrapper } from '../../common/components/layout-section-wrapper.tsx';
+import { TileDetail } from '../../common/components/tile-detail.tsx';
+import { TileStatistic } from '../../common/components/tile-statistic.tsx';
+import { TodoList } from '../../common/components/todo-list.tsx';
 
 /* interface, type, enum imports */
 import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
