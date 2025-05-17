@@ -9,10 +9,12 @@ import { JSX, useMemo, useState } from 'react';
 import { match } from 'ts-pattern';
 
 /* component imports */
-import { LoginForm, RegisterPendingAccountForm, ResetAccountPasswordForm } from '../components';
+import { LoginForm } from '../../login-form';
+import { PendingAccountRegistrationForm } from '../../pending-account-registration-form';
+import { ResetAccountPasswordForm } from '../../reset-account-password-form';
 
 /* interface, type, enum imports */
-import { FormType } from '../models';
+import { FormType } from '../types.ts';
 
 /**
  * Defines the return values for the {@link useFormSwitcher} hook.
@@ -45,7 +47,7 @@ const getSelectedFormComponent = (
 ): JSX.Element | null => {
   return match(selectedFormType)
     .with(FormType.LOGIN, () => <LoginForm onFormSelect={selectFormType} />)
-    .with(FormType.REGISTER_PENDING_ACCOUNT, () => <RegisterPendingAccountForm onFormSelect={selectFormType} />)
+    .with(FormType.REGISTER_PENDING_ACCOUNT, () => <PendingAccountRegistrationForm onFormSelect={selectFormType} />)
     .with(FormType.RESET_ACCOUNT_PASSWORD, () => <ResetAccountPasswordForm onFormSelect={selectFormType} />)
     .otherwise(() => null);
 };
@@ -53,7 +55,7 @@ const getSelectedFormComponent = (
 /**
  * Selects and renders a form component based on the active {@link FormType}.
  * The form component options are:
- * - {@link RegisterPendingAccountForm}
+ * - {@link PendingAccountRegistrationForm}
  * - {@link LoginForm}
  * - {@link ResetAccountPasswordForm}
  *

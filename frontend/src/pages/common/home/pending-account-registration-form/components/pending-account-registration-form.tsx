@@ -6,14 +6,13 @@
 
 /* vendor imports */
 import { zodResolver } from '@hookform/resolvers/zod';
-import { JSX, useMemo } from 'react';
+import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
-import { useRegistrationFormMutation } from '../hooks';
+import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
 
 /* component imports */
 import {
@@ -23,12 +22,11 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
 } from '@daigaku/components/form';
-import { FormSwapButtons } from './form-swap-buttons';
+import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, utilities, constants imports */
-import { TranslationKey } from '@daigaku/constants';
 import { removeRolePrefix } from '@daigaku/utilities';
-import { formTypeButtonLabel } from '../constants';
+import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type, enum imports */
 import {
@@ -39,42 +37,13 @@ import {
   PendingAccountRegistrationPayload,
   RoleOption,
 } from '@daigaku/common-types';
-import { FormType } from '../models';
-
-const formValidationSchema = z.object({
-  firstName: z
-    .string()
-    .trim()
-    .nonempty({ message: TranslationKey.FIRST_NAME_REQUIRED })
-    .regex(/^[\p{L}\s-]{1,255}$/u, {
-      message: TranslationKey.NAME_PATTERN,
-    }),
-  lastName: z
-    .string()
-    .trim()
-    .nonempty({ message: TranslationKey.LAST_NAME_REQUIRED })
-    .regex(/^[\p{L}\s-]{1,255}$/u, {
-      message: TranslationKey.NAME_PATTERN,
-    }),
-  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
-  institutionUuid: z.string().uuid({ message: TranslationKey.INSTITUTION_REQUIRED }),
-  accountRoleUuid: z.string().uuid({ message: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
-});
-
-type FormInputValues = z.infer<typeof formValidationSchema>;
-
-const initialFormValues: FormInputValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  institutionUuid: '',
-  accountRoleUuid: '',
-};
+import { FormType } from '../../common/types.ts';
+import { FormInputValues, formValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
  */
-interface RegisterPendingAccountFormProps {
+interface PendingAccountRegistrationFormProps {
   /**
    * The method to select the current form type.
    *
@@ -88,10 +57,10 @@ interface RegisterPendingAccountFormProps {
  * The component utilises the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {RegisterPendingAccountFormProps} props
+ * @param {PendingAccountRegistrationFormProps} props
  * @return {JSX.Element}
  */
-export const RegisterPendingAccountForm = ({ onFormSelect }: RegisterPendingAccountFormProps): JSX.Element => {
+export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountRegistrationFormProps): JSX.Element => {
   const { t } = useTranslation();
 
   const {
@@ -110,40 +79,21 @@ export const RegisterPendingAccountForm = ({ onFormSelect }: RegisterPendingAcco
 
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
-    defaultValues: initialFormValues,
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      institutionUuid: '',
+      accountRoleUuid: '',
+    },
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-  const { mutate: registerPendingAccount, isPending: isSubmitting } = useRegistrationFormMutation(setError);
+  const { mutate: registerPendingAccount, isPending: isSubmitting } =
+    usePendingAccountRegistrationFormMutation(setError);
   const submitRegisterPendingAccountForm = (formData: FormInputValues): void => {
     registerPendingAccount(formData as PendingAccountRegistrationPayload);
   };
-
-  const institutionOptions = useMemo(
-    () =>
-      institutions?.map((institution: InstitutionOption) => (
-        <option
-          key={institution.uuid}
-          value={institution.uuid}
-        >
-          {institution.name}
-        </option>
-      )) || [],
-    [institutions],
-  );
-
-  const roleOptions = useMemo(
-    () =>
-      roles?.map((role: RoleOption) => (
-        <option
-          key={role.uuid}
-          value={role.uuid}
-        >
-          {removeRolePrefix(role.name)}
-        </option>
-      )) || [],
-    [roles],
-  );
 
   return (
     <>
@@ -187,7 +137,16 @@ export const RegisterPendingAccountForm = ({ onFormSelect }: RegisterPendingAcco
             isDisabled={isSubmitting}
             onRetry={institutionRefetch}
             label={t('institutionLabel')}
-            options={institutionOptions}
+            options={
+              institutions?.map((institution: InstitutionOption) => (
+                <option
+                  key={institution.uuid}
+                  value={institution.uuid}
+                >
+                  {institution.name}
+                </option>
+              )) || []
+            }
             initialValue={t('institutionPlaceholder')}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
@@ -198,7 +157,16 @@ export const RegisterPendingAccountForm = ({ onFormSelect }: RegisterPendingAcco
             isDisabled={isSubmitting}
             onRetry={roleRefetch}
             label={t('accountRoleLabel')}
-            options={roleOptions}
+            options={
+              roles?.map((role: RoleOption) => (
+                <option
+                  key={role.uuid}
+                  value={role.uuid}
+                >
+                  {removeRolePrefix(role.name)}
+                </option>
+              )) || []
+            }
             initialValue={t('accountRolePlaceholder')}
             intent={CoreSelectElementStyleIntent.LIGHT}
           />

@@ -10,10 +10,10 @@ import { Navigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
-import { useFormSwitcher } from './hooks';
+import { useFormSwitcher } from './common/hooks/use-form-switcher.tsx';
 
 /* component imports */
-import { FormSectionWrapper } from './components';
+import { FormSectionWrapper } from './common/components/form-section-wrapper.tsx';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -23,8 +23,8 @@ import { UserLoginState } from '@daigaku/common-types';
 
 /**
  * Renders the application's root page.
- * If the user is authenticated, they are redirected to the `/dashboard` route.
- * Otherwise, the component renders one of three possible form components based on the user's selection.
+ * If the user is authenticated, they are redirected to the `/dashboard` route. Otherwise, the component renders one of
+ * three possible form components based on the user's selection.
  *
  * @return {JSX.Element}
  */

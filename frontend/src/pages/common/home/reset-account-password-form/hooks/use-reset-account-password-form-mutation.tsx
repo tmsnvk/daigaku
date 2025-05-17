@@ -26,7 +26,7 @@ import { AccountResetPayload, CoreErrorResponse } from '@daigaku/common-types';
  * @param setError A `react-hook-form` method that sets form errors.
  * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetPayload>}
  */
-export const useResetFormMutation = (
+export const useResetAccountPasswordFormMutation = (
   setError: UseFormSetError<AccountResetPayload>,
 ): UseMutationResult<void, AxiosError<CoreErrorResponse>, AccountResetPayload> => {
   const { t } = useTranslation();

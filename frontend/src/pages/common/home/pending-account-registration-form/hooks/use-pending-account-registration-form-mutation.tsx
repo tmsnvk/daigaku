@@ -21,7 +21,7 @@ import { mutationKeys } from '@daigaku/configuration';
 import { CoreErrorResponse, ErrorDetail, PendingAccountRegistrationPayload } from '@daigaku/common-types';
 
 /**
- * Defines the {@link useRegistrationFormMutation} custom hook's error types.
+ * Defines the {@link usePendingAccountRegistrationFormMutation} custom hook's error types.
  */
 type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
@@ -31,7 +31,7 @@ type RegistrationFormErrorT = 'root' | 'firstName' | 'lastName' | 'email' | 'ins
  * @param setError A `react-hook-form` method that sets form errors.
  * @return {UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationPayload>}
  */
-export const useRegistrationFormMutation = (
+export const usePendingAccountRegistrationFormMutation = (
   setError: UseFormSetError<PendingAccountRegistrationPayload>,
 ): UseMutationResult<void, AxiosError<CoreErrorResponse>, PendingAccountRegistrationPayload> => {
   const { t } = useTranslation();

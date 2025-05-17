@@ -9,18 +9,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
 /* logic imports */
-import { useResetFormMutation } from '../hooks';
+import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
-import { FormSwapButtons } from './form-swap-buttons';
+import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, utilities, constants imports */
-import { TranslationKey } from '@daigaku/constants';
-import { formTypeButtonLabel } from '../constants';
+import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type, enum imports */
 import {
@@ -28,17 +26,8 @@ import {
   CoreInputElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
 } from '@daigaku/common-types';
-import { FormType } from '../models';
-
-const formValidationSchema = z.object({
-  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
-});
-
-type FormInputValues = z.infer<typeof formValidationSchema>;
-
-const initialFormValues: FormInputValues = {
-  email: '',
-};
+import { FormType } from '../../common/types.ts';
+import { FormInputValues, formValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -65,11 +54,13 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
 
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
-    defaultValues: initialFormValues,
+    defaultValues: {
+      email: '',
+    },
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
-  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetFormMutation(setError);
+  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
   const submitResetAccountPasswordForm = (formData: FormInputValues): void => {
     resetAccountPassword(formData as AccountResetPayload);
   };

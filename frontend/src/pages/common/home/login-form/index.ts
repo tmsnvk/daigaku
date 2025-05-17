@@ -4,4 +4,4 @@
  * @author tmsnvk
  */
 
-export * from './form-type';
+export { LoginForm } from './components/login-form.tsx';
