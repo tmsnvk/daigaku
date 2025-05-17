@@ -5,17 +5,15 @@
  */
 
 /* vendor imports */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /* logic imports */
-import { useRenderModal } from '@daigaku/hooks';
-
 /* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 import { iconLibraryConfig } from '@daigaku/configuration';
+import { joinTw } from '@daigaku/utilities';
 
 const coreDialogVariants = cva(
   joinTw(
@@ -38,12 +36,7 @@ const coreDialogVariants = cva(
 /**
  * Defines the component's properties.
  */
-interface CoreDialogProps extends VariantProps<typeof coreDialogVariants> {
-  /**
-   * Indicates whether the component should be visible.
-   */
-  readonly isVisible: boolean;
-
+interface CoreLoadingNotificationProps extends VariantProps<typeof coreDialogVariants> {
   /**
    * The button's additional style options.
    */
@@ -53,27 +46,20 @@ interface CoreDialogProps extends VariantProps<typeof coreDialogVariants> {
 /**
  * Renders the core dialog component used throughout the application.
  *
- * @param {CoreDialogProps} props
+ * @param {CoreLoadingNotificationProps} props
  * @return {JSX.Element}
  */
-export const CoreLoadingDialog = ({ isVisible, intent, className }: CoreDialogProps): JSX.Element => {
+export const CoreLoadingNotification = ({ intent, className }: CoreLoadingNotificationProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const { dialogRef } = useRenderModal(isVisible);
-
   return (
-    <dialog
-      ref={dialogRef}
-      className={joinTw(coreDialogVariants({ intent, className }), '')}
-    >
-      <div className={'flex flex-col items-center'}>
-        <p className={'mb-12'}>{t('dataCompilation')}</p>
-        <FontAwesomeIcon
-          icon={iconLibraryConfig.faCircleNotch}
-          spin
-          style={{ width: '7rem', height: '7rem' }}
-        />
-      </div>
-    </dialog>
+    <section className={joinTw(coreDialogVariants({ intent, className }), 'flex flex-col items-center')}>
+      <p className={'mb-12'}>{t('dataCompilation')}</p>
+      <FontAwesomeIcon
+        icon={iconLibraryConfig.faCircleNotch}
+        spin
+        style={{ width: '7rem', height: '7rem' }}
+      />
+    </section>
   );
 };

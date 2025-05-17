@@ -14,7 +14,7 @@ import { useGetApplications } from '@daigaku/hooks';
 import { useDashboardStatisticsQuery } from './hooks';
 
 /* component imports */
-import { CoreLoadingDialog } from '@daigaku/components/core';
+import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
 import { LayoutStudent } from './components';
 
@@ -40,12 +40,7 @@ export const Dashboard = (): JSX.Element => {
   useGetApplications();
 
   if (isLoading) {
-    return (
-      <CoreLoadingDialog
-        isVisible={isLoading}
-        intent={'light'}
-      />
-    );
+    return <CoreLoadingNotification intent={'light'} />;
   }
 
   if (isError) {

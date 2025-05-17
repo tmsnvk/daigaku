@@ -14,8 +14,8 @@ import { useAuthContext } from '@daigaku/context';
 import { useMobileView, useSmallScreenNavbarDisplay } from '@daigaku/hooks';
 
 /* component imports */
+import { CoreLoadingNotification } from '@daigaku/components/core';
 import { CoreIcon } from '../core/core-icon.tsx';
-import { LoadingModal } from '../notification';
 import { Footer } from './footer.tsx';
 import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 import { NavigationRoute } from './navigation-route.tsx';
@@ -71,12 +71,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
   }, [account]);
 
   if (authStatus === UserLoginState.LOADING) {
-    return (
-      <LoadingModal
-        isVisible={true}
-        status={t('dataCompilation')}
-      />
-    );
+    return <CoreLoadingNotification intent={'light'} />;
   }
 
   const sharedNavigationRoutes: Array<NavigationRouteItem> = [
