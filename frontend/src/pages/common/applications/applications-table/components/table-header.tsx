@@ -12,7 +12,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useRequestPdfDownload } from '../hooks';
+import { useRequestPdfDownload } from '../hooks/use-request-pdf-download.tsx';
 
 /* component imports */
 import { CoreButton } from '@daigaku/components/core';
@@ -24,7 +24,7 @@ import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { Column } from '../models';
+import { Column } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.

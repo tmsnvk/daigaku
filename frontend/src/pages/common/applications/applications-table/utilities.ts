@@ -5,7 +5,7 @@
  */
 
 /* interface, type, enum imports */
-import { Column } from '../models';
+import { Column } from '../common/types.ts';
 
 /**
  * Determines whether a column with a specific `columnId` is found in the array of columns to be displayed

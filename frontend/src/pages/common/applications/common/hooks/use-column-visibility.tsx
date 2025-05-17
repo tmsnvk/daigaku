@@ -12,7 +12,7 @@ import { localStorageKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { Column } from '../models';
+import { Column } from '../types.ts';
 
 /**
  * Defines the properties for managing column visibility on the /applications page.

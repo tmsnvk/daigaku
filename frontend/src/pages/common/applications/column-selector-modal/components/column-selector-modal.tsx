@@ -14,7 +14,7 @@ import { useRenderModal } from '@daigaku/hooks';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum imports */
-import { Column } from '../models';
+import { Column } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.

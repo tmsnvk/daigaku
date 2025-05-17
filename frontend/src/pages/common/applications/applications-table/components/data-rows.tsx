@@ -15,11 +15,11 @@ import { CoreLink } from '@daigaku/components/core';
 /* configuration, utilities, constants imports */
 import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
-import { isColumnVisible } from '../utilities';
+import { isColumnVisible } from '../utilities.ts';
 
 /* interface, type, enum imports */
 import { ApplicationRecord } from '@daigaku/common-types';
-import { Column } from '../models';
+import { Column } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.
