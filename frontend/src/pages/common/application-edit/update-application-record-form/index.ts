@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { UpdateApplicationRecordForm } from './update-application-record-form.tsx';
+import { UpdateApplicationRecordForm } from './components/update-application-record-form.tsx';
 
 export { UpdateApplicationRecordForm };

@@ -15,7 +15,7 @@ import { useGetApplicationByUuid } from '@daigaku/hooks';
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
-import { UpdateApplicationRecordForm } from './components';
+import { UpdateApplicationRecordForm } from './update-application-record-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';

@@ -9,11 +9,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useEffect, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
 /* logic imports */
 import { useGetAllSelectOptions } from '@daigaku/hooks';
-import { useHandleFieldDisableStatus, useHandleFormSubmission, useUpdateApplicationFormMutation } from '../hooks';
+import { useHandleFieldDisableStatus } from '../hooks/use-handle-field-disable-status.tsx';
+import { useHandleFormSubmission } from '../hooks/use-handle-form-submission.tsx';
+import { useUpdateApplicationFormMutation } from '../hooks/use-update-application-form-mutation.tsx';
 
 /* component imports */
 import {
@@ -22,10 +23,10 @@ import {
   CoreFormElementInstruction,
   CoreFormHeader,
   CoreFormWrapper,
-  DisabledInputGroup,
 } from '@daigaku/components/form';
 import { ApplicationMetadata } from '@daigaku/components/general';
-import { IsRemovableButton } from './is-removable-button';
+import { IsRemovableButton } from './is-removable-button.tsx';
+import { DisabledInputGroups } from './disabled-input-groups.tsx';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -38,24 +39,7 @@ import {
   CoreSubmitInputElementStyleIntent,
   UpdateApplicationRecordByStudentPayload,
 } from '@daigaku/common-types';
-
-const formValidationSchema = z.object({
-  applicationStatusUuid: z.string().uuid(),
-  interviewStatusUuid: z.union([z.string().uuid(), z.literal('')]),
-  offerStatusUuid: z.union([z.string().uuid(), z.literal('')]),
-  responseStatusUuid: z.union([z.string().uuid(), z.literal('')]),
-  finalDestinationStatusUuid: z.union([z.string().uuid(), z.literal('')]),
-});
-
-type FormInputValues = z.infer<typeof formValidationSchema>;
-
-const initialFormValues: FormInputValues = {
-  applicationStatusUuid: '',
-  interviewStatusUuid: '',
-  offerStatusUuid: '',
-  responseStatusUuid: '',
-  finalDestinationStatusUuid: '',
-};
+import { FormInputValues, formValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -80,7 +64,13 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
 
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
-    defaultValues: initialFormValues,
+    defaultValues: {
+      applicationStatusUuid: '',
+      interviewStatusUuid: '',
+      offerStatusUuid: '',
+      responseStatusUuid: '',
+      finalDestinationStatusUuid: '',
+    },
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
@@ -167,40 +157,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
             paragraph={t('updateApplicationRecordFormInformation')}
             className={joinTw('col-start-1 col-end-3', 'mt-20')}
           />
-          <DisabledInputGroup
-            id={'country'}
-            type={'text'}
-            label={t('countryLabel')}
-            defaultValue={application.country}
-          />
-          <CoreFormElementInstruction paragraph={t('countryUpdateFieldInformation')} />
-          <DisabledInputGroup
-            id={'university'}
-            type={'text'}
-            label={t('universityLabel')}
-            defaultValue={application.university}
-          />
-          <CoreFormElementInstruction paragraph={t('universityUpdateFieldInformation')} />
-          <DisabledInputGroup
-            id={'courseName'}
-            type={'text'}
-            label={t('courseNameLabel')}
-            defaultValue={application.courseName}
-          />
-          <CoreFormElementInstruction paragraph={t('courseNameUpdateFieldInformation')} />
-          <DisabledInputGroup
-            id={'minorSubject'}
-            type={'text'}
-            label={t('minorSubjectLabel')}
-            defaultValue={application.minorSubject ?? '-'}
-          />
-          <CoreFormElementInstruction paragraph={t('minorSubjectUpdateFieldInformation')} />
-          <DisabledInputGroup
-            id={'programmeLength'}
-            type={'number'}
-            label={t('programmeLengthLabel')}
-            defaultValue={application.programmeLength}
-          />
+          <DisabledInputGroups application={application} />
           <CoreFormElementInstruction paragraph={t('programmeLengthUpdateFieldInformation')} />
           <CommonSelectGroup
             id={'applicationStatusUuid'}

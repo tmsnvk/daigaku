@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useToggleIsRemovable } from '../hooks';
+import { useToggleIsRemovable } from '../hooks/use-toggle-is-removable.tsx';
 
 /* component imports */
 import { CoreButton } from '@daigaku/components/core';
