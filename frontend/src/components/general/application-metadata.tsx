@@ -30,7 +30,7 @@ interface ApplicationMetadataProps {
   };
 
   /**
-   * Optional styling settings.
+   * Additional style options.
    */
   readonly className?: string;
 }
@@ -49,7 +49,7 @@ export const ApplicationMetadata = ({ metadata, className }: ApplicationMetadata
       <dl>
         <div>
           <dt className={joinTw('inline-block', 'font-extrabold')}>{t('submittedAt')}</dt>{' '}
-          <dd className={joinTw('inline-block')}>
+          <dd className={'inline-block'}>
             {new Date(metadata.created.createdAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',
@@ -59,13 +59,13 @@ export const ApplicationMetadata = ({ metadata, className }: ApplicationMetadata
             })}
           </dd>
         </div>
-        <div className={joinTw('my-2')}>
+        <div className={'my-2'}>
           <dt className={joinTw('inline-block', 'font-extrabold')}>{t('submittedBy')}</dt>{' '}
-          <dd className={joinTw('inline-block')}>{metadata.created.createdBy}</dd>
+          <dd className={'inline-block'}>{metadata.created.createdBy}</dd>
         </div>
-        <div className={joinTw('my-2')}>
+        <div className={'my-2'}>
           <dt className={joinTw('inline-block', 'font-extrabold')}>{t('lastUpdatedAt')}</dt>{' '}
-          <dd className={joinTw('inline-block')}>
+          <dd className={'inline-block'}>
             {new Date(metadata.lastUpdated.lastUpdatedAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',
@@ -77,7 +77,7 @@ export const ApplicationMetadata = ({ metadata, className }: ApplicationMetadata
         </div>
         <div>
           <dt className={joinTw('inline-block', 'font-extrabold')}>{t('lastModifiedBy')}</dt>{' '}
-          <dd className={joinTw('inline-block')}>{metadata.lastUpdated.lastModifiedBy}</dd>
+          <dd className={'inline-block'}>{metadata.lastUpdated.lastModifiedBy}</dd>
         </div>
       </dl>
     </article>

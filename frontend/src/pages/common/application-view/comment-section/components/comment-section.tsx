@@ -59,7 +59,7 @@ export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.El
           isDisabled={data?.currentPage === 0}
           value={t('previousPage')}
         />
-        <span className={joinTw('text-xl')}>
+        <span className={'text-xl'}>
           {t('page')} {currentPage + 1}
         </span>
         <CommentPaginationButton

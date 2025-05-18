@@ -14,7 +14,7 @@ import { Toast } from '@daigaku/components/notification';
 /* configuration, utilities, constants imports */
 import { generateId, joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CreateToast } from '@daigaku/common-types';
 
 enum ToastActionTypes {

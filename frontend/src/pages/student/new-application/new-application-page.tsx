@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CreateApplicationRecordForm } from './components';
+import { CreateApplicationRecordForm } from './create-application-record-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';

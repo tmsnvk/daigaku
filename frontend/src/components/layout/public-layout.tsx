@@ -18,7 +18,7 @@ import { NavigationRoute } from './navigation-route.tsx';
 import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { NavigationRouteItem } from '@daigaku/common-types';
 
 /**
@@ -49,7 +49,7 @@ export const PublicLayout = (): JSX.Element => {
           {navigationRoutes.map((r: NavigationRouteItem) => (
             <li
               key={r.targetUrlString}
-              className={joinTw('my-4 md:mx-4')}
+              className={'my-4 md:mx-4'}
             >
               <NavigationRoute
                 targetUrlString={r.targetUrlString}

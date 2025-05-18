@@ -16,7 +16,7 @@ import { commentService } from '@daigaku/services';
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { Comment, CoreErrorResponse, CreateCommentPayload, ErrorDetail } from '@daigaku/common-types';
 
 /**

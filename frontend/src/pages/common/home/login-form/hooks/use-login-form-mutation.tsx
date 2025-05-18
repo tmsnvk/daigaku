@@ -20,7 +20,7 @@ import { mutationKeys } from '@daigaku/configuration';
 import { localStorageKeys } from '@daigaku/constants';
 import { setLocalStorageObjectById } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CoreErrorResponse, LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**

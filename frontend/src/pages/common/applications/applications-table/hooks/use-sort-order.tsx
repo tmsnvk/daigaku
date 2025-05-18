@@ -10,7 +10,7 @@ import { useState } from 'react';
 /* configuration, utilities, constants imports */
 import { queryClient, queryKeys } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';
 
 /**

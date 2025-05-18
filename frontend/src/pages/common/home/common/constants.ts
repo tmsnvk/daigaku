@@ -7,7 +7,7 @@
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { FormType } from './types.ts';
 
 export const formTypeButtonLabel: Record<FormType, string> = {

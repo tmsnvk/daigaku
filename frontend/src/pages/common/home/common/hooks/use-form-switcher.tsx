@@ -13,7 +13,7 @@ import { LoginForm } from '../../login-form';
 import { PendingAccountRegistrationForm } from '../../pending-account-registration-form';
 import { ResetAccountPasswordForm } from '../../reset-account-password-form';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { FormType } from '../types.ts';
 
 /**

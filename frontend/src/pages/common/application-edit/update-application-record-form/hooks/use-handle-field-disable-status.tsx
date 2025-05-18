@@ -7,7 +7,7 @@
 /* vendor imports */
 import { ChangeEvent, useState } from 'react';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import {
   ApplicationRecord,
   ApplicationRecordStatusOptions,

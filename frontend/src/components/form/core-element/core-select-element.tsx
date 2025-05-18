@@ -20,7 +20,7 @@ const coreSelectElementVariants = cva(
         light: joinTw('bg-primary border-secondary', 'focus:placeholder:text-secondary-muted focus:outline-secondary'),
       },
       isDisabled: {
-        false: joinTw('cursor-pointer'),
+        false: 'cursor-pointer',
         true: joinTw('text-secondary-muted', 'cursor-not-allowed'),
       },
       isError: {
@@ -65,11 +65,6 @@ interface CoreSelectElementProps<T extends FieldValues>
    * The select element's initial value.
    */
   readonly initialValue: string | number;
-
-  /**
-   * Additional optional styling options.
-   */
-  readonly className?: string;
 }
 
 /**
@@ -86,7 +81,6 @@ export const CoreSelectElement = <T extends FieldValues>({
   options,
   initialValue,
   intent,
-  className,
 }: CoreSelectElementProps<T>): JSX.Element => {
   const { register, setValue } = useFormContext<T>();
 
@@ -101,7 +95,7 @@ export const CoreSelectElement = <T extends FieldValues>({
 
         setValue(id, event.target.value as PathValue<T, Path<T>>, { shouldValidate: true, shouldDirty: true });
       }}
-      className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError, className }))}
+      className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError }))}
     >
       <option
         hidden

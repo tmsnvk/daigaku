@@ -16,10 +16,7 @@ import { useFieldValidationError } from '@daigaku/hooks';
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreTextareaElement } from '../core-element/core-textarea-element.tsx';
 
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
-
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { TextareaElementGroup } from '@daigaku/common-types';
 
 /**
@@ -57,7 +54,7 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   const { error } = useFieldValidationError<T>(id);
 
   return (
-    <CoreFormElementGroupWrapper className={joinTw('h-120')}>
+    <CoreFormElementGroupWrapper className={'h-120'}>
       <CoreFormElementLabel
         inputId={id}
         label={label}

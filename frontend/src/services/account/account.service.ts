@@ -10,7 +10,7 @@ import { AxiosResponse } from 'axios';
 /* configuration, utilities, constants imports */
 import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { AccountResetPayload, LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**

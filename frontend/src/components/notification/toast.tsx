@@ -15,7 +15,7 @@ import { CoreIcon } from '@daigaku/components/core';
 import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CreateToast } from '@daigaku/common-types';
 
 export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
@@ -87,14 +87,14 @@ export const Toast = ({
   return (
     <article className={joinTw(toastVariants({ intent: variantIntent }))}>
       <div className={joinTw('flex items-center justify-between', 'mb-4')}>
-        <h3 className={joinTw('text-2xl font-bold uppercase')}>{title}</h3>
+        <h3 className={'text-2xl font-bold uppercase'}>{title}</h3>
         <CoreIcon
           icon={iconLibraryConfig.faXMark}
           onClick={onClose}
-          className={joinTw('cursor-pointer')}
+          className={'cursor-pointer'}
         />
       </div>
-      <p className={joinTw('text-xl')}>{description}</p>
+      <p className={'text-xl'}>{description}</p>
       <div className={joinTw('relative', 'mt-4')}>
         <div
           className={joinTw('absolute left-0 top-0', 'h-2', 'bg-secondary')}

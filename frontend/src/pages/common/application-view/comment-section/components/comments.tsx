@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { Comment } from '@daigaku/common-types';
 
 /**
@@ -56,7 +56,7 @@ export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
           className={joinTw('w-[75%]', 'mx-auto my-20', 'text-xl')}
         >
           <div className={joinTw('p-8', 'bg-tertiary border-secondary border-2', 'rounded-(--default-border-radius)')}>
-            <p className={joinTw('font-extrabold')}>{comment.createdBy}</p>
+            <p className={'font-extrabold'}>{comment.createdBy}</p>
             <p className={joinTw('my-4', 'whitespace-pre-wrap break-all')}>{comment.comment}</p>
           </div>
           <p className={joinTw('pl-10 pt-6', 'font-extrabold')}>

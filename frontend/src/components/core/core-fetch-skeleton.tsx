@@ -11,7 +11,7 @@ import { JSX } from 'react';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreFetchSkeletonVariants = cva(joinTw('animate-pulse blur-sm rounded'), {
+const coreFetchSkeletonVariants = cva('animate-pulse blur-sm rounded', {
   variants: {
     intent: {
       primary: 'bg-primary',
@@ -19,18 +19,16 @@ const coreFetchSkeletonVariants = cva(joinTw('animate-pulse blur-sm rounded'), {
       tertiary: 'bg-tertiary',
       accent: 'bg-accent',
     },
+    size: {
+      mid: 'w-6/10 h-25',
+    },
   },
 });
 
 /**
  * Defines the component's properties.
  */
-interface CoreFetchSkeletonProps extends VariantProps<typeof coreFetchSkeletonVariants> {
-  /**
-   *
-   */
-  readonly className?: string;
-}
+interface CoreFetchSkeletonProps extends VariantProps<typeof coreFetchSkeletonVariants> {}
 
 /**
  *
@@ -38,6 +36,6 @@ interface CoreFetchSkeletonProps extends VariantProps<typeof coreFetchSkeletonVa
  * @param {CoreFetchSkeletonProps}
  * @return {JSX.Element}
  */
-export const CoreFetchSkeleton = ({ intent, className }: CoreFetchSkeletonProps): JSX.Element => {
-  return <article className={joinTw(coreFetchSkeletonVariants({ intent }), className)}></article>;
+export const CoreFetchSkeleton = ({ intent, size }: CoreFetchSkeletonProps): JSX.Element => {
+  return <article className={joinTw(coreFetchSkeletonVariants({ intent, size }))}></article>;
 };

@@ -26,7 +26,7 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 /* configuration, utilities, constants imports */
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
 import { FormInputValues, formValidationSchema } from '../schema.ts';

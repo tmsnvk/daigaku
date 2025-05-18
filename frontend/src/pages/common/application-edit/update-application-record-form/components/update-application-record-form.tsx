@@ -25,13 +25,13 @@ import {
   CoreFormWrapper,
 } from '@daigaku/components/form';
 import { ApplicationMetadata } from '@daigaku/components/general';
-import { IsRemovableButton } from './is-removable-button.tsx';
 import { DisabledInputGroups } from './disabled-input-groups.tsx';
+import { IsRemovableButton } from './is-removable-button.tsx';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import {
   ApplicationRecord,
   ApplicationRecordStatusUnion,
@@ -129,12 +129,12 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
         <CoreFormWrapper
           formId={'update-application-record-form'}
           onFormSubmit={handleSubmit(submitUpdateApplicationRecordForm)}
-          className={joinTw('core-application-grid')}
+          className={'core-application-grid'}
         >
           <CoreFormHeader
             title={t('updateApplicationRecordFormTitle')}
             intent={'largeWithUnderline'}
-            className={joinTw('col-start-1 col-end-3')}
+            className={'col-start-1 col-end-3'}
           />
           <ApplicationMetadata
             className={joinTw('col-start-1 col-end-2 row-start-2 row-end-3', 'h-40')}
@@ -244,7 +244,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
               value: t('updateApplicationRecordFormSubmit'),
             }}
             intent={CoreSubmitInputElementStyleIntent.DARK}
-            className={joinTw('col-start-1 col-end-3')}
+            className={'col-start-1 col-end-3'}
           />
         </CoreFormWrapper>
       </FormProvider>

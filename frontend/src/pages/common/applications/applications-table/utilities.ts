@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { Column } from '../common/types.ts';
 
 /**
@@ -16,9 +16,9 @@ import { Column } from '../common/types.ts';
  * @return {boolean}
  */
 export const isColumnVisible = (columns: Array<Column>, columnId: string): boolean => {
-  const column = columns.find((column: Column) => {
+  const foundColumn = columns.find((column: Column) => {
     return column.id === columnId;
   }) as Column;
 
-  return column.isVisible;
+  return foundColumn.isVisible;
 };

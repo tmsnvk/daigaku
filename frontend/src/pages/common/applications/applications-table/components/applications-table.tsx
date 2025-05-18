@@ -22,7 +22,7 @@ import { TableHeader } from './table-header.tsx';
 /* configuration, utilities, constants imports */
 import { isEmpty, joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';
 import { Column } from '../../common/types.ts';
 
@@ -72,7 +72,7 @@ export const ApplicationsTable = ({ columns, toggleModal }: ApplicationsTablePro
   }
 
   return (
-    <table className={joinTw('table-fixed text-center')}>
+    <table className={joinTw('table-fixed', 'text-center')}>
       <thead>
         <TableHeader
           columns={columns}

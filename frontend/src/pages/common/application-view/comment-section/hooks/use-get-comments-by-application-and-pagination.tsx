@@ -13,7 +13,7 @@ import { commentService } from '@daigaku/services';
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CommentPaginationDataResponse, SimpleQueryResult } from '@daigaku/common-types';
 
 /**

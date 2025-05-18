@@ -59,7 +59,7 @@ export const NavigationRoute = ({
       className={({ isActive }) => joinTw('text-3xl font-semibold', isActive ? 'text-accent' : 'text-secondary')}
     >
       {({ isActive }) => (
-        <div className={joinTw('flex items-center')}>
+        <div className={'flex items-center'}>
           <CoreIcon
             icon={icon}
             className={joinTw(isActive ? 'text-accent' : 'text-secondary', 'mr-2')}

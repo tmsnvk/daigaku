@@ -16,8 +16,7 @@ import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
 /* component imports */
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
 
-/* configuration, utilities, constants imports */
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import {
   CoreSubmitInputElementStyleIntent,
   CoreTextareaElementStyleIntent,

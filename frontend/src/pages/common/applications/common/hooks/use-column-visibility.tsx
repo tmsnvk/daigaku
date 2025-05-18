@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { localStorageKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, setLocalStorageObjectById } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { Column } from '../types.ts';
 
 /**

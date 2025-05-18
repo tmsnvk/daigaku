@@ -14,7 +14,7 @@ import { applicationService } from '@daigaku/services';
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { ApplicationRecord, ListQueryResult } from '@daigaku/common-types';
 
 /**

@@ -17,7 +17,7 @@ import { ApplicationDetail } from './application-detail.tsx';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';
 
 /**
@@ -51,7 +51,7 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
           </>
         }
         intent={'large'}
-        className={joinTw('col-start-1 col-end-3 text-center')}
+        className={joinTw('col-start-1 col-end-3', 'text-center')}
       />
       <ApplicationMetadata
         metadata={{
@@ -64,9 +64,9 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
             lastModifiedBy: application.lastModifiedBy,
           },
         }}
-        className={joinTw('col-start-1 col-end-2')}
+        className={'col-start-1 col-end-2'}
       />
-      <article className={joinTw('col-start-2 col-end-3')}>
+      <article className={'col-start-2 col-end-3'}>
         <CoreLink
           target={`/applications/edit/${application.uuid}`}
           label={t('edit')}

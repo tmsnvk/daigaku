@@ -10,12 +10,12 @@ import { useFormContext } from 'react-hook-form';
 
 /* component imports */
 import { LoadingIndicator } from '@daigaku/components/general';
-import { CoreFormElementError, CoreSubmitInputElement } from '..';
+import { CoreFormElementError, CoreSubmitInputElement } from '../index.ts';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
 
 /**

@@ -17,7 +17,7 @@ import { accountService } from '@daigaku/services';
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { AccountResetPayload, CoreErrorResponse } from '@daigaku/common-types';
 
 /**

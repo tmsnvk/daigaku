@@ -17,9 +17,6 @@ import { GlobalErrorModal } from '@daigaku/components/notification';
 import { ApplicationDetails } from './application-details';
 import { CommentSection } from './comment-section';
 
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
-
 /**
  * Renders the view mode page of the selected application record.
  *
@@ -45,7 +42,7 @@ export const ApplicationView = (): JSX.Element => {
   }
 
   return (
-    <main className={joinTw('grid grid-cols-[1fr] gap-x-10 lg:grid-cols-[1fr_0.5fr]')}>
+    <main className={'grid grid-cols-[1fr] gap-x-10 lg:grid-cols-[1fr_0.5fr]'}>
       <ApplicationDetails application={application} />
       <CommentSection applicationUuid={applicationUuid} />
     </main>

@@ -14,7 +14,7 @@ import { CoreButton } from '@daigaku/components/core';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { FormType } from '../types.ts';
 
 /**

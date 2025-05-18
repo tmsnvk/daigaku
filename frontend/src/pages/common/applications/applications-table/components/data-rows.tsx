@@ -17,7 +17,7 @@ import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities.ts';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';
 import { Column } from '../../common/types.ts';
 
@@ -60,24 +60,22 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         >
           {application.courseName}
         </td>
-        <td className={joinTw(isColumnVisible(columns, 'university') ? '' : 'hidden')}>{application.university}</td>
-        <td className={joinTw(isColumnVisible(columns, 'country') ? '' : 'hidden')}>{application.country}</td>
-        <td className={joinTw(isColumnVisible(columns, 'programmeLength') ? '' : 'hidden')}>
-          {application.programmeLength}
-        </td>
-        <td className={joinTw(isColumnVisible(columns, 'applicationStatus') ? '' : 'hidden')}>
+        <td className={isColumnVisible(columns, 'university') ? '' : 'hidden'}>{application.university}</td>
+        <td className={isColumnVisible(columns, 'country') ? '' : 'hidden'}>{application.country}</td>
+        <td className={isColumnVisible(columns, 'programmeLength') ? '' : 'hidden'}>{application.programmeLength}</td>
+        <td className={isColumnVisible(columns, 'applicationStatus') ? '' : 'hidden'}>
           {application.applicationStatus.name ?? '-'}
         </td>
-        <td className={joinTw(isColumnVisible(columns, 'interviewStatus') ? '' : 'hidden')}>
+        <td className={isColumnVisible(columns, 'interviewStatus') ? '' : 'hidden'}>
           {application.interviewStatus?.name ?? '-'}
         </td>
-        <td className={joinTw(isColumnVisible(columns, 'offerStatus') ? '' : 'hidden')}>
+        <td className={isColumnVisible(columns, 'offerStatus') ? '' : 'hidden'}>
           {application.offerStatus?.name ?? '-'}
         </td>
-        <td className={joinTw(isColumnVisible(columns, 'responseStatus') ? '' : 'hidden')}>
+        <td className={isColumnVisible(columns, 'responseStatus') ? '' : 'hidden'}>
           {application.responseStatus?.name ?? '-'}
         </td>
-        <td className={joinTw(isColumnVisible(columns, 'finalDestinationStatus') ? '' : 'hidden')}>
+        <td className={isColumnVisible(columns, 'finalDestinationStatus') ? '' : 'hidden'}>
           {application.finalDestinationStatus?.name ?? '-'}
         </td>
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
@@ -89,7 +87,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
                 {t('edit')}
                 <FontAwesomeIcon
                   icon={iconLibraryConfig.faWrench}
-                  className={joinTw('ml-5')}
+                  className={'ml-5'}
                 />
               </>
             }
@@ -103,7 +101,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
                 {t('view')}
                 <FontAwesomeIcon
                   icon={iconLibraryConfig.faMagnifyingGlass}
-                  className={joinTw('ml-5')}
+                  className={'ml-5'}
                 />
               </>
             }

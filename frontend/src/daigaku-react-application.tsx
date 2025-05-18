@@ -24,7 +24,7 @@ import { NewApplication } from '@daigaku/pages/student';
 /* configuration, utilities, constants imports */
 import { queryClient } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { UserRole } from '@daigaku/common-types';
 
 const router = createBrowserRouter(createRoutesFromElements(

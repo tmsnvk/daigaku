@@ -53,7 +53,7 @@ export const GlobalErrorModal = ({ isVisible, errorText, onCloseModal }: GlobalE
       ref={dialogRef}
       className={joinTw('flex flex-col', 'w-5/10', 'bg-primary')}
     >
-      <p className={joinTw('mx-6 my-10')}>{t('unexpectedError')}</p>
+      <p className={'mx-6 my-10'}>{t('unexpectedError')}</p>
       {errorText && <p>{errorText}</p>}
       <CoreModalClosingInputElement
         value={t('acceptanceOk')}

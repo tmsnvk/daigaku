@@ -28,7 +28,7 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import { removeRolePrefix } from '@daigaku/utilities';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,

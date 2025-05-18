@@ -23,7 +23,7 @@ import { GlobalErrorModal } from '@daigaku/components/notification';
 import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { Column } from '../../common/types.ts';
 
 /**
@@ -107,7 +107,7 @@ export const TableHeader = ({
                     {column.name}
                     <FontAwesomeIcon
                       icon={iconLibraryConfig.faSort}
-                      className={joinTw('ml-2')}
+                      className={'ml-2'}
                     />
                   </>
                 }
@@ -127,7 +127,7 @@ export const TableHeader = ({
               {t('refresh')}
               <FontAwesomeIcon
                 icon={iconLibraryConfig.faRotateRight}
-                className={joinTw('ml-2')}
+                className={'ml-2'}
               />
             </>
           }
@@ -142,7 +142,7 @@ export const TableHeader = ({
               {t('display')}
               <FontAwesomeIcon
                 icon={iconLibraryConfig.faTable}
-                className={joinTw('ml-2')}
+                className={'ml-2'}
               />
             </>
           }
@@ -160,7 +160,7 @@ export const TableHeader = ({
                 {t('download')}
                 <FontAwesomeIcon
                   icon={iconLibraryConfig.faFileArrowDown}
-                  className={joinTw('ml-2')}
+                  className={'ml-2'}
                 />
               </>
             }

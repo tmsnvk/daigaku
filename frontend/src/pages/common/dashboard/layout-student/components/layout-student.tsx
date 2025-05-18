@@ -17,7 +17,7 @@ import { TileDetail } from '../../common/components/tile-detail.tsx';
 import { TileStatistic } from '../../common/components/tile-statistic.tsx';
 import { TodoList } from '../../common/components/todo-list.tsx';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 
 /**

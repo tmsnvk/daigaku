@@ -26,8 +26,8 @@ const coreSubmitInputElementVariants = cva(
         ),
       },
       isDisabled: {
-        false: joinTw('cursor-pointer'),
-        true: joinTw('cursor-not-allowed'),
+        false: 'cursor-pointer',
+        true: 'cursor-not-allowed',
       },
     },
   },
@@ -53,11 +53,6 @@ interface CoreSubmitInputElementProps<T extends FieldValues>
    * Indicates whether the input element is disabled.
    */
   readonly isDisabled: boolean;
-
-  /**
-   * Additional optional styling options.
-   */
-  readonly className?: string;
 }
 
 /**
@@ -71,7 +66,6 @@ export const CoreSubmitInputElement = <T extends FieldValues>({
   value,
   isDisabled,
   intent,
-  className,
 }: CoreSubmitInputElementProps<T>): JSX.Element => {
   return (
     <input
@@ -80,7 +74,7 @@ export const CoreSubmitInputElement = <T extends FieldValues>({
       type={'submit'}
       disabled={isDisabled}
       value={value}
-      className={joinTw(coreSubmitInputElementVariants({ intent, isDisabled, className }))}
+      className={joinTw(coreSubmitInputElementVariants({ intent, isDisabled }))}
     />
   );
 };

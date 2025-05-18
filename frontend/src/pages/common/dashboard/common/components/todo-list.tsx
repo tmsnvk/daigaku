@@ -10,7 +10,7 @@ import { JSX } from 'react';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { Todo } from '@daigaku/common-types';
 
 /**
@@ -52,7 +52,7 @@ export const TodoList = ({ introduction, currentTodoItemsTitle, currentTodoItems
     >
       <p className={'mb-4 mt-8'}>{introduction}</p>
       <p className={'mb-4'}>{currentTodoItemsTitle}</p>
-      <ol className={joinTw('ml-20')}>
+      <ol className={'ml-20'}>
         {currentTodoItems.map((item: Todo, index: number) => (
           <li
             key={index}

@@ -97,11 +97,6 @@ interface CoreButtonProps
   readonly isDisabled?: boolean;
 
   /**
-   * The button's additional style options.
-   */
-  readonly className?: string;
-
-  /**
    * The button's onClick handler.
    */
   onClick: MouseEventHandler<HTMLButtonElement>;
@@ -113,19 +108,12 @@ interface CoreButtonProps
  * @param {CoreButtonProps} props
  * @return {JSX.Element}
  */
-export const CoreButton = ({
-  intent,
-  content,
-  label,
-  isDisabled = false,
-  className,
-  onClick,
-}: CoreButtonProps): JSX.Element => {
+export const CoreButton = ({ intent, content, label, isDisabled = false, onClick }: CoreButtonProps): JSX.Element => {
   return (
     <button
       id={label}
       name={label}
-      className={joinTw(coreButtonVariants({ intent, isDisabled }), className)}
+      className={joinTw(coreButtonVariants({ intent, isDisabled }))}
       type={'button'}
       onClick={onClick}
       disabled={isDisabled}

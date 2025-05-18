@@ -37,7 +37,7 @@ export const LoadingIndicator = ({ loadingText }: LoadingIndicatorProps): JSX.El
       <CoreIcon
         icon={iconLibraryConfig.faSpinner}
         spin
-        className={joinTw('ml-4')}
+        className={'ml-4'}
       />
     </article>
   );

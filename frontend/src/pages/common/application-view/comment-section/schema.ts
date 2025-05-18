@@ -6,6 +6,8 @@
 
 /* vendor imports */
 import { z } from 'zod';
+
+/* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
 export const formValidationSchema = z.object({

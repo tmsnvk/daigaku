@@ -73,11 +73,6 @@ interface CoreInputElementProps<T extends FieldValues>
    * The input element's initial value.
    */
   readonly initialValue?: string | number;
-
-  /**
-   * Additional optional styling options.
-   */
-  readonly className?: string;
 }
 
 /**
@@ -94,7 +89,6 @@ export const CoreInputElement = <T extends FieldValues>({
   placeholder,
   initialValue,
   intent,
-  className,
 }: CoreInputElementProps<T>): JSX.Element => {
   const { register } = useFormContext<T>();
 
@@ -108,7 +102,7 @@ export const CoreInputElement = <T extends FieldValues>({
       defaultValue={initialValue ?? ''}
       disabled={isDisabled}
       autoComplete={'off'}
-      className={joinTw(coreInputElementVariants({ intent, isDisabled, isError, className }))}
+      className={joinTw(coreInputElementVariants({ intent, isDisabled, isError }))}
     />
   );
 };

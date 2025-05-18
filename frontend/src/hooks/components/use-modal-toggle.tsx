@@ -7,7 +7,7 @@
 /* vendor imports */
 import { useState } from 'react';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CoreModal } from '@daigaku/common-types';
 
 /**
