@@ -9,13 +9,14 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useCommentPagination, useGetCommentsByApplicationAndPagination } from '../hooks';
+import { useCommentPagination } from '../hooks/use-comment-pagination.tsx';
+import { useGetCommentsByApplicationAndPagination } from '../hooks/use-get-comments-by-application-and-pagination.tsx';
 
 /* component imports */
 import { LoadingIndicator } from '@daigaku/components/general';
-import { CommentPaginationButton } from './comment-pagination-button';
-import { Comments } from './comments';
-import { CreateCommentForm } from './create-comment-form';
+import { CreateCommentForm } from './create-comment-form.tsx';
+import { CommentPaginationButton } from './comment-pagination-button.tsx';
+import { Comments } from './comments.tsx';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';

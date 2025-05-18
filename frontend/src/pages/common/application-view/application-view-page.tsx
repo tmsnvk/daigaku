@@ -14,7 +14,8 @@ import { useGetApplicationByUuid } from '@daigaku/hooks';
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
-import { ApplicationDetails, CommentSection } from './components';
+import { ApplicationDetails } from './application-details';
+import { CommentSection } from './comment-section';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';

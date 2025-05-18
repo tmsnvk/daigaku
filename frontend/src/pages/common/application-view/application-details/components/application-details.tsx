@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { CoreLink } from '@daigaku/components/core';
 import { CoreFormHeader } from '@daigaku/components/form';
 import { ApplicationMetadata } from '@daigaku/components/general';
-import { ApplicationDetail } from './application-detail';
+import { ApplicationDetail } from './application-detail.tsx';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';

@@ -9,38 +9,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
 /* logic imports */
-import { useSubmitComment } from '../hooks';
+import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
 
 /* component imports */
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
 
 /* configuration, utilities, constants imports */
-import { TranslationKey } from '@daigaku/constants';
-
 /* interface, type, enum imports */
 import {
   CoreSubmitInputElementStyleIntent,
   CoreTextareaElementStyleIntent,
   CreateCommentPayload,
 } from '@daigaku/common-types';
-
-const formValidationSchema = z.object({
-  comment: z
-    .string()
-    .nonempty({ message: TranslationKey.COMMENT_REQUIRED })
-    .regex(/^(.|\s){15,1000}$/, {
-      message: TranslationKey.COMMENT_REQUIRED,
-    }),
-});
-
-type FormInputValues = z.infer<typeof formValidationSchema>;
-
-const initialFormValues: FormInputValues = {
-  comment: '',
-};
+import { FormInputValues, formValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -66,7 +49,9 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
 
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
-    defaultValues: initialFormValues,
+    defaultValues: {
+      comment: '',
+    },
     resolver: zodResolver(formValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
