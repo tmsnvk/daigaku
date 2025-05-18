@@ -77,11 +77,6 @@ interface CoreTextareaElementProps<T extends FieldValues>
    * Indicates whether there is an error involving the input element.
    */
   readonly isError: boolean;
-
-  /**
-   * Additional optional styling options.
-   */
-  readonly className?: string;
 }
 
 /**
@@ -98,7 +93,6 @@ export const CoreTextareaElement = <T extends FieldValues>({
   isDisabled,
   isError,
   intent,
-  className,
 }: CoreTextareaElementProps<T>): JSX.Element => {
   const { register } = useFormContext();
 
@@ -112,7 +106,7 @@ export const CoreTextareaElement = <T extends FieldValues>({
       autoComplete={'off'}
       placeholder={placeholder}
       disabled={isDisabled}
-      className={joinTw(coreTextareaElementVariants({ intent, isDisabled, isError, className }))}
+      className={joinTw(coreTextareaElementVariants({ intent, isDisabled, isError }))}
     />
   );
 };

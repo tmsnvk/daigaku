@@ -28,11 +28,6 @@ interface CoreDisabledInputElementProps {
    * The input element's readonly default value.
    */
   readonly defaultValue: string | number;
-
-  /**
-   * Additional optional styling options.
-   */
-  readonly className?: string;
 }
 
 /**
@@ -56,7 +51,6 @@ export const CoreDisabledInputElement = ({ id, type, defaultValue }: CoreDisable
         'bg-accent border-secondary border-2',
         'text-xl',
         'cursor-not-allowed rounded-xl',
-        "[&[type='number']]:w-20 [&[type='number']]:p-0 [&[type='number']]:text-center",
         'focus:outline-solid focus:placeholder:text-secondary-muted focus:outline-secondary focus:outline-1',
         'placeholder:text-secondary-muted',
       )}

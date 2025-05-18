@@ -6,23 +6,17 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useGetApplications, useModalToggle } from '@daigaku/hooks';
-import { useColumnVisibility, useSortOrder } from './hooks';
+import { useModalToggle } from '@daigaku/hooks';
+import { useColumnVisibility } from './common/hooks/use-column-visibility.tsx';
 
 /* component imports */
-import { CoreLoadingNotification } from '@daigaku/components/core';
-import { GlobalErrorModal } from '@daigaku/components/notification';
-import { ColumnSelectorModal, DataRows, TableHeader } from './components';
+import { ApplicationsTable } from './applications-table';
+import { ColumnSelectorModal } from './column-selector-modal';
 
 /* configuration, utilities, constants imports */
-import { isEmpty, joinTw } from '@daigaku/utilities';
-
-/* interface, type, enum imports */
-import { ApplicationRecord } from '@daigaku/common-types';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Renders, in table format, the list of application records that the user has authorisation to view.
@@ -31,56 +25,18 @@ import { ApplicationRecord } from '@daigaku/common-types';
  * @return {JSX.Element}
  */
 export const Applications = (): JSX.Element => {
-  const { t } = useTranslation();
-
-  const navigate = useNavigate();
-
   const { columns, toggleColumnVisibility } = useColumnVisibility();
 
-  const { data: applications, isLoading, refetch, isRefetching, isError } = useGetApplications();
-  const { handleColumnSort } = useSortOrder(applications as Array<ApplicationRecord>);
-
   const { isModalVisible, toggleModal } = useModalToggle();
-
-  if (isLoading || isRefetching) {
-    return <CoreLoadingNotification intent={'light'} />;
-  }
-
-  if (isError) {
-    return (
-      <GlobalErrorModal
-        isVisible={isError}
-        errorText={t('unexpectedGlobalError')}
-        onCloseModal={() => {
-          navigate('/');
-        }}
-      />
-    );
-  }
 
   // add student selector dropdown for mentors
   // add mentor and student selector dropdowns for admins
   return (
-    <main className={joinTw('core-primary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%] text-xl')}>
-      <table className={joinTw('table-fixed text-center')}>
-        <thead>
-          <TableHeader
-            columns={columns}
-            isDataEmpty={isEmpty(applications)}
-            onColumnSort={handleColumnSort}
-            onToggleModal={toggleModal}
-            onRefetch={refetch}
-          />
-        </thead>
-        <tbody>
-          {applications && (
-            <DataRows
-              columns={columns}
-              applications={applications}
-            />
-          )}
-        </tbody>
-      </table>
+    <main className={joinTw('core-primary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%]', 'text-xl')}>
+      <ApplicationsTable
+        columns={columns}
+        toggleModal={toggleModal}
+      />
       {isModalVisible && (
         <ColumnSelectorModal
           columns={columns}

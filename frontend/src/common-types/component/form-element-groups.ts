@@ -7,13 +7,13 @@
 /* vendor imports */
 import { FieldValues, Path } from 'react-hook-form';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
+import { ChangeEvent, ReactNode } from 'react';
 import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,
   CoreTextareaElementStyleIntent,
 } from './form-element-style-intents.ts';
-import { ChangeEvent, ReactNode } from 'react';
 
 /**
  * Defines the properties of core form elements

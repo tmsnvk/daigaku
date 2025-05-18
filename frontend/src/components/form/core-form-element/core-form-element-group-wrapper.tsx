@@ -25,10 +25,6 @@ interface CoreFormElementGroupWrapperProps {
   readonly children: ReactNode | Array<ReactNode>;
 }
 
-export const CoreFormElementGroupWrapper = ({ className, children }: CoreFormElementGroupWrapperProps) => {
-  return (
-    <article className={joinTw('just relative flex flex-col', 'h-50 w-[95%] sm:w-[65%]', className)}>
-      {children}
-    </article>
-  );
+export const CoreFormElementGroupWrapper = ({ children }: CoreFormElementGroupWrapperProps) => {
+  return <article className={joinTw('relative flex flex-col', 'h-50 w-[95%] sm:w-[65%]')}>{children}</article>;
 };

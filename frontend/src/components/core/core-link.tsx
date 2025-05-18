@@ -60,11 +60,6 @@ interface CoreLinkProps extends VariantProps<typeof coreLinkVariants> {
    * The button's label.
    */
   readonly label: string | ReactNode;
-
-  /**
-   * The button's additional style options.
-   */
-  readonly className?: string;
 }
 
 /**
@@ -73,12 +68,12 @@ interface CoreLinkProps extends VariantProps<typeof coreLinkVariants> {
  * @param {CoreLinkProps} props
  * @return {JSX.Element}
  */
-export const CoreLink = ({ target, state, label, intent, size, className }: CoreLinkProps): JSX.Element => {
+export const CoreLink = ({ target, state, label, intent, size }: CoreLinkProps): JSX.Element => {
   return (
     <Link
       to={target}
       state={state}
-      className={joinTw(coreLinkVariants({ intent, size, className }))}
+      className={joinTw(coreLinkVariants({ intent, size }))}
     >
       {label}
     </Link>

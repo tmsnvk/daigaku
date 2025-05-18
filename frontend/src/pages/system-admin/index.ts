@@ -1,5 +1,0 @@
-/**
- * Copyright © [Daigaku].
- *
- * @author tmsnvk
- */

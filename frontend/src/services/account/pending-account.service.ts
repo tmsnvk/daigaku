@@ -7,7 +7,7 @@
 /* configuration, utilities, constants imports */
 import { axiosConfig } from '@daigaku/configuration';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { PendingAccountRegistrationPayload } from '@daigaku/common-types';
 
 /**

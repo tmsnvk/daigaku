@@ -58,7 +58,7 @@ export const CoreFormElementFetchStateWrapper = ({
       <div className={joinTw('flex justify-center', 'h-50')}>
         <CoreFetchSkeleton
           intent={'primary'}
-          className={joinTw('w-6/10 h-25')}
+          size={'mid'}
         />
       </div>
     );
@@ -70,7 +70,7 @@ export const CoreFormElementFetchStateWrapper = ({
         <CoreFetchError
           message={t('queryFetchError')}
           onRetry={onRetry}
-          className={joinTw('w-6/10 h-25')}
+          size={'mid'}
         />
       </div>
     );

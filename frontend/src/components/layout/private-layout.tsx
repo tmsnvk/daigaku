@@ -24,7 +24,7 @@ import { NavigationRoute } from './navigation-route.tsx';
 import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { NavigationRouteItem, UserLoginState, UserRole } from '@daigaku/common-types';
 
 /**
@@ -144,11 +144,11 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
 
   const routes = (
     <div>
-      <ul className={joinTw('lg:flex lg:items-center lg:gap-x-8')}>
+      <ul className={'lg:flex lg:items-center lg:gap-x-8'}>
         {accountRoleNavigationRoutes[account.role as UserRole].map((r: NavigationRouteItem) => (
           <li
             key={r.targetUrlString}
-            className={joinTw('my-4')}
+            className={'my-4'}
           >
             <NavigationRoute
               targetUrlString={r.targetUrlString}
@@ -158,11 +158,11 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
           </li>
         ))}
       </ul>
-      <ul className={joinTw('justify-end lg:flex lg:items-center lg:gap-x-8')}>
+      <ul className={'justify-end lg:flex lg:items-center lg:gap-x-8'}>
         {sharedNavigationRoutes.map((r: NavigationRouteItem) => (
           <li
             key={r.targetUrlString}
-            className={joinTw('my-4')}
+            className={'my-4'}
           >
             <NavigationRoute
               targetUrlString={r.targetUrlString}
@@ -209,7 +209,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
             {routes}
             <div
               onClick={() => toggleNavbar()}
-              className={joinTw('top-15 absolute right-10 lg:hidden')}
+              className={'top-15 absolute right-10 lg:hidden'}
             >
               <CoreIcon icon={iconLibraryConfig.faXMark} />
             </div>
@@ -219,7 +219,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
         )}
         <div
           onClick={() => toggleNavbar()}
-          className={joinTw('top-15 absolute right-10 lg:hidden')}
+          className={'top-15 absolute right-10 lg:hidden'}
         >
           <CoreIcon icon={iconLibraryConfig.faBars} />
         </div>

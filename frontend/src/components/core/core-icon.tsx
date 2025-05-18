@@ -29,7 +29,7 @@ interface CoreIconProps extends FontAwesomeIconProps {
  */
 export const CoreIcon = ({ icon, className, ...rest }: CoreIconProps): JSX.Element => {
   return (
-    <div className={joinTw('text-3xl')}>
+    <div className={'text-3xl'}>
       <FontAwesomeIcon
         icon={icon}
         className={joinTw(className)}

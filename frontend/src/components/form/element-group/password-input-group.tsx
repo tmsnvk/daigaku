@@ -21,7 +21,7 @@ import { CoreInputElement } from '../core-element/core-input-element.tsx';
 import { iconLibraryConfig } from '@daigaku/configuration';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { PasswordInputElementGroup } from '@daigaku/common-types';
 
 /**

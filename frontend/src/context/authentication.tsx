@@ -16,7 +16,7 @@ import { queryKeys } from '@daigaku/configuration';
 import { localStorageKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { LoginResponse, SimpleQueryResult, UserLoginState, UserRole } from '@daigaku/common-types';
 
 /**

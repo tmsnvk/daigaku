@@ -9,14 +9,14 @@ import { JSX } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+/* logic imports */
+import { useFieldValidationError } from '@daigaku/hooks';
+
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreInputElement } from '../core-element/core-input-element.tsx';
 
-/* logic imports */
-import { useFieldValidationError } from '@daigaku/hooks';
-
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { CommonInputElementGroup } from '@daigaku/common-types';
 
 /**

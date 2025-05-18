@@ -41,7 +41,7 @@ export const CoreFormElementInstruction = ({ paragraph, className }: CoreFormEle
         className,
       )}
     >
-      <p className={joinTw('mb-1', 'text-xl', 'last-of-type:mb-0')}>{paragraph}</p>
+      <p className={joinTw('mb-1 last-of-type:mb-0', 'text-xl')}>{paragraph}</p>
     </article>
   );
 };

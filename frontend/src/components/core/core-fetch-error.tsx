@@ -5,6 +5,7 @@
  */
 
 /* vendor imports */
+import { VariantProps, cva } from 'class-variance-authority';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,10 +15,18 @@ import { CoreButton } from './core-button.tsx';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
+const coreErrorVariants = cva('text-destructive text-xl font-bold tracking-wider', {
+  variants: {
+    size: {
+      mid: 'w-6/10 h-25',
+    },
+  },
+});
+
 /**
  * Defines the component's properties.
  */
-interface CoreFetchErrorProps {
+interface CoreFetchErrorProps extends VariantProps<typeof coreErrorVariants> {
   /**
    *
    */
@@ -27,11 +36,6 @@ interface CoreFetchErrorProps {
    *
    */
   readonly message: string;
-
-  /**
-   *
-   */
-  readonly className?: string;
 }
 
 /**
@@ -40,12 +44,12 @@ interface CoreFetchErrorProps {
  * @param {CoreFetchErrorProps}
  * @return {JSX.Element}
  */
-export const CoreFetchError = ({ onRetry, message, className }: CoreFetchErrorProps): JSX.Element => {
+export const CoreFetchError = ({ onRetry, message, size }: CoreFetchErrorProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <article className={joinTw('text-destructive text-xl font-bold tracking-wider', className)}>
-      <p className={joinTw('mb-4')}>{message}</p>
+    <article className={joinTw(coreErrorVariants({ size }))}>
+      <p className={'mb-4'}>{message}</p>
       <CoreButton
         label={t('tryAgain')}
         onClick={onRetry}

@@ -11,11 +11,11 @@ import { JSX, ReactElement } from 'react';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreFormHeaderVariants = cva(joinTw('text-center'), {
+const coreFormHeaderVariants = cva('text-center', {
   variants: {
     intent: {
       small: joinTw('mb-20', 'text-2xl'),
-      large: joinTw('text-5xl font-bold'),
+      large: 'text-5xl font-bold',
       largeWithUnderline: joinTw('core-form-header-after', 'text-5xl'),
     },
   },

@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-/* interface, type, enum imports */
+/* interface, type, enum, schema imports */
 import { UserRole } from './role.ts';
 
 /**
