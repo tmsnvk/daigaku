@@ -6,13 +6,12 @@
 
 /* vendor imports */
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
+import { CoreApiError, FormValidationError, UnauthorizedError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
@@ -21,7 +20,12 @@ import { localStorageKeys } from '@daigaku/constants';
 import { setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { CoreErrorResponse, LoginPayload, LoginResponse } from '@daigaku/common-types';
+import { ErrorDetail, LoginPayload, LoginResponse } from '@daigaku/common-types';
+
+/**
+ * Defines the {@link useLoginFormMutation} custom hook's error types.
+ */
+type LoginFormErrorT = 'root' | 'email' | 'password';
 
 /**
  * Manages the login form submission.
@@ -31,8 +35,8 @@ import { CoreErrorResponse, LoginPayload, LoginResponse } from '@daigaku/common-
  */
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
-): UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginPayload> => {
-  const { t } = useTranslation();
+): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
+  // const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -47,18 +51,30 @@ export const useLoginFormMutation = (
 
       navigate('/dashboard');
     },
-    onError: (error: AxiosError<CoreErrorResponse>) => {
-      if (axios.isAxiosError(error) && error.response && error.response.data) {
-        const status: number = error.response.data.errorCode;
-
-        if (status === 401) {
-          setError('root', { message: error.response.data.errors[0].errorMessage });
-        } else if (status >= 500) {
-          setError('root', { message: t('unexpectedServerError') });
-        }
-      } else {
-        setError('root', { message: t('unexpectedServerError') });
+    onError: (error: CoreApiError) => {
+      if (error instanceof FormValidationError) {
+        console.log(error.coreError.errors);
+        error.coreError.errors.forEach((error: ErrorDetail) => {
+          if (error.fieldName) {
+            setError(error.fieldName as LoginFormErrorT, { message: error.errorMessage });
+          }
+        });
       }
+
+      if (error instanceof UnauthorizedError) {
+        setError('root', { message: error.coreError.errors[0].errorMessage });
+      }
+
+      // if (axios.isAxiosError(error) && error.response && error.response.data) {
+      //   const status: number = error.response.data.errorCode;
+      //
+      //   if (status === 401) {
+      //   } else if (status >= 500) {
+      //     setError('root', { message: t('unexpectedServerError') });
+      //   }
+      // } else {
+      //   setError('root', { message: t('unexpectedServerError') });
+      // }
     },
   });
 };

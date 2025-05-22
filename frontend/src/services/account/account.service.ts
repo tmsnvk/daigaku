@@ -9,6 +9,7 @@ import { AxiosResponse } from 'axios';
 
 /* configuration, utilities, constants imports */
 import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { AccountResetPayload, LoginPayload, LoginResponse } from '@daigaku/common-types';
@@ -50,14 +51,13 @@ interface AccountService {
  * Manages pending-account-related REST API operations, implementing {@link AccountService}.
  */
 export const accountService: AccountService = {
-  logIn: async (formData: LoginPayload): Promise<LoginResponse> => {
-    const response: AxiosResponse<LoginResponse> = await axiosConfig.request<LoginResponse>({
-      method: 'POST',
-      url: '/api/v1/accounts/log-in',
-      data: formData,
-    });
-
-    return response.data;
+  logIn: (formData: LoginPayload): Promise<LoginResponse> => {
+    return apiClientWrapper(() =>
+      axiosConfig.request<LoginResponse>({
+        method: 'POST',
+        url: '/api/v1/accounts/log-in',
+        data: formData,
+      }));
   },
   resetPassword: async (formData: AccountResetPayload): Promise<void> => {
     await axiosConfig.request<void>({

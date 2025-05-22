@@ -50,6 +50,9 @@
       "@daigaku/context": [
         "context/index.ts"
       ],
+      "@daigaku/errors": [
+        "errors/index.ts"
+      ],
       "@daigaku/hooks": [
         "hooks/index.ts"
       ],

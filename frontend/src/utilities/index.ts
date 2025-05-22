@@ -4,6 +4,7 @@
  * @author tmsnvk
  */
 
+import { apiClientWrapper } from './apiClientWrapper.ts';
 import { generateId } from './generate-id.ts';
 import { getCurrentYear } from './get-current-year';
 import { isEmpty } from './is-empty.ts';
@@ -13,6 +14,7 @@ import { removeRolePrefix } from './remove-role-prefix';
 import { isAuthTokenExpired } from './token.ts';
 
 export {
+  apiClientWrapper,
   generateId,
   getCurrentYear,
   getLocalStorageObjectById,
