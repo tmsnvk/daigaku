@@ -87,25 +87,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const updateAccountContextDetails = (details: LoginResponse) => {
     setAccount(details);
-    setAuthStatus(UserLoginState.SIGNED_IN);
+    setAuthStatus(UserLoginState.LOGGED_IN);
   };
 
   const logOut = (): void => {
     removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
     startTransition(() => {
-      setAuthStatus(UserLoginState.SIGNED_OUT);
+      setAuthStatus(UserLoginState.LOGGED_OUT);
       setAccount(initialState);
     });
   };
 
   useEffect(() => {
-    if (authStatus === UserLoginState.SIGNED_OUT) {
+    if (authStatus === UserLoginState.LOGGED_OUT) {
       return;
     }
 
     if (isError || !authToken || isAuthTokenExpired(authToken)) {
-      setAuthStatus(UserLoginState.SIGNED_OUT);
+      setAuthStatus(UserLoginState.LOGGED_OUT);
     }
 
     if (isLoading) {

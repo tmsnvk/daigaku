@@ -41,7 +41,7 @@ export const useLoginFormMutation = (
   const { updateAccountContextDetails } = useAuthContext();
 
   return useMutation({
-    mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
+    mutationKey: [mutationKeys.account.POST_ACCOUNT_LOGIN_FORM],
     mutationFn: (formData: LoginPayload) => accountService.logIn(formData),
     onSuccess: (response: LoginResponse) => {
       setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, response.jwtToken);
@@ -52,16 +52,16 @@ export const useLoginFormMutation = (
     onError: (error: CoreApiError) => {
       const coreError = error.coreError;
 
-      if (error instanceof FormValidationError && coreError) {
-        coreError.errors.forEach((error: ErrorDetail) => {
+      if (error instanceof FormValidationError) {
+        coreError?.errors.forEach((error: ErrorDetail) => {
           if (error.fieldName) {
             setError(error.fieldName as LoginFormErrorField, { message: error.errorMessage });
           }
         });
       }
 
-      if (error instanceof UnauthorizedError && coreError) {
-        setError('root', { message: coreError.errors[0].errorMessage });
+      if (error instanceof UnauthorizedError) {
+        setError('root', { message: coreError?.errors[0].errorMessage });
       }
     },
   });

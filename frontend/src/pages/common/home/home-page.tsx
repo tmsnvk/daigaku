@@ -33,7 +33,7 @@ export const Home = (): JSX.Element => {
 
   const { selectedFormType, selectedFormComponent } = useFormSwitcher();
 
-  if (authStatus === UserLoginState.SIGNED_IN) {
+  if (authStatus === UserLoginState.LOGGED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 
