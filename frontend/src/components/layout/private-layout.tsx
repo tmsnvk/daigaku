@@ -63,7 +63,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
       return;
     }
 
-    if (!allowedRoles.includes(account.role as UserRole)) {
+    if (!account || !allowedRoles.includes(account.role as UserRole)) {
       const redirectPath = account ? '/unauthorised' : '/';
 
       navigate(redirectPath, { state: { from: location }, replace: true });

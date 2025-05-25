@@ -4,9 +4,6 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
@@ -68,11 +65,10 @@ export const accountService: AccountService = {
       }));
   },
   getMe: async (): Promise<LoginResponse> => {
-    const response: AxiosResponse<LoginResponse> = await axiosConfigWithAuth.request<LoginResponse>({
-      method: 'GET',
-      url: '/api/v1/accounts/me',
-    });
-
-    return response.data;
+    return await apiClientWrapper(() =>
+      axiosConfigWithAuth.request<LoginResponse>({
+        method: 'GET',
+        url: '/api/v1/accounts/me',
+      }));
   },
 };

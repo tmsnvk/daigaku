@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { Context, ReactNode, createContext, startTransition, useContext, useEffect, useMemo, useState } from 'react';
 
 /* logic imports */
@@ -17,7 +17,8 @@ import { localStorageKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { LoginResponse, SimpleQueryResult, UserLoginState, UserRole } from '@daigaku/common-types';
+import { LoginResponse, UserLoginState, UserRole } from '@daigaku/common-types';
+import { CoreApiError } from '@daigaku/errors';
 
 /**
  * Defines the properties of the data associated with the logged-in user.
@@ -41,13 +42,13 @@ interface AuthContext {
 }
 
 /**
- * Manages the fetching of basic details of the logged in user. The fetch operation is enabled only if a JWT
+ * Manages the fetching of basic details of the logged-in user. The fetch operation is enabled only if a JWT
  * authorisation token exists.
  *
  * @param authToken The authorisation JWT token if it exists.
- * @returns {SimpleQueryResult<LoginResponse>}
+ * @returns {UseQueryResult<LoginResponse, CoreApiError>}
  */
-const useGetMe = (authToken: string | null): SimpleQueryResult<LoginResponse> => {
+const useGetMe = (authToken: string | null): UseQueryResult<LoginResponse, CoreApiError> => {
   return useQuery({
     queryKey: [queryKeys.ACCOUNT.GET_ME],
     queryFn: () => accountService.getMe(),
