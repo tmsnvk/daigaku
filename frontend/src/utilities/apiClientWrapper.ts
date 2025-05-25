@@ -8,40 +8,48 @@
 import axios, { AxiosResponse } from 'axios';
 
 /* logic imports */
-import { FormValidationError, UnauthorizedError } from '@daigaku/errors';
+import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 
 /* interface, type, enum, schema imports */
-import { CoreErrorResponse, ErrorDetail } from '@daigaku/common-types';
+import { ErrorDetail } from '@daigaku/common-types';
 
+/**
+ *
+ * @param axiosServiceCall
+ */
 export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosResponse<T>>): Promise<T> => {
   try {
     const response = await axiosServiceCall();
 
     return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const status = error.response?.status;
-      const data = error.response?.data as CoreErrorResponse;
-
-      if (status === 400) {
-        const hasFieldErrors = data.errors.some((error: ErrorDetail) => {
-          return error.fieldName;
-        });
-
-        if (hasFieldErrors) {
-          throw new FormValidationError(data);
-        }
-      }
-
-      if (status === 401) {
-        throw new UnauthorizedError(data);
-      }
-
-      if (status && status >= 500) {
-        // throw new ServerError(status);
-      }
+  } catch (error: unknown) {
+    if (!axios.isAxiosError(error)) {
+      throw new UnexpectedError();
     }
 
-    throw new Error('Unknown network error');
+    const statusCode = error.response?.status;
+    const errorResponse = error.response?.data;
+
+    if (statusCode === 400) {
+      const hasFieldErrors = errorResponse.errors.some((errorDetail: ErrorDetail) => {
+        return errorDetail.fieldName;
+      });
+
+      if (hasFieldErrors) {
+        throw new FormValidationError(statusCode, errorResponse);
+      }
+
+      // TODO: add more error types here that have 400 status.
+    }
+
+    if (statusCode === 401) {
+      throw new UnauthorizedError(statusCode, errorResponse);
+    }
+
+    if (statusCode && statusCode >= 500) {
+      throw new ServerError(statusCode);
+    }
+
+    throw new UnexpectedError();
   }
 };

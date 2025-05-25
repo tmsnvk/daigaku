@@ -25,19 +25,17 @@ import { ErrorDetail, LoginPayload, LoginResponse } from '@daigaku/common-types'
 /**
  * Defines the {@link useLoginFormMutation} custom hook's error types.
  */
-type LoginFormErrorT = 'root' | 'email' | 'password';
+type LoginFormErrorField = 'root' | 'email' | 'password';
 
 /**
  * Manages the login form submission.
  *
  * @param setError The `react-hook-form` method to set form errors.
- * @return {UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginPayload>}
+ * @return {UseMutationResult<LoginResponse, CoreApiError, LoginPayload>}
  */
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
-  // const { t } = useTranslation();
-
   const navigate = useNavigate();
 
   const { updateAccountContextDetails } = useAuthContext();
@@ -52,29 +50,19 @@ export const useLoginFormMutation = (
       navigate('/dashboard');
     },
     onError: (error: CoreApiError) => {
-      if (error instanceof FormValidationError) {
-        console.log(error.coreError.errors);
-        error.coreError.errors.forEach((error: ErrorDetail) => {
+      const coreError = error.coreError;
+
+      if (error instanceof FormValidationError && coreError) {
+        coreError.errors.forEach((error: ErrorDetail) => {
           if (error.fieldName) {
-            setError(error.fieldName as LoginFormErrorT, { message: error.errorMessage });
+            setError(error.fieldName as LoginFormErrorField, { message: error.errorMessage });
           }
         });
       }
 
-      if (error instanceof UnauthorizedError) {
-        setError('root', { message: error.coreError.errors[0].errorMessage });
+      if (error instanceof UnauthorizedError && coreError) {
+        setError('root', { message: coreError.errors[0].errorMessage });
       }
-
-      // if (axios.isAxiosError(error) && error.response && error.response.data) {
-      //   const status: number = error.response.data.errorCode;
-      //
-      //   if (status === 401) {
-      //   } else if (status >= 500) {
-      //     setError('root', { message: t('unexpectedServerError') });
-      //   }
-      // } else {
-      //   setError('root', { message: t('unexpectedServerError') });
-      // }
     },
   });
 };

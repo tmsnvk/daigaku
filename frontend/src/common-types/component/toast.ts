@@ -38,4 +38,10 @@ export interface CreateToast {
    * The toast's style based on the component's style intent.
    */
   readonly variantIntent: ToastVariantIntent;
+
+  /**
+   * The number of seconds while the toast is visible on the screen. If not provided, it defaults to the provider's
+   * default value.
+   */
+  readonly autoRemoveDelay?: number;
 }

@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { UseMutateFunction, UseMutationResult, useMutation } from '@tanstack/react-query';
+import { UseMutateFunction, UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { mutationKeys, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';
@@ -39,6 +39,7 @@ interface HandleToggleIsRemovable {
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');

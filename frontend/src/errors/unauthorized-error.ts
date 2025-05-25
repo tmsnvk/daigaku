@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { CoreApiError } from './CoreApiError';
+import { CoreApiError } from './core-api-error.ts';
 
 /* interface, type, enum, schema imports */
 import { CoreErrorResponse } from '@daigaku/common-types';
@@ -14,7 +14,7 @@ import { CoreErrorResponse } from '@daigaku/common-types';
  *
  */
 export class UnauthorizedError extends CoreApiError {
-  constructor(coreError: CoreErrorResponse) {
-    super('UnauthorizedError', coreError);
+  constructor(statusCode: number, coreError: CoreErrorResponse) {
+    super('UnauthorizedError', statusCode, coreError);
   }
 }

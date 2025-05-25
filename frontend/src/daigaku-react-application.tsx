@@ -15,14 +15,12 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 /* logic imports */
 import { AuthProvider, ToastProvider } from '@daigaku/context';
 import { TranslationProvider } from '@daigaku/providers';
+import { useCoreQueryClient } from '@daigaku/hooks';
 
 /* component imports */
 import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';
 import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@daigaku/pages/common';
 import { NewApplication } from '@daigaku/pages/student';
-
-/* configuration, utilities, constants imports */
-import { queryClient } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
 import { UserRole } from '@daigaku/common-types';
@@ -77,16 +75,24 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>,
 ));
 
-export const DaigakuReactApplication = (): JSX.Element => {
+const DaigakuApplicationWithQueryClient = (): JSX.Element => {
+  const queryClient = useCoreQueryClient();
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TranslationProvider>
-          <ToastProvider>
-            <RouterProvider router={router} />
-          </ToastProvider>
-        </TranslationProvider>
+        <RouterProvider router={router} />
       </AuthProvider>
     </QueryClientProvider>
+  );
+};
+
+export const DaigakuReactApplication = (): JSX.Element => {
+  return (
+    <TranslationProvider>
+      <ToastProvider>
+        <DaigakuApplicationWithQueryClient />
+      </ToastProvider>
+    </TranslationProvider>
   );
 };

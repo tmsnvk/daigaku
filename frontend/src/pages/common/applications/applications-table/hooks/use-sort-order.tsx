@@ -6,9 +6,10 @@
 
 /* vendor imports */
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 /* configuration, utilities, constants imports */
-import { queryClient, queryKeys } from '@daigaku/configuration';
+import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';
@@ -37,6 +38,8 @@ enum SortOrder {
  * @return {SetOrder}
  */
 export const useSortOrder = (data: Array<ApplicationRecord>): SetOrder => {
+  const queryClient = useQueryClient();
+
   const [sortedBy, setSortedBy] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
 

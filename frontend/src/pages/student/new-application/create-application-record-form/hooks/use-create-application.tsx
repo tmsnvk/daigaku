@@ -5,16 +5,17 @@
  */
 
 /* vendor imports */
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
+import { useToastContext } from '@daigaku/context';
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { mutationKeys, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
 import {
@@ -23,7 +24,6 @@ import {
   CreateApplicationRecordByStudentPayload,
   ErrorDetail,
 } from '@daigaku/common-types';
-import { useToastContext } from '@daigaku/context';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -52,6 +52,7 @@ export const useCreateApplication = (
   reset: () => void,
 ): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, CreateApplicationRecordByStudentPayload> => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { createToast } = useToastContext();
 

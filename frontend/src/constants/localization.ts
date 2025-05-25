@@ -47,10 +47,15 @@ export const TranslationKey = {
 
   // notifications
   GENERIC_SUCCESS_TOAST_TITLE: 'genericSuccessToastTitle',
-  PENDING_ACCOUNT_REGISTRATION_FORM_SUBMISSION_TOAST_DESCRIPTION: 'pendingAccountRegistrationFormSubmissionToastDescription',
+  PENDING_ACCOUNT_REGISTRATION_FORM_SUBMISSION_TOAST_DESCRIPTION:
+    'pendingAccountRegistrationFormSubmissionToastDescription',
   RESET_PASSWORD_FORM_SUBMISSION_TOAST_DESCRIPTION: 'resetPasswordRegistrationFormSubmissionToastDescription',
   APPLICATIONS_PDF_DOWNLOAD_TOAST: 'applicationPdfDownloadToast',
   CREATE_APPLICATION_RECORD_FORM_SUBMISSION_TOAST_DESCRIPTION: 'createApplicationRecordFormSubmissionToastDescription',
+  SERVER_ERROR_TOAST_TITLE: 'serverErrorToastTitle',
+  SERVER_ERROR_TOAST_DESCRIPTION: 'serverErrorToastDescription',
+  UNEXPECTED_ERROR_TOAST_TITLE: 'unexpectedErrorToastTitle',
+  UNEXPECTED_ERROR_TOAST_DESCRIPTION: 'unexpectedErrorToastDescription',
 
   // acceptance
   ACCEPTANCE_OK: 'acceptanceOk',
@@ -59,8 +64,7 @@ export const TranslationKey = {
   TRY_AGAIN: 'tryAgain',
   QUERY_FETCH_ERROR: 'queryFetchError',
   UNEXPECTED_ERROR: 'unexpectedError',
-  UNEXPECTED_SERVER_ERROR: 'unexpectedServerError',
-  UNEXPECTED_GLOBAL_ERROR: 'unexpectedGlobalError',
+  SERVER_ERROR: 'serverError',
 
   // application records
   SUBMITTED_BY: 'submittedBy',
@@ -190,7 +194,6 @@ export const TranslationKey = {
   OFFER_STATUS_UPDATE_FIELD_INFORMATION: 'offerStatusUpdateFieldInformation',
   RESPONSE_STATUS_UPDATE_FIELD_INFORMATION: 'responseStatusUpdateFieldInformation',
   FINAL_DESTINATION_STATUS_UPDATE_FIELD_INFORMATION: 'finalDestinationStatusUpdateFieldInformation',
-
 } as const;
 
 type TranslationKey = (typeof TranslationKey)[keyof typeof TranslationKey];
@@ -216,7 +219,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
 
       // layout - mentor
       myStudents: 'My Students',
-      myStudentsApplications: 'My Students\' Applications',
+      myStudentsApplications: "My Students' Applications",
 
       // layout - institution admin
 
@@ -244,10 +247,19 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
 
       // notifications
       genericSuccessToastTitle: 'Success',
-      pendingAccountRegistrationFormSubmissionToastDescription: 'Thank you for registering your account. You will soon receive an email with further details.',
-      resetPasswordRegistrationFormSubmissionToastDescription: 'Your password has been reset. You will soon receive an email with further instructions.',
+      pendingAccountRegistrationFormSubmissionToastDescription:
+        'Thank you for registering your account. You will soon receive an email with further details.',
+      resetPasswordRegistrationFormSubmissionToastDescription:
+        'Your password has been reset. You will soon receive an email with further instructions.',
       applicationPdfDownloadToast: 'Your request has been received. You will receive an email soon with the details.',
-      createApplicationRecordFormSubmissionToastDescription: 'Your submission was successful. Wishing you the best of luck with your application!',
+      createApplicationRecordFormSubmissionToastDescription:
+        'Your submission was successful. Wishing you the best of luck with your application!',
+      serverErrorToastTitle: 'Server Error',
+      serverErrorToastDescription:
+        "The application's server is currently not available. Come back and try again at a later time.",
+      unexpectedErrorToastTitle: 'Unexpected error',
+      unexpectedErrorToastDescription:
+        'The application has encountered an unexpected error. Refresh your browser and try again.',
 
       // acceptance
       acceptanceOk: 'Ok',
@@ -257,8 +269,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       queryFetchError:
         'Fetching the necessary data was unsuccessful. Click on the  button to try again or come back later.',
       unexpectedError: 'The application has encountered an unexpected error. Refresh your browser and try again.',
-      unexpectedServerError: 'An unexpected server error happened.',
-      unexpectedGlobalError: 'An unexpected error happened.',
+      serverError: 'An unexpected server error happened.',
 
       // application records
       submittedBy: 'Submitted by:',
@@ -310,11 +321,11 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       minorSubjectPlaceholder: 'Provide your minor course.',
       programmeLengthLabel: 'Programme Length',
       applicationStatusLabel: 'Application Status',
-      applicationStatusPlaceholder: 'Update the application\'s current status.',
+      applicationStatusPlaceholder: "Update the application's current status.",
       interviewStatusLabel: 'Interview Status',
-      interviewStatusPlaceholder: 'Update the application\'s interview status.',
+      interviewStatusPlaceholder: "Update the application's interview status.",
       offerStatusLabel: 'Offer Status',
-      offerStatusPlaceholder: 'Update the university\'s decision.',
+      offerStatusPlaceholder: "Update the university's decision.",
       responseStatusLabel: 'Response Status',
       responseStatusPlaceholder: 'Update your response status.',
       finalDestinationStatusLabel: 'Final Destination Status',
@@ -334,7 +345,8 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       universityRequired: 'Selecting a university is required.',
       courseNameRequired: 'Providing the name of your selected course is required.',
       courseNamePattern: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
-      minorSubjectPattern: 'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
+      minorSubjectPattern:
+        'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
       programmeLengthRequired: 'Providing the length of your selected course is required.',
       programmeLengthPattern: 'You may enter numeric values only between 2 and 5.',
       commentRequired: 'Add your comment.',
@@ -353,7 +365,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       noApplicationRecordsTodo:
         'You have not yet submitted any applications. If you have any blocking issues, get in touch with your mentor or school administrator.',
       noSubmittedApplicationRecordsTodo:
-        'You currently have only \'Planned\' applications. Make sure to submit your applications once your deadlines are closing in.',
+        "You currently have only 'Planned' applications. Make sure to submit your applications once your deadlines are closing in.",
       noInterviewSetTodo: 'You have not yet updated the interview status of any of your applications.',
       noFirmChoiceSetTodo: 'You have not yet indicated your firm choice.',
       noOfferSetTodo: 'You have not yet indicated whether you have received any offers.',
@@ -372,48 +384,36 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
 
       // pages - create application record
       newApplicationRecordFormTitle: 'Submit New Application',
-      newApplicationRecordFormInformation: 'Fill in all mandatory fields before submitting the application. Upon visiting the Applications page, you will find more fields to fill in for each of your submitted applications. Make sure to come back in the following months and properly update their statuses. Once you have submitted an application, you will not be able to change the country, university and course fields. Submit an application only if you are committed to it. If you do not find your selected country or university in the dropdown lists, reach out to an admin via the \'Feedback\' form.',
-      countryNewFieldInformation: 'The first step of your application process is selecting the country of your choice. You are not able to select your chosen university until you have selected its home country. If you do not see the country of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
-      universityNewFieldInformation: 'Once you have selected a country, you will be able to pick any universities of that country from the dropdown options. If you do not see the university of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
+      newApplicationRecordFormInformation:
+        "Fill in all mandatory fields before submitting the application. Upon visiting the Applications page, you will find more fields to fill in for each of your submitted applications. Make sure to come back in the following months and properly update their statuses. Once you have submitted an application, you will not be able to change the country, university and course fields. Submit an application only if you are committed to it. If you do not find your selected country or university in the dropdown lists, reach out to an admin via the 'Feedback' form.",
+      countryNewFieldInformation:
+        'The first step of your application process is selecting the country of your choice. You are not able to select your chosen university until you have selected its home country. If you do not see the country of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
+      universityNewFieldInformation:
+        'Once you have selected a country, you will be able to pick any universities of that country from the dropdown options. If you do not see the university of your choice amongst the options, reach out to our admin team using the form under the Contact Us page.',
       courseNameNewFieldInformation: 'Enter the full name of the course you plan to apply to.',
-      minorSubjectNewFieldInformation: 'Enter the full name of the minor course that accompanies your major course. Leave the input box empty if you have no minor course.',
-      programmeLengthNewFieldInformation: 'Enter the length of your selected course (years). By default, the value is set to 3 years, update it only if it is different for your selected course.',
+      minorSubjectNewFieldInformation:
+        'Enter the full name of the minor course that accompanies your major course. Leave the input box empty if you have no minor course.',
+      programmeLengthNewFieldInformation:
+        'Enter the length of your selected course (years). By default, the value is set to 3 years, update it only if it is different for your selected course.',
 
       // pages - update application record
       updateApplicationRecordFormTitle: 'Update Application',
-      updateApplicationRecordFormInformation: 'Review your application and update its fields once you have received decisions from the university. You are not able to edit the course name, university and country fields as your application is considered final. If you have submitted this application by mistake with incorrect data, mark it for deletion and your mentor will review it. If you have changed your mind about the application, set its Application Status to \'Withdrawn\'. Let your mentor know if you have any questions with the application. If you have any issues with the site or form, reach out to our team using the \'Feedback\' form.',
+      updateApplicationRecordFormInformation:
+        "Review your application and update its fields once you have received decisions from the university. You are not able to edit the course name, university and country fields as your application is considered final. If you have submitted this application by mistake with incorrect data, mark it for deletion and your mentor will review it. If you have changed your mind about the application, set its Application Status to 'Withdrawn'. Let your mentor know if you have any questions with the application. If you have any issues with the site or form, reach out to our team using the 'Feedback' form.",
       countryUpdateFieldInformation: 'The country of your choice.',
       universityUpdateFieldInformation: 'The university of your choice.',
       courseNameUpdateFieldInformation: 'The course of your choice.',
       minorSubjectUpdateFieldInformation: 'The minor subject of your choice (if any).',
       programmeLengthUpdateFieldInformation: 'The length (years) of your chosen course.',
-      applicationStatusUpdateFieldInformation: 'Update the application status to either: (1) \'Submitted\' once you have submitted it via the university\'s submission portal; (2) \'Withdrawn\' if you have decided not to move forward with the application.',
-      interviewStatusUpdateFieldInformation: 'Update the status to reflect the current standing in the interview process.',
-      offerStatusUpdateFieldInformation: 'Update the university\'s response once you have received the final decision.',
-      responseStatusUpdateFieldInformation: 'Update the field according to your preferred ranking. You may only have one Firm Choice as your number one target.',
-      finalDestinationStatusUpdateFieldInformation: 'Update this final status once you have all the necessary information. There can only be one Final Destination, which is when you accept the university\'s offer. All other applications should be marked as \'Not Final Destination\'.',
+      applicationStatusUpdateFieldInformation:
+        "Update the application status to either: (1) 'Submitted' once you have submitted it via the university's submission portal; (2) 'Withdrawn' if you have decided not to move forward with the application.",
+      interviewStatusUpdateFieldInformation:
+        'Update the status to reflect the current standing in the interview process.',
+      offerStatusUpdateFieldInformation: "Update the university's response once you have received the final decision.",
+      responseStatusUpdateFieldInformation:
+        'Update the field according to your preferred ranking. You may only have one Firm Choice as your number one target.',
+      finalDestinationStatusUpdateFieldInformation:
+        "Update this final status once you have all the necessary information. There can only be one Final Destination, which is when you accept the university's offer. All other applications should be marked as 'Not Final Destination'.",
     },
   },
 ];
-
-// export const localization = {
-//   PAGES: {
-//     COMMON: {
-//       APPLICATION_EDIT: {
-//         NOTIFICATIONS: {
-//           PAGE_LOADING: 'The application is compiling your data...',
-//           APPLICATION_LOADING: 'Your application is being updated.',
-//           APPLICATION_SUBMIT: 'update application',
-//
-//         },
-//       },
-//       STUDENT: {
-//         NEW_APPLICATION: {
-//           MESSAGES: {
-//             PAGE_LOADING: 'The application is fetching the necessary data for the form submission...',
-//             UNIVERSITY_LOADING: ,
-//           },
-//
-//     },
-//   },
-// };

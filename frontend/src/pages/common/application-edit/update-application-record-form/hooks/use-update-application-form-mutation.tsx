@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { mutationKeys, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
 import {
@@ -50,6 +50,7 @@ export const useUpdateApplicationFormMutation = (
   applicationUuid: string,
 ): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, UpdateApplicationRecordByStudentPayload> => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { createToast } = useToastContext();
 

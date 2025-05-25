@@ -17,6 +17,9 @@ import { generateId, joinTw } from '@daigaku/utilities';
 /* interface, type, enum, schema imports */
 import { CreateToast } from '@daigaku/common-types';
 
+/**
+ *
+ */
 enum ToastActionTypes {
   CREATE = 'CREATE_TOAST',
   REMOVE = 'REMOVE_TOAST',
@@ -84,11 +87,6 @@ interface ToastProviderProps {
    * Children elements to render within the provider.
    */
   children: ReactNode;
-
-  /**
-   * Auto-removal delay in ms, defaults to 3000ms.
-   */
-  autoRemoveDelay?: number;
 }
 
 const toastReducer = (state: Array<CreateToast>, action: ToastAction): Array<CreateToast> => {
@@ -110,21 +108,33 @@ const ToastContext: Context<ToastContextValue> = createContext<ToastContextValue
 });
 const initialReducerState: Array<CreateToast> = [];
 
+const AUTO_REMOVE_DELAY = 3000;
+
 /**
  * Defines the application's toast-related context object.
  */
-export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProviderProps): JSX.Element => {
+export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => {
   const [toasts, dispatch] = useReducer(toastReducer, initialReducerState);
 
   const createToast = (options: Omit<CreateToast, 'id'>): void => {
     const id = generateId();
-    const newToast = { ...options, id };
+    const newToast = { ...options, id, autoRemoveDelay: options.autoRemoveDelay ?? AUTO_REMOVE_DELAY };
 
-    dispatch({ type: ToastActionTypes.CREATE, payload: { toast: newToast } });
+    dispatch({
+      type: ToastActionTypes.CREATE,
+      payload: {
+        toast: newToast,
+      },
+    });
 
     setTimeout(() => {
-      dispatch({ type: ToastActionTypes.REMOVE, payload: { id } });
-    }, autoRemoveDelay);
+      dispatch({
+        type: ToastActionTypes.REMOVE,
+        payload: {
+          id,
+        },
+      });
+    }, newToast.autoRemoveDelay);
   };
 
   const removeToast = (id: string): void => {
@@ -133,7 +143,12 @@ export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProvide
     });
 
     if (doesToastExist) {
-      dispatch({ type: ToastActionTypes.REMOVE, payload: { id } });
+      dispatch({
+        type: ToastActionTypes.REMOVE,
+        payload: {
+          id,
+        },
+      });
     }
   };
 
@@ -156,7 +171,7 @@ export const ToastProvider = ({ children, autoRemoveDelay = 3000 }: ToastProvide
               key={toast.id}
               {...toast}
               onClose={() => removeToast(toast.id)}
-              autoRemoveDelay={autoRemoveDelay}
+              autoRemoveDelay={toast.autoRemoveDelay ?? AUTO_REMOVE_DELAY}
             />
           );
         })}

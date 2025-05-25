@@ -4,8 +4,10 @@
  * @author tmsnvk
  */
 
-import { CoreApiError } from './CoreApiError.ts';
-import { FormValidationError } from './FormValidationError.ts';
-import { UnauthorizedError } from './UnauthorizedError.ts';
+import { CoreApiError } from './core-api-error.ts';
+import { FormValidationError } from './form-validation-error.ts';
+import { ServerError } from './server-error.ts';
+import { UnauthorizedError } from './unauthorized-error.ts';
+import { UnexpectedError } from './unexpected-error.ts';
 
-export { CoreApiError, FormValidationError, UnauthorizedError };
+export { CoreApiError, FormValidationError, ServerError, UnauthorizedError, UnexpectedError };

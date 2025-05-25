@@ -6,9 +6,10 @@
 
 /* vendor imports */
 import { UseFormSetError } from 'react-hook-form';
+import { QueryClient } from '@tanstack/react-query';
 
 /* configuration, utilities, constants imports */
-import { queryClient, queryKeys } from '@daigaku/configuration';
+import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
 import {
@@ -43,6 +44,8 @@ const filterCacheByUuid = <T extends ApplicationRecordStatusUnion>(cache: Array<
  * @returns {Array<T> | undefined}
  */
 const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefined => {
+  const queryClient = new QueryClient();
+
   return queryClient.getQueryData<Array<T>>([queryKey]);
 };
 

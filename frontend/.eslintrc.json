@@ -131,7 +131,6 @@
     ],
     "no-useless-return": "warn",
     "no-var": "warn",
-    "no-warning-comments": "warn",
     "prefer-const": "warn",
     "prefer-exponentiation-operator": "warn",
     "prefer-rest-params": "warn",
