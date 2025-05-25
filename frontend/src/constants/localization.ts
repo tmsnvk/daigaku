@@ -250,7 +250,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       pendingAccountRegistrationFormSubmissionToastDescription:
         'Thank you for registering your account. You will soon receive an email with further details.',
       resetPasswordRegistrationFormSubmissionToastDescription:
-        'Your password has been reset. You will soon receive an email with further instructions.',
+        'Your password has been successfully reset. You will soon receive an email with further instructions.',
       applicationPdfDownloadToast: 'Your request has been received. You will receive an email soon with the details.',
       createApplicationRecordFormSubmissionToastDescription:
         'Your submission was successful. Wishing you the best of luck with your application!',
