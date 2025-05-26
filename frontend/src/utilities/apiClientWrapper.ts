@@ -39,7 +39,7 @@ export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosR
         throw new FormValidationError(statusCode, errorResponse);
       }
 
-      // TODO: add more error types here that have 400 status.
+      // TODO: add more error types here that have 40x status.
     }
 
     if (statusCode === 401) {

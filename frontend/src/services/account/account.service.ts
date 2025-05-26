@@ -21,7 +21,11 @@ interface AccountService {
    *
    * @param formData The login form data object.
    * @return {Promise<LoginResponse>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   logIn: (formData: LoginPayload) => Promise<LoginResponse>;
 
@@ -31,7 +35,10 @@ interface AccountService {
    *
    * @param formData The reset form data object.
    * @return {Promise<void>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   resetPassword: (formData: AccountPasswordResetPayload) => Promise<void>;
 
@@ -39,7 +46,10 @@ interface AccountService {
    * Sends a GET request to fetch user details tied to the active session, used by the auth context.
    *
    * @return {Promise<LoginResponse>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getMe: () => Promise<LoginResponse>;
 }
@@ -56,16 +66,16 @@ export const accountService: AccountService = {
         data: formData,
       }));
   },
-  resetPassword: async (formData: AccountPasswordResetPayload): Promise<void> => {
-    await apiClientWrapper(() =>
+  resetPassword: (formData: AccountPasswordResetPayload): Promise<void> => {
+    return apiClientWrapper(() =>
       axiosConfig.request<void>({
         method: 'POST',
         url: '/api/v1/accounts/reset-password',
         data: formData,
       }));
   },
-  getMe: async (): Promise<LoginResponse> => {
-    return await apiClientWrapper(() =>
+  getMe: (): Promise<LoginResponse> => {
+    return apiClientWrapper(() =>
       axiosConfigWithAuth.request<LoginResponse>({
         method: 'GET',
         url: '/api/v1/accounts/me',

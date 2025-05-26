@@ -46,7 +46,7 @@ interface AuthContext {
  * authorisation token exists.
  *
  * @param authToken The authorisation JWT token if it exists.
- * @returns {UseQueryResult<LoginResponse, CoreApiError>}
+ * @returns {UseQueryResult<LoginResponse, FormValidationError | ServerError | UnexpectedError>}
  */
 const useGetMe = (authToken: string | null): UseQueryResult<LoginResponse, CoreApiError> => {
   return useQuery({

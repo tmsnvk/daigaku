@@ -5,25 +5,26 @@
  */
 
 /* vendor imports */
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
+import { ServerError, UnexpectedError } from '@daigaku/errors';
 import { institutionService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { InstitutionOption, ListQueryResult } from '@daigaku/common-types';
+import { InstitutionOption } from '@daigaku/common-types';
 
 /**
  * Fetches a list of {@link InstitutionOption} objects.
  *
- * @return {ListQueryResult<InstitutionOption>}
+ * @return {UseQueryResult<Array<InstitutionOption>, ServerError | UnexpectedError>}
  */
-export const useGetInstitutionOptions = (): ListQueryResult<InstitutionOption> => {
+export const useGetInstitutionOptions = (): UseQueryResult<Array<InstitutionOption>, ServerError | UnexpectedError> => {
   return useQuery({
-    queryKey: [queryKeys.INSTITUTIONS.GET_AS_SELECT_OPTIONS],
+    queryKey: [queryKeys.institutions.GET_AS_SELECT_OPTIONS],
     queryFn: () => institutionService.getAllOptions(),
   });
 };

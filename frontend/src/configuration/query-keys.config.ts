@@ -7,7 +7,7 @@
 export const mutationKeys = {
   account: {
     POST_LOGIN_FORM: 'post-account-login-form',
-    POST_REGISTER: 'post-pending-account-registration-form',
+    POST_REGISTER_FORM: 'post-pending-account-registration-form',
     POST_RESET_PASSWORD_FORM: 'post-account-reset-form',
   },
   application: {
@@ -32,13 +32,13 @@ export const queryKeys = {
     GET_ALL_BY_ROLE: 'get-applications-by-role',
     GET_BY_UUID: 'get-application-by-uuid',
   },
-  INSTITUTIONS: {
+  institutions: {
     GET_AS_SELECT_OPTIONS: 'get-all-institution-select-options',
   },
-  COUNTRY: {
+  country: {
     GET_AS_SELECT_OPTIONS: 'get-all-country-select-options',
   },
-  UNIVERSITY: {
+  university: {
     GET_AS_SELECT_OPTIONS: 'get-all-university-select-options',
   },
   APPLICATION_STATUS: {
