@@ -4,10 +4,8 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
+import { apiClientWrapper } from '@daigaku/utilities';
 import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
@@ -18,10 +16,12 @@ import { OfferStatus } from '@daigaku/common-types';
  */
 interface OfferStatusService {
   /**
-   * Retrieves all available options for the OfferStatus field of the {@link Application} object.
+   * Retrieves all available options for the OfferStatus field of the {@link ApplicationRecord} object.
    *
    * @return {Promise<Array<OfferStatus>>}
-   * @throws {AxiosError}
+   *
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getAll: () => Promise<Array<OfferStatus>>;
 }
@@ -30,12 +30,11 @@ interface OfferStatusService {
  * Manages offer-status-related REST API operations, implementing {@link OfferStatusService}.
  */
 export const offerStatusService: OfferStatusService = {
-  getAll: async (): Promise<Array<OfferStatus>> => {
-    const response: AxiosResponse<Array<OfferStatus>> = await axiosConfigWithAuth.request<Array<OfferStatus>>({
-      method: 'GET',
-      url: '/api/v1/offer-status',
-    });
-
-    return response.data;
+  getAll: (): Promise<Array<OfferStatus>> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<Array<OfferStatus>>({
+        method: 'GET',
+        url: '/api/v1/offer-status',
+      }));
   },
 };

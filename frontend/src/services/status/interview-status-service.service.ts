@@ -4,10 +4,8 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
+import { apiClientWrapper } from '@daigaku/utilities';
 import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
@@ -18,10 +16,12 @@ import { InterviewStatus } from '@daigaku/common-types';
  */
 interface InterviewStatusService {
   /**
-   * Retrieves all available options for the InterviewStatus field of the {@link Application} object.
+   * Retrieves all available options for the InterviewStatus field of the {@link ApplicationRecord} object.
    *
    * @return {Promise<Array<InterviewStatus>>}
-   * @throws {AxiosError}
+   *
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getAll: () => Promise<Array<InterviewStatus>>;
 }
@@ -30,12 +30,11 @@ interface InterviewStatusService {
  * Manages interview-status-related REST API operations, implementing {@link InterviewStatusService}.
  */
 export const interviewStatusService: InterviewStatusService = {
-  getAll: async (): Promise<Array<InterviewStatus>> => {
-    const response: AxiosResponse<Array<InterviewStatus>> = await axiosConfigWithAuth.request<Array<InterviewStatus>>({
-      method: 'GET',
-      url: '/api/v1/interview-status',
-    });
-
-    return response.data;
+  getAll: (): Promise<Array<InterviewStatus>> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<Array<InterviewStatus>>({
+        method: 'GET',
+        url: '/api/v1/interview-status',
+      }));
   },
 };
