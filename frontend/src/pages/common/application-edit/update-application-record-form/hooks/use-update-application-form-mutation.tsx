@@ -36,7 +36,7 @@ type UpdateApplicationFormField =
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid string.
- * @return {UseMutationResult<ApplicationRecord, FormValidationError | UnauthorizedError | ServerError |
+ * @return {UseMutationResult<ApplicationRecord, UnauthorizedError | FormValidationError | ServerError |
  *   UnexpectedError, UpdateApplicationRecordByStudentPayload>}
  */
 export const useUpdateApplicationFormMutation = (
@@ -44,7 +44,7 @@ export const useUpdateApplicationFormMutation = (
   applicationUuid: string,
 ): UseMutationResult<
   ApplicationRecord,
-  FormValidationError | UnauthorizedError | ServerError | UnexpectedError,
+  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
   UpdateApplicationRecordByStudentPayload
 > => {
   const { t } = useTranslation();
@@ -76,7 +76,7 @@ export const useUpdateApplicationFormMutation = (
         variantIntent: 'success',
       });
     },
-    onError: (error: FormValidationError | UnauthorizedError | ServerError | UnexpectedError) => {
+    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
       if (error instanceof FormValidationError) {
         error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
           if (errorDetail.fieldName) {

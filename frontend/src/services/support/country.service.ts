@@ -20,6 +20,8 @@ interface CountryService {
    *
    * @return {Promise<Array<CountryOption>>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */

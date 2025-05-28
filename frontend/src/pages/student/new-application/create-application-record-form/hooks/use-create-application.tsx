@@ -37,7 +37,7 @@ type CreateApplicationFormErrorField =
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {UseMutationResult<ApplicationRecord, FormValidationError | UnauthorizedError | ServerError |
+ * @return {UseMutationResult<ApplicationRecord, UnauthorizedError | FormValidationError | ServerError |
  *   UnexpectedError, CreateApplicationRecordByStudentPayload>}
  */
 export const useCreateApplication = (
@@ -46,7 +46,7 @@ export const useCreateApplication = (
   reset: () => void,
 ): UseMutationResult<
   ApplicationRecord,
-  FormValidationError | UnauthorizedError | ServerError | UnexpectedError,
+  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
   CreateApplicationRecordByStudentPayload
 > => {
   const { t } = useTranslation();
@@ -79,7 +79,7 @@ export const useCreateApplication = (
         variantIntent: 'success',
       });
     },
-    onError: (error: FormValidationError | UnauthorizedError | ServerError | UnexpectedError) => {
+    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
       if (error instanceof FormValidationError) {
         error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
           if (errorDetail.fieldName) {

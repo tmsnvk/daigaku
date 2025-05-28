@@ -22,10 +22,10 @@ export const mutationKeys = {
 };
 
 export const queryKeys = {
-  ACCOUNT: {
+  account: {
     GET_ME: 'get-me',
   },
-  ACCOUNT_ROLE: {
+  accountRole: {
     GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS: 'get-student-and-mentor-role-select-options',
   },
   application: {
@@ -41,19 +41,19 @@ export const queryKeys = {
   university: {
     GET_AS_SELECT_OPTIONS: 'get-all-university-select-options',
   },
-  APPLICATION_STATUS: {
+  applicationStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-application-status-select-options',
   },
-  INTERVIEW_STATUS: {
+  interviewStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-interview-status-select-options',
   },
-  OFFER_STATUS: {
+  offerStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-offer-status-select-options',
   },
-  RESPONSE_STATUS: {
+  responseStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-response-status-select-options',
   },
-  FINAL_DESTINATION: {
+  finalDestinationStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-final-destination-status-select-options',
   },
   aggregate: {

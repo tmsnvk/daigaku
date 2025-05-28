@@ -21,6 +21,8 @@ interface ApplicationService {
    * @param applicationUuid The application-record's uuid.
    * @return {Promise<ApplicationRecord>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
@@ -32,6 +34,8 @@ interface ApplicationService {
    * @param accountRole The user's authorization role.
    * @return {Promise<Array<ApplicationRecord>>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
@@ -43,6 +47,8 @@ interface ApplicationService {
    * @param accountRole The user's authorization role.
    * @return {Promise<StudentDashboardStatisticsResponse>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */

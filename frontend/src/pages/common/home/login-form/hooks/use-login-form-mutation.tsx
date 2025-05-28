@@ -31,18 +31,17 @@ type LoginFormErrorField = 'email' | 'password';
  * Manages the login form submission.
  *
  * @param setError The `react-hook-form` method to set form errors.
- * @return {UseMutationResult<LoginResponse, FormValidationError | UnauthorizedError | ServerError | UnexpectedError,
+ * @return {UseMutationResult<LoginResponse, UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
  *   LoginPayload>}
  */
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<
   LoginResponse,
-  FormValidationError | UnauthorizedError | ServerError | UnexpectedError,
+  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
   LoginPayload
 > => {
   const navigate = useNavigate();
-
   const { updateAccountContextDetails } = useAuthContext();
 
   return useMutation({
@@ -54,7 +53,7 @@ export const useLoginFormMutation = (
 
       navigate('/dashboard');
     },
-    onError: (error: FormValidationError | UnauthorizedError | ServerError | UnexpectedError) => {
+    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
       const coreErrorResponse: CoreErrorResponse | undefined = error.coreError;
 
       if (error instanceof FormValidationError) {

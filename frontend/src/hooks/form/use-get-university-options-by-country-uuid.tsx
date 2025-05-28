@@ -8,7 +8,7 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { ServerError, UnexpectedError } from '@daigaku/errors';
+import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { universityService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
@@ -22,11 +22,11 @@ import { UniversityOption } from '@daigaku/common-types';
  * The request to the server is initiated only when a country is chosen in the given form.
  *
  * @param selectedCountryUuid The selected country's uuid string.
- * @return {UseQueryResult<Array<UniversityOption>, ServerError | UnexpectedError>}
+ * @return {UseQueryResult<Array<UniversityOption>, UnauthorizedError | ServerError | UnexpectedError>}
  */
 export const useGetUniversityOptionsByCountryUuid = (
   selectedCountryUuid: string,
-): UseQueryResult<Array<UniversityOption>, ServerError | UnexpectedError> => {
+): UseQueryResult<Array<UniversityOption>, UnauthorizedError | ServerError | UnexpectedError> => {
   return useQuery({
     queryKey: [queryKeys.university.GET_AS_SELECT_OPTIONS, selectedCountryUuid],
     queryFn: () => universityService.getAllOptionsByCountryUuid(selectedCountryUuid),

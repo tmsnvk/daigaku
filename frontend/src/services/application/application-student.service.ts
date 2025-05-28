@@ -26,6 +26,8 @@ interface ApplicationStudentService {
    * @param formData The application form data object to be saved.
    * @return {Promise<ApplicationRecord>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
@@ -39,6 +41,8 @@ interface ApplicationStudentService {
    * @param applicationUuid The unique identifier of the application to be updated.
    * @return {Promise<ApplicationRecord>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
@@ -54,6 +58,8 @@ interface ApplicationStudentService {
    * @param applicationUuid The unique identifier of the application to toggle.
    * @return {Promise<void>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
@@ -66,6 +72,8 @@ interface ApplicationStudentService {
    *
    * @return {Promise<void>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.

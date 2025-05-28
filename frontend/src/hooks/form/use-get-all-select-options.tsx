@@ -31,23 +31,23 @@ export const useGetAllSelectOptions = (): ApplicationRecordStatusOptionsResponse
   return useQueries({
     queries: [
       {
-        queryKey: [queryKeys.APPLICATION_STATUS.GET_AS_SELECT_OPTIONS],
+        queryKey: [queryKeys.applicationStatus.GET_AS_SELECT_OPTIONS],
         queryFn: () => applicationStatusService.getAll(),
       },
       {
-        queryKey: [queryKeys.INTERVIEW_STATUS.GET_AS_SELECT_OPTIONS],
+        queryKey: [queryKeys.interviewStatus.GET_AS_SELECT_OPTIONS],
         queryFn: () => interviewStatusService.getAll(),
       },
       {
-        queryKey: [queryKeys.OFFER_STATUS.GET_AS_SELECT_OPTIONS],
+        queryKey: [queryKeys.offerStatus.GET_AS_SELECT_OPTIONS],
         queryFn: () => offerStatusService.getAll(),
       },
       {
-        queryKey: [queryKeys.RESPONSE_STATUS.GET_AS_SELECT_OPTIONS],
+        queryKey: [queryKeys.responseStatus.GET_AS_SELECT_OPTIONS],
         queryFn: () => responseStatusService.getAll(),
       },
       {
-        queryKey: [queryKeys.FINAL_DESTINATION.GET_AS_SELECT_OPTIONS],
+        queryKey: [queryKeys.finalDestinationStatus.GET_AS_SELECT_OPTIONS],
         queryFn: () => finalDestinationStatusService.getAll(),
       },
     ],

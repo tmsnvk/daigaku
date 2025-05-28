@@ -46,11 +46,11 @@ interface AuthContext {
  * authorisation token exists.
  *
  * @param authToken The authorisation JWT token if it exists.
- * @returns {UseQueryResult<LoginResponse, FormValidationError | ServerError | UnexpectedError>}
+ * @returns {UseQueryResult<LoginResponse, UnauthorizedError | FormValidationError | ServerError | UnexpectedError>}
  */
 const useGetMe = (authToken: string | null): UseQueryResult<LoginResponse, CoreApiError> => {
   return useQuery({
-    queryKey: [queryKeys.ACCOUNT.GET_ME],
+    queryKey: [queryKeys.account.GET_ME],
     queryFn: () => accountService.getMe(),
     enabled: authToken !== null,
   });

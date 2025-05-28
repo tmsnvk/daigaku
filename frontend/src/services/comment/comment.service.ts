@@ -22,7 +22,8 @@ interface CommentService {
    * @param currentPage The current page number for pagination.
    * @return {Promise<Array<CommentPaginationDataResponse>>}
    *
-   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
@@ -38,6 +39,8 @@ interface CommentService {
    * @param applicationUuid The selected application's uuid.
    * @return {Promise<Comment>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.

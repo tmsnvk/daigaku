@@ -5,8 +5,8 @@
  */
 
 /* configuration, utilities, constants imports */
-import { apiClientWrapper } from '@daigaku/utilities';
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { UniversityOption } from '@daigaku/common-types';
@@ -20,6 +20,8 @@ interface UniversityService {
    *
    * @return {Promise<Array<UniversityOption>>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */

@@ -8,8 +8,8 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { roleService } from '@daigaku/services';
 import { ServerError, UnexpectedError } from '@daigaku/errors';
+import { roleService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
@@ -27,7 +27,7 @@ export const useGetStudentAndMentorAccountRoles = (): UseQueryResult<
   ServerError | UnexpectedError
 > => {
   return useQuery({
-    queryKey: [queryKeys.ACCOUNT_ROLE.GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS],
+    queryKey: [queryKeys.accountRole.GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS],
     queryFn: () => roleService.getStudentAndMentorRoles(),
   });
 };

@@ -22,8 +22,9 @@ interface AccountService {
    * @param formData The login form data object.
    * @return {Promise<LoginResponse>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
@@ -47,6 +48,8 @@ interface AccountService {
    *
    * @return {Promise<LoginResponse>}
    *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.

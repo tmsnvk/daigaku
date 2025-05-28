@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
+import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { applicationStudentService } from '@daigaku/services';
-import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@daigaku/configuration';
@@ -19,11 +19,11 @@ import { mutationKeys } from '@daigaku/configuration';
 /**
  * Manages the user's .pdf download request.
  *
- * @returns {UseMutationResult<void, FormValidationError | UnauthorizedError | ServerError | UnexpectedError, void>}
+ * @returns {UseMutationResult<void, UnauthorizedError | ServerError | UnexpectedError, void>}
  */
 export const useRequestPdfDownload = (): UseMutationResult<
   void,
-  FormValidationError | UnauthorizedError | ServerError | UnexpectedError,
+  UnauthorizedError | ServerError | UnexpectedError,
   void
 > => {
   const { t } = useTranslation();
