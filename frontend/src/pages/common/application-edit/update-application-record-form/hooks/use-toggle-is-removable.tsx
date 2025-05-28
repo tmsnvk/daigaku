@@ -6,12 +6,12 @@
 
 /* vendor imports */
 import { UseMutateFunction, UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { applicationStudentService } from '@daigaku/services';
+import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/configuration';
@@ -27,7 +27,7 @@ interface HandleToggleIsRemovable {
   readonly errorMessage: string;
   readonly isSubmitting: boolean;
   readonly isError: boolean;
-  mutate: UseMutateFunction<void, Error, void, unknown>;
+  mutate: UseMutateFunction<void, UnauthorizedError | ServerError | UnexpectedError, void, unknown>;
 }
 
 /**
@@ -35,7 +35,7 @@ interface HandleToggleIsRemovable {
  *
  * @param applicationUuid The application record's uuid for identification purposes.
  * @param isRemovable The application record's current is_removable boolean state.
- * @return {SimpleQueryResult<HandleToggleIsRemovable>}
+ * @return {HandleToggleIsRemovable}
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
   const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const mutation: UseMutationResult<void, AxiosError<Error>, void> = useMutation({
+  const mutation: UseMutationResult<void, UnauthorizedError | ServerError | UnexpectedError, void> = useMutation({
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleIsRemovable(applicationUuid),
     onSuccess: () => {

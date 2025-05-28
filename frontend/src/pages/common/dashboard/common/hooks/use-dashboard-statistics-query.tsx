@@ -5,24 +5,28 @@
  */
 
 /* vendor imports */
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
 import { applicationService } from '@daigaku/services';
+import { ServerError, UnexpectedError } from '@daigaku/errors';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { SimpleQueryResult, StudentDashboardStatisticsResponse } from '@daigaku/common-types';
+import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 
 /**
  * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation level.
  *
- * @return {SimpleQueryResult<StudentDashboardStatisticsResponse>}
+ * @return {UseQueryResult<StudentDashboardStatisticsResponse, ServerError | UnexpectedError>}
  */
-export const useDashboardStatisticsQuery = (): SimpleQueryResult<StudentDashboardStatisticsResponse> => {
+export const useDashboardStatisticsQuery = (): UseQueryResult<
+  StudentDashboardStatisticsResponse,
+  ServerError | UnexpectedError
+> => {
   const { getRoleResource } = useAuthContext();
   const accountRole = getRoleResource();
 

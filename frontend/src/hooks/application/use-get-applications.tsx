@@ -5,24 +5,25 @@
  */
 
 /* vendor imports */
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
 import { applicationService } from '@daigaku/services';
+import { ServerError, UnexpectedError } from '@daigaku/errors';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord, ListQueryResult } from '@daigaku/common-types';
+import { ApplicationRecord } from '@daigaku/common-types';
 
 /**
  * Fetches a list of application records based on the user's authorisation role.
  *
- * @return {ListQueryResult<ApplicationRecord>}
+ * @return {UseQueryResult<Array<ApplicationRecord>, ServerError | UnexpectedError>}
  */
-export const useGetApplications = (): ListQueryResult<ApplicationRecord> => {
+export const useGetApplications = (): UseQueryResult<Array<ApplicationRecord>, ServerError | UnexpectedError> => {
   const { getRoleResource } = useAuthContext();
   const accountRole = getRoleResource();
 

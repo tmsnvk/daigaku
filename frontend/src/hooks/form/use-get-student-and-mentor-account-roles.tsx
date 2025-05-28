@@ -20,7 +20,7 @@ import { RoleOption } from '@daigaku/common-types';
 /**
  * Fetches a list of {@link RoleOption} objects.
  *
- * @return {UseQueryResult<Array<RoleOption>,ServerError | UnexpectedError>}
+ * @return {UseQueryResult<Array<RoleOption>, ServerError | UnexpectedError>}
  */
 export const useGetStudentAndMentorAccountRoles = (): UseQueryResult<
   Array<RoleOption>,

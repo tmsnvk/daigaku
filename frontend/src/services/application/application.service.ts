@@ -4,11 +4,9 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { ApplicationRecord, StudentDashboardStatisticsResponse } from '@daigaku/common-types';
@@ -20,27 +18,33 @@ interface ApplicationService {
   /**
    * Retrieves a specific application by its uuid.
    *
-   * @param applicationUuid The application's uuid.
+   * @param applicationUuid The application-record's uuid.
    * @return {Promise<ApplicationRecord>}
-   * @throws {AxiosError}
+   *
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getByUuid: (applicationUuid: string) => Promise<ApplicationRecord>;
 
   /**
    * Fetches a list of applications accessible based on the user's authorization role.
    *
-   * @param accountRole The user's authorisation role.
+   * @param accountRole The user's authorization role.
    * @return {Promise<Array<ApplicationRecord>>}
-   * @throws {AxiosError}
+   *
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getAllByRole: (roleResource: string) => Promise<Array<ApplicationRecord>>;
 
   /**
    * Retrieves dashboard statistics relevant to the user's authorization role.
    *
-   * @param accountRole The user's authorisation role.
+   * @param accountRole The user's authorization role.
    * @return {Promise<StudentDashboardStatisticsResponse>}
-   * @throws {AxiosError}
+   *
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getDashboardStatistics: (roleResource: string) => Promise<StudentDashboardStatisticsResponse>;
 }
@@ -49,31 +53,25 @@ interface ApplicationService {
  * Manages application-related REST API operations, implementing {@link ApplicationService}.
  */
 export const applicationService: ApplicationService = {
-  getByUuid: async (applicationUuid: string): Promise<ApplicationRecord> => {
-    const { data } = await axiosConfigWithAuth.request<ApplicationRecord>({
-      method: 'GET',
-      url: `/api/v1/applications/${applicationUuid}`,
-    });
-
-    return data;
+  getByUuid: (applicationUuid: string): Promise<ApplicationRecord> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<ApplicationRecord>({
+        method: 'GET',
+        url: `/api/v1/applications/${applicationUuid}`,
+      }));
   },
-  getAllByRole: async (accountRole: string): Promise<Array<ApplicationRecord>> => {
-    const response: AxiosResponse<Array<ApplicationRecord>> = await axiosConfigWithAuth.request<
-      Array<ApplicationRecord>
-    >({
-      method: 'GET',
-      url: `/api/v1/applications/${accountRole}`,
-    });
-
-    return response.data;
+  getAllByRole: (accountRole: string): Promise<Array<ApplicationRecord>> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<Array<ApplicationRecord>>({
+        method: 'GET',
+        url: `/api/v1/applications/${accountRole}`,
+      }));
   },
-  getDashboardStatistics: async (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
-    const response: AxiosResponse<StudentDashboardStatisticsResponse> =
-      await axiosConfigWithAuth.request<StudentDashboardStatisticsResponse>({
+  getDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<StudentDashboardStatisticsResponse>({
         method: 'GET',
         url: `/api/v1/applications/${accountRole}/dashboard`,
-      });
-
-    return response.data;
+      }));
   },
 };

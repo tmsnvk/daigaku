@@ -4,11 +4,9 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import {
@@ -27,7 +25,10 @@ interface ApplicationStudentService {
    *
    * @param formData The application form data object to be saved.
    * @return {Promise<ApplicationRecord>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   postByStudent: (formData: CreateApplicationRecordByStudentPayload) => Promise<ApplicationRecord>;
 
@@ -37,7 +38,10 @@ interface ApplicationStudentService {
    * @param formData The application update form data object.
    * @param applicationUuid The unique identifier of the application to be updated.
    * @return {Promise<ApplicationRecord>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   patchByUuid: (
     formData: UpdateApplicationRecordByStudentPayload,
@@ -49,7 +53,10 @@ interface ApplicationStudentService {
    *
    * @param applicationUuid The unique identifier of the application to toggle.
    * @return {Promise<void>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   toggleIsRemovable: (applicationUuid: string) => Promise<void>;
 
@@ -58,7 +65,10 @@ interface ApplicationStudentService {
    * On success, the server sends an email to the user with the download link.
    *
    * @return {Promise<void>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   requestPdfDownload: () => Promise<void>;
 }
@@ -67,37 +77,37 @@ interface ApplicationStudentService {
  * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
  */
 export const applicationStudentService: ApplicationStudentService = {
-  postByStudent: async (formData: CreateApplicationRecordByStudentPayload): Promise<ApplicationRecord> => {
-    const response: AxiosResponse<ApplicationRecord> = await axiosConfigWithAuth.request<ApplicationRecord>({
-      method: 'POST',
-      url: '/api/v1/applications/student',
-      data: formData,
-    });
-
-    return response.data;
+  postByStudent: (formData: CreateApplicationRecordByStudentPayload): Promise<ApplicationRecord> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<ApplicationRecord>({
+        method: 'POST',
+        url: '/api/v1/applications/student',
+        data: formData,
+      }));
   },
-  patchByUuid: async (
+  patchByUuid: (
     formData: UpdateApplicationRecordByStudentPayload,
     applicationUuid: string,
   ): Promise<ApplicationRecord> => {
-    const response: AxiosResponse<ApplicationRecord> = await axiosConfigWithAuth.request<ApplicationRecord>({
-      method: 'PATCH',
-      url: `/api/v1/applications/student/${applicationUuid}`,
-      data: formData,
-    });
-
-    return response.data;
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<ApplicationRecord>({
+        method: 'PATCH',
+        url: `/api/v1/applications/student/${applicationUuid}`,
+        data: formData,
+      }));
   },
-  toggleIsRemovable: async (applicationUuid: string): Promise<void> => {
-    await axiosConfigWithAuth.request<void>({
-      method: 'PATCH',
-      url: `/api/v1/applications/student/toggle-is-removable/${applicationUuid}`,
-    });
+  toggleIsRemovable: (applicationUuid: string): Promise<void> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<void>({
+        method: 'PATCH',
+        url: `/api/v1/applications/student/toggle-is-removable/${applicationUuid}`,
+      }));
   },
-  requestPdfDownload: async (): Promise<void> => {
-    await axiosConfigWithAuth.request<void>({
-      method: 'POST',
-      url: '/api/v1/applications/student/download-pdf',
-    });
+  requestPdfDownload: (): Promise<void> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<void>({
+        method: 'POST',
+        url: '/api/v1/applications/student/download-pdf',
+      }));
   },
 };

@@ -6,29 +6,24 @@
 
 /* vendor imports */
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
 import { applicationStudentService } from '@daigaku/services';
+import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import {
-  ApplicationRecord,
-  CoreErrorResponse,
-  CreateApplicationRecordByStudentPayload,
-  ErrorDetail,
-} from '@daigaku/common-types';
+import { ApplicationRecord, CreateApplicationRecordByStudentPayload, ErrorDetail } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
  */
-type CreateApplicationFormErrorT =
+type CreateApplicationFormErrorField =
   | 'root'
   | 'countryUuid'
   | 'universityUuid'
@@ -42,15 +37,18 @@ type CreateApplicationFormErrorT =
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>,
- *   CreateApplicationRecordByStudentPayload>} A
- *   `react-query` mutation object.
+ * @return {UseMutationResult<ApplicationRecord, FormValidationError | UnauthorizedError | ServerError |
+ *   UnexpectedError, CreateApplicationRecordByStudentPayload>}
  */
 export const useCreateApplication = (
   setError: UseFormSetError<CreateApplicationRecordByStudentPayload>,
   resetCountrySelection: () => void,
   reset: () => void,
-): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, CreateApplicationRecordByStudentPayload> => {
+): UseMutationResult<
+  ApplicationRecord,
+  FormValidationError | UnauthorizedError | ServerError | UnexpectedError,
+  CreateApplicationRecordByStudentPayload
+> => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -81,24 +79,13 @@ export const useCreateApplication = (
         variantIntent: 'success',
       });
     },
-    onError: (error: AxiosError<CoreErrorResponse>) => {
-      if (axios.isAxiosError(error)) {
-        const status: number | undefined = error.response?.data.errorCode;
-        const errors: CoreErrorResponse | undefined = error.response?.data;
-
-        if (status) {
-          if (status === 400 && errors) {
-            errors.errors.forEach((error: ErrorDetail) => {
-              if (error.fieldName) {
-                setError(error.fieldName as CreateApplicationFormErrorT, { message: error.errorMessage });
-              }
-            });
-          } else if (status >= 500) {
-            setError('root', { message: t('unexpectedServerError') });
+    onError: (error: FormValidationError | UnauthorizedError | ServerError | UnexpectedError) => {
+      if (error instanceof FormValidationError) {
+        error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
+          if (errorDetail.fieldName) {
+            setError(errorDetail.fieldName as CreateApplicationFormErrorField, { message: errorDetail.errorMessage });
           }
-        }
-      } else {
-        setError('root', { message: t('unexpectedServerError') });
+        });
       }
     },
   });
