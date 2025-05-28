@@ -52,6 +52,7 @@ export const TranslationKey = {
   RESET_PASSWORD_FORM_SUBMISSION_TOAST_DESCRIPTION: 'resetPasswordRegistrationFormSubmissionToastDescription',
   APPLICATIONS_PDF_DOWNLOAD_TOAST: 'applicationPdfDownloadToast',
   CREATE_APPLICATION_RECORD_FORM_SUBMISSION_TOAST_DESCRIPTION: 'createApplicationRecordFormSubmissionToastDescription',
+  CREATE_COMMENT_FORM_SUBMISSION_TOAST_DESCRIPTION: 'createCommentFormSubmissionToastDescription',
   SERVER_ERROR_TOAST_TITLE: 'serverErrorToastTitle',
   SERVER_ERROR_TOAST_DESCRIPTION: 'serverErrorToastDescription',
   UNEXPECTED_ERROR_TOAST_TITLE: 'unexpectedErrorToastTitle',
@@ -254,6 +255,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       applicationPdfDownloadToast: 'Your request has been received. You will receive an email soon with the details.',
       createApplicationRecordFormSubmissionToastDescription:
         'Your submission was successful. Wishing you the best of luck with your application!',
+      createCommentFormSubmissionToastDescription: 'Your comment was successfully submitted!',
       serverErrorToastTitle: 'Server Error',
       serverErrorToastDescription:
         "The application's server is currently not available. Come back and try again at a later time.",

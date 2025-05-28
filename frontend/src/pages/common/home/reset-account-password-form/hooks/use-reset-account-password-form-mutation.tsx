@@ -44,17 +44,17 @@ export const useResetAccountPasswordFormMutation = (
     onSuccess: () => {
       createToast({
         title: t('genericSuccessToastTitle'),
-        description: t('resetPasswordRegistrationFormSubmissionToastDescription'),
+        description: t('createCommentFormSubmissionToastDescription'),
         variantIntent: 'success',
       });
     },
     onError: (error: FormValidationError | ServerError | UnexpectedError) => {
       if (error instanceof FormValidationError) {
-        const errorDetail: ErrorDetail | undefined = error.coreError?.errors[0];
-
-        if (errorDetail?.fieldName) {
-          setError(errorDetail.fieldName as AccountPasswordResetErrorField, { message: errorDetail.errorMessage });
-        }
+        error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
+          if (errorDetail.fieldName) {
+            setError(errorDetail.fieldName as AccountPasswordResetErrorField, { message: errorDetail.errorMessage });
+          }
+        });
       }
     },
   });

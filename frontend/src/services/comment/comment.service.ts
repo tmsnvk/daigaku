@@ -4,11 +4,9 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { Comment, CommentPaginationDataResponse, CreateCommentPayload } from '@daigaku/common-types';
@@ -23,7 +21,10 @@ interface CommentService {
    * @param applicationUuid The selected application's uuid.
    * @param currentPage The current page number for pagination.
    * @return {Promise<Array<CommentPaginationDataResponse>>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getAllByApplicationUuidAndPagination: (
     applicationUuid: string,
@@ -36,7 +37,10 @@ interface CommentService {
    * @param formData The new comment form's data object.
    * @param applicationUuid The selected application's uuid.
    * @return {Promise<Comment>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   postCommentByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string) => Promise<Comment>;
 }
@@ -45,25 +49,22 @@ interface CommentService {
  * Manages comment-related REST API operations, implementing {@link CommentService}.
  */
 export const commentService: CommentService = {
-  getAllByApplicationUuidAndPagination: async (
+  getAllByApplicationUuidAndPagination: (
     applicationUuid: string,
     currentPage: number,
   ): Promise<CommentPaginationDataResponse> => {
-    const response: AxiosResponse<CommentPaginationDataResponse> =
-      await axiosConfigWithAuth.request<CommentPaginationDataResponse>({
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<CommentPaginationDataResponse>({
         method: 'GET',
         url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
-      });
-
-    return response.data;
+      }));
   },
-  postCommentByApplicationUuid: async (formData: CreateCommentPayload, applicationUuid: string): Promise<Comment> => {
-    const response: AxiosResponse<Comment> = await axiosConfigWithAuth.request<Comment>({
-      method: 'POST',
-      url: `/api/v1/comments/${applicationUuid}`,
-      data: formData,
-    });
-
-    return response.data;
+  postCommentByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string): Promise<Comment> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<Comment>({
+        method: 'POST',
+        url: `/api/v1/comments/${applicationUuid}`,
+        data: formData,
+      }));
   },
 };
