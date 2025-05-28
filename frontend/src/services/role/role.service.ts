@@ -4,11 +4,9 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfig } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { RoleOption } from '@daigaku/common-types';
@@ -21,7 +19,9 @@ interface RoleService {
    * Retrieves the student and mentor role options.
    *
    * @return {Promise<Array<RoleOption>>}
-   * @throws {AxiosError}
+   *
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getStudentAndMentorRoles: () => Promise<Array<RoleOption>>;
 }
@@ -30,12 +30,11 @@ interface RoleService {
  * Manages role-related REST API operations, implementing {@link RoleService}.
  */
 export const roleService: RoleService = {
-  getStudentAndMentorRoles: async (): Promise<Array<RoleOption>> => {
-    const response: AxiosResponse<Array<RoleOption>> = await axiosConfig.request<Array<RoleOption>>({
-      method: 'GET',
-      url: '/api/v1/roles/student-and-mentor',
-    });
-
-    return response.data;
+  getStudentAndMentorRoles: (): Promise<Array<RoleOption>> => {
+    return apiClientWrapper(() =>
+      axiosConfig.request<Array<RoleOption>>({
+        method: 'GET',
+        url: '/api/v1/roles/student-and-mentor',
+      }));
   },
 };
