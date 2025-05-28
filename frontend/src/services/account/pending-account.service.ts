@@ -6,6 +6,7 @@
 
 /* configuration, utilities, constants imports */
 import { axiosConfig } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { PendingAccountRegistrationPayload } from '@daigaku/common-types';
@@ -21,7 +22,10 @@ interface PendingAccountService {
    *
    * @param formData The registration form data object.
    * @return {Promise<void>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   register: (formData: PendingAccountRegistrationPayload) => Promise<void>;
 }
@@ -30,11 +34,12 @@ interface PendingAccountService {
  * Manages pending-account-related REST API operations, implementing {@link PendingAccountService}.
  */
 export const pendingAccountService: PendingAccountService = {
-  register: async (formData: PendingAccountRegistrationPayload): Promise<void> => {
-    await axiosConfig.request<void>({
-      method: 'POST',
-      url: '/api/v1/pending-accounts/register',
-      data: formData,
-    });
+  register: (formData: PendingAccountRegistrationPayload): Promise<void> => {
+    return apiClientWrapper(() =>
+      axiosConfig.request<void>({
+        method: 'POST',
+        url: '/api/v1/pending-accounts/register',
+        data: formData,
+      }));
   },
 };

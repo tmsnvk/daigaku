@@ -4,11 +4,9 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { ApplicationStatus } from '@daigaku/common-types';
@@ -19,10 +17,14 @@ import { ApplicationStatus } from '@daigaku/common-types';
  */
 interface ApplicationStatusService {
   /**
-   * Retrieves all available options for the ApplicationStatus field of the {@link Application} object.
+   * Retrieves all available options for the ApplicationStatus field of the {@link ApplicationRecord} object.
    *
    * @return {Promise<Array<ApplicationStatus>>}
-   * @throws {AxiosError}
+   *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   user does not have valid token.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getAll: () => Promise<Array<ApplicationStatus>>;
 }
@@ -31,14 +33,11 @@ interface ApplicationStatusService {
  * Manages application-status-related REST API operations, implementing {@link ApplicationStatusService}.
  */
 export const applicationStatusService: ApplicationStatusService = {
-  getAll: async (): Promise<Array<ApplicationStatus>> => {
-    const response: AxiosResponse<Array<ApplicationStatus>> = await axiosConfigWithAuth.request<
-      Array<ApplicationStatus>
-    >({
-      method: 'GET',
-      url: '/api/v1/application-status',
-    });
-
-    return response.data;
+  getAll: (): Promise<Array<ApplicationStatus>> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<Array<ApplicationStatus>>({
+        method: 'GET',
+        url: '/api/v1/application-status',
+      }));
   },
 };

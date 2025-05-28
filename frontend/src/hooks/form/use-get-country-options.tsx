@@ -5,25 +5,29 @@
  */
 
 /* vendor imports */
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
+import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { countryService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { CountryOption, ListQueryResult } from '@daigaku/common-types';
+import { CountryOption } from '@daigaku/common-types';
 
 /**
  * Fetches a list of {@link CountryOption} objects.
  *
- * @return {ListQueryResult<CountryOption>}
+ * @return {UseQueryResult<Array<CountryOption>, UnauthorizedError | ServerError | UnexpectedError>}
  */
-export const useGetCountryOptions = (): ListQueryResult<CountryOption> => {
+export const useGetCountryOptions = (): UseQueryResult<
+  Array<CountryOption>,
+  UnauthorizedError | ServerError | UnexpectedError
+> => {
   return useQuery({
-    queryKey: [queryKeys.COUNTRY.GET_AS_SELECT_OPTIONS],
+    queryKey: [queryKeys.country.GET_AS_SELECT_OPTIONS],
     queryFn: () => countryService.getAllOptions(),
   });
 };

@@ -23,4 +23,3 @@ export * from './core/core-metada.ts';
 export * from './core/core-modal.ts';
 export * from './error/default-error.ts';
 export * from './layout/navigation-route-item.ts';
-export * from './query-result/query-result.ts';

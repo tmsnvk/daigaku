@@ -6,13 +6,12 @@
 
 /* vendor imports */
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
 import { UseFormSetError } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
+import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
@@ -21,21 +20,28 @@ import { localStorageKeys } from '@daigaku/constants';
 import { setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { CoreErrorResponse, LoginPayload, LoginResponse } from '@daigaku/common-types';
+import { CoreErrorResponse, ErrorDetail, LoginPayload, LoginResponse } from '@daigaku/common-types';
+
+/**
+ * Defines the {@link useLoginFormMutation} custom hook's error types.
+ */
+type LoginFormErrorField = 'email' | 'password';
 
 /**
  * Manages the login form submission.
  *
  * @param setError The `react-hook-form` method to set form errors.
- * @return {UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginPayload>}
+ * @return {UseMutationResult<LoginResponse, UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
+ *   LoginPayload>}
  */
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
-): UseMutationResult<LoginResponse, AxiosError<CoreErrorResponse>, LoginPayload> => {
-  const { t } = useTranslation();
-
+): UseMutationResult<
+  LoginResponse,
+  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
+  LoginPayload
+> => {
   const navigate = useNavigate();
-
   const { updateAccountContextDetails } = useAuthContext();
 
   return useMutation({
@@ -47,17 +53,19 @@ export const useLoginFormMutation = (
 
       navigate('/dashboard');
     },
-    onError: (error: AxiosError<CoreErrorResponse>) => {
-      if (axios.isAxiosError(error) && error.response && error.response.data) {
-        const status: number = error.response.data.errorCode;
+    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
+      const coreErrorResponse: CoreErrorResponse | undefined = error.coreError;
 
-        if (status === 401) {
-          setError('root', { message: error.response.data.errors[0].errorMessage });
-        } else if (status >= 500) {
-          setError('root', { message: t('unexpectedServerError') });
-        }
-      } else {
-        setError('root', { message: t('unexpectedServerError') });
+      if (error instanceof FormValidationError) {
+        coreErrorResponse?.errors.forEach((errorDetail: ErrorDetail) => {
+          if (errorDetail.fieldName) {
+            setError(errorDetail.fieldName as LoginFormErrorField, { message: errorDetail.errorMessage });
+          }
+        });
+      }
+
+      if (error instanceof UnauthorizedError) {
+        setError('root', { message: coreErrorResponse?.errors[0].errorMessage });
       }
     },
   });

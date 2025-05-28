@@ -80,7 +80,7 @@ export interface PendingAccountRegistrationPayload {
 /**
  * Defines the structure of a user reset form submission.
  */
-export interface AccountResetPayload {
+export interface AccountPasswordResetPayload {
   /**
    * The email of the to-be-reset account.
    */

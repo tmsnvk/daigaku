@@ -22,7 +22,7 @@ import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type, enum, schema imports */
 import {
-  AccountResetPayload,
+  AccountPasswordResetPayload,
   CoreInputElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
 } from '@daigaku/common-types';
@@ -62,7 +62,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
   const { handleSubmit, setError } = formMethods;
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
   const submitResetAccountPasswordForm = (formData: FormInputValues): void => {
-    resetAccountPassword(formData as AccountResetPayload);
+    resetAccountPassword(formData as AccountPasswordResetPayload);
   };
 
   return (

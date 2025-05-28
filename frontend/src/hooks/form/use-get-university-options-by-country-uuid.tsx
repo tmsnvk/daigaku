@@ -5,32 +5,31 @@
  */
 
 /* vendor imports */
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
+import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { universityService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { ListQueryResult, UniversityOption } from '@daigaku/common-types';
+import { UniversityOption } from '@daigaku/common-types';
 
 /**
  * Fetches a list of {@link UniversityOption} objects.
  * The request to the server is initiated only when a country is chosen in the given form.
  *
- * @param isCountryFieldSelected Indicates if a country is selected.
  * @param selectedCountryUuid The selected country's uuid string.
- * @return {ListQueryResult<UniversityOption>}
+ * @return {UseQueryResult<Array<UniversityOption>, UnauthorizedError | ServerError | UnexpectedError>}
  */
 export const useGetUniversityOptionsByCountryUuid = (
-  isCountryFieldSelected: boolean,
   selectedCountryUuid: string,
-): ListQueryResult<UniversityOption> => {
+): UseQueryResult<Array<UniversityOption>, UnauthorizedError | ServerError | UnexpectedError> => {
   return useQuery({
-    queryKey: [queryKeys.UNIVERSITY.GET_AS_SELECT_OPTIONS, selectedCountryUuid],
+    queryKey: [queryKeys.university.GET_AS_SELECT_OPTIONS, selectedCountryUuid],
     queryFn: () => universityService.getAllOptionsByCountryUuid(selectedCountryUuid),
-    enabled: isCountryFieldSelected,
+    enabled: !!selectedCountryUuid,
   });
 };

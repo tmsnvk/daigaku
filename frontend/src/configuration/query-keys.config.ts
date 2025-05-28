@@ -7,8 +7,8 @@
 export const mutationKeys = {
   account: {
     POST_LOGIN_FORM: 'post-account-login-form',
-    POST_REGISTER: 'post-pending-account-registration-form',
-    POST_RESET_FORM: 'post-account-reset-form',
+    POST_REGISTER_FORM: 'post-pending-account-registration-form',
+    POST_RESET_PASSWORD_FORM: 'post-account-reset-form',
   },
   application: {
     POST_BY_STUDENT: 'post-application-by-student',
@@ -22,38 +22,38 @@ export const mutationKeys = {
 };
 
 export const queryKeys = {
-  ACCOUNT: {
+  account: {
     GET_ME: 'get-me',
   },
-  ACCOUNT_ROLE: {
+  accountRole: {
     GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS: 'get-student-and-mentor-role-select-options',
   },
   application: {
     GET_ALL_BY_ROLE: 'get-applications-by-role',
     GET_BY_UUID: 'get-application-by-uuid',
   },
-  INSTITUTIONS: {
+  institutions: {
     GET_AS_SELECT_OPTIONS: 'get-all-institution-select-options',
   },
-  COUNTRY: {
+  country: {
     GET_AS_SELECT_OPTIONS: 'get-all-country-select-options',
   },
-  UNIVERSITY: {
+  university: {
     GET_AS_SELECT_OPTIONS: 'get-all-university-select-options',
   },
-  APPLICATION_STATUS: {
+  applicationStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-application-status-select-options',
   },
-  INTERVIEW_STATUS: {
+  interviewStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-interview-status-select-options',
   },
-  OFFER_STATUS: {
+  offerStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-offer-status-select-options',
   },
-  RESPONSE_STATUS: {
+  responseStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-response-status-select-options',
   },
-  FINAL_DESTINATION: {
+  finalDestinationStatus: {
     GET_AS_SELECT_OPTIONS: 'get-all-final-destination-status-select-options',
   },
   aggregate: {

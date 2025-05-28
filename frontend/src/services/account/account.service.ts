@@ -4,14 +4,12 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { AccountResetPayload, LoginPayload, LoginResponse } from '@daigaku/common-types';
+import { AccountPasswordResetPayload, LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**
  * Defines account service-related operations, handling API requests and interactions for account management.
@@ -23,7 +21,12 @@ interface AccountService {
    *
    * @param formData The login form data object.
    * @return {Promise<LoginResponse>}
-   * @throws {AxiosError}
+   *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   logIn: (formData: LoginPayload) => Promise<LoginResponse>;
 
@@ -33,15 +36,23 @@ interface AccountService {
    *
    * @param formData The reset form data object.
    * @return {Promise<void>}
-   * @throws {AxiosError}
+   *
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  resetPassword: (formData: AccountResetPayload) => Promise<void>;
+  resetPassword: (formData: AccountPasswordResetPayload) => Promise<void>;
 
   /**
    * Sends a GET request to fetch user details tied to the active session, used by the auth context.
    *
    * @return {Promise<LoginResponse>}
-   * @throws {AxiosError}
+   *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
+   *   user does not have valid token.
+   * @throws {FormValidationError} If the server returns field-level validation errors.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getMe: () => Promise<LoginResponse>;
 }
@@ -50,28 +61,27 @@ interface AccountService {
  * Manages pending-account-related REST API operations, implementing {@link AccountService}.
  */
 export const accountService: AccountService = {
-  logIn: async (formData: LoginPayload): Promise<LoginResponse> => {
-    const response: AxiosResponse<LoginResponse> = await axiosConfig.request<LoginResponse>({
-      method: 'POST',
-      url: '/api/v1/accounts/log-in',
-      data: formData,
-    });
-
-    return response.data;
+  logIn: (formData: LoginPayload): Promise<LoginResponse> => {
+    return apiClientWrapper(() =>
+      axiosConfig.request<LoginResponse>({
+        method: 'POST',
+        url: '/api/v1/accounts/log-in',
+        data: formData,
+      }));
   },
-  resetPassword: async (formData: AccountResetPayload): Promise<void> => {
-    await axiosConfig.request<void>({
-      method: 'POST',
-      url: '/api/v1/accounts/reset-password',
-      data: formData,
-    });
+  resetPassword: (formData: AccountPasswordResetPayload): Promise<void> => {
+    return apiClientWrapper(() =>
+      axiosConfig.request<void>({
+        method: 'POST',
+        url: '/api/v1/accounts/reset-password',
+        data: formData,
+      }));
   },
-  getMe: async (): Promise<LoginResponse> => {
-    const response: AxiosResponse<LoginResponse> = await axiosConfigWithAuth.request<LoginResponse>({
-      method: 'GET',
-      url: '/api/v1/accounts/me',
-    });
-
-    return response.data;
+  getMe: (): Promise<LoginResponse> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<LoginResponse>({
+        method: 'GET',
+        url: '/api/v1/accounts/me',
+      }));
   },
 };

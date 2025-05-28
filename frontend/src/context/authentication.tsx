@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { Context, ReactNode, createContext, startTransition, useContext, useEffect, useMemo, useState } from 'react';
 
 /* logic imports */
@@ -17,7 +17,8 @@ import { localStorageKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { LoginResponse, SimpleQueryResult, UserLoginState, UserRole } from '@daigaku/common-types';
+import { LoginResponse, UserLoginState, UserRole } from '@daigaku/common-types';
+import { CoreApiError } from '@daigaku/errors';
 
 /**
  * Defines the properties of the data associated with the logged-in user.
@@ -41,15 +42,15 @@ interface AuthContext {
 }
 
 /**
- * Manages the fetching of basic details of the logged in user. The fetch operation is enabled only if a JWT
+ * Manages the fetching of basic details of the logged-in user. The fetch operation is enabled only if a JWT
  * authorisation token exists.
  *
  * @param authToken The authorisation JWT token if it exists.
- * @returns {SimpleQueryResult<LoginResponse>}
+ * @returns {UseQueryResult<LoginResponse, UnauthorizedError | FormValidationError | ServerError | UnexpectedError>}
  */
-const useGetMe = (authToken: string | null): SimpleQueryResult<LoginResponse> => {
+const useGetMe = (authToken: string | null): UseQueryResult<LoginResponse, CoreApiError> => {
   return useQuery({
-    queryKey: [queryKeys.ACCOUNT.GET_ME],
+    queryKey: [queryKeys.account.GET_ME],
     queryFn: () => accountService.getMe(),
     enabled: authToken !== null,
   });
@@ -87,25 +88,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const updateAccountContextDetails = (details: LoginResponse) => {
     setAccount(details);
-    setAuthStatus(UserLoginState.SIGNED_IN);
+    setAuthStatus(UserLoginState.LOGGED_IN);
   };
 
   const logOut = (): void => {
     removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
     startTransition(() => {
-      setAuthStatus(UserLoginState.SIGNED_OUT);
+      setAuthStatus(UserLoginState.LOGGED_OUT);
       setAccount(initialState);
     });
   };
 
   useEffect(() => {
-    if (authStatus === UserLoginState.SIGNED_OUT) {
+    if (authStatus === UserLoginState.LOGGED_OUT) {
       return;
     }
 
     if (isError || !authToken || isAuthTokenExpired(authToken)) {
-      setAuthStatus(UserLoginState.SIGNED_OUT);
+      setAuthStatus(UserLoginState.LOGGED_OUT);
     }
 
     if (isLoading) {

@@ -5,31 +5,25 @@
  */
 
 /* vendor imports */
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { applicationStudentService } from '@daigaku/services';
+import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { useToastContext } from '@daigaku/context';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryClient, queryKeys } from '@daigaku/configuration';
+import { mutationKeys, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import {
-  ApplicationRecord,
-  CoreErrorResponse,
-  ErrorDetail,
-  UpdateApplicationRecordByStudentPayload,
-} from '@daigaku/common-types';
-import { useToastContext } from '@daigaku/context';
+import { ApplicationRecord, ErrorDetail, UpdateApplicationRecordByStudentPayload } from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.
  */
-type UpdateApplicationFormErrorT =
-  | 'root'
+type UpdateApplicationFormField =
   | 'applicationStatusUuid'
   | 'interviewStatusUuid'
   | 'offerStatusUuid'
@@ -42,15 +36,19 @@ type UpdateApplicationFormErrorT =
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid string.
- * @return {UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>,
- *   UpdateApplicationRecordByStudentPayload>}
+ * @return {UseMutationResult<ApplicationRecord, UnauthorizedError | FormValidationError | ServerError |
+ *   UnexpectedError, UpdateApplicationRecordByStudentPayload>}
  */
 export const useUpdateApplicationFormMutation = (
   setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
   applicationUuid: string,
-): UseMutationResult<ApplicationRecord, AxiosError<CoreErrorResponse>, UpdateApplicationRecordByStudentPayload> => {
+): UseMutationResult<
+  ApplicationRecord,
+  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
+  UpdateApplicationRecordByStudentPayload
+> => {
   const { t } = useTranslation();
-
+  const queryClient = useQueryClient();
   const { createToast } = useToastContext();
 
   return useMutation({
@@ -78,26 +76,13 @@ export const useUpdateApplicationFormMutation = (
         variantIntent: 'success',
       });
     },
-    onError: (error: AxiosError<CoreErrorResponse>) => {
-      if (axios.isAxiosError(error)) {
-        const status: number | undefined = error.response?.data.errorCode;
-        const errors: CoreErrorResponse | undefined = error.response?.data;
-
-        if (status) {
-          if (status === 400 && errors) {
-            if (errors) {
-              errors.errors.forEach((error: ErrorDetail) => {
-                if (error.fieldName) {
-                  setError(error.fieldName as UpdateApplicationFormErrorT, { message: error.errorMessage });
-                }
-              });
-            }
-          } else if (status >= 500) {
-            setError('root', { message: t('unexpectedServerError') });
+    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
+      if (error instanceof FormValidationError) {
+        error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
+          if (errorDetail.fieldName) {
+            setError(errorDetail.fieldName as UpdateApplicationFormField, { message: errorDetail.errorMessage });
           }
-        }
-      } else {
-        setError('root', { message: t('unexpectedGlobalError') });
+        });
       }
     },
   });

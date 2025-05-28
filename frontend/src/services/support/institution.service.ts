@@ -4,11 +4,9 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { AxiosResponse } from 'axios';
-
 /* configuration, utilities, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { InstitutionOption } from '@daigaku/common-types';
@@ -21,7 +19,9 @@ interface InstitutionService {
    * Retrieves all institution options.
    *
    * @return {Promise<Array<InstitutionOption>>}
-   * @throws {AxiosError}
+   *
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   getAllOptions: () => Promise<Array<InstitutionOption>>;
 }
@@ -30,14 +30,11 @@ interface InstitutionService {
  * Manages institution-related REST API operations, implementing {@link InstitutionService}.
  */
 export const institutionService: InstitutionService = {
-  getAllOptions: async (): Promise<Array<InstitutionOption>> => {
-    const response: AxiosResponse<Array<InstitutionOption>> = await axiosConfigWithAuth.request<
-      Array<InstitutionOption>
-    >({
-      method: 'GET',
-      url: '/api/v1/institutions/options',
-    });
-
-    return response.data;
+  getAllOptions: (): Promise<Array<InstitutionOption>> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<Array<InstitutionOption>>({
+        method: 'GET',
+        url: '/api/v1/institutions/options',
+      }));
   },
 };

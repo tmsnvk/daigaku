@@ -63,7 +63,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
     isLoading: isUniversityLoading,
     isError: isUniversityError,
     refetch: onUniversityRetry,
-  } = useGetUniversityOptionsByCountryUuid(isCountrySelected, currentCountryUuid);
+  } = useGetUniversityOptionsByCountryUuid(currentCountryUuid);
   const isSubmitDisabled = isCountryLoading || isUniversityLoading || isCountryError || isUniversityError;
 
   const methods = useForm<FormInputValues>({
