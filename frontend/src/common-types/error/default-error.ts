@@ -5,16 +5,29 @@
  */
 
 /**
+ * Defines the backend specific exception identifiers.
+ */
+export enum ExceptionType {
+  BAD_CREDENTIALS = 'BadCredentialsException',
+  CONSTRAINT_VIOLATION = 'ConstraintViolationException',
+  DATA_INTEGRITY_VIOLATION = 'DataIntegrityViolationException',
+  DATA_RETRIEVAL_FAILURE = 'DataRetrievalFailureException',
+  ENTITY_NOT_FOUND = 'EntityNotFoundException',
+  METHOD_ARGUMENT_NOT_VALID = 'MethodArgumentNotValidException',
+  METHOD_ARGUMENT_TYPE_MISMATCH = 'MethodArgumentTypeMismatchException',
+}
+
+/**
  * Defines a single error detail.
  */
-export interface ErrorDetail {
+export interface InputViolation {
   /**
-   * The error message.
+   * Describes the error message associated with a specific field.
    */
-  readonly errorMessage: string;
+  readonly message: string;
 
   /**
-   * Equals to the input field's name property.
+   * The name of the form field this error applies to.
    */
   readonly fieldName: string;
 }
@@ -22,16 +35,26 @@ export interface ErrorDetail {
 /**
  * Defines the default error object used throughout the application.
  */
-export interface CoreErrorResponse {
+export interface CoreInputErrorResponse {
   /**
-   * The HTTP status error code.
+   * HTTP status code.
    */
-  readonly errorCode: number;
+  readonly httpStatusCodeValue: number;
 
   /**
-   * The list of errors received from the backend part of the application.
+   * Textual representation of the HTTP status code.
    */
-  readonly errors: Array<ErrorDetail>;
+  readonly httpStatusCodeName: string;
+
+  /**
+   * The backend specific exception identifier.
+   */
+  readonly exceptionType: ExceptionType;
+
+  /**
+   * The list of errors received from the backend.
+   */
+  readonly errors: Array<InputViolation>;
 
   /**
    * The error's timestamp string.

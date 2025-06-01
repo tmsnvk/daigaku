@@ -18,7 +18,7 @@ import { pendingAccountService } from '@daigaku/services';
 import { mutationKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { CoreErrorResponse, ErrorDetail, PendingAccountRegistrationPayload } from '@daigaku/common-types';
+import { CoreInputErrorResponse, InputViolation, PendingAccountRegistrationPayload } from '@daigaku/common-types';
 
 /**
  * Defines the {@link usePendingAccountRegistrationFormMutation} custom hook's error types.
@@ -50,12 +50,12 @@ export const usePendingAccountRegistrationFormMutation = (
       });
     },
     onError: (error: FormValidationError | ServerError | UnexpectedError) => {
-      const coreErrorResponse: CoreErrorResponse | undefined = error.coreError;
+      const coreErrorResponse: CoreInputErrorResponse | undefined = error.coreError;
 
       if (error instanceof FormValidationError) {
-        coreErrorResponse?.errors.forEach((errorDetail: ErrorDetail) => {
+        coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as RegistrationFormErrorField, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as RegistrationFormErrorField, { message: errorDetail.message });
           }
         });
       }

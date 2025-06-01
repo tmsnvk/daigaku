@@ -5,14 +5,14 @@
  */
 
 /* interface, type, enum, schema imports */
-import { CoreErrorResponse } from '@daigaku/common-types';
+import { CoreInputErrorResponse } from '@daigaku/common-types';
 
 export class CoreApiError extends Error {
   public name: string;
   public statusCode?: number;
-  public coreError?: CoreErrorResponse;
+  public coreError?: CoreInputErrorResponse;
 
-  constructor(name: string, statusCode?: number, coreError?: CoreErrorResponse) {
+  constructor(name: string, statusCode?: number, coreError?: CoreInputErrorResponse) {
     super(name);
 
     this.name = name;

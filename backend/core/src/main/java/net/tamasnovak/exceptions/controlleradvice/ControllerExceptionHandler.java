@@ -50,7 +50,8 @@ public class ControllerExceptionHandler {
                                                    .map(
                                                      error -> new FieldErrorDetail(error.getPropertyPath().toString(), error.getMessage()))
                                                    .collect(Collectors.toList());
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      ConstraintViolationException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
@@ -65,7 +66,8 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onMethodArgumentTypeMismatchException() {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       ControllerExceptionMessages.INVALID_DATA)));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      MethodArgumentTypeMismatchException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
@@ -88,7 +90,8 @@ public class ControllerExceptionHandler {
                                                    .map(error -> new FieldErrorDetail(((FieldError) error).getField(),
                                                      error.getDefaultMessage()))
                                                    .collect(Collectors.toList());
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      MethodArgumentNotValidException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
@@ -104,7 +107,8 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onDataIntegrityViolationException(DataIntegrityViolationException exception) {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       exception.getMessage())));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      DataIntegrityViolationException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
@@ -120,7 +124,8 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onDataRetrievalFailureException(DataRetrievalFailureException exception) {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       exception.getMessage())));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      DataRetrievalFailureException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
@@ -136,7 +141,8 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onEntityNotFoundException(EntityNotFoundException exception) {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       exception.getMessage())));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      EntityNotFoundException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
@@ -152,7 +158,8 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onBadCredentialsException() {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       ControllerExceptionMessages.INVALID_AUTHENTICATION)));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.UNAUTHORIZED.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.name(),
+      BadCredentialsException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                          .body(response);
@@ -168,14 +175,15 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onIllegalException(IllegalArgumentException exception) {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       exception.getMessage())));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      IllegalArgumentException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
   }
 
   /**
-   * TODO
+   * TODO: is this still in use?
    *
    * @param exception The exception instance.
    * @return A {@link ResponseEntity} containing an error status code and a {@link InputExceptionResponse} instance.
@@ -184,7 +192,8 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onFormValidationException(FormValidationException exception) {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       exception.getMessage())));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      FormValidationException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);
@@ -200,7 +209,8 @@ public class ControllerExceptionHandler {
   public ResponseEntity<InputExceptionResponse> onIllegalStateException(IllegalStateException exception) {
     final List<FieldErrorDetail> errors = new ArrayList<>(List.of(new FieldErrorDetail(ROOT_ERROR_VALUE,
       exception.getMessage())));
-    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), Instant.now(), errors);
+    final InputExceptionResponse response = new InputExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+      IllegalStateException.class.getSimpleName(), Instant.now(), errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(response);

@@ -10,15 +10,15 @@ import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { commentService } from '@daigaku/services';
-import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { useToastContext } from '@daigaku/context';
+import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { commentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { Comment, CreateCommentPayload, ErrorDetail } from '@daigaku/common-types';
+import { Comment, CreateCommentPayload, InputViolation } from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useSubmitComment} custom hook.
@@ -62,9 +62,9 @@ export const useSubmitComment = (
     },
     onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
       if (error instanceof FormValidationError) {
-        error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
+        error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as NewCommentFormErrorField, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as NewCommentFormErrorField, { message: errorDetail.message });
           }
         });
       }

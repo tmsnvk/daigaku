@@ -8,12 +8,12 @@
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks/use-login-form-mutation.tsx';
 
 /* component imports */
+import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import {
   CommonInputGroup,
   CoreFormAction,
@@ -21,14 +21,15 @@ import {
   CoreFormWrapper,
   PasswordInputGroup,
 } from '@daigaku/components/form';
-import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
+
 
 /* configuration, utilities, constants imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type, enum, schema imports */
-import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
+import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
 import { FormInputValues, formValidationSchema } from '../schema.ts';
 
 /**
