@@ -20,7 +20,7 @@ import { LoadingIndicator } from '@daigaku/components/general';
 import { GlobalErrorModal } from '@daigaku/components/notification';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
@@ -106,7 +106,7 @@ export const TableHeader = ({
                   <>
                     {column.name}
                     <FontAwesomeIcon
-                      icon={iconLibraryConfig.faSort}
+                      icon={iconLibrary.faSort}
                       className={'ml-2'}
                     />
                   </>
@@ -126,7 +126,7 @@ export const TableHeader = ({
             <>
               {t('refresh')}
               <FontAwesomeIcon
-                icon={iconLibraryConfig.faRotateRight}
+                icon={iconLibrary.faRotateRight}
                 className={'ml-2'}
               />
             </>
@@ -141,7 +141,7 @@ export const TableHeader = ({
             <>
               {t('display')}
               <FontAwesomeIcon
-                icon={iconLibraryConfig.faTable}
+                icon={iconLibrary.faTable}
                 className={'ml-2'}
               />
             </>
@@ -159,7 +159,7 @@ export const TableHeader = ({
               <>
                 {t('download')}
                 <FontAwesomeIcon
-                  icon={iconLibraryConfig.faFileArrowDown}
+                  icon={iconLibrary.faFileArrowDown}
                   className={'ml-2'}
                 />
               </>

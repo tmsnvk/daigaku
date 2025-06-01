@@ -14,7 +14,7 @@ import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@daigaku/configuration';
+import { mutationKeys } from '@daigaku/constants';
 
 /**
  * Manages the user's .pdf download request.

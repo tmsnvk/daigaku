@@ -10,7 +10,7 @@ import { z } from 'zod';
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const formValidationSchema = z.object({
+export const createCommentFormValidationSchema = z.object({
   comment: z
     .string()
     .nonempty({ message: TranslationKey.COMMENT_REQUIRED })
@@ -19,4 +19,4 @@ export const formValidationSchema = z.object({
     }),
 });
 
-export type FormInputValues = z.infer<typeof formValidationSchema>;
+export type FormInputValues = z.infer<typeof createCommentFormValidationSchema>;

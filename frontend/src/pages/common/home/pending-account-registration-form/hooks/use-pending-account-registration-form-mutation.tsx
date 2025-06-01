@@ -15,7 +15,7 @@ import { FormValidationError, ServerError, UnexpectedError } from '@daigaku/erro
 import { pendingAccountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@daigaku/configuration';
+import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
 import { CoreInputErrorResponse, InputViolation, PendingAccountRegistrationPayload } from '@daigaku/common-types';

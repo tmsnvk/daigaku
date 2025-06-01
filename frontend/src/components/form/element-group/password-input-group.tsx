@@ -18,7 +18,7 @@ import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel
 import { CoreInputElement } from '../core-element/core-input-element.tsx';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
@@ -73,7 +73,7 @@ export const PasswordInputGroup = <T extends FieldValues>({
           onClick={() => {
             setIsPasswordRevealed(!isPasswordRevealed);
           }}
-          icon={isPasswordRevealed ? iconLibraryConfig.faEyeSlash : iconLibraryConfig.faEye}
+          icon={isPasswordRevealed ? iconLibrary.faEyeSlash : iconLibrary.faEye}
           className={joinTw('w-8', 'pl-4', 'cursor-pointer')}
         />
       </div>

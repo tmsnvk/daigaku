@@ -10,8 +10,8 @@ import { z } from 'zod';
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const formValidationSchema = z.object({
+export const resetAccountPasswordFormValidationSchema = z.object({
   email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
 });
 
-export type FormInputValues = z.infer<typeof formValidationSchema>;
+export type FormInputValues = z.infer<typeof resetAccountPasswordFormValidationSchema>;

@@ -12,8 +12,7 @@ import { Context, ReactNode, createContext, startTransition, useContext, useEffe
 import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { queryKeys } from '@daigaku/configuration';
-import { localStorageKeys } from '@daigaku/constants';
+import { localStorageKeys, queryKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
@@ -43,9 +42,9 @@ interface AuthContext {
 
 /**
  * Manages the fetching of basic details of the logged-in user. The fetch operation is enabled only if a JWT
- * authorisation token exists.
+ * authorization token exists.
  *
- * @param authToken The authorisation JWT token if it exists.
+ * @param authToken The authorization JWT token if it exists.
  * @returns {UseQueryResult<LoginResponse, UnauthorizedError | FormValidationError | ServerError | UnexpectedError>}
  */
 const useGetMe = (authToken: string | null): UseQueryResult<LoginResponse, CoreApiError> => {

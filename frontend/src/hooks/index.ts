@@ -8,7 +8,6 @@ import { useGetApplicationByUuid } from './application/use-get-application-by-uu
 import { useGetApplications } from './application/use-get-applications.tsx';
 import { useModalToggle } from './components/use-modal-toggle.tsx';
 import { useRenderModal } from './components/use-render-modal.tsx';
-import { useSmallScreenNavbarDisplay } from './components/use-small-screen-navbar-display.tsx';
 import { useFieldValidationError } from './form/use-field-validation-error.tsx';
 import { useGetAllSelectOptions } from './form/use-get-all-select-options.tsx';
 import { useGetCountryOptions } from './form/use-get-country-options.tsx';
@@ -31,5 +30,4 @@ export {
   useMobileView,
   useModalToggle,
   useRenderModal,
-  useSmallScreenNavbarDisplay,
 };

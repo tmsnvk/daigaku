@@ -39,7 +39,7 @@ import {
   CoreSubmitInputElementStyleIntent,
   UpdateApplicationRecordByStudentPayload,
 } from '@daigaku/common-types';
-import { FormInputValues, formValidationSchema } from '../schema.ts';
+import { FormInputValues, updateApplicationRecordFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -71,7 +71,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
       responseStatusUuid: '',
       finalDestinationStatusUuid: '',
     },
-    resolver: zodResolver(formValidationSchema),
+    resolver: zodResolver(updateApplicationRecordFormValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { submitForm } = useHandleFormSubmission();

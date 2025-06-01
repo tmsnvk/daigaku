@@ -10,11 +10,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { applicationStudentService } from '@daigaku/services';
 import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryKeys } from '@daigaku/configuration';
+import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';

@@ -10,7 +10,7 @@ import { JSX } from 'react';
 import { useRouteError } from 'react-router-dom';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { iconLibrary } from '@daigaku/constants';
 
 /**
  * Renders the application's error page.
@@ -24,7 +24,7 @@ export const Error = (): JSX.Element => {
     <section>
       <h1>Oops!</h1>
       <p>
-        <FontAwesomeIcon icon={iconLibraryConfig.faCircleExclamation} />
+        <FontAwesomeIcon icon={iconLibrary.faCircleExclamation} />
         Sorry, an unexpected error has occurred.
       </p>
       <p>{error.message}</p>
