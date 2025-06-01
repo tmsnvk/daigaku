@@ -15,8 +15,7 @@ import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } 
 import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@daigaku/configuration';
-import { localStorageKeys } from '@daigaku/constants';
+import { localStorageKeys, mutationKeys } from '@daigaku/constants';
 import { setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */

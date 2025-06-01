@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { CoreLink } from '@daigaku/components/core';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities.ts';
 
@@ -86,7 +86,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
               <>
                 {t('edit')}
                 <FontAwesomeIcon
-                  icon={iconLibraryConfig.faWrench}
+                  icon={iconLibrary.faWrench}
                   className={'ml-5'}
                 />
               </>
@@ -100,7 +100,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
               <>
                 {t('view')}
                 <FontAwesomeIcon
-                  icon={iconLibraryConfig.faMagnifyingGlass}
+                  icon={iconLibrary.faMagnifyingGlass}
                   className={'ml-5'}
                 />
               </>

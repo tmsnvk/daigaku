@@ -5,7 +5,7 @@
  */
 
 /**
- * Defines the backend specific exception identifiers.
+ * Defines the backend-specific exception identifiers.
  */
 export enum ExceptionType {
   BAD_CREDENTIALS = 'BadCredentialsException',

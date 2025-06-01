@@ -10,7 +10,7 @@ import { z } from 'zod';
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const formValidationSchema = z.object({
+export const pendingAccountRegistrationFormValidationSchema = z.object({
   firstName: z
     .string()
     .trim()
@@ -30,4 +30,4 @@ export const formValidationSchema = z.object({
   accountRoleUuid: z.string().uuid({ message: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
 });
 
-export type FormInputValues = z.infer<typeof formValidationSchema>;
+export type FormInputValues = z.infer<typeof pendingAccountRegistrationFormValidationSchema>;

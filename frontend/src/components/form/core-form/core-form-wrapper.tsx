@@ -5,10 +5,10 @@
  */
 
 /* vendor imports */
-import { joinTw } from '@daigaku/utilities';
+import { JSX, ReactNode } from 'react';
 
 /* configuration, utilities, constants imports */
-import { JSX, ReactNode } from 'react';
+import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

@@ -12,7 +12,7 @@ import { ServerError, UnexpectedError } from '@daigaku/errors';
 import { institutionService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { queryKeys } from '@daigaku/configuration';
+import { queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
 import { InstitutionOption } from '@daigaku/common-types';

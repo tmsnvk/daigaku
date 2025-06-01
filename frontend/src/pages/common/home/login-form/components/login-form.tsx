@@ -30,7 +30,7 @@ import { formTypeButtonLabel } from '../../common/constants.ts';
 /* interface, type, enum, schema imports */
 import { FormType } from '../../common/types.ts';
 import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
-import { FormInputValues, formValidationSchema } from '../schema.ts';
+import { FormInputValues, loginFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -60,7 +60,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       email: '',
       password: '',
     },
-    resolver: zodResolver(formValidationSchema),
+    resolver: zodResolver(loginFormValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: logIn, isPending: isFormSubmitting } = useLoginFormMutation(setError);

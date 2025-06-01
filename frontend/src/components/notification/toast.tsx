@@ -12,7 +12,7 @@ import { JSX, useEffect, useRef, useState } from 'react';
 import { CoreIcon } from '@daigaku/components/core';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
@@ -89,7 +89,7 @@ export const Toast = ({
       <div className={joinTw('flex items-center justify-between', 'mb-4')}>
         <h3 className={'text-2xl font-bold uppercase'}>{title}</h3>
         <CoreIcon
-          icon={iconLibraryConfig.faXMark}
+          icon={iconLibrary.faXMark}
           onClick={onClose}
           className={'cursor-pointer'}
         />

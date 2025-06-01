@@ -5,10 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
@@ -38,7 +38,7 @@ import {
   RoleOption,
 } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
-import { FormInputValues, formValidationSchema } from '../schema.ts';
+import { FormInputValues, pendingAccountRegistrationFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -54,7 +54,7 @@ interface PendingAccountRegistrationFormProps {
 
 /**
  * Renders a registration form component that allows users to submit a form to register a pending account.
- * The component utilises the `react-hook-form` and `react-query` libraries for managing the form submission.
+ * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
  * @param {PendingAccountRegistrationFormProps} props
@@ -86,7 +86,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
       institutionUuid: '',
       accountRoleUuid: '',
     },
-    resolver: zodResolver(formValidationSchema),
+    resolver: zodResolver(pendingAccountRegistrationFormValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: registerPendingAccount, isPending: isSubmitting } =

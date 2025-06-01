@@ -12,7 +12,7 @@ import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors
 import { commentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { queryKeys } from '@daigaku/configuration';
+import { queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
 import { CommentPaginationDataResponse } from '@daigaku/common-types';

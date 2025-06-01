@@ -11,7 +11,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 const coreDialogVariants = cva(
@@ -50,7 +50,7 @@ export const CoreLoadingNotification = ({ intent }: CoreLoadingNotificationProps
     <section className={joinTw(coreDialogVariants({ intent }))}>
       <p className={'mb-12'}>{t('dataCompilation')}</p>
       <FontAwesomeIcon
-        icon={iconLibraryConfig.faCircleNotch}
+        icon={iconLibrary.faCircleNotch}
         spin
         style={{ width: '7rem', height: '7rem' }}
       />

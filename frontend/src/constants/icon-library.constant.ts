@@ -58,7 +58,7 @@ library.add(
   faXmark,
 );
 
-export const iconLibraryConfig: { [key: string]: IconLookup } = {
+export const iconLibrary: { [key: string]: IconLookup } = {
   faBars: { prefix: 'fas', iconName: 'bars' },
   faCircleExclamation: { prefix: 'fas', iconName: 'circle-exclamation' },
   faCircleNotch: { prefix: 'fas', iconName: 'circle-notch' },

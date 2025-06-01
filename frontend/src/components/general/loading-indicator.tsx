@@ -11,7 +11,7 @@ import { JSX } from 'react';
 import { CoreIcon } from '../core';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /**
@@ -35,7 +35,7 @@ export const LoadingIndicator = ({ loadingText }: LoadingIndicatorProps): JSX.El
     <article className={joinTw('flex items-center justify-center', 'text-secondary text-2xl')}>
       <p>{loadingText}</p>
       <CoreIcon
-        icon={iconLibraryConfig.faSpinner}
+        icon={iconLibrary.faSpinner}
         spin
         className={'ml-4'}
       />

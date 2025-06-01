@@ -18,7 +18,7 @@ interface NavigationBarWrapperProps {
 }
 
 /**
- * Renders the application's navigation bar header element.
+ * Renders the application's navigation header element.
  *
  * @param {NavigationBarWrapperProps}
  * @return {JSX.Element}

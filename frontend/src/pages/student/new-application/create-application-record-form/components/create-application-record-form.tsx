@@ -37,7 +37,7 @@ import {
   CreateApplicationRecordByStudentPayload,
   UniversityOption,
 } from '@daigaku/common-types';
-import { FormInputValues, formValidationSchema } from '../schema.ts';
+import { FormInputValues, createApplicationRecordFormValidationSchema } from '../schema.ts';
 
 /**
  * Renders the new application submission form for student users.
@@ -75,7 +75,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       minorSubject: '',
       programmeLength: 3,
     },
-    resolver: zodResolver(formValidationSchema),
+    resolver: zodResolver(createApplicationRecordFormValidationSchema),
   });
   const { handleSubmit, setError, reset } = methods;
   const { mutate: createApplicationRecord, isPending: isSubmitting } = useCreateApplication(

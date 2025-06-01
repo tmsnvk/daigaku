@@ -46,7 +46,6 @@ export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.El
   if (isLoading) {
     return <LoadingIndicator loadingText={t('dataCompilation')} />;
   }
-  console.log(data);
 
   return (
     <section className={joinTw('w-[95%] sm:w-[65%] lg:w-[95%]', 'mx-auto my-20')}>

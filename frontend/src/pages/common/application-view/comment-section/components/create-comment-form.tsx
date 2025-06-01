@@ -22,7 +22,7 @@ import {
   CoreTextareaElementStyleIntent,
   CreateCommentPayload,
 } from '@daigaku/common-types';
-import { FormInputValues, formValidationSchema } from '../schema.ts';
+import { FormInputValues, createCommentFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -51,7 +51,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
     defaultValues: {
       comment: '',
     },
-    resolver: zodResolver(formValidationSchema),
+    resolver: zodResolver(createCommentFormValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);

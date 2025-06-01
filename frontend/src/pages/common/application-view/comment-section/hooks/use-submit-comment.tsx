@@ -15,7 +15,7 @@ import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } 
 import { commentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys, queryKeys } from '@daigaku/configuration';
+import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
 import { Comment, CreateCommentPayload, InputViolation } from '@daigaku/common-types';

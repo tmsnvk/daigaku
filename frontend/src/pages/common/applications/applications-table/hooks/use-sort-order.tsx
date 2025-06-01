@@ -5,11 +5,11 @@
  */
 
 /* vendor imports */
-import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
 /* configuration, utilities, constants imports */
-import { queryKeys } from '@daigaku/configuration';
+import { queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
 import { ApplicationRecord } from '@daigaku/common-types';

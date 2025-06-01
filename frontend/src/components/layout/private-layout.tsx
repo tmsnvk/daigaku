@@ -5,13 +5,12 @@
  */
 
 /* vendor imports */
-import { JSX, useEffect } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
-import { useMobileView, useSmallScreenNavbarDisplay } from '@daigaku/hooks';
 
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
@@ -21,29 +20,98 @@ import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 import { NavigationRoute } from './navigation-route.tsx';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { TranslationKey, iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { NavigationRouteItem, UserLoginState, UserRole } from '@daigaku/common-types';
+
+const sharedNavigationRoutes: Array<NavigationRouteItem> = [
+  {
+    targetUrlString: '/account',
+    icon: iconLibrary.faUser,
+    label: TranslationKey.MY_ACCOUNT,
+  },
+  {
+    targetUrlString: '/messages',
+    icon: iconLibrary.faEnvelope,
+    label: TranslationKey.MESSAGES,
+  },
+  {
+    targetUrlString: '/feedback',
+    icon: iconLibrary.faGears,
+    label: TranslationKey.FEEDBACK,
+  },
+];
+
+const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
+  [UserRole.ROLE_STUDENT]: [
+    {
+      targetUrlString: '/new-application',
+      icon: iconLibrary.faFileCirclePlus,
+      label: TranslationKey.NEW_APPLICATION,
+    },
+    {
+      targetUrlString: '/applications',
+      icon: iconLibrary.faScroll,
+      label: TranslationKey.MY_APPLICATION,
+    },
+  ],
+  [UserRole.ROLE_MENTOR]: [
+    {
+      targetUrlString: '/my-students',
+      icon: iconLibrary.faUserGroup,
+      label: TranslationKey.MY_STUDENTS,
+    },
+    {
+      targetUrlString: '/applications',
+      icon: iconLibrary.faScroll,
+      label: TranslationKey.MY_STUDENT_APPLICATIONS,
+    },
+  ],
+  [UserRole.ROLE_INSTITUTION_ADMIN]: [],
+  [UserRole.ROLE_SYSTEM_ADMIN]: [
+    {
+      targetUrlString: '/all-students',
+      icon: iconLibrary.faUserGroup,
+      label: TranslationKey.ALL_STUDENTS,
+    },
+    {
+      targetUrlString: '/all-mentors',
+      icon: iconLibrary.faUserGroup,
+      label: TranslationKey.ALL_MENTORS,
+    },
+    {
+      targetUrlString: '/applications',
+      icon: iconLibrary.faScroll,
+      label: TranslationKey.ALL_APPLICATIONS,
+    },
+    {
+      targetUrlString: '/system',
+      icon: iconLibrary.faGears,
+      label: TranslationKey.SYSTEM,
+    },
+  ],
+};
+
+/**
+ * Defines the possible states of the small screen mobile navigation menu.
+ */
+type SmallScreenMenuState = 'closed' | 'opening' | 'open' | 'closing';
 
 /**
  * Defines the component's properties.
  */
 interface PrivateLayoutProps {
   /**
-   * The list of roles permitted to view this layout.
+   * The list of roles permitted viewing this layout.
    */
   readonly allowedRoles: Array<UserRole>;
 }
 
 /**
- * Defines shared navigation routes accessible to all authenticated users.
- */
-
-/**
- * Renders navigation links for authorised users. Users with different authorisation level might see different
- * navigation links. Unauthorised users are redirected to the root page.
+ * Renders navigation links for authorized users. Users with different authorization levels might see different
+ * navigation links. Unauthorized users are redirected to the root page.
  *
  * @param {PrivateLayoutProps} props
  * @return {JSX.Element}
@@ -55,8 +123,39 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
 
   const { authStatus, account, logOut } = useAuthContext();
 
-  const { isNavbarOpen, toggleNavbar, handleOnFocus, handleOnBlur } = useSmallScreenNavbarDisplay();
-  const isMobileView = useMobileView();
+  const [smallScreenMenuState, setSmallScreenMenuState] = useState<SmallScreenMenuState>('closed');
+
+  const openSmallScreenMenu = () => {
+    setSmallScreenMenuState('opening');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeSmallScreenMenu = () => {
+    setSmallScreenMenuState('closing');
+    document.body.style.overflow = '';
+  };
+
+  useEffect(() => {
+    if (smallScreenMenuState === 'opening') {
+      const timeout = setTimeout(() => {
+        setSmallScreenMenuState('open');
+      }, 100);
+
+      return () => clearTimeout(timeout);
+    }
+
+    if (smallScreenMenuState === 'closing') {
+      const timeout = setTimeout(() => {
+        setSmallScreenMenuState('closed');
+      }, 300);
+
+      return () => clearTimeout(timeout);
+    }
+
+    if (smallScreenMenuState === 'closed') {
+      closeSmallScreenMenu();
+    }
+  }, [smallScreenMenuState]);
 
   useEffect(() => {
     if (account.role === null) {
@@ -74,74 +173,6 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
     return <CoreLoadingNotification intent={'light'} />;
   }
 
-  const sharedNavigationRoutes: Array<NavigationRouteItem> = [
-    {
-      targetUrlString: '/account',
-      icon: iconLibraryConfig.faUser,
-      label: t('myAccount'),
-    },
-    {
-      targetUrlString: '/messages',
-      icon: iconLibraryConfig.faEnvelope,
-      label: t('messages'),
-    },
-    {
-      targetUrlString: '/feedback',
-      icon: iconLibraryConfig.faGears,
-      label: t('feedback'),
-    },
-  ];
-
-  const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
-    [UserRole.ROLE_STUDENT]: [
-      {
-        targetUrlString: '/new-application',
-        icon: iconLibraryConfig.faFileCirclePlus,
-        label: t('newApplication'),
-      },
-      {
-        targetUrlString: '/applications',
-        icon: iconLibraryConfig.faScroll,
-        label: t('myApplications'),
-      },
-    ],
-    [UserRole.ROLE_MENTOR]: [
-      {
-        targetUrlString: '/my-students',
-        icon: iconLibraryConfig.faUserGroup,
-        label: t('myStudents'),
-      },
-      {
-        targetUrlString: '/applications',
-        icon: iconLibraryConfig.faScroll,
-        label: t('myStudentsApplications'),
-      },
-    ],
-    [UserRole.ROLE_INSTITUTION_ADMIN]: [],
-    [UserRole.ROLE_SYSTEM_ADMIN]: [
-      {
-        targetUrlString: '/all-students',
-        icon: iconLibraryConfig.faUserGroup,
-        label: t('allStudents'),
-      },
-      {
-        targetUrlString: '/all-mentors',
-        icon: iconLibraryConfig.faUserGroup,
-        label: t('allMentors'),
-      },
-      {
-        targetUrlString: '/applications',
-        icon: iconLibraryConfig.faScroll,
-        label: t('allApplications'),
-      },
-      {
-        targetUrlString: '/system',
-        icon: iconLibraryConfig.faGears,
-        label: t('system'),
-      },
-    ],
-  };
-
   const routes = (
     <div>
       <ul className={'lg:flex lg:items-center lg:gap-x-8'}>
@@ -153,7 +184,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
             <NavigationRoute
               targetUrlString={r.targetUrlString}
               icon={r.icon}
-              label={r.label}
+              label={t(r.label)}
             />
           </li>
         ))}
@@ -167,14 +198,14 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
             <NavigationRoute
               targetUrlString={r.targetUrlString}
               icon={r.icon}
-              label={r.label}
+              label={t(r.label)}
             />
           </li>
         ))}
         <li>
           <NavigationRoute
             targetUrlString={'/'}
-            icon={iconLibraryConfig.faRightFromBracket}
+            icon={iconLibrary.faRightFromBracket}
             label={t('logOut')}
             onNavigateClick={() => logOut()}
           />
@@ -186,43 +217,43 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
   return (
     <>
       <NavigationBarWrapper>
-        <div className={joinTw('flex-none', 'w-1/3')}>
+        <section className={joinTw('flex-none', 'w-1/3')}>
           <NavigationRoute
             targetUrlString={'/dashboard'}
-            icon={iconLibraryConfig.faGraduationCap}
+            icon={iconLibrary.faGraduationCap}
             label={t('dashboard')}
           />
-        </div>
-        {isMobileView ? (
+        </section>
+        <section>
+          <div className={'hidden lg:block'}>{routes}</div>
           <div
-            onFocus={handleOnFocus}
-            onBlur={handleOnBlur}
+            onClick={openSmallScreenMenu}
+            className={'top-15 absolute right-10 lg:hidden'}
+          >
+            <CoreIcon icon={iconLibrary.faBars} />
+          </div>
+        </section>
+        {smallScreenMenuState !== 'closed' && (
+          <section
+            onClick={closeSmallScreenMenu}
             className={joinTw(
-              isNavbarOpen ? 'right-0' : '-right-full',
-              'z-100 fixed top-0',
-              'w-5/10 h-10/10',
+              'z-100 fixed right-0 top-0 lg:hidden',
+              'sm:w-4/10 h-screen w-screen',
               'pl-20 pt-40',
               'bg-primary',
-              'transition-all duration-500 ease-in-out',
+              'transition-transform duration-500',
+              smallScreenMenuState === 'open' ? 'translate-x-0' : 'translate-x-full',
             )}
           >
             {routes}
             <div
-              onClick={() => toggleNavbar()}
+              onClick={closeSmallScreenMenu}
               className={'top-15 absolute right-10 lg:hidden'}
             >
-              <CoreIcon icon={iconLibraryConfig.faXMark} />
+              <CoreIcon icon={iconLibrary.faXMark} />
             </div>
-          </div>
-        ) : (
-          <>{routes}</>
+          </section>
         )}
-        <div
-          onClick={() => toggleNavbar()}
-          className={'top-15 absolute right-10 lg:hidden'}
-        >
-          <CoreIcon icon={iconLibraryConfig.faBars} />
-        </div>
       </NavigationBarWrapper>
       <Outlet />
       <Footer />

@@ -27,7 +27,7 @@ import {
   CoreSubmitInputElementStyleIntent,
 } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
-import { FormInputValues, formValidationSchema } from '../schema.ts';
+import { FormInputValues, resetAccountPasswordFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.
@@ -57,7 +57,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
     defaultValues: {
       email: '',
     },
-    resolver: zodResolver(formValidationSchema),
+    resolver: zodResolver(resetAccountPasswordFormValidationSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);

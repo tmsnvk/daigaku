@@ -15,46 +15,46 @@ import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 import { NavigationRoute } from './navigation-route.tsx';
 
 /* configuration, utilities, constants imports */
-import { iconLibraryConfig } from '@daigaku/configuration';
+import { TranslationKey, iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { NavigationRouteItem } from '@daigaku/common-types';
 
+const navigationRoutes: Array<NavigationRouteItem> = [
+  {
+    targetUrlString: '/',
+    icon: iconLibrary.faGraduationCap,
+    label: 'Daigaku',
+  },
+  {
+    targetUrlString: '/contact',
+    icon: iconLibrary.faPaperPlane,
+    label: TranslationKey.CONTACT_US,
+  },
+];
+
 /**
- * Renders navigation routes for unauthorised users.
+ * Renders navigation routes for unauthorized users.
  *
  * @return {JSX.Element}
  */
 export const PublicLayout = (): JSX.Element => {
   const { t } = useTranslation();
 
-  const navigationRoutes: NavigationRouteItem[] = [
-    {
-      targetUrlString: '/',
-      icon: iconLibraryConfig.faGraduationCap,
-      label: 'Daigaku',
-    },
-    {
-      targetUrlString: '/contact',
-      icon: iconLibraryConfig.faPaperPlane,
-      label: t('contactUs'),
-    },
-  ];
-
   return (
     <>
       <NavigationBarWrapper>
         <ul className={joinTw('flex justify-between', 'w-[90%]')}>
-          {navigationRoutes.map((r: NavigationRouteItem) => (
+          {navigationRoutes.map((route: NavigationRouteItem) => (
             <li
-              key={r.targetUrlString}
+              key={route.targetUrlString}
               className={'my-4 md:mx-4'}
             >
               <NavigationRoute
-                targetUrlString={r.targetUrlString}
-                icon={r.icon}
-                label={r.label}
+                targetUrlString={route.targetUrlString}
+                icon={route.icon}
+                label={t(route.label)}
               />
             </li>
           ))}

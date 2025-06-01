@@ -15,7 +15,7 @@ import { FormValidationError, ServerError, UnexpectedError } from '@daigaku/erro
 import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
-import { mutationKeys } from '@daigaku/configuration';
+import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
 import { AccountPasswordResetPayload, InputViolation, LoginPayload } from '@daigaku/common-types';
