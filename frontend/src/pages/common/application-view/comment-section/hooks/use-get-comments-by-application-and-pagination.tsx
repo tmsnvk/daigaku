@@ -23,12 +23,12 @@ import { CommentPaginationDataResponse } from '@daigaku/common-types';
  *
  * @param applicationUuid The selected application record's uuid string.
  * @param currentPage The current page number in the pagination sequence.
- * @return {UseQueryResult<Array<CommentPaginationDataResponse>, UnauthorizedError | ServerError | UnexpectedError>}
+ * @return {UseQueryResult<CommentPaginationDataResponse, UnauthorizedError | ServerError | UnexpectedError>}
  */
 export const useGetCommentsByApplicationAndPagination = (
   applicationUuid: string,
   currentPage: number,
-): UseQueryResult<Array<CommentPaginationDataResponse>, UnauthorizedError | ServerError | UnexpectedError> => {
+): UseQueryResult<CommentPaginationDataResponse, UnauthorizedError | ServerError | UnexpectedError> => {
   return useQuery({
     queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
     queryFn: () => commentService.getAllByApplicationUuidAndPagination(applicationUuid, currentPage),
