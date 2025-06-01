@@ -14,7 +14,7 @@ services:
       - ./database/psql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ./database/psql/data.sql:/docker-entrypoint-initdb.d/02_data.sql
     ports:
-      - 5432:5432
+      - "5432:5432"
     expose:
       - 5432
     networks:
@@ -26,9 +26,9 @@ services:
     hostname: ${REDIS_DOCKER_HOST}
     volumes:
       - db-redis:/data
-    command: ["redis-server", "--protected-mode", "no"]
+    command: [ "redis-server", "--protected-mode", "no" ]
     ports:
-      - 6379:6379
+      - "6379:6379"
     expose:
       - 6379
     networks:
@@ -42,8 +42,8 @@ services:
       - ./backend/rabbitmq-mgmt/definitions.json:/etc/rabbitmq/definitions.json
       - ./backend/rabbitmq-mgmt/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
     expose:
       - 5672
       - 15672
@@ -59,7 +59,7 @@ services:
     env_file:
       - .env
     ports:
-      - 8081:8081
+      - "8081:8081"
     expose:
       - 8081
     networks:
@@ -76,7 +76,7 @@ services:
     env_file:
       - .env
     ports:
-      - 8082:8082
+      - "8082:8082"
     expose:
       - 8082
     networks:
@@ -96,7 +96,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
-      - 8080:8080
+      - "8080:8080"
     expose:
       - 8080
     networks:
@@ -117,7 +117,7 @@ services:
     env_file:
       - .env
     ports:
-      - 80:80
+      - "80:80"
     expose:
       - 80
     networks:

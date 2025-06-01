@@ -11,14 +11,14 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
-import { applicationStudentService } from '@daigaku/services';
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord, CreateApplicationRecordByStudentPayload, ErrorDetail } from '@daigaku/common-types';
+import { ApplicationRecord, CreateApplicationRecordByStudentPayload, InputViolation } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -81,9 +81,9 @@ export const useCreateApplication = (
     },
     onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
       if (error instanceof FormValidationError) {
-        error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
+        error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as CreateApplicationFormErrorField, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as CreateApplicationFormErrorField, { message: errorDetail.message });
           }
         });
       }

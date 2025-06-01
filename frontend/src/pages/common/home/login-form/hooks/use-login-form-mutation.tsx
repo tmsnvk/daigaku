@@ -20,7 +20,7 @@ import { localStorageKeys } from '@daigaku/constants';
 import { setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { CoreErrorResponse, ErrorDetail, LoginPayload, LoginResponse } from '@daigaku/common-types';
+import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useLoginFormMutation} custom hook's error types.
@@ -54,18 +54,18 @@ export const useLoginFormMutation = (
       navigate('/dashboard');
     },
     onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
-      const coreErrorResponse: CoreErrorResponse | undefined = error.coreError;
+      const coreErrorResponse: CoreInputErrorResponse | undefined = error.coreError;
 
       if (error instanceof FormValidationError) {
-        coreErrorResponse?.errors.forEach((errorDetail: ErrorDetail) => {
+        coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as LoginFormErrorField, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as LoginFormErrorField, { message: errorDetail.message });
           }
         });
       }
 
       if (error instanceof UnauthorizedError) {
-        setError('root', { message: coreErrorResponse?.errors[0].errorMessage });
+        setError('root', { message: coreErrorResponse?.errors[0].message });
       }
     },
   });

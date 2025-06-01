@@ -8,13 +8,13 @@
 import { CoreApiError } from './core-api-error.ts';
 
 /* interface, type, enum, schema imports */
-import { CoreErrorResponse } from '@daigaku/common-types';
+import { CoreInputErrorResponse } from '@daigaku/common-types';
 
 /**
  *
  */
 export class FormValidationError extends CoreApiError {
-  constructor(statusCode: number, coreError: CoreErrorResponse) {
+  constructor(statusCode: number, coreError: CoreInputErrorResponse) {
     super('FormValidationError', statusCode, coreError);
   }
 }

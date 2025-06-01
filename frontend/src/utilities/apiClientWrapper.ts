@@ -11,7 +11,7 @@ import axios, { AxiosResponse } from 'axios';
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 
 /* interface, type, enum, schema imports */
-import { ErrorDetail } from '@daigaku/common-types';
+import { CoreInputErrorResponse, ExceptionType } from '@daigaku/common-types';
 
 /**
  *
@@ -26,28 +26,26 @@ export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosR
     if (!axios.isAxiosError(error)) {
       throw new UnexpectedError();
     }
-
+    console.log(error);
     const statusCode = error.response?.status;
-    const errorResponse = error.response?.data;
 
-    if (statusCode === 400) {
-      const hasFieldErrors = errorResponse.errors.some((errorDetail: ErrorDetail) => {
-        return errorDetail.fieldName;
-      });
+    if (statusCode) {
+      const errorResponse: CoreInputErrorResponse = error.response?.data;
+      const exceptionType: string = errorResponse.exceptionType;
 
-      if (hasFieldErrors) {
+      if (exceptionType === ExceptionType.METHOD_ARGUMENT_NOT_VALID) {
         throw new FormValidationError(statusCode, errorResponse);
       }
 
-      // TODO: add more error types here that have 40x status.
-    }
+      if (exceptionType === ExceptionType.BAD_CREDENTIALS) {
+        throw new UnauthorizedError(statusCode, errorResponse);
+      }
 
-    if (statusCode === 401) {
-      throw new UnauthorizedError(statusCode, errorResponse);
-    }
+      // TODO: add more error types here as needed that have 40x status.
 
-    if (statusCode && statusCode >= 500) {
-      throw new ServerError(statusCode);
+      if (statusCode >= 500) {
+        throw new ServerError(statusCode);
+      }
     }
 
     throw new UnexpectedError();

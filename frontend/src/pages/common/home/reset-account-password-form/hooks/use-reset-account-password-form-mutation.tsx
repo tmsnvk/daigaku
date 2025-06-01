@@ -6,8 +6,8 @@
 
 /* vendor imports */
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 import { UseFormSetError } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
@@ -18,7 +18,7 @@ import { accountService } from '@daigaku/services';
 import { mutationKeys } from '@daigaku/configuration';
 
 /* interface, type, enum, schema imports */
-import { AccountPasswordResetPayload, ErrorDetail, LoginPayload } from '@daigaku/common-types';
+import { AccountPasswordResetPayload, InputViolation, LoginPayload } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useResetAccountPasswordFormMutation} custom hook's error types.
@@ -50,9 +50,9 @@ export const useResetAccountPasswordFormMutation = (
     },
     onError: (error: FormValidationError | ServerError | UnexpectedError) => {
       if (error instanceof FormValidationError) {
-        error.coreError?.errors.forEach((errorDetail: ErrorDetail) => {
+        error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as AccountPasswordResetErrorField, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as AccountPasswordResetErrorField, { message: errorDetail.message });
           }
         });
       }
