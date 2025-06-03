@@ -7,7 +7,7 @@
 package net.tamasnovak.artifact.account.pendingaccount.service;
 
 import net.tamasnovak.artifact.account.account.service.AccountService;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationPayload;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.role.entity.Role;
@@ -58,7 +58,7 @@ public class PendingAccountServiceImpl implements PendingAccountService {
 
   @Override
   @Transactional
-  public void createPendingAccount(final PendingAccountRegistrationRequest requestBody) {
+  public void createPendingAccount(final PendingAccountRegistrationPayload requestBody) {
     // Check if an account or pending account with the provided email already exists.
     accountService.validateAccountDoesNotExist(requestBody.email());
     this.validateAccountDoesNotExist(requestBody.email());

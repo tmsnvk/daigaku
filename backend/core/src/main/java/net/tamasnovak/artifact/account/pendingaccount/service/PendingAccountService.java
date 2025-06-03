@@ -6,7 +6,7 @@
 
 package net.tamasnovak.artifact.account.pendingaccount.service;
 
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationPayload;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -27,5 +27,5 @@ public interface PendingAccountService {
    *
    * @param requestBody The request body object containing the user's details.
    */
-  void createPendingAccount(PendingAccountRegistrationRequest requestBody);
+  void createPendingAccount(PendingAccountRegistrationPayload requestBody);
 }

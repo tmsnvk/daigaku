@@ -9,7 +9,7 @@ package net.tamasnovak.artifact.account.pendingaccount.controller;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationRequest;
+import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationPayload;
 import net.tamasnovak.artifact.account.pendingaccount.service.PendingAccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -44,7 +44,7 @@ class PendingAccountControllerIT {
     @Test
     @Description("HttpStatus.CREATED status is correctly asserted if no exceptions were thrown.")
     public void shouldReturnHttpStatusCreated_IfNoExceptionsWereThrown() throws Exception {
-      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest("Student", "Test User", "student@test.net",
+      PendingAccountRegistrationPayload requestBody = new PendingAccountRegistrationPayload("Student", "Test User", "student@test.net",
         validUuidString, validUuidString);
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/register")
@@ -61,7 +61,7 @@ class PendingAccountControllerIT {
        * requestBody. However, this would never happen on the running application as the object would come from the frontend.
        * Invalid UUIDs are tested in {@link PendingAccountServiceImplTest} as unit tests.
        */
-      PendingAccountRegistrationRequest requestBody = new PendingAccountRegistrationRequest("1nv4l1d Student", "", "invalid@email",
+      PendingAccountRegistrationPayload requestBody = new PendingAccountRegistrationPayload("1nv4l1d Student", "", "invalid@email",
         validUuidString, validUuidString);
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/register")
