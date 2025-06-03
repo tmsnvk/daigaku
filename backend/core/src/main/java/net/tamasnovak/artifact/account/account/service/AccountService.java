@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
-import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginPayload;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -48,13 +48,13 @@ public interface AccountService {
   AuthContextResponse fetchAuthContextResponse(String email);
 
   /**
-   * Fetches a {@link LoginResponse} object for the user based on the provided {@link LoginRequest} and {@link Authentication} details.
+   * Fetches a {@link LoginResponse} object for the user based on the provided {@link LoginPayload} and {@link Authentication} details.
    *
    * @param requestBody The request body object containing the user's credentials.
    * @param authentication The user's authentication details provided by the Spring Framework.
    * @return {@link LoginResponse}.
    */
-  LoginResponse fetchLoginResponse(LoginRequest requestBody, Authentication authentication);
+  LoginResponse fetchLoginResponse(LoginPayload requestBody, Authentication authentication);
 
   /**
    * Validates that no {@link Account} exists with the provided email.

@@ -8,8 +8,9 @@ package net.tamasnovak.artifact.account.account.controller;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
-import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginPayload;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
+import net.tamasnovak.artifact.account.account.dto.ResetPasswordPayload;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller class managing REST API requests related to "/api/v1/accounts" endpoint.
+ * Controller class managing REST API requests related to "/api/v1/accounts/~" endpoint.
  */
 @RestController
 @RequestMapping(path = "/api/v1/accounts")
@@ -48,7 +49,7 @@ public class AccountController {
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("hasAnyRole('STUDENT', 'MENTOR', 'INSTITUTION_ADMIN', 'SYSTEM_ADMIN')")
-  public ResponseEntity<AuthContextResponse> fetchAuthContextResponse() {
+  public ResponseEntity<AuthContextResponse> getMe() {
     final User userDetails = authFacade.getUserContext();
     final AuthContextResponse response = accountService.fetchAuthContextResponse(userDetails.getUsername());
 
@@ -58,17 +59,30 @@ public class AccountController {
 
   /**
    * Authenticates and logs in the user with the provided authentication credentials.
-   * The {@link Valid} annotation validates the {@link LoginRequest} object as per its validation criteria.
+   * The {@link Valid} annotation validates the {@link LoginPayload} object as per its validation criteria.
    *
    * @param requestBody The login request body.
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link LoginResponse} object.
    */
   @PostMapping(value = "/log-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<LoginResponse> logInUser(@Valid @RequestBody final LoginRequest requestBody) {
+  public ResponseEntity<LoginResponse> logIn(@Valid @RequestBody final LoginPayload requestBody) {
     final Authentication authentication = authFacade.authenticateUser(requestBody.email(), requestBody.password());
     final LoginResponse response = accountService.fetchLoginResponse(requestBody, authentication);
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);
+  }
+
+  /**
+   * The {@link Valid} annotation validates the {@link ResetPasswordPayload} object as per its validation criteria.
+   *
+   * @param requestBody The login request body.
+   * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
+   */
+  @PostMapping(value = "reset-password", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<HttpStatus> resetPassword(@Valid @RequestBody final ResetPasswordPayload requestBody) {
+
+    return ResponseEntity.status(HttpStatus.OK)
+                         .build();
   }
 }
