@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller class managing REST API requests related to "/api/v1/applications" endpoint.
+ * Controller class managing REST API requests related to "/api/v1/applications/~" endpoint.
  */
 @RestController
 @RequestMapping(path = "/api/v1/applications")
@@ -43,7 +43,7 @@ public class ApplicationController {
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationData> fetchApplicationData(@PathVariable("uuid") @ValidUuid final String uuid) {
+  public ResponseEntity<ApplicationData> findByUuid(@PathVariable("uuid") @ValidUuid final String uuid) {
     final ApplicationData response = applicationService.createApplicationData(UUID.fromString(uuid));
 
     return ResponseEntity.status(HttpStatus.OK)

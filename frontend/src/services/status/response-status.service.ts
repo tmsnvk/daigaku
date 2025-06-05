@@ -25,14 +25,14 @@ interface ResponseStatusService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAll: () => Promise<Array<ResponseStatus>>;
+  findList: () => Promise<Array<ResponseStatus>>;
 }
 
 /**
  * Manages response-status-related REST API operations, implementing {@link ResponseStatusService}.
  */
 export const responseStatusService: ResponseStatusService = {
-  getAll: (): Promise<Array<ResponseStatus>> => {
+  findList: (): Promise<Array<ResponseStatus>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<ResponseStatus>>({
         method: 'GET',

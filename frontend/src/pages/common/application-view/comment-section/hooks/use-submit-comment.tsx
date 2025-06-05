@@ -47,8 +47,7 @@ export const useSubmitComment = (
 
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
-    mutationFn: (formData: CreateCommentPayload) =>
-      commentService.postCommentByApplicationUuid(formData, applicationUuid),
+    mutationFn: (formData: CreateCommentPayload) => commentService.createByApplicationUuid(formData, applicationUuid),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid],

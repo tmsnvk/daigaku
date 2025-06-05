@@ -21,9 +21,9 @@ import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
-import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.CreateApplicationByStudentPayload;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstatus.common.entity.BaseStatusEntity;
@@ -162,7 +162,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Override
   @Transactional
   @CacheEvict(value = "AllApplicationRecordsByAccountUuid", key = "{ #account.uuid }")
-  public ApplicationData createApplication(final Account account, final NewApplicationByStudentRequest requestBody) {
+  public ApplicationData createApplication(final Account account, final CreateApplicationByStudentPayload requestBody) {
     // Finds the country and university that were requested on the frontend and validates their connection.
     final Country country = countryService.findCountryByUuid(UUID.fromString(requestBody.countryUuid()));
     final University university = universityService.findUniversityByUuid(UUID.fromString(requestBody.universityUuid()));
@@ -190,7 +190,7 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     @CacheEvict(value = "SingleApplicationRecordByUuid", key = "{ #uuid }")
   })
   public ApplicationData updateApplicationAndFetchByUuid(
-    final UUID uuid, final UpdateApplicationByStudentRequest requestBody, final Account account) {
+    final UUID uuid, final UpdateApplicationByStudentPayload requestBody, final Account account) {
 
     // Finds the to-be-updated Application and related Student instances in the database.
     final Application currentApplication = applicationService.findApplicationByUuid(uuid);

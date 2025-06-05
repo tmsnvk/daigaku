@@ -11,8 +11,8 @@ import { apiClientWrapper } from '@daigaku/utilities';
 /* interface, type, enum, schema imports */
 import {
   ApplicationRecord,
-  CreateApplicationRecordByStudentPayload,
-  UpdateApplicationRecordByStudentPayload,
+  CreateApplicationByStudentPayload,
+  UpdateApplicationByStudentPayload,
 } from '@daigaku/common-types';
 
 /**
@@ -26,45 +26,42 @@ interface ApplicationStudentService {
    * @param formData The application form data object to be saved.
    * @return {Promise<ApplicationRecord>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  postByStudent: (formData: CreateApplicationRecordByStudentPayload) => Promise<ApplicationRecord>;
+  create: (formData: CreateApplicationByStudentPayload) => Promise<ApplicationRecord>;
 
   /**
    * Updates an existing application record by uuid.
    *
    * @param formData The application update form data object.
-   * @param applicationUuid The unique identifier of the application to be updated.
+   * @param uuid The unique identifier of the application to be updated.
    * @return {Promise<ApplicationRecord>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  patchByUuid: (
-    formData: UpdateApplicationRecordByStudentPayload,
-    applicationUuid: string,
-  ) => Promise<ApplicationRecord>;
+  updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string) => Promise<ApplicationRecord>;
 
   /**
    * Toggles the is_removable status of an application by uuid.
    *
-   * @param applicationUuid The unique identifier of the application to toggle.
+   * @param uuid The unique identifier of the application to toggle.
    * @return {Promise<void>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  toggleIsRemovable: (applicationUuid: string) => Promise<void>;
+  toggleSoftDeleteFlag: (uuid: string) => Promise<void>;
 
   /**
    * Initiates a .pdf download for all applications by sending a POST request to the server.
@@ -72,20 +69,20 @@ interface ApplicationStudentService {
    *
    * @return {Promise<void>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  requestPdfDownload: () => Promise<void>;
+  initiatePdfDownloadRequest: () => Promise<void>;
 }
 
 /**
  * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
  */
 export const applicationStudentService: ApplicationStudentService = {
-  postByStudent: (formData: CreateApplicationRecordByStudentPayload): Promise<ApplicationRecord> => {
+  create: (formData: CreateApplicationByStudentPayload): Promise<ApplicationRecord> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<ApplicationRecord>({
         method: 'POST',
@@ -93,29 +90,26 @@ export const applicationStudentService: ApplicationStudentService = {
         data: formData,
       }));
   },
-  patchByUuid: (
-    formData: UpdateApplicationRecordByStudentPayload,
-    applicationUuid: string,
-  ): Promise<ApplicationRecord> => {
+  updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string): Promise<ApplicationRecord> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<ApplicationRecord>({
         method: 'PATCH',
-        url: `/api/v1/applications/student/${applicationUuid}`,
+        url: `/api/v1/applications/student/${uuid}`,
         data: formData,
       }));
   },
-  toggleIsRemovable: (applicationUuid: string): Promise<void> => {
+  toggleSoftDeleteFlag: (uuid: string): Promise<void> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'PATCH',
-        url: `/api/v1/applications/student/toggle-is-removable/${applicationUuid}`,
+        url: `/api/v1/applications/student/toggle-soft-delete/${uuid}`,
       }));
   },
-  requestPdfDownload: (): Promise<void> => {
+  initiatePdfDownloadRequest: (): Promise<void> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'POST',
-        url: '/api/v1/applications/student/download-pdf',
+        url: '/api/v1/applications/student/initiate/pdf-download',
       }));
   },
 };

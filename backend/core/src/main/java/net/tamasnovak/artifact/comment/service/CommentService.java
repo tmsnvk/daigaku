@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.comment.dto.CommentPaginationResponse;
-import net.tamasnovak.artifact.comment.dto.NewCommentRequest;
+import net.tamasnovak.artifact.comment.dto.CreateCommentPayload;
 import net.tamasnovak.artifact.comment.entity.Comment;
 
 /**
@@ -33,5 +33,5 @@ public interface CommentService {
    * @param applicationUuid The application's uuid.
    * @param requestBody The comment request body.
    */
-  void createCommentByApplicationUuid(UUID applicationUuid, NewCommentRequest requestBody);
+  void createCommentByApplicationUuid(UUID applicationUuid, CreateCommentPayload requestBody);
 }

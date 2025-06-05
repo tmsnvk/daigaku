@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.service.AccountService;
-import net.tamasnovak.artifact.account.pendingaccount.dto.PendingAccountRegistrationPayload;
+import net.tamasnovak.artifact.account.pendingaccount.dto.CreatePendingAccountPayload;
 import net.tamasnovak.artifact.account.pendingaccount.entity.PendingAccount;
 import net.tamasnovak.artifact.account.pendingaccount.persistence.PendingAccountRepository;
 import net.tamasnovak.artifact.role.entity.Role;
@@ -89,13 +89,13 @@ class PendingAccountServiceImplTest {
     private final String validFirstName = "Valid First Name";
     private final String validLastName = "Valid Last Name";
 
-    PendingAccountRegistrationPayload invalidRequestBody = new PendingAccountRegistrationPayload(validFirstName, validLastName,
+    CreatePendingAccountPayload invalidRequestBody = new CreatePendingAccountPayload(validFirstName, validLastName,
       notExpectedValidEmail, UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
     @Test
     @Description("Saves a PendingAccount record with Student role and returns void.")
     void shouldSavePendingAccount_andReturnVoid() {
-      PendingAccountRegistrationPayload requestBody = new PendingAccountRegistrationPayload(validFirstName, validLastName,
+      CreatePendingAccountPayload requestBody = new CreatePendingAccountPayload(validFirstName, validLastName,
         expectedValidEmail, UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
       Institution mockInstitution = mock(Institution.class);

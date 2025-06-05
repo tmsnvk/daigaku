@@ -22,12 +22,12 @@ interface CommentService {
    * @param currentPage The current page number for pagination.
    * @return {Promise<Array<CommentPaginationDataResponse>>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAllByApplicationUuidAndPagination: (
+  findPaginatedListByApplicationUuid: (
     applicationUuid: string,
     currentPage: number,
   ) => Promise<CommentPaginationDataResponse>;
@@ -39,20 +39,20 @@ interface CommentService {
    * @param applicationUuid The selected application's uuid.
    * @return {Promise<Comment>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {FormValidationError} If the server returns field-level validation errors.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  postCommentByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string) => Promise<Comment>;
+  createByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string) => Promise<Comment>;
 }
 
 /**
  * Manages comment-related REST API operations, implementing {@link CommentService}.
  */
 export const commentService: CommentService = {
-  getAllByApplicationUuidAndPagination: (
+  findPaginatedListByApplicationUuid: (
     applicationUuid: string,
     currentPage: number,
   ): Promise<CommentPaginationDataResponse> => {
@@ -62,7 +62,7 @@ export const commentService: CommentService = {
         url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
       }));
   },
-  postCommentByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string): Promise<Comment> => {
+  createByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string): Promise<Comment> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Comment>({
         method: 'POST',

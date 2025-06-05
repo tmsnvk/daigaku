@@ -19,7 +19,7 @@ import {
   FinalDestinationStatusE,
   ResponseStatus,
   ResponseStatusE,
-  UpdateApplicationRecordByStudentPayload,
+  UpdateApplicationByStudentPayload,
 } from '@daigaku/common-types';
 
 /**
@@ -55,10 +55,10 @@ const findQueryCache = <T extends object>(queryKey: string): Array<T> | undefine
  */
 export interface HandleFormSubmission {
   submitForm: (
-    formData: UpdateApplicationRecordByStudentPayload,
+    formData: UpdateApplicationByStudentPayload,
     applicationUuid: string,
-    updateApplicationRecord: (formData: UpdateApplicationRecordByStudentPayload) => void,
-    setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
+    updateApplicationRecord: (formData: UpdateApplicationByStudentPayload) => void,
+    setError: UseFormSetError<UpdateApplicationByStudentPayload>,
   ) => void;
 }
 
@@ -73,7 +73,7 @@ export interface HandleFormSubmission {
  */
 export const useHandleFormSubmission = (): HandleFormSubmission => {
   const handleValidation = (
-    formData: UpdateApplicationRecordByStudentPayload,
+    formData: UpdateApplicationByStudentPayload,
     currentApplicationUuid: string,
   ): Array<string> => {
     const errors: Array<string> = [];
@@ -130,15 +130,15 @@ export const useHandleFormSubmission = (): HandleFormSubmission => {
   };
 
   const submitForm = (
-    formData: UpdateApplicationRecordByStudentPayload,
+    formData: UpdateApplicationByStudentPayload,
     currentApplicationUuid: string,
-    updateApplicationRecord: (formData: UpdateApplicationRecordByStudentPayload) => void,
-    setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
+    updateApplicationRecord: (formData: UpdateApplicationByStudentPayload) => void,
+    setError: UseFormSetError<UpdateApplicationByStudentPayload>,
   ): void => {
     const validationErrors: Array<string> = handleValidation(formData, currentApplicationUuid);
 
     if (!validationErrors.length) {
-      const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationRecordByStudentPayload>;
+      const fieldKeys = Object.keys(formData) as Array<keyof UpdateApplicationByStudentPayload>;
 
       // Disabled inputs are returned as undefined.
       // These undefined inputs are replaced with an empty string, so the backend uuid validation would not fail.

@@ -11,7 +11,7 @@ import java.util.UUID;
 import jakarta.validation.Valid;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.comment.dto.CommentPaginationResponse;
-import net.tamasnovak.artifact.comment.dto.NewCommentRequest;
+import net.tamasnovak.artifact.comment.dto.CreateCommentPayload;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.comment.service.CommentService;
 import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller class managing REST API requests related to "/api/v1/comments" endpoint.
+ * Controller class managing REST API requests related to "/api/v1/comments/~" endpoint.
  */
 @RestController
 @RequestMapping(path = "/api/v1/comments")
@@ -48,14 +48,15 @@ public class CommentController {
    * The {@link ValidUuid} annotation validates the uuid string.
    *
    * @param applicationUuid The application's uuid associated with the queried comments.
-   * @param page The requested page number.
+   * @param currentPage The requested page number.
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link CommentPaginationResponse}
    * object.
    */
   @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CommentPaginationResponse> fetchPaginationByApplicationUuid(
-    @PathVariable("applicationUuid") @ValidUuid final String applicationUuid, @RequestParam final int page) {
-    final CommentPaginationResponse response = commentService.findAllCommentsByApplicationUuid(UUID.fromString(applicationUuid), page);
+  public ResponseEntity<CommentPaginationResponse> findPaginatedListByApplicationUuid(
+    @PathVariable("applicationUuid") @ValidUuid final String applicationUuid, @RequestParam final int currentPage) {
+    final CommentPaginationResponse response = commentService.findAllCommentsByApplicationUuid(UUID.fromString(applicationUuid),
+      currentPage);
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);
@@ -63,16 +64,16 @@ public class CommentController {
 
   /**
    * Creates a {@link Comment} object that will be associated with the {@link Application} whose uuid is provided.
-   * The {@link ValidUuid} annotations validate the uuid string and the {@link NewCommentRequest} object as per its validation criteria.
+   * The {@link ValidUuid} annotations validate the uuid string and the {@link CreateCommentPayload} object as per its validation criteria.
    *
-   * @param uuid The associated application's uuid.
+   * @param applicationUuid The associated application's uuid.
    * @param requestBody The new comment request body.
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
    */
   @PostMapping(value = "/{applicationUuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HttpStatus> createCommentByApplicationUuid(
-    @ValidUuid @PathVariable("applicationUuid") final String uuid, @Valid @RequestBody final NewCommentRequest requestBody) {
-    commentService.createCommentByApplicationUuid(UUID.fromString(uuid), requestBody);
+  public ResponseEntity<HttpStatus> createByApplicationUuid(
+    @ValidUuid @PathVariable("applicationUuid") final String applicationUuid, @Valid @RequestBody final CreateCommentPayload requestBody) {
+    commentService.createCommentByApplicationUuid(UUID.fromString(applicationUuid), requestBody);
 
     return ResponseEntity.status(HttpStatus.CREATED)
                          .build();

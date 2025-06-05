@@ -29,7 +29,7 @@ export const useGetUniversityOptionsByCountryUuid = (
 ): UseQueryResult<Array<UniversityOption>, UnauthorizedError | ServerError | UnexpectedError> => {
   return useQuery({
     queryKey: [queryKeys.university.GET_AS_SELECT_OPTIONS, selectedCountryUuid],
-    queryFn: () => universityService.getAllOptionsByCountryUuid(selectedCountryUuid),
+    queryFn: () => universityService.findOptionListByCountryUuid(selectedCountryUuid),
     enabled: !!selectedCountryUuid,
   });
 };

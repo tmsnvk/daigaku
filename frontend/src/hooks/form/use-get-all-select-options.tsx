@@ -32,23 +32,23 @@ export const useGetAllSelectOptions = (): ApplicationRecordStatusOptionsResponse
     queries: [
       {
         queryKey: [queryKeys.applicationStatus.GET_AS_SELECT_OPTIONS],
-        queryFn: () => applicationStatusService.getAll(),
+        queryFn: () => applicationStatusService.findList(),
       },
       {
         queryKey: [queryKeys.interviewStatus.GET_AS_SELECT_OPTIONS],
-        queryFn: () => interviewStatusService.getAll(),
+        queryFn: () => interviewStatusService.findList(),
       },
       {
         queryKey: [queryKeys.offerStatus.GET_AS_SELECT_OPTIONS],
-        queryFn: () => offerStatusService.getAll(),
+        queryFn: () => offerStatusService.findList(),
       },
       {
         queryKey: [queryKeys.responseStatus.GET_AS_SELECT_OPTIONS],
-        queryFn: () => responseStatusService.getAll(),
+        queryFn: () => responseStatusService.findList(),
       },
       {
         queryKey: [queryKeys.finalDestinationStatus.GET_AS_SELECT_OPTIONS],
-        queryFn: () => finalDestinationStatusService.getAll(),
+        queryFn: () => finalDestinationStatusService.findList(),
       },
     ],
     combine: (result) => {

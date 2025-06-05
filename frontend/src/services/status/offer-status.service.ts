@@ -25,14 +25,14 @@ interface OfferStatusService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAll: () => Promise<Array<OfferStatus>>;
+  findList: () => Promise<Array<OfferStatus>>;
 }
 
 /**
  * Manages offer-status-related REST API operations, implementing {@link OfferStatusService}.
  */
 export const offerStatusService: OfferStatusService = {
-  getAll: (): Promise<Array<OfferStatus>> => {
+  findList: (): Promise<Array<OfferStatus>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<OfferStatus>>({
         method: 'GET',

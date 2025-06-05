@@ -31,7 +31,7 @@ export const useRequestPdfDownload = (): UseMutationResult<
 
   return useMutation({
     mutationKey: [mutationKeys.application.POST_REQUEST_PDF_DOWNLOAD],
-    mutationFn: () => applicationStudentService.requestPdfDownload(),
+    mutationFn: () => applicationStudentService.initiatePdfDownloadRequest(),
     onSuccess: () => {
       createToast({
         title: t('success'),

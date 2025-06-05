@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
@@ -45,7 +45,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
   @Override
   public void validateApplication(
-    UpdateApplicationByStudentRequest newApplicationData, Application currentApplication, Student currentStudent,
+    UpdateApplicationByStudentPayload newApplicationData, Application currentApplication, Student currentStudent,
     ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus,
     ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
     validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
@@ -77,7 +77,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
    * @param newResponseStatus
    */
   private void validateResponseStatus(
-    Application currentApplication, Student currentStudent, UpdateApplicationByStudentRequest newApplicationData,
+    Application currentApplication, Student currentStudent, UpdateApplicationByStudentPayload newApplicationData,
     ResponseStatus newResponseStatus) {
     ResponseStatus declined = responseStatusService.findStatusByName(ResponseStatusE.OFFER_DECLINED.getValue());
     final String firmChoiceStatusName = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue()).getName();

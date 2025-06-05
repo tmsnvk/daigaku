@@ -22,9 +22,9 @@ import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationRepository;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
-import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.CreateApplicationByStudentPayload;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
 import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
 import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
@@ -192,7 +192,7 @@ class StudentApplicationServiceImplTest {
     Country mockCountry = mock(Country.class);
     University mockUniversity = mock(University.class);
     ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
-    NewApplicationByStudentRequest requestBody = mock(NewApplicationByStudentRequest.class);
+    CreateApplicationByStudentPayload requestBody = mock(CreateApplicationByStudentPayload.class);
 
     @Test
     @Description("Creates an Application record and returns its ApplicationView projection.")
@@ -261,7 +261,7 @@ class StudentApplicationServiceImplTest {
     @Test
     @Description("Updates an Application record and returns its ApplicationView projection.")
     void shouldUpdateApplication_AndReturnApplicationView() {
-      UpdateApplicationByStudentRequest requestBody = mock(UpdateApplicationByStudentRequest.class);
+      UpdateApplicationByStudentPayload requestBody = mock(UpdateApplicationByStudentPayload.class);
       UUID applicationStatusUuid = UUID.randomUUID();
       UUID interviewStatusUuid = UUID.randomUUID();
       UUID offerStatusUuid = UUID.randomUUID();

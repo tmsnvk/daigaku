@@ -5,8 +5,8 @@
  */
 
 /* configuration, utilities, constants imports */
-import { apiClientWrapper } from '@daigaku/utilities';
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { FinalDestinationStatus } from '@daigaku/common-types';
@@ -26,14 +26,14 @@ interface FinalDestinationStatusService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAll: () => Promise<Array<FinalDestinationStatus>>;
+  findList: () => Promise<Array<FinalDestinationStatus>>;
 }
 
 /**
  * Manages final-destination-status-related REST API operations, implementing {@link FinalDestinationStatusService}.
  */
 export const finalDestinationStatusService: FinalDestinationStatusService = {
-  getAll: (): Promise<Array<FinalDestinationStatus>> => {
+  findList: (): Promise<Array<FinalDestinationStatus>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<FinalDestinationStatus>>({
         method: 'GET',

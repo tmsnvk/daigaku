@@ -25,6 +25,6 @@ import { InstitutionOption } from '@daigaku/common-types';
 export const useGetInstitutionOptions = (): UseQueryResult<Array<InstitutionOption>, ServerError | UnexpectedError> => {
   return useQuery({
     queryKey: [queryKeys.institutions.GET_AS_SELECT_OPTIONS],
-    queryFn: () => institutionService.getAllOptions(),
+    queryFn: () => institutionService.findOptionList(),
   });
 };

@@ -87,7 +87,7 @@ export interface ApplicationRecord extends CoreMetadata {
 /**
  * Defines the structure of a new application-record to be submitted by Student authenticated users.
  */
-export interface CreateApplicationRecordByStudentPayload {
+export interface CreateApplicationByStudentPayload {
   /**
    * The application-record's country uuid string.
    */
@@ -117,7 +117,7 @@ export interface CreateApplicationRecordByStudentPayload {
 /**
  * Defines the structure of an application-record update to be submitted by Student authenticated users.
  */
-export interface UpdateApplicationRecordByStudentPayload {
+export interface UpdateApplicationByStudentPayload {
   /**
    * The application-record's ApplicationStatus uuid string.
    */

@@ -23,7 +23,7 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param institutionUuid The pending account's institution uuid string.
  * @param accountRoleUuid The pending account's authorization role uuid string.
  */
-public record PendingAccountRegistrationPayload(
+public record CreatePendingAccountPayload(
   @NotBlank(message = "Provide a first name. Use only letters and spaces.")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
     "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
