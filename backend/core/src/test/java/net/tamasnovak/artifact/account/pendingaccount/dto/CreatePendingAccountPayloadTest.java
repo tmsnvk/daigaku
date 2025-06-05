@@ -24,11 +24,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class PendingAccountRegistrationRequestTest {
+class CreatePendingAccountPayloadTest {
   private final String expectedValidEmail = "expectedvalidemail@test.net";
   private final String validUuidString = UUID.randomUUID().toString();
-  Set<ConstraintViolation<PendingAccountRegistrationRequest>> violations = new HashSet<>();
-  PendingAccountRegistrationRequest underTest = null;
+  Set<ConstraintViolation<CreatePendingAccountPayload>> violations = new HashSet<>();
+  CreatePendingAccountPayload underTest = null;
 
   @AfterEach
   void tearDown() {
@@ -42,7 +42,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there are no violations when underTest contains only valid properties.")
     void shouldAssert_thatViolationsSetIsEmpty_whenRequestBodyIsValid() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, validUuidString, validUuidString);
 
       violations = validate(underTest);
 
@@ -56,7 +56,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's firstName fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistrationRequest("", "User", expectedValidEmail, validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("", "User", expectedValidEmail, validUuidString, validUuidString);
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -67,7 +67,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's firstName fails @Pattern validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenFirstNameFailsPatternValidation() {
-      underTest = new PendingAccountRegistrationRequest("Inv4l-d", "User", expectedValidEmail, validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("Inv4l-d", "User", expectedValidEmail, validUuidString, validUuidString);
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -78,7 +78,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's lastName fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "", expectedValidEmail, validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "", expectedValidEmail, validUuidString, validUuidString);
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -89,7 +89,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's lastName fails @Pattern validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenLastNameFailsPatternValidation() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "!s3r", expectedValidEmail, validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "!s3r", expectedValidEmail, validUuidString, validUuidString);
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -100,7 +100,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's email fails @Email validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenEmailFailsEmailValidation() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", "invalidemail.com", validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "User", "invalidemail.com", validUuidString, validUuidString);
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -111,7 +111,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's institutionUuid fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, "", validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, "", validUuidString);
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -122,7 +122,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's institutionUuid fails @UuidConstraint validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenInstitutionUuidFailsUuidConstraintValidation() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, "invalidUuid", validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, "invalidUuid", validUuidString);
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -133,7 +133,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's accountRoleUuid fails @NotBlank validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsNotBlankValidation() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, validUuidString, "");
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, validUuidString, "");
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -144,7 +144,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that there is a violation when underTest's accountRoleUuid fails @UuidConstraint validation.")
     void shouldAssert_thatViolationsSetIsNotEmpty_whenAccountTypeFailsPatternValidation() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, validUuidString, "invalidUuid");
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, validUuidString, "invalidUuid");
 
       violations = validate(underTest);
       String actualViolationPath = violations.iterator().next().getPropertyPath().toString();
@@ -156,7 +156,7 @@ class PendingAccountRegistrationRequestTest {
     @Description("Asserts that there are multiple violations when underTest's lastName fails @Pattern, email fails @Email and "
       + "accountRoleUuid fails @UuidConstraint validation.")
     void shouldAssert_thatViolationSetIsNotEmpty_whenRequestBodyFailsMultipleValidations() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "!s3r", "invalidemail.com", validUuidString, "invalidUuid");
+      underTest = new CreatePendingAccountPayload("Valid", "!s3r", "invalidemail.com", validUuidString, "invalidUuid");
       Set<String> expectedViolationPaths = Set.of("lastName", "email", "accountRoleUuid");
 
       violations = validate(underTest);
@@ -174,7 +174,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that getInstituionUuid() uuid transformation is valid when the provided uuid is valid.")
     void shouldAssert_thatInstitutionUuidTransformationIsValid_withValidUuid() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, validUuidString, validUuidString);
 
       UUID actualInstitutionUuid = underTest.getInstituionUuid();
 
@@ -184,7 +184,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that getInstituionUuid() uuid transformation fails when the provided uuid is invalid.")
     void shouldAssert_thatInstitutionUuidTransformationFails_withInvalidUuid() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, "invalidUuid", validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, "invalidUuid", validUuidString);
 
       assertThrows(IllegalArgumentException.class, () -> underTest.getInstituionUuid());
     }
@@ -196,7 +196,7 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that getAccountRoleUuid() uuid transformation is valid when the provided uuid is valid.")
     void shouldAssert_thatAccountRoleUuidTransformationIsValid_withValidUuid() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, validUuidString, validUuidString);
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, validUuidString, validUuidString);
 
       UUID actualAccountRoleUuid = underTest.getAccountRoleUuid();
 
@@ -206,13 +206,13 @@ class PendingAccountRegistrationRequestTest {
     @Test
     @Description("Asserts that getAccountRoleUuid() uuid transformation fails when the provided uuid is invalid.")
     void shouldAssert_thatAccountRoleUuidTransformationFails_withInvalidUuid() {
-      underTest = new PendingAccountRegistrationRequest("Valid", "User", expectedValidEmail, validUuidString, "invalidUuid");
+      underTest = new CreatePendingAccountPayload("Valid", "User", expectedValidEmail, validUuidString, "invalidUuid");
 
       assertThrows(IllegalArgumentException.class, () -> underTest.getAccountRoleUuid());
     }
   }
 
-  private Set<ConstraintViolation<PendingAccountRegistrationRequest>> validate(PendingAccountRegistrationRequest underTest) {
+  private Set<ConstraintViolation<CreatePendingAccountPayload>> validate(CreatePendingAccountPayload underTest) {
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     return validator.validate(underTest);

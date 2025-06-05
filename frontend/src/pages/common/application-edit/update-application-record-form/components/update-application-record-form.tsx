@@ -37,7 +37,7 @@ import {
   ApplicationRecordStatusUnion,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
-  UpdateApplicationRecordByStudentPayload,
+  UpdateApplicationByStudentPayload,
 } from '@daigaku/common-types';
 import { FormInputValues, updateApplicationRecordFormValidationSchema } from '../schema.ts';
 
@@ -81,12 +81,7 @@ export const UpdateApplicationRecordForm = ({ application }: UpdateApplicationRe
     mutate: updateApplicationRecord,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
   const submitUpdateApplicationRecordForm = (formData: FormInputValues) => {
-    submitForm(
-      formData as UpdateApplicationRecordByStudentPayload,
-      application.uuid,
-      updateApplicationRecord,
-      setError,
-    );
+    submitForm(formData as UpdateApplicationByStudentPayload, application.uuid, updateApplicationRecord, setError);
   };
 
   const {

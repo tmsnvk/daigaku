@@ -25,14 +25,14 @@ interface CountryService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAllOptions: () => Promise<Array<CountryOption>>;
+  findOptionList: () => Promise<Array<CountryOption>>;
 }
 
 /**
  * Manages country-related REST API operations, implementing {@link CountryService}.
  */
 export const countryService: CountryService = {
-  getAllOptions: (): Promise<Array<CountryOption>> => {
+  findOptionList: (): Promise<Array<CountryOption>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<CountryOption>>({
         method: 'GET',

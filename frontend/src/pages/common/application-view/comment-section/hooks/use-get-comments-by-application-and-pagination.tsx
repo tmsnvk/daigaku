@@ -31,6 +31,6 @@ export const useGetCommentsByApplicationAndPagination = (
 ): UseQueryResult<CommentPaginationDataResponse, UnauthorizedError | ServerError | UnexpectedError> => {
   return useQuery({
     queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
-    queryFn: () => commentService.getAllByApplicationUuidAndPagination(applicationUuid, currentPage),
+    queryFn: () => commentService.findPaginatedListByApplicationUuid(applicationUuid, currentPage),
   });
 };

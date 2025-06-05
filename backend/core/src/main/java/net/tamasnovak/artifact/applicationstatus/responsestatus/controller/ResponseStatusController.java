@@ -36,7 +36,7 @@ public class ResponseStatusController {
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link StatusSelectOption} object.
    */
   @RequestMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<StatusSelectOption>> fetchSelectOptions() {
+  public ResponseEntity<List<StatusSelectOption>> findList() {
     final List<StatusSelectOption> response = responseStatusService.findAllSortedByName();
 
     return ResponseEntity.status(HttpStatus.OK)

@@ -26,14 +26,14 @@ interface ApplicationStatusService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAll: () => Promise<Array<ApplicationStatus>>;
+  findList: () => Promise<Array<ApplicationStatus>>;
 }
 
 /**
  * Manages application-status-related REST API operations, implementing {@link ApplicationStatusService}.
  */
 export const applicationStatusService: ApplicationStatusService = {
-  getAll: (): Promise<Array<ApplicationStatus>> => {
+  findList: (): Promise<Array<ApplicationStatus>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<ApplicationStatus>>({
         method: 'GET',

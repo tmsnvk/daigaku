@@ -20,7 +20,7 @@ import net.tamasnovak.validation.annotations.optionalvaliduuid.OptionalValidUuid
  * @param responseStatusUuid The ResponseStatus uuid, if any, otherwise null.
  * @param finalDestinationStatusUuid The FinalDestinationStatus uuid, if any, otherwise null.
  */
-public record UpdateApplicationByStudentRequest(
+public record UpdateApplicationByStudentPayload(
   @NotNull(message = "Select a status.")
   @OptionalValidUuid(message = "Select a valid status.")
   String applicationStatusUuid,

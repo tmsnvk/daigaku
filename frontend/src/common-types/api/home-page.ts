@@ -42,7 +42,7 @@ export interface LoginResponse {
   readonly jwtToken: string;
 
   /**
-   * The authenticated user's authorisation level.
+   * The authenticated user's authorization level.
    */
   readonly role: UserRole;
 }
@@ -50,7 +50,7 @@ export interface LoginResponse {
 /**
  * Defines the structure of a user registration form submission.
  */
-export interface PendingAccountRegistrationPayload {
+export interface CreatePendingAccountPayload {
   /**
    * The first name used during the registration event.
    */

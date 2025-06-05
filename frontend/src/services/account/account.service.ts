@@ -61,6 +61,13 @@ interface AccountService {
  * Manages pending-account-related REST API operations, implementing {@link AccountService}.
  */
 export const accountService: AccountService = {
+  getMe: (): Promise<LoginResponse> => {
+    return apiClientWrapper(() =>
+      axiosConfigWithAuth.request<LoginResponse>({
+        method: 'GET',
+        url: '/api/v1/accounts/me',
+      }));
+  },
   logIn: (formData: LoginPayload): Promise<LoginResponse> => {
     return apiClientWrapper(() =>
       axiosConfig.request<LoginResponse>({
@@ -75,13 +82,6 @@ export const accountService: AccountService = {
         method: 'POST',
         url: '/api/v1/accounts/reset-password',
         data: formData,
-      }));
-  },
-  getMe: (): Promise<LoginResponse> => {
-    return apiClientWrapper(() =>
-      axiosConfigWithAuth.request<LoginResponse>({
-        method: 'GET',
-        url: '/api/v1/accounts/me',
       }));
   },
 };

@@ -13,9 +13,9 @@ import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.application.studentapplication.dto.NewApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.CreateApplicationByStudentPayload;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
-import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentRequest;
+import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
 
 /**
  * Service interface for managing {@link Student}-related {@link Application} entity-related API operations.
@@ -52,7 +52,7 @@ public interface StudentApplicationService {
    * @param requestBody The application creation request body.
    * @return {@link ApplicationData}.
    */
-  ApplicationData createApplication(Account account, NewApplicationByStudentRequest requestBody);
+  ApplicationData createApplication(Account account, CreateApplicationByStudentPayload requestBody);
 
   /**
    * Updates the {@link Application} object in the database associated with the provided application uuid.
@@ -62,7 +62,7 @@ public interface StudentApplicationService {
    * @param account The account associated with the to-be-updated application.
    * @return {@link ApplicationData}.
    */
-  ApplicationData updateApplicationAndFetchByUuid(UUID uuid, UpdateApplicationByStudentRequest requestBody, Account account);
+  ApplicationData updateApplicationAndFetchByUuid(UUID uuid, UpdateApplicationByStudentPayload requestBody, Account account);
 
   /**
    * Initiates the user's request to download their submitted {@link Application} objects in .pdf format.

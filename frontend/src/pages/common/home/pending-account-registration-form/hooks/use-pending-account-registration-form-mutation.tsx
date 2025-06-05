@@ -18,7 +18,7 @@ import { pendingAccountService } from '@daigaku/services';
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
-import { CoreInputErrorResponse, InputViolation, PendingAccountRegistrationPayload } from '@daigaku/common-types';
+import { CoreInputErrorResponse, CreatePendingAccountPayload, InputViolation } from '@daigaku/common-types';
 
 /**
  * Defines the {@link usePendingAccountRegistrationFormMutation} custom hook's error types.
@@ -30,18 +30,18 @@ type RegistrationFormErrorField = 'firstName' | 'lastName' | 'email' | 'institut
  *
  * @param setError A `react-hook-form` method that sets form errors.
  * @return {UseMutationResult<void, FormValidationError | ServerError | UnexpectedError,
- *   PendingAccountRegistrationPayload>}
+ *   CreatePendingAccountPayload>}
  */
 export const usePendingAccountRegistrationFormMutation = (
-  setError: UseFormSetError<PendingAccountRegistrationPayload>,
-): UseMutationResult<void, FormValidationError | ServerError | UnexpectedError, PendingAccountRegistrationPayload> => {
+  setError: UseFormSetError<CreatePendingAccountPayload>,
+): UseMutationResult<void, FormValidationError | ServerError | UnexpectedError, CreatePendingAccountPayload> => {
   const { t } = useTranslation();
 
   const { createToast } = useToastContext();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER_FORM],
-    mutationFn: (formData: PendingAccountRegistrationPayload) => pendingAccountService.register(formData),
+    mutationFn: (formData: CreatePendingAccountPayload) => pendingAccountService.create(formData),
     onSuccess: () => {
       createToast({
         title: t('genericSuccessToastTitle'),

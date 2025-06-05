@@ -5,8 +5,8 @@
  */
 
 /* configuration, utilities, constants imports */
-import { apiClientWrapper } from '@daigaku/utilities';
 import { axiosConfigWithAuth } from '@daigaku/configuration';
+import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { InterviewStatus } from '@daigaku/common-types';
@@ -25,14 +25,14 @@ interface InterviewStatusService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAll: () => Promise<Array<InterviewStatus>>;
+  findList: () => Promise<Array<InterviewStatus>>;
 }
 
 /**
  * Manages interview-status-related REST API operations, implementing {@link InterviewStatusService}.
  */
 export const interviewStatusService: InterviewStatusService = {
-  getAll: (): Promise<Array<InterviewStatus>> => {
+  findList: (): Promise<Array<InterviewStatus>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<InterviewStatus>>({
         method: 'GET',

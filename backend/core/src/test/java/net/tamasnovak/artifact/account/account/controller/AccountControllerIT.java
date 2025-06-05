@@ -10,7 +10,7 @@ import java.util.Collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
-import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginPayload;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
@@ -72,7 +72,7 @@ class AccountControllerIT {
     @Test
     @Description("Returns HttpStatus.OK status and LoginResponse instance if no exceptions were thrown.")
     public void shouldReturnHttpStatusOkAndLoginResponse_IfNoExceptionsWereThrown() throws Exception {
-      LoginRequest requestBody = new LoginRequest("test@user.net", "hashedPassword");
+      LoginPayload requestBody = new LoginPayload("test@user.net", "hashedPassword");
 
       Authentication authentication = new UsernamePasswordAuthenticationToken("test@user.net", "hashedPassword",
         Collections.singletonList(new SimpleGrantedAuthority("ROLE_STUDENT")));
@@ -90,7 +90,7 @@ class AccountControllerIT {
     @Test
     @Description("HttpStatus.BAD_REQUEST status is correctly asserted if there is invalid data in the requestBody's fields.")
     public void shouldReturnHttpStatusBadRequest_IfMethodArgumentNotValidExceptionWasThrownInRequestBody() throws Exception {
-      LoginRequest requestBody = new LoginRequest("invalid@email", "");
+      LoginPayload requestBody = new LoginPayload("invalid@email", "");
 
       mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/accounts/log-in")
                                             .content(objectMapper.writeValueAsString(requestBody))

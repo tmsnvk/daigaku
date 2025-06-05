@@ -33,8 +33,8 @@ import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
+  CreatePendingAccountPayload,
   InstitutionOption,
-  PendingAccountRegistrationPayload,
   RoleOption,
 } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
@@ -92,7 +92,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
   const { mutate: registerPendingAccount, isPending: isSubmitting } =
     usePendingAccountRegistrationFormMutation(setError);
   const submitRegisterPendingAccountForm = (formData: FormInputValues): void => {
-    registerPendingAccount(formData as PendingAccountRegistrationPayload);
+    registerPendingAccount(formData as CreatePendingAccountPayload);
   };
 
   return (

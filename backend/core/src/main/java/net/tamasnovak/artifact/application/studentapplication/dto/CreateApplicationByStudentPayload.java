@@ -21,9 +21,9 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param universityUuid The application's university uuid.
  * @param courseName The application's course name.
  * @param minorSubject The application's minor subject, if any.
- * @param programmeLength The application's programme length.
+ * @param programmeLength The application's program length.
  */
-public record NewApplicationByStudentRequest(
+public record CreateApplicationByStudentPayload(
   @NotBlank(message = "Select a country.")
   @ValidUuid(message = "Select a valid country.")
   String countryUuid,

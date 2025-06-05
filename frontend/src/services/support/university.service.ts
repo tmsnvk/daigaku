@@ -18,6 +18,7 @@ interface UniversityService {
   /**
    * Retrieves all university options for a specific country identified by its uuid.
    *
+   * @param countryUuid The selected country's uuid.
    * @return {Promise<Array<UniversityOption>>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
@@ -25,18 +26,18 @@ interface UniversityService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAllOptionsByCountryUuid: (selectedCountryUuid: string) => Promise<Array<UniversityOption>>;
+  findOptionListByCountryUuid: (countryUuid: string) => Promise<Array<UniversityOption>>;
 }
 
 /**
  * Manages university-related REST API operations, implementing {@link UniversityService}.
  */
 export const universityService: UniversityService = {
-  getAllOptionsByCountryUuid: (selectedCountryUuid: string): Promise<Array<UniversityOption>> => {
+  findOptionListByCountryUuid: (countryUuid: string): Promise<Array<UniversityOption>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<UniversityOption>>({
         method: 'GET',
-        url: `api/v1/universities/options/${selectedCountryUuid}`,
+        url: `api/v1/universities/options/${countryUuid}`,
       }));
   },
 };

@@ -32,7 +32,7 @@ export const useDashboardStatisticsQuery = (): UseQueryResult<
 
   return useQuery({
     queryKey: [queryKeys.aggregate.GET_DASHBOARD_STATISTICS],
-    queryFn: () => applicationService.getDashboardStatistics(accountRole),
+    queryFn: () => applicationService.fetchDashboardStatistics(accountRole),
     refetchOnMount: 'always',
   });
 };

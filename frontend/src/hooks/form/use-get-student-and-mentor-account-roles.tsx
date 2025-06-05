@@ -28,6 +28,6 @@ export const useGetStudentAndMentorAccountRoles = (): UseQueryResult<
 > => {
   return useQuery({
     queryKey: [queryKeys.accountRole.GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS],
-    queryFn: () => roleService.getStudentAndMentorRoles(),
+    queryFn: () => roleService.fetchStudentAndMentorOptions(),
   });
 };

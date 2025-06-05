@@ -12,21 +12,21 @@ import { apiClientWrapper } from '@daigaku/utilities';
 import { ApplicationRecord, StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 
 /**
- * Defines generic-application operations, handling API requests and interactions for application management.
+ * Defines generic-application operations, handling API requests, and interactions for application management.
  */
 interface ApplicationService {
   /**
    * Retrieves a specific application by its uuid.
    *
-   * @param applicationUuid The application-record's uuid.
+   * @param uuid The application-record's uuid.
    * @return {Promise<ApplicationRecord>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getByUuid: (applicationUuid: string) => Promise<ApplicationRecord>;
+  findOneByUuid: (uuid: string) => Promise<ApplicationRecord>;
 
   /**
    * Fetches a list of applications accessible based on the user's authorization role.
@@ -34,12 +34,12 @@ interface ApplicationService {
    * @param accountRole The user's authorization role.
    * @return {Promise<Array<ApplicationRecord>>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getAllByRole: (roleResource: string) => Promise<Array<ApplicationRecord>>;
+  findListByAccountRole: (accountRole: string) => Promise<Array<ApplicationRecord>>;
 
   /**
    * Retrieves dashboard statistics relevant to the user's authorization role.
@@ -47,37 +47,37 @@ interface ApplicationService {
    * @param accountRole The user's authorization role.
    * @return {Promise<StudentDashboardStatisticsResponse>}
    *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e. email/password pair do not match or the
-   *   user does not have valid token.
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  getDashboardStatistics: (roleResource: string) => Promise<StudentDashboardStatisticsResponse>;
+  fetchDashboardStatistics: (accountRole: string) => Promise<StudentDashboardStatisticsResponse>;
 }
 
 /**
  * Manages application-related REST API operations, implementing {@link ApplicationService}.
  */
 export const applicationService: ApplicationService = {
-  getByUuid: (applicationUuid: string): Promise<ApplicationRecord> => {
+  findOneByUuid: (uuid: string): Promise<ApplicationRecord> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<ApplicationRecord>({
         method: 'GET',
-        url: `/api/v1/applications/${applicationUuid}`,
+        url: `/api/v1/applications/${uuid}`,
       }));
   },
-  getAllByRole: (accountRole: string): Promise<Array<ApplicationRecord>> => {
+  findListByAccountRole: (accountRole: string): Promise<Array<ApplicationRecord>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<ApplicationRecord>>({
         method: 'GET',
         url: `/api/v1/applications/${accountRole}`,
       }));
   },
-  getDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
+  fetchDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<StudentDashboardStatisticsResponse>({
         method: 'GET',
-        url: `/api/v1/applications/${accountRole}/dashboard`,
+        url: `/api/v1/applications/${accountRole}/dashboard-statistics`,
       }));
   },
 };

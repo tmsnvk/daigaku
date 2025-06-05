@@ -9,7 +9,7 @@ import { axiosConfig } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { PendingAccountRegistrationPayload } from '@daigaku/common-types';
+import { CreatePendingAccountPayload } from '@daigaku/common-types';
 
 /**
  * Defines pending account service-related operations, handling API requests and interactions for pending account
@@ -27,18 +27,18 @@ interface PendingAccountService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  register: (formData: PendingAccountRegistrationPayload) => Promise<void>;
+  create: (formData: CreatePendingAccountPayload) => Promise<void>;
 }
 
 /**
  * Manages pending-account-related REST API operations, implementing {@link PendingAccountService}.
  */
 export const pendingAccountService: PendingAccountService = {
-  register: (formData: PendingAccountRegistrationPayload): Promise<void> => {
+  create: (formData: CreatePendingAccountPayload): Promise<void> => {
     return apiClientWrapper(() =>
       axiosConfig.request<void>({
         method: 'POST',
-        url: '/api/v1/pending-accounts/register',
+        url: '/api/v1/pending-accounts/create',
         data: formData,
       }));
   },

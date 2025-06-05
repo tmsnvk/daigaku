@@ -36,7 +36,7 @@ public class CountryController {
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link CountrySelectOption} object.
    */
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<CountrySelectOption>> fetchCountrySelectOptions() {
+  public ResponseEntity<List<CountrySelectOption>> findOptionList() {
     final List<CountrySelectOption> response = countryService.findCountrySelectOptionsSortedByName();
 
     return ResponseEntity.status(HttpStatus.OK)

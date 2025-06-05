@@ -18,7 +18,7 @@ import { applicationStudentService } from '@daigaku/services';
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord, InputViolation, UpdateApplicationRecordByStudentPayload } from '@daigaku/common-types';
+import { ApplicationRecord, InputViolation, UpdateApplicationByStudentPayload } from '@daigaku/common-types';
 
 /**
  * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.
@@ -37,15 +37,15 @@ type UpdateApplicationFormField =
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid string.
  * @return {UseMutationResult<ApplicationRecord, UnauthorizedError | FormValidationError | ServerError |
- *   UnexpectedError, UpdateApplicationRecordByStudentPayload>}
+ *   UnexpectedError, UpdateApplicationByStudentPayload>}
  */
 export const useUpdateApplicationFormMutation = (
-  setError: UseFormSetError<UpdateApplicationRecordByStudentPayload>,
+  setError: UseFormSetError<UpdateApplicationByStudentPayload>,
   applicationUuid: string,
 ): UseMutationResult<
   ApplicationRecord,
   UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
-  UpdateApplicationRecordByStudentPayload
+  UpdateApplicationByStudentPayload
 > => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -53,8 +53,8 @@ export const useUpdateApplicationFormMutation = (
 
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
-    mutationFn: (formData: UpdateApplicationRecordByStudentPayload) =>
-      applicationStudentService.patchByUuid(formData, applicationUuid),
+    mutationFn: (formData: UpdateApplicationByStudentPayload) =>
+      applicationStudentService.updateByUuid(formData, applicationUuid),
     onSuccess: (response: ApplicationRecord) => {
       queryClient.setQueryData<Array<ApplicationRecord>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {

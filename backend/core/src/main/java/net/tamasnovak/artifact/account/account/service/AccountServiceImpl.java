@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
-import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginPayload;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.persistence.AccountRepository;
@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   @Transactional(readOnly = true)
-  public LoginResponse fetchLoginResponse(final LoginRequest requestBody, final Authentication authentication) {
+  public LoginResponse fetchLoginResponse(final LoginPayload requestBody, final Authentication authentication) {
     final Account account = this.findAccountByEmail(requestBody.email());
     final String jwtToken = jwtUtilities.generateJwtToken(authentication);
 

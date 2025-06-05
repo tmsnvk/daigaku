@@ -32,6 +32,6 @@ export const useGetApplications = (): UseQueryResult<
 
   return useQuery({
     queryKey: [queryKeys.application.GET_ALL_BY_ROLE],
-    queryFn: () => applicationService.getAllByRole(accountRole),
+    queryFn: () => applicationService.findListByAccountRole(accountRole),
   });
 };

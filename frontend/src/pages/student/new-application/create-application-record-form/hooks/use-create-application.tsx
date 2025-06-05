@@ -18,7 +18,7 @@ import { applicationStudentService } from '@daigaku/services';
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord, CreateApplicationRecordByStudentPayload, InputViolation } from '@daigaku/common-types';
+import { ApplicationRecord, CreateApplicationByStudentPayload, InputViolation } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -38,16 +38,16 @@ type CreateApplicationFormErrorField =
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
  * @return {UseMutationResult<ApplicationRecord, UnauthorizedError | FormValidationError | ServerError |
- *   UnexpectedError, CreateApplicationRecordByStudentPayload>}
+ *   UnexpectedError, CreateApplicationByStudentPayload>}
  */
 export const useCreateApplication = (
-  setError: UseFormSetError<CreateApplicationRecordByStudentPayload>,
+  setError: UseFormSetError<CreateApplicationByStudentPayload>,
   resetCountrySelection: () => void,
   reset: () => void,
 ): UseMutationResult<
   ApplicationRecord,
   UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
-  CreateApplicationRecordByStudentPayload
+  CreateApplicationByStudentPayload
 > => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -56,8 +56,7 @@ export const useCreateApplication = (
 
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
-    mutationFn: (formData: CreateApplicationRecordByStudentPayload) =>
-      applicationStudentService.postByStudent(formData),
+    mutationFn: (formData: CreateApplicationByStudentPayload) => applicationStudentService.create(formData),
     onSuccess: (response: ApplicationRecord) => {
       queryClient.setQueryData<Array<ApplicationRecord>>(
         [queryKeys.application.GET_ALL_BY_ROLE],

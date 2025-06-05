@@ -22,16 +22,16 @@ import { ApplicationRecord } from '@daigaku/common-types';
  * The server-side request is triggered only if the application record is not in the `react-router-dom` cache.
  *
  * @param state An application record from the local `react-router-dom` cache, if it exists, otherwise null.
- * @param applicationUuid The Application record's uuid string.
+ * @param uuid The Application record's uuid string.
  * @return {UseQueryResult<ApplicationRecord, UnauthorizedError | ServerError | UnexpectedError>}
  */
 export const useGetApplicationByUuid = (
   state: ApplicationRecord | null,
-  applicationUuid: string,
+  uuid: string,
 ): UseQueryResult<ApplicationRecord, UnauthorizedError | ServerError | UnexpectedError> => {
   return useQuery({
-    queryKey: [queryKeys.application.GET_BY_UUID, applicationUuid],
-    queryFn: () => applicationService.getByUuid(applicationUuid),
+    queryKey: [queryKeys.application.GET_BY_UUID, uuid],
+    queryFn: () => applicationService.findOneByUuid(uuid),
     enabled: state === null,
   });
 };

@@ -34,7 +34,7 @@ import net.tamasnovak.enums.status.ResponseStatusE;
 import net.tamasnovak.utils.StringUtils;
 
 /**
- * Entity class that represents the students database table.
+ * Entity class that represents the student's database table.
  */
 @Entity
 @Table(name = "students")
@@ -54,7 +54,7 @@ public final class Student extends BaseAccountType {
   private List<Application> applications;
 
   protected Student() {
-    // Not public as it should not be initialised blank.
+    // Not public as it should not be initialized blank.
     // Cannot be private or package-private as it is an @Entity class.
   }
 

@@ -28,6 +28,6 @@ export const useGetCountryOptions = (): UseQueryResult<
 > => {
   return useQuery({
     queryKey: [queryKeys.country.GET_AS_SELECT_OPTIONS],
-    queryFn: () => countryService.getAllOptions(),
+    queryFn: () => countryService.findOptionList(),
   });
 };

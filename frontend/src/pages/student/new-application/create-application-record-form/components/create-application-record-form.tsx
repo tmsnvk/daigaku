@@ -34,7 +34,7 @@ import {
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
   CountryOption,
-  CreateApplicationRecordByStudentPayload,
+  CreateApplicationByStudentPayload,
   UniversityOption,
 } from '@daigaku/common-types';
 import { FormInputValues, createApplicationRecordFormValidationSchema } from '../schema.ts';
@@ -90,7 +90,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
         <CoreFormWrapper
           formId={'post-application-record-by-student-form'}
           onFormSubmit={handleSubmit((formData: FormInputValues) => {
-            createApplicationRecord(formData as CreateApplicationRecordByStudentPayload);
+            createApplicationRecord(formData as CreateApplicationByStudentPayload);
           })}
           className={'core-application-grid'}
         >

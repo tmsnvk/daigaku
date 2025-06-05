@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
-import net.tamasnovak.artifact.account.account.dto.LoginRequest;
+import net.tamasnovak.artifact.account.account.dto.LoginPayload;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
 import net.tamasnovak.artifact.account.account.entity.Account;
 import net.tamasnovak.artifact.account.account.persistence.AccountRepository;
@@ -141,7 +141,7 @@ class AccountServiceImplTest {
     @Test
     @Description("Returns the correct LoginResponse instance when valid requestBody and authentication instances are received.")
     void shouldReturnLoginResponse_whenRequestBodyAndAuthenticationAreValid() {
-      LoginRequest requestBody = new LoginRequest(expectedValidEmail, hashedPassword);
+      LoginPayload requestBody = new LoginPayload(expectedValidEmail, hashedPassword);
       String jwtToken = "generatedToken";
       LoginResponse expected = new LoginResponse(expectedValidEmail, mockAccount.getFirstName(), mockAccount.fetchRoleName(), jwtToken);
 
@@ -157,7 +157,7 @@ class AccountServiceImplTest {
     @Test
     @Description("Propagates exception throw when accountService throws EntityNotFoundException.")
     void shouldPropagateExceptionThrow_whenAccountServiceThrowsEntityNotFoundException() {
-      LoginRequest requestBody = new LoginRequest(notValidEmail, hashedPassword);
+      LoginPayload requestBody = new LoginPayload(notValidEmail, hashedPassword);
 
       when(accountRepository.findAccountByEmail(notValidEmail)).thenReturn(Optional.empty());
 

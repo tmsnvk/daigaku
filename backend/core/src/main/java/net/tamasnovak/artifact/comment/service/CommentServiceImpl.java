@@ -15,7 +15,7 @@ import net.tamasnovak.artifact.application.application.service.ApplicationServic
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.comment.dto.CommentPaginationResponse;
 import net.tamasnovak.artifact.comment.dto.CommentViewResponse;
-import net.tamasnovak.artifact.comment.dto.NewCommentRequest;
+import net.tamasnovak.artifact.comment.dto.CreateCommentPayload;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.comment.persistence.CommentRepository;
 import net.tamasnovak.artifact.comment.persistence.CommentView;
@@ -67,7 +67,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional
-  public void createCommentByApplicationUuid(final UUID applicationUuid, final NewCommentRequest requestBody) {
+  public void createCommentByApplicationUuid(final UUID applicationUuid, final CreateCommentPayload requestBody) {
     // Finds the authenticated user's Account and the associated Application.
     final Account authAccount = authenticationFacade.getAuthenticatedAccount();
     final Application relatedApplication = applicationService.findApplicationByUuid(applicationUuid);
