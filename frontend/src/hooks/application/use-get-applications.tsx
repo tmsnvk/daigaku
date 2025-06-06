@@ -16,15 +16,15 @@ import { applicationService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord } from '@daigaku/common-types';
+import { Application } from '@daigaku/common-types';
 
 /**
- * Fetches a list of application records based on the user's authorisation role.
+ * Fetches a list of applications based on the user's authorization role.
  *
- * @return {UseQueryResult<Array<ApplicationRecord>, UnauthorizedError | ServerError | UnexpectedError>}
+ * @return {UseQueryResult<Array<Application>, UnauthorizedError | ServerError | UnexpectedError>}
  */
 export const useGetApplications = (): UseQueryResult<
-  Array<ApplicationRecord>,
+  Array<Application>,
   UnauthorizedError | ServerError | UnexpectedError
 > => {
   const { getRoleResource } = useAuthContext();

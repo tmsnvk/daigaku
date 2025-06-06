@@ -15,10 +15,17 @@ import { ApplicationMetadata } from '@daigaku/components/general';
 import { ApplicationDetail } from './application-detail.tsx';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
+import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord } from '@daigaku/common-types';
+import {
+  Application,
+  ApplicationStatus,
+  FinalDestinationStatus,
+  InterviewStatus,
+  OfferStatus,
+  ResponseStatus,
+} from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -27,7 +34,7 @@ interface ApplicationDetailsProps {
   /**
    * The selected application record.
    */
-  readonly application: ApplicationRecord;
+  readonly application: Application;
 }
 
 /**
@@ -92,23 +99,23 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
       />
       <ApplicationDetail
         name={t('applicationStatusLabel')}
-        value={application.applicationStatus.name}
+        value={getStatusDisplayValue(ApplicationStatus, application.applicationStatus) ?? '-'}
       />
       <ApplicationDetail
         name={t('interviewStatusLabel')}
-        value={application.interviewStatus?.name ?? '-'}
+        value={getStatusDisplayValue(InterviewStatus, application.interviewStatus) ?? '-'}
       />
       <ApplicationDetail
         name={t('offerStatusLabel')}
-        value={application.offerStatus?.name ?? '-'}
+        value={getStatusDisplayValue(OfferStatus, application.offerStatus) ?? '-'}
       />
       <ApplicationDetail
         name={t('responseStatusLabel')}
-        value={application.responseStatus?.name ?? '-'}
+        value={getStatusDisplayValue(ResponseStatus, application.responseStatus) ?? '-'}
       />
       <ApplicationDetail
         name={t('finalDestinationStatusLabel')}
-        value={application.finalDestinationStatus?.name ?? '-'}
+        value={getStatusDisplayValue(FinalDestinationStatus, application.finalDestinationStatus) ?? '-'}
       />
     </section>
   );

@@ -19,10 +19,12 @@ import { CommonSelectGroup } from './element-group/common-select-group.tsx';
 import { CommonTextareaGroup } from './element-group/common-textarea-group';
 import { DisabledInputGroup } from './element-group/disabled-input-group';
 import { PasswordInputGroup } from './element-group/password-input-group';
+import { CommonStaticSelectGroup } from './element-group/common-static-select-group.tsx';
 
 export {
   CommonInputGroup,
   CommonSelectGroup,
+  CommonStaticSelectGroup,
   CommonTextareaGroup,
   CoreFormAction,
   CoreFormElementError,

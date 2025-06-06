@@ -15,7 +15,7 @@ import { applicationService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord } from '@daigaku/common-types';
+import { Application } from '@daigaku/common-types';
 
 /**
  * Fetches an application-record by its uuid string.
@@ -23,12 +23,12 @@ import { ApplicationRecord } from '@daigaku/common-types';
  *
  * @param state An application record from the local `react-router-dom` cache, if it exists, otherwise null.
  * @param uuid The Application record's uuid string.
- * @return {UseQueryResult<ApplicationRecord, UnauthorizedError | ServerError | UnexpectedError>}
+ * @return {UseQueryResult<Application, UnauthorizedError | ServerError | UnexpectedError>}
  */
 export const useGetApplicationByUuid = (
-  state: ApplicationRecord | null,
+  state: Application | null,
   uuid: string,
-): UseQueryResult<ApplicationRecord, UnauthorizedError | ServerError | UnexpectedError> => {
+): UseQueryResult<Application, UnauthorizedError | ServerError | UnexpectedError> => {
   return useQuery({
     queryKey: [queryKeys.application.GET_BY_UUID, uuid],
     queryFn: () => applicationService.findOneByUuid(uuid),

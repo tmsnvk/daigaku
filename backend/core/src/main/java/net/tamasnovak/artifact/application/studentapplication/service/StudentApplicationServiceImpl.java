@@ -24,26 +24,12 @@ import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentapplication.dto.CreateApplicationByStudentPayload;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
-import net.tamasnovak.artifact.applicationstatus.common.entity.BaseStatusEntity;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.service.InterviewStatusService;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.service.OfferStatusService;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.institution.service.InstitutionService;
 import net.tamasnovak.artifact.support.university.entity.University;
 import net.tamasnovak.artifact.support.university.service.UniversityService;
-import net.tamasnovak.enums.status.ApplicationStatusE;
-import net.tamasnovak.enums.status.FinalDestinationStatusE;
-import net.tamasnovak.enums.status.ResponseStatusE;
 import net.tamasnovak.rabbitmq.configuration.rabbitmq.PdfRequestRabbitConfig;
 import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.AccountBaseDetails;
 import net.tamasnovak.rabbitmq.models.s3PdfQueue.student.StudentApplicationDto;
@@ -72,11 +58,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   private final CountryService countryService;
   private final UniversityService universityService;
   private final ApplicationService applicationService;
-  private final ApplicationStatusService applicationStatusService;
-  private final InterviewStatusService interviewStatusService;
-  private final OfferStatusService offerStatusService;
-  private final ResponseStatusService responseStatusService;
-  private final FinalDestinationStatusService finalDestinationStatusService;
   private final QueueSender queueSender;
   private final ApplicationRepository applicationRepository;
   private final ExistingApplicationValidator existingApplicationValidator;
@@ -84,9 +65,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
   @Autowired
   public StudentApplicationServiceImpl(
     AccountService accountService, StudentService studentService, InstitutionService institutionService, CountryService countryService,
-    UniversityService universityService, ApplicationService applicationService, ApplicationStatusService applicationStatusService,
-    InterviewStatusService interviewStatusService, OfferStatusService offerStatusService, ResponseStatusService responseStatusService,
-    FinalDestinationStatusService finalDestinationStatusService, QueueSender queueSender, ApplicationRepository applicationRepository,
+    UniversityService universityService, ApplicationService applicationService, QueueSender queueSender,
+    ApplicationRepository applicationRepository,
     ExistingApplicationValidator existingApplicationValidator) {
     this.accountService = accountService;
     this.studentService = studentService;
@@ -94,11 +74,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     this.countryService = countryService;
     this.universityService = universityService;
     this.applicationService = applicationService;
-    this.applicationStatusService = applicationStatusService;
-    this.interviewStatusService = interviewStatusService;
-    this.offerStatusService = offerStatusService;
-    this.responseStatusService = responseStatusService;
-    this.finalDestinationStatusService = finalDestinationStatusService;
     this.queueSender = queueSender;
     this.applicationRepository = applicationRepository;
     this.existingApplicationValidator = existingApplicationValidator;
@@ -131,17 +106,6 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     // Finds the authenticated Student user.
     final Student student = studentService.findStudentByAccount(account);
 
-    // Finds the relevant status names.
-    final String plannedStatus = applicationStatusService.findStatusByName(ApplicationStatusE.PLANNED.getName()).getName();
-    final String submittedStatus = applicationStatusService.findStatusByName(ApplicationStatusE.SUBMITTED.getName()).getName();
-    final String withdrawnStatus = applicationStatusService.findStatusByName(ApplicationStatusE.WITHDRAWN.getName()).getName();
-    final String firmChoiceStatus = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue()).getName();
-    final String finalDestinationStatus = finalDestinationStatusService.findStatusByName(
-                                                                         FinalDestinationStatusE.FINAL_DESTINATION.getValue())
-                                                                       .getName();
-    final String deferredFinalDestinationStatusName = finalDestinationStatusService.findStatusByName(
-      FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
-
     // Creates the StudentDashboardDetails instance.
     return new StudentDashboardDetails(
       student.createFirmChoiceTileDetails(firmChoiceStatus),
@@ -172,7 +136,8 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     final Student student = studentService.findStudentByAccount(account);
 
     // Finds the 'Planned' ApplicationStatus to insert into the new Application instance.
-    final ApplicationStatus plannedApplicationStatus = applicationStatusService.findStatusByName(ApplicationStatusE.PLANNED.getName());
+    final ApplicationStatus plannedApplicationStatus = applicationStatusService.findStatusByName(
+      net.tamasnovak.enums.status.ApplicationStatus.PLANNED.getName());
 
     // Creates the Application instance and saves it in the database.
     final Application newApplication = Application.createApplicationByStudent(student, country, university, requestBody.courseName(),
@@ -214,9 +179,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
       newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 
     // Updates the Application instance with the validated new fields and saves it in the database.
-    final ResponseStatus offerDeclinedStatus = responseStatusService.findStatusByName(ResponseStatusE.OFFER_DECLINED.getValue());
+    final ResponseStatus offerDeclinedStatus = responseStatusService.findStatusByName(
+      net.tamasnovak.enums.status.ResponseStatus.OFFER_DECLINED.getValue());
     final FinalDestinationStatus notFinalDestinationStatus = finalDestinationStatusService.findStatusByName(
-      FinalDestinationStatusE.NOT_FINAL_DESTINATION.getValue());
+      net.tamasnovak.enums.status.FinalDestinationStatus.NOT_FINAL_DESTINATION.getValue());
     currentApplication.updateStatusFields(newApplicationStatus, newInterviewStatus, newOfferStatus, newResponseStatus,
       newFinalDestinationStatus, offerDeclinedStatus, notFinalDestinationStatus);
     applicationRepository.save(currentApplication);

@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -25,15 +27,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.common.entity.audit.Auditable;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.university.entity.University;
+import net.tamasnovak.enums.status.ApplicationStatus;
+import net.tamasnovak.enums.status.FinalDestinationStatus;
+import net.tamasnovak.enums.status.InterviewStatus;
+import net.tamasnovak.enums.status.OfferStatus;
+import net.tamasnovak.enums.status.ResponseStatus;
 import net.tamasnovak.utils.StringUtils;
 
 /**
@@ -74,29 +76,24 @@ public final class Application extends Auditable {
   @Max(value = 5, message = "Programme length should not be more than {value}.")
   private int programmeLength;
 
-  @ManyToOne
-  @JoinColumn(name = "application_status_id")
-  @JsonBackReference(value = "application_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "application_status")
   private ApplicationStatus applicationStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "interview_status_id")
-  @JsonBackReference(value = "interview_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "interview_status")
   private InterviewStatus interviewStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "offer_status_id")
-  @JsonBackReference(value = "offer_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "offer_status")
   private OfferStatus offerStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "response_status_id")
-  @JsonBackReference(value = "response_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "response_status")
   private ResponseStatus responseStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "final_destination_status_id")
-  @JsonBackReference(value = "final_destination_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "final_destination_status")
   private FinalDestinationStatus finalDestinationStatus;
 
   @Column(name = "is_removable")
@@ -223,33 +220,6 @@ public final class Application extends Auditable {
    */
   public boolean isFinalDestinationNull() {
     return this.finalDestinationStatus == null;
-  }
-
-  /**
-   * Fetches the {@link ApplicationStatus}'s name.
-   *
-   * @return The {@link ApplicationStatus}'s name.
-   */
-  public String fetchApplicationStatusName() {
-    return this.applicationStatus.getName();
-  }
-
-  /**
-   * Fetches the {@link ResponseStatus}'s name.
-   *
-   * @return The {@link ResponseStatus}'s name.
-   */
-  public String fetchResponseStatusName() {
-    return this.responseStatus.getName();
-  }
-
-  /**
-   * Fetches the {@link FinalDestinationStatus}'s name.
-   *
-   * @return The {@link FinalDestinationStatus}'s name.
-   */
-  public String fetchFinalDestinationName() {
-    return this.finalDestinationStatus.getName();
   }
 
   /**

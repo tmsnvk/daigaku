@@ -47,7 +47,7 @@ export interface CoreInputErrorResponse {
   readonly httpStatusCodeName: string;
 
   /**
-   * The backend specific exception identifier.
+   * The backend-specific exception identifier.
    */
   readonly exceptionType: ExceptionType;
 

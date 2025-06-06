@@ -20,8 +20,6 @@ import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.Intervie
 import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
-import net.tamasnovak.enums.status.FinalDestinationStatusE;
-import net.tamasnovak.enums.status.ResponseStatusE;
 import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationException;
 import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationExceptionMessages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,11 +77,12 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   private void validateResponseStatus(
     Application currentApplication, Student currentStudent, UpdateApplicationByStudentPayload newApplicationData,
     ResponseStatus newResponseStatus) {
-    ResponseStatus declined = responseStatusService.findStatusByName(ResponseStatusE.OFFER_DECLINED.getValue());
-    final String firmChoiceStatusName = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue()).getName();
+    ResponseStatus declined = responseStatusService.findStatusByName(net.tamasnovak.enums.status.ResponseStatus.OFFER_DECLINED.getValue());
+    final String firmChoiceStatusName = responseStatusService.findStatusByName(
+      net.tamasnovak.enums.status.ResponseStatus.FIRM_CHOICE.getValue()).getName();
 
     if (newResponseStatus != null) {
-      ResponseStatus firmChoice = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue());
+      ResponseStatus firmChoice = responseStatusService.findStatusByName(net.tamasnovak.enums.status.ResponseStatus.FIRM_CHOICE.getValue());
       Optional<Application> firmChoiceApplication = currentStudent.findFirmChoiceApplication(firmChoiceStatusName);
 
       if (firmChoiceApplication.isPresent()
@@ -104,16 +103,19 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   private void validateFinalDestinationStatus(
     Application currentApplication, Student currentStudent, FinalDestinationStatus newFinalDestinationStatus) {
     if (newFinalDestinationStatus != null) {
-      String finalDestination = finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.FINAL_DESTINATION.getValue())
+      String finalDestination = finalDestinationStatusService.findStatusByName(
+                                                               net.tamasnovak.enums.status.FinalDestinationStatus.FINAL_DESTINATION.getValue())
                                                              .getName();
       String deferredFinalDestination = finalDestinationStatusService.findStatusByName(
-        FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
+        net.tamasnovak.enums.status.FinalDestinationStatus.DEFERRED_FINAL_DESTINATION.getValue()).getName();
       FinalDestinationStatus notFinalDestination = finalDestinationStatusService.findStatusByName(
-        FinalDestinationStatusE.NOT_FINAL_DESTINATION.getValue());
+        net.tamasnovak.enums.status.FinalDestinationStatus.NOT_FINAL_DESTINATION.getValue());
       final String finalDestinationStatusName =
-        finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.FINAL_DESTINATION.getValue()).getName();
+        finalDestinationStatusService.findStatusByName(net.tamasnovak.enums.status.FinalDestinationStatus.FINAL_DESTINATION.getValue())
+                                     .getName();
       final String deferredFinalDestinationStatusName =
-        finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
+        finalDestinationStatusService.findStatusByName(
+          net.tamasnovak.enums.status.FinalDestinationStatus.DEFERRED_FINAL_DESTINATION.getValue()).getName();
 
       Optional<Application> finalDestinationApplication = currentStudent.findFinalDestinationApplication(finalDestinationStatusName,
         deferredFinalDestinationStatusName);

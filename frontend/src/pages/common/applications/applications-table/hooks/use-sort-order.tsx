@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord } from '@daigaku/common-types';
+import { Application } from '@daigaku/common-types';
 
 /**
  * Defines the properties for sorting columns on the /applications page.
@@ -37,24 +37,24 @@ enum SortOrder {
  *
  * @return {SetOrder}
  */
-export const useSortOrder = (data: Array<ApplicationRecord>): SetOrder => {
+export const useSortOrder = (data: Array<Application>): SetOrder => {
   const queryClient = useQueryClient();
 
   const [sortedBy, setSortedBy] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
 
   const sortColumns = (): void => {
-    const sortedData: Array<ApplicationRecord> = data.sort((a, b) => {
-      if (a[sortedBy as keyof ApplicationRecord] === null) {
+    const sortedData: Array<Application> = data.sort((a, b) => {
+      if (a[sortedBy as keyof Application] === null) {
         return 1;
       }
 
-      if (b[sortedBy as keyof ApplicationRecord] === null) {
+      if (b[sortedBy as keyof Application] === null) {
         return -1;
       }
 
       return (
-        String(a[sortedBy as keyof ApplicationRecord]).localeCompare(String(b[sortedBy as keyof ApplicationRecord])) *
+        String(a[sortedBy as keyof Application]).localeCompare(String(b[sortedBy as keyof Application])) *
         (sortOrder === SortOrder.ASC ? 1 : -1)
       );
     });

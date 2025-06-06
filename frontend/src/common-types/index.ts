@@ -4,8 +4,7 @@
  * @author tmsnvk
  */
 
-export * from './api/application-record-status.ts';
-export * from './api/application-record.ts';
+export * from './api/application.ts';
 export * from './api/comment.ts';
 export * from './api/country.ts';
 export * from './api/dashboard-page.ts';

@@ -41,21 +41,6 @@ export const queryKeys = {
   university: {
     GET_AS_SELECT_OPTIONS: 'get-all-university-select-options',
   },
-  applicationStatus: {
-    GET_AS_SELECT_OPTIONS: 'get-all-application-status-select-options',
-  },
-  interviewStatus: {
-    GET_AS_SELECT_OPTIONS: 'get-all-interview-status-select-options',
-  },
-  offerStatus: {
-    GET_AS_SELECT_OPTIONS: 'get-all-offer-status-select-options',
-  },
-  responseStatus: {
-    GET_AS_SELECT_OPTIONS: 'get-all-response-status-select-options',
-  },
-  finalDestinationStatus: {
-    GET_AS_SELECT_OPTIONS: 'get-all-final-destination-status-select-options',
-  },
   aggregate: {
     GET_DASHBOARD_STATISTICS: 'get-dashboard-statistics',
   },
