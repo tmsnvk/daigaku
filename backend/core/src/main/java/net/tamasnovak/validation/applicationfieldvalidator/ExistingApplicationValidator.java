@@ -9,11 +9,11 @@ package net.tamasnovak.validation.applicationfieldvalidator;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
+import net.tamasnovak.enums.status.ApplicationStatus;
+import net.tamasnovak.enums.status.FinalDestinationStatus;
+import net.tamasnovak.enums.status.InterviewStatus;
+import net.tamasnovak.enums.status.OfferStatus;
+import net.tamasnovak.enums.status.ResponseStatus;
 
 /**
  * TODO

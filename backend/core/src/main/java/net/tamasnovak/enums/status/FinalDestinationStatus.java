@@ -6,6 +6,9 @@
 
 package net.tamasnovak.enums.status;
 
+/**
+ *
+ */
 public enum FinalDestinationStatus {
   FINAL_DESTINATION,
   DEFERRED_FINAL_DESTINATION,

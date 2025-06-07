@@ -25,8 +25,7 @@ import {
 import { ApplicationMetadata } from '@daigaku/components/general';
 
 /* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
-import { getStatusDisplayValue } from '../../../../../utilities/get-status-display-value.ts';
+import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 import { FormInputValues, updateApplicationFormValidationSchema } from '../schema.ts';
 
 /* interface, type, enum, schema imports */
@@ -34,16 +33,21 @@ import {
   Application,
   ApplicationStatus,
   ApplicationStatusKey,
+  ApplicationStatusTranslations,
   CoreSelectElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
   FinalDestinationStatus,
   FinalDestinationStatusKey,
+  FinalDestinationStatusTranslations,
   InterviewStatus,
   InterviewStatusKey,
+  InterviewStatusTranslations,
   OfferStatus,
   OfferStatusKey,
+  OfferStatusTranslations,
   ResponseStatus,
   ResponseStatusKey,
+  ResponseStatusTranslations,
   UpdateApplicationByStudentPayload,
 } from '@daigaku/common-types';
 import { DisabledInputGroups } from './disabled-input-groups.tsx';
@@ -71,11 +75,11 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
   const formMethods = useForm<FormInputValues>({
     mode: 'onSubmit',
     defaultValues: {
-      applicationStatusUuid: '',
-      interviewStatusUuid: '',
-      offerStatusUuid: '',
-      responseStatusUuid: '',
-      finalDestinationStatusUuid: '',
+      applicationStatus: undefined,
+      interviewStatus: undefined,
+      offerStatus: undefined,
+      responseStatus: undefined,
+      finalDestinationStatus: undefined,
     },
     resolver: zodResolver(updateApplicationFormValidationSchema),
   });
@@ -139,129 +143,114 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
           <DisabledInputGroups application={application} />
           <CoreFormElementInstruction paragraph={t('programmeLengthUpdateFieldInformation')} />
           <CommonStaticSelectGroup
-            id={'applicationStatusUuid'}
+            id={'applicationStatus'}
             isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
             onChangeHandler={updateInterviewStatus}
             label={t('applicationStatusLabel')}
-            options={Object.keys(ApplicationStatus).map((key: string) => {
-              const backendValue = key as ApplicationStatusKey;
-              const displayValue = ApplicationStatus[backendValue];
-
+            options={Object.keys(ApplicationStatus).map((statusKey: string) => {
               return (
                 <option
-                  key={backendValue}
-                  value={backendValue}
+                  key={statusKey}
+                  value={statusKey}
                 >
-                  t({displayValue})
+                  {t(ApplicationStatusTranslations[statusKey as ApplicationStatusKey])}
                 </option>
               );
             })}
             initialValue={
-              getStatusDisplayValue(ApplicationStatus, updatedData?.applicationStatus) ??
-              getStatusDisplayValue(ApplicationStatus, application.applicationStatus) ??
+              getStatusDisplayValue(ApplicationStatusTranslations, updatedData?.applicationStatus, t) ??
+              getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ??
               t('applicationStatusPlaceholder')
             }
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormElementInstruction paragraph={t('applicationStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
-            id={'interviewStatusUuid'}
+            id={'interviewStatus'}
             isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
             onChangeHandler={updateOfferStatus}
             label={t('interviewStatusLabel')}
-            options={Object.keys(InterviewStatus).map((key: string) => {
-              const backendValue = key as InterviewStatusKey;
-              const displayValue = InterviewStatus[backendValue];
-
+            options={Object.keys(InterviewStatus).map((statusKey: string) => {
               return (
                 <option
-                  key={backendValue}
-                  value={backendValue}
+                  key={statusKey}
+                  value={statusKey}
                 >
-                  t({displayValue})
+                  {t(InterviewStatusTranslations[statusKey as InterviewStatusKey])}
                 </option>
               );
             })}
             initialValue={
-              getStatusDisplayValue(InterviewStatus, updatedData?.interviewStatus) ??
-              getStatusDisplayValue(InterviewStatus, application.interviewStatus) ??
+              getStatusDisplayValue(InterviewStatusTranslations, updatedData?.interviewStatus, t) ??
+              getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ??
               t('interviewStatusPlaceholder')
             }
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormElementInstruction paragraph={t('interviewStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
-            id={'offerStatusUuid'}
+            id={'offerStatus'}
             isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
             onChangeHandler={updateResponseStatus}
             label={t('offerStatusLabel')}
-            options={Object.keys(OfferStatus).map((key: string) => {
-              const backendValue = key as OfferStatusKey;
-              const displayValue = OfferStatus[backendValue];
-
+            options={Object.keys(OfferStatus).map((statusKey: string) => {
               return (
                 <option
-                  key={backendValue}
-                  value={backendValue}
+                  key={statusKey}
+                  value={statusKey}
                 >
-                  t({displayValue})
+                  {t(OfferStatusTranslations[statusKey as OfferStatusKey])}
                 </option>
               );
             })}
             initialValue={
-              getStatusDisplayValue(OfferStatus, updatedData?.offerStatus) ??
-              getStatusDisplayValue(OfferStatus, application.offerStatus) ??
+              getStatusDisplayValue(OfferStatusTranslations, updatedData?.offerStatus, t) ??
+              getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ??
               t('offerStatusPlaceholder')
             }
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormElementInstruction paragraph={t('offerStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
-            id={'responseStatusUuid'}
+            id={'responseStatus'}
             isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
             onChangeHandler={updateFinalDestinationStatus}
             label={t('responseStatusLabel')}
-            options={Object.keys(ResponseStatus).map((key: string) => {
-              const backendValue = key as ResponseStatusKey;
-              const displayValue = ResponseStatus[backendValue];
-
+            options={Object.keys(ResponseStatus).map((statusKey: string) => {
               return (
                 <option
-                  key={backendValue}
-                  value={backendValue}
+                  key={statusKey}
+                  value={statusKey}
                 >
-                  t({displayValue})
+                  {t(ResponseStatusTranslations[statusKey as ResponseStatusKey])}
                 </option>
               );
             })}
             initialValue={
-              getStatusDisplayValue(ResponseStatus, updatedData?.responseStatus) ??
-              getStatusDisplayValue(ResponseStatus, application.responseStatus) ??
+              getStatusDisplayValue(ResponseStatusTranslations, updatedData?.responseStatus, t) ??
+              getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ??
               t('responseStatusPlaceholder')
             }
             intent={CoreSelectElementStyleIntent.LIGHT}
           />
           <CoreFormElementInstruction paragraph={t('responseStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
-            id={'finalDestinationStatusUuid'}
+            id={'finalDestinationStatus'}
             isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
             label={t('finalDestinationStatusLabel')}
-            options={Object.keys(FinalDestinationStatus).map((key: string) => {
-              const backendValue = key as FinalDestinationStatusKey;
-              const displayValue = FinalDestinationStatus[backendValue];
-
+            options={Object.keys(FinalDestinationStatus).map((statusKey: string) => {
               return (
                 <option
-                  key={backendValue}
-                  value={backendValue}
+                  key={statusKey}
+                  value={statusKey}
                 >
-                  t({displayValue})
+                  {t(FinalDestinationStatusTranslations[statusKey as FinalDestinationStatusKey])}
                 </option>
               );
             })}
             initialValue={
-              getStatusDisplayValue(FinalDestinationStatus, updatedData?.finalDestinationStatus) ??
-              getStatusDisplayValue(FinalDestinationStatus, application.finalDestinationStatus) ??
+              getStatusDisplayValue(FinalDestinationStatusTranslations, updatedData?.finalDestinationStatus, t) ??
+              getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ??
               t('finalDestinationStatusPlaceholder')
             }
             intent={CoreSelectElementStyleIntent.LIGHT}

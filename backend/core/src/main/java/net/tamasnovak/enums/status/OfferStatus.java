@@ -6,6 +6,9 @@
 
 package net.tamasnovak.enums.status;
 
+/**
+ *
+ */
 public enum OfferStatus {
   CONDITIONAL,
   DEFERRED,

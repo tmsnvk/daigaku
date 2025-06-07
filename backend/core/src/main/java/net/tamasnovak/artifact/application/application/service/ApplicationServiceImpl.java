@@ -20,7 +20,7 @@ import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.enums.roles.AuthorisationRoles;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
-import net.tamasnovak.utils.StringUtils;
+import net.tamasnovak.utilities.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;

@@ -20,11 +20,11 @@ import { isColumnVisible } from '../utilities.ts';
 /* interface, type, enum, schema imports */
 import {
   Application,
-  ApplicationStatus,
-  FinalDestinationStatus,
-  InterviewStatus,
-  OfferStatus,
-  ResponseStatus,
+  ApplicationStatusTranslations,
+  FinalDestinationStatusTranslations,
+  InterviewStatusTranslations,
+  OfferStatusTranslations,
+  ResponseStatusTranslations,
 } from '@daigaku/common-types';
 import { Column } from '../../common/types.ts';
 
@@ -71,19 +71,19 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         <td className={isColumnVisible(columns, 'country') ? '' : 'hidden'}>{application.country}</td>
         <td className={isColumnVisible(columns, 'programmeLength') ? '' : 'hidden'}>{application.programmeLength}</td>
         <td className={isColumnVisible(columns, 'applicationStatus') ? '' : 'hidden'}>
-          {getStatusDisplayValue(ApplicationStatus, application.applicationStatus) ?? '-'}
+          {getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'interviewStatus') ? '' : 'hidden'}>
-          {getStatusDisplayValue(InterviewStatus, application.interviewStatus) ?? '-'}
+          {getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'offerStatus') ? '' : 'hidden'}>
-          {getStatusDisplayValue(OfferStatus, application.offerStatus) ?? '-'}
+          {getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'responseStatus') ? '' : 'hidden'}>
-          {getStatusDisplayValue(ResponseStatus, application.responseStatus) ?? '-'}
+          {getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'finalDestinationStatus') ? '' : 'hidden'}>
-          {getStatusDisplayValue(FinalDestinationStatus, application.finalDestinationStatus) ?? '-'}
+          {getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ?? '-'}
         </td>
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
           <CoreLink

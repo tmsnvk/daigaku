@@ -24,11 +24,11 @@ import { Application, InputViolation, UpdateApplicationByStudentPayload } from '
  * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.
  */
 type UpdateApplicationFormField =
-  | 'applicationStatusUuid'
-  | 'interviewStatusUuid'
-  | 'offerStatusUuid'
-  | 'responseStatusUuid'
-  | 'finalDestinationStatusUuid';
+  | 'applicationStatus'
+  | 'interviewStatus'
+  | 'offerStatus'
+  | 'responseStatus'
+  | 'finalDestinationStatus';
 
 /**
  * Manages the {@link ApplicationForm} submission process, including REST API request, error handling,

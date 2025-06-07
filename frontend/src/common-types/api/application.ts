@@ -121,25 +121,25 @@ export interface UpdateApplicationByStudentPayload {
   /**
    * The Application's ApplicationStatus status.
    */
-  applicationStatusUuid: ApplicationStatusKey;
+  applicationStatus: ApplicationStatusKey;
 
   /**
    * The Application's InterviewStatus status.
    */
-  interviewStatusUuid: InterviewStatusKey | undefined;
+  interviewStatus: InterviewStatusKey | null;
 
   /**
    * The Application's OfferStatus status.
    */
-  offerStatusUuid: OfferStatusKey | undefined;
+  offerStatus: OfferStatusKey | null;
 
   /**
    * The Application's ResponseStatus status.
    */
-  responseStatusUuid: ResponseStatusKey | undefined;
+  responseStatus: ResponseStatusKey | null;
 
   /**
    * The Application's FinalDestination status.
    */
-  finalDestinationStatusUuid: FinalDestinationStatusKey | undefined;
+  finalDestinationStatus: FinalDestinationStatusKey | null;
 }

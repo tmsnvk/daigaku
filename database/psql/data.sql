@@ -36,14 +36,12 @@ WITH role_insert AS (
 INSERT INTO accounts
   (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'SysAdmin', 'User', 'sysadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'SysAdmin', 'User', 'sysadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM  role_insert), 'sysadmin2@test.net', 'sysadmin2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'SysAdmin', 'User', 'sysadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO system_admins
   (account_id)
 VALUES
-  ((SELECT id FROM accounts WHERE email = 'sysadmin@test.net')),
-  ((SELECT id FROM accounts WHERE email = 'sysadmin2@test.net'));
+  ((SELECT id FROM accounts WHERE email = 'sysadmin@test.net'));
 
 -- institution admin users
 WITH role_insert AS (
@@ -57,14 +55,12 @@ WITH role_insert AS (
 INSERT INTO accounts
   (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'InsAdmin', 'User', 'insadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'insadmin@test.net', 'insadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'InsAdmin', 'User', 'insadmin2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'insadmin2@test.net', 'insadmin2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'InsAdmin', 'User', 'insadmin@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'insadmin@test.net', 'insadmin@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO institution_admins
 (account_id, institution_id)
 VALUES
-  ((SELECT id FROM accounts WHERE email = 'insadmin@test.net'), (SELECT id FROM institutions LIMIT 1)),
-  ((SELECT id FROM accounts WHERE email = 'insadmin2@test.net'), (SELECT id FROM institutions OFFSET 1 LIMIT 1));
+  ((SELECT id FROM accounts WHERE email = 'insadmin@test.net'), (SELECT id FROM institutions LIMIT 1));
 
 -- mentor users
 WITH role_insert AS (
@@ -78,14 +74,12 @@ WITH role_insert AS (
 INSERT INTO accounts
   (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'mentor@test.net', 'mentor@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 1 LIMIT 1), 'Mentor', 'User', 'mentor2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'mentor2@test.net', 'mentor2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses LIMIT 1), 'Mentor', 'User', 'mentor@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'mentor@test.net', 'mentor@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO mentors
   (account_id, institution_id)
 VALUES
-  ((SELECT id FROM accounts WHERE email = 'mentor@test.net'), (SELECT id FROM institutions LIMIT 1)),
-  ((SELECT id FROM accounts WHERE email = 'mentor2@test.net'), (SELECT id FROM institutions OFFSET 1 LIMIT 1));
+  ((SELECT id FROM accounts WHERE email = 'mentor@test.net'), (SELECT id FROM institutions LIMIT 1));
 
 -- student users
 WITH role_insert AS (
@@ -99,8 +93,7 @@ WITH role_insert AS (
 INSERT INTO accounts
   (uuid, address_id, first_name, last_name, email, hashed_password, institution_id, role_id, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 2 LIMIT 1), 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 3 LIMIT 1), 'Student', 'User', 'student2@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), (SELECT id FROM addresses OFFSET 2 LIMIT 1), 'Student', 'User', 'student@test.net', '$2a$10$4s.G7boZLt0RVvlQkl9RJuSbXF3XAol8zdriS9bqyrzUK0/tsJGhm', (SELECT id FROM institutions WHERE id = 1), (SELECT id FROM role_insert), 'student@test.net', 'student@test.net', current_timestamp, current_timestamp);
 
 INSERT INTO students
   (account_id, mentor_id, institution_id)
@@ -151,66 +144,21 @@ VALUES
   (gen_random_uuid(), (SELECT id FROM country_insert), 'New York University', 'NYU', (SELECT id FROM addresses WHERE id = 4), 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
   (gen_random_uuid(), (SELECT id FROM country_insert), 'Harvard University', 'HU', (SELECT id FROM addresses WHERE id = 4), 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp);
 
--- INSERT application_status
-INSERT INTO application_status
-  (uuid, name, created_by, last_modified_by, created_at, last_updated_at)
-VALUES
-  (gen_random_uuid(), 'Planned', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Submitted', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Withdrawn', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp);
-
--- INSERT interview_status
-INSERT INTO interview_status
-  (uuid, name, created_by, last_modified_by, created_at, last_updated_at)
-VALUES
-  (gen_random_uuid(), 'No Interview', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Invited', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Not Invited', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp);
-
--- INSERT offer_status
-INSERT INTO offer_status
-  (uuid, name, created_by, last_modified_by, created_at, last_updated_at)
-VALUES
-  (gen_random_uuid(), 'Unconditional', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Conditional', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Deferred', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Rejected', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp);
-
--- INSERT response_status
-INSERT INTO response_status
-  (uuid, name, created_by, last_modified_by, created_at, last_updated_at)
-VALUES
-  (gen_random_uuid(), 'Firm Choice', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Insurance Choice', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Offer Declined', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp);
-
--- INSERT final_destination_status
-INSERT INTO final_destination_status
-  (uuid, name, created_by, last_modified_by, created_at, last_updated_at)
-VALUES
-  (gen_random_uuid(), 'Final Destination', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Final Destination (Deferred Entry)', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 'Not Final Destination', 'sysadmin@test.net', 'sysadmin@test.net', current_timestamp, current_timestamp);
-
 -- INSERT applications
 INSERT INTO applications
-  (uuid, student_id, country_id, university_id, course_name, programme_length, application_status_id, interview_status_id, offer_status_id, response_status_id, final_destination_status_id,
+  (uuid, student_id, country_id, university_id, course_name, programme_length, application_status, interview_status, offer_status, response_status, final_destination_status,
    created_by, last_modified_by, created_at, last_updated_at, is_removable)
 VALUES
-  (gen_random_uuid(), 1, 2, 1, 'Business Administration', 3, 2, 2, 1, 1, 1, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 2, 2, 'Logistics', 3, 2, 2, 1, 2, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 2, 3, 'Information Technology', 3, 2, 2, 1, 3, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 3, 4, 'Computer Science', 3, 2, 1, 1, 3, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 1, 4, 5, 'Mathematics', 3, 2, 1, 1, 2, 3, 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 2, 4, 6, 'Business Administration', 3, 2, 1, 1, 3, 3, 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 2, 3, 4, 'Computer Science', 3, 2, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 2, 4, 5, 'Mathematics', 3, 2, 1, 1, 2, 3, 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp, false),
-  (gen_random_uuid(), 2, 4, 6, 'Business Administration', 3, 2, 1, 1, 2, 1, 'student2@test.net', 'student2@test.net', current_timestamp, current_timestamp, false);
+  (gen_random_uuid(), 1, 2, 1, 'Business Administration', 3, 'SUBMITTED', 'INVITED', 'UNCONDITIONAL', 'INSURANCE_CHOICE', 'NOT_FINAL_DESTINATION', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 2, 2, 'Logistics', 3, 'SUBMITTED', 'INVITED', 'UNCONDITIONAL', 'INSURANCE_CHOICE', 'NOT_FINAL_DESTINATION', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 2, 3, 'Information Technology', 3, 'SUBMITTED', 'INVITED', 'UNCONDITIONAL', 'INSURANCE_CHOICE', 'NOT_FINAL_DESTINATION', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 3, 4, 'Computer Science', 3, 'SUBMITTED', 'INVITED', 'UNCONDITIONAL', 'FIRM_CHOICE', 'FINAL_DESTINATION', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false),
+  (gen_random_uuid(), 1, 4, 5, 'Mathematics', 3, 'SUBMITTED', 'INVITED', 'UNCONDITIONAL', 'INSURANCE_CHOICE', 'NOT_FINAL_DESTINATION', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp, false);
 
 -- INSERT comments
 INSERT INTO comments
   (uuid, application_id, account_id, content, created_by, last_modified_by, created_at, last_updated_at)
 VALUES
-  (gen_random_uuid(), 1, 7, 'This is the very first test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 1, 7, 'This is the second test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
-  (gen_random_uuid(), 1, 7, 'This is the third test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp);
+  (gen_random_uuid(), 1, 4, 'This is the very first test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), 1, 4, 'This is the second test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp),
+  (gen_random_uuid(), 1, 4, 'This is the third test comment.', 'student@test.net', 'student@test.net', current_timestamp, current_timestamp);

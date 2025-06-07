@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-package net.tamasnovak.utils;
+package net.tamasnovak.utilities;
 
 import java.util.Objects;
 

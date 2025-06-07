@@ -26,10 +26,9 @@ import net.tamasnovak.artifact.accounttype.mentor.entity.Mentor;
 import net.tamasnovak.artifact.accounttype.student.dto.FinalDestinationTileDetails;
 import net.tamasnovak.artifact.accounttype.student.dto.FirmChoiceTileDetails;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.support.institution.entity.Institution;
-import net.tamasnovak.utils.StringUtils;
+import net.tamasnovak.enums.status.FinalDestinationStatus;
+import net.tamasnovak.enums.status.ResponseStatus;
 
 /**
  * Entity class that represents the student's database table.
@@ -88,8 +87,8 @@ public final class Student extends BaseAccountType {
    * @return {@link FirmChoiceTileDetails} or {@code null} if the {@link Student} has no {@link Application} marked as
    * {@link net.tamasnovak.enums.status.ResponseStatus#FIRM_CHOICE}.
    */
-  public FirmChoiceTileDetails createFirmChoiceTileDetails(final String firmChoiceStatusName) {
-    final Optional<Application> firmChoiceApplication = findFirmChoiceApplication(firmChoiceStatusName);
+  public FirmChoiceTileDetails createFirmChoiceTileDetails() {
+    final Optional<Application> firmChoiceApplication = findFirmChoiceApplication();
 
     if (firmChoiceApplication.isEmpty()) {
       return null;
@@ -107,10 +106,9 @@ public final class Student extends BaseAccountType {
    *
    * @return {@link Optional#of(Application)}.
    */
-  public Optional<Application> findFirmChoiceApplication(final String firmChoiceStatusName) {
+  public Optional<Application> findFirmChoiceApplication() {
     return applications.stream()
-                       .filter(
-                         application -> StringUtils.validateStringsAreEqual(application.fetchResponseStatusName(), firmChoiceStatusName))
+                       .filter(application -> application.getResponseStatus() == ResponseStatus.FIRM_CHOICE)
                        .findFirst();
   }
 
@@ -121,11 +119,8 @@ public final class Student extends BaseAccountType {
    * {@link net.tamasnovak.enums.status.FinalDestinationStatus#FINAL_DESTINATION} or
    * {@link net.tamasnovak.enums.status.FinalDestinationStatus#DEFERRED_FINAL_DESTINATION}.
    */
-  public FinalDestinationTileDetails createFinalDestinationTileDetails(
-    final String finalDestinationStatusName,
-    final String deferredFinalDestinationStatusName) {
-    final Optional<Application> finalDestinationApplication = findFinalDestinationApplication(finalDestinationStatusName,
-      deferredFinalDestinationStatusName);
+  public FinalDestinationTileDetails createFinalDestinationTileDetails() {
+    final Optional<Application> finalDestinationApplication = findFinalDestinationApplication();
 
     if (finalDestinationApplication.isEmpty()) {
       return null;
@@ -146,14 +141,14 @@ public final class Student extends BaseAccountType {
    *
    * @return {@link Optional#of(Application)}.
    */
-  public Optional<Application> findFinalDestinationApplication(
-    final String finalDestinationStatusName,
-    final String deferredFinalDestinationStatusName) {
+  public Optional<Application> findFinalDestinationApplication() {
     return applications.stream()
-                       .filter(application -> StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
-                         finalDestinationStatusName)
-                         || StringUtils.validateStringsAreEqual(application.fetchFinalDestinationName(),
-                         deferredFinalDestinationStatusName))
+                       .filter(
+                         application -> {
+                           FinalDestinationStatus currentStatus = application.getFinalDestinationStatus();
+                           return currentStatus == FinalDestinationStatus.FINAL_DESTINATION || currentStatus == FinalDestinationStatus.DEFERRED_FINAL_DESTINATION;
+                         }
+                       )
                        .findFirst();
   }
 

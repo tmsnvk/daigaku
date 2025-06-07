@@ -8,14 +8,7 @@
 import { ChangeEvent, useState } from 'react';
 
 /* interface, type, enum, schema imports */
-import {
-  Application,
-  ApplicationStatus,
-  FinalDestinationStatus,
-  InterviewStatus,
-  OfferStatus,
-  ResponseStatus,
-} from '@daigaku/common-types';
+import { Application, ApplicationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@daigaku/common-types';
 
 /**
  * TODO
@@ -29,11 +22,7 @@ interface PageLoadValidationService {
    * @param selectOptions
    * @returns
    */
-  validateInterviewStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ) => boolean;
+  validateInterviewStatus: (application: Application, updatedData: Application | undefined) => boolean;
 
   /**
    * TODO
@@ -43,11 +32,7 @@ interface PageLoadValidationService {
    * @param selectOptions
    * @returns
    */
-  validateOfferStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ) => boolean;
+  validateOfferStatus: (application: Application, updatedData: Application | undefined) => boolean;
 
   /**
    * TODO
@@ -57,148 +42,54 @@ interface PageLoadValidationService {
    * @param selectOptions
    * @returns
    */
-  validateResponseStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ) => boolean;
+  validateResponseStatus: (application: Application, updatedData: Application | undefined) => boolean;
 
   /**
    * TODO
    *
    * @param application
    * @param updatedData
-   * @param selectOptions
    * @returns
    */
-  validateFinalDestinationStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ) => boolean;
+  validateFinalDestinationStatus: (application: Application, updatedData: Application | undefined) => boolean;
 }
 
 const pageLoadValidationService: PageLoadValidationService = {
-  validateInterviewStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ): boolean => {
-    const submittedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === ApplicationStatus.SUBMITTED;
-      },
-    )[0];
-
-    if (submittedStatus) {
-      return !(
-        application.applicationStatus.name === submittedStatus.name ||
-        updatedData?.applicationStatus.name === submittedStatus.name
-      );
-    }
-
-    return false;
+  validateInterviewStatus: (application: Application, updatedData: Application | undefined): boolean => {
+    return !(
+      application.applicationStatus === ApplicationStatus.SUBMITTED ||
+      updatedData?.applicationStatus === ApplicationStatus.SUBMITTED
+    );
   },
-  validateOfferStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ): boolean => {
-    if (!application.interviewStatus?.uuid) {
+  validateOfferStatus: (application: Application, updatedData: Application | undefined): boolean => {
+    if (!application.interviewStatus) {
       return true;
     }
 
-    const notInvitedStatus: InterviewStatus | undefined = selectOptions.interviewStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === InterviewStatus.NOT_INVITED;
-      },
-    )[0];
-
-    if (notInvitedStatus) {
-      return (
-        application.interviewStatus.name === notInvitedStatus.name ||
-        updatedData?.interviewStatus?.name === notInvitedStatus.name
-      );
-    }
-
-    return false;
+    return (
+      application.interviewStatus === InterviewStatus.NOT_INVITED ||
+      updatedData?.interviewStatus === InterviewStatus.NOT_INVITED
+    );
   },
-  validateResponseStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ): boolean => {
-    if (!application.offerStatus?.uuid) {
+  validateResponseStatus: (application: Application, updatedData: Application | undefined): boolean => {
+    if (!application.offerStatus) {
       return true;
     }
 
-    const rejectedStatus: OfferStatus | undefined = selectOptions.offerStatus?.filter((element: ApplicationStatus) => {
-      return element.name === OfferStatus.REJECTED;
-    })[0];
-
-    if (rejectedStatus) {
-      return (
-        application.offerStatus.name === rejectedStatus.name || updatedData?.offerStatus?.name === rejectedStatus.name
-      );
-    }
-
-    return false;
+    return application.offerStatus === OfferStatus.REJECTED || updatedData?.offerStatus === OfferStatus.REJECTED;
   },
-  validateFinalDestinationStatus: (
-    application: Application,
-    updatedData: Application | undefined,
-    selectOptions: ApplicationRecordStatusOptions,
-  ): boolean => {
-    if (!application.offerStatus?.uuid) {
+  validateFinalDestinationStatus: (application: Application, updatedData: Application | undefined): boolean => {
+    if (!application.offerStatus) {
       return true;
     }
 
-    const rejectedStatus: OfferStatus | undefined = selectOptions.offerStatus?.filter((element: ApplicationStatus) => {
-      return element.name === OfferStatus.REJECTED;
-    })[0];
-
-    if (rejectedStatus) {
-      return (
-        application.offerStatus.name === rejectedStatus.name || updatedData?.offerStatus?.name === rejectedStatus.name
-      );
-    }
-
-    const offerDeclinedStatus: ResponseStatus | undefined = selectOptions.responseStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === ResponseStatus.OFFER_DECLINED;
-      },
-    )[0];
-
-    if (offerDeclinedStatus) {
-      return (
-        application.responseStatus?.name === offerDeclinedStatus.name ||
-        updatedData?.responseStatus?.name === offerDeclinedStatus.name
-      );
-    }
-
-    return false;
+    return (
+      application.offerStatus === OfferStatus.REJECTED ||
+      updatedData?.offerStatus === OfferStatus.REJECTED ||
+      application.responseStatus === ResponseStatus.OFFER_DECLINED ||
+      updatedData?.responseStatus === ResponseStatus.OFFER_DECLINED
+    );
   },
-};
-
-/**
- * TODO
- */
-type ApplicationStatusUnionArray =
-  | Array<ApplicationStatus>
-  | Array<InterviewStatus>
-  | Array<OfferStatus>
-  | Array<ResponseStatus>
-  | Array<FinalDestinationStatus>;
-
-/**
- * TODO
- *
- * @param statusList
- * @param statusUuid
- * @returns {boolean}
- */
-const isStatusInList = (statusList: ApplicationStatusUnionArray, statusUuid: string): boolean => {
-  return statusList.some((element) => element.uuid === statusUuid);
 };
 
 /**
@@ -297,67 +188,36 @@ export const useHandleFieldDisableStatus = (
   });
 
   const onPageLoadValidation = () => {
-    const plannedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === ApplicationStatus.PLANNED;
-      },
-    )[0];
-    const withdrawnStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === ApplicationStatus.WITHDRAWN;
-      },
-    )[0];
-
     // If ApplicationStatus is set either to 'Planned' or 'Withdrawn', all fields are disabled.
-    if (plannedStatus?.uuid || withdrawnStatus?.uuid) {
-      if (
-        application.applicationStatus.name === plannedStatus?.name ||
-        updatedData?.applicationStatus.name === plannedStatus?.name ||
-        application.applicationStatus.name === withdrawnStatus?.name ||
-        updatedData?.applicationStatus.name === withdrawnStatus?.name
-      ) {
-        setFieldsReadOnlyStatus({
-          ...fieldsReadOnlyStatus,
-          isInterviewStatusReadOnly: true,
-          isOfferStatusReadOnly: true,
-          isResponseStatusReadOnly: true,
-          isFinalDestinationStatusReadOnly: true,
-        });
-      }
+    if (
+      application.applicationStatus === ApplicationStatus.PLANNED ||
+      updatedData?.applicationStatus === ApplicationStatus.PLANNED ||
+      application.applicationStatus === ApplicationStatus.WITHDRAWN ||
+      updatedData?.applicationStatus === ApplicationStatus.WITHDRAWN
+    ) {
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isInterviewStatusReadOnly: true,
+        isOfferStatusReadOnly: true,
+        isResponseStatusReadOnly: true,
+        isFinalDestinationStatusReadOnly: true,
+      });
     }
 
-    const submittedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === ApplicationStatus.SUBMITTED;
-      },
-    )[0];
-
-    // If ApplicationStatus is set to 'Submitted', all fields are validated based on their internal validation rules.
-    if (submittedStatus?.uuid) {
-      if (
-        application.applicationStatus.name === submittedStatus.name ||
-        updatedData?.applicationStatus.name === submittedStatus.name
-      ) {
-        setFieldsReadOnlyStatus({
-          isApplicationStatusReadOnly: false,
-          isInterviewStatusReadOnly: pageLoadValidationService.validateInterviewStatus(
-            application,
-            updatedData,
-            selectOptions,
-          ),
-          isOfferStatusReadOnly: pageLoadValidationService.validateOfferStatus(application, updatedData, selectOptions),
-          isResponseStatusReadOnly: pageLoadValidationService.validateResponseStatus(
-            application,
-            updatedData,
-            selectOptions,
-          ),
-          isFinalDestinationStatusReadOnly: pageLoadValidationService.validateFinalDestinationStatus(
-            application,
-            updatedData,
-            selectOptions,
-          ),
-        });
-      }
+    if (
+      application.applicationStatus === ApplicationStatus.SUBMITTED ||
+      updatedData?.applicationStatus === ApplicationStatus.SUBMITTED
+    ) {
+      setFieldsReadOnlyStatus({
+        isApplicationStatusReadOnly: false,
+        isInterviewStatusReadOnly: pageLoadValidationService.validateInterviewStatus(application, updatedData),
+        isOfferStatusReadOnly: pageLoadValidationService.validateOfferStatus(application, updatedData),
+        isResponseStatusReadOnly: pageLoadValidationService.validateResponseStatus(application, updatedData),
+        isFinalDestinationStatusReadOnly: pageLoadValidationService.validateFinalDestinationStatus(
+          application,
+          updatedData,
+        ),
+      });
     }
   };
 
@@ -365,23 +225,9 @@ export const useHandleFieldDisableStatus = (
   const updateInterviewStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
     const eventTargetValue = event.target.value;
 
-    const plannedStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === ApplicationStatus.PLANNED;
-      },
-    )[0];
-    const withdrawnStatus: ApplicationStatus | undefined = selectOptions.applicationStatus?.filter(
-      (element: ApplicationStatus) => {
-        return element.name === ApplicationStatus.WITHDRAWN;
-      },
-    )[0];
-
     // If ApplicationStatus is set either to 'Planned' or 'Withdrawn', the following fields are disabled.
     // If ApplicationStatus is set to 'Submitted', InterviewStatus is activated.
-    if (
-      (plannedStatus && eventTargetValue === plannedStatus.uuid) ||
-      (withdrawnStatus && eventTargetValue === withdrawnStatus.uuid)
-    ) {
+    if (eventTargetValue === ApplicationStatus.PLANNED || eventTargetValue === ApplicationStatus.WITHDRAWN) {
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
         isInterviewStatusReadOnly: true,
@@ -393,16 +239,11 @@ export const useHandleFieldDisableStatus = (
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
         isInterviewStatusReadOnly: false,
-        isOfferStatusReadOnly: pageLoadValidationService.validateOfferStatus(application, updatedData, selectOptions),
-        isResponseStatusReadOnly: pageLoadValidationService.validateResponseStatus(
-          application,
-          updatedData,
-          selectOptions,
-        ),
+        isOfferStatusReadOnly: pageLoadValidationService.validateOfferStatus(application, updatedData),
+        isResponseStatusReadOnly: pageLoadValidationService.validateResponseStatus(application, updatedData),
         isFinalDestinationStatusReadOnly: pageLoadValidationService.validateFinalDestinationStatus(
           application,
           updatedData,
-          selectOptions,
         ),
       });
     }
@@ -412,28 +253,20 @@ export const useHandleFieldDisableStatus = (
   const updateOfferStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
     const eventTargetValue = event.target.value;
 
-    const invitedStatuses: Array<OfferStatus> | undefined = selectOptions.interviewStatus?.filter(
-      (element: InterviewStatus) => {
-        return element.name !== InterviewStatus.NOT_INVITED;
-      },
-    );
-
     // If InterviewStatus is set to 'Invited' or 'No interview', OfferStatus is activated.
     // If InterviewStatus is set to 'Not invited', the following fields are disabled.
-    if (invitedStatuses) {
-      if (isStatusInList(invitedStatuses, eventTargetValue)) {
-        setFieldsReadOnlyStatus({
-          ...fieldsReadOnlyStatus,
-          isOfferStatusReadOnly: false,
-        });
-      } else {
-        setFieldsReadOnlyStatus({
-          ...fieldsReadOnlyStatus,
-          isOfferStatusReadOnly: true,
-          isResponseStatusReadOnly: true,
-          isFinalDestinationStatusReadOnly: true,
-        });
-      }
+    if (eventTargetValue === InterviewStatus.INVITED || eventTargetValue === InterviewStatus.NO_INTERVIEW) {
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isOfferStatusReadOnly: false,
+      });
+    } else {
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isOfferStatusReadOnly: true,
+        isResponseStatusReadOnly: true,
+        isFinalDestinationStatusReadOnly: true,
+      });
     }
   };
 
@@ -441,28 +274,24 @@ export const useHandleFieldDisableStatus = (
   const updateResponseStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
     const eventTargetValue = event.target.value;
 
-    const positiveResponseStatuses: Array<ResponseStatus> | undefined = selectOptions.offerStatus?.filter(
-      (element: OfferStatus) => {
-        return element.name !== OfferStatus.REJECTED;
-      },
-    );
-
     // If OfferStatus is set to 'Conditional', 'Deferred' or 'Unconditional', ResponseStatus is activated.
     // If OfferStatus is set to 'Rejected', the following fields are disabled.
-    if (positiveResponseStatuses) {
-      if (isStatusInList(positiveResponseStatuses, eventTargetValue)) {
-        setFieldsReadOnlyStatus({
-          ...fieldsReadOnlyStatus,
-          isResponseStatusReadOnly: false,
-          isFinalDestinationStatusReadOnly: false,
-        });
-      } else {
-        setFieldsReadOnlyStatus({
-          ...fieldsReadOnlyStatus,
-          isResponseStatusReadOnly: true,
-          isFinalDestinationStatusReadOnly: true,
-        });
-      }
+    if (
+      eventTargetValue === OfferStatus.CONDITIONAL ||
+      eventTargetValue === OfferStatus.DEFERRED ||
+      eventTargetValue === OfferStatus.UNCONDITIONAL
+    ) {
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isResponseStatusReadOnly: false,
+        isFinalDestinationStatusReadOnly: false,
+      });
+    } else {
+      setFieldsReadOnlyStatus({
+        ...fieldsReadOnlyStatus,
+        isResponseStatusReadOnly: true,
+        isFinalDestinationStatusReadOnly: true,
+      });
     }
   };
 
@@ -470,14 +299,8 @@ export const useHandleFieldDisableStatus = (
   const updateFinalDestinationStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
     const eventTargetValue = event.target.value;
 
-    const offerDeclinedStatus: ResponseStatus | undefined = selectOptions.responseStatus?.filter(
-      (element: ResponseStatus) => {
-        return element.name === ResponseStatus.OFFER_DECLINED;
-      },
-    )[0];
-
     // If OfferStatus is set to 'Offer Declined', the following fields are disabled.
-    if (offerDeclinedStatus && eventTargetValue === offerDeclinedStatus.uuid) {
+    if (eventTargetValue === ResponseStatus.OFFER_DECLINED) {
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
         isFinalDestinationStatusReadOnly: true,

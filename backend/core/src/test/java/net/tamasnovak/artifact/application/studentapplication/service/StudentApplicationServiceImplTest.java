@@ -25,19 +25,16 @@ import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 import net.tamasnovak.artifact.application.studentapplication.dto.CreateApplicationByStudentPayload;
 import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.service.ApplicationStatusService;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.service.InterviewStatusService;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.service.OfferStatusService;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
 import net.tamasnovak.artifact.common.constants.GlobalServiceMessages;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.country.service.CountryService;
 import net.tamasnovak.artifact.support.university.entity.University;
 import net.tamasnovak.artifact.support.university.service.UniversityService;
+import net.tamasnovak.enums.status.ApplicationStatus;
+import net.tamasnovak.enums.status.FinalDestinationStatus;
+import net.tamasnovak.enums.status.InterviewStatus;
+import net.tamasnovak.enums.status.OfferStatus;
+import net.tamasnovak.enums.status.ResponseStatus;
 import net.tamasnovak.validation.applicationfieldvalidator.ExistingApplicationValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -53,7 +50,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -73,21 +69,6 @@ class StudentApplicationServiceImplTest {
 
   @Mock
   ApplicationService applicationService;
-
-  @Mock
-  ApplicationStatusService applicationStatusService;
-
-  @Mock
-  InterviewStatusService interviewStatusService;
-
-  @Mock
-  OfferStatusService offerStatusService;
-
-  @Mock
-  ResponseStatusService responseStatusService;
-
-  @Mock
-  FinalDestinationStatusService finalDestinationStatusService;
 
   @Mock
   ApplicationRepository applicationRepository;
@@ -169,20 +150,12 @@ class StudentApplicationServiceImplTest {
     @Description("Returns a StudentDashboardData instance.")
     void shouldReturnStudentDashboardData() {
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(applicationStatusService.findStatusByName(anyString())).thenReturn(mock(ApplicationStatus.class));
-      when(responseStatusService.findStatusByName(anyString())).thenReturn(mock(ResponseStatus.class));
-      when(finalDestinationStatusService.findStatusByName(anyString())).thenReturn(mock(FinalDestinationStatus.class));
 
       StudentDashboardDetails expected = new StudentDashboardDetails(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
       StudentDashboardDetails actual = underTest.findStudentDashboardDataByAccount(mockAccount);
 
       assertEquals(expected, actual);
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
-      verify(applicationStatusService, times(3)).findStatusByName(anyString());
-      verify(responseStatusService, times(1)).findStatusByName(anyString());
-      verify(finalDestinationStatusService, times(2)).findStatusByName(anyString());
     }
   }
 
@@ -191,7 +164,6 @@ class StudentApplicationServiceImplTest {
   class CreateApplicationUnitTests {
     Country mockCountry = mock(Country.class);
     University mockUniversity = mock(University.class);
-    ApplicationStatus mockApplicationStatus = mock(ApplicationStatus.class);
     CreateApplicationByStudentPayload requestBody = mock(CreateApplicationByStudentPayload.class);
 
     @Test
@@ -210,7 +182,6 @@ class StudentApplicationServiceImplTest {
       when(countryService.findCountryByUuid(countryUuid)).thenReturn(mockCountry);
       when(universityService.findUniversityByUuid(universityUuid)).thenReturn(mockUniversity);
       when(studentService.findStudentByAccount(mockAccount)).thenReturn(mockStudent);
-      when(applicationStatusService.findStatusByName("Planned")).thenReturn(mockApplicationStatus);
 
       when(applicationRepository.save(any(Application.class))).thenReturn(mockApplication);
       when(mockApplication.getUuid()).thenReturn(applicationUuid);
@@ -222,7 +193,6 @@ class StudentApplicationServiceImplTest {
       verify(countryService, times(1)).findCountryByUuid(countryUuid);
       verify(universityService, times(1)).findUniversityByUuid(universityUuid);
       verify(studentService, times(1)).findStudentByAccount(mockAccount);
-      verify(applicationStatusService, times(1)).findStatusByName("Planned");
       verify(applicationService, times(1)).createApplicationData(applicationUuid);
     }
 
@@ -259,20 +229,15 @@ class StudentApplicationServiceImplTest {
   @DisplayName("updateApplicationAndFetchByUuid() unit tests")
   class UpdateApplicationAndFetchByUuidUnitTests {
     @Test
-    @Description("Updates an Application record and returns its ApplicationView projection.")
+    @Description("Updates an Application and returns its ApplicationView projection.")
     void shouldUpdateApplication_AndReturnApplicationView() {
       UpdateApplicationByStudentPayload requestBody = mock(UpdateApplicationByStudentPayload.class);
-      UUID applicationStatusUuid = UUID.randomUUID();
-      UUID interviewStatusUuid = UUID.randomUUID();
-      UUID offerStatusUuid = UUID.randomUUID();
-      UUID responseStatusUuid = UUID.randomUUID();
-      UUID finalDestinationStatusUuid = UUID.randomUUID();
 
-      when(requestBody.applicationStatusUuid()).thenReturn(applicationStatusUuid.toString());
-      when(requestBody.interviewStatusUuid()).thenReturn(interviewStatusUuid.toString());
-      when(requestBody.offerStatusUuid()).thenReturn(offerStatusUuid.toString());
-      when(requestBody.responseStatusUuid()).thenReturn(responseStatusUuid.toString());
-      when(requestBody.finalDestinationStatusUuid()).thenReturn(finalDestinationStatusUuid.toString());
+      when(requestBody.applicationStatus()).thenReturn(ApplicationStatus.SUBMITTED);
+      when(requestBody.interviewStatus()).thenReturn(InterviewStatus.INVITED);
+      when(requestBody.offerStatus()).thenReturn(OfferStatus.UNCONDITIONAL);
+      when(requestBody.responseStatus()).thenReturn(ResponseStatus.FIRM_CHOICE);
+      when(requestBody.finalDestinationStatus()).thenReturn(FinalDestinationStatus.FINAL_DESTINATION);
 
       Application mockApplication = mock(Application.class);
       when(applicationService.findApplicationByUuid(applicationUuid)).thenReturn(mockApplication);

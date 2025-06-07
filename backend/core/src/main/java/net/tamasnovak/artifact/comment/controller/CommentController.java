@@ -54,7 +54,7 @@ public class CommentController {
    */
   @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CommentPaginationResponse> findPaginatedListByApplicationUuid(
-    @PathVariable("applicationUuid") @ValidUuid final String applicationUuid, @RequestParam final int currentPage) {
+    @PathVariable("applicationUuid") @ValidUuid final String applicationUuid, @RequestParam(defaultValue = "0") final int currentPage) {
     final CommentPaginationResponse response = commentService.findAllCommentsByApplicationUuid(UUID.fromString(applicationUuid),
       currentPage);
 

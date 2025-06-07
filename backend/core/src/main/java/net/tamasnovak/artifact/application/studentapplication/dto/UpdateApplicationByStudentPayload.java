@@ -9,36 +9,31 @@ package net.tamasnovak.artifact.application.studentapplication.dto;
 import jakarta.validation.constraints.NotNull;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.entity.Application;
-import net.tamasnovak.validation.annotations.optionalvaliduuid.OptionalValidUuid;
+import net.tamasnovak.enums.status.ApplicationStatus;
+import net.tamasnovak.enums.status.FinalDestinationStatus;
+import net.tamasnovak.enums.status.InterviewStatus;
+import net.tamasnovak.enums.status.OfferStatus;
+import net.tamasnovak.enums.status.ResponseStatus;
 
 /**
  * Represents the details of an updated {@link Application} submitted by a {@link Student} authenticated user.
  *
- * @param applicationStatusUuid The ApplicationStatus uuid.
- * @param interviewStatusUuid The InterviewStatus uuid, if any, otherwise null.
- * @param offerStatusUuid The OfferStatus uuid, if any, otherwise null.
- * @param responseStatusUuid The ResponseStatus uuid, if any, otherwise null.
- * @param finalDestinationStatusUuid The FinalDestinationStatus uuid, if any, otherwise null.
+ * @param applicationStatus
+ * @param interviewStatus
+ * @param offerStatus
+ * @param responseStatus
+ * @param finalDestinationStatus
  */
 public record UpdateApplicationByStudentPayload(
-  @NotNull(message = "Select a status.")
-  @OptionalValidUuid(message = "Select a valid status.")
-  String applicationStatusUuid,
+  @NotNull(message = "Application status cannot be null.")
+  ApplicationStatus applicationStatus,
 
-  @NotNull(message = "Select a status.")
-  @OptionalValidUuid(message = "Select a valid status.")
-  String interviewStatusUuid,
+  InterviewStatus interviewStatus,
 
-  @NotNull(message = "Select a status.")
-  @OptionalValidUuid(message = "Select a valid status.")
-  String offerStatusUuid,
+  OfferStatus offerStatus,
 
-  @NotNull(message = "Select a status.")
-  @OptionalValidUuid(message = "Select a valid status.")
-  String responseStatusUuid,
+  ResponseStatus responseStatus,
 
-  @NotNull(message = "Select a status.")
-  @OptionalValidUuid(message = "Select a valid status.")
-  String finalDestinationStatusUuid
+  FinalDestinationStatus finalDestinationStatus
 ) {
 }

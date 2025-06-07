@@ -15,7 +15,7 @@ import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
 
 /**
- * Represents an {@link Application} object. This is the one of the central objects that the frontend application uses on
+ * Represents an {@link Application} object. This is one of the central objects that the frontend application uses on
  * application-related display and edit pages.
  *
  * @param uuid The application's uuid.
@@ -25,11 +25,11 @@ import net.tamasnovak.artifact.application.common.persistence.ApplicationView;
  * @param courseName The application's course name.
  * @param minorSubject The application's minor subject.
  * @param programmeLength The application's programme length.
- * @param applicationStatus The application's ApplicationStatus object containing the status's name and uuid.
- * @param interviewStatus The application's InterviewStatus object containing the status's name and uuid.
- * @param offerStatus The application's OfferStatus object containing the status's name and uuid.
- * @param responseStatus The application's ResponseStatus object containing the status's name and uuid.
- * @param finalDestinationStatus The application's FinalDestinationStatus object containing the status's name and uuid.
+ * @param applicationStatus The application's ApplicationStatus name (as a String).
+ * @param interviewStatus The application's InterviewStatus name (as a String).
+ * @param offerStatus The application's OfferStatus name (as a String).
+ * @param responseStatus The application's ResponseStatus name (as a String).
+ * @param finalDestinationStatus The application's FinalDestinationStatus name (as a String).
  * @param createdAt The application's creation timestamp.
  * @param lastUpdatedAt The application's last update timestamp.
  * @param createdBy The account's name that created the application.
@@ -51,15 +51,15 @@ public record ApplicationData(
 
   Integer programmeLength,
 
-  ApplicationStatusView applicationStatus,
+  String applicationStatus,
 
-  ApplicationStatusView interviewStatus,
+  String interviewStatus,
 
-  ApplicationStatusView offerStatus,
+  String offerStatus,
 
-  ApplicationStatusView responseStatus,
+  String responseStatus,
 
-  ApplicationStatusView finalDestinationStatus,
+  String finalDestinationStatus,
 
   Timestamp createdAt,
 
@@ -83,27 +83,16 @@ public record ApplicationData(
       applicationView.getCourseName(),
       applicationView.getMinorSubject(),
       applicationView.getProgrammeLength(),
-      toStatusView(applicationView.getApplicationStatusUuid(), applicationView.getApplicationStatusName()),
-      toStatusView(applicationView.getInterviewStatusUuid(), applicationView.getInterviewStatusName()),
-      toStatusView(applicationView.getOfferStatusUuid(), applicationView.getOfferStatusName()),
-      toStatusView(applicationView.getResponseStatusUuid(), applicationView.getResponseStatusName()),
-      toStatusView(applicationView.getFinalDestinationStatusUuid(), applicationView.getFinalDestinationStatusName()),
+      applicationView.getApplicationStatus(),
+      applicationView.getInterviewStatus(),
+      applicationView.getOfferStatus(),
+      applicationView.getResponseStatus(),
+      applicationView.getFinalDestinationStatus(),
       Timestamp.from(applicationView.getCreatedAt()),
       Timestamp.from(applicationView.getLastUpdatedAt()),
       applicationView.getCreatedBy(),
       applicationView.getLastModifiedBy(),
       applicationView.getIsRemovable()
     );
-  }
-
-  /**
-   * Creates {@link ApplicationStatusView} instances.
-   *
-   * @param uuid The instance's uuid.
-   * @param name The instance's name.
-   * @return {@link ApplicationStatusView}.
-   */
-  private static ApplicationStatusView toStatusView(UUID uuid, String name) {
-    return new ApplicationStatusView(uuid, name);
   }
 }
