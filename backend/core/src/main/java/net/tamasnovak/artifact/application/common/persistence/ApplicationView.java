@@ -30,25 +30,15 @@ public interface ApplicationView {
 
   Integer getProgrammeLength();
 
-  UUID getApplicationStatusUuid();
+  String getApplicationStatus();
 
-  String getApplicationStatusName();
+  String getInterviewStatus();
 
-  UUID getInterviewStatusUuid();
+  String getOfferStatus();
 
-  String getInterviewStatusName();
+  String getResponseStatus();
 
-  UUID getOfferStatusUuid();
-
-  String getOfferStatusName();
-
-  UUID getResponseStatusUuid();
-
-  String getResponseStatusName();
-
-  UUID getFinalDestinationStatusUuid();
-
-  String getFinalDestinationStatusName();
+  String getFinalDestinationStatus();
 
   Instant getCreatedAt();
 

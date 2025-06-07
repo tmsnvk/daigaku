@@ -13,18 +13,13 @@ import java.util.UUID;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.service.FinalDestinationStatusService;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.service.ResponseStatusService;
-import net.tamasnovak.enums.status.FinalDestinationStatusE;
-import net.tamasnovak.enums.status.ResponseStatusE;
+import net.tamasnovak.enums.status.ApplicationStatus;
+import net.tamasnovak.enums.status.FinalDestinationStatus;
+import net.tamasnovak.enums.status.InterviewStatus;
+import net.tamasnovak.enums.status.OfferStatus;
+import net.tamasnovak.enums.status.ResponseStatus;
 import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationException;
 import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationExceptionMessages;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,23 +27,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ExistingApplicationValidatorImpl implements ExistingApplicationValidator {
-  private final ResponseStatusService responseStatusService;
-  private final FinalDestinationStatusService finalDestinationStatusService;
-
-  @Autowired
-  public ExistingApplicationValidatorImpl(
-    ResponseStatusService responseStatusService,
-    FinalDestinationStatusService finalDestinationStatusService) {
-    this.responseStatusService = responseStatusService;
-    this.finalDestinationStatusService = finalDestinationStatusService;
-  }
-
   @Override
   public void validateApplication(
     UpdateApplicationByStudentPayload newApplicationData, Application currentApplication, Student currentStudent,
     ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus,
     ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
-    validateApplicationStatus(currentApplication, newApplicationData.applicationStatusUuid(), newApplicationStatus);
+    validateApplicationStatus(currentApplication, newApplicationData.applicationStatus());
     validateResponseStatus(currentApplication, currentStudent, newApplicationData, newResponseStatus);
     validateFinalDestinationStatus(currentApplication, currentStudent, newFinalDestinationStatus);
   }
@@ -57,13 +41,10 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
    * TODO
    *
    * @param currentApplication
-   * @param newApplicationStatusUuid
    * @param newApplicationStatus
    */
-  private void validateApplicationStatus(
-    Application currentApplication, String newApplicationStatusUuid,
-    ApplicationStatus newApplicationStatus) {
-    if (newApplicationStatusUuid.isEmpty() && currentApplication.isApplicationStatusNull()) {
+  private void validateApplicationStatus(Application currentApplication, ApplicationStatus newApplicationStatus) {
+    if (newApplicationStatus == null && currentApplication.isApplicationStatusBlank()) {
       throw new FormValidationException(FormValidationExceptionMessages.MISSING_APPLICATION_STATUS);
     }
   }
@@ -79,16 +60,13 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   private void validateResponseStatus(
     Application currentApplication, Student currentStudent, UpdateApplicationByStudentPayload newApplicationData,
     ResponseStatus newResponseStatus) {
-    ResponseStatus declined = responseStatusService.findStatusByName(ResponseStatusE.OFFER_DECLINED.getValue());
-    final String firmChoiceStatusName = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue()).getName();
+    ResponseStatus declined = ResponseStatus.OFFER_DECLINED;
 
     if (newResponseStatus != null) {
-      ResponseStatus firmChoice = responseStatusService.findStatusByName(ResponseStatusE.FIRM_CHOICE.getValue());
-      Optional<Application> firmChoiceApplication = currentStudent.findFirmChoiceApplication(firmChoiceStatusName);
+      Optional<Application> firmChoiceApplication = currentStudent.findFirmChoiceApplication();
 
-      if (firmChoiceApplication.isPresent()
-        && !areValuesEqual(currentApplication.getUuid(), firmChoiceApplication.get().getUuid())
-        && areValuesEqual(newResponseStatus.getUuid(), firmChoice.getUuid())) {
+      if (firmChoiceApplication.isPresent() && !areValuesEqual(currentApplication.getUuid(),
+        firmChoiceApplication.get().getUuid()) && newResponseStatus == ResponseStatus.FIRM_CHOICE) {
         throw new FormValidationException(FormValidationExceptionMessages.FIRM_CHOICE_ERROR);
       }
     }
@@ -104,23 +82,10 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
   private void validateFinalDestinationStatus(
     Application currentApplication, Student currentStudent, FinalDestinationStatus newFinalDestinationStatus) {
     if (newFinalDestinationStatus != null) {
-      String finalDestination = finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.FINAL_DESTINATION.getValue())
-                                                             .getName();
-      String deferredFinalDestination = finalDestinationStatusService.findStatusByName(
-        FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
-      FinalDestinationStatus notFinalDestination = finalDestinationStatusService.findStatusByName(
-        FinalDestinationStatusE.NOT_FINAL_DESTINATION.getValue());
-      final String finalDestinationStatusName =
-        finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.FINAL_DESTINATION.getValue()).getName();
-      final String deferredFinalDestinationStatusName =
-        finalDestinationStatusService.findStatusByName(FinalDestinationStatusE.DEFERRED_FINAL_DESTINATION.getValue()).getName();
+      Optional<Application> finalDestinationApplication = currentStudent.findFinalDestinationApplication();
 
-      Optional<Application> finalDestinationApplication = currentStudent.findFinalDestinationApplication(finalDestinationStatusName,
-        deferredFinalDestinationStatusName);
-
-      if (finalDestinationApplication.isPresent()
-        && !areValuesEqual(currentApplication.getUuid(), finalDestinationApplication.get().getUuid())
-        && !areValuesEqual(newFinalDestinationStatus.getUuid(), notFinalDestination.getUuid())) {
+      if (finalDestinationApplication.isPresent() && !areValuesEqual(currentApplication.getUuid(),
+        finalDestinationApplication.get().getUuid()) && newFinalDestinationStatus != FinalDestinationStatus.NOT_FINAL_DESTINATION) {
         throw new FormValidationException(FormValidationExceptionMessages.FINAL_DESTINATION_ERROR);
       }
     }

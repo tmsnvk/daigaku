@@ -14,11 +14,18 @@ import { CoreLink } from '@daigaku/components/core';
 
 /* configuration, utilities, constants imports */
 import { iconLibrary } from '@daigaku/constants';
-import { joinTw } from '@daigaku/utilities';
+import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities.ts';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord } from '@daigaku/common-types';
+import {
+  Application,
+  ApplicationStatusTranslations,
+  FinalDestinationStatusTranslations,
+  InterviewStatusTranslations,
+  OfferStatusTranslations,
+  ResponseStatusTranslations,
+} from '@daigaku/common-types';
 import { Column } from '../../common/types.ts';
 
 /**
@@ -33,7 +40,7 @@ interface DataRowsProps {
   /**
    * An array of application records to be displayed in the table rows.
    */
-  readonly applications: Array<ApplicationRecord>;
+  readonly applications: Array<Application>;
 }
 
 /**
@@ -44,7 +51,7 @@ interface DataRowsProps {
 export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.Element> => {
   const { t } = useTranslation();
 
-  return applications.map((application: ApplicationRecord, index: number) => {
+  return applications.map((application: Application, index: number) => {
     const isLastRow: boolean = index === applications.length - 1;
 
     return (
@@ -64,19 +71,19 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         <td className={isColumnVisible(columns, 'country') ? '' : 'hidden'}>{application.country}</td>
         <td className={isColumnVisible(columns, 'programmeLength') ? '' : 'hidden'}>{application.programmeLength}</td>
         <td className={isColumnVisible(columns, 'applicationStatus') ? '' : 'hidden'}>
-          {application.applicationStatus.name ?? '-'}
+          {getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'interviewStatus') ? '' : 'hidden'}>
-          {application.interviewStatus?.name ?? '-'}
+          {getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'offerStatus') ? '' : 'hidden'}>
-          {application.offerStatus?.name ?? '-'}
+          {getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'responseStatus') ? '' : 'hidden'}>
-          {application.responseStatus?.name ?? '-'}
+          {getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ?? '-'}
         </td>
         <td className={isColumnVisible(columns, 'finalDestinationStatus') ? '' : 'hidden'}>
-          {application.finalDestinationStatus?.name ?? '-'}
+          {getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ?? '-'}
         </td>
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
           <CoreLink

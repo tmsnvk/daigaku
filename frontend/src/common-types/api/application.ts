@@ -1,0 +1,145 @@
+/**
+ * Copyright © [Daigaku].
+ *
+ * @author tmsnvk
+ */
+
+/* interface, type, enum, schema imports */
+import { CoreMetadata } from '../core/core-metada.ts';
+import {
+  ApplicationStatusKey,
+  FinalDestinationStatusKey,
+  InterviewStatusKey,
+  OfferStatusKey,
+  ResponseStatusKey,
+} from '../application/application-status.ts';
+
+/**
+ * Defines the properties of an Application.
+ */
+export interface Application extends CoreMetadata {
+  /**
+   * The Application's uuid string.
+   */
+  readonly uuid: string;
+
+  /**
+   * The uuid string of the account associated with the Application.
+   */
+  readonly accountUuid: string;
+
+  /**
+   * The Application's country uuid string.
+   */
+  readonly country: string;
+
+  /**
+   * The Application's university uuid string.
+   */
+  readonly university: string;
+
+  /**
+   * The Application's course.
+   */
+  readonly courseName: string;
+
+  /**
+   * The Application's minor course.
+   */
+  readonly minorSubject: string;
+
+  /**
+   * The Application's programme length.
+   */
+  readonly programmeLength: number;
+
+  /**
+   * The Application's current ApplicationStatus.
+   */
+  readonly applicationStatus: ApplicationStatusKey;
+
+  /**
+   * The Application's current InterviewStatus.
+   */
+  readonly interviewStatus: InterviewStatusKey | null;
+
+  /**
+   * The Application's current OfferStatus.
+   */
+  readonly offerStatus: OfferStatusKey | null;
+
+  /**
+   * The Application's current ResponseStatus.
+   */
+  readonly responseStatus: ResponseStatusKey | null;
+
+  /**
+   * The Application's current FinalDestinationStatus.
+   */
+  readonly finalDestinationStatus: FinalDestinationStatusKey | null;
+
+  /**
+   * The boolean indicating whether the owner marked the Application obsolete and ready for deletion.
+   */
+  isRemovable: boolean;
+}
+
+/**
+ * Defines the structure of a new Application to be submitted by Student authenticated users.
+ */
+export interface CreateApplicationByStudentPayload {
+  /**
+   * The Application's country uuid string.
+   */
+  readonly countryUuid: string;
+
+  /**
+   * The Application's university uuid string.
+   */
+  readonly universityUuid: string;
+
+  /**
+   * The Application's course name.
+   */
+  readonly courseName: string;
+
+  /**
+   * The Application's minor course name.
+   */
+  readonly minorSubject: string;
+
+  /**
+   * The length of the Application's course.
+   */
+  readonly programmeLength: number;
+}
+
+/**
+ * Defines the structure of an Application update to be submitted by Student authenticated users.
+ */
+export interface UpdateApplicationByStudentPayload {
+  /**
+   * The Application's ApplicationStatus status.
+   */
+  applicationStatus: ApplicationStatusKey;
+
+  /**
+   * The Application's InterviewStatus status.
+   */
+  interviewStatus: InterviewStatusKey | null;
+
+  /**
+   * The Application's OfferStatus status.
+   */
+  offerStatus: OfferStatusKey | null;
+
+  /**
+   * The Application's ResponseStatus status.
+   */
+  responseStatus: ResponseStatusKey | null;
+
+  /**
+   * The Application's FinalDestination status.
+   */
+  finalDestinationStatus: FinalDestinationStatusKey | null;
+}

@@ -22,7 +22,6 @@ import {
   PasswordInputGroup,
 } from '@daigaku/components/form';
 
-
 /* configuration, utilities, constants imports */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formTypeButtonLabel } from '../../common/constants.ts';

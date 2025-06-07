@@ -8,13 +8,14 @@ package net.tamasnovak.artifact.application.common.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -25,16 +26,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
-import net.tamasnovak.artifact.applicationstatus.applicationstatus.entity.ApplicationStatus;
-import net.tamasnovak.artifact.applicationstatus.finaldestinationstatus.entity.FinalDestinationStatus;
-import net.tamasnovak.artifact.applicationstatus.interviewstatus.entity.InterviewStatus;
-import net.tamasnovak.artifact.applicationstatus.offerstatus.entity.OfferStatus;
-import net.tamasnovak.artifact.applicationstatus.responsestatus.entity.ResponseStatus;
 import net.tamasnovak.artifact.comment.entity.Comment;
 import net.tamasnovak.artifact.common.entity.audit.Auditable;
 import net.tamasnovak.artifact.support.country.entity.Country;
 import net.tamasnovak.artifact.support.university.entity.University;
-import net.tamasnovak.utils.StringUtils;
+import net.tamasnovak.enums.status.ApplicationStatus;
+import net.tamasnovak.enums.status.FinalDestinationStatus;
+import net.tamasnovak.enums.status.InterviewStatus;
+import net.tamasnovak.enums.status.OfferStatus;
+import net.tamasnovak.enums.status.ResponseStatus;
 
 /**
  * Entity class that represents the applications database table.
@@ -74,29 +74,24 @@ public final class Application extends Auditable {
   @Max(value = 5, message = "Programme length should not be more than {value}.")
   private int programmeLength;
 
-  @ManyToOne
-  @JoinColumn(name = "application_status_id")
-  @JsonBackReference(value = "application_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "application_status", nullable = false)
   private ApplicationStatus applicationStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "interview_status_id")
-  @JsonBackReference(value = "interview_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "interview_status")
   private InterviewStatus interviewStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "offer_status_id")
-  @JsonBackReference(value = "offer_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "offer_status")
   private OfferStatus offerStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "response_status_id")
-  @JsonBackReference(value = "response_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "response_status")
   private ResponseStatus responseStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "final_destination_status_id")
-  @JsonBackReference(value = "final_destination_status-application_reference")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "final_destination_status")
   private FinalDestinationStatus finalDestinationStatus;
 
   @Column(name = "is_removable")
@@ -153,6 +148,26 @@ public final class Application extends Auditable {
     return this.courseName;
   }
 
+  public ApplicationStatus getApplicationStatus() {
+    return this.applicationStatus;
+  }
+
+  public InterviewStatus getInterviewStatus() {
+    return this.interviewStatus;
+  }
+
+  public OfferStatus getOfferStatus() {
+    return this.offerStatus;
+  }
+
+  public ResponseStatus getResponseStatus() {
+    return this.responseStatus;
+  }
+
+  public FinalDestinationStatus getFinalDestinationStatus() {
+    return this.finalDestinationStatus;
+  }
+
   /**
    * Fetches the {@link Student} account's uuid that is associated with the application.
    *
@@ -185,7 +200,7 @@ public final class Application extends Auditable {
    *
    * @return boolean.
    */
-  public boolean isApplicationStatusNull() {
+  public boolean isApplicationStatusBlank() {
     return this.applicationStatus == null;
   }
 
@@ -194,7 +209,7 @@ public final class Application extends Auditable {
    *
    * @return boolean.
    */
-  public boolean isInterviewStatusNull() {
+  public boolean isInterviewStatusBlank() {
     return this.interviewStatus == null;
   }
 
@@ -203,7 +218,7 @@ public final class Application extends Auditable {
    *
    * @return boolean.
    */
-  public boolean isOfferStatusNull() {
+  public boolean isOfferStatusBlank() {
     return this.offerStatus == null;
   }
 
@@ -212,7 +227,7 @@ public final class Application extends Auditable {
    *
    * @return boolean.
    */
-  public boolean isResponseStatusNull() {
+  public boolean isResponseStatusBlank() {
     return this.responseStatus == null;
   }
 
@@ -221,105 +236,8 @@ public final class Application extends Auditable {
    *
    * @return boolean.
    */
-  public boolean isFinalDestinationNull() {
+  public boolean isFinalDestinationBlank() {
     return this.finalDestinationStatus == null;
-  }
-
-  /**
-   * Fetches the {@link ApplicationStatus}'s name.
-   *
-   * @return The {@link ApplicationStatus}'s name.
-   */
-  public String fetchApplicationStatusName() {
-    return this.applicationStatus.getName();
-  }
-
-  /**
-   * Fetches the {@link ResponseStatus}'s name.
-   *
-   * @return The {@link ResponseStatus}'s name.
-   */
-  public String fetchResponseStatusName() {
-    return this.responseStatus.getName();
-  }
-
-  /**
-   * Fetches the {@link FinalDestinationStatus}'s name.
-   *
-   * @return The {@link FinalDestinationStatus}'s name.
-   */
-  public String fetchFinalDestinationName() {
-    return this.finalDestinationStatus.getName();
-  }
-
-  /**
-   * TODO
-   *
-   * @param statusUuid
-   * @return
-   */
-  public ApplicationStatus returnApplicationStatusIfSame(final UUID statusUuid) {
-    if (!this.isApplicationStatusNull() && areValuesEqual(this.applicationStatus.getUuid(), statusUuid)) {
-      return this.applicationStatus;
-    }
-
-    return null;
-  }
-
-  /**
-   * TODO
-   *
-   * @param statusUuid
-   * @return
-   */
-  public InterviewStatus returnInterviewStatusIfSame(final UUID statusUuid) {
-    if (!this.isInterviewStatusNull() && areValuesEqual(this.interviewStatus.getUuid(), statusUuid)) {
-      return this.interviewStatus;
-    }
-
-    return null;
-  }
-
-  /**
-   * TODO
-   *
-   * @param statusUuid
-   * @return
-   */
-  public OfferStatus returnOfferStatusIfSame(final UUID statusUuid) {
-    if (!this.isOfferStatusNull() && areValuesEqual(this.offerStatus.getUuid(), statusUuid)) {
-      return this.offerStatus;
-    }
-
-    return null;
-  }
-
-  /**
-   * TODO
-   *
-   * @param statusUuid
-   * @return
-   */
-  public ResponseStatus returnResponseStatusIfSame(final UUID statusUuid) {
-    if (!this.isResponseStatusNull() && areValuesEqual(this.responseStatus.getUuid(), statusUuid)) {
-      return this.responseStatus;
-    }
-
-    return null;
-  }
-
-  /**
-   * TODO
-   *
-   * @param statusUuid
-   * @return
-   */
-  public FinalDestinationStatus returnFinalDestinationStatusIfSame(final UUID statusUuid) {
-    if (!this.isFinalDestinationNull() && areValuesEqual(this.finalDestinationStatus.getUuid(), statusUuid)) {
-      return this.finalDestinationStatus;
-    }
-
-    return null;
   }
 
   /**
@@ -330,23 +248,18 @@ public final class Application extends Auditable {
    * @param offerStatus
    * @param responseStatus
    * @param finalDestinationStatus
-   * @param offerDeclined
-   * @param notFinalDestination
    */
   public void updateStatusFields(
     final ApplicationStatus applicationStatus,
     final InterviewStatus interviewStatus,
     final OfferStatus offerStatus,
     final ResponseStatus responseStatus,
-    final FinalDestinationStatus finalDestinationStatus,
-    final ResponseStatus offerDeclined,
-    final FinalDestinationStatus notFinalDestination) {
+    final FinalDestinationStatus finalDestinationStatus) {
     this.applicationStatus = updateOnlyIfNotNull(applicationStatus, this.applicationStatus);
     this.interviewStatus = updateOnlyIfNotNull(interviewStatus, this.interviewStatus);
     this.offerStatus = updateOnlyIfNotNull(offerStatus, this.offerStatus);
     this.responseStatus = updateOnlyIfNotNull(responseStatus, this.responseStatus);
-    this.finalDestinationStatus = updateFinalDestinationField(responseStatus, finalDestinationStatus, this.finalDestinationStatus,
-      offerDeclined, notFinalDestination);
+    this.finalDestinationStatus = updateFinalDestinationField(responseStatus, finalDestinationStatus, this.finalDestinationStatus);
   }
 
   /**
@@ -355,18 +268,14 @@ public final class Application extends Auditable {
    * @param newResponseStatus
    * @param newFinalDestinationStatus
    * @param currentFinalDestinationStatus
-   * @param offerDeclined
-   * @param notFinalDestination
    * @return
    */
   public FinalDestinationStatus updateFinalDestinationField(
     final ResponseStatus newResponseStatus,
     final FinalDestinationStatus newFinalDestinationStatus,
-    final FinalDestinationStatus currentFinalDestinationStatus,
-    final ResponseStatus offerDeclined,
-    final FinalDestinationStatus notFinalDestination) {
-    if (newResponseStatus != null && StringUtils.validateStringsAreEqual(newResponseStatus.getName(), offerDeclined.getName())) {
-      return notFinalDestination;
+    final FinalDestinationStatus currentFinalDestinationStatus) {
+    if (newResponseStatus == ResponseStatus.OFFER_DECLINED) {
+      return FinalDestinationStatus.NOT_FINAL_DESTINATION;
     }
 
     return updateOnlyIfNotNull(newFinalDestinationStatus, currentFinalDestinationStatus);
@@ -377,25 +286,14 @@ public final class Application extends Auditable {
    *
    * @param newStatus
    * @param currentStatus
-   * @param <T>
+   * @param <TStatus>
    * @return
    */
-  private <T> T updateOnlyIfNotNull(T newStatus, T currentStatus) {
+  private <TStatus> TStatus updateOnlyIfNotNull(TStatus newStatus, TStatus currentStatus) {
     if (newStatus == null) {
       return currentStatus;
     }
 
     return newStatus;
-  }
-
-  /**
-   * TODO
-   *
-   * @param uuid
-   * @param uuidToCheckAgainst
-   * @return
-   */
-  private boolean areValuesEqual(final UUID uuid, final UUID uuidToCheckAgainst) {
-    return Objects.equals(uuid, uuidToCheckAgainst);
   }
 }

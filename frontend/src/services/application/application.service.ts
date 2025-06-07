@@ -9,7 +9,7 @@ import { axiosConfigWithAuth } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord, StudentDashboardStatisticsResponse } from '@daigaku/common-types';
+import { Application, StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 
 /**
  * Defines generic-application operations, handling API requests, and interactions for application management.
@@ -19,27 +19,27 @@ interface ApplicationService {
    * Retrieves a specific application by its uuid.
    *
    * @param uuid The application-record's uuid.
-   * @return {Promise<ApplicationRecord>}
+   * @return {Promise<Application>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
    *   the user does not have a valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findOneByUuid: (uuid: string) => Promise<ApplicationRecord>;
+  findOneByUuid: (uuid: string) => Promise<Application>;
 
   /**
    * Fetches a list of applications accessible based on the user's authorization role.
    *
    * @param accountRole The user's authorization role.
-   * @return {Promise<Array<ApplicationRecord>>}
+   * @return {Promise<Array<Application>>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
    *   the user does not have a valid token.
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findListByAccountRole: (accountRole: string) => Promise<Array<ApplicationRecord>>;
+  findListByAccountRole: (accountRole: string) => Promise<Array<Application>>;
 
   /**
    * Retrieves dashboard statistics relevant to the user's authorization role.
@@ -59,16 +59,16 @@ interface ApplicationService {
  * Manages application-related REST API operations, implementing {@link ApplicationService}.
  */
 export const applicationService: ApplicationService = {
-  findOneByUuid: (uuid: string): Promise<ApplicationRecord> => {
+  findOneByUuid: (uuid: string): Promise<Application> => {
     return apiClientWrapper(() =>
-      axiosConfigWithAuth.request<ApplicationRecord>({
+      axiosConfigWithAuth.request<Application>({
         method: 'GET',
         url: `/api/v1/applications/${uuid}`,
       }));
   },
-  findListByAccountRole: (accountRole: string): Promise<Array<ApplicationRecord>> => {
+  findListByAccountRole: (accountRole: string): Promise<Array<Application>> => {
     return apiClientWrapper(() =>
-      axiosConfigWithAuth.request<Array<ApplicationRecord>>({
+      axiosConfigWithAuth.request<Array<Application>>({
         method: 'GET',
         url: `/api/v1/applications/${accountRole}`,
       }));

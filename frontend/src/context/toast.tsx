@@ -12,7 +12,7 @@ import { match } from 'ts-pattern';
 import { Toast } from '@daigaku/components/notification';
 
 /* configuration, utilities, constants imports */
-import { generateId, joinTw } from '@daigaku/utilities';
+import { generateSimpleId, joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
 import { CreateToast } from '@daigaku/common-types';
@@ -117,7 +117,7 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
   const [toasts, dispatch] = useReducer(toastReducer, initialReducerState);
 
   const createToast = (options: Omit<CreateToast, 'id'>): void => {
-    const id = generateId();
+    const id = generateSimpleId();
     const newToast = { ...options, id, autoRemoveDelay: options.autoRemoveDelay ?? AUTO_REMOVE_DELAY };
 
     dispatch({

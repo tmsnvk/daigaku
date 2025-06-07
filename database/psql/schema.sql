@@ -10,11 +10,6 @@ DROP TABLE IF EXISTS institution_admins CASCADE;
 DROP TABLE IF EXISTS mentors CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
 DROP TABLE IF EXISTS universities CASCADE;
-DROP TABLE IF EXISTS application_status CASCADE;
-DROP TABLE IF EXISTS interview_status CASCADE;
-DROP TABLE IF EXISTS offer_status CASCADE;
-DROP TABLE IF EXISTS response_status CASCADE;
-DROP TABLE IF EXISTS final_destination_status CASCADE;
 DROP TABLE IF EXISTS applications CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 
@@ -126,56 +121,6 @@ CREATE TABLE universities(
   address_id BIGINT REFERENCES addresses(id)
 );
 
-CREATE TABLE application_status(
-  id SERIAL PRIMARY KEY,
-  uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL,
-  last_updated_at TIMESTAMPTZ NOT NULL,
-  created_by VARCHAR NOT NULL,
-  last_modified_by VARCHAR NOT NULL,
-  name VARCHAR NOT NULL
-);
-
-CREATE TABLE interview_status(
-  id SERIAL PRIMARY KEY,
-  uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL,
-  last_updated_at TIMESTAMPTZ NOT NULL,
-  created_by VARCHAR NOT NULL,
-  last_modified_by VARCHAR NOT NULL,
-  name VARCHAR NOT NULL
-);
-
-CREATE TABLE offer_status(
-  id SERIAL PRIMARY KEY,
-  uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL,
-  last_updated_at TIMESTAMPTZ NOT NULL,
-  created_by VARCHAR NOT NULL,
-  last_modified_by VARCHAR NOT NULL,
-  name VARCHAR NOT NULL
-);
-
-CREATE TABLE response_status(
-  id SERIAL PRIMARY KEY,
-  uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL,
-  last_updated_at TIMESTAMPTZ NOT NULL,
-  created_by VARCHAR NOT NULL,
-  last_modified_by VARCHAR NOT NULL,
-  name VARCHAR NOT NULL
-);
-
-CREATE TABLE final_destination_status(
-  id SERIAL PRIMARY KEY,
-  uuid UUID NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL,
-  last_updated_at TIMESTAMPTZ NOT NULL,
-  created_by VARCHAR NOT NULL,
-  last_modified_by VARCHAR NOT NULL,
-  name VARCHAR NOT NULL
-);
-
 -- applications
 CREATE TABLE applications(
   id SERIAL PRIMARY KEY,
@@ -190,11 +135,11 @@ CREATE TABLE applications(
   course_name VARCHAR NOT NULL,
   minor_subject VARCHAR DEFAULT NULL,
   programme_length INT NOT NULL,
-  application_status_id BIGINT REFERENCES application_status(id),
-  interview_status_id BIGINT REFERENCES interview_status(id),
-  offer_status_id BIGINT REFERENCES offer_status(id),
-  response_status_id BIGINT REFERENCES response_status(id),
-  final_destination_status_id BIGINT REFERENCES final_destination_status(id),
+  application_status VARCHAR(50) NOT NULL,
+  interview_status VARCHAR(50) DEFAULT NULL,
+  offer_status VARCHAR(50) DEFAULT NULL,
+  response_status VARCHAR(50) DEFAULT NULL,
+  final_destination_status VARCHAR(50) DEFAULT NULL,
   is_removable BOOLEAN NOT NULL
 );
 

@@ -15,7 +15,7 @@ import { useGetApplicationByUuid } from '@daigaku/hooks';
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
-import { UpdateApplicationRecordForm } from './update-application-record-form';
+import { UpdateApplicationForm } from './update-application-form';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
@@ -58,7 +58,7 @@ export const ApplicationEdit = (): JSX.Element => {
 
   return (
     <main className={joinTw('flex flex-col items-center', 'mx-auto')}>
-      <UpdateApplicationRecordForm application={application} />
+      <UpdateApplicationForm application={application} />
     </main>
   );
 };

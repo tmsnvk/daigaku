@@ -67,11 +67,27 @@ export const TranslationKey = {
   UNEXPECTED_ERROR: 'unexpectedError',
   SERVER_ERROR: 'serverError',
 
-  // application records
+  // application
   SUBMITTED_BY: 'submittedBy',
   SUBMITTED_AT: 'submittedAt',
   LAST_MODIFIED_BY: 'lastModifiedBy',
   LAST_UPDATED_AT: 'lastUpdatedAt',
+  APPLICATION_STATUS_PLANNED: 'applicationStatusPlanned',
+  APPLICATION_STATUS_SUBMITTED: 'applicationStatusSubmitted',
+  APPLICATION_STATUS_WITHDRAWN: 'applicationStatusWithdrawn',
+  INTERVIEW_STATUS_INVITED: 'interviewStatusInvited',
+  INTERVIEW_STATUS_NO_INTERVIEW: 'interviewStatusNoInterview',
+  INTERVIEW_STATUS_NOT_INVITED: 'interviewStatusNotInvited',
+  OFFER_STATUS_CONDITIONAL: 'offerStatusConditional',
+  OFFER_STATUS_DEFERRED: 'offerStatusDeferred',
+  OFFER_STATUS_REJECTED: 'offerStatusRejected',
+  OFFER_STATUS_UNCONDITIONAL: 'offerStatusUnconditional',
+  RESPONSE_STATUS_FIRM_CHOICE: 'responseStatusFirmChoice',
+  RESPONSE_STATUS_INSURANCE_CHOICE: 'responseStatusInsuranceChoice',
+  RESPONSE_STATUS_OFFER_DECLINED: 'offerStatusOfferDeclined',
+  FINAL_DESTINATION_STATUS_FINAL_DESTINATION: 'finalDestinationStatusFinalDestination',
+  FINAL_DESTINATION_STATUS_DEFERRED_ENTRY: 'finalDestinationStatusDeferredEntry',
+  FINAL_DESTINATION_STATUS_NOT_FINAL_DESTINATION: 'finalDestinationStatusNotFinalDestination',
 
   // components - buttons
   REQUEST_DELETION: 'requestDeletion',
@@ -273,11 +289,27 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       unexpectedError: 'The application has encountered an unexpected error. Refresh your browser and try again.',
       serverError: 'An unexpected server error happened.',
 
-      // application records
+      // application
       submittedBy: 'Submitted by:',
       submittedAt: 'Submitted at:',
       lastModifiedBy: 'Last modified by:',
       lastUpdatedAt: 'Last updated at:',
+      applicationStatusPlanned: 'Planned',
+      applicationStatusSubmitted: 'Submitted',
+      applicationStatusWithdrawn: 'Withdrawn',
+      interviewStatusInvited: 'Invited',
+      interviewStatusNoInterview: 'No Interview',
+      interviewStatusNotInvited: 'Not Invited',
+      offerStatusConditional: 'Conditional',
+      offerStatusDeferred: 'Deferred',
+      offerStatusRejected: 'Rejected',
+      offerStatusUnconditional: 'Unconditional',
+      responseStatusFirmChoice: 'Firm Choice',
+      responseStatusInsuranceChoice: 'Insurance Choice',
+      offerStatusOfferDeclined: 'Offer Declined',
+      finalDestinationStatusFinalDestination: 'Final Destination',
+      finalDestinationStatusDeferredEntry: 'Final Destination (Deferred Entry)',
+      finalDestinationStatusNotFinalDestination: 'Not Final Destination',
 
       // components - buttons
       requestDeletion: 'Request deletion',

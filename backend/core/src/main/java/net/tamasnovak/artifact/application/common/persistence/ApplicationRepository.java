@@ -40,16 +40,11 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           applications.course_name AS courseName,
           applications.minor_subject AS minorSubject,
           applications.programme_length AS programmeLength,
-          application_status.uuid AS applicationStatusUuid,
-          application_status.name AS applicationStatusName,
-          interview_status.uuid AS interviewStatusUuid,
-          interview_status.name AS interviewStatusName,
-          offer_status.uuid AS offerStatusUuid,
-          offer_status.name AS offerStatusName,
-          response_status.uuid AS responseStatusUuid,
-          response_status.name AS responseStatusName,
-          final_destination_status.uuid AS finalDestinationStatusUuid,
-          final_destination_status.name AS finalDestinationStatusName,
+          applications.application_status AS applicationStatus,
+          applications.interview_status AS interviewStatus,
+          applications.offer_status AS offerStatus,
+          applications.response_status AS responseStatus,
+          applications.final_destination_status AS finalDestinationStatus,
           applications.created_at AS createdAt,
           applications.last_updated_at AS lastUpdatedAt,
           created_by.full_name AS createdBy,
@@ -65,16 +60,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           countries ON applications.country_id = countries.id
         JOIN
           universities ON applications.university_id = universities.id
-        JOIN
-          application_status ON applications.application_status_id = application_status.id
-        FULL OUTER JOIN
-          interview_status ON applications.interview_status_id = interview_status.id
-        FULL OUTER JOIN
-          offer_status ON applications.offer_status_id = offer_status.id
-        FULL OUTER JOIN
-          response_status ON applications.response_status_id = response_status.id
-        FULL OUTER JOIN
-          final_destination_status ON applications.final_destination_status_id = final_destination_status.id
         JOIN
           accounts AS created_by ON applications.created_by = created_by.email
         JOIN
@@ -100,16 +85,11 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           applications.course_name AS courseName,
           applications.minor_subject AS minorSubject,
           applications.programme_length AS programmeLength,
-          application_status.uuid AS applicationStatusUuid,
-          application_status.name AS applicationStatusName,
-          interview_status.uuid AS interviewStatusUuid,
-          interview_status.name AS interviewStatusName,
-          offer_status.uuid AS offerStatusUuid,
-          offer_status.name AS offerStatusName,
-          response_status.uuid AS responseStatusUuid,
-          response_status.name AS responseStatusName,
-          final_destination_status.uuid AS finalDestinationStatusUuid,
-          final_destination_status.name AS finalDestinationStatusName,
+          applications.application_status AS applicationStatus,
+          applications.interview_status AS interviewStatus,
+          applications.offer_status AS offerStatus,
+          applications.response_status AS responseStatus,
+          applications.final_destination_status AS finalDestinationStatus,
           applications.created_at AS createdAt,
           applications.last_updated_at AS lastUpdatedAt,
           created_by.full_name AS createdBy,
@@ -125,16 +105,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
           countries ON applications.country_id = countries.id
         JOIN
           universities ON applications.university_id = universities.id
-        FULL OUTER JOIN
-          application_status ON applications.application_status_id = application_status.id
-        FULL OUTER JOIN
-          interview_status ON applications.interview_status_id = interview_status.id
-        FULL OUTER JOIN
-          offer_status ON applications.offer_status_id = offer_status.id
-        FULL OUTER JOIN
-          response_status ON applications.response_status_id = response_status.id
-        FULL OUTER JOIN
-          final_destination_status ON applications.final_destination_status_id = final_destination_status.id
         JOIN
           accounts AS created_by ON applications.created_by = created_by.email
         JOIN

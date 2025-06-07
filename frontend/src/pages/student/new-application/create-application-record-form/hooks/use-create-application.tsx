@@ -18,7 +18,7 @@ import { applicationStudentService } from '@daigaku/services';
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord, CreateApplicationByStudentPayload, InputViolation } from '@daigaku/common-types';
+import { Application, CreateApplicationByStudentPayload, InputViolation } from '@daigaku/common-types';
 
 /**
  * Defines the {@link useCreateApplication} custom hook's error types.
@@ -37,7 +37,7 @@ type CreateApplicationFormErrorField =
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {UseMutationResult<ApplicationRecord, UnauthorizedError | FormValidationError | ServerError |
+ * @return {UseMutationResult<Application, UnauthorizedError | FormValidationError | ServerError |
  *   UnexpectedError, CreateApplicationByStudentPayload>}
  */
 export const useCreateApplication = (
@@ -45,7 +45,7 @@ export const useCreateApplication = (
   resetCountrySelection: () => void,
   reset: () => void,
 ): UseMutationResult<
-  ApplicationRecord,
+  Application,
   UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
   CreateApplicationByStudentPayload
 > => {
@@ -57,10 +57,10 @@ export const useCreateApplication = (
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
     mutationFn: (formData: CreateApplicationByStudentPayload) => applicationStudentService.create(formData),
-    onSuccess: (response: ApplicationRecord) => {
-      queryClient.setQueryData<Array<ApplicationRecord>>(
+    onSuccess: (response: Application) => {
+      queryClient.setQueryData<Array<Application>>(
         [queryKeys.application.GET_ALL_BY_ROLE],
-        (applications: Array<ApplicationRecord> | undefined) => {
+        (applications: Array<Application> | undefined) => {
           if (!applications) {
             return;
           }

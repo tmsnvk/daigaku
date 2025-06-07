@@ -23,7 +23,7 @@ import { TableHeader } from './table-header.tsx';
 import { isEmpty, joinTw } from '@daigaku/utilities';
 
 /* interface, type, enum, schema imports */
-import { ApplicationRecord } from '@daigaku/common-types';
+import { Application } from '@daigaku/common-types';
 import { Column } from '../../common/types.ts';
 
 /**
@@ -53,7 +53,7 @@ export const ApplicationsTable = ({ columns, toggleModal }: ApplicationsTablePro
   const navigate = useNavigate();
 
   const { data: applications, isLoading, refetch, isRefetching, isError } = useGetApplications();
-  const { handleColumnSort } = useSortOrder(applications as Array<ApplicationRecord>);
+  const { handleColumnSort } = useSortOrder(applications as Array<Application>);
 
   if (isLoading || isRefetching) {
     return <CoreLoadingNotification intent={'light'} />;

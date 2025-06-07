@@ -47,7 +47,7 @@ class PendingAccountControllerIT {
       CreatePendingAccountPayload requestBody = new CreatePendingAccountPayload("Student", "Test User", "student@test.net",
         validUuidString, validUuidString);
 
-      mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/register")
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/create")
                                             .content(objectMapper.writeValueAsString(requestBody))
                                             .contentType(MediaType.APPLICATION_JSON))
              .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -64,7 +64,7 @@ class PendingAccountControllerIT {
       CreatePendingAccountPayload requestBody = new CreatePendingAccountPayload("1nv4l1d Student", "", "invalid@email",
         validUuidString, validUuidString);
 
-      mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/register")
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/pending-accounts/create")
                                             .content(objectMapper.writeValueAsString(requestBody))
                                             .contentType(MediaType.APPLICATION_JSON))
              .andExpect(MockMvcResultMatchers.status().isBadRequest());
