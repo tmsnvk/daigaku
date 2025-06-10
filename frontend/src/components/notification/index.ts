@@ -5,6 +5,6 @@
  */
 
 import { GlobalErrorModal } from './global-error-modal.tsx';
-import { Toast, type ToastVariantIntent, toastVariants } from './toast.tsx';
+import { Toast, type ToastVariantIntent } from './toast.tsx';
 
-export { GlobalErrorModal, Toast, toastVariants, type ToastVariantIntent };
+export { GlobalErrorModal, Toast, type ToastVariantIntent };
