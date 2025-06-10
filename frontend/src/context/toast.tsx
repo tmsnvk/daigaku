@@ -20,10 +20,10 @@ import { CreateToast } from '@daigaku/common-types';
 /**
  *
  */
-enum ToastActionTypes {
-  CREATE = 'CREATE_TOAST',
-  REMOVE = 'REMOVE_TOAST',
-}
+const ToastActionTypes = {
+  CREATE: 'CREATE_TOAST',
+  REMOVE: 'REMOVE_TOAST',
+} as const;
 
 /**
  * Defines the toast creating action type.
@@ -32,7 +32,7 @@ interface CreateToastAction {
   /**
    * The action type.
    */
-  type: ToastActionTypes.CREATE;
+  type: typeof ToastActionTypes.CREATE;
 
   /**
    * The payload for toast creation.
@@ -49,7 +49,7 @@ interface RemoveToastAction {
   /**
    * The action type.
    */
-  type: ToastActionTypes.REMOVE;
+  type: typeof ToastActionTypes.REMOVE;
 
   /**
    * The payload for toast removal.

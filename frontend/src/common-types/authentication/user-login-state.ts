@@ -13,4 +13,4 @@ export const UserLoginState = {
   LOGGED_OUT: 'LOGGED_OUT',
 } as const;
 
-export type UserLoginState = keyof typeof UserLoginState;
+export type UserLoginState = (typeof UserLoginState)[keyof typeof UserLoginState];

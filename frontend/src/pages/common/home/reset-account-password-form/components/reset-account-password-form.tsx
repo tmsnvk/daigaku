@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
-import { FormInputValues, resetAccountPasswordFormValidationSchema } from '../schema.ts';
+import { ResetAccountPasswordFormValidationSchema, resetAccountPasswordFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
@@ -22,11 +22,7 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
-import {
-  AccountPasswordResetPayload,
-  CoreInputElementStyleIntent,
-  CoreSubmitInputElementStyleIntent,
-} from '@daigaku/common-types';
+import { AccountPasswordResetPayload } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
 
 /**
@@ -52,7 +48,7 @@ interface ResetAccountPasswordFormProps {
 export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormInputValues>({
+  const formMethods = useForm<ResetAccountPasswordFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       email: '',
@@ -61,7 +57,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
-  const submitResetAccountPasswordForm = (formData: FormInputValues): void => {
+  const submitResetAccountPasswordForm = (formData: ResetAccountPasswordFormValidationSchema): void => {
     resetAccountPassword(formData as AccountPasswordResetPayload);
   };
 
@@ -82,7 +78,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
             isDisabled={isSubmitting}
             label={t('emailLabel')}
             placeholder={t('emailPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
@@ -90,7 +86,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
               message: t('resetPasswordFormSubmission'),
               value: t('resetPasswordFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
           />
         </CoreFormWrapper>
       </FormProvider>

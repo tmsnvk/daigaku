@@ -14,4 +14,4 @@ export const resetAccountPasswordFormValidationSchema = z.object({
   email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
 });
 
-export type FormInputValues = z.infer<typeof resetAccountPasswordFormValidationSchema>;
+export type ResetAccountPasswordFormValidationSchema = z.infer<typeof resetAccountPasswordFormValidationSchema>;

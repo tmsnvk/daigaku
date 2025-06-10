@@ -43,6 +43,10 @@ const coreTextareaElementVariants = cva(
 );
 
 /**
+ */
+export type CoreTextareaElementVariantIntent = VariantProps<typeof coreTextareaElementVariants>['intent'];
+
+/**
  * Defines the component's properties.
  */
 interface CoreTextareaElementProps<T extends FieldValues>

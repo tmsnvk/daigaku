@@ -31,6 +31,10 @@ const coreSelectElementVariants = cva(
 );
 
 /**
+ */
+export type CoreSelectElementVariantIntent = VariantProps<typeof coreSelectElementVariants>['intent'];
+
+/**
  * Defines the component's properties.
  */
 interface CoreSelectElementProps<T extends FieldValues>

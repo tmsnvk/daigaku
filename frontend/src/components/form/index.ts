@@ -20,6 +20,10 @@ import { CommonTextareaGroup } from './element-group/common-textarea-group';
 import { DisabledInputGroup } from './element-group/disabled-input-group';
 import { PasswordInputGroup } from './element-group/password-input-group';
 import { CommonStaticSelectGroup } from './element-group/common-static-select-group.tsx';
+import { CoreInputElementVariantIntent } from './core-element/core-input-element.tsx';
+import { CoreSelectElementVariantIntent } from './core-element/core-select-element.tsx';
+import { CorSubmitElementVariantIntent } from './core-element/core-submit-input-element.tsx';
+import { CoreTextareaElementVariantIntent } from './core-element/core-textarea-element.tsx';
 
 export {
   CommonInputGroup,
@@ -38,4 +42,8 @@ export {
   CoreSubmitInputElement,
   DisabledInputGroup,
   PasswordInputGroup,
+  type CoreInputElementVariantIntent,
+  type CoreSelectElementVariantIntent,
+  type CoreTextareaElementVariantIntent,
+  type CorSubmitElementVariantIntent,
 };

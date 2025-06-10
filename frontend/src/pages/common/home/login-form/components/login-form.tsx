@@ -8,10 +8,11 @@
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks/use-login-form-mutation.tsx';
-import { FormInputValues, loginFormValidationSchema } from '../schema.ts';
+import { LoginFormValidationSchema, loginFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -24,11 +25,10 @@ import {
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, utilities, constants imports */
-import { zodResolver } from '@hookform/resolvers/zod';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
-import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
+import { LoginPayload } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
 
 /**
@@ -53,7 +53,7 @@ interface LoginFormProps {
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormInputValues>({
+  const formMethods = useForm<LoginFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       email: '',
@@ -63,7 +63,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: logIn, isPending: isFormSubmitting } = useLoginFormMutation(setError);
-  const submitLoginForm = (formData: FormInputValues): void => {
+  const submitLoginForm = (formData: LoginFormValidationSchema): void => {
     logIn(formData as LoginPayload);
   };
 
@@ -84,14 +84,14 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             isDisabled={isFormSubmitting}
             label={t('emailLabel')}
             placeholder={t('emailPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <PasswordInputGroup
             id={'password'}
             isDisabled={isFormSubmitting}
             label={t('passwordLabel')}
             placeholder={t('passwordPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isFormSubmitting}
@@ -99,7 +99,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
               message: t('loginFormSubmission'),
               value: t('loginFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
           />
         </CoreFormWrapper>
       </FormProvider>

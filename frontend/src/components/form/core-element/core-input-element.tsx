@@ -39,6 +39,10 @@ const coreInputElementVariants = cva(
 );
 
 /**
+ */
+export type CoreInputElementVariantIntent = VariantProps<typeof coreInputElementVariants>['intent'];
+
+/**
  * Defines the component's properties.
  */
 interface CoreInputElementProps<T extends FieldValues>

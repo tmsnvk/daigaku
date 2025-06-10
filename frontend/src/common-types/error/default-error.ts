@@ -17,7 +17,7 @@ export const ExceptionType = {
   METHOD_ARGUMENT_TYPE_MISMATCH: 'MethodArgumentTypeMismatchException',
 } as const;
 
-export type ExceptionType = keyof typeof ExceptionType;
+export type ExceptionType = (typeof ExceptionType)[keyof typeof ExceptionType];
 
 /**
  * Defines a single error detail.

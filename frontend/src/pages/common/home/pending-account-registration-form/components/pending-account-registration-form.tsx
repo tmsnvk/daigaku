@@ -13,7 +13,10 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
 import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
-import { FormInputValues, pendingAccountRegistrationFormValidationSchema } from '../schema.ts';
+import {
+  PendingAccountRegistrationFormValidationSchema,
+  pendingAccountRegistrationFormValidationSchema,
+} from '../schema.ts';
 
 /* component imports */
 import {
@@ -30,14 +33,7 @@ import { removeRolePrefix } from '@daigaku/utilities';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
-import {
-  CoreInputElementStyleIntent,
-  CoreSelectElementStyleIntent,
-  CoreSubmitInputElementStyleIntent,
-  CreatePendingAccountPayload,
-  InstitutionOption,
-  RoleOption,
-} from '@daigaku/common-types';
+import { CreatePendingAccountPayload, InstitutionOption, RoleOption } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
 
 /**
@@ -77,7 +73,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
   } = useGetStudentAndMentorAccountRoles();
   const isSubmitDisabled = isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError;
 
-  const formMethods = useForm<FormInputValues>({
+  const formMethods = useForm<PendingAccountRegistrationFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       firstName: '',
@@ -91,7 +87,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
   const { handleSubmit, setError } = formMethods;
   const { mutate: registerPendingAccount, isPending: isSubmitting } =
     usePendingAccountRegistrationFormMutation(setError);
-  const submitRegisterPendingAccountForm = (formData: FormInputValues): void => {
+  const submitRegisterPendingAccountForm = (formData: PendingAccountRegistrationFormValidationSchema): void => {
     registerPendingAccount(formData as CreatePendingAccountPayload);
   };
 
@@ -112,7 +108,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             isDisabled={isSubmitting}
             label={t('firstNameLabel')}
             placeholder={t('firstNamePlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CommonInputGroup
             id={'lastName'}
@@ -120,7 +116,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             isDisabled={isSubmitting}
             label={t('lastNameLabel')}
             placeholder={t('lastNamePlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CommonInputGroup
             id={'email'}
@@ -128,7 +124,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             isDisabled={isSubmitting}
             label={t('emailLabel')}
             placeholder={t('emailPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CommonSelectGroup
             id={'institutionUuid'}
@@ -148,7 +144,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
               )) || []
             }
             initialValue={t('institutionPlaceholder')}
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CommonSelectGroup
             id={'accountRoleUuid'}
@@ -168,7 +164,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
               )) || []
             }
             initialValue={t('accountRolePlaceholder')}
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
@@ -177,7 +173,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
               message: t('pendingAccountRegistrationFormSubmission'),
               value: t('pendingAccountRegistrationFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
           />
         </CoreFormWrapper>
       </FormProvider>

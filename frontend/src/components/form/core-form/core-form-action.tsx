@@ -16,7 +16,7 @@ import { CoreFormElementError, CoreSubmitInputElement } from '../index.ts';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
-import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
+import { CorSubmitElementVariantIntent } from '../core-element/core-submit-input-element.tsx';
 
 /**
  * Defines the component's properties.
@@ -43,7 +43,7 @@ interface CoreFormActionProps {
   /**
    * The input element's style intent.
    */
-  readonly intent: CoreSubmitInputElementStyleIntent;
+  readonly intent: CorSubmitElementVariantIntent;
 
   /**
    * Additional style options.

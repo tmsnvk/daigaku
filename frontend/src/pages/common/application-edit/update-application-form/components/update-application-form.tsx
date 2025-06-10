@@ -35,8 +35,6 @@ import {
   Application,
   ApplicationStatus,
   ApplicationStatusTranslations,
-  CoreSelectElementStyleIntent,
-  CoreSubmitInputElementStyleIntent,
   FinalDestinationStatus,
   FinalDestinationStatusTranslations,
   InterviewStatus,
@@ -157,7 +155,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ??
               t('applicationStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('applicationStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
@@ -180,7 +178,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ??
               t('interviewStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('interviewStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
@@ -203,7 +201,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ??
               t('offerStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('offerStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
@@ -226,7 +224,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ??
               t('responseStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('responseStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
@@ -248,7 +246,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ??
               t('finalDestinationStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('finalDestinationStatusUpdateFieldInformation')} />
           <CoreFormAction
@@ -257,7 +255,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               message: t('genericFormSubmission'),
               value: t('updateApplicationRecordFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
             className={'col-start-1 col-end-3'}
           />
         </CoreFormWrapper>

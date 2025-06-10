@@ -15,4 +15,4 @@ export const loginFormValidationSchema = z.object({
   password: z.string().trim().nonempty({ message: TranslationKey.PASSWORD_REQUIRED }),
 });
 
-export type FormInputValues = z.infer<typeof loginFormValidationSchema>;
+export type LoginFormValidationSchema = z.infer<typeof loginFormValidationSchema>;

@@ -13,4 +13,4 @@ export const FormType = {
   RESET_ACCOUNT_PASSWORD: 'RESET_ACCOUNT_PASSWORD',
 } as const;
 
-export type FormType = keyof typeof FormType;
+export type FormType = (typeof FormType)[keyof typeof FormType];

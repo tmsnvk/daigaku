@@ -27,10 +27,12 @@ interface SetOrder {
 /**
  * Defines the possible sorting options.
  */
-enum SortOrder {
-  ASC,
-  DESC,
-}
+const SortOrder = {
+  ASCENDING: 'ASCENDING',
+  DESCENDING: 'DESCENDING',
+} as const;
+
+type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
 
 /**
  * Manages the sorting of data rows in the /applications page's table.
@@ -41,7 +43,7 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
   const queryClient = useQueryClient();
 
   const [sortedBy, setSortedBy] = useState<string>('courseName');
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESCENDING);
 
   const sortColumns = (): void => {
     const sortedData: Array<Application> = data.sort((a, b) => {
@@ -55,7 +57,7 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
 
       return (
         String(a[sortedBy as keyof Application]).localeCompare(String(b[sortedBy as keyof Application])) *
-        (sortOrder === SortOrder.ASC ? 1 : -1)
+        (sortOrder === SortOrder.ASCENDING ? 1 : -1)
       );
     });
 
@@ -63,7 +65,7 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
   };
 
   const handleColumnSort = (columnId: string): void => {
-    const order: SortOrder = sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
+    const order: SortOrder = sortOrder === SortOrder.ASCENDING ? SortOrder.DESCENDING : SortOrder.ASCENDING;
 
     setSortedBy(columnId);
     setSortOrder(order);

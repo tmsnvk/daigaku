@@ -10,7 +10,7 @@ import { z } from 'zod';
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const createApplicationRecordFormValidationSchema = z.object({
+export const createApplicationFormValidationSchema = z.object({
   countryUuid: z.string().uuid({ message: TranslationKey.COUNTRY_REQUIRED }),
   universityUuid: z.string().uuid({ message: TranslationKey.UNIVERSITY_REQUIRED }),
   courseName: z
@@ -27,4 +27,4 @@ export const createApplicationRecordFormValidationSchema = z.object({
     .max(5, { message: TranslationKey.PROGRAMME_LENGTH_PATTERN }),
 });
 
-export type FormInputValues = z.infer<typeof createApplicationRecordFormValidationSchema>;
+export type CreateApplicationFormValidationSchema = z.infer<typeof createApplicationFormValidationSchema>;

@@ -22,9 +22,11 @@ export interface RoleOption {
 /**
  * Defines user types.
  */
-export enum UserRole {
-  ROLE_STUDENT = 'ROLE_STUDENT',
-  ROLE_MENTOR = 'ROLE_MENTOR',
-  ROLE_INSTITUTION_ADMIN = 'ROLE_INSTITUTION_ADMIN',
-  ROLE_SYSTEM_ADMIN = 'ROLE_SYSTEM_ADMIN',
-}
+export const UserRole = {
+  ROLE_STUDENT: 'ROLE_STUDENT',
+  ROLE_MENTOR: 'ROLE_MENTOR',
+  ROLE_INSTITUTION_ADMIN: 'ROLE_INSTITUTION_ADMIN',
+  ROLE_SYSTEM_ADMIN: 'ROLE_SYSTEM_ADMIN',
+} as const;
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole];
