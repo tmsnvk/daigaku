@@ -15,7 +15,7 @@ import { CoreFormElementError, CoreSubmitInputElement } from '../index.ts';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreSubmitInputElementStyleIntent } from '@daigaku/common-types';
 
 /**

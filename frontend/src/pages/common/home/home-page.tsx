@@ -18,7 +18,7 @@ import { FormSectionWrapper } from './common/components/form-section-wrapper.tsx
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { UserLoginState } from '@daigaku/common-types';
 
 /**

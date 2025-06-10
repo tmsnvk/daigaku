@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
 import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
+import { FormInputValues, pendingAccountRegistrationFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -28,7 +29,7 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import { removeRolePrefix } from '@daigaku/utilities';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,
@@ -38,7 +39,6 @@ import {
   RoleOption,
 } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
-import { FormInputValues, pendingAccountRegistrationFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.

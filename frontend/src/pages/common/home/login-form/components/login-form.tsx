@@ -11,9 +11,9 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks/use-login-form-mutation.tsx';
+import { FormInputValues, loginFormValidationSchema } from '../schema.ts';
 
 /* component imports */
-import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import {
   CommonInputGroup,
   CoreFormAction,
@@ -21,15 +21,15 @@ import {
   CoreFormWrapper,
   PasswordInputGroup,
 } from '@daigaku/components/form';
+import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, utilities, constants imports */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
-/* interface, type, enum, schema imports */
-import { FormType } from '../../common/types.ts';
+/* interface, type imports */
 import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
-import { FormInputValues, loginFormValidationSchema } from '../schema.ts';
+import { FormType } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.

@@ -21,7 +21,7 @@ import {
 } from '..';
 import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreSelectElementGroup } from '@daigaku/common-types';
 
 /**

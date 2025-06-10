@@ -22,7 +22,7 @@ import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';
 import { ApplicationEdit, ApplicationView, Applications, Dashboard, Error, Home } from '@daigaku/pages/common';
 import { NewApplication } from '@daigaku/pages/student';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { UserRole } from '@daigaku/common-types';
 
 const router = createBrowserRouter(createRoutesFromElements(

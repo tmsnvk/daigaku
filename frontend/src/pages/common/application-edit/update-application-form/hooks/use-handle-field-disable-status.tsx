@@ -7,7 +7,7 @@
 /* vendor imports */
 import { ChangeEvent, useState } from 'react';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Application, ApplicationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@daigaku/common-types';
 
 /**

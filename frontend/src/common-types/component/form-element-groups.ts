@@ -5,10 +5,10 @@
  */
 
 /* vendor imports */
+import { ChangeEvent, ReactNode } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 
-/* interface, type, enum, schema imports */
-import { ChangeEvent, ReactNode } from 'react';
+/* interface, type imports */
 import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,

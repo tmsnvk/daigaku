@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
+import { FormInputValues, resetAccountPasswordFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
@@ -20,14 +21,13 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 /* configuration, utilities, constants imports */
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   AccountPasswordResetPayload,
   CoreInputElementStyleIntent,
   CoreSubmitInputElementStyleIntent,
 } from '@daigaku/common-types';
 import { FormType } from '../../common/types.ts';
-import { FormInputValues, resetAccountPasswordFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.

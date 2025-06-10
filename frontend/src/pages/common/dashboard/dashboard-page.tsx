@@ -21,7 +21,7 @@ import { LayoutStudent } from './layout-student';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { UserRole } from '@daigaku/common-types';
 
 /**

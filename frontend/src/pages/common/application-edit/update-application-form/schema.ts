@@ -7,7 +7,7 @@
 /* vendor imports */
 import { z } from 'zod';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   ApplicationStatus,
   FinalDestinationStatus,
@@ -18,10 +18,16 @@ import {
 
 export const updateApplicationFormValidationSchema = z.object({
   applicationStatus: z.nativeEnum(ApplicationStatus),
-  interviewStatus: z.nativeEnum(InterviewStatus).optional().nullable(),
-  offerStatus: z.nativeEnum(OfferStatus).optional().nullable(),
-  responseStatus: z.nativeEnum(ResponseStatus).optional().nullable(),
-  finalDestinationStatus: z.nativeEnum(FinalDestinationStatus).optional().nullable(),
+  interviewStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(InterviewStatus).nullable())
+    .optional(),
+  offerStatus: z.preprocess((value) => (value === '' ? null : value), z.nativeEnum(OfferStatus).nullable()).optional(),
+  responseStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(ResponseStatus).nullable())
+    .optional(),
+  finalDestinationStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(FinalDestinationStatus).nullable())
+    .optional(),
 });
 
-export type FormInputValues = z.infer<typeof updateApplicationFormValidationSchema>;
+export type UpdateApplicationFormValidationSchema = z.infer<typeof updateApplicationFormValidationSchema>;

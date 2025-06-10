@@ -10,14 +10,14 @@ import { Context, ReactNode, createContext, startTransition, useContext, useEffe
 
 /* logic imports */
 import { accountService } from '@daigaku/services';
+import { CoreApiError } from '@daigaku/errors';
 
 /* configuration, utilities, constants imports */
 import { localStorageKeys, queryKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { LoginResponse, UserLoginState, UserRole } from '@daigaku/common-types';
-import { CoreApiError } from '@daigaku/errors';
 
 /**
  * Defines the properties of the data associated with the logged-in user.

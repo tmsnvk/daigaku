@@ -13,7 +13,7 @@ import { useRenderModal } from '@daigaku/hooks';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Column } from '../../common/types.ts';
 
 /**

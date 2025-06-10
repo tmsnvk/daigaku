@@ -8,7 +8,7 @@
 import { axiosConfig } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CreatePendingAccountPayload } from '@daigaku/common-types';
 
 /**

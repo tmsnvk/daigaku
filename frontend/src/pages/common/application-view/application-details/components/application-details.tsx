@@ -17,7 +17,7 @@ import { ApplicationDetail } from './application-detail.tsx';
 /* configuration, utilities, constants imports */
 import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   Application,
   ApplicationStatus,
@@ -99,23 +99,23 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
       />
       <ApplicationDetail
         name={t('applicationStatusLabel')}
-        value={getStatusDisplayValue(ApplicationStatus, application.applicationStatus) ?? '-'}
+        value={getStatusDisplayValue(ApplicationStatus, application.applicationStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('interviewStatusLabel')}
-        value={getStatusDisplayValue(InterviewStatus, application.interviewStatus) ?? '-'}
+        value={getStatusDisplayValue(InterviewStatus, application.interviewStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('offerStatusLabel')}
-        value={getStatusDisplayValue(OfferStatus, application.offerStatus) ?? '-'}
+        value={getStatusDisplayValue(OfferStatus, application.offerStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('responseStatusLabel')}
-        value={getStatusDisplayValue(ResponseStatus, application.responseStatus) ?? '-'}
+        value={getStatusDisplayValue(ResponseStatus, application.responseStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('finalDestinationStatusLabel')}
-        value={getStatusDisplayValue(FinalDestinationStatus, application.finalDestinationStatus) ?? '-'}
+        value={getStatusDisplayValue(FinalDestinationStatus, application.finalDestinationStatus, t) ?? '-'}
       />
     </section>
   );

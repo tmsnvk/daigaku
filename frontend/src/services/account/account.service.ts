@@ -8,7 +8,7 @@
 import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { AccountPasswordResetPayload, LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**

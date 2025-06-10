@@ -15,7 +15,7 @@ import { CoreIcon } from '@daigaku/components/core';
 import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CreateToast } from '@daigaku/common-types';
 
 export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
@@ -26,6 +26,11 @@ export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col
     },
   },
 });
+
+/**
+ * A type mimicking the Toast component's intent variant values.
+ */
+export type ToastVariantIntent = VariantProps<typeof toastVariants>['intent'];
 
 /**
  * Defines the component's properties.

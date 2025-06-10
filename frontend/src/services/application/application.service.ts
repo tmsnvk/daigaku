@@ -8,7 +8,7 @@
 import { axiosConfigWithAuth } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Application, StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 
 /**

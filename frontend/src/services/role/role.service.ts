@@ -8,7 +8,7 @@
 import { axiosConfig } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { RoleOption } from '@daigaku/common-types';
 
 /**

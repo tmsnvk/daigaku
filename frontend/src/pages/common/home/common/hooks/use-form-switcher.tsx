@@ -13,7 +13,7 @@ import { LoginForm } from '../../login-form';
 import { PendingAccountRegistrationForm } from '../../pending-account-registration-form';
 import { ResetAccountPasswordForm } from '../../reset-account-password-form';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { FormType } from '../types.ts';
 
 /**
@@ -31,8 +31,6 @@ interface FormSwitcher {
   readonly selectedFormComponent: JSX.Element | null;
 }
 
-const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
-
 /**
  * A helper method used by {@link useFormSwitcher} to retrieve the appropriate form component based on the provided
  * {@link FormType}.
@@ -44,13 +42,15 @@ const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
 const getSelectedFormComponent = (
   selectedFormType: FormType,
   selectFormType: (formType: FormType) => void,
-): JSX.Element | null => {
+): JSX.Element => {
   return match(selectedFormType)
     .with(FormType.LOGIN, () => <LoginForm onFormSelect={selectFormType} />)
     .with(FormType.REGISTER_PENDING_ACCOUNT, () => <PendingAccountRegistrationForm onFormSelect={selectFormType} />)
     .with(FormType.RESET_ACCOUNT_PASSWORD, () => <ResetAccountPasswordForm onFormSelect={selectFormType} />)
-    .otherwise(() => null);
+    .exhaustive();
 };
+
+const DEFAULT_LOADED_FORM_TYPE = FormType.LOGIN;
 
 /**
  * Selects and renders a form component based on the active {@link FormType}.
@@ -68,7 +68,7 @@ export const useFormSwitcher = (): FormSwitcher => {
     setSelectedFormType(formType);
   };
 
-  const selectedFormComponent = useMemo((): JSX.Element | null => {
+  const selectedFormComponent = useMemo((): JSX.Element => {
     return getSelectedFormComponent(selectedFormType, selectFormType);
   }, [selectedFormType]);
 

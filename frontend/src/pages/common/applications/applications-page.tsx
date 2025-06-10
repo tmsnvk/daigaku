@@ -30,7 +30,6 @@ export const Applications = (): JSX.Element => {
   const { isModalVisible, toggleModal } = useModalToggle();
 
   // add student selector dropdown for mentors
-  // add mentor and student selector dropdowns for admins
   return (
     <main className={joinTw('core-primary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%]', 'text-xl')}>
       <ApplicationsTable

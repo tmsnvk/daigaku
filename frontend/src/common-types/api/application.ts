@@ -4,14 +4,14 @@
  * @author tmsnvk
  */
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreMetadata } from '../core/core-metada.ts';
 import {
-  ApplicationStatusKey,
-  FinalDestinationStatusKey,
-  InterviewStatusKey,
-  OfferStatusKey,
-  ResponseStatusKey,
+  ApplicationStatus,
+  FinalDestinationStatus,
+  InterviewStatus,
+  OfferStatus,
+  ResponseStatus,
 } from '../application/application-status.ts';
 
 /**
@@ -56,27 +56,27 @@ export interface Application extends CoreMetadata {
   /**
    * The Application's current ApplicationStatus.
    */
-  readonly applicationStatus: ApplicationStatusKey;
+  readonly applicationStatus: ApplicationStatus;
 
   /**
    * The Application's current InterviewStatus.
    */
-  readonly interviewStatus: InterviewStatusKey | null;
+  readonly interviewStatus: InterviewStatus | null;
 
   /**
    * The Application's current OfferStatus.
    */
-  readonly offerStatus: OfferStatusKey | null;
+  readonly offerStatus: OfferStatus | null;
 
   /**
    * The Application's current ResponseStatus.
    */
-  readonly responseStatus: ResponseStatusKey | null;
+  readonly responseStatus: ResponseStatus | null;
 
   /**
    * The Application's current FinalDestinationStatus.
    */
-  readonly finalDestinationStatus: FinalDestinationStatusKey | null;
+  readonly finalDestinationStatus: FinalDestinationStatus | null;
 
   /**
    * The boolean indicating whether the owner marked the Application obsolete and ready for deletion.
@@ -121,25 +121,25 @@ export interface UpdateApplicationByStudentPayload {
   /**
    * The Application's ApplicationStatus status.
    */
-  applicationStatus: ApplicationStatusKey;
+  applicationStatus: ApplicationStatus;
 
   /**
    * The Application's InterviewStatus status.
    */
-  interviewStatus: InterviewStatusKey | null;
+  interviewStatus: InterviewStatus | null;
 
   /**
    * The Application's OfferStatus status.
    */
-  offerStatus: OfferStatusKey | null;
+  offerStatus: OfferStatus | null;
 
   /**
    * The Application's ResponseStatus status.
    */
-  responseStatus: ResponseStatusKey | null;
+  responseStatus: ResponseStatus | null;
 
   /**
    * The Application's FinalDestination status.
    */
-  finalDestinationStatus: FinalDestinationStatusKey | null;
+  finalDestinationStatus: FinalDestinationStatus | null;
 }

@@ -14,7 +14,7 @@ import { roleService } from '@daigaku/services';
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/constants';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { RoleOption } from '@daigaku/common-types';
 
 /**

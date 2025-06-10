@@ -7,8 +7,10 @@
 /**
  * Defines user login states.
  */
-export enum UserLoginState {
-  LOADING,
-  LOGGED_IN,
-  LOGGED_OUT,
-}
+export const UserLoginState = {
+  LOADING: 'LOADING',
+  LOGGED_IN: 'LOGGED_IN',
+  LOGGED_OUT: 'LOGGED_OUT',
+} as const;
+
+export type UserLoginState = keyof typeof UserLoginState;

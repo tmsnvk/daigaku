@@ -10,7 +10,7 @@ import axios, { AxiosResponse } from 'axios';
 /* logic imports */
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreInputErrorResponse, ExceptionType } from '@daigaku/common-types';
 
 /**
@@ -26,7 +26,7 @@ export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosR
     if (!axios.isAxiosError(error)) {
       throw new UnexpectedError();
     }
-    console.log(error);
+
     const statusCode = error.response?.status;
 
     if (statusCode) {

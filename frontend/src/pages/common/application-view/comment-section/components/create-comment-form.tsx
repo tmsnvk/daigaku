@@ -12,17 +12,17 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
+import { FormInputValues, createCommentFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   CoreSubmitInputElementStyleIntent,
   CoreTextareaElementStyleIntent,
   CreateCommentPayload,
 } from '@daigaku/common-types';
-import { FormInputValues, createCommentFormValidationSchema } from '../schema.ts';
 
 /**
  * Defines the component's properties.

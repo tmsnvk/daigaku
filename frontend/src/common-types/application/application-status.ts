@@ -4,6 +4,7 @@
  * @author tmsnvk
  */
 
+/* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
 /**
@@ -15,7 +16,7 @@ export const ApplicationStatus = {
   WITHDRAWN: 'WITHDRAWN',
 } as const;
 
-export type ApplicationStatusKey = keyof typeof ApplicationStatus;
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus];
 
 export const ApplicationStatusTranslations = {
   [ApplicationStatus.PLANNED]: TranslationKey.APPLICATION_STATUS_PLANNED,
@@ -32,7 +33,7 @@ export const InterviewStatus = {
   NOT_INVITED: 'NOT_INVITED',
 } as const;
 
-export type InterviewStatusKey = keyof typeof InterviewStatus;
+export type InterviewStatus = (typeof InterviewStatus)[keyof typeof InterviewStatus];
 
 export const InterviewStatusTranslations = {
   [InterviewStatus.INVITED]: TranslationKey.INTERVIEW_STATUS_INVITED,
@@ -50,7 +51,7 @@ export const OfferStatus = {
   UNCONDITIONAL: 'UNCONDITIONAL',
 } as const;
 
-export type OfferStatusKey = keyof typeof OfferStatus;
+export type OfferStatus = (typeof OfferStatus)[keyof typeof OfferStatus];
 
 export const OfferStatusTranslations = {
   [OfferStatus.CONDITIONAL]: TranslationKey.OFFER_STATUS_CONDITIONAL,
@@ -68,7 +69,7 @@ export const ResponseStatus = {
   OFFER_DECLINED: 'OFFER_DECLINED',
 } as const;
 
-export type ResponseStatusKey = keyof typeof ResponseStatus;
+export type ResponseStatus = (typeof ResponseStatus)[keyof typeof ResponseStatus];
 
 export const ResponseStatusTranslations = {
   [ResponseStatus.FIRM_CHOICE]: TranslationKey.RESPONSE_STATUS_FIRM_CHOICE,
@@ -85,7 +86,7 @@ export const FinalDestinationStatus = {
   NOT_FINAL_DESTINATION: 'NOT_FINAL_DESTINATION',
 } as const;
 
-export type FinalDestinationStatusKey = keyof typeof FinalDestinationStatus;
+export type FinalDestinationStatus = (typeof FinalDestinationStatus)[keyof typeof FinalDestinationStatus];
 
 export const FinalDestinationStatusTranslations = {
   [FinalDestinationStatus.FINAL_DESTINATION]: TranslationKey.FINAL_DESTINATION_STATUS_FINAL_DESTINATION,

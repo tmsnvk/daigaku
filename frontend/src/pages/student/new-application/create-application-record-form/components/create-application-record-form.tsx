@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
 import { useCreateApplication } from '../hooks/use-create-application.tsx';
+import { FormInputValues, createApplicationRecordFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -28,7 +29,7 @@ import {
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   CoreInputElementStyleIntent,
   CoreSelectElementStyleIntent,
@@ -37,7 +38,6 @@ import {
   CreateApplicationByStudentPayload,
   UniversityOption,
 } from '@daigaku/common-types';
-import { FormInputValues, createApplicationRecordFormValidationSchema } from '../schema.ts';
 
 /**
  * Renders the new application submission form for student users.

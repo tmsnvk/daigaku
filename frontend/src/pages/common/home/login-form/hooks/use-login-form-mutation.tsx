@@ -18,7 +18,7 @@ import { accountService } from '@daigaku/services';
 import { localStorageKeys, mutationKeys } from '@daigaku/constants';
 import { setLocalStorageObjectById } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**

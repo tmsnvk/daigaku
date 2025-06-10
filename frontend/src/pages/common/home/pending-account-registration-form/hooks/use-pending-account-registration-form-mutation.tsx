@@ -17,7 +17,7 @@ import { pendingAccountService } from '@daigaku/services';
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreInputErrorResponse, CreatePendingAccountPayload, InputViolation } from '@daigaku/common-types';
 
 /**

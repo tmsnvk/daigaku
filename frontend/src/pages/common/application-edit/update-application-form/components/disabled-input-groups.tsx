@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 /* component imports */
 import { CoreFormElementInstruction, DisabledInputGroup } from '@daigaku/components/form';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Application } from '@daigaku/common-types';
 
 /**
