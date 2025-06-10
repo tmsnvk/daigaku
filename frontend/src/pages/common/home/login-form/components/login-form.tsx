@@ -5,15 +5,16 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks/use-login-form-mutation.tsx';
+import { LoginFormValidationSchema, loginFormValidationSchema } from '../schema.ts';
 
 /* component imports */
-import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import {
   CommonInputGroup,
   CoreFormAction,
@@ -21,15 +22,14 @@ import {
   CoreFormWrapper,
   PasswordInputGroup,
 } from '@daigaku/components/form';
+import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, utilities, constants imports */
-import { zodResolver } from '@hookform/resolvers/zod';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
-/* interface, type, enum, schema imports */
-import { FormType } from '../../common/types.ts';
-import { CoreInputElementStyleIntent, CoreSubmitInputElementStyleIntent, LoginPayload } from '@daigaku/common-types';
-import { FormInputValues, loginFormValidationSchema } from '../schema.ts';
+/* interface, type imports */
+import { LoginPayload } from '@daigaku/common-types';
+import { FormType, FormTypes } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.
@@ -53,7 +53,7 @@ interface LoginFormProps {
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormInputValues>({
+  const formMethods = useForm<LoginFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       email: '',
@@ -63,7 +63,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: logIn, isPending: isFormSubmitting } = useLoginFormMutation(setError);
-  const submitLoginForm = (formData: FormInputValues): void => {
+  const submitLoginForm = (formData: LoginFormValidationSchema): void => {
     logIn(formData as LoginPayload);
   };
 
@@ -84,14 +84,14 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             isDisabled={isFormSubmitting}
             label={t('emailLabel')}
             placeholder={t('emailPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <PasswordInputGroup
             id={'password'}
             isDisabled={isFormSubmitting}
             label={t('passwordLabel')}
             placeholder={t('passwordPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isFormSubmitting}
@@ -99,7 +99,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
               message: t('loginFormSubmission'),
               value: t('loginFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
           />
         </CoreFormWrapper>
       </FormProvider>
@@ -108,12 +108,12 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.RESET_ACCOUNT_PASSWORD],
-            formType: FormType.RESET_ACCOUNT_PASSWORD,
+            label: formTypeButtonLabel[FormTypes.RESET_ACCOUNT_PASSWORD],
+            formType: FormTypes.RESET_ACCOUNT_PASSWORD,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
-            formType: FormType.REGISTER_PENDING_ACCOUNT,
+            label: formTypeButtonLabel[FormTypes.REGISTER_PENDING_ACCOUNT],
+            formType: FormTypes.REGISTER_PENDING_ACCOUNT,
           },
         }}
       />

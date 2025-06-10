@@ -8,7 +8,7 @@
 import { axiosConfigWithAuth } from '@daigaku/configuration';
 import { apiClientWrapper } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   Application,
   CreateApplicationByStudentPayload,
@@ -83,6 +83,8 @@ interface ApplicationStudentService {
  */
 export const applicationStudentService: ApplicationStudentService = {
   create: (formData: CreateApplicationByStudentPayload): Promise<Application> => {
+    console.log(formData);
+
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Application>({
         method: 'POST',

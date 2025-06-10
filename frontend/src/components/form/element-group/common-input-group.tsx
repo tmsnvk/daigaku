@@ -16,7 +16,7 @@ import { useFieldValidationError } from '@daigaku/hooks';
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreInputElement } from '../core-element/core-input-element.tsx';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CommonInputElementGroup } from '@daigaku/common-types';
 
 /**

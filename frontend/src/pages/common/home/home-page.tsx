@@ -18,8 +18,8 @@ import { FormSectionWrapper } from './common/components/form-section-wrapper.tsx
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
-import { UserLoginState } from '@daigaku/common-types';
+/* interface, type imports */
+import { UserLoginStates } from '@daigaku/common-types';
 
 /**
  * Renders the application's root page.
@@ -33,7 +33,7 @@ export const Home = (): JSX.Element => {
 
   const { selectedFormType, selectedFormComponent } = useFormSwitcher();
 
-  if (authStatus === UserLoginState.LOGGED_IN) {
+  if (authStatus === UserLoginStates.LOGGED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 

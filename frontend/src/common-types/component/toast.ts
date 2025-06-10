@@ -4,16 +4,8 @@
  * @author tmsnvk
  */
 
-/* vendor imports */
-import { VariantProps } from 'class-variance-authority';
-
 /* component imports */
-import { toastVariants } from '@daigaku/components/notification';
-
-/**
- * A type mimicking the Toast component's intent variant values.
- */
-export type ToastVariantIntent = VariantProps<typeof toastVariants>['intent'];
+import { type ToastVariantIntent } from '@daigaku/components/notification';
 
 /**
  * Defines the properties of a newly created toast element.

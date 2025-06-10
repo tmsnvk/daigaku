@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreSupport } from '../core/core-support.ts';
 
 /**

@@ -11,13 +11,13 @@ import { useState } from 'react';
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/constants';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Application } from '@daigaku/common-types';
 
 /**
  * Defines the properties for sorting columns on the /applications page.
  */
-interface SetOrder {
+interface SetSortingMode {
   /**
    * A method handling the sorting updates.
    */
@@ -27,21 +27,23 @@ interface SetOrder {
 /**
  * Defines the possible sorting options.
  */
-enum SortOrder {
-  ASC,
-  DESC,
-}
+const SortModes = {
+  ASCENDING: 'ASCENDING',
+  DESCENDING: 'DESCENDING',
+} as const;
+
+type SortMode = (typeof SortModes)[keyof typeof SortModes];
 
 /**
  * Manages the sorting of data rows in the /applications page's table.
  *
- * @return {SetOrder}
+ * @return {SetSortingMode}
  */
-export const useSortOrder = (data: Array<Application>): SetOrder => {
+export const useSortOrder = (data: Array<Application>): SetSortingMode => {
   const queryClient = useQueryClient();
 
   const [sortedBy, setSortedBy] = useState<string>('courseName');
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC);
+  const [sortOrder, setSortOrder] = useState<SortMode>(SortModes.DESCENDING);
 
   const sortColumns = (): void => {
     const sortedData: Array<Application> = data.sort((a, b) => {
@@ -55,7 +57,7 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
 
       return (
         String(a[sortedBy as keyof Application]).localeCompare(String(b[sortedBy as keyof Application])) *
-        (sortOrder === SortOrder.ASC ? 1 : -1)
+        (sortOrder === SortModes.ASCENDING ? 1 : -1)
       );
     });
 
@@ -63,7 +65,7 @@ export const useSortOrder = (data: Array<Application>): SetOrder => {
   };
 
   const handleColumnSort = (columnId: string): void => {
-    const order: SortOrder = sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
+    const order: SortMode = sortOrder === SortModes.ASCENDING ? SortModes.DESCENDING : SortModes.ASCENDING;
 
     setSortedBy(columnId);
     setSortOrder(order);

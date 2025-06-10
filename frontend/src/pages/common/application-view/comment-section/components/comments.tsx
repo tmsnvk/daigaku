@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Comment } from '@daigaku/common-types';
 
 /**

@@ -22,7 +22,7 @@ import { TableHeader } from './table-header.tsx';
 /* configuration, utilities, constants imports */
 import { isEmpty, joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Application } from '@daigaku/common-types';
 import { Column } from '../../common/types.ts';
 

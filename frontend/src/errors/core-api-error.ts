@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreInputErrorResponse } from '@daigaku/common-types';
 
 export class CoreApiError extends Error {

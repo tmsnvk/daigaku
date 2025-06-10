@@ -7,21 +7,29 @@
 /* vendor imports */
 import { z } from 'zod';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
-  ApplicationStatus,
-  FinalDestinationStatus,
-  InterviewStatus,
-  OfferStatus,
-  ResponseStatus,
+  ApplicationStatuses,
+  FinalDestinationStatuses,
+  InterviewStatuses,
+  OfferStatuses,
+  ResponseStatuses,
 } from '@daigaku/common-types';
 
 export const updateApplicationFormValidationSchema = z.object({
-  applicationStatus: z.nativeEnum(ApplicationStatus),
-  interviewStatus: z.nativeEnum(InterviewStatus).optional().nullable(),
-  offerStatus: z.nativeEnum(OfferStatus).optional().nullable(),
-  responseStatus: z.nativeEnum(ResponseStatus).optional().nullable(),
-  finalDestinationStatus: z.nativeEnum(FinalDestinationStatus).optional().nullable(),
+  applicationStatus: z.nativeEnum(ApplicationStatuses),
+  interviewStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(InterviewStatuses).nullable())
+    .optional(),
+  offerStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(OfferStatuses).nullable())
+    .optional(),
+  responseStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(ResponseStatuses).nullable())
+    .optional(),
+  finalDestinationStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(FinalDestinationStatuses).nullable())
+    .optional(),
 });
 
-export type FormInputValues = z.infer<typeof updateApplicationFormValidationSchema>;
+export type UpdateApplicationFormValidationSchema = z.infer<typeof updateApplicationFormValidationSchema>;

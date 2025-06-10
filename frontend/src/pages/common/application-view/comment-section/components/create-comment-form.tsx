@@ -12,17 +12,13 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
+import { CreateCommentFormValidationSchema, createCommentFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
 
-/* interface, type, enum, schema imports */
-import {
-  CoreSubmitInputElementStyleIntent,
-  CoreTextareaElementStyleIntent,
-  CreateCommentPayload,
-} from '@daigaku/common-types';
-import { FormInputValues, createCommentFormValidationSchema } from '../schema.ts';
+/* interface, type imports */
+import { CreateCommentPayload } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -46,7 +42,7 @@ const DEFAULT_COL_SIZE = 10;
 export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormInputValues>({
+  const formMethods = useForm<CreateCommentFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       comment: '',
@@ -55,7 +51,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);
-  const submitCreateCommentForm = (formData: FormInputValues): void => {
+  const submitCreateCommentForm = (formData: CreateCommentFormValidationSchema): void => {
     createComment(formData as CreateCommentPayload);
   };
 
@@ -72,7 +68,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           cols={DEFAULT_COL_SIZE}
           label={t('commentLabel')}
           placeholder={t('commentPlaceholder')}
-          intent={CoreTextareaElementStyleIntent.LIGHT}
+          intent={'light'}
         />
         <CoreFormAction
           isSubmissionPending={isSubmitting}
@@ -80,7 +76,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
             message: t('genericFormSubmission'),
             value: t('createCommentFormSubmit'),
           }}
-          intent={CoreSubmitInputElementStyleIntent.DARK}
+          intent={'dark'}
         />
       </CoreFormWrapper>
     </FormProvider>

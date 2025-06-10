@@ -10,7 +10,7 @@ import { JSX } from 'react';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Todo } from '@daigaku/common-types';
 
 /**

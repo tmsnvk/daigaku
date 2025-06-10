@@ -5,15 +5,15 @@
  */
 
 /* vendor imports */
+import { ChangeEvent, ReactNode } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 
-/* interface, type, enum, schema imports */
-import { ChangeEvent, ReactNode } from 'react';
+/* interface, type imports */
 import {
-  CoreInputElementStyleIntent,
-  CoreSelectElementStyleIntent,
-  CoreTextareaElementStyleIntent,
-} from './form-element-style-intents.ts';
+  CoreInputElementVariantIntent,
+  CoreSelectElementVariantIntent,
+  CoreTextareaElementVariantIntent,
+} from '@daigaku/components/form';
 
 /**
  * Defines the properties of core form elements
@@ -41,7 +41,7 @@ interface CoreFormElementGroup<T extends FieldValues> {
   /**
    * The input element's style intent.
    */
-  readonly intent: CoreInputElementStyleIntent | CoreSelectElementStyleIntent | CoreTextareaElementStyleIntent;
+  readonly intent: CoreInputElementVariantIntent | CoreSelectElementVariantIntent | CoreTextareaElementVariantIntent;
 }
 
 /**

@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
+import { ResetAccountPasswordFormValidationSchema, resetAccountPasswordFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
@@ -20,14 +21,9 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 /* configuration, utilities, constants imports */
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
-/* interface, type, enum, schema imports */
-import {
-  AccountPasswordResetPayload,
-  CoreInputElementStyleIntent,
-  CoreSubmitInputElementStyleIntent,
-} from '@daigaku/common-types';
-import { FormType } from '../../common/types.ts';
-import { FormInputValues, resetAccountPasswordFormValidationSchema } from '../schema.ts';
+/* interface, type imports */
+import { AccountPasswordResetPayload } from '@daigaku/common-types';
+import { FormType, FormTypes } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.
@@ -52,7 +48,7 @@ interface ResetAccountPasswordFormProps {
 export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormInputValues>({
+  const formMethods = useForm<ResetAccountPasswordFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       email: '',
@@ -61,7 +57,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
-  const submitResetAccountPasswordForm = (formData: FormInputValues): void => {
+  const submitResetAccountPasswordForm = (formData: ResetAccountPasswordFormValidationSchema): void => {
     resetAccountPassword(formData as AccountPasswordResetPayload);
   };
 
@@ -82,7 +78,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
             isDisabled={isSubmitting}
             label={t('emailLabel')}
             placeholder={t('emailPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
@@ -90,7 +86,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
               message: t('resetPasswordFormSubmission'),
               value: t('resetPasswordFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
           />
         </CoreFormWrapper>
       </FormProvider>
@@ -99,12 +95,12 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.LOGIN],
-            formType: FormType.LOGIN,
+            label: formTypeButtonLabel[FormTypes.LOGIN],
+            formType: FormTypes.LOGIN,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
-            formType: FormType.REGISTER_PENDING_ACCOUNT,
+            label: formTypeButtonLabel[FormTypes.REGISTER_PENDING_ACCOUNT],
+            formType: FormTypes.REGISTER_PENDING_ACCOUNT,
           },
         }}
       />

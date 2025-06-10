@@ -17,7 +17,7 @@ import { iconLibrary } from '@daigaku/constants';
 import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities.ts';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   Application,
   ApplicationStatusTranslations,

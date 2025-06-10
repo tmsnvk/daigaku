@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
 import { useCreateApplication } from '../hooks/use-create-application.tsx';
+import { CreateApplicationFormValidationSchema, createApplicationFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -28,16 +29,8 @@ import {
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
-import {
-  CoreInputElementStyleIntent,
-  CoreSelectElementStyleIntent,
-  CoreSubmitInputElementStyleIntent,
-  CountryOption,
-  CreateApplicationByStudentPayload,
-  UniversityOption,
-} from '@daigaku/common-types';
-import { FormInputValues, createApplicationRecordFormValidationSchema } from '../schema.ts';
+/* interface, type imports */
+import { CountryOption, CreateApplicationByStudentPayload, UniversityOption } from '@daigaku/common-types';
 
 /**
  * Renders the new application submission form for student users.
@@ -66,7 +59,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
   } = useGetUniversityOptionsByCountryUuid(currentCountryUuid);
   const isSubmitDisabled = isCountryLoading || isUniversityLoading || isCountryError || isUniversityError;
 
-  const methods = useForm<FormInputValues>({
+  const methods = useForm<CreateApplicationFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       countryUuid: '',
@@ -75,7 +68,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       minorSubject: '',
       programmeLength: 3,
     },
-    resolver: zodResolver(createApplicationRecordFormValidationSchema),
+    resolver: zodResolver(createApplicationFormValidationSchema),
   });
   const { handleSubmit, setError, reset } = methods;
   const { mutate: createApplicationRecord, isPending: isSubmitting } = useCreateApplication(
@@ -89,7 +82,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-application-record-by-student-form'}
-          onFormSubmit={handleSubmit((formData: FormInputValues) => {
+          onFormSubmit={handleSubmit((formData: CreateApplicationFormValidationSchema) => {
             createApplicationRecord(formData as CreateApplicationByStudentPayload);
           })}
           className={'core-application-grid'}
@@ -122,7 +115,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             }
             label={t('countryLabel')}
             initialValue={t('countryPlaceholder')}
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('countryNewFieldInformation')} />
           {isUniversityLoading ? (
@@ -146,7 +139,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
               }
               label={t('universityLabel')}
               initialValue={t('universityPlaceholder')}
-              intent={CoreSelectElementStyleIntent.LIGHT}
+              intent={'light'}
             />
           )}
           <CoreFormElementInstruction paragraph={t('universityNewFieldInformation')} />
@@ -156,7 +149,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             isDisabled={isSubmitting}
             label={t('courseNameLabel')}
             placeholder={t('courseNamePlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('courseNameNewFieldInformation')} />
           <CommonInputGroup
@@ -165,7 +158,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             isDisabled={isSubmitting}
             label={t('minorSubjectLabel')}
             placeholder={t('minorSubjectPlaceholder')}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('minorSubjectNewFieldInformation')} />
           <CommonInputGroup
@@ -173,7 +166,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             label={t('programmeLengthLabel')}
             type={'number'}
             isDisabled={isSubmitting}
-            intent={CoreInputElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('programmeLengthNewFieldInformation')} />
           <CoreFormAction
@@ -183,7 +176,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
               message: t('createApplicationRecordFormSubmission'),
               value: t('createApplicationRecordFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
             className={'col-start-1 col-end-3'}
           />
         </CoreFormWrapper>

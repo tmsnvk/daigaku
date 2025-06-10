@@ -7,12 +7,13 @@
 /* vendor imports */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useEffect } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, Resolver, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useHandleFieldDisableStatus } from '../hooks/use-handle-field-disable-status.tsx';
 import { useUpdateApplicationFormMutation } from '../hooks/use-update-application-form-mutation.tsx';
+import { UpdateApplicationFormValidationSchema, updateApplicationFormValidationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -23,35 +24,32 @@ import {
   CoreFormWrapper,
 } from '@daigaku/components/form';
 import { ApplicationMetadata } from '@daigaku/components/general';
+import { DisabledInputGroups } from './disabled-input-groups.tsx';
+import { IsRemovableButton } from './is-removable-button.tsx';
 
 /* configuration, utilities, constants imports */
 import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
-import { FormInputValues, updateApplicationFormValidationSchema } from '../schema.ts';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import {
   Application,
   ApplicationStatus,
-  ApplicationStatusKey,
   ApplicationStatusTranslations,
-  CoreSelectElementStyleIntent,
-  CoreSubmitInputElementStyleIntent,
+  ApplicationStatuses,
   FinalDestinationStatus,
-  FinalDestinationStatusKey,
   FinalDestinationStatusTranslations,
+  FinalDestinationStatuses,
   InterviewStatus,
-  InterviewStatusKey,
   InterviewStatusTranslations,
+  InterviewStatuses,
   OfferStatus,
-  OfferStatusKey,
   OfferStatusTranslations,
+  OfferStatuses,
   ResponseStatus,
-  ResponseStatusKey,
   ResponseStatusTranslations,
+  ResponseStatuses,
   UpdateApplicationByStudentPayload,
 } from '@daigaku/common-types';
-import { DisabledInputGroups } from './disabled-input-groups.tsx';
-import { IsRemovableButton } from './is-removable-button.tsx';
 
 /**
  * Defines the component's properties.
@@ -72,16 +70,16 @@ interface UpdateApplicationRecordFormProps {
 export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormInputValues>({
+  const formMethods = useForm<UpdateApplicationFormValidationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       applicationStatus: undefined,
-      interviewStatus: undefined,
-      offerStatus: undefined,
-      responseStatus: undefined,
-      finalDestinationStatus: undefined,
+      interviewStatus: null,
+      offerStatus: null,
+      responseStatus: null,
+      finalDestinationStatus: null,
     },
-    resolver: zodResolver(updateApplicationFormValidationSchema),
+    resolver: zodResolver(updateApplicationFormValidationSchema) as Resolver<UpdateApplicationFormValidationSchema>,
   });
   const { handleSubmit, setError } = formMethods;
   const {
@@ -89,7 +87,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
     isPending,
     mutate: updateApplication,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
-  const submitUpdateApplicationForm = (formData: FormInputValues) => {
+  const submitUpdateApplicationForm = (formData: UpdateApplicationFormValidationSchema) => {
     updateApplication(formData as UpdateApplicationByStudentPayload);
   };
 
@@ -147,13 +145,13 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
             onChangeHandler={updateInterviewStatus}
             label={t('applicationStatusLabel')}
-            options={Object.keys(ApplicationStatus).map((statusKey: string) => {
+            options={Object.keys(ApplicationStatuses).map((status: string) => {
               return (
                 <option
-                  key={statusKey}
-                  value={statusKey}
+                  key={status}
+                  value={status}
                 >
-                  {t(ApplicationStatusTranslations[statusKey as ApplicationStatusKey])}
+                  {t(ApplicationStatusTranslations[status as ApplicationStatus])}
                 </option>
               );
             })}
@@ -162,7 +160,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ??
               t('applicationStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('applicationStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
@@ -170,13 +168,13 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
             onChangeHandler={updateOfferStatus}
             label={t('interviewStatusLabel')}
-            options={Object.keys(InterviewStatus).map((statusKey: string) => {
+            options={Object.keys(InterviewStatuses).map((status: string) => {
               return (
                 <option
-                  key={statusKey}
-                  value={statusKey}
+                  key={status}
+                  value={status}
                 >
-                  {t(InterviewStatusTranslations[statusKey as InterviewStatusKey])}
+                  {t(InterviewStatusTranslations[status as InterviewStatus])}
                 </option>
               );
             })}
@@ -185,7 +183,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ??
               t('interviewStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('interviewStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
@@ -193,13 +191,13 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
             onChangeHandler={updateResponseStatus}
             label={t('offerStatusLabel')}
-            options={Object.keys(OfferStatus).map((statusKey: string) => {
+            options={Object.keys(OfferStatuses).map((status: string) => {
               return (
                 <option
-                  key={statusKey}
-                  value={statusKey}
+                  key={status}
+                  value={status}
                 >
-                  {t(OfferStatusTranslations[statusKey as OfferStatusKey])}
+                  {t(OfferStatusTranslations[status as OfferStatus])}
                 </option>
               );
             })}
@@ -208,7 +206,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ??
               t('offerStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('offerStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
@@ -216,13 +214,13 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
             onChangeHandler={updateFinalDestinationStatus}
             label={t('responseStatusLabel')}
-            options={Object.keys(ResponseStatus).map((statusKey: string) => {
+            options={Object.keys(ResponseStatuses).map((status: string) => {
               return (
                 <option
-                  key={statusKey}
-                  value={statusKey}
+                  key={status}
+                  value={status}
                 >
-                  {t(ResponseStatusTranslations[statusKey as ResponseStatusKey])}
+                  {t(ResponseStatusTranslations[status as ResponseStatus])}
                 </option>
               );
             })}
@@ -231,20 +229,20 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ??
               t('responseStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('responseStatusUpdateFieldInformation')} />
           <CommonStaticSelectGroup
             id={'finalDestinationStatus'}
             isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
             label={t('finalDestinationStatusLabel')}
-            options={Object.keys(FinalDestinationStatus).map((statusKey: string) => {
+            options={Object.keys(FinalDestinationStatuses).map((status: string) => {
               return (
                 <option
-                  key={statusKey}
-                  value={statusKey}
+                  key={status}
+                  value={status}
                 >
-                  {t(FinalDestinationStatusTranslations[statusKey as FinalDestinationStatusKey])}
+                  {t(FinalDestinationStatusTranslations[status as FinalDestinationStatus])}
                 </option>
               );
             })}
@@ -253,7 +251,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ??
               t('finalDestinationStatusPlaceholder')
             }
-            intent={CoreSelectElementStyleIntent.LIGHT}
+            intent={'light'}
           />
           <CoreFormElementInstruction paragraph={t('finalDestinationStatusUpdateFieldInformation')} />
           <CoreFormAction
@@ -262,7 +260,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
               message: t('genericFormSubmission'),
               value: t('updateApplicationRecordFormSubmit'),
             }}
-            intent={CoreSubmitInputElementStyleIntent.DARK}
+            intent={'dark'}
             className={'col-start-1 col-end-3'}
           />
         </CoreFormWrapper>

@@ -7,15 +7,17 @@
 /**
  * Defines the backend-specific exception identifiers.
  */
-export enum ExceptionType {
-  BAD_CREDENTIALS = 'BadCredentialsException',
-  CONSTRAINT_VIOLATION = 'ConstraintViolationException',
-  DATA_INTEGRITY_VIOLATION = 'DataIntegrityViolationException',
-  DATA_RETRIEVAL_FAILURE = 'DataRetrievalFailureException',
-  ENTITY_NOT_FOUND = 'EntityNotFoundException',
-  METHOD_ARGUMENT_NOT_VALID = 'MethodArgumentNotValidException',
-  METHOD_ARGUMENT_TYPE_MISMATCH = 'MethodArgumentTypeMismatchException',
-}
+export const ExceptionTypes = {
+  BAD_CREDENTIALS: 'BadCredentialsException',
+  CONSTRAINT_VIOLATION: 'ConstraintViolationException',
+  DATA_INTEGRITY_VIOLATION: 'DataIntegrityViolationException',
+  DATA_RETRIEVAL_FAILURE: 'DataRetrievalFailureException',
+  ENTITY_NOT_FOUND: 'EntityNotFoundException',
+  METHOD_ARGUMENT_NOT_VALID: 'MethodArgumentNotValidException',
+  METHOD_ARGUMENT_TYPE_MISMATCH: 'MethodArgumentTypeMismatchException',
+} as const;
+
+export type ExceptionType = (typeof ExceptionTypes)[keyof typeof ExceptionTypes];
 
 /**
  * Defines a single error detail.

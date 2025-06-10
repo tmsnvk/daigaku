@@ -23,8 +23,8 @@ import { NavigationRoute } from './navigation-route.tsx';
 import { TranslationKey, iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
-import { NavigationRouteItem, UserLoginState, UserRole } from '@daigaku/common-types';
+/* interface, type imports */
+import { NavigationRouteItem, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
 
 const sharedNavigationRoutes: Array<NavigationRouteItem> = [
   {
@@ -45,7 +45,7 @@ const sharedNavigationRoutes: Array<NavigationRouteItem> = [
 ];
 
 const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
-  [UserRole.ROLE_STUDENT]: [
+  [UserRoles.ROLE_STUDENT]: [
     {
       targetUrlString: '/new-application',
       icon: iconLibrary.faFileCirclePlus,
@@ -57,7 +57,7 @@ const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteIte
       label: TranslationKey.MY_APPLICATION,
     },
   ],
-  [UserRole.ROLE_MENTOR]: [
+  [UserRoles.ROLE_MENTOR]: [
     {
       targetUrlString: '/my-students',
       icon: iconLibrary.faUserGroup,
@@ -69,8 +69,8 @@ const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteIte
       label: TranslationKey.MY_STUDENT_APPLICATIONS,
     },
   ],
-  [UserRole.ROLE_INSTITUTION_ADMIN]: [],
-  [UserRole.ROLE_SYSTEM_ADMIN]: [
+  [UserRoles.ROLE_INSTITUTION_ADMIN]: [],
+  [UserRoles.ROLE_SYSTEM_ADMIN]: [
     {
       targetUrlString: '/all-students',
       icon: iconLibrary.faUserGroup,
@@ -169,7 +169,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
     }
   }, [account]);
 
-  if (authStatus === UserLoginState.LOADING) {
+  if (authStatus === UserLoginStates.LOADING) {
     return <CoreLoadingNotification intent={'light'} />;
   }
 

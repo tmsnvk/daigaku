@@ -19,4 +19,4 @@ export const createCommentFormValidationSchema = z.object({
     }),
 });
 
-export type FormInputValues = z.infer<typeof createCommentFormValidationSchema>;
+export type CreateCommentFormValidationSchema = z.infer<typeof createCommentFormValidationSchema>;

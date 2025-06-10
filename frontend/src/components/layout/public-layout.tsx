@@ -18,7 +18,7 @@ import { NavigationRoute } from './navigation-route.tsx';
 import { TranslationKey, iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { NavigationRouteItem } from '@daigaku/common-types';
 
 const navigationRoutes: Array<NavigationRouteItem> = [

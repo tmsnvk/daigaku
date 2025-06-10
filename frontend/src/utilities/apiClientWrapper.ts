@@ -10,8 +10,8 @@ import axios, { AxiosResponse } from 'axios';
 /* logic imports */
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 
-/* interface, type, enum, schema imports */
-import { CoreInputErrorResponse, ExceptionType } from '@daigaku/common-types';
+/* interface, type imports */
+import { CoreInputErrorResponse, ExceptionTypes } from '@daigaku/common-types';
 
 /**
  *
@@ -26,18 +26,18 @@ export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosR
     if (!axios.isAxiosError(error)) {
       throw new UnexpectedError();
     }
-    console.log(error);
+
     const statusCode = error.response?.status;
 
     if (statusCode) {
       const errorResponse: CoreInputErrorResponse = error.response?.data;
       const exceptionType: string = errorResponse.exceptionType;
 
-      if (exceptionType === ExceptionType.METHOD_ARGUMENT_NOT_VALID) {
+      if (exceptionType === ExceptionTypes.METHOD_ARGUMENT_NOT_VALID) {
         throw new FormValidationError(statusCode, errorResponse);
       }
 
-      if (exceptionType === ExceptionType.BAD_CREDENTIALS) {
+      if (exceptionType === ExceptionTypes.BAD_CREDENTIALS) {
         throw new UnauthorizedError(statusCode, errorResponse);
       }
 

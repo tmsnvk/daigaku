@@ -9,15 +9,15 @@ import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { Context, ReactNode, createContext, startTransition, useContext, useEffect, useMemo, useState } from 'react';
 
 /* logic imports */
+import { CoreApiError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { localStorageKeys, queryKeys } from '@daigaku/constants';
 import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
-import { LoginResponse, UserLoginState, UserRole } from '@daigaku/common-types';
-import { CoreApiError } from '@daigaku/errors';
+/* interface, type imports */
+import { LoginResponse, UserLoginState, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
 
 /**
  * Defines the properties of the data associated with the logged-in user.
@@ -63,10 +63,10 @@ const initialState: Account = {
 };
 
 const roleResources: Record<UserRole, string> = {
-  [UserRole.ROLE_STUDENT]: 'student',
-  [UserRole.ROLE_MENTOR]: 'mentor',
-  [UserRole.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
-  [UserRole.ROLE_SYSTEM_ADMIN]: 'system-admin',
+  [UserRoles.ROLE_STUDENT]: 'student',
+  [UserRoles.ROLE_MENTOR]: 'mentor',
+  [UserRoles.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
+  [UserRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
 };
 
 const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
@@ -76,7 +76,7 @@ const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthC
  */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [account, setAccount] = useState<Account>(initialState);
-  const [authStatus, setAuthStatus] = useState<UserLoginState>(UserLoginState.LOADING);
+  const [authStatus, setAuthStatus] = useState<UserLoginState>(UserLoginStates.LOADING);
 
   const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
   const { data, isLoading, isError } = useGetMe(authToken);
@@ -87,29 +87,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const updateAccountContextDetails = (details: LoginResponse) => {
     setAccount(details);
-    setAuthStatus(UserLoginState.LOGGED_IN);
+    setAuthStatus(UserLoginStates.LOGGED_IN);
   };
 
   const logOut = (): void => {
     removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
     startTransition(() => {
-      setAuthStatus(UserLoginState.LOGGED_OUT);
+      setAuthStatus(UserLoginStates.LOGGED_OUT);
       setAccount(initialState);
     });
   };
 
   useEffect(() => {
-    if (authStatus === UserLoginState.LOGGED_OUT) {
+    if (authStatus === UserLoginStates.LOGGED_OUT) {
       return;
     }
 
     if (isError || !authToken || isAuthTokenExpired(authToken)) {
-      setAuthStatus(UserLoginState.LOGGED_OUT);
+      setAuthStatus(UserLoginStates.LOGGED_OUT);
     }
 
     if (isLoading) {
-      setAuthStatus(UserLoginState.LOADING);
+      setAuthStatus(UserLoginStates.LOADING);
     }
 
     if (data) {

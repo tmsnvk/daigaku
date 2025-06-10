@@ -7,7 +7,7 @@
 /* logic imports */
 import { CoreApiError } from './core-api-error.ts';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { CoreInputErrorResponse } from '@daigaku/common-types';
 
 /**

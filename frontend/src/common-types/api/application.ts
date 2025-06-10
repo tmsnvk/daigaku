@@ -4,15 +4,15 @@
  * @author tmsnvk
  */
 
-/* interface, type, enum, schema imports */
-import { CoreMetadata } from '../core/core-metada.ts';
+/* interface, type imports */
 import {
-  ApplicationStatusKey,
-  FinalDestinationStatusKey,
-  InterviewStatusKey,
-  OfferStatusKey,
-  ResponseStatusKey,
-} from '../application/application-status.ts';
+  ApplicationStatuses,
+  FinalDestinationStatuses,
+  InterviewStatuses,
+  OfferStatuses,
+  ResponseStatuses,
+} from '../application/application-statuses.ts';
+import { CoreMetadata } from '../core/core-metada.ts';
 
 /**
  * Defines the properties of an Application.
@@ -56,27 +56,27 @@ export interface Application extends CoreMetadata {
   /**
    * The Application's current ApplicationStatus.
    */
-  readonly applicationStatus: ApplicationStatusKey;
+  readonly applicationStatus: ApplicationStatuses;
 
   /**
    * The Application's current InterviewStatus.
    */
-  readonly interviewStatus: InterviewStatusKey | null;
+  readonly interviewStatus: InterviewStatuses | null;
 
   /**
    * The Application's current OfferStatus.
    */
-  readonly offerStatus: OfferStatusKey | null;
+  readonly offerStatus: OfferStatuses | null;
 
   /**
    * The Application's current ResponseStatus.
    */
-  readonly responseStatus: ResponseStatusKey | null;
+  readonly responseStatus: ResponseStatuses | null;
 
   /**
    * The Application's current FinalDestinationStatus.
    */
-  readonly finalDestinationStatus: FinalDestinationStatusKey | null;
+  readonly finalDestinationStatus: FinalDestinationStatuses | null;
 
   /**
    * The boolean indicating whether the owner marked the Application obsolete and ready for deletion.
@@ -121,25 +121,25 @@ export interface UpdateApplicationByStudentPayload {
   /**
    * The Application's ApplicationStatus status.
    */
-  applicationStatus: ApplicationStatusKey;
+  applicationStatus: ApplicationStatuses;
 
   /**
    * The Application's InterviewStatus status.
    */
-  interviewStatus: InterviewStatusKey | null;
+  interviewStatus: InterviewStatuses | null;
 
   /**
    * The Application's OfferStatus status.
    */
-  offerStatus: OfferStatusKey | null;
+  offerStatus: OfferStatuses | null;
 
   /**
    * The Application's ResponseStatus status.
    */
-  responseStatus: ResponseStatusKey | null;
+  responseStatus: ResponseStatuses | null;
 
   /**
    * The Application's FinalDestination status.
    */
-  finalDestinationStatus: FinalDestinationStatusKey | null;
+  finalDestinationStatus: FinalDestinationStatuses | null;
 }

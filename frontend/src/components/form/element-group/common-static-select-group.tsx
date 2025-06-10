@@ -15,7 +15,7 @@ import { useFieldValidationError } from '@daigaku/hooks';
 /* component imports */
 import { CoreStaticSelectElementGroup } from '@daigaku/common-types';
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreSelectElement } from '../core-element/core-select-element.tsx'; /* interface, type, enum, schema imports */
+import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 
 /**
  * Defines the component's properties.

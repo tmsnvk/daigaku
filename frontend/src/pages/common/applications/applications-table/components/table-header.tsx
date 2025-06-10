@@ -23,7 +23,7 @@ import { GlobalErrorModal } from '@daigaku/components/notification';
 import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Column } from '../../common/types.ts';
 
 /**

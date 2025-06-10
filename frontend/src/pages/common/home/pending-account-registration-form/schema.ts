@@ -30,4 +30,6 @@ export const pendingAccountRegistrationFormValidationSchema = z.object({
   accountRoleUuid: z.string().uuid({ message: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
 });
 
-export type FormInputValues = z.infer<typeof pendingAccountRegistrationFormValidationSchema>;
+export type PendingAccountRegistrationFormValidationSchema = z.infer<
+  typeof pendingAccountRegistrationFormValidationSchema
+>;

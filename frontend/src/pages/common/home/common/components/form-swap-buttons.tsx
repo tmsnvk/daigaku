@@ -14,8 +14,8 @@ import { CoreButton } from '@daigaku/components/core';
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
-/* interface, type, enum, schema imports */
-import { FormType } from '../types.ts';
+/* interface, type imports */
+import { FormTypes } from '../types.ts';
 
 /**
  * Defines the component's properties.
@@ -31,7 +31,7 @@ interface FormSwapButtonsProps {
    *
    * @param formType The type of the form to be selected.
    */
-  onFormSelect: (formType: FormType) => void;
+  onFormSelect: (formType: FormTypes) => void;
 
   /**
    * Configuration data regarding the component's buttons.
@@ -39,11 +39,11 @@ interface FormSwapButtonsProps {
   readonly buttonConfig: {
     leftButton: {
       label: string;
-      formType: FormType;
+      formType: FormTypes;
     };
     rightButton: {
       label: string;
-      formType: FormType;
+      formType: FormTypes;
     };
   };
 }

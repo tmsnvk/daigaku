@@ -34,6 +34,10 @@ const coreSubmitInputElementVariants = cva(
 );
 
 /**
+ */
+export type CorSubmitElementVariantIntent = VariantProps<typeof coreSubmitInputElementVariants>['intent'];
+
+/**
  * Defines the component's properties.
  */
 interface CoreSubmitInputElementProps<T extends FieldValues>

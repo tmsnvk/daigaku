@@ -7,8 +7,14 @@
 /* vendor imports */
 import { ChangeEvent, useState } from 'react';
 
-/* interface, type, enum, schema imports */
-import { Application, ApplicationStatus, InterviewStatus, OfferStatus, ResponseStatus } from '@daigaku/common-types';
+/* interface, type imports */
+import {
+  Application,
+  ApplicationStatuses,
+  InterviewStatuses,
+  OfferStatuses,
+  ResponseStatuses,
+} from '@daigaku/common-types';
 
 /**
  * TODO
@@ -57,8 +63,8 @@ interface PageLoadValidationService {
 const pageLoadValidationService: PageLoadValidationService = {
   validateInterviewStatus: (application: Application, updatedData: Application | undefined): boolean => {
     return !(
-      application.applicationStatus === ApplicationStatus.SUBMITTED ||
-      updatedData?.applicationStatus === ApplicationStatus.SUBMITTED
+      application.applicationStatus === ApplicationStatuses.SUBMITTED ||
+      updatedData?.applicationStatus === ApplicationStatuses.SUBMITTED
     );
   },
   validateOfferStatus: (application: Application, updatedData: Application | undefined): boolean => {
@@ -67,8 +73,8 @@ const pageLoadValidationService: PageLoadValidationService = {
     }
 
     return (
-      application.interviewStatus === InterviewStatus.NOT_INVITED ||
-      updatedData?.interviewStatus === InterviewStatus.NOT_INVITED
+      application.interviewStatus === InterviewStatuses.NOT_INVITED ||
+      updatedData?.interviewStatus === InterviewStatuses.NOT_INVITED
     );
   },
   validateResponseStatus: (application: Application, updatedData: Application | undefined): boolean => {
@@ -76,7 +82,7 @@ const pageLoadValidationService: PageLoadValidationService = {
       return true;
     }
 
-    return application.offerStatus === OfferStatus.REJECTED || updatedData?.offerStatus === OfferStatus.REJECTED;
+    return application.offerStatus === OfferStatuses.REJECTED || updatedData?.offerStatus === OfferStatuses.REJECTED;
   },
   validateFinalDestinationStatus: (application: Application, updatedData: Application | undefined): boolean => {
     if (!application.offerStatus) {
@@ -84,10 +90,10 @@ const pageLoadValidationService: PageLoadValidationService = {
     }
 
     return (
-      application.offerStatus === OfferStatus.REJECTED ||
-      updatedData?.offerStatus === OfferStatus.REJECTED ||
-      application.responseStatus === ResponseStatus.OFFER_DECLINED ||
-      updatedData?.responseStatus === ResponseStatus.OFFER_DECLINED
+      application.offerStatus === OfferStatuses.REJECTED ||
+      updatedData?.offerStatus === OfferStatuses.REJECTED ||
+      application.responseStatus === ResponseStatuses.OFFER_DECLINED ||
+      updatedData?.responseStatus === ResponseStatuses.OFFER_DECLINED
     );
   },
 };
@@ -190,10 +196,10 @@ export const useHandleFieldDisableStatus = (
   const onPageLoadValidation = () => {
     // If ApplicationStatus is set either to 'Planned' or 'Withdrawn', all fields are disabled.
     if (
-      application.applicationStatus === ApplicationStatus.PLANNED ||
-      updatedData?.applicationStatus === ApplicationStatus.PLANNED ||
-      application.applicationStatus === ApplicationStatus.WITHDRAWN ||
-      updatedData?.applicationStatus === ApplicationStatus.WITHDRAWN
+      application.applicationStatus === ApplicationStatuses.PLANNED ||
+      updatedData?.applicationStatus === ApplicationStatuses.PLANNED ||
+      application.applicationStatus === ApplicationStatuses.WITHDRAWN ||
+      updatedData?.applicationStatus === ApplicationStatuses.WITHDRAWN
     ) {
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
@@ -205,8 +211,8 @@ export const useHandleFieldDisableStatus = (
     }
 
     if (
-      application.applicationStatus === ApplicationStatus.SUBMITTED ||
-      updatedData?.applicationStatus === ApplicationStatus.SUBMITTED
+      application.applicationStatus === ApplicationStatuses.SUBMITTED ||
+      updatedData?.applicationStatus === ApplicationStatuses.SUBMITTED
     ) {
       setFieldsReadOnlyStatus({
         isApplicationStatusReadOnly: false,
@@ -227,7 +233,7 @@ export const useHandleFieldDisableStatus = (
 
     // If ApplicationStatus is set either to 'Planned' or 'Withdrawn', the following fields are disabled.
     // If ApplicationStatus is set to 'Submitted', InterviewStatus is activated.
-    if (eventTargetValue === ApplicationStatus.PLANNED || eventTargetValue === ApplicationStatus.WITHDRAWN) {
+    if (eventTargetValue === ApplicationStatuses.PLANNED || eventTargetValue === ApplicationStatuses.WITHDRAWN) {
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
         isInterviewStatusReadOnly: true,
@@ -255,7 +261,7 @@ export const useHandleFieldDisableStatus = (
 
     // If InterviewStatus is set to 'Invited' or 'No interview', OfferStatus is activated.
     // If InterviewStatus is set to 'Not invited', the following fields are disabled.
-    if (eventTargetValue === InterviewStatus.INVITED || eventTargetValue === InterviewStatus.NO_INTERVIEW) {
+    if (eventTargetValue === InterviewStatuses.INVITED || eventTargetValue === InterviewStatuses.NO_INTERVIEW) {
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
         isOfferStatusReadOnly: false,
@@ -277,9 +283,9 @@ export const useHandleFieldDisableStatus = (
     // If OfferStatus is set to 'Conditional', 'Deferred' or 'Unconditional', ResponseStatus is activated.
     // If OfferStatus is set to 'Rejected', the following fields are disabled.
     if (
-      eventTargetValue === OfferStatus.CONDITIONAL ||
-      eventTargetValue === OfferStatus.DEFERRED ||
-      eventTargetValue === OfferStatus.UNCONDITIONAL
+      eventTargetValue === OfferStatuses.CONDITIONAL ||
+      eventTargetValue === OfferStatuses.DEFERRED ||
+      eventTargetValue === OfferStatuses.UNCONDITIONAL
     ) {
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
@@ -300,7 +306,7 @@ export const useHandleFieldDisableStatus = (
     const eventTargetValue = event.target.value;
 
     // If OfferStatus is set to 'Offer Declined', the following fields are disabled.
-    if (eventTargetValue === ResponseStatus.OFFER_DECLINED) {
+    if (eventTargetValue === ResponseStatuses.OFFER_DECLINED) {
       setFieldsReadOnlyStatus({
         ...fieldsReadOnlyStatus,
         isFinalDestinationStatusReadOnly: true,

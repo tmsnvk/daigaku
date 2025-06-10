@@ -16,7 +16,7 @@ import { applicationStudentService } from '@daigaku/services';
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
-/* interface, type, enum, schema imports */
+/* interface, type imports */
 import { Application } from '@daigaku/common-types';
 
 /**
