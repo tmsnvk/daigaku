@@ -18,7 +18,7 @@ import { joinTw } from '@daigaku/utilities';
 /* interface, type imports */
 import { CreateToast } from '@daigaku/common-types';
 
-export const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
+const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
   variants: {
     intent: {
       success: joinTw('core-primary-border', 'bg-accent', 'text-secondary'),

@@ -20,11 +20,11 @@ import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 /* interface, type imports */
 import {
   Application,
-  ApplicationStatus,
-  FinalDestinationStatus,
-  InterviewStatus,
-  OfferStatus,
-  ResponseStatus,
+  ApplicationStatuses,
+  FinalDestinationStatuses,
+  InterviewStatuses,
+  OfferStatuses,
+  ResponseStatuses,
 } from '@daigaku/common-types';
 
 /**
@@ -99,23 +99,23 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
       />
       <ApplicationDetail
         name={t('applicationStatusLabel')}
-        value={getStatusDisplayValue(ApplicationStatus, application.applicationStatus, t) ?? '-'}
+        value={getStatusDisplayValue(ApplicationStatuses, application.applicationStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('interviewStatusLabel')}
-        value={getStatusDisplayValue(InterviewStatus, application.interviewStatus, t) ?? '-'}
+        value={getStatusDisplayValue(InterviewStatuses, application.interviewStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('offerStatusLabel')}
-        value={getStatusDisplayValue(OfferStatus, application.offerStatus, t) ?? '-'}
+        value={getStatusDisplayValue(OfferStatuses, application.offerStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('responseStatusLabel')}
-        value={getStatusDisplayValue(ResponseStatus, application.responseStatus, t) ?? '-'}
+        value={getStatusDisplayValue(ResponseStatuses, application.responseStatus, t) ?? '-'}
       />
       <ApplicationDetail
         name={t('finalDestinationStatusLabel')}
-        value={getStatusDisplayValue(FinalDestinationStatus, application.finalDestinationStatus, t) ?? '-'}
+        value={getStatusDisplayValue(FinalDestinationStatuses, application.finalDestinationStatus, t) ?? '-'}
       />
     </section>
   );

@@ -9,24 +9,26 @@ import { z } from 'zod';
 
 /* interface, type imports */
 import {
-  ApplicationStatus,
-  FinalDestinationStatus,
-  InterviewStatus,
-  OfferStatus,
-  ResponseStatus,
+  ApplicationStatuses,
+  FinalDestinationStatuses,
+  InterviewStatuses,
+  OfferStatuses,
+  ResponseStatuses,
 } from '@daigaku/common-types';
 
 export const updateApplicationFormValidationSchema = z.object({
-  applicationStatus: z.nativeEnum(ApplicationStatus),
+  applicationStatus: z.nativeEnum(ApplicationStatuses),
   interviewStatus: z
-    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(InterviewStatus).nullable())
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(InterviewStatuses).nullable())
     .optional(),
-  offerStatus: z.preprocess((value) => (value === '' ? null : value), z.nativeEnum(OfferStatus).nullable()).optional(),
+  offerStatus: z
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(OfferStatuses).nullable())
+    .optional(),
   responseStatus: z
-    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(ResponseStatus).nullable())
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(ResponseStatuses).nullable())
     .optional(),
   finalDestinationStatus: z
-    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(FinalDestinationStatus).nullable())
+    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(FinalDestinationStatuses).nullable())
     .optional(),
 });
 

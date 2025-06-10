@@ -5,14 +5,14 @@
  */
 
 /* interface, type imports */
-import { CoreMetadata } from '../core/core-metada.ts';
 import {
-  ApplicationStatus,
-  FinalDestinationStatus,
-  InterviewStatus,
-  OfferStatus,
-  ResponseStatus,
-} from '../application/application-status.ts';
+  ApplicationStatuses,
+  FinalDestinationStatuses,
+  InterviewStatuses,
+  OfferStatuses,
+  ResponseStatuses,
+} from '../application/application-statuses.ts';
+import { CoreMetadata } from '../core/core-metada.ts';
 
 /**
  * Defines the properties of an Application.
@@ -56,27 +56,27 @@ export interface Application extends CoreMetadata {
   /**
    * The Application's current ApplicationStatus.
    */
-  readonly applicationStatus: ApplicationStatus;
+  readonly applicationStatus: ApplicationStatuses;
 
   /**
    * The Application's current InterviewStatus.
    */
-  readonly interviewStatus: InterviewStatus | null;
+  readonly interviewStatus: InterviewStatuses | null;
 
   /**
    * The Application's current OfferStatus.
    */
-  readonly offerStatus: OfferStatus | null;
+  readonly offerStatus: OfferStatuses | null;
 
   /**
    * The Application's current ResponseStatus.
    */
-  readonly responseStatus: ResponseStatus | null;
+  readonly responseStatus: ResponseStatuses | null;
 
   /**
    * The Application's current FinalDestinationStatus.
    */
-  readonly finalDestinationStatus: FinalDestinationStatus | null;
+  readonly finalDestinationStatus: FinalDestinationStatuses | null;
 
   /**
    * The boolean indicating whether the owner marked the Application obsolete and ready for deletion.
@@ -121,25 +121,25 @@ export interface UpdateApplicationByStudentPayload {
   /**
    * The Application's ApplicationStatus status.
    */
-  applicationStatus: ApplicationStatus;
+  applicationStatus: ApplicationStatuses;
 
   /**
    * The Application's InterviewStatus status.
    */
-  interviewStatus: InterviewStatus | null;
+  interviewStatus: InterviewStatuses | null;
 
   /**
    * The Application's OfferStatus status.
    */
-  offerStatus: OfferStatus | null;
+  offerStatus: OfferStatuses | null;
 
   /**
    * The Application's ResponseStatus status.
    */
-  responseStatus: ResponseStatus | null;
+  responseStatus: ResponseStatuses | null;
 
   /**
    * The Application's FinalDestination status.
    */
-  finalDestinationStatus: FinalDestinationStatus | null;
+  finalDestinationStatus: FinalDestinationStatuses | null;
 }

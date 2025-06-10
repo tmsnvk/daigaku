@@ -35,14 +35,19 @@ import {
   Application,
   ApplicationStatus,
   ApplicationStatusTranslations,
+  ApplicationStatuses,
   FinalDestinationStatus,
   FinalDestinationStatusTranslations,
+  FinalDestinationStatuses,
   InterviewStatus,
   InterviewStatusTranslations,
+  InterviewStatuses,
   OfferStatus,
   OfferStatusTranslations,
+  OfferStatuses,
   ResponseStatus,
   ResponseStatusTranslations,
+  ResponseStatuses,
   UpdateApplicationByStudentPayload,
 } from '@daigaku/common-types';
 
@@ -140,7 +145,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
             onChangeHandler={updateInterviewStatus}
             label={t('applicationStatusLabel')}
-            options={Object.keys(ApplicationStatus).map((status: string) => {
+            options={Object.keys(ApplicationStatuses).map((status: string) => {
               return (
                 <option
                   key={status}
@@ -163,7 +168,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
             onChangeHandler={updateOfferStatus}
             label={t('interviewStatusLabel')}
-            options={Object.keys(InterviewStatus).map((status: string) => {
+            options={Object.keys(InterviewStatuses).map((status: string) => {
               return (
                 <option
                   key={status}
@@ -186,7 +191,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
             onChangeHandler={updateResponseStatus}
             label={t('offerStatusLabel')}
-            options={Object.keys(OfferStatus).map((status: string) => {
+            options={Object.keys(OfferStatuses).map((status: string) => {
               return (
                 <option
                   key={status}
@@ -209,7 +214,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
             onChangeHandler={updateFinalDestinationStatus}
             label={t('responseStatusLabel')}
-            options={Object.keys(ResponseStatus).map((status: string) => {
+            options={Object.keys(ResponseStatuses).map((status: string) => {
               return (
                 <option
                   key={status}
@@ -231,7 +236,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             id={'finalDestinationStatus'}
             isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
             label={t('finalDestinationStatusLabel')}
-            options={Object.keys(FinalDestinationStatus).map((status: string) => {
+            options={Object.keys(FinalDestinationStatuses).map((status: string) => {
               return (
                 <option
                   key={status}

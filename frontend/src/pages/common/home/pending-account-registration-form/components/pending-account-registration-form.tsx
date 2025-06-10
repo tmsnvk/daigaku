@@ -34,7 +34,7 @@ import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
 import { CreatePendingAccountPayload, InstitutionOption, RoleOption } from '@daigaku/common-types';
-import { FormType } from '../../common/types.ts';
+import { FormType, FormTypes } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.
@@ -182,12 +182,12 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.RESET_ACCOUNT_PASSWORD],
-            formType: FormType.RESET_ACCOUNT_PASSWORD,
+            label: formTypeButtonLabel[FormTypes.RESET_ACCOUNT_PASSWORD],
+            formType: FormTypes.RESET_ACCOUNT_PASSWORD,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.LOGIN],
-            formType: FormType.LOGIN,
+            label: formTypeButtonLabel[FormTypes.LOGIN],
+            formType: FormTypes.LOGIN,
           },
         }}
       />

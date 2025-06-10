@@ -5,10 +5,10 @@
  */
 
 /* vendor imports */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks/use-login-form-mutation.tsx';
@@ -29,7 +29,7 @@ import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
 import { LoginPayload } from '@daigaku/common-types';
-import { FormType } from '../../common/types.ts';
+import { FormType, FormTypes } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.
@@ -108,12 +108,12 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.RESET_ACCOUNT_PASSWORD],
-            formType: FormType.RESET_ACCOUNT_PASSWORD,
+            label: formTypeButtonLabel[FormTypes.RESET_ACCOUNT_PASSWORD],
+            formType: FormTypes.RESET_ACCOUNT_PASSWORD,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
-            formType: FormType.REGISTER_PENDING_ACCOUNT,
+            label: formTypeButtonLabel[FormTypes.REGISTER_PENDING_ACCOUNT],
+            formType: FormTypes.REGISTER_PENDING_ACCOUNT,
           },
         }}
       />

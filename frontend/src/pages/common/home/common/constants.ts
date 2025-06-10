@@ -8,10 +8,10 @@
 import { TranslationKey } from '@daigaku/constants';
 
 /* interface, type imports */
-import { FormType } from './types.ts';
+import { FormTypes } from './types.ts';
 
-export const formTypeButtonLabel: Record<FormType, string> = {
-  [FormType.LOGIN]: TranslationKey.LOGIN,
-  [FormType.REGISTER_PENDING_ACCOUNT]: TranslationKey.PENDING_ACCOUNT_REGISTRATION,
-  [FormType.RESET_ACCOUNT_PASSWORD]: TranslationKey.RESET_PASSWORD,
+export const formTypeButtonLabel: Record<FormTypes, string> = {
+  [FormTypes.LOGIN]: TranslationKey.LOGIN,
+  [FormTypes.REGISTER_PENDING_ACCOUNT]: TranslationKey.PENDING_ACCOUNT_REGISTRATION,
+  [FormTypes.RESET_ACCOUNT_PASSWORD]: TranslationKey.RESET_PASSWORD,
 };

@@ -23,7 +23,7 @@ import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
 import { AccountPasswordResetPayload } from '@daigaku/common-types';
-import { FormType } from '../../common/types.ts';
+import { FormType, FormTypes } from '../../common/types.ts';
 
 /**
  * Defines the component's properties.
@@ -95,12 +95,12 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
-            label: formTypeButtonLabel[FormType.LOGIN],
-            formType: FormType.LOGIN,
+            label: formTypeButtonLabel[FormTypes.LOGIN],
+            formType: FormTypes.LOGIN,
           },
           rightButton: {
-            label: formTypeButtonLabel[FormType.REGISTER_PENDING_ACCOUNT],
-            formType: FormType.REGISTER_PENDING_ACCOUNT,
+            label: formTypeButtonLabel[FormTypes.REGISTER_PENDING_ACCOUNT],
+            formType: FormTypes.REGISTER_PENDING_ACCOUNT,
           },
         }}
       />

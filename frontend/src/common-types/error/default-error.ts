@@ -7,7 +7,7 @@
 /**
  * Defines the backend-specific exception identifiers.
  */
-export const ExceptionType = {
+export const ExceptionTypes = {
   BAD_CREDENTIALS: 'BadCredentialsException',
   CONSTRAINT_VIOLATION: 'ConstraintViolationException',
   DATA_INTEGRITY_VIOLATION: 'DataIntegrityViolationException',
@@ -17,7 +17,7 @@ export const ExceptionType = {
   METHOD_ARGUMENT_TYPE_MISMATCH: 'MethodArgumentTypeMismatchException',
 } as const;
 
-export type ExceptionType = (typeof ExceptionType)[keyof typeof ExceptionType];
+export type ExceptionType = (typeof ExceptionTypes)[keyof typeof ExceptionTypes];
 
 /**
  * Defines a single error detail.
