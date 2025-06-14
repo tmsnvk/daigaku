@@ -5,31 +5,34 @@
  */
 
 /* vendor imports */
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const pendingAccountRegistrationFormValidationSchema = z.object({
+export const pendingAccountRegistrationSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .nonempty({ message: TranslationKey.FIRST_NAME_REQUIRED })
+    .nonempty({ error: TranslationKey.FIRST_NAME_REQUIRED })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      message: TranslationKey.NAME_PATTERN,
+      error: TranslationKey.NAME_PATTERN,
     }),
   lastName: z
     .string()
     .trim()
-    .nonempty({ message: TranslationKey.LAST_NAME_REQUIRED })
+    .nonempty({ error: TranslationKey.LAST_NAME_REQUIRED })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      message: TranslationKey.NAME_PATTERN,
+      error: TranslationKey.NAME_PATTERN,
     }),
-  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
-  institutionUuid: z.string().uuid({ message: TranslationKey.INSTITUTION_REQUIRED }),
-  accountRoleUuid: z.string().uuid({ message: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
+  email: z.email({ error: TranslationKey.EMAIL_REQUIRED }).nonempty({ error: TranslationKey.VALID_EMAIL_REQUIRED }),
+  institutionUuid: z
+    .uuidv4({ error: TranslationKey.VALID_INSTITUTION_REQUIRED })
+    .nonempty({ error: TranslationKey.INSTITUTION_REQUIRED }),
+  accountRoleUuid: z
+    .uuidv4({ error: TranslationKey.VALID_ACCOUNT_ROLE_REQUIRED })
+    .nonempty({ error: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
 });
 
-export type PendingAccountRegistrationFormValidationSchema = z.infer<
-  typeof pendingAccountRegistrationFormValidationSchema
->;
+export type PendingAccountRegistrationSchema = z.infer<typeof pendingAccountRegistrationSchema>;
+export type PendingAccountRegistrationSchemaFieldKey = keyof z.infer<typeof pendingAccountRegistrationSchema>;

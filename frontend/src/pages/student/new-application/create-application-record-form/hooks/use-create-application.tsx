@@ -13,23 +13,13 @@ import { useTranslation } from 'react-i18next';
 import { useToastContext } from '@daigaku/context';
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { applicationStudentService } from '@daigaku/services';
+import { CreateApplicationSchemaFieldKey } from '../schema.ts';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { Application, CreateApplicationByStudentPayload, InputViolation } from '@daigaku/common-types';
-
-/**
- * Defines the {@link useCreateApplication} custom hook's error types.
- */
-type CreateApplicationFormErrorField =
-  | 'root'
-  | 'countryUuid'
-  | 'universityUuid'
-  | 'courseName'
-  | 'minorSubject'
-  | 'programmeLength';
 
 /**
  * Manages the submission of new application submission via the `react-query` package.
@@ -56,7 +46,9 @@ export const useCreateApplication = (
 
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
-    mutationFn: (formData: CreateApplicationByStudentPayload) => applicationStudentService.create(formData),
+    mutationFn: (formData: CreateApplicationByStudentPayload) => {
+      return applicationStudentService.create(formData);
+    },
     onSuccess: (response: Application) => {
       queryClient.setQueryData<Array<Application>>(
         [queryKeys.application.GET_ALL_BY_ROLE],
@@ -74,7 +66,7 @@ export const useCreateApplication = (
 
       createToast({
         title: t('genericSuccessToastTitle'),
-        description: t('createApplicationRecordFormSubmissionToastDescription'),
+        description: t('createApplicationFormSubmissionToastDescription'),
         variantIntent: 'success',
       });
     },
@@ -82,7 +74,7 @@ export const useCreateApplication = (
       if (error instanceof FormValidationError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as CreateApplicationFormErrorField, { message: errorDetail.message });
+            setError(errorDetail.fieldName as CreateApplicationSchemaFieldKey, { message: errorDetail.errorMessage });
           }
         });
       }

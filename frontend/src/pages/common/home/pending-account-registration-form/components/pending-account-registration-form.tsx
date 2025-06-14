@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -13,10 +13,7 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
 import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
-import {
-  PendingAccountRegistrationFormValidationSchema,
-  pendingAccountRegistrationFormValidationSchema,
-} from '../schema.ts';
+import { PendingAccountRegistrationSchema, pendingAccountRegistrationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -65,16 +62,17 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
     isError: isInstitutionError,
     refetch: institutionRefetch,
   } = useGetInstitutionOptions();
+
   const {
     data: roles,
     isLoading: isRoleLoading,
     isError: isRoleError,
     refetch: roleRefetch,
   } = useGetStudentAndMentorAccountRoles();
+
   const isSubmitDisabled = isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError;
 
-  const formMethods = useForm<PendingAccountRegistrationFormValidationSchema>({
-    mode: 'onSubmit',
+  const formMethods = useForm<PendingAccountRegistrationSchema>({
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -82,12 +80,17 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
       institutionUuid: '',
       accountRoleUuid: '',
     },
-    resolver: zodResolver(pendingAccountRegistrationFormValidationSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(pendingAccountRegistrationSchema),
   });
-  const { handleSubmit, setError } = formMethods;
-  const { mutate: registerPendingAccount, isPending: isSubmitting } =
-    usePendingAccountRegistrationFormMutation(setError);
-  const submitRegisterPendingAccountForm = (formData: PendingAccountRegistrationFormValidationSchema): void => {
+  const { handleSubmit, setError, reset } = formMethods;
+
+  const { mutate: registerPendingAccount, isPending: isSubmitting } = usePendingAccountRegistrationFormMutation(
+    setError,
+    reset,
+  );
+
+  const submitRegisterPendingAccountForm = (formData: PendingAccountRegistrationSchema): void => {
     registerPendingAccount(formData as CreatePendingAccountPayload);
   };
 

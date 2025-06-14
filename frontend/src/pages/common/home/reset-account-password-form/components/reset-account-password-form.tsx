@@ -5,14 +5,14 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 
 /* logic imports */
 import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
-import { ResetAccountPasswordFormValidationSchema, resetAccountPasswordFormValidationSchema } from '../schema.ts';
+import { ResetAccountPasswordSchema, resetAccountPasswordSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
@@ -48,16 +48,19 @@ interface ResetAccountPasswordFormProps {
 export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<ResetAccountPasswordFormValidationSchema>({
-    mode: 'onSubmit',
+  const formMethods = useForm<ResetAccountPasswordSchema>({
     defaultValues: {
       email: '',
     },
-    resolver: zodResolver(resetAccountPasswordFormValidationSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(resetAccountPasswordSchema),
   });
+
   const { handleSubmit, setError } = formMethods;
+
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
-  const submitResetAccountPasswordForm = (formData: ResetAccountPasswordFormValidationSchema): void => {
+
+  const submitResetAccountPasswordForm = (formData: ResetAccountPasswordSchema): void => {
     resetAccountPassword(formData as AccountPasswordResetPayload);
   };
 

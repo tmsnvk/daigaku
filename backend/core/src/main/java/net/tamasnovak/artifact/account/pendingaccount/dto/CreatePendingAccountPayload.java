@@ -24,25 +24,26 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param accountRoleUuid The pending account's authorization role uuid string.
  */
 public record CreatePendingAccountPayload(
-  @NotBlank(message = "Provide a first name. Use only letters and spaces.")
+  @NotBlank(message = "Provide your first name(s). Use only letters, hyphens and spaces.")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
-    "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
+    "Use only letters and spaces. Provide a minimum of 1 and a maximum of 255 characters.")
   String firstName,
 
-  @NotBlank(message = "Provide a last name. Use only letters and spaces.")
+  @NotBlank(message = "Provide your last name(s). Use only letters, hyphens and spaces.")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
-    "Use only letters and spaces. Provide a minimum of 2 and a maximum of 100 characters.")
+    "Use only letters and spaces. Provide a minimum of 1 and a maximum of 255 characters.")
   String lastName,
 
-  @Email(message = "Provide a valid email address.")
+  @Email(message = "Provide your email address.")
+  @NotBlank(message = "Provide a valid email address.")
   String email,
 
   @NotBlank(message = "Select an institution.")
   @ValidUuid(message = "Select a valid institution.")
   String institutionUuid,
 
-  @NotBlank(message = "Select an account role.")
-  @ValidUuid(message = "Select a valid account role.")
+  @NotBlank(message = "Select an account type.")
+  @ValidUuid(message = "Select a valid account type.")
   String accountRoleUuid) {
   public UUID getInstituionUuid() {
     return UUID.fromString(institutionUuid);

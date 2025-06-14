@@ -8,7 +8,13 @@
 import axios, { AxiosResponse } from 'axios';
 
 /* logic imports */
-import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import {
+  DataIntegrityViolationError,
+  FormValidationError,
+  ServerError,
+  UnauthorizedError,
+  UnexpectedError,
+} from '@daigaku/errors';
 
 /* interface, type imports */
 import { CoreInputErrorResponse, ExceptionTypes } from '@daigaku/common-types';
@@ -39,6 +45,10 @@ export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosR
 
       if (exceptionType === ExceptionTypes.BAD_CREDENTIALS) {
         throw new UnauthorizedError(statusCode, errorResponse);
+      }
+
+      if (exceptionType === ExceptionTypes.DATA_INTEGRITY_VIOLATION) {
+        throw new DataIntegrityViolationError(statusCode, errorResponse);
       }
 
       // TODO: add more error types here as needed that have 40x status.

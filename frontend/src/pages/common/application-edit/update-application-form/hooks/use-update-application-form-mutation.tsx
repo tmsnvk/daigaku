@@ -13,22 +13,13 @@ import { useTranslation } from 'react-i18next';
 import { useToastContext } from '@daigaku/context';
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { applicationStudentService } from '@daigaku/services';
+import { UpdateApplicationSchemaFieldKey } from '../schema.ts';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { Application, InputViolation, UpdateApplicationByStudentPayload } from '@daigaku/common-types';
-
-/**
- * Defines the possible error field names in the {@link useUpdateApplicationFormMutation} custom hook.
- */
-type UpdateApplicationFormField =
-  | 'applicationStatus'
-  | 'interviewStatus'
-  | 'offerStatus'
-  | 'responseStatus'
-  | 'finalDestinationStatus';
 
 /**
  * Manages the {@link ApplicationForm} submission process, including REST API request, error handling,
@@ -49,13 +40,14 @@ export const useUpdateApplicationFormMutation = (
 > => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+
   const { createToast } = useToastContext();
 
   return useMutation({
     mutationKey: [mutationKeys.application.PATCH_BY_UUID],
-    mutationFn: (formData: UpdateApplicationByStudentPayload) =>
-      // TODO: if undefined/null field values are a problem, do something with them here
-      applicationStudentService.updateByUuid(formData, applicationUuid),
+    mutationFn: (formData: UpdateApplicationByStudentPayload) => {
+      return applicationStudentService.updateByUuid(formData, applicationUuid);
+    },
     onSuccess: (response: Application) => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
@@ -78,10 +70,12 @@ export const useUpdateApplicationFormMutation = (
       });
     },
     onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
+      const inputViolations: Array<InputViolation> | undefined = error.coreError?.errors;
+
       if (error instanceof FormValidationError) {
-        error.coreError?.errors.forEach((errorDetail: InputViolation) => {
+        inputViolations?.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as UpdateApplicationFormField, { message: errorDetail.message });
+            setError(errorDetail.fieldName as UpdateApplicationSchemaFieldKey, { message: errorDetail.errorMessage });
           }
         });
       }

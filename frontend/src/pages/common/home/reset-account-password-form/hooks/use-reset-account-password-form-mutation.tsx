@@ -13,17 +13,13 @@ import { useTranslation } from 'react-i18next';
 import { useToastContext } from '@daigaku/context';
 import { FormValidationError, ServerError, UnexpectedError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
+import { ResetAccountPasswordSchemaFieldKey } from '../schema.ts';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { AccountPasswordResetPayload, InputViolation, LoginPayload } from '@daigaku/common-types';
-
-/**
- * Defines the {@link useResetAccountPasswordFormMutation} custom hook's error types.
- */
-type AccountPasswordResetErrorField = 'email';
 
 /**
  * Manages the password reset form submission.
@@ -40,19 +36,24 @@ export const useResetAccountPasswordFormMutation = (
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_RESET_PASSWORD_FORM],
-    mutationFn: (formData: AccountPasswordResetPayload) => accountService.resetPassword(formData),
+    mutationFn: (formData: AccountPasswordResetPayload) => {
+      return accountService.resetPassword(formData);
+    },
     onSuccess: () => {
       createToast({
         title: t('genericSuccessToastTitle'),
-        description: t('createCommentFormSubmissionToastDescription'),
+        description: t('resetPasswordRegistrationFormSubmissionToastDescription'),
         variantIntent: 'success',
+        autoRemoveDelay: 5000,
       });
     },
     onError: (error: FormValidationError | ServerError | UnexpectedError) => {
       if (error instanceof FormValidationError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as AccountPasswordResetErrorField, { message: errorDetail.message });
+            setError(errorDetail.fieldName as ResetAccountPasswordSchemaFieldKey, {
+              message: errorDetail.errorMessage,
+            });
           }
         });
       }

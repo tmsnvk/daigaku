@@ -5,14 +5,14 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
-import { CreateCommentFormValidationSchema, createCommentFormValidationSchema } from '../schema.ts';
+import { CreateCommentSchema, createCommentSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
@@ -42,16 +42,19 @@ const DEFAULT_COL_SIZE = 10;
 export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<CreateCommentFormValidationSchema>({
-    mode: 'onSubmit',
+  const formMethods = useForm<CreateCommentSchema>({
     defaultValues: {
       comment: '',
     },
-    resolver: zodResolver(createCommentFormValidationSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(createCommentSchema),
   });
-  const { handleSubmit, setError } = formMethods;
-  const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);
-  const submitCreateCommentForm = (formData: CreateCommentFormValidationSchema): void => {
+
+  const { handleSubmit, setError, reset } = formMethods;
+
+  const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(applicationUuid, setError, reset);
+
+  const submitCreateCommentForm = (formData: CreateCommentSchema): void => {
     createComment(formData as CreateCommentPayload);
   };
 

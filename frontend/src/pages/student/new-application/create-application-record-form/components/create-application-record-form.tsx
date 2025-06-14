@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
 import { useCreateApplication } from '../hooks/use-create-application.tsx';
-import { CreateApplicationFormValidationSchema, createApplicationFormValidationSchema } from '../schema.ts';
+import { CreateApplicationSchema, createApplicationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -51,16 +51,17 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
     isError: isCountryError,
     refetch: onCountryRetry,
   } = useGetCountryOptions();
+
   const {
     data: universities,
     isLoading: isUniversityLoading,
     isError: isUniversityError,
     refetch: onUniversityRetry,
   } = useGetUniversityOptionsByCountryUuid(currentCountryUuid);
+
   const isSubmitDisabled = isCountryLoading || isUniversityLoading || isCountryError || isUniversityError;
 
-  const methods = useForm<CreateApplicationFormValidationSchema>({
-    mode: 'onSubmit',
+  const methods = useForm<CreateApplicationSchema>({
     defaultValues: {
       countryUuid: '',
       universityUuid: '',
@@ -68,10 +69,13 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       minorSubject: '',
       programmeLength: 3,
     },
-    resolver: zodResolver(createApplicationFormValidationSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(createApplicationSchema),
   });
+
   const { handleSubmit, setError, reset } = methods;
-  const { mutate: createApplicationRecord, isPending: isSubmitting } = useCreateApplication(
+
+  const { mutate: createApplication, isPending: isSubmitting } = useCreateApplication(
     setError,
     resetCountrySelection,
     reset,
@@ -82,8 +86,8 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-application-record-by-student-form'}
-          onFormSubmit={handleSubmit((formData: CreateApplicationFormValidationSchema) => {
-            createApplicationRecord(formData as CreateApplicationByStudentPayload);
+          onFormSubmit={handleSubmit((formData: CreateApplicationSchema) => {
+            createApplication(formData as CreateApplicationByStudentPayload);
           })}
           className={'core-application-grid'}
         >

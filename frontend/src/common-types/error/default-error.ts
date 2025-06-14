@@ -26,7 +26,7 @@ export interface InputViolation {
   /**
    * Describes the error message associated with a specific field.
    */
-  readonly message: string;
+  readonly errorMessage: string;
 
   /**
    * The name of the form field this error applies to.

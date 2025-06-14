@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@daigaku/context';
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
+import { LoginSchemaFieldKey } from '../schema.ts';
 
 /* configuration, utilities, constants imports */
 import { localStorageKeys, mutationKeys } from '@daigaku/constants';
@@ -20,11 +21,6 @@ import { setLocalStorageObjectById } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } from '@daigaku/common-types';
-
-/**
- * Defines the {@link useLoginFormMutation} custom hook's error types.
- */
-type LoginFormErrorField = 'email' | 'password';
 
 /**
  * Manages the login form submission.
@@ -45,26 +41,28 @@ export const useLoginFormMutation = (
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
-    mutationFn: (formData: LoginPayload) => accountService.logIn(formData),
+    mutationFn: (formData: LoginPayload) => {
+      return accountService.logIn(formData);
+    },
     onSuccess: (response: LoginResponse) => {
       setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, response.jwtToken);
       updateAccountContextDetails(response);
 
       navigate('/dashboard');
     },
-    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
+    onError: (error: FormValidationError | UnauthorizedError | ServerError | UnexpectedError) => {
       const coreErrorResponse: CoreInputErrorResponse | undefined = error.coreError;
 
       if (error instanceof FormValidationError) {
         coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as LoginFormErrorField, { message: errorDetail.message });
+            setError(errorDetail.fieldName as LoginSchemaFieldKey, { message: errorDetail.errorMessage });
           }
         });
       }
 
       if (error instanceof UnauthorizedError) {
-        setError('root', { message: coreErrorResponse?.errors[0].message });
+        setError('root', { message: coreErrorResponse?.errors[0].errorMessage });
       }
     },
   });

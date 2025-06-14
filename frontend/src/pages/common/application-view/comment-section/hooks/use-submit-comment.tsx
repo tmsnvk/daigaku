@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useToastContext } from '@daigaku/context';
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { commentService } from '@daigaku/services';
+import { CreateCommentSchemaFieldKey } from '../schema.ts';
 
 /* configuration, utilities, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
@@ -21,21 +22,18 @@ import { mutationKeys, queryKeys } from '@daigaku/constants';
 import { Comment, CreateCommentPayload, InputViolation } from '@daigaku/common-types';
 
 /**
- * Defines the possible error field names in the {@link useSubmitComment} custom hook.
- */
-type NewCommentFormErrorField = 'comment';
-
-/**
  * Manages the comment submission process, including the server request, error handling, and post-success actions.
  *
  * @param setError The `react-hook-form` method to set form errors.
  * @param applicationUuid The application record's uuid string to which the comment belongs to.
+ * @param resetForm
  * @return {UseMutationResult<Comment, UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
  *   CreateCommentPayload>}
  */
 export const useSubmitComment = (
-  setError: UseFormSetError<CreateCommentPayload>,
   applicationUuid: string,
+  setError: UseFormSetError<CreateCommentPayload>,
+  resetForm: () => void,
 ): UseMutationResult<
   Comment,
   UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
@@ -43,19 +41,24 @@ export const useSubmitComment = (
 > => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+
   const { createToast } = useToastContext();
 
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
-    mutationFn: (formData: CreateCommentPayload) => commentService.createByApplicationUuid(formData, applicationUuid),
+    mutationFn: (formData: CreateCommentPayload) => {
+      return commentService.createByApplicationUuid(formData, applicationUuid);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid],
       });
 
+      resetForm();
+
       createToast({
         title: t('genericSuccessToastTitle'),
-        description: t('resetPasswordRegistrationFormSubmissionToastDescription'),
+        description: t('createCommentFormSubmissionToastDescription'),
         variantIntent: 'success',
       });
     },
@@ -63,7 +66,7 @@ export const useSubmitComment = (
       if (error instanceof FormValidationError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as NewCommentFormErrorField, { message: errorDetail.message });
+            setError(errorDetail.fieldName as CreateCommentSchemaFieldKey, { message: errorDetail.errorMessage });
           }
         });
       }

@@ -233,11 +233,11 @@ class StudentApplicationServiceImplTest {
     void shouldUpdateApplication_AndReturnApplicationView() {
       UpdateApplicationByStudentPayload requestBody = mock(UpdateApplicationByStudentPayload.class);
 
-      when(requestBody.applicationStatus()).thenReturn(ApplicationStatus.SUBMITTED);
-      when(requestBody.interviewStatus()).thenReturn(InterviewStatus.INVITED);
-      when(requestBody.offerStatus()).thenReturn(OfferStatus.UNCONDITIONAL);
-      when(requestBody.responseStatus()).thenReturn(ResponseStatus.FIRM_CHOICE);
-      when(requestBody.finalDestinationStatus()).thenReturn(FinalDestinationStatus.FINAL_DESTINATION);
+      when(requestBody.applicationStatusEnum()).thenReturn(ApplicationStatus.SUBMITTED);
+      when(requestBody.interviewStatusEnum()).thenReturn(InterviewStatus.INVITED);
+      when(requestBody.offerStatusEnum()).thenReturn(OfferStatus.UNCONDITIONAL);
+      when(requestBody.responseStatusEnum()).thenReturn(ResponseStatus.FIRM_CHOICE);
+      when(requestBody.finalDestinationStatusEnum()).thenReturn(FinalDestinationStatus.FINAL_DESTINATION);
 
       Application mockApplication = mock(Application.class);
       when(applicationService.findApplicationByUuid(applicationUuid)).thenReturn(mockApplication);

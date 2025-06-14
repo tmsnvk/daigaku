@@ -41,8 +41,8 @@ public record CreateApplicationByStudentPayload(
     "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
   String minorSubject,
 
-  @NotNull(message = "Provide the length of your course (in years).")
-  @Min(value = 2, message = "Programme length should not be less than {value}.")
+  @NotNull(message = "Provide the length (year) of your selected course.")
+  @Min(value = 1, message = "Programme length should not be less than {value}.")
   @Max(value = 5, message = "Programme length should not be more than {value}.")
   int programmeLength
 ) {

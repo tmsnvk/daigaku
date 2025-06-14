@@ -5,14 +5,14 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useLoginFormMutation } from '../hooks/use-login-form-mutation.tsx';
-import { LoginFormValidationSchema, loginFormValidationSchema } from '../schema.ts';
+import { LoginSchema, loginSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -53,17 +53,20 @@ interface LoginFormProps {
 export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<LoginFormValidationSchema>({
-    mode: 'onSubmit',
+  const formMethods = useForm<LoginSchema>({
     defaultValues: {
       email: '',
       password: '',
     },
-    resolver: zodResolver(loginFormValidationSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(loginSchema),
   });
+
   const { handleSubmit, setError } = formMethods;
+
   const { mutate: logIn, isPending: isFormSubmitting } = useLoginFormMutation(setError);
-  const submitLoginForm = (formData: LoginFormValidationSchema): void => {
+
+  const submitLoginForm = (formData: LoginSchema): void => {
     logIn(formData as LoginPayload);
   };
 
