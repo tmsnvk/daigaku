@@ -32,7 +32,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
     UpdateApplicationByStudentPayload newApplicationData, Application currentApplication, Student currentStudent,
     ApplicationStatus newApplicationStatus, InterviewStatus newInterviewStatus, OfferStatus newOfferStatus,
     ResponseStatus newResponseStatus, FinalDestinationStatus newFinalDestinationStatus) {
-    validateApplicationStatus(currentApplication, newApplicationData.applicationStatus());
+    validateApplicationStatus(currentApplication, newApplicationData.applicationStatusEnum());
     validateResponseStatus(currentApplication, currentStudent, newApplicationData, newResponseStatus);
     validateFinalDestinationStatus(currentApplication, currentStudent, newFinalDestinationStatus);
   }

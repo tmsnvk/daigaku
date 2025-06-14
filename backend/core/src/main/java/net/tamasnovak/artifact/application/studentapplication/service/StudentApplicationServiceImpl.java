@@ -159,11 +159,11 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     account.verifyAccountUuidMatch(studentUuidByApplication, GlobalServiceMessages.NO_PERMISSION);
 
     // Finds and validates the to-be updated Application's current and new Status fields.
-    final ApplicationStatus newApplicationStatus = requestBody.applicationStatus();
-    final InterviewStatus newInterviewStatus = requestBody.interviewStatus();
-    final OfferStatus newOfferStatus = requestBody.offerStatus();
-    final ResponseStatus newResponseStatus = requestBody.responseStatus();
-    final FinalDestinationStatus newFinalDestinationStatus = requestBody.finalDestinationStatus();
+    final ApplicationStatus newApplicationStatus = requestBody.applicationStatusEnum();
+    final InterviewStatus newInterviewStatus = requestBody.interviewStatusEnum();
+    final OfferStatus newOfferStatus = requestBody.offerStatusEnum();
+    final ResponseStatus newResponseStatus = requestBody.responseStatusEnum();
+    final FinalDestinationStatus newFinalDestinationStatus = requestBody.finalDestinationStatusEnum();
     existingApplicationValidator.validateApplication(requestBody, currentApplication, currentStudent, newApplicationStatus,
       newInterviewStatus, newOfferStatus, newResponseStatus, newFinalDestinationStatus);
 

@@ -5,7 +5,6 @@
  */
 
 /* vendor imports */
-import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useHandleFieldDisableStatus } from '../hooks/use-handle-field-disable-status.tsx';
 import { useUpdateApplicationFormMutation } from '../hooks/use-update-application-form-mutation.tsx';
-import { UpdateApplicationSchema, updateApplicationSchema } from '../schema.ts';
+import { UpdateApplicationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -79,7 +78,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
       finalDestinationStatus: null,
     },
     mode: 'onSubmit',
-    resolver: standardSchemaResolver(updateApplicationSchema),
+    // resolver: standardSchemaResolver(updateApplicationSchema),
   });
 
   const { handleSubmit, setError } = formMethods;

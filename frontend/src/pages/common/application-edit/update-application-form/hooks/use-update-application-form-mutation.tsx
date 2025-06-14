@@ -70,8 +70,10 @@ export const useUpdateApplicationFormMutation = (
       });
     },
     onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
+      const inputViolations: Array<InputViolation> | undefined = error.coreError?.errors;
+
       if (error instanceof FormValidationError) {
-        error.coreError?.errors.forEach((errorDetail: InputViolation) => {
+        inputViolations?.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
             setError(errorDetail.fieldName as UpdateApplicationSchemaFieldKey, { message: errorDetail.errorMessage });
           }
