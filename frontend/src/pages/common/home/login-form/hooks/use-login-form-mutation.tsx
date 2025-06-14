@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@daigaku/context';
 import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
-import { LoginSchemaFieldKeys } from '../schema.ts';
+import { LoginSchemaFieldKey } from '../schema.ts';
 
 /* configuration, utilities, constants imports */
 import { localStorageKeys, mutationKeys } from '@daigaku/constants';
@@ -56,7 +56,7 @@ export const useLoginFormMutation = (
       if (error instanceof FormValidationError) {
         coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as LoginSchemaFieldKeys, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as LoginSchemaFieldKey, { message: errorDetail.errorMessage });
           }
         });
       }

@@ -83,8 +83,6 @@ interface ApplicationStudentService {
  */
 export const applicationStudentService: ApplicationStudentService = {
   create: (formData: CreateApplicationByStudentPayload): Promise<Application> => {
-    console.log(formData);
-
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Application>({
         method: 'POST',

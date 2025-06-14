@@ -165,6 +165,11 @@ export const TranslationKey = {
   PROGRAMME_LENGTH_PATTERN: 'programmeLengthPattern',
   COMMENT_REQUIRED: 'commentRequired',
   COMMENT_PATTERN: 'commentPattern',
+  VALID_APPLICATION_STATUS_REQUIRED: 'validApplicationStatusRequired',
+  VALID_INTERVIEW_STATUS_REQUIRED: 'validInterviewStatusRequired',
+  VALID_OFFER_STATUS_REQUIRED: 'validOfferStatusRequired',
+  VALID_RESPONSE_STATUS_REQUIRED: 'validResponseStatusRequired',
+  VALID_FINAL_DESTINATION_STATUS_REQUIRED: 'validFinalDestinationStatusRequired',
 
   // pages - unauthorized root
   LOGIN_FORM_HEADER: 'loginFormHeader',
@@ -383,14 +388,19 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       validInstitutionRequired: 'Select a valid institution.',
       countryRequired: 'Selecting a country is required.',
       universityRequired: 'Selecting a university is required.',
-      courseNameRequired: 'Providing the name of your selected course is required.',
+      courseNameRequired: 'Provide the name of your selected course.',
       courseNamePattern: 'Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.',
       minorSubjectPattern:
-        'Providing a minor subject is optional but use only letters, spaces and a minimum of 5 and a maximum of 255 characters if you do so.',
-      programmeLengthRequired: 'Providing the length of your selected course is required.',
-      programmeLengthPattern: 'You may enter numeric values only between 2 and 5.',
+        'Provide a minor subject only if you it is relevant, using only letters and spaces, with a minimum of 5 and a maximum of 255 characters.',
+      programmeLengthRequired: 'Provide the length (year) of your selected course.',
+      programmeLengthPattern: 'You may enter numeric values only between 1 and 5.',
       commentRequired: 'Add your comment.',
       commentPattern: 'Provide a minimum of 15 and a maximum of 1000 characters.',
+      validApplicationStatusRequired: 'Provide a valid Application status.',
+      validInterviewStatusRequired: 'Provide a valid Interview status.',
+      validOfferStatusRequired: 'Provide a valid Offer status.',
+      validResponseStatusRequired: 'Provide a valid Response status.',
+      validFinalDestinationStatusRequired: 'Provide a valid Final Destination status.',
 
       // pages - unauthorized root
       loginFormHeader: 'Sign in if you already have an admin-approved account, otherwise, apply for one first.',

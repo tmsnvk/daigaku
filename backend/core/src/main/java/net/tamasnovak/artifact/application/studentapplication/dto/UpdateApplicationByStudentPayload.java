@@ -6,7 +6,6 @@
 
 package net.tamasnovak.artifact.application.studentapplication.dto;
 
-import jakarta.validation.constraints.NotNull;
 import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.enums.status.ApplicationStatus;
@@ -25,7 +24,6 @@ import net.tamasnovak.enums.status.ResponseStatus;
  * @param finalDestinationStatus
  */
 public record UpdateApplicationByStudentPayload(
-  @NotNull(message = "Application status cannot be null.")
   ApplicationStatus applicationStatus,
 
   InterviewStatus interviewStatus,

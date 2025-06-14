@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -51,16 +51,17 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
     isError: isCountryError,
     refetch: onCountryRetry,
   } = useGetCountryOptions();
+
   const {
     data: universities,
     isLoading: isUniversityLoading,
     isError: isUniversityError,
     refetch: onUniversityRetry,
   } = useGetUniversityOptionsByCountryUuid(currentCountryUuid);
+
   const isSubmitDisabled = isCountryLoading || isUniversityLoading || isCountryError || isUniversityError;
 
   const methods = useForm<CreateApplicationSchema>({
-    mode: 'onSubmit',
     defaultValues: {
       countryUuid: '',
       universityUuid: '',
@@ -68,10 +69,13 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       minorSubject: '',
       programmeLength: 3,
     },
-    resolver: zodResolver(createApplicationSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(createApplicationSchema),
   });
+
   const { handleSubmit, setError, reset } = methods;
-  const { mutate: createApplicationRecord, isPending: isSubmitting } = useCreateApplication(
+
+  const { mutate: createApplication, isPending: isSubmitting } = useCreateApplication(
     setError,
     resetCountrySelection,
     reset,
@@ -83,7 +87,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
         <CoreFormWrapper
           formId={'post-application-record-by-student-form'}
           onFormSubmit={handleSubmit((formData: CreateApplicationSchema) => {
-            createApplicationRecord(formData as CreateApplicationByStudentPayload);
+            createApplication(formData as CreateApplicationByStudentPayload);
           })}
           className={'core-application-grid'}
         >

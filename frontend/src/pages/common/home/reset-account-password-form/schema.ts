@@ -5,17 +5,14 @@
  */
 
 /* vendor imports */
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
 export const resetAccountPasswordSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .nonempty({ message: TranslationKey.EMAIL_REQUIRED })
-    .email({ message: TranslationKey.VALID_EMAIL_REQUIRED }),
+  email: z.email({ error: TranslationKey.EMAIL_REQUIRED }).nonempty({ error: TranslationKey.VALID_EMAIL_REQUIRED }),
 });
 
 export type ResetAccountPasswordSchema = z.infer<typeof resetAccountPasswordSchema>;
+export type ResetAccountPasswordSchemaFieldKey = keyof z.infer<typeof resetAccountPasswordSchema>;

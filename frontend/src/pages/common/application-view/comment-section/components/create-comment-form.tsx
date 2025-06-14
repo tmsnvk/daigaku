@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -43,14 +43,17 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
   const { t } = useTranslation();
 
   const formMethods = useForm<CreateCommentSchema>({
-    mode: 'onSubmit',
     defaultValues: {
       comment: '',
     },
-    resolver: zodResolver(createCommentSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(createCommentSchema),
   });
-  const { handleSubmit, setError } = formMethods;
-  const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);
+
+  const { handleSubmit, setError, reset } = formMethods;
+
+  const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(applicationUuid, setError, reset);
+
   const submitCreateCommentForm = (formData: CreateCommentSchema): void => {
     createComment(formData as CreateCommentPayload);
   };

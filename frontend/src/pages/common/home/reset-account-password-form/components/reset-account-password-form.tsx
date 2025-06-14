@@ -5,10 +5,10 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 
 /* logic imports */
 import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
@@ -49,14 +49,17 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
   const { t } = useTranslation();
 
   const formMethods = useForm<ResetAccountPasswordSchema>({
-    mode: 'onSubmit',
     defaultValues: {
       email: '',
     },
-    resolver: zodResolver(resetAccountPasswordSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(resetAccountPasswordSchema),
   });
+
   const { handleSubmit, setError } = formMethods;
+
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
+
   const submitResetAccountPasswordForm = (formData: ResetAccountPasswordSchema): void => {
     resetAccountPassword(formData as AccountPasswordResetPayload);
   };

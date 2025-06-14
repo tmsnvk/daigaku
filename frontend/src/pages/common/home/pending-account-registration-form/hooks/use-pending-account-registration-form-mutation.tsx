@@ -12,16 +12,14 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
 import { DataIntegrityViolationError, FormValidationError, ServerError, UnexpectedError } from '@daigaku/errors';
-import { pendingAccountService } from '@daigaku/services'; /* configuration, utilities, constants imports */
+import { pendingAccountService } from '@daigaku/services';
+import { PendingAccountRegistrationSchemaFieldKey } from '../schema.ts';
+
+/* configuration, utilities, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { CoreInputErrorResponse, CreatePendingAccountPayload, InputViolation } from '@daigaku/common-types';
-
-/**
- * Defines the {@link usePendingAccountRegistrationFormMutation} custom hook's error types.
- */
-type RegistrationFormErrorField = 'firstName' | 'lastName' | 'email' | 'institutionUuid' | 'accountRoleUuid';
 
 /**
  * Manages the pending account registration form submission.
@@ -32,6 +30,7 @@ type RegistrationFormErrorField = 'firstName' | 'lastName' | 'email' | 'institut
  */
 export const usePendingAccountRegistrationFormMutation = (
   setError: UseFormSetError<CreatePendingAccountPayload>,
+  resetForm: () => void,
 ): UseMutationResult<
   void,
   FormValidationError | DataIntegrityViolationError | ServerError | UnexpectedError,
@@ -43,8 +42,12 @@ export const usePendingAccountRegistrationFormMutation = (
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER_FORM],
-    mutationFn: (formData: CreatePendingAccountPayload) => pendingAccountService.create(formData),
+    mutationFn: (formData: CreatePendingAccountPayload) => {
+      return pendingAccountService.create(formData);
+    },
     onSuccess: () => {
+      resetForm();
+
       createToast({
         title: t('genericSuccessToastTitle'),
         description: t('pendingAccountRegistrationFormSubmissionToastDescription'),
@@ -57,7 +60,9 @@ export const usePendingAccountRegistrationFormMutation = (
       if (error instanceof FormValidationError) {
         coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as RegistrationFormErrorField, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as PendingAccountRegistrationSchemaFieldKey, {
+              message: errorDetail.errorMessage,
+            });
           }
         });
       }

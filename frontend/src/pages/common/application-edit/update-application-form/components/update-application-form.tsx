@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -71,16 +71,17 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
   const { t } = useTranslation();
 
   const formMethods = useForm<UpdateApplicationSchema>({
-    mode: 'onSubmit',
     defaultValues: {
-      applicationStatus: ApplicationStatuses.PLANNED,
+      applicationStatus: null,
       interviewStatus: null,
       offerStatus: null,
       responseStatus: null,
       finalDestinationStatus: null,
     },
-    resolver: zodResolver(updateApplicationSchema),
+    mode: 'onSubmit',
+    resolver: standardSchemaResolver(updateApplicationSchema),
   });
+
   const { handleSubmit, setError } = formMethods;
 
   const {
@@ -88,6 +89,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
     isPending,
     mutate: updateApplication,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
+
   const submitUpdateApplicationForm = (formData: UpdateApplicationSchema) => {
     updateApplication(formData as UpdateApplicationByStudentPayload);
   };
