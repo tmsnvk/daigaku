@@ -7,13 +7,13 @@
 /* vendor imports */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useEffect } from 'react';
-import { FormProvider, Resolver, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useHandleFieldDisableStatus } from '../hooks/use-handle-field-disable-status.tsx';
 import { useUpdateApplicationFormMutation } from '../hooks/use-update-application-form-mutation.tsx';
-import { UpdateApplicationFormValidationSchema, updateApplicationFormValidationSchema } from '../schema.ts';
+import { UpdateApplicationSchema, updateApplicationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -70,24 +70,25 @@ interface UpdateApplicationRecordFormProps {
 export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<UpdateApplicationFormValidationSchema>({
+  const formMethods = useForm<UpdateApplicationSchema>({
     mode: 'onSubmit',
     defaultValues: {
-      applicationStatus: undefined,
+      applicationStatus: ApplicationStatuses.PLANNED,
       interviewStatus: null,
       offerStatus: null,
       responseStatus: null,
       finalDestinationStatus: null,
     },
-    resolver: zodResolver(updateApplicationFormValidationSchema) as Resolver<UpdateApplicationFormValidationSchema>,
+    resolver: zodResolver(updateApplicationSchema),
   });
   const { handleSubmit, setError } = formMethods;
+
   const {
     data: updatedData,
     isPending,
     mutate: updateApplication,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
-  const submitUpdateApplicationForm = (formData: UpdateApplicationFormValidationSchema) => {
+  const submitUpdateApplicationForm = (formData: UpdateApplicationSchema) => {
     updateApplication(formData as UpdateApplicationByStudentPayload);
   };
 

@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public final class PendingAccountServiceMessages {
-  static final String EMAIL_ALREADY_EXISTS = "This email is already registered in our system.";
+  static final String EMAIL_ALREADY_EXISTS = "We could not use this email to register your account. Try a different one or contact " +
+    "support.";
 
   private PendingAccountServiceMessages() {
     // Class should not be initialised.

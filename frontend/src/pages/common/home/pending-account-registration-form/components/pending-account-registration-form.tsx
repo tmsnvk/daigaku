@@ -13,10 +13,7 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
 import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
-import {
-  PendingAccountRegistrationFormValidationSchema,
-  pendingAccountRegistrationFormValidationSchema,
-} from '../schema.ts';
+import { PendingAccountRegistrationSchema, pendingAccountRegistrationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -73,7 +70,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
   } = useGetStudentAndMentorAccountRoles();
   const isSubmitDisabled = isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError;
 
-  const formMethods = useForm<PendingAccountRegistrationFormValidationSchema>({
+  const formMethods = useForm<PendingAccountRegistrationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       firstName: '',
@@ -82,12 +79,12 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
       institutionUuid: '',
       accountRoleUuid: '',
     },
-    resolver: zodResolver(pendingAccountRegistrationFormValidationSchema),
+    resolver: zodResolver(pendingAccountRegistrationSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: registerPendingAccount, isPending: isSubmitting } =
     usePendingAccountRegistrationFormMutation(setError);
-  const submitRegisterPendingAccountForm = (formData: PendingAccountRegistrationFormValidationSchema): void => {
+  const submitRegisterPendingAccountForm = (formData: PendingAccountRegistrationSchema): void => {
     registerPendingAccount(formData as CreatePendingAccountPayload);
   };
 

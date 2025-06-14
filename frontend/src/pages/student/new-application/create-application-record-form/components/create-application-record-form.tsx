@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
 import { useCreateApplication } from '../hooks/use-create-application.tsx';
-import { CreateApplicationFormValidationSchema, createApplicationFormValidationSchema } from '../schema.ts';
+import { CreateApplicationSchema, createApplicationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -59,7 +59,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
   } = useGetUniversityOptionsByCountryUuid(currentCountryUuid);
   const isSubmitDisabled = isCountryLoading || isUniversityLoading || isCountryError || isUniversityError;
 
-  const methods = useForm<CreateApplicationFormValidationSchema>({
+  const methods = useForm<CreateApplicationSchema>({
     mode: 'onSubmit',
     defaultValues: {
       countryUuid: '',
@@ -68,7 +68,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       minorSubject: '',
       programmeLength: 3,
     },
-    resolver: zodResolver(createApplicationFormValidationSchema),
+    resolver: zodResolver(createApplicationSchema),
   });
   const { handleSubmit, setError, reset } = methods;
   const { mutate: createApplicationRecord, isPending: isSubmitting } = useCreateApplication(
@@ -82,7 +82,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-application-record-by-student-form'}
-          onFormSubmit={handleSubmit((formData: CreateApplicationFormValidationSchema) => {
+          onFormSubmit={handleSubmit((formData: CreateApplicationSchema) => {
             createApplicationRecord(formData as CreateApplicationByStudentPayload);
           })}
           className={'core-application-grid'}

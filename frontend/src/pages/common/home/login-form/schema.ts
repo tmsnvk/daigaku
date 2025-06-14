@@ -5,14 +5,15 @@
  */
 
 /* vendor imports */
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const loginFormValidationSchema = z.object({
-  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
-  password: z.string().trim().nonempty({ message: TranslationKey.PASSWORD_REQUIRED }),
+export const loginSchema = z.object({
+  email: z.email({ error: TranslationKey.EMAIL_REQUIRED }).nonempty({ error: TranslationKey.VALID_EMAIL_REQUIRED }),
+  password: z.string().trim().nonempty({ error: TranslationKey.PASSWORD_REQUIRED }),
 });
 
-export type LoginFormValidationSchema = z.infer<typeof loginFormValidationSchema>;
+export type LoginSchema = z.infer<typeof loginSchema>;
+export type LoginSchemaFieldKeys = keyof z.infer<typeof loginSchema>;

@@ -11,10 +11,8 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
-import { FormValidationError, ServerError, UnexpectedError } from '@daigaku/errors';
-import { pendingAccountService } from '@daigaku/services';
-
-/* configuration, utilities, constants imports */
+import { DataIntegrityViolationError, FormValidationError, ServerError, UnexpectedError } from '@daigaku/errors';
+import { pendingAccountService } from '@daigaku/services'; /* configuration, utilities, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */
@@ -34,7 +32,11 @@ type RegistrationFormErrorField = 'firstName' | 'lastName' | 'email' | 'institut
  */
 export const usePendingAccountRegistrationFormMutation = (
   setError: UseFormSetError<CreatePendingAccountPayload>,
-): UseMutationResult<void, FormValidationError | ServerError | UnexpectedError, CreatePendingAccountPayload> => {
+): UseMutationResult<
+  void,
+  FormValidationError | DataIntegrityViolationError | ServerError | UnexpectedError,
+  CreatePendingAccountPayload
+> => {
   const { t } = useTranslation();
 
   const { createToast } = useToastContext();
@@ -49,15 +51,19 @@ export const usePendingAccountRegistrationFormMutation = (
         variantIntent: 'success',
       });
     },
-    onError: (error: FormValidationError | ServerError | UnexpectedError) => {
+    onError: (error: FormValidationError | DataIntegrityViolationError | ServerError | UnexpectedError) => {
       const coreErrorResponse: CoreInputErrorResponse | undefined = error.coreError;
 
       if (error instanceof FormValidationError) {
         coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as RegistrationFormErrorField, { message: errorDetail.message });
+            setError(errorDetail.fieldName as RegistrationFormErrorField, { message: errorDetail.errorMessage });
           }
         });
+      }
+
+      if (error instanceof DataIntegrityViolationError) {
+        setError('root', { message: coreErrorResponse?.errors[0].errorMessage });
       }
     },
   });

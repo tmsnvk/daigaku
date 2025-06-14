@@ -16,20 +16,14 @@ import {
   ResponseStatuses,
 } from '@daigaku/common-types';
 
-export const updateApplicationFormValidationSchema = z.object({
-  applicationStatus: z.nativeEnum(ApplicationStatuses),
-  interviewStatus: z
-    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(InterviewStatuses).nullable())
-    .optional(),
-  offerStatus: z
-    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(OfferStatuses).nullable())
-    .optional(),
-  responseStatus: z
-    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(ResponseStatuses).nullable())
-    .optional(),
+export const updateApplicationSchema = z.object({
+  applicationStatus: z.enum(Object.values(ApplicationStatuses) as [string, ...string[]]),
+  interviewStatus: z.union([z.enum(Object.values(InterviewStatuses) as [string, ...string[]]), z.null()]).optional(),
+  offerStatus: z.union([z.enum(Object.values(OfferStatuses) as [string, ...string[]]), z.null()]).optional(),
+  responseStatus: z.union([z.enum(Object.values(ResponseStatuses) as [string, ...string[]]), z.null()]).optional(),
   finalDestinationStatus: z
-    .preprocess((value) => (value === '' ? null : value), z.nativeEnum(FinalDestinationStatuses).nullable())
+    .union([z.enum(Object.values(FinalDestinationStatuses) as [string, ...string[]]), z.null()])
     .optional(),
 });
 
-export type UpdateApplicationFormValidationSchema = z.infer<typeof updateApplicationFormValidationSchema>;
+export type UpdateApplicationSchema = z.infer<typeof updateApplicationSchema>;

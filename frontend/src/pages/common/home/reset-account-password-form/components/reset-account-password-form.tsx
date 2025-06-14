@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
-import { ResetAccountPasswordFormValidationSchema, resetAccountPasswordFormValidationSchema } from '../schema.ts';
+import { ResetAccountPasswordSchema, resetAccountPasswordSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
@@ -48,16 +48,16 @@ interface ResetAccountPasswordFormProps {
 export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<ResetAccountPasswordFormValidationSchema>({
+  const formMethods = useForm<ResetAccountPasswordSchema>({
     mode: 'onSubmit',
     defaultValues: {
       email: '',
     },
-    resolver: zodResolver(resetAccountPasswordFormValidationSchema),
+    resolver: zodResolver(resetAccountPasswordSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
-  const submitResetAccountPasswordForm = (formData: ResetAccountPasswordFormValidationSchema): void => {
+  const submitResetAccountPasswordForm = (formData: ResetAccountPasswordSchema): void => {
     resetAccountPassword(formData as AccountPasswordResetPayload);
   };
 

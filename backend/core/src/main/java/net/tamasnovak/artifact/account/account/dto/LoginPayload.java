@@ -18,11 +18,11 @@ import jakarta.validation.constraints.NotBlank;
  * @param password The account's password.
  */
 public record LoginPayload(
-  @Email(message = "Provide a valid email address.")
-  @NotBlank(message = "Providing your email address is required.")
+  @Email(message = "Provide your email address.")
+  @NotBlank(message = "Provide a valid email address.")
   String email,
 
-  @NotBlank(message = "Providing your password is required.")
+  @NotBlank(message = "Provide your password.")
   String password
 ) {
   /**

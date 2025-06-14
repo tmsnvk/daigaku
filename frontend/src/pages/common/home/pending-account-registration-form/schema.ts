@@ -10,7 +10,7 @@ import { z } from 'zod';
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const pendingAccountRegistrationFormValidationSchema = z.object({
+export const pendingAccountRegistrationSchema = z.object({
   firstName: z
     .string()
     .trim()
@@ -25,11 +25,19 @@ export const pendingAccountRegistrationFormValidationSchema = z.object({
     .regex(/^[\p{L}\s-]{1,255}$/u, {
       message: TranslationKey.NAME_PATTERN,
     }),
-  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
-  institutionUuid: z.string().uuid({ message: TranslationKey.INSTITUTION_REQUIRED }),
-  accountRoleUuid: z.string().uuid({ message: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
+  email: z
+    .string()
+    .trim()
+    .nonempty({ message: TranslationKey.EMAIL_REQUIRED })
+    .email({ message: TranslationKey.VALID_EMAIL_REQUIRED }),
+  institutionUuid: z
+    .string()
+    .nonempty({ message: TranslationKey.INSTITUTION_REQUIRED })
+    .uuid({ message: TranslationKey.VALID_EMAIL_REQUIRED }),
+  accountRoleUuid: z
+    .string()
+    .nonempty({ message: TranslationKey.ACCOUNT_ROLE_REQUIRED })
+    .uuid({ message: TranslationKey.VALID_ACCOUNT_ROLE_REQUIRED }),
 });
 
-export type PendingAccountRegistrationFormValidationSchema = z.infer<
-  typeof pendingAccountRegistrationFormValidationSchema
->;
+export type PendingAccountRegistrationSchema = z.infer<typeof pendingAccountRegistrationSchema>;

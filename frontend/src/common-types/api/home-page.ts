@@ -5,7 +5,7 @@
  */
 
 /* interface, type imports */
-import { UserRoles } from './role.ts';
+import { UserRole } from './role.ts';
 
 /**
  * Defines the structure of a user login form submission.
@@ -44,7 +44,7 @@ export interface LoginResponse {
   /**
    * The authenticated user's authorization level.
    */
-  readonly role: UserRoles;
+  readonly role: UserRole;
 }
 
 /**

@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
-import { CreateCommentFormValidationSchema, createCommentFormValidationSchema } from '../schema.ts';
+import { CreateCommentSchema, createCommentSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
@@ -42,16 +42,16 @@ const DEFAULT_COL_SIZE = 10;
 export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<CreateCommentFormValidationSchema>({
+  const formMethods = useForm<CreateCommentSchema>({
     mode: 'onSubmit',
     defaultValues: {
       comment: '',
     },
-    resolver: zodResolver(createCommentFormValidationSchema),
+    resolver: zodResolver(createCommentSchema),
   });
   const { handleSubmit, setError } = formMethods;
   const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(setError, applicationUuid);
-  const submitCreateCommentForm = (formData: CreateCommentFormValidationSchema): void => {
+  const submitCreateCommentForm = (formData: CreateCommentSchema): void => {
     createComment(formData as CreateCommentPayload);
   };
 

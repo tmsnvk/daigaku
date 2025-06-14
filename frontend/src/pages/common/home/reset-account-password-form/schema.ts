@@ -10,8 +10,12 @@ import { z } from 'zod';
 /* configuration, utilities, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
-export const resetAccountPasswordFormValidationSchema = z.object({
-  email: z.string().email({ message: TranslationKey.EMAIL_REQUIRED }),
+export const resetAccountPasswordSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .nonempty({ message: TranslationKey.EMAIL_REQUIRED })
+    .email({ message: TranslationKey.VALID_EMAIL_REQUIRED }),
 });
 
-export type ResetAccountPasswordFormValidationSchema = z.infer<typeof resetAccountPasswordFormValidationSchema>;
+export type ResetAccountPasswordSchema = z.infer<typeof resetAccountPasswordSchema>;
