@@ -64,20 +64,23 @@ export const applicationService: ApplicationService = {
       axiosConfigWithAuth.request<Application>({
         method: 'GET',
         url: `/api/v1/applications/${uuid}`,
-      }));
+      }),
+    );
   },
   findListByAccountRole: (accountRole: string): Promise<Array<Application>> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<Application>>({
         method: 'GET',
         url: `/api/v1/applications/${accountRole}`,
-      }));
+      }),
+    );
   },
   fetchDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<StudentDashboardStatisticsResponse>({
         method: 'GET',
         url: `/api/v1/applications/${accountRole}/dashboard-statistics`,
-      }));
+      }),
+    );
   },
 };

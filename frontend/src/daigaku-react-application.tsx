@@ -14,8 +14,8 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 
 /* logic imports */
 import { AuthProvider, ToastProvider } from '@daigaku/context';
-import { TranslationProvider } from '@daigaku/providers';
 import { useCoreQueryClient } from '@daigaku/hooks';
+import { TranslationProvider } from '@daigaku/providers';
 
 /* component imports */
 import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';

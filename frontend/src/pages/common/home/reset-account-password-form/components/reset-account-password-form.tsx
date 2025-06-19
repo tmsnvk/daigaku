@@ -5,10 +5,10 @@
  */
 
 /* vendor imports */
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 
 /* logic imports */
 import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';

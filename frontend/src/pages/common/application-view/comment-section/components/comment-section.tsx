@@ -14,9 +14,9 @@ import { useGetCommentsByApplicationAndPagination } from '../hooks/use-get-comme
 
 /* component imports */
 import { LoadingIndicator } from '@daigaku/components/general';
-import { CreateCommentForm } from './create-comment-form.tsx';
 import { CommentPaginationButton } from './comment-pagination-button.tsx';
 import { Comments } from './comments.tsx';
+import { CreateCommentForm } from './create-comment-form.tsx';
 
 /* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';

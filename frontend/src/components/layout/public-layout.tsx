@@ -6,8 +6,8 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Outlet } from 'react-router-dom';
 
 /* component imports */
 import { Footer } from './footer.tsx';

@@ -88,7 +88,8 @@ export const applicationStudentService: ApplicationStudentService = {
         method: 'POST',
         url: '/api/v1/applications/student',
         data: formData,
-      }));
+      }),
+    );
   },
   updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string): Promise<Application> => {
     return apiClientWrapper(() =>
@@ -96,20 +97,23 @@ export const applicationStudentService: ApplicationStudentService = {
         method: 'PATCH',
         url: `/api/v1/applications/student/${uuid}`,
         data: formData,
-      }));
+      }),
+    );
   },
   toggleSoftDeleteFlag: (uuid: string): Promise<void> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'PATCH',
         url: `/api/v1/applications/student/toggle-soft-delete/${uuid}`,
-      }));
+      }),
+    );
   },
   initiatePdfDownloadRequest: (): Promise<void> => {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'POST',
         url: '/api/v1/applications/student/initiate/pdf-download',
-      }));
+      }),
+    );
   },
 };

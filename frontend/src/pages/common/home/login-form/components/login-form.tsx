@@ -5,9 +5,9 @@
  */
 
 /* vendor imports */
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */

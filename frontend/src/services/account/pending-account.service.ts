@@ -40,6 +40,7 @@ export const pendingAccountService: PendingAccountService = {
         method: 'POST',
         url: '/api/v1/pending-accounts/create',
         data: formData,
-      }));
+      }),
+    );
   },
 };
