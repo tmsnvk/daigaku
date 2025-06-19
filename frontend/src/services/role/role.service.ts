@@ -35,6 +35,7 @@ export const roleService: RoleService = {
       axiosConfig.request<Array<RoleOption>>({
         method: 'GET',
         url: '/api/v1/roles/student-and-mentor-options',
-      }));
+      }),
+    );
   },
 };

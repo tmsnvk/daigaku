@@ -152,7 +152,8 @@ export const useColumnVisibility = (): ColumnVisibility => {
         }
 
         return column;
-      }));
+      }),
+    );
   };
 
   return {

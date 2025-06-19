@@ -37,6 +37,7 @@ export const countryService: CountryService = {
       axiosConfigWithAuth.request<Array<CountryOption>>({
         method: 'GET',
         url: 'api/v1/countries/options',
-      }));
+      }),
+    );
   },
 };

@@ -60,7 +60,8 @@ export const commentService: CommentService = {
       axiosConfigWithAuth.request<CommentPaginationDataResponse>({
         method: 'GET',
         url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
-      }));
+      }),
+    );
   },
   createByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string): Promise<Comment> => {
     return apiClientWrapper(() =>
@@ -68,6 +69,7 @@ export const commentService: CommentService = {
         method: 'POST',
         url: `/api/v1/comments/${applicationUuid}`,
         data: formData,
-      }));
+      }),
+    );
   },
 };

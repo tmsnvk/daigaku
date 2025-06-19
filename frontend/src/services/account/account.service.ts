@@ -66,7 +66,8 @@ export const accountService: AccountService = {
       axiosConfigWithAuth.request<LoginResponse>({
         method: 'GET',
         url: '/api/v1/accounts/me',
-      }));
+      }),
+    );
   },
   logIn: (formData: LoginPayload): Promise<LoginResponse> => {
     return apiClientWrapper(() =>
@@ -74,7 +75,8 @@ export const accountService: AccountService = {
         method: 'POST',
         url: '/api/v1/accounts/log-in',
         data: formData,
-      }));
+      }),
+    );
   },
   resetPassword: (formData: AccountPasswordResetPayload): Promise<void> => {
     return apiClientWrapper(() =>
@@ -82,6 +84,7 @@ export const accountService: AccountService = {
         method: 'POST',
         url: '/api/v1/accounts/reset-password',
         data: formData,
-      }));
+      }),
+    );
   },
 };

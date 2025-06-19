@@ -35,6 +35,7 @@ export const institutionService: InstitutionService = {
       axiosConfigWithAuth.request<Array<InstitutionOption>>({
         method: 'GET',
         url: '/api/v1/institutions/options',
-      }));
+      }),
+    );
   },
 };
