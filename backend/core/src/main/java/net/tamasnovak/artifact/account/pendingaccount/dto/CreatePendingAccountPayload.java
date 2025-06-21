@@ -24,14 +24,14 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param accountRoleUuid The pending account's authorization role uuid string.
  */
 public record CreatePendingAccountPayload(
-  @NotBlank(message = "Provide your first name(s). Use only letters, hyphens and spaces.")
+  @NotBlank(message = "Provide your first name(s).")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
-    "Use only letters and spaces. Provide a minimum of 1 and a maximum of 255 characters.")
+    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
   String firstName,
 
-  @NotBlank(message = "Provide your last name(s). Use only letters, hyphens and spaces.")
+  @NotBlank(message = "Provide your last name(s).")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
-    "Use only letters and spaces. Provide a minimum of 1 and a maximum of 255 characters.")
+    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
   String lastName,
 
   @Email(message = "Provide your email address.")

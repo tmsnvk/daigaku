@@ -25,13 +25,33 @@ export const pendingAccountRegistrationSchema = z.object({
     .regex(/^[\p{L}\s-]{1,255}$/u, {
       error: TranslationKey.NAME_PATTERN,
     }),
-  email: z.email({ error: TranslationKey.EMAIL_REQUIRED }).nonempty({ error: TranslationKey.VALID_EMAIL_REQUIRED }),
-  institutionUuid: z
-    .uuidv4({ error: TranslationKey.VALID_INSTITUTION_REQUIRED })
-    .nonempty({ error: TranslationKey.INSTITUTION_REQUIRED }),
-  accountRoleUuid: z
-    .uuidv4({ error: TranslationKey.VALID_ACCOUNT_ROLE_REQUIRED })
-    .nonempty({ error: TranslationKey.ACCOUNT_ROLE_REQUIRED }),
+  email: z.email({
+    error: (issue) => {
+      if (issue.input === '') {
+        return TranslationKey.EMAIL_REQUIRED;
+      }
+
+      return TranslationKey.VALID_EMAIL_REQUIRED;
+    },
+  }),
+  institutionUuid: z.uuidv4({
+    error: (issue) => {
+      if (issue.input === '') {
+        return TranslationKey.INSTITUTION_REQUIRED;
+      }
+
+      return TranslationKey.VALID_INSTITUTION_REQUIRED;
+    },
+  }),
+  accountRoleUuid: z.uuidv4({
+    error: (issue) => {
+      if (issue.input === '') {
+        return TranslationKey.ACCOUNT_ROLE_REQUIRED;
+      }
+
+      return TranslationKey.VALID_ACCOUNT_ROLE_REQUIRED;
+    },
+  }),
 });
 
 export type PendingAccountRegistrationSchema = z.infer<typeof pendingAccountRegistrationSchema>;

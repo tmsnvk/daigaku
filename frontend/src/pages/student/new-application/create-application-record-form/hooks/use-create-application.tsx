@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
-import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { ConstraintViolationError, CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
 import { applicationStudentService } from '@daigaku/services';
 import { CreateApplicationSchemaFieldKey } from '../schema.ts';
 
@@ -27,18 +27,13 @@ import { Application, CreateApplicationByStudentPayload, InputViolation } from '
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {UseMutationResult<Application, UnauthorizedError | FormValidationError | ServerError |
- *   UnexpectedError, CreateApplicationByStudentPayload>}
+ * @return {UseMutationResult<Application, CoreApiError, CreateApplicationByStudentPayload>}
  */
 export const useCreateApplication = (
   setError: UseFormSetError<CreateApplicationByStudentPayload>,
   resetCountrySelection: () => void,
   reset: () => void,
-): UseMutationResult<
-  Application,
-  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
-  CreateApplicationByStudentPayload
-> => {
+): UseMutationResult<Application, CoreApiError, CreateApplicationByStudentPayload> => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -70,8 +65,8 @@ export const useCreateApplication = (
         variantIntent: 'success',
       });
     },
-    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
-      if (error instanceof FormValidationError) {
+    onError: (error: CoreApiError) => {
+      if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
             setError(errorDetail.fieldName as CreateApplicationSchemaFieldKey, { message: errorDetail.errorMessage });

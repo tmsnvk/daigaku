@@ -11,7 +11,12 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
-import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import {
+  ConstraintViolationError,
+  CoreApiError,
+  FormValidationError,
+  MethodArgumentNotValidError,
+} from '@daigaku/errors';
 import { applicationStudentService } from '@daigaku/services';
 import { UpdateApplicationSchemaFieldKey } from '../schema.ts';
 
@@ -19,7 +24,12 @@ import { UpdateApplicationSchemaFieldKey } from '../schema.ts';
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { Application, InputViolation, UpdateApplicationByStudentPayload } from '@daigaku/common-types';
+import {
+  Application,
+  CoreInputErrorResponse,
+  InputViolation,
+  UpdateApplicationByStudentPayload,
+} from '@daigaku/common-types';
 
 /**
  * Manages the {@link ApplicationForm} submission process, including REST API request, error handling,
@@ -27,17 +37,12 @@ import { Application, InputViolation, UpdateApplicationByStudentPayload } from '
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid string.
- * @return {UseMutationResult<Application, UnauthorizedError | FormValidationError | ServerError |
- *   UnexpectedError, UpdateApplicationByStudentPayload>}
+ * @return {UseMutationResult<Application, CoreApiError, UpdateApplicationByStudentPayload>}
  */
 export const useUpdateApplicationFormMutation = (
   setError: UseFormSetError<UpdateApplicationByStudentPayload>,
   applicationUuid: string,
-): UseMutationResult<
-  Application,
-  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
-  UpdateApplicationByStudentPayload
-> => {
+): UseMutationResult<Application, CoreApiError, UpdateApplicationByStudentPayload> => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -69,15 +74,19 @@ export const useUpdateApplicationFormMutation = (
         variantIntent: 'success',
       });
     },
-    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
-      const inputViolations: Array<InputViolation> | undefined = error.coreError?.errors;
+    onError: (error: CoreApiError) => {
+      const errorResponse: CoreInputErrorResponse | undefined = error.coreError;
 
-      if (error instanceof FormValidationError) {
-        inputViolations?.forEach((errorDetail: InputViolation) => {
+      if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
+        errorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
             setError(errorDetail.fieldName as UpdateApplicationSchemaFieldKey, { message: errorDetail.errorMessage });
           }
         });
+      }
+
+      if (error instanceof FormValidationError) {
+        setError('root', { message: errorResponse?.errors[0].errorMessage });
       }
     },
   });

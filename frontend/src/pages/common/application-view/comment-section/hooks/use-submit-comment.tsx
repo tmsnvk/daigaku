@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
-import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { ConstraintViolationError, CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
 import { commentService } from '@daigaku/services';
 import { CreateCommentSchemaFieldKey } from '../schema.ts';
 
@@ -27,18 +27,13 @@ import { Comment, CreateCommentPayload, InputViolation } from '@daigaku/common-t
  * @param setError The `react-hook-form` method to set form errors.
  * @param applicationUuid The application record's uuid string to which the comment belongs to.
  * @param resetForm
- * @return {UseMutationResult<Comment, UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
- *   CreateCommentPayload>}
+ * @return {UseMutationResult<Comment, CoreApiError, CreateCommentPayload>}
  */
 export const useSubmitComment = (
   applicationUuid: string,
   setError: UseFormSetError<CreateCommentPayload>,
   resetForm: () => void,
-): UseMutationResult<
-  Comment,
-  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
-  CreateCommentPayload
-> => {
+): UseMutationResult<Comment, CoreApiError, CreateCommentPayload> => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -62,8 +57,8 @@ export const useSubmitComment = (
         variantIntent: 'success',
       });
     },
-    onError: (error: UnauthorizedError | FormValidationError | ServerError | UnexpectedError) => {
-      if (error instanceof FormValidationError) {
+    onError: (error: CoreApiError) => {
+      if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
             setError(errorDetail.fieldName as CreateCommentSchemaFieldKey, { message: errorDetail.errorMessage });

@@ -58,19 +58,19 @@ public final class Application extends Auditable {
   private University university;
 
   @Column(name = "course_name", nullable = false)
-  @NotBlank(message = "Provide the title of your course.")
-  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{5,255}$", message =
-    "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @NotBlank(message = "Provide the name of your course.")
+  @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
+    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
   private String courseName;
 
   @Column(name = "minor_subject")
-  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{5,255}|)$", message =
-    "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}\\s-]{1,255}|)$", message =
+    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
   private String minorSubject;
 
   @Column(name = "programme_length", nullable = false)
-  @NotNull(message = "Provide the length of your course (in years).")
-  @Min(value = 2, message = "Programme length should not be less than {value}.")
+  @NotNull(message = "Provide the length (year) of your selected course.")
+  @Min(value = 1, message = "Programme length should not be less than {value}.")
   @Max(value = 5, message = "Programme length should not be more than {value}.")
   private int programmeLength;
 

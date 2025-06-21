@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
-import { FormValidationError, ServerError, UnexpectedError } from '@daigaku/errors';
+import { CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
 import { ResetAccountPasswordSchemaFieldKey } from '../schema.ts';
 
@@ -25,11 +25,11 @@ import { AccountPasswordResetPayload, InputViolation, LoginPayload } from '@daig
  * Manages the password reset form submission.
  *
  * @param setError The `react-hook-form` method to set form errors.
- * @return {UseMutationResult<void, FormValidationError | ServerError | UnexpectedError, AccountPasswordResetPayload>}
+ * @return {UseMutationResult<void, CoreApiError, AccountPasswordResetPayload>}
  */
 export const useResetAccountPasswordFormMutation = (
   setError: UseFormSetError<LoginPayload>,
-): UseMutationResult<void, FormValidationError | ServerError | UnexpectedError, AccountPasswordResetPayload> => {
+): UseMutationResult<void, CoreApiError, AccountPasswordResetPayload> => {
   const { t } = useTranslation();
 
   const { createToast } = useToastContext();
@@ -47,8 +47,8 @@ export const useResetAccountPasswordFormMutation = (
         autoRemoveDelay: 5000,
       });
     },
-    onError: (error: FormValidationError | ServerError | UnexpectedError) => {
-      if (error instanceof FormValidationError) {
+    onError: (error: CoreApiError) => {
+      if (error instanceof MethodArgumentNotValidError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
             setError(errorDetail.fieldName as ResetAccountPasswordSchemaFieldKey, {
