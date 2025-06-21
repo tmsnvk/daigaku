@@ -14,79 +14,45 @@ import { TranslationKey } from '@daigaku/constants';
 import {
   ApplicationStatus,
   ApplicationStatuses,
-  FinalDestinationStatus,
   FinalDestinationStatuses,
-  InterviewStatus,
   InterviewStatuses,
-  OfferStatus,
   OfferStatuses,
-  ResponseStatus,
   ResponseStatuses,
 } from '@daigaku/common-types';
 
+const nullableStatusField = <TStatusField>(validValues: Array<TStatusField>, errorMessage: string) =>
+  z
+    .string()
+    .refine((value: string | null) => {
+      return (
+        value === null || validValues.includes(value as TStatusField),
+        {
+          error: errorMessage,
+        }
+      );
+    })
+    .nullable()
+    .optional();
+
 export const updateApplicationSchema = z.object({
-  applicationStatus: z
-    .string()
-    .nullish()
-    .refine(
-      (value) =>
-        value === null ||
-        value === undefined ||
-        Object.values(ApplicationStatuses).includes(value as ApplicationStatus),
+  applicationStatus: z.string().refine((value: string) => {
+    return (
+      Object.values(ApplicationStatuses).includes(value as ApplicationStatus),
       {
-        message: TranslationKey.VALID_APPLICATION_STATUS_REQUIRED,
-      },
-    )
-    .transform((value) => value ?? null),
-  interviewStatus: z
-    .string()
-    .nullish()
-    .refine(
-      (value) =>
-        value === null || value === undefined || Object.values(InterviewStatuses).includes(value as InterviewStatus),
-      {
-        message: TranslationKey.VALID_INTERVIEW_STATUS_REQUIRED,
-      },
-    )
-    .transform((value) => value ?? null)
-    .optional(),
-  offerStatus: z
-    .string()
-    .nullish()
-    .refine(
-      (value) => value === null || value === undefined || Object.values(OfferStatuses).includes(value as OfferStatus),
-      {
-        message: TranslationKey.VALID_OFFER_STATUS_REQUIRED,
-      },
-    )
-    .transform((value) => value ?? null)
-    .optional(),
-  responseStatus: z
-    .string()
-    .nullish()
-    .refine(
-      (value) =>
-        value === null || value === undefined || Object.values(ResponseStatuses).includes(value as ResponseStatus),
-      {
-        message: TranslationKey.VALID_RESPONSE_STATUS_REQUIRED,
-      },
-    )
-    .transform((value) => value ?? null)
-    .optional(),
-  finalDestinationStatus: z
-    .string()
-    .nullish()
-    .refine(
-      (value) =>
-        value === null ||
-        value === undefined ||
-        Object.values(FinalDestinationStatuses).includes(value as FinalDestinationStatus),
-      {
-        message: TranslationKey.VALID_FINAL_DESTINATION_STATUS_REQUIRED,
-      },
-    )
-    .transform((value) => value ?? null)
-    .optional(),
+        error: TranslationKey.VALID_APPLICATION_STATUS_REQUIRED,
+      }
+    );
+  }),
+  interviewStatus: nullableStatusField(
+    Object.values(InterviewStatuses),
+    TranslationKey.VALID_INTERVIEW_STATUS_REQUIRED,
+  ),
+  offerStatus: nullableStatusField(Object.values(OfferStatuses), TranslationKey.VALID_OFFER_STATUS_REQUIRED),
+  responseStatus: nullableStatusField(Object.values(ResponseStatuses), TranslationKey.VALID_RESPONSE_STATUS_REQUIRED),
+  finalDestinationStatus: nullableStatusField(
+    Object.values(FinalDestinationStatuses),
+    TranslationKey.VALID_FINAL_DESTINATION_STATUS_REQUIRED,
+  ),
 });
 
 export type UpdateApplicationSchema = z.infer<typeof updateApplicationSchema>;

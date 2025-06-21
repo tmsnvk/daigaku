@@ -11,10 +11,10 @@ import { CoreApiError } from './core-api-error.ts';
 import { CoreInputErrorResponse } from '@daigaku/common-types';
 
 /**
- * Firm choice / final destination validation on backend.
+ * JPA entity validation db / write fails.
  */
-export class FormValidationError extends CoreApiError {
+export class ConstraintViolationError extends CoreApiError {
   constructor(statusCode: number, coreError: CoreInputErrorResponse) {
-    super('FormValidationError', statusCode, coreError);
+    super('ConstraintViolationError', statusCode, coreError);
   }
 }

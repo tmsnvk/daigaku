@@ -32,13 +32,13 @@ public record CreateApplicationByStudentPayload(
   @ValidUuid(message = "Select a valid university.")
   String universityUuid,
 
-  @NotBlank(message = "Provide the name of your course. Use only letters and spaces.")
-  @Pattern(regexp = "^[\\p{IsAlphabetic}-\\s]{1,255}$", message =
-    "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @NotBlank(message = "Provide the name of your course.")
+  @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
+    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
   String courseName,
 
-  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}-\\s]{1,255}|)$", message =
-    "Use only letters and spaces. Provide a minimum of 5 and a maximum of 255 characters.")
+  @Pattern(regexp = "^(?:[\\p{IsAlphabetic}\\s-]{1,255}|)$", message =
+    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
   String minorSubject,
 
   @NotNull(message = "Provide the length (year) of your selected course.")

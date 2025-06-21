@@ -11,7 +11,15 @@ import { z } from 'zod/v4';
 import { TranslationKey } from '@daigaku/constants';
 
 export const resetAccountPasswordSchema = z.object({
-  email: z.email({ error: TranslationKey.EMAIL_REQUIRED }).nonempty({ error: TranslationKey.VALID_EMAIL_REQUIRED }),
+  email: z.email({
+    error: (issue) => {
+      if (issue.input === '') {
+        return TranslationKey.EMAIL_REQUIRED;
+      }
+
+      return TranslationKey.VALID_EMAIL_REQUIRED;
+    },
+  }),
 });
 
 export type ResetAccountPasswordSchema = z.infer<typeof resetAccountPasswordSchema>;

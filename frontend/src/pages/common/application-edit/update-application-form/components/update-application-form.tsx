@@ -5,6 +5,7 @@
  */
 
 /* vendor imports */
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { JSX, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useHandleFieldDisableStatus } from '../hooks/use-handle-field-disable-status.tsx';
 import { useUpdateApplicationFormMutation } from '../hooks/use-update-application-form-mutation.tsx';
-import { UpdateApplicationSchema } from '../schema.ts';
+import { UpdateApplicationSchema, updateApplicationSchema } from '../schema.ts';
 
 /* component imports */
 import {
@@ -71,14 +72,14 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
 
   const formMethods = useForm<UpdateApplicationSchema>({
     defaultValues: {
-      applicationStatus: null,
-      interviewStatus: null,
-      offerStatus: null,
-      responseStatus: null,
-      finalDestinationStatus: null,
+      applicationStatus: application.applicationStatus,
+      interviewStatus: application.interviewStatus ?? null,
+      offerStatus: application.offerStatus ?? null,
+      responseStatus: application.responseStatus ?? null,
+      finalDestinationStatus: application.finalDestinationStatus ?? null,
     },
     mode: 'onSubmit',
-    // resolver: standardSchemaResolver(updateApplicationSchema),
+    resolver: standardSchemaResolver(updateApplicationSchema),
   });
 
   const { handleSubmit, setError } = formMethods;

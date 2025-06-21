@@ -9,8 +9,10 @@ import axios, { AxiosResponse } from 'axios';
 
 /* logic imports */
 import {
+  ConstraintViolationError,
   DataIntegrityViolationError,
   FormValidationError,
+  MethodArgumentNotValidError,
   ServerError,
   UnauthorizedError,
   UnexpectedError,
@@ -40,7 +42,7 @@ export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosR
       const exceptionType: string = errorResponse.exceptionType;
 
       if (exceptionType === ExceptionTypes.METHOD_ARGUMENT_NOT_VALID) {
-        throw new FormValidationError(statusCode, errorResponse);
+        throw new MethodArgumentNotValidError(statusCode, errorResponse);
       }
 
       if (exceptionType === ExceptionTypes.BAD_CREDENTIALS) {
@@ -49,6 +51,14 @@ export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosR
 
       if (exceptionType === ExceptionTypes.DATA_INTEGRITY_VIOLATION) {
         throw new DataIntegrityViolationError(statusCode, errorResponse);
+      }
+
+      if (exceptionType === ExceptionTypes.FORM_VALIDATION) {
+        throw new FormValidationError(statusCode, errorResponse);
+      }
+
+      if (exceptionType === ExceptionTypes.CONSTRAINT_VIOLATION) {
+        throw new ConstraintViolationError(statusCode, errorResponse);
       }
 
       // TODO: add more error types here as needed that have 40x status.

@@ -11,7 +11,12 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useToastContext } from '@daigaku/context';
-import { DataIntegrityViolationError, FormValidationError, ServerError, UnexpectedError } from '@daigaku/errors';
+import {
+  ConstraintViolationError,
+  CoreApiError,
+  DataIntegrityViolationError,
+  MethodArgumentNotValidError,
+} from '@daigaku/errors';
 import { pendingAccountService } from '@daigaku/services';
 import { PendingAccountRegistrationSchemaFieldKey } from '../schema.ts';
 
@@ -31,11 +36,7 @@ import { CoreInputErrorResponse, CreatePendingAccountPayload, InputViolation } f
 export const usePendingAccountRegistrationFormMutation = (
   setError: UseFormSetError<CreatePendingAccountPayload>,
   resetForm: () => void,
-): UseMutationResult<
-  void,
-  FormValidationError | DataIntegrityViolationError | ServerError | UnexpectedError,
-  CreatePendingAccountPayload
-> => {
+): UseMutationResult<void, CoreApiError, CreatePendingAccountPayload> => {
   const { t } = useTranslation();
 
   const { createToast } = useToastContext();
@@ -54,11 +55,11 @@ export const usePendingAccountRegistrationFormMutation = (
         variantIntent: 'success',
       });
     },
-    onError: (error: FormValidationError | DataIntegrityViolationError | ServerError | UnexpectedError) => {
-      const coreErrorResponse: CoreInputErrorResponse | undefined = error.coreError;
+    onError: (error: CoreApiError) => {
+      const errorResponse: CoreInputErrorResponse | undefined = error.coreError;
 
-      if (error instanceof FormValidationError) {
-        coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
+      if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
+        errorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
             setError(errorDetail.fieldName as PendingAccountRegistrationSchemaFieldKey, {
               message: errorDetail.errorMessage,
@@ -68,7 +69,7 @@ export const usePendingAccountRegistrationFormMutation = (
       }
 
       if (error instanceof DataIntegrityViolationError) {
-        setError('root', { message: coreErrorResponse?.errors[0].errorMessage });
+        setError('root', { message: errorResponse?.errors[0].errorMessage });
       }
     },
   });

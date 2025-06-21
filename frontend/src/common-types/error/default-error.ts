@@ -15,6 +15,7 @@ export const ExceptionTypes = {
   ENTITY_NOT_FOUND: 'EntityNotFoundException',
   METHOD_ARGUMENT_NOT_VALID: 'MethodArgumentNotValidException',
   METHOD_ARGUMENT_TYPE_MISMATCH: 'MethodArgumentTypeMismatchException',
+  FORM_VALIDATION: 'FormValidationException',
 } as const;
 
 export type ExceptionType = (typeof ExceptionTypes)[keyof typeof ExceptionTypes];

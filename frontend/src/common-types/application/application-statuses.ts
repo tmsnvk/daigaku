@@ -82,7 +82,7 @@ export const ResponseStatusTranslations = {
  */
 export const FinalDestinationStatuses = {
   FINAL_DESTINATION: 'FINAL_DESTINATION',
-  DEFERRED_ENTRY: 'DEFERRED_ENTRY',
+  DEFERRED_FINAL_DESTINATION: 'DEFERRED_FINAL_DESTINATION',
   NOT_FINAL_DESTINATION: 'NOT_FINAL_DESTINATION',
 } as const;
 
@@ -90,6 +90,6 @@ export type FinalDestinationStatus = (typeof FinalDestinationStatuses)[keyof typ
 
 export const FinalDestinationStatusTranslations = {
   [FinalDestinationStatuses.FINAL_DESTINATION]: TranslationKey.FINAL_DESTINATION_STATUS_FINAL_DESTINATION,
-  [FinalDestinationStatuses.DEFERRED_ENTRY]: TranslationKey.FINAL_DESTINATION_STATUS_DEFERRED_ENTRY,
+  [FinalDestinationStatuses.DEFERRED_FINAL_DESTINATION]: TranslationKey.FINAL_DESTINATION_STATUS_DEFERRED_ENTRY,
   [FinalDestinationStatuses.NOT_FINAL_DESTINATION]: TranslationKey.FINAL_DESTINATION_STATUS_NOT_FINAL_DESTINATION,
 };

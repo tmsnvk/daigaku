@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthContext } from '@daigaku/context';
-import { FormValidationError, ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { CoreApiError, MethodArgumentNotValidError, UnauthorizedError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
 import { LoginSchemaFieldKey } from '../schema.ts';
 
@@ -26,16 +26,12 @@ import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } f
  * Manages the login form submission.
  *
  * @param setError The `react-hook-form` method to set form errors.
- * @return {UseMutationResult<LoginResponse, UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
+ * @return {UseMutationResult<LoginResponse, CoreApiError,
  *   LoginPayload>}
  */
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
-): UseMutationResult<
-  LoginResponse,
-  UnauthorizedError | FormValidationError | ServerError | UnexpectedError,
-  LoginPayload
-> => {
+): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
   const navigate = useNavigate();
   const { updateAccountContextDetails } = useAuthContext();
 
@@ -50,11 +46,11 @@ export const useLoginFormMutation = (
 
       navigate('/dashboard');
     },
-    onError: (error: FormValidationError | UnauthorizedError | ServerError | UnexpectedError) => {
-      const coreErrorResponse: CoreInputErrorResponse | undefined = error.coreError;
+    onError: (error: CoreApiError) => {
+      const errorResponse: CoreInputErrorResponse | undefined = error.coreError;
 
-      if (error instanceof FormValidationError) {
-        coreErrorResponse?.errors.forEach((errorDetail: InputViolation) => {
+      if (error instanceof MethodArgumentNotValidError) {
+        errorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
             setError(errorDetail.fieldName as LoginSchemaFieldKey, { message: errorDetail.errorMessage });
           }
@@ -62,7 +58,7 @@ export const useLoginFormMutation = (
       }
 
       if (error instanceof UnauthorizedError) {
-        setError('root', { message: coreErrorResponse?.errors[0].errorMessage });
+        setError('root', { message: errorResponse?.errors[0].errorMessage });
       }
     },
   });
