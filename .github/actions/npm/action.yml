@@ -3,6 +3,7 @@ description: install npm and dependencies
 
 runs:
   using: composite
+
   steps:
       - name: install NodeJS
         uses: actions/setup-node@v4
