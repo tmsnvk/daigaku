@@ -19,6 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install npm and dependencies
+        shell: bash
         uses: ./.github/actions/npm
 
       - name: Lint
