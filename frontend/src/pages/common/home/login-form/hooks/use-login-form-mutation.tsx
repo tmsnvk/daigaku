@@ -16,8 +16,7 @@ import { accountService } from '@daigaku/services';
 import { LoginSchemaFieldKey } from '../schema.ts';
 
 /* configuration, utilities, constants imports */
-import { localStorageKeys, mutationKeys } from '@daigaku/constants';
-import { setLocalStorageObjectById } from '@daigaku/utilities';
+import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } from '@daigaku/common-types';
@@ -33,7 +32,7 @@ export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
   const navigate = useNavigate();
-  const { updateAccountContextDetails } = useAuthenticationProvider();
+  const { logIn } = useAuthenticationProvider();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
@@ -41,8 +40,7 @@ export const useLoginFormMutation = (
       return accountService.logIn(formData);
     },
     onSuccess: (response: LoginResponse) => {
-      setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, response.jwtToken);
-      updateAccountContextDetails(response);
+      logIn(response);
 
       navigate('/dashboard');
     },

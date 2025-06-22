@@ -33,7 +33,7 @@ import { UserRoles } from '@daigaku/common-types';
 export const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const { account, logOut } = useAuthenticationProvider();
+  const { state, logOut } = useAuthenticationProvider();
 
   const { data: dashboardStatistics, isLoading, isError, error } = useDashboardStatisticsQuery();
 
@@ -59,7 +59,9 @@ export const Dashboard = (): JSX.Element => {
   // Add layouts for other authentication level users.
   return (
     <main className={joinTw('flex flex-row flex-wrap gap-y-20', 'm-[5%]')}>
-      {dashboardStatistics && account.role === UserRoles.ROLE_STUDENT && <LayoutStudent data={dashboardStatistics} />}
+      {dashboardStatistics && state.account.role === UserRoles.ROLE_STUDENT && (
+        <LayoutStudent data={dashboardStatistics} />
+      )}
     </main>
   );
 };

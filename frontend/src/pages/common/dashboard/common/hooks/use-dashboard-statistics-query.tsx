@@ -14,6 +14,7 @@ import { applicationService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { queryKeys } from '@daigaku/constants';
+import { getAccountRoleResource } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
@@ -27,8 +28,8 @@ export const useDashboardStatisticsQuery = (): UseQueryResult<
   StudentDashboardStatisticsResponse,
   UnauthorizedError | ServerError | UnexpectedError
 > => {
-  const { getRoleResource } = useAuthenticationProvider();
-  const accountRole = getRoleResource();
+  const { state } = useAuthenticationProvider();
+  const accountRole = getAccountRoleResource(state.account.role);
 
   return useQuery({
     queryKey: [queryKeys.aggregate.GET_DASHBOARD_STATISTICS],

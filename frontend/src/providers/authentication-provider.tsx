@@ -6,7 +6,8 @@
 
 /* vendor imports */
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
-import { Context, ReactNode, createContext, startTransition, useContext, useEffect, useMemo, useState } from 'react';
+import { Context, ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useReducer } from 'react';
+import { match } from 'ts-pattern';
 
 /* logic imports */
 import { CoreApiError } from '@daigaku/errors';
@@ -14,10 +15,84 @@ import { accountService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
 import { localStorageKeys, queryKeys } from '@daigaku/constants';
-import { getLocalStorageObjectById, isAuthTokenExpired, removeLocalStorageObjectById } from '@daigaku/utilities';
+import {
+  getLocalStorageObjectById,
+  isAuthTokenExpired,
+  removeLocalStorageObjectById,
+  setLocalStorageObjectById,
+} from '@daigaku/utilities';
 
 /* interface, type imports */
-import { LoginResponse, UserLoginState, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
+import { LoginResponse, UserLoginState, UserLoginStates, UserRole } from '@daigaku/common-types';
+
+/**
+ * The authentication action type enum values.
+ */
+const AuthenticationActionTypes = {
+  LOG_IN: 'LOG_IN',
+  LOG_OUT: 'LOG_OUT',
+  TOKEN_VALIDATION_SUCCESS: 'TOKEN_VALIDATION_SUCCESS',
+  TOKEN_VALIDATION_FAILURE: 'TOKEN_VALIDATION_FAILURE',
+} as const;
+
+/**
+ * Defines the LOG_IN action type.
+ */
+interface LogInAction {
+  /**
+   * The action type.
+   */
+  type: typeof AuthenticationActionTypes.LOG_IN;
+
+  /**
+   * The login payload.
+   */
+  payload: {
+    response: LoginResponse;
+  };
+}
+
+/**
+ * Defines the LOG_OUT action type.
+ */
+interface LogOutAction {
+  /**
+   * The action type.
+   */
+  type: typeof AuthenticationActionTypes.LOG_OUT;
+}
+
+/**
+ * Defines the TOKEN_VALIDATION_SUCCESS action type.
+ */
+interface TokenValidationSuccessAction {
+  /**
+   * The action type.
+   */
+  type: typeof AuthenticationActionTypes.TOKEN_VALIDATION_SUCCESS;
+
+  /**
+   * The validation state payload.
+   */
+  payload: {
+    response: LoginResponse;
+  };
+}
+
+/**
+ * Defines the TOKEN_VALIDATION_FAILURE action type.
+ */
+interface TokenValidationFailureAction {
+  /**
+   * The action type.
+   */
+  type: typeof AuthenticationActionTypes.TOKEN_VALIDATION_FAILURE;
+}
+
+/**
+ * The authentication actions' union type.
+ */
+type AuthenticationAction = LogInAction | LogOutAction | TokenValidationSuccessAction | TokenValidationFailureAction;
 
 /**
  * Defines the properties of the data associated with the logged-in user.
@@ -25,20 +100,85 @@ import { LoginResponse, UserLoginState, UserLoginStates, UserRole, UserRoles } f
 interface Account {
   email: string;
   firstName: string;
-  jwtToken: string;
   role: UserRole | null;
 }
 
 /**
+ *
+ */
+type AuthenticationState = {
+  account: Account;
+  authenticationStatus: UserLoginState;
+};
+
+/**
  * Defines the properties of the AuthenticationContext context object.
  */
-interface AuthenticationContext {
-  account: Account;
-  authStatus: UserLoginState;
-  updateAccountContextDetails: (details: LoginResponse) => void;
-  getRoleResource: () => string;
+interface AuthenticationContextValue {
+  state: AuthenticationState;
+  logIn: (response: LoginResponse) => void;
   logOut: () => void;
 }
+
+/**
+ * Defines the AuthenticationProvider context provider.
+ */
+interface AuthenticationProviderProps {
+  /**
+   * Children elements to render within the provider.
+   */
+  children: ReactNode;
+}
+
+const initialReducerState: AuthenticationState = {
+  account: {
+    email: '',
+    firstName: '',
+    role: null,
+  },
+  authenticationStatus: UserLoginStates.LOADING,
+};
+
+const authenticationReducer = (_state: AuthenticationState, action: AuthenticationAction): AuthenticationState => {
+  return match<AuthenticationAction, AuthenticationState>(action)
+    .with({ type: AuthenticationActionTypes.LOG_IN }, ({ payload }) => {
+      return {
+        account: {
+          email: payload.response.email,
+          firstName: payload.response.firstName,
+          role: payload.response.role,
+        },
+        authenticationStatus: UserLoginStates.LOGGED_IN,
+      };
+    })
+    .with({ type: AuthenticationActionTypes.LOG_OUT }, () => {
+      return {
+        account: initialReducerState.account,
+        authenticationStatus: UserLoginStates.LOGGED_OUT,
+      };
+    })
+    .with({ type: AuthenticationActionTypes.TOKEN_VALIDATION_SUCCESS }, ({ payload }) => {
+      return {
+        account: {
+          email: payload.response.email,
+          firstName: payload.response.firstName,
+          role: payload.response.role,
+        },
+        authenticationStatus: UserLoginStates.LOGGED_IN,
+      };
+    })
+    .with({ type: AuthenticationActionTypes.TOKEN_VALIDATION_FAILURE }, () => {
+      return {
+        account: initialReducerState.account,
+        authenticationStatus: UserLoginStates.LOGGED_OUT,
+      };
+    })
+    .exhaustive();
+};
+
+const AuthenticationContext: Context<AuthenticationContextValue> = createContext<AuthenticationContextValue>(
+  {} as AuthenticationContextValue,
+);
 
 /**
  * Manages the fetching of basic details of the logged-in user. The fetch operation is enabled only if a JWT
@@ -55,85 +195,70 @@ const useGetMe = (authToken: string | null): UseQueryResult<LoginResponse, CoreA
   });
 };
 
-const initialState: Account = {
-  email: '',
-  firstName: '',
-  role: null,
-  jwtToken: '',
-};
-
-const roleResources: Record<UserRole, string> = {
-  [UserRoles.ROLE_STUDENT]: 'student',
-  [UserRoles.ROLE_MENTOR]: 'mentor',
-  [UserRoles.ROLE_INSTITUTION_ADMIN]: 'institution-admin',
-  [UserRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
-};
-
-const AuthenticationContext: Context<AuthenticationContext> = createContext<AuthenticationContext>(
-  {} as AuthenticationContext,
-);
-
 /**
  * Defines the application's authentication-related context object.
  */
-export const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
-  const [account, setAccount] = useState<Account>(initialState);
-  const [authStatus, setAuthStatus] = useState<UserLoginState>(UserLoginStates.LOADING);
+export const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
+  const [state, dispatch] = useReducer(authenticationReducer, initialReducerState);
 
   const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
-  const { data, isLoading, isError } = useGetMe(authToken);
+  const { data, isError } = useGetMe(authToken);
 
-  const getRoleResource = (): string => {
-    return roleResources[account.role as UserRole];
-  };
+  const logIn = useCallback((response: LoginResponse) => {
+    setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, response.jwtToken);
 
-  const updateAccountContextDetails = (details: LoginResponse) => {
-    setAccount(details);
-    setAuthStatus(UserLoginStates.LOGGED_IN);
-  };
+    dispatch({
+      type: AuthenticationActionTypes.LOG_IN,
+      payload: {
+        response,
+      },
+    });
+  }, []);
 
-  const logOut = (): void => {
+  const logOut = useCallback((): void => {
     removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
-    startTransition(() => {
-      setAuthStatus(UserLoginStates.LOGGED_OUT);
-      setAccount(initialState);
+    dispatch({
+      type: AuthenticationActionTypes.LOG_OUT,
     });
-  };
+  }, []);
 
   useEffect(() => {
-    if (authStatus === UserLoginStates.LOGGED_OUT) {
-      return;
-    }
+    if (!authToken || isAuthTokenExpired(authToken)) {
+      dispatch({
+        type: AuthenticationActionTypes.LOG_OUT,
+      });
+    } else if (data) {
+      setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, data.jwtToken);
 
-    if (isError || !authToken || isAuthTokenExpired(authToken)) {
-      setAuthStatus(UserLoginStates.LOGGED_OUT);
-    }
+      dispatch({
+        type: AuthenticationActionTypes.TOKEN_VALIDATION_SUCCESS,
+        payload: {
+          response: data,
+        },
+      });
+    } else if (isError) {
+      removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
-    if (isLoading) {
-      setAuthStatus(UserLoginStates.LOADING);
+      dispatch({
+        type: AuthenticationActionTypes.TOKEN_VALIDATION_FAILURE,
+      });
     }
+  }, [authToken, data, isError]);
 
-    if (data) {
-      updateAccountContextDetails(data);
-    }
-  }, [isError, isLoading, authToken, authStatus, data]);
-
-  const authContextValues: AuthenticationContext = useMemo(
+  const authContextValues: AuthenticationContextValue = useMemo(
     () => ({
-      account,
-      authStatus,
-      updateAccountContextDetails,
-      getRoleResource,
+      state,
+      logIn,
       logOut,
     }),
-    [account, authStatus],
+    [state, logIn, logOut],
   );
 
   return <AuthenticationContext value={authContextValues}>{children}</AuthenticationContext>;
 };
 
 /**
- * The AuthContext object is wrapped into a simple custom hook for simpler usage.
+ * The AuthContext object is wrapped into a simple custom hook for simple usage.
  */
-export const useAuthenticationProvider = (): AuthenticationContext => useContext(AuthenticationContext);
+export const useAuthenticationProvider = (): AuthenticationContextValue => useContext(AuthenticationContext);

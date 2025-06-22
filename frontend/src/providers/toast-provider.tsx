@@ -5,7 +5,7 @@
  */
 
 /* vendor imports */
-import { Context, JSX, ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
+import { Context, JSX, ReactNode, createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 import { match } from 'ts-pattern';
 
 /* component imports */
@@ -28,7 +28,7 @@ const ToastActionTypes = {
 /**
  * Defines the CREATE_TOAST action type.
  */
-interface CreateToastAction {
+interface CreateAction {
   /**
    * The action type.
    */
@@ -45,7 +45,7 @@ interface CreateToastAction {
 /**
  * Defines the REMOVE_TOAST action type.
  */
-interface RemoveToastAction {
+interface RemoveAction {
   /**
    * The action type.
    */
@@ -62,7 +62,7 @@ interface RemoveToastAction {
 /**
  * The toast actions' union type.
  */
-type ToastAction = CreateToastAction | RemoveToastAction;
+type ToastAction = CreateAction | RemoveAction;
 
 /**
  * Defines the ToastContext object.
@@ -117,7 +117,7 @@ const AUTO_REMOVE_DELAY = 3000;
 export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => {
   const [toasts, dispatch] = useReducer(toastReducer, initialReducerState);
 
-  const createToast = (options: Omit<CreateToast, 'id'>): void => {
+  const createToast = useCallback((options: Omit<CreateToast, 'id'>): void => {
     const id = generateSimpleId();
     const newToast = { ...options, id, autoRemoveDelay: options.autoRemoveDelay ?? AUTO_REMOVE_DELAY };
 
@@ -136,9 +136,9 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
         },
       });
     }, newToast.autoRemoveDelay);
-  };
+  }, []);
 
-  const removeToast = (id: string): void => {
+  const removeToast = useCallback((id: string): void => {
     const doesExist = toasts.some((toast: CreateToast): boolean => {
       return toast.id === id;
     });
@@ -151,7 +151,7 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
         },
       });
     }
-  };
+  }, []);
 
   const toastContextValues = useMemo(
     () => ({
