@@ -1,4 +1,4 @@
-name: backend testing
+name: daigaku.backend-tests
 
 on:
   push:
@@ -67,4 +67,3 @@ jobs:
         run: |
           cd core
           mvn clean install
-

@@ -1,16 +1,14 @@
 name: install npm
-description: install npm and dependencies
+description: install npm and dependencies utility action
 
-inputs:
+parameters:
   cache-dependency-path:
     description: path to lockfile for npm caching
     required: true
-    default: 'frontend/package-lock.json'
 
   working-directory:
     description: Working directory to run npm commands
     required: true
-    default: 'frontend'
 
 runs:
   using: composite
@@ -21,9 +19,9 @@ runs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ${{ inputs.cache-dependency-path }}
+          cache-dependency-path: ${{ parameters.cache-dependency-path }}
 
       - name: install dependencies
         shell: bash
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ parameters.working-directory }}
         run: npm run dev:install

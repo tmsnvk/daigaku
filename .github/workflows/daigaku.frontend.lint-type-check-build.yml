@@ -1,4 +1,4 @@
-name: lint, type-check, build
+name: daigaku.frontend.lint-type-check-build
 
 on:
   push:
