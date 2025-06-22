@@ -1,7 +1,7 @@
 name: install npm
 description: install npm and dependencies utility action
 
-parameters:
+inputs:
   cache-dependency-path:
     description: path to lockfile for npm caching
     required: true
@@ -19,9 +19,9 @@ runs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ${{ parameters.cache-dependency-path }}
+          cache-dependency-path: ${{ inputs.cache-dependency-path }}
 
       - name: install dependencies
         shell: bash
-        working-directory: ${{ parameters.working-directory }}
+        working-directory: ${{ inputs.working-directory }}
         run: npm run dev:install
