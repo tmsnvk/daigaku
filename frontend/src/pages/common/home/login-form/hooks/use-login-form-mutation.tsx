@@ -10,8 +10,8 @@ import { UseFormSetError } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useAuthContext } from '@daigaku/context';
 import { CoreApiError, MethodArgumentNotValidError, UnauthorizedError } from '@daigaku/errors';
+import { useAuthenticationProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
 import { LoginSchemaFieldKey } from '../schema.ts';
 
@@ -33,7 +33,7 @@ export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
   const navigate = useNavigate();
-  const { updateAccountContextDetails } = useAuthContext();
+  const { updateAccountContextDetails } = useAuthenticationProvider();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_LOGIN_FORM],

@@ -8,8 +8,8 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { useAuthContext } from '@daigaku/context';
 import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { useAuthenticationProvider } from '@daigaku/providers';
 import { applicationService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
@@ -27,7 +27,7 @@ export const useDashboardStatisticsQuery = (): UseQueryResult<
   StudentDashboardStatisticsResponse,
   UnauthorizedError | ServerError | UnexpectedError
 > => {
-  const { getRoleResource } = useAuthContext();
+  const { getRoleResource } = useAuthenticationProvider();
   const accountRole = getRoleResource();
 
   return useQuery({

@@ -8,8 +8,8 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { useAuthContext } from '@daigaku/context';
-import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { CoreApiError } from '@daigaku/errors';
+import { useAuthenticationProvider } from '@daigaku/providers';
 import { applicationService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
@@ -21,13 +21,10 @@ import { Application } from '@daigaku/common-types';
 /**
  * Fetches a list of applications based on the user's authorization role.
  *
- * @return {UseQueryResult<Array<Application>, UnauthorizedError | ServerError | UnexpectedError>}
+ * @return {UseQueryResult<Array<Application>, CoreApiError>}
  */
-export const useGetApplications = (): UseQueryResult<
-  Array<Application>,
-  UnauthorizedError | ServerError | UnexpectedError
-> => {
-  const { getRoleResource } = useAuthContext();
+export const useGetApplications = (): UseQueryResult<Array<Application>, CoreApiError> => {
+  const { getRoleResource } = useAuthenticationProvider();
   const accountRole = getRoleResource();
 
   return useQuery({

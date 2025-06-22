@@ -10,8 +10,8 @@ import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useToastContext } from '@daigaku/context';
 import { ConstraintViolationError, CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
+import { useToastProvider } from '@daigaku/providers';
 import { commentService } from '@daigaku/services';
 import { CreateCommentSchemaFieldKey } from '../schema.ts';
 
@@ -37,7 +37,7 @@ export const useSubmitComment = (
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const { createToast } = useToastContext();
+  const { createToast } = useToastProvider();
 
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],

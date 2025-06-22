@@ -30,9 +30,9 @@ interface Account {
 }
 
 /**
- * Defines the properties of the AuthContext context object.
+ * Defines the properties of the AuthenticationContext context object.
  */
-interface AuthContext {
+interface AuthenticationContext {
   account: Account;
   authStatus: UserLoginState;
   updateAccountContextDetails: (details: LoginResponse) => void;
@@ -69,12 +69,14 @@ const roleResources: Record<UserRole, string> = {
   [UserRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
 };
 
-const AuthContext: Context<AuthContext> = createContext<AuthContext>({} as AuthContext);
+const AuthenticationContext: Context<AuthenticationContext> = createContext<AuthenticationContext>(
+  {} as AuthenticationContext,
+);
 
 /**
  * Defines the application's authentication-related context object.
  */
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [account, setAccount] = useState<Account>(initialState);
   const [authStatus, setAuthStatus] = useState<UserLoginState>(UserLoginStates.LOADING);
 
@@ -117,7 +119,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [isError, isLoading, authToken, authStatus, data]);
 
-  const authContextValues: AuthContext = useMemo(
+  const authContextValues: AuthenticationContext = useMemo(
     () => ({
       account,
       authStatus,
@@ -128,10 +130,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     [account, authStatus],
   );
 
-  return <AuthContext value={authContextValues}>{children}</AuthContext>;
+  return <AuthenticationContext value={authContextValues}>{children}</AuthenticationContext>;
 };
 
 /**
  * The AuthContext object is wrapped into a simple custom hook for simpler usage.
  */
-export const useAuthContext = (): AuthContext => useContext(AuthContext);
+export const useAuthenticationProvider = (): AuthenticationContext => useContext(AuthenticationContext);

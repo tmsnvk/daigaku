@@ -13,9 +13,8 @@ import { JSX } from 'react';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 
 /* logic imports */
-import { AuthProvider, ToastProvider } from '@daigaku/context';
 import { useCoreQueryClient } from '@daigaku/hooks';
-import { TranslationProvider } from '@daigaku/providers';
+import { AuthenticationProvider, ToastProvider, TranslationProvider } from '@daigaku/providers';
 
 /* component imports */
 import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';
@@ -80,9 +79,9 @@ const DaigakuApplicationWithQueryClient = (): JSX.Element => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+      <AuthenticationProvider>
         <RouterProvider router={router} />
-      </AuthProvider>
+      </AuthenticationProvider>
     </QueryClientProvider>
   );
 };

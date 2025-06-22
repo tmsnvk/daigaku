@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
 
 /* logic imports */
-import { useAuthContext } from '@daigaku/context';
+import { useAuthenticationProvider } from '@daigaku/providers';
 import { useFormSwitcher } from './common/hooks/use-form-switcher.tsx';
 
 /* component imports */
@@ -29,8 +29,7 @@ import { UserLoginStates } from '@daigaku/common-types';
  * @return {JSX.Element}
  */
 export const Home = (): JSX.Element => {
-  const { authStatus } = useAuthContext();
-
+  const { authStatus } = useAuthenticationProvider();
   const { selectedFormType, selectedFormComponent } = useFormSwitcher();
 
   if (authStatus === UserLoginStates.LOGGED_IN) {

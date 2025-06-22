@@ -27,7 +27,7 @@ export interface CreateToast {
   readonly description: string;
 
   /**
-   * The toast's style based on the component's style intent.
+   * The toast's style matching the component's style intent.
    */
   readonly variantIntent: ToastVariantIntent;
 

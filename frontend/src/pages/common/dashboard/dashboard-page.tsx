@@ -9,8 +9,8 @@ import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useAuthContext } from '@daigaku/context';
 import { useGetApplications } from '@daigaku/hooks';
+import { useAuthenticationProvider } from '@daigaku/providers';
 import { useDashboardStatisticsQuery } from './common/hooks/use-dashboard-statistics-query.tsx';
 
 /* component imports */
@@ -33,7 +33,7 @@ import { UserRoles } from '@daigaku/common-types';
 export const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const { account, logOut } = useAuthContext();
+  const { account, logOut } = useAuthenticationProvider();
 
   const { data: dashboardStatistics, isLoading, isError, error } = useDashboardStatisticsQuery();
 

@@ -10,13 +10,13 @@ import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useToastContext } from '@daigaku/context';
 import {
   ConstraintViolationError,
   CoreApiError,
   DataIntegrityViolationError,
   MethodArgumentNotValidError,
 } from '@daigaku/errors';
+import { useToastProvider } from '@daigaku/providers';
 import { pendingAccountService } from '@daigaku/services';
 import { PendingAccountRegistrationSchemaFieldKey } from '../schema.ts';
 
@@ -30,8 +30,7 @@ import { CoreInputErrorResponse, CreatePendingAccountPayload, InputViolation } f
  * Manages the pending account registration form submission.
  *
  * @param setError A `react-hook-form` method that sets form errors.
- * @return {UseMutationResult<void, FormValidationError | ServerError | UnexpectedError,
- *   CreatePendingAccountPayload>}
+ * @return {UseMutationResult<void, CoreApiError, CreatePendingAccountPayload>}
  */
 export const usePendingAccountRegistrationFormMutation = (
   setError: UseFormSetError<CreatePendingAccountPayload>,
@@ -39,7 +38,7 @@ export const usePendingAccountRegistrationFormMutation = (
 ): UseMutationResult<void, CoreApiError, CreatePendingAccountPayload> => {
   const { t } = useTranslation();
 
-  const { createToast } = useToastContext();
+  const { createToast } = useToastProvider();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_REGISTER_FORM],

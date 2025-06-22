@@ -37,14 +37,14 @@ export type ToastVariantIntent = VariantProps<typeof toastVariants>['intent'];
  */
 interface ToastProps extends CreateToast, VariantProps<typeof toastVariants> {
   /**
-   * The toast closing method.
-   */
-  onClose: () => void;
-
-  /**
    * The automatic toast removal delay in ms.
    */
   readonly autoRemoveDelay: number;
+
+  /**
+   * The handling method running the REMOVE_TOAST action type.
+   */
+  onClose: () => void;
 }
 
 /**
@@ -56,9 +56,9 @@ interface ToastProps extends CreateToast, VariantProps<typeof toastVariants> {
 export const Toast = ({
   title,
   description,
-  onClose,
-  autoRemoveDelay,
   variantIntent,
+  autoRemoveDelay,
+  onClose,
 }: ToastProps): JSX.Element | null => {
   const [progressBar, setProgressBar] = useState<number>(0);
   const startTimeRef = useRef<number | null>(null);
@@ -95,8 +95,8 @@ export const Toast = ({
         <h3 className={'text-2xl font-bold uppercase'}>{title}</h3>
         <CoreIcon
           icon={iconLibrary.faXMark}
-          onClick={onClose}
           className={'cursor-pointer'}
+          onClick={onClose}
         />
       </div>
       <p className={'text-xl'}>{description}</p>

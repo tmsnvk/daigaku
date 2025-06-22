@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useAuthContext } from '@daigaku/context';
+import { useAuthenticationProvider } from '@daigaku/providers';
 
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
@@ -121,7 +121,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const { authStatus, account, logOut } = useAuthContext();
+  const { authStatus, account, logOut } = useAuthenticationProvider();
 
   const [smallScreenMenuState, setSmallScreenMenuState] = useState<SmallScreenMenuState>('closed');
 

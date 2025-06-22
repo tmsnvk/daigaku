@@ -18,7 +18,7 @@ import { generateSimpleId, joinTw } from '@daigaku/utilities';
 import { CreateToast } from '@daigaku/common-types';
 
 /**
- *
+ * The toast action type enum values.
  */
 const ToastActionTypes = {
   CREATE: 'CREATE_TOAST',
@@ -26,7 +26,7 @@ const ToastActionTypes = {
 } as const;
 
 /**
- * Defines the toast creating action type.
+ * Defines the CREATE_TOAST action type.
  */
 interface CreateToastAction {
   /**
@@ -43,7 +43,7 @@ interface CreateToastAction {
 }
 
 /**
- * Defines the toast removal action type.
+ * Defines the REMOVE_TOAST action type.
  */
 interface RemoveToastAction {
   /**
@@ -106,6 +106,7 @@ const ToastContext: Context<ToastContextValue> = createContext<ToastContextValue
   toasts: [],
   createToast: () => {},
 });
+
 const initialReducerState: Array<CreateToast> = [];
 
 const AUTO_REMOVE_DELAY = 3000;
@@ -138,11 +139,11 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
   };
 
   const removeToast = (id: string): void => {
-    const doesToastExist = toasts.some((toast: CreateToast): boolean => {
+    const doesExist = toasts.some((toast: CreateToast): boolean => {
       return toast.id === id;
     });
 
-    if (doesToastExist) {
+    if (doesExist) {
       dispatch({
         type: ToastActionTypes.REMOVE,
         payload: {
@@ -169,9 +170,12 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
           return (
             <Toast
               key={toast.id}
-              {...toast}
-              onClose={() => removeToast(toast.id)}
+              id={toast.id}
+              title={toast.title}
+              description={toast.description}
+              variantIntent={toast.variantIntent}
               autoRemoveDelay={toast.autoRemoveDelay ?? AUTO_REMOVE_DELAY}
+              onClose={() => removeToast(toast.id)}
             />
           );
         })}
@@ -181,6 +185,6 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
 };
 
 /**
- * The ToastContext object is wrapped in a simple custom hook for simpler usage.
+ * The ToastContext object is wrapped in a simple custom hook for simple usage.
  */
-export const useToastContext = (): ToastContextValue => useContext(ToastContext);
+export const useToastProvider = (): ToastContextValue => useContext(ToastContext);

@@ -27,7 +27,6 @@
       "@daigaku/components/notification": ["components/notification/index.ts"],
       "@daigaku/configuration": ["configuration/index.ts"],
       "@daigaku/constants": ["constants/index.ts"],
-      "@daigaku/context": ["context/index.ts"],
       "@daigaku/errors": ["errors/index.ts"],
       "@daigaku/hooks": ["hooks/index.ts"],
       "@daigaku/pages/common": ["pages/common/index.ts"],
