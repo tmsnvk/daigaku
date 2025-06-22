@@ -1,0 +1,15 @@
+name: install npm
+description: install npm and dependencies
+
+runs:
+  using: composite
+  steps:
+      - name: install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: install dependencies
+        shell: bash
+        run: npm run dev:install

@@ -1,0 +1,35 @@
+name: Lint, type-check
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    name: Lint, type-check
+    permissions:
+      contents: 'read'
+      actions: 'write'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install npm and dependencies
+        uses: ./.github/actions/npm
+
+      - name: Lint
+        shell: bash
+        run: npm run lint:start
+
+      - name: Type check
+        shell: bash
+        run: npm run type-check:start
+
+      - name: Build
+        shell: bash
+        run: npm run build:start
+
