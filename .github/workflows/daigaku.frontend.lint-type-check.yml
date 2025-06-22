@@ -1,4 +1,4 @@
-name: lint, type-check
+name: lint, type-check, build
 
 on:
   push:
@@ -22,17 +22,16 @@ jobs:
           fetch-depth: 0
 
       - name: Install npm and dependencies
-        shell: bash
         uses: ./.github/actions/npm
+        with:
+          cache-dependency-path: frontend/package-lock.json
+          working-directory: frontend
 
-      - name: Lint
-        shell: bash
+      - name: lint
         run: npm run lint:start
 
-      - name: Type check
-        shell: bash
+      - name: type-check
         run: npm run type-check:start
 
-      - name: Build
-        shell: bash
+      - name: build
         run: npm run build:start
