@@ -13,10 +13,9 @@ jobs:
       contents: 'read'
       actions: 'write'
 
-
   defaults:
-  run:
-    working-directory: ./frontend
+    run:
+      working-directory: ./frontend
 
     steps:
       - uses: actions/checkout@v4
