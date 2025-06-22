@@ -1,4 +1,4 @@
-name: Lint, type-check
+name: lint, type-check
 
 on:
   push:
@@ -37,4 +37,3 @@ jobs:
       - name: Build
         shell: bash
         run: npm run build:start
-
