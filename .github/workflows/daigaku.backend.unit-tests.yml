@@ -1,4 +1,4 @@
-name: daigaku.backend-tests
+name: daigaku.backend.unit-tests
 
 on:
   push:
