@@ -9,6 +9,8 @@ runs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: daigaku/frontend/package-lock.json
+
 
       - name: install dependencies
         shell: bash
