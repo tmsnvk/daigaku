@@ -1,0 +1,37 @@
+name: daigaku.frontend.lint-type-check-build
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      actions: 'write'
+
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install npm and dependencies
+        uses: ./.github/actions/npm
+        with:
+          cache-dependency-path: frontend/package-lock.json
+          working-directory: frontend
+
+      - name: lint
+        run: npm run lint:start
+
+      - name: type-check
+        run: npm run type-check:start
+
+      - name: build
+        run: npm run build:start
