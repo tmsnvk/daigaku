@@ -20,9 +20,9 @@ interface JwtPayload {
  * @returns the decoded payload object.
  */
 const decodeAuthToken = (token: string): JwtPayload => {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace('-', '+').replace('_', '/');
-  const decodedString = atob(base64);
+  const base64Url: string = token.split('.')[1];
+  const base64: string = base64Url.replace('-', '+').replace('_', '/');
+  const decodedString: string = atob(base64);
 
   return JSON.parse(decodedString);
 };

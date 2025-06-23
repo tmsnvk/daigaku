@@ -29,10 +29,10 @@ import { UserLoginStates } from '@daigaku/common-types';
  * @return {JSX.Element}
  */
 export const Home = (): JSX.Element => {
-  const { authStatus } = useAuthenticationProvider();
+  const { state } = useAuthenticationProvider();
   const { selectedFormType, selectedFormComponent } = useFormSwitcher();
 
-  if (authStatus === UserLoginStates.LOGGED_IN) {
+  if (state.authenticationStatus === UserLoginStates.LOGGED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 

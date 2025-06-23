@@ -41,7 +41,6 @@ export const useLoginFormMutation = (
     },
     onSuccess: (response: LoginResponse) => {
       logIn(response);
-
       navigate('/dashboard');
     },
     onError: (error: CoreApiError) => {

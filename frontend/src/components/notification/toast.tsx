@@ -16,7 +16,7 @@ import { iconLibrary } from '@daigaku/constants';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
-import { CreateToast } from '@daigaku/common-types';
+import { Toast as ToastType } from '@daigaku/common-types';
 
 const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
   variants: {
@@ -35,7 +35,7 @@ export type ToastVariantIntent = VariantProps<typeof toastVariants>['intent'];
 /**
  * Defines the component's properties.
  */
-interface ToastProps extends CreateToast, VariantProps<typeof toastVariants> {
+interface ToastProps extends ToastType, VariantProps<typeof toastVariants> {
   /**
    * The automatic toast removal delay in ms.
    */
