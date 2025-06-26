@@ -9,12 +9,12 @@ import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
 import { accountService } from '@daigaku/services';
+import { localStorageUtilities } from '@daigaku/utilities';
 import { CoreApiError } from 'errors/core-api-error';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { localStorageKeys } from 'constants/local-storage-keys.constant';
 import { queryKeys } from 'constants/query-keys.constant';
-import { localStorageUtilities } from 'utilities/local-storage';
 
 /* interface, type imports */
 import { LoginResponse } from '@daigaku/common-types';

@@ -4,9 +4,11 @@
  * @author tmsnvk
  */
 
-/* configuration, utilities, constants imports */
-import { axiosConfigWithAuth } from '@daigaku/configuration';
+/* logic imports */
 import { apiClientWrapper } from '@daigaku/utilities';
+
+/* configuration, constants imports */
+import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type imports */
 import { InstitutionOption } from '@daigaku/common-types';

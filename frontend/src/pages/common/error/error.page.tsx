@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { useRouteError } from 'react-router-dom';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
 
 /**

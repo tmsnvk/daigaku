@@ -9,8 +9,6 @@ import { JSX } from 'react';
 
 /* logic imports */
 import { useRenderModal } from '@daigaku/hooks';
-
-/* configuration, utilities, constants imports */
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */

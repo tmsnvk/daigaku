@@ -7,7 +7,7 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 /**

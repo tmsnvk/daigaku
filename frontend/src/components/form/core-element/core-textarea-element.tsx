@@ -9,7 +9,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX, TextareaHTMLAttributes } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 const coreTextareaElementVariants = cva(

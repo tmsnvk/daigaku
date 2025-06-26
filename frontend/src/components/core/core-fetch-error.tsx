@@ -9,11 +9,11 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CoreButton } from './core-button.tsx';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 const coreErrorVariants = cva('text-destructive text-xl font-bold tracking-wider', {
   variants: {

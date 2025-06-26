@@ -4,9 +4,11 @@
  * @author tmsnvk
  */
 
-/* configuration, utilities, constants imports */
-import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
+/* logic imports */
 import { apiClientWrapper } from '@daigaku/utilities';
+
+/* configuration, constants imports */
+import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type imports */
 import { AccountPasswordResetPayload, LoginPayload, LoginResponse } from '@daigaku/common-types';

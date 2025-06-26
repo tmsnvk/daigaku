@@ -8,7 +8,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { translations } from '@daigaku/constants';
 
 const resources = translations.reduce<Record<string, { translation: Record<string, string> }>>((acc, t) => {

@@ -10,9 +10,11 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
-/* configuration, utilities, constants imports */
-import { iconLibrary } from '@daigaku/constants';
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
+
+/* configuration, constants imports */
+import { iconLibrary } from '@daigaku/constants';
 
 const coreDialogVariants = cva(
   joinTw(

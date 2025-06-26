@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
+import { joinTw } from '@daigaku/utilities';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
 import { useCreateApplication } from '../hooks/use-create-application.tsx';
 import { CreateApplicationSchema, createApplicationSchema } from '../schema.ts';
@@ -25,9 +26,6 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
 } from '@daigaku/components/form';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { CountryOption, CreateApplicationByStudentPayload, UniversityOption } from '@daigaku/common-types';

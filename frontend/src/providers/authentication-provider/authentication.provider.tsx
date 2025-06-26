@@ -9,11 +9,11 @@ import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useR
 
 /* logic imports */
 import { useGetMe } from '@daigaku/hooks';
+import { isAuthTokenExpired, localStorageUtilities } from '@daigaku/utilities';
 import { AuthenticationActionTypes, authenticationReducer, initialReducerState } from './authentication.reducer';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { localStorageKeys } from '@daigaku/constants';
-import { isAuthTokenExpired, localStorageUtilities } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { LoginResponse } from '@daigaku/common-types';

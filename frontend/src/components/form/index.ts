@@ -4,12 +4,12 @@
  * @author tmsnvk
  */
 
-import { CoreInputElementVariantIntent } from './core-element/core-input-element.tsx';
+import { type CoreInputElementVariantIntent } from './core-element/core-input-element.tsx';
 import { CoreModalClosingInputElement } from './core-element/core-modal-closing-input-element.tsx';
-import { CoreSelectElementVariantIntent } from './core-element/core-select-element.tsx';
+import { type CoreSelectElementVariantIntent } from './core-element/core-select-element.tsx';
 import { CoreSubmitInputElement } from './core-element/core-submit-input-element';
-import { CorSubmitElementVariantIntent } from './core-element/core-submit-input-element.tsx';
-import { CoreTextareaElementVariantIntent } from './core-element/core-textarea-element.tsx';
+import { type CorSubmitElementVariantIntent } from './core-element/core-submit-input-element.tsx';
+import { type CoreTextareaElementVariantIntent } from './core-element/core-textarea-element.tsx';
 import { CoreFormElementError } from './core-form-element/core-form-element-error';
 import { CoreFormElementFetchStateWrapper } from './core-form-element/core-form-element-fetch-state-wrapper.tsx';
 import { CoreFormElementGroupWrapper } from './core-form-element/core-form-element-group-wrapper';

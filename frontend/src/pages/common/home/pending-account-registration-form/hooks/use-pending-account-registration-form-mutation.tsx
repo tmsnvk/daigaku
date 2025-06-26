@@ -20,7 +20,7 @@ import { useToastProvider } from '@daigaku/providers';
 import { pendingAccountService } from '@daigaku/services';
 import { PendingAccountRegistrationSchemaFieldKey } from '../schema.ts';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */

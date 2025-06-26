@@ -11,15 +11,13 @@ import { useNavigate } from 'react-router-dom';
 /* logic imports */
 import { useGetApplications } from '@daigaku/hooks';
 import { useAuthenticationProvider } from '@daigaku/providers';
+import { joinTw } from '@daigaku/utilities';
 import { useDashboardStatisticsQuery } from './common/hooks/use-dashboard-statistics-query.tsx';
 
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
 import { LayoutStudent } from './layout-student';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { UserRoles } from '@daigaku/common-types';

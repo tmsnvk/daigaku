@@ -7,7 +7,7 @@
 /* vendor imports */
 import { ReactNode } from 'react';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 /**

@@ -9,14 +9,16 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { Footer } from './footer.tsx';
 import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 import { NavigationRoute } from './navigation-route.tsx';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { TranslationKey, iconLibrary } from '@daigaku/constants';
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { NavigationRouteItem } from '@daigaku/common-types';

@@ -11,10 +11,10 @@ import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { CoreApiError } from '@daigaku/errors';
 import { useAuthenticationProvider } from '@daigaku/providers';
 import { applicationService } from '@daigaku/services';
-
-/* configuration, utilities, constants imports */
-import { queryKeys } from '@daigaku/constants';
 import { getAccountRoleResource } from '@daigaku/utilities';
+
+/* configuration,, constants imports */
+import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { Application } from '@daigaku/common-types';

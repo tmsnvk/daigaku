@@ -7,7 +7,7 @@
 /* vendor imports */
 import { useTranslation } from 'react-i18next';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { StudentDashboardStatisticsResponse, Todo, TodoList } from '@daigaku/common-types';
 
 /**

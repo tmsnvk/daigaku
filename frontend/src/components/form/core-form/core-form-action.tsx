@@ -8,12 +8,12 @@
 import { JSX } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { LoadingIndicator } from '@daigaku/components/general';
 import { CoreFormElementError, CoreSubmitInputElement } from '../index.ts';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { CorSubmitElementVariantIntent } from '../core-element/core-submit-input-element.tsx';

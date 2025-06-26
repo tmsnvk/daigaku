@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
 /**

@@ -11,14 +11,12 @@ import { useLocation } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplicationByUuid } from '@daigaku/hooks';
+import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
 import { UpdateApplicationForm } from './update-application-form';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Renders the edit mode of a single application record.

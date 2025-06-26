@@ -4,4 +4,6 @@
  * @author tmsnvk
  */
 
-export { PendingAccountRegistrationForm } from './components/pending-account-registration-form.tsx';
+import { PendingAccountRegistrationForm } from './components/pending-account-registration-form.tsx';
+
+export { PendingAccountRegistrationForm };

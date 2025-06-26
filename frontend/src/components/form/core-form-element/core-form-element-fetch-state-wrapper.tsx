@@ -8,11 +8,11 @@
 import { JSX, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CoreFetchError, CoreFetchSkeleton } from '@daigaku/components/core';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

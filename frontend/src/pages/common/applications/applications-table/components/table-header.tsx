@@ -12,6 +12,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
+import { joinTw } from '@daigaku/utilities';
 import { useRequestPdfDownload } from '../hooks/use-request-pdf-download.tsx';
 
 /* component imports */
@@ -19,9 +20,8 @@ import { CoreButton } from '@daigaku/components/core';
 import { LoadingIndicator } from '@daigaku/components/general';
 import { GlobalErrorModal } from '@daigaku/components/notification';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { Column } from '../../common/types.ts';

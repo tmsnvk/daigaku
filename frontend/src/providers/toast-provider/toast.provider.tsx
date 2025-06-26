@@ -8,13 +8,11 @@
 import { Context, JSX, ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
 
 /* logic imports */
+import { generateSimpleId, joinTw } from '@daigaku/utilities';
 import { ToastActionTypes, initialReducerState, toastReducer } from './toast.reducer';
 
 /* component imports */
 import { Toast as ToastComponent } from '@daigaku/components/notification';
-
-/* configuration, utilities, constants imports */
-import { generateSimpleId, joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { Toast } from '@daigaku/common-types';

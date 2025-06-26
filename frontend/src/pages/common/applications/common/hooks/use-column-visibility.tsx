@@ -7,9 +7,11 @@
 /* vendor imports */
 import { useState } from 'react';
 
-/* configuration, utilities, constants imports */
-import { localStorageKeys } from '@daigaku/constants';
+/* logic imports */
 import { localStorageUtilities } from '@daigaku/utilities';
+
+/* configuration, constants imports */
+import { localStorageKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { Column } from '../types.ts';

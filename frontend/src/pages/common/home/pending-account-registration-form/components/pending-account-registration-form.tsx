@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
+import { removeRolePrefix } from '@daigaku/utilities';
 import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
 import { PendingAccountRegistrationSchema, pendingAccountRegistrationSchema } from '../schema.ts';
 
@@ -25,8 +26,7 @@ import {
 } from '@daigaku/components/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
-/* configuration, utilities, constants imports */
-import { removeRolePrefix } from '@daigaku/utilities';
+/* configuration, constants imports */
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */

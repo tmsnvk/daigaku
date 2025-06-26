@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplications } from '@daigaku/hooks';
+import { isEmpty, joinTw } from '@daigaku/utilities';
 import { useSortOrder } from '../hooks/use-sort-order.tsx';
 
 /* component imports */
@@ -18,9 +19,6 @@ import { CoreLoadingNotification } from '@daigaku/components/core';
 import { GlobalErrorModal } from '@daigaku/components/notification';
 import { DataRows } from './data-rows.tsx';
 import { TableHeader } from './table-header.tsx';
-
-/* configuration, utilities, constants imports */
-import { isEmpty, joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { Application } from '@daigaku/common-types';

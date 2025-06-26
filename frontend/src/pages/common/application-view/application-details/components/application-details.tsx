@@ -8,14 +8,14 @@
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/* logic imports */
+import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CoreLink } from '@daigaku/components/core';
 import { CoreFormHeader } from '@daigaku/components/form';
 import { ApplicationMetadata } from '@daigaku/components/general';
 import { ApplicationDetail } from './application-detail.tsx';
-
-/* configuration, utilities, constants imports */
-import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import {

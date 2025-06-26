@@ -9,14 +9,12 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
+import { joinTw } from '@daigaku/utilities';
 import { useToggleIsRemovable } from '../hooks/use-toggle-is-removable.tsx';
 
 /* component imports */
 import { CoreButton } from '@daigaku/components/core';
 import { CoreFormElementError } from '@daigaku/components/form';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

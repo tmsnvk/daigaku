@@ -8,7 +8,7 @@
 import { ReactNode } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { i18n } from '@daigaku/configuration';
 
 /**

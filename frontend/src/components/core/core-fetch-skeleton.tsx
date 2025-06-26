@@ -8,7 +8,7 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX } from 'react';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 const coreFetchSkeletonVariants = cva('animate-pulse blur-sm rounded', {

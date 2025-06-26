@@ -15,7 +15,7 @@ import { useToastProvider } from '@daigaku/providers';
 import { commentService } from '@daigaku/services';
 import { CreateCommentSchemaFieldKey } from '../schema.ts';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */

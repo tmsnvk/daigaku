@@ -12,14 +12,14 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useFieldValidationError } from '@daigaku/hooks';
+import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
 import { CoreInputElement } from '../core-element/core-input-element.tsx';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { PasswordInputElementGroup } from '@daigaku/common-types';

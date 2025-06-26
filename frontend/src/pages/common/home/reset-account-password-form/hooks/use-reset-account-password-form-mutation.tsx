@@ -15,7 +15,7 @@ import { useToastProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
 import { ResetAccountPasswordSchemaFieldKey } from '../schema.ts';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */

@@ -8,7 +8,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
