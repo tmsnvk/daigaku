@@ -7,16 +7,18 @@
 /* vendor imports */
 import { Context, JSX, ReactNode, createContext, useContext, useMemo, useReducer } from 'react';
 
-/* component imports */
-import { Toast as ToastComponent } from '@daigaku/components/notification';
+/* logic imports */
 import { ToastActionTypes, initialReducerState, toastReducer } from './toast.reducer';
 
+/* component imports */
+import { Toast as ToastComponent } from '@daigaku/components/notification';
+
 /* configuration, utilities, constants imports */
-import { Toast } from '@daigaku/common-types';
 import { generateSimpleId, joinTw } from '@daigaku/utilities';
-import { ToastState } from './toast.types';
 
 /* interface, type imports */
+import { Toast } from '@daigaku/common-types';
+import { ToastState } from './toast.types';
 
 /**
  * Defines the ToastContext object.

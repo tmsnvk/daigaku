@@ -5,22 +5,15 @@
  */
 
 /* vendor imports */
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useReducer } from 'react';
 
 /* logic imports */
-import { CoreApiError } from '@daigaku/errors';
-import { accountService } from '@daigaku/services';
+import { useGetMe } from '@daigaku/hooks';
 import { AuthenticationActionTypes, authenticationReducer, initialReducerState } from './authentication.reducer';
 
 /* configuration, utilities, constants imports */
-import { localStorageKeys, queryKeys } from '@daigaku/constants';
-import {
-  getLocalStorageObjectById,
-  isAuthTokenExpired,
-  removeLocalStorageObjectById,
-  setLocalStorageObjectById,
-} from '@daigaku/utilities';
+import { localStorageKeys } from '@daigaku/constants';
+import { isAuthTokenExpired, localStorageUtilities } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { LoginResponse } from '@daigaku/common-types';
@@ -50,34 +43,15 @@ const AuthenticationContext: Context<AuthenticationContextValue> = createContext
 );
 
 /**
- * Manages the fetching of basic details of the logged-in user. The fetch operation is enabled only if a JWT
- * authorization token exists.
- *
- * @param authToken The authorization JWT token if it exists.
- * @returns {UseQueryResult<LoginResponse, UnauthorizedError | FormValidationError | ServerError | UnexpectedError>}
- */
-const useGetMe = (): UseQueryResult<LoginResponse, CoreApiError> => {
-  const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
-
-  return useQuery({
-    queryKey: [queryKeys.account.GET_ME],
-    queryFn: () => accountService.getMe(),
-    enabled: authToken !== null,
-  });
-};
-
-/**
  * Defines the application's authentication-related context object.
  */
 export const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
   const [state, dispatch] = useReducer(authenticationReducer, initialReducerState);
 
-  // const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
-
   const { data, isError } = useGetMe();
 
   const logIn = (loginResponse: LoginResponse) => {
-    setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, loginResponse.jwtToken);
+    localStorageUtilities.setObjectById(localStorageKeys.AUTHENTICATION_TOKEN, loginResponse.jwtToken);
 
     dispatch({
       type: AuthenticationActionTypes.LOG_IN,
@@ -88,7 +62,7 @@ export const AuthenticationProvider = ({ children }: AuthenticationProviderProps
   };
 
   const logOut = (): void => {
-    removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
+    localStorageUtilities.removeObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
     dispatch({
       type: AuthenticationActionTypes.LOG_OUT,
@@ -96,8 +70,6 @@ export const AuthenticationProvider = ({ children }: AuthenticationProviderProps
   };
 
   const tokenValidationSucceeded = (loginResponse: LoginResponse) => {
-    setLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, loginResponse.jwtToken);
-
     dispatch({
       type: AuthenticationActionTypes.TOKEN_VALIDATION_SUCCESS,
       payload: {
@@ -107,7 +79,7 @@ export const AuthenticationProvider = ({ children }: AuthenticationProviderProps
   };
 
   const tokenValidationFailed = () => {
-    removeLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
+    localStorageUtilities.removeObjectById(localStorageKeys.AUTHENTICATION_TOKEN);
 
     dispatch({
       type: AuthenticationActionTypes.TOKEN_VALIDATION_FAILURE,
@@ -115,7 +87,7 @@ export const AuthenticationProvider = ({ children }: AuthenticationProviderProps
   };
 
   useEffect(() => {
-    const authToken: string | null = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
+    const authToken: string | null = localStorageUtilities.getObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
 
     if (!authToken || isAuthTokenExpired(authToken)) {
       logOut();

@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 /* configuration, utilities, constants imports */
 import { localStorageKeys } from '@daigaku/constants';
-import { getLocalStorageObjectById, setLocalStorageObjectById } from '@daigaku/utilities';
+import { localStorageUtilities } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { Column } from '../types.ts';
@@ -72,7 +72,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
     responseStatus: false,
     finalDestinationStatus: false,
   };
-  const rowConfig: RowConfig = getLocalStorageObjectById<RowConfig>(
+  const rowConfig: RowConfig = localStorageUtilities.getObjectById<RowConfig>(
     localStorageKeys.APPLICATION_TABLE_COLUMNS,
     defaultRowConfig,
   );
@@ -143,7 +143,7 @@ export const useColumnVisibility = (): ColumnVisibility => {
             [column.id]: !column.isVisible,
           };
 
-          setLocalStorageObjectById(localStorageKeys.APPLICATION_TABLE_COLUMNS, updatedColumnConfig);
+          localStorageUtilities.setObjectById(localStorageKeys.APPLICATION_TABLE_COLUMNS, updatedColumnConfig);
 
           return {
             ...column,

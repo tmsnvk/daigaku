@@ -11,7 +11,7 @@ import { getCurrentYear } from './get-current-year';
 import { getStatusDisplayValue } from './get-status-display-value.ts';
 import { isEmpty } from './is-empty.ts';
 import { joinTw } from './join-tw';
-import { getLocalStorageObjectById, removeLocalStorageObjectById, setLocalStorageObjectById } from './local-storage.ts';
+import { localStorageUtilities } from './local-storage.ts';
 import { removeRolePrefix } from './remove-role-prefix';
 import { isAuthTokenExpired } from './token.ts';
 
@@ -20,12 +20,10 @@ export {
   generateSimpleId,
   getAccountRoleResource,
   getCurrentYear,
-  getLocalStorageObjectById,
   getStatusDisplayValue,
   isAuthTokenExpired,
   isEmpty,
   joinTw,
-  removeLocalStorageObjectById,
+  localStorageUtilities,
   removeRolePrefix,
-  setLocalStorageObjectById,
 };
