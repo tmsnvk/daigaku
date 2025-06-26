@@ -10,12 +10,10 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useRenderModal } from '@daigaku/hooks';
+import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
 import { CoreModalClosingInputElement } from '../form';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

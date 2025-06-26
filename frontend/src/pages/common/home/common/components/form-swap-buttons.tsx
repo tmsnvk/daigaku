@@ -8,11 +8,11 @@
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CoreButton } from '@daigaku/components/core';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { FormType } from '../types.ts';

@@ -9,7 +9,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { ChangeEvent, JSX, ReactNode, SelectHTMLAttributes } from 'react';
 import { FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 const coreSelectElementVariants = cva(

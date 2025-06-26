@@ -15,7 +15,7 @@ import { useAuthenticationProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
 import { LoginSchemaFieldKey } from '../schema.ts';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */

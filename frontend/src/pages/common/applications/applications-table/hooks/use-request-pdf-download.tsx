@@ -13,7 +13,7 @@ import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors
 import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /**

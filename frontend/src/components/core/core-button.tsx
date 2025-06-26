@@ -8,7 +8,7 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes, JSX, MouseEventHandler, ReactNode } from 'react';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 const coreButtonVariants = cva(joinTw('font-bold tracking-widest cursor-pointer'), {

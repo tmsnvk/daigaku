@@ -11,7 +11,7 @@ import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
 import { countryService } from '@daigaku/services';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */

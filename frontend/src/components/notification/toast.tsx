@@ -8,12 +8,14 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX, useEffect, useRef, useState } from 'react';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CoreIcon } from '@daigaku/components/core';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { Toast as ToastType } from '@daigaku/common-types';

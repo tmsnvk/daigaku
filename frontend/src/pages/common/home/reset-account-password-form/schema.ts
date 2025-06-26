@@ -7,7 +7,7 @@
 /* vendor imports */
 import { z } from 'zod/v4';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { TranslationKey } from '@daigaku/constants';
 
 export const resetAccountPasswordSchema = z.object({

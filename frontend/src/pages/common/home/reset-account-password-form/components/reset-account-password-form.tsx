@@ -18,7 +18,7 @@ import { ResetAccountPasswordSchema, resetAccountPasswordSchema } from '../schem
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */

@@ -7,9 +7,11 @@
 /* vendor imports */
 import axios, { AxiosInstance } from 'axios';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
+import { localStorageUtilities } from '@daigaku/utilities';
+
+/* configuration, constants imports */
 import { localStorageKeys } from '@daigaku/constants';
-import { localStorageUtilities } from 'utilities/local-storage';
 
 export const axiosConfig: AxiosInstance = axios.create({
   timeout: 30000,

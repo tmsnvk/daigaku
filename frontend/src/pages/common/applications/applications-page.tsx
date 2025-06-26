@@ -9,14 +9,12 @@ import { JSX } from 'react';
 
 /* logic imports */
 import { useModalToggle } from '@daigaku/hooks';
+import { joinTw } from '@daigaku/utilities';
 import { useColumnVisibility } from './common/hooks/use-column-visibility.tsx';
 
 /* component imports */
 import { ApplicationsTable } from './applications-table';
 import { ColumnSelectorModal } from './column-selector-modal';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Renders, in table format, the list of application records that the user has authorisation to view.

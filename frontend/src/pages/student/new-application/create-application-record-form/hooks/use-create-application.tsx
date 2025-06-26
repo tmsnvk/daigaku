@@ -15,7 +15,7 @@ import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
 import { CreateApplicationSchemaFieldKey } from '../schema.ts';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */

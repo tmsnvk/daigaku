@@ -11,6 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
+import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 import { useHandleFieldDisableStatus } from '../hooks/use-handle-field-disable-status.tsx';
 import { useUpdateApplicationFormMutation } from '../hooks/use-update-application-form-mutation.tsx';
 import { UpdateApplicationSchema, updateApplicationSchema } from '../schema.ts';
@@ -26,9 +27,6 @@ import {
 import { ApplicationMetadata } from '@daigaku/components/general';
 import { DisabledInputGroups } from './disabled-input-groups.tsx';
 import { IsRemovableButton } from './is-removable-button.tsx';
-
-/* configuration, utilities, constants imports */
-import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import {

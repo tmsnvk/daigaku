@@ -10,13 +10,11 @@ import { Navigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthenticationProvider } from '@daigaku/providers';
+import { joinTw } from '@daigaku/utilities';
 import { useFormSwitcher } from './common/hooks/use-form-switcher.tsx';
 
 /* component imports */
 import { FormSectionWrapper } from './common/components/form-section-wrapper.tsx';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { UserLoginStates } from '@daigaku/common-types';

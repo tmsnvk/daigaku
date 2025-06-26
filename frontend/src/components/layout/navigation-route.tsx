@@ -9,11 +9,11 @@ import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { JSX } from 'react';
 import { NavLink } from 'react-router-dom';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CoreIcon } from '../core/core-icon.tsx';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

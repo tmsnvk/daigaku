@@ -4,9 +4,11 @@
  * @author tmsnvk
  */
 
-/* configuration, utilities, constants imports */
-import { axiosConfig } from '@daigaku/configuration';
+/* logic imports */
 import { apiClientWrapper } from '@daigaku/utilities';
+
+/* configuration, constants imports */
+import { axiosConfig } from '@daigaku/configuration';
 
 /* interface, type imports */
 import { CreatePendingAccountPayload } from '@daigaku/common-types';

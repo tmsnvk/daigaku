@@ -7,7 +7,7 @@
 /* vendor imports */
 import { ChangeEvent, useState } from 'react';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { isEmpty } from '@daigaku/utilities';
 
 /**

@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */

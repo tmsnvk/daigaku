@@ -7,12 +7,14 @@
 /* vendor imports */
 import { JSX } from 'react';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CoreIcon } from '../core';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

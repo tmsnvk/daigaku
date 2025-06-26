@@ -9,13 +9,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/* logic imports */
+import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
+import { isColumnVisible } from '../utilities.ts';
+
 /* component imports */
 import { CoreLink } from '@daigaku/components/core';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
-import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
-import { isColumnVisible } from '../utilities.ts';
 
 /* interface, type imports */
 import {

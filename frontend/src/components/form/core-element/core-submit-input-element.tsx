@@ -9,7 +9,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes, JSX } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 
-/* configuration, utilities, constants imports */
+/* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
 const coreSubmitInputElementVariants = cva(

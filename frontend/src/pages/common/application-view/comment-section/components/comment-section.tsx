@@ -9,6 +9,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
+import { joinTw } from '@daigaku/utilities';
 import { useCommentPagination } from '../hooks/use-comment-pagination.tsx';
 import { useGetCommentsByApplicationAndPagination } from '../hooks/use-get-comments-by-application-and-pagination.tsx';
 
@@ -17,9 +18,6 @@ import { LoadingIndicator } from '@daigaku/components/general';
 import { CommentPaginationButton } from './comment-pagination-button.tsx';
 import { Comments } from './comments.tsx';
 import { CreateCommentForm } from './create-comment-form.tsx';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Defines the component's properties.

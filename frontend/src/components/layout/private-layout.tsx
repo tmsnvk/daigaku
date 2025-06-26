@@ -11,6 +11,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthenticationProvider } from '@daigaku/providers';
+import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
@@ -19,9 +20,8 @@ import { Footer } from './footer.tsx';
 import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
 import { NavigationRoute } from './navigation-route.tsx';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { TranslationKey, iconLibrary } from '@daigaku/constants';
-import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
 import { NavigationRouteItem, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
@@ -178,10 +178,13 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
     return <CoreLoadingNotification intent={'light'} />;
   }
 
+  const role = state.account?.role as UserRole | undefined;
+  const roleRoutes = role ? (accountRoleNavigationRoutes[role] ?? []) : [];
+
   const routes = (
     <div>
       <ul className={'lg:flex lg:items-center lg:gap-x-8'}>
-        {accountRoleNavigationRoutes[state.account.role as UserRole].map((r: NavigationRouteItem) => (
+        {roleRoutes.map((r: NavigationRouteItem) => (
           <li
             key={r.targetUrlString}
             className={'my-4'}

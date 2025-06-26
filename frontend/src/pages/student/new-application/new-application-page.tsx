@@ -7,11 +7,11 @@
 /* vendor imports */
 import { JSX } from 'react';
 
+/* logic imports */
+import { joinTw } from '@daigaku/utilities';
+
 /* component imports */
 import { CreateApplicationRecordForm } from './create-application-record-form';
-
-/* configuration, utilities, constants imports */
-import { joinTw } from '@daigaku/utilities';
 
 /**
  * Renders the {@link CreateApplicationRecordForm} form submission page for `student` authorisation users.
