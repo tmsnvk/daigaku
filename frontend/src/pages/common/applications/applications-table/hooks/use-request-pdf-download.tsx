@@ -9,8 +9,8 @@ import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useToastContext } from '@daigaku/context';
 import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, utilities, constants imports */
@@ -27,7 +27,7 @@ export const useRequestPdfDownload = (): UseMutationResult<
   void
 > => {
   const { t } = useTranslation();
-  const { createToast } = useToastContext();
+  const { createToast } = useToastProvider();
 
   return useMutation({
     mutationKey: [mutationKeys.application.POST_REQUEST_PDF_DOWNLOAD],

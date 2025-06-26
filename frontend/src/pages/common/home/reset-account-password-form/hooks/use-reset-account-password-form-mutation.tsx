@@ -10,8 +10,8 @@ import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useToastContext } from '@daigaku/context';
 import { CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
+import { useToastProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
 import { ResetAccountPasswordSchemaFieldKey } from '../schema.ts';
 
@@ -32,7 +32,7 @@ export const useResetAccountPasswordFormMutation = (
 ): UseMutationResult<void, CoreApiError, AccountPasswordResetPayload> => {
   const { t } = useTranslation();
 
-  const { createToast } = useToastContext();
+  const { createToast } = useToastProvider();
 
   return useMutation({
     mutationKey: [mutationKeys.account.POST_RESET_PASSWORD_FORM],

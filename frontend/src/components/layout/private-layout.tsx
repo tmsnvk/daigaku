@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
-import { useAuthContext } from '@daigaku/context';
+import { useAuthenticationProvider } from '@daigaku/providers';
 
 /* component imports */
 import { CoreLoadingNotification } from '@daigaku/components/core';
@@ -121,7 +121,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const { authStatus, account, logOut } = useAuthContext();
+  const { state, logOut } = useAuthenticationProvider();
 
   const [smallScreenMenuState, setSmallScreenMenuState] = useState<SmallScreenMenuState>('closed');
 
@@ -158,25 +158,30 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
   }, [smallScreenMenuState]);
 
   useEffect(() => {
-    if (account.role === null) {
+    if (state.account.role === null) {
       return;
     }
 
-    if (!account || !allowedRoles.includes(account.role as UserRole)) {
-      const redirectPath = account ? '/unauthorised' : '/';
+    if (!state.account || !allowedRoles.includes(state.account.role as UserRole)) {
+      const redirectPath = state.account ? '/unauthorised' : '/';
 
-      navigate(redirectPath, { state: { from: location }, replace: true });
+      navigate(redirectPath, {
+        state: {
+          from: location,
+        },
+        replace: true,
+      });
     }
-  }, [account]);
+  }, [state.account]);
 
-  if (authStatus === UserLoginStates.LOADING) {
+  if (state.authenticationStatus === UserLoginStates.LOADING) {
     return <CoreLoadingNotification intent={'light'} />;
   }
 
   const routes = (
     <div>
       <ul className={'lg:flex lg:items-center lg:gap-x-8'}>
-        {accountRoleNavigationRoutes[account.role as UserRole].map((r: NavigationRouteItem) => (
+        {accountRoleNavigationRoutes[state.account.role as UserRole].map((r: NavigationRouteItem) => (
           <li
             key={r.targetUrlString}
             className={'my-4'}

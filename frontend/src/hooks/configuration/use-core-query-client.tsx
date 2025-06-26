@@ -10,15 +10,16 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useToastContext } from '@daigaku/context';
 import { CoreApiError } from '@daigaku/errors';
+import { useToastProvider } from '@daigaku/providers';
 
 /**
  *
  */
 export const useCoreQueryClient = (): QueryClient => {
   const { t } = useTranslation();
-  const { createToast } = useToastContext();
+
+  const { createToast } = useToastProvider();
 
   const mutationCache = useMemo(() => {
     return new MutationCache({

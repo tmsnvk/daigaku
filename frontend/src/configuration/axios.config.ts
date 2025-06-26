@@ -9,7 +9,7 @@ import axios, { AxiosInstance } from 'axios';
 
 /* configuration, utilities, constants imports */
 import { localStorageKeys } from '@daigaku/constants';
-import { getLocalStorageObjectById } from '@daigaku/utilities';
+import { localStorageUtilities } from 'utilities/local-storage';
 
 export const axiosConfig: AxiosInstance = axios.create({
   timeout: 30000,
@@ -36,7 +36,7 @@ export const axiosConfigWithAuth: AxiosInstance = axios.create({
 
 axiosConfigWithAuth.interceptors.request.use(
   (config) => {
-    const token = getLocalStorageObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
+    const token = localStorageUtilities.getObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

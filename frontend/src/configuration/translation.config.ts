@@ -11,23 +11,18 @@ import { initReactI18next } from 'react-i18next';
 /* configuration, utilities, constants imports */
 import { translations } from '@daigaku/constants';
 
-const resources = translations.reduce(
-  (acc, t) => {
-    acc[t.code] = { translation: t.value };
+const resources = translations.reduce<Record<string, { translation: Record<string, string> }>>((acc, t) => {
+  acc[t.code] = { translation: t.value };
 
-    return acc;
-  },
-  {} as Record<string, { translation: Record<string, string> }>,
-);
+  return acc;
+}, {});
 
 i18n.use(initReactI18next).init({
   resources,
   lng: 'en',
+  supportedLngs: ['en'],
   fallbackLng: 'en',
   debug: false,
-  interpolation: {
-    escapeValue: false,
-  },
 });
 
 export default i18n;

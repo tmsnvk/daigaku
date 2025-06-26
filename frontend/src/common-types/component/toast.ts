@@ -10,7 +10,7 @@ import { type ToastVariantIntent } from '@daigaku/components/notification';
 /**
  * Defines the properties of a newly created toast element.
  */
-export interface CreateToast {
+export interface Toast {
   /**
    * The toast's id.
    */
@@ -27,7 +27,7 @@ export interface CreateToast {
   readonly description: string;
 
   /**
-   * The toast's style based on the component's style intent.
+   * The toast's style matching the component's style intent.
    */
   readonly variantIntent: ToastVariantIntent;
 

@@ -10,8 +10,8 @@ import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useToastContext } from '@daigaku/context';
 import { ConstraintViolationError, CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
+import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
 import { CreateApplicationSchemaFieldKey } from '../schema.ts';
 
@@ -37,7 +37,7 @@ export const useCreateApplication = (
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const { createToast } = useToastContext();
+  const { createToast } = useToastProvider();
 
   return useMutation({
     mutationKey: [mutationKeys.application.POST_BY_STUDENT],
