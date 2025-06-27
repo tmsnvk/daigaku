@@ -25,8 +25,7 @@ import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } f
  * Manages the login form submission.
  *
  * @param setError The `react-hook-form` method to set form errors.
- * @return {UseMutationResult<LoginResponse, CoreApiError,
- *   LoginPayload>}
+ * @return {UseMutationResult<LoginResponse, CoreApiError, LoginPayload>}
  */
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,

@@ -27,27 +27,27 @@ import { PasswordInputElementGroup } from '@daigaku/common-types';
 /**
  * Defines the component's properties.
  *
- * @template T - The type of form values extending the `react-hook-form` library.
+ * @template TFormValues - The type of form values extending the `react-hook-form` library.
  */
-interface PasswordInputGroupProps<T extends FieldValues> extends PasswordInputElementGroup<T> {}
+interface PasswordInputGroupProps<TFormValues extends FieldValues> extends PasswordInputElementGroup<TFormValues> {}
 
 /**
  * Renders a password input element group instance integrated with the `react-hook-form` library.
  *
- * @param {PasswordInputGroupProps<T extends FieldValues>} props
+ * @param {PasswordInputGroupProps<TFormValues extends FieldValues>} props
  * @return {JSX.Element}
  */
-export const PasswordInputGroup = <T extends FieldValues>({
+export const PasswordInputGroup = <TFormValues extends FieldValues>({
   id,
   isDisabled,
   label,
   placeholder,
   initialValue,
   intent,
-}: PasswordInputGroupProps<T>): JSX.Element => {
+}: PasswordInputGroupProps<TFormValues>): JSX.Element => {
   const { t } = useTranslation();
 
-  const { error } = useFieldValidationError<T>(id);
+  const { error } = useFieldValidationError<TFormValues>(id);
 
   const [isPasswordRevealed, setIsPasswordRevealed] = useState<boolean>(false);
 

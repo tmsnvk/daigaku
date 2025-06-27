@@ -49,13 +49,13 @@ export type CoreTextareaElementVariantIntent = VariantProps<typeof coreTextareaE
 /**
  * Defines the component's properties.
  */
-interface CoreTextareaElementProps<T extends FieldValues>
+interface CoreTextareaElementProps<TFormValues extends FieldValues>
   extends VariantProps<typeof coreTextareaElementVariants>,
     TextareaHTMLAttributes<HTMLTextAreaElement> {
   /**
    * The input element's id.
    */
-  readonly id: Path<T>;
+  readonly id: Path<TFormValues>;
 
   /**
    * The textarea's row size.
@@ -89,7 +89,7 @@ interface CoreTextareaElementProps<T extends FieldValues>
  * @param {CoreTextareaElementProps} props
  * @return {JSX.Element}
  */
-export const CoreTextareaElement = <T extends FieldValues>({
+export const CoreTextareaElement = <TFormValues extends FieldValues>({
   id,
   rows,
   cols,
@@ -97,7 +97,7 @@ export const CoreTextareaElement = <T extends FieldValues>({
   isDisabled,
   isError,
   intent,
-}: CoreTextareaElementProps<T>): JSX.Element => {
+}: CoreTextareaElementProps<TFormValues>): JSX.Element => {
   const { register } = useFormContext();
 
   return (

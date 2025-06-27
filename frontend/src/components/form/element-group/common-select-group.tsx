@@ -27,17 +27,17 @@ import { CoreSelectElementGroup } from '@daigaku/common-types';
 /**
  * Defines the component's properties.
  *
- * @template T - The type of form values extending the `react-hook-form` library.
+ * @template TFormValues - The type of form values extending the `react-hook-form` library.
  */
-interface CommonSelectGroupProps<T extends FieldValues> extends CoreSelectElementGroup<T> {}
+interface CommonSelectGroupProps<TFormValues extends FieldValues> extends CoreSelectElementGroup<TFormValues> {}
 
 /**
  * Renders a generic select element group instance integrated with the `react-hook-form` library.
  *
- * @param {CommonSelectGroupProps<T extends FieldValues>} props
+ * @param {CommonSelectGroupProps<TFormValues extends FieldValues>} props
  * @return {JSX.Element}
  */
-export const CommonSelectGroup = <T extends FieldValues>({
+export const CommonSelectGroup = <TFormValues extends FieldValues>({
   id,
   isLoading,
   isFetchError,
@@ -48,10 +48,10 @@ export const CommonSelectGroup = <T extends FieldValues>({
   options,
   initialValue,
   intent,
-}: CommonSelectGroupProps<T>): JSX.Element => {
+}: CommonSelectGroupProps<TFormValues>): JSX.Element => {
   const { t } = useTranslation();
 
-  const { error } = useFieldValidationError<T>(id);
+  const { error } = useFieldValidationError<TFormValues>(id);
 
   return (
     <CoreFormElementFetchStateWrapper

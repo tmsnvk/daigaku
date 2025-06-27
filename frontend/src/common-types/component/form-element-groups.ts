@@ -19,14 +19,14 @@ import {
  * Defines the properties of core form elements
  * that extend the {@link CoreFormElementValidation} properties and use the `react-hook-form` features.
  *
- * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
+ * @template TFormValues - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  */
-interface CoreFormElementGroup<T extends FieldValues> {
+interface CoreFormElementGroup<TFormValues extends FieldValues> {
   /**
    * The input element's id.
    */
-  readonly id: Path<T>;
+  readonly id: Path<TFormValues>;
 
   /**
    * Indicates whether the input is disabled, preventing user interaction.
@@ -48,10 +48,10 @@ interface CoreFormElementGroup<T extends FieldValues> {
  * Defines the properties of input form elements
  * that extend the {@link CoreFormElementValidation} properties and use the `react-hook-form` features.
  *
- * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
+ * @template TFormValues - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  */
-interface CoreInputElementGroup<T extends FieldValues> extends CoreFormElementGroup<T> {
+interface CoreInputElementGroup<TFormValues extends FieldValues> extends CoreFormElementGroup<TFormValues> {
   /**
    * The displayed label alongside the input element.
    */
@@ -68,10 +68,10 @@ interface CoreInputElementGroup<T extends FieldValues> extends CoreFormElementGr
  * Defines the properties of general-purpose input form elements
  * that extend the {@link CoreFormElementValidation} properties and use the `react-hook-form` features.
  *
- * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
+ * @template TFormValues - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  */
-export interface CommonInputElementGroup<T extends FieldValues> extends CoreInputElementGroup<T> {
+export interface CommonInputElementGroup<TFormValues extends FieldValues> extends CoreInputElementGroup<TFormValues> {
   /**
    * The input element's type.
    */
@@ -82,15 +82,17 @@ export interface CommonInputElementGroup<T extends FieldValues> extends CoreInpu
  * Defines the properties of password-type input form elements
  * that extend the {@link CoreFormElementValidation} properties and use the `react-hook-form` features.
  *
- * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
+ * @template TFormValues - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  */
-export interface PasswordInputElementGroup<T extends FieldValues> extends CoreInputElementGroup<T> {}
+export interface PasswordInputElementGroup<TFormValues extends FieldValues>
+  extends CoreInputElementGroup<TFormValues> {}
 
 /**
  *
  */
-export interface CoreStaticSelectElementGroup<T extends FieldValues> extends CoreFormElementGroup<T> {
+export interface CoreStaticSelectElementGroup<TFormValues extends FieldValues>
+  extends CoreFormElementGroup<TFormValues> {
   /**
    * An array of options available for selection in the select element.
    */
@@ -116,11 +118,12 @@ export interface CoreStaticSelectElementGroup<T extends FieldValues> extends Cor
  * Defines the properties of select form elements
  * that extend the {@link CoreFormElementValidation} properties and use the `react-hook-form` features.
  *
- * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
+ * @template TFormValues - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  * @template U - The type of options available in the select element.
  */
-export interface CoreSelectElementGroup<T extends FieldValues> extends CoreStaticSelectElementGroup<T> {
+export interface CoreSelectElementGroup<TFormValues extends FieldValues>
+  extends CoreStaticSelectElementGroup<TFormValues> {
   /**
    *
    */
@@ -141,10 +144,10 @@ export interface CoreSelectElementGroup<T extends FieldValues> extends CoreStati
  * Defines the properties of general-purpose textarea form elements
  * that extend the {@link CoreFormElementValidation} properties and use the `react-hook-form` features.
  *
- * @template T - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
+ * @template TFormValues - A generic type parameter extending {@link https://react-hook-form.com/ts#FieldValues FieldValues}
  * from the `react-hook-form` library.
  */
-export interface TextareaElementGroup<T extends FieldValues> extends CoreFormElementGroup<T> {
+export interface TextareaElementGroup<TFormValues extends FieldValues> extends CoreFormElementGroup<TFormValues> {
   /**
    * The displayed label alongside the input element.
    */
