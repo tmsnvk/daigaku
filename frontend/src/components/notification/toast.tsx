@@ -96,7 +96,7 @@ export const Toast = ({
       <div className={joinTw('flex items-center justify-between', 'mb-4')}>
         <h3 className={'text-2xl font-bold uppercase'}>{title}</h3>
         <CoreIcon
-          icon={iconLibrary.faXMark}
+          icon={iconLibrary.faXmark}
           className={'cursor-pointer'}
           onClick={onClose}
         />

@@ -258,7 +258,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
               onClick={closeSmallScreenMenu}
               className={'top-15 absolute right-10 lg:hidden'}
             >
-              <CoreIcon icon={iconLibrary.faXMark} />
+              <CoreIcon icon={iconLibrary.faXmark} />
             </div>
           </section>
         )}
