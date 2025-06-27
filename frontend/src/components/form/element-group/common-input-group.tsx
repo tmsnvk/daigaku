@@ -22,17 +22,17 @@ import { CommonInputElementGroup } from '@daigaku/common-types';
 /**
  * Defines the component's properties.
  *
- * @template T - The type of form values extending the `react-hook-form` library.
+ * @template TFormValues - The type of form values extending the `react-hook-form` library.
  */
-interface CommonInputGroupProps<T extends FieldValues> extends CommonInputElementGroup<T> {}
+interface CommonInputGroupProps<TFormValues extends FieldValues> extends CommonInputElementGroup<TFormValues> {}
 
 /**
  * Renders a generic input element group instance integrated with the `react-hook-form` library.
  *
- * @param {CommonInputGroupProps<T extends FieldValues>} props
+ * @param {CommonInputGroupProps<TFormValues extends FieldValues>} props
  * @return {JSX.Element}
  */
-export const CommonInputGroup = <T extends FieldValues>({
+export const CommonInputGroup = <TFormValues extends FieldValues>({
   id,
   type,
   isDisabled,
@@ -40,10 +40,10 @@ export const CommonInputGroup = <T extends FieldValues>({
   initialValue,
   placeholder,
   intent,
-}: CommonInputGroupProps<T>): JSX.Element => {
+}: CommonInputGroupProps<TFormValues>): JSX.Element => {
   const { t } = useTranslation();
 
-  const { error } = useFieldValidationError<T>(id);
+  const { error } = useFieldValidationError<TFormValues>(id);
 
   return (
     <CoreFormElementGroupWrapper>

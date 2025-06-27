@@ -9,7 +9,7 @@ import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { CoreApiError } from '@daigaku/errors';
 import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
 
@@ -19,13 +19,9 @@ import { mutationKeys } from '@daigaku/constants';
 /**
  * Manages the user's .pdf download request.
  *
- * @returns {UseMutationResult<void, UnauthorizedError | ServerError | UnexpectedError, void>}
+ * @returns {UseMutationResult<void, CoreApiError, void>}
  */
-export const useRequestPdfDownload = (): UseMutationResult<
-  void,
-  UnauthorizedError | ServerError | UnexpectedError,
-  void
-> => {
+export const useRequestPdfDownload = (): UseMutationResult<void, CoreApiError, void> => {
   const { t } = useTranslation();
   const { createToast } = useToastProvider();
 

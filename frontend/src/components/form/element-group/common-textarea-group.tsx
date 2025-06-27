@@ -22,7 +22,7 @@ import { TextareaElementGroup } from '@daigaku/common-types';
 /**
  * Defines the component's properties.
  */
-interface CommonTextareaGroupProps<T extends FieldValues> extends TextareaElementGroup<T> {
+interface CommonTextareaGroupProps<TFormValues extends FieldValues> extends TextareaElementGroup<TFormValues> {
   /**
    * The textarea's row size.
    */
@@ -37,10 +37,10 @@ interface CommonTextareaGroupProps<T extends FieldValues> extends TextareaElemen
 /**
  * Renders a generic textarea element group instance integrated with the `react-hook-form` library.
  *
- * @param {CommonTextareaGroupProps<T extends FieldValues>} props
+ * @param {CommonTextareaGroupProps<TFormValues extends FieldValues>} props
  * @return {JSX.Element}
  */
-export const CommonTextareaGroup = <T extends FieldValues>({
+export const CommonTextareaGroup = <TFormValues extends FieldValues>({
   id,
   label,
   rows,
@@ -48,10 +48,10 @@ export const CommonTextareaGroup = <T extends FieldValues>({
   placeholder,
   intent,
   isDisabled,
-}: CommonTextareaGroupProps<T>): JSX.Element => {
+}: CommonTextareaGroupProps<TFormValues>): JSX.Element => {
   const { t } = useTranslation();
 
-  const { error } = useFieldValidationError<T>(id);
+  const { error } = useFieldValidationError<TFormValues>(id);
 
   return (
     <CoreFormElementGroupWrapper className={'h-120'}>

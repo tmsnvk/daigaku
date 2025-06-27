@@ -10,21 +10,21 @@ export const localStorageUtilities = {
    *
    * @param id The key used to retrieve the item from localStorage.
    * @param defaultValue The default value to return if the item is not found or parsing fails.
-   * @return {T} The object retrieved from storage or the default value.
+   * @return {TData} The object retrieved from storage or the default value.
    */
-  getObjectById<T>(id: string, defaultValue: T): T {
+  getObjectById<TData>(id: string, defaultValue: TData): TData {
     const item = localStorage.getItem(id);
 
-    return item ? (JSON.parse(item) as T) : defaultValue;
+    return item ? (JSON.parse(item) as TData) : defaultValue;
   },
 
   /**
    * Stores an object in localStorage by its item id.
    *
    * @param id The key to store the item under in localStorage.
-   * @param {T} data The object to store, which will be converted to a JSON string before being saved.
+   * @param {TData} data The object to store, which will be converted to a JSON string before being saved.
    */
-  setObjectById<T>(id: string, data: T): void {
+  setObjectById<TData>(id: string, data: TData): void {
     localStorage.setItem(id, JSON.stringify(data));
   },
 

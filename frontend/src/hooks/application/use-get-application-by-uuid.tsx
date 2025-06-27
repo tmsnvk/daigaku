@@ -8,7 +8,7 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { CoreApiError } from '@daigaku/errors';
 import { applicationService } from '@daigaku/services';
 
 /* configuration, constants imports */
@@ -23,12 +23,12 @@ import { Application } from '@daigaku/common-types';
  *
  * @param state An application record from the local `react-router-dom` cache, if it exists, otherwise null.
  * @param uuid The Application record's uuid string.
- * @return {UseQueryResult<Application, UnauthorizedError | ServerError | UnexpectedError>}
+ * @return {UseQueryResult<Application, CoreApiError>}
  */
 export const useGetApplicationByUuid = (
   state: Application | null,
   uuid: string,
-): UseQueryResult<Application, UnauthorizedError | ServerError | UnexpectedError> => {
+): UseQueryResult<Application, CoreApiError> => {
   return useQuery({
     queryKey: [queryKeys.application.GET_BY_UUID, uuid],
     queryFn: () => applicationService.findOneByUuid(uuid),

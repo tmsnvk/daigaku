@@ -8,7 +8,7 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 /* logic imports */
-import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { CoreApiError } from '@daigaku/errors';
 import { useAuthenticationProvider } from '@daigaku/providers';
 import { applicationService } from '@daigaku/services';
 import { getAccountRoleResource } from '@daigaku/utilities';
@@ -22,12 +22,9 @@ import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
 /**
  * Manages the fetching of dashboard-related data. The data returned depends on the user's authorisation level.
  *
- * @return {UseQueryResult<StudentDashboardStatisticsResponse, UnauthorizedError | ServerError | UnexpectedError>}
+ * @return {UseQueryResult<StudentDashboardStatisticsResponse, CoreApiError>}
  */
-export const useDashboardStatisticsQuery = (): UseQueryResult<
-  StudentDashboardStatisticsResponse,
-  UnauthorizedError | ServerError | UnexpectedError
-> => {
+export const useDashboardStatisticsQuery = (): UseQueryResult<StudentDashboardStatisticsResponse, CoreApiError> => {
   const { state } = useAuthenticationProvider();
   const accountRole = getAccountRoleResource(state.account.role);
 

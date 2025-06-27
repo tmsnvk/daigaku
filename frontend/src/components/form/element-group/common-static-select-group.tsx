@@ -20,17 +20,17 @@ import { CoreSelectElement } from '../core-element/core-select-element.tsx';
 /**
  * Defines the component's properties.
  *
- * @template T - The type of form values extending the `react-hook-form` library.
+ * @template TFormValues - The type of form values extending the `react-hook-form` library.
  */
-interface CommonSelectGroupProps<T extends FieldValues> extends CoreStaticSelectElementGroup<T> {}
+interface CommonSelectGroupProps<TFormValues extends FieldValues> extends CoreStaticSelectElementGroup<TFormValues> {}
 
 /**
  * Renders a generic select element group instance integrated with the `react-hook-form` library.
  *
- * @param {CommonSelectGroupProps<T extends FieldValues>} props
+ * @param {CommonSelectGroupProps<TFormValues extends FieldValues>} props
  * @return {JSX.Element}
  */
-export const CommonStaticSelectGroup = <T extends FieldValues>({
+export const CommonStaticSelectGroup = <TFormValues extends FieldValues>({
   id,
   isDisabled,
   onChangeHandler,
@@ -38,10 +38,10 @@ export const CommonStaticSelectGroup = <T extends FieldValues>({
   options,
   initialValue,
   intent,
-}: CommonSelectGroupProps<T>): JSX.Element => {
+}: CommonSelectGroupProps<TFormValues>): JSX.Element => {
   const { t } = useTranslation();
 
-  const { error } = useFieldValidationError<T>(id);
+  const { error } = useFieldValidationError<TFormValues>(id);
 
   return (
     <CoreFormElementGroupWrapper>

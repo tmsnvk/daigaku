@@ -40,13 +40,13 @@ export type CorSubmitElementVariantIntent = VariantProps<typeof coreSubmitInputE
 /**
  * Defines the component's properties.
  */
-interface CoreSubmitInputElementProps<T extends FieldValues>
+interface CoreSubmitInputElementProps<TFormValues extends FieldValues>
   extends VariantProps<typeof coreSubmitInputElementVariants>,
     InputHTMLAttributes<HTMLInputElement> {
   /**
    * The input element's id.
    */
-  readonly id: Path<T>;
+  readonly id: Path<TFormValues>;
 
   /**
    * The submit input value as label.
@@ -65,12 +65,12 @@ interface CoreSubmitInputElementProps<T extends FieldValues>
  * @param {CoreSubmitInputElementProps} props
  * @return {JSX.Element}
  */
-export const CoreSubmitInputElement = <T extends FieldValues>({
+export const CoreSubmitInputElement = <TFormValues extends FieldValues>({
   id,
   value,
   isDisabled,
   intent,
-}: CoreSubmitInputElementProps<T>): JSX.Element => {
+}: CoreSubmitInputElementProps<TFormValues>): JSX.Element => {
   return (
     <input
       id={id}

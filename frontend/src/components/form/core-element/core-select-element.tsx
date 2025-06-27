@@ -37,13 +37,13 @@ export type CoreSelectElementVariantIntent = VariantProps<typeof coreSelectEleme
 /**
  * Defines the component's properties.
  */
-interface CoreSelectElementProps<T extends FieldValues>
+interface CoreSelectElementProps<TFormValues extends FieldValues>
   extends VariantProps<typeof coreSelectElementVariants>,
     SelectHTMLAttributes<HTMLSelectElement> {
   /**
    * The select element's id.
    */
-  readonly id: Path<T>;
+  readonly id: Path<TFormValues>;
 
   /**
    * Indicates whether the select element is disabled.
@@ -77,7 +77,7 @@ interface CoreSelectElementProps<T extends FieldValues>
  * @param {CoreSelectElementProps} props
  * @return {JSX.Element}
  */
-export const CoreSelectElement = <T extends FieldValues>({
+export const CoreSelectElement = <TFormValues extends FieldValues>({
   id,
   isDisabled,
   isError,
@@ -85,8 +85,8 @@ export const CoreSelectElement = <T extends FieldValues>({
   options,
   initialValue,
   intent,
-}: CoreSelectElementProps<T>): JSX.Element => {
-  const { register, setValue } = useFormContext<T>();
+}: CoreSelectElementProps<TFormValues>): JSX.Element => {
+  const { register, setValue } = useFormContext<TFormValues>();
 
   return (
     <select
@@ -97,7 +97,10 @@ export const CoreSelectElement = <T extends FieldValues>({
       onChange={(event: ChangeEvent<HTMLSelectElement>) => {
         onChangeHandler?.(event);
 
-        setValue(id, event.target.value as PathValue<T, Path<T>>, { shouldValidate: true, shouldDirty: true });
+        setValue(id, event.target.value as PathValue<TFormValues, Path<TFormValues>>, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
       }}
       className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError }))}
     >

@@ -25,7 +25,7 @@ import { CoreInputErrorResponse, ExceptionTypes } from '@daigaku/common-types';
  *
  * @param axiosServiceCall
  */
-export const apiClientWrapper = async <T>(axiosServiceCall: () => Promise<AxiosResponse<T>>): Promise<T> => {
+export const apiClientWrapper = async <TServiceCall>(axiosServiceCall: () => Promise<AxiosResponse<TServiceCall>>): Promise<TServiceCall> => {
   try {
     const response = await axiosServiceCall();
 

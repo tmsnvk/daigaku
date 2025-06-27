@@ -10,10 +10,10 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { ServerError, UnauthorizedError, UnexpectedError } from '@daigaku/errors';
+import { CoreApiError } from '@daigaku/errors';
 import { applicationStudentService } from '@daigaku/services';
 
-/* configuration, utilities, constants imports */
+/* configuration, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
@@ -27,7 +27,7 @@ interface HandleToggleIsRemovable {
   readonly errorMessage: string;
   readonly isSubmitting: boolean;
   readonly isError: boolean;
-  mutate: UseMutateFunction<void, UnauthorizedError | ServerError | UnexpectedError, void, unknown>;
+  mutate: UseMutateFunction<void, CoreApiError, void, unknown>;
 }
 
 /**
@@ -44,7 +44,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
   const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const mutation: UseMutationResult<void, UnauthorizedError | ServerError | UnexpectedError, void> = useMutation({
+  const mutation: UseMutationResult<void, CoreApiError, void> = useMutation({
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
     mutationFn: () => applicationStudentService.toggleSoftDeleteFlag(applicationUuid),
     onSuccess: () => {
