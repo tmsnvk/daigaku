@@ -18,7 +18,7 @@ export const ExceptionTypes = {
   FORM_VALIDATION: 'FormValidationException',
 } as const;
 
-export type ExceptionType = (typeof ExceptionTypes)[keyof typeof ExceptionTypes];
+type ExceptionType = (typeof ExceptionTypes)[keyof typeof ExceptionTypes];
 
 /**
  * Defines a single error detail.
@@ -55,7 +55,7 @@ export interface CoreInputErrorResponse {
   readonly exceptionType: ExceptionType;
 
   /**
-   * The list of errors received from the backend.
+   * The list of errors.
    */
   readonly errors: Array<InputViolation>;
 

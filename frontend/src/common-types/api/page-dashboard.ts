@@ -9,7 +9,7 @@
  */
 export interface StudentDashboardStatisticsResponse {
   /**
-   * Details of the application that is set to Firm Choice.
+   * Details of the Application that is set to Firm Choice.
    */
   readonly firmChoiceTileDetails: {
     countryName: string;
@@ -18,7 +18,7 @@ export interface StudentDashboardStatisticsResponse {
   };
 
   /**
-   * Details of the application that is set to Final Destination.
+   * Details of the Application that is set to Final Destination.
    */
   readonly finalDestinationTileDetails: {
     countryName: string;
@@ -32,37 +32,37 @@ export interface StudentDashboardStatisticsResponse {
   readonly applicationsCount: number;
 
   /**
-   * The count of 'Planned' status submitted application-records.
+   * The count of 'Planned' status submitted Application.
    */
   readonly plannedApplicationsCount: number;
 
   /**
-   * The count of 'Submitted' status submitted application-records.
+   * The count of 'Submitted' status submitted Application.
    */
   readonly submittedApplicationsCount: number;
 
   /**
-   * The count of 'Withdrawn' status submitted application-records.
+   * The count of 'Withdrawn' status submitted Application.
    */
   readonly withdrawnStatusCount: number;
 
   /**
-   * The count of distinct countries the user has submitted an application-record to.
+   * The count of distinct countries the user has submitted an Application to.
    */
   readonly distinctCountriesCount: number;
 
   /**
-   * The count of distinct universities the user has submitted an application-record to.
+   * The count of distinct universities the user has submitted an Application to.
    */
   readonly distinctUniversitiesCount: number;
 
   /**
-   * The count of application-records where the user has not set the 'InterviewStatus' field yet.
+   * The count of Application where the user has not set the 'InterviewStatus' field yet.
    */
   readonly notSetInterviewStatusCount: number;
 
   /**
-   * The count of application-records where the user has set the 'OfferStatus' field to a positive outcome.
+   * The count of Application where the user has set the 'OfferStatus' field to a positive outcome.
    */
   readonly offersCount: number;
 }

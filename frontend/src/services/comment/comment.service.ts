@@ -11,7 +11,11 @@ import { apiClientWrapper } from '@daigaku/utilities';
 import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type imports */
-import { Comment, CommentPaginationDataResponse, CreateCommentPayload } from '@daigaku/common-types';
+import {
+  ApplicationCommentPaginationDataResponse,
+  ApplicationCommentResponse,
+  CreateApplicationCommentPayload,
+} from '@daigaku/common-types';
 
 /**
  * Defines comment-related operations, handling API requests and interactions for comment management.
@@ -22,7 +26,7 @@ interface CommentService {
    *
    * @param applicationUuid The selected application's uuid.
    * @param currentPage The current page number for pagination.
-   * @return {Promise<Array<CommentPaginationDataResponse>>}
+   * @return {Promise<Array<ApplicationCommentPaginationDataResponse>>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
    *   the user does not have a valid token.
@@ -32,14 +36,14 @@ interface CommentService {
   findPaginatedListByApplicationUuid: (
     applicationUuid: string,
     currentPage: number,
-  ) => Promise<CommentPaginationDataResponse>;
+  ) => Promise<ApplicationCommentPaginationDataResponse>;
 
   /**
    * Posts a new comment for a specific application.
    *
    * @param formData The new comment form's data object.
    * @param applicationUuid The selected application's uuid.
-   * @return {Promise<Comment>}
+   * @return {Promise<ApplicationCommentResponse>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
    *   the user does not have a valid token.
@@ -47,7 +51,10 @@ interface CommentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  createByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string) => Promise<Comment>;
+  createByApplicationUuid: (
+    formData: CreateApplicationCommentPayload,
+    applicationUuid: string,
+  ) => Promise<ApplicationCommentResponse>;
 }
 
 /**
@@ -57,17 +64,20 @@ export const commentService: CommentService = {
   findPaginatedListByApplicationUuid: (
     applicationUuid: string,
     currentPage: number,
-  ): Promise<CommentPaginationDataResponse> => {
+  ): Promise<ApplicationCommentPaginationDataResponse> => {
     return apiClientWrapper(() =>
-      axiosConfigWithAuth.request<CommentPaginationDataResponse>({
+      axiosConfigWithAuth.request<ApplicationCommentPaginationDataResponse>({
         method: 'GET',
         url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
       }),
     );
   },
-  createByApplicationUuid: (formData: CreateCommentPayload, applicationUuid: string): Promise<Comment> => {
+  createByApplicationUuid: (
+    formData: CreateApplicationCommentPayload,
+    applicationUuid: string,
+  ): Promise<ApplicationCommentResponse> => {
     return apiClientWrapper(() =>
-      axiosConfigWithAuth.request<Comment>({
+      axiosConfigWithAuth.request<ApplicationCommentResponse>({
         method: 'POST',
         url: `/api/v1/comments/${applicationUuid}`,
         data: formData,

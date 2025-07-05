@@ -25,7 +25,7 @@ import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import {
-  Application,
+  ApplicationResponse,
   CoreInputErrorResponse,
   InputViolation,
   UpdateApplicationByStudentPayload,
@@ -37,12 +37,12 @@ import {
  *
  * @param setError `react-hook-form`'s error setting method.
  * @param applicationUuid The application's uuid string.
- * @return {UseMutationResult<Application, CoreApiError, UpdateApplicationByStudentPayload>}
+ * @return {UseMutationResult<ApplicationResponse, CoreApiError, UpdateApplicationByStudentPayload>}
  */
 export const useUpdateApplicationFormMutation = (
   setError: UseFormSetError<UpdateApplicationByStudentPayload>,
   applicationUuid: string,
-): UseMutationResult<Application, CoreApiError, UpdateApplicationByStudentPayload> => {
+): UseMutationResult<ApplicationResponse, CoreApiError, UpdateApplicationByStudentPayload> => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -53,14 +53,14 @@ export const useUpdateApplicationFormMutation = (
     mutationFn: (formData: UpdateApplicationByStudentPayload) => {
       return applicationStudentService.updateByUuid(formData, applicationUuid);
     },
-    onSuccess: (response: Application) => {
-      queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
+    onSuccess: (response: ApplicationResponse) => {
+      queryClient.setQueryData<Array<ApplicationResponse>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {
           return;
         }
 
-        const filteredList: Array<Application> = applications.filter(
-          (application: Application) => application.uuid !== response.uuid,
+        const filteredList: Array<ApplicationResponse> = applications.filter(
+          (application: ApplicationResponse) => application.uuid !== response.uuid,
         );
 
         return [...filteredList, response];

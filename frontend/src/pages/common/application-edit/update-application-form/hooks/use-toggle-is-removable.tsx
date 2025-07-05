@@ -31,7 +31,7 @@ interface HandleToggleIsRemovable {
 }
 
 /**
- * Manages toggling the user's delete request by updating the `isRemovable` status of an {@link Application}.
+ * Manages toggling the user's delete request by updating the `isRemovable` status of an Application.
  *
  * @param applicationUuid The application record's uuid for identification purposes.
  * @param isRemovable The application record's current is_removable boolean state.

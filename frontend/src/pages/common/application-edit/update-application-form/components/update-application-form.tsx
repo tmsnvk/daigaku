@@ -30,7 +30,7 @@ import { IsRemovableButton } from './is-removable-button.tsx';
 
 /* interface, type imports */
 import {
-  Application,
+  ApplicationResponse as Application,
   ApplicationStatus,
   ApplicationStatusTranslations,
   ApplicationStatuses,

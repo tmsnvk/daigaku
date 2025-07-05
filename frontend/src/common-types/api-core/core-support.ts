@@ -5,16 +5,16 @@
  */
 
 /**
- * Defines the base of application support option models.
+ * Defines the base properties of Application support option objects.
  */
 export interface CoreSupport {
   /**
-   * The option's uuid.
+   * The support object's uuid.
    */
   readonly uuid: string;
 
   /**
-   * The option's name.
+   * The support object's name.
    */
   readonly name: string;
 }

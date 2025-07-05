@@ -12,7 +12,7 @@ import { axiosConfigWithAuth } from '@daigaku/configuration';
 
 /* interface, type imports */
 import {
-  Application,
+  ApplicationResponse,
   CreateApplicationByStudentPayload,
   UpdateApplicationByStudentPayload,
 } from '@daigaku/common-types';
@@ -26,7 +26,7 @@ interface ApplicationStudentService {
    * Sends a POST request to save application data in the database.
    *
    * @param formData The application form data object to be saved.
-   * @return {Promise<Application>}
+   * @return {Promise<ApplicationResponse>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
    *   the user does not have a valid token.
@@ -34,14 +34,14 @@ interface ApplicationStudentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  create: (formData: CreateApplicationByStudentPayload) => Promise<Application>;
+  create: (formData: CreateApplicationByStudentPayload) => Promise<ApplicationResponse>;
 
   /**
    * Updates an existing application record by uuid.
    *
    * @param formData The application update form data object.
    * @param uuid The unique identifier of the application to be updated.
-   * @return {Promise<Application>}
+   * @return {Promise<ApplicationResponse>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
    *   the user does not have a valid token.
@@ -49,7 +49,7 @@ interface ApplicationStudentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string) => Promise<Application>;
+  updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string) => Promise<ApplicationResponse>;
 
   /**
    * Toggles the is_removable status of an application by uuid.
@@ -84,18 +84,18 @@ interface ApplicationStudentService {
  * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
  */
 export const applicationStudentService: ApplicationStudentService = {
-  create: (formData: CreateApplicationByStudentPayload): Promise<Application> => {
+  create: (formData: CreateApplicationByStudentPayload): Promise<ApplicationResponse> => {
     return apiClientWrapper(() =>
-      axiosConfigWithAuth.request<Application>({
+      axiosConfigWithAuth.request<ApplicationResponse>({
         method: 'POST',
         url: '/api/v1/applications/student',
         data: formData,
       }),
     );
   },
-  updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string): Promise<Application> => {
+  updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string): Promise<ApplicationResponse> => {
     return apiClientWrapper(() =>
-      axiosConfigWithAuth.request<Application>({
+      axiosConfigWithAuth.request<ApplicationResponse>({
         method: 'PATCH',
         url: `/api/v1/applications/student/${uuid}`,
         data: formData,

@@ -28,7 +28,11 @@ import {
 } from '@daigaku/components/form';
 
 /* interface, type imports */
-import { CountryOption, CreateApplicationByStudentPayload, UniversityOption } from '@daigaku/common-types';
+import {
+  CountryOptionResponse,
+  CreateApplicationByStudentPayload,
+  UniversityOptionResponse,
+} from '@daigaku/common-types';
 
 /**
  * Renders the new application submission form for student users.
@@ -106,7 +110,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             onRetry={onCountryRetry}
             onChangeHandler={handleCountrySelection}
             options={
-              countries?.map((countryOption: CountryOption) => (
+              countries?.map((countryOption: CountryOptionResponse) => (
                 <option
                   key={countryOption.uuid}
                   value={countryOption.uuid}
@@ -130,7 +134,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
               isDisabled={isSubmitting || !isCountrySelected}
               onRetry={onUniversityRetry}
               options={
-                universities?.map((universityOption: UniversityOption) => (
+                universities?.map((universityOption: UniversityOptionResponse) => (
                   <option
                     key={universityOption.uuid}
                     value={universityOption.uuid}

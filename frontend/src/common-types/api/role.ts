@@ -7,7 +7,7 @@
 /**
  * Defines the properties of a user role.
  */
-export interface RoleOption {
+export interface RoleOptionResponse {
   /**
    * The role's uuid.
    */
@@ -18,15 +18,3 @@ export interface RoleOption {
    */
   readonly name: string;
 }
-
-/**
- * Defines user types.
- */
-export const UserRoles = {
-  ROLE_STUDENT: 'ROLE_STUDENT',
-  ROLE_MENTOR: 'ROLE_MENTOR',
-  ROLE_INSTITUTION_ADMIN: 'ROLE_INSTITUTION_ADMIN',
-  ROLE_SYSTEM_ADMIN: 'ROLE_SYSTEM_ADMIN',
-} as const;
-
-export type UserRole = (typeof UserRoles)[keyof typeof UserRoles];

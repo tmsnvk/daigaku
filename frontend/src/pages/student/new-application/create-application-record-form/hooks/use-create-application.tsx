@@ -19,7 +19,7 @@ import { CreateApplicationSchemaFieldKey } from '../schema.ts';
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { Application, CreateApplicationByStudentPayload, InputViolation } from '@daigaku/common-types';
+import { ApplicationResponse, CreateApplicationByStudentPayload, InputViolation } from '@daigaku/common-types';
 
 /**
  * Manages the submission of new application submission via the `react-query` package.
@@ -27,13 +27,13 @@ import { Application, CreateApplicationByStudentPayload, InputViolation } from '
  * @param setError A function to set validation errors for form fields.
  * @param resetCountrySelection A function to reset the country selection in the form.
  * @param reset A `react-hook-form` method to reset the entire form.
- * @return {UseMutationResult<Application, CoreApiError, CreateApplicationByStudentPayload>}
+ * @return {UseMutationResult<ApplicationResponse, CoreApiError, CreateApplicationByStudentPayload>}
  */
 export const useCreateApplication = (
   setError: UseFormSetError<CreateApplicationByStudentPayload>,
   resetCountrySelection: () => void,
   reset: () => void,
-): UseMutationResult<Application, CoreApiError, CreateApplicationByStudentPayload> => {
+): UseMutationResult<ApplicationResponse, CoreApiError, CreateApplicationByStudentPayload> => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -44,10 +44,10 @@ export const useCreateApplication = (
     mutationFn: (formData: CreateApplicationByStudentPayload) => {
       return applicationStudentService.create(formData);
     },
-    onSuccess: (response: Application) => {
-      queryClient.setQueryData<Array<Application>>(
+    onSuccess: (response: ApplicationResponse) => {
+      queryClient.setQueryData<Array<ApplicationResponse>>(
         [queryKeys.application.GET_ALL_BY_ROLE],
-        (applications: Array<Application> | undefined) => {
+        (applications: Array<ApplicationResponse> | undefined) => {
           if (!applications) {
             return;
           }

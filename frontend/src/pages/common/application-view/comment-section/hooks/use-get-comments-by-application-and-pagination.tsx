@@ -15,7 +15,7 @@ import { commentService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { CommentPaginationDataResponse } from '@daigaku/common-types';
+import { ApplicationCommentPaginationDataResponse } from '@daigaku/common-types';
 
 /**
  * Manages fetching comments for a specific application record based on the selected page number in the pagination
@@ -23,12 +23,12 @@ import { CommentPaginationDataResponse } from '@daigaku/common-types';
  *
  * @param applicationUuid The selected application record's uuid string.
  * @param currentPage The current page number in the pagination sequence.
- * @return {UseQueryResult<CommentPaginationDataResponse, CoreApiError>}
+ * @return {UseQueryResult<ApplicationCommentPaginationDataResponse, CoreApiError>}
  */
 export const useGetCommentsByApplicationAndPagination = (
   applicationUuid: string,
   currentPage: number,
-): UseQueryResult<CommentPaginationDataResponse, CoreApiError> => {
+): UseQueryResult<ApplicationCommentPaginationDataResponse, CoreApiError> => {
   return useQuery({
     queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
     queryFn: () => commentService.findPaginatedListByApplicationUuid(applicationUuid, currentPage),

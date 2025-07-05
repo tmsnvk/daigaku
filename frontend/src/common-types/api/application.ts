@@ -5,6 +5,7 @@
  */
 
 /* interface, type imports */
+import { CoreMetadata } from '../api-core/core-metada.ts';
 import {
   ApplicationStatus,
   FinalDestinationStatus,
@@ -12,12 +13,41 @@ import {
   OfferStatus,
   ResponseStatus,
 } from '../application/application-statuses.ts';
-import { CoreMetadata } from '../core/core-metada.ts';
+
+/**
+ *
+ */
+interface CoreApplicationStatusFields {
+  /**
+   * The Application's ApplicationStatus status.
+   */
+  readonly applicationStatus: ApplicationStatus;
+
+  /**
+   * The Application's InterviewStatus status.
+   */
+  readonly interviewStatus: InterviewStatus | null;
+
+  /**
+   * The Application's OfferStatus status.
+   */
+  readonly offerStatus: OfferStatus | null;
+
+  /**
+   * The Application's ResponseStatus status.
+   */
+  readonly responseStatus: ResponseStatus | null;
+
+  /**
+   * The Application's FinalDestination status.
+   */
+  readonly finalDestinationStatus: FinalDestinationStatus | null;
+}
 
 /**
  * Defines the properties of an Application.
  */
-export interface Application extends CoreMetadata {
+export interface ApplicationResponse extends CoreMetadata, CoreApplicationStatusFields {
   /**
    * The Application's uuid string.
    */
@@ -29,12 +59,12 @@ export interface Application extends CoreMetadata {
   readonly accountUuid: string;
 
   /**
-   * The Application's country uuid string.
+   * The Application's country string.
    */
   readonly country: string;
 
   /**
-   * The Application's university uuid string.
+   * The Application's university string.
    */
   readonly university: string;
 
@@ -52,31 +82,6 @@ export interface Application extends CoreMetadata {
    * The Application's programme length.
    */
   readonly programmeLength: number;
-
-  /**
-   * The Application's current ApplicationStatus.
-   */
-  readonly applicationStatus: ApplicationStatus;
-
-  /**
-   * The Application's current InterviewStatus.
-   */
-  readonly interviewStatus: InterviewStatus | null;
-
-  /**
-   * The Application's current OfferStatus.
-   */
-  readonly offerStatus: OfferStatus | null;
-
-  /**
-   * The Application's current ResponseStatus.
-   */
-  readonly responseStatus: ResponseStatus | null;
-
-  /**
-   * The Application's current FinalDestinationStatus.
-   */
-  readonly finalDestinationStatus: FinalDestinationStatus | null;
 
   /**
    * The boolean indicating whether the owner marked the Application obsolete and ready for deletion.
@@ -117,29 +122,4 @@ export interface CreateApplicationByStudentPayload {
 /**
  * Defines the structure of an Application update to be submitted by Student authenticated users.
  */
-export interface UpdateApplicationByStudentPayload {
-  /**
-   * The Application's ApplicationStatus status.
-   */
-  applicationStatus: ApplicationStatus;
-
-  /**
-   * The Application's InterviewStatus status.
-   */
-  interviewStatus: InterviewStatus | null;
-
-  /**
-   * The Application's OfferStatus status.
-   */
-  offerStatus: OfferStatus | null;
-
-  /**
-   * The Application's ResponseStatus status.
-   */
-  responseStatus: ResponseStatus | null;
-
-  /**
-   * The Application's FinalDestination status.
-   */
-  finalDestinationStatus: FinalDestinationStatus | null;
-}
+export interface UpdateApplicationByStudentPayload extends CoreApplicationStatusFields {}

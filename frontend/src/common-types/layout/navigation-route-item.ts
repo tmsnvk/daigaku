@@ -14,15 +14,15 @@ export interface NavigationRouteItem {
   /**
    * The route's target url string.
    */
-  targetUrlString: string;
+  readonly targetUrlString: string;
 
   /**
    * The route's icon.
    */
-  icon: IconLookup;
+  readonly icon: IconLookup;
 
   /**
    * The route's name.
    */
-  label: string;
+  readonly label: string;
 }

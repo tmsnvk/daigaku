@@ -59,7 +59,7 @@ interface CoreInputElementGroup<TFormValues extends FieldValues> extends CoreFor
 
   /**
    * Placeholder text to guide the user on what to type in the input element.
-   * Optional, since certain input elements might have pre-filled data.
+   * Optional as certain input elements might have pre-filled data.
    */
   readonly placeholder?: string;
 }
