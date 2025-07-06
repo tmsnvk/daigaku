@@ -23,14 +23,14 @@ import { CorSubmitElementVariantIntent } from '../core-element/core-submit-input
  */
 interface CoreFormActionProps {
   /**
+   *
+   */
+  readonly isDisabled: boolean;
+
+  /**
    * The boolean indicating whether the form submission is pending.
    */
   readonly isSubmissionPending: boolean;
-
-  /**
-   * The boolean indicating whether the form is disabled. The key is used in forms containing a preliminary data fetch.
-   */
-  readonly isDisabled?: boolean;
 
   /**
    *
@@ -59,8 +59,8 @@ interface CoreFormActionProps {
  * @returns {JSX.Element}
  */
 export const CoreFormAction = ({
-  isSubmissionPending,
   isDisabled,
+  isSubmissionPending,
   formActionConfig,
   intent,
   className,
@@ -75,7 +75,7 @@ export const CoreFormAction = ({
         <CoreSubmitInputElement
           id={'submit'}
           value={formActionConfig.value}
-          isDisabled={(isSubmissionPending || isDisabled) ?? false}
+          isDisabled={isDisabled || isSubmissionPending}
           intent={intent}
         />
       )}

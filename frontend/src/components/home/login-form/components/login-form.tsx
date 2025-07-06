@@ -62,13 +62,13 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
     resolver: standardSchemaResolver(loginSchema),
   });
 
-  const { handleSubmit, setError } = formMethods;
+  const {
+    handleSubmit,
+    setError,
+    formState: { isDirty, isValid, isSubmitting },
+  } = formMethods;
 
-  const { mutate: logIn, isPending: isFormSubmitting } = useLoginFormMutation(setError);
-
-  const submitLoginForm = (formData: LoginSchema): void => {
-    logIn(formData as LoginPayload);
-  };
+  const { mutate: logIn } = useLoginFormMutation(setError);
 
   return (
     <>
@@ -79,25 +79,28 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-login-form'}
-          onFormSubmit={handleSubmit(submitLoginForm)}
+          onFormSubmit={handleSubmit((formData: LoginSchema) => {
+            logIn(formData as LoginPayload);
+          })}
         >
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            isDisabled={isFormSubmitting}
+            isDisabled={isSubmitting}
             label={t('emailLabel')}
             placeholder={t('emailPlaceholder')}
             intent={'light'}
           />
           <PasswordInputGroup
             id={'password'}
-            isDisabled={isFormSubmitting}
+            isDisabled={isSubmitting}
             label={t('passwordLabel')}
             placeholder={t('passwordPlaceholder')}
             intent={'light'}
           />
           <CoreFormAction
-            isSubmissionPending={isFormSubmitting}
+            isDisabled={!isDirty || !isValid}
+            isSubmissionPending={isSubmitting}
             formActionConfig={{
               message: t('loginFormSubmission'),
               value: t('loginFormSubmit'),
@@ -107,7 +110,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        isDisabled={isFormSubmitting}
+        isDisabled={isSubmitting}
         onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {

@@ -25,11 +25,13 @@ import { CoreInputErrorResponse, ExceptionTypes } from '@daigaku/common-types';
  *
  * @param axiosServiceCall
  */
-export const apiClientWrapper = async <TServiceCall>(axiosServiceCall: () => Promise<AxiosResponse<TServiceCall>>): Promise<TServiceCall> => {
+export const apiClientWrapper = async <TServiceCall>(
+  axiosServiceCall: () => Promise<AxiosResponse<TServiceCall>>,
+): Promise<TServiceCall> => {
   try {
-    const response = await axiosServiceCall();
+    const { data } = await axiosServiceCall();
 
-    return response.data;
+    return data;
   } catch (error: unknown) {
     if (!axios.isAxiosError(error)) {
       throw new UnexpectedError();

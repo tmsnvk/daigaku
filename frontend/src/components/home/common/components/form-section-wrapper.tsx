@@ -27,11 +27,8 @@ export const FormSectionWrapper = ({ children }: FormSectionWrapperProps): JSX.E
   return (
     <section
       className={joinTw(
-        'core-tertiary-border',
-        'flex flex-col text-center',
-        'sm:w-200 w-[90%]',
-        'my-[5%] px-10 py-20',
-        'animate-fade-in-from-left',
+        'core-tertiary-border animate-fade-in-from-left my-[5%] flex w-[90%] flex-col px-10 py-20 text-center',
+        'sm:w-200',
       )}
     >
       {children}

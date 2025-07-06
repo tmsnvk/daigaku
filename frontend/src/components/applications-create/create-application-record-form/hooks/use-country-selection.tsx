@@ -22,7 +22,7 @@ export interface CountrySelection {
   /**
    * The currently selected country's UUID.
    */
-  readonly currentCountryUuid: string;
+  readonly selectedCountryUuid: string;
 
   /**
    * A method to update the selected country using a given uuid string.
@@ -45,12 +45,12 @@ export interface CountrySelection {
  */
 export const useCountrySelection = (): CountrySelection => {
   const [isCountrySelected, setIsCountrySelected] = useState<boolean>(false);
-  const [currentCountryUuid, setCurrentCountryUuid] = useState<string>('');
+  const [selectedCountryUuid, setSelectedCountryUuid] = useState<string>('');
 
   const handleCountrySelection = (event: ChangeEvent<HTMLSelectElement>): void => {
     if (!isEmpty(event.target.value)) {
       setIsCountrySelected(true);
-      setCurrentCountryUuid(event.target.value);
+      setSelectedCountryUuid(event.target.value);
     }
   };
 
@@ -60,7 +60,7 @@ export const useCountrySelection = (): CountrySelection => {
 
   return {
     isCountrySelected,
-    currentCountryUuid,
+    selectedCountryUuid,
     handleCountrySelection,
     resetCountrySelection,
   };

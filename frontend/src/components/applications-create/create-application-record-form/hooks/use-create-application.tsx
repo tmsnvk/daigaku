@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { ConstraintViolationError, CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
 import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
-import { CreateApplicationSchemaFieldKey } from '../schema.ts';
+import { CreateApplicationSchemaKey } from '../schema.ts';
 
 /* configuration, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
@@ -69,7 +69,7 @@ export const useCreateApplication = (
       if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as CreateApplicationSchemaFieldKey, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as CreateApplicationSchemaKey, { message: errorDetail.errorMessage });
           }
         });
       }

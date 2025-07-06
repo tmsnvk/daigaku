@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useGetCountryOptions, useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
+import { useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { joinTw } from '@daigaku/utilities';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
 import { useCreateApplication } from '../hooks/use-create-application.tsx';
@@ -21,6 +21,7 @@ import { CreateApplicationSchema, createApplicationSchema } from '../schema.ts';
 import {
   CommonInputGroup,
   CommonSelectGroup,
+  CommonStaticSelectGroup,
   CoreFormAction,
   CoreFormElementInstruction,
   CoreFormHeader,
@@ -28,11 +29,14 @@ import {
 } from '@daigaku/components/form';
 
 /* interface, type imports */
-import {
-  CountryOption,
-  CreateApplicationByStudentPayload,
-  UniversityOption,
-} from '@daigaku/common-types';
+import { CountryOption, CreateApplicationByStudentPayload, UniversityOption } from '@daigaku/common-types';
+
+/**
+ *
+ */
+interface CreateApplicationRecordFormProps {
+  countryOptions: Array<CountryOption>;
+}
 
 /**
  * Renders the new application submission form for student users.
@@ -41,27 +45,18 @@ import {
  *
  * @return {JSX.Element}
  */
-export const CreateApplicationRecordForm = (): JSX.Element => {
+export const CreateApplicationRecordForm = ({ countryOptions }: CreateApplicationRecordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const { handleCountrySelection, resetCountrySelection, isCountrySelected, currentCountryUuid } =
+  const { handleCountrySelection, resetCountrySelection, isCountrySelected, selectedCountryUuid } =
     useCountrySelection();
-
-  const {
-    data: countries,
-    isLoading: isCountryLoading,
-    isError: isCountryError,
-    refetch: onCountryRetry,
-  } = useGetCountryOptions();
 
   const {
     data: universities,
     isLoading: isUniversityLoading,
     isError: isUniversityError,
     refetch: onUniversityRetry,
-  } = useGetUniversityOptionsByCountryUuid(currentCountryUuid);
-
-  const isSubmitDisabled = isCountryLoading || isUniversityLoading || isCountryError || isUniversityError;
+  } = useGetUniversityOptionsByCountryUuid(selectedCountryUuid);
 
   const methods = useForm<CreateApplicationSchema>({
     defaultValues: {
@@ -75,7 +70,12 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
     resolver: standardSchemaResolver(createApplicationSchema),
   });
 
-  const { handleSubmit, setError, reset } = methods;
+  const {
+    handleSubmit,
+    setError,
+    reset,
+    formState: { isDirty, isValid },
+  } = methods;
 
   const { mutate: createApplication, isPending: isSubmitting } = useCreateApplication(
     setError,
@@ -102,15 +102,12 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             paragraph={t('newApplicationRecordFormInformation')}
             className={'col-start-1 col-end-3'}
           />
-          <CommonSelectGroup
+          <CommonStaticSelectGroup
             id={'countryUuid'}
-            isLoading={isCountryLoading}
-            isFetchError={isCountryError}
             isDisabled={isSubmitting}
-            onRetry={onCountryRetry}
             onChangeHandler={handleCountrySelection}
             options={
-              countries?.map((countryOption: CountryOption) => (
+              countryOptions.map((countryOption: CountryOption) => (
                 <option
                   key={countryOption.uuid}
                   value={countryOption.uuid}
@@ -176,8 +173,8 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
           />
           <CoreFormElementInstruction paragraph={t('programmeLengthNewFieldInformation')} />
           <CoreFormAction
+            isDisabled={!isDirty || !isValid}
             isSubmissionPending={isSubmitting}
-            isDisabled={isSubmitDisabled}
             formActionConfig={{
               message: t('createApplicationRecordFormSubmission'),
               value: t('createApplicationRecordFormSubmit'),

@@ -5,6 +5,6 @@
  */
 
 import { FormSectionWrapper } from './common/components/form-section-wrapper';
-import { useFormSwitcher } from './common/hooks/use-form-switcher';
+import { useFormSelector } from './common/hooks/use-form-selector';
 
-export { FormSectionWrapper, useFormSwitcher };
+export { FormSectionWrapper, useFormSelector };

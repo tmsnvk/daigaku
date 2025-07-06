@@ -13,7 +13,7 @@ import { useAuthenticationProvider } from '@daigaku/providers';
 import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { FormSectionWrapper, useFormSwitcher } from '@daigaku/components/home';
+import { FormSectionWrapper, useFormSelector } from '@daigaku/components/home';
 
 /* interface, type imports */
 import { UserLoginStates } from '@daigaku/common-types';
@@ -23,10 +23,12 @@ import { UserLoginStates } from '@daigaku/common-types';
  * @returns {JSX.Element}
  */
 const HomePageComponent = (): JSX.Element => {
-  const { state } = useAuthenticationProvider();
-  const { selectedFormType, selectedFormComponent } = useFormSwitcher();
+  const {
+    state: { authenticationStatus },
+  } = useAuthenticationProvider();
+  const { selectedFormType, selectedFormComponent } = useFormSelector();
 
-  if (state.authenticationStatus === UserLoginStates.LOGGED_IN) {
+  if (authenticationStatus === UserLoginStates.LOGGED_IN) {
     return <Navigate to={'/dashboard'} />;
   }
 
