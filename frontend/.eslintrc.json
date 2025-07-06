@@ -120,7 +120,6 @@
     "prefer-spread": "warn",
     "prefer-template": "warn",
     "require-atomic-updates": "warn",
-    "require-await": "warn",
     "sort-imports": [
       "warn",
       {
@@ -158,13 +157,6 @@
     "eol-last": "warn",
     "func-call-spacing": ["warn", "never"],
     "function-call-argument-newline": ["warn", "consistent"],
-    "indent": [
-      "warn",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
     "jsx-quotes": ["warn", "prefer-single"],
     "keyword-spacing": "warn",
     "line-comment-position": [
@@ -184,7 +176,6 @@
       }
     ],
     "object-curly-spacing": ["warn", "always"],
-    "operator-linebreak": ["warn", "after"],
     "padding-line-between-statements": [
       "warn",
       {

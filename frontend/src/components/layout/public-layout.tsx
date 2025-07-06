@@ -5,9 +5,9 @@
  */
 
 /* vendor imports */
+import { Outlet } from '@tanstack/react-router';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Outlet } from 'react-router-dom';
 
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
@@ -36,12 +36,19 @@ const navigationRoutes: Array<NavigationRouteItem> = [
   },
 ];
 
+interface PublicLayoutProps {
+  /**
+   *
+   */
+  readonly build: string;
+}
+
 /**
  * Renders navigation routes for unauthorized users.
  *
  * @return {JSX.Element}
  */
-export const PublicLayout = (): JSX.Element => {
+export const PublicLayout = ({ build }: PublicLayoutProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
@@ -63,7 +70,7 @@ export const PublicLayout = (): JSX.Element => {
         </ul>
       </NavigationBarWrapper>
       <Outlet />
-      <Footer />
+      <Footer build={build} />
     </>
   );
 };

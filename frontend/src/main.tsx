@@ -9,7 +9,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 /* component imports */
-import { DaigakuReactApplication } from './daigaku-react-application.tsx';
+import { DaigakuReactApplication } from './application/daigaku-application.tsx';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 

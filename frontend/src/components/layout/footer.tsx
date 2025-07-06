@@ -12,29 +12,34 @@ import { useTranslation } from 'react-i18next';
 import { getCurrentYear, joinTw } from '@daigaku/utilities';
 
 /**
+ *
+ */
+interface FooterProps {
+  /**
+   *
+   */
+  readonly build: string;
+}
+
+/**
  * Renders the application's footer area.
  *
  * @return {JSX.Element}
  */
-export const Footer = (): JSX.Element => {
+export const Footer = ({ build }: FooterProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <div></div>
-      <footer
-        className={joinTw(
-          'absolute bottom-0 flex flex-col items-center justify-center',
-          'h-28 w-full',
-          'bg-primary border-secondary border-t-2',
-          'text-xl',
-        )}
-      >
-        <p>
-          {t('initYear')} - {getCurrentYear()}
-        </p>
-        <p>{t('footerContent')}</p>
-      </footer>
-    </>
+    <footer
+      className={joinTw(
+        'bg-primary border-secondary absolute bottom-0 flex h-28 w-full flex-col items-center justify-center border-t-2 text-xl',
+      )}
+    >
+      <p>
+        {t('initYear')} - {getCurrentYear()}
+      </p>
+      <p>{t('footerContent')}</p>
+      <p className='ml-4 self-start text-sm'>BUILD-ID: {build}</p>
+    </footer>
   );
 };

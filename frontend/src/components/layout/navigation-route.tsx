@@ -6,14 +6,14 @@
 
 /* vendor imports */
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
+import { Link } from '@tanstack/react-router';
 import { JSX } from 'react';
-import { NavLink } from 'react-router-dom';
+import { joinTw } from 'utilities/join-tw';
+import { CoreIcon } from '../core';
 
 /* logic imports */
-import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { CoreIcon } from '../core/core-icon.tsx';
 
 /**
  * Defines the component's properties.
@@ -53,13 +53,14 @@ export const NavigationRoute = ({
   onNavigateClick,
 }: NavigationRouteProps): JSX.Element => {
   return (
-    <NavLink
+    <Link
       to={targetUrlString}
       onClick={onNavigateClick}
-      className={({ isActive }) => joinTw('text-3xl font-semibold', isActive ? 'text-accent' : 'text-secondary')}
     >
       {({ isActive }) => (
-        <div className={'flex items-center'}>
+        <div
+          className={joinTw('flex items-center text-3xl font-semibold', isActive ? 'text-accent' : 'text-secondary')}
+        >
           <CoreIcon
             icon={icon}
             className={joinTw(isActive ? 'text-accent' : 'text-secondary', 'mr-2')}
@@ -67,6 +68,6 @@ export const NavigationRoute = ({
           <span>{label}</span>
         </div>
       )}
-    </NavLink>
+    </Link>
   );
 };

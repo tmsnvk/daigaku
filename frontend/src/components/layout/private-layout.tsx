@@ -7,7 +7,6 @@
 /* vendor imports */
 import { JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useAuthenticationProvider } from '@daigaku/providers';
@@ -25,6 +24,7 @@ import { TranslationKey, iconLibrary } from '@daigaku/constants';
 
 /* interface, type imports */
 import { NavigationRouteItem, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
+import { Outlet } from '@tanstack/react-router';
 
 const sharedNavigationRoutes: Array<NavigationRouteItem> = [
   {
@@ -104,9 +104,9 @@ type SmallScreenMenuState = 'closed' | 'opening' | 'open' | 'closing';
  */
 interface PrivateLayoutProps {
   /**
-   * The list of roles permitted viewing this layout.
+   *
    */
-  readonly allowedRoles: Array<UserRole>;
+  readonly build: string;
 }
 
 /**
@@ -116,9 +116,7 @@ interface PrivateLayoutProps {
  * @param {PrivateLayoutProps} props
  * @return {JSX.Element}
  */
-export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element => {
-  const location = useLocation();
-  const navigate = useNavigate();
+export const PrivateLayout = ({ build }: PrivateLayoutProps): JSX.Element => {
   const { t } = useTranslation();
 
   const { state, logOut } = useAuthenticationProvider();
@@ -151,28 +149,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
 
       return () => clearTimeout(timeout);
     }
-
-    if (smallScreenMenuState === 'closed') {
-      closeSmallScreenMenu();
-    }
   }, [smallScreenMenuState]);
-
-  useEffect(() => {
-    if (state.account.role === null) {
-      return;
-    }
-
-    if (!state.account || !allowedRoles.includes(state.account.role as UserRole)) {
-      const redirectPath = state.account ? '/unauthorised' : '/';
-
-      navigate(redirectPath, {
-        state: {
-          from: location,
-        },
-        replace: true,
-      });
-    }
-  }, [state.account]);
 
   if (state.authenticationStatus === UserLoginStates.LOADING) {
     return <CoreLoadingNotification intent={'light'} />;
@@ -264,7 +241,7 @@ export const PrivateLayout = ({ allowedRoles }: PrivateLayoutProps): JSX.Element
         )}
       </NavigationBarWrapper>
       <Outlet />
-      <Footer />
+      <Footer build={build} />
     </>
   );
 };

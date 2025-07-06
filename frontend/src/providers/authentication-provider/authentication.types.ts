@@ -10,11 +10,15 @@ import { UserLoginState, UserRole } from '@daigaku/common-types';
 /**
  *
  */
+export interface Account {
+  email: string;
+  firstName: string;
+  role: UserRole | null;
+}
+/**
+ *
+ */
 export type AuthenticationState = {
-  account: {
-    email: string;
-    firstName: string;
-    role: UserRole | null;
-  };
+  account: Account;
   authenticationStatus: UserLoginState;
 };

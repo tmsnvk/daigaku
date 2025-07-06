@@ -5,9 +5,9 @@
  */
 
 /* vendor imports */
+import { Link } from '@tanstack/react-router';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { JSX, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
@@ -72,7 +72,7 @@ export const CoreLink = ({ target, state, label, intent, size }: CoreLinkProps):
   return (
     <Link
       to={target}
-      state={state}
+      // state={state}
       className={joinTw(coreLinkVariants({ intent, size }))}
     >
       {label}

@@ -4,6 +4,8 @@
  * @author tmsnvk
  */
 
+/* configuration, constants imports */
+
 /**
  * Defines the properties of a decoded JWT token string.
  */
