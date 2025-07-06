@@ -18,7 +18,7 @@ import { CreateCommentSchema, createCommentSchema } from '../schema.ts';
 import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
 
 /* interface, type imports */
-import { CreateCommentPayload } from '@daigaku/common-types';
+import { CreateApplicationCommentPayload } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -55,7 +55,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
   const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(applicationUuid, setError, reset);
 
   const submitCreateCommentForm = (formData: CreateCommentSchema): void => {
-    createComment(formData as CreateCommentPayload);
+    createComment(formData as CreateApplicationCommentPayload);
   };
 
   return (

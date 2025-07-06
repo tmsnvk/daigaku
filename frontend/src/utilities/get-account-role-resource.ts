@@ -14,6 +14,6 @@ const roleResources: Record<UserRole, string> = {
   [UserRoles.ROLE_SYSTEM_ADMIN]: 'system-admin',
 };
 
-export const getAccountRoleResource = (accountRole: string | null): string => {
-  return roleResources[accountRole as UserRole];
+export const getAccountRoleResource = (accountRole: UserRole): string => {
+  return roleResources[accountRole];
 };

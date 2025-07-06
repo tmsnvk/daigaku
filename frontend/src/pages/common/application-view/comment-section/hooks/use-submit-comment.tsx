@@ -19,7 +19,7 @@ import { CreateCommentSchemaFieldKey } from '../schema.ts';
 import { mutationKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { Comment, CreateCommentPayload, InputViolation } from '@daigaku/common-types';
+import { ApplicationCommentResponse, CreateApplicationCommentPayload, InputViolation } from '@daigaku/common-types';
 
 /**
  * Manages the comment submission process, including the server request, error handling, and post-success actions.
@@ -27,13 +27,13 @@ import { Comment, CreateCommentPayload, InputViolation } from '@daigaku/common-t
  * @param setError The `react-hook-form` method to set form errors.
  * @param applicationUuid The application record's uuid string to which the comment belongs to.
  * @param resetForm
- * @return {UseMutationResult<Comment, CoreApiError, CreateCommentPayload>}
+ * @return {UseMutationResult<ApplicationCommentResponse, CoreApiError, CreateApplicationCommentPayload>}
  */
 export const useSubmitComment = (
   applicationUuid: string,
-  setError: UseFormSetError<CreateCommentPayload>,
+  setError: UseFormSetError<CreateApplicationCommentPayload>,
   resetForm: () => void,
-): UseMutationResult<Comment, CoreApiError, CreateCommentPayload> => {
+): UseMutationResult<ApplicationCommentResponse, CoreApiError, CreateApplicationCommentPayload> => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -41,7 +41,7 @@ export const useSubmitComment = (
 
   return useMutation({
     mutationKey: [mutationKeys.comment.POST_BY_APPLICATION_UUID],
-    mutationFn: (formData: CreateCommentPayload) => {
+    mutationFn: (formData: CreateApplicationCommentPayload) => {
       return commentService.createByApplicationUuid(formData, applicationUuid);
     },
     onSuccess: () => {

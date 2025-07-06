@@ -7,13 +7,15 @@
 /* vendor imports */
 import { useState } from 'react';
 
-/* interface, type imports */
-import { CoreModal } from '@daigaku/common-types';
-
 /**
  * Defines the properties for a toggle modal.
  */
-interface ModalToggle extends CoreModal {
+interface ModalToggle {
+  /**
+   * Indicates whether the modal is currently visible.
+   */
+  readonly isModalVisible: boolean;
+
   /**
    * Toggles the modal's visibility.
    */

@@ -15,14 +15,14 @@ import { institutionService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { InstitutionOption } from '@daigaku/common-types';
+import { InstitutionOptionResponse } from '@daigaku/common-types';
 
 /**
- * Fetches a list of {@link InstitutionOption} objects.
+ * Fetches a list of {@link InstitutionOptionResponse} objects.
  *
- * @return {UseQueryResult<Array<InstitutionOption>, CoreApiError>}
+ * @return {UseQueryResult<Array<InstitutionOptionResponse>, CoreApiError>}
  */
-export const useGetInstitutionOptions = (): UseQueryResult<Array<InstitutionOption>, CoreApiError> => {
+export const useGetInstitutionOptions = (): UseQueryResult<Array<InstitutionOptionResponse>, CoreApiError> => {
   return useQuery({
     queryKey: [queryKeys.institutions.GET_AS_SELECT_OPTIONS],
     queryFn: () => institutionService.findOptionList(),

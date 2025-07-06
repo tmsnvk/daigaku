@@ -5,11 +5,11 @@
  */
 
 /* interface, type imports */
-import { CoreSupport } from '../core/core-support.ts';
+import { CoreSupport } from '../api-core/core-support.ts';
 
 /**
  * Defines the properties of an institution option.
  */
-export interface InstitutionOption extends CoreSupport {
+export interface InstitutionOptionResponse extends CoreSupport {
   readonly city: string;
 }

@@ -28,7 +28,11 @@ import {
 } from '@daigaku/components/form';
 
 /* interface, type imports */
-import { CountryOption, CreateApplicationByStudentPayload, UniversityOption } from '@daigaku/common-types';
+import {
+  CountryOption,
+  CreateApplicationByStudentPayload,
+  UniversityOption,
+} from '@daigaku/common-types';
 
 /**
  * Renders the new application submission form for student users.

@@ -3,14 +3,14 @@ name: daigaku.frontend.lint-type-check-build
 on:
   push:
     branches-ignore:
-      - 'master'
+      - master
 
 jobs:
   main:
     runs-on: ubuntu-latest
     permissions:
-      contents: 'read'
-      actions: 'write'
+      contents: read
+      actions: write
 
     defaults:
       run:

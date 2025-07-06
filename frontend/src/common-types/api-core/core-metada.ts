@@ -5,7 +5,7 @@
  */
 
 /**
- * Defines the core metadata properties for various objects across the application.
+ * Defines the core metadata properties for various api objects.
  */
 export interface CoreMetadata {
   /**

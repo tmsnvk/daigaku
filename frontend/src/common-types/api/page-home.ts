@@ -5,7 +5,7 @@
  */
 
 /* interface, type imports */
-import { UserRole } from './role.ts';
+import { UserRole } from '../role/roles';
 
 /**
  * Defines the structure of a user login form submission.

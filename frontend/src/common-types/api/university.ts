@@ -5,11 +5,11 @@
  */
 
 /* interface, type imports */
-import { CoreSupport } from '../core/core-support.ts';
+import { CoreSupport } from '../api-core/core-support.ts';
 
 /**
  * Defines the properties of a university option.
  */
-export interface UniversityOption extends CoreSupport {
+export interface UniversityOptionResponse extends CoreSupport {
   readonly abbreviation: string;
 }

@@ -23,6 +23,7 @@ import { mutationKeys } from '@daigaku/constants';
  */
 export const useRequestPdfDownload = (): UseMutationResult<void, CoreApiError, void> => {
   const { t } = useTranslation();
+
   const { createToast } = useToastProvider();
 
   return useMutation({

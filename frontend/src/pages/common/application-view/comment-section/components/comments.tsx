@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { joinTw } from '@daigaku/utilities';
 
 /* interface, type imports */
-import { Comment } from '@daigaku/common-types';
+import { ApplicationComment } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -21,7 +21,7 @@ interface CommentsProps {
   /**
    * The list of comments to be displayed.
    */
-  readonly comments: Array<Comment>;
+  readonly comments: Array<ApplicationComment>;
 
   /**
    * The boolean value indicating if an error occurred while fetching the comments.
@@ -50,7 +50,7 @@ export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
 
   return (
     <article>
-      {comments.map((comment: Comment) => (
+      {comments.map((comment: ApplicationComment) => (
         <article
           key={comment.uuid}
           className={joinTw('w-[75%]', 'mx-auto my-20', 'text-xl')}

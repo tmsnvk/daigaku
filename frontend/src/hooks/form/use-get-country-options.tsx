@@ -15,14 +15,14 @@ import { countryService } from '@daigaku/services';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { CountryOption } from '@daigaku/common-types';
+import { CountryOptionResponse } from '@daigaku/common-types';
 
 /**
- * Fetches a list of {@link CountryOption} objects.
+ * Fetches a list of {@link CountryOptionResponse} objects.
  *
- * @return {UseQueryResult<Array<CountryOption>, CoreApiError>}
+ * @return {UseQueryResult<Array<CountryOptionResponse>, CoreApiError>}
  */
-export const useGetCountryOptions = (): UseQueryResult<Array<CountryOption>, CoreApiError> => {
+export const useGetCountryOptions = (): UseQueryResult<Array<CountryOptionResponse>, CoreApiError> => {
   return useQuery({
     queryKey: [queryKeys.country.GET_AS_SELECT_OPTIONS],
     queryFn: () => countryService.findOptionList(),

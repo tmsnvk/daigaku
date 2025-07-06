@@ -16,7 +16,7 @@ import { Toast as ToastComponent } from '@daigaku/components/notification';
 
 /* interface, type imports */
 import { Toast } from '@daigaku/common-types';
-import { ToastState } from './toast.types';
+import { CreateToast, ToastState } from './toast.types';
 
 /**
  * Defines the ToastContext object.
@@ -30,7 +30,7 @@ interface ToastContextValue {
   /**
    * The toast creating method.
    */
-  createToast: (options: Omit<Toast, 'id'>) => void;
+  createToast: (options: CreateToast) => void;
 }
 
 /**
@@ -53,9 +53,13 @@ const AUTO_REMOVE_DELAY = 3000;
 export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => {
   const [state, dispatch] = useReducer(toastReducer, initialReducerState);
 
-  const createToast = (options: Omit<Toast, 'id'>): void => {
+  const createToast = ({ autoRemoveDelay = AUTO_REMOVE_DELAY, ...rest }: CreateToast): void => {
     const id = generateSimpleId();
-    const newToast = { ...options, id, autoRemoveDelay: options.autoRemoveDelay ?? AUTO_REMOVE_DELAY };
+    const newToast: Toast = {
+      id,
+      autoRemoveDelay,
+      ...rest,
+    };
 
     dispatch({
       type: ToastActionTypes.CREATE,
@@ -110,7 +114,7 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
               title={toast.title}
               description={toast.description}
               variantIntent={toast.variantIntent}
-              autoRemoveDelay={toast.autoRemoveDelay ?? AUTO_REMOVE_DELAY}
+              autoRemoveDelay={toast.autoRemoveDelay}
               onClose={() => removeToast(toast.id)}
             />
           );
