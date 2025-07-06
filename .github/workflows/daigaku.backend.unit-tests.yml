@@ -3,7 +3,7 @@ name: daigaku.backend.unit-tests
 on:
   push:
     branches-ignore:
-      - 'master'
+      - master
 
 jobs:
   main:

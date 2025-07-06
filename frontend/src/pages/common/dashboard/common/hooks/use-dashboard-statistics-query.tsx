@@ -26,11 +26,12 @@ import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
  */
 export const useDashboardStatisticsQuery = (): UseQueryResult<StudentDashboardStatisticsResponse, CoreApiError> => {
   const { state } = useAuthenticationProvider();
-  const accountRole = getAccountRoleResource(state.account.role);
+  const accountRole = state.account.role ? getAccountRoleResource(state.account.role) : (null as never);
 
   return useQuery({
     queryKey: [queryKeys.aggregate.GET_DASHBOARD_STATISTICS],
     queryFn: () => applicationService.fetchDashboardStatistics(accountRole),
+    enabled: !!accountRole,
     refetchOnMount: 'always',
   });
 };

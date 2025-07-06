@@ -29,9 +29,9 @@ import {
 
 /* interface, type imports */
 import {
-  CountryOptionResponse,
+  CountryOption,
   CreateApplicationByStudentPayload,
-  UniversityOptionResponse,
+  UniversityOption,
 } from '@daigaku/common-types';
 
 /**
@@ -110,7 +110,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
             onRetry={onCountryRetry}
             onChangeHandler={handleCountrySelection}
             options={
-              countries?.map((countryOption: CountryOptionResponse) => (
+              countries?.map((countryOption: CountryOption) => (
                 <option
                   key={countryOption.uuid}
                   value={countryOption.uuid}
@@ -134,7 +134,7 @@ export const CreateApplicationRecordForm = (): JSX.Element => {
               isDisabled={isSubmitting || !isCountrySelected}
               onRetry={onUniversityRetry}
               options={
-                universities?.map((universityOption: UniversityOptionResponse) => (
+                universities?.map((universityOption: UniversityOption) => (
                   <option
                     key={universityOption.uuid}
                     value={universityOption.uuid}

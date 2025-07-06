@@ -30,7 +30,7 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
-import { CreatePendingAccountPayload, InstitutionOptionResponse, RoleOptionResponse } from '@daigaku/common-types';
+import { CreatePendingAccountPayload, InstitutionOption, RoleOption } from '@daigaku/common-types';
 import { FormType, FormTypes } from '../../common/types.ts';
 
 /**
@@ -137,7 +137,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             onRetry={institutionRefetch}
             label={t('institutionLabel')}
             options={
-              institutions?.map((institution: InstitutionOptionResponse) => (
+              institutions?.map((institution: InstitutionOption) => (
                 <option
                   key={institution.uuid}
                   value={institution.uuid}
@@ -157,7 +157,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             onRetry={roleRefetch}
             label={t('accountRoleLabel')}
             options={
-              roles?.map((role: RoleOptionResponse) => (
+              roles?.map((role: RoleOption) => (
                 <option
                   key={role.uuid}
                   value={role.uuid}

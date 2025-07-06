@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { ApplicationResponse } from '@daigaku/common-types';
+import { Application } from '@daigaku/common-types';
 
 /**
  * Defines the properties for sorting columns on the /applications page.
@@ -39,26 +39,25 @@ type SortMode = (typeof SortModes)[keyof typeof SortModes];
  *
  * @return {SetSortingMode}
  */
-export const useSortOrder = (data: Array<ApplicationResponse>): SetSortingMode => {
+export const useSortOrder = (data: Array<Application>): SetSortingMode => {
   const queryClient = useQueryClient();
 
   const [sortedBy, setSortedBy] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortMode>(SortModes.DESCENDING);
 
   const sortColumns = (): void => {
-    const sortedData: Array<ApplicationResponse> = data.sort((a, b) => {
-      if (a[sortedBy as keyof ApplicationResponse] === null) {
+    const sortedData: Array<Application> = data.sort((a, b) => {
+      if (a[sortedBy as keyof Application] === null) {
         return 1;
       }
 
-      if (b[sortedBy as keyof ApplicationResponse] === null) {
+      if (b[sortedBy as keyof Application] === null) {
         return -1;
       }
 
       return (
-        String(a[sortedBy as keyof ApplicationResponse]).localeCompare(
-          String(b[sortedBy as keyof ApplicationResponse]),
-        ) * (sortOrder === SortModes.ASCENDING ? 1 : -1)
+        String(a[sortedBy as keyof Application]).localeCompare(String(b[sortedBy as keyof Application])) *
+        (sortOrder === SortModes.ASCENDING ? 1 : -1)
       );
     });
 

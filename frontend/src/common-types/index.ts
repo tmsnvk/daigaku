@@ -26,6 +26,7 @@ export * from './component/todo.ts';
 export * from './country/country-option.ts';
 export * from './institution/institution-option.ts';
 export * from './layout/navigation-route-item.ts';
+export * from './pages/page-dashboard.ts';
 export * from './role/role-option.ts';
 export * from './role/roles.ts';
 export * from './university/university-option.ts';

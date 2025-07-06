@@ -26,10 +26,11 @@ import { ApplicationResponse } from '@daigaku/common-types';
  */
 export const useGetApplications = (): UseQueryResult<Array<ApplicationResponse>, CoreApiError> => {
   const { state } = useAuthenticationProvider();
-  const accountRole = getAccountRoleResource(state.account.role);
+  const accountRole = state.account.role ? getAccountRoleResource(state.account.role) : (null as never);
 
   return useQuery({
     queryKey: [queryKeys.application.GET_ALL_BY_ROLE],
     queryFn: () => applicationService.findListByAccountRole(accountRole),
+    enabled: !!accountRole,
   });
 };

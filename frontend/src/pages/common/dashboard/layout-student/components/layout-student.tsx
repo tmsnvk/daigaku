@@ -18,16 +18,16 @@ import { TileStatistic } from '../../common/components/tile-statistic.tsx';
 import { TodoList } from '../../common/components/todo-list.tsx';
 
 /* interface, type imports */
-import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
+import { StudentDashboardStatistics } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
  */
 interface LayoutStudentProps {
   /**
-   * The object containing the {@link StudentDashboardStatisticsResponse} data.
+   * The object containing the {@link StudentDashboardStatistics} data.
    */
-  readonly data: StudentDashboardStatisticsResponse;
+  readonly data: StudentDashboardStatistics;
 }
 
 /**

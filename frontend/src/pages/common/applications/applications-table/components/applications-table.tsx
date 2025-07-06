@@ -21,7 +21,7 @@ import { DataRows } from './data-rows.tsx';
 import { TableHeader } from './table-header.tsx';
 
 /* interface, type imports */
-import { ApplicationResponse } from '@daigaku/common-types';
+import { Application } from '@daigaku/common-types';
 import { Column } from '../../common/types.ts';
 
 /**
@@ -51,7 +51,7 @@ export const ApplicationsTable = ({ columns, toggleModal }: ApplicationsTablePro
   const navigate = useNavigate();
 
   const { data: applications, isLoading, refetch, isRefetching, isError } = useGetApplications();
-  const { handleColumnSort } = useSortOrder(applications as Array<ApplicationResponse>);
+  const { handleColumnSort } = useSortOrder(applications as Array<Application>);
 
   if (isLoading || isRefetching) {
     return <CoreLoadingNotification intent={'light'} />;

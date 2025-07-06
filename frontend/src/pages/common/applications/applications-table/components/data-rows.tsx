@@ -21,7 +21,7 @@ import { iconLibrary } from '@daigaku/constants';
 
 /* interface, type imports */
 import {
-  ApplicationResponse,
+  Application,
   ApplicationStatusTranslations,
   FinalDestinationStatusTranslations,
   InterviewStatusTranslations,
@@ -42,7 +42,7 @@ interface DataRowsProps {
   /**
    * An array of application records to be displayed in the table rows.
    */
-  readonly applications: Array<ApplicationResponse>;
+  readonly applications: Array<Application>;
 }
 
 /**
@@ -53,7 +53,7 @@ interface DataRowsProps {
 export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.Element> => {
   const { t } = useTranslation();
 
-  return applications.map((application: ApplicationResponse, index: number) => {
+  return applications.map((application: Application, index: number) => {
     const isLastRow: boolean = index === applications.length - 1;
 
     return (
