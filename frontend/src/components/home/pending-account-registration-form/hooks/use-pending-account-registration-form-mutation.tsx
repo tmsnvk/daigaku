@@ -18,7 +18,7 @@ import {
 } from '@daigaku/errors';
 import { useToastProvider } from '@daigaku/providers';
 import { pendingAccountService } from '@daigaku/services';
-import { PendingAccountRegistrationSchemaFieldKey } from '../schema.ts';
+import { PendingAccountRegistrationSchemaKey } from '../schema.ts';
 
 /* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
@@ -60,7 +60,7 @@ export const usePendingAccountRegistrationFormMutation = (
       if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
         errorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as PendingAccountRegistrationSchemaFieldKey, {
+            setError(errorDetail.fieldName as PendingAccountRegistrationSchemaKey, {
               message: errorDetail.errorMessage,
             });
           }

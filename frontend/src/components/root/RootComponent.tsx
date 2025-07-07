@@ -5,12 +5,13 @@
  */
 
 /* vendor imports */
-import React, { JSX, Suspense } from 'react';
+import React, { JSX } from 'react';
 
 /* logic imports */
 import { useAuthenticationProvider } from '@daigaku/providers';
 
 /* component imports */
+import { UserLoginStates } from '@daigaku/common-types';
 import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';
 
 const TanStackRouterDevtools =
@@ -28,14 +29,17 @@ const BUILD_ID = process.env.NODE_ENV === 'production' ? `prod-${__APP_VERSION__
  *
  * @returns {JSX.Element}
  */
-export const RootRoute = (): JSX.Element => {
+export const RootComponent = (): JSX.Element | null => {
   const { state } = useAuthenticationProvider();
-  const isUserAuthenticated = !!state.account.role;
 
   return (
-    <Suspense fallback={null}>
-      {isUserAuthenticated ? <PrivateLayout build={BUILD_ID} /> : <PublicLayout build={BUILD_ID} />}
+    <>
+      {state.authenticationStatus === UserLoginStates.LOGGED_IN ? (
+        <PrivateLayout build={BUILD_ID} />
+      ) : (
+        <PublicLayout build={BUILD_ID} />
+      )}
       <TanStackRouterDevtools position='bottom-right' />
-    </Suspense>
+    </>
   );
 };

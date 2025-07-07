@@ -60,10 +60,6 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
 
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
 
-  const submitResetAccountPasswordForm = (formData: ResetAccountPasswordSchema): void => {
-    resetAccountPassword(formData as AccountPasswordResetPayload);
-  };
-
   return (
     <>
       <CoreFormHeader
@@ -73,14 +69,16 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
       <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-reset-form'}
-          onFormSubmit={handleSubmit(submitResetAccountPasswordForm)}
+          onFormSubmit={handleSubmit((formData: ResetAccountPasswordSchema) => {
+            resetAccountPassword(formData as AccountPasswordResetPayload);
+          })}
         >
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            isDisabled={isSubmitting}
             label={t('emailLabel')}
             placeholder={t('emailPlaceholder')}
+            isDisabled={isSubmitting}
             intent={'light'}
           />
           <CoreFormAction
@@ -94,8 +92,6 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
         </CoreFormWrapper>
       </FormProvider>
       <FormSwapButtons
-        isDisabled={isSubmitting}
-        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
             label: formTypeButtonLabel[FormTypes.LOGIN],
@@ -106,6 +102,8 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
             formType: FormTypes.REGISTER_PENDING_ACCOUNT,
           },
         }}
+        isDisabled={isSubmitting}
+        onFormSelect={onFormSelect}
       />
     </>
   );

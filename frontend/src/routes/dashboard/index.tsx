@@ -38,7 +38,7 @@ const DashboardIndexComponent = (): JSX.Element => {
   );
 };
 
-export const Route = createFileRoute('/dashboard/')({
+export const Route = createFileRoute(PATH)({
   component: DashboardIndexComponent,
   loader: async ({ context }) => {
     const contextRole = context.user?.role;

@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
 import { useToastProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
-import { ResetAccountPasswordSchemaFieldKey } from '../schema.ts';
+import { ResetAccountPasswordSchemaKey } from '../schema.ts';
 
 /* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
@@ -51,7 +51,7 @@ export const useResetAccountPasswordFormMutation = (
       if (error instanceof MethodArgumentNotValidError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as ResetAccountPasswordSchemaFieldKey, {
+            setError(errorDetail.fieldName as ResetAccountPasswordSchemaKey, {
               message: errorDetail.errorMessage,
             });
           }

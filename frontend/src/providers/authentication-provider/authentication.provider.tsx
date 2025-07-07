@@ -16,7 +16,7 @@ import { AuthenticationActionTypes, authenticationReducer, initialReducerState }
 import { localStorageKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { LoginResponse } from '@daigaku/common-types';
+import { LoginResponse, UserLoginStates } from '@daigaku/common-types';
 import { AuthenticationState } from './authentication.types';
 
 /**
@@ -42,11 +42,27 @@ const AuthenticationContext: Context<AuthenticationContextValue> = createContext
   {} as AuthenticationContextValue,
 );
 
+const getInitialState = (): AuthenticationState => {
+  const authToken = localStorageUtilities.getObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
+
+  if (!authToken || isAuthTokenExpired(authToken)) {
+    return {
+      ...initialReducerState,
+      authenticationStatus: UserLoginStates.LOGGED_OUT,
+    };
+  }
+
+  return {
+    ...initialReducerState,
+    authenticationStatus: UserLoginStates.LOADING,
+  };
+};
+
 /**
  * Defines the application's authentication-related context object.
  */
 export const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
-  const [state, dispatch] = useReducer(authenticationReducer, initialReducerState);
+  const [state, dispatch] = useReducer(authenticationReducer, getInitialState());
 
   const { data, isError } = useGetMe();
 

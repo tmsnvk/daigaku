@@ -15,6 +15,7 @@ export interface Account {
   firstName: string;
   role: UserRole | null;
 }
+
 /**
  *
  */

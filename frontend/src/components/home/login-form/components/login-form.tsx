@@ -62,13 +62,9 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
     resolver: standardSchemaResolver(loginSchema),
   });
 
-  const {
-    handleSubmit,
-    setError,
-    formState: { isDirty, isValid, isSubmitting },
-  } = formMethods;
+  const { handleSubmit, setError } = formMethods;
 
-  const { mutate: logIn } = useLoginFormMutation(setError);
+  const { mutate: logIn, isPending: isSubmitting } = useLoginFormMutation(setError);
 
   return (
     <>
@@ -99,7 +95,6 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             intent={'light'}
           />
           <CoreFormAction
-            isDisabled={!isDirty || !isValid}
             isSubmissionPending={isSubmitting}
             formActionConfig={{
               message: t('loginFormSubmission'),

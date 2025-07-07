@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { RouterProvider, createRouter } from '@tanstack/react-router';
-import { JSX, Suspense } from 'react';
+import { JSX } from 'react';
 import { routeTree } from '../routeTree.gen';
 
 /* logic imports */
@@ -40,15 +40,15 @@ export const Router = (): JSX.Element => {
   const { state } = useAuthenticationProvider();
 
   if (state.authenticationStatus === UserLoginStates.LOADING) {
-    return <CoreLoadingNotification intent={'light'} />;
+    return <CoreLoadingNotification />;
   }
 
   return (
-    <Suspense fallback={<CoreLoadingNotification />}>
-      <RouterProvider
-        router={router}
-        context={{ user: state.account }}
-      />
-    </Suspense>
+    <RouterProvider
+      router={router}
+      context={{
+        user: state.account,
+      }}
+    />
   );
 };

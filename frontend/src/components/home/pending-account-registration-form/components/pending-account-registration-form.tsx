@@ -70,8 +70,6 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
     refetch: roleRefetch,
   } = useGetStudentAndMentorAccountRoles();
 
-  const isSubmitDisabled = isInstitutionLoading || isRoleLoading || isInstitutionError || isRoleError;
-
   const formMethods = useForm<PendingAccountRegistrationSchema>({
     defaultValues: {
       firstName: '',
@@ -171,7 +169,6 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
-            isDisabled={isSubmitDisabled}
             formActionConfig={{
               message: t('pendingAccountRegistrationFormSubmission'),
               value: t('pendingAccountRegistrationFormSubmit'),

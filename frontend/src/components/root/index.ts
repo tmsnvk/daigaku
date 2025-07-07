@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { RootRoute } from './RootRoute';
+import { RootComponent } from './RootComponent';
 
-export { RootRoute };
+export { RootComponent };

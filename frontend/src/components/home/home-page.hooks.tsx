@@ -9,12 +9,12 @@ import { JSX, useMemo, useState } from 'react';
 import { match } from 'ts-pattern';
 
 /* component imports */
-import { LoginForm } from '../../login-form/index.ts';
-import { PendingAccountRegistrationForm } from '../../pending-account-registration-form/index.ts';
-import { ResetAccountPasswordForm } from '../../reset-account-password-form/index.ts';
+import { LoginForm } from './login-form';
+import { PendingAccountRegistrationForm } from './pending-account-registration-form';
+import { ResetAccountPasswordForm } from './reset-account-password-form';
 
 /* interface, type imports */
-import { FormType, FormTypes } from '../types.ts';
+import { FormType, FormTypes } from './common/types';
 
 /**
  * Defines the return values for the {@link useFormSelector} hook.

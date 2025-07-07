@@ -55,4 +55,4 @@ export const pendingAccountRegistrationSchema = z.object({
 });
 
 export type PendingAccountRegistrationSchema = z.infer<typeof pendingAccountRegistrationSchema>;
-export type PendingAccountRegistrationSchemaFieldKey = keyof z.infer<typeof pendingAccountRegistrationSchema>;
+export type PendingAccountRegistrationSchemaKey = keyof z.infer<typeof pendingAccountRegistrationSchema>;

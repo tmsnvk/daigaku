@@ -4,7 +4,6 @@
  * @author tmsnvk
  */
 
-import { FormSectionWrapper } from './common/components/form-section-wrapper';
-import { useFormSelector } from './common/hooks/use-form-selector';
+import { HomePage } from './home-page.route';
 
-export { FormSectionWrapper, useFormSelector };
+export { HomePage };

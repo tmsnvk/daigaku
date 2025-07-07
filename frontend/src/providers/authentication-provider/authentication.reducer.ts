@@ -86,7 +86,7 @@ export const initialReducerState: AuthenticationState = {
     firstName: '',
     role: null,
   },
-  authenticationStatus: UserLoginStates.LOADING,
+  authenticationStatus: UserLoginStates.LOGGED_OUT,
 };
 
 /**
@@ -96,7 +96,7 @@ export const initialReducerState: AuthenticationState = {
  * @returns
  */
 export const authenticationReducer = (
-  _state: AuthenticationState,
+  state: AuthenticationState,
   action: AuthenticationAction,
 ): AuthenticationState => {
   return match<AuthenticationAction, AuthenticationState>(action)

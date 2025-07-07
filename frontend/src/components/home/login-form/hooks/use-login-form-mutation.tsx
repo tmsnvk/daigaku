@@ -6,7 +6,6 @@
 
 /* vendor imports */
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
@@ -30,7 +29,6 @@ import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } f
 export const useLoginFormMutation = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
-  const navigate = useNavigate();
   const { logIn } = useAuthenticationProvider();
 
   return useMutation({
@@ -40,7 +38,6 @@ export const useLoginFormMutation = (
     },
     onSuccess: (response: LoginResponse) => {
       logIn(response);
-      navigate({ to: '/dashboard' });
     },
     onError: (error: CoreApiError) => {
       const errorResponse: CoreInputErrorResponse | undefined = error.coreError;
