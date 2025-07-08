@@ -8,12 +8,12 @@
 import { IconLookup } from '@fortawesome/fontawesome-svg-core';
 import { Link } from '@tanstack/react-router';
 import { JSX } from 'react';
-import { joinTw } from 'utilities/join-tw';
-import { CoreIcon } from '../core';
 
 /* logic imports */
+import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
+import { CoreIcon } from '@daigaku/components/common/core';
 
 /**
  * Defines the component's properties.

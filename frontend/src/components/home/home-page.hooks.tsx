@@ -34,7 +34,7 @@ interface FormSelector {
 const DEFAULT_LOADED_FORM_TYPE = FormTypes.LOGIN;
 
 /**
- * Selects and renders a form component based on the active {@link FormType}.
+ * Selects and renders the form component based on the active {@link FormType}.
  *
  * @return {FormSelector}
  */

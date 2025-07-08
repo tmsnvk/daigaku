@@ -23,7 +23,7 @@ import {
   CoreFormAction,
   CoreFormHeader,
   CoreFormWrapper,
-} from '@daigaku/components/form';
+} from '@daigaku/components/common/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, constants imports */
@@ -58,15 +58,15 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
 
   const {
     data: institutions,
-    isLoading: isInstitutionLoading,
-    isError: isInstitutionError,
+    isLoading: isInstitutionsLoading,
+    isError: isInstitutionsError,
     refetch: institutionRefetch,
   } = useGetInstitutionOptions();
 
   const {
     data: roles,
-    isLoading: isRoleLoading,
-    isError: isRoleError,
+    isLoading: isRolesLoading,
+    isError: isRolesError,
     refetch: roleRefetch,
   } = useGetStudentAndMentorAccountRoles();
 
@@ -81,16 +81,16 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
     mode: 'onSubmit',
     resolver: standardSchemaResolver(pendingAccountRegistrationSchema),
   });
-  const { handleSubmit, setError, reset } = formMethods;
+  const { handleSubmit, setError, reset: resetForm } = formMethods;
 
   const { mutate: registerPendingAccount, isPending: isSubmitting } = usePendingAccountRegistrationFormMutation(
     setError,
-    reset,
+    resetForm,
   );
 
-  const submitRegisterPendingAccountForm = (formData: PendingAccountRegistrationSchema): void => {
+  const onFormSubmit = handleSubmit((formData: PendingAccountRegistrationSchema): void => {
     registerPendingAccount(formData as CreatePendingAccountPayload);
-  };
+  });
 
   return (
     <>
@@ -101,7 +101,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
       <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-pending-account-registration-form'}
-          onFormSubmit={handleSubmit(submitRegisterPendingAccountForm)}
+          onFormSubmit={onFormSubmit}
         >
           <CommonInputGroup
             id={'firstName'}
@@ -129,8 +129,8 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
           />
           <CommonSelectGroup
             id={'institutionUuid'}
-            isLoading={isInstitutionLoading}
-            isFetchError={isInstitutionError}
+            isLoading={isInstitutionsLoading}
+            isFetchError={isInstitutionsError}
             isDisabled={isSubmitting}
             onRetry={institutionRefetch}
             label={t('institutionLabel')}
@@ -149,8 +149,8 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
           />
           <CommonSelectGroup
             id={'accountRoleUuid'}
-            isLoading={isRoleLoading}
-            isFetchError={isRoleError}
+            isLoading={isRolesLoading}
+            isFetchError={isRolesError}
             isDisabled={isSubmitting}
             onRetry={roleRefetch}
             label={t('accountRoleLabel')}

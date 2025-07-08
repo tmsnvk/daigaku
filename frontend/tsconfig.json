@@ -18,6 +18,7 @@
     "paths": {
       "@daigaku/common-types": ["common-types/index.ts"],
       "@daigaku/components/*": ["components/*/index.ts"],
+      "@daigaku/components/common/*": ["components/common/*/index.ts"],
       "@daigaku/configuration": ["configuration/index.ts"],
       "@daigaku/constants": ["constants/index.ts"],
       "@daigaku/errors": ["errors/index.ts"],

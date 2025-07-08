@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { CoreButton } from '@daigaku/components/core';
+import { CoreButton } from '@daigaku/components/common/core';
 
 /* interface, type imports */
 import { FormType } from '../types.ts';
@@ -27,13 +27,6 @@ interface FormSwapButtonsProps {
   readonly isDisabled: boolean;
 
   /**
-   * The method to switch to a different form when one of the buttons is clicked.
-   *
-   * @param formType The type of the form to be selected.
-   */
-  onFormSelect: (formType: FormType) => void;
-
-  /**
    * Configuration data regarding the component's buttons.
    */
   readonly buttonConfig: {
@@ -46,6 +39,13 @@ interface FormSwapButtonsProps {
       formType: FormType;
     };
   };
+
+  /**
+   * The method to switch to a different form when one of the buttons is clicked.
+   *
+   * @param formType The type of the form to be selected.
+   */
+  onFormSelect: (formType: FormType) => void;
 }
 
 /**
@@ -54,7 +54,7 @@ interface FormSwapButtonsProps {
  * @param {FormSwapButtonsProps} props
  * @return {JSX.Element}
  */
-export const FormSwapButtons = ({ isDisabled, onFormSelect, buttonConfig }: FormSwapButtonsProps): JSX.Element => {
+export const FormSwapButtons = ({ isDisabled, buttonConfig, onFormSelect }: FormSwapButtonsProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (

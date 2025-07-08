@@ -12,7 +12,7 @@ import { UseFormSetError } from 'react-hook-form';
 import { CoreApiError, MethodArgumentNotValidError, UnauthorizedError } from '@daigaku/errors';
 import { useAuthenticationProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
-import { LoginSchemaFieldKey } from '../schema.ts';
+import { LoginSchemaKey } from '../schema.ts';
 
 /* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
@@ -45,7 +45,7 @@ export const useLoginFormMutation = (
       if (error instanceof MethodArgumentNotValidError) {
         errorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as LoginSchemaFieldKey, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as LoginSchemaKey, { message: errorDetail.errorMessage });
           }
         });
       }

@@ -13,34 +13,21 @@ import { useTranslation } from 'react-i18next';
 import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { Footer } from './footer.tsx';
-import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
-import { NavigationRoute } from './navigation-route.tsx';
+import { Footer } from '../../common/components/footer.tsx';
+import { NavigationBarWrapper } from '../../common/components/navigation-bar-wrapper.tsx';
+import { NavigationRoute } from '../../common/components/navigation-route.tsx';
 
 /* configuration, constants imports */
-import { TranslationKey, iconLibrary } from '@daigaku/constants';
+import { navigationRoutes } from '../constants.ts';
 
 /* interface, type imports */
 import { NavigationRouteItem } from '@daigaku/common-types';
-
-const navigationRoutes: Array<NavigationRouteItem> = [
-  {
-    targetUrlString: '/',
-    icon: iconLibrary.faGraduationCap,
-    label: 'Daigaku',
-  },
-  {
-    targetUrlString: '/contact',
-    icon: iconLibrary.faPaperPlane,
-    label: TranslationKey.CONTACT_US,
-  },
-];
 
 interface PublicLayoutProps {
   /**
    *
    */
-  readonly build: string;
+  readonly buildId: string;
 }
 
 /**
@@ -48,7 +35,7 @@ interface PublicLayoutProps {
  *
  * @return {JSX.Element}
  */
-export const PublicLayout = ({ build }: PublicLayoutProps): JSX.Element => {
+export const PublicLayout = ({ buildId }: PublicLayoutProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
@@ -70,7 +57,7 @@ export const PublicLayout = ({ build }: PublicLayoutProps): JSX.Element => {
         </ul>
       </NavigationBarWrapper>
       <Outlet />
-      <Footer build={build} />
+      <Footer buildId={buildId} />
     </>
   );
 };

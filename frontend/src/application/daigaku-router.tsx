@@ -13,7 +13,7 @@ import { routeTree } from '../routeTree.gen';
 import { useAuthenticationProvider } from '@daigaku/providers';
 
 /* component imports */
-import { CoreLoadingNotification } from '@daigaku/components/core';
+import { CoreLoadingNotification } from '@daigaku/components/common/core';
 
 /* interface, type imports */
 import { UserLoginStates } from '@daigaku/common-types';

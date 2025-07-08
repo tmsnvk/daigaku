@@ -5,6 +5,7 @@
  */
 
 /* vendor imports */
+import { Outlet } from '@tanstack/react-router';
 import { JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,86 +14,17 @@ import { useAuthenticationProvider } from '@daigaku/providers';
 import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { CoreLoadingNotification } from '@daigaku/components/core';
-import { CoreIcon } from '../core/core-icon.tsx';
-import { Footer } from './footer.tsx';
-import { NavigationBarWrapper } from './navigation-bar-wrapper.tsx';
-import { NavigationRoute } from './navigation-route.tsx';
+import { CoreIcon, CoreLoadingNotification } from '@daigaku/components/common/core';
+import { Footer } from '../../common/components/footer.tsx';
+import { NavigationBarWrapper } from '../../common/components/navigation-bar-wrapper.tsx';
+import { NavigationRoute } from '../../common/components/navigation-route.tsx';
 
 /* configuration, constants imports */
-import { TranslationKey, iconLibrary } from '@daigaku/constants';
+import { iconLibrary } from '@daigaku/constants';
+import { accountRoleNavigationRoutes, sharedNavigationRoutes } from '../constants.ts';
 
 /* interface, type imports */
-import { NavigationRouteItem, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
-import { Outlet } from '@tanstack/react-router';
-
-const sharedNavigationRoutes: Array<NavigationRouteItem> = [
-  {
-    targetUrlString: '/account',
-    icon: iconLibrary.faUser,
-    label: TranslationKey.MY_ACCOUNT,
-  },
-  {
-    targetUrlString: '/messages',
-    icon: iconLibrary.faEnvelope,
-    label: TranslationKey.MESSAGES,
-  },
-  {
-    targetUrlString: '/feedback',
-    icon: iconLibrary.faGears,
-    label: TranslationKey.FEEDBACK,
-  },
-];
-
-const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
-  [UserRoles.ROLE_STUDENT]: [
-    {
-      targetUrlString: '/applications/create',
-      icon: iconLibrary.faFileCirclePlus,
-      label: TranslationKey.NEW_APPLICATION,
-    },
-    {
-      targetUrlString: '/applications',
-      icon: iconLibrary.faScroll,
-      label: TranslationKey.MY_APPLICATION,
-    },
-  ],
-  [UserRoles.ROLE_MENTOR]: [
-    {
-      targetUrlString: '/my-students',
-      icon: iconLibrary.faUserGroup,
-      label: TranslationKey.MY_STUDENTS,
-    },
-    {
-      targetUrlString: '/applications',
-      icon: iconLibrary.faScroll,
-      label: TranslationKey.MY_STUDENT_APPLICATIONS,
-    },
-  ],
-  [UserRoles.ROLE_INSTITUTION_ADMIN]: [],
-  [UserRoles.ROLE_SYSTEM_ADMIN]: [
-    {
-      targetUrlString: '/all-students',
-      icon: iconLibrary.faUserGroup,
-      label: TranslationKey.ALL_STUDENTS,
-    },
-    {
-      targetUrlString: '/all-mentors',
-      icon: iconLibrary.faUserGroup,
-      label: TranslationKey.ALL_MENTORS,
-    },
-    {
-      targetUrlString: '/applications',
-      icon: iconLibrary.faScroll,
-      label: TranslationKey.ALL_APPLICATIONS,
-    },
-    {
-      targetUrlString: '/system',
-      icon: iconLibrary.faGears,
-      label: TranslationKey.SYSTEM,
-    },
-  ],
-};
+import { NavigationRouteItem, UserLoginStates, UserRole } from '@daigaku/common-types';
 
 /**
  * Defines the possible states of the small screen mobile navigation menu.
@@ -106,7 +38,7 @@ interface PrivateLayoutProps {
   /**
    *
    */
-  readonly build: string;
+  readonly buildId: string;
 }
 
 /**
@@ -116,7 +48,7 @@ interface PrivateLayoutProps {
  * @param {PrivateLayoutProps} props
  * @return {JSX.Element}
  */
-export const PrivateLayout = ({ build }: PrivateLayoutProps): JSX.Element => {
+export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
   const { t } = useTranslation();
 
   const { state, logOut } = useAuthenticationProvider();
@@ -241,7 +173,7 @@ export const PrivateLayout = ({ build }: PrivateLayoutProps): JSX.Element => {
         )}
       </NavigationBarWrapper>
       <Outlet />
-      <Footer build={build} />
+      <Footer buildId={buildId} />
     </>
   );
 };

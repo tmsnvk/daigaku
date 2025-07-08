@@ -15,7 +15,7 @@ import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-
 import { ResetAccountPasswordSchema, resetAccountPasswordSchema } from '../schema.ts';
 
 /* component imports */
-import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/form';
+import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/common/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, constants imports */
@@ -60,6 +60,10 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
 
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
 
+  const onFormSubmit = handleSubmit((formData: ResetAccountPasswordSchema) => {
+    resetAccountPassword(formData as AccountPasswordResetPayload);
+  });
+
   return (
     <>
       <CoreFormHeader
@@ -69,9 +73,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
       <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-reset-form'}
-          onFormSubmit={handleSubmit((formData: ResetAccountPasswordSchema) => {
-            resetAccountPassword(formData as AccountPasswordResetPayload);
-          })}
+          onFormSubmit={onFormSubmit}
         >
           <CommonInputGroup
             id={'email'}

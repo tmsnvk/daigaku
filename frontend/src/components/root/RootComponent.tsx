@@ -11,8 +11,11 @@ import React, { JSX } from 'react';
 import { useAuthenticationProvider } from '@daigaku/providers';
 
 /* component imports */
+import { PrivateLayout } from './private-layout';
+import { PublicLayout } from './public-layout';
+
+/* interface, type imports */
 import { UserLoginStates } from '@daigaku/common-types';
-import { PrivateLayout, PublicLayout } from '@daigaku/components/layout';
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === 'production'
@@ -35,9 +38,9 @@ export const RootComponent = (): JSX.Element | null => {
   return (
     <>
       {state.authenticationStatus === UserLoginStates.LOGGED_IN ? (
-        <PrivateLayout build={BUILD_ID} />
+        <PrivateLayout buildId={BUILD_ID} />
       ) : (
-        <PublicLayout build={BUILD_ID} />
+        <PublicLayout buildId={BUILD_ID} />
       )}
       <TanStackRouterDevtools position='bottom-right' />
     </>

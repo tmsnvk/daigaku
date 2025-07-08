@@ -21,7 +21,7 @@ import {
   CoreFormHeader,
   CoreFormWrapper,
   PasswordInputGroup,
-} from '@daigaku/components/form';
+} from '@daigaku/components/common/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, constants imports */
@@ -66,6 +66,10 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
 
   const { mutate: logIn, isPending: isSubmitting } = useLoginFormMutation(setError);
 
+  const onFormSubmit = handleSubmit((formData: LoginSchema) => {
+    logIn(formData as LoginPayload);
+  });
+
   return (
     <>
       <CoreFormHeader
@@ -75,9 +79,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
       <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'post-account-login-form'}
-          onFormSubmit={handleSubmit((formData: LoginSchema) => {
-            logIn(formData as LoginPayload);
-          })}
+          onFormSubmit={onFormSubmit}
         >
           <CommonInputGroup
             id={'email'}

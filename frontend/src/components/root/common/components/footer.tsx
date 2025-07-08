@@ -18,7 +18,7 @@ interface FooterProps {
   /**
    *
    */
-  readonly build: string;
+  readonly buildId: string;
 }
 
 /**
@@ -26,7 +26,7 @@ interface FooterProps {
  *
  * @return {JSX.Element}
  */
-export const Footer = ({ build }: FooterProps): JSX.Element => {
+export const Footer = ({ buildId }: FooterProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
@@ -39,7 +39,7 @@ export const Footer = ({ build }: FooterProps): JSX.Element => {
         {t('initYear')} - {getCurrentYear()}
       </p>
       <p>{t('footerContent')}</p>
-      <p className='ml-4 self-start text-sm'>BUILD-ID: {build}</p>
+      <p className='ml-4 self-start text-sm'>BUILD-ID: {buildId}</p>
     </footer>
   );
 };
