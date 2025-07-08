@@ -11,7 +11,7 @@ import { JSX } from 'react';
 /* logic imports */
 import { useAuthenticationProvider } from '@daigaku/providers';
 import { applicationService } from '@daigaku/services';
-import { getAccountRoleResource, joinTw } from '@daigaku/utilities';
+import { getAccountRoleResource } from '@daigaku/utilities';
 
 /* component imports */
 import { LayoutStudent } from '@daigaku/components/dashboard';
@@ -32,7 +32,7 @@ const DashboardIndexComponent = (): JSX.Element => {
   const loaderData = routeApi.useLoaderData();
 
   return (
-    <main className={joinTw('flex flex-row flex-wrap gap-y-20', 'm-[5%]')}>
+    <main className={'m-[5%] flex flex-row flex-wrap gap-y-20'}>
       {loaderData && state.account.role === UserRoles.ROLE_STUDENT && <LayoutStudent data={loaderData} />}
     </main>
   );

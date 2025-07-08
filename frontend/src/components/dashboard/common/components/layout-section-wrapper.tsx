@@ -26,7 +26,7 @@ interface LayoutSectionWrapperProps {
 export const LayoutSectionWrapper = ({ children }: LayoutSectionWrapperProps): JSX.Element => {
   return (
     <section
-      className={joinTw('flex-[1 100vw] flex flex-row flex-wrap justify-center gap-10 lg:justify-start', 'w-full')}
+      className={joinTw('flex-[1 100vw] flex w-full flex-row flex-wrap justify-center gap-10', 'lg:justify-start')}
     >
       {children}
     </section>

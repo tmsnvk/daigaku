@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* logic imports */
-import { joinTw } from '@daigaku/utilities';
-
 /**
  * Defines the component's properties.
  */
@@ -33,9 +30,9 @@ interface TileStatisticProps {
  */
 export const TileStatistic = ({ title, value }: TileStatisticProps): JSX.Element => {
   return (
-    <dl className={joinTw('core-primary-border', 'flex flex-col justify-center text-center', 'size-88', 'px-5 pb-2')}>
+    <dl className={'core-primary-border size-88 flex flex-col justify-center px-5 pb-2 text-center'}>
       <dt className={'text-9xl'}>{value}</dt>
-      <dd className={joinTw('pt-15', 'text-3xl')}>{title}</dd>
+      <dd className={'pt-15 text-3xl'}>{title}</dd>
     </dl>
   );
 };

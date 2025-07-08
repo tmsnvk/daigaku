@@ -41,15 +41,7 @@ interface TodoListProps {
  */
 export const TodoList = ({ introduction, currentTodoItemsTitle, currentTodoItems }: TodoListProps): JSX.Element => {
   return (
-    <section
-      className={joinTw(
-        'core-primary-border',
-        'w-[95%] lg:w-[65%]',
-        'mx-auto mb-20 px-12 py-4',
-        'bg-accent',
-        'text-xl',
-      )}
-    >
+    <section className={joinTw('core-primary-border bg-accent mx-auto mb-20 w-[95%] px-12 py-4 text-xl', 'lg:w-[65%]')}>
       <p className={'mb-4 mt-8'}>{introduction}</p>
       <p className={'mb-4'}>{currentTodoItemsTitle}</p>
       <ol className={'ml-20'}>
