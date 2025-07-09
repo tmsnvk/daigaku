@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { RootComponent } from './RootComponent';
+import { RootIndex } from './root-page.route';
 
-export { RootComponent };
+export { RootIndex };

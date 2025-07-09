@@ -11,7 +11,7 @@ import { createRootRouteWithContext, redirect } from '@tanstack/react-router';
 import { Account } from '@daigaku/providers';
 
 /* component imports */
-import { RootComponent } from '@daigaku/components/root';
+import { RootIndex } from '@daigaku/components/root';
 
 export const Route = createRootRouteWithContext<{ user: Account | null }>()({
   beforeLoad: ({ context, location }) => {
@@ -28,5 +28,5 @@ export const Route = createRootRouteWithContext<{ user: Account | null }>()({
       user: context.user,
     };
   },
-  component: RootComponent,
+  component: RootIndex,
 });

@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { LayoutStudent } from './layout-student/components/layout-student.tsx';
+import { DashboardIndex } from './dashboard-page.route.tsx';
 
-export { LayoutStudent };
+export { DashboardIndex };

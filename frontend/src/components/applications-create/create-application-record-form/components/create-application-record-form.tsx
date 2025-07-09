@@ -26,7 +26,7 @@ import {
   CoreFormElementInstruction,
   CoreFormHeader,
   CoreFormWrapper,
-} from '@daigaku/components/form';
+} from '@daigaku/components/common/form';
 
 /* interface, type imports */
 import { CountryOption, CreateApplicationByStudentPayload, UniversityOption } from '@daigaku/common-types';
@@ -70,12 +70,7 @@ export const CreateApplicationRecordForm = ({ countryOptions }: CreateApplicatio
     resolver: standardSchemaResolver(createApplicationSchema),
   });
 
-  const {
-    handleSubmit,
-    setError,
-    reset,
-    formState: { isDirty, isValid },
-  } = methods;
+  const { handleSubmit, setError, reset } = methods;
 
   const { mutate: createApplication, isPending: isSubmitting } = useCreateApplication(
     setError,
@@ -83,14 +78,16 @@ export const CreateApplicationRecordForm = ({ countryOptions }: CreateApplicatio
     reset,
   );
 
+  const onFormSubmit = handleSubmit((formData: CreateApplicationSchema) => {
+    createApplication(formData as CreateApplicationByStudentPayload);
+  });
+
   return (
     <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-application-record-by-student-form'}
-          onFormSubmit={handleSubmit((formData: CreateApplicationSchema) => {
-            createApplication(formData as CreateApplicationByStudentPayload);
-          })}
+          onFormSubmit={onFormSubmit}
           className={'core-application-grid'}
         >
           <CoreFormHeader
@@ -173,7 +170,6 @@ export const CreateApplicationRecordForm = ({ countryOptions }: CreateApplicatio
           />
           <CoreFormElementInstruction paragraph={t('programmeLengthNewFieldInformation')} />
           <CoreFormAction
-            isDisabled={!isDirty || !isValid}
             isSubmissionPending={isSubmitting}
             formActionConfig={{
               message: t('createApplicationRecordFormSubmission'),

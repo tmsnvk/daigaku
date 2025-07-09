@@ -14,10 +14,9 @@ import { applicationService } from '@daigaku/services';
 import { getAccountRoleResource } from '@daigaku/utilities';
 
 /* component imports */
-import { LayoutStudent } from '@daigaku/components/dashboard';
+import { DashboardIndex } from '@daigaku/components/dashboard';
 
 /* interface, type imports */
-import { UserRoles } from '@daigaku/common-types';
 
 const PATH = '/dashboard/';
 const routeApi = getRouteApi(PATH);
@@ -27,14 +26,17 @@ const routeApi = getRouteApi(PATH);
  * @returns {JSX.Element}
  */
 const DashboardIndexComponent = (): JSX.Element => {
+  const { dashboardStatistics } = routeApi.useLoaderData();
+
   const { state } = useAuthenticationProvider();
 
-  const loaderData = routeApi.useLoaderData();
-
   return (
-    <main className={'m-[5%] flex flex-row flex-wrap gap-y-20'}>
-      {loaderData && state.account.role === UserRoles.ROLE_STUDENT && <LayoutStudent data={loaderData} />}
-    </main>
+
+      <DashboardIndex
+        dashboardStatistics={dashboardStatistics}
+        userRole={state.account.role}
+      />
+
   );
 };
 
@@ -44,6 +46,10 @@ export const Route = createFileRoute(PATH)({
     const contextRole = context.user?.role;
     const accountRole = contextRole ? getAccountRoleResource(contextRole) : (null as never);
 
-    return await applicationService.fetchDashboardStatistics(accountRole);
+    const dashboardStatistics = await applicationService.fetchDashboardStatistics(accountRole);
+
+    return {
+      dashboardStatistics,
+    };
   },
 });

@@ -20,7 +20,7 @@ import { UserLoginStates } from '@daigaku/common-types';
  *
  * @returns {JSX.Element}
  */
-export const HomePage = (): JSX.Element => {
+export const HomeIndex = (): JSX.Element => {
   const navigate = useNavigate();
 
   const { state } = useAuthenticationProvider();

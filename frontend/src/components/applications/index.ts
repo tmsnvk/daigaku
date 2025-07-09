@@ -4,8 +4,6 @@
  * @author tmsnvk
  */
 
-import { ApplicationsTable } from './applications-table';
-import { ColumnSelectorModal } from './column-selector-modal';
-import { useColumnVisibility } from './common/hooks/use-column-visibility';
+import { ApplicationsIndex } from './applications-page.route';
 
-export { ApplicationsTable, ColumnSelectorModal, useColumnVisibility };
+export { ApplicationsIndex };

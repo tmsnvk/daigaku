@@ -14,7 +14,7 @@ import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 import { isColumnVisible } from '../utilities.ts';
 
 /* component imports */
-import { CoreLink } from '@daigaku/components/core';
+import { CoreLink } from '@daigaku/components/common/core';
 
 /* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';

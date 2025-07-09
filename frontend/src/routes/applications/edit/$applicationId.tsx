@@ -15,8 +15,8 @@ import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
 import { UpdateApplicationForm } from '@daigaku/components/applications-edit';
-import { CoreLoadingNotification } from '@daigaku/components/core';
-import { GlobalErrorModal } from '@daigaku/components/notification';
+import { CoreLoadingNotification } from '@daigaku/components/common/core';
+import { GlobalErrorModal } from '@daigaku/components/common/notification';
 
 /**
  *

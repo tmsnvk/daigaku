@@ -7,7 +7,6 @@
 /* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
-import axios from 'axios';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -16,9 +15,8 @@ import { joinTw } from '@daigaku/utilities';
 import { useRequestPdfDownload } from '../hooks/use-request-pdf-download.tsx';
 
 /* component imports */
-import { CoreButton } from '@daigaku/components/core';
-import { LoadingIndicator } from '@daigaku/components/general';
-import { GlobalErrorModal } from '@daigaku/components/notification';
+import { CoreButton } from '@daigaku/components/common/core';
+import { LoadingIndicator } from '@daigaku/components/common/general';
 
 /* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
@@ -71,25 +69,7 @@ export const TableHeader = ({
 }: TableHeaderProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const { mutate: submitPdfDownloadRequest, isPending, isError, error } = useRequestPdfDownload();
-
-  if (isError) {
-    let errorMessage;
-
-    if (axios.isAxiosError(error)) {
-      errorMessage = t('unexpectedServerError');
-    } else {
-      errorMessage = t('unexpectedGlobalError');
-    }
-
-    return (
-      <GlobalErrorModal
-        isVisible={isError}
-        errorText={errorMessage}
-        onCloseModal={() => console.log('TODO - fix me')}
-      />
-    );
-  }
+  const { mutate: submitPdfDownloadRequest, isPending: isSubmitting } = useRequestPdfDownload();
 
   return (
     <tr>
@@ -150,7 +130,7 @@ export const TableHeader = ({
           onClick={onToggleModal}
           disabled={isDataEmpty}
         />
-        {isPending ? (
+        {isSubmitting ? (
           <LoadingIndicator loadingText={t('handlingRequest')} />
         ) : (
           <CoreButton
@@ -165,9 +145,7 @@ export const TableHeader = ({
               </>
             }
             intent={'table'}
-            onClick={() => {
-              submitPdfDownloadRequest();
-            }}
+            onClick={() => submitPdfDownloadRequest()}
             disabled={isDataEmpty}
           />
         )}

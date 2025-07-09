@@ -14,7 +14,7 @@ import { localStorageUtilities } from '@daigaku/utilities';
 import { localStorageKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { Column } from '../types.ts';
+import { Column } from './common/types.ts';
 
 /**
  * Defines the properties for managing column visibility on the /applications page.

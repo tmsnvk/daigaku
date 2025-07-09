@@ -36,5 +36,13 @@ export const useRequestPdfDownload = (): UseMutationResult<void, CoreApiError, v
         variantIntent: 'success',
       });
     },
+    onError: () => {
+      createToast({
+        title: t('pdfRequestErrorTitle'),
+        description: t('pdfRequestErrorDescription'),
+        variantIntent: 'destructive',
+        autoRemoveDelay: 10000,
+      });
+    },
   });
 };

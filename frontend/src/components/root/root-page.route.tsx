@@ -32,7 +32,7 @@ const BUILD_ID = process.env.NODE_ENV === 'production' ? `prod-${__APP_VERSION__
  *
  * @returns {JSX.Element}
  */
-export const RootComponent = (): JSX.Element | null => {
+export const RootIndex = (): JSX.Element | null => {
   const { state } = useAuthenticationProvider();
 
   return (

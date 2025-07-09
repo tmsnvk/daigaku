@@ -6,8 +6,6 @@
 
 /* vendor imports */
 import { JSX } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 /* logic imports */
 import { useGetApplications } from '@daigaku/hooks';
@@ -15,8 +13,6 @@ import { isEmpty, joinTw } from '@daigaku/utilities';
 import { useSortOrder } from '../hooks/use-sort-order.tsx';
 
 /* component imports */
-import { CoreLoadingNotification } from '@daigaku/components/core';
-import { GlobalErrorModal } from '@daigaku/components/notification';
 import { DataRows } from './data-rows.tsx';
 import { TableHeader } from './table-header.tsx';
 
@@ -28,6 +24,11 @@ import { Column } from '../../common/types.ts';
  * Defines the component's properties.
  */
 interface ApplicationsTableProps {
+  /**
+   *
+   */
+  readonly initialApplications: Application[];
+
   /**
    *
    */
@@ -45,29 +46,13 @@ interface ApplicationsTableProps {
  * @param {ApplicationsTableProps}
  * @return {JSX.Element}
  */
-export const ApplicationsTable = ({ columns, toggleModal }: ApplicationsTableProps): JSX.Element => {
-  const { t } = useTranslation();
-
-  const navigate = useNavigate();
-
-  const { data: applications, isLoading, refetch, isRefetching, isError } = useGetApplications();
+export const ApplicationsTable = ({
+  initialApplications,
+  columns,
+  toggleModal,
+}: ApplicationsTableProps): JSX.Element => {
+  const { data: applications, refetch } = useGetApplications(initialApplications);
   const { handleColumnSort } = useSortOrder(applications as Array<Application>);
-
-  if (isLoading || isRefetching) {
-    return <CoreLoadingNotification intent={'light'} />;
-  }
-
-  if (isError) {
-    return (
-      <GlobalErrorModal
-        isVisible={isError}
-        errorText={t('unexpectedGlobalError')}
-        onCloseModal={() => {
-          navigate('/');
-        }}
-      />
-    );
-  }
 
   return (
     <table className={joinTw('table-fixed', 'text-center')}>

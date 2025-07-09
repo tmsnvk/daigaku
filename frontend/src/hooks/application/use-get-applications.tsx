@@ -17,14 +17,16 @@ import { getAccountRoleResource } from '@daigaku/utilities';
 import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { ApplicationResponse } from '@daigaku/common-types';
+import { Application, ApplicationResponse } from '@daigaku/common-types';
 
 /**
  * Fetches a list of applications based on the user's authorization role.
  *
  * @return {UseQueryResult<Array<ApplicationResponse>, CoreApiError>}
  */
-export const useGetApplications = (): UseQueryResult<Array<ApplicationResponse>, CoreApiError> => {
+export const useGetApplications = (
+  initialApplications: Application[],
+): UseQueryResult<Array<ApplicationResponse>, CoreApiError> => {
   const { state } = useAuthenticationProvider();
   const accountRole = state.account.role ? getAccountRoleResource(state.account.role) : (null as never);
 
@@ -32,5 +34,6 @@ export const useGetApplications = (): UseQueryResult<Array<ApplicationResponse>,
     queryKey: [queryKeys.application.GET_ALL_BY_ROLE],
     queryFn: () => applicationService.findListByAccountRole(accountRole),
     enabled: !!accountRole,
+    initialData: initialApplications,
   });
 };

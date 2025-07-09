@@ -10,10 +10,9 @@ import { JSX } from 'react';
 
 /* logic imports */
 import { countryService } from '@daigaku/services';
-import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { CreateApplicationRecordForm } from '@daigaku/components/applications-create';
+import { ApplicationsCreate } from '@daigaku/components/applications-create';
 
 const PATH = '/applications/create';
 const routeApi = getRouteApi(PATH);
@@ -25,14 +24,10 @@ const routeApi = getRouteApi(PATH);
 const CreateApplicationComponent = (): JSX.Element => {
   const countryOptions = routeApi.useLoaderData();
 
-  return (
-    <main className={joinTw('flex flex-col items-center', 'mx-auto')}>
-      <CreateApplicationRecordForm countryOptions={countryOptions} />
-    </main>
-  );
+  return <ApplicationsCreate countryOptions={countryOptions} />;
 };
 
-export const Route = createFileRoute('/applications/create')({
+export const Route = createFileRoute(PATH)({
   component: CreateApplicationComponent,
   loader: async () => {
     return await countryService.findOptionList();

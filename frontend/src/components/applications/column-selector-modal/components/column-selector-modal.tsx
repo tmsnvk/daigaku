@@ -43,7 +43,7 @@ interface ColumnSelectorModalProps {
  * Renders the column selector modal component that lets users to choose which data columns they wish to see on the
  * page.
  *
- * @return {JSX.Element}
+ * @returns {JSX.Element}
  */
 export const ColumnSelectorModal = ({
   columns,
