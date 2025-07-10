@@ -12,7 +12,7 @@ import { generateSimpleId, joinTw } from '@daigaku/utilities';
 import { ToastActionTypes, initialReducerState, toastReducer } from './toast.reducer';
 
 /* component imports */
-import { Toast as ToastComponent } from '@daigaku/components/notification';
+import { Toast as ToastComponent } from '@daigaku/components/common/notification';
 
 /* interface, type imports */
 import { Toast } from '@daigaku/common-types';

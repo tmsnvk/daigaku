@@ -38,7 +38,7 @@ export const countryService: CountryService = {
     return apiClientWrapper(() =>
       axiosConfigWithAuth.request<Array<CountryOptionResponse>>({
         method: 'GET',
-        url: 'api/v1/countries/options',
+        url: '/api/v1/countries/options',
       }),
     );
   },

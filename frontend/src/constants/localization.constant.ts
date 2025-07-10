@@ -57,6 +57,8 @@ export const TranslationKey = {
   SERVER_ERROR_TOAST_DESCRIPTION: 'serverErrorToastDescription',
   UNEXPECTED_ERROR_TOAST_TITLE: 'unexpectedErrorToastTitle',
   UNEXPECTED_ERROR_TOAST_DESCRIPTION: 'unexpectedErrorToastDescription',
+  PDF_REQUEST_ERROR_TITLE: 'pdfRequestErrorTitle',
+  PDF_REQUEST_ERROR_DESCRIPTION: 'pdfRequestErrorDescription',
 
   // acceptance
   ACCEPTANCE_OK: 'acceptanceOk',
@@ -288,6 +290,9 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
       unexpectedErrorToastTitle: 'Unexpected error',
       unexpectedErrorToastDescription:
         'The application has encountered an unexpected error. Refresh your browser and try again.',
+      pdfRequestErrorTitle: 'Request not received',
+      pdfRequestErrorDescription:
+        'Your download request was unsuccessful. Refresh your browser or try again at a later time.',
 
       // acceptance
       acceptanceOk: 'Ok',

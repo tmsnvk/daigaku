@@ -13,7 +13,7 @@ import {
   CoreInputElementVariantIntent,
   CoreSelectElementVariantIntent,
   CoreTextareaElementVariantIntent,
-} from '@daigaku/components/form';
+} from '@daigaku/components/common/form';
 
 /**
  * Defines the properties of core form elements

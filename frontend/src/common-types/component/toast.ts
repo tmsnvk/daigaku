@@ -5,7 +5,7 @@
  */
 
 /* component imports */
-import { type ToastVariantIntent } from '@daigaku/components/notification';
+import { type ToastVariantIntent } from '@daigaku/components/common/notification';
 
 /**
  * Defines the properties of a newly created Toast element.
