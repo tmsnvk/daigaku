@@ -56,13 +56,13 @@ export const ColumnSelectorModal = ({
   return (
     <dialog
       ref={dialogRef}
-      className={joinTw('core-primary-border', 'flex flex-col items-start', 'mx-auto mt-[10%] px-20 py-10')}
+      className={'core-primary-border mx-auto mt-[10%] flex flex-col items-start px-20 py-10'}
     >
       {columns.map((column: Column) => {
         return (
           <article
             key={column.id}
-            className={joinTw('flex flex-row', 'mt-6')}
+            className={'mt-6 flex flex-row'}
             onClick={() => !column.isCoreColumn && onToggleColumnVisibility(column.id)}
           >
             <input
@@ -83,10 +83,7 @@ export const ColumnSelectorModal = ({
         id={'modal-toggle'}
         name={'modal-toggle'}
         className={joinTw(
-          'mx-auto mt-10 px-10 py-4',
-          'border-accent border-2 bg-transparent',
-          'rounded-(--default-border-radius) cursor-pointer',
-          'font-extrabold',
+          'border-accent rounded-(--default-border-radius) mx-auto mt-10 cursor-pointer border-2 bg-transparent px-10 py-4 font-extrabold',
           'hover:text-accent',
         )}
         onClick={onToggle}

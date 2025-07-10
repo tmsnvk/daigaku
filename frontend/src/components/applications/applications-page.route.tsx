@@ -9,7 +9,6 @@ import { JSX } from 'react';
 
 /* logic imports */
 import { useModalToggle } from '@daigaku/hooks';
-import { joinTw } from '@daigaku/utilities';
 import { useColumnVisibility } from './applications-page.hooks';
 
 /* component imports */
@@ -35,11 +34,10 @@ interface ApplicationsIndexProps {
  */
 export const ApplicationsIndex = ({ initialApplications }: ApplicationsIndexProps): JSX.Element => {
   const { columns, toggleColumnVisibility } = useColumnVisibility();
-
   const { isModalVisible, toggleModal } = useModalToggle();
 
   return (
-    <main className={joinTw('core-primary-border', 'flex flex-col', 'w-[95%]', 'mx-auto my-[5%]', 'text-xl')}>
+    <main className={'core-primary-border mx-auto my-[5%] flex w-[95%] flex-col text-xl'}>
       <ApplicationsTable
         initialApplications={initialApplications}
         columns={columns}

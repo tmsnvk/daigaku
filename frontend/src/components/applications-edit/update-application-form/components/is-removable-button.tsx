@@ -9,12 +9,11 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { joinTw } from '@daigaku/utilities';
 import { useToggleIsRemovable } from '../hooks/use-toggle-is-removable.tsx';
 
 /* component imports */
-import { CoreButton } from '@daigaku/components/core';
-import { CoreFormElementError } from '@daigaku/components/form';
+import { CoreButton } from '@daigaku/components/common/core';
+import { CoreFormElementError } from '@daigaku/components/common/form';
 
 /**
  * Defines the component's properties.
@@ -47,7 +46,7 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
   } = useToggleIsRemovable(applicationUuid, isRemovable);
 
   return (
-    <article className={joinTw('col-start-2 col-end-3 row-start-2 row-end-3 flex flex-col items-center', 'h-40')}>
+    <article className={'col-start-2 col-end-3 row-start-2 row-end-3 flex h-40 flex-col items-center'}>
       <CoreButton
         label={shouldBeRemoved ? t('requestReversion') : t('requestDeletion')}
         intent={shouldBeRemoved ? 'destructive' : 'dark'}

@@ -16,8 +16,6 @@ import { getAccountRoleResource } from '@daigaku/utilities';
 /* component imports */
 import { DashboardIndex } from '@daigaku/components/dashboard';
 
-/* interface, type imports */
-
 const PATH = '/dashboard/';
 const routeApi = getRouteApi(PATH);
 
@@ -31,12 +29,10 @@ const DashboardIndexComponent = (): JSX.Element => {
   const { state } = useAuthenticationProvider();
 
   return (
-
-      <DashboardIndex
-        dashboardStatistics={dashboardStatistics}
-        userRole={state.account.role}
-      />
-
+    <DashboardIndex
+      dashboardStatistics={dashboardStatistics}
+      userRole={state.account.role}
+    />
   );
 };
 

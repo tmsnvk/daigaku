@@ -22,7 +22,7 @@ const routeApi = getRouteApi(PATH);
  * @returns {JSX.Element}
  */
 const CreateApplicationComponent = (): JSX.Element => {
-  const countryOptions = routeApi.useLoaderData();
+  const { countryOptions } = routeApi.useLoaderData();
 
   return <ApplicationsCreate countryOptions={countryOptions} />;
 };
@@ -30,6 +30,10 @@ const CreateApplicationComponent = (): JSX.Element => {
 export const Route = createFileRoute(PATH)({
   component: CreateApplicationComponent,
   loader: async () => {
-    return await countryService.findOptionList();
+    const countryOptions = await countryService.findOptionList();
+
+    return {
+      countryOptions,
+    };
   },
 });

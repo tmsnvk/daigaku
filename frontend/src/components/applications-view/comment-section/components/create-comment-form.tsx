@@ -15,7 +15,7 @@ import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
 import { CreateCommentSchema, createCommentSchema } from '../schema.ts';
 
 /* component imports */
-import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/form';
+import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/common/form';
 
 /* interface, type imports */
 import { CreateApplicationCommentPayload } from '@daigaku/common-types';
@@ -54,15 +54,15 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
 
   const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(applicationUuid, setError, reset);
 
-  const submitCreateCommentForm = (formData: CreateCommentSchema): void => {
+  const onFormSubmit = handleSubmit((formData: CreateCommentSchema): void => {
     createComment(formData as CreateApplicationCommentPayload);
-  };
+  });
 
   return (
     <FormProvider {...formMethods}>
       <CoreFormWrapper
         formId={'post-comment-form'}
-        onFormSubmit={handleSubmit(submitCreateCommentForm)}
+        onFormSubmit={onFormSubmit}
       >
         <CommonTextareaGroup
           id={'comment'}

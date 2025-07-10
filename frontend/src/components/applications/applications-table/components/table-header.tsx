@@ -11,7 +11,6 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { joinTw } from '@daigaku/utilities';
 import { useRequestPdfDownload } from '../hooks/use-request-pdf-download.tsx';
 
 /* component imports */
@@ -78,7 +77,7 @@ export const TableHeader = ({
           column.isVisible && (
             <th
               key={column.id}
-              className={joinTw('text-center', 'w-[10%]', 'px-4 py-6')}
+              className={'w-[10%] px-4 py-6 text-center'}
             >
               <CoreButton
                 label={column.name}
@@ -99,7 +98,7 @@ export const TableHeader = ({
           )
         );
       })}
-      <th className={joinTw('text-center', 'w-[10%]', 'px-1 py-6')}>
+      <th className={'w-[10%] px-1 py-6 text-center'}>
         <CoreButton
           label={t('refresh')}
           content={

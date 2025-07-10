@@ -90,7 +90,6 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
           <CoreLink
             target={`edit/${application.uuid}`}
-            state={application}
             label={
               <>
                 {t('edit')}
@@ -104,7 +103,6 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
           />
           <CoreLink
             target={`view/${application.uuid}`}
-            state={application}
             label={
               <>
                 {t('view')}

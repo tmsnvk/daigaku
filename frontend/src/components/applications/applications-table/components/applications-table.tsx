@@ -9,7 +9,7 @@ import { JSX } from 'react';
 
 /* logic imports */
 import { useGetApplications } from '@daigaku/hooks';
-import { isEmpty, joinTw } from '@daigaku/utilities';
+import { isEmpty } from '@daigaku/utilities';
 import { useSortOrder } from '../hooks/use-sort-order.tsx';
 
 /* component imports */
@@ -55,7 +55,7 @@ export const ApplicationsTable = ({
   const { handleColumnSort } = useSortOrder(applications as Array<Application>);
 
   return (
-    <table className={joinTw('table-fixed', 'text-center')}>
+    <table className={'table-fixed text-center'}>
       <thead>
         <TableHeader
           columns={columns}

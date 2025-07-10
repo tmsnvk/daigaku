@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* component imports */
-import { CoreFormElementInstruction, DisabledInputGroup } from '@daigaku/components/form';
+import { CoreFormElementInstruction, DisabledInputGroup } from '@daigaku/components/common/form';
 
 /* interface, type imports */
 import { Application } from '@daigaku/common-types';

@@ -14,10 +14,12 @@ import { useCommentPagination } from '../hooks/use-comment-pagination.tsx';
 import { useGetCommentsByApplicationAndPagination } from '../hooks/use-get-comments-by-application-and-pagination.tsx';
 
 /* component imports */
-import { LoadingIndicator } from '@daigaku/components/general';
 import { CommentPaginationButton } from './comment-pagination-button.tsx';
 import { Comments } from './comments.tsx';
 import { CreateCommentForm } from './create-comment-form.tsx';
+
+/* interface, type imports */
+import { ApplicationCommentPaginationDataResponse } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
@@ -27,6 +29,11 @@ interface CommentSectionProps {
    * The application's uuid string to which the comment section belongs to.
    */
   readonly applicationUuid: string;
+
+  /**
+   *
+   */
+  readonly comments: ApplicationCommentPaginationDataResponse;
 }
 
 /**
@@ -35,20 +42,16 @@ interface CommentSectionProps {
  * @param {CommentSectionProps} props
  * @return {JSX.Element}
  */
-export const CommentSection = ({ applicationUuid }: CommentSectionProps): JSX.Element => {
+export const CommentSection = ({ applicationUuid, comments }: CommentSectionProps): JSX.Element => {
   const { t } = useTranslation();
 
   const { currentPage, goToPreviousPage, goToNextPage } = useCommentPagination();
-  const { data, isLoading, isError } = useGetCommentsByApplicationAndPagination(applicationUuid, currentPage);
-
-  if (isLoading) {
-    return <LoadingIndicator loadingText={t('dataCompilation')} />;
-  }
+  const { data, isError } = useGetCommentsByApplicationAndPagination(applicationUuid, currentPage);
 
   return (
     <section className={joinTw('w-[95%] sm:w-[65%] lg:w-[95%]', 'mx-auto my-20')}>
       <Comments
-        comments={data?.comments ?? []}
+        comments={data?.comments ?? comments.comments}
         isError={isError}
       />
       <div className={joinTw('flex flex-row items-center justify-around', 'w-[90%]', 'mx-auto mb-20')}>

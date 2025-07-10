@@ -8,7 +8,7 @@
 import { JSX } from 'react';
 
 /* component imports */
-import { CoreButton } from '@daigaku/components/core';
+import { CoreButton } from '@daigaku/components/common/core';
 
 /**
  * Defines the component's properties.

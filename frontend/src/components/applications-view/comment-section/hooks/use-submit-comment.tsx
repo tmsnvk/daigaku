@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { ConstraintViolationError, CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
 import { useToastProvider } from '@daigaku/providers';
 import { commentService } from '@daigaku/services';
-import { CreateCommentSchemaFieldKey } from '../schema.ts';
+import { CreateCommentSchemaKey } from '../schema.ts';
 
 /* configuration, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
@@ -61,7 +61,7 @@ export const useSubmitComment = (
       if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
         error.coreError?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as CreateCommentSchemaFieldKey, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as CreateCommentSchemaKey, { message: errorDetail.errorMessage });
           }
         });
       }

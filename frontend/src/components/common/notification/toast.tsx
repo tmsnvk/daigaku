@@ -12,7 +12,7 @@ import { JSX, useEffect, useRef, useState } from 'react';
 import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { CoreIcon } from '@daigaku/components/core';
+import { CoreIcon } from '@daigaku/components/common/core';
 
 /* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';

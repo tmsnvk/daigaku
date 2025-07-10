@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { CoreFetchError, CoreFetchSkeleton } from '@daigaku/components/core';
+import { CoreFetchError, CoreFetchSkeleton } from '@daigaku/components/common/core';
 
 /**
  * Defines the component's properties.

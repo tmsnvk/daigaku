@@ -13,7 +13,7 @@ import { StudentDashboardStatisticsResponse, Todo, TodoList } from '@daigaku/com
 /**
  * Evaluates the current to-do items based on the provided dashboard statistics.
  *
- * @param data The dashboard statistics containing application-record-related aggregate data.
+ * @param data The dashboard statistics containing Application-related aggregate data.
  * @return {TodoList}
  */
 export const useTodoList = (data: StudentDashboardStatisticsResponse): TodoList => {

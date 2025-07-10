@@ -5,57 +5,35 @@
  */
 
 /* vendor imports */
-import { createFileRoute, useLocation } from '@tanstack/react-router';
+import { createFileRoute, getRouteApi } from '@tanstack/react-router';
 import { JSX } from 'react';
-import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useGetApplicationByUuid } from '@daigaku/hooks';
-import { joinTw } from '@daigaku/utilities';
+import { applicationService } from '@daigaku/services';
 
 /* component imports */
-import { UpdateApplicationForm } from '@daigaku/components/applications-edit';
-import { CoreLoadingNotification } from '@daigaku/components/common/core';
-import { GlobalErrorModal } from '@daigaku/components/common/notification';
+import { ApplicationsEdit } from '@daigaku/components/applications-edit';
+
+const PATH = '/applications/edit/$applicationId';
+const routeApi = getRouteApi(PATH);
 
 /**
  *
  * @returns {JSX.Element}
  */
 const ApplicationEditComponent = (): JSX.Element => {
-  const { t } = useTranslation();
-  const { state, pathname } = useLocation();
+  const { data } = routeApi.useLoaderData();
 
-  const applicationUuid = pathname.split('/applications/edit/')[1];
-
-  const {
-    data,
-    isLoading: isApplicationLoading,
-    isError: isApplicationError,
-  } = useGetApplicationByUuid(state, applicationUuid);
-  const application = state || data;
-
-  if (isApplicationLoading) {
-    return <CoreLoadingNotification intent={'light'} />;
-  }
-
-  if (isApplicationError) {
-    return (
-      <GlobalErrorModal
-        isVisible={isApplicationError}
-        errorText={t('unexpectedGlobalError')}
-        onCloseModal={() => console.log('FIX ME')}
-      />
-    );
-  }
-
-  return (
-    <main className={joinTw('flex flex-col items-center', 'mx-auto')}>
-      <UpdateApplicationForm application={application} />
-    </main>
-  );
+  return <ApplicationsEdit application={data} />;
 };
 
-export const Route = createFileRoute('/applications/edit/$applicationId')({
+export const Route = createFileRoute(PATH)({
   component: ApplicationEditComponent,
+  loader: async ({ params: { applicationId } }) => {
+    const data = await applicationService.findOneByUuid(applicationId);
+
+    return {
+      data,
+    };
+  },
 });

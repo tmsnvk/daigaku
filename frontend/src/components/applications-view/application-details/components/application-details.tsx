@@ -12,9 +12,9 @@ import { useTranslation } from 'react-i18next';
 import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { CoreLink } from '@daigaku/components/core';
-import { CoreFormHeader } from '@daigaku/components/form';
-import { ApplicationMetadata } from '@daigaku/components/general';
+import { CoreLink } from '@daigaku/components/common/core';
+import { CoreFormHeader } from '@daigaku/components/common/form';
+import { ApplicationMetadata } from '@daigaku/components/common/general';
 import { ApplicationDetail } from './application-detail.tsx';
 
 /* interface, type imports */
@@ -47,7 +47,7 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
   const { t } = useTranslation();
 
   return (
-    <section className={joinTw('core-primary-border application-grid', 'w-9/10 2xl:w-6/10 h-fit')}>
+    <section className={joinTw('core-primary-border application-grid w-9/10 h-fit', '2xl:w-6/10')}>
       <CoreFormHeader
         title={
           <>
@@ -58,7 +58,7 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
           </>
         }
         intent={'large'}
-        className={joinTw('col-start-1 col-end-3', 'text-center')}
+        className={'col-start-1 col-end-3 text-center'}
       />
       <ApplicationMetadata
         metadata={{

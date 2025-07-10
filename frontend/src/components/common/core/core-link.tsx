@@ -68,11 +68,10 @@ interface CoreLinkProps extends VariantProps<typeof coreLinkVariants> {
  * @param {CoreLinkProps} props
  * @return {JSX.Element}
  */
-export const CoreLink = ({ target, state, label, intent, size }: CoreLinkProps): JSX.Element => {
+export const CoreLink = ({ target, label, intent, size }: CoreLinkProps): JSX.Element => {
   return (
     <Link
       to={target}
-      // state={state}
       className={joinTw(coreLinkVariants({ intent, size }))}
     >
       {label}

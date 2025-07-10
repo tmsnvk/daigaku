@@ -4,6 +4,6 @@
  * @author tmsnvk
  */
 
-import { UpdateApplicationForm } from './update-application-form';
+import { ApplicationsEdit } from './applications-edit.route.tsx';
 
-export { UpdateApplicationForm };
+export { ApplicationsEdit };

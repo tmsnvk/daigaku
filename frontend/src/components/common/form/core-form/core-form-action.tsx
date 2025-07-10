@@ -12,7 +12,7 @@ import { useFormContext } from 'react-hook-form';
 import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
-import { LoadingIndicator } from '@daigaku/components/general';
+import { LoadingIndicator } from '@daigaku/components/common/general';
 import { CoreFormElementError, CoreSubmitInputElement } from '../index.ts';
 
 /* interface, type imports */

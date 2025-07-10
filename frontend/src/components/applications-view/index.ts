@@ -4,7 +4,6 @@
  * @author tmsnvk
  */
 
-import { ApplicationDetails } from './application-details';
-import { CommentSection } from './comment-section';
+import { ApplicationsView } from './applications-view.route';
 
-export { ApplicationDetails, CommentSection };
+export { ApplicationsView };

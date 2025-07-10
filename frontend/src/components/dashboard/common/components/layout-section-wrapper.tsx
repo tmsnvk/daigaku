@@ -21,7 +21,7 @@ interface LayoutSectionWrapperProps {
  * Renders a wrapper component for the dashboard page's layout sections.
  *
  * @param {LayoutSectionWrapperProps}
- * @returns {JSX.Element}
+ * @return {JSX.Element}
  */
 export const LayoutSectionWrapper = ({ children }: LayoutSectionWrapperProps): JSX.Element => {
   return (

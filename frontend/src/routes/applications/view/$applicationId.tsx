@@ -5,48 +5,42 @@
  */
 
 /* vendor imports */
-import { createFileRoute, useLocation } from '@tanstack/react-router';
+import { createFileRoute, getRouteApi } from '@tanstack/react-router';
 import { JSX } from 'react';
 
 /* logic imports */
-import { useGetApplicationByUuid } from '@daigaku/hooks';
+import { applicationService, commentService } from '@daigaku/services';
 
 /* component imports */
-import { ApplicationDetails, CommentSection } from '@daigaku/components/applications-view';
-import { CoreLoadingNotification } from '@daigaku/components/core';
-import { GlobalErrorModal } from '@daigaku/components/notification';
+import { ApplicationsView } from '@daigaku/components/applications-view';
+
+const PATH = '/applications/view/$applicationId';
+const routeApi = getRouteApi(PATH);
 
 /**
  *
  * @returns {JSX.Element}
  */
 const ApplicationViewComponent = (): JSX.Element => {
-  const { state, pathname } = useLocation();
-  const applicationUuid = pathname.split('/applications/view/')[1];
-  const { data, isLoading, isError } = useGetApplicationByUuid(state, applicationUuid);
-  const application = state || data;
-
-  if (isLoading) {
-    return <CoreLoadingNotification intent={'light'} />;
-  }
-
-  if (isError) {
-    return (
-      <GlobalErrorModal
-        isVisible={isError}
-        onCloseModal={() => console.log('FIX ME')}
-      />
-    );
-  }
+  const { application, comments } = routeApi.useLoaderData();
 
   return (
-    <main className={'grid grid-cols-[1fr] gap-x-10 lg:grid-cols-[1fr_0.5fr]'}>
-      <ApplicationDetails application={application} />
-      <CommentSection applicationUuid={applicationUuid} />
-    </main>
+    <ApplicationsView
+      application={application}
+      comments={comments}
+    />
   );
 };
 
-export const Route = createFileRoute('/applications/view/$applicationId')({
+export const Route = createFileRoute(PATH)({
   component: ApplicationViewComponent,
+  loader: async ({ params: { applicationId } }) => {
+    const application = await applicationService.findOneByUuid(applicationId);
+    const comments = await commentService.findPaginatedListByApplicationUuid(applicationId, 1);
+
+    return {
+      application,
+      comments,
+    };
+  },
 });

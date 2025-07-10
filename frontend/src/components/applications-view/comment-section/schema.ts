@@ -20,4 +20,4 @@ export const createCommentSchema = z.object({
 });
 
 export type CreateCommentSchema = z.infer<typeof createCommentSchema>;
-export type CreateCommentSchemaFieldKey = keyof z.infer<typeof createCommentSchema>;
+export type CreateCommentSchemaKey = keyof z.infer<typeof createCommentSchema>;

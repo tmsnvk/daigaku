@@ -83,7 +83,7 @@ export const CreateApplicationRecordForm = ({ countryOptions }: CreateApplicatio
   });
 
   return (
-    <section className={joinTw('core-tertiary-border', 'w-9/10 md:w-8/10 2xl:max-w-[100rem]', 'my-[5%]')}>
+    <section className={joinTw('core-tertiary-border w-9/10 my-[5%]', 'md:w-8/10 2xl:max-w-[100rem]')}>
       <FormProvider {...methods}>
         <CoreFormWrapper
           formId={'post-application-record-by-student-form'}

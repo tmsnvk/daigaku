@@ -23,14 +23,14 @@ import {
   CoreFormElementInstruction,
   CoreFormHeader,
   CoreFormWrapper,
-} from '@daigaku/components/form';
-import { ApplicationMetadata } from '@daigaku/components/general';
+} from '@daigaku/components/common/form';
+import { ApplicationMetadata } from '@daigaku/components/common/general';
 import { DisabledInputGroups } from './disabled-input-groups.tsx';
 import { IsRemovableButton } from './is-removable-button.tsx';
 
 /* interface, type imports */
 import {
-  ApplicationResponse as Application,
+  Application,
   ApplicationStatus,
   ApplicationStatusTranslations,
   ApplicationStatuses,
@@ -84,13 +84,13 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
 
   const {
     data: updatedData,
-    isPending,
+    isPending: isSubmitting,
     mutate: updateApplication,
   } = useUpdateApplicationFormMutation(setError, application.uuid);
 
-  const submitUpdateApplicationForm = (formData: UpdateApplicationSchema) => {
+  const onFormSubmit = handleSubmit((formData: UpdateApplicationSchema) => {
     updateApplication(formData as UpdateApplicationByStudentPayload);
-  };
+  });
 
   const {
     onPageLoadValidation,
@@ -110,7 +110,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
       <FormProvider {...formMethods}>
         <CoreFormWrapper
           formId={'update-application-record-form'}
-          onFormSubmit={handleSubmit(submitUpdateApplicationForm)}
+          onFormSubmit={onFormSubmit}
           className={'core-application-grid'}
         >
           <CoreFormHeader
@@ -256,7 +256,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
           />
           <CoreFormElementInstruction paragraph={t('finalDestinationStatusUpdateFieldInformation')} />
           <CoreFormAction
-            isSubmissionPending={isPending}
+            isSubmissionPending={isSubmitting}
             formActionConfig={{
               message: t('genericFormSubmission'),
               value: t('updateApplicationRecordFormSubmit'),

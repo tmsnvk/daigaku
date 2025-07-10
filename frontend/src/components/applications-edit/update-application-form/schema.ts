@@ -56,4 +56,4 @@ export const updateApplicationSchema = z.object({
 });
 
 export type UpdateApplicationSchema = z.infer<typeof updateApplicationSchema>;
-export type UpdateApplicationSchemaFieldKey = keyof z.infer<typeof updateApplicationSchema>;
+export type UpdateApplicationSchemaKey = keyof z.infer<typeof updateApplicationSchema>;

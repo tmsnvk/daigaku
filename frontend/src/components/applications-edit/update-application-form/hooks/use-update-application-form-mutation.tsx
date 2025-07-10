@@ -18,7 +18,7 @@ import {
 } from '@daigaku/errors';
 import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
-import { UpdateApplicationSchemaFieldKey } from '../schema.ts';
+import { UpdateApplicationSchemaKey } from '../schema.ts';
 
 /* configuration, constants imports */
 import { mutationKeys, queryKeys } from '@daigaku/constants';
@@ -80,7 +80,7 @@ export const useUpdateApplicationFormMutation = (
       if (error instanceof MethodArgumentNotValidError || error instanceof ConstraintViolationError) {
         errorResponse?.errors.forEach((errorDetail: InputViolation) => {
           if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as UpdateApplicationSchemaFieldKey, { message: errorDetail.errorMessage });
+            setError(errorDetail.fieldName as UpdateApplicationSchemaKey, { message: errorDetail.errorMessage });
           }
         });
       }
