@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useGetInstitutionOptions, useGetStudentAndMentorAccountRoles } from '@daigaku/hooks';
+import { useGetInstitutionOptions } from '@daigaku/hooks';
 import { removeRolePrefix } from '@daigaku/utilities';
 import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
 import { PendingAccountRegistrationSchema, pendingAccountRegistrationSchema } from '../schema.ts';
@@ -32,6 +32,7 @@ import { formTypeButtonLabel } from '../../common/constants.ts';
 /* interface, type imports */
 import { CreatePendingAccountPayload, InstitutionOption, RoleOption } from '@daigaku/common-types';
 import { FormType, FormTypes } from '../../common/types.ts';
+import { useGetPendingAccountRegistrationRoles } from '../hooks/use-get-pending-account-registration-roles.tsx';
 
 /**
  * Defines the component's properties.
@@ -68,7 +69,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
     isLoading: isRolesLoading,
     isError: isRolesError,
     refetch: roleRefetch,
-  } = useGetStudentAndMentorAccountRoles();
+  } = useGetPendingAccountRegistrationRoles();
 
   const formMethods = useForm<PendingAccountRegistrationSchema>({
     defaultValues: {

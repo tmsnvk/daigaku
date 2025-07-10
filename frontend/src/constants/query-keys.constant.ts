@@ -26,7 +26,7 @@ export const queryKeys = {
     GET_ME: 'get-me',
   },
   accountRole: {
-    GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS: 'get-student-and-mentor-role-select-options',
+    GET_PENDING_ACCOUNT_REGISTRATION_ROLES_AS_SELECT_OPTIONS: 'get-pending-account-registration-role-select-options',
   },
   application: {
     GET_ALL_BY_ROLE: 'get-applications-by-role',

@@ -13,7 +13,6 @@ import { useCoreQueryClient } from './configuration/use-core-query-client.tsx';
 import { useFieldValidationError } from './form/use-field-validation-error.tsx';
 import { useGetCountryOptions } from './form/use-get-country-options.tsx';
 import { useGetInstitutionOptions } from './form/use-get-institution-options.tsx';
-import { useGetStudentAndMentorAccountRoles } from './form/use-get-student-and-mentor-account-roles.tsx';
 import { useGetUniversityOptionsByCountryUuid } from './form/use-get-university-options-by-country-uuid.tsx';
 import { useMobileView } from './utility/use-mobile-view.ts';
 
@@ -25,7 +24,6 @@ export {
   useGetCountryOptions,
   useGetInstitutionOptions,
   useGetMe,
-  useGetStudentAndMentorAccountRoles,
   useGetUniversityOptionsByCountryUuid,
   useMobileView,
   useModalToggle,

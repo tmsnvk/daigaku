@@ -22,9 +22,9 @@ import { RoleOptionResponse } from '@daigaku/common-types';
  *
  * @return {UseQueryResult<Array<RoleOptionResponse>, CoreApiError>}
  */
-export const useGetStudentAndMentorAccountRoles = (): UseQueryResult<Array<RoleOptionResponse>, CoreApiError> => {
+export const useGetPendingAccountRegistrationRoles = (): UseQueryResult<Array<RoleOptionResponse>, CoreApiError> => {
   return useQuery({
-    queryKey: [queryKeys.accountRole.GET_STUDENT_AND_MENTOR_ROLES_AS_SELECT_OPTIONS],
+    queryKey: [queryKeys.accountRole.GET_PENDING_ACCOUNT_REGISTRATION_ROLES_AS_SELECT_OPTIONS],
     queryFn: () => roleService.fetchStudentAndMentorOptions(),
   });
 };
