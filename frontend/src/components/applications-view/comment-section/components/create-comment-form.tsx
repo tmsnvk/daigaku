@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useSubmitComment } from '../hooks/use-submit-comment.tsx';
+import { useCreateCommentForm } from '../hooks/use-create-comment-form.tsx';
 import { CreateCommentSchema, createCommentSchema } from '../schema.ts';
 
 /* component imports */
@@ -52,7 +52,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
 
   const { handleSubmit, setError, reset } = formMethods;
 
-  const { mutate: createComment, isPending: isSubmitting } = useSubmitComment(applicationUuid, setError, reset);
+  const { mutate: createComment, isPending: isSubmitting } = useCreateCommentForm(applicationUuid, setError, reset);
 
   const onFormSubmit = handleSubmit((formData: CreateCommentSchema): void => {
     createComment(formData as CreateApplicationCommentPayload);

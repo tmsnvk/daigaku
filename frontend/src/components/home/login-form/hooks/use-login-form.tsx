@@ -27,17 +27,21 @@ import { LoginPayload, LoginResponse } from '@daigaku/common-types';
  * @param setError The `react-hook-form` method to set form errors.
  * @return {UseMutationResult<LoginResponse, CoreApiError, LoginPayload>}
  */
-export const useLoginFormMutation = (
+export const useLoginForm = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
   const { logIn } = useAuthenticationProvider();
 
-  return useCoreApiMutation([mutationKeys.account.POST_LOGIN_FORM], accountService.logIn, {
-    onSuccess: (response: LoginResponse) => {
-      logIn(response);
+  return useCoreApiMutation(
+    [mutationKeys.account.POST_LOGIN_FORM],
+    (formData: LoginPayload) => accountService.logIn(formData),
+    {
+      onSuccess: (response: LoginResponse) => {
+        logIn(response);
+      },
+      onError: (error: CoreApiError) => {
+        apiClient.errorWrapper(error, setError);
+      },
     },
-    onError: (error: CoreApiError) => {
-      apiClient.errorWrapper(error, setError);
-    },
-  });
+  );
 };

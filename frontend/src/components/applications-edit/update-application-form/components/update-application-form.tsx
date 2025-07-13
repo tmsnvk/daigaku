@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 import { useHandleFieldDisableStatus } from '../hooks/use-handle-field-disable-status.tsx';
-import { useUpdateApplicationFormMutation } from '../hooks/use-update-application-form-mutation.tsx';
+import { useUpdateApplicationForm } from '../hooks/use-update-application-form.tsx';
 import { UpdateApplicationSchema, updateApplicationSchema } from '../schema.ts';
 
 /* component imports */
@@ -86,7 +86,7 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
     data: updatedData,
     isPending: isSubmitting,
     mutate: updateApplication,
-  } = useUpdateApplicationFormMutation(setError, application.uuid);
+  } = useUpdateApplicationForm(setError, application.uuid);
 
   const onFormSubmit = handleSubmit((formData: UpdateApplicationSchema) => {
     updateApplication(formData as UpdateApplicationByStudentPayload);

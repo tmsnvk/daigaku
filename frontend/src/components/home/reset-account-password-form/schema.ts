@@ -23,4 +23,3 @@ export const resetAccountPasswordSchema = z.object({
 });
 
 export type ResetAccountPasswordSchema = z.infer<typeof resetAccountPasswordSchema>;
-export type ResetAccountPasswordSchemaKey = keyof z.infer<typeof resetAccountPasswordSchema>;

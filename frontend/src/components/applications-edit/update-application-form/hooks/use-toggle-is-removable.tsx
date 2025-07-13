@@ -5,12 +5,13 @@
  */
 
 /* vendor imports */
-import { UseMutateFunction, UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
+import { UseMutateFunction, UseMutationResult, useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { CoreApiError } from '@daigaku/errors';
+import { useCoreQueryClient } from '@daigaku/hooks';
 import { applicationStudentService } from '@daigaku/services';
 
 /* configuration, constants imports */
@@ -39,7 +40,7 @@ interface HandleToggleIsRemovable {
  */
 export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boolean): HandleToggleIsRemovable => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const queryClient = useCoreQueryClient();
 
   const [shouldBeRemoved, setShouldBeRemoved] = useState<boolean>(isRemovable);
   const [errorMessage, setErrorMessage] = useState<string>('');

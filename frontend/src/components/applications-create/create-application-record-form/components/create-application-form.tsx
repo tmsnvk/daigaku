@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { joinTw } from '@daigaku/utilities';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
-import { useCreateApplicationFormMutation } from '../hooks/use-create-application-form-mutation.tsx';
+import { useCreateApplicationForm } from '../hooks/use-create-application-form.tsx';
 import { CreateApplicationSchema, createApplicationSchema } from '../schema.ts';
 
 /* component imports */
@@ -72,7 +72,7 @@ export const CreateApplicationForm = ({ countryOptions }: CreateApplicationRecor
 
   const { handleSubmit, setError, reset } = methods;
 
-  const { mutate: createApplication, isPending: isSubmitting } = useCreateApplicationFormMutation(
+  const { mutate: createApplication, isPending: isSubmitting } = useCreateApplicationForm(
     setError,
     resetCountrySelection,
     reset,

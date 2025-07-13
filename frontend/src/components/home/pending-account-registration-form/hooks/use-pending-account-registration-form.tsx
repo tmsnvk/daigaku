@@ -28,7 +28,7 @@ import { CreatePendingAccountPayload } from '@daigaku/common-types';
  * @param setError A `react-hook-form` method that sets form errors.
  * @return {UseMutationResult<void, CoreApiError, CreatePendingAccountPayload>}
  */
-export const usePendingAccountRegistrationFormMutation = (
+export const usePendingAccountRegistrationForm = (
   setError: UseFormSetError<CreatePendingAccountPayload>,
   resetForm: () => void,
 ): UseMutationResult<void, CoreApiError, CreatePendingAccountPayload> => {
@@ -36,18 +36,22 @@ export const usePendingAccountRegistrationFormMutation = (
 
   const { createToast } = useToastProvider();
 
-  return useCoreApiMutation([mutationKeys.account.POST_REGISTER_FORM], pendingAccountService.create, {
-    onSuccess: () => {
-      resetForm();
+  return useCoreApiMutation(
+    [mutationKeys.account.POST_REGISTER_FORM],
+    (formData: CreatePendingAccountPayload) => pendingAccountService.create(formData),
+    {
+      onSuccess: () => {
+        resetForm();
 
-      createToast({
-        title: t('genericSuccessToastTitle'),
-        description: t('pendingAccountRegistrationFormSubmissionToastDescription'),
-        variantIntent: 'success',
-      });
+        createToast({
+          title: t('genericSuccessToastTitle'),
+          description: t('pendingAccountRegistrationFormSubmissionToastDescription'),
+          variantIntent: 'success',
+        });
+      },
+      onError: (error: CoreApiError) => {
+        apiClient.errorWrapper(error, setError);
+      },
     },
-    onError: (error: CoreApiError) => {
-      apiClient.errorWrapper(error, setError);
-    },
-  });
+  );
 };

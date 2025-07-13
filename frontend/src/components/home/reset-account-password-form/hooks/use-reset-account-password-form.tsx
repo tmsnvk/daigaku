@@ -28,24 +28,28 @@ import { AccountPasswordResetPayload, LoginPayload } from '@daigaku/common-types
  * @param setError The `react-hook-form` method to set form errors.
  * @return {UseMutationResult<void, CoreApiError, AccountPasswordResetPayload>}
  */
-export const useResetAccountPasswordFormMutation = (
+export const useResetAccountPasswordForm = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<void, CoreApiError, AccountPasswordResetPayload> => {
   const { t } = useTranslation();
 
   const { createToast } = useToastProvider();
 
-  return useCoreApiMutation([mutationKeys.account.POST_RESET_PASSWORD_FORM], accountService.resetPassword, {
-    onSuccess: () => {
-      createToast({
-        title: t('genericSuccessToastTitle'),
-        description: t('resetPasswordRegistrationFormSubmissionToastDescription'),
-        variantIntent: 'success',
-        autoRemoveDelay: 5000,
-      });
+  return useCoreApiMutation(
+    [mutationKeys.account.POST_RESET_PASSWORD_FORM],
+    (formData: AccountPasswordResetPayload) => accountService.resetPassword(formData),
+    {
+      onSuccess: () => {
+        createToast({
+          title: t('genericSuccessToastTitle'),
+          description: t('resetPasswordRegistrationFormSubmissionToastDescription'),
+          variantIntent: 'success',
+          autoRemoveDelay: 5000,
+        });
+      },
+      onError: (error: CoreApiError) => {
+        apiClient.errorWrapper(error, setError);
+      },
     },
-    onError: (error: CoreApiError) => {
-      apiClient.errorWrapper(error, setError);
-    },
-  });
+  );
 };

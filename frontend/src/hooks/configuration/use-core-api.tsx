@@ -22,7 +22,7 @@ import {
 export const useCoreApiQuery = <TData, TError>(
   queryKey: QueryKey,
   queryFn: () => Promise<TData>,
-  options?: UseQueryOptions<TData, TError>,
+  options?: Omit<UseQueryOptions<TData, TError, TData, QueryKey>, 'queryKey' | 'queryFn'>,
 ): UseQueryResult<TData, TError> => {
   return useQuery({
     queryKey,

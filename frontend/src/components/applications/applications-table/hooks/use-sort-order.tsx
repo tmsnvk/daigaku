@@ -5,14 +5,14 @@
  */
 
 /* vendor imports */
-import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 /* configuration, constants imports */
+import { queryKeys } from '@daigaku/constants';
+import { useCoreQueryClient } from '@daigaku/hooks';
 
 /* interface, type imports */
 import { Application } from '@daigaku/common-types';
-import { queryKeys } from 'constants/query-keys.constant';
 
 /**
  * Defines the properties for sorting columns on the /applications page.
@@ -40,7 +40,7 @@ type SortMode = (typeof SortModes)[keyof typeof SortModes];
  * @return {SetSortingMode}
  */
 export const useSortOrder = (data: Array<Application>): SetSortingMode => {
-  const queryClient = useQueryClient();
+  const queryClient = useCoreQueryClient();
 
   const [sortedBy, setSortedBy] = useState<string>('courseName');
   const [sortOrder, setSortOrder] = useState<SortMode>(SortModes.DESCENDING);

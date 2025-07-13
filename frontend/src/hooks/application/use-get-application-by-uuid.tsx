@@ -5,11 +5,12 @@
  */
 
 /* vendor imports */
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 /* logic imports */
 import { CoreApiError } from '@daigaku/errors';
 import { applicationService } from '@daigaku/services';
+import { useCoreApiQuery } from '../configuration/use-core-api';
 
 /* configuration, constants imports */
 import { queryKeys } from '@daigaku/constants';
@@ -29,9 +30,7 @@ export const useGetApplicationByUuid = (
   state: ApplicationResponse | null,
   uuid: string,
 ): UseQueryResult<ApplicationResponse, CoreApiError> => {
-  return useQuery({
-    queryKey: [queryKeys.application.GET_BY_UUID, uuid],
-    queryFn: () => applicationService.findOneByUuid(uuid),
+  return useCoreApiQuery([queryKeys.application.GET_BY_UUID, uuid], () => applicationService.findOneByUuid(uuid), {
     enabled: state === null,
   });
 };

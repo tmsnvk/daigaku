@@ -50,4 +50,3 @@ export const createApplicationSchema = z.object({
 });
 
 export type CreateApplicationSchema = z.infer<typeof createApplicationSchema>;
-export type CreateApplicationSchemaKey = keyof z.infer<typeof createApplicationSchema>;

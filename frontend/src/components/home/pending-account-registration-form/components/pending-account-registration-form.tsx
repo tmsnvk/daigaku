@@ -13,7 +13,8 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useGetInstitutionOptions } from '@daigaku/hooks';
 import { removeRolePrefix } from '@daigaku/utilities';
-import { usePendingAccountRegistrationFormMutation } from '../hooks/use-pending-account-registration-form-mutation.tsx';
+import { usePendingAccountRegistrationForm } from '../hooks/use-pending-account-registration-form.tsx';
+import { useGetPendingAccountRegistrationRoles } from '../hooks/use-get-pending-account-registration-roles.tsx';
 import { PendingAccountRegistrationSchema, pendingAccountRegistrationSchema } from '../schema.ts';
 
 /* component imports */
@@ -32,7 +33,6 @@ import { formTypeButtonLabel } from '../../common/constants.ts';
 /* interface, type imports */
 import { CreatePendingAccountPayload, InstitutionOption, RoleOption } from '@daigaku/common-types';
 import { FormType, FormTypes } from '../../common/types.ts';
-import { useGetPendingAccountRegistrationRoles } from '../hooks/use-get-pending-account-registration-roles.tsx';
 
 /**
  * Defines the component's properties.
@@ -84,7 +84,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
   });
   const { handleSubmit, setError, reset: resetForm } = formMethods;
 
-  const { mutate: registerPendingAccount, isPending: isSubmitting } = usePendingAccountRegistrationFormMutation(
+  const { mutate: registerPendingAccount, isPending: isSubmitting } = usePendingAccountRegistrationForm(
     setError,
     resetForm,
   );

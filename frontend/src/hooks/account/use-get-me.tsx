@@ -5,16 +5,16 @@
  */
 
 /* vendor imports */
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 /* logic imports */
+import { CoreApiError } from '@daigaku/errors';
 import { accountService } from '@daigaku/services';
 import { localStorageUtilities } from '@daigaku/utilities';
-import { CoreApiError } from 'errors/core-api-error';
+import { useCoreApiQuery } from '../configuration/use-core-api';
 
 /* configuration, constants imports */
-import { localStorageKeys } from 'constants/local-storage-keys.constant';
-import { queryKeys } from 'constants/query-keys.constant';
+import { localStorageKeys, queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { LoginResponse } from '@daigaku/common-types';
@@ -29,9 +29,7 @@ import { LoginResponse } from '@daigaku/common-types';
 export const useGetMe = (): UseQueryResult<LoginResponse, CoreApiError> => {
   const authToken: string | null = localStorageUtilities.getObjectById(localStorageKeys.AUTHENTICATION_TOKEN, null);
 
-  return useQuery({
-    queryKey: [queryKeys.account.GET_ME],
-    queryFn: () => accountService.getMe(),
+  return useCoreApiQuery([queryKeys.account.GET_ME], () => accountService.getMe(), {
     enabled: authToken !== null,
   });
 };

@@ -5,11 +5,12 @@
  */
 
 /* vendor imports */
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 /* logic imports */
 import { CoreApiError } from '@daigaku/errors';
 import { countryService } from '@daigaku/services';
+import { useCoreApiQuery } from '../configuration/use-core-api';
 
 /* configuration, constants imports */
 import { queryKeys } from '@daigaku/constants';
@@ -23,8 +24,5 @@ import { CountryOptionResponse } from '@daigaku/common-types';
  * @return {UseQueryResult<Array<CountryOptionResponse>, CoreApiError>}
  */
 export const useGetCountryOptions = (): UseQueryResult<Array<CountryOptionResponse>, CoreApiError> => {
-  return useQuery({
-    queryKey: [queryKeys.country.GET_AS_SELECT_OPTIONS],
-    queryFn: () => countryService.findOptionList(),
-  });
+  return useCoreApiQuery([queryKeys.country.GET_AS_SELECT_OPTIONS], () => countryService.findOptionList());
 };

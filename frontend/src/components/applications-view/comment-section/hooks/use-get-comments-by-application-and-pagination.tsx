@@ -5,10 +5,11 @@
  */
 
 /* vendor imports */
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 /* logic imports */
 import { CoreApiError } from '@daigaku/errors';
+import { useCoreApiQuery } from '@daigaku/hooks';
 import { commentService } from '@daigaku/services';
 
 /* configuration, constants imports */
@@ -29,8 +30,8 @@ export const useGetCommentsByApplicationAndPagination = (
   applicationUuid: string,
   currentPage: number,
 ): UseQueryResult<ApplicationCommentPaginationDataResponse, CoreApiError> => {
-  return useQuery({
-    queryKey: [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
-    queryFn: () => commentService.findPaginatedListByApplicationUuid(applicationUuid, currentPage),
-  });
+  return useCoreApiQuery(
+    [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
+    () => commentService.findPaginatedListByApplicationUuid(applicationUuid, currentPage),
+  );
 };
