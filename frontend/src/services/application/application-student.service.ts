@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from 'utilities/api-client';
 
 /* configuration, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
@@ -85,7 +85,7 @@ interface ApplicationStudentService {
  */
 export const applicationStudentService: ApplicationStudentService = {
   create: (formData: CreateApplicationByStudentPayload): Promise<ApplicationResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationResponse>({
         method: 'POST',
         url: '/api/v1/applications/student',
@@ -94,7 +94,7 @@ export const applicationStudentService: ApplicationStudentService = {
     );
   },
   updateByUuid: (formData: UpdateApplicationByStudentPayload, uuid: string): Promise<ApplicationResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationResponse>({
         method: 'PATCH',
         url: `/api/v1/applications/student/${uuid}`,
@@ -103,7 +103,7 @@ export const applicationStudentService: ApplicationStudentService = {
     );
   },
   toggleSoftDeleteFlag: (uuid: string): Promise<void> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'PATCH',
         url: `/api/v1/applications/student/toggle-soft-delete/${uuid}`,
@@ -111,7 +111,7 @@ export const applicationStudentService: ApplicationStudentService = {
     );
   },
   initiatePdfDownloadRequest: (): Promise<void> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'POST',
         url: '/api/v1/applications/student/initiate/pdf-download',

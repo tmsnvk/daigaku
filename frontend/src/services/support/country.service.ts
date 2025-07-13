@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
@@ -35,7 +35,7 @@ interface CountryService {
  */
 export const countryService: CountryService = {
   findOptionList: (): Promise<Array<CountryOptionResponse>> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<CountryOptionResponse>>({
         method: 'GET',
         url: '/api/v1/countries/options',

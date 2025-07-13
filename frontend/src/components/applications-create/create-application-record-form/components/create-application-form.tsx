@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetUniversityOptionsByCountryUuid } from '@daigaku/hooks';
 import { joinTw } from '@daigaku/utilities';
 import { useCountrySelection } from '../hooks/use-country-selection.tsx';
-import { useCreateApplication } from '../hooks/use-create-application.tsx';
+import { useCreateApplicationForm } from '../hooks/use-create-application-form.tsx';
 import { CreateApplicationSchema, createApplicationSchema } from '../schema.ts';
 
 /* component imports */
@@ -45,7 +45,7 @@ interface CreateApplicationRecordFormProps {
  *
  * @return {JSX.Element}
  */
-export const CreateApplicationRecordForm = ({ countryOptions }: CreateApplicationRecordFormProps): JSX.Element => {
+export const CreateApplicationForm = ({ countryOptions }: CreateApplicationRecordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
   const { handleCountrySelection, resetCountrySelection, isCountrySelected, selectedCountryUuid } =
@@ -72,7 +72,7 @@ export const CreateApplicationRecordForm = ({ countryOptions }: CreateApplicatio
 
   const { handleSubmit, setError, reset } = methods;
 
-  const { mutate: createApplication, isPending: isSubmitting } = useCreateApplication(
+  const { mutate: createApplication, isPending: isSubmitting } = useCreateApplicationForm(
     setError,
     resetCountrySelection,
     reset,

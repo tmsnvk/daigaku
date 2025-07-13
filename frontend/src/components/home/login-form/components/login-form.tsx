@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useLoginFormMutation } from '../hooks/use-login-form-mutation.tsx';
+import { useLoginForm } from '../hooks/use-login-form.tsx';
 import { LoginSchema, loginSchema } from '../schema.ts';
 
 /* component imports */
@@ -64,7 +64,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
 
   const { handleSubmit, setError } = formMethods;
 
-  const { mutate: logIn, isPending: isSubmitting } = useLoginFormMutation(setError);
+  const { mutate: logIn, isPending: isSubmitting } = useLoginForm(setError);
 
   const onFormSubmit = handleSubmit((formData: LoginSchema) => {
     logIn(formData as LoginPayload);

@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { axiosConfig } from '@daigaku/configuration';
@@ -37,7 +37,7 @@ interface PendingAccountService {
  */
 export const pendingAccountService: PendingAccountService = {
   create: (formData: CreatePendingAccountPayload): Promise<void> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfig.request<void>({
         method: 'POST',
         url: '/api/v1/pending-accounts/create',

@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
@@ -36,7 +36,7 @@ interface UniversityService {
  */
 export const universityService: UniversityService = {
   findOptionListByCountryUuid: (countryUuid: string): Promise<Array<UniversityOptionResponse>> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<UniversityOptionResponse>>({
         method: 'GET',
         url: `/api/v1/universities/options/${countryUuid}`,

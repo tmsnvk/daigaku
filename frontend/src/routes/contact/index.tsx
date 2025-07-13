@@ -10,10 +10,10 @@ import { JSX } from 'react';
 
 const PATH = '/contact/';
 
-const ContactIndexComponent = (): JSX.Element => {
+const RouteComponent = (): JSX.Element => {
   return <div>Hello contact page!</div>;
 };
 
 export const Route = createFileRoute(PATH)({
-  component: ContactIndexComponent,
+  component: RouteComponent,
 });

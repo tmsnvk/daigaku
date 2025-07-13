@@ -23,7 +23,7 @@ const routeApi = getRouteApi(PATH);
  *
  * @returns {JSX.Element}
  */
-const DashboardIndexComponent = (): JSX.Element => {
+const RouteComponent = (): JSX.Element => {
   const { dashboardStatistics } = routeApi.useLoaderData();
 
   const { state } = useAuthenticationProvider();
@@ -37,7 +37,7 @@ const DashboardIndexComponent = (): JSX.Element => {
 };
 
 export const Route = createFileRoute(PATH)({
-  component: DashboardIndexComponent,
+  component: RouteComponent,
   loader: async ({ context }) => {
     const contextRole = context.user?.role;
     const accountRole = contextRole ? getAccountRoleResource(contextRole) : (null as never);

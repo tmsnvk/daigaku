@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { axiosConfig } from '@daigaku/configuration';
@@ -33,7 +33,7 @@ interface RoleService {
  */
 export const roleService: RoleService = {
   fetchStudentAndMentorOptions: (): Promise<Array<RoleOptionResponse>> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfig.request<Array<RoleOptionResponse>>({
         method: 'GET',
         url: '/api/v1/roles/student-and-mentor-options',

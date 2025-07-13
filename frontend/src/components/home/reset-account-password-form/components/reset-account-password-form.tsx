@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useResetAccountPasswordFormMutation } from '../hooks/use-reset-account-password-form-mutation.tsx';
+import { useResetAccountPasswordForm } from '../hooks/use-reset-account-password-form.tsx';
 import { ResetAccountPasswordSchema, resetAccountPasswordSchema } from '../schema.ts';
 
 /* component imports */
@@ -58,7 +58,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
 
   const { handleSubmit, setError } = formMethods;
 
-  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordFormMutation(setError);
+  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordForm(setError);
 
   const onFormSubmit = handleSubmit((formData: ResetAccountPasswordSchema) => {
     resetAccountPassword(formData as AccountPasswordResetPayload);

@@ -4,7 +4,7 @@
  * @author tmsnvk
  */
 
-import { apiClientWrapper } from './apiClientWrapper.ts';
+import { apiClient } from './api-client.ts';
 import { getCurrentYear } from './date-formatters.ts';
 import { generateSimpleId } from './generate-simple-id.ts';
 import { getAccountRoleResource } from './get-account-role-resource.ts';
@@ -16,7 +16,7 @@ import { removeRolePrefix } from './remove-role-prefix';
 import { isAuthTokenExpired } from './token.ts';
 
 export {
-  apiClientWrapper,
+  apiClient,
   generateSimpleId,
   getAccountRoleResource,
   getCurrentYear,

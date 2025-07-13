@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
@@ -33,7 +33,7 @@ interface InstitutionService {
  */
 export const institutionService: InstitutionService = {
   findOptionList: (): Promise<Array<InstitutionOptionResponse>> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<InstitutionOptionResponse>>({
         method: 'GET',
         url: '/api/v1/institutions/options',
