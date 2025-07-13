@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { axiosConfig, axiosConfigWithAuth } from '@daigaku/configuration';
@@ -64,7 +64,7 @@ interface AccountService {
  */
 export const accountService: AccountService = {
   getMe: (): Promise<LoginResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<LoginResponse>({
         method: 'GET',
         url: '/api/v1/accounts/me',
@@ -72,7 +72,7 @@ export const accountService: AccountService = {
     );
   },
   logIn: (formData: LoginPayload): Promise<LoginResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfig.request<LoginResponse>({
         method: 'POST',
         url: '/api/v1/accounts/log-in',
@@ -81,7 +81,7 @@ export const accountService: AccountService = {
     );
   },
   resetPassword: (formData: AccountPasswordResetPayload): Promise<void> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfig.request<void>({
         method: 'POST',
         url: '/api/v1/accounts/reset-password',

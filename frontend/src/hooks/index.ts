@@ -10,6 +10,7 @@ import { useGetApplications } from './application/use-get-applications.tsx';
 import { useModalToggle } from './components/use-modal-toggle.tsx';
 import { useRenderModal } from './components/use-render-modal.tsx';
 import { useCoreQueryClient } from './configuration/use-core-query-client.tsx';
+import { useCoreApiMutation, useCoreApiQuery } from './core/use-core-api.tsx';
 import { useFieldValidationError } from './form/use-field-validation-error.tsx';
 import { useGetCountryOptions } from './form/use-get-country-options.tsx';
 import { useGetInstitutionOptions } from './form/use-get-institution-options.tsx';
@@ -17,6 +18,8 @@ import { useGetUniversityOptionsByCountryUuid } from './form/use-get-university-
 import { useMobileView } from './utility/use-mobile-view.ts';
 
 export {
+  useCoreApiMutation,
+  useCoreApiQuery,
   useCoreQueryClient,
   useFieldValidationError,
   useGetApplicationByUuid,

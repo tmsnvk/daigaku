@@ -5,21 +5,22 @@
  */
 
 /* vendor imports */
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { UseMutationResult } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
+import { CoreApiError } from '@daigaku/errors';
+import { useCoreApiMutation } from '@daigaku/hooks';
 import { useToastProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
-import { ResetAccountPasswordSchemaKey } from '../schema.ts';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { AccountPasswordResetPayload, InputViolation, LoginPayload } from '@daigaku/common-types';
+import { AccountPasswordResetPayload, LoginPayload } from '@daigaku/common-types';
 
 /**
  * Manages the password reset form submission.
@@ -34,11 +35,7 @@ export const useResetAccountPasswordFormMutation = (
 
   const { createToast } = useToastProvider();
 
-  return useMutation({
-    mutationKey: [mutationKeys.account.POST_RESET_PASSWORD_FORM],
-    mutationFn: (formData: AccountPasswordResetPayload) => {
-      return accountService.resetPassword(formData);
-    },
+  return useCoreApiMutation([mutationKeys.account.POST_RESET_PASSWORD_FORM], accountService.resetPassword, {
     onSuccess: () => {
       createToast({
         title: t('genericSuccessToastTitle'),
@@ -48,15 +45,7 @@ export const useResetAccountPasswordFormMutation = (
       });
     },
     onError: (error: CoreApiError) => {
-      if (error instanceof MethodArgumentNotValidError) {
-        error.coreError?.errors.forEach((errorDetail: InputViolation) => {
-          if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as ResetAccountPasswordSchemaKey, {
-              message: errorDetail.errorMessage,
-            });
-          }
-        });
-      }
+      apiClient.errorWrapper(error, setError);
     },
   });
 };

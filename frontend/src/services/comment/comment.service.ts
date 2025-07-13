@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from 'utilities/api-client';
 
 /* configuration, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
@@ -65,7 +65,7 @@ export const commentService: CommentService = {
     applicationUuid: string,
     currentPage: number,
   ): Promise<ApplicationCommentPaginationDataResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationCommentPaginationDataResponse>({
         method: 'GET',
         url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
@@ -76,7 +76,7 @@ export const commentService: CommentService = {
     formData: CreateApplicationCommentPayload,
     applicationUuid: string,
   ): Promise<ApplicationCommentResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationCommentResponse>({
         method: 'POST',
         url: `/api/v1/comments/${applicationUuid}`,

@@ -24,4 +24,3 @@ export const loginSchema = z.object({
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
-export type LoginSchemaKey = keyof z.infer<typeof loginSchema>;

@@ -5,20 +5,21 @@
  */
 
 /* vendor imports */
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { UseMutationResult } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 
 /* logic imports */
-import { CoreApiError, MethodArgumentNotValidError, UnauthorizedError } from '@daigaku/errors';
+import { CoreApiError } from '@daigaku/errors';
+import { useCoreApiMutation } from '@daigaku/hooks';
 import { useAuthenticationProvider } from '@daigaku/providers';
 import { accountService } from '@daigaku/services';
-import { LoginSchemaKey } from '../schema.ts';
+import { apiClient } from '@daigaku/utilities';
 
 /* configuration, constants imports */
 import { mutationKeys } from '@daigaku/constants';
 
 /* interface, type imports */
-import { CoreInputErrorResponse, InputViolation, LoginPayload, LoginResponse } from '@daigaku/common-types';
+import { LoginPayload, LoginResponse } from '@daigaku/common-types';
 
 /**
  * Manages the login form submission.
@@ -31,28 +32,12 @@ export const useLoginFormMutation = (
 ): UseMutationResult<LoginResponse, CoreApiError, LoginPayload> => {
   const { logIn } = useAuthenticationProvider();
 
-  return useMutation({
-    mutationKey: [mutationKeys.account.POST_LOGIN_FORM],
-    mutationFn: (formData: LoginPayload) => {
-      return accountService.logIn(formData);
-    },
+  return useCoreApiMutation([mutationKeys.account.POST_LOGIN_FORM], accountService.logIn, {
     onSuccess: (response: LoginResponse) => {
       logIn(response);
     },
     onError: (error: CoreApiError) => {
-      const errorResponse: CoreInputErrorResponse | undefined = error.coreError;
-
-      if (error instanceof MethodArgumentNotValidError) {
-        errorResponse?.errors.forEach((errorDetail: InputViolation) => {
-          if (errorDetail.fieldName) {
-            setError(errorDetail.fieldName as LoginSchemaKey, { message: errorDetail.errorMessage });
-          }
-        });
-      }
-
-      if (error instanceof UnauthorizedError) {
-        setError('root', { message: errorResponse?.errors[0].errorMessage });
-      }
+      apiClient.errorWrapper(error, setError);
     },
   });
 };

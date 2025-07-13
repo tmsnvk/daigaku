@@ -5,7 +5,7 @@
  */
 
 /* logic imports */
-import { apiClientWrapper } from '@daigaku/utilities';
+import { apiClient } from 'utilities/api-client';
 
 /* configuration, constants imports */
 import { axiosConfigWithAuth } from '@daigaku/configuration';
@@ -62,7 +62,7 @@ interface ApplicationService {
  */
 export const applicationService: ApplicationService = {
   findOneByUuid: (uuid: string): Promise<ApplicationResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationResponse>({
         method: 'GET',
         url: `/api/v1/applications/${uuid}`,
@@ -70,7 +70,7 @@ export const applicationService: ApplicationService = {
     );
   },
   findListByAccountRole: (accountRole: string): Promise<Array<ApplicationResponse>> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<ApplicationResponse>>({
         method: 'GET',
         url: `/api/v1/applications/${accountRole}`,
@@ -78,7 +78,7 @@ export const applicationService: ApplicationService = {
     );
   },
   fetchDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
-    return apiClientWrapper(() =>
+    return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<StudentDashboardStatisticsResponse>({
         method: 'GET',
         url: `/api/v1/applications/${accountRole}/dashboard-statistics`,
