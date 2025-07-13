@@ -38,14 +38,13 @@ export const usePendingAccountRegistrationFormMutation = (
 
   return useCoreApiMutation([mutationKeys.account.POST_REGISTER_FORM], pendingAccountService.create, {
     onSuccess: () => {
+      resetForm();
+
       createToast({
         title: t('genericSuccessToastTitle'),
         description: t('pendingAccountRegistrationFormSubmissionToastDescription'),
         variantIntent: 'success',
       });
-    },
-    onSettled: () => {
-      resetForm();
     },
     onError: (error: CoreApiError) => {
       apiClient.errorWrapper(error, setError);

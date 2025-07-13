@@ -14,8 +14,8 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as ContactIndexRouteImport } from './routes/contact/index'
 import { Route as ApplicationsIndexRouteImport } from './routes/applications/index'
 import { Route as ApplicationsStudentCreateRouteImport } from './routes/applications/student/create'
-import { Route as ApplicationsStudentViewApplicationIdRouteImport } from './routes/applications/student/view.$applicationId'
-import { Route as ApplicationsStudentEditApplicationIdRouteImport } from './routes/applications/student/edit.$applicationId'
+import { Route as ApplicationsEditApplicationIdRouteImport } from './routes/applications/edit/$applicationId'
+import { Route as ApplicationsStudentApplicationIdViewRouteImport } from './routes/applications/student/$applicationId.view'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -43,16 +43,16 @@ const ApplicationsStudentCreateRoute =
     path: '/applications/student/create',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApplicationsStudentViewApplicationIdRoute =
-  ApplicationsStudentViewApplicationIdRouteImport.update({
-    id: '/applications/student/view/$applicationId',
-    path: '/applications/student/view/$applicationId',
+const ApplicationsEditApplicationIdRoute =
+  ApplicationsEditApplicationIdRouteImport.update({
+    id: '/applications/edit/$applicationId',
+    path: '/applications/edit/$applicationId',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApplicationsStudentEditApplicationIdRoute =
-  ApplicationsStudentEditApplicationIdRouteImport.update({
-    id: '/applications/student/edit/$applicationId',
-    path: '/applications/student/edit/$applicationId',
+const ApplicationsStudentApplicationIdViewRoute =
+  ApplicationsStudentApplicationIdViewRouteImport.update({
+    id: '/applications/student/$applicationId/view',
+    path: '/applications/student/$applicationId/view',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -61,18 +61,18 @@ export interface FileRoutesByFullPath {
   '/applications': typeof ApplicationsIndexRoute
   '/contact': typeof ContactIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/applications/edit/$applicationId': typeof ApplicationsEditApplicationIdRoute
   '/applications/student/create': typeof ApplicationsStudentCreateRoute
-  '/applications/student/edit/$applicationId': typeof ApplicationsStudentEditApplicationIdRoute
-  '/applications/student/view/$applicationId': typeof ApplicationsStudentViewApplicationIdRoute
+  '/applications/student/$applicationId/view': typeof ApplicationsStudentApplicationIdViewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/applications': typeof ApplicationsIndexRoute
   '/contact': typeof ContactIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/applications/edit/$applicationId': typeof ApplicationsEditApplicationIdRoute
   '/applications/student/create': typeof ApplicationsStudentCreateRoute
-  '/applications/student/edit/$applicationId': typeof ApplicationsStudentEditApplicationIdRoute
-  '/applications/student/view/$applicationId': typeof ApplicationsStudentViewApplicationIdRoute
+  '/applications/student/$applicationId/view': typeof ApplicationsStudentApplicationIdViewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,9 +80,9 @@ export interface FileRoutesById {
   '/applications/': typeof ApplicationsIndexRoute
   '/contact/': typeof ContactIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/applications/edit/$applicationId': typeof ApplicationsEditApplicationIdRoute
   '/applications/student/create': typeof ApplicationsStudentCreateRoute
-  '/applications/student/edit/$applicationId': typeof ApplicationsStudentEditApplicationIdRoute
-  '/applications/student/view/$applicationId': typeof ApplicationsStudentViewApplicationIdRoute
+  '/applications/student/$applicationId/view': typeof ApplicationsStudentApplicationIdViewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,27 +91,27 @@ export interface FileRouteTypes {
     | '/applications'
     | '/contact'
     | '/dashboard'
+    | '/applications/edit/$applicationId'
     | '/applications/student/create'
-    | '/applications/student/edit/$applicationId'
-    | '/applications/student/view/$applicationId'
+    | '/applications/student/$applicationId/view'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/applications'
     | '/contact'
     | '/dashboard'
+    | '/applications/edit/$applicationId'
     | '/applications/student/create'
-    | '/applications/student/edit/$applicationId'
-    | '/applications/student/view/$applicationId'
+    | '/applications/student/$applicationId/view'
   id:
     | '__root__'
     | '/'
     | '/applications/'
     | '/contact/'
     | '/dashboard/'
+    | '/applications/edit/$applicationId'
     | '/applications/student/create'
-    | '/applications/student/edit/$applicationId'
-    | '/applications/student/view/$applicationId'
+    | '/applications/student/$applicationId/view'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,9 +119,9 @@ export interface RootRouteChildren {
   ApplicationsIndexRoute: typeof ApplicationsIndexRoute
   ContactIndexRoute: typeof ContactIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  ApplicationsEditApplicationIdRoute: typeof ApplicationsEditApplicationIdRoute
   ApplicationsStudentCreateRoute: typeof ApplicationsStudentCreateRoute
-  ApplicationsStudentEditApplicationIdRoute: typeof ApplicationsStudentEditApplicationIdRoute
-  ApplicationsStudentViewApplicationIdRoute: typeof ApplicationsStudentViewApplicationIdRoute
+  ApplicationsStudentApplicationIdViewRoute: typeof ApplicationsStudentApplicationIdViewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -161,18 +161,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApplicationsStudentCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/applications/student/view/$applicationId': {
-      id: '/applications/student/view/$applicationId'
-      path: '/applications/student/view/$applicationId'
-      fullPath: '/applications/student/view/$applicationId'
-      preLoaderRoute: typeof ApplicationsStudentViewApplicationIdRouteImport
+    '/applications/edit/$applicationId': {
+      id: '/applications/edit/$applicationId'
+      path: '/applications/edit/$applicationId'
+      fullPath: '/applications/edit/$applicationId'
+      preLoaderRoute: typeof ApplicationsEditApplicationIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/applications/student/edit/$applicationId': {
-      id: '/applications/student/edit/$applicationId'
-      path: '/applications/student/edit/$applicationId'
-      fullPath: '/applications/student/edit/$applicationId'
-      preLoaderRoute: typeof ApplicationsStudentEditApplicationIdRouteImport
+    '/applications/student/$applicationId/view': {
+      id: '/applications/student/$applicationId/view'
+      path: '/applications/student/$applicationId/view'
+      fullPath: '/applications/student/$applicationId/view'
+      preLoaderRoute: typeof ApplicationsStudentApplicationIdViewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -183,11 +183,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApplicationsIndexRoute: ApplicationsIndexRoute,
   ContactIndexRoute: ContactIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  ApplicationsEditApplicationIdRoute: ApplicationsEditApplicationIdRoute,
   ApplicationsStudentCreateRoute: ApplicationsStudentCreateRoute,
-  ApplicationsStudentEditApplicationIdRoute:
-    ApplicationsStudentEditApplicationIdRoute,
-  ApplicationsStudentViewApplicationIdRoute:
-    ApplicationsStudentViewApplicationIdRoute,
+  ApplicationsStudentApplicationIdViewRoute:
+    ApplicationsStudentApplicationIdViewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

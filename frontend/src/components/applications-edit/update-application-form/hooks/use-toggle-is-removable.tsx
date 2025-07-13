@@ -64,7 +64,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
 
       setShouldBeRemoved(!shouldBeRemoved);
 
-      history.replaceState('', `/applications/view/${applicationUuid}`);
+      history.replaceState('', `/applications/student/view/${applicationUuid}`);
     },
     onError: () => {
       setErrorMessage(t('unexpectedGlobalError'));

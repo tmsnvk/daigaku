@@ -5,12 +5,13 @@
  */
 
 /* vendor imports */
-import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
+import { UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import { UseFormSetError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { ConstraintViolationError, CoreApiError, MethodArgumentNotValidError } from '@daigaku/errors';
+import { useCoreApiMutation } from '@daigaku/hooks';
 import { useToastProvider } from '@daigaku/providers';
 import { applicationStudentService } from '@daigaku/services';
 import { CreateApplicationSchemaKey } from '../schema.ts';
@@ -29,7 +30,7 @@ import { ApplicationResponse, CreateApplicationByStudentPayload, InputViolation 
  * @param reset A `react-hook-form` method to reset the entire form.
  * @return {UseMutationResult<ApplicationResponse, CoreApiError, CreateApplicationByStudentPayload>}
  */
-export const useCreateApplication = (
+export const useCreateApplicationFormMutation = (
   setError: UseFormSetError<CreateApplicationByStudentPayload>,
   resetCountrySelection: () => void,
   reset: () => void,
@@ -39,22 +40,9 @@ export const useCreateApplication = (
 
   const { createToast } = useToastProvider();
 
-  return useMutation({
-    mutationKey: [mutationKeys.application.POST_BY_STUDENT],
-    mutationFn: (formData: CreateApplicationByStudentPayload) => {
-      return applicationStudentService.create(formData);
-    },
-    onSuccess: (response: ApplicationResponse) => {
-      queryClient.setQueryData<Array<ApplicationResponse>>(
-        [queryKeys.application.GET_ALL_BY_ROLE],
-        (applications: Array<ApplicationResponse> | undefined) => {
-          if (!applications) {
-            return;
-          }
-
-          return [...applications, response];
-        },
-      );
+  return useCoreApiMutation([mutationKeys.application.POST_BY_STUDENT], applicationStudentService.create, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.application.GET_ALL_BY_ROLE] });
 
       resetCountrySelection();
       reset();

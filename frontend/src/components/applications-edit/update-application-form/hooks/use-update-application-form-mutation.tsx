@@ -54,19 +54,9 @@ export const useUpdateApplicationFormMutation = (
       return applicationStudentService.updateByUuid(formData, applicationUuid);
     },
     onSuccess: (response: ApplicationResponse) => {
-      queryClient.setQueryData<Array<ApplicationResponse>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
-        if (!applications) {
-          return;
-        }
+      queryClient.invalidateQueries({ queryKey: [queryKeys.application.GET_ALL_BY_ROLE] });
 
-        const filteredList: Array<ApplicationResponse> = applications.filter(
-          (application: ApplicationResponse) => application.uuid !== response.uuid,
-        );
-
-        return [...filteredList, response];
-      });
-
-      history.replaceState(response, '', `/applications/edit/${response.uuid}`);
+      history.replaceState(response, '', `/applications/${response.uuid}/student/edit`);
 
       createToast({
         title: t('genericSuccessToastTitle'),

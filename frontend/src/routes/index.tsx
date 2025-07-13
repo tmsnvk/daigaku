@@ -17,10 +17,10 @@ const PATH = '/';
  *
  * @returns {JSX.Element}
  */
-const HomePageComponent = (): JSX.Element => {
+const RouteComponent = (): JSX.Element => {
   return <HomeIndex />;
 };
 
 export const Route = createFileRoute(PATH)({
-  component: HomePageComponent,
+  component: RouteComponent,
 });

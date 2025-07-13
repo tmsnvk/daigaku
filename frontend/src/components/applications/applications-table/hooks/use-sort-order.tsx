@@ -9,10 +9,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 /* configuration, constants imports */
-import { queryKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { Application } from '@daigaku/common-types';
+import { queryKeys } from 'constants/query-keys.constant';
 
 /**
  * Defines the properties for sorting columns on the /applications page.

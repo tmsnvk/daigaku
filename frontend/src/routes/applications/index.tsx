@@ -22,14 +22,14 @@ const routeApi = getRouteApi(PATH);
  *
  * @returns {JSX.Element}
  */
-const ApplicationsIndexComponent = (): JSX.Element => {
+const RouteComponent = (): JSX.Element => {
   const { initialApplications } = routeApi.useLoaderData();
 
   return <ApplicationsIndex initialApplications={initialApplications} />;
 };
 
 export const Route = createFileRoute(PATH)({
-  component: ApplicationsIndexComponent,
+  component: RouteComponent,
   loader: async ({ context }) => {
     const contextRole = context.user?.role;
     const accountRole = contextRole ? getAccountRoleResource(contextRole) : (null as never);

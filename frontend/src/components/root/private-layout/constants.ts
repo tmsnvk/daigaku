@@ -31,7 +31,7 @@ export const sharedNavigationRoutes: Array<NavigationRouteItem> = [
 export const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
   [UserRoles.ROLE_STUDENT]: [
     {
-      targetUrlString: '/applications/create',
+      targetUrlString: '/applications/student/create',
       icon: iconLibrary.faFileCirclePlus,
       label: TranslationKey.NEW_APPLICATION,
     },

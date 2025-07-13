@@ -34,6 +34,6 @@ export const useGetApplications = (
     queryKey: [queryKeys.application.GET_ALL_BY_ROLE],
     queryFn: () => applicationService.findListByAccountRole(accountRole),
     enabled: !!accountRole,
-    initialData: initialApplications,
+    placeholderData: initialApplications,
   });
 };
