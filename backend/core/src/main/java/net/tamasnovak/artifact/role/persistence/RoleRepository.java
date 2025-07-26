@@ -16,6 +16,7 @@ import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.role.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * JPA repository for {@link PendingAccount} entities.
@@ -29,16 +30,12 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
    *
    * @return A list of {@link RoleOptionView}.
    */
-  @Query(value =
-    """
+  @Query(value = """
         SELECT
           uuid,
           name
-        FROM
-          roles
-        WHERE
-          name = 'ROLE_STUDENT' OR
-          name = 'ROLE_MENTOR'
-      """, nativeQuery = true)
-  List<RoleOptionView> findStudentAndMentorRoleOptions();
+        FROM roles
+        WHERE name IN (:names)
+    """, nativeQuery = true)
+  List<RoleOptionView> findRoleOptionsByNames(@Param("names") List<String> names);
 }

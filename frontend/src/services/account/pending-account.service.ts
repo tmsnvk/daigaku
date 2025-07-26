@@ -40,7 +40,7 @@ export const pendingAccountService: PendingAccountService = {
     return apiClient.serviceWrapper(() =>
       axiosConfig.request<void>({
         method: 'POST',
-        url: '/api/v1/pending-accounts/create',
+        url: '/api/v1/pending-accounts',
         data: formData,
       }),
     );

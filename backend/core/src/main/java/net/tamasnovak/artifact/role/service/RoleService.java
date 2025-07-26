@@ -33,5 +33,5 @@ public interface RoleService {
    *
    * @return A list of {@link RoleSelectOption}.
    */
-  List<RoleSelectOption> findStudentAndMentorSelectOptions();
+  List<RoleSelectOption> findOptionsByTypes(List<String> types);
 }

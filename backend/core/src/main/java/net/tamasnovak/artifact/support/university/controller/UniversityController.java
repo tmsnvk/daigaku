@@ -17,8 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,9 +40,9 @@ public class UniversityController {
    *
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link UniversitySelectOption} object.
    */
-  @GetMapping(value = "/options/{countryUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<UniversitySelectOption>> findOptionListByCountryUuid(
-    @ValidUuid @PathVariable("countryUuid") final String countryUuid) {
+    @ValidUuid @RequestParam(value = "countryUuid") final String countryUuid) {
     final List<UniversitySelectOption> response = universityService.findUniversitiesByCountryUuid(UUID.fromString(countryUuid));
 
     return ResponseEntity.status(HttpStatus.OK)

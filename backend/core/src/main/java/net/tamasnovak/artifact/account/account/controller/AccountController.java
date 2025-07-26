@@ -10,7 +10,7 @@ import jakarta.validation.Valid;
 import net.tamasnovak.artifact.account.account.dto.AuthContextResponse;
 import net.tamasnovak.artifact.account.account.dto.LoginPayload;
 import net.tamasnovak.artifact.account.account.dto.LoginResponse;
-import net.tamasnovak.artifact.account.account.dto.ResetPasswordPayload;
+import net.tamasnovak.artifact.account.account.dto.PasswordResetPayload;
 import net.tamasnovak.artifact.account.account.service.AccountService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ public class AccountController {
    * @param requestBody The login request body.
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link LoginResponse} object.
    */
-  @PostMapping(value = "/log-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<LoginResponse> logIn(@Valid @RequestBody final LoginPayload requestBody) {
     final Authentication authentication = authFacade.authenticateUser(requestBody.email(), requestBody.password());
     final LoginResponse response = accountService.fetchLoginResponse(requestBody, authentication);
@@ -74,13 +74,13 @@ public class AccountController {
   }
 
   /**
-   * The {@link Valid} annotation validates the {@link ResetPasswordPayload} object as per its validation criteria.
+   * The {@link Valid} annotation validates the {@link PasswordResetPayload} object as per its validation criteria.
    *
    * @param requestBody The login request body.
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
    */
-  @PostMapping(value = "reset-password", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HttpStatus> resetPassword(@Valid @RequestBody final ResetPasswordPayload requestBody) {
+  @PostMapping(value = "password-reset", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<HttpStatus> resetPassword(@Valid @RequestBody final PasswordResetPayload requestBody) {
 
     return ResponseEntity.status(HttpStatus.OK)
                          .build();

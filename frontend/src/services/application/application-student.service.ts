@@ -23,6 +23,19 @@ import {
  */
 interface ApplicationStudentService {
   /**
+   * Fetches a list of applications accessible based on the user's authorization role.
+   *
+   * @param accountRole The user's authorization role.
+   * @return {Promise<Array<ApplicationResponse>>}
+   *
+   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
+   *   the user does not have a valid token.
+   * @throws {ServerError} If the server fails unexpectedly.
+   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
+   */
+  findAll: () => Promise<Array<ApplicationResponse>>;
+
+  /**
    * Sends a POST request to save application data in the database.
    *
    * @param formData The application form data object to be saved.
@@ -84,6 +97,14 @@ interface ApplicationStudentService {
  * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
  */
 export const applicationStudentService: ApplicationStudentService = {
+  findAll: (): Promise<Array<ApplicationResponse>> => {
+    return apiClient.serviceWrapper(() =>
+      axiosConfigWithAuth.request<Array<ApplicationResponse>>({
+        method: 'GET',
+        url: '/api/v1/applications/student',
+      }),
+    );
+  },
   create: (formData: CreateApplicationByStudentPayload): Promise<ApplicationResponse> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationResponse>({
@@ -106,7 +127,7 @@ export const applicationStudentService: ApplicationStudentService = {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'PATCH',
-        url: `/api/v1/applications/student/toggle-soft-delete/${uuid}`,
+        url: `/api/v1/applications/student/${uuid}/soft-delete`,
       }),
     );
   },
@@ -114,7 +135,7 @@ export const applicationStudentService: ApplicationStudentService = {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'POST',
-        url: '/api/v1/applications/student/initiate/pdf-download',
+        url: '/api/v1/applications/student/download/applications',
       }),
     );
   },

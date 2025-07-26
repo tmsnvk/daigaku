@@ -31,19 +31,6 @@ interface ApplicationService {
   findOneByUuid: (uuid: string) => Promise<ApplicationResponse>;
 
   /**
-   * Fetches a list of applications accessible based on the user's authorization role.
-   *
-   * @param accountRole The user's authorization role.
-   * @return {Promise<Array<ApplicationResponse>>}
-   *
-   * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
-   *   the user does not have a valid token.
-   * @throws {ServerError} If the server fails unexpectedly.
-   * @throws {UnexpectedError} For any non-Axios or unrecognized error.
-   */
-  findListByAccountRole: (accountRole: string) => Promise<Array<ApplicationResponse>>;
-
-  /**
    * Retrieves dashboard statistics relevant to the user's authorization role.
    *
    * @param accountRole The user's authorization role.
@@ -69,19 +56,12 @@ export const applicationService: ApplicationService = {
       }),
     );
   },
-  findListByAccountRole: (accountRole: string): Promise<Array<ApplicationResponse>> => {
-    return apiClient.serviceWrapper(() =>
-      axiosConfigWithAuth.request<Array<ApplicationResponse>>({
-        method: 'GET',
-        url: `/api/v1/applications/${accountRole}`,
-      }),
-    );
-  },
   fetchDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<StudentDashboardStatisticsResponse>({
         method: 'GET',
-        url: `/api/v1/applications/${accountRole}/dashboard-statistics`,
+        url: `/api/v1/applications/statistics/dashboard`,
+        params: { role: accountRole },
       }),
     );
   },

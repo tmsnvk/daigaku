@@ -11,11 +11,9 @@ import java.util.UUID;
 
 import jakarta.validation.Valid;
 import net.tamasnovak.artifact.account.account.entity.Account;
-import net.tamasnovak.artifact.accounttype.student.entity.Student;
 import net.tamasnovak.artifact.application.common.dto.ApplicationData;
 import net.tamasnovak.artifact.application.common.entity.Application;
 import net.tamasnovak.artifact.application.studentapplication.dto.CreateApplicationByStudentPayload;
-import net.tamasnovak.artifact.application.studentapplication.dto.StudentDashboardDetails;
 import net.tamasnovak.artifact.application.studentapplication.dto.UpdateApplicationByStudentPayload;
 import net.tamasnovak.artifact.application.studentapplication.service.StudentApplicationService;
 import net.tamasnovak.security.authentication.facade.AuthenticationFacade;
@@ -89,7 +87,7 @@ public class StudentApplicationController {
    */
   @PatchMapping(value = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplicationData> updateByUuid(
-    @ValidUuid @PathVariable("uuid") final String uuid, @Valid @RequestBody final UpdateApplicationByStudentPayload requestBody) {
+    @PathVariable("uuid") @ValidUuid final String uuid, @RequestBody @Valid final UpdateApplicationByStudentPayload requestBody) {
     final Account account = authenticationFacade.getAuthenticatedAccount();
     final ApplicationData response = studentApplicationService.updateApplicationAndFetchByUuid(UUID.fromString(uuid), requestBody, account);
 
@@ -104,8 +102,8 @@ public class StudentApplicationController {
    * @param uuid The application's uuid.
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
    */
-  @PatchMapping(value = "/toggle-soft-delete/{uuid}")
-  public ResponseEntity<HttpStatus> toggleSoftDeleteFlag(@ValidUuid @PathVariable("uuid") final String uuid) {
+  @PatchMapping(value = "/{uuid}/soft-delete")
+  public ResponseEntity<HttpStatus> toggleSoftDeleteFlag(@PathVariable("uuid") @ValidUuid final String uuid) {
     UUID accountUuid = authenticationFacade.retrieveAuthAccountUuid();
     studentApplicationService.toggleIsRemovableByApplicationUuid(UUID.fromString(uuid), accountUuid);
 
@@ -114,25 +112,11 @@ public class StudentApplicationController {
   }
 
   /**
-   * Fetches the authenticated {@link Student} account's {@link StudentDashboardDetails} object.
-   *
-   * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and a {@link StudentDashboardDetails} object.
-   */
-  @GetMapping(value = "/dashboard-statistics", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<StudentDashboardDetails> fetchDashboardStatistics() {
-    final Account account = authenticationFacade.getAuthenticatedAccount();
-    final StudentDashboardDetails response = studentApplicationService.findStudentDashboardDataByAccount(account);
-
-    return ResponseEntity.status(HttpStatus.OK)
-                         .body(response);
-  }
-
-  /**
    * Initiates the authenticated user's request to download their submitted {@link Application} objects in .pdf format.
    *
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
    */
-  @PostMapping(value = "/initiate/pdf-download")
+  @PostMapping(value = "/download/applications")
   public ResponseEntity<HttpStatus> initiatePdfDownloadRequest() {
     final UUID authAccountUuid = authenticationFacade.retrieveAuthAccountUuid();
     studentApplicationService.initiateApplicationPdfDownloadRequest(authAccountUuid);

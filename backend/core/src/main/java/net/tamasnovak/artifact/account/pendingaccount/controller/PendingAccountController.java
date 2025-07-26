@@ -39,7 +39,7 @@ public class PendingAccountController {
    * @param requestBody The registration request body.
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
    */
-  @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> create(@Valid @RequestBody final CreatePendingAccountPayload requestBody) {
     pendingAccountService.createPendingAccount(requestBody);
 

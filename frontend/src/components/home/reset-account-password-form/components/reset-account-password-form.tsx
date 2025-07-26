@@ -22,7 +22,7 @@ import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 import { formTypeButtonLabel } from '../../common/constants.ts';
 
 /* interface, type imports */
-import { AccountPasswordResetPayload } from '@daigaku/common-types';
+import { PasswordResetPayload } from '@daigaku/common-types';
 import { FormType, FormTypes } from '../../common/types.ts';
 
 /**
@@ -61,7 +61,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordForm(setError);
 
   const onFormSubmit = handleSubmit((formData: ResetAccountPasswordSchema) => {
-    resetAccountPassword(formData as AccountPasswordResetPayload);
+    resetAccountPassword(formData as PasswordResetPayload);
   });
 
   return (

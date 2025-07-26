@@ -39,7 +39,8 @@ export const universityService: UniversityService = {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<UniversityOptionResponse>>({
         method: 'GET',
-        url: `/api/v1/universities/options/${countryUuid}`,
+        url: `/api/v1/universities/options`,
+        params: { countryUuid },
       }),
     );
   },
