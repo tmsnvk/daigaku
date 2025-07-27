@@ -20,4 +20,4 @@ mvn clean install -DskipTests
 
 cd ../..
 
-docker-compose -f docker-compose.yml up --build
+docker compose -f docker-compose.yml up --build
