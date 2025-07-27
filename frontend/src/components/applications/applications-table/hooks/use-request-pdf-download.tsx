@@ -29,7 +29,7 @@ export const useRequestPdfDownload = (): UseMutationResult<void, CoreApiError, v
 
   return useCoreApiMutation(
     [mutationKeys.application.POST_REQUEST_PDF_DOWNLOAD],
-    () => applicationStudentService.initiatePdfDownloadRequest(),
+    () => applicationStudentService.downloadApplicationsAsPdf(),
     {
       onSuccess: () => {
         createToast({

@@ -60,7 +60,7 @@ interface AccountService {
 }
 
 /**
- * Manages account-related REST API operations, implementing {@link AccountService}.
+ * Manages account-related REST API operations.
  */
 export const accountService: AccountService = {
   getMe: (): Promise<LoginResponse> => {

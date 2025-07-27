@@ -33,7 +33,7 @@ interface ApplicationStudentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findAll: () => Promise<Array<ApplicationResponse>>;
+  getAll: () => Promise<Array<ApplicationResponse>>;
 
   /**
    * Sends a POST request to save application data in the database.
@@ -76,7 +76,7 @@ interface ApplicationStudentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  toggleSoftDeleteFlag: (uuid: string) => Promise<void>;
+  toggleSoftDelete: (uuid: string) => Promise<void>;
 
   /**
    * Initiates a .pdf download for all applications by sending a POST request to the server.
@@ -90,14 +90,14 @@ interface ApplicationStudentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  initiatePdfDownloadRequest: () => Promise<void>;
+  downloadApplicationsAsPdf: () => Promise<void>;
 }
 
 /**
- * Manages student-application-related REST API operations, implementing {@link ApplicationStudentService}.
+ * Manages student-application-related REST API operations.
  */
 export const applicationStudentService: ApplicationStudentService = {
-  findAll: (): Promise<Array<ApplicationResponse>> => {
+  getAll: (): Promise<Array<ApplicationResponse>> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<ApplicationResponse>>({
         method: 'GET',
@@ -123,7 +123,7 @@ export const applicationStudentService: ApplicationStudentService = {
       }),
     );
   },
-  toggleSoftDeleteFlag: (uuid: string): Promise<void> => {
+  toggleSoftDelete: (uuid: string): Promise<void> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'PATCH',
@@ -131,7 +131,7 @@ export const applicationStudentService: ApplicationStudentService = {
       }),
     );
   },
-  initiatePdfDownloadRequest: (): Promise<void> => {
+  downloadApplicationsAsPdf: (): Promise<void> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<void>({
         method: 'POST',

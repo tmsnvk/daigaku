@@ -35,8 +35,8 @@ const RouteComponent = (): JSX.Element => {
 export const Route = createFileRoute(PATH)({
   component: RouteComponent,
   loader: async ({ params: { applicationId } }) => {
-    const application = await applicationService.findOneByUuid(applicationId);
-    const comments = await commentService.findPaginatedListByApplicationUuid(applicationId, 1);
+    const application = await applicationService.getByUuid(applicationId);
+    const comments = await commentService.getAllByApplicationUuidAndPage(applicationId, 1);
 
     return {
       application,

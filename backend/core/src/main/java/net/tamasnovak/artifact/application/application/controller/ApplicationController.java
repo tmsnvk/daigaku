@@ -56,7 +56,7 @@ public class ApplicationController {
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationData> findByUuid(@PathVariable("uuid") @ValidUuid final String uuid) {
+  public ResponseEntity<ApplicationData> getByUuid(@PathVariable("uuid") @ValidUuid final String uuid) {
     final ApplicationData response = applicationService.createApplicationData(UUID.fromString(uuid));
 
     return ResponseEntity.status(HttpStatus.OK)
@@ -69,7 +69,7 @@ public class ApplicationController {
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and a {@link StudentDashboardDetails} object.
    */
   @GetMapping(value = "/statistics/dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<StudentDashboardDetails> fetchDashboardStatistics(@RequestParam(value = "role") String role) {
+  public ResponseEntity<StudentDashboardDetails> getDashboardStatistics(@RequestParam(value = "role") String role) {
     final Account account = authenticationFacade.getAuthenticatedAccount();
     StudentDashboardDetails response;
 

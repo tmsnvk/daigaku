@@ -65,7 +65,7 @@ public class AccountController {
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link LoginResponse} object.
    */
   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<LoginResponse> logIn(@Valid @RequestBody final LoginPayload requestBody) {
+  public ResponseEntity<LoginResponse> logIn(@RequestBody @Valid final LoginPayload requestBody) {
     final Authentication authentication = authFacade.authenticateUser(requestBody.email(), requestBody.password());
     final LoginResponse response = accountService.fetchLoginResponse(requestBody, authentication);
 
@@ -80,7 +80,7 @@ public class AccountController {
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
    */
   @PostMapping(value = "password-reset", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HttpStatus> resetPassword(@Valid @RequestBody final PasswordResetPayload requestBody) {
+  public ResponseEntity<HttpStatus> resetPassword(@RequestBody @Valid final PasswordResetPayload requestBody) {
 
     return ResponseEntity.status(HttpStatus.OK)
                          .build();

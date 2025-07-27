@@ -25,14 +25,14 @@ interface InstitutionService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findOptionList: () => Promise<Array<InstitutionOptionResponse>>;
+  getAllAsOption: () => Promise<Array<InstitutionOptionResponse>>;
 }
 
 /**
- * Manages institution-related REST API operations, implementing {@link InstitutionService}.
+ * Manages institution-related REST API operations.
  */
 export const institutionService: InstitutionService = {
-  findOptionList: (): Promise<Array<InstitutionOptionResponse>> => {
+  getAllAsOption: (): Promise<Array<InstitutionOptionResponse>> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<InstitutionOptionResponse>>({
         method: 'GET',

@@ -26,7 +26,7 @@ import { Application, ApplicationResponse } from '@daigaku/common-types';
 export const useGetApplications = (
   initialApplications: Application[],
 ): UseQueryResult<Array<ApplicationResponse>, CoreApiError> => {
-  return useCoreApiQuery([queryKeys.application.GET_ALL_BY_ROLE], () => applicationStudentService.findAll(), {
+  return useCoreApiQuery([queryKeys.application.GET_ALL_BY_ROLE], () => applicationStudentService.getAll(), {
     placeholderData: initialApplications,
   });
 };

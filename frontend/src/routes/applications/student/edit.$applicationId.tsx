@@ -30,7 +30,7 @@ const RouteComponent = (): JSX.Element => {
 export const Route = createFileRoute(PATH)({
   component: RouteComponent,
   loader: async ({ params: { applicationId } }) => {
-    const data = await applicationService.findOneByUuid(applicationId);
+    const data = await applicationService.getByUuid(applicationId);
 
     return {
       data,

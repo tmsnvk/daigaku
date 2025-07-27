@@ -53,7 +53,7 @@ public class StudentApplicationController {
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<ApplicationData>> findListByAccountRole() {
+  public ResponseEntity<List<ApplicationData>> getAll() {
     final UUID authAccountUuid = authenticationFacade.retrieveAuthAccountUuid();
     final List<ApplicationData> response = studentApplicationService.findApplicationDataByAccountUuid(authAccountUuid);
 
@@ -69,7 +69,7 @@ public class StudentApplicationController {
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code and the {@link ApplicationData} object.
    */
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplicationData> create(@Valid @RequestBody final CreateApplicationByStudentPayload requestBody) {
+  public ResponseEntity<ApplicationData> create(@RequestBody @Valid final CreateApplicationByStudentPayload requestBody) {
     final Account account = authenticationFacade.getAuthenticatedAccount();
     final ApplicationData response = studentApplicationService.createApplication(account, requestBody);
 
@@ -103,7 +103,7 @@ public class StudentApplicationController {
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
    */
   @PatchMapping(value = "/{uuid}/soft-delete")
-  public ResponseEntity<HttpStatus> toggleSoftDeleteFlag(@PathVariable("uuid") @ValidUuid final String uuid) {
+  public ResponseEntity<HttpStatus> toggleSoftDelete(@PathVariable("uuid") @ValidUuid final String uuid) {
     UUID accountUuid = authenticationFacade.retrieveAuthAccountUuid();
     studentApplicationService.toggleIsRemovableByApplicationUuid(UUID.fromString(uuid), accountUuid);
 
@@ -117,7 +117,7 @@ public class StudentApplicationController {
    * @return A {@link ResponseEntity} that contains the {@link HttpStatus#OK} status code.
    */
   @PostMapping(value = "/download/applications")
-  public ResponseEntity<HttpStatus> initiatePdfDownloadRequest() {
+  public ResponseEntity<HttpStatus> downloadApplicationsAsPdf() {
     final UUID authAccountUuid = authenticationFacade.retrieveAuthAccountUuid();
     studentApplicationService.initiateApplicationPdfDownloadRequest(authAccountUuid);
 

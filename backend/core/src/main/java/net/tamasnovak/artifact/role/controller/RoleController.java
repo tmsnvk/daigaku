@@ -39,8 +39,8 @@ public class RoleController {
    *
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link RoleSelectOption} object.
    */
-  @GetMapping(value = "/student-and-mentor-options", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<RoleSelectOption>> fetchRoleOptionsByTypes(@RequestParam(value = "type") final List<String> types) {
+  @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<RoleSelectOption>> getStudentAndMentorOptions(@RequestParam(value = "type") final List<String> types) {
     final List<RoleSelectOption> response = roleService.findOptionsByTypes(types);
 
     return ResponseEntity.status(HttpStatus.OK)

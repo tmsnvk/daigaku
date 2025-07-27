@@ -30,7 +30,7 @@ export const useGetApplicationByUuid = (
   state: ApplicationResponse | null,
   uuid: string,
 ): UseQueryResult<ApplicationResponse, CoreApiError> => {
-  return useCoreApiQuery([queryKeys.application.GET_BY_UUID, uuid], () => applicationService.findOneByUuid(uuid), {
+  return useCoreApiQuery([queryKeys.application.GET_BY_UUID, uuid], () => applicationService.getByUuid(uuid), {
     enabled: state === null,
   });
 };

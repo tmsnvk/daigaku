@@ -30,7 +30,7 @@ const RouteComponent = (): JSX.Element => {
 export const Route = createFileRoute(PATH)({
   component: RouteComponent,
   loader: async () => {
-    const initialApplications = await applicationStudentService.findAll();
+    const initialApplications = await applicationStudentService.getAll();
 
     return {
       initialApplications,

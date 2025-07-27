@@ -33,7 +33,7 @@ interface PendingAccountService {
 }
 
 /**
- * Manages pending-account-related REST API operations, implementing {@link PendingAccountService}.
+ * Manages pending-account-related REST API operations.
  */
 export const pendingAccountService: PendingAccountService = {
   create: (formData: CreatePendingAccountPayload): Promise<void> => {

@@ -28,19 +28,21 @@ interface UniversityService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findOptionListByCountryUuid: (countryUuid: string) => Promise<Array<UniversityOptionResponse>>;
+  getAllAsOptionByCountryUuid: (countryUuid: string) => Promise<Array<UniversityOptionResponse>>;
 }
 
 /**
- * Manages university-related REST API operations, implementing {@link UniversityService}.
+ * Manages university-related REST API operations.
  */
 export const universityService: UniversityService = {
-  findOptionListByCountryUuid: (countryUuid: string): Promise<Array<UniversityOptionResponse>> => {
+  getAllAsOptionByCountryUuid: (countryUuid: string): Promise<Array<UniversityOptionResponse>> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<Array<UniversityOptionResponse>>({
         method: 'GET',
         url: `/api/v1/universities/options`,
-        params: { countryUuid },
+        params: {
+          countryUuid,
+        },
       }),
     );
   },

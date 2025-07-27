@@ -24,5 +24,5 @@ import { CountryOptionResponse } from '@daigaku/common-types';
  * @return {UseQueryResult<Array<CountryOptionResponse>, CoreApiError>}
  */
 export const useGetCountryOptions = (): UseQueryResult<Array<CountryOptionResponse>, CoreApiError> => {
-  return useCoreApiQuery([queryKeys.country.GET_AS_SELECT_OPTIONS], () => countryService.findOptionList());
+  return useCoreApiQuery([queryKeys.country.GET_AS_SELECT_OPTIONS], () => countryService.getAllAsOption());
 };

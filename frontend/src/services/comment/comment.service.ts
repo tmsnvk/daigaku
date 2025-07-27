@@ -33,7 +33,7 @@ interface CommentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findPaginatedListByApplicationUuid: (
+  getAllByApplicationUuidAndPage: (
     applicationUuid: string,
     currentPage: number,
   ) => Promise<ApplicationCommentPaginationDataResponse>;
@@ -58,10 +58,10 @@ interface CommentService {
 }
 
 /**
- * Manages comment-related REST API operations, implementing {@link CommentService}.
+ * Manages comment-related REST API operations.
  */
 export const commentService: CommentService = {
-  findPaginatedListByApplicationUuid: (
+  getAllByApplicationUuidAndPage: (
     applicationUuid: string,
     currentPage: number,
   ): Promise<ApplicationCommentPaginationDataResponse> => {
@@ -69,7 +69,10 @@ export const commentService: CommentService = {
       axiosConfigWithAuth.request<ApplicationCommentPaginationDataResponse>({
         method: 'GET',
         url: `/api/v1/comments`,
-        params: { applicationUuid, page: currentPage },
+        params: {
+          applicationUuid,
+          page: currentPage,
+        },
       }),
     );
   },
@@ -82,7 +85,9 @@ export const commentService: CommentService = {
         method: 'POST',
         url: `/api/v1/comments`,
         data: formData,
-        params: { applicationUuid },
+        params: {
+          applicationUuid,
+        },
       }),
     );
   },

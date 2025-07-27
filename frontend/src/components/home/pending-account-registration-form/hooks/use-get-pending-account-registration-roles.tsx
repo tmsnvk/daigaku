@@ -26,6 +26,6 @@ import { RoleOptionResponse } from '@daigaku/common-types';
 export const useGetPendingAccountRegistrationRoles = (): UseQueryResult<Array<RoleOptionResponse>, CoreApiError> => {
   return useCoreApiQuery(
     [queryKeys.accountRole.GET_PENDING_ACCOUNT_REGISTRATION_ROLES_AS_SELECT_OPTIONS],
-    roleService.fetchStudentAndMentorOptions,
+    roleService.getStudentAndMentorOptions,
   );
 };

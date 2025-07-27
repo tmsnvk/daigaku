@@ -38,7 +38,7 @@ public class InstitutionController {
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link InstitutionSelectOption} object.
    */
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<InstitutionSelectOption>> findOptionList() {
+  public ResponseEntity<List<InstitutionSelectOption>> getAllAsOption() {
     final List<InstitutionSelectOption> response = institutionService.findInstitutionsSortedByName();
 
     return ResponseEntity.status(HttpStatus.OK)

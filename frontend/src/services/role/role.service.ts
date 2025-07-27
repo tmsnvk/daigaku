@@ -25,19 +25,21 @@ interface RoleService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  fetchStudentAndMentorOptions: () => Promise<Array<RoleOptionResponse>>;
+  getStudentAndMentorOptions: () => Promise<Array<RoleOptionResponse>>;
 }
 
 /**
- * Manages role-related REST API operations, implementing {@link RoleService}.
+ * Manages role-related REST API operations.
  */
 export const roleService: RoleService = {
-  fetchStudentAndMentorOptions: (): Promise<Array<RoleOptionResponse>> => {
+  getStudentAndMentorOptions: (): Promise<Array<RoleOptionResponse>> => {
     return apiClient.serviceWrapper(() =>
       axiosConfig.request<Array<RoleOptionResponse>>({
         method: 'GET',
         url: '/api/v1/roles',
-        params: { type: 'student,mentor' },
+        params: {
+          type: 'student,mentor',
+        },
       }),
     );
   },

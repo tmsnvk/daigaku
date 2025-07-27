@@ -41,7 +41,7 @@ public class UniversityController {
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link UniversitySelectOption} object.
    */
   @GetMapping(value = "/options", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<UniversitySelectOption>> findOptionListByCountryUuid(
+  public ResponseEntity<List<UniversitySelectOption>> getAllAsOptionByCountryUuid(
     @ValidUuid @RequestParam(value = "countryUuid") final String countryUuid) {
     final List<UniversitySelectOption> response = universityService.findUniversitiesByCountryUuid(UUID.fromString(countryUuid));
 

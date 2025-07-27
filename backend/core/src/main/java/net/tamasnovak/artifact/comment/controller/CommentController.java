@@ -52,8 +52,8 @@ public class CommentController {
    * object.
    */
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CommentPaginationResponse> findPaginatedListByApplicationUuid(
-    @ValidUuid @RequestParam(value = "applicationUuid") final String applicationUuid,
+  public ResponseEntity<CommentPaginationResponse> getAllByApplicationUuidAndPage(
+    @RequestParam(value = "applicationUuid") @ValidUuid final String applicationUuid,
     @RequestParam(defaultValue = "0") final int currentPage) {
     final CommentPaginationResponse response = commentService.findAllCommentsByApplicationUuid(UUID.fromString(applicationUuid),
       currentPage);
@@ -71,8 +71,8 @@ public class CommentController {
    */
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> createByApplicationUuid(
-    @ValidUuid @RequestParam(value = "applicationUuid") String applicationUuid,
-    @Valid @RequestBody final CreateCommentPayload requestBody) {
+    @RequestParam(value = "applicationUuid") @ValidUuid String applicationUuid,
+    @RequestBody @Valid final CreateCommentPayload requestBody) {
     commentService.createCommentByApplicationUuid(UUID.fromString(applicationUuid), requestBody);
 
     return ResponseEntity.status(HttpStatus.CREATED)

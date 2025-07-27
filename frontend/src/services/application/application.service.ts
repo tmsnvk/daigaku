@@ -28,7 +28,7 @@ interface ApplicationService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findOneByUuid: (uuid: string) => Promise<ApplicationResponse>;
+  getByUuid: (uuid: string) => Promise<ApplicationResponse>;
 
   /**
    * Retrieves dashboard statistics relevant to the user's authorization role.
@@ -41,14 +41,14 @@ interface ApplicationService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  fetchDashboardStatistics: (accountRole: string) => Promise<StudentDashboardStatisticsResponse>;
+  getDashboardStatistics: (accountRole: string) => Promise<StudentDashboardStatisticsResponse>;
 }
 
 /**
- * Manages application-related REST API operations, implementing {@link ApplicationService}.
+ * Manages application-related REST API operations.
  */
 export const applicationService: ApplicationService = {
-  findOneByUuid: (uuid: string): Promise<ApplicationResponse> => {
+  getByUuid: (uuid: string): Promise<ApplicationResponse> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationResponse>({
         method: 'GET',
@@ -56,12 +56,14 @@ export const applicationService: ApplicationService = {
       }),
     );
   },
-  fetchDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
+  getDashboardStatistics: (accountRole: string): Promise<StudentDashboardStatisticsResponse> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<StudentDashboardStatisticsResponse>({
         method: 'GET',
         url: `/api/v1/applications/statistics/dashboard`,
-        params: { role: accountRole },
+        params: {
+          role: accountRole,
+        },
       }),
     );
   },
