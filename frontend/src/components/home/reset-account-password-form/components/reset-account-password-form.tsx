@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useResetAccountPasswordForm } from '../hooks/use-reset-account-password-form.tsx';
-import { ResetAccountPasswordSchema, resetAccountPasswordSchema } from '../schema.ts';
+import { AccountPasswordResetSchema, accountPasswordResetSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/common/form';
@@ -48,26 +48,26 @@ interface ResetAccountPasswordFormProps {
 export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<ResetAccountPasswordSchema>({
+  const formMethods = useForm<AccountPasswordResetSchema>({
     defaultValues: {
       email: '',
     },
     mode: 'onSubmit',
-    resolver: standardSchemaResolver(resetAccountPasswordSchema),
+    resolver: standardSchemaResolver(accountPasswordResetSchema),
   });
 
   const { handleSubmit, setError } = formMethods;
 
   const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordForm(setError);
 
-  const onFormSubmit = handleSubmit((formData: ResetAccountPasswordSchema) => {
+  const onFormSubmit = handleSubmit((formData: AccountPasswordResetSchema) => {
     resetAccountPassword(formData as PasswordResetPayload);
   });
 
   return (
     <>
       <CoreFormHeader
-        title={t('resetPasswordFormHeader')}
+        title={t('application.page.root.passwordResetForm.header')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
@@ -78,16 +78,16 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            label={t('emailLabel')}
-            placeholder={t('emailPlaceholder')}
+            label={t('application.page.root.passwordResetForm.emailLabel')}
+            placeholder={t('application.page.root.passwordResetForm.emailPlaceholder')}
             isDisabled={isSubmitting}
             intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: t('resetPasswordFormSubmission'),
-              value: t('resetPasswordFormSubmit'),
+              message: t('application.page.root.passwordResetForm.formLoading'),
+              value: t('application.page.root.passwordResetForm.submit'),
             }}
             intent={'dark'}
           />

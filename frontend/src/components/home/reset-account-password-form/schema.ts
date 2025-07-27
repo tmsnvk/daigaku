@@ -7,19 +7,16 @@
 /* vendor imports */
 import { z } from 'zod/v4';
 
-/* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
-
-export const resetAccountPasswordSchema = z.object({
+export const accountPasswordResetSchema = z.object({
   email: z.email({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.EMAIL_REQUIRED;
+        return 'application.page.root.passwordResetForm.emailRequired';
       }
 
-      return TranslationKey.VALID_EMAIL_REQUIRED;
+      return 'application.page.root.passwordResetForm.validEmailRequired';
     },
   }),
 });
 
-export type ResetAccountPasswordSchema = z.infer<typeof resetAccountPasswordSchema>;
+export type AccountPasswordResetSchema = z.infer<typeof accountPasswordResetSchema>;

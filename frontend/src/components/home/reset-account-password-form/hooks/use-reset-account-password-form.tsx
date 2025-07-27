@@ -41,8 +41,8 @@ export const useResetAccountPasswordForm = (
     {
       onSuccess: () => {
         createToast({
-          title: t('genericSuccessToastTitle'),
-          description: t('resetPasswordRegistrationFormSubmissionToastDescription'),
+          title: t('application.generic.toast.successToastTitle'),
+          description: t('application.page.root.passwordResetForm.successfulSubmissionToastDescription'),
           variantIntent: 'success',
           autoRemoveDelay: 5000,
         });

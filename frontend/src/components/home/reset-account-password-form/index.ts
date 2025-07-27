@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { ResetAccountPasswordForm } from './components/reset-account-password-form.tsx';
-
-export { ResetAccountPasswordForm };
+export { ResetAccountPasswordForm } from './components/reset-account-password-form.tsx';

@@ -73,7 +73,7 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   return (
     <>
       <CoreFormHeader
-        title={t('loginFormHeader')}
+        title={t('application.page.root.loginForm.header')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
@@ -85,22 +85,22 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             id={'email'}
             type={'email'}
             isDisabled={isSubmitting}
-            label={t('emailLabel')}
-            placeholder={t('emailPlaceholder')}
+            label={t('application.page.root.loginForm.emailLabel')}
+            placeholder={t('application.page.root.loginForm.emailPlaceholder')}
             intent={'light'}
           />
           <PasswordInputGroup
             id={'password'}
             isDisabled={isSubmitting}
-            label={t('passwordLabel')}
-            placeholder={t('passwordPlaceholder')}
+            label={t('application.page.root.loginForm.passwordLabel')}
+            placeholder={t('application.page.root.loginForm.passwordPlaceholder')}
             intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: t('loginFormSubmission'),
-              value: t('loginFormSubmit'),
+              message: t('application.page.root.loginForm.formLoading'),
+              value: t('application.page.root.loginForm.submit'),
             }}
             intent={'dark'}
           />

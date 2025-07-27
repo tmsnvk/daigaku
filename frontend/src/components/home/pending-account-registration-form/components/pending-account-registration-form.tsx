@@ -13,8 +13,8 @@ import { useTranslation } from 'react-i18next';
 /* logic imports */
 import { useGetInstitutionOptions } from '@daigaku/hooks';
 import { removeRolePrefix } from '@daigaku/utilities';
-import { usePendingAccountRegistrationForm } from '../hooks/use-pending-account-registration-form.tsx';
 import { useGetPendingAccountRegistrationRoles } from '../hooks/use-get-pending-account-registration-roles.tsx';
+import { usePendingAccountRegistrationForm } from '../hooks/use-pending-account-registration-form.tsx';
 import { PendingAccountRegistrationSchema, pendingAccountRegistrationSchema } from '../schema.ts';
 
 /* component imports */
@@ -96,7 +96,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
   return (
     <>
       <CoreFormHeader
-        title={t('pendingAccountRegisterFormHeader')}
+        title={t('application.page.root.pendingAccountRegistrationForm.header')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
@@ -108,24 +108,24 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             id={'firstName'}
             type={'text'}
             isDisabled={isSubmitting}
-            label={t('firstNameLabel')}
-            placeholder={t('firstNamePlaceholder')}
+            label={t('application.page.root.pendingAccountRegistrationForm.firstNameLabel')}
+            placeholder={t('application.page.root.pendingAccountRegistrationForm.firstNamePlaceholder')}
             intent={'light'}
           />
           <CommonInputGroup
             id={'lastName'}
             type={'text'}
             isDisabled={isSubmitting}
-            label={t('lastNameLabel')}
-            placeholder={t('lastNamePlaceholder')}
+            label={t('application.page.root.pendingAccountRegistrationForm.lastNameLabel')}
+            placeholder={t('application.page.root.pendingAccountRegistrationForm.lastNamePlaceholder')}
             intent={'light'}
           />
           <CommonInputGroup
             id={'email'}
             type={'email'}
             isDisabled={isSubmitting}
-            label={t('emailLabel')}
-            placeholder={t('emailPlaceholder')}
+            label={t('application.page.root.pendingAccountRegistrationForm.emailLabel')}
+            placeholder={t('application.page.root.pendingAccountRegistrationForm.emailPlaceholder')}
             intent={'light'}
           />
           <CommonSelectGroup
@@ -134,7 +134,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             isFetchError={isInstitutionsError}
             isDisabled={isSubmitting}
             onRetry={institutionRefetch}
-            label={t('institutionLabel')}
+            label={t('application.page.root.pendingAccountRegistrationForm.institutionLabel')}
             options={
               institutions?.map((institution: InstitutionOption) => (
                 <option
@@ -145,7 +145,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
                 </option>
               )) || []
             }
-            initialValue={t('institutionPlaceholder')}
+            initialValue={t('application.page.root.pendingAccountRegistrationForm.institutionPlaceholder')}
             intent={'light'}
           />
           <CommonSelectGroup
@@ -154,7 +154,7 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             isFetchError={isRolesError}
             isDisabled={isSubmitting}
             onRetry={roleRefetch}
-            label={t('accountRoleLabel')}
+            label={t('application.page.root.pendingAccountRegistrationForm.accountRoleLabel')}
             options={
               roles?.map((role: RoleOption) => (
                 <option
@@ -165,14 +165,14 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
                 </option>
               )) || []
             }
-            initialValue={t('accountRolePlaceholder')}
+            initialValue={t('application.page.root.pendingAccountRegistrationForm.accountRolePlaceholder')}
             intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: t('pendingAccountRegistrationFormSubmission'),
-              value: t('pendingAccountRegistrationFormSubmit'),
+              message: t('application.page.root.pendingAccountRegistrationForm.formLoading'),
+              value: t('application.page.root.pendingAccountRegistrationForm.submit'),
             }}
             intent={'dark'}
           />

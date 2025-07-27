@@ -58,7 +58,7 @@ export const FormSwapButtons = ({ isDisabled, buttonConfig, onFormSelect }: Form
   const { t } = useTranslation();
 
   return (
-    <article className={joinTw('flex justify-between', 'mt-40')}>
+    <article className={joinTw('mt-40 flex justify-between')}>
       <CoreButton
         isDisabled={isDisabled}
         onClick={() => {

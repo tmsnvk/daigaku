@@ -53,27 +53,4 @@ export const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationR
       label: TranslationKey.MY_STUDENT_APPLICATIONS,
     },
   ],
-  [UserRoles.ROLE_INSTITUTION_ADMIN]: [],
-  [UserRoles.ROLE_SYSTEM_ADMIN]: [
-    {
-      targetUrlString: '/all-students',
-      icon: iconLibrary.faUserGroup,
-      label: TranslationKey.ALL_STUDENTS,
-    },
-    {
-      targetUrlString: '/all-mentors',
-      icon: iconLibrary.faUserGroup,
-      label: TranslationKey.ALL_MENTORS,
-    },
-    {
-      targetUrlString: '/applications',
-      icon: iconLibrary.faScroll,
-      label: TranslationKey.ALL_APPLICATIONS,
-    },
-    {
-      targetUrlString: '/system',
-      icon: iconLibrary.faGears,
-      label: TranslationKey.SYSTEM,
-    },
-  ],
 };

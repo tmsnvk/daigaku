@@ -7,49 +7,46 @@
 /* vendor imports */
 import { z } from 'zod/v4';
 
-/* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
-
 export const pendingAccountRegistrationSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .nonempty({ error: TranslationKey.FIRST_NAME_REQUIRED })
+    .nonempty({ error: 'application.page.root.pendingAccountRegistrationForm.firstNameRequired' })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      error: TranslationKey.NAME_PATTERN,
+      error: 'application.page.root.pendingAccountRegistrationForm.namePattern',
     }),
   lastName: z
     .string()
     .trim()
-    .nonempty({ error: TranslationKey.LAST_NAME_REQUIRED })
+    .nonempty({ error: 'application.page.root.pendingAccountRegistrationForm.lastNameRequired' })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      error: TranslationKey.NAME_PATTERN,
+      error: 'application.page.root.pendingAccountRegistrationForm.namePattern',
     }),
   email: z.email({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.EMAIL_REQUIRED;
+        return 'application.page.root.pendingAccountRegistrationForm.emailRequired';
       }
 
-      return TranslationKey.VALID_EMAIL_REQUIRED;
+      return 'application.page.root.pendingAccountRegistrationForm.validEmailRequired';
     },
   }),
   institutionUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.INSTITUTION_REQUIRED;
+        return 'application.page.root.pendingAccountRegistrationForm.institutionRequired';
       }
 
-      return TranslationKey.VALID_INSTITUTION_REQUIRED;
+      return 'application.page.root.pendingAccountRegistrationForm.validInstitutionRequired';
     },
   }),
   accountRoleUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.ACCOUNT_ROLE_REQUIRED;
+        return 'application.page.root.pendingAccountRegistrationForm.accountRoleRequired';
       }
 
-      return TranslationKey.VALID_ACCOUNT_ROLE_REQUIRED;
+      return 'application.page.root.pendingAccountRegistrationForm.validAccountRoleRequired';
     },
   }),
 });
