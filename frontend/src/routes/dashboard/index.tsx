@@ -42,7 +42,7 @@ export const Route = createFileRoute(PATH)({
     const contextRole = context.user?.role;
     const accountRole = contextRole ? getAccountRoleResource(contextRole) : (null as never);
 
-    const dashboardStatistics = await applicationService.fetchDashboardStatistics(accountRole);
+    const dashboardStatistics = await applicationService.getDashboardStatistics(accountRole);
 
     return {
       dashboardStatistics,

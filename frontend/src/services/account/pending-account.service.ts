@@ -33,14 +33,14 @@ interface PendingAccountService {
 }
 
 /**
- * Manages pending-account-related REST API operations, implementing {@link PendingAccountService}.
+ * Manages pending-account-related REST API operations.
  */
 export const pendingAccountService: PendingAccountService = {
   create: (formData: CreatePendingAccountPayload): Promise<void> => {
     return apiClient.serviceWrapper(() =>
       axiosConfig.request<void>({
         method: 'POST',
-        url: '/api/v1/pending-accounts/create',
+        url: '/api/v1/pending-accounts',
         data: formData,
       }),
     );

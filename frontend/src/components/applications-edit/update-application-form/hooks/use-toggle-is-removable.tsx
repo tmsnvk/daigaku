@@ -47,7 +47,7 @@ export const useToggleIsRemovable = (applicationUuid: string, isRemovable: boole
 
   const mutation: UseMutationResult<void, CoreApiError, void> = useMutation({
     mutationKey: [mutationKeys.application.IS_REMOVABLE],
-    mutationFn: () => applicationStudentService.toggleSoftDeleteFlag(applicationUuid),
+    mutationFn: () => applicationStudentService.toggleSoftDelete(applicationUuid),
     onSuccess: () => {
       queryClient.setQueryData<Array<Application>>([queryKeys.application.GET_ALL_BY_ROLE], (applications) => {
         if (!applications) {

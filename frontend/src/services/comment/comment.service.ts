@@ -33,7 +33,7 @@ interface CommentService {
    * @throws {ServerError} If the server fails unexpectedly.
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
-  findPaginatedListByApplicationUuid: (
+  getAllByApplicationUuidAndPage: (
     applicationUuid: string,
     currentPage: number,
   ) => Promise<ApplicationCommentPaginationDataResponse>;
@@ -41,8 +41,8 @@ interface CommentService {
   /**
    * Posts a new comment for a specific application.
    *
-   * @param formData The new comment form's data object.
    * @param applicationUuid The selected application's uuid.
+   * @param formData The new comment form's data object.
    * @return {Promise<ApplicationCommentResponse>}
    *
    * @throws {UnauthorizedError} If the user enters incorrect form data, i.e., an email/password pair do not match or
@@ -52,35 +52,42 @@ interface CommentService {
    * @throws {UnexpectedError} For any non-Axios or unrecognized error.
    */
   createByApplicationUuid: (
-    formData: CreateApplicationCommentPayload,
     applicationUuid: string,
+    formData: CreateApplicationCommentPayload,
   ) => Promise<ApplicationCommentResponse>;
 }
 
 /**
- * Manages comment-related REST API operations, implementing {@link CommentService}.
+ * Manages comment-related REST API operations.
  */
 export const commentService: CommentService = {
-  findPaginatedListByApplicationUuid: (
+  getAllByApplicationUuidAndPage: (
     applicationUuid: string,
     currentPage: number,
   ): Promise<ApplicationCommentPaginationDataResponse> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationCommentPaginationDataResponse>({
         method: 'GET',
-        url: `/api/v1/comments/${applicationUuid}?page=${currentPage}`,
+        url: `/api/v1/comments`,
+        params: {
+          applicationUuid,
+          page: currentPage,
+        },
       }),
     );
   },
   createByApplicationUuid: (
-    formData: CreateApplicationCommentPayload,
     applicationUuid: string,
+    formData: CreateApplicationCommentPayload,
   ): Promise<ApplicationCommentResponse> => {
     return apiClient.serviceWrapper(() =>
       axiosConfigWithAuth.request<ApplicationCommentResponse>({
         method: 'POST',
-        url: `/api/v1/comments/${applicationUuid}`,
+        url: `/api/v1/comments`,
         data: formData,
+        params: {
+          applicationUuid,
+        },
       }),
     );
   },

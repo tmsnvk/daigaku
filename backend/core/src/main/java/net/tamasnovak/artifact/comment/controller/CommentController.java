@@ -21,7 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,9 +51,10 @@ public class CommentController {
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link CommentPaginationResponse}
    * object.
    */
-  @GetMapping(value = "/{applicationUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CommentPaginationResponse> findPaginatedListByApplicationUuid(
-    @PathVariable("applicationUuid") @ValidUuid final String applicationUuid, @RequestParam(defaultValue = "0") final int currentPage) {
+  @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CommentPaginationResponse> getAllByApplicationUuidAndPage(
+    @RequestParam(value = "applicationUuid") @ValidUuid final String applicationUuid,
+    @RequestParam(defaultValue = "0") final int currentPage) {
     final CommentPaginationResponse response = commentService.findAllCommentsByApplicationUuid(UUID.fromString(applicationUuid),
       currentPage);
 
@@ -66,13 +66,13 @@ public class CommentController {
    * Creates a {@link Comment} object that will be associated with the {@link Application} whose uuid is provided.
    * The {@link ValidUuid} annotations validate the uuid string and the {@link CreateCommentPayload} object as per its validation criteria.
    *
-   * @param applicationUuid The associated application's uuid.
    * @param requestBody The new comment request body.
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code.
    */
-  @PostMapping(value = "/{applicationUuid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> createByApplicationUuid(
-    @ValidUuid @PathVariable("applicationUuid") final String applicationUuid, @Valid @RequestBody final CreateCommentPayload requestBody) {
+    @RequestParam(value = "applicationUuid") @ValidUuid String applicationUuid,
+    @RequestBody @Valid final CreateCommentPayload requestBody) {
     commentService.createCommentByApplicationUuid(UUID.fromString(applicationUuid), requestBody);
 
     return ResponseEntity.status(HttpStatus.CREATED)

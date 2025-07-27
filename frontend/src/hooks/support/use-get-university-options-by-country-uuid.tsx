@@ -29,7 +29,7 @@ export const useGetUniversityOptionsByCountryUuid = (
 ): UseQueryResult<Array<UniversityOptionResponse>, CoreApiError> => {
   return useCoreApiQuery(
     [queryKeys.university.GET_AS_SELECT_OPTIONS, selectedCountryUuid],
-    () => universityService.findOptionListByCountryUuid(selectedCountryUuid),
+    () => universityService.getAllAsOptionByCountryUuid(selectedCountryUuid),
     {
       enabled: !!selectedCountryUuid,
     },

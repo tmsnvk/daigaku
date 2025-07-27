@@ -32,6 +32,6 @@ export const useGetCommentsByApplicationAndPagination = (
 ): UseQueryResult<ApplicationCommentPaginationDataResponse, CoreApiError> => {
   return useCoreApiQuery(
     [queryKeys.comments.GET_ALL_BY_APPLICATION_UUID_AND_PAGINATION, applicationUuid, currentPage],
-    () => commentService.findPaginatedListByApplicationUuid(applicationUuid, currentPage),
+    () => commentService.getAllByApplicationUuidAndPage(applicationUuid, currentPage),
   );
 };

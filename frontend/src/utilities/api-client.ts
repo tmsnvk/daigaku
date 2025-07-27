@@ -37,10 +37,7 @@ interface ApiClient {
   /**
    *
    */
-  errorWrapper: <TFormValues extends FieldValues>(
-    error: CoreApiError,
-    setError: UseFormSetError<TFormValues>,
-  ) => void;
+  errorWrapper: <TFormValues extends FieldValues>(error: CoreApiError, setError: UseFormSetError<TFormValues>) => void;
 }
 
 export const apiClient: ApiClient = {
@@ -105,7 +102,11 @@ export const apiClient: ApiClient = {
       });
     }
 
-    if (error instanceof UnauthorizedError || error instanceof DataIntegrityViolationError) {
+    if (
+      error instanceof UnauthorizedError ||
+      error instanceof DataIntegrityViolationError ||
+      error instanceof FormValidationError
+    ) {
       setError('root', { message: errorResponse?.errors[0].errorMessage });
     }
   },

@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
  *
  * @param email The account's email.
  */
-public record ResetPasswordPayload(
+public record PasswordResetPayload(
   @Email(message = "Provide a valid email address.")
   @NotBlank(message = "Providing your email address is required.")
   String email

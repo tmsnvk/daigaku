@@ -9,8 +9,7 @@ import { createFileRoute, getRouteApi } from '@tanstack/react-router';
 import { JSX } from 'react';
 
 /* logic imports */
-import { applicationService } from '@daigaku/services';
-import { getAccountRoleResource } from '@daigaku/utilities';
+import { applicationStudentService } from '@daigaku/services';
 
 /* component imports */
 import { ApplicationsIndex } from '@daigaku/components/applications';
@@ -30,11 +29,8 @@ const RouteComponent = (): JSX.Element => {
 
 export const Route = createFileRoute(PATH)({
   component: RouteComponent,
-  loader: async ({ context }) => {
-    const contextRole = context.user?.role;
-    const accountRole = contextRole ? getAccountRoleResource(contextRole) : (null as never);
-
-    const initialApplications = await applicationService.findListByAccountRole(accountRole);
+  loader: async () => {
+    const initialApplications = await applicationStudentService.getAll();
 
     return {
       initialApplications,

@@ -36,13 +36,13 @@ export const useCreateCommentForm = (
   resetForm: () => void,
 ): UseMutationResult<ApplicationCommentResponse, CoreApiError, CreateApplicationCommentPayload> => {
   const { t } = useTranslation();
-  const queryClient = useCoreQueryClient();
 
+  const queryClient = useCoreQueryClient();
   const { createToast } = useToastProvider();
 
   return useCoreApiMutation(
     [mutationKeys.comment.POST_BY_APPLICATION_UUID],
-    (formData: CreateApplicationCommentPayload) => commentService.createByApplicationUuid(formData, applicationUuid),
+    (formData: CreateApplicationCommentPayload) => commentService.createByApplicationUuid(applicationUuid, formData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries({

@@ -46,8 +46,12 @@ public class RoleServiceImpl implements RoleService {
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "RoleDropdownOption", key = "#root.methodName")
-  public List<RoleSelectOption> findStudentAndMentorSelectOptions() {
-    final List<RoleOptionView> roleProjections = roleRepository.findStudentAndMentorRoleOptions();
+  public List<RoleSelectOption> findOptionsByTypes(List<String> types) {
+    final List<String> roleNames = types.stream()
+                                        .map(type -> "ROLE_" + type.toUpperCase())
+                                        .toList();
+
+    final List<RoleOptionView> roleProjections = roleRepository.findRoleOptionsByNames(roleNames);
 
     return roleProjections.stream()
                           .map(RoleSelectOption::new)

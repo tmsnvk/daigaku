@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,9 +39,9 @@ public class RoleController {
    *
    * @return A {@link ResponseEntity} containing a {@link HttpStatus#OK} status code and a {@link RoleSelectOption} object.
    */
-  @GetMapping(value = "/student-and-mentor-options", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<RoleSelectOption>> fetchStudentAndMentorOptions() {
-    final List<RoleSelectOption> response = roleService.findStudentAndMentorSelectOptions();
+  @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<RoleSelectOption>> getStudentAndMentorOptions(@RequestParam(value = "type") final List<String> types) {
+    final List<RoleSelectOption> response = roleService.findOptionsByTypes(types);
 
     return ResponseEntity.status(HttpStatus.OK)
                          .body(response);

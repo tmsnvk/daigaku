@@ -46,7 +46,7 @@ export const useUpdateApplicationForm = (
       onSuccess: (response: ApplicationResponse) => {
         queryClient.invalidateQueries({ queryKey: [queryKeys.application.GET_ALL_BY_ROLE] });
 
-        history.replaceState(response, '', `/applications/${response.uuid}/student/edit`);
+        history.replaceState(response, '', `/applications/student/edit/${response.uuid}`);
 
         createToast({
           title: t('genericSuccessToastTitle'),

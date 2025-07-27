@@ -30,7 +30,7 @@ const RouteComponent = (): JSX.Element => {
 export const Route = createFileRoute(PATH)({
   component: RouteComponent,
   loader: async () => {
-    const countryOptions = await countryService.findOptionList();
+    const countryOptions = await countryService.getAllAsOption();
 
     return {
       countryOptions,
