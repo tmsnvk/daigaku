@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { ApplicationsEdit } from './applications-edit.route.tsx';
-
-export { ApplicationsEdit };
+export { ApplicationsEdit } from './applications-edit.route.tsx';

@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { PublicLayout } from './components/public-layout';
-
-export { PublicLayout };
+export { PublicLayout } from './components/public-layout';

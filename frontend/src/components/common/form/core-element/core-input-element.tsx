@@ -13,16 +13,7 @@ import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { joinTw } from '@daigaku/utilities';
 
 const coreInputElementVariants = cva(
-  joinTw(
-    'relative',
-    'h-20 w-full',
-    'px-4 pt-4',
-    'border-2',
-    'text-xl',
-    'rounded-xl',
-    'focus:outline-1',
-    'placeholder:text-secondary',
-  ),
+  joinTw('relative h-20 w-full px-4 pt-4 border-2 text-xl rounded-xl', 'focus:outline-1', 'placeholder:text-secondary'),
   {
     variants: {
       intent: {

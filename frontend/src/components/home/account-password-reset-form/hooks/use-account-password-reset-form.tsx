@@ -28,7 +28,7 @@ import { LoginPayload, PasswordResetPayload } from '@daigaku/common-types';
  * @param setError The `react-hook-form` method to set form errors.
  * @return {UseMutationResult<void, CoreApiError, PasswordResetPayload>}
  */
-export const useResetAccountPasswordForm = (
+export const useAccountPasswordResetForm = (
   setError: UseFormSetError<LoginPayload>,
 ): UseMutationResult<void, CoreApiError, PasswordResetPayload> => {
   const { t } = useTranslation();

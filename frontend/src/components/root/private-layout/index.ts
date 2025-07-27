@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { PrivateLayout } from './components/private-layout';
-
-export { PrivateLayout };
+export { PrivateLayout } from './components/private-layout';

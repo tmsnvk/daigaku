@@ -14,9 +14,9 @@ import { joinTw } from '@daigaku/utilities';
 const coreFormHeaderVariants = cva('text-center', {
   variants: {
     intent: {
-      small: joinTw('mb-20', 'text-2xl'),
+      small: 'mb-20 text-2xl',
       large: 'text-5xl font-bold',
-      largeWithUnderline: joinTw('core-form-header-after', 'text-5xl'),
+      largeWithUnderline: 'core-form-header-after text-5xl',
     },
   },
 });

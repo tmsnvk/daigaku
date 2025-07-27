@@ -11,66 +11,41 @@ import { ButtonHTMLAttributes, JSX, MouseEventHandler, ReactNode } from 'react';
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreButtonVariants = cva(joinTw('font-bold tracking-widest cursor-pointer'), {
+const coreButtonVariants = cva('font-bold tracking-widest cursor-pointer', {
   variants: {
     intent: {
       light: joinTw(
-        'h-20',
-        'px-6',
-        'bg-primary',
-        'text-2xl',
-        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'h-20 px-6 bg-primary text-2xl rounded-xl shadow-(--right-bottom-secondary-shadow)',
         'hover:outline-secondary hover:outline-2',
         'focus:outline-secondary focus:outline-2',
       ),
       dark: joinTw(
-        'h-20',
-        'px-6',
-        'bg-secondary',
-        'text-tertiary text-2xl',
-        'shadow-(--right-bottom-accent-shadow) rounded-xl',
+        'h-20 px-6 bg-secondary text-tertiary text-2xl shadow-(--right-bottom-accent-shadow) rounded-xl',
         'hover:outline-accent hover:outline-2',
         'focus:outline-accent focus:outline-2',
       ),
       accent: joinTw(
-        'h-20',
-        'px-6',
-        'bg-accent',
-        'text-secondary text-2xl',
-        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'h-20 px-6 bg-accent text-secondary text-2xl shadow-(--right-bottom-secondary-shadow) rounded-xl',
         'focus:outline-tertiary focus:outline-2',
       ),
       submit: '',
       table: joinTw(
-        'flex flex-row items-center justify-center',
-        'h-10',
-        'mx-auto py-4',
-        'bg-transparent',
-        'text-secondary text-xl',
-        'cursor-pointer',
+        'flex flex-row items-center justify-center h-10 mx-auto py-4 bg-transparent text-secondary text-xl cursor-pointer',
         'hover:text-accent',
       ),
       destructive: joinTw(
-        'h-20',
-        'px-6',
-        'bg-destructive',
-        'text-tertiary text-2xl',
-        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'h-20 px-6 bg-destructive text-tertiary text-2xl shadow-(--right-bottom-secondary-shadow) rounded-xl',
         'hover:outline-secondary hover:outline-2',
         'focus:outline-secondary focus:outline-2',
       ),
       destructiveSlim: joinTw(
-        'h-14',
-        'px-4',
-        'bg-destructive',
-        'text-tertiary text-xl',
-        'shadow-(--right-bottom-secondary-shadow) rounded-xl',
+        'h-14 px-4 bg-destructive text-tertiary text-xl shadow-(--right-bottom-secondary-shadow) rounded-xl',
         'hover:outline-secondary hover:outline-2',
         'focus:outline-secondary focus:outline-2',
       ),
     },
     isDisabled: {
-      true: joinTw('text-tertiary', 'cursor-not-allowed', 'hover:outline-transparent'),
+      true: joinTw('text-tertiary cursor-not-allowed', 'hover:outline-transparent'),
     },
   },
 });

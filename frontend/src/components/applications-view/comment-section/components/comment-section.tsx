@@ -49,19 +49,19 @@ export const CommentSection = ({ applicationUuid, comments }: CommentSectionProp
   const { data, isError } = useGetCommentsByApplicationAndPagination(applicationUuid, currentPage);
 
   return (
-    <section className={joinTw('w-[95%] sm:w-[65%] lg:w-[95%]', 'mx-auto my-20')}>
+    <section className={joinTw('mx-auto my-20 w-[95%]', 'sm:w-[65%] lg:w-[95%]')}>
       <Comments
         comments={data?.comments ?? comments.comments}
         isError={isError}
       />
-      <div className={joinTw('flex flex-row items-center justify-around', 'w-[90%]', 'mx-auto mb-20')}>
+      <div className={'mx-auto mb-20 flex w-[90%] flex-row items-center justify-around'}>
         <CommentPaginationButton
           onClick={goToPreviousPage}
           isDisabled={data?.currentPage === 0}
-          value={t('previousPage')}
+          value={t('application.page.applicationsView.comment.previousPage')}
         />
         <span className={'text-xl'}>
-          {t('page')} {currentPage + 1}
+          {t('application.page.applicationsView.comment.page')} {currentPage + 1}
         </span>
         <CommentPaginationButton
           onClick={() => {
@@ -70,7 +70,7 @@ export const CommentSection = ({ applicationUuid, comments }: CommentSectionProp
             }
           }}
           isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
-          value={t('nextPage')}
+          value={t('application.page.applicationsView.comment.nextPage')}
         />
       </div>
       <CreateCommentForm applicationUuid={applicationUuid} />

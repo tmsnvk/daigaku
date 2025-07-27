@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useFieldValidationError } from '@daigaku/hooks';
-import { joinTw } from '@daigaku/utilities';
 
 /* component imports */
 import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
@@ -58,7 +57,7 @@ export const PasswordInputGroup = <TFormValues extends FieldValues>({
         label={label}
         isError={!!error}
       />
-      <div className={joinTw('flex w-full items-center', 'text-2xl')}>
+      <div className={'flex w-full items-center text-2xl'}>
         <CoreInputElement
           id={id}
           type={isPasswordRevealed ? 'text' : 'password'}
@@ -74,7 +73,7 @@ export const PasswordInputGroup = <TFormValues extends FieldValues>({
             setIsPasswordRevealed(!isPasswordRevealed);
           }}
           icon={isPasswordRevealed ? iconLibrary.faEyeSlash : iconLibrary.faEye}
-          className={joinTw('w-8', 'pl-4', 'cursor-pointer')}
+          className={'w-8 cursor-pointer pl-4'}
         />
       </div>
       {error && error?.message && <CoreFormElementError message={t(error.message)} />}

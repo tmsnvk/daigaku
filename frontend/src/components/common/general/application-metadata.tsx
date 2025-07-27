@@ -48,7 +48,7 @@ export const ApplicationMetadata = ({ metadata, className }: ApplicationMetadata
     <article className={joinTw('text-2xl', className)}>
       <dl>
         <div>
-          <dt className={joinTw('inline-block', 'font-extrabold')}>{t('submittedAt')}</dt>{' '}
+          <dt className={'inline-block font-extrabold'}>{t('application.domain.application.submittedAt')}</dt>{' '}
           <dd className={'inline-block'}>
             {new Date(metadata.created.createdAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -60,11 +60,11 @@ export const ApplicationMetadata = ({ metadata, className }: ApplicationMetadata
           </dd>
         </div>
         <div className={'my-2'}>
-          <dt className={joinTw('inline-block', 'font-extrabold')}>{t('submittedBy')}</dt>{' '}
+          <dt className={'inline-block font-extrabold'}>{t('application.domain.application.submittedBy')}</dt>{' '}
           <dd className={'inline-block'}>{metadata.created.createdBy}</dd>
         </div>
         <div className={'my-2'}>
-          <dt className={joinTw('inline-block', 'font-extrabold')}>{t('lastUpdatedAt')}</dt>{' '}
+          <dt className={'inline-block font-extrabold'}>{t('application.domain.application.lastUpdatedAt')}</dt>{' '}
           <dd className={'inline-block'}>
             {new Date(metadata.lastUpdated.lastUpdatedAt).toLocaleString('en-GB', {
               year: 'numeric',
@@ -76,7 +76,7 @@ export const ApplicationMetadata = ({ metadata, className }: ApplicationMetadata
           </dd>
         </div>
         <div>
-          <dt className={joinTw('inline-block', 'font-extrabold')}>{t('lastModifiedBy')}</dt>{' '}
+          <dt className={'inline-block font-extrabold'}>{t('application.domain.application.lastModifiedBy')}</dt>{' '}
           <dd className={'inline-block'}>{metadata.lastUpdated.lastModifiedBy}</dd>
         </div>
       </dl>

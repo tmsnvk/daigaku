@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useResetAccountPasswordForm } from '../hooks/use-reset-account-password-form.tsx';
+import { useAccountPasswordResetForm } from '../hooks/use-account-password-reset-form.tsx';
 import { AccountPasswordResetSchema, accountPasswordResetSchema } from '../schema.ts';
 
 /* component imports */
@@ -28,7 +28,7 @@ import { FormType, FormTypes } from '../../common/types.ts';
 /**
  * Defines the component's properties.
  */
-interface ResetAccountPasswordFormProps {
+interface AccountPasswordResetFormProps {
   /**
    * The method to select the current form type.
    *
@@ -42,10 +42,10 @@ interface ResetAccountPasswordFormProps {
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {ResetAccountPasswordFormProps} props
+ * @param {AccountPasswordResetFormProps} props
  * @return {JSX.Element}
  */
-export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
+export const AccountPasswordResetForm = ({ onFormSelect }: AccountPasswordResetFormProps): JSX.Element => {
   const { t } = useTranslation();
 
   const formMethods = useForm<AccountPasswordResetSchema>({
@@ -58,7 +58,7 @@ export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordF
 
   const { handleSubmit, setError } = formMethods;
 
-  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordForm(setError);
+  const { mutate: resetAccountPassword, isPending: isSubmitting } = useAccountPasswordResetForm(setError);
 
   const onFormSubmit = handleSubmit((formData: AccountPasswordResetSchema) => {
     resetAccountPassword(formData as PasswordResetPayload);

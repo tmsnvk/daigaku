@@ -34,14 +34,9 @@ interface CoreFormElementInstructionProps {
 export const CoreFormElementInstruction = ({ paragraph, className }: CoreFormElementInstructionProps): JSX.Element => {
   return (
     <article
-      className={joinTw(
-        'px-6 py-10',
-        'bg-primary border-secondary border-2',
-        'rounded-(--default-border-radius)',
-        className,
-      )}
+      className={joinTw('bg-primary border-secondary rounded-(--default-border-radius) border-2 px-6 py-10', className)}
     >
-      <p className={joinTw('mb-1 last-of-type:mb-0', 'text-xl')}>{paragraph}</p>
+      <p className={'mb-1 text-xl last-of-type:mb-0'}>{paragraph}</p>
     </article>
   );
 };

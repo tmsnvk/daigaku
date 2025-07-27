@@ -5,7 +5,7 @@
  */
 
 /* configuration, constants imports */
-import { TranslationKey, iconLibrary } from '@daigaku/constants';
+import { iconLibrary } from '@daigaku/constants';
 
 /* interface, type imports */
 import { NavigationRouteItem, UserRole, UserRoles } from '@daigaku/common-types';
@@ -14,43 +14,48 @@ export const sharedNavigationRoutes: Array<NavigationRouteItem> = [
   {
     targetUrlString: '/account',
     icon: iconLibrary.faUser,
-    label: TranslationKey.MY_ACCOUNT,
+    label: 'application.layout.navigation.shared.myAccount',
   },
   {
     targetUrlString: '/messages',
     icon: iconLibrary.faEnvelope,
-    label: TranslationKey.MESSAGES,
+    label: 'application.layout.navigation.shared.messages',
   },
   {
     targetUrlString: '/feedback',
     icon: iconLibrary.faGears,
-    label: TranslationKey.FEEDBACK,
+    label: 'application.layout.navigation.shared.feedback',
   },
 ];
 
-export const accountRoleNavigationRoutes: { [key in UserRole]: Array<NavigationRouteItem> } = {
+export const accountRoleNavigationRoutes: {
+  [key in Exclude<
+    UserRole,
+    typeof UserRoles.ROLE_INSTITUTION_ADMIN | typeof UserRoles.ROLE_SYSTEM_ADMIN
+  >]: Array<NavigationRouteItem>;
+} = {
   [UserRoles.ROLE_STUDENT]: [
     {
       targetUrlString: '/applications/student/create',
       icon: iconLibrary.faFileCirclePlus,
-      label: TranslationKey.NEW_APPLICATION,
+      label: 'application.layout.navigation.student.newApplication',
     },
     {
       targetUrlString: '/applications',
       icon: iconLibrary.faScroll,
-      label: TranslationKey.MY_APPLICATION,
+      label: 'application.layout.navigation.student.myApplications',
     },
   ],
   [UserRoles.ROLE_MENTOR]: [
     {
       targetUrlString: '/my-students',
       icon: iconLibrary.faUserGroup,
-      label: TranslationKey.MY_STUDENTS,
+      label: 'application.layout.navigation.mentor.myStudents',
     },
     {
       targetUrlString: '/applications',
       icon: iconLibrary.faScroll,
-      label: TranslationKey.MY_STUDENT_APPLICATIONS,
+      label: 'application.layout.navigation.mentor.myStudentsApplications',
     },
   ],
 };

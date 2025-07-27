@@ -44,56 +44,58 @@ export const LayoutStudent = ({ data }: LayoutStudentProps): JSX.Element => {
   return (
     <>
       <TodoList
-        introduction={t('todoListInstructions')}
-        currentTodoItemsTitle={t('currentTodoItems')}
+        introduction={t('application.page.dashboard.todoListInstructions')}
+        currentTodoItemsTitle={t('application.page.dashboard.currentTodoItems')}
         currentTodoItems={todos}
       />
       <LayoutSectionWrapper>
         <TileStatistic
-          title={t('applicationRecordsTile')}
+          title={t('application.page.dashboard.applicationsTile')}
           value={data.applicationsCount}
         />
         <TileStatistic
-          title={t('plannedApplicationRecordsTile')}
+          title={t('application.page.dashboard.plannedApplicationsTile')}
           value={data.plannedApplicationsCount}
         />
         <TileStatistic
-          title={t('submittedApplicationRecordsTile')}
+          title={t('application.page.dashboard.submittedApplicationsTile')}
           value={data.submittedApplicationsCount}
         />
         <TileStatistic
-          title={t('withdrawnApplicationRecordsTile')}
+          title={t('application.page.dashboard.withdrawnApplicationsTile')}
           value={data.withdrawnStatusCount}
         />
       </LayoutSectionWrapper>
       <LayoutSectionWrapper>
         <TileStatistic
-          title={t('distinctCountriesTile')}
+          title={t('application.page.dashboard.distinctCountriesTile')}
           value={data.distinctCountriesCount}
         />
         <TileStatistic
-          title={t('distinctUniversitiesTile')}
+          title={t('application.page.dashboard.distinctUniversitiesTile')}
           value={data.distinctUniversitiesCount}
         />
       </LayoutSectionWrapper>
       <LayoutSectionWrapper>
         <TileStatistic
-          title={t('offersTile')}
+          title={t('application.page.dashboard.offersTile')}
           value={data.offersCount}
         />
         {data.firmChoiceTileDetails && (
           <TileDetail
-            title={t('firmChoiceTile')}
+            title={t('application.page.dashboard.firmChoiceTile')}
             country={data.firmChoiceTileDetails.countryName ?? ''}
-            university={data.firmChoiceTileDetails.universityName ?? t('notYetSelectedTile')}
+            university={data.firmChoiceTileDetails.universityName ?? t('application.page.dashboard.notYetSelectedTile')}
             courseName={data.firmChoiceTileDetails.courseName ?? ''}
           />
         )}
         {data.finalDestinationTileDetails && (
           <TileDetail
-            title={t('finalDestinationTile')}
+            title={t('application.page.dashboard.finalDestinationTile')}
             country={data.finalDestinationTileDetails.countryName ?? ''}
-            university={data.finalDestinationTileDetails.universityName ?? t('notYetSelectedTile')}
+            university={
+              data.finalDestinationTileDetails.universityName ?? t('application.page.dashboard.notYetSelectedTile')
+            }
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}

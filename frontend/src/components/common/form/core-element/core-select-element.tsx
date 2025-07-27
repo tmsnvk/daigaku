@@ -12,23 +12,20 @@ import { FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreSelectElementVariants = cva(
-  joinTw('w-full h-20', 'px-4 pt-4', 'border-2', 'text-xl', 'rounded-xl', 'focus:outline-1'),
-  {
-    variants: {
-      intent: {
-        light: joinTw('bg-primary border-secondary', 'focus:placeholder:text-secondary-muted focus:outline-secondary'),
-      },
-      isDisabled: {
-        false: 'cursor-pointer',
-        true: joinTw('text-secondary-muted', 'cursor-not-allowed'),
-      },
-      isError: {
-        true: joinTw('border-destructive', 'focus:outline-destructive'),
-      },
+const coreSelectElementVariants = cva(joinTw('w-full h-20 px-4 pt-4 border-2 text-xl rounded-xl', 'focus:outline-1'), {
+  variants: {
+    intent: {
+      light: joinTw('bg-primary border-secondary', 'focus:placeholder:text-secondary-muted focus:outline-secondary'),
+    },
+    isDisabled: {
+      false: 'cursor-pointer',
+      true: 'text-secondary-muted cursor-not-allowed',
+    },
+    isError: {
+      true: joinTw('border-destructive', 'focus:outline-destructive'),
     },
   },
-);
+});
 
 /**
  */

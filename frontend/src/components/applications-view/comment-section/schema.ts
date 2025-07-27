@@ -7,15 +7,14 @@
 /* vendor imports */
 import { z } from 'zod/v4';
 
-/* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
-
 export const createCommentSchema = z.object({
   comment: z
     .string()
-    .nonempty({ error: TranslationKey.COMMENT_REQUIRED })
+    .nonempty({
+      error: 'application.page.applicationView.commentRequired',
+    })
     .regex(/^(.|\s){15,1000}$/, {
-      error: TranslationKey.COMMENT_PATTERN,
+      error: 'application.page.applicationView.commentPattern',
     }),
 });
 

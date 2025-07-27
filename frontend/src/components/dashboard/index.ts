@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { DashboardIndex } from './dashboard-page.route.tsx';
-
-export { DashboardIndex };
+export { DashboardIndex } from './dashboard-page.route.tsx';

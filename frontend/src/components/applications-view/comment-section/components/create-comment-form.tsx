@@ -69,15 +69,15 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           isDisabled={isSubmitting}
           rows={DEFAULT_ROW_SIZE}
           cols={DEFAULT_COL_SIZE}
-          label={t('commentLabel')}
-          placeholder={t('commentPlaceholder')}
+          label={t('application.page.applicationsView.comment.commentLabel')}
+          placeholder={t('application.page.applicationsView.comment.commentPlaceholder')}
           intent={'light'}
         />
         <CoreFormAction
           isSubmissionPending={isSubmitting}
           formActionConfig={{
-            message: t('genericFormSubmission'),
-            value: t('createCommentFormSubmit'),
+            message: t('application.generic.loading.formSubmission'),
+            value: t('application.page.applicationsView.comment.submit'),
           }}
           intent={'dark'}
         />

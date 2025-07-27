@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { ApplicationsView } from './applications-view.route';
-
-export { ApplicationsView };
+export { ApplicationsView } from './applications-view.route';

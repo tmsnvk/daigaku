@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { CommentSection } from './components/comment-section.tsx';
-
-export { CommentSection };
+export { CommentSection } from './components/comment-section.tsx';

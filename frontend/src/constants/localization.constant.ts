@@ -41,8 +41,7 @@ export const TranslationKey = {
         minorSubjectPattern: 'minorSubjectPattern',
         programmeLengthRequired: 'programmeLengthRequired',
         programmeLengthPattern: 'programmeLengthPattern',
-        commentRequired: 'commentRequired',
-        commentPattern: 'commentPattern',
+
         validApplicationStatusRequired: 'validApplicationStatusRequired',
         validInterviewStatusRequired: 'validInterviewStatusRequired',
         validOfferStatusRequired: 'validOfferStatusRequired',
@@ -54,7 +53,7 @@ export const TranslationKey = {
         dataFetching: 'dataFetching',
         universityDataFetching: 'universityDataFetching',
         applicationUpdated: 'applicationUpdated',
-        genericFormSubmission: 'genericFormSubmission',
+        formSubmission: 'formSubmission',
 
         createApplicationFormSubmission: 'createApplicationFormSubmission',
         handlingRequest: 'handlingRequest',
@@ -64,7 +63,6 @@ export const TranslationKey = {
 
         applicationPdfDownloadToast: 'applicationPdfDownloadToast',
         createApplicationFormSubmissionToastDescription: 'createApplicationFormSubmissionToastDescription',
-        createCommentFormSubmissionToastDescription: 'createCommentFormSubmissionToastDescription',
         serverErrorToastTitle: 'serverErrorToastTitle',
         serverErrorToastDescription: 'serverErrorToastDescription',
         unexpectedErrorToastTitle: 'unexpectedErrorToastTitle',
@@ -83,16 +81,13 @@ export const TranslationKey = {
       button: {
         requestDeletion: 'requestDeletion',
         requestReversion: 'requestReversion',
+
         view: 'view',
-        edit: 'edit',
-        previousPage: 'previousPage',
-        nextPage: 'nextPage',
-        page: 'page',
+
         refresh: 'refresh',
         display: 'display',
         download: 'download',
 
-        createCommentFormSubmit: 'createCommentFormSubmit',
         createApplicationFormSubmit: 'createApplicationFormSubmit',
         updateApplicationFormSubmit: 'updateApplicationFormSubmit',
       },
@@ -116,8 +111,6 @@ export const TranslationKey = {
         responseStatusPlaceholder: 'responseStatusPlaceholder',
         finalDestinationStatusLabel: 'finalDestinationStatusLabel',
         finalDestinationStatusPlaceholder: 'finalDestinationStatusPlaceholder',
-        commentLabel: 'commentLabel',
-        commentPlaceholder: 'commentPlaceholder',
       },
     },
     page: {
@@ -217,6 +210,32 @@ export const TranslationKey = {
         responseStatusUpdateFieldInformation: 'responseStatusUpdateFieldInformation',
         finalDestinationStatusUpdateFieldInformation: 'finalDestinationStatusUpdateFieldInformation',
       },
+      applicationsView: {
+        application: {
+          edit: 'edit',
+          countryLabel: 'countryLabel',
+          universityLabel: 'universityLabel',
+          courseNameLabel: 'courseNameLabel',
+          minorSubjectLabel: 'minorSubjectLabel',
+          programmeLengthLabel: 'programmeLengthLabel',
+          applicationStatusLabel: 'applicationStatusLabel',
+          interviewStatusLabel: 'interviewStatusLabel',
+          offerStatusLabel: 'offerStatusLabel',
+          responseStatusLabel: 'responseStatusLabel',
+          finalDestinationStatusLabel: 'finalDestinationStatusLabel',
+        },
+        comment: {
+          previousPage: 'previousPage',
+          nextPage: 'nextPage',
+          page: 'page',
+          commentLabel: 'commentLabel',
+          commentPlaceholder: 'commentPlaceholder',
+          commentRequired: 'commentRequired',
+          commentPattern: 'commentPattern',
+          successfulSubmissionToastDescription: 'successfulSubmissionToastDescription',
+          submit: 'submit',
+        },
+      },
     },
     domain: {
       application: {
@@ -305,8 +324,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
               'Provide a minor subject only if you it is relevant, using only letters, spaces or hyphens, with a minimum of 1 and a maximum of 255 characters.',
             programmeLengthRequired: 'Provide the length (year) of your selected course.',
             programmeLengthPattern: 'You may enter numeric values only between 1 and 5.',
-            commentRequired: 'Add your comment.',
-            commentPattern: 'Provide a minimum of 15 and a maximum of 1000 characters.',
+
             validApplicationStatusRequired: 'Provide a valid Application status.',
             validInterviewStatusRequired: 'Provide a valid Interview status.',
             validOfferStatusRequired: 'Provide a valid Offer status.',
@@ -318,7 +336,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
             dataFetching: 'The required data is being fetched...',
             universityDataFetching: 'Fetching university list...',
             applicationUpdated: 'Your application was successfully updated.',
-            genericFormSubmission: 'Your data is being submitted.',
+            formSubmission: 'Your data is being submitted.',
 
             createApplicationFormSubmission: 'Your application is being submitted.',
             handlingRequest: 'Handling your request...',
@@ -330,7 +348,6 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
               'Your request has been received. You will receive an email soon with the details.',
             createApplicationFormSubmissionToastDescription:
               'Your submission was successful. Wishing you the best of luck with your application!',
-            createCommentFormSubmissionToastDescription: 'Your comment was successfully submitted!',
             serverErrorToastTitle: 'Server Error',
             serverErrorToastDescription:
               "The application's server is currently not available. Come back and try again at a later time.",
@@ -354,14 +371,11 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
             requestDeletion: 'Request deletion',
             requestReversion: 'Revert request',
             view: 'View',
-            edit: 'Edit',
-            previousPage: 'Previous',
-            nextPage: 'Next',
-            page: 'Page',
+
             refresh: 'Refresh',
             display: 'Display',
             download: 'Download',
-            createCommentFormSubmit: 'Add comment',
+
             createApplicationFormSubmit: 'Submit application',
             updateApplicationFormSubmit: 'Update application',
           },
@@ -385,8 +399,6 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
             responseStatusPlaceholder: 'Update your response status.',
             finalDestinationStatusLabel: 'Final Destination Status',
             finalDestinationStatusPlaceholder: 'Update your final decision regarding this application.',
-            commentLabel: 'Comment',
-            commentPlaceholder: 'Write your comment here...',
           },
         },
         page: {
@@ -503,6 +515,32 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
               'Update the field according to your preferred ranking. You may only have one Firm Choice as your number one target.',
             finalDestinationStatusUpdateFieldInformation:
               "Update this final status once you have all the necessary information. There can only be one Final Destination, which is when you accept the university's offer. All other applications should be marked as 'Not Final Destination'.",
+          },
+          applicationsView: {
+            application: {
+              edit: 'Edit',
+              countryLabel: 'Country',
+              universityLabel: 'University',
+              courseNameLabel: 'Course Name',
+              minorSubjectLabel: 'Minor Subject',
+              programmeLengthLabel: 'Programme Length',
+              applicationStatusLabel: 'Application Status',
+              interviewStatusLabel: 'Interview Status',
+              offerStatusLabel: 'Offer Status',
+              responseStatusLabel: 'Response Status',
+              finalDestinationStatusLabel: 'Final Destination Status',
+            },
+            comment: {
+              previousPage: 'Previous',
+              nextPage: 'Next',
+              page: 'Page',
+              commentLabel: 'Comment',
+              commentPlaceholder: 'Write your comment here...',
+              commentRequired: 'Add your comment.',
+              commentPattern: 'Provide a minimum of 15 and a maximum of 1000 characters.',
+              submit: 'Add comment',
+              successfulSubmissionToastDescription: 'Your comment was successfully submitted!',
+            },
           },
         },
         domain: {

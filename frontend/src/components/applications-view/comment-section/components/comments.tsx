@@ -8,9 +8,6 @@
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
-/* logic imports */
-import { joinTw } from '@daigaku/utilities';
-
 /* interface, type imports */
 import { ApplicationComment } from '@daigaku/common-types';
 
@@ -40,10 +37,8 @@ export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
 
   if (isError) {
     return (
-      <article
-        className={joinTw('text-center', 'w-[75%]', 'mx-auto my-10', 'text-destructive text-2xl font-extrabold')}
-      >
-        {t('unexpectedError')}
+      <article className={'text-destructive mx-auto my-1 w-[75%] text-center text-2xl font-extrabold'}>
+        {t('application.generic.error.unexpectedError')}
       </article>
     );
   }
@@ -53,13 +48,13 @@ export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
       {comments.map((comment: ApplicationComment) => (
         <article
           key={comment.uuid}
-          className={joinTw('w-[75%]', 'mx-auto my-20', 'text-xl')}
+          className={'mx-auto my-20 w-[75%] text-xl'}
         >
-          <div className={joinTw('p-8', 'bg-tertiary border-secondary border-2', 'rounded-(--default-border-radius)')}>
+          <div className={'bg-tertiary border-secondary rounded-(--default-border-radius) border-2 p-8'}>
             <p className={'font-extrabold'}>{comment.createdBy}</p>
-            <p className={joinTw('my-4', 'whitespace-pre-wrap break-all')}>{comment.comment}</p>
+            <p className={'my-4 whitespace-pre-wrap break-all'}>{comment.comment}</p>
           </div>
-          <p className={joinTw('pl-10 pt-6', 'font-extrabold')}>
+          <p className={'pl-10 pt-6 font-extrabold'}>
             {new Date(comment.createdAt).toLocaleString('en-GB', {
               year: 'numeric',
               month: 'numeric',

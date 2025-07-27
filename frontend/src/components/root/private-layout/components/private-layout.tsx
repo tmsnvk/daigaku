@@ -24,7 +24,7 @@ import { iconLibrary } from '@daigaku/constants';
 import { accountRoleNavigationRoutes, sharedNavigationRoutes } from '../constants.ts';
 
 /* interface, type imports */
-import { NavigationRouteItem, UserLoginStates, UserRole } from '@daigaku/common-types';
+import { NavigationRouteItem, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
 
 /**
  * Defines the possible states of the small screen mobile navigation menu.
@@ -87,26 +87,28 @@ export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
     return <CoreLoadingNotification intent={'light'} />;
   }
 
-  const role = state.account?.role as UserRole | undefined;
+  const role = state.account?.role as
+    | Exclude<UserRole, typeof UserRoles.ROLE_INSTITUTION_ADMIN | typeof UserRoles.ROLE_SYSTEM_ADMIN>
+    | undefined;
   const roleRoutes = role ? (accountRoleNavigationRoutes[role] ?? []) : [];
 
   const routes = (
     <div>
       <ul className={'lg:flex lg:items-center lg:gap-x-8'}>
-        {roleRoutes.map((r: NavigationRouteItem) => (
+        {roleRoutes.map((route: NavigationRouteItem) => (
           <li
-            key={r.targetUrlString}
+            key={route.targetUrlString}
             className={'my-4'}
           >
             <NavigationRoute
-              targetUrlString={r.targetUrlString}
-              icon={r.icon}
-              label={t(r.label)}
+              targetUrlString={route.targetUrlString}
+              icon={route.icon}
+              label={t(route.label)}
             />
           </li>
         ))}
       </ul>
-      <ul className={'justify-end lg:flex lg:items-center lg:gap-x-8'}>
+      <ul className={joinTw('justify-end', 'lg:flex lg:items-center lg:gap-x-8')}>
         {sharedNavigationRoutes.map((r: NavigationRouteItem) => (
           <li
             key={r.targetUrlString}
@@ -123,7 +125,7 @@ export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
           <NavigationRoute
             targetUrlString={'/'}
             icon={iconLibrary.faRightFromBracket}
-            label={t('logOut')}
+            label={t('application.layout.navigation.shared.logOut')}
             onNavigateClick={() => logOut()}
           />
         </li>
@@ -134,18 +136,18 @@ export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
   return (
     <>
       <NavigationBarWrapper>
-        <section className={joinTw('flex-none', 'w-1/3')}>
+        <section className={'w-1/3 flex-none'}>
           <NavigationRoute
             targetUrlString={'/dashboard'}
             icon={iconLibrary.faGraduationCap}
-            label={t('dashboard')}
+            label={t('application.layout.navigation.shared.dashboard')}
           />
         </section>
         <section>
-          <div className={'hidden lg:block'}>{routes}</div>
+          <div className={joinTw('hidden', 'lg:block')}>{routes}</div>
           <div
             onClick={openSmallScreenMenu}
-            className={'top-15 absolute right-10 lg:hidden'}
+            className={joinTw('top-15 absolute right-10', 'lg:hidden')}
           >
             <CoreIcon icon={iconLibrary.faBars} />
           </div>
@@ -154,18 +156,15 @@ export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
           <section
             onClick={closeSmallScreenMenu}
             className={joinTw(
-              'z-100 fixed right-0 top-0 lg:hidden',
-              'sm:w-4/10 h-screen w-screen',
-              'pl-20 pt-40',
-              'bg-primary',
-              'transition-transform duration-500',
+              'z-100 bg-primary fixed right-0 top-0 h-screen w-screen pl-20 pt-40 transition-transform duration-500',
+              'sm:w-4/10 lg:hidden',
               smallScreenMenuState === 'open' ? 'translate-x-0' : 'translate-x-full',
             )}
           >
             {routes}
             <div
               onClick={closeSmallScreenMenu}
-              className={'top-15 absolute right-10 lg:hidden'}
+              className={joinTw('top-15 absolute right-10', 'lg:hidden')}
             >
               <CoreIcon icon={iconLibrary.faXmark} />
             </div>

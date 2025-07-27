@@ -41,10 +41,7 @@ export const CoreFormElementLabel = ({ inputId, label, isError }: CoreFormElemen
     <label
       htmlFor={inputId}
       className={joinTw(
-        'z-1 absolute top-[-0.75rem]',
-        'ml-6 px-4',
-        'text-lg font-semibold tracking-widest',
-        'rounded-(--default-border-radius)',
+        'z-1 rounded-(--default-border-radius) absolute top-[-0.75rem] ml-6 px-4 text-lg font-semibold tracking-widest',
         isError ? 'bg-destructive text-tertiary' : 'bg-secondary text-primary',
       )}
     >

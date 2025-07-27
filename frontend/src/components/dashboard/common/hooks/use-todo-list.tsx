@@ -24,39 +24,39 @@ export const useTodoList = (data: StudentDashboardStatisticsResponse): TodoList 
   const evaluateTodos = (): void => {
     // No applications made.
     if (data.applicationsCount === 0) {
-      todos.push(t('noApplicationRecordsTodo'));
+      todos.push(t('application.page.dashboard.noApplicationRecordsTodo'));
     }
 
     // No applications are in the 'Submitted' status.
     if (data.submittedApplicationsCount === 0) {
-      todos.push(t('noSubmittedApplicationRecordsTodo'));
+      todos.push(t('application.page.dashboard.noSubmittedApplicationRecordsTodo'));
     }
 
     if (data.submittedApplicationsCount > 0) {
       // There is no InterviewStatus set for submitted applications.
       if (data.notSetInterviewStatusCount) {
-        todos.push(t('noInterviewSetTodo'));
+        todos.push(t('application.page.dashboard.noInterviewSetTodo'));
       }
 
       // There is no firm choice application selected.
       if (!data.firmChoiceTileDetails) {
-        todos.push(t('noFirmChoiceSetTodo'));
+        todos.push(t('application.page.dashboard.noFirmChoiceSetTodo'));
       }
 
       // OfferStatus is not updated on any of the 'Submitted' applications.
       if (data.offersCount === 0) {
-        todos.push(t('noOfferSetTodo'));
+        todos.push(t('application.page.dashboard.noOfferSetTodo'));
       }
     }
 
     // There are offers but no FinalDestinationStatus is set.
     if (data.offersCount && !data.finalDestinationTileDetails) {
-      todos.push(t('noFinalDestinationSetTodo'));
+      todos.push(t('application.page.dashboard.noFinalDestinationSetTodo'));
     }
 
     // There are no to-do items.
     if (todos.length === 0) {
-      todos.push(t('emptyTodoList'));
+      todos.push(t('application.page.dashboard.emptyTodoList'));
     }
   };
 

@@ -9,9 +9,9 @@ import { JSX, useMemo, useState } from 'react';
 import { match } from 'ts-pattern';
 
 /* component imports */
+import { AccountPasswordResetForm } from './account-password-reset-form';
 import { LoginForm } from './login-form';
 import { PendingAccountRegistrationForm } from './pending-account-registration-form';
-import { ResetAccountPasswordForm } from './reset-account-password-form';
 
 /* interface, type imports */
 import { FormType, FormTypes } from './common/types';
@@ -49,7 +49,7 @@ export const useFormSelector = (): FormSelector => {
     return match(selectedFormType)
       .with(FormTypes.LOGIN, () => <LoginForm onFormSelect={selectFormType} />)
       .with(FormTypes.REGISTER_PENDING_ACCOUNT, () => <PendingAccountRegistrationForm onFormSelect={selectFormType} />)
-      .with(FormTypes.RESET_ACCOUNT_PASSWORD, () => <ResetAccountPasswordForm onFormSelect={selectFormType} />)
+      .with(FormTypes.RESET_ACCOUNT_PASSWORD, () => <AccountPasswordResetForm onFormSelect={selectFormType} />)
       .exhaustive();
   }, [selectedFormType]);
 

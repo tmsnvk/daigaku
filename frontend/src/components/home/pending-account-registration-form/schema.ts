@@ -11,14 +11,18 @@ export const pendingAccountRegistrationSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .nonempty({ error: 'application.page.root.pendingAccountRegistrationForm.firstNameRequired' })
+    .nonempty({
+      error: 'application.page.root.pendingAccountRegistrationForm.firstNameRequired',
+    })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
       error: 'application.page.root.pendingAccountRegistrationForm.namePattern',
     }),
   lastName: z
     .string()
     .trim()
-    .nonempty({ error: 'application.page.root.pendingAccountRegistrationForm.lastNameRequired' })
+    .nonempty({
+      error: 'application.page.root.pendingAccountRegistrationForm.lastNameRequired',
+    })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
       error: 'application.page.root.pendingAccountRegistrationForm.namePattern',
     }),

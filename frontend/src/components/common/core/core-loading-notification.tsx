@@ -18,11 +18,7 @@ import { iconLibrary } from '@daigaku/constants';
 
 const coreDialogVariants = cva(
   joinTw(
-    'core-loading-dialog-window',
-    'flex flex-col items-center',
-    'my-[25%] mx-auto px-10',
-    'bg-transparent',
-    'text-4xl tracking-wide leading-10 font-semibold text-center',
+    'core-loading-dialog-window flex flex-col items-center my-[25%] mx-auto px-10 bg-transparent text-4xl tracking-wide leading-10 font-semibold text-center',
     'focus:outline-0',
   ),
   {
@@ -50,7 +46,7 @@ export const CoreLoadingNotification = ({ intent }: CoreLoadingNotificationProps
 
   return (
     <section className={joinTw(coreDialogVariants({ intent }))}>
-      <p className={'mb-12'}>{t('dataCompilation')}</p>
+      <p className={'mb-12'}>{t('application.generic.loading.dataCompilation')}</p>
       <FontAwesomeIcon
         icon={iconLibrary.faCircleNotch}
         spin

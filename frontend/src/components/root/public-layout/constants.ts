@@ -5,7 +5,7 @@
  */
 
 /* configuration, constants imports */
-import { TranslationKey, iconLibrary } from '@daigaku/constants';
+import { iconLibrary } from '@daigaku/constants';
 
 /* interface, type imports */
 import { NavigationRouteItem } from '@daigaku/common-types';
@@ -19,6 +19,6 @@ export const navigationRoutes: Array<NavigationRouteItem> = [
   {
     targetUrlString: '/contact',
     icon: iconLibrary.faPaperPlane,
-    label: TranslationKey.CONTACT_US,
+    label: 'application.layout.navigation.shared.contactUs',
   },
 ];

@@ -41,11 +41,11 @@ export const PublicLayout = ({ buildId }: PublicLayoutProps): JSX.Element => {
   return (
     <>
       <NavigationBarWrapper>
-        <ul className={joinTw('flex justify-between', 'w-[90%]')}>
+        <ul className={'flex w-[90%] justify-between'}>
           {navigationRoutes.map((route: NavigationRouteItem) => (
             <li
               key={route.targetUrlString}
-              className={'my-4 md:mx-4'}
+              className={joinTw('my-4', 'md:mx-4')}
             >
               <NavigationRoute
                 targetUrlString={route.targetUrlString}
