@@ -39,6 +39,7 @@ const coreTextareaElementVariants = cva(
 );
 
 /**
+ *
  */
 export type CoreTextareaElementVariantIntent = VariantProps<typeof coreTextareaElementVariants>['intent'];
 

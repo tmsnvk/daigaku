@@ -100,10 +100,10 @@ export const TableHeader = ({
       })}
       <th className={'w-[10%] px-1 py-6 text-center'}>
         <CoreButton
-          label={t('refresh')}
+          label={t('app.page.applications.buttons.refresh')}
           content={
             <>
-              {t('refresh')}
+              {t('app.page.applications.buttons.refresh')}
               <FontAwesomeIcon
                 icon={iconLibrary.faRotateRight}
                 className={'ml-2'}
@@ -115,10 +115,10 @@ export const TableHeader = ({
           disabled={isDataEmpty}
         />
         <CoreButton
-          label={t('display')}
+          label={t('app.page.applications.buttons.display')}
           content={
             <>
-              {t('display')}
+              {t('app.page.applications.buttons.display')}
               <FontAwesomeIcon
                 icon={iconLibrary.faTable}
                 className={'ml-2'}
@@ -130,13 +130,13 @@ export const TableHeader = ({
           disabled={isDataEmpty}
         />
         {isSubmitting ? (
-          <LoadingIndicator loadingText={t('handlingRequest')} />
+          <LoadingIndicator loadingText={t('app.generic.loading.handlingRequest')} />
         ) : (
           <CoreButton
-            label={t('download')}
+            label={t('app.page.applications.buttons.download')}
             content={
               <>
-                {t('download')}
+                {t('app.page.applications.buttons.download')}
                 <FontAwesomeIcon
                   icon={iconLibrary.faFileArrowDown}
                   className={'ml-2'}

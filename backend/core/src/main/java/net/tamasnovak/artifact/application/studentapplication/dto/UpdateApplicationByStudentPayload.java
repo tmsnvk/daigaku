@@ -13,7 +13,6 @@ import net.tamasnovak.enums.status.FinalDestinationStatus;
 import net.tamasnovak.enums.status.InterviewStatus;
 import net.tamasnovak.enums.status.OfferStatus;
 import net.tamasnovak.enums.status.ResponseStatus;
-import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationExceptionMessages;
 import net.tamasnovak.validation.annotations.validenum.ValidEnum;
 
 /**
@@ -26,19 +25,19 @@ import net.tamasnovak.validation.annotations.validenum.ValidEnum;
  * @param finalDestinationStatus
  */
 public record UpdateApplicationByStudentPayload(
-  @ValidEnum(enumClass = ApplicationStatus.class, message = FormValidationExceptionMessages.INVALID_APPLICATION_STATUS)
+  @ValidEnum(enumClass = ApplicationStatus.class, message = "app.page.applicationEdit.form.validApplicationStatusRequired")
   String applicationStatus,
 
-  @ValidEnum(enumClass = InterviewStatus.class, message = FormValidationExceptionMessages.INVALID_INTERVIEW_STATUS)
+  @ValidEnum(enumClass = InterviewStatus.class, message = "app.page.applicationEdit.form.validInterviewStatusRequired")
   String interviewStatus,
 
-  @ValidEnum(enumClass = OfferStatus.class, message = FormValidationExceptionMessages.INVALID_OFFER_STATUS)
+  @ValidEnum(enumClass = OfferStatus.class, message = "app.page.applicationEdit.form.validOfferStatusRequired")
   String offerStatus,
 
-  @ValidEnum(enumClass = ResponseStatus.class, message = FormValidationExceptionMessages.INVALID_RESPONSE_STATUS)
+  @ValidEnum(enumClass = ResponseStatus.class, message = "app.page.applicationEdit.form.validResponseStatusRequired")
   String responseStatus,
 
-  @ValidEnum(enumClass = FinalDestinationStatus.class, message = FormValidationExceptionMessages.INVALID_FINAL_DESTINATION_STATUS)
+  @ValidEnum(enumClass = FinalDestinationStatus.class, message = "app.page.applicationEdit.form.validFinalDestinationStatusRequired")
   String finalDestinationStatus
 ) {
   public ApplicationStatus applicationStatusEnum() {

@@ -33,15 +33,15 @@ export const useRequestPdfDownload = (): UseMutationResult<void, CoreApiError, v
     {
       onSuccess: () => {
         createToast({
-          title: t('success'),
-          description: t('applicationPdfDownloadToast'),
+          title: t('app.generic.toast.successToastTitle'),
+          description: t('app.page.applications.toast.downloadRequestSuccessDescription'),
           variantIntent: 'success',
         });
       },
       onError: () => {
         createToast({
-          title: t('pdfRequestErrorTitle'),
-          description: t('pdfRequestErrorDescription'),
+          title: t('app.page.applications.toast.downloadRequestErrorTitle'),
+          description: t('app.page.applications.toast.downloadRequestErrorDescription'),
           variantIntent: 'destructive',
           autoRemoveDelay: 10000,
         });

@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { ApplicationsCreate } from './applications-create.route.tsx';
-
-export { ApplicationsCreate };
+export { ApplicationsCreate } from './applications-create.route.tsx';

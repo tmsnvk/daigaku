@@ -51,7 +51,7 @@ export const CoreFetchError = ({ onRetry, message, size }: CoreFetchErrorProps):
     <article className={joinTw(coreErrorVariants({ size }))}>
       <p className={'mb-4'}>{message}</p>
       <CoreButton
-        label={t('application.generic.error.tryAgain')}
+        label={t('app.generic.error.tryAgain')}
         onClick={onRetry}
         intent={'destructiveSlim'}
       />

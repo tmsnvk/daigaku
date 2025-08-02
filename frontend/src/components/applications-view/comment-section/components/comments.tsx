@@ -38,7 +38,7 @@ export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
   if (isError) {
     return (
       <article className={'text-destructive mx-auto my-1 w-[75%] text-center text-2xl font-extrabold'}>
-        {t('application.generic.error.unexpectedError')}
+        {t('app.generic.error.unexpectedError')}
       </article>
     );
   }

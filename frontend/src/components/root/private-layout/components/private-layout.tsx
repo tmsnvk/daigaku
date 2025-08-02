@@ -24,7 +24,7 @@ import { iconLibrary } from '@daigaku/constants';
 import { accountRoleNavigationRoutes, sharedNavigationRoutes } from '../constants.ts';
 
 /* interface, type imports */
-import { NavigationRouteItem, UserLoginStates, UserRole, UserRoles } from '@daigaku/common-types';
+import { NavigationRouteItem, UserLoginStates, UserRole } from '@daigaku/common-types';
 
 /**
  * Defines the possible states of the small screen mobile navigation menu.
@@ -87,9 +87,7 @@ export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
     return <CoreLoadingNotification intent={'light'} />;
   }
 
-  const role = state.account?.role as
-    | Exclude<UserRole, typeof UserRoles.ROLE_INSTITUTION_ADMIN | typeof UserRoles.ROLE_SYSTEM_ADMIN>
-    | undefined;
+  const role = state.account?.role as UserRole | undefined;
   const roleRoutes = role ? (accountRoleNavigationRoutes[role] ?? []) : [];
 
   const routes = (
@@ -125,7 +123,7 @@ export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
           <NavigationRoute
             targetUrlString={'/'}
             icon={iconLibrary.faRightFromBracket}
-            label={t('application.layout.navigation.shared.logOut')}
+            label={t('app.layout.navigation.shared.logOut')}
             onNavigateClick={() => logOut()}
           />
         </li>
@@ -140,7 +138,7 @@ export const PrivateLayout = ({ buildId }: PrivateLayoutProps): JSX.Element => {
           <NavigationRoute
             targetUrlString={'/dashboard'}
             icon={iconLibrary.faGraduationCap}
-            label={t('application.layout.navigation.shared.dashboard')}
+            label={t('app.layout.navigation.shared.dashboard')}
           />
         </section>
         <section>

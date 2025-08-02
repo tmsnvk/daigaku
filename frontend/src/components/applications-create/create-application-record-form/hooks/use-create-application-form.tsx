@@ -36,8 +36,8 @@ export const useCreateApplicationForm = (
   reset: () => void,
 ): UseMutationResult<ApplicationResponse, CoreApiError, CreateApplicationByStudentPayload> => {
   const { t } = useTranslation();
-  const queryClient = useCoreQueryClient();
 
+  const queryClient = useCoreQueryClient();
   const { createToast } = useToastProvider();
 
   return useCoreApiMutation(
@@ -51,8 +51,8 @@ export const useCreateApplicationForm = (
         reset();
 
         createToast({
-          title: t('genericSuccessToastTitle'),
-          description: t('createApplicationFormSubmissionToastDescription'),
+          title: t('app.generic.toast.successToastTitle'),
+          description: t('app.page.applicationCreate.toast.successfulFormSubmissionBody'),
           variantIntent: 'success',
         });
       },

@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { getStatusDisplayValue } from '@daigaku/utilities';
+import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 
 /* component imports */
 import { CoreLink } from '@daigaku/components/common/core';
@@ -47,7 +47,7 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
   const { t } = useTranslation();
 
   return (
-    <section className={'core-primary-border application-grid w-9/10 2xl:w-6/10 h-fit'}>
+    <section className={joinTw('core-primary-border application-grid w-9/10 h-fit', '2xl:w-6/10')}>
       <CoreFormHeader
         title={
           <>
@@ -76,45 +76,45 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
       <article className={'col-start-2 col-end-3'}>
         <CoreLink
           target={`/applications/student/edit/${application.uuid}`}
-          label={t('application.page.applicationsView.application.edit')}
+          label={t('app.page.applicationView.application.edit')}
           intent={'dark'}
           size={'normal'}
         />
       </article>
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.countryLabel')}
+        name={t('app.page.applicationView.application.countryLabel')}
         value={application.country}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.courseNameLabel')}
+        name={t('app.page.applicationView.application.courseNameLabel')}
         value={application.courseName}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.minorSubjectLabel')}
+        name={t('app.page.applicationView.application.minorSubjectLabel')}
         value={application.minorSubject ?? '-'}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.programmeLengthLabel')}
+        name={t('app.page.applicationView.application.programmeLengthLabel')}
         value={application.programmeLength}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.applicationStatusLabel')}
+        name={t('app.page.applicationView.application.applicationStatusLabel')}
         value={getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.interviewStatusLabel')}
+        name={t('app.page.applicationView.application.interviewStatusLabel')}
         value={getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.offerStatusLabel')}
+        name={t('app.page.applicationView.application.offerStatusLabel')}
         value={getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.responseStatusLabel')}
+        name={t('app.page.applicationView.application.responseStatusLabel')}
         value={getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('application.page.applicationsView.application.finalDestinationStatusLabel')}
+        name={t('app.page.applicationView.application.finalDestinationStatusLabel')}
         value={getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ?? '-'}
       />
     </section>

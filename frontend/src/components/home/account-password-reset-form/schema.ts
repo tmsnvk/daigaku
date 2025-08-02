@@ -11,10 +11,10 @@ export const accountPasswordResetSchema = z.object({
   email: z.email({
     error: (issue) => {
       if (issue.input === '') {
-        return 'application.page.root.passwordResetForm.emailRequired';
+        return 'app.page.root.passwordReset.form.emailRequired';
       }
 
-      return 'application.page.root.passwordResetForm.validEmailRequired';
+      return 'app.page.root.passwordReset.form.validEmailRequired';
     },
   }),
 });

@@ -86,17 +86,17 @@ export const CreateApplicationForm = ({ countryOptions }: CreateApplicationRecor
     <section className={joinTw('core-tertiary-border w-9/10 my-[5%]', 'md:w-8/10 2xl:max-w-[100rem]')}>
       <FormProvider {...methods}>
         <CoreFormWrapper
-          formId={'post-application-record-by-student-form'}
+          formId={'create-application-by-student-form'}
           onFormSubmit={onFormSubmit}
           className={'core-application-grid'}
         >
           <CoreFormHeader
-            title={t('newApplicationRecordFormTitle')}
+            title={t('app.page.applicationCreate.description.formTitle')}
             intent={'largeWithUnderline'}
             className={'col-start-1 col-end-3'}
           />
           <CoreFormElementInstruction
-            paragraph={t('newApplicationRecordFormInformation')}
+            paragraph={t('app.page.applicationCreate.description.formInformation')}
             className={'col-start-1 col-end-3'}
           />
           <CommonStaticSelectGroup
@@ -113,13 +113,13 @@ export const CreateApplicationForm = ({ countryOptions }: CreateApplicationRecor
                 </option>
               )) ?? []
             }
-            label={t('countryLabel')}
-            initialValue={t('countryPlaceholder')}
+            label={t('app.page.applicationCreate.form.countryLabel')}
+            initialValue={t('app.page.applicationCreate.form.countryPlaceholder')}
             intent={'light'}
           />
-          <CoreFormElementInstruction paragraph={t('countryNewFieldInformation')} />
+          <CoreFormElementInstruction paragraph={t('app.page.applicationCreate.description.country')} />
           {isUniversityLoading ? (
-            <p>{t('universityDataFetching')}</p>
+            <p>{t('app.generic.loading.universityDataFetching')}</p>
           ) : (
             <CommonSelectGroup
               id={'universityUuid'}
@@ -137,43 +137,43 @@ export const CreateApplicationForm = ({ countryOptions }: CreateApplicationRecor
                   </option>
                 )) ?? []
               }
-              label={t('universityLabel')}
-              initialValue={t('universityPlaceholder')}
+              label={t('app.page.applicationCreate.form.universityLabel')}
+              initialValue={t('app.page.applicationCreate.form.universityPlaceholder')}
               intent={'light'}
             />
           )}
-          <CoreFormElementInstruction paragraph={t('universityNewFieldInformation')} />
+          <CoreFormElementInstruction paragraph={t('app.page.applicationCreate.description.university')} />
           <CommonInputGroup
             id={'courseName'}
             type={'text'}
             isDisabled={isSubmitting}
-            label={t('courseNameLabel')}
-            placeholder={t('courseNamePlaceholder')}
+            label={t('app.page.applicationCreate.form.courseNameLabel')}
+            placeholder={t('app.page.applicationCreate.form.courseNamePlaceholder')}
             intent={'light'}
           />
-          <CoreFormElementInstruction paragraph={t('courseNameNewFieldInformation')} />
+          <CoreFormElementInstruction paragraph={t('app.page.applicationCreate.description.courseName')} />
           <CommonInputGroup
             id={'minorSubject'}
             type={'text'}
             isDisabled={isSubmitting}
-            label={t('minorSubjectLabel')}
-            placeholder={t('minorSubjectPlaceholder')}
+            label={t('app.page.applicationCreate.form.minorSubjectLabel')}
+            placeholder={t('app.page.applicationCreate.form.minorSubjectPlaceholder')}
             intent={'light'}
           />
-          <CoreFormElementInstruction paragraph={t('minorSubjectNewFieldInformation')} />
+          <CoreFormElementInstruction paragraph={t('app.page.applicationCreate.description.minorSubject')} />
           <CommonInputGroup
             id={'programmeLength'}
-            label={t('programmeLengthLabel')}
+            label={t('app.page.applicationCreate.form.programmeLengthLabel')}
             type={'number'}
             isDisabled={isSubmitting}
             intent={'light'}
           />
-          <CoreFormElementInstruction paragraph={t('programmeLengthNewFieldInformation')} />
+          <CoreFormElementInstruction paragraph={t('app.page.applicationCreate.form.description.programmeLength')} />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: t('createApplicationRecordFormSubmission'),
-              value: t('createApplicationRecordFormSubmit'),
+              message: t('app.page.applicationCreate.form.loadingText'),
+              value: t('app.page.applicationCreate.form.submitButton'),
             }}
             intent={'dark'}
             className={'col-start-1 col-end-3'}

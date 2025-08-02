@@ -38,37 +38,38 @@ export const DisabledInputGroups = ({ application }: DisabledInputGroupsProps): 
       <DisabledInputGroup
         id={'country'}
         type={'text'}
-        label={t('countryLabel')}
+        label={t('app.page.applicationEdit.form.countryLabel')}
         defaultValue={application.country}
       />
-      <CoreFormElementInstruction paragraph={t('countryUpdateFieldInformation')} />
+      <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.country')} />
       <DisabledInputGroup
         id={'university'}
         type={'text'}
-        label={t('universityLabel')}
+        label={t('app.page.applicationEdit.form.universityLabel')}
         defaultValue={application.university}
       />
-      <CoreFormElementInstruction paragraph={t('universityUpdateFieldInformation')} />
+      <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.university')} />
       <DisabledInputGroup
         id={'courseName'}
         type={'text'}
-        label={t('courseNameLabel')}
+        label={t('app.page.applicationEdit.form.courseNameLabel')}
         defaultValue={application.courseName}
       />
-      <CoreFormElementInstruction paragraph={t('courseNameUpdateFieldInformation')} />
+      <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.coursedescription.courseName')} />
       <DisabledInputGroup
         id={'minorSubject'}
         type={'text'}
-        label={t('minorSubjectLabel')}
+        label={t('app.page.applicationEdit.form.minorSubjectLabel')}
         defaultValue={application.minorSubject ?? '-'}
       />
-      <CoreFormElementInstruction paragraph={t('minorSubjectUpdateFieldInformation')} />
+      <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.minorSubject')} />
       <DisabledInputGroup
         id={'programmeLength'}
         type={'number'}
-        label={t('programmeLengthLabel')}
+        label={t('app.page.applicationEdit.form.programmeLengthLabel')}
         defaultValue={application.programmeLength}
       />
+      <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.programmeLength')} />
     </>
   );
 };

@@ -14,48 +14,45 @@ export const sharedNavigationRoutes: Array<NavigationRouteItem> = [
   {
     targetUrlString: '/account',
     icon: iconLibrary.faUser,
-    label: 'application.layout.navigation.shared.myAccount',
+    label: 'app.layout.navigation.shared.myAccount',
   },
   {
     targetUrlString: '/messages',
     icon: iconLibrary.faEnvelope,
-    label: 'application.layout.navigation.shared.messages',
+    label: 'app.layout.navigation.shared.messages',
   },
   {
     targetUrlString: '/feedback',
     icon: iconLibrary.faGears,
-    label: 'application.layout.navigation.shared.feedback',
+    label: 'app.layout.navigation.shared.feedback',
   },
 ];
 
 export const accountRoleNavigationRoutes: {
-  [key in Exclude<
-    UserRole,
-    typeof UserRoles.ROLE_INSTITUTION_ADMIN | typeof UserRoles.ROLE_SYSTEM_ADMIN
-  >]: Array<NavigationRouteItem>;
+  [key in UserRole]: Array<NavigationRouteItem>;
 } = {
   [UserRoles.ROLE_STUDENT]: [
     {
       targetUrlString: '/applications/student/create',
       icon: iconLibrary.faFileCirclePlus,
-      label: 'application.layout.navigation.student.newApplication',
+      label: 'app.layout.navigation.student.newApplication',
     },
     {
       targetUrlString: '/applications',
       icon: iconLibrary.faScroll,
-      label: 'application.layout.navigation.student.myApplications',
+      label: 'app.layout.navigation.student.myApplications',
     },
   ],
   [UserRoles.ROLE_MENTOR]: [
     {
       targetUrlString: '/my-students',
       icon: iconLibrary.faUserGroup,
-      label: 'application.layout.navigation.mentor.myStudents',
+      label: 'app.layout.navigation.mentor.myStudents',
     },
     {
       targetUrlString: '/applications',
       icon: iconLibrary.faScroll,
-      label: 'application.layout.navigation.mentor.myStudentsApplications',
+      label: 'app.layout.navigation.mentor.myStudentsApplications',
     },
   ],
 };

@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { ColumnSelectorModal } from './components/column-selector-modal.tsx';
-
-export { ColumnSelectorModal };
+export { ColumnSelectorModal } from './components/column-selector-modal.tsx';

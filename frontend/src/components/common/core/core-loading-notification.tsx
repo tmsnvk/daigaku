@@ -46,7 +46,7 @@ export const CoreLoadingNotification = ({ intent }: CoreLoadingNotificationProps
 
   return (
     <section className={joinTw(coreDialogVariants({ intent }))}>
-      <p className={'mb-12'}>{t('application.generic.loading.dataCompilation')}</p>
+      <p className={'mb-12'}>{t('app.generic.loading.dataCompilation')}</p>
       <FontAwesomeIcon
         icon={iconLibrary.faCircleNotch}
         spin

@@ -67,27 +67,27 @@ export const AccountPasswordResetForm = ({ onFormSelect }: AccountPasswordResetF
   return (
     <>
       <CoreFormHeader
-        title={t('application.page.root.passwordResetForm.header')}
+        title={t('app.page.root.passwordReset.form.header')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
         <CoreFormWrapper
-          formId={'post-account-reset-form'}
+          formId={'account-reset-form'}
           onFormSubmit={onFormSubmit}
         >
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            label={t('application.page.root.passwordResetForm.emailLabel')}
-            placeholder={t('application.page.root.passwordResetForm.emailPlaceholder')}
+            label={t('app.page.root.passwordReset.form.emailLabel')}
+            placeholder={t('app.page.root.passwordReset.form.emailPlaceholder')}
             isDisabled={isSubmitting}
             intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: t('application.page.root.passwordResetForm.formLoading'),
-              value: t('application.page.root.passwordResetForm.submit'),
+              message: t('app.page.root.passwordReset.form.loadingText'),
+              value: t('app.page.root.passwordReset.form.submitButton'),
             }}
             intent={'dark'}
           />

@@ -8,9 +8,6 @@
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
-/* logic imports */
-import { joinTw } from '@daigaku/utilities';
-
 /* component imports */
 import { CoreButton } from '@daigaku/components/common/core';
 
@@ -58,7 +55,7 @@ export const FormSwapButtons = ({ isDisabled, buttonConfig, onFormSelect }: Form
   const { t } = useTranslation();
 
   return (
-    <article className={joinTw('mt-40 flex justify-between')}>
+    <article className={'mt-40 flex justify-between'}>
       <CoreButton
         isDisabled={isDisabled}
         onClick={() => {

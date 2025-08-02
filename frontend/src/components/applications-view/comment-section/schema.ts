@@ -11,10 +11,10 @@ export const createCommentSchema = z.object({
   comment: z
     .string()
     .nonempty({
-      error: 'application.page.applicationView.commentRequired',
+      error: 'app.page.applicationView.comment.form.commentRequired',
     })
     .regex(/^(.|\s){15,1000}$/, {
-      error: 'application.page.applicationView.commentPattern',
+      error: 'app.page.applicationView.comment.form.commentPattern',
     }),
 });
 

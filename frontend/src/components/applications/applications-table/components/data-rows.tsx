@@ -92,7 +92,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
             target={`student/edit/${application.uuid}`}
             label={
               <>
-                {t('edit')}
+                {t('app.page.applications.buttons.edit')}
                 <FontAwesomeIcon
                   icon={iconLibrary.faWrench}
                   className={'ml-5'}
@@ -105,7 +105,7 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
             target={`student/view/${application.uuid}`}
             label={
               <>
-                {t('view')}
+                {t('app.page.applications.buttons.view')}
                 <FontAwesomeIcon
                   icon={iconLibrary.faMagnifyingGlass}
                   className={'ml-5'}

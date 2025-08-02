@@ -65,7 +65,7 @@ export const CoreFormElementFetchStateWrapper = ({
     return (
       <div className={'h-50 flex justify-center'}>
         <CoreFetchError
-          message={t('application.generic.error.queryFetchError')}
+          message={t('app.generic.error.queryFetchError')}
           onRetry={onRetry}
           size={'mid'}
         />

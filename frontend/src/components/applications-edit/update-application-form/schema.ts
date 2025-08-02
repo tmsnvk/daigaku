@@ -8,7 +8,6 @@
 import { z } from 'zod/v4';
 
 /* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
 
 /* interface, type imports */
 import {
@@ -39,19 +38,25 @@ export const updateApplicationSchema = z.object({
     return (
       Object.values(ApplicationStatuses).includes(value as ApplicationStatus),
       {
-        error: TranslationKey.VALID_APPLICATION_STATUS_REQUIRED,
+        error: 'app.page.applicationEdit.form.validApplicationStatusRequired',
       }
     );
   }),
   interviewStatus: nullableStatusField(
     Object.values(InterviewStatuses),
-    TranslationKey.VALID_INTERVIEW_STATUS_REQUIRED,
+    'app.page.applicationEdit.form.validInterviewStatusRequired',
   ),
-  offerStatus: nullableStatusField(Object.values(OfferStatuses), TranslationKey.VALID_OFFER_STATUS_REQUIRED),
-  responseStatus: nullableStatusField(Object.values(ResponseStatuses), TranslationKey.VALID_RESPONSE_STATUS_REQUIRED),
+  offerStatus: nullableStatusField(
+    Object.values(OfferStatuses),
+    'app.page.applicationEdit.form.validOfferStatusRequired',
+  ),
+  responseStatus: nullableStatusField(
+    Object.values(ResponseStatuses),
+    'app.page.applicationEdit.form.validResponseStatusRequired',
+  ),
   finalDestinationStatus: nullableStatusField(
     Object.values(FinalDestinationStatuses),
-    TranslationKey.VALID_FINAL_DESTINATION_STATUS_REQUIRED,
+    'app.page.applicationEdit.form.validFinalDestinationStatusRequired',
   ),
 });
 

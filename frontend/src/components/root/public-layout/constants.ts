@@ -19,6 +19,6 @@ export const navigationRoutes: Array<NavigationRouteItem> = [
   {
     targetUrlString: '/contact',
     icon: iconLibrary.faPaperPlane,
-    label: 'application.layout.navigation.shared.contactUs',
+    label: 'app.layout.navigation.shared.contactUs',
   },
 ];

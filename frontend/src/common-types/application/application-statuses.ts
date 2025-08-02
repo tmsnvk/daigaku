@@ -18,9 +18,9 @@ export const ApplicationStatuses = {
 export type ApplicationStatus = (typeof ApplicationStatuses)[keyof typeof ApplicationStatuses];
 
 export const ApplicationStatusTranslations = {
-  [ApplicationStatuses.PLANNED]: 'application.domain.application.applicationStatusPlanned',
-  [ApplicationStatuses.SUBMITTED]: 'application.domain.application.applicationStatusSubmitted',
-  [ApplicationStatuses.WITHDRAWN]: 'application.domain.application.applicationStatusWithdrawn',
+  [ApplicationStatuses.PLANNED]: 'app.domain.application.applicationStatusPlanned',
+  [ApplicationStatuses.SUBMITTED]: 'app.domain.application.applicationStatusSubmitted',
+  [ApplicationStatuses.WITHDRAWN]: 'app.domain.application.applicationStatusWithdrawn',
 };
 
 /**
@@ -35,9 +35,9 @@ export const InterviewStatuses = {
 export type InterviewStatus = (typeof InterviewStatuses)[keyof typeof InterviewStatuses];
 
 export const InterviewStatusTranslations = {
-  [InterviewStatuses.INVITED]: 'application.domain.application.interviewStatusInvited',
-  [InterviewStatuses.NO_INTERVIEW]: 'application.domain.application.interviewStatusNoInterview',
-  [InterviewStatuses.NOT_INVITED]: 'application.domain.application.interviewStatusNotInvited',
+  [InterviewStatuses.INVITED]: 'app.domain.application.interviewStatusInvited',
+  [InterviewStatuses.NO_INTERVIEW]: 'app.domain.application.interviewStatusNoInterview',
+  [InterviewStatuses.NOT_INVITED]: 'app.domain.application.interviewStatusNotInvited',
 };
 
 /**
@@ -53,10 +53,10 @@ export const OfferStatuses = {
 export type OfferStatus = (typeof OfferStatuses)[keyof typeof OfferStatuses];
 
 export const OfferStatusTranslations = {
-  [OfferStatuses.CONDITIONAL]: 'application.domain.application.offerStatusConditional',
-  [OfferStatuses.DEFERRED]: 'application.domain.application.offerStatusDeferred',
-  [OfferStatuses.REJECTED]: 'application.domain.application.offerStatusRejected',
-  [OfferStatuses.UNCONDITIONAL]: 'application.domain.application.offerStatusUnconditional',
+  [OfferStatuses.CONDITIONAL]: 'app.domain.application.offerStatusConditional',
+  [OfferStatuses.DEFERRED]: 'app.domain.application.offerStatusDeferred',
+  [OfferStatuses.REJECTED]: 'app.domain.application.offerStatusRejected',
+  [OfferStatuses.UNCONDITIONAL]: 'app.domain.application.offerStatusUnconditional',
 };
 
 /**
@@ -71,9 +71,9 @@ export const ResponseStatuses = {
 export type ResponseStatus = (typeof ResponseStatuses)[keyof typeof ResponseStatuses];
 
 export const ResponseStatusTranslations = {
-  [ResponseStatuses.FIRM_CHOICE]: 'application.domain.application.responseStatusFirmChoice',
-  [ResponseStatuses.INSURANCE_CHOICE]: 'application.domain.application.responseStatusInsuranceChoice',
-  [ResponseStatuses.OFFER_DECLINED]: 'application.domain.application.offerStatusOfferDeclined',
+  [ResponseStatuses.FIRM_CHOICE]: 'app.domain.application.responseStatusFirmChoice',
+  [ResponseStatuses.INSURANCE_CHOICE]: 'app.domain.application.responseStatusInsuranceChoice',
+  [ResponseStatuses.OFFER_DECLINED]: 'app.domain.application.offerStatusOfferDeclined',
 };
 
 /**
@@ -88,9 +88,7 @@ export const FinalDestinationStatuses = {
 export type FinalDestinationStatus = (typeof FinalDestinationStatuses)[keyof typeof FinalDestinationStatuses];
 
 export const FinalDestinationStatusTranslations = {
-  [FinalDestinationStatuses.FINAL_DESTINATION]: 'application.domain.application.finalDestinationStatusFinalDestination',
-  [FinalDestinationStatuses.DEFERRED_FINAL_DESTINATION]:
-    'application.domain.application.finalDestinationStatusDeferredEntry',
-  [FinalDestinationStatuses.NOT_FINAL_DESTINATION]:
-    'application.domain.application.finalDestinationStatusNotFinalDestination',
+  [FinalDestinationStatuses.FINAL_DESTINATION]: 'app.domain.application.finalDestinationStatusFinalDestination',
+  [FinalDestinationStatuses.DEFERRED_FINAL_DESTINATION]: 'app.domain.application.finalDestinationStatusDeferredEntry',
+  [FinalDestinationStatuses.NOT_FINAL_DESTINATION]: 'app.domain.application.finalDestinationStatusNotFinalDestination',
 };

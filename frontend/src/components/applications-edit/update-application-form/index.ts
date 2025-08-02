@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { UpdateApplicationForm } from './components/update-application-form.tsx';
-
-export { UpdateApplicationForm };
+export { UpdateApplicationForm } from './components/update-application-form.tsx';

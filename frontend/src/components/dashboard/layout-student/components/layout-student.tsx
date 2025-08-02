@@ -8,9 +8,6 @@
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
-/* logic imports */
-import { useTodoList } from '../../common/hooks/use-todo-list.tsx';
-
 /* component imports */
 import { LayoutSectionWrapper } from '../../common/components/layout-section-wrapper.tsx';
 import { TileDetail } from '../../common/components/tile-detail.tsx';
@@ -19,6 +16,7 @@ import { TodoList } from '../../common/components/todo-list.tsx';
 
 /* interface, type imports */
 import { StudentDashboardStatistics } from '@daigaku/common-types';
+import { useTodoList } from 'components/dashboard/common/hooks/use-todo-list.tsx';
 
 /**
  * Defines the component's properties.
@@ -43,58 +41,54 @@ export const LayoutStudent = ({ data }: LayoutStudentProps): JSX.Element => {
 
   return (
     <>
-      <TodoList
-        introduction={t('application.page.dashboard.todoListInstructions')}
-        currentTodoItemsTitle={t('application.page.dashboard.currentTodoItems')}
-        currentTodoItems={todos}
-      />
+      <TodoList currentTodoItems={todos} />
       <LayoutSectionWrapper>
         <TileStatistic
-          title={t('application.page.dashboard.applicationsTile')}
+          title={t('app.page.dashboard.statistics.applications')}
           value={data.applicationsCount}
         />
         <TileStatistic
-          title={t('application.page.dashboard.plannedApplicationsTile')}
+          title={t('app.page.dashboard.statistics.plannedApplications')}
           value={data.plannedApplicationsCount}
         />
         <TileStatistic
-          title={t('application.page.dashboard.submittedApplicationsTile')}
+          title={t('app.page.dashboard.statistics.submittedApplications')}
           value={data.submittedApplicationsCount}
         />
         <TileStatistic
-          title={t('application.page.dashboard.withdrawnApplicationsTile')}
+          title={t('app.page.dashboard.statistics.withdrawnApplications')}
           value={data.withdrawnStatusCount}
         />
       </LayoutSectionWrapper>
       <LayoutSectionWrapper>
         <TileStatistic
-          title={t('application.page.dashboard.distinctCountriesTile')}
+          title={t('app.page.dashboard.statistics.distinctCountries')}
           value={data.distinctCountriesCount}
         />
         <TileStatistic
-          title={t('application.page.dashboard.distinctUniversitiesTile')}
+          title={t('app.page.dashboard.statistics.distinctUniversities')}
           value={data.distinctUniversitiesCount}
         />
       </LayoutSectionWrapper>
       <LayoutSectionWrapper>
         <TileStatistic
-          title={t('application.page.dashboard.offersTile')}
+          title={t('app.page.dashboard.statistics.offers')}
           value={data.offersCount}
         />
         {data.firmChoiceTileDetails && (
           <TileDetail
-            title={t('application.page.dashboard.firmChoiceTile')}
+            title={t('app.page.dashboard.statistics.firmChoice')}
             country={data.firmChoiceTileDetails.countryName ?? ''}
-            university={data.firmChoiceTileDetails.universityName ?? t('application.page.dashboard.notYetSelectedTile')}
+            university={data.firmChoiceTileDetails.universityName ?? t('app.page.dashboard.statistics.notYetSelected')}
             courseName={data.firmChoiceTileDetails.courseName ?? ''}
           />
         )}
         {data.finalDestinationTileDetails && (
           <TileDetail
-            title={t('application.page.dashboard.finalDestinationTile')}
+            title={t('app.page.dashboard.statistics.finalDestination')}
             country={data.finalDestinationTileDetails.countryName ?? ''}
             university={
-              data.finalDestinationTileDetails.universityName ?? t('application.page.dashboard.notYetSelectedTile')
+              data.finalDestinationTileDetails.universityName ?? t('app.page.dashboard.statistics.notYetSelected')
             }
             courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />

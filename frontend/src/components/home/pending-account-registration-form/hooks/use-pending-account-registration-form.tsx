@@ -44,8 +44,8 @@ export const usePendingAccountRegistrationForm = (
         resetForm();
 
         createToast({
-          title: t('application.generic.toast.successToastTitle'),
-          description: t('application.page.root.pendingAccountRegistrationForm.successfulSubmissionToastDescription'),
+          title: t('app.generic.toast.successToastTitle'),
+          description: t('app.page.root.pendingAccountRegistration.toast.successfulFormSubmissionBody'),
           variantIntent: 'success',
         });
       },

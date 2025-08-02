@@ -58,10 +58,10 @@ export const CommentSection = ({ applicationUuid, comments }: CommentSectionProp
         <CommentPaginationButton
           onClick={goToPreviousPage}
           isDisabled={data?.currentPage === 0}
-          value={t('application.page.applicationsView.comment.previousPage')}
+          value={t('app.page.applicationView.comment.previousPage')}
         />
         <span className={'text-xl'}>
-          {t('application.page.applicationsView.comment.page')} {currentPage + 1}
+          {t('app.page.applicationView.comment.page')} {currentPage + 1}
         </span>
         <CommentPaginationButton
           onClick={() => {
@@ -70,7 +70,7 @@ export const CommentSection = ({ applicationUuid, comments }: CommentSectionProp
             }
           }}
           isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
-          value={t('application.page.applicationsView.comment.nextPage')}
+          value={t('app.page.applicationView.comment.nextPage')}
         />
       </div>
       <CreateCommentForm applicationUuid={applicationUuid} />

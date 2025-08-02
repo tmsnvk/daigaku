@@ -12,45 +12,45 @@ export const pendingAccountRegistrationSchema = z.object({
     .string()
     .trim()
     .nonempty({
-      error: 'application.page.root.pendingAccountRegistrationForm.firstNameRequired',
+      error: 'app.page.root.pendingAccountRegistration.form.firstNameRequired',
     })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      error: 'application.page.root.pendingAccountRegistrationForm.namePattern',
+      error: 'app.page.root.pendingAccountRegistration.form.namePattern',
     }),
   lastName: z
     .string()
     .trim()
     .nonempty({
-      error: 'application.page.root.pendingAccountRegistrationForm.lastNameRequired',
+      error: 'app.page.root.pendingAccountRegistration.form.lastNameRequired',
     })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      error: 'application.page.root.pendingAccountRegistrationForm.namePattern',
+      error: 'app.page.root.pendingAccountRegistration.form.namePattern',
     }),
   email: z.email({
     error: (issue) => {
       if (issue.input === '') {
-        return 'application.page.root.pendingAccountRegistrationForm.emailRequired';
+        return 'app.page.root.pendingAccountRegistration.form.emailRequired';
       }
 
-      return 'application.page.root.pendingAccountRegistrationForm.validEmailRequired';
+      return 'app.page.root.pendingAccountRegistration.form.validEmailRequired';
     },
   }),
   institutionUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return 'application.page.root.pendingAccountRegistrationForm.institutionRequired';
+        return 'app.page.root.pendingAccountRegistration.form.institutionRequired';
       }
 
-      return 'application.page.root.pendingAccountRegistrationForm.validInstitutionRequired';
+      return 'app.page.root.pendingAccountRegistration.form.validInstitutionRequired';
     },
   }),
   accountRoleUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return 'application.page.root.pendingAccountRegistrationForm.accountRoleRequired';
+        return 'app.page.root.pendingAccountRegistration.form.accountRoleRequired';
       }
 
-      return 'application.page.root.pendingAccountRegistrationForm.validAccountRoleRequired';
+      return 'app.page.root.pendingAccountRegistration.form.validAccountRoleRequired';
     },
   }),
 });

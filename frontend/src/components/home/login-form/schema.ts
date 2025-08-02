@@ -11,14 +11,14 @@ export const loginSchema = z.object({
   email: z.email({
     error: (issue) => {
       if (issue.input === '') {
-        return 'application.page.root.loginForm.emailRequired';
+        return 'app.page.root.login.form.emailRequired';
       }
 
-      return 'application.page.root.loginForm.validEmailRequired';
+      return 'app.page.root.login.form.validEmailRequired';
     },
   }),
   password: z.string().trim().nonempty({
-    error: 'application.page.root.loginForm.passwordRequired',
+    error: 'app.page.root.login.form.passwordRequired',
   }),
 });
 
