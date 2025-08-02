@@ -16,8 +16,8 @@ import net.tamasnovak.artifact.comment.entity.Comment;
  * @param comment The comment content submitted by the authenticated user.
  */
 public record CreateCommentPayload(
-  @NotNull(message = "Add your comment.")
-  @Pattern(regexp = "^(.|\\s){15,1000}$", message = "Provide a minimum of 15 and a maximum of 1000 characters.")
+  @NotNull(message = "app.page.applicationView.comment.form.commentRequired")
+  @Pattern(regexp = "^(.|\\s){15,1000}$", message = "app.page.applicationView.comment.form.commentPattern")
   String comment
 ) {
 }

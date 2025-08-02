@@ -5,13 +5,13 @@
  */
 
 /* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
+import { DotTranslationKey } from '@daigaku/constants';
 
 /* interface, type imports */
 import { FormType, FormTypes } from './types.ts';
 
-export const formTypeButtonLabel: Record<FormType, string> = {
-  [FormTypes.LOGIN]: TranslationKey.LOGIN,
-  [FormTypes.REGISTER_PENDING_ACCOUNT]: TranslationKey.PENDING_ACCOUNT_REGISTRATION,
-  [FormTypes.RESET_ACCOUNT_PASSWORD]: TranslationKey.RESET_PASSWORD,
+export const formTypeButtonLabel: Record<FormType, DotTranslationKey> = {
+  [FormTypes.LOGIN]: 'app.page.root.selectorButtons.logIn',
+  [FormTypes.REGISTER_PENDING_ACCOUNT]: 'app.page.root.selectorButtons.registerPendingAccount',
+  [FormTypes.RESET_ACCOUNT_PASSWORD]: 'app.page.root.selectorButtons.resetPassword',
 };

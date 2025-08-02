@@ -4,24 +4,12 @@
  * @author tmsnvk
  */
 
-import { accountService } from './account/account.service';
-import { pendingAccountService } from './account/pending-account.service';
-import { applicationStudentService } from './application/application-student.service';
-import { applicationService } from './application/application.service';
-import { commentService } from './comment/comment.service';
-import { roleService } from './role/role.service';
-import { countryService } from './support/country.service';
-import { institutionService } from './support/institution.service';
-import { universityService } from './support/university.service';
-
-export {
-  accountService,
-  applicationService,
-  applicationStudentService,
-  commentService,
-  countryService,
-  institutionService,
-  pendingAccountService,
-  roleService,
-  universityService,
-};
+export { accountService } from './account/account.service';
+export { pendingAccountService } from './account/pending-account.service';
+export { applicationStudentService } from './application/application-student.service';
+export { applicationService } from './application/application.service';
+export { commentService } from './comment/comment.service';
+export { roleService } from './role/role.service';
+export { countryService } from './support/country.service';
+export { institutionService } from './support/institution.service';
+export { universityService } from './support/university.service';

@@ -24,26 +24,26 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param accountRoleUuid The pending account's authorization role uuid string.
  */
 public record CreatePendingAccountPayload(
-  @NotBlank(message = "Provide your first name(s).")
+  @NotBlank(message = "app.page.root.pendingAccountRegistration.form.firstNameRequired")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
-    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
+    "app.page.root.pendingAccountRegistration.form.namePattern")
   String firstName,
 
-  @NotBlank(message = "Provide your last name(s).")
+  @NotBlank(message = "app.page.root.pendingAccountRegistration.form.lastNameRequired")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
-    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
+    "app.page.root.pendingAccountRegistration.form.namePattern")
   String lastName,
 
-  @Email(message = "Provide your email address.")
-  @NotBlank(message = "Provide a valid email address.")
+  @Email(message = "app.page.root.pendingAccountRegistration.form.validEmailRequired")
+  @NotBlank(message = "app.page.root.pendingAccountRegistration.form.emailRequired")
   String email,
 
-  @NotBlank(message = "Select an institution.")
-  @ValidUuid(message = "Select a valid institution.")
+  @ValidUuid(message = "app.page.root.pendingAccountRegistration.form.validInstitutionRequired")
+  @NotBlank(message = "app.page.root.pendingAccountRegistration.form.institutionRequired")
   String institutionUuid,
 
-  @NotBlank(message = "Select an account type.")
-  @ValidUuid(message = "Select a valid account type.")
+  @ValidUuid(message = "app.page.root.pendingAccountRegistration.form.validAccountRoleRequired")
+  @NotBlank(message = "app.page.root.pendingAccountRegistration.form.accountRoleRequired")
   String accountRoleUuid) {
   public UUID getInstituionUuid() {
     return UUID.fromString(institutionUuid);

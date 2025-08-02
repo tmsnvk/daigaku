@@ -52,8 +52,8 @@ export const useCreateCommentForm = (
         resetForm();
 
         createToast({
-          title: t('genericSuccessToastTitle'),
-          description: t('createCommentFormSubmissionToastDescription'),
+          title: t('app.generic.toast.successToastTitle'),
+          description: t('app.page.applicationView.comment.toast.successfulFormSubmissionBody'),
           variantIntent: 'success',
         });
       },

@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { LayoutStudent } from './components/layout-student';
-
-export { LayoutStudent };
+export { LayoutStudent } from './components/layout-student';

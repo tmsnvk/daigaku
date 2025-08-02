@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { ApplicationsTable } from './components/applications-table.tsx';
-
-export { ApplicationsTable };
+export { ApplicationsTable } from './components/applications-table.tsx';

@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { HomeIndex } from './home-page.route';
-
-export { HomeIndex };
+export { HomeIndex } from './home-page.route';

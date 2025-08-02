@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { ApplicationsIndex } from './applications-page.route';
-
-export { ApplicationsIndex };
+export { ApplicationsIndex } from './applications-page.route';

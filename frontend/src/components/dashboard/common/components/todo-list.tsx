@@ -6,6 +6,7 @@
 
 /* vendor imports */
 import { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
@@ -18,16 +19,6 @@ import { Todo } from '@daigaku/common-types';
  */
 interface TodoListProps {
   /**
-   * The component's main text.
-   */
-  readonly introduction: string;
-
-  /**
-   *
-   */
-  readonly currentTodoItemsTitle: string;
-
-  /**
    * The todo list.
    */
   readonly currentTodoItems: Array<Todo>;
@@ -39,11 +30,13 @@ interface TodoListProps {
  * @param {TodoListProps} props
  * @return {JSX.Element}
  */
-export const TodoList = ({ introduction, currentTodoItemsTitle, currentTodoItems }: TodoListProps): JSX.Element => {
+export const TodoList = ({ currentTodoItems }: TodoListProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <section className={joinTw('core-primary-border bg-accent mx-auto mb-20 w-[95%] px-12 py-4 text-xl', 'lg:w-[65%]')}>
-      <p className={'mb-4 mt-8'}>{introduction}</p>
-      <p className={'mb-4'}>{currentTodoItemsTitle}</p>
+      <p className={'mb-4 mt-8'}>{t('app.page.dashboard.todo.instructions')}</p>
+      <p className={'mb-4'}>{t('app.page.dashboard.todo.currentItems')}</p>
       <ol className={'ml-20'}>
         {currentTodoItems.map((item: Todo, index: number) => (
           <li

@@ -4,7 +4,5 @@
  * @author tmsnvk
  */
 
-import { ApplicationMetadata } from './application-metadata.tsx';
-import { LoadingIndicator } from './loading-indicator.tsx';
-
-export { ApplicationMetadata, LoadingIndicator };
+export { ApplicationMetadata } from './application-metadata.tsx';
+export { LoadingIndicator } from './loading-indicator.tsx';

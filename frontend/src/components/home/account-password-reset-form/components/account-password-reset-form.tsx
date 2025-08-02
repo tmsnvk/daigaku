@@ -11,8 +11,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { useResetAccountPasswordForm } from '../hooks/use-reset-account-password-form.tsx';
-import { ResetAccountPasswordSchema, resetAccountPasswordSchema } from '../schema.ts';
+import { useAccountPasswordResetForm } from '../hooks/use-account-password-reset-form.tsx';
+import { AccountPasswordResetSchema, accountPasswordResetSchema } from '../schema.ts';
 
 /* component imports */
 import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/common/form';
@@ -28,7 +28,7 @@ import { FormType, FormTypes } from '../../common/types.ts';
 /**
  * Defines the component's properties.
  */
-interface ResetAccountPasswordFormProps {
+interface AccountPasswordResetFormProps {
   /**
    * The method to select the current form type.
    *
@@ -42,52 +42,52 @@ interface ResetAccountPasswordFormProps {
  * The component utilizes the `react-hook-form` and `react-query` libraries for managing the form submission.
  * Additionally, users can switch to other forms.
  *
- * @param {ResetAccountPasswordFormProps} props
+ * @param {AccountPasswordResetFormProps} props
  * @return {JSX.Element}
  */
-export const ResetAccountPasswordForm = ({ onFormSelect }: ResetAccountPasswordFormProps): JSX.Element => {
+export const AccountPasswordResetForm = ({ onFormSelect }: AccountPasswordResetFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const formMethods = useForm<ResetAccountPasswordSchema>({
+  const formMethods = useForm<AccountPasswordResetSchema>({
     defaultValues: {
       email: '',
     },
     mode: 'onSubmit',
-    resolver: standardSchemaResolver(resetAccountPasswordSchema),
+    resolver: standardSchemaResolver(accountPasswordResetSchema),
   });
 
   const { handleSubmit, setError } = formMethods;
 
-  const { mutate: resetAccountPassword, isPending: isSubmitting } = useResetAccountPasswordForm(setError);
+  const { mutate: resetAccountPassword, isPending: isSubmitting } = useAccountPasswordResetForm(setError);
 
-  const onFormSubmit = handleSubmit((formData: ResetAccountPasswordSchema) => {
+  const onFormSubmit = handleSubmit((formData: AccountPasswordResetSchema) => {
     resetAccountPassword(formData as PasswordResetPayload);
   });
 
   return (
     <>
       <CoreFormHeader
-        title={t('resetPasswordFormHeader')}
+        title={t('app.page.root.passwordReset.form.header')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
         <CoreFormWrapper
-          formId={'post-account-reset-form'}
+          formId={'account-reset-form'}
           onFormSubmit={onFormSubmit}
         >
           <CommonInputGroup
             id={'email'}
             type={'email'}
-            label={t('emailLabel')}
-            placeholder={t('emailPlaceholder')}
+            label={t('app.page.root.passwordReset.form.emailLabel')}
+            placeholder={t('app.page.root.passwordReset.form.emailPlaceholder')}
             isDisabled={isSubmitting}
             intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: t('resetPasswordFormSubmission'),
-              value: t('resetPasswordFormSubmit'),
+              message: t('app.page.root.passwordReset.form.loadingText'),
+              value: t('app.page.root.passwordReset.form.submitButton'),
             }}
             intent={'dark'}
           />

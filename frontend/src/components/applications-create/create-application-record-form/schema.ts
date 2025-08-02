@@ -7,46 +7,43 @@
 /* vendor imports */
 import { z } from 'zod/v4';
 
-/* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
-
 export const createApplicationSchema = z.object({
   countryUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.COUNTRY_REQUIRED;
+        return 'app.page.applicationCreate.form.countryRequired';
       }
 
-      return TranslationKey.VALID_COUNTRY_REQUIRED;
+      return 'app.page.applicationCreate.form.validCountryRequired';
     },
   }),
   universityUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.UNIVERSITY_REQUIRED;
+        return 'app.page.applicationCreate.form.universityRequired';
       }
 
-      return TranslationKey.VALID_UNIVERSITY_REQUIRED;
+      return 'app.page.applicationCreate.form.validUniversityRequired';
     },
   }),
   courseName: z
     .string()
     .trim()
-    .nonempty({ error: TranslationKey.COURSE_NAME_REQUIRED })
+    .nonempty({ error: 'app.page.applicationCreate.form.courseNameRequired' })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      error: TranslationKey.COURSE_NAME_PATTERN,
+      error: 'app.page.applicationCreate.form.courseNamePattern',
     }),
   minorSubject: z
     .string()
     .trim()
     .optional()
     .refine((value) => value === undefined || value === '' || /^[\p{L}\s-]{5,255}$/u.test(value), {
-      error: TranslationKey.MINOR_SUBJECT_PATTERN,
+      error: 'app.page.applicationCreate.form.minorSubjectPattern',
     }),
   programmeLength: z.coerce
-    .number({ error: TranslationKey.PROGRAMME_LENGTH_REQUIRED })
-    .min(1, { error: TranslationKey.PROGRAMME_LENGTH_PATTERN })
-    .max(5, { error: TranslationKey.PROGRAMME_LENGTH_PATTERN }),
+    .number({ error: 'app.page.applicationCreate.form.programmeLengthRequired' })
+    .min(1, { error: 'app.page.applicationCreate.form.programmeLengthPattern' })
+    .max(5, { error: 'app.page.applicationCreate.form.programmeLengthPattern' }),
 });
 
 export type CreateApplicationSchema = z.infer<typeof createApplicationSchema>;

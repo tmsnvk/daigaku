@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { LoginForm } from './components/login-form.tsx';
-
-export { LoginForm };
+export { LoginForm } from './components/login-form.tsx';

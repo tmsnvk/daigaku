@@ -13,14 +13,12 @@ import { FieldValues, Path } from 'react-hook-form';
 import { joinTw } from '@daigaku/utilities';
 
 const coreSubmitInputElementVariants = cva(
-  joinTw('h-20', 'px-6', 'text-2xl font-bold tracking-widest', 'rounded-xl', 'hover:outline-2', 'focus:outline-1'),
+  joinTw('h-20 px-6 text-2xl font-bold tracking-widest rounded-xl', 'hover:outline-2', 'focus:outline-1'),
   {
     variants: {
       intent: {
         dark: joinTw(
-          'bg-secondary',
-          'text-tertiary',
-          'shadow-(--right-bottom-accent-shadow)',
+          'bg-secondary text-tertiary shadow-(--right-bottom-accent-shadow)',
           'hover:outline-accent',
           'focus:outline-accent',
         ),

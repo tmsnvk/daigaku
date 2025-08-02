@@ -61,7 +61,7 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
   return (
     <FormProvider {...formMethods}>
       <CoreFormWrapper
-        formId={'post-comment-form'}
+        formId={'comment-form'}
         onFormSubmit={onFormSubmit}
       >
         <CommonTextareaGroup
@@ -69,15 +69,15 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
           isDisabled={isSubmitting}
           rows={DEFAULT_ROW_SIZE}
           cols={DEFAULT_COL_SIZE}
-          label={t('commentLabel')}
-          placeholder={t('commentPlaceholder')}
+          label={t('app.page.applicationView.comment.form.commentLabel')}
+          placeholder={t('app.page.applicationView.comment.form.commentPlaceholder')}
           intent={'light'}
         />
         <CoreFormAction
           isSubmissionPending={isSubmitting}
           formActionConfig={{
-            message: t('genericFormSubmission'),
-            value: t('createCommentFormSubmit'),
+            message: t('app.generic.loading.formSubmission'),
+            value: t('app.page.applicationView.comment.form.submitButton'),
           }}
           intent={'dark'}
         />

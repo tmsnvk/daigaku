@@ -48,12 +48,16 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
   return (
     <article className={'col-start-2 col-end-3 row-start-2 row-end-3 flex h-40 flex-col items-center'}>
       <CoreButton
-        label={shouldBeRemoved ? t('requestReversion') : t('requestDeletion')}
+        label={
+          shouldBeRemoved
+            ? t('app.page.applicationEdit.removeRequest.requestReversion')
+            : t('app.page.applicationEdit.removeRequest.requestDeletion')
+        }
         intent={shouldBeRemoved ? 'destructive' : 'dark'}
         onClick={() => toggleRemoveState()}
         isDisabled={isSubmitting}
       />
-      {isError && <CoreFormElementError message={t('unexpectedGlobalError')} />}
+      {isError && <CoreFormElementError message={t('app.generic.error.unexpectedError')} />}
     </article>
   );
 };

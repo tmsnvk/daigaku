@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { RootIndex } from './root-page.route';
-
-export { RootIndex };
+export { RootIndex } from './root-page.route';

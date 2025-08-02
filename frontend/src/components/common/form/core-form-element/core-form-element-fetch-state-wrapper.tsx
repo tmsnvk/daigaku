@@ -8,9 +8,6 @@
 import { JSX, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-/* logic imports */
-import { joinTw } from '@daigaku/utilities';
-
 /* component imports */
 import { CoreFetchError, CoreFetchSkeleton } from '@daigaku/components/common/core';
 
@@ -55,7 +52,7 @@ export const CoreFormElementFetchStateWrapper = ({
 
   if (isLoading) {
     return (
-      <div className={joinTw('flex justify-center', 'h-50')}>
+      <div className={'h-50 flex justify-center'}>
         <CoreFetchSkeleton
           intent={'primary'}
           size={'mid'}
@@ -66,9 +63,9 @@ export const CoreFormElementFetchStateWrapper = ({
 
   if (isError) {
     return (
-      <div className={joinTw('flex justify-center', 'h-50')}>
+      <div className={'h-50 flex justify-center'}>
         <CoreFetchError
-          message={t('queryFetchError')}
+          message={t('app.generic.error.queryFetchError')}
           onRetry={onRetry}
           size={'mid'}
         />

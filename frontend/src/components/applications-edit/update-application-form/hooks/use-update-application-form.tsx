@@ -35,22 +35,20 @@ export const useUpdateApplicationForm = (
   applicationUuid: string,
 ): UseMutationResult<ApplicationResponse, CoreApiError, UpdateApplicationByStudentPayload> => {
   const { t } = useTranslation();
-  const queryClient = useCoreQueryClient();
 
+  const queryClient = useCoreQueryClient();
   const { createToast } = useToastProvider();
 
   return useCoreApiMutation(
     [mutationKeys.application.PATCH_BY_UUID],
     (formData: UpdateApplicationByStudentPayload) => applicationStudentService.updateByUuid(formData, applicationUuid),
     {
-      onSuccess: (response: ApplicationResponse) => {
-        queryClient.invalidateQueries({ queryKey: [queryKeys.application.GET_ALL_BY_ROLE] });
-
-        history.replaceState(response, '', `/applications/student/edit/${response.uuid}`);
+      onSuccess: () => {
+        queryClient.refetchQueries({ queryKey: [queryKeys.application.GET_ALL_BY_ROLE] });
 
         createToast({
-          title: t('genericSuccessToastTitle'),
-          description: t('applicationUpdated'),
+          title: t('app.generic.toast.successToastTitle'),
+          description: t('app.page.applicationEdit.toast.successfulFormSubmissionBody'),
           variantIntent: 'success',
         });
       },

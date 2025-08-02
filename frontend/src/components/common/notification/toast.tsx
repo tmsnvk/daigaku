@@ -20,11 +20,11 @@ import { iconLibrary } from '@daigaku/constants';
 /* interface, type imports */
 import { Toast as ToastType } from '@daigaku/common-types';
 
-const toastVariants = cva(joinTw('animate-simple-fade-in', 'flex flex-col', 'w-120', 'p-6', 'border-2'), {
+const toastVariants = cva('animate-simple-fade-in flex flex-col w-120 p-6 border-2', {
   variants: {
     intent: {
-      success: joinTw('core-primary-border', 'bg-accent', 'text-secondary'),
-      destructive: joinTw('core-primary-border', 'bg-destructive', 'text-tertiary'),
+      success: 'core-primary-border bg-accent text-secondary',
+      destructive: 'core-primary-border bg-destructive text-tertiary',
     },
   },
 });
@@ -93,7 +93,7 @@ export const Toast = ({
 
   return (
     <article className={joinTw(toastVariants({ intent: variantIntent }))}>
-      <div className={joinTw('flex items-center justify-between', 'mb-4')}>
+      <div className={'mb-4 flex items-center justify-between'}>
         <h3 className={'text-2xl font-bold uppercase'}>{title}</h3>
         <CoreIcon
           icon={iconLibrary.faXmark}
@@ -102,9 +102,9 @@ export const Toast = ({
         />
       </div>
       <p className={'text-xl'}>{description}</p>
-      <div className={joinTw('relative', 'mt-4')}>
+      <div className={'relative mt-4'}>
         <div
-          className={joinTw('absolute left-0 top-0', 'h-2', 'bg-secondary')}
+          className={'bg-secondary absolute left-0 top-0 h-2'}
           style={{
             width: `${progressBar}%`,
           }}

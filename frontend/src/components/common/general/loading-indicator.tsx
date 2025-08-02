@@ -7,9 +7,6 @@
 /* vendor imports */
 import { JSX } from 'react';
 
-/* logic imports */
-import { joinTw } from '@daigaku/utilities';
-
 /* component imports */
 import { CoreIcon } from '../core';
 
@@ -34,7 +31,7 @@ interface LoadingIndicatorProps {
  */
 export const LoadingIndicator = ({ loadingText }: LoadingIndicatorProps): JSX.Element => {
   return (
-    <article className={joinTw('flex items-center justify-center', 'text-secondary text-2xl')}>
+    <article className={'text-secondary flex items-center justify-center text-2xl'}>
       <p>{loadingText}</p>
       <CoreIcon
         icon={iconLibrary.faSpinner}

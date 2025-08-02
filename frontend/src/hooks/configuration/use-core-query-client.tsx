@@ -26,12 +26,12 @@ export const useCoreQueryClient = (): QueryClient => {
       onError: (error: CoreApiError) => {
         const errorToToastMap: Record<string, { title: string; description: string }> = {
           ServerError: {
-            title: t('serverErrorToastTitle'),
-            description: t('serverErrorToastDescription'),
+            title: t('app.generic.toast.serverErrorToastTitle'),
+            description: t('app.generic.toast.serverErrorToastDescription'),
           },
           UnexpectedError: {
-            title: t('unexpectedErrorToastTitle'),
-            description: t('unexpectedErrorToastDescription'),
+            title: t('app.generic.toast.unexpectedErrorToastTitle'),
+            description: t('app.generic.toast.unexpectedErrorToastDescription'),
           },
         };
 

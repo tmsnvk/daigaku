@@ -7,6 +7,9 @@
 /* interface, type imports */
 import { CoreInputErrorResponse } from '@daigaku/common-types';
 
+/**
+ *
+ */
 export class CoreApiError extends Error {
   public name: string;
   public statusCode?: number;

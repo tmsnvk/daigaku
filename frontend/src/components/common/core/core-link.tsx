@@ -13,24 +13,17 @@ import { JSX, ReactNode } from 'react';
 import { joinTw } from '@daigaku/utilities';
 
 const coreLinkVariants = cva(
-  joinTw('block flex justify-center items-center', 'font-bold tracking-wider', 'rounded-xl', 'hover:cursor-pointer'),
+  joinTw('block flex justify-center items-center font-bold tracking-wider rounded-xl', 'hover:cursor-pointer'),
   {
     variants: {
       intent: {
         light: '',
         table: joinTw(
-          'h-10',
-          'mx-auto py-4',
-          'bg-transparent',
-          'text-secondary text-xl font-bold tracking-wider',
-          'cursor-pointer',
+          'h-10 mx-auto py-4 bg-transparent text-secondary text-xl font-bold tracking-wider cursor-pointer',
           'hover:text-accent',
         ),
         dark: joinTw(
-          'h-20 px-10',
-          'bg-secondary',
-          'text-tertiary text-2xl',
-          'shadow-(--right-bottom-accent-shadow)',
+          'h-20 px-10 bg-secondary text-tertiary text-2xl shadow-(--right-bottom-accent-shadow)',
           'hover:outline-accent hover:outline-2',
           'focus:outline-accent focus:outline-2',
         ),

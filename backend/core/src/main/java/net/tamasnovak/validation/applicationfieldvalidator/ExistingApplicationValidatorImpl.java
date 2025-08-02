@@ -19,7 +19,6 @@ import net.tamasnovak.enums.status.InterviewStatus;
 import net.tamasnovak.enums.status.OfferStatus;
 import net.tamasnovak.enums.status.ResponseStatus;
 import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationException;
-import net.tamasnovak.exceptions.invalidformfieldexception.FormValidationExceptionMessages;
 import org.springframework.stereotype.Component;
 
 /**
@@ -45,7 +44,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
    */
   private void validateApplicationStatus(Application currentApplication, ApplicationStatus newApplicationStatus) {
     if (newApplicationStatus == null && currentApplication.isApplicationStatusBlank()) {
-      throw new FormValidationException(FormValidationExceptionMessages.MISSING_APPLICATION_STATUS);
+      throw new FormValidationException("app.page.applicationEdit.form.missingApplicationStatus");
     }
   }
 
@@ -67,7 +66,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
       if (firmChoiceApplication.isPresent() && !areValuesEqual(currentApplication.getUuid(),
         firmChoiceApplication.get().getUuid()) && newResponseStatus == ResponseStatus.FIRM_CHOICE) {
-        throw new FormValidationException(FormValidationExceptionMessages.FIRM_CHOICE_ERROR);
+        throw new FormValidationException("app.page.applicationEdit.form.oneFirmChoiceApplicationOnly");
       }
     }
   }
@@ -86,7 +85,7 @@ public class ExistingApplicationValidatorImpl implements ExistingApplicationVali
 
       if (finalDestinationApplication.isPresent() && !areValuesEqual(currentApplication.getUuid(),
         finalDestinationApplication.get().getUuid()) && newFinalDestinationStatus != FinalDestinationStatus.NOT_FINAL_DESTINATION) {
-        throw new FormValidationException(FormValidationExceptionMessages.FINAL_DESTINATION_ERROR);
+        throw new FormValidationException("\"app.page.applicationEdit.form.oneFinalDestinationApplicationOnly");
       }
     }
   }

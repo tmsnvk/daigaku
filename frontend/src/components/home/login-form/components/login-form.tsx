@@ -73,34 +73,34 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
   return (
     <>
       <CoreFormHeader
-        title={t('loginFormHeader')}
+        title={t('app.page.root.login.form.header')}
         intent={'small'}
       />
       <FormProvider {...formMethods}>
         <CoreFormWrapper
-          formId={'post-account-login-form'}
+          formId={'account-login-form'}
           onFormSubmit={onFormSubmit}
         >
           <CommonInputGroup
             id={'email'}
             type={'email'}
             isDisabled={isSubmitting}
-            label={t('emailLabel')}
-            placeholder={t('emailPlaceholder')}
+            label={t('app.page.root.login.form.emailLabel')}
+            placeholder={t('app.page.root.login.form.emailPlaceholder')}
             intent={'light'}
           />
           <PasswordInputGroup
             id={'password'}
             isDisabled={isSubmitting}
-            label={t('passwordLabel')}
-            placeholder={t('passwordPlaceholder')}
+            label={t('app.page.root.login.form.passwordLabel')}
+            placeholder={t('app.page.root.login.form.passwordPlaceholder')}
             intent={'light'}
           />
           <CoreFormAction
             isSubmissionPending={isSubmitting}
             formActionConfig={{
-              message: t('loginFormSubmission'),
-              value: t('loginFormSubmit'),
+              message: t('app.page.root.login.form.loadingText'),
+              value: t('app.page.root.login.form.submitButton'),
             }}
             intent={'dark'}
           />

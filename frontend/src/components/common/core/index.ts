@@ -4,11 +4,9 @@
  * @author tmsnvk
  */
 
-import { CoreButton } from './core-button.tsx';
-import { CoreFetchError } from './core-fetch-error.tsx';
-import { CoreFetchSkeleton } from './core-fetch-skeleton.tsx';
-import { CoreIcon } from './core-icon.tsx';
-import { CoreLink } from './core-link.tsx';
-import { CoreLoadingNotification } from './core-loading-notification.tsx';
-
-export { CoreButton, CoreFetchError, CoreFetchSkeleton, CoreIcon, CoreLink, CoreLoadingNotification };
+export { CoreButton } from './core-button.tsx';
+export { CoreFetchError } from './core-fetch-error.tsx';
+export { CoreFetchSkeleton } from './core-fetch-skeleton.tsx';
+export { CoreIcon } from './core-icon.tsx';
+export { CoreLink } from './core-link.tsx';
+export { CoreLoadingNotification } from './core-loading-notification.tsx';

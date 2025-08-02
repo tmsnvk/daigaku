@@ -4,6 +4,4 @@
  * @author tmsnvk
  */
 
-import { CreateApplicationForm } from './components/create-application-form.tsx';
-
-export { CreateApplicationForm };
+export { CreateApplicationForm } from './components/create-application-form.tsx';

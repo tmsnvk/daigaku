@@ -75,46 +75,46 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
       />
       <article className={'col-start-2 col-end-3'}>
         <CoreLink
-          target={`/applications/edit/${application.uuid}`}
-          label={t('edit')}
+          target={`/applications/student/edit/${application.uuid}`}
+          label={t('app.page.applicationView.application.edit')}
           intent={'dark'}
           size={'normal'}
         />
       </article>
       <ApplicationDetail
-        name={t('countryLabel')}
+        name={t('app.page.applicationView.application.countryLabel')}
         value={application.country}
       />
       <ApplicationDetail
-        name={t('courseNameLabel')}
+        name={t('app.page.applicationView.application.courseNameLabel')}
         value={application.courseName}
       />
       <ApplicationDetail
-        name={t('minorSubjectLabel')}
+        name={t('app.page.applicationView.application.minorSubjectLabel')}
         value={application.minorSubject ?? '-'}
       />
       <ApplicationDetail
-        name={t('programmeLengthLabel')}
+        name={t('app.page.applicationView.application.programmeLengthLabel')}
         value={application.programmeLength}
       />
       <ApplicationDetail
-        name={t('applicationStatusLabel')}
+        name={t('app.page.applicationView.application.applicationStatusLabel')}
         value={getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('interviewStatusLabel')}
+        name={t('app.page.applicationView.application.interviewStatusLabel')}
         value={getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('offerStatusLabel')}
+        name={t('app.page.applicationView.application.offerStatusLabel')}
         value={getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('responseStatusLabel')}
+        name={t('app.page.applicationView.application.responseStatusLabel')}
         value={getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ?? '-'}
       />
       <ApplicationDetail
-        name={t('finalDestinationStatusLabel')}
+        name={t('app.page.applicationView.application.finalDestinationStatusLabel')}
         value={getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ?? '-'}
       />
     </section>

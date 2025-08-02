@@ -24,26 +24,26 @@ import net.tamasnovak.validation.annotations.validuuid.ValidUuid;
  * @param programmeLength The application's program length.
  */
 public record CreateApplicationByStudentPayload(
-  @NotBlank(message = "Select a country.")
-  @ValidUuid(message = "Select a valid country.")
+  @ValidUuid(message = "app.page.applicationCreate.form.validCountryRequired")
+  @NotBlank(message = "app.page.applicationCreate.form.countryRequired")
   String countryUuid,
 
-  @NotBlank(message = "Select a university.")
-  @ValidUuid(message = "Select a valid university.")
+  @ValidUuid(message = "app.page.applicationCreate.form.validUniversityRequired")
+  @NotBlank(message = "app.page.applicationCreate.form.universityRequired")
   String universityUuid,
 
-  @NotBlank(message = "Provide the name of your course.")
+  @NotBlank(message = "app.page.applicationCreate.form.courseNameRequired")
   @Pattern(regexp = "^[\\p{IsAlphabetic}\\s-]{1,255}$", message =
-    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
+    "app.page.applicationCreate.form.courseNamePattern")
   String courseName,
 
   @Pattern(regexp = "^(?:[\\p{IsAlphabetic}\\s-]{1,255}|)$", message =
-    "Use only letters, spaces or hyphens. Provide a minimum of 1 and a maximum of 255 characters.")
+    "app.page.applicationCreate.form.minorSubjectPattern")
   String minorSubject,
 
-  @NotNull(message = "Provide the length (year) of your selected course.")
-  @Min(value = 1, message = "Programme length should not be less than {value}.")
-  @Max(value = 5, message = "Programme length should not be more than {value}.")
+  @NotNull(message = "app.page.applicationCreate.form.programmeLengthRequired")
+  @Min(value = 1, message = "app.page.applicationCreate.form.programmeLengthPattern")
+  @Max(value = 5, message = "app.page.applicationCreate.form.programmeLengthPattern")
   int programmeLength
 ) {
 }

@@ -55,6 +55,7 @@ export const NavigationRoute = ({
   return (
     <Link
       to={targetUrlString}
+      activeOptions={{ exact: true }}
       onClick={onNavigateClick}
     >
       {({ isActive }) => (
@@ -63,7 +64,7 @@ export const NavigationRoute = ({
         >
           <CoreIcon
             icon={icon}
-            className={joinTw(isActive ? 'text-accent' : 'text-secondary', 'mr-2')}
+            className={joinTw('mr-2', isActive ? 'text-accent' : 'text-secondary')}
           />
           <span>{label}</span>
         </div>

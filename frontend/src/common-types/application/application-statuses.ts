@@ -5,7 +5,6 @@
  */
 
 /* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
 
 /**
  * Defines the possible values of the ApplicationStatus field on an Application.
@@ -19,9 +18,9 @@ export const ApplicationStatuses = {
 export type ApplicationStatus = (typeof ApplicationStatuses)[keyof typeof ApplicationStatuses];
 
 export const ApplicationStatusTranslations = {
-  [ApplicationStatuses.PLANNED]: TranslationKey.APPLICATION_STATUS_PLANNED,
-  [ApplicationStatuses.SUBMITTED]: TranslationKey.APPLICATION_STATUS_SUBMITTED,
-  [ApplicationStatuses.WITHDRAWN]: TranslationKey.APPLICATION_STATUS_WITHDRAWN,
+  [ApplicationStatuses.PLANNED]: 'app.domain.application.applicationStatusPlanned',
+  [ApplicationStatuses.SUBMITTED]: 'app.domain.application.applicationStatusSubmitted',
+  [ApplicationStatuses.WITHDRAWN]: 'app.domain.application.applicationStatusWithdrawn',
 };
 
 /**
@@ -36,9 +35,9 @@ export const InterviewStatuses = {
 export type InterviewStatus = (typeof InterviewStatuses)[keyof typeof InterviewStatuses];
 
 export const InterviewStatusTranslations = {
-  [InterviewStatuses.INVITED]: TranslationKey.INTERVIEW_STATUS_INVITED,
-  [InterviewStatuses.NO_INTERVIEW]: TranslationKey.INTERVIEW_STATUS_NO_INTERVIEW,
-  [InterviewStatuses.NOT_INVITED]: TranslationKey.INTERVIEW_STATUS_NOT_INVITED,
+  [InterviewStatuses.INVITED]: 'app.domain.application.interviewStatusInvited',
+  [InterviewStatuses.NO_INTERVIEW]: 'app.domain.application.interviewStatusNoInterview',
+  [InterviewStatuses.NOT_INVITED]: 'app.domain.application.interviewStatusNotInvited',
 };
 
 /**
@@ -54,10 +53,10 @@ export const OfferStatuses = {
 export type OfferStatus = (typeof OfferStatuses)[keyof typeof OfferStatuses];
 
 export const OfferStatusTranslations = {
-  [OfferStatuses.CONDITIONAL]: TranslationKey.OFFER_STATUS_CONDITIONAL,
-  [OfferStatuses.DEFERRED]: TranslationKey.OFFER_STATUS_DEFERRED,
-  [OfferStatuses.REJECTED]: TranslationKey.OFFER_STATUS_REJECTED,
-  [OfferStatuses.UNCONDITIONAL]: TranslationKey.OFFER_STATUS_UNCONDITIONAL,
+  [OfferStatuses.CONDITIONAL]: 'app.domain.application.offerStatusConditional',
+  [OfferStatuses.DEFERRED]: 'app.domain.application.offerStatusDeferred',
+  [OfferStatuses.REJECTED]: 'app.domain.application.offerStatusRejected',
+  [OfferStatuses.UNCONDITIONAL]: 'app.domain.application.offerStatusUnconditional',
 };
 
 /**
@@ -72,9 +71,9 @@ export const ResponseStatuses = {
 export type ResponseStatus = (typeof ResponseStatuses)[keyof typeof ResponseStatuses];
 
 export const ResponseStatusTranslations = {
-  [ResponseStatuses.FIRM_CHOICE]: TranslationKey.RESPONSE_STATUS_FIRM_CHOICE,
-  [ResponseStatuses.INSURANCE_CHOICE]: TranslationKey.RESPONSE_STATUS_INSURANCE_CHOICE,
-  [ResponseStatuses.OFFER_DECLINED]: TranslationKey.OFFER_STATUS_DEFERRED,
+  [ResponseStatuses.FIRM_CHOICE]: 'app.domain.application.responseStatusFirmChoice',
+  [ResponseStatuses.INSURANCE_CHOICE]: 'app.domain.application.responseStatusInsuranceChoice',
+  [ResponseStatuses.OFFER_DECLINED]: 'app.domain.application.offerStatusOfferDeclined',
 };
 
 /**
@@ -89,7 +88,7 @@ export const FinalDestinationStatuses = {
 export type FinalDestinationStatus = (typeof FinalDestinationStatuses)[keyof typeof FinalDestinationStatuses];
 
 export const FinalDestinationStatusTranslations = {
-  [FinalDestinationStatuses.FINAL_DESTINATION]: TranslationKey.FINAL_DESTINATION_STATUS_FINAL_DESTINATION,
-  [FinalDestinationStatuses.DEFERRED_FINAL_DESTINATION]: TranslationKey.FINAL_DESTINATION_STATUS_DEFERRED_ENTRY,
-  [FinalDestinationStatuses.NOT_FINAL_DESTINATION]: TranslationKey.FINAL_DESTINATION_STATUS_NOT_FINAL_DESTINATION,
+  [FinalDestinationStatuses.FINAL_DESTINATION]: 'app.domain.application.finalDestinationStatusFinalDestination',
+  [FinalDestinationStatuses.DEFERRED_FINAL_DESTINATION]: 'app.domain.application.finalDestinationStatusDeferredEntry',
+  [FinalDestinationStatuses.NOT_FINAL_DESTINATION]: 'app.domain.application.finalDestinationStatusNotFinalDestination',
 };

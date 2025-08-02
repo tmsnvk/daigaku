@@ -7,49 +7,50 @@
 /* vendor imports */
 import { z } from 'zod/v4';
 
-/* configuration, constants imports */
-import { TranslationKey } from '@daigaku/constants';
-
 export const pendingAccountRegistrationSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .nonempty({ error: TranslationKey.FIRST_NAME_REQUIRED })
+    .nonempty({
+      error: 'app.page.root.pendingAccountRegistration.form.firstNameRequired',
+    })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      error: TranslationKey.NAME_PATTERN,
+      error: 'app.page.root.pendingAccountRegistration.form.namePattern',
     }),
   lastName: z
     .string()
     .trim()
-    .nonempty({ error: TranslationKey.LAST_NAME_REQUIRED })
+    .nonempty({
+      error: 'app.page.root.pendingAccountRegistration.form.lastNameRequired',
+    })
     .regex(/^[\p{L}\s-]{1,255}$/u, {
-      error: TranslationKey.NAME_PATTERN,
+      error: 'app.page.root.pendingAccountRegistration.form.namePattern',
     }),
   email: z.email({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.EMAIL_REQUIRED;
+        return 'app.page.root.pendingAccountRegistration.form.emailRequired';
       }
 
-      return TranslationKey.VALID_EMAIL_REQUIRED;
+      return 'app.page.root.pendingAccountRegistration.form.validEmailRequired';
     },
   }),
   institutionUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.INSTITUTION_REQUIRED;
+        return 'app.page.root.pendingAccountRegistration.form.institutionRequired';
       }
 
-      return TranslationKey.VALID_INSTITUTION_REQUIRED;
+      return 'app.page.root.pendingAccountRegistration.form.validInstitutionRequired';
     },
   }),
   accountRoleUuid: z.uuidv4({
     error: (issue) => {
       if (issue.input === '') {
-        return TranslationKey.ACCOUNT_ROLE_REQUIRED;
+        return 'app.page.root.pendingAccountRegistration.form.accountRoleRequired';
       }
 
-      return TranslationKey.VALID_ACCOUNT_ROLE_REQUIRED;
+      return 'app.page.root.pendingAccountRegistration.form.validAccountRoleRequired';
     },
   }),
 });

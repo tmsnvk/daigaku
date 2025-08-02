@@ -62,7 +62,7 @@ export const CoreFormAction = ({
   const { formState } = useFormContext();
 
   return (
-    <article className={joinTw(className, 'flex flex-col items-center', 'h-30')}>
+    <article className={joinTw('h-30 flex flex-col items-center', className)}>
       {isSubmissionPending ? (
         <LoadingIndicator loadingText={formActionConfig.message} />
       ) : (

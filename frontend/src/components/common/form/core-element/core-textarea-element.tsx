@@ -14,11 +14,8 @@ import { joinTw } from '@daigaku/utilities';
 
 const coreTextareaElementVariants = cva(
   joinTw(
-    'w-[90%] md:w-[75%]',
-    'px-6 py-8',
-    'border-2',
-    'text-xl',
-    'rounded-xl',
+    'w-[90%] px-6 py-8 border-2 text-xl rounded-xl',
+    'md:w-[75%]',
     'hover:outline-1',
     'focus:outline-1',
     'placeholder:text-secondary',
@@ -27,8 +24,7 @@ const coreTextareaElementVariants = cva(
     variants: {
       intent: {
         light: joinTw(
-          'bg-primary border-secondary',
-          'text-secondary',
+          'bg-primary border-secondary text-secondary',
           'focus:placeholder:text-secondary-muted focus:outline-secondary',
         ),
       },
@@ -43,6 +39,7 @@ const coreTextareaElementVariants = cva(
 );
 
 /**
+ *
  */
 export type CoreTextareaElementVariantIntent = VariantProps<typeof coreTextareaElementVariants>['intent'];
 

@@ -9,7 +9,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
-import { getCurrentYear, joinTw } from '@daigaku/utilities';
+import { getCurrentYear } from '@daigaku/utilities';
 
 /**
  *
@@ -31,14 +31,14 @@ export const Footer = ({ buildId }: FooterProps): JSX.Element => {
 
   return (
     <footer
-      className={joinTw(
-        'bg-primary border-secondary absolute bottom-0 flex h-28 w-full flex-col items-center justify-center border-t-2 text-xl',
-      )}
+      className={
+        'bg-primary border-secondary absolute bottom-0 flex h-28 w-full flex-col items-center justify-center border-t-2 text-xl'
+      }
     >
       <p>
-        {t('initYear')} - {getCurrentYear()}
+        {t('app.layout.footer.initYear')} - {getCurrentYear()}
       </p>
-      <p>{t('footerContent')}</p>
+      <p>{t('app.layout.footer.content')}</p>
       <p className='ml-4 self-start text-sm'>BUILD-ID: {buildId}</p>
     </footer>
   );

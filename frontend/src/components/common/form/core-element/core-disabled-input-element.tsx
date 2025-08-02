@@ -46,11 +46,7 @@ export const CoreDisabledInputElement = ({ id, type, defaultValue }: CoreDisable
       readOnly
       defaultValue={defaultValue}
       className={joinTw(
-        'h-20 w-full',
-        'px-4 pt-4',
-        'bg-accent border-secondary border-2',
-        'text-xl',
-        'cursor-not-allowed rounded-xl',
+        'bg-accent border-secondary h-20 w-full cursor-not-allowed rounded-xl border-2 px-4 pt-4 text-xl',
         'focus:outline-solid focus:placeholder:text-secondary-muted focus:outline-secondary focus:outline-1',
         'placeholder:text-secondary-muted',
       )}
