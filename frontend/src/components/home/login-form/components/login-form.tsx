@@ -16,11 +16,11 @@ import { LoginSchema, loginSchema } from '../schema.ts';
 
 /* component imports */
 import {
-  CommonInputGroup,
-  CoreFormAction,
-  CoreFormHeader,
-  CoreFormWrapper,
+  FormHeader,
+  FormWrapper,
+  InputGroup,
   PasswordInputGroup,
+  SubmitInputGroup,
 } from '@daigaku/components/common/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
@@ -72,43 +72,41 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
 
   return (
     <>
-      <CoreFormHeader
-        title={t('app.page.root.login.form.header')}
+      <FormHeader
         intent={'small'}
+        title={t('app.page.root.login.form.header')}
       />
       <FormProvider {...formMethods}>
-        <CoreFormWrapper
+        <FormWrapper
           formId={'account-login-form'}
           onFormSubmit={onFormSubmit}
         >
-          <CommonInputGroup
+          <InputGroup
+            disabled={isSubmitting}
             id={'email'}
-            type={'email'}
-            isDisabled={isSubmitting}
+            intent={'light'}
             label={t('app.page.root.login.form.emailLabel')}
             placeholder={t('app.page.root.login.form.emailPlaceholder')}
-            intent={'light'}
+            type={'email'}
           />
           <PasswordInputGroup
+            disabled={isSubmitting}
             id={'password'}
-            isDisabled={isSubmitting}
+            intent={'light'}
             label={t('app.page.root.login.form.passwordLabel')}
             placeholder={t('app.page.root.login.form.passwordPlaceholder')}
-            intent={'light'}
           />
-          <CoreFormAction
-            isSubmissionPending={isSubmitting}
+          <SubmitInputGroup
             formActionConfig={{
               message: t('app.page.root.login.form.loadingText'),
               value: t('app.page.root.login.form.submitButton'),
             }}
             intent={'dark'}
+            isSubmissionPending={isSubmitting}
           />
-        </CoreFormWrapper>
+        </FormWrapper>
       </FormProvider>
       <FormSwapButtons
-        isDisabled={isSubmitting}
-        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
             label: formTypeButtonLabel[FormTypes.RESET_ACCOUNT_PASSWORD],
@@ -119,6 +117,8 @@ export const LoginForm = ({ onFormSelect }: LoginFormProps): JSX.Element => {
             formType: FormTypes.REGISTER_PENDING_ACCOUNT,
           },
         }}
+        disabled={isSubmitting}
+        onFormSelect={onFormSelect}
       />
     </>
   );

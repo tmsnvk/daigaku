@@ -61,15 +61,15 @@ export const ApplicationsTable = ({
           columns={columns}
           isDataEmpty={isEmpty(applications)}
           onColumnSort={handleColumnSort}
-          onToggleModal={toggleModal}
           onRefetch={refetch}
+          onToggleModal={toggleModal}
         />
       </thead>
       <tbody>
         {applications && (
           <DataRows
-            columns={columns}
             applications={applications}
+            columns={columns}
           />
         )}
       </tbody>

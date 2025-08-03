@@ -13,16 +13,11 @@ import { joinTw } from '@daigaku/utilities';
 /**
  * Defines the component's properties.
  */
-interface CoreFormWrapperProps {
+interface FormWrapperProps {
   /**
    * The form element's id.
    */
   readonly formId: string;
-
-  /**
-   * The form element's submission handler.
-   */
-  onFormSubmit: () => void;
 
   /**
    * The passed down React child component(s).
@@ -33,20 +28,25 @@ interface CoreFormWrapperProps {
    * Optional style settings.
    */
   readonly className?: string;
+
+  /**
+   * The form element's submission handler.
+   */
+  onFormSubmit: () => void;
 }
 
 /**
  * Renders a form element component, wrapping around the form's other components.
  *
- * @param {CoreFormWrapperProps}
+ * @param {FormWrapperProps}
  * @returns {JSX.Element}
  */
-export const CoreFormWrapper = ({ formId, onFormSubmit, className, children }: CoreFormWrapperProps): JSX.Element => {
+export const FormWrapper = ({ formId, onFormSubmit, className, children }: FormWrapperProps): JSX.Element => {
   return (
     <form
+      className={joinTw('flex flex-col items-center', className)}
       id={formId}
       onSubmit={onFormSubmit}
-      className={joinTw('flex flex-col items-center', className)}
     >
       {children}
     </form>

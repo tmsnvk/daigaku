@@ -13,7 +13,7 @@ import { useToggleIsRemovable } from '../hooks/use-toggle-is-removable.tsx';
 
 /* component imports */
 import { CoreButton } from '@daigaku/components/common/core';
-import { CoreFormElementError } from '@daigaku/components/common/form';
+import { CoreElementError } from '@daigaku/components/common/form';
 
 /**
  * Defines the component's properties.
@@ -48,16 +48,16 @@ export const IsRemovableButton = ({ isRemovable, applicationUuid }: IsRemovableB
   return (
     <article className={'col-start-2 col-end-3 row-start-2 row-end-3 flex h-40 flex-col items-center'}>
       <CoreButton
+        disabled={isSubmitting}
+        intent={shouldBeRemoved ? 'destructive' : 'dark'}
         label={
           shouldBeRemoved
             ? t('app.page.applicationEdit.removeRequest.requestReversion')
             : t('app.page.applicationEdit.removeRequest.requestDeletion')
         }
-        intent={shouldBeRemoved ? 'destructive' : 'dark'}
         onClick={() => toggleRemoveState()}
-        isDisabled={isSubmitting}
       />
-      {isError && <CoreFormElementError message={t('app.generic.error.unexpectedError')} />}
+      {isError && <CoreElementError message={t('app.generic.error.unexpectedError')} />}
     </article>
   );
 };

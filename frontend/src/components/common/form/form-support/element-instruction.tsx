@@ -13,7 +13,7 @@ import { joinTw } from '@daigaku/utilities';
 /**
  * Defines the component's properties.
  */
-interface CoreFormElementInstructionProps {
+interface ElementInstructionProps {
   /**
    * An array of strings representing the instruction paragraphs to be displayed.
    */
@@ -28,10 +28,10 @@ interface CoreFormElementInstructionProps {
 /**
  * Renders an instruction paragraph for a given input form element.
  *
- * @param {CoreFormElementInstructionProps} props
+ * @param {ElementInstructionProps} props
  * @return {JSX.Element}
  */
-export const CoreFormElementInstruction = ({ paragraph, className }: CoreFormElementInstructionProps): JSX.Element => {
+export const ElementInstruction = ({ paragraph, className }: ElementInstructionProps): JSX.Element => {
   return (
     <article
       className={joinTw('bg-primary border-secondary rounded-(--default-border-radius) border-2 px-6 py-10', className)}

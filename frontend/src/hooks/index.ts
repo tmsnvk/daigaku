@@ -4,7 +4,6 @@
  * @author tmsnvk
  */
 
-export { useGetMe } from './account/use-get-me.tsx';
 export { useGetApplicationByUuid } from './application/use-get-application-by-uuid.tsx';
 export { useGetApplications } from './application/use-get-applications.tsx';
 export { useModalToggle } from './components/use-modal-toggle.tsx';

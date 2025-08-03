@@ -6,29 +6,43 @@
 
 /* vendor imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { JSX, useState } from 'react';
-import { FieldValues } from 'react-hook-form';
+import { InputHTMLAttributes, JSX, useState } from 'react';
+import { FieldValues, Path } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 /* logic imports */
 import { useFieldValidationError } from '@daigaku/hooks';
 
 /* component imports */
-import { CoreFormElementError, CoreFormElementGroupWrapper, CoreFormElementLabel } from '..';
-import { CoreInputElement } from '../core-element/core-input-element.tsx';
+import { CoreElementError } from '../core-element/core-element-error.tsx';
+import { CoreInput, CoreInputVariantIntent } from '../core-element/core-input';
+import { CoreLabel } from '../core-element/core-label.tsx';
+import { ElementGroupWrapper } from '../form-support/element-group-wrapper.tsx';
 
 /* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
-
-/* interface, type imports */
-import { PasswordInputElementGroup } from '@daigaku/common-types';
 
 /**
  * Defines the component's properties.
  *
  * @template TFormValues - The type of form values extending the `react-hook-form` library.
  */
-interface PasswordInputGroupProps<TFormValues extends FieldValues> extends PasswordInputElementGroup<TFormValues> {}
+interface PasswordInputGroupProps<TFormValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * The input element's id.
+   */
+  readonly id: Path<TFormValues>;
+
+  /**
+   * The displayed label alongside the input element.
+   */
+  readonly label: string;
+
+  /**
+   * The input element's style intent.
+   */
+  readonly intent: CoreInputVariantIntent;
+}
 
 /**
  * Renders a password input element group instance integrated with the `react-hook-form` library.
@@ -38,10 +52,10 @@ interface PasswordInputGroupProps<TFormValues extends FieldValues> extends Passw
  */
 export const PasswordInputGroup = <TFormValues extends FieldValues>({
   id,
-  isDisabled,
+  disabled,
   label,
   placeholder,
-  initialValue,
+  defaultValue,
   intent,
 }: PasswordInputGroupProps<TFormValues>): JSX.Element => {
   const { t } = useTranslation();
@@ -51,32 +65,32 @@ export const PasswordInputGroup = <TFormValues extends FieldValues>({
   const [isPasswordRevealed, setIsPasswordRevealed] = useState<boolean>(false);
 
   return (
-    <CoreFormElementGroupWrapper>
-      <CoreFormElementLabel
+    <ElementGroupWrapper>
+      <CoreLabel
+        error={!!error}
         inputId={id}
         label={label}
-        isError={!!error}
       />
       <div className={'flex w-full items-center text-2xl'}>
-        <CoreInputElement
-          id={id}
-          type={isPasswordRevealed ? 'text' : 'password'}
-          isDisabled={isDisabled}
-          isError={!!error}
-          placeholder={placeholder}
-          initialValue={initialValue}
-          intent={intent}
+        <CoreInput
           className={'flex-1'}
+          defaultValue={defaultValue}
+          disabled={disabled}
+          error={!!error}
+          id={id}
+          intent={intent}
+          placeholder={placeholder}
+          type={isPasswordRevealed ? 'text' : 'password'}
         />
         <FontAwesomeIcon
+          className={'w-8 cursor-pointer pl-4'}
+          icon={isPasswordRevealed ? iconLibrary.faEyeSlash : iconLibrary.faEye}
           onClick={() => {
             setIsPasswordRevealed(!isPasswordRevealed);
           }}
-          icon={isPasswordRevealed ? iconLibrary.faEyeSlash : iconLibrary.faEye}
-          className={'w-8 cursor-pointer pl-4'}
         />
       </div>
-      {error && error?.message && <CoreFormElementError message={t(error.message)} />}
-    </CoreFormElementGroupWrapper>
+      {error && error?.message && <CoreElementError message={t(error.message)} />}
+    </ElementGroupWrapper>
   );
 };

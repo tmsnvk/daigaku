@@ -16,22 +16,4 @@
     border-radius: var(--default-border-radius);
     box-shadow: var(--right-bottom-secondary-shadow);
   }
-
-  .core-loading-dialog-window {
-    &[open] {
-      opacity: 1;
-      transform: scaleY(1);
-    }
-
-    &[open]::backdrop {
-      backdrop-filter: blur(0.5rem);
-    }
-
-    @starting-style {
-      &[open] {
-        opacity: 0;
-        transform: scaleY(0);
-      }
-    }
-  }
 }

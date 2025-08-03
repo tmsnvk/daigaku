@@ -44,13 +44,13 @@ export const PublicLayout = ({ buildId }: PublicLayoutProps): JSX.Element => {
         <ul className={'flex w-[90%] justify-between'}>
           {navigationRoutes.map((route: NavigationRouteItem) => (
             <li
-              key={route.targetUrlString}
               className={joinTw('my-4', 'md:mx-4')}
+              key={route.targetUrlString}
             >
               <NavigationRoute
-                targetUrlString={route.targetUrlString}
                 icon={route.icon}
                 label={t(route.label)}
+                targetUrlString={route.targetUrlString}
               />
             </li>
           ))}

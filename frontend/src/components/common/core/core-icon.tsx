@@ -27,13 +27,13 @@ interface CoreIconProps extends FontAwesomeIconProps {
  * @param {CoreIconProps}
  * @return {JSX.Element}
  */
-export const CoreIcon = ({ icon, className, ...rest }: CoreIconProps): JSX.Element => {
+export const CoreIcon = ({ icon, className, ...props }: CoreIconProps): JSX.Element => {
   return (
     <div className={'text-3xl'}>
       <FontAwesomeIcon
-        icon={icon}
         className={joinTw(className)}
-        {...rest}
+        icon={icon}
+        {...props}
       />
     </div>
   );

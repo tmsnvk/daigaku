@@ -8,7 +8,8 @@
 import { useTranslation } from 'react-i18next';
 
 /* configuration, constants imports */
-import { StudentDashboardStatisticsResponse, Todo, TodoList } from '@daigaku/common-types';
+import { StudentDashboardStatisticsResponse } from '@daigaku/common-types';
+import { Todo, TodoList } from '../types.ts';
 
 /**
  * Evaluates the current to-do items based on the provided dashboard statistics.

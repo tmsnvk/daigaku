@@ -55,37 +55,37 @@ export const ColumnSelectorModal = ({
 
   return (
     <dialog
-      ref={dialogRef}
       className={'core-primary-border mx-auto mt-[10%] flex flex-col items-start px-20 py-10'}
+      ref={dialogRef}
     >
       {columns.map((column: Column) => {
         return (
           <article
-            key={column.id}
             className={'mt-6 flex flex-row'}
+            key={column.id}
             onClick={() => !column.isCoreColumn && onToggleColumnVisibility(column.id)}
           >
             <input
-              type={'checkbox'}
+              readOnly
+              checked={column.isVisible}
+              className={joinTw('mr-4', 'hover:outline-none', 'focus:outline-none')}
+              disabled={column.isCoreColumn}
               id={column.id}
               name={column.id}
-              className={joinTw('mr-4', 'hover:outline-none', 'focus:outline-none')}
-              checked={column.isVisible}
-              disabled={column.isCoreColumn}
-              readOnly
+              type={'checkbox'}
             />
             {column.name}
           </article>
         );
       })}
       <button
-        type={'button'}
-        id={'modal-toggle'}
-        name={'modal-toggle'}
         className={joinTw(
           'border-accent rounded-(--default-border-radius) mx-auto mt-10 cursor-pointer border-2 bg-transparent px-10 py-4 font-extrabold',
           'hover:text-accent',
         )}
+        id={'modal-toggle'}
+        name={'modal-toggle'}
+        type={'button'}
         onClick={onToggle}
       >
         Close

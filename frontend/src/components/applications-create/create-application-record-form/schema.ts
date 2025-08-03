@@ -37,7 +37,7 @@ export const createApplicationSchema = z.object({
     .string()
     .trim()
     .optional()
-    .refine((value) => value === undefined || value === '' || /^[\p{L}\s-]{5,255}$/u.test(value), {
+    .refine((value) => value === undefined || value === '' || /^[\p{L}\s-]{1,255}$/u.test(value), {
       error: 'app.page.applicationCreate.form.minorSubjectPattern',
     }),
   programmeLength: z.coerce

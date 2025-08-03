@@ -15,7 +15,7 @@ import { useAccountPasswordResetForm } from '../hooks/use-account-password-reset
 import { AccountPasswordResetSchema, accountPasswordResetSchema } from '../schema.ts';
 
 /* component imports */
-import { CommonInputGroup, CoreFormAction, CoreFormHeader, CoreFormWrapper } from '@daigaku/components/common/form';
+import { FormHeader, FormWrapper, InputGroup, SubmitInputGroup } from '@daigaku/components/common/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
 /* configuration, constants imports */
@@ -66,32 +66,32 @@ export const AccountPasswordResetForm = ({ onFormSelect }: AccountPasswordResetF
 
   return (
     <>
-      <CoreFormHeader
-        title={t('app.page.root.passwordReset.form.header')}
+      <FormHeader
         intent={'small'}
+        title={t('app.page.root.passwordReset.form.header')}
       />
       <FormProvider {...formMethods}>
-        <CoreFormWrapper
+        <FormWrapper
           formId={'account-reset-form'}
           onFormSubmit={onFormSubmit}
         >
-          <CommonInputGroup
+          <InputGroup
+            disabled={isSubmitting}
             id={'email'}
-            type={'email'}
+            intent={'light'}
             label={t('app.page.root.passwordReset.form.emailLabel')}
             placeholder={t('app.page.root.passwordReset.form.emailPlaceholder')}
-            isDisabled={isSubmitting}
-            intent={'light'}
+            type={'email'}
           />
-          <CoreFormAction
-            isSubmissionPending={isSubmitting}
+          <SubmitInputGroup
             formActionConfig={{
               message: t('app.page.root.passwordReset.form.loadingText'),
               value: t('app.page.root.passwordReset.form.submitButton'),
             }}
             intent={'dark'}
+            isSubmissionPending={isSubmitting}
           />
-        </CoreFormWrapper>
+        </FormWrapper>
       </FormProvider>
       <FormSwapButtons
         buttonConfig={{
@@ -104,7 +104,7 @@ export const AccountPasswordResetForm = ({ onFormSelect }: AccountPasswordResetF
             formType: FormTypes.REGISTER_PENDING_ACCOUNT,
           },
         }}
-        isDisabled={isSubmitting}
+        disabled={isSubmitting}
         onFormSelect={onFormSelect}
       />
     </>

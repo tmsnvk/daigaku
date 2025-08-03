@@ -12,7 +12,7 @@ import { FieldValues, Path, useFormContext } from 'react-hook-form';
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreTextareaElementVariants = cva(
+const coreTextareaVariants = cva(
   joinTw(
     'w-[90%] px-6 py-8 border-2 text-xl rounded-xl',
     'md:w-[75%]',
@@ -28,12 +28,6 @@ const coreTextareaElementVariants = cva(
           'focus:placeholder:text-secondary-muted focus:outline-secondary',
         ),
       },
-      isDisabled: {
-        true: joinTw('cursor-not-allowed', 'placeholder:text-secondary-muted'),
-      },
-      isError: {
-        true: joinTw('border-destructive', 'focus:outline-destructive'),
-      },
     },
   },
 );
@@ -41,13 +35,13 @@ const coreTextareaElementVariants = cva(
 /**
  *
  */
-export type CoreTextareaElementVariantIntent = VariantProps<typeof coreTextareaElementVariants>['intent'];
+export type CoreTextareaVariantIntent = VariantProps<typeof coreTextareaVariants>['intent'];
 
 /**
  * Defines the component's properties.
  */
-interface CoreTextareaElementProps<TFormValues extends FieldValues>
-  extends VariantProps<typeof coreTextareaElementVariants>,
+interface CoreTextareaProps<TFormValues extends FieldValues>
+  extends VariantProps<typeof coreTextareaVariants>,
     TextareaHTMLAttributes<HTMLTextAreaElement> {
   /**
    * The input element's id.
@@ -55,59 +49,43 @@ interface CoreTextareaElementProps<TFormValues extends FieldValues>
   readonly id: Path<TFormValues>;
 
   /**
-   * The textarea's row size.
-   */
-  readonly rows: number;
-
-  /**
-   * The textarea's column size.
-   */
-  readonly cols: number;
-
-  /**
-   * The input element's placeholder value.
-   */
-  readonly placeholder: string;
-
-  /**
-   * Indicates whether the input element is disabled.
-   */
-  readonly isDisabled: boolean;
-
-  /**
    * Indicates whether there is an error involving the input element.
    */
-  readonly isError: boolean;
+  readonly error: boolean;
 }
 
 /**
  * Renders the core textarea element used throughout the application.
  *
- * @param {CoreTextareaElementProps} props
+ * @param {CoreTextareaProps} props
  * @return {JSX.Element}
  */
-export const CoreTextareaElement = <TFormValues extends FieldValues>({
+export const CoreTextarea = <TFormValues extends FieldValues>({
   id,
   rows,
   cols,
   placeholder,
-  isDisabled,
-  isError,
+  disabled,
+  error,
   intent,
-}: CoreTextareaElementProps<TFormValues>): JSX.Element => {
+}: CoreTextareaProps<TFormValues>): JSX.Element => {
   const { register } = useFormContext();
 
   return (
     <textarea
       {...register(id)}
+      autoComplete={'off'}
+      className={joinTw(
+        coreTextareaVariants({ intent }),
+        disabled && 'placeholder:text-secondary-muted cursor-not-allowed',
+        error && 'border-destructive focus:outline-destructive',
+      )}
+      cols={cols}
+      disabled={disabled}
       id={id}
       name={id}
-      rows={rows}
-      cols={cols}
-      autoComplete={'off'}
       placeholder={placeholder}
-      disabled={isDisabled}
-      className={joinTw(coreTextareaElementVariants({ intent, isDisabled, isError }))}
+      rows={rows}
     />
   );
 };

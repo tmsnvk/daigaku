@@ -9,7 +9,7 @@ import { match } from 'ts-pattern';
 
 /* interface, type imports */
 import { LoginResponse, UserLoginStates } from '@daigaku/common-types';
-import { AuthenticationState } from './authentication.types';
+import { AuthenticationState } from './authentication.types.ts';
 
 /**
  * The authentication action type enum values.

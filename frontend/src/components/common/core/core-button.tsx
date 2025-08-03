@@ -6,7 +6,7 @@
 
 /* vendor imports */
 import { type VariantProps, cva } from 'class-variance-authority';
-import { ButtonHTMLAttributes, JSX, MouseEventHandler, ReactNode } from 'react';
+import { ButtonHTMLAttributes, JSX, ReactNode } from 'react';
 
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
@@ -44,37 +44,17 @@ const coreButtonVariants = cva('font-bold tracking-widest cursor-pointer', {
         'focus:outline-secondary focus:outline-2',
       ),
     },
-    isDisabled: {
-      true: joinTw('text-tertiary cursor-not-allowed', 'hover:outline-transparent'),
-    },
   },
 });
 
 /**
  * Defines the component's properties.
  */
-interface CoreButtonProps
-  extends VariantProps<typeof coreButtonVariants>,
-    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'content'> {
+interface CoreButtonProps extends VariantProps<typeof coreButtonVariants>, ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * The button's label.
    */
-  readonly label: string;
-
-  /**
-   * Optional property, used when a button's label is not a string but a more complex node.
-   */
-  readonly content?: ReactNode;
-
-  /**
-   * The boolean indicating whether the button is disabled or not.
-   */
-  readonly isDisabled?: boolean;
-
-  /**
-   * The button's onClick handler.
-   */
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  readonly label: string | ReactNode;
 }
 
 /**
@@ -83,17 +63,18 @@ interface CoreButtonProps
  * @param {CoreButtonProps} props
  * @return {JSX.Element}
  */
-export const CoreButton = ({ intent, content, label, isDisabled = false, onClick }: CoreButtonProps): JSX.Element => {
+export const CoreButton = ({ label, disabled, intent, ...props }: CoreButtonProps): JSX.Element => {
   return (
     <button
-      id={label}
-      name={label}
-      className={joinTw(coreButtonVariants({ intent, isDisabled }))}
+      className={joinTw(
+        coreButtonVariants({ intent }),
+        disabled && 'text-tertiary cursor-not-allowed hover:outline-transparent',
+      )}
+      disabled={disabled}
       type={'button'}
-      onClick={onClick}
-      disabled={isDisabled}
+      {...props}
     >
-      {content ?? label}
+      {label}
     </button>
   );
 };

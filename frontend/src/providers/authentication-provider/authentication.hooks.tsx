@@ -9,9 +9,9 @@ import { UseQueryResult } from '@tanstack/react-query';
 
 /* logic imports */
 import { CoreApiError } from '@daigaku/errors';
+import { useCoreApiQuery } from '@daigaku/hooks';
 import { accountService } from '@daigaku/services';
 import { localStorageUtilities } from '@daigaku/utilities';
-import { useCoreApiQuery } from '../configuration/use-core-api';
 
 /* configuration, constants imports */
 import { localStorageKeys, queryKeys } from '@daigaku/constants';

@@ -11,7 +11,7 @@ import { JSX, ReactElement } from 'react';
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreFormHeaderVariants = cva('text-center', {
+const FormHeaderVariants = cva('text-center', {
   variants: {
     intent: {
       small: 'mb-20 text-2xl',
@@ -24,7 +24,7 @@ const coreFormHeaderVariants = cva('text-center', {
 /**
  * Defines the component's properties.
  */
-interface CoreFormHeaderProps extends VariantProps<typeof coreFormHeaderVariants> {
+interface FormHeaderProps extends VariantProps<typeof FormHeaderVariants> {
   /**
    * The form element's title.
    */
@@ -39,9 +39,9 @@ interface CoreFormHeaderProps extends VariantProps<typeof coreFormHeaderVariants
 /**
  * Renders a form element's header title.
  *
- * @param {CoreFormHeaderProps}
+ * @param {FormHeaderProps}
  * @returns {JSX.Element}
  */
-export const CoreFormHeader = ({ title, intent, className }: CoreFormHeaderProps): JSX.Element => {
-  return <h1 className={joinTw(coreFormHeaderVariants({ intent, className }))}>{title}</h1>;
+export const FormHeader = ({ title, intent, className }: FormHeaderProps): JSX.Element => {
+  return <h1 className={joinTw(FormHeaderVariants({ intent, className }))}>{title}</h1>;
 };

@@ -18,7 +18,7 @@ import { CoreIcon } from '@daigaku/components/common/core';
 import { iconLibrary } from '@daigaku/constants';
 
 /* interface, type imports */
-import { Toast as ToastType } from '@daigaku/common-types';
+import { Toast as ToastType } from './toast.types.tsx';
 
 const toastVariants = cva('animate-simple-fade-in flex flex-col w-120 p-6 border-2', {
   variants: {
@@ -96,8 +96,8 @@ export const Toast = ({
       <div className={'mb-4 flex items-center justify-between'}>
         <h3 className={'text-2xl font-bold uppercase'}>{title}</h3>
         <CoreIcon
-          icon={iconLibrary.faXmark}
           className={'cursor-pointer'}
+          icon={iconLibrary.faXmark}
           onClick={onClose}
         />
       </div>

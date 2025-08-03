@@ -8,16 +8,16 @@
 import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useReducer } from 'react';
 
 /* logic imports */
-import { useGetMe } from '@daigaku/hooks';
 import { isAuthTokenExpired, localStorageUtilities } from '@daigaku/utilities';
-import { AuthenticationActionTypes, authenticationReducer, initialReducerState } from './authentication.reducer';
+import { useGetMe } from './authentication.hooks.tsx';
+import { AuthenticationActionTypes, authenticationReducer, initialReducerState } from './authentication.reducer.ts';
 
 /* configuration, constants imports */
 import { localStorageKeys } from '@daigaku/constants';
 
 /* interface, type imports */
 import { LoginResponse, UserLoginStates } from '@daigaku/common-types';
-import { AuthenticationState } from './authentication.types';
+import { AuthenticationState } from './authentication.types.ts';
 
 /**
  * Defines the properties of the AuthenticationContext context object.

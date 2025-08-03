@@ -8,8 +8,7 @@
 import { match } from 'ts-pattern';
 
 /* interface, type imports */
-import { Toast } from '@daigaku/common-types';
-import { ToastState } from './toast.types';
+import { Toast, ToastState } from './toast.types.ts';
 
 /**
  * The toast action type enum values.

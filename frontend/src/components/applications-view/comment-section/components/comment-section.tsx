@@ -56,21 +56,21 @@ export const CommentSection = ({ applicationUuid, comments }: CommentSectionProp
       />
       <div className={'mx-auto mb-20 flex w-[90%] flex-row items-center justify-around'}>
         <CommentPaginationButton
-          onClick={goToPreviousPage}
-          isDisabled={data?.currentPage === 0}
+          disabled={data?.currentPage === 0}
           value={t('app.page.applicationView.comment.previousPage')}
+          onClick={goToPreviousPage}
         />
         <span className={'text-xl'}>
           {t('app.page.applicationView.comment.page')} {currentPage + 1}
         </span>
         <CommentPaginationButton
+          disabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
+          value={t('app.page.applicationView.comment.nextPage')}
           onClick={() => {
             if (data?.totalPages) {
               goToNextPage(data.totalPages);
             }
           }}
-          isDisabled={currentPage + 1 === data?.totalPages || (currentPage === 0 && data?.totalComments === 0)}
-          value={t('app.page.applicationView.comment.nextPage')}
         />
       </div>
       <CreateCommentForm applicationUuid={applicationUuid} />

@@ -9,14 +9,13 @@ import { Context, JSX, ReactNode, createContext, useContext, useMemo, useReducer
 
 /* logic imports */
 import { generateSimpleId, joinTw } from '@daigaku/utilities';
-import { ToastActionTypes, initialReducerState, toastReducer } from './toast.reducer';
+import { ToastActionTypes, initialReducerState, toastReducer } from './toast.reducer.ts';
 
 /* component imports */
-import { Toast as ToastComponent } from '@daigaku/components/common/notification';
+import { Toast as ToastComponent } from './toast.component.tsx';
 
 /* interface, type imports */
-import { Toast } from '@daigaku/common-types';
-import { CreateToast, ToastState } from './toast.types';
+import { CreateToast, Toast, ToastState } from './toast.types.ts';
 
 /**
  * Defines the ToastContext object.
@@ -109,12 +108,12 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
         {state.toasts.map((toast: Toast) => {
           return (
             <ToastComponent
-              key={toast.id}
-              id={toast.id}
-              title={toast.title}
-              description={toast.description}
-              variantIntent={toast.variantIntent}
               autoRemoveDelay={toast.autoRemoveDelay}
+              description={toast.description}
+              id={toast.id}
+              key={toast.id}
+              title={toast.title}
+              variantIntent={toast.variantIntent}
               onClose={() => removeToast(toast.id)}
             />
           );
