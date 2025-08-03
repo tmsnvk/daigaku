@@ -13,7 +13,7 @@ import { routeTree } from '../routeTree.gen';
 import { useAuthenticationProvider } from '@daigaku/providers';
 
 /* component imports */
-import { CoreLoadingNotification } from '@daigaku/components/common/core';
+import { CorePageLoader } from '@daigaku/components/common/core';
 
 /* interface, type imports */
 import { UserLoginStates } from '@daigaku/common-types';
@@ -40,15 +40,15 @@ export const Router = (): JSX.Element => {
   const { state } = useAuthenticationProvider();
 
   if (state.authenticationStatus === UserLoginStates.LOADING) {
-    return <CoreLoadingNotification />;
+    return <CorePageLoader />;
   }
 
   return (
     <RouterProvider
-      router={router}
       context={{
         user: state.account,
       }}
+      router={router}
     />
   );
 };

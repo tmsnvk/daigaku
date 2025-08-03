@@ -15,20 +15,20 @@ import { CoreButton } from '@daigaku/components/common/core';
  */
 interface CommentPaginationButtonProps {
   /**
-   * The onClick event handler for pagination action.
-   */
-  onClick: () => void;
-
-  /**
    * Controls the button's disabled status. If the user is on the first or last page, the pagination functionality is
    * disabled.
    */
-  readonly isDisabled: boolean;
+  readonly disabled: boolean;
 
   /**
    * The displayed text of the button.
    */
   readonly value: string;
+
+  /**
+   * The onClick event handler for pagination action.
+   */
+  onClick: () => void;
 }
 
 /**
@@ -37,13 +37,13 @@ interface CommentPaginationButtonProps {
  * @param {CommentPaginationButtonProps} props
  * @return {JSX.Element}
  */
-export const CommentPaginationButton = ({ onClick, isDisabled, value }: CommentPaginationButtonProps): JSX.Element => {
+export const CommentPaginationButton = ({ disabled, value, onClick }: CommentPaginationButtonProps): JSX.Element => {
   return (
     <CoreButton
-      onClick={onClick}
-      intent={isDisabled ? 'accent' : 'dark'}
+      disabled={disabled}
+      intent={disabled ? 'accent' : 'dark'}
       label={value}
-      isDisabled={isDisabled}
+      onClick={onClick}
     />
   );
 };

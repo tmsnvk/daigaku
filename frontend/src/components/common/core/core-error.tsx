@@ -26,7 +26,7 @@ const coreErrorVariants = cva('text-destructive text-xl font-bold tracking-wider
 /**
  * Defines the component's properties.
  */
-interface CoreFetchErrorProps extends VariantProps<typeof coreErrorVariants> {
+interface CoreErrorProps extends VariantProps<typeof coreErrorVariants> {
   /**
    *
    */
@@ -41,19 +41,19 @@ interface CoreFetchErrorProps extends VariantProps<typeof coreErrorVariants> {
 /**
  *
  *
- * @param {CoreFetchErrorProps}
+ * @param {CoreErrorProps}
  * @return {JSX.Element}
  */
-export const CoreFetchError = ({ onRetry, message, size }: CoreFetchErrorProps): JSX.Element => {
+export const CoreError = ({ onRetry, message, size }: CoreErrorProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
     <article className={joinTw(coreErrorVariants({ size }))}>
       <p className={'mb-4'}>{message}</p>
       <CoreButton
+        intent={'destructiveSlim'}
         label={t('app.generic.error.tryAgain')}
         onClick={onRetry}
-        intent={'destructiveSlim'}
       />
     </article>
   );

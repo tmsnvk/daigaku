@@ -227,6 +227,15 @@
     ],
     "react/jsx-first-prop-new-line": [2, "multiline"],
     "react/jsx-indent-props": [2, 2],
-    "react/jsx-closing-bracket-location": [2, "tag-aligned"]
+    "react/jsx-closing-bracket-location": [2, "tag-aligned"],
+    "react/jsx-sort-props": [
+      2,
+      {
+        "callbacksLast": true,
+        "ignoreCase": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false
+      }
+    ]
   }
 }

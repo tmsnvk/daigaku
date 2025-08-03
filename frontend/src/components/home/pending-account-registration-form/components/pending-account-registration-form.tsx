@@ -19,11 +19,11 @@ import { PendingAccountRegistrationSchema, pendingAccountRegistrationSchema } fr
 
 /* component imports */
 import {
-  CommonInputGroup,
-  CommonSelectGroup,
-  CoreFormAction,
-  CoreFormHeader,
-  CoreFormWrapper,
+  FormHeader,
+  FormWrapper,
+  InputGroup,
+  SelectGroupWithFetch,
+  SubmitInputGroup,
 } from '@daigaku/components/common/form';
 import { FormSwapButtons } from '../../common/components/form-swap-buttons.tsx';
 
@@ -95,45 +95,46 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
 
   return (
     <>
-      <CoreFormHeader
-        title={t('app.page.root.pendingAccountRegistration.form.header')}
+      <FormHeader
         intent={'small'}
+        title={t('app.page.root.pendingAccountRegistration.form.header')}
       />
       <FormProvider {...formMethods}>
-        <CoreFormWrapper
+        <FormWrapper
           formId={'pending-account-registration-form'}
           onFormSubmit={onFormSubmit}
         >
-          <CommonInputGroup
+          <InputGroup
+            disabled={isSubmitting}
             id={'firstName'}
-            type={'text'}
-            isDisabled={isSubmitting}
+            intent={'light'}
             label={t('app.page.root.pendingAccountRegistration.form.firstNameLabel')}
             placeholder={t('app.page.root.pendingAccountRegistration.form.firstNamePlaceholder')}
-            intent={'light'}
-          />
-          <CommonInputGroup
-            id={'lastName'}
             type={'text'}
-            isDisabled={isSubmitting}
+          />
+          <InputGroup
+            disabled={isSubmitting}
+            id={'lastName'}
+            intent={'light'}
             label={t('app.page.root.pendingAccountRegistration.form.lastNameLabel')}
             placeholder={t('app.page.root.pendingAccountRegistration.form.lastNamePlaceholder')}
-            intent={'light'}
+            type={'text'}
           />
-          <CommonInputGroup
+          <InputGroup
+            disabled={isSubmitting}
             id={'email'}
-            type={'email'}
-            isDisabled={isSubmitting}
+            intent={'light'}
             label={t('app.page.root.pendingAccountRegistration.form.emailLabel')}
             placeholder={t('app.page.root.pendingAccountRegistration.form.emailPlaceholder')}
-            intent={'light'}
+            type={'email'}
           />
-          <CommonSelectGroup
+          <SelectGroupWithFetch
+            defaultValue={t('app.page.root.pendingAccountRegistration.form.institutionPlaceholder')}
+            disabled={isSubmitting}
             id={'institutionUuid'}
-            isLoading={isInstitutionsLoading}
+            intent={'light'}
             isFetchError={isInstitutionsError}
-            isDisabled={isSubmitting}
-            onRetry={institutionRefetch}
+            isLoading={isInstitutionsLoading}
             label={t('app.page.root.pendingAccountRegistration.form.institutionLabel')}
             options={
               institutions?.map((institution: InstitutionOption) => (
@@ -145,15 +146,15 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
                 </option>
               )) || []
             }
-            initialValue={t('app.page.root.pendingAccountRegistration.form.institutionPlaceholder')}
-            intent={'light'}
+            onRetry={institutionRefetch}
           />
-          <CommonSelectGroup
+          <SelectGroupWithFetch
+            defaultValue={t('app.page.root.pendingAccountRegistration.form.accountRolePlaceholder')}
+            disabled={isSubmitting}
             id={'accountRoleUuid'}
-            isLoading={isRolesLoading}
+            intent={'light'}
             isFetchError={isRolesError}
-            isDisabled={isSubmitting}
-            onRetry={roleRefetch}
+            isLoading={isRolesLoading}
             label={t('app.page.root.pendingAccountRegistration.form.accountRoleLabel')}
             options={
               roles?.map((role: RoleOption) => (
@@ -165,22 +166,19 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
                 </option>
               )) || []
             }
-            initialValue={t('app.page.root.pendingAccountRegistration.form.accountRolePlaceholder')}
-            intent={'light'}
+            onRetry={roleRefetch}
           />
-          <CoreFormAction
-            isSubmissionPending={isSubmitting}
+          <SubmitInputGroup
             formActionConfig={{
               message: t('app.page.root.pendingAccountRegistration.form.loadingText'),
               value: t('app.page.root.pendingAccountRegistration.form.submitButton'),
             }}
             intent={'dark'}
+            isSubmissionPending={isSubmitting}
           />
-        </CoreFormWrapper>
+        </FormWrapper>
       </FormProvider>
       <FormSwapButtons
-        isDisabled={isSubmitting}
-        onFormSelect={onFormSelect}
         buttonConfig={{
           leftButton: {
             label: formTypeButtonLabel[FormTypes.RESET_ACCOUNT_PASSWORD],
@@ -191,6 +189,8 @@ export const PendingAccountRegistrationForm = ({ onFormSelect }: PendingAccountR
             formType: FormTypes.LOGIN,
           },
         }}
+        disabled={isSubmitting}
+        onFormSelect={onFormSelect}
       />
     </>
   );

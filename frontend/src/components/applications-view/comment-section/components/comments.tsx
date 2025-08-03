@@ -47,8 +47,8 @@ export const Comments = ({ comments, isError }: CommentsProps): JSX.Element => {
     <article>
       {comments.map((comment: ApplicationComment) => (
         <article
-          key={comment.uuid}
           className={'mx-auto my-20 w-[75%] text-xl'}
+          key={comment.uuid}
         >
           <div className={'bg-tertiary border-secondary rounded-(--default-border-radius) border-2 p-8'}>
             <p className={'font-extrabold'}>{comment.createdBy}</p>

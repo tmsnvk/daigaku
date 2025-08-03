@@ -12,9 +12,9 @@ import { useTranslation } from 'react-i18next';
 import { getStatusDisplayValue, joinTw } from '@daigaku/utilities';
 
 /* component imports */
+import { ApplicationMetadata } from '@daigaku/components/common';
 import { CoreLink } from '@daigaku/components/common/core';
-import { CoreFormHeader } from '@daigaku/components/common/form';
-import { ApplicationMetadata } from '@daigaku/components/common/general';
+import { FormHeader } from '@daigaku/components/common/form';
 import { ApplicationDetail } from './application-detail.tsx';
 
 /* interface, type imports */
@@ -48,7 +48,9 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
 
   return (
     <section className={joinTw('core-primary-border application-grid w-9/10 h-fit', '2xl:w-6/10')}>
-      <CoreFormHeader
+      <FormHeader
+        className={'col-start-1 col-end-3 text-center'}
+        intent={'large'}
         title={
           <>
             {application.university}
@@ -57,10 +59,9 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
             {application.courseName}
           </>
         }
-        intent={'large'}
-        className={'col-start-1 col-end-3 text-center'}
       />
       <ApplicationMetadata
+        className={'col-start-1 col-end-2'}
         metadata={{
           created: {
             createdAt: application.createdAt,
@@ -71,14 +72,13 @@ export const ApplicationDetails = ({ application }: ApplicationDetailsProps): JS
             lastModifiedBy: application.lastModifiedBy,
           },
         }}
-        className={'col-start-1 col-end-2'}
       />
       <article className={'col-start-2 col-end-3'}>
         <CoreLink
-          target={`/applications/student/edit/${application.uuid}`}
-          label={t('app.page.applicationView.application.edit')}
           intent={'dark'}
+          label={t('app.page.applicationView.application.edit')}
           size={'normal'}
+          target={`/applications/student/edit/${application.uuid}`}
         />
       </article>
       <ApplicationDetail

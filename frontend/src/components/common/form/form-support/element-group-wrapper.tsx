@@ -13,7 +13,7 @@ import { joinTw } from '@daigaku/utilities';
 /**
  * Defines the component's properties.
  */
-interface CoreFormElementGroupWrapperProps {
+interface ElementGroupWrapperProps {
   /**
    * Additional style options.
    */
@@ -25,6 +25,13 @@ interface CoreFormElementGroupWrapperProps {
   readonly children: ReactNode | Array<ReactNode>;
 }
 
-export const CoreFormElementGroupWrapper = ({ children }: CoreFormElementGroupWrapperProps) => {
-  return <article className={joinTw('h-50 relative flex w-[95%] flex-col', 'sm:w-[65%]')}>{children}</article>;
+/**
+ *
+ * @param {ElementGroupWrapperProps} props
+ * @returns
+ */
+export const ElementGroupWrapper = ({ className, children }: ElementGroupWrapperProps) => {
+  return (
+    <article className={joinTw('h-50 relative flex w-[95%] flex-col', 'sm:w-[65%]', className)}>{children}</article>
+  );
 };

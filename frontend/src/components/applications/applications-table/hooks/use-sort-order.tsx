@@ -15,7 +15,7 @@ import { useCoreQueryClient } from '@daigaku/hooks';
 import { Application } from '@daigaku/common-types';
 
 /**
- * Defines the properties for sorting columns on the /applications page.
+ * Defines the properties for sorting columns.
  */
 interface SetSortingMode {
   /**

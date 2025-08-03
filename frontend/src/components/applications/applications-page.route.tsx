@@ -39,16 +39,16 @@ export const ApplicationsIndex = ({ initialApplications }: ApplicationsIndexProp
   return (
     <main className={'core-primary-border mx-auto my-[5%] flex w-[95%] flex-col text-xl'}>
       <ApplicationsTable
-        initialApplications={initialApplications}
         columns={columns}
+        initialApplications={initialApplications}
         toggleModal={toggleModal}
       />
       {isModalVisible && (
         <ColumnSelectorModal
           columns={columns}
-          onToggleColumnVisibility={toggleColumnVisibility}
           isVisible={isModalVisible}
           onToggle={toggleModal}
+          onToggleColumnVisibility={toggleColumnVisibility}
         />
       )}
     </main>

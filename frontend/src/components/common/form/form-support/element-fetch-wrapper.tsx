@@ -9,12 +9,12 @@ import { JSX, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /* component imports */
-import { CoreFetchError, CoreFetchSkeleton } from '@daigaku/components/common/core';
+import { CoreError, CoreSkeleton } from '@daigaku/components/common/core';
 
 /**
  * Defines the component's properties.
  */
-interface CoreFormElementFetchStateWrapperProps {
+interface ElementFetchWrapperProps {
   /**
    *
    */
@@ -28,32 +28,32 @@ interface CoreFormElementFetchStateWrapperProps {
   /**
    *
    */
-  onRetry: () => void;
+  readonly children: ReactNode | Array<ReactNode>;
 
   /**
    *
    */
-  readonly children: ReactNode | Array<ReactNode>;
+  onRetry: () => void;
 }
 
 /**
  *
  *
- * @param {CoreFormElementFetchStateWrapperProps}
+ * @param {ElementFetchWrapperProps} props
  * @return {JSX.Element}
  */
-export const CoreFormElementFetchStateWrapper = ({
+export const ElementFetchWrapper = ({
   isLoading,
   isError,
   onRetry,
   children,
-}: CoreFormElementFetchStateWrapperProps): JSX.Element => {
+}: ElementFetchWrapperProps): JSX.Element => {
   const { t } = useTranslation();
 
   if (isLoading) {
     return (
       <div className={'h-50 flex justify-center'}>
-        <CoreFetchSkeleton
+        <CoreSkeleton
           intent={'primary'}
           size={'mid'}
         />
@@ -64,10 +64,10 @@ export const CoreFormElementFetchStateWrapper = ({
   if (isError) {
     return (
       <div className={'h-50 flex justify-center'}>
-        <CoreFetchError
+        <CoreError
           message={t('app.generic.error.queryFetchError')}
-          onRetry={onRetry}
           size={'mid'}
+          onRetry={onRetry}
         />
       </div>
     );

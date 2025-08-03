@@ -54,8 +54,8 @@ export const NavigationRoute = ({
 }: NavigationRouteProps): JSX.Element => {
   return (
     <Link
-      to={targetUrlString}
       activeOptions={{ exact: true }}
+      to={targetUrlString}
       onClick={onNavigateClick}
     >
       {({ isActive }) => (
@@ -63,8 +63,8 @@ export const NavigationRoute = ({
           className={joinTw('flex items-center text-3xl font-semibold', isActive ? 'text-accent' : 'text-secondary')}
         >
           <CoreIcon
-            icon={icon}
             className={joinTw('mr-2', isActive ? 'text-accent' : 'text-secondary')}
+            icon={icon}
           />
           <span>{label}</span>
         </div>

@@ -13,7 +13,7 @@ import { joinTw } from '@daigaku/utilities';
 /**
  * Defines the component's properties.
  */
-interface CoreFormElementLabelProps {
+interface CoreLabelProps {
   /**
    * The associated input element's id.
    */
@@ -27,23 +27,23 @@ interface CoreFormElementLabelProps {
   /**
    * Indicates whether there is an error involving the input element.
    */
-  readonly isError?: boolean;
+  readonly error: boolean;
 }
 
 /**
  * Renders a label element for the input group component associated with the provided input element id.
  *
- * @param {CoreFormElementLabelProps} props
+ * @param {CoreLabelProps} props
  * @return {JSX.Element}
  */
-export const CoreFormElementLabel = ({ inputId, label, isError }: CoreFormElementLabelProps): JSX.Element => {
+export const CoreLabel = ({ inputId, label, error }: CoreLabelProps): JSX.Element => {
   return (
     <label
-      htmlFor={inputId}
       className={joinTw(
         'z-1 rounded-(--default-border-radius) absolute top-[-0.75rem] ml-6 px-4 text-lg font-semibold tracking-widest',
-        isError ? 'bg-destructive text-tertiary' : 'bg-secondary text-primary',
+        error ? 'bg-destructive text-tertiary' : 'bg-secondary text-primary',
       )}
+      htmlFor={inputId}
     >
       {label}
     </label>

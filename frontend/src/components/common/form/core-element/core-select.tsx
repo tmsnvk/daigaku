@@ -12,30 +12,23 @@ import { FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreSelectElementVariants = cva(joinTw('w-full h-20 px-4 pt-4 border-2 text-xl rounded-xl', 'focus:outline-1'), {
+const coreSelectVariants = cva(joinTw('w-full h-20 px-4 pt-4 border-2 text-xl rounded-xl', 'focus:outline-1'), {
   variants: {
     intent: {
       light: joinTw('bg-primary border-secondary', 'focus:placeholder:text-secondary-muted focus:outline-secondary'),
-    },
-    isDisabled: {
-      false: 'cursor-pointer',
-      true: 'text-secondary-muted cursor-not-allowed',
-    },
-    isError: {
-      true: joinTw('border-destructive', 'focus:outline-destructive'),
     },
   },
 });
 
 /**
  */
-export type CoreSelectElementVariantIntent = VariantProps<typeof coreSelectElementVariants>['intent'];
+export type CoreSelectVariantIntent = VariantProps<typeof coreSelectVariants>['intent'];
 
 /**
  * Defines the component's properties.
  */
-interface CoreSelectElementProps<TFormValues extends FieldValues>
-  extends VariantProps<typeof coreSelectElementVariants>,
+interface CoreSelectProps<TFormValues extends FieldValues>
+  extends VariantProps<typeof coreSelectVariants>,
     SelectHTMLAttributes<HTMLSelectElement> {
   /**
    * The select element's id.
@@ -43,69 +36,58 @@ interface CoreSelectElementProps<TFormValues extends FieldValues>
   readonly id: Path<TFormValues>;
 
   /**
-   * Indicates whether the select element is disabled.
-   */
-  readonly isDisabled: boolean;
-
-  /**
    * Indicates whether there is an error involving the element.
    */
-  readonly isError: boolean;
-
-  /**
-   * The method invoked after the onChange handler is fired.
-   */
-  onChangeHandler?: (event: ChangeEvent<HTMLSelectElement>) => void;
+  readonly error: boolean;
 
   /**
    * The array of option values.
    */
   readonly options: ReactNode;
-
-  /**
-   * The select element's initial value.
-   */
-  readonly initialValue: string | number;
 }
 
 /**
  * Renders the core select element used throughout the application.
  *
- * @param {CoreSelectElementProps} props
+ * @param {CoreSelectProps} props
  * @return {JSX.Element}
  */
-export const CoreSelectElement = <TFormValues extends FieldValues>({
+export const CoreSelect = <TFormValues extends FieldValues>({
   id,
-  isDisabled,
-  isError,
-  onChangeHandler,
+  disabled,
+  error,
+  onChange,
   options,
-  initialValue,
+  defaultValue,
   intent,
-}: CoreSelectElementProps<TFormValues>): JSX.Element => {
+}: CoreSelectProps<TFormValues>): JSX.Element => {
   const { register, setValue } = useFormContext<TFormValues>();
 
   return (
     <select
       {...register(id)}
+      className={joinTw(
+        coreSelectVariants({ intent }),
+        disabled ? 'text-secondary-muted cursor-not-allowed' : 'cursor-pointer',
+        error && 'border-destructive focus:outline-destructive',
+      )}
+      disabled={disabled}
       id={id}
       name={id}
-      disabled={isDisabled}
       onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-        onChangeHandler?.(event);
+        onChange?.(event);
 
         setValue(id, event.target.value as PathValue<TFormValues, Path<TFormValues>>, {
           shouldValidate: true,
           shouldDirty: true,
         });
       }}
-      className={joinTw(coreSelectElementVariants({ intent, isDisabled, isError }))}
     >
       <option
         hidden
         value={''}
       >
-        {initialValue}
+        {defaultValue}
       </option>
       {options}
     </select>

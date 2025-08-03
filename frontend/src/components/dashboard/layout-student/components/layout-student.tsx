@@ -77,20 +77,20 @@ export const LayoutStudent = ({ data }: LayoutStudentProps): JSX.Element => {
         />
         {data.firmChoiceTileDetails && (
           <TileDetail
-            title={t('app.page.dashboard.statistics.firmChoice')}
             country={data.firmChoiceTileDetails.countryName ?? ''}
-            university={data.firmChoiceTileDetails.universityName ?? t('app.page.dashboard.statistics.notYetSelected')}
             courseName={data.firmChoiceTileDetails.courseName ?? ''}
+            title={t('app.page.dashboard.statistics.firmChoice')}
+            university={data.firmChoiceTileDetails.universityName ?? t('app.page.dashboard.statistics.notYetSelected')}
           />
         )}
         {data.finalDestinationTileDetails && (
           <TileDetail
-            title={t('app.page.dashboard.statistics.finalDestination')}
             country={data.finalDestinationTileDetails.countryName ?? ''}
+            courseName={data.finalDestinationTileDetails.courseName ?? ''}
+            title={t('app.page.dashboard.statistics.finalDestination')}
             university={
               data.finalDestinationTileDetails.universityName ?? t('app.page.dashboard.statistics.notYetSelected')
             }
-            courseName={data.finalDestinationTileDetails.courseName ?? ''}
           />
         )}
       </LayoutSectionWrapper>

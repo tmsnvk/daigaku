@@ -14,8 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useRequestPdfDownload } from '../hooks/use-request-pdf-download.tsx';
 
 /* component imports */
-import { CoreButton } from '@daigaku/components/common/core';
-import { LoadingIndicator } from '@daigaku/components/common/general';
+import { CoreButton, CoreLoader } from '@daigaku/components/common/core';
 
 /* configuration, constants imports */
 import { iconLibrary } from '@daigaku/constants';
@@ -76,23 +75,22 @@ export const TableHeader = ({
         return (
           column.isVisible && (
             <th
-              key={column.id}
               className={'w-[10%] px-4 py-6 text-center'}
+              key={column.id}
             >
               <CoreButton
-                label={column.name}
-                content={
+                disabled={isDataEmpty}
+                intent={'table'}
+                label={
                   <>
                     {column.name}
                     <FontAwesomeIcon
-                      icon={iconLibrary.faSort}
                       className={'ml-2'}
+                      icon={iconLibrary.faSort}
                     />
                   </>
                 }
-                intent={'table'}
                 onClick={() => onColumnSort(column.id)}
-                disabled={isDataEmpty}
               />
             </th>
           )
@@ -100,52 +98,49 @@ export const TableHeader = ({
       })}
       <th className={'w-[10%] px-1 py-6 text-center'}>
         <CoreButton
-          label={t('app.page.applications.buttons.refresh')}
-          content={
+          disabled={isDataEmpty}
+          intent={'table'}
+          label={
             <>
               {t('app.page.applications.buttons.refresh')}
               <FontAwesomeIcon
-                icon={iconLibrary.faRotateRight}
                 className={'ml-2'}
+                icon={iconLibrary.faRotateRight}
               />
             </>
           }
-          intent={'table'}
           onClick={() => onRefetch({ cancelRefetch: false })}
-          disabled={isDataEmpty}
         />
         <CoreButton
-          label={t('app.page.applications.buttons.display')}
-          content={
+          disabled={isDataEmpty}
+          intent={'table'}
+          label={
             <>
               {t('app.page.applications.buttons.display')}
               <FontAwesomeIcon
-                icon={iconLibrary.faTable}
                 className={'ml-2'}
+                icon={iconLibrary.faTable}
               />
             </>
           }
-          intent={'table'}
           onClick={onToggleModal}
-          disabled={isDataEmpty}
         />
         {isSubmitting ? (
-          <LoadingIndicator loadingText={t('app.generic.loading.handlingRequest')} />
+          <CoreLoader loadingText={t('app.generic.loading.handlingRequest')} />
         ) : (
           <CoreButton
-            label={t('app.page.applications.buttons.download')}
-            content={
+            disabled={isDataEmpty}
+            intent={'table'}
+            label={
               <>
                 {t('app.page.applications.buttons.download')}
                 <FontAwesomeIcon
-                  icon={iconLibrary.faFileArrowDown}
                   className={'ml-2'}
+                  icon={iconLibrary.faFileArrowDown}
                 />
               </>
             }
-            intent={'table'}
             onClick={() => submitPdfDownloadRequest()}
-            disabled={isDataEmpty}
           />
         )}
       </th>

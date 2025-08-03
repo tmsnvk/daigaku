@@ -15,7 +15,7 @@ import { useCreateCommentForm } from '../hooks/use-create-comment-form.tsx';
 import { CreateCommentSchema, createCommentSchema } from '../schema.ts';
 
 /* component imports */
-import { CommonTextareaGroup, CoreFormAction, CoreFormWrapper } from '@daigaku/components/common/form';
+import { FormWrapper, SubmitInputGroup, TextareaGroup } from '@daigaku/components/common/form';
 
 /* interface, type imports */
 import { CreateApplicationCommentPayload } from '@daigaku/common-types';
@@ -60,28 +60,28 @@ export const CreateCommentForm = ({ applicationUuid }: CreateCommentFormProps): 
 
   return (
     <FormProvider {...formMethods}>
-      <CoreFormWrapper
+      <FormWrapper
         formId={'comment-form'}
         onFormSubmit={onFormSubmit}
       >
-        <CommonTextareaGroup
-          id={'comment'}
-          isDisabled={isSubmitting}
-          rows={DEFAULT_ROW_SIZE}
+        <TextareaGroup
           cols={DEFAULT_COL_SIZE}
+          disabled={isSubmitting}
+          id={'comment'}
+          intent={'light'}
           label={t('app.page.applicationView.comment.form.commentLabel')}
           placeholder={t('app.page.applicationView.comment.form.commentPlaceholder')}
-          intent={'light'}
+          rows={DEFAULT_ROW_SIZE}
         />
-        <CoreFormAction
-          isSubmissionPending={isSubmitting}
+        <SubmitInputGroup
           formActionConfig={{
             message: t('app.generic.loading.formSubmission'),
             value: t('app.page.applicationView.comment.form.submitButton'),
           }}
           intent={'dark'}
+          isSubmissionPending={isSubmitting}
         />
-      </CoreFormWrapper>
+      </FormWrapper>
     </FormProvider>
   );
 };

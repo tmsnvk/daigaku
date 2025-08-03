@@ -17,16 +17,16 @@ import { useUpdateApplicationForm } from '../hooks/use-update-application-form.t
 import { UpdateApplicationSchema, updateApplicationSchema } from '../schema.ts';
 
 /* component imports */
+import { ApplicationMetadata } from '@daigaku/components/common';
 import {
-  CommonStaticSelectGroup,
-  CoreFormAction,
-  CoreFormElementInstruction,
-  CoreFormHeader,
-  CoreFormWrapper,
+  ElementInstruction,
+  FormHeader,
+  FormWrapper,
+  SelectGroup,
+  SubmitInputGroup,
 } from '@daigaku/components/common/form';
-import { ApplicationMetadata } from '@daigaku/components/common/general';
-import { DisabledInputGroups } from './disabled-input-groups.tsx';
 import { IsRemovableButton } from './is-removable-button.tsx';
+import { ReadOnlyInputGroups } from './readonly-input-groups.tsx';
 
 /* interface, type imports */
 import {
@@ -108,15 +108,15 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
   return (
     <section className={joinTw('core-tertiary-border w-9/10 my-[5%]', 'md:w-8/10 2xl:max-w-[100rem]')}>
       <FormProvider {...formMethods}>
-        <CoreFormWrapper
+        <FormWrapper
+          className={'core-application-grid'}
           formId={'update-application-form'}
           onFormSubmit={onFormSubmit}
-          className={'core-application-grid'}
         >
-          <CoreFormHeader
-            title={t('app.page.applicationEdit.description.formTitle')}
-            intent={'largeWithUnderline'}
+          <FormHeader
             className={'col-start-1 col-end-3'}
+            intent={'largeWithUnderline'}
+            title={t('app.page.applicationEdit.description.formTitle')}
           />
           <ApplicationMetadata
             className={'col-start-1 col-end-2 row-start-2 row-end-3 h-40'}
@@ -132,18 +132,23 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
             }}
           />
           <IsRemovableButton
-            isRemovable={updatedData?.isRemovable ?? application.isRemovable}
             applicationUuid={application.uuid}
+            isRemovable={updatedData?.isRemovable ?? application.isRemovable}
           />
-          <CoreFormElementInstruction
-            paragraph={t('app.page.applicationEdit.description.formInformation')}
+          <ElementInstruction
             className={'col-start-1 col-end-3 mt-20'}
+            paragraph={t('app.page.applicationEdit.description.formInformation')}
           />
-          <DisabledInputGroups application={application} />
-          <CommonStaticSelectGroup
+          <ReadOnlyInputGroups application={application} />
+          <SelectGroup
+            defaultValue={
+              getStatusDisplayValue(ApplicationStatusTranslations, updatedData?.applicationStatus, t) ??
+              getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ??
+              t('app.page.applicationEdit.form.applicationStatusPlaceholder')
+            }
+            disabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
             id={'applicationStatus'}
-            isDisabled={fieldsReadOnlyStatus.isApplicationStatusReadOnly}
-            onChangeHandler={updateInterviewStatus}
+            intent={'light'}
             label={t('app.page.applicationEdit.form.applicationStatusLabel')}
             options={Object.keys(ApplicationStatuses).map((status: string) => {
               return (
@@ -155,18 +160,18 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
                 </option>
               );
             })}
-            initialValue={
-              getStatusDisplayValue(ApplicationStatusTranslations, updatedData?.applicationStatus, t) ??
-              getStatusDisplayValue(ApplicationStatusTranslations, application.applicationStatus, t) ??
-              t('app.page.applicationEdit.form.applicationStatusPlaceholder')
-            }
-            intent={'light'}
+            onChange={updateInterviewStatus}
           />
-          <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.applicationStatus')} />
-          <CommonStaticSelectGroup
+          <ElementInstruction paragraph={t('app.page.applicationEdit.description.applicationStatus')} />
+          <SelectGroup
+            defaultValue={
+              getStatusDisplayValue(InterviewStatusTranslations, updatedData?.interviewStatus, t) ??
+              getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ??
+              t('app.page.applicationEdit.form.interviewStatusPlaceholder')
+            }
+            disabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
             id={'interviewStatus'}
-            isDisabled={fieldsReadOnlyStatus.isInterviewStatusReadOnly}
-            onChangeHandler={updateOfferStatus}
+            intent={'light'}
             label={t('app.page.applicationEdit.form.interviewStatusLabel')}
             options={Object.keys(InterviewStatuses).map((status: string) => {
               return (
@@ -178,18 +183,18 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
                 </option>
               );
             })}
-            initialValue={
-              getStatusDisplayValue(InterviewStatusTranslations, updatedData?.interviewStatus, t) ??
-              getStatusDisplayValue(InterviewStatusTranslations, application.interviewStatus, t) ??
-              t('app.page.applicationEdit.form.interviewStatusPlaceholder')
-            }
-            intent={'light'}
+            onChange={updateOfferStatus}
           />
-          <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.interviewStatus')} />
-          <CommonStaticSelectGroup
+          <ElementInstruction paragraph={t('app.page.applicationEdit.description.interviewStatus')} />
+          <SelectGroup
+            defaultValue={
+              getStatusDisplayValue(OfferStatusTranslations, updatedData?.offerStatus, t) ??
+              getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ??
+              t('app.page.applicationEdit.form.offerStatusPlaceholder')
+            }
+            disabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
             id={'offerStatus'}
-            isDisabled={fieldsReadOnlyStatus.isOfferStatusReadOnly}
-            onChangeHandler={updateResponseStatus}
+            intent={'light'}
             label={t('app.page.applicationEdit.form.offerStatusLabel')}
             options={Object.keys(OfferStatuses).map((status: string) => {
               return (
@@ -201,18 +206,18 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
                 </option>
               );
             })}
-            initialValue={
-              getStatusDisplayValue(OfferStatusTranslations, updatedData?.offerStatus, t) ??
-              getStatusDisplayValue(OfferStatusTranslations, application.offerStatus, t) ??
-              t('app.page.applicationEdit.form.offerStatusPlaceholder')
-            }
-            intent={'light'}
+            onChange={updateResponseStatus}
           />
-          <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.offerStatus')} />
-          <CommonStaticSelectGroup
+          <ElementInstruction paragraph={t('app.page.applicationEdit.description.offerStatus')} />
+          <SelectGroup
+            defaultValue={
+              getStatusDisplayValue(ResponseStatusTranslations, updatedData?.responseStatus, t) ??
+              getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ??
+              t('app.page.applicationEdit.form.responseStatusPlaceholder')
+            }
+            disabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
             id={'responseStatus'}
-            isDisabled={fieldsReadOnlyStatus.isResponseStatusReadOnly}
-            onChangeHandler={updateFinalDestinationStatus}
+            intent={'light'}
             label={t('app.page.applicationEdit.form.responseStatusLabel')}
             options={Object.keys(ResponseStatuses).map((status: string) => {
               return (
@@ -224,17 +229,18 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
                 </option>
               );
             })}
-            initialValue={
-              getStatusDisplayValue(ResponseStatusTranslations, updatedData?.responseStatus, t) ??
-              getStatusDisplayValue(ResponseStatusTranslations, application.responseStatus, t) ??
-              t('app.page.applicationEdit.form.responseStatusPlaceholder')
-            }
-            intent={'light'}
+            onChange={updateFinalDestinationStatus}
           />
-          <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.responseStatus')} />
-          <CommonStaticSelectGroup
+          <ElementInstruction paragraph={t('app.page.applicationEdit.description.responseStatus')} />
+          <SelectGroup
+            defaultValue={
+              getStatusDisplayValue(FinalDestinationStatusTranslations, updatedData?.finalDestinationStatus, t) ??
+              getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ??
+              t('app.page.applicationEdit.form.finalDestinationStatusPlaceholder')
+            }
+            disabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
             id={'finalDestinationStatus'}
-            isDisabled={fieldsReadOnlyStatus.isFinalDestinationStatusReadOnly}
+            intent={'light'}
             label={t('app.page.applicationEdit.form.finalDestinationStatusLabel')}
             options={Object.keys(FinalDestinationStatuses).map((status: string) => {
               return (
@@ -246,24 +252,18 @@ export const UpdateApplicationForm = ({ application }: UpdateApplicationRecordFo
                 </option>
               );
             })}
-            initialValue={
-              getStatusDisplayValue(FinalDestinationStatusTranslations, updatedData?.finalDestinationStatus, t) ??
-              getStatusDisplayValue(FinalDestinationStatusTranslations, application.finalDestinationStatus, t) ??
-              t('app.page.applicationEdit.form.finalDestinationStatusPlaceholder')
-            }
-            intent={'light'}
           />
-          <CoreFormElementInstruction paragraph={t('app.page.applicationEdit.description.finalDestinationStatus')} />
-          <CoreFormAction
-            isSubmissionPending={isSubmitting}
+          <ElementInstruction paragraph={t('app.page.applicationEdit.description.finalDestinationStatus')} />
+          <SubmitInputGroup
+            className={'col-start-1 col-end-3'}
             formActionConfig={{
               message: t('app.generic.loading.formSubmission'),
               value: t('app.page.applicationEdit.form.submitButton'),
             }}
             intent={'dark'}
-            className={'col-start-1 col-end-3'}
+            isSubmissionPending={isSubmitting}
           />
-        </CoreFormWrapper>
+        </FormWrapper>
       </FormProvider>
     </section>
   );

@@ -58,8 +58,8 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
 
     return (
       <tr
-        key={application.uuid}
         className={joinTw('h-40', 'odd:bg-tertiary')}
+        key={application.uuid}
       >
         <td
           className={joinTw(
@@ -89,30 +89,30 @@ export const DataRows = ({ columns, applications }: DataRowsProps): Array<JSX.El
         </td>
         <td className={joinTw(isLastRow && 'rounded-br-(--default-border-radius)')}>
           <CoreLink
-            target={`student/edit/${application.uuid}`}
+            intent={'table'}
             label={
               <>
                 {t('app.page.applications.buttons.edit')}
                 <FontAwesomeIcon
-                  icon={iconLibrary.faWrench}
                   className={'ml-5'}
+                  icon={iconLibrary.faWrench}
                 />
               </>
             }
-            intent={'table'}
+            target={`student/edit/${application.uuid}`}
           />
           <CoreLink
-            target={`student/view/${application.uuid}`}
+            intent={'table'}
             label={
               <>
                 {t('app.page.applications.buttons.view')}
                 <FontAwesomeIcon
-                  icon={iconLibrary.faMagnifyingGlass}
                   className={'ml-5'}
+                  icon={iconLibrary.faMagnifyingGlass}
                 />
               </>
             }
-            intent={'table'}
+            target={`student/view/${application.uuid}`}
           />
         </td>
       </tr>

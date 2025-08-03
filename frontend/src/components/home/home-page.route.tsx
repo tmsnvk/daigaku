@@ -11,7 +11,7 @@ import { JSX, useEffect } from 'react';
 /* logic imports */
 import { useAuthenticationProvider } from '@daigaku/providers';
 import { joinTw } from '@daigaku/utilities';
-import { useFormSelector } from './home-page.hooks';
+import { useFormSelector } from './home-page.hooks.tsx';
 
 /* interface, type imports */
 import { UserLoginStates } from '@daigaku/common-types';
@@ -35,11 +35,11 @@ export const HomeIndex = (): JSX.Element => {
   return (
     <main className={'mx-auto flex flex-col items-center'}>
       <section
-        key={selectedFormType}
         className={joinTw(
           'core-tertiary-border animate-fade-in-from-left my-[5%] flex w-[90%] flex-col px-10 py-20 text-center',
           'sm:w-200',
         )}
+        key={selectedFormType}
       >
         {selectedFormComponent}
       </section>

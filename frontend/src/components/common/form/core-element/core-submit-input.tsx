@@ -12,7 +12,7 @@ import { FieldValues, Path } from 'react-hook-form';
 /* logic imports */
 import { joinTw } from '@daigaku/utilities';
 
-const coreSubmitInputElementVariants = cva(
+const coreSubmitInputVariants = cva(
   joinTw('h-20 px-6 text-2xl font-bold tracking-widest rounded-xl', 'hover:outline-2', 'focus:outline-1'),
   {
     variants: {
@@ -23,60 +23,46 @@ const coreSubmitInputElementVariants = cva(
           'focus:outline-accent',
         ),
       },
-      isDisabled: {
-        false: 'cursor-pointer',
-        true: 'cursor-not-allowed',
-      },
     },
   },
 );
 
 /**
  */
-export type CorSubmitElementVariantIntent = VariantProps<typeof coreSubmitInputElementVariants>['intent'];
+export type CoreSubmitVariantIntent = VariantProps<typeof coreSubmitInputVariants>['intent'];
 
 /**
  * Defines the component's properties.
  */
-interface CoreSubmitInputElementProps<TFormValues extends FieldValues>
-  extends VariantProps<typeof coreSubmitInputElementVariants>,
+interface CoreSubmitInputProps<TFormValues extends FieldValues>
+  extends VariantProps<typeof coreSubmitInputVariants>,
     InputHTMLAttributes<HTMLInputElement> {
   /**
    * The input element's id.
    */
   readonly id: Path<TFormValues>;
-
-  /**
-   * The submit input value as label.
-   */
-  readonly value: string;
-
-  /**
-   * Indicates whether the input element is disabled.
-   */
-  readonly isDisabled: boolean;
 }
 
 /**
  * Renders the core submit input element used throughout the application.
  *
- * @param {CoreSubmitInputElementProps} props
+ * @param {CoreSubmitInputProps} props
  * @return {JSX.Element}
  */
-export const CoreSubmitInputElement = <TFormValues extends FieldValues>({
+export const CoreSubmitInput = <TFormValues extends FieldValues>({
   id,
   value,
-  isDisabled,
+  disabled,
   intent,
-}: CoreSubmitInputElementProps<TFormValues>): JSX.Element => {
+}: CoreSubmitInputProps<TFormValues>): JSX.Element => {
   return (
     <input
+      className={joinTw(coreSubmitInputVariants({ intent }), disabled ? 'cursor-not-allowed' : 'cursor-pointer')}
+      disabled={disabled}
       id={id}
       name={id}
       type={'submit'}
-      disabled={isDisabled}
       value={value}
-      className={joinTw(coreSubmitInputElementVariants({ intent, isDisabled }))}
     />
   );
 };

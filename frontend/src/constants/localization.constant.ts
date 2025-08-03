@@ -622,7 +622,7 @@ export const translations: { name: string; code: TranslationLocale; value: Trans
             },
             removeRequest: {
               requestDeletion: 'Request deletion',
-              requestReversion: 'Revert request',
+              requestReversion: 'Revert deletion request',
             },
           },
           applicationView: {

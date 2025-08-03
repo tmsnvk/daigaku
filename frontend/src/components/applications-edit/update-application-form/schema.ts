@@ -7,8 +7,6 @@
 /* vendor imports */
 import { z } from 'zod/v4';
 
-/* configuration, constants imports */
-
 /* interface, type imports */
 import {
   ApplicationStatus,
